@@ -5,6 +5,7 @@ const vm = require('node:vm');
 const app = fs.readFileSync('app.js','utf8');
 const scoreLogic = app.slice(app.indexOf('const SPORT_BASE'),app.indexOf('function normalizeEvent'));
 const explanationLogic = app.slice(app.indexOf('function explainRating'),app.indexOf('function trendFor'));
+const nflLogic = app.slice(app.indexOf('function nflWeekMeta'),app.indexOf('function dedupeGames'));
 const dedupeLogic = app.slice(app.indexOf('function dedupeGames'),app.indexOf('async function loadLiveGames'));
 assert.match(app,/scoreboard\?groups=80[^\n]*limit:500/);
 assert.match(app,/scoreboard\?groups=81[^\n]*limit:500/);
@@ -55,6 +56,31 @@ const fixtures = `
   const unique = dedupeGames([{sport:'CFB',id:'1',division:'FBS'},{sport:'CFB',id:'1',division:'FCS'},{sport:'CFB',id:'2',division:'FBS'}]);
   assert.equal(unique.length,2);
   assert.equal(unique[0].division,'FCS');
+  const meta = nflWeekMeta({season:{type:2,year:2026},week:{number:7}});
+  assert.equal(meta.week,7);
+  assert.equal(adjacentNFLWeek(meta,1).week,8);
+  assert.equal(new URL(nflWeekFeed({sport:'NFL',url:'https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard'},meta).url).searchParams.get('week'),'7');
+  const nflGames = [
+    {sport:'NFL',id:'w6a',nflWeek:2026206,state:'completed'},
+    {sport:'NFL',id:'w6b',nflWeek:2026206,state:'completed'},
+    {sport:'NFL',id:'w7a',nflWeek:2026207,state:'completed'},
+    {sport:'NFL',id:'w7b',nflWeek:2026207,state:'completed'},
+    {sport:'NFL',id:'w7m',nflWeek:2026207,state:'upcoming'},
+    {sport:'NFL',id:'w8t',nflWeek:2026208,state:'upcoming'},
+    {sport:'NFL',id:'w8m',nflWeek:2026208,state:'upcoming'}
+  ];
+  const monday = selectNFLWindow(nflGames);
+  assert.equal(monday.filter(game => game.state === 'completed').length,4);
+  assert.equal(monday.filter(game => game.state === 'upcoming').length,3);
+  nflGames[4].state = 'completed';
+  const tuesday = selectNFLWindow(nflGames);
+  assert.equal(tuesday.filter(game => game.state === 'completed').length,3);
+  assert.equal(tuesday.filter(game => game.state === 'upcoming').length,2);
+  nflGames[5].state = 'live';
+  nflGames.push({sport:'NFL',id:'w9t',nflWeek:2026209,state:'upcoming'});
+  const thursday = selectNFLWindow(nflGames);
+  assert.ok(thursday.some(game => game.id === 'w9t'));
+  assert.ok(thursday.some(game => game.id === 'w7a'));
   console.log('Score model fixtures passed');
 `;
-vm.runInNewContext(`${scoreLogic}\n${explanationLogic}\n${dedupeLogic}\n${fixtures}`,{assert,console,localStorage:{getItem:()=>null}});
+vm.runInNewContext(`${scoreLogic}\n${explanationLogic}\n${nflLogic}\n${dedupeLogic}\n${fixtures}`,{assert,console,URL,localStorage:{getItem:()=>null}});

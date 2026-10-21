@@ -1,7 +1,7 @@
 const FAVORITE_MATCHES = ['ravens', 'orioles', 'capitals'];
 const ESPN_BASE = 'https://site.api.espn.com/apis/site/v2/sports';
 const HOME_SPORTS = ['NFL','MLB','NHL','CFB','NBA','NCAAB','Tennis'];
-const SPORT_LABELS = {NFL:'NFL',MLB:'MLB',NHL:'NHL',CFB:'College football',NBA:'NBA',NCAAB:'NCAA basketball',Tennis:'Tennis',Soccer:'Soccer'};
+const SPORT_LABELS = {NFL:'NFL',MLB:'MLB',NHL:'NHL',CFB:'College Football',NBA:'NBA',NCAAB:'NCAAM',Tennis:'Tennis',Soccer:'Soccer'};
 const SPORT_PATHS = {NFL:'football/nfl',MLB:'baseball/mlb',NHL:'hockey/nhl',CFB:'football/college-football',NBA:'basketball/nba',NCAAB:'basketball/mens-college-basketball',Tennis:'tennis/atp',Soccer:'soccer/eng.1'};
 const PREFERENCES_KEY = 'sports-radar-preferences-v2';
 const LINES_KEY = 'sports-radar-last-pregame-lines-v1';
@@ -182,9 +182,55 @@ function normalizeEvent(event, sport, leagueLogo, division) {
   const gameState = stateFromEvent(event); const status = competition?.status?.type?.shortDetail || competition?.status?.type?.detail || (gameState === 'completed' ? 'Final' : 'Scheduled'); const context = competition?.notes?.[0]?.headline || event.name || `${sport} matchup`; const rating = rateGame(sport,gameState,teams,event,competition,context); const eventId = event.id || `${sport}-${event.name}`;
   return {id:eventId,summaryUrl:summaryUrlFor(sport,eventId),favorite:favoriteFor(teams),sport,division,icon:iconFor(sport),leagueLogo:leagueLogo || LEAGUE_LOGOS[sport],startTime:event.date,state:gameState,status,channel:broadcastFor(competition) || 'Channel not listed',teams:teams.map(team => [team.name,team.abbr,team.score,team.color,team.logo,team.record,team.rank,team.shortName]),line:gameState === 'upcoming' ? parseLine(competition?.odds?.[0],competition,sport) : null,context,why:rating.reason,sub:competition?.venue?.fullName || competition?.venue?.address?.city || 'Live scoreboard',score:rating.score,openingScore:rating.openingScore,factors:rating.factors};
 }
-async function fetchFeed(feed) { const controller = new AbortController(); const timer = setTimeout(() => controller.abort(), 7000); try { const url = new URL(feed.url); url.searchParams.set('limit',String(feed.limit || 100)); const response = await fetch(url, {signal:controller.signal,cache:'no-store'}); if (!response.ok) throw new Error(`HTTP ${response.status}`); const payload = await response.json(); const leagueLogo = payload.leagues?.[0]?.logos?.[0]?.href; const events = (payload.events || []).map(event => normalizeEvent(event,feed.sport,leagueLogo,feed.division)).filter(Boolean); events.forEach(rememberPregameLine); return events; } finally { clearTimeout(timer); } }
+async function fetchScoreboard(feed) { const controller = new AbortController(); const timer = setTimeout(() => controller.abort(), 7000); try { const url = new URL(feed.url); url.searchParams.set('limit',String(feed.limit || 100)); const response = await fetch(url, {signal:controller.signal,cache:'no-store'}); if (!response.ok) throw new Error(`HTTP ${response.status}`); return await response.json(); } finally { clearTimeout(timer); } }
+function gamesFromScoreboard(feed,payload) { const leagueLogo = payload.leagues?.[0]?.logos?.[0]?.href; const events = (payload.events || []).map(event => normalizeEvent(event,feed.sport,leagueLogo,feed.division)).filter(Boolean); events.forEach(rememberPregameLine); return events; }
+async function fetchFeed(feed) { return gamesFromScoreboard(feed,await fetchScoreboard(feed)); }
+function nflWeekMeta(payload) {
+  const rawType = payload.season?.type ?? payload.leagues?.[0]?.season?.type;
+  const seasonType = Number(typeof rawType === 'object' ? rawType.id ?? rawType.type : rawType);
+  const year = Number(payload.season?.year ?? payload.leagues?.[0]?.season?.year);
+  const week = Number(payload.week?.number ?? payload.week?.id ?? payload.events?.[0]?.week?.number);
+  return Number.isInteger(year) && Number.isInteger(seasonType) && Number.isInteger(week) && week > 0 ? {year,seasonType,week} : null;
+}
+function nflWeekKey(meta) { return meta.year * 1000 + meta.seasonType * 100 + meta.week; }
+function adjacentNFLWeek(meta,step) {
+  const week = meta.week + step;
+  const maxWeek = meta.seasonType === 2 ? 18 : meta.seasonType === 3 ? 5 : 4;
+  if (week >= 1 && week <= maxWeek) return {...meta,week};
+  if (step === 1 && meta.seasonType === 2) return {...meta,seasonType:3,week:1};
+  if (step === -1 && meta.seasonType === 3) return {...meta,seasonType:2,week:18};
+  return null;
+}
+function nflWeekFeed(base,meta) { const url = new URL(base.url); url.searchParams.set('dates',String(meta.year)); url.searchParams.set('seasontype',String(meta.seasonType)); url.searchParams.set('week',String(meta.week)); return {...base,url:url.toString(),limit:100}; }
+function selectNFLWindow(items) {
+  const unique = dedupeGames(items);
+  const weeks = [...new Set(unique.map(game => game.nflWeek))].sort((a,b) => a - b);
+  const started = weeks.filter(week => unique.some(game => game.nflWeek === week && game.state !== 'upcoming'));
+  const latestStarted = started.at(-1);
+  const latestComplete = weeks.filter(week => { const slate = unique.filter(game => game.nflWeek === week); return slate.length && slate.every(game => game.state === 'completed'); }).at(-1);
+  const next = weeks.find(week => week > latestStarted);
+  const earliestUpcoming = weeks.find(week => unique.some(game => game.nflWeek === week && game.state === 'upcoming'));
+  return unique.filter(game => game.state === 'live' || game.state === 'completed' && (game.nflWeek === latestComplete || game.nflWeek === latestStarted) || game.state === 'upcoming' && (latestStarted === undefined ? game.nflWeek === earliestUpcoming : game.nflWeek === latestStarted || game.nflWeek === next));
+}
+async function fetchNFLWindow() {
+  const base = LIVE_FEEDS.find(feed => feed.sport === 'NFL');
+  const payload = await fetchScoreboard(base);
+  const meta = nflWeekMeta(payload);
+  const current = gamesFromScoreboard(base,payload);
+  if (!meta) return current;
+  const currentKey = nflWeekKey(meta);
+  current.forEach(game => { game.nflWeek = currentKey; });
+  const neighbors = [adjacentNFLWeek(meta,-1),adjacentNFLWeek(meta,1)].filter(Boolean);
+  const results = await Promise.allSettled(neighbors.map(async weekMeta => {
+    const events = await fetchFeed(nflWeekFeed(base,weekMeta));
+    const key = nflWeekKey(weekMeta);
+    events.forEach(game => { game.nflWeek = key; });
+    return events;
+  }));
+  return selectNFLWindow([...current,...results.flatMap(result => result.status === 'fulfilled' ? result.value : [])]);
+}
 function dedupeGames(items) { const unique = new Map(); for (const game of items) { const key = `${game.sport}:${game.id}`; const existing = unique.get(key); if (!existing || game.division === 'FCS') unique.set(key,game); } return [...unique.values()]; }
-async function loadLiveGames() { $('#data-status-label').textContent = 'Connecting to live scoreboards…'; const results = await Promise.allSettled(LIVE_FEEDS.map(fetchFeed)); const liveGames = dedupeGames(results.flatMap(result => result.status === 'fulfilled' ? result.value : [])); if (liveGames.length) { games = liveGames; state.source = 'live'; } else { games = [...DEMO_GAMES]; state.source = 'demo'; } $('#data-status-label').textContent = state.source === 'live' ? `Live scores · updated ${new Date().toLocaleTimeString([], {hour:'numeric',minute:'2-digit'})}` : 'Demo data · live feed unavailable'; $('#footer-status').textContent = state.source === 'live' ? 'Live feed' : 'Demo data'; render(); if (state.source === 'live') enrichGameSignals(); }
+async function loadLiveGames() { $('#data-status-label').textContent = 'Connecting to live scoreboards…'; const requests = [fetchNFLWindow(),...LIVE_FEEDS.filter(feed => feed.sport !== 'NFL').map(fetchFeed)]; const results = await Promise.allSettled(requests); const liveGames = dedupeGames(results.flatMap(result => result.status === 'fulfilled' ? result.value : [])); if (liveGames.length) { games = liveGames; state.source = 'live'; } else { games = [...DEMO_GAMES]; state.source = 'demo'; } $('#data-status-label').textContent = state.source === 'live' ? `Live scores · updated ${new Date().toLocaleTimeString([], {hour:'numeric',minute:'2-digit'})}` : 'Demo data · live feed unavailable'; $('#footer-status').textContent = state.source === 'live' ? 'Live feed' : 'Demo data'; render(); if (state.source === 'live') enrichGameSignals(); }
 function safeText(value) { return String(value ?? '').replace(/[&<>"']/g, character => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[character])); }
 function teamMarkup(game, team) { const logo = team[4] || teamLogoUrl(game.sport, team[1]); return `<span class="team-name"><img class="team-logo" src="${safeText(logo)}" alt="" loading="lazy" onerror="this.style.display='none'">${team[6] ? `<b class="team-rank">#${safeText(team[6])}</b>` : ''}<span class="team-name-text"><span class="full-team-name">${safeText(team[0])}</span><span class="short-team-name">${safeText(team[7] || team[0])}</span></span>${team[5] ? `<small class="team-record">${safeText(team[5])}</small>` : ''}</span>`; }
 function explainRating(game) {
@@ -301,7 +347,7 @@ async function enrichGameSignals() {
     if (changed) { render(); changed = false; }
   }
 }
-function render() { const isSoccer = state.page === 'soccer'; $('#section-title').textContent = isSoccer ? 'Soccer radar' : 'Your radar'; $$('.nav-link').forEach(link => link.classList.toggle('active',link.dataset.page === state.page)); $$('.soccer-chip').forEach(chip => chip.classList.toggle('hidden',!isSoccer)); $('#fcs-toggle').classList.toggle('hidden',isSoccer || !state.visibleSports.has('CFB')); if (!isSoccer && state.sport !== 'all' && !state.visibleSports.has(state.sport)) { state.sport = 'all'; $$('.sport-chip[data-sport]').forEach(chip => chip.classList.toggle('active',chip.dataset.sport === 'all')); } let visible = games.filter(game => !hideStaleFavorite(game) && (isSoccer ? game.sport === 'Soccer' : game.sport !== 'Soccer' && state.visibleSports.has(game.sport) && (state.showFCS || game.division !== 'FCS'))); if (state.sport !== 'all') visible = visible.filter(game => game.sport === state.sport); if (state.gameState !== 'all') visible = visible.filter(game => game.state === state.gameState); visible.sort((a,b) => Number(b.favorite) - Number(a.favorite) || b.score - a.score); $('#game-list').innerHTML = visible.map(gameCard).join(''); $('#empty-state').classList.toggle('hidden',visible.length !== 0); $('#live-count').textContent = `${visible.filter(game => game.state === 'live').length} LIVE`; $('#all-count').textContent = visible.length; }
+function render() { const isSoccer = state.page === 'soccer'; $('#section-title').textContent = isSoccer ? 'Soccer radar' : 'Your radar'; $$('.nav-link').forEach(link => link.classList.toggle('active',link.dataset.page === state.page)); $$('.soccer-chip').forEach(chip => chip.classList.toggle('hidden',!isSoccer)); $('#fcs-toggle').classList.toggle('hidden',isSoccer || !state.visibleSports.has('CFB')); if (!isSoccer && state.sport !== 'all' && !state.visibleSports.has(state.sport)) { state.sport = 'all'; $$('.sport-chip[data-sport]').forEach(chip => chip.classList.toggle('active',chip.dataset.sport === 'all')); } let visible = games.filter(game => (state.gameState === 'completed' || !hideStaleFavorite(game)) && (isSoccer ? game.sport === 'Soccer' : game.sport !== 'Soccer' && state.visibleSports.has(game.sport) && (state.showFCS || game.division !== 'FCS'))); if (state.sport !== 'all') visible = visible.filter(game => game.sport === state.sport); if (state.gameState !== 'all') visible = visible.filter(game => game.state === state.gameState); visible.sort((a,b) => Number(b.favorite) - Number(a.favorite) || b.score - a.score); $('#game-list').innerHTML = visible.map(gameCard).join(''); $('#empty-state').classList.toggle('hidden',visible.length !== 0); $('#live-count').textContent = `${visible.filter(game => game.state === 'live').length} LIVE`; $('#all-count').textContent = visible.length; }
 $$('.nav-link').forEach(link => link.addEventListener('click', () => { state.page = link.dataset.page; state.sport = 'all'; location.hash = state.page === 'soccer' ? 'soccer' : 'home'; $$('.sport-chip[data-sport]').forEach(chip => chip.classList.toggle('active',chip.dataset.sport === 'all')); render(); }));
 window.addEventListener('hashchange', () => { state.page = location.hash === '#soccer' ? 'soccer' : 'home'; render(); });
 $$('.sport-chip[data-sport]').forEach(chip => chip.addEventListener('click', () => { state.sport = chip.dataset.sport; $$('.sport-chip[data-sport]').forEach(item => item.classList.toggle('active',item === chip)); render(); }));
@@ -326,5 +372,5 @@ $('#game-detail-overlay').addEventListener('click',event => { if (event.target =
 document.addEventListener('keydown',event => { if (event.key === 'Escape' && !$('#game-detail-overlay').hidden) hideGameDetails(); });
 syncSportToggles(); syncFCSFilter(); $('#profile-button').addEventListener('click', syncSportToggles); $$('[data-visible-sport]').forEach(input => input.addEventListener('change', () => { const sport = input.dataset.visibleSport; if (input.checked) state.visibleSports.add(sport); else state.visibleSports.delete(sport); persistPreferences(); render(); }));
 let deferredInstallPrompt; window.addEventListener('beforeinstallprompt',event => { event.preventDefault(); deferredInstallPrompt = event; $('#install-button').classList.remove('hidden'); }); $('#install-button').addEventListener('click',async() => { if (!deferredInstallPrompt) return; deferredInstallPrompt.prompt(); await deferredInstallPrompt.userChoice; deferredInstallPrompt = null; $('#install-button').classList.add('hidden'); }); window.addEventListener('appinstalled',() => $('#install-button').classList.add('hidden'));
-if ('serviceWorker' in navigator) navigator.serviceWorker.register('./sw.js?rev=20261020-16').then(registration => registration.update()).catch(() => {});
+if ('serviceWorker' in navigator) navigator.serviceWorker.register('./sw.js?rev=20261020-17').then(registration => registration.update()).catch(() => {});
 render(); loadLiveGames(); setInterval(loadLiveGames,60000);

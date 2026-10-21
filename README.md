@@ -1,6 +1,6 @@
 # Sports Radar
 
-A static, mobile-friendly, installable sports radar: favorite teams stay pinned first, then games are ordered by a sport-aware excitement score. Scores are always shown. Soccer gets its own feed so the home page stays focused on NFL, MLB, NHL, college football, NBA, NCAA basketball, and major tennis.
+A static, mobile-friendly, installable sports radar: favorite teams stay pinned first, then games are ordered by a sport-aware excitement score. Scores are always shown. Soccer gets its own feed so the home page stays focused on NFL, MLB, NHL, College Football, NBA, NCAAM, and major tennis.
 
 ## Run locally
 
@@ -18,7 +18,7 @@ The Preferences dialog lets you choose which sports appear on the home page. The
 
 ## Live-data architecture
 
-The UI connects directly to public ESPN scoreboard JSON endpoints for NFL, MLB, NHL, college football, NBA, NCAA basketball, EPL, UEFA Champions League, and ATP tennis. College football requests ESPN's FBS (`groups=80`) and FCS (`groups=81`) groups separately with a larger result limit and removes duplicate crossover games. It refreshes every 60 seconds and has a manual refresh button. Because these endpoints are an unofficial public surface rather than a guaranteed developer product, the app falls back to demo data if a provider blocks a request or changes its response. The FCS switch hides games appearing in the FCS feed, including FBS–FCS crossovers. For a durable production feed, swap `LIVE_FEEDS` in `app.js` for an API-backed serverless adapter and keep API keys off the browser.
+The UI connects directly to public ESPN scoreboard JSON endpoints for NFL, MLB, NHL, College Football, NBA, NCAAM, EPL, UEFA Champions League, and ATP tennis. For the NFL, it requests the current scoreboard week plus adjacent weeks, keeping all finals from the last completed slate and any newer finals, and upcoming games from the latest started slate and the following slate. On a Monday before kickoff, this includes Monday night and the next Thursday-through-Monday schedule. The Final tab retains older Ravens finals even though they remain hidden from the general home feed the day after. College Football requests ESPN's FBS (`groups=80`) and FCS (`groups=81`) groups separately with a larger result limit and removes duplicate crossover games. It refreshes every 60 seconds and has a manual refresh button. Because these endpoints are an unofficial public surface rather than a guaranteed developer product, the app falls back to demo data if a provider blocks a request or changes its response. The FCS switch hides games appearing in the FCS feed, including FBS–FCS crossovers. For a durable production feed, swap `LIVE_FEEDS` in `app.js` for an API-backed serverless adapter and keep API keys off the browser.
 
 Viable sources to evaluate:
 
