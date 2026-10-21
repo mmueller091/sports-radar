@@ -72,7 +72,8 @@ test('AI labels require explicit source evidence for the exact storyline type',(
     description:"Rantanen scored three goals in the previous game and snapped the opponent's winning streak."
   };
   assert.equal(evidenceSupportsType(genericPreview,'star_absence'),false);
-  assert.equal(evidenceSupportsType(priorHatTrick,'star_hot_streak'),true);
+  assert.equal(evidenceSupportsType(priorHatTrick,'star_hot_streak'),false);
+  assert.equal(evidenceSupportsType(priorHatTrick,'notable_recent_performance'),true);
 });
 
 test('context lookup batches a full 100-game request within D1 parameter limits',async () => {
