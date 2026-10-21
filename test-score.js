@@ -11,7 +11,7 @@ assert.ok(teamDirectory.NBA.some(team => team.name === 'Los Angeles Lakers'));
 assert.ok(teamDirectory.CFB.length > 500);
 const scoreLogic = fs.readFileSync('rating-core.js','utf8');
 const lineLogic = app.slice(app.indexOf('function displayLine'),app.indexOf('function normalizeEvent'));
-const coreBindings = 'const {SPORT_BASE,CLOSE_MARGIN,clampScore,factorText,recordFor,rankFor,parseLine,lineFromSummary,gameProgress,momentumImpact,underdogCandidate,upsetImpact,rateGame,applyLiveSnapshot} = globalThis.SportsRadarScore;';
+const coreBindings = 'const {SPORT_BASE,CLOSE_MARGIN,clampScore,factorText,recordFor,rankFor,parseLine,lineFromSummary,gameProgress,momentumImpact,underdogCandidate,upsetImpact,stateRating,rateGame,applyLiveSnapshot} = globalThis.SportsRadarScore;';
 const preferenceLogic = app.slice(app.indexOf('function readFavoriteSelections'),app.indexOf('const savedFavorites'));
 const explanationLogic = app.slice(app.indexOf('function explainRating'),app.indexOf('function trendFor'));
 const nflLogic = app.slice(app.indexOf('function nflWeekMeta'),app.indexOf('function dedupeGames'));
@@ -124,6 +124,12 @@ const fixtures = `
   assert.ok(!ordinary.factors.some(item => /close/i.test(item.label)));
   const final = rateGame('NFL','completed',[{score:'24'},{score:'27'}],{name:'Jaguars vs Texans'},{status:{type:{detail:'Final'}}},'');
   assert.ok(final.score > final.openingScore);
+  const lateClose = stateRating(38,'NFL','live',3,.95);
+  const earlyClose = stateRating(38,'NFL','live',3,.2);
+  const lateBlowout = stateRating(80,'NFL','live',28,.95);
+  assert.ok(lateClose.score > earlyClose.score);
+  assert.ok(lateClose.score > lateBlowout.score);
+  assert.ok(lateBlowout.score < 40);
   const upsetCompetition = {competitors:[
     {homeAway:'away',team:{id:'a',displayName:'Chicago Bears'},score:'24'},
     {homeAway:'home',team:{id:'h',displayName:'Baltimore Ravens'},score:'21'}
@@ -195,7 +201,7 @@ const fixtures = `
   const noHitSummary = {header:{competitions:[{competitors:[{team:{id:'1'},hits:0},{team:{id:'2'},hits:5}]}]},boxscore:{players:[{team:{id:'2'},statistics:[{name:'pitching',labels:['IP','H'],athletes:[{athlete:{displayName:'Ace Pitcher'},stats:['6.0','0']}]}]}]}};
   applyLiveSnapshot(baseball,{status:{period:7,type:{detail:'Top 7th'}},situation:{onFirst:true,onSecond:false,onThird:true,outs:2}},noHitSummary);
   assert.match(baseball.live.reasons.join(' '),/Ace Pitcher.*6 hitless innings/);
-  assert.equal(baseball.score,83);
+  assert.equal(baseball.score,84);
   const hockey = {sport:'NHL',state:'live',teams:[['Capitals','WSH',2,,,,,,'23'],['Penguins','PIT',2,,,,,,'16']],baseScore:60};
   const hockeySummary = {onIce:[{teamId:'23',entries:[{athleteid:'g1'},{athleteid:'a'},{athleteid:'b'},{athleteid:'c'},{athleteid:'d'},{athleteid:'e'}]},{teamId:'16',entries:[{athleteid:'g2'},{athleteid:'f'},{athleteid:'g'},{athleteid:'h'},{athleteid:'i'}]}],boxscore:{players:[{team:{id:'23'},statistics:[{name:'goalies',athletes:[{athlete:{id:'g1'}}]},{name:'forwards',labels:['G'],athletes:[{athlete:{displayName:'Star Skater'},stats:['2']}]}]},{team:{id:'16'},statistics:[{name:'goalies',athletes:[{athlete:{id:'g2'}}]}]}]}};
   applyLiveSnapshot(hockey,{status:{displayClock:'12:10',period:3,type:{detail:'12:10 - 3rd Period'}}},hockeySummary);
@@ -231,6 +237,8 @@ const fixtures = `
   const thursday = selectNFLWindow(nflGames);
   assert.ok(thursday.some(game => game.id === 'w9t'));
   assert.ok(thursday.some(game => game.id === 'w7a'));
+  assert.equal(dateToken(new Date(2026,9,21,12,0,0)),'20261021');
+  assert.equal(new URL(datedFeed({sport:'NBA',url:'https://example.com/scoreboard'},new Date(2026,9,22,12,0,0)).url).searchParams.get('dates'),'20261022');
   console.log('Score model fixtures passed');
 `;
 vm.runInNewContext(`${favoriteLogic}\n${pickerLogic}\n${scoreLogic}\n${coreBindings}\n${lineLogic}\n${explanationLogic}\n${nflLogic}\n${dedupeLogic}\n${fixtures}`,{assert,console,URL,localStorage:{getItem:()=>null}});

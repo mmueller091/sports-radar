@@ -68,7 +68,7 @@ function labelForSport(sport) { return SPORT_LABELS[sport] || sport; }
 function iconFor(sport) { return ({NFL:'◈',MLB:'◉',NHL:'✧',CFB:'◆',NBA:'●',NCAAB:'◇',Tennis:'◌',Soccer:'⊙'})[sport] || '✦'; }
 function teamLogoUrl(sport, abbreviation) { const league = ({NFL:'nfl',MLB:'mlb',NHL:'nhl',CFB:'college-football',NBA:'nba',NCAAB:'mens-college-basketball',Tennis:'tennis',Soccer:'soccer'})[sport] || sport.toLowerCase(); return `https://a.espncdn.com/i/teamlogos/${league}/500/${String(abbreviation).toLowerCase()}.png`; }
 function summaryUrlFor(sport, eventId) { return `${ESPN_BASE}/${SPORT_PATHS[sport] || SPORT_PATHS.NFL}/summary?event=${encodeURIComponent(eventId)}`; }
-const {SPORT_BASE,CLOSE_MARGIN,clampScore,factorText,recordFor,rankFor,parseLine,lineFromSummary,gameProgress,momentumImpact,underdogCandidate,upsetImpact,rateGame,applyLiveSnapshot} = globalThis.SportsRadarScore;
+const {SPORT_BASE,CLOSE_MARGIN,clampScore,factorText,recordFor,rankFor,parseLine,lineFromSummary,gameProgress,momentumImpact,underdogCandidate,upsetImpact,stateRating,rateGame,applyLiveSnapshot} = globalThis.SportsRadarScore;
 function normalizedTeamName(name) { return String(name || '').trim().toLocaleLowerCase().replace(/\s+/g,' '); }
 function favoriteFor(teams,sport) { return state.favoriteTeams.some(favorite => favorite.sport === sport && teams.some(team => { const id = String(team.id || team[8] || ''); const name = team.name || team[0]; return Boolean(favorite.id && id && favorite.id === id) || normalizedTeamName(favorite.name) === normalizedTeamName(name); })); }
 function sameLocalDay(value) { if (!value) return false; return new Date(value).toLocaleDateString() === new Date().toLocaleDateString(); }
@@ -158,7 +158,24 @@ async function fetchNFLWindow() {
   return selectNFLWindow([...current,...results.flatMap(result => result.status === 'fulfilled' ? result.value : [])]);
 }
 function dedupeGames(items) { const unique = new Map(); for (const game of items) { const key = `${game.sport}:${game.id}`; const existing = unique.get(key); if (!existing || game.division === 'FCS') unique.set(key,game); } return [...unique.values()]; }
-async function loadLiveGames() { $('#data-status-label').textContent = 'Connecting to live scoreboards…'; const requests = [fetchNFLWindow(),...LIVE_FEEDS.filter(feed => feed.sport !== 'NFL').map(fetchFeed)]; const results = await Promise.allSettled(requests); const liveGames = dedupeGames(results.flatMap(result => result.status === 'fulfilled' ? result.value : [])); if (liveGames.length) { games = liveGames; state.source = 'live'; games.filter(game => game.state === 'live').forEach(recordRatingSnapshot); } else { games = DEMO_GAMES.map(game => ({...game,favorite:favoriteFor(game.teams,game.sport)})); state.source = 'demo'; } $('#data-status-label').textContent = state.source === 'live' ? `Live scores · updated ${new Date().toLocaleTimeString([], {hour:'numeric',minute:'2-digit'})}` : 'Demo data · live feed unavailable'; $('#footer-status').textContent = state.source === 'live' ? 'Live feed' : 'Demo data'; render(); if (state.source === 'live') enrichGameSignals(); }
+function dateToken(value) { const date = new Date(value); return `${date.getFullYear()}${String(date.getMonth() + 1).padStart(2,'0')}${String(date.getDate()).padStart(2,'0')}`; }
+function datedFeed(feed,value) { const url = new URL(feed.url); url.searchParams.set('dates',dateToken(value)); return {...feed,url:url.toString()}; }
+const scheduleWindowCache = new Map();
+async function fetchDailyWindow(feed,futureDays=7) {
+  const today = new Date(); today.setHours(12,0,0,0);
+  const cached = scheduleWindowCache.get(feed.sport);
+  const todayRequest = fetchFeed(datedFeed(feed,today));
+  const futureRequest = !cached || cached.expiresAt <= Date.now()
+    ? Promise.allSettled(Array.from({length:futureDays},(_,index) => { const date = new Date(today); date.setDate(date.getDate() + index + 1); return fetchFeed(datedFeed(feed,date)); })).then(results => {
+        const futureGames = results.flatMap(result => result.status === 'fulfilled' ? result.value : []);
+        scheduleWindowCache.set(feed.sport,{games:futureGames,expiresAt:Date.now() + 15 * 60 * 1000});
+        return futureGames;
+      })
+    : Promise.resolve(cached.games);
+  const [todayGames,futureGames] = await Promise.all([todayRequest,futureRequest]);
+  return dedupeGames([...todayGames,...futureGames]);
+}
+async function loadLiveGames() { $('#data-status-label').textContent = 'Connecting to live scoreboards…'; const requests = [fetchNFLWindow(),...LIVE_FEEDS.filter(feed => feed.sport !== 'NFL').map(feed => ['NBA','NHL'].includes(feed.sport) ? fetchDailyWindow(feed) : fetchFeed(feed))]; const results = await Promise.allSettled(requests); const liveGames = dedupeGames(results.flatMap(result => result.status === 'fulfilled' ? result.value : [])); if (liveGames.length) { games = liveGames; state.source = 'live'; games.filter(game => game.state === 'live').forEach(recordRatingSnapshot); } else { games = DEMO_GAMES.map(game => ({...game,favorite:favoriteFor(game.teams,game.sport)})); state.source = 'demo'; } $('#data-status-label').textContent = state.source === 'live' ? `Live scores · updated ${new Date().toLocaleTimeString([], {hour:'numeric',minute:'2-digit'})}` : 'Demo data · live feed unavailable'; $('#footer-status').textContent = state.source === 'live' ? 'Live feed' : 'Demo data'; render(); if (state.source === 'live') enrichGameSignals(); }
 function safeText(value) { return String(value ?? '').replace(/[&<>"']/g, character => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[character])); }
 const favoriteCatalog = new Map();
 let favoriteCatalogRequest;
@@ -305,15 +322,12 @@ function playPosition(sport,play) {
 }
 function scoringEvents(summary) { return summary?.scoringPlays?.length ? summary.scoringPlays : (summary?.plays || []).filter(play => play.scoringPlay === true); }
 function estimatedEventRating(game,homeScore,awayScore,progress,summary) {
-  const gap = Math.abs(homeScore - awayScore), limit = CLOSE_MARGIN[game.sport] || 10;
-  const close = Math.max(0,1 - gap / limit);
-  const closeness = Math.round(24 * close * (.35 + .65 * progress));
-  const wide = gap >= limit && progress > .3 ? Math.min(26,Math.round((gap / limit) * 13 * progress)) : 0;
+  const gap = Math.abs(homeScore - awayScore);
   const candidate = game.underdog;
   const simulated = candidate?.side === 'home' ? [{id:candidate.teamId,score:homeScore},{id:'other',score:awayScore}] : [{id:candidate?.teamId,score:awayScore},{id:'other',score:homeScore}];
   const upset = upsetImpact(candidate,simulated,'live',progress).points;
   const momentum = momentumImpact(game.sport,summary,progress,'live').points;
-  return clampScore((game.openingScore || SPORT_BASE[game.sport] || 35) + closeness + Math.round(progress * 14) - wide + upset + momentum);
+  return clampScore(stateRating(game.openingScore || SPORT_BASE[game.sport] || 35,game.sport,'live',gap,progress).score + upset + momentum);
 }
 function timelinePoints(game,summary) {
   if (game.state === 'upcoming') return {points:[],source:'upcoming'};
@@ -462,7 +476,7 @@ $('#fcs-toggle').addEventListener('click', () => { state.showFCS = !state.showFC
 $$('.seg').forEach(tab => tab.addEventListener('click', () => { state.gameState = tab.dataset.state; $$('.seg').forEach(item => item.classList.toggle('active',item === tab)); render(); }));
 $('#refresh-button').addEventListener('click',loadLiveGames); $('#refresh-data').addEventListener('click',loadLiveGames);
 function wireDialog(id,opener) { const dialog = $(id); const trigger = opener ? $(opener) : null; if (!dialog) return; if (trigger) trigger.addEventListener('click',() => showDialog(dialog)); dialog.querySelectorAll('.close-dialog').forEach(button => button.addEventListener('click',() => hideDialog(dialog))); }
-wireDialog('#preferences-dialog','#profile-button'); wireDialog('#data-dialog','#data-info');
+wireDialog('#preferences-dialog','#profile-button'); wireDialog('#data-dialog','#data-info'); wireDialog('#score-guide-dialog','#score-guide-button');
 let lastTouchOpen = 0;
 let touchStart = null;
 $('#game-list').addEventListener('pointerdown',event => { if (event.pointerType === 'touch') touchStart = {x:event.clientX,y:event.clientY,id:event.target.closest('.game-card')?.dataset.id}; });
@@ -488,6 +502,6 @@ $('#favorite-results').addEventListener('click',event => { const button = event.
 $('#favorite-tags').addEventListener('click',event => { const button = event.target.closest('[data-remove-favorite]'); if (!button) return; state.favoriteTeams.splice(Number(button.dataset.removeFavorite),1); syncFavoriteGames(); persistFavoriteSelections(); renderFavoriteTags(); renderFavoriteResults(); render(); });
 $$('[data-visible-sport]').forEach(input => input.addEventListener('change', () => { const sport = input.dataset.visibleSport; if (input.checked) state.visibleSports.add(sport); else state.visibleSports.delete(sport); persistPreferences(); render(); }));
 let deferredInstallPrompt; window.addEventListener('beforeinstallprompt',event => { event.preventDefault(); deferredInstallPrompt = event; $('#install-button').classList.remove('hidden'); }); $('#install-button').addEventListener('click',async() => { if (!deferredInstallPrompt) return; deferredInstallPrompt.prompt(); await deferredInstallPrompt.userChoice; deferredInstallPrompt = null; $('#install-button').classList.add('hidden'); }); window.addEventListener('appinstalled',() => $('#install-button').classList.add('hidden'));
-if ('serviceWorker' in navigator) navigator.serviceWorker.register('./sw.js?rev=20261021-26').then(registration => registration.update()).catch(() => {});
+if ('serviceWorker' in navigator) navigator.serviceWorker.register('./sw.js?rev=20261021-27').then(registration => registration.update()).catch(() => {});
 games = DEMO_GAMES.map(game => ({...game,favorite:favoriteFor(game.teams,game.sport)}));
 renderFavoriteTags(); renderFavoriteResults(); render(); loadLiveGames(); setInterval(loadLiveGames,60000);

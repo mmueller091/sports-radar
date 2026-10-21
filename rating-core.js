@@ -122,7 +122,9 @@
     const competitors = summary?.header?.competitions?.[0]?.competitors || [];
     const nameFor = side => competitors.find(item => item.homeAway === side)?.team?.displayName || (side === 'home' ? 'The home team' : 'The away team');
     const possessive = name => `${name}${/s$/i.test(name) ? "'" : "'s"}`;
+    const currentProgress = state === 'completed' ? 1 : Math.max(0,Number(progress) || 0);
     let previousLeader = 0, leadChanges = 0, lastFlip = -1;
+    const flipPositions = [];
     let deepestHomeDeficit = 0, deepestAwayDeficit = 0, comeback = null;
     let previousHome = 0, previousAway = 0, runSide = '', runPoints = 0, runCount = 0;
     for (const moment of moments) {
@@ -132,7 +134,7 @@
       if (margin >= 0 && deepestHomeDeficit >= threshold && (!comeback || deepestHomeDeficit > comeback.deficit)) comeback = {side:'home',deficit:deepestHomeDeficit};
       if (margin <= 0 && deepestAwayDeficit >= threshold && (!comeback || deepestAwayDeficit > comeback.deficit)) comeback = {side:'away',deficit:deepestAwayDeficit};
       const leader = Math.sign(margin);
-      if (leader && previousLeader && leader !== previousLeader) { leadChanges++; lastFlip = moment.position ?? -1; }
+      if (leader && previousLeader && leader !== previousLeader) { leadChanges++; lastFlip = moment.position ?? -1; flipPositions.push(lastFlip); }
       if (leader) previousLeader = leader;
       const homeGain = moment.home - previousHome, awayGain = moment.away - previousAway;
       const scorer = homeGain > 0 && awayGain === 0 ? 'home' : awayGain > 0 && homeGain === 0 ? 'away' : '';
@@ -141,13 +143,31 @@
       previousHome = moment.home; previousAway = moment.away;
     }
     const factors = [], details = [];
-    if (leadChanges) { factors.push({label:`${leadChanges} lead change${leadChanges === 1 ? '' : 's'}`,points:Math.min(9,leadChanges * 3)}); details.push(`the lead changed ${leadChanges} time${leadChanges === 1 ? '' : 's'}`); }
+    if (leadChanges) {
+      const points = state === 'live' ? Math.min(8,flipPositions.reduce((sum,position) => sum + (position >= currentProgress - .25 ? 3 : 1),0)) : Math.min(9,leadChanges * 3);
+      factors.push({label:`${leadChanges} lead change${leadChanges === 1 ? '' : 's'}`,points});
+      details.push(`the lead changed ${leadChanges} time${leadChanges === 1 ? '' : 's'}`);
+    }
     if (comeback) { factors.push({label:'Erased a large deficit',points:Math.min(8,4 + Math.floor(comeback.deficit / threshold) * 2)}); details.push(`${nameFor(comeback.side)} erased a deficit of ${comeback.deficit} ${units}`); }
-    const currentProgress = state === 'completed' ? 1 : Math.max(0,Number(progress) || 0);
     if (lastFlip >= .65 && currentProgress - lastFlip <= .18) { factors.push({label:'Recent late lead change',points:5}); details.push('the lead flipped late'); }
     const latestPosition = moments.at(-1)?.position ?? null;
     if (state === 'live' && runCount >= 2 && runPoints >= threshold && latestPosition !== null && currentProgress - latestPosition <= .12) {
       factors.push({label:'Recent unanswered scoring run',points:4}); details.push(`${nameFor(runSide)} scored ${runPoints} unanswered ${units} recently`);
+    }
+    if (moments.length >= 3 && currentProgress >= .45) {
+      let competitiveTime = 0, priorPosition = 0, priorMargin = 0;
+      for (const moment of moments) {
+        const position = Math.min(currentProgress,Math.max(priorPosition,moment.position ?? priorPosition));
+        if (Math.abs(priorMargin) <= threshold) competitiveTime += position - priorPosition;
+        priorPosition = position;
+        priorMargin = moment.home - moment.away;
+      }
+      if (Math.abs(priorMargin) <= threshold) competitiveTime += Math.max(0,currentProgress - priorPosition);
+      const competitiveShare = currentProgress ? competitiveTime / currentProgress : 0;
+      if (competitiveShare >= .55) {
+        factors.push({label:'Sustained competitive game',points:state === 'completed' ? 6 : 4});
+        details.push(`the score stayed within ${threshold} ${units} for about ${Math.round(competitiveShare * 100)}% of the game`);
+      }
     }
     const winChances = (summary?.winprobability || []).map(item => Number(item.homeWinPercentage)).filter(value => Number.isFinite(value) && value >= 0 && value <= 1);
     let strongestSwing = {size:0,end:-1,direction:0};
@@ -207,20 +227,35 @@
     if (margin === 0 && progress >= .7) return {points:4 + Math.round(6*progress) + Math.round(3*candidate.strength),text:`${candidate.teamName}, a ${candidate.description}, is tied ${score}–${other} late`};
     return {points:0,text:''};
   }
+  function stateRating(openingScore,sport,gameState,gap,progress) {
+    const closeLimit = CLOSE_MARGIN[sport] || 10;
+    const close = gap === null ? 0 : Math.max(0,1 - gap / closeLimit);
+    const contextWeight = gameState === 'completed' ? .22 : Math.max(.26,.44 - .18 * progress);
+    const contextPoints = Math.round(openingScore * contextWeight);
+    const stateBase = gameState === 'completed' ? 24 : 14;
+    const closeCeiling = gameState === 'completed' ? 42 : 16 + 24 * progress;
+    const closePoints = Math.round(closeCeiling * close);
+    const phasePoints = gameState === 'completed' ? 0 : Math.round((3 + 7 * progress) * close);
+    const widePenalty = gap !== null && gap >= closeLimit && progress > .3 ? Math.min(24,Math.round((gap / closeLimit) * 12 * progress)) : 0;
+    const factors = [{label:'Game-state baseline',points:stateBase}];
+    if (contextPoints) factors.push({label:'Pregame context carried into play',points:contextPoints});
+    if (closePoints) factors.push({label:gameState === 'completed' ? 'Final margin' : 'Score closeness and leverage',points:closePoints});
+    if (phasePoints) factors.push({label:'Late-game leverage',points:phasePoints});
+    if (widePenalty) factors.push({label:'Wide margin',points:-widePenalty});
+    return {score:clampScore(factors.reduce((sum,item) => sum + item.points,0)),factors,closePoints,widePenalty};
+  }
   function rateGame(sport,gameState,teams,event,competition,context) {
     const opening = pregameRating(sport,event,competition,context);
     const factors = opening.factors.map(item => ({...item}));
     if (gameState === 'upcoming') return {...opening,openingScore:opening.score,underdog:null,upsetText:'',upsetPoints:0};
     const values = teams.map(team => Number(team.score)).filter(Number.isFinite);
     const gap = values.length === 2 ? Math.abs(values[0] - values[1]) : null;
-    const closeLimit = CLOSE_MARGIN[sport] || 10;
-    const close = gap === null ? 0 : Math.max(0,1 - gap / closeLimit);
     const progress = gameState === 'completed' ? 1 : gameProgress(sport,competition);
-    const closePoints = gameState === 'completed' ? Math.round(28 * close) : Math.round(24 * close * (.35 + .65 * progress));
-    if (closePoints) factors.push({label:gameState === 'completed' ? 'Final margin' : 'Score closeness',points:closePoints});
-    if (gap !== null && gap >= closeLimit && progress > .3) factors.push({label:'Wide margin',points:-Math.min(26,Math.round((gap / closeLimit) * 13 * progress))});
-    const phasePoints = gameState === 'completed' ? 15 : Math.round(progress * 14);
-    if (phasePoints) factors.push({label:gameState === 'completed' ? 'Reached final' : 'Game progress',points:phasePoints});
+    // Once play starts, urgency comes mainly from the game state so a marquee blowout
+    // cannot remain near the top solely because it looked good before kickoff.
+    const stateValue = stateRating(opening.score,sport,gameState,gap,progress);
+    factors.length = 0;
+    factors.push(...stateValue.factors);
     const detail = `${competition?.status?.type?.detail || ''} ${competition?.status?.type?.shortDetail || ''}`;
     if (gameState === 'completed' && /overtime|\bot\b/i.test(detail)) factors.push({label:'Overtime',points:13});
     const underdog = underdogCandidate(sport,competition,competition?.odds?.[0]);
@@ -229,7 +264,7 @@
     const score = clampScore(factors.reduce((sum,item) => sum + item.points,0));
     let reason = opening.reason;
     const unit = sport === 'NHL' || sport === 'Soccer' ? 'goal' : sport === 'MLB' ? 'run' : sport === 'Tennis' ? 'set' : 'point';
-    if (gameState === 'live') reason = gap === 0 ? `Tied ${teams[0].score}–${teams[1].score}${progress > .65 ? ' late' : ''}` : gap !== null && closePoints > 0 ? `${gap}-${unit} game${progress > .65 ? ' late' : ''}` : `Game in progress · ${Math.round(progress * 100)}% elapsed`;
+    if (gameState === 'live') reason = gap === 0 ? `Tied ${teams[0].score}–${teams[1].score}${progress > .65 ? ' late' : ''}` : gap !== null && stateValue.closePoints > 0 ? `${gap}-${unit} game${progress > .65 ? ' late' : ''}` : `Game in progress · ${Math.round(progress * 100)}% elapsed`;
     if (gameState === 'completed') reason = /overtime|\bot\b/i.test(detail) ? `Overtime finish · ${gap}-${unit} margin` : gap !== null ? `Decided by ${gap} ${unit}${gap === 1 ? '' : 's'}` : 'Final result';
     return {score,factors,reason,openingScore:opening.score,underdog,upsetText:upset.text,upsetPoints:upset.points};
   }
@@ -301,6 +336,8 @@
     const status = competition?.status || game.liveRawStatus;
     const situation = competition?.situation || game.liveRawSituation || {};
     const snapshot = {phase:livePhase(game.sport,status),note:'',reasons:[],bonus:0,bases:null};
+    const progress = gameProgress(game.sport,{...competition,status});
+    const scoreGap = Math.abs(Number(game.teams?.[0]?.[2]) - Number(game.teams?.[1]?.[2]));
     if (['NFL','CFB'].includes(game.sport)) {
       const possessionId = String(situation.possession?.id || situation.possession || '');
       const holder = game.teams.find(team => String(team[8] || '') === possessionId);
@@ -311,6 +348,7 @@
       snapshot.note = [holder ? `${holder[1] || holder[0]} ball` : '',downText,spot && !downText.includes(spot) ? spot : ''].filter(Boolean).join(' · ');
       if (situation.isRedZone === true) { snapshot.reasons.push(`${holder?.[0] || 'The offense'} is in the red zone`); snapshot.bonus += 4; }
       if (down === 4 && downText) { snapshot.reasons.push(`${downText} is a pivotal down`); snapshot.bonus += 3; }
+      if (progress >= .78 && scoreGap <= 8) { snapshot.reasons.push(`It is a one-possession game late in the ${Number(status?.period) >= 4 ? 'fourth quarter' : 'game'}`); snapshot.bonus += 6; }
     } else if (game.sport === 'MLB') {
       const bases = {first:runnerOn(situation,'First'),second:runnerOn(situation,'Second'),third:runnerOn(situation,'Third')};
       snapshot.bases = Object.values(bases).some(value => value !== null) ? bases : null;
@@ -319,10 +357,14 @@
       snapshot.note = hasOuts ? `${outs} ${outs === 1 ? 'out' : 'outs'}` : '';
       const occupied = Object.entries(bases).filter(([,value]) => value).map(([base]) => base);
       if (occupied.length) snapshot.reasons.push(`Runners on ${occupied.join(' and ')}`);
-      if ((bases.second || bases.third) && Number(status?.period || 0) >= 7 && Math.abs(Number(game.teams[0][2]) - Number(game.teams[1][2])) <= 1) snapshot.bonus += 4;
-    } else if (game.sport === 'NHL' && summary) {
-      const powerPlayTeam = hockeyPowerPlay(summary,game.teams);
+      if ((bases.second || bases.third) && Number(status?.period || 0) >= 7 && scoreGap <= 1) { snapshot.reasons.push('The tying or go-ahead run is in scoring position late'); snapshot.bonus += Number(status?.period || 0) >= 9 ? 8 : 5; }
+    } else if (game.sport === 'NHL') {
+      const powerPlayTeam = summary ? hockeyPowerPlay(summary,game.teams) : null;
       if (powerPlayTeam) { snapshot.note = `${powerPlayTeam} power play`; snapshot.bonus += 4; }
+      if (progress >= .82 && scoreGap <= 1) { snapshot.reasons.push('It is a one-goal game late in the third period'); snapshot.bonus += 6; }
+    } else if (['NBA','NCAAB'].includes(game.sport) && progress >= .86 && scoreGap <= 6) {
+      snapshot.reasons.push(`It is a ${scoreGap || 'tied'}-point game in the closing minutes`);
+      snapshot.bonus += scoreGap <= 3 ? 8 : 5;
     }
     const milestone = summary ? liveMilestone(game.sport,summary) : null;
     if (milestone) { snapshot.reasons.push(milestone.text); snapshot.bonus += milestone.points; }
@@ -334,7 +376,7 @@
     game.score = clampScore(game.baseScore + game.live.bonus);
   }
   
-  const api = {SPORT_BASE,NFL_DIVISIONS,CLOSE_MARGIN,clampScore,factorText,recordFor,rankFor,recordStats,parseLine,lineFromSummary,eventSignalText,nflDivisionFor,winningRecord,listedSpread,pregameRating,gameProgress,momentumImpact,underdogCandidate,upsetImpact,rateGame,ordinal,livePhase,runnerOn,hockeyPowerPlay,noHitBid,hockeyGoalMilestone,footballMilestone,liveMilestone,liveSnapshot,applyLiveSnapshot};
+  const api = {SPORT_BASE,NFL_DIVISIONS,CLOSE_MARGIN,clampScore,factorText,recordFor,rankFor,recordStats,parseLine,lineFromSummary,eventSignalText,nflDivisionFor,winningRecord,listedSpread,pregameRating,gameProgress,momentumImpact,underdogCandidate,upsetImpact,stateRating,rateGame,ordinal,livePhase,runnerOn,hockeyPowerPlay,noHitBid,hockeyGoalMilestone,footballMilestone,liveMilestone,liveSnapshot,applyLiveSnapshot};
   root.SportsRadarScore = api;
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
 })(globalThis);
