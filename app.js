@@ -1986,6 +1986,15 @@ function basesMarkup(bases) {
 }
 
 function gameCard(game) {
+  const scoreColorStyle = (() => {
+    const value = Number(game.score);
+    const normalized = Number.isFinite(value)
+      ? Math.min(100, Math.max(0, value))
+      : 50;
+    const hue = Math.round(215 - (normalized * 2.15));
+    return `--score-hue:${hue};`;
+  })();
+
   const scoreClass =
     game.score >= 85
       ? 'hot'
@@ -2068,7 +2077,7 @@ function gameCard(game) {
     game.division
       ? `<span>•</span><span>${safeText(game.division)}</span>`
       : ''
-  }<span>•</span><span>${safeText(game.sub)}</span></span><span class="team-row">${teamMarkup(game,game.teams[0])}<b class="team-score">${safeText(game.teams[0][2])}</b></span><span class="team-row">${teamMarkup(game,game.teams[1])}<b class="team-score">${safeText(game.teams[1][2])}</b></span>${situation}</span>${momentMarkup}<span class="game-context channel-context"><span class="detail-inline"><strong>TV</strong><span>${safeText(game.channel || 'Channel not listed')}</span></span><span class="stats-cue">Stats ›</span><span class="detail-inline line-inline"><strong>${safeText(compactLineLabel)}</strong><span>${safeText(line.text)}</span></span></span><span class="excitement"><span class="score-circle ${scoreClass}">${game.score}</span>${trendFor(game)}</span></button>`;
+  }<span>•</span><span>${safeText(game.sub)}</span></span><span class="team-row">${teamMarkup(game,game.teams[0])}<b class="team-score">${safeText(game.teams[0][2])}</b></span><span class="team-row">${teamMarkup(game,game.teams[1])}<b class="team-score">${safeText(game.teams[1][2])}</b></span>${situation}</span>${momentMarkup}<span class="game-context channel-context"><span class="detail-inline"><strong>TV</strong><span>${safeText(game.channel || 'Channel not listed')}</span></span><span class="stats-cue">Stats ›</span><span class="detail-inline line-inline"><strong>${safeText(compactLineLabel)}</strong><span>${safeText(line.text)}</span></span></span><span class="excitement"><span class="score-circle ${scoreClass}" style="${scoreColorStyle}">${game.score}</span>${trendFor(game)}</span></button>`;
 }
 
 function detailStats(summary) {
