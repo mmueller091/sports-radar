@@ -41,6 +41,21 @@ const fixtures = `
   assert.equal(pinnedFavorite(todayFavorite),true);
   assert.equal([futureFavorite,ordinaryUpcoming].sort(compareGames)[0],ordinaryUpcoming);
   assert.equal([ordinaryUpcoming,todayFavorite].sort(compareGames)[0],todayFavorite);
+  const yesterday = new Date(Date.now()-2*86400000).toISOString();
+  const today = new Date().toISOString();
+  const oldFinal = {id:'old-final',state:'completed',startTime:yesterday,score:99};
+  const todayFinal = {id:'today-final',state:'completed',startTime:today,score:95};
+  const todayUpcoming = {id:'today-upcoming',state:'upcoming',startTime:today,score:45};
+  const futureUpcoming = {id:'future-upcoming',state:'upcoming',startTime:futureFavorite.startTime,score:90};
+  const live = {id:'live',state:'live',startTime:today,score:50};
+  const favoriteLive = {id:'favorite-live',favorite:true,state:'live',startTime:today,score:30};
+  assert.equal(visibleInState(oldFinal,'all'),false);
+  assert.equal(visibleInState(oldFinal,'completed'),true);
+  assert.equal(visibleInState(todayFinal,'all'),true);
+  assert.deepEqual([futureUpcoming,todayFinal,live,todayUpcoming,favoriteLive].sort(compareAllGames).map(game => game.id),
+    ['favorite-live','live','today-upcoming','today-final','future-upcoming']);
+  assert.equal(allGroup(todayFavorite),0);
+  assert.equal(allGroup(futureFavorite),4);
   const rankedPair = {notes:[],competitors:[
     {curatedRank:{current:19},records:[{type:'overall',summary:'4-2'}]},
     {curatedRank:{current:7},records:[{type:'overall',summary:'5-1'}]}
