@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {gameFromEvent,validSubscription} from '../src/index.js';
-import {articleMatchesGame,contextsForGames,deterministicFactor,evidenceSupportsType,researchGame} from '../src/storylines.js';
+import {articleMatchesGame,contextsForGames,deterministicFactor,evidenceSupportsType,researchGame,saveFactors} from '../src/storylines.js';
 
 test('large live underdog receives the same explicit upset boost as the site',() => {
   const event = {id:'123',name:'Bengals at Ravens',competitions:[{status:{type:{state:'in'},period:4,displayClock:'03:00'},competitors:[
@@ -129,4 +129,40 @@ test('context lookup batches a full 100-game request within D1 parameter limits'
   assert.equal(calls.length,2);
   assert.ok(calls.every(params => params.length <= 91));
   assert.equal(result['NHL:401892551'][0].type,'former_star_return');
+});
+
+test('storyline refresh preserves valid context when the current news pass finds nothing',async () => {
+  const prepared = [];
+  const batches = [];
+  const env = {
+    DB:{
+      prepare(sql) {
+        return {
+          bind(...params) {
+            const statement = {
+              sql,
+              params,
+              async run() {}
+            };
+            prepared.push(statement);
+            return statement;
+          }
+        };
+      },
+      async batch(statements) {
+        batches.push(statements);
+      }
+    }
+  };
+
+  await saveFactors(env,[{
+    key:'NHL:401892551',
+    eventId:'401892551',
+    sport:'NHL',
+    start:Date.now() + 2 * 60 * 60 * 1000
+  }],[],Date.now());
+
+  assert.equal(batches.length,0);
+  assert.equal(prepared.some(statement => /event_id\s*=\s*\?/i.test(statement.sql)),false);
+  assert.equal(prepared.some(statement => /expires_at\s*<\s*\?/i.test(statement.sql)),true);
 });
