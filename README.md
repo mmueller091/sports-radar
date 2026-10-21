@@ -1,12 +1,14 @@
 # Sports Radar
 
-A static, mobile-friendly, installable sports radar: favorite teams stay pinned first, then games are ordered by a sport-aware excitement score. Soccer gets its own feed so the home page stays focused on NFL, MLB, NHL, college football, and major tennis.
+A static, mobile-friendly, installable sports radar: favorite teams stay pinned first, then games are ordered by a sport-aware excitement score. Soccer gets its own feed so the home page stays focused on NFL, MLB, NHL, college football, NBA, NCAA basketball, and major tennis.
 
 ## Run locally
 
 Open `index.html` directly for the demo shell, or serve the folder with any static file server. Live scores and service-worker installation require HTTPS (GitHub Pages provides this automatically). No build step or runtime dependency is required.
 
 On a phone, open the deployed HTTPS URL in Safari or Chrome and use **Add to Home Screen** / **Install app**. The included manifest and service worker make the site open as a standalone app and keep the UI shell available when connectivity is briefly unavailable.
+
+The Preferences dialog lets you choose which sports appear on the home page. Those choices are saved with browser `localStorage`, so they persist on that device and browser but do not sync automatically to another device. Cross-device syncing would require a sign-in and a small hosted settings service.
 
 ## Deploy to GitHub Pages
 
@@ -16,7 +18,7 @@ On a phone, open the deployed HTTPS URL in Safari or Chrome and use **Add to Hom
 
 ## Live-data architecture
 
-The UI connects directly to public ESPN scoreboard JSON endpoints for NFL, MLB, NHL, college football, EPL, UEFA Champions League, and ATP tennis. It refreshes every 60 seconds and has a manual refresh button. Because these endpoints are an unofficial public surface rather than a guaranteed developer product, the app falls back to demo data if a provider blocks a request or changes its response. For a durable production feed, swap `LIVE_FEEDS` in `app.js` for an API-backed serverless adapter and keep API keys off the browser.
+The UI connects directly to public ESPN scoreboard JSON endpoints for NFL, MLB, NHL, college football, NBA, NCAA basketball, EPL, UEFA Champions League, and ATP tennis. It refreshes every 60 seconds and has a manual refresh button. Because these endpoints are an unofficial public surface rather than a guaranteed developer product, the app falls back to demo data if a provider blocks a request or changes its response. For a durable production feed, swap `LIVE_FEEDS` in `app.js` for an API-backed serverless adapter and keep API keys off the browser.
 
 Viable sources to evaluate:
 
