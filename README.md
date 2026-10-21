@@ -1,6 +1,6 @@
 # Sports Radar
 
-A static, mobile-friendly, installable sports radar: favorite teams stay pinned first, then games are ordered by a sport-aware excitement score. Scores are always shown. Soccer gets its own feed so the home page stays focused on NFL, MLB, NHL, College Football, NBA, NCAAM, and major tennis.
+A static, mobile-friendly, installable sports radar: favorite-team games are pinned when live, completed, or scheduled for today; future favorite games are ranked by excitement with everything else. Scores are always shown. Soccer gets its own feed so the home page stays focused on NFL, MLB, NHL, College Football, NBA, NCAAM, and major tennis.
 
 ## Run locally
 
@@ -29,7 +29,7 @@ Viable sources to evaluate:
 
 ## Excitement model
 
-The displayed rating is an estimate on a 1–99 scale, not a provider-supplied excitement score. Each card gives a plain-English explanation. Before a game starts, the model uses a sport baseline plus confirmed stakes (for example postseason, championship, ranked teams, or rivalry). Two ranked college-football teams now get a substantial pregame lift, with smaller additions for a top-10 team, two top-20 teams, winning records, or an unbeaten team. It never counts a pregame 0–0 as a close score. During play it adds closeness and game progress; after the final it accounts for the final margin and, when available, decisive scoring plays and lead changes. A World Series opener therefore receives its championship and series-opener points before play, while an unranked regular-season college football game does not.
+The displayed rating is an estimate on a 1–99 scale, not a provider-supplied excitement score. Each card gives a plain-English explanation. Before a game starts, the model uses a sport baseline plus confirmed stakes (for example postseason, championship, ranked teams, or rivalry). NFL games gain points for divisional opponents, both teams having winning records, and a close listed spread; the NFL explanation never refers to college rankings. For the 2026 Ravens–Bengals matchup, the card conditionally notes the possible Jackson–Burrow quarterback duel, without assuming either will start or adding points for unconfirmed availability. Two ranked college-football teams get a substantial pregame lift, with smaller additions for a top-10 team, two top-20 teams, winning records, or an unbeaten team. It never counts a pregame 0–0 as a close score. During play it adds closeness and game progress; after the final it accounts for the final margin and, when available, decisive scoring plays and lead changes. A World Series opener therefore receives its championship and series-opener points before play, while an unranked regular-season college football game does not.
 
 The arrow shown only for live or completed games compares the current rating with that game's opening estimate. It is a change from the start, not a measured minute-by-minute time series. No trend appears for an upcoming game. A production scoring adapter could improve this model with:
 

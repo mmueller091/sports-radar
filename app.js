@@ -51,12 +51,15 @@ function iconFor(sport) { return ({NFL:'◈',MLB:'◉',NHL:'✧',CFB:'◆',NBA:'
 function teamLogoUrl(sport, abbreviation) { const league = ({NFL:'nfl',MLB:'mlb',NHL:'nhl',CFB:'college-football',NBA:'nba',NCAAB:'mens-college-basketball',Tennis:'tennis',Soccer:'soccer'})[sport] || sport.toLowerCase(); return `https://a.espncdn.com/i/teamlogos/${league}/500/${String(abbreviation).toLowerCase()}.png`; }
 function summaryUrlFor(sport, eventId) { return `${ESPN_BASE}/${SPORT_PATHS[sport] || SPORT_PATHS.NFL}/summary?event=${encodeURIComponent(eventId)}`; }
 const SPORT_BASE = {NFL:38,MLB:38,NHL:35,CFB:36,NBA:37,NCAAB:35,Tennis:38,Soccer:35};
+const NFL_DIVISIONS = {BUF:'AFC East',MIA:'AFC East',NE:'AFC East',NYJ:'AFC East',BAL:'AFC North',CIN:'AFC North',CLE:'AFC North',PIT:'AFC North',HOU:'AFC South',IND:'AFC South',JAX:'AFC South',TEN:'AFC South',DEN:'AFC West',KC:'AFC West',LAC:'AFC West',LV:'AFC West',DAL:'NFC East',NYG:'NFC East',PHI:'NFC East',WSH:'NFC East',CHI:'NFC North',DET:'NFC North',GB:'NFC North',MIN:'NFC North',ATL:'NFC South',CAR:'NFC South',NO:'NFC South',TB:'NFC South',ARI:'NFC West',LAR:'NFC West',SF:'NFC West',SEA:'NFC West'};
 const CLOSE_MARGIN = {NFL:14,MLB:3,NHL:3,CFB:14,NBA:12,NCAAB:12,Tennis:3,Soccer:3};
 function clampScore(value) { return Math.max(1,Math.min(99,Math.round(value))); }
 function factorText(factors,score) { const parts = factors.map(factor => `${factor.label} ${factor.points > 0 ? '+' : ''}${factor.points}`); if (factors.reduce((sum,item) => sum + item.points,0) > 99 && score === 99) parts.push('capped at 99'); return parts.join(' · '); }
 function favoriteFor(teams) { return teams.some(team => FAVORITE_MATCHES.some(match => team.name.toLowerCase().includes(match))); }
 function sameLocalDay(value) { if (!value) return false; return new Date(value).toLocaleDateString() === new Date().toLocaleDateString(); }
 function hideStaleFavorite(game) { return Boolean(game.favorite && game.state === 'completed' && (!game.startTime || !sameLocalDay(game.startTime))); }
+function pinnedFavorite(game) { return Boolean(game.favorite && (game.state !== 'upcoming' || sameLocalDay(game.startTime))); }
+function compareGames(a,b) { return Number(pinnedFavorite(b)) - Number(pinnedFavorite(a)) || b.score - a.score; }
 function stateFromEvent(event) { const type = event.competitions?.[0]?.status?.type; if (type?.completed || type?.state === 'post') return 'completed'; if (type?.state === 'in') return 'live'; return 'upcoming'; }
 function scoreValue(competitor) { const value = Number(competitor.score); return Number.isFinite(value) ? String(value) : '—'; }
 function broadcastFor(competition) {
@@ -115,6 +118,9 @@ function displayLine(game) {
   return {label,text:pieces.join(' · '),provider:line.provider};
 }
 function eventSignalText(event, competition, context) { return [event?.name,event?.shortName,(competition?.notes || []).map(note => note.headline).join(' '),competition?.series?.summary,competition?.series?.title,competition?.series?.type,event?.season?.type?.name,event?.season?.type?.slug,event?.season?.slug,context].filter(Boolean).join(' ').toLowerCase(); }
+function nflDivisionFor(competitors) { const divisions = competitors.map(item => NFL_DIVISIONS[String(item.team?.abbreviation || '').toUpperCase()]); return divisions.length === 2 && divisions[0] && divisions[0] === divisions[1] ? divisions[0] : ''; }
+function winningRecord(competitor) { const match = String(recordFor(competitor)).match(/^(\d+)-(\d+)/); return Boolean(match && Number(match[1]) > Number(match[2])); }
+function listedSpread(competition) { const spread = parseLine(competition?.odds?.[0],competition,'NFL')?.spread || ''; const match = spread.match(/[+-](\d+(?:\.\d+)?)/); return match ? Number(match[1]) : null; }
 function pregameRating(sport,event,competition,context) {
   const detail = eventSignalText(event,competition,context);
   const factors = [{label:'Sport baseline',points:SPORT_BASE[sport] || 35}];
@@ -126,7 +132,15 @@ function pregameRating(sport,event,competition,context) {
   else if (sport === 'Tennis' && /wimbledon|australian open|french open|roland garros|us open/.test(detail)) { factors.push({label:'Major tournament',points:18}); reason = 'Tennis major'; }
   if (factors.length > 1 && /game\s*1\b|game one\b|g1\b/.test(detail)) { factors.push({label:'Series opener',points:5}); reason += ' · Game 1'; }
   const competitors = competition?.competitors || [];
-  const ranks = competitors.map(item => Number(item.curatedRank?.current || item.team?.rank)).filter(rank => rank > 0 && rank <= 25);
+  if (sport === 'NFL') {
+    const division = nflDivisionFor(competitors);
+    if (division) { factors.push({label:`${division} matchup`,points:18}); reason += ` · ${division} rivals`; }
+    if (competitors.length === 2 && competitors.every(winningRecord)) { factors.push({label:'Both winning records',points:8}); reason += ' · both teams winning'; }
+    const spread = listedSpread(competition);
+    if (spread !== null && spread <= 3) { factors.push({label:'Tight projected spread',points:7}); reason += ' · close line'; }
+    else if (spread !== null && spread <= 6) { factors.push({label:'Competitive projected spread',points:4}); reason += ' · competitive line'; }
+  }
+  const ranks = ['CFB','NCAAB'].includes(sport) ? competitors.map(item => Number(item.curatedRank?.current || item.team?.rank)).filter(rank => rank > 0 && rank <= 25) : [];
   if (ranks.length === 2) {
     factors.push({label:'Two ranked teams',points:sport === 'CFB' ? 28 : 9});
     if (sport === 'CFB') {
@@ -139,7 +153,7 @@ function pregameRating(sport,event,competition,context) {
     reason += ' · two ranked teams';
   }
   else if (ranks.length === 1) { factors.push({label:'Ranked team',points:sport === 'CFB' ? 11 : 4}); if (sport === 'CFB' && ranks[0] <= 10) factors.push({label:'Top 10 team',points:5}); reason += ' · ranked team'; }
-  if (/rivalry|rival\b|derby/.test(detail)) { factors.push({label:'Rivalry',points:7}); reason += ' · rivalry'; }
+  if (/rivalry|rival\b|derby/.test(detail) && !factors.some(item => item.label.endsWith('matchup'))) { factors.push({label:'Rivalry',points:7}); reason += ' · rivalry'; }
   return {score:clampScore(factors.reduce((sum,item) => sum + item.points,0)),factors,reason};
 }
 function gameProgress(sport,competition) {
@@ -242,6 +256,15 @@ function explainRating(game) {
     if (labels.has('Final round')) return `A place in the final round is at stake, which puts this matchup at ${game.score} before play.`;
     if (labels.has('Postseason')) return `It's a postseason game, so its stakes put it at ${game.score} before play begins.`;
     if (labels.has('Major tournament')) return `This match is part of a tennis major, so it starts at ${game.score} before play.`;
+    if (game.sport === 'NFL') {
+      const division = [...labels].find(label => /^(AFC|NFC) (East|North|South|West) matchup$/.test(label))?.replace(' matchup','');
+      const signals = [];
+      if (division) signals.push(`${game.teams[0][0]} and ${game.teams[1][0]} are ${division} rivals`);
+      if (labels.has('Both winning records')) signals.push(`both have winning records (${game.teams[0][5]} and ${game.teams[1][5]})`);
+      if (labels.has('Tight projected spread') || labels.has('Competitive projected spread')) signals.push(`the listed spread (${game.line?.spread || 'close'}) suggests a competitive game`);
+      const possibleQuarterbackDuel = Number(new Date(game.startTime).getFullYear()) === 2026 && game.teams.map(team => team[1]).sort().join('-') === 'BAL-CIN' ? ' It could also be Lamar Jackson vs. Joe Burrow if both start.' : '';
+      return signals.length ? `${signals.join('; ')}. That puts this at ${game.score} before kickoff.${possibleQuarterbackDuel}` : `No special matchup stakes or close-line signal are listed yet, so this starts at ${game.score} before kickoff.${possibleQuarterbackDuel}`;
+    }
     const ranked = game.teams.filter(team => team[6]);
     if (ranked.length === 2) return `Both teams are ranked (${ranked.map(team => `No. ${team[6]}`).join(' and ')}). ${labels.has('Unbeaten team') ? 'One is unbeaten, adding to the anticipation. ' : ''}This strong matchup starts at ${game.score} before kickoff; no game action is counted yet.`;
     if (ranked.length === 1) return `With No. ${ranked[0][6]} ${ranked[0][0]} in the matchup, this regular-season game starts at ${game.score} before play.`;
@@ -347,7 +370,7 @@ async function enrichGameSignals() {
     if (changed) { render(); changed = false; }
   }
 }
-function render() { const isSoccer = state.page === 'soccer'; $('#section-title').textContent = isSoccer ? 'Soccer radar' : 'Your radar'; $$('.nav-link').forEach(link => link.classList.toggle('active',link.dataset.page === state.page)); $$('.soccer-chip').forEach(chip => chip.classList.toggle('hidden',!isSoccer)); $('#fcs-toggle').classList.toggle('hidden',isSoccer || !state.visibleSports.has('CFB')); if (!isSoccer && state.sport !== 'all' && !state.visibleSports.has(state.sport)) { state.sport = 'all'; $$('.sport-chip[data-sport]').forEach(chip => chip.classList.toggle('active',chip.dataset.sport === 'all')); } let visible = games.filter(game => (state.gameState === 'completed' || !hideStaleFavorite(game)) && (isSoccer ? game.sport === 'Soccer' : game.sport !== 'Soccer' && state.visibleSports.has(game.sport) && (state.showFCS || game.division !== 'FCS'))); if (state.sport !== 'all') visible = visible.filter(game => game.sport === state.sport); if (state.gameState !== 'all') visible = visible.filter(game => game.state === state.gameState); visible.sort((a,b) => Number(b.favorite) - Number(a.favorite) || b.score - a.score); $('#game-list').innerHTML = visible.map(gameCard).join(''); $('#empty-state').classList.toggle('hidden',visible.length !== 0); $('#live-count').textContent = `${visible.filter(game => game.state === 'live').length} LIVE`; $('#all-count').textContent = visible.length; }
+function render() { const isSoccer = state.page === 'soccer'; $('#section-title').textContent = isSoccer ? 'Soccer radar' : 'Your radar'; $$('.nav-link').forEach(link => link.classList.toggle('active',link.dataset.page === state.page)); $$('.soccer-chip').forEach(chip => chip.classList.toggle('hidden',!isSoccer)); $('#fcs-toggle').classList.toggle('hidden',isSoccer || !state.visibleSports.has('CFB')); if (!isSoccer && state.sport !== 'all' && !state.visibleSports.has(state.sport)) { state.sport = 'all'; $$('.sport-chip[data-sport]').forEach(chip => chip.classList.toggle('active',chip.dataset.sport === 'all')); } let visible = games.filter(game => (state.gameState === 'completed' || !hideStaleFavorite(game)) && (isSoccer ? game.sport === 'Soccer' : game.sport !== 'Soccer' && state.visibleSports.has(game.sport) && (state.showFCS || game.division !== 'FCS'))); if (state.sport !== 'all') visible = visible.filter(game => game.sport === state.sport); if (state.gameState !== 'all') visible = visible.filter(game => game.state === state.gameState); visible.sort(compareGames); $('#game-list').innerHTML = visible.map(gameCard).join(''); $('#empty-state').classList.toggle('hidden',visible.length !== 0); $('#live-count').textContent = `${visible.filter(game => game.state === 'live').length} LIVE`; $('#all-count').textContent = visible.length; }
 $$('.nav-link').forEach(link => link.addEventListener('click', () => { state.page = link.dataset.page; state.sport = 'all'; location.hash = state.page === 'soccer' ? 'soccer' : 'home'; $$('.sport-chip[data-sport]').forEach(chip => chip.classList.toggle('active',chip.dataset.sport === 'all')); render(); }));
 window.addEventListener('hashchange', () => { state.page = location.hash === '#soccer' ? 'soccer' : 'home'; render(); });
 $$('.sport-chip[data-sport]').forEach(chip => chip.addEventListener('click', () => { state.sport = chip.dataset.sport; $$('.sport-chip[data-sport]').forEach(item => item.classList.toggle('active',item === chip)); render(); }));
@@ -372,5 +395,5 @@ $('#game-detail-overlay').addEventListener('click',event => { if (event.target =
 document.addEventListener('keydown',event => { if (event.key === 'Escape' && !$('#game-detail-overlay').hidden) hideGameDetails(); });
 syncSportToggles(); syncFCSFilter(); $('#profile-button').addEventListener('click', syncSportToggles); $$('[data-visible-sport]').forEach(input => input.addEventListener('change', () => { const sport = input.dataset.visibleSport; if (input.checked) state.visibleSports.add(sport); else state.visibleSports.delete(sport); persistPreferences(); render(); }));
 let deferredInstallPrompt; window.addEventListener('beforeinstallprompt',event => { event.preventDefault(); deferredInstallPrompt = event; $('#install-button').classList.remove('hidden'); }); $('#install-button').addEventListener('click',async() => { if (!deferredInstallPrompt) return; deferredInstallPrompt.prompt(); await deferredInstallPrompt.userChoice; deferredInstallPrompt = null; $('#install-button').classList.add('hidden'); }); window.addEventListener('appinstalled',() => $('#install-button').classList.add('hidden'));
-if ('serviceWorker' in navigator) navigator.serviceWorker.register('./sw.js?rev=20261020-17').then(registration => registration.update()).catch(() => {});
+if ('serviceWorker' in navigator) navigator.serviceWorker.register('./sw.js?rev=20261020-18').then(registration => registration.update()).catch(() => {});
 render(); loadLiveGames(); setInterval(loadLiveGames,60000);

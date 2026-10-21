@@ -3,6 +3,7 @@ const fs = require('node:fs');
 const vm = require('node:vm');
 
 const app = fs.readFileSync('app.js','utf8');
+const favoriteLogic = app.slice(app.indexOf('function sameLocalDay'),app.indexOf('function stateFromEvent'));
 const scoreLogic = app.slice(app.indexOf('const SPORT_BASE'),app.indexOf('function normalizeEvent'));
 const explanationLogic = app.slice(app.indexOf('function explainRating'),app.indexOf('function trendFor'));
 const nflLogic = app.slice(app.indexOf('function nflWeekMeta'),app.indexOf('function dedupeGames'));
@@ -20,6 +21,26 @@ const fixtures = `
   assert.equal(championship.score,85);
   assert.ok(championship.score > ordinary.score);
   assert.equal(postseason.score,60);
+  const ravensBengals = {notes:[],competitors:[
+    {team:{abbreviation:'BAL'},records:[{type:'overall',summary:'4-2'}]},
+    {team:{abbreviation:'CIN'},records:[{type:'overall',summary:'3-2'}]}
+  ],odds:[{details:'BAL -3',overUnder:51.5}]};
+  const rivalry = rateGame('NFL','upcoming',scheduledTeams,{name:'Ravens vs Bengals'},ravensBengals,'');
+  assert.equal(rivalry.score,71);
+  const nflGame = {sport:'NFL',state:'upcoming',score:rivalry.score,factors:rivalry.factors,startTime:'2026-10-25T17:00:00Z',line:{spread:'BAL -3'},teams:[['Baltimore Ravens','BAL','0','',null,'4-2'],['Cincinnati Bengals','CIN','0','',null,'3-2']]};
+  const nflProse = explainRating(nflGame);
+  assert.match(nflProse,/AFC North/);
+  assert.match(nflProse,/BAL -3/);
+  assert.match(nflProse,/Lamar Jackson vs\. Joe Burrow if both start/);
+  assert.doesNotMatch(nflProse,/ranked/);
+  assert.doesNotMatch(explainRating({...nflGame,score:38,factors:[{label:'Sport baseline',points:38}],teams:[['Team One','ONE'],['Team Two','TWO']]}),/ranked/);
+  const futureFavorite = {favorite:true,state:'upcoming',startTime:new Date(Date.now()+3*86400000).toISOString(),score:71};
+  const todayFavorite = {...futureFavorite,startTime:new Date().toISOString()};
+  const ordinaryUpcoming = {favorite:false,state:'upcoming',score:80};
+  assert.equal(pinnedFavorite(futureFavorite),false);
+  assert.equal(pinnedFavorite(todayFavorite),true);
+  assert.equal([futureFavorite,ordinaryUpcoming].sort(compareGames)[0],ordinaryUpcoming);
+  assert.equal([ordinaryUpcoming,todayFavorite].sort(compareGames)[0],todayFavorite);
   const rankedPair = {notes:[],competitors:[
     {curatedRank:{current:19},records:[{type:'overall',summary:'4-2'}]},
     {curatedRank:{current:7},records:[{type:'overall',summary:'5-1'}]}
@@ -83,4 +104,4 @@ const fixtures = `
   assert.ok(thursday.some(game => game.id === 'w7a'));
   console.log('Score model fixtures passed');
 `;
-vm.runInNewContext(`${scoreLogic}\n${explanationLogic}\n${nflLogic}\n${dedupeLogic}\n${fixtures}`,{assert,console,URL,localStorage:{getItem:()=>null}});
+vm.runInNewContext(`${favoriteLogic}\n${scoreLogic}\n${explanationLogic}\n${nflLogic}\n${dedupeLogic}\n${fixtures}`,{assert,console,URL,localStorage:{getItem:()=>null}});
