@@ -1,0 +1,11 @@
+name = "sports-radar-alerts"
+main = "src/index.js"
+compatibility_date = "2026-10-21"
+
+[triggers]
+crons = ["* * * * *"]
+
+[[d1_databases]]
+binding = "DB"
+database_name = "sports-radar-alerts"
+database_id = "a46d8205-8e2c-44c2-8e90-fef74acfd99b"

@@ -1,0 +1,17 @@
+{
+  "name": "sports-radar-alerts",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "test": "node --test test/*.test.js",
+    "vapid": "node scripts/generate-vapid.js"
+  },
+  "dependencies": {
+    "@block65/webcrypto-web-push": "2.0.0"
+  },
+  "devDependencies": {
+    "wrangler": "^4.0.0"
+  }
+}
