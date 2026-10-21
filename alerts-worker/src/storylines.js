@@ -139,7 +139,8 @@ function deterministicFactor(article) {
   else if (/(season debut|make(s|ing)? (his|her|their) debut)/i.test(text)) type = 'season_debut';
   else if (/(playoff race|wild.card race|elimination|clinching)/i.test(text)) type = 'playoff_race';
   else if (/(coach|manager).{0,70}(return|former|faces old team)/i.test(text)) type = 'coach_return';
-  else if (/(hot streak|hat trick|straight game|goals in .* games|homers? in .* games|scored in .* games|points in .* games)/i.test(text)) type = 'star_hot_streak';
+  else if (/(hot streak|in (?:his|her|their )?(?:last|past|previous) \d+ games|(?:\d+|several|multiple) straight games|(?:goals?|homers?|points?) in .* games|scored in .* games)/i.test(text)) type = 'star_hot_streak';
+  else if (/(hat trick|overtime|three goals|scored three|previous game|last game|game-winning)/i.test(text)) type = 'notable_recent_performance';
   else if (/(winning streak|win streak|unbeaten in)/i.test(text)) type = 'team_win_streak';
   else if (/(major trade|blockbuster|traded)/i.test(text)) type = 'major_trade_storyline';
   if (!ALLOWED_TYPES.has(type)) return null;
