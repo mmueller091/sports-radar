@@ -1894,6 +1894,21 @@ function trendFor(game) {
   }${delta} vs start</small>`;
 }
 
+function isWinningTeam(game, team) {
+  if (game.state !== 'completed' || !Array.isArray(game.teams)) {
+    return false;
+  }
+
+  const scores = game.teams.map(item => Number(item?.[2]));
+  const score = Number(team?.[2]);
+
+  return scores.length === 2 &&
+    scores.every(Number.isFinite) &&
+    scores[0] !== scores[1] &&
+    Number.isFinite(score) &&
+    score === Math.max(...scores);
+}
+
 function scoreMovementExplanation(game) {
   const score = Number(game.score);
   const opening = Number(game.openingScore);
@@ -2061,6 +2076,11 @@ function gameCard(game) {
     .filter(Boolean)
     .join(', ');
 
+  const completionClass =
+    game.state === 'completed'
+      ? 'completed-card'
+      : '';
+
   return `<button type="button" class="game-card ${
     game.favorite
       ? 'favorite'
@@ -2069,7 +2089,7 @@ function gameCard(game) {
     isWatched(game)
       ? 'watched'
       : ''
-  }" data-id="${safeText(game.id)}" data-division="${safeText(game.division || '')}" aria-label="${safeText(accessibility)}"><span class="sport-icon"><img class="league-logo" src="${safeText(leagueLogo)}" alt="" loading="lazy" onerror="this.style.display='none'"></span><span class="team-column"><span class="match-meta">${stateLabel}${
+  } ${completionClass}" data-id="${safeText(game.id)}" data-division="${safeText(game.division || '')}" aria-label="${safeText(accessibility)}"><span class="sport-icon"><img class="league-logo" src="${safeText(leagueLogo)}" alt="" loading="lazy" onerror="this.style.display='none'"></span><span class="team-column"><span class="match-meta">${stateLabel}${
     isWatched(game)
       ? '<span class="watch-indicator" aria-hidden="true">★ Watching</span>'
       : ''
@@ -2077,7 +2097,7 @@ function gameCard(game) {
     game.division
       ? `<span>•</span><span>${safeText(game.division)}</span>`
       : ''
-  }<span>•</span><span>${safeText(game.sub)}</span></span><span class="team-row">${teamMarkup(game,game.teams[0])}<b class="team-score">${safeText(game.teams[0][2])}</b></span><span class="team-row">${teamMarkup(game,game.teams[1])}<b class="team-score">${safeText(game.teams[1][2])}</b></span>${situation}</span>${momentMarkup}<span class="game-context channel-context"><span class="detail-inline"><strong>TV</strong><span>${safeText(game.channel || 'Channel not listed')}</span></span><span class="stats-cue">Stats ›</span><span class="detail-inline line-inline"><strong>${safeText(compactLineLabel)}</strong><span>${safeText(line.text)}</span></span></span><span class="excitement"><span class="score-circle ${scoreClass}" style="${scoreColorStyle}">${game.score}</span>${trendFor(game)}</span></button>`;
+  }<span>•</span><span>${safeText(game.sub)}</span></span><span class="team-row ${isWinningTeam(game,game.teams[0]) ? 'winner-row' : ''}">${teamMarkup(game,game.teams[0])}<b class="team-score">${safeText(game.teams[0][2])}</b></span><span class="team-row ${isWinningTeam(game,game.teams[1]) ? 'winner-row' : ''}">${teamMarkup(game,game.teams[1])}<b class="team-score">${safeText(game.teams[1][2])}</b></span>${situation}</span>${momentMarkup}<span class="game-context channel-context"><span class="detail-inline"><strong>Broadcast</strong><span>${safeText(game.channel || 'Channel not listed')}</span></span><span class="stats-cue">Stats ›</span><span class="detail-inline line-inline"><strong>${safeText(compactLineLabel)}</strong><span>${safeText(line.text)}</span></span></span><span class="excitement"><span class="score-circle ${scoreClass}" style="${scoreColorStyle}">${game.score}</span>${trendFor(game)}</span></button>`;
 }
 
 function detailStats(summary) {
