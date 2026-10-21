@@ -8,7 +8,7 @@ Open `index.html` directly for the demo shell, or serve the folder with any stat
 
 On a phone, open the deployed HTTPS URL in Safari or Chrome and use **Add to Home Screen** / **Install app**. The included manifest and service worker make the site open as a standalone app and keep the UI shell available when connectivity is briefly unavailable.
 
-The Preferences dialog lets you choose which sports appear on the home page. Those choices are saved with browser `localStorage`, so they persist on that device and browser but do not sync automatically to another device. Cross-device syncing would require a sign-in and a small hosted settings service.
+The Preferences dialog lets you choose which sports appear on the home page. The college-football row also has a one-tap **FCS: On/Off** filter; FBS remains visible either way. These choices are saved with browser `localStorage`, so they persist on that device and browser but do not sync automatically to another device. Cross-device syncing would require a sign-in and a small hosted settings service.
 
 ## Deploy to GitHub Pages
 
@@ -18,7 +18,7 @@ The Preferences dialog lets you choose which sports appear on the home page. Tho
 
 ## Live-data architecture
 
-The UI connects directly to public ESPN scoreboard JSON endpoints for NFL, MLB, NHL, college football, NBA, NCAA basketball, EPL, UEFA Champions League, and ATP tennis. It refreshes every 60 seconds and has a manual refresh button. Because these endpoints are an unofficial public surface rather than a guaranteed developer product, the app falls back to demo data if a provider blocks a request or changes its response. For a durable production feed, swap `LIVE_FEEDS` in `app.js` for an API-backed serverless adapter and keep API keys off the browser.
+The UI connects directly to public ESPN scoreboard JSON endpoints for NFL, MLB, NHL, college football, NBA, NCAA basketball, EPL, UEFA Champions League, and ATP tennis. College football requests ESPN's FBS (`groups=80`) and FCS (`groups=81`) groups separately with a larger result limit and removes duplicate crossover games. It refreshes every 60 seconds and has a manual refresh button. Because these endpoints are an unofficial public surface rather than a guaranteed developer product, the app falls back to demo data if a provider blocks a request or changes its response. The FCS switch hides games appearing in the FCS feed, including FBS–FCS crossovers. For a durable production feed, swap `LIVE_FEEDS` in `app.js` for an API-backed serverless adapter and keep API keys off the browser.
 
 Viable sources to evaluate:
 
@@ -29,7 +29,7 @@ Viable sources to evaluate:
 
 ## Excitement model
 
-The displayed rating is an estimate on a 1–99 scale, not a provider-supplied excitement score. Each card gives a plain-English explanation. Before a game starts, the model uses a sport baseline plus confirmed stakes (for example postseason, championship, ranked teams, or rivalry). It never counts a pregame 0–0 as a close score. During play it adds closeness and game progress; after the final it accounts for the final margin and, when available, decisive scoring plays and lead changes. A World Series opener therefore receives its championship and series-opener points before play, while an unranked regular-season college football game does not.
+The displayed rating is an estimate on a 1–99 scale, not a provider-supplied excitement score. Each card gives a plain-English explanation. Before a game starts, the model uses a sport baseline plus confirmed stakes (for example postseason, championship, ranked teams, or rivalry). Two ranked college-football teams now get a substantial pregame lift, with smaller additions for a top-10 team, two top-20 teams, winning records, or an unbeaten team. It never counts a pregame 0–0 as a close score. During play it adds closeness and game progress; after the final it accounts for the final margin and, when available, decisive scoring plays and lead changes. A World Series opener therefore receives its championship and series-opener points before play, while an unranked regular-season college football game does not.
 
 The arrow shown only for live or completed games compares the current rating with that game's opening estimate. It is a change from the start, not a measured minute-by-minute time series. No trend appears for an upcoming game. A production scoring adapter could improve this model with:
 
