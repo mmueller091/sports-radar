@@ -1,4 +1,5 @@
-const FAVORITE_MATCHES = ['ravens', 'orioles', 'capitals'];
+const DEFAULT_FAVORITE_TEAMS = [{sport:'NFL',name:'Baltimore Ravens'},{sport:'MLB',name:'Baltimore Orioles'},{sport:'NHL',name:'Washington Capitals'}];
+const FAVORITE_SPORTS = ['NFL','MLB','NHL','CFB','NBA','NCAAB','Soccer'];
 const ESPN_BASE = 'https://site.api.espn.com/apis/site/v2/sports';
 const HOME_SPORTS = ['NFL','MLB','NHL','CFB','NBA','NCAAB','Tennis'];
 const SPORT_LABELS = {NFL:'NFL',MLB:'MLB',NHL:'NHL',CFB:'College Football',NBA:'NBA',NCAAB:'NCAAM',Tennis:'Tennis',Soccer:'Soccer'};
@@ -40,10 +41,11 @@ let games = [...DEMO_GAMES];
 function readPreferences() { try { return JSON.parse(localStorage.getItem(PREFERENCES_KEY) || '{}'); } catch { return {}; } }
 const savedPreferences = readPreferences();
 const savedSports = Array.isArray(savedPreferences.visibleSports) ? savedPreferences.visibleSports.filter(sport => HOME_SPORTS.includes(sport)) : HOME_SPORTS;
-const state = {page:location.hash === '#soccer' ? 'soccer' : 'home', sport:'all', gameState:'all', showFCS:savedPreferences.showFCS !== false, visibleSports:new Set(savedSports), source:'demo'};
+const savedFavorites = Array.isArray(savedPreferences.favoriteTeams) ? savedPreferences.favoriteTeams.filter(team => FAVORITE_SPORTS.includes(team?.sport) && typeof team.name === 'string' && team.name.trim()).slice(0,50).map(team => ({sport:team.sport,name:team.name.trim(),id:String(team.id || ''),logo:String(team.logo || '')})) : DEFAULT_FAVORITE_TEAMS.map(team => ({...team}));
+const state = {page:location.hash === '#soccer' ? 'soccer' : 'home', sport:'all', gameState:'all', showFCS:savedPreferences.showFCS !== false, visibleSports:new Set(savedSports), favoriteTeams:savedFavorites, source:'demo'};
 const $ = selector => document.querySelector(selector);
 const $$ = selector => [...document.querySelectorAll(selector)];
-function persistPreferences() { try { localStorage.setItem(PREFERENCES_KEY, JSON.stringify({visibleSports:[...state.visibleSports],showFCS:state.showFCS})); } catch {} }
+function persistPreferences() { try { localStorage.setItem(PREFERENCES_KEY, JSON.stringify({visibleSports:[...state.visibleSports],showFCS:state.showFCS,favoriteTeams:state.favoriteTeams})); } catch {} }
 function syncFCSFilter() { const chip = $('#fcs-toggle'); chip.textContent = state.showFCS ? 'FCS: On' : 'FCS: Off'; chip.classList.toggle('active',state.showFCS); chip.setAttribute('aria-pressed',String(state.showFCS)); }
 function syncSportToggles() { $$('[data-visible-sport]').forEach(input => { input.checked = state.visibleSports.has(input.dataset.visibleSport); }); }
 function labelForSport(sport) { return SPORT_LABELS[sport] || sport; }
@@ -55,7 +57,8 @@ const NFL_DIVISIONS = {BUF:'AFC East',MIA:'AFC East',NE:'AFC East',NYJ:'AFC East
 const CLOSE_MARGIN = {NFL:14,MLB:3,NHL:3,CFB:14,NBA:12,NCAAB:12,Tennis:3,Soccer:3};
 function clampScore(value) { return Math.max(1,Math.min(99,Math.round(value))); }
 function factorText(factors,score) { const parts = factors.map(factor => `${factor.label} ${factor.points > 0 ? '+' : ''}${factor.points}`); if (factors.reduce((sum,item) => sum + item.points,0) > 99 && score === 99) parts.push('capped at 99'); return parts.join(' · '); }
-function favoriteFor(teams) { return teams.some(team => FAVORITE_MATCHES.some(match => team.name.toLowerCase().includes(match))); }
+function normalizedTeamName(name) { return String(name || '').trim().toLocaleLowerCase().replace(/\s+/g,' '); }
+function favoriteFor(teams,sport) { return state.favoriteTeams.some(favorite => favorite.sport === sport && teams.some(team => { const id = String(team.id || team[8] || ''); const name = team.name || team[0]; return Boolean(favorite.id && id && favorite.id === id) || normalizedTeamName(favorite.name) === normalizedTeamName(name); })); }
 function sameLocalDay(value) { if (!value) return false; return new Date(value).toLocaleDateString() === new Date().toLocaleDateString(); }
 function pinnedFavorite(game) { return Boolean(game.favorite && (game.state !== 'upcoming' || sameLocalDay(game.startTime))); }
 function compareGames(a,b) { return Number(pinnedFavorite(b)) - Number(pinnedFavorite(a)) || b.score - a.score; }
@@ -194,9 +197,9 @@ function rateGame(sport,gameState,teams,event,competition,context) {
 }
 function normalizeEvent(event, sport, leagueLogo, division) {
   const competition = event.competitions?.[0]; const competitors = competition?.competitors || []; if (competitors.length < 2) return null;
-  const teams = competitors.slice(0,2).map(competitor => ({name:competitor.team?.displayName || competitor.athlete?.displayName || 'Unknown', shortName:competitor.team?.shortDisplayName || competitor.team?.name || competitor.athlete?.shortName || '', abbr:competitor.team?.abbreviation || competitor.abbreviation || '', score:scoreValue(competitor), logo:competitor.team?.logo || '', color:'white',record:recordFor(competitor),rank:rankFor(competitor,sport)}));
+  const teams = competitors.slice(0,2).map(competitor => ({id:String(competitor.team?.id || ''),name:competitor.team?.displayName || competitor.athlete?.displayName || 'Unknown', shortName:competitor.team?.shortDisplayName || competitor.team?.name || competitor.athlete?.shortName || '', abbr:competitor.team?.abbreviation || competitor.abbreviation || '', score:scoreValue(competitor), logo:competitor.team?.logo || '', color:'white',record:recordFor(competitor),rank:rankFor(competitor,sport)}));
   const gameState = stateFromEvent(event); const status = competition?.status?.type?.shortDetail || competition?.status?.type?.detail || (gameState === 'completed' ? 'Final' : 'Scheduled'); const context = competition?.notes?.[0]?.headline || event.name || `${sport} matchup`; const rating = rateGame(sport,gameState,teams,event,competition,context); const eventId = event.id || `${sport}-${event.name}`;
-  return {id:eventId,summaryUrl:summaryUrlFor(sport,eventId),favorite:favoriteFor(teams),sport,division,icon:iconFor(sport),leagueLogo:leagueLogo || LEAGUE_LOGOS[sport],startTime:event.date,state:gameState,status,channel:broadcastFor(competition) || 'Channel not listed',teams:teams.map(team => [team.name,team.abbr,team.score,team.color,team.logo,team.record,team.rank,team.shortName]),line:gameState === 'upcoming' ? parseLine(competition?.odds?.[0],competition,sport) : null,context,why:rating.reason,sub:competition?.venue?.fullName || competition?.venue?.address?.city || 'Live scoreboard',score:rating.score,openingScore:rating.openingScore,factors:rating.factors};
+  return {id:eventId,summaryUrl:summaryUrlFor(sport,eventId),favorite:favoriteFor(teams,sport),sport,division,icon:iconFor(sport),leagueLogo:leagueLogo || LEAGUE_LOGOS[sport],startTime:event.date,state:gameState,status,channel:broadcastFor(competition) || 'Channel not listed',teams:teams.map(team => [team.name,team.abbr,team.score,team.color,team.logo,team.record,team.rank,team.shortName,team.id]),line:gameState === 'upcoming' ? parseLine(competition?.odds?.[0],competition,sport) : null,context,why:rating.reason,sub:competition?.venue?.fullName || competition?.venue?.address?.city || 'Live scoreboard',score:rating.score,openingScore:rating.openingScore,factors:rating.factors};
 }
 async function fetchScoreboard(feed) { const controller = new AbortController(); const timer = setTimeout(() => controller.abort(), 7000); try { const url = new URL(feed.url); url.searchParams.set('limit',String(feed.limit || 100)); const response = await fetch(url, {signal:controller.signal,cache:'no-store'}); if (!response.ok) throw new Error(`HTTP ${response.status}`); return await response.json(); } finally { clearTimeout(timer); } }
 function gamesFromScoreboard(feed,payload) { const leagueLogo = payload.leagues?.[0]?.logos?.[0]?.href; const events = (payload.events || []).map(event => normalizeEvent(event,feed.sport,leagueLogo,feed.division)).filter(Boolean); events.forEach(rememberPregameLine); return events; }
@@ -246,8 +249,52 @@ async function fetchNFLWindow() {
   return selectNFLWindow([...current,...results.flatMap(result => result.status === 'fulfilled' ? result.value : [])]);
 }
 function dedupeGames(items) { const unique = new Map(); for (const game of items) { const key = `${game.sport}:${game.id}`; const existing = unique.get(key); if (!existing || game.division === 'FCS') unique.set(key,game); } return [...unique.values()]; }
-async function loadLiveGames() { $('#data-status-label').textContent = 'Connecting to live scoreboards…'; const requests = [fetchNFLWindow(),...LIVE_FEEDS.filter(feed => feed.sport !== 'NFL').map(fetchFeed)]; const results = await Promise.allSettled(requests); const liveGames = dedupeGames(results.flatMap(result => result.status === 'fulfilled' ? result.value : [])); if (liveGames.length) { games = liveGames; state.source = 'live'; } else { games = [...DEMO_GAMES]; state.source = 'demo'; } $('#data-status-label').textContent = state.source === 'live' ? `Live scores · updated ${new Date().toLocaleTimeString([], {hour:'numeric',minute:'2-digit'})}` : 'Demo data · live feed unavailable'; $('#footer-status').textContent = state.source === 'live' ? 'Live feed' : 'Demo data'; render(); if (state.source === 'live') enrichGameSignals(); }
+async function loadLiveGames() { $('#data-status-label').textContent = 'Connecting to live scoreboards…'; const requests = [fetchNFLWindow(),...LIVE_FEEDS.filter(feed => feed.sport !== 'NFL').map(fetchFeed)]; const results = await Promise.allSettled(requests); const liveGames = dedupeGames(results.flatMap(result => result.status === 'fulfilled' ? result.value : [])); if (liveGames.length) { games = liveGames; state.source = 'live'; } else { games = DEMO_GAMES.map(game => ({...game,favorite:favoriteFor(game.teams,game.sport)})); state.source = 'demo'; } $('#data-status-label').textContent = state.source === 'live' ? `Live scores · updated ${new Date().toLocaleTimeString([], {hour:'numeric',minute:'2-digit'})}` : 'Demo data · live feed unavailable'; $('#footer-status').textContent = state.source === 'live' ? 'Live feed' : 'Demo data'; render(); if (state.source === 'live') enrichGameSignals(); }
 function safeText(value) { return String(value ?? '').replace(/[&<>"']/g, character => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[character])); }
+const favoriteCatalog = new Map();
+let favoriteCatalogRequest;
+let visibleFavoriteSuggestions = [];
+function sameFavorite(a,b) { return a.sport === b.sport && (Boolean(a.id && b.id && String(a.id) === String(b.id)) || normalizedTeamName(a.name) === normalizedTeamName(b.name)); }
+function syncFavoriteGames() { games.forEach(game => { game.favorite = favoriteFor(game.teams,game.sport); }); }
+function renderFavoriteTags() {
+  $('#favorite-tags').innerHTML = state.favoriteTeams.length ? state.favoriteTeams.map((team,index) => `<span class="favorite-tag">${team.logo ? `<img src="${safeText(team.logo)}" alt="" loading="lazy" onerror="this.style.display='none'">` : `<span aria-hidden="true">${safeText(iconFor(team.sport))}</span>`}<span class="favorite-tag-name">${safeText(team.name)}</span><button type="button" data-remove-favorite="${index}" aria-label="Remove ${safeText(team.name)} from favorites">×</button></span>`).join('') : '<p class="favorite-empty">No favorites selected. Add a team below.</p>';
+}
+function loadFavoriteCatalog() {
+  if (favoriteCatalogRequest) return favoriteCatalogRequest;
+  favoriteCatalogRequest = fetch('./teams.json?rev=20261020-20').then(response => { if (!response.ok) throw new Error(`HTTP ${response.status}`); return response.json(); }).then(directory => {
+    FAVORITE_SPORTS.forEach(sport => favoriteCatalog.set(sport,(directory[sport] || []).map(team => ({sport,id:String(team.id || ''),name:String(team.name || ''),logo:String(team.logo || '')}))));
+    renderFavoriteResults();
+  }).catch(() => { FAVORITE_SPORTS.forEach(sport => favoriteCatalog.set(sport,[])); renderFavoriteResults(); });
+  return favoriteCatalogRequest;
+}
+function knownFavoriteTeams(sport) {
+  const fromGames = games.filter(game => game.sport === sport).flatMap(game => game.teams.map(team => ({sport,id:String(team[8] || ''),name:team[0],logo:team[4] || ''})));
+  const unique = new Map();
+  for (const team of [...fromGames,...(favoriteCatalog.get(sport) || [])]) unique.set(normalizedTeamName(team.name),team);
+  return [...unique.values()];
+}
+function renderFavoriteResults() {
+  const sport = $('#favorite-sport').value;
+  const query = normalizedTeamName($('#favorite-query').value);
+  $('#favorite-manual-add').disabled = query.length < 2;
+  if (query.length < 2) { visibleFavoriteSuggestions = []; $('#favorite-results').innerHTML = '<p class="favorite-empty">Type at least two letters to find a team.</p>'; return; }
+  if (!favoriteCatalogRequest) loadFavoriteCatalog();
+  visibleFavoriteSuggestions = knownFavoriteTeams(sport).filter(team => normalizedTeamName(team.name).includes(query)).sort((a,b) => Number(normalizedTeamName(b.name).startsWith(query)) - Number(normalizedTeamName(a.name).startsWith(query)) || a.name.localeCompare(b.name)).slice(0,12);
+  $('#favorite-results').innerHTML = visibleFavoriteSuggestions.map((team,index) => `<button type="button" class="favorite-result" data-add-favorite="${index}" ${state.favoriteTeams.some(item => sameFavorite(item,team)) ? 'disabled' : ''}>${team.logo ? `<img src="${safeText(team.logo)}" alt="" loading="lazy" onerror="this.style.display='none'">` : `<span aria-hidden="true">${safeText(iconFor(sport))}</span>`}<span>${safeText(team.name)}${state.favoriteTeams.some(item => sameFavorite(item,team)) ? ' · Added' : ''}</span></button>`).join('') || `<p class="favorite-empty">${favoriteCatalog.has(sport) ? 'No matching team found.' : 'Looking up teams…'}</p>`;
+}
+function addFavoriteTeam(team) {
+  if (!team?.name || !FAVORITE_SPORTS.includes(team.sport) || state.favoriteTeams.some(item => sameFavorite(item,team))) return;
+  state.favoriteTeams.push({sport:team.sport,name:team.name.trim(),id:String(team.id || ''),logo:String(team.logo || '')});
+  if (HOME_SPORTS.includes(team.sport)) state.visibleSports.add(team.sport);
+  syncFavoriteGames(); persistPreferences(); syncSportToggles(); renderFavoriteTags(); renderFavoriteResults(); render();
+}
+function addTypedFavorite() {
+  const sport = $('#favorite-sport').value;
+  const name = $('#favorite-query').value.trim().replace(/\s+/g,' ').slice(0,80);
+  if (name.length < 2) return;
+  const exact = knownFavoriteTeams(sport).find(team => normalizedTeamName(team.name) === normalizedTeamName(name));
+  addFavoriteTeam(exact || {sport,name});
+}
 function teamMarkup(game, team) { const logo = team[4] || teamLogoUrl(game.sport, team[1]); return `<span class="team-name"><img class="team-logo" src="${safeText(logo)}" alt="" loading="lazy" onerror="this.style.display='none'">${team[6] ? `<b class="team-rank">#${safeText(team[6])}</b>` : ''}<span class="team-name-text"><span class="full-team-name">${safeText(team[0])}</span><span class="short-team-name">${safeText(team[7] || team[0])}</span></span>${team[5] ? `<small class="team-record">${safeText(team[5])}</small>` : ''}</span>`; }
 function explainRating(game) {
   if (!game.factors?.length) return game.context || 'The live feed has not supplied a detailed rating explanation.';
@@ -395,7 +442,16 @@ $('#game-list').addEventListener('pointercancel',() => { touchStart = null; });
 $('#game-list').addEventListener('click',event => { if (Date.now() - lastTouchOpen < 600) return; const card = event.target.closest('.game-card'); if (card) openGameDetails(card.dataset.id); });
 $('#game-detail-overlay').addEventListener('click',event => { if (event.target === event.currentTarget || event.target.closest('.close-dialog')) hideGameDetails(); });
 document.addEventListener('keydown',event => { if (event.key === 'Escape' && !$('#game-detail-overlay').hidden) hideGameDetails(); });
-syncSportToggles(); syncFCSFilter(); $('#profile-button').addEventListener('click', syncSportToggles); $$('[data-visible-sport]').forEach(input => input.addEventListener('change', () => { const sport = input.dataset.visibleSport; if (input.checked) state.visibleSports.add(sport); else state.visibleSports.delete(sport); persistPreferences(); render(); }));
+syncSportToggles(); syncFCSFilter();
+$('#profile-button').addEventListener('click', () => { syncSportToggles(); renderFavoriteTags(); renderFavoriteResults(); });
+$('#favorite-sport').addEventListener('change', renderFavoriteResults);
+$('#favorite-query').addEventListener('input', renderFavoriteResults);
+$('#favorite-query').addEventListener('keydown', event => { if (event.key === 'Enter') { event.preventDefault(); addTypedFavorite(); } });
+$('#favorite-manual-add').addEventListener('click',addTypedFavorite);
+$('#favorite-results').addEventListener('click',event => { const button = event.target.closest('[data-add-favorite]'); if (button) addFavoriteTeam(visibleFavoriteSuggestions[Number(button.dataset.addFavorite)]); });
+$('#favorite-tags').addEventListener('click',event => { const button = event.target.closest('[data-remove-favorite]'); if (!button) return; state.favoriteTeams.splice(Number(button.dataset.removeFavorite),1); syncFavoriteGames(); persistPreferences(); renderFavoriteTags(); renderFavoriteResults(); render(); });
+$$('[data-visible-sport]').forEach(input => input.addEventListener('change', () => { const sport = input.dataset.visibleSport; if (input.checked) state.visibleSports.add(sport); else state.visibleSports.delete(sport); persistPreferences(); render(); }));
 let deferredInstallPrompt; window.addEventListener('beforeinstallprompt',event => { event.preventDefault(); deferredInstallPrompt = event; $('#install-button').classList.remove('hidden'); }); $('#install-button').addEventListener('click',async() => { if (!deferredInstallPrompt) return; deferredInstallPrompt.prompt(); await deferredInstallPrompt.userChoice; deferredInstallPrompt = null; $('#install-button').classList.add('hidden'); }); window.addEventListener('appinstalled',() => $('#install-button').classList.add('hidden'));
-if ('serviceWorker' in navigator) navigator.serviceWorker.register('./sw.js?rev=20261020-19').then(registration => registration.update()).catch(() => {});
-render(); loadLiveGames(); setInterval(loadLiveGames,60000);
+if ('serviceWorker' in navigator) navigator.serviceWorker.register('./sw.js?rev=20261020-20').then(registration => registration.update()).catch(() => {});
+games = DEMO_GAMES.map(game => ({...game,favorite:favoriteFor(game.teams,game.sport)}));
+renderFavoriteTags(); renderFavoriteResults(); render(); loadLiveGames(); setInterval(loadLiveGames,60000);

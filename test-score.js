@@ -3,7 +3,12 @@ const fs = require('node:fs');
 const vm = require('node:vm');
 
 const app = fs.readFileSync('app.js','utf8');
-const favoriteLogic = app.slice(app.indexOf('function sameLocalDay'),app.indexOf('function stateFromEvent'));
+const favoriteLogic = app.slice(app.indexOf('function normalizedTeamName'),app.indexOf('function stateFromEvent'));
+const pickerLogic = app.slice(app.indexOf('function sameFavorite'),app.indexOf('function syncFavoriteGames'));
+const teamDirectory = JSON.parse(fs.readFileSync('teams.json','utf8'));
+assert.equal(teamDirectory.NBA.length,30);
+assert.ok(teamDirectory.NBA.some(team => team.name === 'Los Angeles Lakers'));
+assert.ok(teamDirectory.CFB.length > 500);
 const scoreLogic = app.slice(app.indexOf('const SPORT_BASE'),app.indexOf('function normalizeEvent'));
 const explanationLogic = app.slice(app.indexOf('function explainRating'),app.indexOf('function trendFor'));
 const nflLogic = app.slice(app.indexOf('function nflWeekMeta'),app.indexOf('function dedupeGames'));
@@ -11,6 +16,15 @@ const dedupeLogic = app.slice(app.indexOf('function dedupeGames'),app.indexOf('a
 assert.match(app,/scoreboard\?groups=80[^\n]*limit:500/);
 assert.match(app,/scoreboard\?groups=81[^\n]*limit:500/);
 const fixtures = `
+  const state = {favoriteTeams:[{sport:'NFL',name:'Baltimore Ravens'},{sport:'MLB',name:'Baltimore Orioles'},{sport:'NHL',name:'Washington Capitals'}]};
+  assert.equal(favoriteFor([{name:'Baltimore Ravens',id:'33'}],'NFL'),true);
+  assert.equal(favoriteFor([{name:'Baltimore Ravens',id:'33'}],'NBA'),false);
+  state.favoriteTeams = state.favoriteTeams.filter(team => team.name !== 'Washington Capitals');
+  assert.equal(favoriteFor([{name:'Washington Capitals',id:'23'}],'NHL'),false);
+  state.favoriteTeams.push({sport:'NBA',name:'Los Angeles Lakers',id:'13'});
+  assert.equal(favoriteFor([{name:'Los Angeles Lakers',id:'13'}],'NBA'),true);
+  assert.equal(favoriteFor([{name:'LA Lakers',id:'13'}],'NBA'),true);
+  assert.equal(sameFavorite({sport:'NBA',name:'Los Angeles Lakers',id:'13'},{sport:'NBA',name:'LA Lakers',id:'13'}),true);
   const cfb = {notes:[],competitors:[{team:{displayName:'Minnesota'}},{team:{displayName:'Iowa'}}]};
   const worldSeries = {notes:[{headline:'World Series - Game 1'}],competitors:[{team:{displayName:'Brewers'}},{team:{displayName:'Rays'}}]};
   const scheduledTeams = [{score:'0'},{score:'0'}];
@@ -119,4 +133,4 @@ const fixtures = `
   assert.ok(thursday.some(game => game.id === 'w7a'));
   console.log('Score model fixtures passed');
 `;
-vm.runInNewContext(`${favoriteLogic}\n${scoreLogic}\n${explanationLogic}\n${nflLogic}\n${dedupeLogic}\n${fixtures}`,{assert,console,URL,localStorage:{getItem:()=>null}});
+vm.runInNewContext(`${favoriteLogic}\n${pickerLogic}\n${scoreLogic}\n${explanationLogic}\n${nflLogic}\n${dedupeLogic}\n${fixtures}`,{assert,console,URL,localStorage:{getItem:()=>null}});
