@@ -170,3 +170,51 @@ const fixtures = `
   console.log('Score model fixtures passed');
 `;
 vm.runInNewContext(`${favoriteLogic}\n${pickerLogic}\n${scoreLogic}\n${explanationLogic}\n${nflLogic}\n${dedupeLogic}\n${fixtures}`,{assert,console,URL,localStorage:{getItem:()=>null}});
+
+const watchLogic = app.slice(app.indexOf('function watchKey'),app.indexOf('function syncFCSFilter'));
+vm.runInNewContext(`${watchLogic}
+  const state = {watchedGames:new Set()};
+  const saved = {};
+  const localStorage = {setItem:(key,value) => { saved[key] = value; }};
+  const WATCHLIST_KEY = 'sports-radar-watched-games-v1';
+  const render = () => {};
+  const game = {sport:'NHL',id:'401892539'};
+  assert.equal(isWatched(game),false);
+  assert.equal(toggleWatchedGame(game),true);
+  assert.deepEqual(JSON.parse(saved[WATCHLIST_KEY]),['NHL:401892539']);
+  assert.equal(toggleWatchedGame(game),false);
+  assert.deepEqual(JSON.parse(saved[WATCHLIST_KEY]),[]);
+`,{assert});
+
+const timelineLogic = app.slice(app.indexOf('function readRatingHistory'),app.indexOf('function renderDetailContent'));
+const momentLogic = app.slice(app.indexOf('function summarySpecificWhy'),app.indexOf('async function enrichGameSignals'));
+vm.runInNewContext(`${timelineLogic}\n${momentLogic}
+  const hockey = {sport:'NHL',id:'match',state:'completed',score:86,openingScore:35};
+  const summary = {plays:[
+    {scoringPlay:true,period:{number:1,displayValue:'1st'},clock:{displayValue:'13:49'},homeScore:0,awayScore:1,text:'Macklin Celebrini goal'},
+    {scoringPlay:true,period:{number:2,displayValue:'2nd'},clock:{displayValue:'1:49'},homeScore:1,awayScore:1,text:'Nick Suzuki goal'},
+    {scoringPlay:true,period:{number:4,displayValue:'OT'},clock:{displayValue:'2:13'},homeScore:3,awayScore:4,text:'Macklin Celebrini overtime goal'}
+  ]};
+  const chart = timelinePoints(hockey,summary);
+  assert.equal(chart.source,'scoring plays');
+  assert.equal(chart.points.length,5);
+  assert.ok(chart.points[1].x < chart.points[2].x && chart.points[2].x < chart.points[3].x);
+  assert.equal(chart.points[3].score,86);
+  assert.equal(chart.points.at(-1).score,86);
+  assert.match(excitementTimeline(hockey,summary),/timeline-chart/);
+  assert.match(summarySpecificWhy(hockey,summary).label,/Decisive/);
+  assert.equal(timelinePoints({...hockey,state:'upcoming'},summary).points.length,0);
+  assert.match(excitementTimeline({...hockey,state:'live'},null),/Not enough play-by-play/);
+  console.log('Watchlist and timeline fixtures passed');
+`,{
+  assert,console,
+  localStorage:{getItem:() => null},
+  HISTORY_KEY:'sports-radar-rating-history-v1',
+  watchKey:game => `${game.sport}:${game.id}`,
+  state:{source:'demo'},
+  SPORT_BASE:{NHL:35},CLOSE_MARGIN:{NHL:3},
+  clampScore:value => Math.max(1,Math.min(99,Math.round(value))),
+  gameProgress:() => 0,
+  compactPlay:play => play?.text || '',
+  safeText:value => String(value)
+});

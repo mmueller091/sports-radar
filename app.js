@@ -7,6 +7,8 @@ const SPORT_PATHS = {NFL:'football/nfl',MLB:'baseball/mlb',NHL:'hockey/nhl',CFB:
 const PREFERENCES_KEY = 'sports-radar-preferences-v2';
 const FAVORITES_KEY = 'sports-radar-selected-favorites-v1';
 const LINES_KEY = 'sports-radar-last-pregame-lines-v1';
+const WATCHLIST_KEY = 'sports-radar-watched-games-v1';
+const HISTORY_KEY = 'sports-radar-rating-history-v1';
 const LIVE_FEEDS = [
   {sport:'NFL', url:`${ESPN_BASE}/football/nfl/scoreboard`},
   {sport:'MLB', url:`${ESPN_BASE}/baseball/mlb/scoreboard`},
@@ -51,11 +53,15 @@ function readFavoriteSelections(preferences) {
   return selected.filter(team => FAVORITE_SPORTS.includes(team?.sport) && typeof team.name === 'string' && team.name.trim()).slice(0,50).map(team => ({sport:team.sport,name:team.name.trim(),id:String(team.id || ''),logo:String(team.logo || '')}));
 }
 const savedFavorites = readFavoriteSelections(savedPreferences);
-const state = {page:location.hash === '#soccer' ? 'soccer' : 'home', sport:'all', gameState:'all', showFCS:savedPreferences.showFCS !== false, visibleSports:new Set(savedSports), favoriteTeams:savedFavorites, source:'demo'};
+function readWatchedGames() { try { const value = JSON.parse(localStorage.getItem(WATCHLIST_KEY) || '[]'); return new Set(Array.isArray(value) ? value.filter(item => typeof item === 'string').slice(0,100) : []); } catch { return new Set(); } }
+const state = {page:location.hash === '#soccer' ? 'soccer' : 'home', sport:'all', gameState:'all', showFCS:savedPreferences.showFCS !== false, visibleSports:new Set(savedSports), favoriteTeams:savedFavorites, watchedGames:readWatchedGames(), source:'demo'};
 const $ = selector => document.querySelector(selector);
 const $$ = selector => [...document.querySelectorAll(selector)];
 function persistPreferences() { try { localStorage.setItem(PREFERENCES_KEY, JSON.stringify({visibleSports:[...state.visibleSports],showFCS:state.showFCS,favoriteTeams:state.favoriteTeams})); } catch {} }
 function persistFavoriteSelections() { try { localStorage.setItem(FAVORITES_KEY,JSON.stringify(state.favoriteTeams)); } catch {} persistPreferences(); }
+function watchKey(game) { return `${game.sport}:${game.id}`; }
+function isWatched(game) { return state.watchedGames.has(watchKey(game)); }
+function toggleWatchedGame(game) { const key = watchKey(game); if (state.watchedGames.has(key)) state.watchedGames.delete(key); else state.watchedGames.add(key); try { localStorage.setItem(WATCHLIST_KEY,JSON.stringify([...state.watchedGames])); } catch {} render(); return isWatched(game); }
 function syncFCSFilter() { const chip = $('#fcs-toggle'); chip.textContent = state.showFCS ? 'FCS: On' : 'FCS: Off'; chip.classList.toggle('active',state.showFCS); chip.setAttribute('aria-pressed',String(state.showFCS)); }
 function syncSportToggles() { $$('[data-visible-sport]').forEach(input => { input.checked = state.visibleSports.has(input.dataset.visibleSport); }); }
 function labelForSport(sport) { return SPORT_LABELS[sport] || sport; }
@@ -215,7 +221,7 @@ function livePhase(sport,status) {
   }
   if (/halftime|intermission|end of/i.test(detail)) return detail;
   const clock = String(status?.displayClock || '').trim();
-  if (sport === 'NHL' && period) return `${clock && /^\d+:\d+$/.test(clock) ? `${clock} · ` : ''}${ordinal(period)} period`;
+  if (sport === 'NHL' && period) return `${clock && /^\d+:\d+$/.test(clock) ? `${clock} · ` : ''}${period > 3 ? 'OT' : `${ordinal(period)} period`}`;
   if (['NFL','CFB','NBA','NCAAB'].includes(sport) && period) return `${clock && /^\d+:\d+$/.test(clock) ? `${clock} · ` : ''}${ordinal(period)} ${['NFL','CFB','NBA'].includes(sport) ? 'quarter' : 'half'}`;
   return detail || (clock && clock !== '0.0' ? clock : 'Live');
 }
@@ -361,7 +367,7 @@ async function fetchNFLWindow() {
   return selectNFLWindow([...current,...results.flatMap(result => result.status === 'fulfilled' ? result.value : [])]);
 }
 function dedupeGames(items) { const unique = new Map(); for (const game of items) { const key = `${game.sport}:${game.id}`; const existing = unique.get(key); if (!existing || game.division === 'FCS') unique.set(key,game); } return [...unique.values()]; }
-async function loadLiveGames() { $('#data-status-label').textContent = 'Connecting to live scoreboards…'; const requests = [fetchNFLWindow(),...LIVE_FEEDS.filter(feed => feed.sport !== 'NFL').map(fetchFeed)]; const results = await Promise.allSettled(requests); const liveGames = dedupeGames(results.flatMap(result => result.status === 'fulfilled' ? result.value : [])); if (liveGames.length) { games = liveGames; state.source = 'live'; } else { games = DEMO_GAMES.map(game => ({...game,favorite:favoriteFor(game.teams,game.sport)})); state.source = 'demo'; } $('#data-status-label').textContent = state.source === 'live' ? `Live scores · updated ${new Date().toLocaleTimeString([], {hour:'numeric',minute:'2-digit'})}` : 'Demo data · live feed unavailable'; $('#footer-status').textContent = state.source === 'live' ? 'Live feed' : 'Demo data'; render(); if (state.source === 'live') enrichGameSignals(); }
+async function loadLiveGames() { $('#data-status-label').textContent = 'Connecting to live scoreboards…'; const requests = [fetchNFLWindow(),...LIVE_FEEDS.filter(feed => feed.sport !== 'NFL').map(fetchFeed)]; const results = await Promise.allSettled(requests); const liveGames = dedupeGames(results.flatMap(result => result.status === 'fulfilled' ? result.value : [])); if (liveGames.length) { games = liveGames; state.source = 'live'; games.filter(game => game.state === 'live').forEach(recordRatingSnapshot); } else { games = DEMO_GAMES.map(game => ({...game,favorite:favoriteFor(game.teams,game.sport)})); state.source = 'demo'; } $('#data-status-label').textContent = state.source === 'live' ? `Live scores · updated ${new Date().toLocaleTimeString([], {hour:'numeric',minute:'2-digit'})}` : 'Demo data · live feed unavailable'; $('#footer-status').textContent = state.source === 'live' ? 'Live feed' : 'Demo data'; render(); if (state.source === 'live') enrichGameSignals(); }
 function safeText(value) { return String(value ?? '').replace(/[&<>"']/g, character => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[character])); }
 const favoriteCatalog = new Map();
 let favoriteCatalogRequest;
@@ -373,7 +379,7 @@ function renderFavoriteTags() {
 }
 function loadFavoriteCatalog() {
   if (favoriteCatalogRequest) return favoriteCatalogRequest;
-  favoriteCatalogRequest = fetch('./teams.json?rev=20261020-22').then(response => { if (!response.ok) throw new Error(`HTTP ${response.status}`); return response.json(); }).then(directory => {
+  favoriteCatalogRequest = fetch('./teams.json?rev=20261020-23').then(response => { if (!response.ok) throw new Error(`HTTP ${response.status}`); return response.json(); }).then(directory => {
     FAVORITE_SPORTS.forEach(sport => favoriteCatalog.set(sport,(directory[sport] || []).map(team => ({sport,id:String(team.id || ''),name:String(team.name || ''),logo:String(team.logo || '')}))));
     renderFavoriteResults();
   }).catch(() => { FAVORITE_SPORTS.forEach(sport => favoriteCatalog.set(sport,[])); renderFavoriteResults(); });
@@ -433,16 +439,15 @@ function explainRating(game) {
     return `No championship, playoff, or ranked-team stakes are listed for this matchup, so it starts at ${game.score} before play.`;
   }
   const why = String(game.why || '').replaceAll(' · ', ', ').replace(/^[a-z]/,character => character.toUpperCase());
-  const moment = game.moment?.replace(/^Decisive play:\s*/,'The decisive play was ').replace(/^Recent score:\s*/,'The latest scoring play was ');
   if (game.state === 'completed') {
     const ending = labels.has('Wide margin') ? 'The wider margin keeps the rating down.' : labels.has('Overtime') ? 'Overtime adds to the rating.' : 'The close finish raises the rating.';
-    return `${why}. ${moment ? `${moment}. ` : ''}${ending}`;
+    return `${why}. ${ending}`;
   }
   const phase = game.live?.phase && game.live.phase !== 'Live' ? `At ${game.live.phase}, ` : '';
   const situation = game.live?.note ? `${phase}${game.live.note}. ` : phase ? `${phase.replace(/, $/,'. ')} ` : '';
   const specifics = game.live?.reasons?.length ? `${game.live.reasons.join('; ')}. ` : '';
   const action = labels.has('Wide margin') ? 'The wider margin keeps the rating down.' : '';
-  return `${why}. ${situation}${specifics}${moment ? `${moment}. ` : ''}${action}`.trim();
+  return `${why}. ${situation}${specifics}${action}`.trim();
 }
 function trendFor(game) {
   if (game.state === 'upcoming' || !Number.isFinite(game.openingScore)) return '';
@@ -462,8 +467,9 @@ function gameCard(game) {
   const line = displayLine(game);
   const compactLineLabel = line.label === 'Last listed pregame line' ? 'Last pregame line' : line.label;
   const situation = game.state === 'live' && (game.live?.note || game.live?.bases) ? `<span class="live-situation">${basesMarkup(game.live?.bases)}${game.live?.note ? `<span>${safeText(game.live.note)}</span>` : ''}</span>` : '';
+  const momentMarkup = game.moment ? `<span class="card-moment"><strong>${safeText(game.momentLabel || 'Latest play')}</strong><span>${safeText(game.moment)}</span></span>` : '';
   const accessibility = [game.teams[0][0],game.teams[0][2],game.teams[1][0],game.teams[1][2],game.live?.phase,game.live?.note,game.live?.bases ? Object.entries(game.live.bases).filter(([,on]) => on).map(([base]) => base).join(' and ') : '',`excitement ${game.score}`, 'Open game details'].filter(Boolean).join(', ');
-  return `<button type="button" class="game-card ${game.favorite ? 'favorite' : ''}" data-id="${safeText(game.id)}" data-division="${safeText(game.division || '')}" aria-label="${safeText(accessibility)}"><span class="sport-icon"><img class="league-logo" src="${safeText(leagueLogo)}" alt="" loading="lazy" onerror="this.style.display='none'"></span><span class="team-column"><span class="match-meta">${stateLabel}${game.division ? `<span>•</span><span>${safeText(game.division)}</span>` : ''}<span>•</span><span>${safeText(game.sub)}</span></span><span class="team-row">${teamMarkup(game,game.teams[0])}<b class="team-score">${safeText(game.teams[0][2])}</b></span><span class="team-row">${teamMarkup(game,game.teams[1])}<b class="team-score">${safeText(game.teams[1][2])}</b></span>${situation}</span><span class="game-context rating-context"><strong>Why ${game.score}?</strong><span>${safeText(explainRating(game))}</span></span><span class="game-context channel-context"><span class="detail-inline"><strong>TV</strong><span>${safeText(game.channel || 'Channel not listed')}</span></span><span class="stats-cue">Stats ›</span><span class="detail-inline line-inline"><strong>${safeText(compactLineLabel)}</strong><span>${safeText(line.text)}</span></span></span><span class="excitement"><span class="score-circle ${scoreClass}">${game.score}</span>${trendFor(game)}</span></button>`;
+  return `<button type="button" class="game-card ${game.favorite ? 'favorite' : ''} ${isWatched(game) ? 'watched' : ''}" data-id="${safeText(game.id)}" data-division="${safeText(game.division || '')}" aria-label="${safeText(accessibility)}"><span class="sport-icon"><img class="league-logo" src="${safeText(leagueLogo)}" alt="" loading="lazy" onerror="this.style.display='none'"></span><span class="team-column"><span class="match-meta">${stateLabel}${isWatched(game) ? '<span class="watch-indicator" aria-hidden="true">★ Watching</span>' : ''}${game.division ? `<span>•</span><span>${safeText(game.division)}</span>` : ''}<span>•</span><span>${safeText(game.sub)}</span></span><span class="team-row">${teamMarkup(game,game.teams[0])}<b class="team-score">${safeText(game.teams[0][2])}</b></span><span class="team-row">${teamMarkup(game,game.teams[1])}<b class="team-score">${safeText(game.teams[1][2])}</b></span>${situation}</span><span class="game-context rating-context"><strong>Why ${game.score}?</strong><span>${safeText(explainRating(game))}</span></span>${momentMarkup}<span class="game-context channel-context"><span class="detail-inline"><strong>TV</strong><span>${safeText(game.channel || 'Channel not listed')}</span></span><span class="stats-cue">Stats ›</span><span class="detail-inline line-inline"><strong>${safeText(compactLineLabel)}</strong><span>${safeText(line.text)}</span></span></span><span class="excitement"><span class="score-circle ${scoreClass}">${game.score}</span>${trendFor(game)}</span></button>`;
 }
 function detailStats(summary) { const teams = summary?.boxscore?.teams || []; return teams.map(team => { const stats = (team.statistics || []).filter(stat => stat.displayValue && stat.displayValue !== '0').slice(0, 6); if (!stats.length) return ''; return `<div class="detail-stat-team"><strong>${safeText(team.team?.displayName || 'Team stats')}</strong>${stats.map(stat => `<div><span>${safeText(stat.label || stat.displayName || stat.name)}</span><b>${safeText(stat.displayValue)}</b></div>`).join('')}</div>`; }).join(''); }
 function detailLeaders(summary) { const groups = summary?.leaders || []; const rows = groups.flatMap(group => (group.leaders || []).filter(leader => leader.athlete?.displayName || leader.athlete?.shortName).slice(0,1).map(leader => `<div><span>${safeText(group.displayName || group.name || 'Leader')}</span><b>${safeText(leader.athlete?.displayName || leader.athlete?.shortName)} · ${safeText(leader.displayValue || leader.value || '')}</b></div>`)).slice(0,6); return rows.length ? `<section class="detail-section"><h3>Leaders</h3><div class="detail-leaders">${rows.join('')}</div></section>` : ''; }
@@ -474,6 +480,76 @@ function findStatIndex(labels, aliases, fallback) { const normalized = (labels |
 function statValue(entry, column, index) { const stats = entry?.stats ?? entry?.values ?? []; if (Array.isArray(stats)) return stats[index] ?? '—'; const keys = Object.keys(stats || {}); const aliases = [column.title, ...(column.aliases || [])].map(statKey); const key = keys.find(item => aliases.includes(statKey(item))); return key ? stats[key] : '—'; }
 function playerTable(group, columns, title) { const athletes = group?.athletes || group?.players || []; if (!athletes.length) return ''; const labels = group.labels || group.headers || []; return `<div class="detail-player-group"><h4>${safeText(title)}</h4><div class="detail-table-scroll"><table class="detail-player-table"><thead><tr><th>Player</th>${columns.map(column => `<th>${safeText(column.title)}</th>`).join('')}</tr></thead><tbody>${athletes.map(entry => `<tr><th scope="row">${safeText(athleteName(entry))}</th>${columns.map((column,index) => `<td>${safeText(statValue(entry,column,findStatIndex(labels,column.aliases,index)))}</td>`).join('')}</tr>`).join('')}</tbody></table></div></div>`; }
 function detailPlayerStats(summary, sport) { const blocks = summary?.boxscore?.players || []; if (!blocks.length || !['NFL','CFB','NHL'].includes(sport)) return ''; const teamSections = blocks.map(block => { const teamName = block.team?.displayName || block.team?.shortDisplayName || 'Team'; const statGroups = block.statistics || []; if (sport === 'NHL') { const skaters = statGroups.filter(group => (group.athletes || group.players || []).length && !/goalie|goaltender/i.test(`${group.name || ''} ${group.displayName || ''}`)); const columns = [{title:'S',aliases:['shots','shots on goal','s']},{title:'G',aliases:['goals','g']},{title:'A',aliases:['assists','a']},{title:'+/-',aliases:['plus minus','plusminus','+/-']},{title:'PIM',aliases:['pim','penalty minutes']}]; return skaters.length ? `<div class="detail-player-team"><strong>${safeText(teamName)}</strong>${skaters.map(group => playerTable(group,columns,group.displayName || group.name || 'Skaters')).join('')}</div>` : ''; } const groups = statGroups.filter(group => /pass|rush|receiv/i.test(`${group.name || ''} ${group.displayName || ''}`)); return groups.length ? `<div class="detail-player-team"><strong>${safeText(teamName)}</strong>${groups.map(group => { const athletes = group.athletes || group.players || []; const labels = Array.isArray(group.labels) && group.labels.length ? group.labels : Object.keys(athletes[0]?.stats || {}); const columns = labels.map(label => ({title:label,aliases:[label]})); return playerTable(group,columns,group.displayName || group.name || 'Player stats'); }).join('')}</div>` : ''; }).filter(Boolean); return teamSections.length ? `<section class="detail-section"><h3>${sport === 'NHL' ? 'Player stats · Skaters' : 'Player stats · Passing, rushing & receiving'}</h3><div class="detail-player-grid">${teamSections.join('')}</div></section>` : ''; }
+function readRatingHistory() { try { const value = JSON.parse(localStorage.getItem(HISTORY_KEY) || '{}'); return value && typeof value === 'object' && !Array.isArray(value) ? value : {}; } catch { return {}; } }
+const ratingHistory = readRatingHistory();
+function recordRatingSnapshot(game) {
+  if (state.source !== 'live' || game.state === 'upcoming') return;
+  const key = watchKey(game), now = Date.now();
+  const previous = Array.isArray(ratingHistory[key]) ? ratingHistory[key] : [];
+  if (previous.length && now - previous[previous.length - 1].at < 45000 && previous[previous.length - 1].score === game.score) return;
+  ratingHistory[key] = [...previous,{at:now,score:game.score,phase:game.live?.phase || game.status}].slice(-160);
+  for (const [item,points] of Object.entries(ratingHistory)) if (!Array.isArray(points) || !points.length || now - points[points.length - 1].at > 8 * 86400000) delete ratingHistory[item];
+  try { localStorage.setItem(HISTORY_KEY,JSON.stringify(ratingHistory)); } catch {}
+}
+function playPosition(sport,play) {
+  const period = Number(play?.period?.number || play?.period?.value || play?.period || 0);
+  if (!Number.isFinite(period) || period < 1) return null;
+  if (sport === 'MLB') return Math.min(1,Math.max(0,(period - 1 + (/bottom|bot/i.test(String(play.period?.displayValue || play.inningHalf || '')) ? .75 : .25)) / 9));
+  if (sport === 'NHL') {
+    const clock = String(play.clock?.displayValue || '').match(/^(\d+):(\d+)/);
+    const elapsed = clock ? Number(clock[1]) * 60 + Number(clock[2]) : 600;
+    return period > 3 ? Math.min(1,.92 + Math.min(300,elapsed) / 300 * .08) : Math.min(.92,((period - 1) * 20 * 60 + elapsed) / (60 * 60) * .92);
+  }
+  const total = ({NFL:4,CFB:4,NHL:3,NBA:4,NCAAB:2,Soccer:2})[sport];
+  const length = ({NFL:15,CFB:15,NHL:20,NBA:12,NCAAB:20,Soccer:45})[sport];
+  if (!total || !length) return null;
+  const clock = String(play.clock?.displayValue || '').match(/^(\d+):(\d+)/);
+  const remaining = clock ? Math.min(length * 60,Number(clock[1]) * 60 + Number(clock[2])) : length * 30;
+  return Math.min(1,Math.max(0,(period - 1 + 1 - remaining / (length * 60)) / total));
+}
+function scoringEvents(summary) { return summary?.scoringPlays?.length ? summary.scoringPlays : (summary?.plays || []).filter(play => play.scoringPlay === true); }
+function estimatedEventRating(game,homeScore,awayScore,progress) {
+  const gap = Math.abs(homeScore - awayScore), limit = CLOSE_MARGIN[game.sport] || 10;
+  const close = Math.max(0,1 - gap / limit);
+  const closeness = Math.round(24 * close * (.35 + .65 * progress));
+  const wide = gap >= limit && progress > .3 ? Math.min(26,Math.round((gap / limit) * 13 * progress)) : 0;
+  return clampScore((game.openingScore || SPORT_BASE[game.sport] || 35) + closeness + Math.round(progress * 14) - wide);
+}
+function timelinePoints(game,summary) {
+  if (game.state === 'upcoming') return {points:[],source:'upcoming'};
+  const plays = scoringEvents(summary);
+  const events = plays.map(play => {
+    const x = playPosition(game.sport,play), home = Number(play.homeScore), away = Number(play.awayScore);
+    if (x === null || !Number.isFinite(home) || !Number.isFinite(away) || (!home && !away)) return null;
+    return {x,score:estimatedEventRating(game,home,away,x),label:`${play.period?.displayValue || `Period ${play.period?.number || ''}`} ${play.clock?.displayValue || ''}`.trim(),text:compactPlay(play),overtime:Number(play.period?.number) > ({NHL:3,NFL:4,CFB:4,NBA:4,NCAAB:2})[game.sport]};
+  }).filter(Boolean).sort((a,b) => a.x - b.x);
+  if (events.length) {
+    const finalEvent = events[events.length - 1];
+    const overtimeWinner = game.state === 'completed' && finalEvent.overtime && /goal|field goal|touchdown|basket|walk.off/i.test(finalEvent.text);
+    if (overtimeWinner || (game.state === 'completed' && /game[- ]winning|walk.off|last.second/i.test(finalEvent.text))) finalEvent.score = game.score;
+    const points = [{x:0,score:game.openingScore || SPORT_BASE[game.sport] || 35,label:'Start',text:'Opening estimate'},...events];
+    const currentPosition = playPosition(game.sport,{period:{number:game.liveRawStatus?.period},clock:{displayValue:game.liveRawStatus?.displayClock}});
+    const endX = game.state === 'completed' ? 1 : Math.max(events[events.length - 1].x,currentPosition ?? gameProgress(game.sport,{status:game.liveRawStatus || {}}));
+    if (endX > events[events.length - 1].x || game.score !== events[events.length - 1].score) points.push({x:Math.min(1,Math.max(endX,events[events.length - 1].x + .005)),score:game.score,label:game.state === 'completed' ? 'Final' : game.live?.phase || 'Now',text:'Current rating'});
+    return {points,source:'scoring plays'};
+  }
+  const samples = (ratingHistory[watchKey(game)] || []).filter(point => Number.isFinite(point.at) && Number.isFinite(point.score));
+  if (samples.length < 2) return {points:[],source:'unavailable'};
+  const span = Math.max(1,samples[samples.length - 1].at - samples[0].at);
+  return {points:samples.map(point => ({x:(point.at - samples[0].at) / span,score:point.score,label:point.phase || new Date(point.at).toLocaleTimeString([], {hour:'numeric',minute:'2-digit'}),text:'Observed rating'})),source:'browser observations'};
+}
+function excitementTimeline(game,summary) {
+  if (game.state === 'upcoming') return '<section class="detail-section"><h3>Excitement timeline</h3><p class="detail-empty">The chart starts when the game begins.</p></section>';
+  const {points,source} = timelinePoints(game,summary);
+  if (points.length < 2) return '<section class="detail-section"><h3>Excitement timeline</h3><p class="detail-empty">Not enough play-by-play or observed ratings to draw a trustworthy timeline yet.</p></section>';
+  const width = 600, height = 180, left = 30, right = 12, top = 12, bottom = 27;
+  const px = point => left + point.x * (width - left - right), py = point => top + (100 - point.score) * (height - top - bottom) / 100;
+  const path = points.map((point,index) => `${index ? 'L' : 'M'} ${px(point).toFixed(1)} ${py(point).toFixed(1)}`).join(' ');
+  const rises = points.slice(1).map((point,index) => ({...point,delta:point.score - points[index].score})).filter(point => point.delta >= 5 && point.text !== 'Current rating').sort((a,b) => b.delta - a.delta).slice(0,3);
+  const markers = points.slice(1,-1).map(point => `<circle cx="${px(point).toFixed(1)}" cy="${py(point).toFixed(1)}" r="3"/>`).join('');
+  const moments = rises.length ? `<ol class="timeline-moments">${rises.map(point => `<li><b>+${point.delta}</b><span><strong>${safeText(point.label)}</strong> · ${safeText(point.text)}</span></li>`).join('')}</ol>` : '';
+  return `<section class="detail-section timeline-section"><h3>Excitement timeline</h3><p class="timeline-note">${source === 'scoring plays' ? 'Estimated at reported scoring plays; the final point is the current rating.' : 'Ratings recorded while this browser was open.'}</p><svg class="timeline-chart" viewBox="0 0 ${width} ${height}" role="img" aria-label="Excitement rating over game time, from ${points[0].score} to ${points[points.length - 1].score}"><line x1="${left}" y1="${top}" x2="${left}" y2="${height - bottom}"/><line x1="${left}" y1="${height - bottom}" x2="${width - right}" y2="${height - bottom}"/><line class="timeline-midline" x1="${left}" y1="${py({score:50})}" x2="${width - right}" y2="${py({score:50})}"/><text x="3" y="${top + 4}">100</text><text x="10" y="${py({score:50}) - 4}">50</text><text x="16" y="${height - bottom + 4}">0</text><path class="timeline-line" d="${path}"/>${markers}<circle class="timeline-end" cx="${px(points[points.length - 1]).toFixed(1)}" cy="${py(points[points.length - 1]).toFixed(1)}" r="5"/><text x="${left}" y="${height - 5}">Start</text><text x="${width - right}" y="${height - 5}" text-anchor="end">${game.state === 'completed' ? 'Final' : 'Now'}</text></svg>${moments}</section>`;
+}
 function renderDetailContent(game, summary, loading = false) {
   if (loading) { $('#game-detail-content').innerHTML = `<div class="detail-loading">Loading live game details…</div>`; return; }
   const competition = summary?.header?.competitions?.[0];
@@ -483,31 +559,33 @@ function renderDetailContent(game, summary, loading = false) {
   const status = competition?.status?.type?.detail || game.status;
   const venue = competition?.venue?.fullName || game.sub;
   const fallback = !summary ? `<p class="detail-empty">The live summary feed did not return additional stats for this game yet. The score, rating explanation, and broadcast are still current.</p>` : '';
-  $('#game-detail-content').innerHTML = `<div class="detail-kicker">${safeText(labelForSport(game.sport))} · ${safeText(status)}</div><h2>${safeText(title)}</h2><div class="detail-scoreboard">${scores}</div><div class="detail-meta"><span>📍 ${safeText(venue)}</span><span>📺 ${safeText(game.channel || 'Channel not listed')}</span></div><section class="detail-section"><h3>Why ${game.score}?</h3><p class="detail-explanation">${safeText(explainRating(game))}</p></section>${detailLeaders(summary)}${detailStats(summary) ? `<section class="detail-section"><h3>Team stats</h3><div class="detail-stat-grid">${detailStats(summary)}</div></section>` : ''}${detailPlayerStats(summary,game.sport)}${detailPlays(summary)}${fallback}`;
+  $('#game-detail-content').innerHTML = `<div class="detail-kicker">${safeText(labelForSport(game.sport))} · ${safeText(status)}</div><h2>${safeText(title)}</h2><button type="button" class="detail-watch ${isWatched(game) ? 'active' : ''}" data-watch-id="${safeText(watchKey(game))}" aria-pressed="${isWatched(game)}">${isWatched(game) ? '★ Watching this game' : '☆ Add to watchlist'}</button><div class="detail-scoreboard">${scores}</div><div class="detail-meta"><span>📍 ${safeText(venue)}</span><span>📺 ${safeText(game.channel || 'Channel not listed')}</span></div>${game.moment ? `<section class="detail-moment"><strong>${safeText(game.momentLabel || 'Notable play')}</strong><span>${safeText(game.moment)}</span></section>` : ''}<section class="detail-section"><h3>Why ${game.score}?</h3><p class="detail-explanation">${safeText(explainRating(game))}</p></section>${excitementTimeline(game,summary)}${detailLeaders(summary)}${detailStats(summary) ? `<section class="detail-section"><h3>Team stats</h3><div class="detail-stat-grid">${detailStats(summary)}</div></section>` : ''}${detailPlayerStats(summary,game.sport)}${detailPlays(summary)}${fallback}`;
 }
 async function fetchGameSummary(game) { const controller = new AbortController(); const timer = setTimeout(() => controller.abort(),7000); try { const response = await fetch(game.summaryUrl || summaryUrlFor(game.sport,game.id),{cache:'no-store',signal:controller.signal}); if (!response.ok) throw new Error(`HTTP ${response.status}`); return response.json(); } finally { clearTimeout(timer); } }
 function showDialog(dialog) { if (!dialog) return; if (typeof dialog.showModal === 'function') dialog.showModal(); else dialog.setAttribute('open',''); }
 function hideDialog(dialog) { if (!dialog) return; if (typeof dialog.close === 'function') dialog.close(); else dialog.removeAttribute('open'); }
 function showGameDetails() { const overlay = $('#game-detail-overlay'); overlay.hidden = false; document.body.classList.add('detail-open'); overlay.querySelector('.close-dialog')?.focus(); }
-function hideGameDetails() { const overlay = $('#game-detail-overlay'); overlay.hidden = true; document.body.classList.remove('detail-open'); }
-async function openGameDetails(id) { const game = games.find(item => item.id === id); if (!game) return; renderDetailContent(game,null,true); showGameDetails(); try { renderDetailContent(game,await fetchGameSummary(game)); } catch { renderDetailContent(game,null); } }
+let activeDetailGame = null;
+function hideGameDetails() { const overlay = $('#game-detail-overlay'); overlay.hidden = true; document.body.classList.remove('detail-open'); activeDetailGame = null; }
+async function openGameDetails(id) { const game = games.find(item => item.id === id); if (!game) return; activeDetailGame = game; renderDetailContent(game,null,true); showGameDetails(); try { const summary = await fetchGameSummary(game); if (activeDetailGame === game) { const moment = summarySpecificWhy(game,summary); if (moment) { game.moment = moment.text; game.momentLabel = moment.label; } renderDetailContent(game,summary); } } catch { if (activeDetailGame === game) renderDetailContent(game,null); } }
 function compactPlay(play) { const text = String(play?.text || play?.shortText || play?.type?.text || '').replace(/\s+/g,' ').trim(); return text.length > 86 ? `${text.slice(0,83)}…` : text; }
 function summarySpecificWhy(game,summary) {
-  const plays = summary?.scoringPlays || [];
-  const finalPlay = plays[plays.length - 1];
-  const finalText = compactPlay(finalPlay);
-  const clock = finalPlay?.clock?.displayValue || '';
-  if (game.state === 'completed' && /(0:00|last second|game[- ]winning)/i.test(`${clock} ${finalText}`) && finalText) return `Decisive play: ${finalText}`;
-  if (game.state === 'live') {
-    const situation = summary?.header?.competitions?.[0]?.situation;
-    if ((game.sport === 'NFL' || game.sport === 'CFB') && situation?.down) return `${situation.down}${situation.distance ? ` and ${situation.distance}` : ''}${situation.clock ? ` · ${situation.clock} left` : ''}`;
-    const recent = plays[plays.length - 1];
-    if (recent && /goal|touchdown|home run|grand slam|lead|match point|walk.off/i.test(compactPlay(recent))) return `Recent score: ${compactPlay(recent)}`;
+  const scoring = scoringEvents(summary).map(play => ({play,position:playPosition(game.sport,play)})).filter(item => item.position !== null).sort((a,b) => a.position - b.position);
+  const last = scoring[scoring.length - 1];
+  if (!last) return null;
+  const text = compactPlay(last.play);
+  if (!text) return null;
+  const time = `${last.play.period?.displayValue || ''} ${last.play.clock?.displayValue || ''}`.trim();
+  if (game.state === 'completed') {
+    const decisive = /(0:00|last second|game[- ]winning|walk.off)/i.test(`${time} ${text}`) || (Number(last.play.period?.number) > ({NHL:3,NFL:4,CFB:4,NBA:4,NCAAB:2})[game.sport] && /goal|field goal|touchdown|basket/i.test(text));
+    return {label:decisive ? 'Decisive play' : 'Last score',text:`${time ? `${time} · ` : ''}${text}`};
   }
-  return '';
+  const current = playPosition(game.sport,{period:{number:game.liveRawStatus?.period},clock:{displayValue:game.liveRawStatus?.displayClock}}) ?? gameProgress(game.sport,{status:game.liveRawStatus || {}});
+  if (current - last.position > .12) return null;
+  return {label:'Latest score',text:`${time ? `${time} · ` : ''}${text}`};
 }
 async function enrichGameSignals() {
-  const candidates = games.filter(game => (game.state !== 'upcoming' || !game.line) && !(game.division === 'FCS' && game.state === 'upcoming')).sort((a,b) => Number(b.state === 'live') - Number(a.state === 'live') || Number(b.favorite) - Number(a.favorite) || b.score - a.score).slice(0,60);
+  const candidates = games.filter(game => (game.state !== 'upcoming' || !game.line) && !(game.division === 'FCS' && game.state === 'upcoming')).sort((a,b) => Number(isWatched(b)) - Number(isWatched(a)) || Number(b.state === 'live') - Number(a.state === 'live') || Number(b.favorite) - Number(a.favorite) || b.score - a.score).slice(0,60);
   let changed = false;
   for (let start = 0; start < candidates.length; start += 6) {
     await Promise.allSettled(candidates.slice(start,start + 6).map(async game => {
@@ -517,9 +595,9 @@ async function enrichGameSignals() {
       const line = lineFromSummary(summary,game.sport);
       if (line && (game.state !== 'upcoming' || !game.line)) { game.line = line; changed = true; if (game.state === 'upcoming') rememberPregameLine(game); }
       const moment = summarySpecificWhy(game,summary);
-      if (moment) { game.moment = moment; changed = true; }
+      if (moment) { game.moment = moment.text; game.momentLabel = moment.label; changed = true; }
       if (game.state !== 'completed') return;
-      const plays = summary.scoringPlays || [];
+      const plays = scoringEvents(summary);
       const last = plays[plays.length - 1];
       const finalText = `${last?.clock?.displayValue || ''} ${compactPlay(last)}`;
       if (/(0:00|last second|game[- ]winning)/i.test(finalText) && /field goal|goal|home run|touchdown/i.test(finalText)) {
@@ -540,10 +618,29 @@ async function enrichGameSignals() {
       if (leadChanges) { const points = Math.min(8,leadChanges * 2); game.factors.push({label:`${leadChanges} lead change${leadChanges === 1 ? '' : 's'}`,points}); game.score = clampScore(game.score + points); changed = true; }
     } catch {}
     }));
-    if (changed) { render(); changed = false; }
+    if (changed) { candidates.slice(start,start + 6).forEach(recordRatingSnapshot); render(); changed = false; }
   }
 }
-function render() { const isSoccer = state.page === 'soccer'; $('#section-title').textContent = isSoccer ? 'Soccer radar' : 'Your radar'; $$('.nav-link').forEach(link => link.classList.toggle('active',link.dataset.page === state.page)); $$('.soccer-chip').forEach(chip => chip.classList.toggle('hidden',!isSoccer)); $('#fcs-toggle').classList.toggle('hidden',isSoccer || !state.visibleSports.has('CFB')); if (!isSoccer && state.sport !== 'all' && !state.visibleSports.has(state.sport)) { state.sport = 'all'; $$('.sport-chip[data-sport]').forEach(chip => chip.classList.toggle('active',chip.dataset.sport === 'all')); } let visible = games.filter(game => visibleInState(game,state.gameState) && (isSoccer ? game.sport === 'Soccer' : game.sport !== 'Soccer' && state.visibleSports.has(game.sport) && (state.showFCS || game.division !== 'FCS'))); if (state.sport !== 'all') visible = visible.filter(game => game.sport === state.sport); visible.sort(state.gameState === 'all' ? compareAllGames : compareGames); $('#game-list').innerHTML = visible.map(gameCard).join(''); $('#empty-state').classList.toggle('hidden',visible.length !== 0); $('#live-count').textContent = `${visible.filter(game => game.state === 'live').length} LIVE`; $('#all-count').textContent = visible.length; }
+function render() {
+  const isSoccer = state.page === 'soccer';
+  $('#section-title').textContent = isSoccer ? 'Soccer radar' : 'Your radar';
+  $$('.nav-link').forEach(link => link.classList.toggle('active',link.dataset.page === state.page));
+  $$('.soccer-chip').forEach(chip => chip.classList.toggle('hidden',!isSoccer));
+  $('#fcs-toggle').classList.toggle('hidden',isSoccer || !state.visibleSports.has('CFB'));
+  if (!isSoccer && state.sport !== 'all' && !state.visibleSports.has(state.sport)) { state.sport = 'all'; $$('.sport-chip[data-sport]').forEach(chip => chip.classList.toggle('active',chip.dataset.sport === 'all')); }
+  const scopeGames = games.filter(game => (isSoccer ? game.sport === 'Soccer' : game.sport !== 'Soccer' && state.visibleSports.has(game.sport) && (state.showFCS || game.division !== 'FCS')) && (state.sport === 'all' || game.sport === state.sport));
+  const visible = scopeGames.filter(game => state.gameState === 'watching' ? isWatched(game) : visibleInState(game,state.gameState));
+  visible.sort(state.gameState === 'all' ? compareAllGames : compareGames);
+  $('#game-list').innerHTML = visible.map(gameCard).join('');
+  $('#empty-state').classList.toggle('hidden',visible.length !== 0);
+  $('#empty-message').textContent = state.gameState === 'watching' ? 'Open a game and tap “Add to watchlist.” Saved games appear here while they are in the current scoreboard feed.' : 'Try a different sport or game state.';
+  $('#live-count').textContent = `${scopeGames.filter(game => game.state === 'live').length} LIVE`;
+  $('#all-count').textContent = scopeGames.filter(game => visibleInState(game,'all')).length;
+  $$('.seg[data-state="live"] span').forEach(node => { node.textContent = scopeGames.filter(game => game.state === 'live').length; });
+  $$('.seg[data-state="upcoming"] span').forEach(node => { node.textContent = scopeGames.filter(game => game.state === 'upcoming').length; });
+  $$('.seg[data-state="completed"] span').forEach(node => { node.textContent = scopeGames.filter(game => game.state === 'completed').length; });
+  $('#watch-count').textContent = scopeGames.filter(isWatched).length;
+}
 $$('.nav-link').forEach(link => link.addEventListener('click', () => { state.page = link.dataset.page; state.sport = 'all'; location.hash = state.page === 'soccer' ? 'soccer' : 'home'; $$('.sport-chip[data-sport]').forEach(chip => chip.classList.toggle('active',chip.dataset.sport === 'all')); render(); }));
 window.addEventListener('hashchange', () => { state.page = location.hash === '#soccer' ? 'soccer' : 'home'; render(); });
 $$('.sport-chip[data-sport]').forEach(chip => chip.addEventListener('click', () => { state.sport = chip.dataset.sport; $$('.sport-chip[data-sport]').forEach(item => item.classList.toggle('active',item === chip)); render(); }));
@@ -565,6 +662,7 @@ $('#game-list').addEventListener('pointerup',event => {
 $('#game-list').addEventListener('pointercancel',() => { touchStart = null; });
 $('#game-list').addEventListener('click',event => { if (Date.now() - lastTouchOpen < 600) return; const card = event.target.closest('.game-card'); if (card) openGameDetails(card.dataset.id); });
 $('#game-detail-overlay').addEventListener('click',event => { if (event.target === event.currentTarget || event.target.closest('.close-dialog')) hideGameDetails(); });
+$('#game-detail-content').addEventListener('click',event => { const button = event.target.closest('.detail-watch'); if (!button || !activeDetailGame) return; const watching = toggleWatchedGame(activeDetailGame); button.classList.toggle('active',watching); button.setAttribute('aria-pressed',String(watching)); button.textContent = watching ? '★ Watching this game' : '☆ Add to watchlist'; });
 document.addEventListener('keydown',event => { if (event.key === 'Escape' && !$('#game-detail-overlay').hidden) hideGameDetails(); });
 syncSportToggles(); syncFCSFilter();
 $('#profile-button').addEventListener('click', () => { syncSportToggles(); renderFavoriteTags(); renderFavoriteResults(); });
@@ -576,6 +674,6 @@ $('#favorite-results').addEventListener('click',event => { const button = event.
 $('#favorite-tags').addEventListener('click',event => { const button = event.target.closest('[data-remove-favorite]'); if (!button) return; state.favoriteTeams.splice(Number(button.dataset.removeFavorite),1); syncFavoriteGames(); persistFavoriteSelections(); renderFavoriteTags(); renderFavoriteResults(); render(); });
 $$('[data-visible-sport]').forEach(input => input.addEventListener('change', () => { const sport = input.dataset.visibleSport; if (input.checked) state.visibleSports.add(sport); else state.visibleSports.delete(sport); persistPreferences(); render(); }));
 let deferredInstallPrompt; window.addEventListener('beforeinstallprompt',event => { event.preventDefault(); deferredInstallPrompt = event; $('#install-button').classList.remove('hidden'); }); $('#install-button').addEventListener('click',async() => { if (!deferredInstallPrompt) return; deferredInstallPrompt.prompt(); await deferredInstallPrompt.userChoice; deferredInstallPrompt = null; $('#install-button').classList.add('hidden'); }); window.addEventListener('appinstalled',() => $('#install-button').classList.add('hidden'));
-if ('serviceWorker' in navigator) navigator.serviceWorker.register('./sw.js?rev=20261020-22').then(registration => registration.update()).catch(() => {});
+if ('serviceWorker' in navigator) navigator.serviceWorker.register('./sw.js?rev=20261020-23').then(registration => registration.update()).catch(() => {});
 games = DEMO_GAMES.map(game => ({...game,favorite:favoriteFor(game.teams,game.sport)}));
 renderFavoriteTags(); renderFavoriteResults(); render(); loadLiveGames(); setInterval(loadLiveGames,60000);

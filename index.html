@@ -15,7 +15,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="styles.css?rev=20261020-22" />
+    <link rel="stylesheet" href="styles.css?rev=20261020-23" />
   </head>
   <body>
     <div class="app-shell">
@@ -44,6 +44,7 @@
               <button class="seg" data-state="live">Live <span>4</span></button>
               <button class="seg" data-state="upcoming">Upcoming <span>5</span></button>
               <button class="seg" data-state="completed">Final <span>3</span></button>
+              <button class="seg" data-state="watching">★ Watching <span id="watch-count">0</span></button>
             </div>
           </div>
         </section>
@@ -64,7 +65,7 @@
         <div class="data-status" id="data-status" aria-live="polite"><span class="status-dot"></span><span id="data-status-label">Loading live scores…</span><button id="refresh-data">Refresh</button></div>
 
         <section class="game-list" id="game-list" aria-live="polite"></section>
-        <div class="empty-state hidden" id="empty-state"><div>⌁</div><h3>No games in this view</h3><p>Try a different sport or game state.</p></div>
+        <div class="empty-state hidden" id="empty-state"><div>⌁</div><h3>No games in this view</h3><p id="empty-message">Try a different sport or game state.</p></div>
       </main>
 
       <footer class="footer"><div><span class="brand-mini">SPORTS RADAR</span><span>Built for the games between the games.</span></div><div><span class="status-dot"></span> <span id="footer-status">Live feed</span> <span class="footer-sep">•</span> <button id="data-info">Data sources &amp; scoring</button></div></footer>
@@ -91,6 +92,6 @@
     </dialog>
     <dialog id="data-dialog"><div class="dialog-header"><div><div class="eyebrow">UNDER THE HOOD</div><h2>How the rating works.</h2></div><button class="close-dialog" aria-label="Close">×</button></div><p class="dialog-copy">Live scores and game details come from public ESPN feeds and refresh each minute. If the feed cannot be reached, the status line labels the fallback as demo data.</p><div class="source-grid"><div><strong>Before play</strong><span>Matchup stakes, rankings, and rivalries. A scheduled 0–0 is never treated as a close game.</span></div><div><strong>During play</strong><span>Current score margin and how far along the game is.</span></div><div><strong>After play</strong><span>Final margin, overtime, lead changes, and decisive scoring plays when available.</span></div><div><strong>Betting lines</strong><span>Shown when ESPN lists them. MLB and NHL may offer a moneyline rather than a run/puck spread. Post-start pregame lines are not labeled as verified closes unless the feed says so.</span></div></div><div class="model-note"><strong>Ranking model</strong><span>Each card explains its rating in plain language. Favorites are pinned first; all other games are sorted by rating. The 1–99 score is an estimate, not a league statistic.</span></div><button class="primary-button close-dialog">Got it</button></dialog>
     <div id="game-detail-overlay" class="detail-overlay" hidden><section id="game-detail-dialog" class="detail-panel" role="dialog" aria-modal="true" aria-labelledby="game-detail-title"><div class="dialog-header"><div><div class="eyebrow">GAME DETAILS</div><h2 id="game-detail-title">Live game center</h2></div><button type="button" class="close-dialog" aria-label="Close game center">×</button></div><div id="game-detail-content"></div><button type="button" class="primary-button close-dialog">Close game center</button></section></div>
-    <script src="app.js?rev=20261020-22"></script>
+    <script src="app.js?rev=20261020-23"></script>
   </body>
 </html>
