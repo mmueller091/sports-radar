@@ -290,9 +290,15 @@ export async function contextsForGames(env,keys) {
   }).filter(item => item && /^[A-Za-z0-9]+$/.test(item.sport) && /^[A-Za-z0-9_-]+$/.test(item.eventId)).slice(0,100);
   if (!parsed.length) return {};
   const eventIds = [...new Set(parsed.map(item => item.eventId))];
-  const placeholders = eventIds.map(() => '?').join(',');
-  const rows = (await env.DB.prepare(`SELECT event_id,sport,factor_type,context_text,confidence,source_title,source_url,source_published FROM game_context WHERE expires_at >= ? AND event_id IN (${placeholders})`)
-    .bind(Math.floor(Date.now() / 1000),...eventIds).all()).results || [];
+  const rows = [];
+  const expiresAt = Math.floor(Date.now() / 1000);
+  for (let start = 0; start < eventIds.length; start += 90) {
+    const batch = eventIds.slice(start,start + 90);
+    const placeholders = batch.map(() => '?').join(',');
+    const result = await env.DB.prepare(`SELECT event_id,sport,factor_type,context_text,confidence,source_title,source_url,source_published FROM game_context WHERE expires_at >= ? AND event_id IN (${placeholders})`)
+      .bind(expiresAt,...batch).all();
+    rows.push(...(result.results || []));
+  }
   const allowed = new Set(parsed.map(item => `${item.sport}:${item.eventId}`));
   const output = {};
   for (const row of rows) {
