@@ -195,11 +195,113 @@ function rateGame(sport,gameState,teams,event,competition,context) {
   if (gameState === 'completed') reason = /overtime|\bot\b/i.test(detail) ? `Overtime finish · ${gap}-${unit} margin` : gap !== null ? `Decided by ${gap} ${unit}${gap === 1 ? '' : 's'}` : 'Final result';
   return {score,factors,reason,openingScore:opening.score};
 }
+function ordinal(value) { const n = Number(value); return `${n}${n % 100 >= 11 && n % 100 <= 13 ? 'th' : ({1:'st',2:'nd',3:'rd'}[n % 10] || 'th')}`; }
+function livePhase(sport,status) {
+  const detail = String(status?.type?.detail || status?.type?.shortDetail || '').trim();
+  const period = Number(status?.period || 0);
+  if (sport === 'MLB') {
+    const half = detail.match(/\b(top|bottom|bot)\b/i)?.[1] || status?.inningHalf;
+    return half && period ? `${/^bot/i.test(half) ? 'Bottom' : 'Top'} ${ordinal(period)}` : detail || (period ? `${ordinal(period)} inning` : 'Live');
+  }
+  if (/halftime|intermission|end of/i.test(detail)) return detail;
+  const clock = String(status?.displayClock || '').trim();
+  if (sport === 'NHL' && period) return `${clock && /^\d+:\d+$/.test(clock) ? `${clock} · ` : ''}${ordinal(period)} period`;
+  if (['NFL','CFB','NBA','NCAAB'].includes(sport) && period) return `${clock && /^\d+:\d+$/.test(clock) ? `${clock} · ` : ''}${ordinal(period)} ${['NFL','CFB','NBA'].includes(sport) ? 'quarter' : 'half'}`;
+  return detail || (clock && clock !== '0.0' ? clock : 'Live');
+}
+function runnerOn(situation,base) {
+  const value = situation?.[`on${base}`] ?? situation?.runners?.[base.toLowerCase()];
+  return value === undefined || value === null ? null : Boolean(value);
+}
+function hockeyPowerPlay(summary,teams) {
+  const onIce = summary?.onIce || [];
+  const blocks = summary?.boxscore?.players || [];
+  if (onIce.length !== 2) return null;
+  const goalieIds = new Map(blocks.map(block => [String(block.team?.id || ''),new Set((block.statistics || []).filter(group => /goalie/i.test(group.name || group.displayName || '')).flatMap(group => (group.athletes || []).map(entry => String(entry.athlete?.id || ''))))]));
+  const sides = onIce.map(side => ({id:String(side.teamId || ''),count:(side.entries || []).length,hasGoalie:(side.entries || []).some(entry => goalieIds.get(String(side.teamId || ''))?.has(String(entry.athleteid || '')))}));
+  if (!sides.every(side => side.hasGoalie) || sides[0].count === sides[1].count || Math.max(...sides.map(side => side.count)) !== 6 || Math.min(...sides.map(side => side.count)) < 4) return null;
+  const advantaged = sides.find(side => side.count === 6);
+  return teams.find(team => String(team[8] || '') === advantaged.id)?.[0] || null;
+}
+function noHitBid(summary) {
+  const competitors = summary?.header?.competitions?.[0]?.competitors || [];
+  for (const block of summary?.boxscore?.players || []) {
+    const opponent = competitors.find(item => String(item.team?.id || '') !== String(block.team?.id || ''));
+    if (!opponent || Number(opponent.hits) !== 0 || opponent.hits == null) continue;
+    for (const group of block.statistics || []) {
+      const labels = group.labels || [];
+      const innings = labels.indexOf('IP'); const hits = labels.indexOf('H');
+      if (innings < 0 || hits < 0) continue;
+      const pitcher = (group.athletes || []).find(entry => Number.parseFloat(entry.stats?.[innings]) >= 6 && Number(entry.stats?.[hits]) === 0);
+      if (pitcher) return {text:`${pitcher.athlete?.displayName || 'A pitcher'} has thrown ${Math.floor(Number.parseFloat(pitcher.stats[innings]))} hitless innings in a no-hit bid`,points:14};
+    }
+  }
+  return null;
+}
+function hockeyGoalMilestone(summary) {
+  for (const block of summary?.boxscore?.players || []) for (const group of block.statistics || []) {
+    if (/goalie/i.test(group.name || group.displayName || '')) continue;
+    const goals = (group.labels || []).indexOf('G');
+    if (goals < 0) continue;
+    const scorer = (group.athletes || []).filter(entry => Number(entry.stats?.[goals]) >= 2).sort((a,b) => Number(b.stats[goals]) - Number(a.stats[goals]))[0];
+    if (scorer) { const count = Number(scorer.stats[goals]); const name = scorer.athlete?.displayName || 'A player'; return {text:count >= 3 ? `${name} has a hat trick (${count} goals)` : `${name} has 2 goals and is one away from a hat trick`,points:count >= 3 ? 12 : 7}; }
+  }
+  return null;
+}
+function footballMilestone(summary) {
+  for (const block of summary?.boxscore?.players || []) for (const group of block.statistics || []) {
+    if (!/pass/i.test(group.name || group.displayName || '')) continue;
+    const touchdowns = (group.labels || []).findIndex(label => /^TD$|^PASS TD$/i.test(label));
+    if (touchdowns < 0) continue;
+    const passer = (group.athletes || []).find(entry => Number(entry.stats?.[touchdowns]) >= 3);
+    if (passer) return {text:`${passer.athlete?.displayName || 'A quarterback'} has thrown ${passer.stats[touchdowns]} touchdown passes`,points:6};
+  }
+  return null;
+}
+function liveMilestone(sport,summary) { return sport === 'MLB' ? noHitBid(summary) : sport === 'NHL' ? hockeyGoalMilestone(summary) : ['NFL','CFB'].includes(sport) ? footballMilestone(summary) : null; }
+function liveSnapshot(game,competition,summary) {
+  const status = competition?.status || game.liveRawStatus;
+  const situation = competition?.situation || game.liveRawSituation || {};
+  const snapshot = {phase:livePhase(game.sport,status),note:'',reasons:[],bonus:0,bases:null};
+  if (['NFL','CFB'].includes(game.sport)) {
+    const possessionId = String(situation.possession?.id || situation.possession || '');
+    const holder = game.teams.find(team => String(team[8] || '') === possessionId);
+    const down = Number(situation.down);
+    const distance = Number(situation.distance);
+    const downText = String(situation.downDistanceText || situation.shortDownDistanceText || (down >= 1 && down <= 4 ? `${ordinal(down)} & ${Number.isFinite(distance) ? distance : 'goal'}` : '')).trim();
+    const spot = String(situation.possessionText || '').trim();
+    snapshot.note = [holder ? `${holder[1] || holder[0]} ball` : '',downText,spot && !downText.includes(spot) ? spot : ''].filter(Boolean).join(' · ');
+    if (situation.isRedZone === true) { snapshot.reasons.push(`${holder?.[0] || 'The offense'} is in the red zone`); snapshot.bonus += 4; }
+    if (down === 4 && downText) { snapshot.reasons.push(`${downText} is a pivotal down`); snapshot.bonus += 3; }
+  } else if (game.sport === 'MLB') {
+    const bases = {first:runnerOn(situation,'First'),second:runnerOn(situation,'Second'),third:runnerOn(situation,'Third')};
+    snapshot.bases = Object.values(bases).some(value => value !== null) ? bases : null;
+    const outs = Number(situation.outs);
+    const hasOuts = situation.outs !== undefined && situation.outs !== null && Number.isInteger(outs) && outs >= 0 && outs <= 2;
+    snapshot.note = hasOuts ? `${outs} ${outs === 1 ? 'out' : 'outs'}` : '';
+    const occupied = Object.entries(bases).filter(([,value]) => value).map(([base]) => base);
+    if (occupied.length) snapshot.reasons.push(`Runners on ${occupied.join(' and ')}`);
+    if ((bases.second || bases.third) && Number(status?.period || 0) >= 7 && Math.abs(Number(game.teams[0][2]) - Number(game.teams[1][2])) <= 1) snapshot.bonus += 4;
+  } else if (game.sport === 'NHL' && summary) {
+    const powerPlayTeam = hockeyPowerPlay(summary,game.teams);
+    if (powerPlayTeam) { snapshot.note = `${powerPlayTeam} power play`; snapshot.reasons.push(`${powerPlayTeam} has the man advantage`); snapshot.bonus += 4; }
+  }
+  const milestone = summary ? liveMilestone(game.sport,summary) : null;
+  if (milestone) { snapshot.reasons.push(milestone.text); snapshot.bonus += milestone.points; }
+  return snapshot;
+}
+function applyLiveSnapshot(game,competition,summary) {
+  if (game.state !== 'live') return;
+  game.live = liveSnapshot(game,competition,summary);
+  game.score = clampScore(game.baseScore + game.live.bonus);
+}
 function normalizeEvent(event, sport, leagueLogo, division) {
   const competition = event.competitions?.[0]; const competitors = competition?.competitors || []; if (competitors.length < 2) return null;
   const teams = competitors.slice(0,2).map(competitor => ({id:String(competitor.team?.id || ''),name:competitor.team?.displayName || competitor.athlete?.displayName || 'Unknown', shortName:competitor.team?.shortDisplayName || competitor.team?.name || competitor.athlete?.shortName || '', abbr:competitor.team?.abbreviation || competitor.abbreviation || '', score:scoreValue(competitor), logo:competitor.team?.logo || '', color:'white',record:recordFor(competitor),rank:rankFor(competitor,sport)}));
   const gameState = stateFromEvent(event); const status = competition?.status?.type?.shortDetail || competition?.status?.type?.detail || (gameState === 'completed' ? 'Final' : 'Scheduled'); const context = competition?.notes?.[0]?.headline || event.name || `${sport} matchup`; const rating = rateGame(sport,gameState,teams,event,competition,context); const eventId = event.id || `${sport}-${event.name}`;
-  return {id:eventId,summaryUrl:summaryUrlFor(sport,eventId),favorite:favoriteFor(teams,sport),sport,division,icon:iconFor(sport),leagueLogo:leagueLogo || LEAGUE_LOGOS[sport],startTime:event.date,state:gameState,status,channel:broadcastFor(competition) || 'Channel not listed',teams:teams.map(team => [team.name,team.abbr,team.score,team.color,team.logo,team.record,team.rank,team.shortName,team.id]),line:gameState === 'upcoming' ? parseLine(competition?.odds?.[0],competition,sport) : null,context,why:rating.reason,sub:competition?.venue?.fullName || competition?.venue?.address?.city || 'Live scoreboard',score:rating.score,openingScore:rating.openingScore,factors:rating.factors};
+  const game = {id:eventId,summaryUrl:summaryUrlFor(sport,eventId),favorite:favoriteFor(teams,sport),sport,division,icon:iconFor(sport),leagueLogo:leagueLogo || LEAGUE_LOGOS[sport],startTime:event.date,state:gameState,status,channel:broadcastFor(competition) || 'Channel not listed',teams:teams.map(team => [team.name,team.abbr,team.score,team.color,team.logo,team.record,team.rank,team.shortName,team.id]),line:gameState === 'upcoming' ? parseLine(competition?.odds?.[0],competition,sport) : null,context,why:rating.reason,sub:competition?.venue?.fullName || competition?.venue?.address?.city || 'Live scoreboard',score:rating.score,baseScore:rating.score,openingScore:rating.openingScore,factors:rating.factors,liveRawStatus:competition?.status,liveRawSituation:competition?.situation};
+  applyLiveSnapshot(game,competition,null);
+  return game;
 }
 async function fetchScoreboard(feed) { const controller = new AbortController(); const timer = setTimeout(() => controller.abort(), 7000); try { const url = new URL(feed.url); url.searchParams.set('limit',String(feed.limit || 100)); const response = await fetch(url, {signal:controller.signal,cache:'no-store'}); if (!response.ok) throw new Error(`HTTP ${response.status}`); return await response.json(); } finally { clearTimeout(timer); } }
 function gamesFromScoreboard(feed,payload) { const leagueLogo = payload.leagues?.[0]?.logos?.[0]?.href; const events = (payload.events || []).map(event => normalizeEvent(event,feed.sport,leagueLogo,feed.division)).filter(Boolean); events.forEach(rememberPregameLine); return events; }
@@ -261,7 +363,7 @@ function renderFavoriteTags() {
 }
 function loadFavoriteCatalog() {
   if (favoriteCatalogRequest) return favoriteCatalogRequest;
-  favoriteCatalogRequest = fetch('./teams.json?rev=20261020-20').then(response => { if (!response.ok) throw new Error(`HTTP ${response.status}`); return response.json(); }).then(directory => {
+  favoriteCatalogRequest = fetch('./teams.json?rev=20261020-21').then(response => { if (!response.ok) throw new Error(`HTTP ${response.status}`); return response.json(); }).then(directory => {
     FAVORITE_SPORTS.forEach(sport => favoriteCatalog.set(sport,(directory[sport] || []).map(team => ({sport,id:String(team.id || ''),name:String(team.name || ''),logo:String(team.logo || '')}))));
     renderFavoriteResults();
   }).catch(() => { FAVORITE_SPORTS.forEach(sport => favoriteCatalog.set(sport,[])); renderFavoriteResults(); });
@@ -326,8 +428,11 @@ function explainRating(game) {
     const ending = labels.has('Wide margin') ? 'The wider margin keeps the rating down.' : labels.has('Overtime') ? 'Overtime adds to the rating.' : 'The close finish raises the rating.';
     return `${why}. ${moment ? `${moment}. ` : ''}${ending}`;
   }
-  const action = labels.has('Score closeness') ? 'The close score and how late it is lift the rating.' : labels.has('Wide margin') ? 'The widening gap pulls the rating down.' : 'Its rating reflects how far along the game is.';
-  return `${why}. ${moment ? `${moment}. ` : ''}${action}`;
+  const phase = game.live?.phase && game.live.phase !== 'Live' ? `At ${game.live.phase}, ` : '';
+  const situation = game.live?.note ? `${phase}${game.live.note}. ` : phase ? `${phase.replace(/, $/,'. ')} ` : '';
+  const specifics = game.live?.reasons?.length ? `${game.live.reasons.join('; ')}. ` : '';
+  const action = labels.has('Score closeness') ? 'The close score and game progress also lift the rating.' : labels.has('Wide margin') ? 'The wider margin pulls the rating down.' : 'The game progress also affects the rating.';
+  return `${why}. ${situation}${specifics}${moment ? `${moment}. ` : ''}${action}`;
 }
 function trendFor(game) {
   if (game.state === 'upcoming' || !Number.isFinite(game.openingScore)) return '';
@@ -335,12 +440,19 @@ function trendFor(game) {
   const arrow = delta > 2 ? '↗' : delta < -2 ? '↘' : '→';
   return `<small class="score-trend" aria-label="${delta >= 0 ? 'Up' : 'Down'} ${Math.abs(delta)} points from the opening rating">${arrow} ${delta > 0 ? '+' : ''}${delta} vs start</small>`;
 }
+function basesMarkup(bases) {
+  if (!bases) return '';
+  const names = Object.entries(bases).filter(([,occupied]) => occupied).map(([base]) => base);
+  return `<span class="base-diamond" role="img" aria-label="${safeText(names.length ? `Runners on ${names.join(' and ')}` : 'Bases empty')}"><i class="base second ${bases.second ? 'occupied' : ''}"></i><i class="base third ${bases.third ? 'occupied' : ''}"></i><i class="base first ${bases.first ? 'occupied' : ''}"></i></span>`;
+}
 function gameCard(game) {
   const scoreClass = game.score >= 85 ? 'hot' : game.score >= 70 ? 'warm' : '';
-  const stateLabel = game.state === 'live' ? '<span class="status-live">● LIVE</span>' : `<span class="status-${game.state}">${safeText(game.status)}</span>`;
+  const stateLabel = game.state === 'live' ? `<span class="status-live">● LIVE</span>${game.live?.phase && game.live.phase !== 'Live' ? `<span class="live-phase">${safeText(game.live.phase)}</span>` : ''}` : `<span class="status-${game.state}">${safeText(game.status)}</span>`;
   const leagueLogo = game.leagueLogo || LEAGUE_LOGOS[game.sport];
   const line = displayLine(game);
-  return `<button type="button" class="game-card ${game.favorite ? 'favorite' : ''}" data-id="${safeText(game.id)}" data-division="${safeText(game.division || '')}" aria-label="Open details for ${safeText(game.teams[0][0])} versus ${safeText(game.teams[1][0])}"><span class="sport-icon"><img class="league-logo" src="${safeText(leagueLogo)}" alt="" loading="lazy" onerror="this.style.display='none'"></span><span class="team-column"><span class="match-meta">${stateLabel}${game.division ? `<span>•</span><span>${safeText(game.division)}</span>` : ''}<span>•</span><span>${safeText(game.sub)}</span></span><span class="team-row">${teamMarkup(game,game.teams[0])}<b class="team-score">${safeText(game.teams[0][2])}</b></span><span class="team-row">${teamMarkup(game,game.teams[1])}<b class="team-score">${safeText(game.teams[1][2])}</b></span></span><span class="game-context"><strong>Why ${game.score}?</strong><span>${safeText(explainRating(game))}</span></span><span class="game-context channel-context"><strong>Watch on</strong><span>${safeText(game.channel || 'Channel not listed')}</span><strong class="line-label">${safeText(line.label)}</strong><span class="line-value">${safeText(line.text)}</span><span class="stats-cue">Tap for stats ›</span></span><span class="excitement"><span class="score-circle ${scoreClass}">${game.score}</span>${trendFor(game)}</span></button>`;
+  const situation = game.state === 'live' && (game.live?.note || game.live?.bases) ? `<span class="live-situation">${basesMarkup(game.live?.bases)}${game.live?.note ? `<span>${safeText(game.live.note)}</span>` : ''}</span>` : '';
+  const accessibility = [game.teams[0][0],game.teams[0][2],game.teams[1][0],game.teams[1][2],game.live?.phase,game.live?.note,game.live?.bases ? Object.entries(game.live.bases).filter(([,on]) => on).map(([base]) => base).join(' and ') : '',`excitement ${game.score}`, 'Open game details'].filter(Boolean).join(', ');
+  return `<button type="button" class="game-card ${game.favorite ? 'favorite' : ''}" data-id="${safeText(game.id)}" data-division="${safeText(game.division || '')}" aria-label="${safeText(accessibility)}"><span class="sport-icon"><img class="league-logo" src="${safeText(leagueLogo)}" alt="" loading="lazy" onerror="this.style.display='none'"></span><span class="team-column"><span class="match-meta">${stateLabel}${game.division ? `<span>•</span><span>${safeText(game.division)}</span>` : ''}<span>•</span><span>${safeText(game.sub)}</span></span><span class="team-row">${teamMarkup(game,game.teams[0])}<b class="team-score">${safeText(game.teams[0][2])}</b></span><span class="team-row">${teamMarkup(game,game.teams[1])}<b class="team-score">${safeText(game.teams[1][2])}</b></span>${situation}</span><span class="game-context"><strong>Why ${game.score}?</strong><span>${safeText(explainRating(game))}</span></span><span class="game-context channel-context"><strong>Watch on</strong><span>${safeText(game.channel || 'Channel not listed')}</span><strong class="line-label">${safeText(line.label)}</strong><span class="line-value">${safeText(line.text)}</span><span class="stats-cue">Tap for stats ›</span></span><span class="excitement"><span class="score-circle ${scoreClass}">${game.score}</span>${trendFor(game)}</span></button>`;
 }
 function detailStats(summary) { const teams = summary?.boxscore?.teams || []; return teams.map(team => { const stats = (team.statistics || []).filter(stat => stat.displayValue && stat.displayValue !== '0').slice(0, 6); if (!stats.length) return ''; return `<div class="detail-stat-team"><strong>${safeText(team.team?.displayName || 'Team stats')}</strong>${stats.map(stat => `<div><span>${safeText(stat.label || stat.displayName || stat.name)}</span><b>${safeText(stat.displayValue)}</b></div>`).join('')}</div>`; }).join(''); }
 function detailLeaders(summary) { const groups = summary?.leaders || []; const rows = groups.flatMap(group => (group.leaders || []).filter(leader => leader.athlete?.displayName || leader.athlete?.shortName).slice(0,1).map(leader => `<div><span>${safeText(group.displayName || group.name || 'Leader')}</span><b>${safeText(leader.athlete?.displayName || leader.athlete?.shortName)} · ${safeText(leader.displayValue || leader.value || '')}</b></div>`)).slice(0,6); return rows.length ? `<section class="detail-section"><h3>Leaders</h3><div class="detail-leaders">${rows.join('')}</div></section>` : ''; }
@@ -384,12 +496,13 @@ function summarySpecificWhy(game,summary) {
   return '';
 }
 async function enrichGameSignals() {
-  const candidates = games.filter(game => (game.state !== 'upcoming' || !game.line) && !(game.division === 'FCS' && game.state === 'upcoming')).sort((a,b) => Number(b.favorite) - Number(a.favorite) || Number(b.state === 'live') - Number(a.state === 'live') || b.score - a.score).slice(0,60);
+  const candidates = games.filter(game => (game.state !== 'upcoming' || !game.line) && !(game.division === 'FCS' && game.state === 'upcoming')).sort((a,b) => Number(b.state === 'live') - Number(a.state === 'live') || Number(b.favorite) - Number(a.favorite) || b.score - a.score).slice(0,60);
   let changed = false;
   for (let start = 0; start < candidates.length; start += 6) {
     await Promise.allSettled(candidates.slice(start,start + 6).map(async game => {
     try {
       const summary = await fetchGameSummary(game);
+      if (game.state === 'live') { applyLiveSnapshot(game,summary?.header?.competitions?.[0],summary); changed = true; }
       const line = lineFromSummary(summary,game.sport);
       if (line && (game.state !== 'upcoming' || !game.line)) { game.line = line; changed = true; if (game.state === 'upcoming') rememberPregameLine(game); }
       const moment = summarySpecificWhy(game,summary);
@@ -452,6 +565,6 @@ $('#favorite-results').addEventListener('click',event => { const button = event.
 $('#favorite-tags').addEventListener('click',event => { const button = event.target.closest('[data-remove-favorite]'); if (!button) return; state.favoriteTeams.splice(Number(button.dataset.removeFavorite),1); syncFavoriteGames(); persistPreferences(); renderFavoriteTags(); renderFavoriteResults(); render(); });
 $$('[data-visible-sport]').forEach(input => input.addEventListener('change', () => { const sport = input.dataset.visibleSport; if (input.checked) state.visibleSports.add(sport); else state.visibleSports.delete(sport); persistPreferences(); render(); }));
 let deferredInstallPrompt; window.addEventListener('beforeinstallprompt',event => { event.preventDefault(); deferredInstallPrompt = event; $('#install-button').classList.remove('hidden'); }); $('#install-button').addEventListener('click',async() => { if (!deferredInstallPrompt) return; deferredInstallPrompt.prompt(); await deferredInstallPrompt.userChoice; deferredInstallPrompt = null; $('#install-button').classList.add('hidden'); }); window.addEventListener('appinstalled',() => $('#install-button').classList.add('hidden'));
-if ('serviceWorker' in navigator) navigator.serviceWorker.register('./sw.js?rev=20261020-20').then(registration => registration.update()).catch(() => {});
+if ('serviceWorker' in navigator) navigator.serviceWorker.register('./sw.js?rev=20261020-21').then(registration => registration.update()).catch(() => {});
 games = DEMO_GAMES.map(game => ({...game,favorite:favoriteFor(game.teams,game.sport)}));
 renderFavoriteTags(); renderFavoriteResults(); render(); loadLiveGames(); setInterval(loadLiveGames,60000);

@@ -65,8 +65,14 @@ body { margin: 0; min-width: 320px; color: var(--ink); background: radial-gradie
 .sport-icon { width: 48px; height: 48px; display: grid; place-items: center; align-content: center; gap: 1px; border-radius: 50%; background: radial-gradient(circle at 35% 28%, #faf4df 0, #aaa99b 30%, #5d625e 72%, #2c302f 100%); border: 2px solid #222727; box-shadow: inset 1px 1px 2px #fff, inset -2px -2px 4px #424743, 0 2px 3px #151717; }
 .league-logo { width: 28px; height: 28px; object-fit: contain; } .sport-icon small { font: 7px 'DM Mono', monospace; color: #242826; text-transform: uppercase; }
 .game-card.favorite .sport-icon { margin-top: 6px; }
-.match-meta { display: flex; align-items: center; gap: 8px; color: #b3b8ad; font: 10px 'DM Mono', monospace; text-transform: uppercase; text-shadow: 0 1px 1px #171a1a; }
+.match-meta { display: flex; align-items: center; flex-wrap: wrap; gap: 3px 8px; color: #b3b8ad; font: 10px 'DM Mono', monospace; text-transform: uppercase; text-shadow: 0 1px 1px #171a1a; }
 .status-live { color: #ff9587; } .status-upcoming { color: #a9d7b0; } .status-completed { color: #b2c59e; }
+.live-phase { color: #d7eaff; font-weight: 600; }
+.live-situation { display: flex; align-items: center; gap: 9px; min-height: 23px; margin-top: 5px; color: #c8e3ff; font: 10px 'DM Mono', monospace; }
+.base-diamond { position: relative; flex: 0 0 27px; width: 27px; height: 26px; }
+.base { position: absolute; width: 7px; height: 7px; transform: rotate(45deg); background: #515e64; border: 1px solid #aab8bb; box-shadow: 0 1px 2px #111; }
+.base.occupied { background: #8dc3fa; border-color: #dceeff; box-shadow: 0 0 5px #5cafff; }
+.base.second { left: 10px; top: 2px; } .base.third { left: 3px; top: 11px; } .base.first { left: 17px; top: 11px; }
 .team-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; font-size: 15px; font-weight: 500; line-height: 1.25; text-shadow: 0 1px 1px #151817; }
 .team-row + .team-row { margin-top: 6px; } .team-name { display: flex; align-items: center; gap: 8px; min-width: 0; } .team-name > span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .team-name-text { min-width: 0; flex: 1 1 auto; }
