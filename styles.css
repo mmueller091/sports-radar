@@ -186,3 +186,7 @@ body.detail-open { overflow: hidden; }
   .profile-button { padding: 2px; }
   .profile-button span { width: 27px; height: 27px; }
 }
+@media (max-width: 460px) {
+  .game-card .team-column { grid-column: 2 / 4; }
+  .game-card .excitement { grid-column: 3; grid-row: 2 / span 2; }
+}
