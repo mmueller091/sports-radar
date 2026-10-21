@@ -1,7 +1,7 @@
 import {buildPushPayload} from '@block65/webcrypto-web-push';
 import '../../rating-core.js';
 
-const {rateGame,applyLiveSnapshot,recordFor,rankFor,clampScore} = globalThis.SportsRadarScore;
+const {rateGame,applyLiveSnapshot,recordFor,rankFor,clampScore,underdogCandidate,upsetImpact,gameProgress} = globalThis.SportsRadarScore;
 const ORIGIN = 'https://mmueller091.github.io';
 const ESPN = 'https://site.api.espn.com/apis/site/v2/sports';
 const FEEDS = [
@@ -49,7 +49,23 @@ async function liveGames() {
 }
 async function addDetails(items,minimum) {
   await Promise.all(items.filter(item => item.game.score >= minimum - 20).slice(0,18).map(async item => {
-    try { const path = item.path.split('?')[0].replace('/scoreboard','/summary'); const response = await fetch(`${ESPN}/${path}?event=${encodeURIComponent(item.event.id)}`,{cf:{cacheTtl:0}}); if (response.ok) applyLiveSnapshot(item.game,item.competition,await response.json()); } catch {}
+    try {
+      const path = item.path.split('?')[0].replace('/scoreboard','/summary');
+      const response = await fetch(`${ESPN}/${path}?event=${encodeURIComponent(item.event.id)}`,{cf:{cacheTtl:0}});
+      if (!response.ok) return;
+      const summary = await response.json();
+      const competition = summary?.header?.competitions?.[0] || item.competition;
+      applyLiveSnapshot(item.game,competition,summary);
+      if (!item.rating.underdog) {
+        const candidate = underdogCandidate(item.sport,competition,summary?.pickcenter?.[0] || competition?.odds?.[0]);
+        const impact = upsetImpact(candidate,item.game.teams,'live',gameProgress(item.sport,competition));
+        if (impact.points) {
+          item.game.baseScore = clampScore(item.game.baseScore + impact.points);
+          item.game.score = clampScore(item.game.baseScore + (item.game.live?.bonus || 0));
+          item.rating.upsetText = impact.text;
+        }
+      }
+    } catch {}
   }));
 }
 async function checkGames(env) {
