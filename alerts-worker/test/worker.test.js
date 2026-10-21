@@ -76,6 +76,25 @@ test('AI labels require explicit source evidence for the exact storyline type',(
   assert.equal(evidenceSupportsType(priorHatTrick,'notable_recent_performance'),true);
 });
 
+test('advanced team quality and confirmed participant stories require explicit evidence',() => {
+  const efficiency = {
+    headline:'Cleveland brings the NBA\'s best net rating into Boston',
+    description:'The Cavaliers rank first in net efficiency this season.'
+  };
+  const starters = {
+    headline:'Both starting quarterbacks confirmed for Sunday night',
+    description:'The teams announced that their starting quarterbacks will play.'
+  };
+  const aces = {
+    headline:'Two aces set for a Cy Young-caliber pitching matchup',
+    description:'Both teams confirmed their ace will start.'
+  };
+  assert.equal(deterministicFactor(efficiency)?.type,'elite_efficiency_profile');
+  assert.equal(deterministicFactor(starters)?.type,'confirmed_key_starters');
+  assert.equal(deterministicFactor(aces)?.type,'ace_pitching_matchup');
+  assert.equal(evidenceSupportsType({headline:'Game preview',description:'Two good teams meet.'},'elite_efficiency_profile'),false);
+});
+
 test('context lookup batches a full 100-game request within D1 parameter limits',async () => {
   const calls = [];
   const env = {
