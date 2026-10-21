@@ -36,7 +36,14 @@
   function lineFromSummary(summary, sport) { const competition = summary?.header?.competitions?.[0]; return parseLine(summary?.pickcenter?.[0] || competition?.odds?.[0] || summary?.odds?.[0],competition,sport); }
   function eventSignalText(event, competition, context) { return [event?.name,event?.shortName,(competition?.notes || []).map(note => note.headline).join(' '),competition?.series?.summary,competition?.series?.title,competition?.series?.type,event?.season?.type?.name,event?.season?.type?.slug,event?.season?.slug,context].filter(Boolean).join(' ').toLowerCase(); }
   function nflDivisionFor(competitors) { const divisions = competitors.map(item => NFL_DIVISIONS[String(item.team?.abbreviation || '').toUpperCase()]); return divisions.length === 2 && divisions[0] && divisions[0] === divisions[1] ? divisions[0] : ''; }
-  function winningRecord(competitor) { const match = String(recordFor(competitor)).match(/^(\d+)-(\d+)/); return Boolean(match && Number(match[1]) > Number(match[2])); }
+  function recordStats(competitor) {
+    const match = String(recordFor(competitor)).match(/^(\d+)-(\d+)(?:-(\d+))?/);
+    if (!match) return null;
+    const wins = Number(match[1]), losses = Number(match[2]), ties = Number(match[3] || 0);
+    const games = wins + losses + ties;
+    return games ? {wins,losses,ties,games,pct:(wins + ties / 2) / games} : null;
+  }
+  function winningRecord(competitor) { const record = recordStats(competitor); return Boolean(record && record.pct > .5); }
   function listedSpread(competition) { const spread = parseLine(competition?.odds?.[0],competition,'NFL')?.spread || ''; const match = spread.match(/[+-](\d+(?:\.\d+)?)/); return match ? Number(match[1]) : null; }
   function pregameRating(sport,event,competition,context) {
     const detail = eventSignalText(event,competition,context);
@@ -51,8 +58,25 @@
     const competitors = competition?.competitors || [];
     if (sport === 'NFL') {
       const division = nflDivisionFor(competitors);
-      if (division) { factors.push({label:`${division} matchup`,points:18}); reason += ` · ${division} rivals`; }
-      if (competitors.length === 2 && competitors.every(winningRecord)) { factors.push({label:'Both winning records',points:8}); reason += ' · both teams winning'; }
+      const records = competitors.map(recordStats);
+      const knownRecords = records.length === 2 && records.every(Boolean);
+      const bothWinning = knownRecords && records.every(record => record.pct > .5);
+      if (division) {
+        factors.push({label:`${division} matchup`,points:4});
+        if (bothWinning) factors.push({label:'Division race between winning teams',points:3});
+        reason += ` · ${division} rivals`;
+      }
+      if (bothWinning) {
+        factors.push({label:'Both winning records',points:14});
+        if (Math.abs(records[0].pct - records[1].pct) <= .1) factors.push({label:'Evenly matched winning records',points:4});
+        reason += ' · both teams winning';
+      } else if (knownRecords && records.every(record => record.pct >= .5)) {
+        factors.push({label:'Both teams at least .500',points:5});
+      } else if (knownRecords && records.every(record => record.pct < .5)) {
+        factors.push({label:'Both teams below .500',points:-7});
+      }
+      if (knownRecords && records.some(record => record.wins === 0 && record.games >= 3)) factors.push({label:'Winless team',points:-5});
+      if (knownRecords && records.some(record => record.losses === 0 && record.games >= 3)) factors.push({label:'Unbeaten team',points:7});
       const spread = listedSpread(competition);
       if (spread !== null && spread <= 3) { factors.push({label:'Tight projected spread',points:7}); reason += ' · close line'; }
       else if (spread !== null && spread <= 6) { factors.push({label:'Competitive projected spread',points:4}); reason += ' · competitive line'; }
@@ -83,6 +107,64 @@
     const clock = String(status.displayClock || '').match(/^(\d+):(\d+)/);
     const remaining = clock && length ? Math.min(length * 60,Number(clock[1]) * 60 + Number(clock[2])) : length ? length * 30 : 0;
     return Math.max(0,Math.min(1,((period - 1) + (length ? 1 - remaining / (length * 60) : .5)) / total));
+  }
+  function momentumImpact(sport,summary,progress,state) {
+    if (state === 'upcoming') return {points:0,text:'',factors:[]};
+    const plays = summary?.scoringPlays?.length ? summary.scoringPlays : (summary?.plays || []).filter(play => play.scoringPlay === true);
+    const moments = plays.map(play => {
+      const home = Number(play.homeScore), away = Number(play.awayScore);
+      const period = Number(play.period?.number || play.period || 0);
+      const position = period ? gameProgress(sport,{status:{period,displayClock:play.clock?.displayValue || ''}}) : null;
+      return Number.isFinite(home) && Number.isFinite(away) ? {home,away,position} : null;
+    }).filter(Boolean).sort((a,b) => (a.position ?? 0) - (b.position ?? 0));
+    const threshold = ({NFL:7,CFB:10,NHL:2,MLB:3,NBA:10,NCAAB:10,Soccer:2,Tennis:2})[sport] || 7;
+    const units = ({NFL:'points',CFB:'points',NHL:'goals',MLB:'runs',NBA:'points',NCAAB:'points',Soccer:'goals',Tennis:'sets'})[sport] || 'points';
+    const competitors = summary?.header?.competitions?.[0]?.competitors || [];
+    const nameFor = side => competitors.find(item => item.homeAway === side)?.team?.displayName || (side === 'home' ? 'The home team' : 'The away team');
+    const possessive = name => `${name}${/s$/i.test(name) ? "'" : "'s"}`;
+    let previousLeader = 0, leadChanges = 0, lastFlip = -1;
+    let deepestHomeDeficit = 0, deepestAwayDeficit = 0, comeback = null;
+    let previousHome = 0, previousAway = 0, runSide = '', runPoints = 0, runCount = 0;
+    for (const moment of moments) {
+      const margin = moment.home - moment.away;
+      deepestHomeDeficit = Math.max(deepestHomeDeficit,-margin);
+      deepestAwayDeficit = Math.max(deepestAwayDeficit,margin);
+      if (margin >= 0 && deepestHomeDeficit >= threshold && (!comeback || deepestHomeDeficit > comeback.deficit)) comeback = {side:'home',deficit:deepestHomeDeficit};
+      if (margin <= 0 && deepestAwayDeficit >= threshold && (!comeback || deepestAwayDeficit > comeback.deficit)) comeback = {side:'away',deficit:deepestAwayDeficit};
+      const leader = Math.sign(margin);
+      if (leader && previousLeader && leader !== previousLeader) { leadChanges++; lastFlip = moment.position ?? -1; }
+      if (leader) previousLeader = leader;
+      const homeGain = moment.home - previousHome, awayGain = moment.away - previousAway;
+      const scorer = homeGain > 0 && awayGain === 0 ? 'home' : awayGain > 0 && homeGain === 0 ? 'away' : '';
+      if (scorer) { if (runSide !== scorer) { runSide = scorer; runPoints = 0; runCount = 0; } runPoints += scorer === 'home' ? homeGain : awayGain; runCount++; }
+      else { runSide = ''; runPoints = 0; runCount = 0; }
+      previousHome = moment.home; previousAway = moment.away;
+    }
+    const factors = [], details = [];
+    if (leadChanges) { factors.push({label:`${leadChanges} lead change${leadChanges === 1 ? '' : 's'}`,points:Math.min(9,leadChanges * 3)}); details.push(`the lead changed ${leadChanges} time${leadChanges === 1 ? '' : 's'}`); }
+    if (comeback) { factors.push({label:'Erased a large deficit',points:Math.min(8,4 + Math.floor(comeback.deficit / threshold) * 2)}); details.push(`${nameFor(comeback.side)} erased a deficit of ${comeback.deficit} ${units}`); }
+    const currentProgress = state === 'completed' ? 1 : Math.max(0,Number(progress) || 0);
+    if (lastFlip >= .65 && currentProgress - lastFlip <= .18) { factors.push({label:'Recent late lead change',points:5}); details.push('the lead flipped late'); }
+    const latestPosition = moments.at(-1)?.position ?? null;
+    if (state === 'live' && runCount >= 2 && runPoints >= threshold && latestPosition !== null && currentProgress - latestPosition <= .12) {
+      factors.push({label:'Recent unanswered scoring run',points:4}); details.push(`${nameFor(runSide)} scored ${runPoints} unanswered ${units} recently`);
+    }
+    const winChances = (summary?.winprobability || []).map(item => Number(item.homeWinPercentage)).filter(value => Number.isFinite(value) && value >= 0 && value <= 1);
+    let strongestSwing = {size:0,end:-1,direction:0};
+    for (let end = 1; end < winChances.length; end++) {
+      for (let start = Math.max(0,end - 10); start < end; start++) {
+        const change = winChances[end] - winChances[start];
+        if (Math.abs(change) > strongestSwing.size) strongestSwing = {size:Math.abs(change),end,direction:Math.sign(change)};
+      }
+    }
+    if (strongestSwing.size >= .2) {
+      const points = Math.min(8,Math.round(strongestSwing.size * 16) + (state === 'live' && strongestSwing.end >= winChances.length - 12 ? 2 : 0));
+      factors.push({label:'Big win-chance swing',points});
+      details.push(`${possessive(nameFor(strongestSwing.direction > 0 ? 'home' : 'away'))} estimated win chance swung by ${Math.round(strongestSwing.size * 100)} percentage points`);
+    }
+    let remaining = 20;
+    const cappedFactors = factors.map(factor => { const points = Math.min(factor.points,remaining); remaining -= points; return {...factor,points}; }).filter(factor => factor.points > 0);
+    return {points:20 - remaining,text:details.join('; ').replace(/^[a-z]/,character => character.toUpperCase()),factors:cappedFactors};
   }
   function numberFromLine(value) { if (value === null || value === undefined || value === '') return null; const n = Number(String(value).replace(/[^+\-.\d]/g,'')); return Number.isFinite(n) ? n : null; }
   function underdogCandidate(sport,competition,raw) {
@@ -252,7 +334,7 @@
     game.score = clampScore(game.baseScore + game.live.bonus);
   }
   
-  const api = {SPORT_BASE,NFL_DIVISIONS,CLOSE_MARGIN,clampScore,factorText,recordFor,rankFor,parseLine,lineFromSummary,eventSignalText,nflDivisionFor,winningRecord,listedSpread,pregameRating,gameProgress,underdogCandidate,upsetImpact,rateGame,ordinal,livePhase,runnerOn,hockeyPowerPlay,noHitBid,hockeyGoalMilestone,footballMilestone,liveMilestone,liveSnapshot,applyLiveSnapshot};
+  const api = {SPORT_BASE,NFL_DIVISIONS,CLOSE_MARGIN,clampScore,factorText,recordFor,rankFor,recordStats,parseLine,lineFromSummary,eventSignalText,nflDivisionFor,winningRecord,listedSpread,pregameRating,gameProgress,momentumImpact,underdogCandidate,upsetImpact,rateGame,ordinal,livePhase,runnerOn,hockeyPowerPlay,noHitBid,hockeyGoalMilestone,footballMilestone,liveMilestone,liveSnapshot,applyLiveSnapshot};
   root.SportsRadarScore = api;
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
 })(globalThis);

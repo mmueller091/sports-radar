@@ -11,7 +11,7 @@ assert.ok(teamDirectory.NBA.some(team => team.name === 'Los Angeles Lakers'));
 assert.ok(teamDirectory.CFB.length > 500);
 const scoreLogic = fs.readFileSync('rating-core.js','utf8');
 const lineLogic = app.slice(app.indexOf('function displayLine'),app.indexOf('function normalizeEvent'));
-const coreBindings = 'const {SPORT_BASE,CLOSE_MARGIN,clampScore,factorText,recordFor,rankFor,parseLine,lineFromSummary,gameProgress,underdogCandidate,upsetImpact,rateGame,applyLiveSnapshot} = globalThis.SportsRadarScore;';
+const coreBindings = 'const {SPORT_BASE,CLOSE_MARGIN,clampScore,factorText,recordFor,rankFor,parseLine,lineFromSummary,gameProgress,momentumImpact,underdogCandidate,upsetImpact,rateGame,applyLiveSnapshot} = globalThis.SportsRadarScore;';
 const preferenceLogic = app.slice(app.indexOf('function readFavoriteSelections'),app.indexOf('const savedFavorites'));
 const explanationLogic = app.slice(app.indexOf('function explainRating'),app.indexOf('function trendFor'));
 const nflLogic = app.slice(app.indexOf('function nflWeekMeta'),app.indexOf('function dedupeGames'));
@@ -57,7 +57,25 @@ const fixtures = `
     {team:{abbreviation:'CIN'},records:[{type:'overall',summary:'3-2'}]}
   ],odds:[{details:'BAL -3',overUnder:51.5}]};
   const rivalry = rateGame('NFL','upcoming',scheduledTeams,{name:'Ravens vs Bengals'},ravensBengals,'');
-  assert.equal(rivalry.score,71);
+  assert.equal(rivalry.score,70);
+  function nflMatchup(name,awayCode,awayRecord,homeCode,homeRecord,spread) {
+    const competition = {notes:[],competitors:[
+      {homeAway:'away',team:{abbreviation:awayCode},records:[{type:'overall',summary:awayRecord}]},
+      {homeAway:'home',team:{abbreviation:homeCode},records:[{type:'overall',summary:homeRecord}]}
+    ],odds:[{details:homeCode+' -'+spread}]};
+    return rateGame('NFL','upcoming',scheduledTeams,{name},competition,'');
+  }
+  const jetsDolphins = nflMatchup('Dolphins at Jets','MIA','0-5','NYJ','2-4',4.5);
+  const bearsPatriots = nflMatchup('Patriots at Bears','NE','4-2','CHI','4-2',3);
+  const ramsRaiders = nflMatchup('Rams at Raiders','LAR','2-4','LV','3-3',4.5);
+  const seahawksChiefs = nflMatchup('Chiefs at Seahawks','KC','5-0','SEA','3-3',2.5);
+  assert.equal(jetsDolphins.score,34);
+  assert.equal(bearsPatriots.score,63);
+  assert.equal(ramsRaiders.score,42);
+  assert.equal(seahawksChiefs.score,57);
+  assert.ok([bearsPatriots,ramsRaiders,seahawksChiefs].every(matchup => matchup.score > jetsDolphins.score));
+  assert.equal(bearsPatriots.factors.find(factor => factor.label === 'Both winning records').points,14);
+  assert.equal(jetsDolphins.factors.find(factor => factor.label === 'AFC East matchup').points,4);
   const nflGame = {sport:'NFL',state:'upcoming',score:rivalry.score,factors:rivalry.factors,startTime:'2026-10-25T17:00:00Z',line:{spread:'BAL -3'},teams:[['Baltimore Ravens','BAL','0','',null,'4-2'],['Cincinnati Bengals','CIN','0','',null,'3-2']]};
   const nflProse = explainRating(nflGame);
   assert.match(nflProse,/AFC North/);
@@ -65,6 +83,9 @@ const fixtures = `
   assert.match(nflProse,/Lamar Jackson vs\. Joe Burrow if both start/);
   assert.doesNotMatch(nflProse,/ranked/);
   assert.doesNotMatch(explainRating({...nflGame,score:38,factors:[{label:'Sport baseline',points:38}],teams:[['Team One','ONE'],['Team Two','TWO']]}),/ranked/);
+  const weakDivisionProse = explainRating({sport:'NFL',state:'upcoming',score:jetsDolphins.score,factors:jetsDolphins.factors,startTime:'2026-10-25T17:00:00Z',line:{spread:'NYJ -4.5'},teams:[['Miami Dolphins','MIA','0','',null,'0-5'],['New York Jets','NYJ','0','',null,'2-4']]});
+  assert.match(weakDivisionProse,/below .500/);
+  assert.match(weakDivisionProse,/only a small boost/);
   const futureFavorite = {favorite:true,state:'upcoming',startTime:new Date(Date.now()+3*86400000).toISOString(),score:71};
   const todayFavorite = {...futureFavorite,startTime:new Date().toISOString()};
   const ordinaryUpcoming = {favorite:false,state:'upcoming',score:80};
@@ -120,6 +141,27 @@ const fixtures = `
   assert.equal(tiedEarlier.points,0);
   const reversed = upsetImpact(underdogLive.underdog,[{id:'a',score:'20'},{id:'h',score:'24'}],'completed',1);
   assert.equal(reversed.points,0);
+  const comebackSummary = {header:{competitions:[{competitors:[{homeAway:'away',team:{displayName:'New England Patriots'}},{homeAway:'home',team:{displayName:'Chicago Bears'}}]}]},scoringPlays:[
+    {period:{number:1},clock:{displayValue:'8:00'},homeScore:0,awayScore:7},
+    {period:{number:2},clock:{displayValue:'4:00'},homeScore:0,awayScore:14},
+    {period:{number:3},clock:{displayValue:'3:00'},homeScore:7,awayScore:14},
+    {period:{number:4},clock:{displayValue:'9:00'},homeScore:14,awayScore:14},
+    {period:{number:4},clock:{displayValue:'2:00'},homeScore:21,awayScore:14}
+  ]};
+  const comeback = momentumImpact('NFL',comebackSummary,.967,'live');
+  assert.equal(comeback.points,20);
+  assert.match(comeback.text,/Chicago Bears erased a deficit of 14 points/);
+  assert.match(comeback.text,/lead changed 1 time/);
+  assert.match(comeback.text,/21 unanswered points/);
+  assert.equal(momentumImpact('NFL',{},.9,'live').points,0);
+  assert.ok(momentumImpact('NFL',comebackSummary,1,'completed').points >= 15);
+  assert.equal(comeback.factors.reduce((sum,factor) => sum + factor.points,0),comeback.points);
+  const probabilityOnly = momentumImpact('NFL',{header:comebackSummary.header,winprobability:[
+    {homeWinPercentage:.51},{homeWinPercentage:.49},{homeWinPercentage:.41},{homeWinPercentage:.28},{homeWinPercentage:.12}
+  ]},.7,'live');
+  assert.ok(probabilityOnly.points >= 6);
+  assert.match(probabilityOnly.text,/New England Patriots.*39 percentage points/);
+  assert.equal(momentumImpact('NFL',{winprobability:[{homeWinPercentage:.5},{homeWinPercentage:.49}]},.5,'live').points,0);
   const moneylineUpset = underdogCandidate('MLB',{competitors:[{homeAway:'away',team:{id:'a',displayName:'Rays'}},{homeAway:'home',team:{id:'h',displayName:'Brewers'}}]},{moneyline:{away:{close:{odds:'+230'}},home:{close:{odds:'-275'}}}});
   assert.ok(moneylineUpset.description.includes('+230 moneyline'));
   assert.equal(underdogCandidate('NHL',{competitors:upsetCompetition.competitors},{pointSpread:{away:{close:{line:'+1.5'}},home:{close:{line:'-1.5'}}}}),null);

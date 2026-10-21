@@ -68,7 +68,7 @@ function labelForSport(sport) { return SPORT_LABELS[sport] || sport; }
 function iconFor(sport) { return ({NFL:'◈',MLB:'◉',NHL:'✧',CFB:'◆',NBA:'●',NCAAB:'◇',Tennis:'◌',Soccer:'⊙'})[sport] || '✦'; }
 function teamLogoUrl(sport, abbreviation) { const league = ({NFL:'nfl',MLB:'mlb',NHL:'nhl',CFB:'college-football',NBA:'nba',NCAAB:'mens-college-basketball',Tennis:'tennis',Soccer:'soccer'})[sport] || sport.toLowerCase(); return `https://a.espncdn.com/i/teamlogos/${league}/500/${String(abbreviation).toLowerCase()}.png`; }
 function summaryUrlFor(sport, eventId) { return `${ESPN_BASE}/${SPORT_PATHS[sport] || SPORT_PATHS.NFL}/summary?event=${encodeURIComponent(eventId)}`; }
-const {SPORT_BASE,CLOSE_MARGIN,clampScore,factorText,recordFor,rankFor,parseLine,lineFromSummary,gameProgress,underdogCandidate,upsetImpact,rateGame,applyLiveSnapshot} = globalThis.SportsRadarScore;
+const {SPORT_BASE,CLOSE_MARGIN,clampScore,factorText,recordFor,rankFor,parseLine,lineFromSummary,gameProgress,momentumImpact,underdogCandidate,upsetImpact,rateGame,applyLiveSnapshot} = globalThis.SportsRadarScore;
 function normalizedTeamName(name) { return String(name || '').trim().toLocaleLowerCase().replace(/\s+/g,' '); }
 function favoriteFor(teams,sport) { return state.favoriteTeams.some(favorite => favorite.sport === sport && teams.some(team => { const id = String(team.id || team[8] || ''); const name = team.name || team[0]; return Boolean(favorite.id && id && favorite.id === id) || normalizedTeamName(favorite.name) === normalizedTeamName(name); })); }
 function sameLocalDay(value) { if (!value) return false; return new Date(value).toLocaleDateString() === new Date().toLocaleDateString(); }
@@ -217,11 +217,16 @@ function explainRating(game) {
     if (game.sport === 'NFL') {
       const division = [...labels].find(label => /^(AFC|NFC) (East|North|South|West) matchup$/.test(label))?.replace(' matchup','');
       const signals = [];
-      if (division) signals.push(`${game.teams[0][0]} and ${game.teams[1][0]} are ${division} rivals`);
       if (labels.has('Both winning records')) signals.push(`both have winning records (${game.teams[0][5]} and ${game.teams[1][5]})`);
+      if (labels.has('Evenly matched winning records')) signals.push('their records are closely matched');
+      if (labels.has('Both teams below .500')) signals.push(`both teams are below .500 (${game.teams[0][5]} and ${game.teams[1][5]}), which tempers the anticipation`);
+      else if (labels.has('Both teams at least .500')) signals.push(`both teams are at least .500 (${game.teams[0][5]} and ${game.teams[1][5]})`);
+      if (labels.has('Unbeaten team')) signals.push('one team is unbeaten');
+      if (labels.has('Winless team')) signals.push('one team is still winless, which lowers the expectation');
+      if (division) signals.push(`${game.teams[0][0]} and ${game.teams[1][0]} are ${division} rivals, but that is only a small boost`);
       if (labels.has('Tight projected spread') || labels.has('Competitive projected spread')) signals.push(`the listed spread (${game.line?.spread || 'close'}) suggests a competitive game`);
       const possibleQuarterbackDuel = Number(new Date(game.startTime).getFullYear()) === 2026 && game.teams.map(team => team[1]).sort().join('-') === 'BAL-CIN' ? ' It could also be Lamar Jackson vs. Joe Burrow if both start.' : '';
-      return signals.length ? `${signals.join('; ')}. That puts this at ${game.score} before kickoff.${possibleQuarterbackDuel}` : `No special matchup stakes or close-line signal are listed yet, so this starts at ${game.score} before kickoff.${possibleQuarterbackDuel}`;
+      return signals.length ? `${signals.join('; ').replace(/^[a-z]/,character => character.toUpperCase())}. That puts this at ${game.score} before kickoff.${possibleQuarterbackDuel}` : `No special matchup stakes or close-line signal are listed yet, so this starts at ${game.score} before kickoff.${possibleQuarterbackDuel}`;
     }
     const ranked = game.teams.filter(team => team[6]);
     if (ranked.length === 2) return `Both teams are ranked (${ranked.map(team => `No. ${team[6]}`).join(' and ')}). ${labels.has('Unbeaten team') ? 'One is unbeaten, adding to the anticipation. ' : ''}This strong matchup starts at ${game.score} before kickoff; no game action is counted yet.`;
@@ -232,13 +237,13 @@ function explainRating(game) {
   const why = String(game.why || '').replaceAll(' · ', ', ').replace(/^[a-z]/,character => character.toUpperCase());
   if (game.state === 'completed') {
     const ending = labels.has('Wide margin') ? 'The wider margin keeps the rating down.' : labels.has('Overtime') ? 'Overtime adds to the rating.' : 'The close finish raises the rating.';
-    return `${why}. ${game.upsetText ? `${game.upsetText}. ` : ''}${ending}`;
+    return `${why}. ${game.momentumText ? `${game.momentumText}. ` : ''}${game.upsetText ? `${game.upsetText}. ` : ''}${ending}`;
   }
   const phase = game.live?.phase && game.live.phase !== 'Live' ? `At ${game.live.phase}, ` : '';
   const situation = game.live?.note ? `${phase}${game.live.note}. ` : phase ? `${phase.replace(/, $/,'. ')} ` : '';
   const specifics = game.live?.reasons?.length ? `${game.live.reasons.join('; ')}. ` : '';
   const action = labels.has('Wide margin') ? 'The wider margin keeps the rating down.' : '';
-  return `${why}. ${situation}${game.upsetText ? `${game.upsetText}. ` : ''}${specifics}${action}`.trim();
+  return `${why}. ${situation}${game.momentumText ? `${game.momentumText}. ` : ''}${game.upsetText ? `${game.upsetText}. ` : ''}${specifics}${action}`.trim();
 }
 function trendFor(game) {
   if (game.state === 'upcoming' || !Number.isFinite(game.openingScore)) return '';
@@ -299,7 +304,7 @@ function playPosition(sport,play) {
   return Math.min(1,Math.max(0,(period - 1 + 1 - remaining / (length * 60)) / total));
 }
 function scoringEvents(summary) { return summary?.scoringPlays?.length ? summary.scoringPlays : (summary?.plays || []).filter(play => play.scoringPlay === true); }
-function estimatedEventRating(game,homeScore,awayScore,progress) {
+function estimatedEventRating(game,homeScore,awayScore,progress,summary) {
   const gap = Math.abs(homeScore - awayScore), limit = CLOSE_MARGIN[game.sport] || 10;
   const close = Math.max(0,1 - gap / limit);
   const closeness = Math.round(24 * close * (.35 + .65 * progress));
@@ -307,15 +312,16 @@ function estimatedEventRating(game,homeScore,awayScore,progress) {
   const candidate = game.underdog;
   const simulated = candidate?.side === 'home' ? [{id:candidate.teamId,score:homeScore},{id:'other',score:awayScore}] : [{id:candidate?.teamId,score:awayScore},{id:'other',score:homeScore}];
   const upset = upsetImpact(candidate,simulated,'live',progress).points;
-  return clampScore((game.openingScore || SPORT_BASE[game.sport] || 35) + closeness + Math.round(progress * 14) - wide + upset);
+  const momentum = momentumImpact(game.sport,summary,progress,'live').points;
+  return clampScore((game.openingScore || SPORT_BASE[game.sport] || 35) + closeness + Math.round(progress * 14) - wide + upset + momentum);
 }
 function timelinePoints(game,summary) {
   if (game.state === 'upcoming') return {points:[],source:'upcoming'};
   const plays = scoringEvents(summary);
-  const events = plays.map(play => {
+  const events = plays.map((play,index) => {
     const x = playPosition(game.sport,play), home = Number(play.homeScore), away = Number(play.awayScore);
     if (x === null || !Number.isFinite(home) || !Number.isFinite(away) || (!home && !away)) return null;
-    return {x,score:estimatedEventRating(game,home,away,x),label:`${play.period?.displayValue || `Period ${play.period?.number || ''}`} ${play.clock?.displayValue || ''}`.trim(),text:compactPlay(play),overtime:Number(play.period?.number) > ({NHL:3,NFL:4,CFB:4,NBA:4,NCAAB:2})[game.sport]};
+    return {x,score:estimatedEventRating(game,home,away,x,{...summary,scoringPlays:plays.slice(0,index + 1),winprobability:[]}),label:`${play.period?.displayValue || `Period ${play.period?.number || ''}`} ${play.clock?.displayValue || ''}`.trim(),text:compactPlay(play),overtime:Number(play.period?.number) > ({NHL:3,NFL:4,CFB:4,NBA:4,NCAAB:2})[game.sport]};
   }).filter(Boolean).sort((a,b) => a.x - b.x);
   if (events.length) {
     const finalEvent = events[events.length - 1];
@@ -403,6 +409,16 @@ async function enrichGameSignals() {
           }
         }
       }
+      if (game.state !== 'upcoming') {
+        const momentum = momentumImpact(game.sport,summary,game.state === 'completed' ? 1 : gameProgress(game.sport,summary?.header?.competitions?.[0] || {status:game.liveRawStatus}),game.state);
+        if (momentum.points) {
+          game.momentumText = momentum.text;
+          game.momentumPoints = momentum.points;
+          game.factors.push(...momentum.factors);
+          game.score = clampScore(game.score + momentum.points);
+          changed = true;
+        }
+      }
       const moment = summarySpecificWhy(game,summary);
       if (moment) { game.moment = moment.text; game.momentLabel = moment.label; changed = true; }
       if (game.state !== 'completed') return;
@@ -414,17 +430,6 @@ async function enrichGameSignals() {
         game.score = clampScore(game.score + 14);
         changed = true;
       }
-      let leadChanges = 0;
-      let previousLead = 0;
-      for (const play of plays) {
-        const home = Number(play.homeScore);
-        const away = Number(play.awayScore);
-        if (!Number.isFinite(home) || !Number.isFinite(away)) continue;
-        const lead = Math.sign(home - away);
-        if (lead && previousLead && lead !== previousLead) leadChanges++;
-        if (lead) previousLead = lead;
-      }
-      if (leadChanges) { const points = Math.min(8,leadChanges * 2); game.factors.push({label:`${leadChanges} lead change${leadChanges === 1 ? '' : 's'}`,points}); game.score = clampScore(game.score + points); changed = true; }
     } catch {}
     }));
     if (changed) { candidates.slice(start,start + 6).forEach(recordRatingSnapshot); render(); changed = false; }
@@ -483,6 +488,6 @@ $('#favorite-results').addEventListener('click',event => { const button = event.
 $('#favorite-tags').addEventListener('click',event => { const button = event.target.closest('[data-remove-favorite]'); if (!button) return; state.favoriteTeams.splice(Number(button.dataset.removeFavorite),1); syncFavoriteGames(); persistFavoriteSelections(); renderFavoriteTags(); renderFavoriteResults(); render(); });
 $$('[data-visible-sport]').forEach(input => input.addEventListener('change', () => { const sport = input.dataset.visibleSport; if (input.checked) state.visibleSports.add(sport); else state.visibleSports.delete(sport); persistPreferences(); render(); }));
 let deferredInstallPrompt; window.addEventListener('beforeinstallprompt',event => { event.preventDefault(); deferredInstallPrompt = event; $('#install-button').classList.remove('hidden'); }); $('#install-button').addEventListener('click',async() => { if (!deferredInstallPrompt) return; deferredInstallPrompt.prompt(); await deferredInstallPrompt.userChoice; deferredInstallPrompt = null; $('#install-button').classList.add('hidden'); }); window.addEventListener('appinstalled',() => $('#install-button').classList.add('hidden'));
-if ('serviceWorker' in navigator) navigator.serviceWorker.register('./sw.js?rev=20261021-25').then(registration => registration.update()).catch(() => {});
+if ('serviceWorker' in navigator) navigator.serviceWorker.register('./sw.js?rev=20261021-26').then(registration => registration.update()).catch(() => {});
 games = DEMO_GAMES.map(game => ({...game,favorite:favoriteFor(game.teams,game.sport)}));
 renderFavoriteTags(); renderFavoriteResults(); render(); loadLiveGames(); setInterval(loadLiveGames,60000);
