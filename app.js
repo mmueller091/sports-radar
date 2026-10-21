@@ -47,7 +47,10 @@ function labelForSport(sport) { return SPORT_LABELS[sport] || sport; }
 function iconFor(sport) { return ({NFL:'◈',MLB:'◉',NHL:'✧',CFB:'◆',NBA:'●',NCAAB:'◇',Tennis:'◌',Soccer:'⊙'})[sport] || '✦'; }
 function teamLogoUrl(sport, abbreviation) { const league = ({NFL:'nfl',MLB:'mlb',NHL:'nhl',CFB:'college-football',NBA:'nba',NCAAB:'mens-college-basketball',Tennis:'tennis',Soccer:'soccer'})[sport] || sport.toLowerCase(); return `https://a.espncdn.com/i/teamlogos/${league}/500/${String(abbreviation).toLowerCase()}.png`; }
 function summaryUrlFor(sport, eventId) { return `${ESPN_BASE}/${SPORT_PATHS[sport] || SPORT_PATHS.NFL}/summary?event=${encodeURIComponent(eventId)}`; }
-function signalFor(score, gameState) { if (gameState === 'completed') return 'FINAL'; if (score >= 85) return 'HOT'; if (score >= 70) return 'RISING'; return 'WATCH'; }
+const SPORT_BASE = {NFL:38,MLB:38,NHL:35,CFB:36,NBA:37,NCAAB:35,Tennis:38,Soccer:35};
+const CLOSE_MARGIN = {NFL:14,MLB:3,NHL:3,CFB:14,NBA:12,NCAAB:12,Tennis:3,Soccer:3};
+function clampScore(value) { return Math.max(1,Math.min(99,Math.round(value))); }
+function factorText(factors,score) { const parts = factors.map(factor => `${factor.label} ${factor.points > 0 ? '+' : ''}${factor.points}`); if (factors.reduce((sum,item) => sum + item.points,0) > 99 && score === 99) parts.push('capped at 99'); return parts.join(' · '); }
 function favoriteFor(teams) { return teams.some(team => FAVORITE_MATCHES.some(match => team.name.toLowerCase().includes(match))); }
 function sameLocalDay(value) { if (!value) return false; return new Date(value).toLocaleDateString() === new Date().toLocaleDateString(); }
 function hideStaleFavorite(game) { return Boolean(game.favorite && game.state === 'completed' && (!game.startTime || !sameLocalDay(game.startTime))); }
@@ -60,47 +63,82 @@ function broadcastFor(competition) {
   (competition?.geoBroadcasts || []).forEach(broadcast => { add(broadcast.media?.shortName); add(broadcast.media?.name); add(broadcast.type?.shortName); });
   return [...new Set(values)].slice(0, 2).join(' · ');
 }
-function eventSignalText(event, competition, context) { return [event?.name, event?.shortName, competition?.status?.type?.detail, competition?.status?.type?.shortDetail, competition?.notes?.map(note => note.headline).join(' '), competition?.situation?.lastPlay?.text, context].filter(Boolean).join(' ').toLowerCase(); }
-function excitementFor(sport, gameState, teams, event, competition, context) { const values = teams.map(team => Number(team.score)).filter(Number.isFinite); const gap = values.length === 2 ? Math.abs(values[0] - values[1]) : null; const close = values.length === 2 ? Math.max(0, 1 - gap / Math.max(5, Math.max(...values))) : .55; const late = gameState === 'live' ? .18 : gameState === 'upcoming' ? .08 : .02; const sportBoost = {NFL:.08,MLB:.06,NHL:.07,CFB:.09,NBA:.08,NCAAB:.08,Tennis:.07,Soccer:.06}[sport] || .04; const detail = eventSignalText(event,competition,context); let finishBonus = 0; if (gameState === 'completed') { if (gap !== null && ((sport === 'NFL' || sport === 'CFB') ? gap <= 3 : gap <= 1)) finishBonus += .34; else if (gap !== null && ((sport === 'NFL' || sport === 'CFB') ? gap <= 8 : gap <= 2)) finishBonus += .16; if (/(overtime|\bot\b|last second|game[- ]winning|walk[- ]off|field goal|penalty shootout|extra time|match point)/i.test(detail)) finishBonus += .22; } return Math.max(22, Math.min(99, Math.round(35 + close * 40 + late * 40 + sportBoost * 20 + finishBonus * 40))); }
-function excitementExplanation(sport, gameState, teams, status, competition, context) {
+function eventSignalText(event, competition, context) { return [event?.name,event?.shortName,(competition?.notes || []).map(note => note.headline).join(' '),competition?.series?.summary,competition?.series?.title,competition?.series?.type,event?.season?.type?.name,event?.season?.type?.slug,event?.season?.slug,context].filter(Boolean).join(' ').toLowerCase(); }
+function pregameRating(sport,event,competition,context) {
+  const detail = eventSignalText(event,competition,context);
+  const factors = [{label:'Sport baseline',points:SPORT_BASE[sport] || 35}];
+  let reason = 'Regular-season matchup · no extra stakes listed';
+  if (/world series/.test(detail)) { factors.push({label:'World Series',points:42}); reason = 'World Series championship'; }
+  else if (/super bowl|stanley cup final|champions league final|national championship|grand slam final/.test(detail)) { factors.push({label:'Championship',points:40}); reason = 'Championship game'; }
+  else if (/conference final|league final|finals|championship|title game/.test(detail)) { factors.push({label:'Final round',points:30}); reason = 'Final-round stakes'; }
+  else if (/playoff|postseason|wild card|divisional round|quarterfinal|semifinal|knockout/.test(detail) || Number(event?.season?.type?.id ?? event?.season?.type) === 3) { factors.push({label:'Postseason',points:22}); reason = 'Postseason game'; }
+  else if (sport === 'Tennis' && /wimbledon|australian open|french open|roland garros|us open/.test(detail)) { factors.push({label:'Major tournament',points:18}); reason = 'Tennis major'; }
+  if (factors.length > 1 && /game\s*1\b|game one\b|g1\b/.test(detail)) { factors.push({label:'Series opener',points:5}); reason += ' · Game 1'; }
+  const ranks = (competition?.competitors || []).map(item => Number(item.curatedRank?.current || item.team?.rank)).filter(rank => rank > 0 && rank <= 25);
+  if (ranks.length === 2) { factors.push({label:'Two ranked teams',points:9}); reason += ' · two ranked teams'; }
+  else if (ranks.length === 1) { factors.push({label:'Ranked team',points:4}); reason += ' · ranked team'; }
+  if (/rivalry|rival\b|derby/.test(detail)) { factors.push({label:'Rivalry',points:7}); reason += ' · rivalry'; }
+  return {score:clampScore(factors.reduce((sum,item) => sum + item.points,0)),factors,reason};
+}
+function gameProgress(sport,competition) {
+  const status = competition?.status || {};
+  const period = Number(status.period || 0);
+  const total = ({NFL:4,CFB:4,NHL:3,NBA:4,NCAAB:2,MLB:9,Soccer:2,Tennis:3})[sport] || 4;
+  if (!period) return 0;
+  if (sport === 'MLB') return Math.min(1,period / total);
+  const length = ({NFL:15,CFB:15,NHL:20,NBA:12,NCAAB:20,Soccer:45})[sport];
+  const clock = String(status.displayClock || '').match(/^(\d+):(\d+)/);
+  const remaining = clock && length ? Math.min(length * 60,Number(clock[1]) * 60 + Number(clock[2])) : length ? length * 30 : 0;
+  return Math.max(0,Math.min(1,((period - 1) + (length ? 1 - remaining / (length * 60) : .5)) / total));
+}
+function rateGame(sport,gameState,teams,event,competition,context) {
+  const opening = pregameRating(sport,event,competition,context);
+  const factors = opening.factors.map(item => ({...item}));
+  if (gameState === 'upcoming') return {...opening,openingScore:opening.score};
   const values = teams.map(team => Number(team.score)).filter(Number.isFinite);
   const gap = values.length === 2 ? Math.abs(values[0] - values[1]) : null;
-  const detail = `${status} ${competition?.status?.type?.detail || ''} ${competition?.status?.type?.shortDetail || ''}`.toLowerCase();
-  const situation = competition?.situation || {};
-  const reasons = [];
-  if (gameState === 'live') {
-    if (gap === 0) reasons.push('Tied game');
-    else if (gap !== null && ((sport === 'NFL' || sport === 'CFB') ? gap <= 8 : (sport === 'MLB' || sport === 'NHL' || sport === 'Soccer') ? gap <= 1 : gap <= 2)) reasons.push(sport === 'NHL' || sport === 'Soccer' ? 'One-goal game' : 'Close margin');
-    if (sport === 'NFL' && situation.down) reasons.push(`${situation.down}${situation.distance ? ` down with ${situation.distance} to go` : ' down'}${situation.clock ? `, ${situation.clock} left` : ''}`);
-    if (sport === 'MLB' && (situation.inning || situation.outs !== undefined)) reasons.push(`${situation.inning ? `Inning ${situation.inning}` : 'Late pressure'}${situation.outs !== undefined ? ` · ${situation.outs} out${situation.outs === 1 ? '' : 's'}` : ''}`);
-    if (/(4th|fourth|9th|ninth|overtime|ot|match point|end of|late)/i.test(detail)) reasons.push('Late-game leverage');
-    if (context && /red zone|power play|bases loaded|match point|break point|rally/i.test(context)) reasons.push(context);
-  } else if (gameState === 'upcoming') {
-    if (context && /rival|derby|classic|championship|final|semi|quarter|playoff|division|sec|big ten|top/i.test(context)) reasons.push('High-stakes matchup');
-    reasons.push(sport === 'Tennis' ? 'Tournament-round pressure' : 'Pregame matchup context');
-  } else {
-    if (gap === 0) reasons.push('Finished tied before the final result');
-    else if (gap !== null && ((sport === 'NFL' || sport === 'CFB') ? gap <= 3 : gap <= 1)) reasons.push(`Decided by ${gap} point${gap === 1 ? '' : 's'}`);
-    else if (gap !== null && ((sport === 'NFL' || sport === 'CFB') ? gap <= 8 : gap <= 2)) reasons.push('Stayed within one score');
-    if (/(overtime|\bot\b|last second|game[- ]winning|walk[- ]off|field goal|penalty shootout|extra time|match point)/i.test(detail)) reasons.push('High-leverage finish');
-    else if (gap !== null && ((sport === 'NFL' || sport === 'CFB') ? gap <= 3 : gap <= 1)) reasons.push('Final-possession pressure');
-  }
-  return [...new Set(reasons)].slice(0, 2).join(' · ') || (gameState === 'live' ? 'Live action is driving the signal' : gameState === 'upcoming' ? 'The matchup is drawing a strong pregame signal' : 'The finish created a notable replay');
+  const closeLimit = CLOSE_MARGIN[sport] || 10;
+  const close = gap === null ? 0 : Math.max(0,1 - gap / closeLimit);
+  const progress = gameState === 'completed' ? 1 : gameProgress(sport,competition);
+  const closePoints = gameState === 'completed' ? Math.round(28 * close) : Math.round(24 * close * (.35 + .65 * progress));
+  if (closePoints) factors.push({label:gameState === 'completed' ? 'Final margin' : 'Score closeness',points:closePoints});
+  if (gap !== null && gap >= closeLimit && progress > .3) factors.push({label:'Wide margin',points:-Math.min(26,Math.round((gap / closeLimit) * 13 * progress))});
+  const phasePoints = gameState === 'completed' ? 15 : Math.round(progress * 14);
+  if (phasePoints) factors.push({label:gameState === 'completed' ? 'Reached final' : 'Game progress',points:phasePoints});
+  const detail = `${competition?.status?.type?.detail || ''} ${competition?.status?.type?.shortDetail || ''}`;
+  if (gameState === 'completed' && /overtime|\bot\b/i.test(detail)) factors.push({label:'Overtime',points:13});
+  const score = clampScore(factors.reduce((sum,item) => sum + item.points,0));
+  let reason = opening.reason;
+  if (gameState === 'live') reason = gap === 0 ? `Tied ${teams[0].score}–${teams[1].score}${progress > .65 ? ' late' : ''}` : gap !== null && closePoints > 0 ? `${gap}-point game${progress > .65 ? ' late' : ''}` : `Game in progress · ${Math.round(progress * 100)}% elapsed`;
+  if (gameState === 'completed') reason = /overtime|\bot\b/i.test(detail) ? `Overtime finish · ${gap}-point margin` : gap !== null ? `Decided by ${gap} point${gap === 1 ? '' : 's'}` : 'Final result';
+  return {score,factors,reason,openingScore:opening.score};
 }
 function normalizeEvent(event, sport, leagueLogo) {
   const competition = event.competitions?.[0]; const competitors = competition?.competitors || []; if (competitors.length < 2) return null;
   const teams = competitors.slice(0,2).map(competitor => ({name:competitor.team?.displayName || competitor.athlete?.displayName || 'Unknown', abbr:competitor.team?.abbreviation || competitor.abbreviation || '', score:scoreValue(competitor), logo:competitor.team?.logo || '', color:'white'}));
-  const gameState = stateFromEvent(event); const status = competition?.status?.type?.shortDetail || competition?.status?.type?.detail || (gameState === 'completed' ? 'Final' : 'Scheduled'); const context = competition?.notes?.[0]?.headline || event.name || `${sport} matchup`; const score = excitementFor(sport, gameState, teams, event, competition, context); const eventId = event.id || `${sport}-${event.name}`;
-  return {id:eventId,summaryUrl:summaryUrlFor(sport,eventId),favorite:favoriteFor(teams),sport,icon:iconFor(sport),leagueLogo:leagueLogo || LEAGUE_LOGOS[sport],startTime:event.date,state:gameState,status,channel:broadcastFor(competition) || 'Channel not listed',teams:teams.map(team => [team.name,team.abbr,team.score,team.color,team.logo]),context,why:excitementExplanation(sport,gameState,teams,status,competition,context),sub:competition?.venue?.fullName || competition?.venue?.address?.city || 'Live scoreboard',score,signal:signalFor(score,gameState)};
+  const gameState = stateFromEvent(event); const status = competition?.status?.type?.shortDetail || competition?.status?.type?.detail || (gameState === 'completed' ? 'Final' : 'Scheduled'); const context = competition?.notes?.[0]?.headline || event.name || `${sport} matchup`; const rating = rateGame(sport,gameState,teams,event,competition,context); const eventId = event.id || `${sport}-${event.name}`;
+  return {id:eventId,summaryUrl:summaryUrlFor(sport,eventId),favorite:favoriteFor(teams),sport,icon:iconFor(sport),leagueLogo:leagueLogo || LEAGUE_LOGOS[sport],startTime:event.date,state:gameState,status,channel:broadcastFor(competition) || 'Channel not listed',teams:teams.map(team => [team.name,team.abbr,team.score,team.color,team.logo]),context,why:rating.reason,sub:competition?.venue?.fullName || competition?.venue?.address?.city || 'Live scoreboard',score:rating.score,openingScore:rating.openingScore,factors:rating.factors};
 }
 async function fetchFeed(feed) { const controller = new AbortController(); const timer = setTimeout(() => controller.abort(), 7000); try { const response = await fetch(`${feed.url}?limit=100`, {signal:controller.signal,cache:'no-store'}); if (!response.ok) throw new Error(`HTTP ${response.status}`); const payload = await response.json(); const leagueLogo = payload.leagues?.[0]?.logos?.[0]?.href; return (payload.events || []).map(event => normalizeEvent(event,feed.sport,leagueLogo)).filter(Boolean); } finally { clearTimeout(timer); } }
-async function loadLiveGames() { $('#data-status-label').textContent = 'Connecting to live scoreboards…'; const results = await Promise.allSettled(LIVE_FEEDS.map(fetchFeed)); const liveGames = results.flatMap(result => result.status === 'fulfilled' ? result.value : []); if (liveGames.length) { games = liveGames; state.source = 'live'; } else { games = [...DEMO_GAMES]; state.source = 'demo'; } $('#data-status-label').textContent = state.source === 'live' ? `Live scores · updated ${new Date().toLocaleTimeString([], {hour:'numeric',minute:'2-digit'})}` : 'Demo data · live feed unavailable'; $('#footer-status').textContent = state.source === 'live' ? 'Live feed' : 'Demo data'; render(); enrichFinalGames(); enrichGameReasons(); }
+async function loadLiveGames() { $('#data-status-label').textContent = 'Connecting to live scoreboards…'; const results = await Promise.allSettled(LIVE_FEEDS.map(fetchFeed)); const liveGames = results.flatMap(result => result.status === 'fulfilled' ? result.value : []); if (liveGames.length) { games = liveGames; state.source = 'live'; } else { games = [...DEMO_GAMES]; state.source = 'demo'; } $('#data-status-label').textContent = state.source === 'live' ? `Live scores · updated ${new Date().toLocaleTimeString([], {hour:'numeric',minute:'2-digit'})}` : 'Demo data · live feed unavailable'; $('#footer-status').textContent = state.source === 'live' ? 'Live feed' : 'Demo data'; render(); if (state.source === 'live') enrichGameSignals(); }
 function displayScore(team) { return state.spoilers ? team[2] : (team[2] === '—' ? '—' : '••'); }
 function safeText(value) { return String(value ?? '').replace(/[&<>"']/g, character => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[character])); }
 function teamMarkup(game, team) { const logo = team[4] || teamLogoUrl(game.sport, team[1]); return `<span class="team-name"><img class="team-logo" src="${safeText(logo)}" alt="" loading="lazy" onerror="this.style.display='none'"><span>${safeText(team[0])}</span></span>`; }
-function gameCard(game) { const scoreClass = game.score >= 85 ? 'hot' : game.score >= 70 ? 'warm' : ''; const stateLabel = game.state === 'live' ? '<span class="status-live">● LIVE</span>' : `<span class="status-${game.state}">${safeText(game.status)}</span>`; const leagueLogo = game.leagueLogo || LEAGUE_LOGOS[game.sport]; return `<button type="button" class="game-card ${game.favorite ? 'favorite' : ''}" data-id="${safeText(game.id)}" aria-label="Open details for ${safeText(game.teams[0][0])} versus ${safeText(game.teams[1][0])}"><span class="sport-icon"><img class="league-logo" src="${safeText(leagueLogo)}" alt="${safeText(labelForSport(game.sport))} league" loading="lazy" onerror="this.style.display='none'"><small>${safeText(labelForSport(game.sport))}</small></span><span class="team-column"><span class="match-meta">${stateLabel}<span>•</span><span>${safeText(game.sub)}</span></span><span class="team-row">${teamMarkup(game,game.teams[0])}<b class="team-score ${!state.spoilers?'score-hidden':''}">${displayScore(game.teams[0])}</b></span><span class="team-row">${teamMarkup(game,game.teams[1])}<b class="team-score ${!state.spoilers?'score-hidden':''}">${displayScore(game.teams[1])}</b></span></span><span class="game-context"><strong>Why it's exciting</strong><span>${safeText(game.why || game.context)}</span><span class="sparkline">${Array.from({length:8},(_,i)=>`<i style="height:${Math.max(5,Math.round((game.score-30)/7)+((i*7)%11))}px"></i>`).join('')}</span></span><span class="game-context"><strong>Watch on</strong><span>${safeText(game.channel || 'Channel not listed')}</span></span><span class="excitement"><span class="score-circle ${scoreClass}">${state.spoilers ? game.score : '—'}</span><small>${game.state === 'completed' ? 'FINAL' : game.signal}</small></span></button>`; }
+function trendFor(game) {
+  if (game.state === 'upcoming' || !Number.isFinite(game.openingScore)) return '';
+  const delta = game.score - game.openingScore;
+  const arrow = delta > 2 ? '↗' : delta < -2 ? '↘' : '→';
+  return `<small class="score-trend" aria-label="${delta >= 0 ? 'Up' : 'Down'} ${Math.abs(delta)} points from the opening rating">${arrow} ${delta > 0 ? '+' : ''}${delta} vs start</small>`;
+}
+function gameCard(game) {
+  const scoreClass = game.score >= 85 ? 'hot' : game.score >= 70 ? 'warm' : '';
+  const stateLabel = game.state === 'live' ? '<span class="status-live">● LIVE</span>' : `<span class="status-${game.state}">${safeText(game.status)}</span>`;
+  const leagueLogo = game.leagueLogo || LEAGUE_LOGOS[game.sport];
+  const why = game.moment && game.moment !== game.why ? `${game.why} · ${game.moment}` : game.why || game.context;
+  return `<button type="button" class="game-card ${game.favorite ? 'favorite' : ''}" data-id="${safeText(game.id)}" aria-label="Open details for ${safeText(game.teams[0][0])} versus ${safeText(game.teams[1][0])}"><span class="sport-icon"><img class="league-logo" src="${safeText(leagueLogo)}" alt="" loading="lazy" onerror="this.style.display='none'"></span><span class="team-column"><span class="match-meta">${stateLabel}<span>•</span><span>${safeText(game.sub)}</span></span><span class="team-row">${teamMarkup(game,game.teams[0])}<b class="team-score ${!state.spoilers?'score-hidden':''}">${displayScore(game.teams[0])}</b></span><span class="team-row">${teamMarkup(game,game.teams[1])}<b class="team-score ${!state.spoilers?'score-hidden':''}">${displayScore(game.teams[1])}</b></span></span><span class="game-context"><strong>Why ${game.score}?</strong><span>${safeText(why)}</span><small class="score-breakdown">${safeText(game.factors?.length ? factorText(game.factors,game.score) : 'Model estimate')}</small></span><span class="game-context channel-context"><strong>Watch on</strong><span>${safeText(game.channel || 'Channel not listed')}</span><span class="stats-cue">Tap for stats ›</span></span><span class="excitement"><span class="score-circle ${scoreClass}">${state.spoilers ? game.score : '—'}</span>${trendFor(game)}</span></button>`;
+}
 function detailStats(summary) { const teams = summary?.boxscore?.teams || []; return teams.map(team => { const stats = (team.statistics || []).filter(stat => stat.displayValue && stat.displayValue !== '0').slice(0, 6); if (!stats.length) return ''; return `<div class="detail-stat-team"><strong>${safeText(team.team?.displayName || 'Team stats')}</strong>${stats.map(stat => `<div><span>${safeText(stat.label || stat.displayName || stat.name)}</span><b>${safeText(stat.displayValue)}</b></div>`).join('')}</div>`; }).join(''); }
-function detailLeaders(summary) { const groups = summary?.leaders || []; const rows = groups.flatMap(group => (group.leaders || []).slice(0,1).map(leader => `<div><span>${safeText(group.displayName || group.name || 'Leader')}</span><b>${safeText(leader.athlete?.displayName || leader.athlete?.shortName || '—')} · ${safeText(leader.displayValue || leader.value || '')}</b></div>`)).slice(0, 6); return rows.length ? `<section class="detail-section"><h3>Leaders</h3><div class="detail-leaders">${rows.join('')}</div></section>` : ''; }
+function detailLeaders(summary) { const groups = summary?.leaders || []; const rows = groups.flatMap(group => (group.leaders || []).filter(leader => leader.athlete?.displayName || leader.athlete?.shortName).slice(0,1).map(leader => `<div><span>${safeText(group.displayName || group.name || 'Leader')}</span><b>${safeText(leader.athlete?.displayName || leader.athlete?.shortName)} · ${safeText(leader.displayValue || leader.value || '')}</b></div>`)).slice(0,6); return rows.length ? `<section class="detail-section"><h3>Leaders</h3><div class="detail-leaders">${rows.join('')}</div></section>` : ''; }
 function detailPlays(summary) { const plays = (summary?.scoringPlays?.length ? summary.scoringPlays : summary?.plays || []).slice(-6).reverse(); return plays.length ? `<section class="detail-section"><h3>${summary?.scoringPlays?.length ? 'Scoring plays' : 'Recent play-by-play'}</h3><ul class="detail-plays">${plays.map(play => `<li><span>${safeText(play.clock?.displayValue || play.period?.displayValue || '')}</span>${safeText(play.text || play.shortText || play.type?.text || 'Play recorded')}</li>`).join('')}</ul></section>` : ''; }
 function statKey(value) { return String(value || '').toLowerCase().replace(/[^a-z0-9]/g, ''); }
 function athleteName(entry) { return entry?.athlete?.displayName || entry?.athlete?.fullName || entry?.athlete?.shortName || entry?.player?.displayName || entry?.player?.fullName || 'Player'; }
@@ -112,21 +150,79 @@ function renderDetailContent(game, summary, loading = false) { if (loading) { $(
 async function fetchGameSummary(game) { const response = await fetch(game.summaryUrl || summaryUrlFor(game.sport,game.id),{cache:'no-store'}); if (!response.ok) throw new Error(`HTTP ${response.status}`); return response.json(); }
 function showDialog(dialog) { if (!dialog) return; if (typeof dialog.showModal === 'function') dialog.showModal(); else dialog.setAttribute('open',''); }
 function hideDialog(dialog) { if (!dialog) return; if (typeof dialog.close === 'function') dialog.close(); else dialog.removeAttribute('open'); }
-async function openGameDetails(id) { const game = games.find(item => item.id === id); if (!game) return; const dialog = $('#game-detail-dialog'); renderDetailContent(game, null, true); showDialog(dialog); try { renderDetailContent(game,await fetchGameSummary(game)); } catch { renderDetailContent(game,null); } }
+function showGameDetails() { const overlay = $('#game-detail-overlay'); overlay.hidden = false; document.body.classList.add('detail-open'); overlay.querySelector('.close-dialog')?.focus(); }
+function hideGameDetails() { const overlay = $('#game-detail-overlay'); overlay.hidden = true; document.body.classList.remove('detail-open'); }
+async function openGameDetails(id) { const game = games.find(item => item.id === id); if (!game) return; renderDetailContent(game,null,true); showGameDetails(); try { renderDetailContent(game,await fetchGameSummary(game)); } catch { renderDetailContent(game,null); } }
 function compactPlay(play) { const text = String(play?.text || play?.shortText || play?.type?.text || '').replace(/\s+/g,' ').trim(); return text.length > 86 ? `${text.slice(0,83)}…` : text; }
-function summarySpecificWhy(game, summary) { const competition = summary?.header?.competitions?.[0]; const situation = competition?.situation || {}; const scoringPlays = summary?.scoringPlays || []; const finalPlay = scoringPlays[scoringPlays.length - 1]; const finalText = compactPlay(finalPlay); const finalClock = finalPlay?.clock?.displayValue || ''; const gap = Math.abs(Number(game.teams[0][2]) - Number(game.teams[1][2])); if (game.state === 'completed' && finalPlay && /(0:00|last second|game[- ]winning)/i.test(`${finalClock} ${finalText}`)) { if (/field goal/i.test(finalText)) return `0:00 field goal · Decided by ${gap} point${gap === 1 ? '' : 's'}`; return `Final play: ${finalText}`; } if (game.state === 'completed' && finalPlay && /(overtime|\bot\b|walk[- ]off|match point|extra time)/i.test(`${finalText} ${competition?.status?.type?.detail || ''}`)) return `High-leverage finish · ${finalText}`; if (game.state === 'live') { if ((game.sport === 'NFL' || game.sport === 'CFB') && situation.down) return `${situation.down}${situation.distance ? ` down with ${situation.distance} to go` : ' down'}${situation.clock ? ` · ${situation.clock} left` : ''}`; if (situation.lastPlay?.text) return `Latest: ${compactPlay(situation.lastPlay)}`; const recentPlay = (summary?.plays || [])[summary?.plays?.length - 1]; if (recentPlay && compactPlay(recentPlay)) return `Latest: ${compactPlay(recentPlay)}`; } if (game.state === 'completed' && finalText) return `Final scoring play: ${finalText}`; return ''; }
-async function enrichFinalGames() { const candidates = games.filter(game => game.state === 'completed' && (game.sport === 'NFL' || game.sport === 'CFB') && game.score >= 70).slice(0, 8); let changed = false; await Promise.allSettled(candidates.map(async game => { try { const summary = await fetchGameSummary(game); const allPlays = summary.scoringPlays || summary.plays || []; const plays = allPlays.slice(-6); const scoringText = plays.map(play => `${play.clock?.displayValue || ''} ${play.text || play.shortText || ''}`).join(' '); if (/(0:00|last second|game[- ]winning)/i.test(scoringText) && /field goal/i.test(scoringText)) { const gap = Math.abs(Number(game.teams[0][2]) - Number(game.teams[1][2])); game.score = Math.min(99, game.score + 7); game.why = `Last-play field goal · Decided by ${gap} points`; game.signal = 'FINAL'; changed = true; } else if (/(overtime|\bot\b)/i.test(scoringText) && game.score < 92) { game.score = Math.min(99, game.score + 5); game.why = 'Overtime finish · High-leverage result'; game.signal = 'FINAL'; changed = true; } const specific = summarySpecificWhy(game, summary); if (specific) { game.why = specific; changed = true; } } catch {} })); if (changed) render(); }
-async function enrichGameReasons() { const candidates = games.filter(game => game.state === 'live' || game.state === 'completed').slice(0, 18); let changed = false; await Promise.allSettled(candidates.map(async game => { try { const summary = await fetchGameSummary(game); const specific = summarySpecificWhy(game, summary); if (specific && specific !== game.why) { game.why = specific; changed = true; } } catch {} })); if (changed) render(); }
-function wireGameCards() { $$('.game-card').forEach(card => { let lastTouchActivation = 0; card.addEventListener('click', () => { if (Date.now() - lastTouchActivation < 800) return; openGameDetails(card.dataset.id); }); card.addEventListener('touchend', event => { event.preventDefault(); lastTouchActivation = Date.now(); openGameDetails(card.dataset.id); }, {passive:false}); }); }
-function render() { const isSoccer = state.page === 'soccer'; $('#section-title').textContent = isSoccer ? 'Soccer radar' : 'Your radar'; $$('.nav-link').forEach(link => link.classList.toggle('active',link.dataset.page === state.page)); $$('.soccer-chip').forEach(chip => chip.classList.toggle('hidden',!isSoccer)); if (!isSoccer && state.sport !== 'all' && !state.visibleSports.has(state.sport)) { state.sport = 'all'; $$('.sport-chip').forEach(chip => chip.classList.toggle('active',chip.dataset.sport === 'all')); } let visible = games.filter(game => !hideStaleFavorite(game) && (isSoccer ? game.sport === 'Soccer' : game.sport !== 'Soccer' && state.visibleSports.has(game.sport))); if (state.sport !== 'all') visible = visible.filter(game => game.sport === state.sport); if (state.gameState !== 'all') visible = visible.filter(game => game.state === state.gameState); visible.sort((a,b) => Number(b.favorite) - Number(a.favorite) || b.score - a.score); $('#game-list').innerHTML = visible.map(gameCard).join(''); wireGameCards(); $('#empty-state').classList.toggle('hidden',visible.length !== 0); $('#live-count').textContent = `${visible.filter(game => game.state === 'live').length} LIVE`; $('#all-count').textContent = visible.length; $('#spoiler-label').textContent = state.spoilers ? 'Spoilers on' : 'Spoiler-aware'; $('#spoiler-notice').classList.toggle('hidden',!state.spoilers); }
+function summarySpecificWhy(game,summary) {
+  const plays = summary?.scoringPlays || [];
+  const finalPlay = plays[plays.length - 1];
+  const finalText = compactPlay(finalPlay);
+  const clock = finalPlay?.clock?.displayValue || '';
+  if (game.state === 'completed' && /(0:00|last second|game[- ]winning)/i.test(`${clock} ${finalText}`) && finalText) return `Decisive play: ${finalText}`;
+  if (game.state === 'live') {
+    const situation = summary?.header?.competitions?.[0]?.situation;
+    if ((game.sport === 'NFL' || game.sport === 'CFB') && situation?.down) return `${situation.down}${situation.distance ? ` and ${situation.distance}` : ''}${situation.clock ? ` · ${situation.clock} left` : ''}`;
+    const recent = plays[plays.length - 1];
+    if (recent && /goal|touchdown|home run|grand slam|lead|match point|walk.off/i.test(compactPlay(recent))) return `Recent score: ${compactPlay(recent)}`;
+  }
+  return '';
+}
+async function enrichGameSignals() {
+  const candidates = games.filter(game => game.state === 'live' || game.state === 'completed').slice(0,18);
+  let changed = false;
+  await Promise.allSettled(candidates.map(async game => {
+    try {
+      const summary = await fetchGameSummary(game);
+      const moment = summarySpecificWhy(game,summary);
+      if (moment) { game.moment = moment; changed = true; }
+      if (game.state !== 'completed') return;
+      const plays = summary.scoringPlays || [];
+      const last = plays[plays.length - 1];
+      const finalText = `${last?.clock?.displayValue || ''} ${compactPlay(last)}`;
+      if (/(0:00|last second|game[- ]winning)/i.test(finalText) && /field goal|goal|home run|touchdown/i.test(finalText)) {
+        game.factors.push({label:'Decisive last play',points:14});
+        game.score = clampScore(game.score + 14);
+        changed = true;
+      }
+      let leadChanges = 0;
+      let previousLead = 0;
+      for (const play of plays) {
+        const home = Number(play.homeScore);
+        const away = Number(play.awayScore);
+        if (!Number.isFinite(home) || !Number.isFinite(away)) continue;
+        const lead = Math.sign(home - away);
+        if (lead && previousLead && lead !== previousLead) leadChanges++;
+        if (lead) previousLead = lead;
+      }
+      if (leadChanges) { const points = Math.min(8,leadChanges * 2); game.factors.push({label:`${leadChanges} lead change${leadChanges === 1 ? '' : 's'}`,points}); game.score = clampScore(game.score + points); changed = true; }
+    } catch {}
+  }));
+  if (changed) render();
+}
+function render() { const isSoccer = state.page === 'soccer'; $('#section-title').textContent = isSoccer ? 'Soccer radar' : 'Your radar'; $$('.nav-link').forEach(link => link.classList.toggle('active',link.dataset.page === state.page)); $$('.soccer-chip').forEach(chip => chip.classList.toggle('hidden',!isSoccer)); if (!isSoccer && state.sport !== 'all' && !state.visibleSports.has(state.sport)) { state.sport = 'all'; $$('.sport-chip').forEach(chip => chip.classList.toggle('active',chip.dataset.sport === 'all')); } let visible = games.filter(game => !hideStaleFavorite(game) && (isSoccer ? game.sport === 'Soccer' : game.sport !== 'Soccer' && state.visibleSports.has(game.sport))); if (state.sport !== 'all') visible = visible.filter(game => game.sport === state.sport); if (state.gameState !== 'all') visible = visible.filter(game => game.state === state.gameState); visible.sort((a,b) => Number(b.favorite) - Number(a.favorite) || b.score - a.score); $('#game-list').innerHTML = visible.map(gameCard).join(''); $('#empty-state').classList.toggle('hidden',visible.length !== 0); $('#live-count').textContent = `${visible.filter(game => game.state === 'live').length} LIVE`; $('#all-count').textContent = visible.length; $('#spoiler-label').textContent = state.spoilers ? 'Spoilers on' : 'Spoiler-aware'; $('#spoiler-notice').classList.toggle('hidden',!state.spoilers); }
 $$('.nav-link').forEach(link => link.addEventListener('click', () => { state.page = link.dataset.page; state.sport = 'all'; location.hash = state.page === 'soccer' ? 'soccer' : 'home'; $$('.sport-chip').forEach(chip => chip.classList.toggle('active',chip.dataset.sport === 'all')); render(); }));
 window.addEventListener('hashchange', () => { state.page = location.hash === '#soccer' ? 'soccer' : 'home'; render(); });
 $$('.sport-chip').forEach(chip => chip.addEventListener('click', () => { state.sport = chip.dataset.sport; $$('.sport-chip').forEach(item => item.classList.toggle('active',item === chip)); render(); }));
 $$('.seg').forEach(tab => tab.addEventListener('click', () => { state.gameState = tab.dataset.state; $$('.seg').forEach(item => item.classList.toggle('active',item === tab)); render(); }));
 $('#spoiler-toggle').addEventListener('click', () => { state.spoilers = !state.spoilers; persistPreferences(); render(); }); $('#dismiss-notice').addEventListener('click', () => $('#spoiler-notice').classList.add('hidden')); $('#refresh-button').addEventListener('click',loadLiveGames); $('#refresh-data').addEventListener('click',loadLiveGames);
 function wireDialog(id,opener) { const dialog = $(id); const trigger = opener ? $(opener) : null; if (!dialog) return; if (trigger) trigger.addEventListener('click',() => showDialog(dialog)); dialog.querySelectorAll('.close-dialog').forEach(button => button.addEventListener('click',() => hideDialog(dialog))); }
-wireDialog('#preferences-dialog','#profile-button'); wireDialog('#data-dialog','#data-info'); wireDialog('#game-detail-dialog');
+wireDialog('#preferences-dialog','#profile-button'); wireDialog('#data-dialog','#data-info');
+let lastTouchOpen = 0;
+let touchStart = null;
+$('#game-list').addEventListener('pointerdown',event => { if (event.pointerType === 'touch') touchStart = {x:event.clientX,y:event.clientY,id:event.target.closest('.game-card')?.dataset.id}; });
+$('#game-list').addEventListener('pointerup',event => {
+  if (event.pointerType !== 'touch' || !touchStart) return;
+  const moved = Math.hypot(event.clientX - touchStart.x,event.clientY - touchStart.y);
+  const id = event.target.closest('.game-card')?.dataset.id;
+  if (id && id === touchStart.id && moved < 12) { lastTouchOpen = Date.now(); openGameDetails(id); }
+  touchStart = null;
+});
+$('#game-list').addEventListener('pointercancel',() => { touchStart = null; });
+$('#game-list').addEventListener('click',event => { if (Date.now() - lastTouchOpen < 600) return; const card = event.target.closest('.game-card'); if (card) openGameDetails(card.dataset.id); });
+$('#game-detail-overlay').addEventListener('click',event => { if (event.target === event.currentTarget || event.target.closest('.close-dialog')) hideGameDetails(); });
+document.addEventListener('keydown',event => { if (event.key === 'Escape' && !$('#game-detail-overlay').hidden) hideGameDetails(); });
 syncSportToggles(); $('#profile-button').addEventListener('click', syncSportToggles); $$('[data-visible-sport]').forEach(input => input.addEventListener('change', () => { const sport = input.dataset.visibleSport; if (input.checked) state.visibleSports.add(sport); else state.visibleSports.delete(sport); persistPreferences(); render(); }));
 let deferredInstallPrompt; window.addEventListener('beforeinstallprompt',event => { event.preventDefault(); deferredInstallPrompt = event; $('#install-button').classList.remove('hidden'); }); $('#install-button').addEventListener('click',async() => { if (!deferredInstallPrompt) return; deferredInstallPrompt.prompt(); await deferredInstallPrompt.userChoice; deferredInstallPrompt = null; $('#install-button').classList.add('hidden'); }); window.addEventListener('appinstalled',() => $('#install-button').classList.add('hidden'));
-if ('serviceWorker' in navigator) navigator.serviceWorker.register('./sw.js?rev=20261020-9').catch(() => {});
+if ('serviceWorker' in navigator) navigator.serviceWorker.register('./sw.js?rev=20261020-10').then(registration => registration.update()).catch(() => {});
 render(); loadLiveGames(); setInterval(loadLiveGames,60000);

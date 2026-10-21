@@ -29,7 +29,9 @@ Viable sources to evaluate:
 
 ## Excitement model
 
-`score` is a normalized 0–100 value. A production scoring adapter should calculate it per sport from:
+The displayed rating is an estimate on a 1–99 scale, not a provider-supplied excitement score. Each card shows the model's point breakdown. Before a game starts, the model uses a sport baseline plus confirmed stakes (for example postseason, championship, ranked teams, or rivalry). It never counts a pregame 0–0 as a close score. During play it adds closeness and game progress; after the final it accounts for the final margin and, when available, decisive scoring plays and lead changes. A World Series opener therefore receives its championship and series-opener points before play, while an unranked regular-season college football game does not.
+
+The arrow shown only for live or completed games compares the current rating with that game's opening estimate. It is a change from the start, not a measured minute-by-minute time series. No trend appears for an upcoming game. A production scoring adapter could improve this model with:
 
 - score closeness and lead changes;
 - time remaining / late-game leverage;
@@ -37,7 +39,7 @@ Viable sources to evaluate:
 - standings, playoff, rivalry, and tournament context;
 - unusual events such as overtime, extra innings, match points, or red-zone possessions.
 
-Favorite teams are sorted before the score, as required by the product brief. The preferences dialog exposes the first tuning controls for the future model. Spoiler-aware mode hides scores and replaces the numeric excitement score with a neutral signal state.
+Favorite teams are sorted before the score. The preferences dialog controls which sports appear on the home page. Spoiler-aware mode hides game scores and the numeric excitement rating.
 
 ## Suggested normalized API shape
 

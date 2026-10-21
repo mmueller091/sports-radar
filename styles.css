@@ -134,3 +134,34 @@ dialog::backdrop { background: rgba(5,7,7,.76); backdrop-filter: blur(4px); } .d
   .team-row { font-size: 13px; } .team-score { font-size: 14px; } .footer { margin: 0 -17px; padding: 21px 19px; flex-direction: column; gap: 10px; } .footer > div { display: block; } .footer > div > * { margin-right: 8px; } .section-label { font-size: 20px; } .source-grid { grid-template-columns: 1fr; }
 }
 @media (max-width: 460px) { .main-nav { gap: 15px; } .seg { font-size: 10px; } .seg span { display: none; } .game-card { grid-template-columns: 42px 1fr 53px; } .game-card .match-meta { font-size: 9px; } .score-circle { width: 43px; height: 43px; font-size: 15px; } .detail-stat-grid { grid-template-columns: 1fr; } }
+/* The league medallion and every logo stay inside their assigned card column on phones. */
+.sport-icon { overflow: hidden; min-width: 0; max-width: 48px; }
+.sport-icon small { display: none; }
+.league-logo { display: block; width: 28px; height: 28px; max-width: 100%; max-height: 100%; object-fit: contain; }
+.score-breakdown { display: block; margin-top: 5px; color: #aebfd2; font: 9px/1.35 'DM Mono', monospace; overflow-wrap: anywhere; }
+.stats-cue { display: block; margin-top: 6px; color: var(--selected-hi); font: 9px 'DM Mono', monospace; }
+.score-trend { display: block; margin-top: 6px; color: var(--selected-hi); font: 8px/1.25 'DM Mono', monospace; white-space: normal; }
+.game-card .excitement { min-width: 0; }
+.detail-overlay[hidden] { display: none !important; }
+.detail-overlay { position: fixed; inset: 0; z-index: 1000; display: flex; align-items: center; justify-content: center; padding: 12px; background: rgba(5,7,7,.78); }
+.detail-panel { width: min(760px, 100%); max-height: calc(100dvh - 24px); overflow-x: hidden; overflow-y: auto; -webkit-overflow-scrolling: touch; background: linear-gradient(145deg, #4a504e, #2d3332); color: var(--ink); border: 1px solid #7c837a; border-radius: 14px; padding: 22px; box-shadow: var(--shadow), inset 1px 1px 1px #7a817b; }
+body.detail-open { overflow: hidden; }
+@media (max-width: 800px) {
+  .game-card { grid-template-columns: 43px minmax(0,1fr) 76px; gap: 8px; }
+  .game-card .sport-icon { width: 38px; height: 38px; max-width: 38px; }
+  .game-card .league-logo { width: 24px; height: 24px; }
+  .game-card .team-column, .game-card .game-context { min-width: 0; }
+  .game-card .excitement { grid-row: 1 / span 3; }
+  .game-card .channel-context { grid-column: 2; }
+  .game-card .excitement .score-circle { margin-inline: auto; }
+  dialog { width: calc(100dvw - 24px); max-width: 500px; max-height: calc(100dvh - 24px); margin: auto; padding: 18px; overflow-x: hidden; overflow-y: auto; }
+  .dialog-header h2 { font-size: 22px; margin-bottom: 12px; }
+  .dialog-header > div { min-width: 0; }
+  .sport-toggles { grid-template-columns: minmax(0,1fr); }
+  .toggle-option { min-width: 0; }
+  .favorite-tags { gap: 6px; }
+  .favorite-tags span { max-width: 100%; white-space: normal; }
+  .preference-block { padding: 14px 0; }
+  .detail-overlay { padding: 8px; }
+  .detail-panel { max-height: calc(100dvh - 16px); padding: 16px; }
+}
