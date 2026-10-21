@@ -18,6 +18,7 @@ const nflLogic = app.slice(app.indexOf('function nflWeekMeta'),app.indexOf('func
 const dedupeLogic = app.slice(app.indexOf('function dedupeGames'),app.indexOf('async function loadLiveGames'));
 assert.match(app,/scoreboard\?groups=80[^\n]*limit:500/);
 assert.match(app,/scoreboard\?groups=81[^\n]*limit:500/);
+assert.match(app,/\[yesterday,today\]\.map/);
 vm.runInNewContext(`${preferenceLogic}
   const LEGACY_DEFAULT_FAVORITES = [{sport:'NFL',name:'Baltimore Ravens'},{sport:'MLB',name:'Baltimore Orioles'},{sport:'NHL',name:'Washington Capitals'}];
   const FAVORITE_SPORTS = ['NFL','MLB','NHL','CFB','NBA','NCAAB','Soccer'];
@@ -93,9 +94,13 @@ const fixtures = `
   assert.equal(pinnedFavorite(todayFavorite),true);
   assert.equal([futureFavorite,ordinaryUpcoming].sort(compareGames)[0],ordinaryUpcoming);
   assert.equal([ordinaryUpcoming,todayFavorite].sort(compareGames)[0],todayFavorite);
-  const yesterday = new Date(Date.now()-2*86400000).toISOString();
+  function safeText(value) { return String(value); }
+  function gameCard(game) { return '<button>' + game.id + '</button>'; }
+  const yesterday = new Date(Date.now()-86400000).toISOString();
+  const twoDaysAgo = new Date(Date.now()-2*86400000).toISOString();
   const today = new Date().toISOString();
-  const oldFinal = {id:'old-final',state:'completed',startTime:yesterday,score:99};
+  const oldFinal = {id:'old-final',state:'completed',startTime:twoDaysAgo,score:99};
+  const yesterdayFinal = {id:'yesterday-final',state:'completed',startTime:yesterday,score:72};
   const todayFinal = {id:'today-final',state:'completed',startTime:today,score:95};
   const todayUpcoming = {id:'today-upcoming',state:'upcoming',startTime:today,score:45};
   const futureUpcoming = {id:'future-upcoming',state:'upcoming',startTime:futureFavorite.startTime,score:90};
@@ -104,6 +109,12 @@ const fixtures = `
   assert.equal(visibleInState(oldFinal,'all'),false);
   assert.equal(visibleInState(oldFinal,'completed'),true);
   assert.equal(visibleInState(todayFinal,'all'),true);
+  assert.deepEqual([oldFinal,todayFinal,yesterdayFinal].sort((a,b) => compareDatedGames(a,b,'completed')).map(game => game.id),['today-final','yesterday-final','old-final']);
+  assert.deepEqual([futureUpcoming,todayUpcoming].sort((a,b) => compareDatedGames(a,b,'upcoming')).map(game => game.id),['today-upcoming','future-upcoming']);
+  const groupedFinals = renderGameList([todayFinal,yesterdayFinal,oldFinal],'completed');
+  assert.equal((groupedFinals.match(/game-date-divider/g) || []).length,3);
+  assert.match(groupedFinals,/Today/);
+  assert.match(groupedFinals,/Yesterday/);
   assert.deepEqual([futureUpcoming,todayFinal,live,todayUpcoming,favoriteLive].sort(compareAllGames).map(game => game.id),
     ['favorite-live','live','today-upcoming','today-final','future-upcoming']);
   assert.equal(allGroup(todayFavorite),0);

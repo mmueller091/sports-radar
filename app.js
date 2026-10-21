@@ -71,12 +71,33 @@ function summaryUrlFor(sport, eventId) { return `${ESPN_BASE}/${SPORT_PATHS[spor
 const {SPORT_BASE,CLOSE_MARGIN,clampScore,factorText,recordFor,rankFor,parseLine,lineFromSummary,gameProgress,momentumImpact,underdogCandidate,upsetImpact,stateRating,rateGame,applyLiveSnapshot} = globalThis.SportsRadarScore;
 function normalizedTeamName(name) { return String(name || '').trim().toLocaleLowerCase().replace(/\s+/g,' '); }
 function favoriteFor(teams,sport) { return state.favoriteTeams.some(favorite => favorite.sport === sport && teams.some(team => { const id = String(team.id || team[8] || ''); const name = team.name || team[0]; return Boolean(favorite.id && id && favorite.id === id) || normalizedTeamName(favorite.name) === normalizedTeamName(name); })); }
-function sameLocalDay(value) { if (!value) return false; return new Date(value).toLocaleDateString() === new Date().toLocaleDateString(); }
+function localDayStamp(value) { if (!value) return ''; const date = new Date(value); return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2,'0')}-${String(date.getDate()).padStart(2,'0')}`; }
+function sameLocalDay(value) { return Boolean(value && localDayStamp(value) === localDayStamp(new Date())); }
+function gameDayStart(value) { const date = new Date(value); date.setHours(0,0,0,0); return date.getTime(); }
+function gameDayLabel(value) {
+  const date = new Date(value);
+  const today = new Date(); today.setHours(0,0,0,0);
+  const yesterday = new Date(today); yesterday.setDate(yesterday.getDate() - 1);
+  const prefix = localDayStamp(date) === localDayStamp(today) ? 'Today' : localDayStamp(date) === localDayStamp(yesterday) ? 'Yesterday' : '';
+  const full = date.toLocaleDateString([], {weekday:'long',month:'long',day:'numeric'});
+  return prefix ? `${prefix} · ${full}` : full;
+}
 function pinnedFavorite(game) { return Boolean(game.favorite && (game.state !== 'upcoming' || sameLocalDay(game.startTime))); }
 function compareGames(a,b) { return Number(pinnedFavorite(b)) - Number(pinnedFavorite(a)) || b.score - a.score; }
 function visibleInState(game, selectedState) { return selectedState === 'all' ? game.state !== 'completed' || sameLocalDay(game.startTime) : game.state === selectedState; }
 function allGroup(game) { return pinnedFavorite(game) ? 0 : game.state === 'live' ? 1 : game.state === 'upcoming' && sameLocalDay(game.startTime) ? 2 : game.state === 'completed' ? 3 : 4; }
 function compareAllGames(a,b) { return allGroup(a) - allGroup(b) || b.score - a.score; }
+function compareDatedGames(a,b,selectedState) { const dayDifference = gameDayStart(a.startTime) - gameDayStart(b.startTime); if (dayDifference) return selectedState === 'completed' ? -dayDifference : dayDifference; return compareGames(a,b); }
+function renderGameList(items,selectedState) {
+  if (!['upcoming','completed'].includes(selectedState)) return items.map(gameCard).join('');
+  let previousDay = '';
+  return items.map(game => {
+    const day = localDayStamp(game.startTime);
+    const divider = day !== previousDay ? `<div class="game-date-divider" role="separator" aria-label="${safeText(gameDayLabel(game.startTime))}"><span>${safeText(gameDayLabel(game.startTime))}</span><i aria-hidden="true"></i></div>` : '';
+    previousDay = day;
+    return `${divider}${gameCard(game)}`;
+  }).join('');
+}
 function stateFromEvent(event) { const type = event.competitions?.[0]?.status?.type; if (type?.completed || type?.state === 'post') return 'completed'; if (type?.state === 'in') return 'live'; return 'upcoming'; }
 function scoreValue(competitor) { const value = Number(competitor.score); return Number.isFinite(value) ? String(value) : '—'; }
 function broadcastFor(competition) {
@@ -163,17 +184,18 @@ function datedFeed(feed,value) { const url = new URL(feed.url); url.searchParams
 const scheduleWindowCache = new Map();
 async function fetchDailyWindow(feed,futureDays=7) {
   const today = new Date(); today.setHours(12,0,0,0);
+  const yesterday = new Date(today); yesterday.setDate(yesterday.getDate() - 1);
   const cached = scheduleWindowCache.get(feed.sport);
-  const todayRequest = fetchFeed(datedFeed(feed,today));
-  const futureRequest = !cached || cached.expiresAt <= Date.now()
+  const activeDatesRequest = Promise.allSettled([yesterday,today].map(date => fetchFeed(datedFeed(feed,date)))).then(results => results.flatMap(result => result.status === 'fulfilled' ? result.value : []));
+  const futureRequest = !cached || cached.anchor !== dateToken(today) || cached.expiresAt <= Date.now()
     ? Promise.allSettled(Array.from({length:futureDays},(_,index) => { const date = new Date(today); date.setDate(date.getDate() + index + 1); return fetchFeed(datedFeed(feed,date)); })).then(results => {
         const futureGames = results.flatMap(result => result.status === 'fulfilled' ? result.value : []);
-        scheduleWindowCache.set(feed.sport,{games:futureGames,expiresAt:Date.now() + 15 * 60 * 1000});
+        scheduleWindowCache.set(feed.sport,{anchor:dateToken(today),games:futureGames,expiresAt:Date.now() + 15 * 60 * 1000});
         return futureGames;
       })
     : Promise.resolve(cached.games);
-  const [todayGames,futureGames] = await Promise.all([todayRequest,futureRequest]);
-  return dedupeGames([...todayGames,...futureGames]);
+  const [activeGames,futureGames] = await Promise.all([activeDatesRequest,futureRequest]);
+  return dedupeGames([...activeGames,...futureGames]);
 }
 async function loadLiveGames() { $('#data-status-label').textContent = 'Connecting to live scoreboards…'; const requests = [fetchNFLWindow(),...LIVE_FEEDS.filter(feed => feed.sport !== 'NFL').map(feed => ['NBA','NHL'].includes(feed.sport) ? fetchDailyWindow(feed) : fetchFeed(feed))]; const results = await Promise.allSettled(requests); const liveGames = dedupeGames(results.flatMap(result => result.status === 'fulfilled' ? result.value : [])); if (liveGames.length) { games = liveGames; state.source = 'live'; games.filter(game => game.state === 'live').forEach(recordRatingSnapshot); } else { games = DEMO_GAMES.map(game => ({...game,favorite:favoriteFor(game.teams,game.sport)})); state.source = 'demo'; } $('#data-status-label').textContent = state.source === 'live' ? `Live scores · updated ${new Date().toLocaleTimeString([], {hour:'numeric',minute:'2-digit'})}` : 'Demo data · live feed unavailable'; $('#footer-status').textContent = state.source === 'live' ? 'Live feed' : 'Demo data'; render(); if (state.source === 'live') enrichGameSignals(); }
 function safeText(value) { return String(value ?? '').replace(/[&<>"']/g, character => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[character])); }
@@ -458,8 +480,8 @@ function render() {
   if (!isSoccer && state.sport !== 'all' && !state.visibleSports.has(state.sport)) { state.sport = 'all'; $$('.sport-chip[data-sport]').forEach(chip => chip.classList.toggle('active',chip.dataset.sport === 'all')); }
   const scopeGames = games.filter(game => (isSoccer ? game.sport === 'Soccer' : game.sport !== 'Soccer' && state.visibleSports.has(game.sport) && (state.showFCS || game.division !== 'FCS')) && (state.sport === 'all' || game.sport === state.sport));
   const visible = scopeGames.filter(game => state.gameState === 'watching' ? isWatched(game) : visibleInState(game,state.gameState));
-  visible.sort(state.gameState === 'all' ? compareAllGames : compareGames);
-  $('#game-list').innerHTML = visible.map(gameCard).join('');
+  visible.sort(state.gameState === 'all' ? compareAllGames : ['upcoming','completed'].includes(state.gameState) ? (a,b) => compareDatedGames(a,b,state.gameState) : compareGames);
+  $('#game-list').innerHTML = renderGameList(visible,state.gameState);
   $('#empty-state').classList.toggle('hidden',visible.length !== 0);
   $('#empty-message').textContent = state.gameState === 'watching' ? 'Open a game and tap “Add to watchlist.” Saved games appear here while they are in the current scoreboard feed.' : 'Try a different sport or game state.';
   $('#live-count').textContent = `${scopeGames.filter(game => game.state === 'live').length} LIVE`;
@@ -502,6 +524,6 @@ $('#favorite-results').addEventListener('click',event => { const button = event.
 $('#favorite-tags').addEventListener('click',event => { const button = event.target.closest('[data-remove-favorite]'); if (!button) return; state.favoriteTeams.splice(Number(button.dataset.removeFavorite),1); syncFavoriteGames(); persistFavoriteSelections(); renderFavoriteTags(); renderFavoriteResults(); render(); });
 $$('[data-visible-sport]').forEach(input => input.addEventListener('change', () => { const sport = input.dataset.visibleSport; if (input.checked) state.visibleSports.add(sport); else state.visibleSports.delete(sport); persistPreferences(); render(); }));
 let deferredInstallPrompt; window.addEventListener('beforeinstallprompt',event => { event.preventDefault(); deferredInstallPrompt = event; $('#install-button').classList.remove('hidden'); }); $('#install-button').addEventListener('click',async() => { if (!deferredInstallPrompt) return; deferredInstallPrompt.prompt(); await deferredInstallPrompt.userChoice; deferredInstallPrompt = null; $('#install-button').classList.add('hidden'); }); window.addEventListener('appinstalled',() => $('#install-button').classList.add('hidden'));
-if ('serviceWorker' in navigator) navigator.serviceWorker.register('./sw.js?rev=20261021-27').then(registration => registration.update()).catch(() => {});
+if ('serviceWorker' in navigator) navigator.serviceWorker.register('./sw.js?rev=20261021-28').then(registration => registration.update()).catch(() => {});
 games = DEMO_GAMES.map(game => ({...game,favorite:favoriteFor(game.teams,game.sport)}));
 renderFavoriteTags(); renderFavoriteResults(); render(); loadLiveGames(); setInterval(loadLiveGames,60000);
