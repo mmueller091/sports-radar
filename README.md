@@ -1,6 +1,6 @@
-# THUUZ Radar
+# Sports Radar
 
-A static, mobile-friendly, installable sports radar inspired by THUUZ: favorite teams stay pinned first, then games are ordered by a sport-aware excitement score. Soccer gets its own feed so the home page stays focused on NFL, MLB, NHL, college football, and major tennis.
+A static, mobile-friendly, installable sports radar: favorite teams stay pinned first, then games are ordered by a sport-aware excitement score. Soccer gets its own feed so the home page stays focused on NFL, MLB, NHL, college football, and major tennis.
 
 ## Run locally
 

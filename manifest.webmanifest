@@ -1,6 +1,6 @@
 {
-  "name": "THUUZ Radar — know what to watch",
-  "short_name": "THUUZ Radar",
+  "name": "Sports Radar — know what to watch",
+  "short_name": "Sports Radar",
   "description": "A spoiler-aware sports radar ranked by live excitement.",
   "start_url": "./",
   "scope": "./",
