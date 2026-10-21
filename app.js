@@ -91,5 +91,5 @@ $('#spoiler-toggle').addEventListener('click', () => { state.spoilers = !state.s
 function wireDialog(id,opener) { const dialog = $(id); const trigger = $(opener); if (!dialog || !trigger) return; trigger.addEventListener('click',() => dialog.showModal()); dialog.querySelectorAll('.close-dialog').forEach(button => button.addEventListener('click',() => dialog.close())); }
 wireDialog('#preferences-dialog','#profile-button'); wireDialog('#data-dialog','#data-info');
 let deferredInstallPrompt; window.addEventListener('beforeinstallprompt',event => { event.preventDefault(); deferredInstallPrompt = event; $('#install-button').classList.remove('hidden'); }); $('#install-button').addEventListener('click',async() => { if (!deferredInstallPrompt) return; deferredInstallPrompt.prompt(); await deferredInstallPrompt.userChoice; deferredInstallPrompt = null; $('#install-button').classList.add('hidden'); }); window.addEventListener('appinstalled',() => $('#install-button').classList.add('hidden'));
-if ('serviceWorker' in navigator) navigator.serviceWorker.register('./sw.js').catch(() => {});
+if ('serviceWorker' in navigator) navigator.serviceWorker.register('./sw.js?rev=20261020-2').catch(() => {});
 render(); loadLiveGames(); setInterval(loadLiveGames,60000);
