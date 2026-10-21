@@ -1,6 +1,6 @@
 # Sports Radar
 
-A static, mobile-friendly, installable sports radar: favorite teams stay pinned first, then games are ordered by a sport-aware excitement score. Soccer gets its own feed so the home page stays focused on NFL, MLB, NHL, college football, NBA, NCAA basketball, and major tennis.
+A static, mobile-friendly, installable sports radar: favorite teams stay pinned first, then games are ordered by a sport-aware excitement score. Scores are always shown. Soccer gets its own feed so the home page stays focused on NFL, MLB, NHL, college football, NBA, NCAA basketball, and major tennis.
 
 ## Run locally
 
@@ -29,7 +29,7 @@ Viable sources to evaluate:
 
 ## Excitement model
 
-The displayed rating is an estimate on a 1–99 scale, not a provider-supplied excitement score. Each card shows the model's point breakdown. Before a game starts, the model uses a sport baseline plus confirmed stakes (for example postseason, championship, ranked teams, or rivalry). It never counts a pregame 0–0 as a close score. During play it adds closeness and game progress; after the final it accounts for the final margin and, when available, decisive scoring plays and lead changes. A World Series opener therefore receives its championship and series-opener points before play, while an unranked regular-season college football game does not.
+The displayed rating is an estimate on a 1–99 scale, not a provider-supplied excitement score. Each card gives a plain-English explanation. Before a game starts, the model uses a sport baseline plus confirmed stakes (for example postseason, championship, ranked teams, or rivalry). It never counts a pregame 0–0 as a close score. During play it adds closeness and game progress; after the final it accounts for the final margin and, when available, decisive scoring plays and lead changes. A World Series opener therefore receives its championship and series-opener points before play, while an unranked regular-season college football game does not.
 
 The arrow shown only for live or completed games compares the current rating with that game's opening estimate. It is a change from the start, not a measured minute-by-minute time series. No trend appears for an upcoming game. A production scoring adapter could improve this model with:
 
@@ -39,7 +39,7 @@ The arrow shown only for live or completed games compares the current rating wit
 - standings, playoff, rivalry, and tournament context;
 - unusual events such as overtime, extra innings, match points, or red-zone possessions.
 
-Favorite teams are sorted before the score. The preferences dialog controls which sports appear on the home page. Spoiler-aware mode hides game scores and the numeric excitement rating.
+Favorite teams are sorted before the score. The preferences dialog controls which sports appear on the home page. Team records and college rankings are taken from the scoreboard feed when present. Spreads and totals are shown from ESPN scoreboard or game-summary data when available. For started games, a line without a verified closing marker is labeled as the last listed pregame line; this is not a guarantee of the exact market close. The browser also retains the latest line it saw before each game started, but only on that device and only if it was opened while the game was upcoming.
 
 ## Suggested normalized API shape
 

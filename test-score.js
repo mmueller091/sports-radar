@@ -4,6 +4,7 @@ const vm = require('node:vm');
 
 const app = fs.readFileSync('app.js','utf8');
 const scoreLogic = app.slice(app.indexOf('const SPORT_BASE'),app.indexOf('function normalizeEvent'));
+const explanationLogic = app.slice(app.indexOf('function explainRating'),app.indexOf('function trendFor'));
 const fixtures = `
   const cfb = {notes:[],competitors:[{team:{displayName:'Minnesota'}},{team:{displayName:'Iowa'}}]};
   const worldSeries = {notes:[{headline:'World Series - Game 1'}],competitors:[{team:{displayName:'Brewers'}},{team:{displayName:'Rays'}}]};
@@ -18,6 +19,16 @@ const fixtures = `
   assert.ok(!ordinary.factors.some(item => /close/i.test(item.label)));
   const final = rateGame('NFL','completed',[{score:'24'},{score:'27'}],{name:'Jaguars vs Texans'},{status:{type:{detail:'Final'}}},'');
   assert.ok(final.score > final.openingScore);
+  assert.equal(recordFor({records:[{type:'overall',summary:'5-2'}]}),'5-2');
+  assert.equal(rankFor({curatedRank:{current:12}},'CFB'),12);
+  const line = parseLine({details:'Iowa -3.5',overUnder:44.5,provider:{name:'ESPN BET'}},{});
+  assert.equal(line.spread,'Iowa -3.5');
+  assert.equal(line.total,44.5);
+  assert.equal(displayLine({id:'test',state:'upcoming',line}).text,'Spread Iowa -3.5 · O/U 44.5');
+  assert.equal(displayLine({id:'test',state:'live',line}).label,'Last listed pregame line');
+  const prose = explainRating({state:'upcoming',score:85,factors:championship.factors,teams:[['Brewers'],['Rays']]});
+  assert.match(prose,/Game 1 of the World Series/);
+  assert.doesNotMatch(prose,/Sport baseline/);
   console.log('Score model fixtures passed');
 `;
-vm.runInNewContext(`${scoreLogic}\n${fixtures}`,{assert,console});
+vm.runInNewContext(`${scoreLogic}\n${explanationLogic}\n${fixtures}`,{assert,console,localStorage:{getItem:()=>null}});

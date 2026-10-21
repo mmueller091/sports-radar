@@ -4,6 +4,7 @@ const HOME_SPORTS = ['NFL','MLB','NHL','CFB','NBA','NCAAB','Tennis'];
 const SPORT_LABELS = {NFL:'NFL',MLB:'MLB',NHL:'NHL',CFB:'College football',NBA:'NBA',NCAAB:'NCAA basketball',Tennis:'Tennis',Soccer:'Soccer'};
 const SPORT_PATHS = {NFL:'football/nfl',MLB:'baseball/mlb',NHL:'hockey/nhl',CFB:'football/college-football',NBA:'basketball/nba',NCAAB:'basketball/mens-college-basketball',Tennis:'tennis/atp',Soccer:'soccer/eng.1'};
 const PREFERENCES_KEY = 'sports-radar-preferences-v2';
+const LINES_KEY = 'sports-radar-last-pregame-lines-v1';
 const LIVE_FEEDS = [
   {sport:'NFL', url:`${ESPN_BASE}/football/nfl/scoreboard`},
   {sport:'MLB', url:`${ESPN_BASE}/baseball/mlb/scoreboard`},
@@ -38,10 +39,10 @@ let games = [...DEMO_GAMES];
 function readPreferences() { try { return JSON.parse(localStorage.getItem(PREFERENCES_KEY) || '{}'); } catch { return {}; } }
 const savedPreferences = readPreferences();
 const savedSports = Array.isArray(savedPreferences.visibleSports) ? savedPreferences.visibleSports.filter(sport => HOME_SPORTS.includes(sport)) : HOME_SPORTS;
-const state = {page:location.hash === '#soccer' ? 'soccer' : 'home', sport:'all', gameState:'all', spoilers:savedPreferences.spoilers !== false, visibleSports:new Set(savedSports), source:'demo'};
+const state = {page:location.hash === '#soccer' ? 'soccer' : 'home', sport:'all', gameState:'all', visibleSports:new Set(savedSports), source:'demo'};
 const $ = selector => document.querySelector(selector);
 const $$ = selector => [...document.querySelectorAll(selector)];
-function persistPreferences() { try { localStorage.setItem(PREFERENCES_KEY, JSON.stringify({visibleSports:[...state.visibleSports],spoilers:state.spoilers})); } catch {} }
+function persistPreferences() { try { localStorage.setItem(PREFERENCES_KEY, JSON.stringify({visibleSports:[...state.visibleSports]})); } catch {} }
 function syncSportToggles() { $$('[data-visible-sport]').forEach(input => { input.checked = state.visibleSports.has(input.dataset.visibleSport); }); }
 function labelForSport(sport) { return SPORT_LABELS[sport] || sport; }
 function iconFor(sport) { return ({NFL:'◈',MLB:'◉',NHL:'✧',CFB:'◆',NBA:'●',NCAAB:'◇',Tennis:'◌',Soccer:'⊙'})[sport] || '✦'; }
@@ -62,6 +63,52 @@ function broadcastFor(competition) {
   (competition?.broadcasts || []).forEach(broadcast => { (broadcast.names || []).forEach(add); add(broadcast.name); add(broadcast.shortName); });
   (competition?.geoBroadcasts || []).forEach(broadcast => { add(broadcast.media?.shortName); add(broadcast.media?.name); add(broadcast.type?.shortName); });
   return [...new Set(values)].slice(0, 2).join(' · ');
+}
+function recordFor(competitor) {
+  const records = competitor?.records || competitor?.team?.records || [];
+  const overall = records.find(item => /overall|total/i.test(`${item.type || ''} ${item.name || ''} ${item.abbreviation || ''}`)) || records[0];
+  return overall?.summary || competitor?.record?.summary || (typeof competitor?.record === 'string' ? competitor.record : '');
+}
+function rankFor(competitor, sport) {
+  if (!['CFB','NCAAB'].includes(sport)) return null;
+  const rank = Number(competitor?.curatedRank?.current ?? competitor?.team?.rank);
+  return Number.isFinite(rank) && rank >= 1 && rank <= 25 ? rank : null;
+}
+function parseLine(raw, competition) {
+  if (!raw) return null;
+  const listed = raw.close || raw.closing || raw;
+  const totalValue = listed.overUnder ?? listed.over_under ?? listed.total?.overUnder ?? listed.total?.value;
+  const total = totalValue == null || totalValue === '' ? NaN : Number(totalValue);
+  let spread = String(listed.details || listed.displayValue || listed.spread?.displayValue || '').trim();
+  if (!spread && Number.isFinite(Number(listed.spread))) {
+    const amount = Math.abs(Number(listed.spread));
+    const home = (competition?.competitors || []).find(team => team.homeAway === 'home');
+    const away = (competition?.competitors || []).find(team => team.homeAway === 'away');
+    const favored = listed.homeTeamOdds?.favorite ? home : listed.awayTeamOdds?.favorite ? away : null;
+    if (favored) spread = amount === 0 ? 'PK' : `${favored.team?.abbreviation || favored.abbreviation || 'Favorite'} -${amount}`;
+  }
+  if (!spread && !Number.isFinite(total)) return null;
+  return {spread:spread || '',total:Number.isFinite(total) ? total : null,provider:listed.provider?.name || raw.provider?.name || '',verifiedClose:Boolean(raw.close || raw.closing)};
+}
+function lineFromSummary(summary) {
+  const competition = summary?.header?.competitions?.[0];
+  return parseLine(summary?.pickcenter?.[0] || competition?.odds?.[0] || summary?.odds?.[0],competition);
+}
+function readLineSnapshots() { try { return JSON.parse(localStorage.getItem(LINES_KEY) || '{}'); } catch { return {}; } }
+let lineSnapshots = readLineSnapshots();
+function rememberPregameLine(game) {
+  if (game.state !== 'upcoming' || !game.line) return;
+  lineSnapshots[game.id] = {line:game.line,capturedAt:Date.now()};
+  const entries = Object.entries(lineSnapshots).sort((a,b) => b[1].capturedAt - a[1].capturedAt).slice(0,200);
+  lineSnapshots = Object.fromEntries(entries);
+  try { localStorage.setItem(LINES_KEY,JSON.stringify(lineSnapshots)); } catch {}
+}
+function displayLine(game) {
+  const line = game.line || lineSnapshots[game.id]?.line;
+  if (!line) return {label:game.state === 'upcoming' ? 'Current line' : 'Pregame line',text:'Not listed'};
+  const pieces = [line.spread ? `Spread ${line.spread}` : '',line.total !== null ? `O/U ${line.total}` : ''].filter(Boolean);
+  const label = game.state === 'upcoming' ? 'Current line' : line.verifiedClose ? 'Closing line' : 'Last listed pregame line';
+  return {label,text:pieces.join(' · '),provider:line.provider};
 }
 function eventSignalText(event, competition, context) { return [event?.name,event?.shortName,(competition?.notes || []).map(note => note.headline).join(' '),competition?.series?.summary,competition?.series?.title,competition?.series?.type,event?.season?.type?.name,event?.season?.type?.slug,event?.season?.slug,context].filter(Boolean).join(' ').toLowerCase(); }
 function pregameRating(sport,event,competition,context) {
@@ -115,15 +162,38 @@ function rateGame(sport,gameState,teams,event,competition,context) {
 }
 function normalizeEvent(event, sport, leagueLogo) {
   const competition = event.competitions?.[0]; const competitors = competition?.competitors || []; if (competitors.length < 2) return null;
-  const teams = competitors.slice(0,2).map(competitor => ({name:competitor.team?.displayName || competitor.athlete?.displayName || 'Unknown', abbr:competitor.team?.abbreviation || competitor.abbreviation || '', score:scoreValue(competitor), logo:competitor.team?.logo || '', color:'white'}));
+  const teams = competitors.slice(0,2).map(competitor => ({name:competitor.team?.displayName || competitor.athlete?.displayName || 'Unknown', shortName:competitor.team?.shortDisplayName || competitor.team?.name || competitor.athlete?.shortName || '', abbr:competitor.team?.abbreviation || competitor.abbreviation || '', score:scoreValue(competitor), logo:competitor.team?.logo || '', color:'white',record:recordFor(competitor),rank:rankFor(competitor,sport)}));
   const gameState = stateFromEvent(event); const status = competition?.status?.type?.shortDetail || competition?.status?.type?.detail || (gameState === 'completed' ? 'Final' : 'Scheduled'); const context = competition?.notes?.[0]?.headline || event.name || `${sport} matchup`; const rating = rateGame(sport,gameState,teams,event,competition,context); const eventId = event.id || `${sport}-${event.name}`;
-  return {id:eventId,summaryUrl:summaryUrlFor(sport,eventId),favorite:favoriteFor(teams),sport,icon:iconFor(sport),leagueLogo:leagueLogo || LEAGUE_LOGOS[sport],startTime:event.date,state:gameState,status,channel:broadcastFor(competition) || 'Channel not listed',teams:teams.map(team => [team.name,team.abbr,team.score,team.color,team.logo]),context,why:rating.reason,sub:competition?.venue?.fullName || competition?.venue?.address?.city || 'Live scoreboard',score:rating.score,openingScore:rating.openingScore,factors:rating.factors};
+  return {id:eventId,summaryUrl:summaryUrlFor(sport,eventId),favorite:favoriteFor(teams),sport,icon:iconFor(sport),leagueLogo:leagueLogo || LEAGUE_LOGOS[sport],startTime:event.date,state:gameState,status,channel:broadcastFor(competition) || 'Channel not listed',teams:teams.map(team => [team.name,team.abbr,team.score,team.color,team.logo,team.record,team.rank,team.shortName]),line:gameState === 'upcoming' ? parseLine(competition?.odds?.[0],competition) : null,context,why:rating.reason,sub:competition?.venue?.fullName || competition?.venue?.address?.city || 'Live scoreboard',score:rating.score,openingScore:rating.openingScore,factors:rating.factors};
 }
-async function fetchFeed(feed) { const controller = new AbortController(); const timer = setTimeout(() => controller.abort(), 7000); try { const response = await fetch(`${feed.url}?limit=100`, {signal:controller.signal,cache:'no-store'}); if (!response.ok) throw new Error(`HTTP ${response.status}`); const payload = await response.json(); const leagueLogo = payload.leagues?.[0]?.logos?.[0]?.href; return (payload.events || []).map(event => normalizeEvent(event,feed.sport,leagueLogo)).filter(Boolean); } finally { clearTimeout(timer); } }
+async function fetchFeed(feed) { const controller = new AbortController(); const timer = setTimeout(() => controller.abort(), 7000); try { const response = await fetch(`${feed.url}?limit=100`, {signal:controller.signal,cache:'no-store'}); if (!response.ok) throw new Error(`HTTP ${response.status}`); const payload = await response.json(); const leagueLogo = payload.leagues?.[0]?.logos?.[0]?.href; const events = (payload.events || []).map(event => normalizeEvent(event,feed.sport,leagueLogo)).filter(Boolean); events.forEach(rememberPregameLine); return events; } finally { clearTimeout(timer); } }
 async function loadLiveGames() { $('#data-status-label').textContent = 'Connecting to live scoreboards…'; const results = await Promise.allSettled(LIVE_FEEDS.map(fetchFeed)); const liveGames = results.flatMap(result => result.status === 'fulfilled' ? result.value : []); if (liveGames.length) { games = liveGames; state.source = 'live'; } else { games = [...DEMO_GAMES]; state.source = 'demo'; } $('#data-status-label').textContent = state.source === 'live' ? `Live scores · updated ${new Date().toLocaleTimeString([], {hour:'numeric',minute:'2-digit'})}` : 'Demo data · live feed unavailable'; $('#footer-status').textContent = state.source === 'live' ? 'Live feed' : 'Demo data'; render(); if (state.source === 'live') enrichGameSignals(); }
-function displayScore(team) { return state.spoilers ? team[2] : (team[2] === '—' ? '—' : '••'); }
 function safeText(value) { return String(value ?? '').replace(/[&<>"']/g, character => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[character])); }
-function teamMarkup(game, team) { const logo = team[4] || teamLogoUrl(game.sport, team[1]); return `<span class="team-name"><img class="team-logo" src="${safeText(logo)}" alt="" loading="lazy" onerror="this.style.display='none'"><span>${safeText(team[0])}</span></span>`; }
+function teamMarkup(game, team) { const logo = team[4] || teamLogoUrl(game.sport, team[1]); return `<span class="team-name"><img class="team-logo" src="${safeText(logo)}" alt="" loading="lazy" onerror="this.style.display='none'">${team[6] ? `<b class="team-rank">#${safeText(team[6])}</b>` : ''}<span class="team-name-text"><span class="full-team-name">${safeText(team[0])}</span><span class="short-team-name">${safeText(team[7] || team[0])}</span></span>${team[5] ? `<small class="team-record">${safeText(team[5])}</small>` : ''}</span>`; }
+function explainRating(game) {
+  if (!game.factors?.length) return game.context || 'The live feed has not supplied a detailed rating explanation.';
+  const labels = new Set(game.factors.map(item => item.label));
+  if (game.state === 'upcoming') {
+    if (labels.has('World Series')) return `Game 1 of the World Series brings championship stakes, so this starts at ${game.score} before the first pitch.`;
+    if (labels.has('Championship')) return `This is a championship matchup, so the stakes put it at ${game.score} before play begins.`;
+    if (labels.has('Final round')) return `A place in the final round is at stake, which puts this matchup at ${game.score} before play.`;
+    if (labels.has('Postseason')) return `It's a postseason game, so its stakes put it at ${game.score} before play begins.`;
+    if (labels.has('Major tournament')) return `This match is part of a tennis major, so it starts at ${game.score} before play.`;
+    const ranked = game.teams.filter(team => team[6]);
+    if (ranked.length === 2) return `Both teams are ranked (${ranked.map(team => `No. ${team[6]}`).join(' and ')}), so this matchup starts at ${game.score}. No game action is counted yet.`;
+    if (ranked.length === 1) return `${ranked[0][0]} is ranked No. ${ranked[0][6]}, which lifts this regular-season matchup to ${game.score} before play.`;
+    if (labels.has('Rivalry')) return `A listed rivalry adds to the anticipation, putting this matchup at ${game.score} before play.`;
+    return `No championship, playoff, or ranked-team stakes are listed for this matchup, so it starts at ${game.score} before play.`;
+  }
+  const why = String(game.why || '').replaceAll(' · ', ', ').replace(/^[a-z]/,character => character.toUpperCase());
+  const moment = game.moment?.replace(/^Decisive play:\s*/,'The decisive play was ').replace(/^Recent score:\s*/,'The latest scoring play was ');
+  if (game.state === 'completed') {
+    const ending = labels.has('Wide margin') ? 'The wider margin keeps the rating down.' : labels.has('Overtime') ? 'Overtime adds to the rating.' : 'The close finish raises the rating.';
+    return `${why}. ${moment ? `${moment}. ` : ''}${ending}`;
+  }
+  const action = labels.has('Score closeness') ? 'The close score and how late it is lift the rating.' : labels.has('Wide margin') ? 'The widening gap pulls the rating down.' : 'Its rating reflects how far along the game is.';
+  return `${why}. ${moment ? `${moment}. ` : ''}${action}`;
+}
 function trendFor(game) {
   if (game.state === 'upcoming' || !Number.isFinite(game.openingScore)) return '';
   const delta = game.score - game.openingScore;
@@ -134,8 +204,8 @@ function gameCard(game) {
   const scoreClass = game.score >= 85 ? 'hot' : game.score >= 70 ? 'warm' : '';
   const stateLabel = game.state === 'live' ? '<span class="status-live">● LIVE</span>' : `<span class="status-${game.state}">${safeText(game.status)}</span>`;
   const leagueLogo = game.leagueLogo || LEAGUE_LOGOS[game.sport];
-  const why = game.moment && game.moment !== game.why ? `${game.why} · ${game.moment}` : game.why || game.context;
-  return `<button type="button" class="game-card ${game.favorite ? 'favorite' : ''}" data-id="${safeText(game.id)}" aria-label="Open details for ${safeText(game.teams[0][0])} versus ${safeText(game.teams[1][0])}"><span class="sport-icon"><img class="league-logo" src="${safeText(leagueLogo)}" alt="" loading="lazy" onerror="this.style.display='none'"></span><span class="team-column"><span class="match-meta">${stateLabel}<span>•</span><span>${safeText(game.sub)}</span></span><span class="team-row">${teamMarkup(game,game.teams[0])}<b class="team-score ${!state.spoilers?'score-hidden':''}">${displayScore(game.teams[0])}</b></span><span class="team-row">${teamMarkup(game,game.teams[1])}<b class="team-score ${!state.spoilers?'score-hidden':''}">${displayScore(game.teams[1])}</b></span></span><span class="game-context"><strong>Why ${game.score}?</strong><span>${safeText(why)}</span><small class="score-breakdown">${safeText(game.factors?.length ? factorText(game.factors,game.score) : 'Model estimate')}</small></span><span class="game-context channel-context"><strong>Watch on</strong><span>${safeText(game.channel || 'Channel not listed')}</span><span class="stats-cue">Tap for stats ›</span></span><span class="excitement"><span class="score-circle ${scoreClass}">${state.spoilers ? game.score : '—'}</span>${trendFor(game)}</span></button>`;
+  const line = displayLine(game);
+  return `<button type="button" class="game-card ${game.favorite ? 'favorite' : ''}" data-id="${safeText(game.id)}" aria-label="Open details for ${safeText(game.teams[0][0])} versus ${safeText(game.teams[1][0])}"><span class="sport-icon"><img class="league-logo" src="${safeText(leagueLogo)}" alt="" loading="lazy" onerror="this.style.display='none'"></span><span class="team-column"><span class="match-meta">${stateLabel}<span>•</span><span>${safeText(game.sub)}</span></span><span class="team-row">${teamMarkup(game,game.teams[0])}<b class="team-score">${safeText(game.teams[0][2])}</b></span><span class="team-row">${teamMarkup(game,game.teams[1])}<b class="team-score">${safeText(game.teams[1][2])}</b></span></span><span class="game-context"><strong>Why ${game.score}?</strong><span>${safeText(explainRating(game))}</span></span><span class="game-context channel-context"><strong>Watch on</strong><span>${safeText(game.channel || 'Channel not listed')}</span><strong class="line-label">${safeText(line.label)}</strong><span class="line-value">${safeText(line.text)}</span><span class="stats-cue">Tap for stats ›</span></span><span class="excitement"><span class="score-circle ${scoreClass}">${game.score}</span>${trendFor(game)}</span></button>`;
 }
 function detailStats(summary) { const teams = summary?.boxscore?.teams || []; return teams.map(team => { const stats = (team.statistics || []).filter(stat => stat.displayValue && stat.displayValue !== '0').slice(0, 6); if (!stats.length) return ''; return `<div class="detail-stat-team"><strong>${safeText(team.team?.displayName || 'Team stats')}</strong>${stats.map(stat => `<div><span>${safeText(stat.label || stat.displayName || stat.name)}</span><b>${safeText(stat.displayValue)}</b></div>`).join('')}</div>`; }).join(''); }
 function detailLeaders(summary) { const groups = summary?.leaders || []; const rows = groups.flatMap(group => (group.leaders || []).filter(leader => leader.athlete?.displayName || leader.athlete?.shortName).slice(0,1).map(leader => `<div><span>${safeText(group.displayName || group.name || 'Leader')}</span><b>${safeText(leader.athlete?.displayName || leader.athlete?.shortName)} · ${safeText(leader.displayValue || leader.value || '')}</b></div>`)).slice(0,6); return rows.length ? `<section class="detail-section"><h3>Leaders</h3><div class="detail-leaders">${rows.join('')}</div></section>` : ''; }
@@ -146,8 +216,18 @@ function findStatIndex(labels, aliases, fallback) { const normalized = (labels |
 function statValue(entry, column, index) { const stats = entry?.stats ?? entry?.values ?? []; if (Array.isArray(stats)) return stats[index] ?? '—'; const keys = Object.keys(stats || {}); const aliases = [column.title, ...(column.aliases || [])].map(statKey); const key = keys.find(item => aliases.includes(statKey(item))); return key ? stats[key] : '—'; }
 function playerTable(group, columns, title) { const athletes = group?.athletes || group?.players || []; if (!athletes.length) return ''; const labels = group.labels || group.headers || []; return `<div class="detail-player-group"><h4>${safeText(title)}</h4><div class="detail-table-scroll"><table class="detail-player-table"><thead><tr><th>Player</th>${columns.map(column => `<th>${safeText(column.title)}</th>`).join('')}</tr></thead><tbody>${athletes.map(entry => `<tr><th scope="row">${safeText(athleteName(entry))}</th>${columns.map((column,index) => `<td>${safeText(statValue(entry,column,findStatIndex(labels,column.aliases,index)))}</td>`).join('')}</tr>`).join('')}</tbody></table></div></div>`; }
 function detailPlayerStats(summary, sport) { const blocks = summary?.boxscore?.players || []; if (!blocks.length || !['NFL','CFB','NHL'].includes(sport)) return ''; const teamSections = blocks.map(block => { const teamName = block.team?.displayName || block.team?.shortDisplayName || 'Team'; const statGroups = block.statistics || []; if (sport === 'NHL') { const skaters = statGroups.filter(group => (group.athletes || group.players || []).length && !/goalie|goaltender/i.test(`${group.name || ''} ${group.displayName || ''}`)); const columns = [{title:'S',aliases:['shots','shots on goal','s']},{title:'G',aliases:['goals','g']},{title:'A',aliases:['assists','a']},{title:'+/-',aliases:['plus minus','plusminus','+/-']},{title:'PIM',aliases:['pim','penalty minutes']}]; return skaters.length ? `<div class="detail-player-team"><strong>${safeText(teamName)}</strong>${skaters.map(group => playerTable(group,columns,group.displayName || group.name || 'Skaters')).join('')}</div>` : ''; } const groups = statGroups.filter(group => /pass|rush|receiv/i.test(`${group.name || ''} ${group.displayName || ''}`)); return groups.length ? `<div class="detail-player-team"><strong>${safeText(teamName)}</strong>${groups.map(group => { const athletes = group.athletes || group.players || []; const labels = Array.isArray(group.labels) && group.labels.length ? group.labels : Object.keys(athletes[0]?.stats || {}); const columns = labels.map(label => ({title:label,aliases:[label]})); return playerTable(group,columns,group.displayName || group.name || 'Player stats'); }).join('')}</div>` : ''; }).filter(Boolean); return teamSections.length ? `<section class="detail-section"><h3>${sport === 'NHL' ? 'Player stats · Skaters' : 'Player stats · Passing, rushing & receiving'}</h3><div class="detail-player-grid">${teamSections.join('')}</div></section>` : ''; }
-function renderDetailContent(game, summary, loading = false) { if (loading) { $('#game-detail-content').innerHTML = `<div class="detail-loading">Loading live game details…</div>`; return; } const competition = summary?.header?.competitions?.[0]; const competitors = competition?.competitors || []; const title = competitors.length >= 2 ? `${competitors[0].team?.displayName || competitors[0].athlete?.displayName || game.teams[0][0]} vs ${competitors[1].team?.displayName || competitors[1].athlete?.displayName || game.teams[1][0]}` : `${game.teams[0][0]} vs ${game.teams[1][0]}`; const scores = competitors.length >= 2 ? competitors.map(team => `<div class="detail-team"><img src="${safeText(team.team?.logo || teamLogoUrl(game.sport,team.team?.abbreviation || ''))}" alt="" onerror="this.style.display='none'"><span>${safeText(team.team?.displayName || team.athlete?.displayName || 'Team')}</span><b>${state.spoilers ? safeText(team.score || '—') : '••'}</b></div>`).join('') : game.teams.map(team => `<div class="detail-team"><img src="${safeText(team[4] || teamLogoUrl(game.sport,team[1]))}" alt="" onerror="this.style.display='none'"><span>${safeText(team[0])}</span><b>${state.spoilers ? safeText(team[2]) : '••'}</b></div>`).join(''); const status = competition?.status?.type?.detail || game.status; const venue = competition?.venue?.fullName || game.sub; const fallback = !summary ? `<p class="detail-empty">The live summary feed did not return additional stats for this game yet. The score, ranking explanation, and broadcast are still current.</p>` : ''; $('#game-detail-content').innerHTML = `<div class="detail-kicker">${safeText(labelForSport(game.sport))} · ${safeText(status)}</div><h2>${safeText(title)}</h2><div class="detail-scoreboard">${scores}</div><div class="detail-meta"><span>📍 ${safeText(venue)}</span><span>📺 ${safeText(game.channel || 'Channel not listed')}</span></div>${detailLeaders(summary)}${detailStats(summary) ? `<section class="detail-section"><h3>Team stats</h3><div class="detail-stat-grid">${detailStats(summary)}</div></section>` : ''}${detailPlayerStats(summary,game.sport)}${detailPlays(summary)}${fallback}`; }
-async function fetchGameSummary(game) { const response = await fetch(game.summaryUrl || summaryUrlFor(game.sport,game.id),{cache:'no-store'}); if (!response.ok) throw new Error(`HTTP ${response.status}`); return response.json(); }
+function renderDetailContent(game, summary, loading = false) {
+  if (loading) { $('#game-detail-content').innerHTML = `<div class="detail-loading">Loading live game details…</div>`; return; }
+  const competition = summary?.header?.competitions?.[0];
+  const competitors = competition?.competitors || [];
+  const title = competitors.length >= 2 ? `${competitors[0].team?.displayName || competitors[0].athlete?.displayName || game.teams[0][0]} vs ${competitors[1].team?.displayName || competitors[1].athlete?.displayName || game.teams[1][0]}` : `${game.teams[0][0]} vs ${game.teams[1][0]}`;
+  const scores = competitors.length >= 2 ? competitors.map(team => `<div class="detail-team"><img src="${safeText(team.team?.logo || teamLogoUrl(game.sport,team.team?.abbreviation || ''))}" alt="" onerror="this.style.display='none'"><span>${safeText(team.team?.displayName || team.athlete?.displayName || 'Team')}</span><b>${safeText(team.score || '—')}</b></div>`).join('') : game.teams.map(team => `<div class="detail-team"><img src="${safeText(team[4] || teamLogoUrl(game.sport,team[1]))}" alt="" onerror="this.style.display='none'"><span>${safeText(team[0])}</span><b>${safeText(team[2])}</b></div>`).join('');
+  const status = competition?.status?.type?.detail || game.status;
+  const venue = competition?.venue?.fullName || game.sub;
+  const fallback = !summary ? `<p class="detail-empty">The live summary feed did not return additional stats for this game yet. The score, rating explanation, and broadcast are still current.</p>` : '';
+  $('#game-detail-content').innerHTML = `<div class="detail-kicker">${safeText(labelForSport(game.sport))} · ${safeText(status)}</div><h2>${safeText(title)}</h2><div class="detail-scoreboard">${scores}</div><div class="detail-meta"><span>📍 ${safeText(venue)}</span><span>📺 ${safeText(game.channel || 'Channel not listed')}</span></div><section class="detail-section"><h3>Why ${game.score}?</h3><p class="detail-explanation">${safeText(explainRating(game))}</p></section>${detailLeaders(summary)}${detailStats(summary) ? `<section class="detail-section"><h3>Team stats</h3><div class="detail-stat-grid">${detailStats(summary)}</div></section>` : ''}${detailPlayerStats(summary,game.sport)}${detailPlays(summary)}${fallback}`;
+}
+async function fetchGameSummary(game) { const controller = new AbortController(); const timer = setTimeout(() => controller.abort(),7000); try { const response = await fetch(game.summaryUrl || summaryUrlFor(game.sport,game.id),{cache:'no-store',signal:controller.signal}); if (!response.ok) throw new Error(`HTTP ${response.status}`); return response.json(); } finally { clearTimeout(timer); } }
 function showDialog(dialog) { if (!dialog) return; if (typeof dialog.showModal === 'function') dialog.showModal(); else dialog.setAttribute('open',''); }
 function hideDialog(dialog) { if (!dialog) return; if (typeof dialog.close === 'function') dialog.close(); else dialog.removeAttribute('open'); }
 function showGameDetails() { const overlay = $('#game-detail-overlay'); overlay.hidden = false; document.body.classList.add('detail-open'); overlay.querySelector('.close-dialog')?.focus(); }
@@ -169,11 +249,14 @@ function summarySpecificWhy(game,summary) {
   return '';
 }
 async function enrichGameSignals() {
-  const candidates = games.filter(game => game.state === 'live' || game.state === 'completed').slice(0,18);
+  const candidates = games.filter(game => game.state !== 'upcoming' || !game.line);
   let changed = false;
-  await Promise.allSettled(candidates.map(async game => {
+  for (let start = 0; start < candidates.length; start += 6) {
+    await Promise.allSettled(candidates.slice(start,start + 6).map(async game => {
     try {
       const summary = await fetchGameSummary(game);
+      const line = lineFromSummary(summary);
+      if (line && (game.state !== 'upcoming' || !game.line)) { game.line = line; changed = true; if (game.state === 'upcoming') rememberPregameLine(game); }
       const moment = summarySpecificWhy(game,summary);
       if (moment) { game.moment = moment; changed = true; }
       if (game.state !== 'completed') return;
@@ -197,15 +280,16 @@ async function enrichGameSignals() {
       }
       if (leadChanges) { const points = Math.min(8,leadChanges * 2); game.factors.push({label:`${leadChanges} lead change${leadChanges === 1 ? '' : 's'}`,points}); game.score = clampScore(game.score + points); changed = true; }
     } catch {}
-  }));
-  if (changed) render();
+    }));
+    if (changed) { render(); changed = false; }
+  }
 }
-function render() { const isSoccer = state.page === 'soccer'; $('#section-title').textContent = isSoccer ? 'Soccer radar' : 'Your radar'; $$('.nav-link').forEach(link => link.classList.toggle('active',link.dataset.page === state.page)); $$('.soccer-chip').forEach(chip => chip.classList.toggle('hidden',!isSoccer)); if (!isSoccer && state.sport !== 'all' && !state.visibleSports.has(state.sport)) { state.sport = 'all'; $$('.sport-chip').forEach(chip => chip.classList.toggle('active',chip.dataset.sport === 'all')); } let visible = games.filter(game => !hideStaleFavorite(game) && (isSoccer ? game.sport === 'Soccer' : game.sport !== 'Soccer' && state.visibleSports.has(game.sport))); if (state.sport !== 'all') visible = visible.filter(game => game.sport === state.sport); if (state.gameState !== 'all') visible = visible.filter(game => game.state === state.gameState); visible.sort((a,b) => Number(b.favorite) - Number(a.favorite) || b.score - a.score); $('#game-list').innerHTML = visible.map(gameCard).join(''); $('#empty-state').classList.toggle('hidden',visible.length !== 0); $('#live-count').textContent = `${visible.filter(game => game.state === 'live').length} LIVE`; $('#all-count').textContent = visible.length; $('#spoiler-label').textContent = state.spoilers ? 'Spoilers on' : 'Spoiler-aware'; $('#spoiler-notice').classList.toggle('hidden',!state.spoilers); }
+function render() { const isSoccer = state.page === 'soccer'; $('#section-title').textContent = isSoccer ? 'Soccer radar' : 'Your radar'; $$('.nav-link').forEach(link => link.classList.toggle('active',link.dataset.page === state.page)); $$('.soccer-chip').forEach(chip => chip.classList.toggle('hidden',!isSoccer)); if (!isSoccer && state.sport !== 'all' && !state.visibleSports.has(state.sport)) { state.sport = 'all'; $$('.sport-chip').forEach(chip => chip.classList.toggle('active',chip.dataset.sport === 'all')); } let visible = games.filter(game => !hideStaleFavorite(game) && (isSoccer ? game.sport === 'Soccer' : game.sport !== 'Soccer' && state.visibleSports.has(game.sport))); if (state.sport !== 'all') visible = visible.filter(game => game.sport === state.sport); if (state.gameState !== 'all') visible = visible.filter(game => game.state === state.gameState); visible.sort((a,b) => Number(b.favorite) - Number(a.favorite) || b.score - a.score); $('#game-list').innerHTML = visible.map(gameCard).join(''); $('#empty-state').classList.toggle('hidden',visible.length !== 0); $('#live-count').textContent = `${visible.filter(game => game.state === 'live').length} LIVE`; $('#all-count').textContent = visible.length; }
 $$('.nav-link').forEach(link => link.addEventListener('click', () => { state.page = link.dataset.page; state.sport = 'all'; location.hash = state.page === 'soccer' ? 'soccer' : 'home'; $$('.sport-chip').forEach(chip => chip.classList.toggle('active',chip.dataset.sport === 'all')); render(); }));
 window.addEventListener('hashchange', () => { state.page = location.hash === '#soccer' ? 'soccer' : 'home'; render(); });
 $$('.sport-chip').forEach(chip => chip.addEventListener('click', () => { state.sport = chip.dataset.sport; $$('.sport-chip').forEach(item => item.classList.toggle('active',item === chip)); render(); }));
 $$('.seg').forEach(tab => tab.addEventListener('click', () => { state.gameState = tab.dataset.state; $$('.seg').forEach(item => item.classList.toggle('active',item === tab)); render(); }));
-$('#spoiler-toggle').addEventListener('click', () => { state.spoilers = !state.spoilers; persistPreferences(); render(); }); $('#dismiss-notice').addEventListener('click', () => $('#spoiler-notice').classList.add('hidden')); $('#refresh-button').addEventListener('click',loadLiveGames); $('#refresh-data').addEventListener('click',loadLiveGames);
+$('#refresh-button').addEventListener('click',loadLiveGames); $('#refresh-data').addEventListener('click',loadLiveGames);
 function wireDialog(id,opener) { const dialog = $(id); const trigger = opener ? $(opener) : null; if (!dialog) return; if (trigger) trigger.addEventListener('click',() => showDialog(dialog)); dialog.querySelectorAll('.close-dialog').forEach(button => button.addEventListener('click',() => hideDialog(dialog))); }
 wireDialog('#preferences-dialog','#profile-button'); wireDialog('#data-dialog','#data-info');
 let lastTouchOpen = 0;
@@ -224,5 +308,5 @@ $('#game-detail-overlay').addEventListener('click',event => { if (event.target =
 document.addEventListener('keydown',event => { if (event.key === 'Escape' && !$('#game-detail-overlay').hidden) hideGameDetails(); });
 syncSportToggles(); $('#profile-button').addEventListener('click', syncSportToggles); $$('[data-visible-sport]').forEach(input => input.addEventListener('change', () => { const sport = input.dataset.visibleSport; if (input.checked) state.visibleSports.add(sport); else state.visibleSports.delete(sport); persistPreferences(); render(); }));
 let deferredInstallPrompt; window.addEventListener('beforeinstallprompt',event => { event.preventDefault(); deferredInstallPrompt = event; $('#install-button').classList.remove('hidden'); }); $('#install-button').addEventListener('click',async() => { if (!deferredInstallPrompt) return; deferredInstallPrompt.prompt(); await deferredInstallPrompt.userChoice; deferredInstallPrompt = null; $('#install-button').classList.add('hidden'); }); window.addEventListener('appinstalled',() => $('#install-button').classList.add('hidden'));
-if ('serviceWorker' in navigator) navigator.serviceWorker.register('./sw.js?rev=20261020-11').then(registration => registration.update()).catch(() => {});
+if ('serviceWorker' in navigator) navigator.serviceWorker.register('./sw.js?rev=20261020-12').then(registration => registration.update()).catch(() => {});
 render(); loadLiveGames(); setInterval(loadLiveGames,60000);
