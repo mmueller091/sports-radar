@@ -97,6 +97,7 @@ body { margin: 0; min-width: 320px; color: var(--ink); background: radial-gradie
 .score-circle.hot { border-color: var(--selected); color: var(--selected-hi); box-shadow: inset 2px 2px 4px #789cc3, inset -2px -2px 4px #1d2c3d, 0 0 17px rgba(121,174,228,.22); } .score-circle.warm { border-color: #9cc5ed; color: #d5eaff; }
 .excitement small { display: block; color: var(--selected-hi); font: 9px 'DM Mono', monospace; margin-top: 5px; text-transform: uppercase; }
 .score-dot-wrap { position: relative; display: inline-flex; align-items: center; justify-content: center; }
+.game-card:has(.score-dot-wrap:hover), .game-card:has(.score-dot-wrap.is-open), .game-card:has(.score-dot-wrap:focus-within) { position: relative; z-index: 8; }
 .score-dot-wrap .score-circle { cursor: help; }
 .score-dot-wrap .score-circle:focus-visible { outline: 2px solid #d8ecff; outline-offset: 3px; }
 .score-help { position: absolute; right: calc(100% + 9px); bottom: 50%; z-index: 20; width: min(270px, 62vw); padding: 9px 11px; border: 1px solid #88a8c5; border-radius: 8px; background: linear-gradient(145deg, #324a5e, #1f303c); color: #e6f2fb; font: 10px/1.45 'DM Mono', monospace; text-align: left; box-shadow: 0 7px 18px rgba(0,0,0,.35), inset 0 1px 1px rgba(219,240,255,.18); opacity: 0; visibility: hidden; transform: translateY(5px); transition: opacity .15s ease, transform .15s ease, visibility .15s ease; pointer-events: none; }
@@ -243,10 +244,7 @@ body.detail-open { overflow: hidden; }
 .game-card .sport-icon { grid-column: 1; grid-row: 1; align-self: center; }
 .game-card .team-column { grid-column: 2; grid-row: 1; min-width: 0; }
 .game-card .excitement { grid-column: 3; grid-row: 1; align-self: center; }
-.game-card .rating-context { grid-column: 2 / 4; grid-row: 2; line-height: 1.35; }
-.game-card .rating-context strong { display: inline; margin: 0 5px 0 0; }
-.game-card .rating-context > span { display: inline; line-height: inherit; }
-.game-card .channel-context { grid-column: 2 / 4; grid-row: 3; display: flex; align-items: baseline; flex-wrap: wrap; gap: 3px 10px; margin-top: 2px; }
+.game-card .channel-context { grid-column: 2 / 4; grid-row: 2; display: flex; align-items: baseline; flex-wrap: wrap; gap: 3px 10px; margin-top: 2px; }
 .game-card .detail-inline { display: inline-flex; align-items: baseline; gap: 4px; max-width: 100%; min-width: 0; }
 .game-card .detail-inline strong { display: inline; flex: 0 0 auto; margin: 0; color: #dceaff; font: 600 9px 'DM Mono', monospace; text-transform: uppercase; }
 .game-card .detail-inline > span { display: inline; min-width: 0; overflow-wrap: anywhere; }
@@ -267,7 +265,7 @@ body.detail-open { overflow: hidden; }
 @media (max-width: 460px) {
   .game-card .team-column { grid-column: 2; }
   .game-card .excitement { grid-column: 3; grid-row: 1; }
-  .game-card .rating-context, .game-card .channel-context { grid-column: 2 / 4; }
+  .game-card .channel-context { grid-column: 2 / 4; }
 }
 /* Game watchlist and event-driven excitement history. */
 .segmented { max-width: 100%; flex-wrap: wrap; }
@@ -275,10 +273,10 @@ body.detail-open { overflow: hidden; }
 .sport-filter::-webkit-scrollbar { display: none; }
 .watch-indicator { color: #b9d9ff; font-weight: 600; }
 .game-card.watched { border-color: #81acd7; }
-.card-moment { grid-column: 2 / 4; grid-row: 3; display: flex; flex-wrap: wrap; gap: 4px 7px; color: #e3efff; font: 10px/1.35 'DM Mono', monospace; min-width: 0; }
+.card-moment { grid-column: 2 / 4; grid-row: 2; display: flex; flex-wrap: wrap; gap: 4px 7px; color: #e3efff; font: 10px/1.35 'DM Mono', monospace; min-width: 0; }
 .card-moment strong { color: #a9d3ff; white-space: nowrap; }
 .card-moment span { overflow-wrap: anywhere; }
-.game-card:has(.card-moment) .channel-context { grid-row: 4; }
+.game-card:has(.card-moment) .channel-context { grid-row: 3; }
 .detail-watch { display: inline-flex; align-items: center; min-height: 36px; margin: -2px 0 13px; padding: 7px 12px; color: #d9eaff; background: linear-gradient(#475766,#303f4f); border: 1px solid #799cbd; border-radius: 6px; font: 600 11px 'DM Mono',monospace; cursor: pointer; box-shadow: inset 0 1px 1px #8299b0,0 2px 3px #171c20; }
 .detail-watch.active { color: #132b44; background: linear-gradient(#c0deff,#76a9df); border-color: #c5e2ff; }
 .detail-watch:focus-visible { outline: 2px solid #cce5ff; outline-offset: 2px; }
