@@ -1894,6 +1894,73 @@ function trendFor(game) {
   }${delta} vs start</small>`;
 }
 
+function scoreMovementExplanation(game) {
+  const score = Number(game.score);
+  const opening = Number(game.openingScore);
+  const hasOpening = Number.isFinite(opening);
+  const delta = hasOpening ? score - opening : 0;
+
+  const movement =
+    game.state === 'upcoming' || !hasOpening
+      ? `Pregame rating: ${score}.`
+      : delta === 0
+        ? `Rating stayed at ${score} from the opening rating.`
+        : `Rating moved ${delta > 0 ? 'up' : 'down'} ${Math.abs(delta)} points, from ${opening} to ${score}.`;
+
+  const drivers = (Array.isArray(game.factors) ? game.factors : [])
+    .filter(factor =>
+      factor?.label &&
+      Number.isFinite(Number(factor.points))
+    )
+    .sort((a,b) =>
+      Math.abs(Number(b.points)) -
+      Math.abs(Number(a.points))
+    )
+    .slice(0,3)
+    .map(factor => {
+      const points = Number(factor.points);
+      return `${factor.label} (${points > 0 ? '+' : ''}${points})`;
+    });
+
+  return `${movement} ${drivers.length
+    ? `Main drivers: ${drivers.join('; ')}.`
+    : 'The detailed rating explanation is available in the game card.'}`;
+}
+
+function decorateScoreDots() {
+  $$('#game-list .score-circle').forEach(dot => {
+    const card = dot.closest('.game-card');
+    const game = games.find(item =>
+      String(item.id) === card?.dataset.id
+    );
+
+    if (!game || dot.closest('.score-dot-wrap')) {
+      return;
+    }
+
+    const wrap = document.createElement('span');
+    wrap.className = 'score-dot-wrap';
+
+    const help = document.createElement('span');
+    help.className = 'score-help';
+    help.id = `score-help-${String(game.id).replace(/[^a-zA-Z0-9_-]/g,'-')}`;
+    help.setAttribute('role','tooltip');
+    help.textContent = scoreMovementExplanation(game);
+
+    dot.setAttribute('role','button');
+    dot.setAttribute('tabindex','0');
+    dot.setAttribute('aria-expanded','false');
+    dot.setAttribute('aria-controls',help.id);
+    dot.setAttribute(
+      'aria-label',
+      `Excitement rating ${game.score}. ${scoreMovementExplanation(game)} Tap for details.`
+    );
+
+    dot.parentNode.insertBefore(wrap,dot);
+    wrap.append(dot,help);
+  });
+}
+
 function basesMarkup(bases) {
   if (!bases) return '';
 
@@ -3653,6 +3720,8 @@ function render() {
       state.gameState
     );
 
+  decorateScoreDots();
+
   $('#empty-state').classList.toggle(
     'hidden',
     visible.length !== 0
@@ -3861,6 +3930,34 @@ wireDialog(
 let lastTouchOpen = 0;
 let touchStart = null;
 
+function toggleScoreHelp(dot) {
+  const wrap = dot.closest('.score-dot-wrap');
+
+  if (!wrap) {
+    return;
+  }
+
+  const open =
+    wrap.classList.toggle('is-open');
+
+  dot.setAttribute(
+    'aria-expanded',
+    String(open)
+  );
+}
+
+function closeScoreHelp(except) {
+  $$('#game-list .score-dot-wrap.is-open').forEach(wrap => {
+    if (wrap !== except) {
+      wrap.classList.remove('is-open');
+      wrap.querySelector('.score-circle')?.setAttribute(
+        'aria-expanded',
+        'false'
+      );
+    }
+  });
+}
+
 $('#game-list')
   .addEventListener(
     'pointerdown',
@@ -3905,6 +4002,13 @@ $('#game-list')
           ?.dataset.id;
 
       if (
+        event.target.closest('.score-circle')
+      ) {
+        touchStart = null;
+        return;
+      }
+
+      if (
         id &&
         id === touchStart.id &&
         moved < 12
@@ -3931,6 +4035,15 @@ $('#game-list')
   .addEventListener(
     'click',
     event => {
+      const dot =
+        event.target.closest('.score-circle');
+
+      if (dot) {
+        closeScoreHelp(dot.closest('.score-dot-wrap'));
+        toggleScoreHelp(dot);
+        return;
+      }
+
       if (
         Date.now() -
         lastTouchOpen <
@@ -3950,6 +4063,36 @@ $('#game-list')
       }
     }
   );
+
+$('#game-list')
+  .addEventListener(
+    'keydown',
+    event => {
+      const dot =
+        event.target.closest('.score-circle');
+
+      if (
+        !dot ||
+        !['Enter',' '].includes(event.key)
+      ) {
+        return;
+      }
+
+      event.preventDefault();
+      event.stopPropagation();
+      closeScoreHelp(dot.closest('.score-dot-wrap'));
+      toggleScoreHelp(dot);
+    }
+  );
+
+document.addEventListener(
+  'pointerdown',
+  event => {
+    if (!event.target.closest('.score-dot-wrap')) {
+      closeScoreHelp(null);
+    }
+  }
+);
 
 $('#game-detail-overlay')
   .addEventListener(
