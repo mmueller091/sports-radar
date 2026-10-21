@@ -1,5 +1,6 @@
 import {buildPushPayload} from '@block65/webcrypto-web-push';
 import '../../rating-core.js';
+import {contextsForGames,refreshStorylines} from './storylines.js';
 
 const {rateGame,applyLiveSnapshot,recordFor,rankFor,clampScore,underdogCandidate,upsetImpact,gameProgress,momentumImpact} = globalThis.SportsRadarScore;
 const ORIGIN = 'https://mmueller091.github.io';
@@ -118,7 +119,21 @@ export default {
     if (request.method === 'OPTIONS') return new Response(null,{status:204,headers:cors(request)});
     if (request.headers.get('Origin') && request.headers.get('Origin') !== ORIGIN) return reply(request,{error:'Origin not allowed'},403);
     if (url.pathname === '/config' && request.method === 'GET') return reply(request,{publicKey:env.VAPID_SERVER_PUBLIC_KEY || '',pollSeconds:60});
-    if (url.pathname === '/health' && request.method === 'GET') return reply(request,{ok:true});
+    if (url.pathname === '/health' && request.method === 'GET') {
+      const research = await env.DB.prepare('SELECT last_run,candidates,articles,factors,ai_used,last_error FROM research_status WHERE id=1').first().catch(() => null);
+      return reply(request,{ok:true,storylines:{enabled:true,source:'league news + Workers AI free allocation',lastRun:research?.last_run || null,candidates:research?.candidates || 0,articles:research?.articles || 0,factors:research?.factors || 0,aiUsed:Boolean(research?.ai_used),lastError:research?.last_error || null}});
+    }
+    if (url.pathname === '/contexts' && request.method === 'GET') {
+      const games = String(url.searchParams.get('games') || '').split(',').map(value => value.trim()).filter(Boolean);
+      if (games.length > 100 || String(url.searchParams.get('games') || '').length > 6000) return reply(request,{error:'Too many games'},400);
+      return reply(request,{contexts:await contextsForGames(env,games)});
+    }
+    if (url.pathname === '/admin/research' && request.method === 'POST') {
+      const bearer = token(request);
+      if (!bearer || !env.RESEARCH_ADMIN_TOKEN || bearer !== env.RESEARCH_ADMIN_TOKEN) return reply(request,{error:'Not authorized'},401);
+      try { return reply(request,{ok:true,...await refreshStorylines(env)}); }
+      catch (error) { return reply(request,{ok:false,error:String(error)},500); }
+    }
     if (!['/subscription','/test'].includes(url.pathname)) return reply(request,{error:'Not found'},404);
     const bearer = token(request); if (!bearer) return reply(request,{error:'Device token required'},401);
     const id = await hashToken(bearer);
@@ -139,5 +154,14 @@ export default {
     }
     return reply(request,{error:'Method not allowed'},405);
   },
-  async scheduled(_event,env,ctx) { ctx.waitUntil(checkGames(env)); }
+  async scheduled(event,env,ctx) {
+    if (event.cron === '* * * * *') ctx.waitUntil(checkGames(env));
+    else ctx.waitUntil(refreshStorylines(env).catch(async error => {
+      console.error('Storyline refresh failed',String(error));
+      await env.DB.prepare(`INSERT INTO research_status (id,last_run,candidates,articles,factors,ai_used,last_error)
+        VALUES (1,?,0,0,0,0,?)
+        ON CONFLICT(id) DO UPDATE SET last_run=excluded.last_run,last_error=excluded.last_error`)
+        .bind(Math.floor(Date.now()/1000),String(error).slice(0,500)).run().catch(() => {});
+    }));
+  }
 };
