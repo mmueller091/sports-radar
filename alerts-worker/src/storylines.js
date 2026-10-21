@@ -245,7 +245,6 @@ function mergeFactors(items,classified) {
 
 async function saveFactors(env,games,factors,now) {
   const gameByKey = new Map(games.map(game => [game.key,game]));
-  const clears = games.map(game => env.DB.prepare('DELETE FROM game_context WHERE event_id = ? AND sport = ?').bind(game.eventId,game.sport));
   const writes = factors.map(factor => {
     const game = gameByKey.get(`${factor.sport}:${factor.eventId}`);
     const expires = Math.floor(((game?.start || now) + 48 * 60 * 60 * 1000) / 1000);
@@ -262,8 +261,7 @@ async function saveFactors(env,games,factors,now) {
         updated_at=excluded.updated_at`)
       .bind(factor.eventId,factor.sport,factor.type,factor.text,factor.confidence,factor.sourceTitle,factor.sourceUrl,factor.sourcePublished,expires,Math.floor(now / 1000));
   });
-  const statements = [...clears,...writes];
-  for (let start=0;start<statements.length;start+=50) await env.DB.batch(statements.slice(start,start+50));
+  for (let start=0;start<writes.length;start+=50) await env.DB.batch(writes.slice(start,start+50));
   await env.DB.prepare('DELETE FROM game_context WHERE expires_at < ?').bind(Math.floor(now / 1000)).run();
 }
 
@@ -322,4 +320,4 @@ export async function contextsForGames(env,keys) {
   return output;
 }
 
-export {researchGame,deterministicFactor,evidenceSupportsType,articleMatchesGame,mergeFactors};
+export {researchGame,deterministicFactor,evidenceSupportsType,articleMatchesGame,mergeFactors,saveFactors};
