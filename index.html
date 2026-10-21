@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#101b24" />
+    <meta name="description" content="A spoiler-aware sports radar ranked by live excitement." />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="THUUZ Radar" />
+    <title>THUUZ Radar — know what to watch</title>
+    <link rel="manifest" href="manifest.webmanifest" />
+    <link rel="icon" href="icon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="icon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <a class="brand" href="#home" aria-label="THUUZ Radar home">
+          <span class="brand-mark"><i></i><i></i><i></i></span>
+          <span>THUUZ <em>RADAR</em></span>
+        </a>
+        <nav class="main-nav" aria-label="Primary navigation">
+          <a class="nav-link active" href="#home" data-page="home">Radar</a>
+          <a class="nav-link" href="#soccer" data-page="soccer">Soccer</a>
+        </nav>
+        <div class="top-actions">
+          <button class="icon-button" id="refresh-button" title="Refresh games" aria-label="Refresh games">↻</button>
+          <button class="install-button hidden" id="install-button">Install</button>
+          <button class="profile-button" id="profile-button" aria-label="Open preferences"><span>MM</span><b>Marcus</b><small>⌄</small></button>
+        </div>
+      </header>
+
+      <main>
+        <section class="hero" id="home-view">
+          <div class="hero-copy">
+            <div class="eyebrow"><span class="pulse-dot"></span> LIVE SIGNALS <span class="muted">•</span> OCT 20, 2026</div>
+            <h1>Find the games<br /><span>worth watching.</span></h1>
+            <p>Every game, one glance. Favorites up top. Everything else sorted by how good it is right now.</p>
+          </div>
+          <div class="hero-orb" aria-hidden="true"><div class="orb-ring ring-one"></div><div class="orb-ring ring-two"></div><div class="orb-core"><strong>73</strong><small>top signal</small></div></div>
+        </section>
+
+        <section class="soccer-hero hidden" id="soccer-view">
+          <div class="hero-copy"><div class="eyebrow"><span class="pulse-dot green"></span> SOCCER RADAR <span class="muted">•</span> EPL + CHAMPIONS LEAGUE</div><h1>The beautiful game,<br /><span>beautifully filtered.</span></h1><p>A separate feed for the fixtures you actually want to find.</p></div>
+          <div class="league-stack"><span>◎ EPL</span><span>✦ UCL</span><span>◌ FA CUP</span></div>
+        </section>
+
+        <section class="control-row">
+          <div class="section-label"><span id="section-title">Your radar</span><span class="live-count" id="live-count">4 LIVE</span></div>
+          <div class="controls">
+            <div class="segmented" role="tablist" aria-label="Game state">
+              <button class="seg active" data-state="all">All <span id="all-count">12</span></button>
+              <button class="seg" data-state="live">Live <span>4</span></button>
+              <button class="seg" data-state="upcoming">Upcoming <span>5</span></button>
+              <button class="seg" data-state="completed">Final <span>3</span></button>
+            </div>
+            <button class="outline-button" id="spoiler-toggle"><span class="eye-icon">◉</span> <span id="spoiler-label">Spoilers on</span></button>
+          </div>
+        </section>
+
+        <section class="sport-filter" aria-label="Sport filter">
+          <button class="sport-chip active" data-sport="all"><span>✦</span> All sports</button>
+          <button class="sport-chip" data-sport="NFL"><span>◈</span> NFL</button>
+          <button class="sport-chip" data-sport="MLB"><span>◉</span> MLB</button>
+          <button class="sport-chip" data-sport="NHL"><span>✧</span> NHL</button>
+          <button class="sport-chip" data-sport="CFB"><span>◆</span> College football</button>
+          <button class="sport-chip" data-sport="Tennis"><span>◌</span> Tennis</button>
+          <button class="sport-chip soccer-chip hidden" data-sport="Soccer"><span>⊙</span> Soccer</button>
+        </section>
+
+        <div class="notice" id="spoiler-notice"><span>◉</span><div><strong>Spoiler-aware mode is on.</strong> <span>We’ll tell you when a game is getting good without revealing the score.</span></div><button id="dismiss-notice" aria-label="Dismiss">×</button></div>
+        <div class="data-status" id="data-status" aria-live="polite"><span class="status-dot"></span><span id="data-status-label">Loading live scores…</span><button id="refresh-data">Refresh</button></div>
+
+        <section class="game-list" id="game-list" aria-live="polite"></section>
+        <div class="empty-state hidden" id="empty-state"><div>⌁</div><h3>No games in this view</h3><p>Try a different sport or game state.</p></div>
+      </main>
+
+      <footer class="footer"><div><span class="brand-mini">THUUZ RADAR</span><span>Built for the games between the games.</span></div><div><span class="status-dot"></span> Demo data <span class="footer-sep">•</span> <button id="data-info">Data sources &amp; scoring</button></div></footer>
+    </div>
+
+    <dialog id="preferences-dialog"><div class="dialog-header"><div><div class="eyebrow">SETTINGS</div><h2>Make the signal yours.</h2></div><button class="close-dialog" aria-label="Close">×</button></div><div class="preference-block"><label>Favorite teams</label><p class="subtle">Pinned above the excitement feed on every refresh.</p><div class="favorite-tags"><span>◈ Baltimore Ravens <b>×</b></span><span>◉ Baltimore Orioles <b>×</b></span><span>✧ Washington Capitals <b>×</b></span></div></div><div class="preference-block"><label>Excitement model</label><p class="subtle">Tune how much game context influences the ranking.</p><div class="range-row"><span>Close score</span><input type="range" min="0" max="100" value="72" /></div><div class="range-row"><span>Momentum</span><input type="range" min="0" max="100" value="64" /></div><div class="range-row"><span>Game stakes</span><input type="range" min="0" max="100" value="58" /></div></div><button class="primary-button close-dialog">Save preferences</button></dialog>
+    <dialog id="data-dialog"><div class="dialog-header"><div><div class="eyebrow">UNDER THE HOOD</div><h2>One feed, many signals.</h2></div><button class="close-dialog" aria-label="Close">×</button></div><p class="dialog-copy">The static frontend ships with demo data so it works on GitHub Pages without secrets. Connect your own serverless adapter when you’re ready for live scores.</p><div class="source-grid"><div><strong>Live scores</strong><span>ESPN scoreboard API or SportsDataIO</span></div><div><strong>Baseball</strong><span>MLB Stats API</span></div><div><strong>Football / hockey</strong><span>ESPN scoreboard API</span></div><div><strong>Tennis</strong><span>ScoreBat / Sportradar partner feed</span></div></div><div class="model-note"><strong>Ranking model</strong><span>Sport-aware weighted blend of score closeness, lead changes, time remaining, pace, stakes, and unusual events. Favorite teams are always pinned before the score sort.</span></div><button class="primary-button close-dialog">Got it</button></dialog>
+    <script src="app.js"></script>
+  </body>
+</html>

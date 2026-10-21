@@ -1,0 +1,12 @@
+{
+  "name": "THUUZ Radar — know what to watch",
+  "short_name": "THUUZ Radar",
+  "description": "A spoiler-aware sports radar ranked by live excitement.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#101b24",
+  "theme_color": "#101b24",
+  "orientation": "portrait-primary",
+  "icons": [{"src":"icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}]
+}
