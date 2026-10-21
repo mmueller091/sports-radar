@@ -3,7 +3,10 @@ main = "src/index.js"
 compatibility_date = "2026-10-21"
 
 [triggers]
-crons = ["* * * * *"]
+crons = ["* * * * *", "17 */2 * * *"]
+
+[ai]
+binding = "AI"
 
 [[d1_databases]]
 binding = "DB"
