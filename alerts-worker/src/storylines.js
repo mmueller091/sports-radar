@@ -114,7 +114,7 @@ function articleMetadata(article) {
 }
 
 function strongStoryText(text) {
-  return /(return|former|traded|trade|debut|injur|ruled out|sidelined|activated|milestone|record|streak|rematch|rival|playoff|wild.card|elimination|captain|coach|suspension)/i.test(text);
+  return /(return|former|traded|trade|debut|injur|ruled out|sidelined|activated|milestone|record|streak|rematch|rival|playoff|wild.card|elimination|captain|coach|suspension|efficiency|net rating|strength of schedule|toughest schedule|confirmed starter|will start|starting quarterback|starting goalie|pitching matchup|\bace\b)/i.test(text);
 }
 
 function articleMatchesGame(article,game) {
@@ -142,6 +142,10 @@ function deterministicFactor(article) {
   else if (/(hot streak|in (?:his|her|their )?(?:last|past|previous) \d+ games|(?:\d+|several|multiple) straight games|(?:goals?|homers?|points?) in .* games|scored in .* games)/i.test(text)) type = 'star_hot_streak';
   else if (/(hat trick|overtime|three goals|scored three|previous game|last game|game-winning)/i.test(text)) type = 'notable_recent_performance';
   else if (/(winning streak|win streak|unbeaten in)/i.test(text)) type = 'team_win_streak';
+  else if (/(?:top[- ]?\d+|best|leads? (?:the )?(?:league|nation)).{0,60}(?:offense|defense|efficiency|net rating)|(?:offensive|defensive|net) efficiency.{0,45}(?:top[- ]?\d+|best|first|1st)/i.test(text)) type = 'elite_efficiency_profile';
+  else if (/(strength of schedule|toughest schedule|battle-tested|ranked schedule)/i.test(text)) type = 'strength_of_schedule';
+  else if (/(?:confirmed|named|announced).{0,45}(?:starter|starting quarterback|starting goalie)|(?:quarterback|goalie).{0,35}(?:will start|gets the start)|starting lineups? confirmed/i.test(text)) type = 'confirmed_key_starters';
+  else if (/(?:ace|cy young).{0,55}(?:start|pitch|matchup)|pitching matchup.{0,55}(?:ace|cy young)|two aces/i.test(text)) type = 'ace_pitching_matchup';
   else if (/(major trade|blockbuster|traded)/i.test(text)) type = 'major_trade_storyline';
   if (!ALLOWED_TYPES.has(type)) return null;
   return {type,text:article.headline,confidence:.78};
