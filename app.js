@@ -1900,6 +1900,9 @@ function scoreMovementExplanation(game) {
   const hasOpening = Number.isFinite(opening);
   const delta = hasOpening ? score - opening : 0;
 
+  const why =
+    `Why ${score}? ${explainRating(game)}`;
+
   const movement =
     game.state === 'upcoming' || !hasOpening
       ? `Pregame rating: ${score}.`
@@ -1922,7 +1925,7 @@ function scoreMovementExplanation(game) {
       return `${factor.label} (${points > 0 ? '+' : ''}${points})`;
     });
 
-  return `${movement} ${drivers.length
+  return `${why} ${movement} ${drivers.length
     ? `Main drivers: ${drivers.join('; ')}.`
     : 'The detailed rating explanation is available in the game card.'}`;
 }
@@ -2065,7 +2068,7 @@ function gameCard(game) {
     game.division
       ? `<span>•</span><span>${safeText(game.division)}</span>`
       : ''
-  }<span>•</span><span>${safeText(game.sub)}</span></span><span class="team-row">${teamMarkup(game,game.teams[0])}<b class="team-score">${safeText(game.teams[0][2])}</b></span><span class="team-row">${teamMarkup(game,game.teams[1])}<b class="team-score">${safeText(game.teams[1][2])}</b></span>${situation}</span><span class="game-context rating-context"><strong>Why ${game.score}?</strong><span>${safeText(explainRating(game))}</span></span>${momentMarkup}<span class="game-context channel-context"><span class="detail-inline"><strong>TV</strong><span>${safeText(game.channel || 'Channel not listed')}</span></span><span class="stats-cue">Stats ›</span><span class="detail-inline line-inline"><strong>${safeText(compactLineLabel)}</strong><span>${safeText(line.text)}</span></span></span><span class="excitement"><span class="score-circle ${scoreClass}">${game.score}</span>${trendFor(game)}</span></button>`;
+  }<span>•</span><span>${safeText(game.sub)}</span></span><span class="team-row">${teamMarkup(game,game.teams[0])}<b class="team-score">${safeText(game.teams[0][2])}</b></span><span class="team-row">${teamMarkup(game,game.teams[1])}<b class="team-score">${safeText(game.teams[1][2])}</b></span>${situation}</span>${momentMarkup}<span class="game-context channel-context"><span class="detail-inline"><strong>TV</strong><span>${safeText(game.channel || 'Channel not listed')}</span></span><span class="stats-cue">Stats ›</span><span class="detail-inline line-inline"><strong>${safeText(compactLineLabel)}</strong><span>${safeText(line.text)}</span></span></span><span class="excitement"><span class="score-circle ${scoreClass}">${game.score}</span>${trendFor(game)}</span></button>`;
 }
 
 function detailStats(summary) {
