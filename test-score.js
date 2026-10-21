@@ -194,6 +194,17 @@ const fixtures = `
   assert.equal(displayLine({id:'hockey',sport:'NHL',state:'live',line:hockeyLine}).text,'Moneyline WSH -162 · O/U 5.5');
   const hockeyFinal = rateGame('NHL','completed',[{score:'2'},{score:'5'}],{name:'Capitals vs Kings'},{status:{type:{detail:'Final'}}},'');
   assert.match(hockeyFinal.reason,/goals/);
+  const edmontonCarolina = rateGame('NHL','upcoming',scheduledTeams,{name:'Edmonton Oilers at Carolina Hurricanes'}, {notes:[],competitors:[
+    {team:{abbreviation:'EDM'},records:[{type:'overall',summary:'7-1-1'}]},
+    {team:{abbreviation:'CAR'},records:[{type:'overall',summary:'8-2-1'}]}
+  ]},'');
+  const dallasWinnipeg = rateGame('NHL','upcoming',scheduledTeams,{name:'Dallas Stars at Winnipeg Jets'}, {notes:[],competitors:[
+    {team:{abbreviation:'DAL'},records:[{type:'overall',summary:'5-3-1'}]},
+    {team:{abbreviation:'WPG'},records:[{type:'overall',summary:'4-3-2'}]}
+  ]},'');
+  assert.ok(edmontonCarolina.score > dallasWinnipeg.score);
+  assert.ok(edmontonCarolina.factors.some(factor => factor.label === 'Adjusted team quality'));
+  assert.equal(dallasWinnipeg.factors.filter(factor => /Division matchup/.test(factor.label)).reduce((sum,factor) => sum + factor.points,0),3);
   const prose = explainRating({state:'upcoming',score:85,factors:championship.factors,teams:[['Brewers'],['Rays']]});
   assert.match(prose,/Game 1 of the World Series/);
   assert.doesNotMatch(prose,/Sport baseline/);
