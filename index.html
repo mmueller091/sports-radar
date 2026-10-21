@@ -15,7 +15,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="styles.css?rev=20261021-24" />
+    <link rel="stylesheet" href="styles.css?rev=20261021-25" />
   </head>
   <body>
     <div class="app-shell">
@@ -88,10 +88,14 @@
         </div>
       </div>
       <div class="preference-block"><label>Home page sports</label><p class="subtle">Choose which sports appear in the main radar. Soccer stays on its separate page.</p><div class="sport-toggles"><label class="toggle-option"><input type="checkbox" data-visible-sport="NFL" /><span>NFL</span></label><label class="toggle-option"><input type="checkbox" data-visible-sport="MLB" /><span>MLB</span></label><label class="toggle-option"><input type="checkbox" data-visible-sport="NHL" /><span>NHL</span></label><label class="toggle-option"><input type="checkbox" data-visible-sport="CFB" /><span>College Football</span></label><label class="toggle-option"><input type="checkbox" data-visible-sport="NBA" /><span>NBA</span></label><label class="toggle-option"><input type="checkbox" data-visible-sport="NCAAB" /><span>NCAAM</span></label><label class="toggle-option"><input type="checkbox" data-visible-sport="Tennis" /><span>Major tennis</span></label></div><p class="preference-note">Favorites and sport choices are saved in this browser on this device.</p></div>
+      <div class="preference-block" id="alert-preferences"><label for="alert-threshold">Excitement alerts</label><p class="subtle">Get a notification when a live game first reaches your chosen rating, even when the app is closed. This setting is saved on this phone or browser.</p><div class="alert-controls"><label for="alert-threshold">Alert at</label><input id="alert-threshold" type="number" min="50" max="99" step="1" value="85" inputmode="numeric" /><span>or higher</span><button id="alert-toggle" type="button" disabled>Enable alerts</button><button id="alert-test" type="button" hidden>Send test</button></div><p class="preference-note" id="alert-status" role="status">Checking notification availability…</p></div>
       <div class="preference-block"><label>How ratings work</label><p class="subtle">Before play: stakes and confirmed matchup signals. During play: score closeness and time elapsed. After play: the finish and decisive moments. Each card shows its point breakdown.</p></div><button class="primary-button close-dialog">Done</button>
     </dialog>
     <dialog id="data-dialog"><div class="dialog-header"><div><div class="eyebrow">UNDER THE HOOD</div><h2>How the rating works.</h2></div><button class="close-dialog" aria-label="Close">×</button></div><p class="dialog-copy">Live scores and game details come from public ESPN feeds and refresh each minute. If the feed cannot be reached, the status line labels the fallback as demo data.</p><div class="source-grid"><div><strong>Before play</strong><span>Matchup stakes, rankings, and rivalries. A scheduled 0–0 is never treated as a close game.</span></div><div><strong>During play</strong><span>Current score margin and how far along the game is.</span></div><div><strong>After play</strong><span>Final margin, overtime, lead changes, and decisive scoring plays when available.</span></div><div><strong>Betting lines</strong><span>Shown when ESPN lists them. MLB and NHL may offer a moneyline rather than a run/puck spread. Post-start pregame lines are not labeled as verified closes unless the feed says so.</span></div></div><div class="model-note"><strong>Ranking model</strong><span>Each card explains its rating in plain language. Favorites are pinned first; all other games are sorted by rating. The 1–99 score is an estimate, not a league statistic.</span></div><button class="primary-button close-dialog">Got it</button></dialog>
     <div id="game-detail-overlay" class="detail-overlay" hidden><section id="game-detail-dialog" class="detail-panel" role="dialog" aria-modal="true" aria-labelledby="game-detail-title"><div class="dialog-header"><div><div class="eyebrow">GAME DETAILS</div><h2 id="game-detail-title">Live game center</h2></div><button type="button" class="close-dialog" aria-label="Close game center">×</button></div><div id="game-detail-content"></div><button type="button" class="primary-button close-dialog">Close game center</button></section></div>
-    <script src="app.js?rev=20261021-24"></script>
+    <script src="rating-core.js?rev=20261021-25"></script>
+    <script src="alert-config.js?rev=20261021-25"></script>
+    <script src="notifications.js?rev=20261021-25"></script>
+    <script src="app.js?rev=20261021-25"></script>
   </body>
 </html>

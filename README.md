@@ -12,6 +12,22 @@ The Preferences dialog lets each visitor add or remove favorite teams and choose
 
 Open a game and tap **Add to watchlist** to follow that individual matchup without favoriting either team. The **Watching** view shows saved games that are still in the current scoreboard feed, including older finals. The selection persists in this browser and can be removed in game details. When play-by-play provides a recent scoring event, the card calls out the named play and its game time; significant confirmed player milestones remain in the rating explanation. Game details include an excitement time-series chart reconstructed at actual scoring plays. The plotted values between those events are estimates from the scoring margin and game progress, with the final point set to the current displayed rating. If no scoring-play history is available, the chart uses rating snapshots observed by this browser as it refreshes. It never fabricates earlier observations; insufficient data produces a clear empty state. Browser snapshots are retained for up to eight days and, like the watchlist, do not sync across devices.
 
+## Background excitement alerts
+
+The settings dialog offers a per-device alert threshold from 50 to 99. When enabled, the browser registers a Web Push subscription. A Cloudflare Worker checks live scoreboards every minute, uses the shared rating model, and sends one alert when a game's score crosses that device's threshold. A first observation sets the baseline rather than sending a burst for already-exciting games. Use **Send test** to verify delivery. Timing is approximate: feeds, the scheduled job, and phone delivery can each be delayed. This service is separate from GitHub Pages; a static site alone cannot wake a closed iPhone.
+
+On iPhone, use Safari's **Share → Add to Home Screen**, open the icon, then enable alerts in Preferences. iOS 16.4 or later is required for Home Screen web push. No Apple developer license is needed. The threshold and permission are device/browser specific. Notification permission is requested only after tapping Enable. If `alert-config.js` has no Worker URL, the UI says background alerts are not connected.
+
+To set up the Worker with a Cloudflare account:
+
+1. From `alerts-worker/`, run `npm install`, then `npm run vapid`. Keep the private key out of GitHub.
+2. Create a D1 database named `sports-radar-alerts` with `npx wrangler d1 create sports-radar-alerts`; put its database ID in `alerts-worker/wrangler.toml`.
+3. Apply the schema with `npx wrangler d1 execute sports-radar-alerts --remote --file schema.sql` from `alerts-worker/`.
+4. Set the private key with `npx wrangler secret put VAPID_SERVER_PRIVATE_KEY`. Set `VAPID_SERVER_PUBLIC_KEY` to the generated public key and `VAPID_SUBJECT` to an HTTPS site URL or `mailto:` contact using Worker secrets or `[vars]` (only the public key and subject are nonsecret).
+5. Run `npx wrangler deploy`. Set `SPORTS_RADAR_ALERTS_URL` in `alert-config.js` to its HTTPS `workers.dev` URL, then publish the site files. Visit `/health` and `/config` on the Worker, enable alerts on the installed app, and use Send test.
+
+The Worker validates push endpoints, stores a hashed browser token plus subscription keys in D1, and keeps the VAPID private key out of the public site. Cloudflare's free tier has CPU and subrequest limits; monitor usage and errors, especially with many subscribers or live games. The current job batches up to 10 outbound notifications per minute. ESPN data is an unofficial public feed and can delay or omit some games or odds, so alerts are best-effort rather than guaranteed.
+
 ## Deploy to GitHub Pages
 
 1. Push the contents of this folder to a GitHub repository.
@@ -32,6 +48,8 @@ Viable sources to evaluate:
 ## Excitement model
 
 The displayed rating is an estimate on a 1–99 scale, not a provider-supplied excitement score. Each card gives a plain-English explanation. Before a game starts, the model uses a sport baseline plus confirmed stakes (for example postseason, championship, ranked teams, or rivalry). NFL games gain points for divisional opponents, both teams having winning records, and a close listed spread; the NFL explanation never refers to college rankings. For the 2026 Ravens–Bengals matchup, the card conditionally notes the possible Jackson–Burrow quarterback duel, without assuming either will start or adding points for unconfirmed availability. Two ranked college-football teams get a substantial pregame lift, with smaller additions for a top-10 team, two top-20 teams, winning records, or an unbeaten team. It never counts a pregame 0–0 as a close score. During play it adds closeness and game progress, plus verified live situations: a football red-zone or fourth-down possession, late close-game runners in scoring position, or a hockey power play. A named player's six-inning no-hit bid, two-goal game, hat trick, or three-touchdown passing game can add a larger bonus when the box score confirms it. The live card shows period/clock, baseball inning/outs/base occupancy, football possession/down/spot, and hockey power play when the feed supplies enough information. Missing data is omitted rather than guessed. After the final the model accounts for the final margin and, when available, decisive scoring plays and lead changes. A World Series opener therefore receives its championship and series-opener points before play, while an unranked regular-season college football game does not.
+
+When a listed pregame line identifies a large underdog, the game gains a context-specific boost only if that team is tied late, leading well into the game, or wins outright. The card names the underdog and the spread or moneyline behind the boost. Missing odds never create an assumed upset.
 
 The arrow shown only for live or completed games compares the current rating with that game's opening estimate. It is a change from the start, not a measured minute-by-minute time series. No trend appears for an upcoming game. A production scoring adapter could improve this model with:
 

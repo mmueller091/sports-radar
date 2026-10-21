@@ -9,7 +9,9 @@ const teamDirectory = JSON.parse(fs.readFileSync('teams.json','utf8'));
 assert.equal(teamDirectory.NBA.length,30);
 assert.ok(teamDirectory.NBA.some(team => team.name === 'Los Angeles Lakers'));
 assert.ok(teamDirectory.CFB.length > 500);
-const scoreLogic = app.slice(app.indexOf('const SPORT_BASE'),app.indexOf('function normalizeEvent'));
+const scoreLogic = fs.readFileSync('rating-core.js','utf8');
+const lineLogic = app.slice(app.indexOf('function displayLine'),app.indexOf('function normalizeEvent'));
+const coreBindings = 'const {SPORT_BASE,CLOSE_MARGIN,clampScore,factorText,recordFor,rankFor,parseLine,lineFromSummary,gameProgress,underdogCandidate,upsetImpact,rateGame,applyLiveSnapshot} = globalThis.SportsRadarScore;';
 const preferenceLogic = app.slice(app.indexOf('function readFavoriteSelections'),app.indexOf('const savedFavorites'));
 const explanationLogic = app.slice(app.indexOf('function explainRating'),app.indexOf('function trendFor'));
 const nflLogic = app.slice(app.indexOf('function nflWeekMeta'),app.indexOf('function dedupeGames'));
@@ -101,6 +103,26 @@ const fixtures = `
   assert.ok(!ordinary.factors.some(item => /close/i.test(item.label)));
   const final = rateGame('NFL','completed',[{score:'24'},{score:'27'}],{name:'Jaguars vs Texans'},{status:{type:{detail:'Final'}}},'');
   assert.ok(final.score > final.openingScore);
+  const upsetCompetition = {competitors:[
+    {homeAway:'away',team:{id:'a',displayName:'Chicago Bears'},score:'24'},
+    {homeAway:'home',team:{id:'h',displayName:'Baltimore Ravens'},score:'21'}
+  ],status:{period:4,displayClock:'2:00',type:{detail:'2:00 - 4th Quarter'}},odds:[{pointSpread:{away:{close:{line:'+10.5'}},home:{close:{line:'-10.5'}}}}]};
+  const upsetTeams = [{id:'a',score:'24'},{id:'h',score:'21'}];
+  const underdogLive = rateGame('NFL','live',upsetTeams,{name:'Bears at Ravens'},upsetCompetition,'');
+  assert.ok(underdogLive.upsetPoints >= 15);
+  assert.match(underdogLive.upsetText,/Chicago Bears.*10.5-point underdog.*leads 24–21/);
+  assert.ok(underdogLive.factors.some(item => item.label === 'Underdog threatens upset'));
+  const underdogFinal = rateGame('NFL','completed',upsetTeams,{name:'Bears at Ravens'},upsetCompetition,'');
+  assert.ok(underdogFinal.upsetPoints >= 20);
+  const ordinaryLive = rateGame('NFL','live',upsetTeams,{name:'Bears at Ravens'},{...upsetCompetition,odds:[]},'');
+  assert.ok(underdogLive.score > ordinaryLive.score);
+  const tiedEarlier = upsetImpact(underdogLive.underdog,[{id:'a',score:'21'},{id:'h',score:'21'}],'live',.35);
+  assert.equal(tiedEarlier.points,0);
+  const reversed = upsetImpact(underdogLive.underdog,[{id:'a',score:'20'},{id:'h',score:'24'}],'completed',1);
+  assert.equal(reversed.points,0);
+  const moneylineUpset = underdogCandidate('MLB',{competitors:[{homeAway:'away',team:{id:'a',displayName:'Rays'}},{homeAway:'home',team:{id:'h',displayName:'Brewers'}}]},{moneyline:{away:{close:{odds:'+230'}},home:{close:{odds:'-275'}}}});
+  assert.ok(moneylineUpset.description.includes('+230 moneyline'));
+  assert.equal(underdogCandidate('NHL',{competitors:upsetCompetition.competitors},{pointSpread:{away:{close:{line:'+1.5'}},home:{close:{line:'-1.5'}}}}),null);
   assert.equal(recordFor({records:[{type:'overall',summary:'5-2'}]}),'5-2');
   assert.equal(rankFor({curatedRank:{current:12}},'CFB'),12);
   const line = parseLine({details:'Iowa -3.5',overUnder:44.5,provider:{name:'ESPN BET'}},{});
@@ -169,7 +191,7 @@ const fixtures = `
   assert.ok(thursday.some(game => game.id === 'w7a'));
   console.log('Score model fixtures passed');
 `;
-vm.runInNewContext(`${favoriteLogic}\n${pickerLogic}\n${scoreLogic}\n${explanationLogic}\n${nflLogic}\n${dedupeLogic}\n${fixtures}`,{assert,console,URL,localStorage:{getItem:()=>null}});
+vm.runInNewContext(`${favoriteLogic}\n${pickerLogic}\n${scoreLogic}\n${coreBindings}\n${lineLogic}\n${explanationLogic}\n${nflLogic}\n${dedupeLogic}\n${fixtures}`,{assert,console,URL,localStorage:{getItem:()=>null}});
 
 const watchLogic = app.slice(app.indexOf('function watchKey'),app.indexOf('function syncFCSFilter'));
 vm.runInNewContext(`${watchLogic}
@@ -188,7 +210,7 @@ vm.runInNewContext(`${watchLogic}
 
 const timelineLogic = app.slice(app.indexOf('function readRatingHistory'),app.indexOf('function renderDetailContent'));
 const momentLogic = app.slice(app.indexOf('function summarySpecificWhy'),app.indexOf('async function enrichGameSignals'));
-vm.runInNewContext(`${timelineLogic}\n${momentLogic}
+vm.runInNewContext(`${scoreLogic}\n${coreBindings}\n${timelineLogic}\n${momentLogic}
   const hockey = {sport:'NHL',id:'match',state:'completed',score:86,openingScore:35};
   const summary = {plays:[
     {scoringPlay:true,period:{number:1,displayValue:'1st'},clock:{displayValue:'13:49'},homeScore:0,awayScore:1,text:'Macklin Celebrini goal'},

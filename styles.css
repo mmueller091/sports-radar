@@ -364,3 +364,10 @@ dialog, .detail-panel { background: linear-gradient(145deg, #31414a, #17252d); b
   .brand-wordmark { display: none; }
   .brand-logo { width: 38px; height: 38px; flex-basis: 38px; }
 }
+/* Device-specific web push controls */
+.alert-controls{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:14px}
+.alert-controls label,.alert-controls span{color:#c9d8e4;font-size:.88rem}
+.alert-controls input{width:68px;min-width:68px;padding:9px;border:1px solid #658599;border-radius:8px;background:#17232c;color:#f5f7f9;font:inherit;text-align:center}
+.alert-controls button{padding:9px 13px;border:1px solid #7d9ba8;border-radius:8px;background:linear-gradient(#354954,#24333c);color:#f5f7f9;font:inherit;cursor:pointer}
+.alert-controls button.alert-enabled{border-color:#42d66a;color:#b8f7c6}
+.alert-controls button:disabled{opacity:.52;cursor:not-allowed}
