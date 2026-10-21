@@ -1,12 +1,12 @@
 {
   "name": "Sports Radar — know what to watch",
   "short_name": "Sports Radar",
-  "description": "A spoiler-aware sports radar ranked by live excitement.",
+  "description": "Live sports scores ranked by excitement.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
-  "background_color": "#101b24",
-  "theme_color": "#101b24",
+  "background_color": "#0b141b",
+  "theme_color": "#0b141b",
   "orientation": "portrait-primary",
-  "icons": [{"src":"icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}]
+  "icons": [{"src":"sports-radar-logo.png","sizes":"1254x1254","type":"image/png","purpose":"any"}]
 }

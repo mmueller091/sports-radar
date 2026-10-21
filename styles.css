@@ -271,3 +271,96 @@ body.detail-open { overflow: hidden; }
 .timeline-moments li { display: flex; gap: 10px; color: #d7e5f1; font-size: 10px; line-height: 1.4; }
 .timeline-moments li b { color: #b5dbff; font: 600 11px 'DM Mono',monospace; }
 .timeline-moments li strong { color: #f0f6fc; }
+
+/* Sports Radar identity: the supplied radar artwork sets the dark metal and signal palette. */
+:root {
+  --bg: #0b141b;
+  --surface: #17232b;
+  --ink: #edf4f5;
+  --muted: #a4b5bb;
+  --line: #46535b;
+  --green: #39df78;
+  --red: #ff786e;
+  --shadow: 0 16px 32px rgba(0,0,0,.42);
+}
+body {
+  background:
+    radial-gradient(ellipse 90% 38% at 50% -12%, rgba(33,91,66,.30), transparent 75%),
+    radial-gradient(ellipse 80% 62% at 50% 5%, #1b2b33 0%, #0b141b 75%);
+  background-attachment: fixed;
+}
+.topbar {
+  height: 76px;
+  gap: clamp(14px, 3vw, 40px);
+  border-bottom: 1px solid #546169;
+  box-shadow: 0 1px 0 #03090c, 0 6px 20px rgba(0,0,0,.18);
+}
+.brand { gap: 11px; font-size: 14px; letter-spacing: .10em; white-space: nowrap; }
+.brand-logo {
+  display: block;
+  width: 50px;
+  height: 50px;
+  flex: 0 0 50px;
+  border-radius: 13px;
+  object-fit: cover;
+  box-shadow: 0 0 0 1px #51636b, 0 3px 8px rgba(0,0,0,.6), 0 0 16px rgba(54,218,111,.10);
+}
+.brand-wordmark { display: inline-flex; align-items: baseline; }
+.brand em { color: #67e99b; font-size: inherit; letter-spacing: inherit; margin-left: 5px; }
+.nav-link.active { color: #e1f3ff; }
+.control-row { padding-top: 25px; }
+.section-label { color: #f3f7f7; }
+.live-count { border-color: #32895e; background: #16382c; color: #abf4c9; box-shadow: inset 0 1px 2px #28764d, 0 1px 3px #07130e; }
+.segmented { background: #091217; box-shadow: inset 0 2px 5px #020607, 0 1px 0 #4d5d63; }
+.sport-chip { background: linear-gradient(145deg, #35434b, #1c2930 72%); border-color: #58666e; color: #d5e0e1; box-shadow: inset 0 1px 0 #65757c, 0 3px 5px rgba(0,0,0,.35); }
+.data-status { color: #a9bec0; }
+.data-status .status-dot, .footer .status-dot { background: #38e579; box-shadow: 0 0 0 4px rgba(56,229,121,.10), 0 0 9px rgba(56,229,121,.36); }
+.game-card {
+  background: linear-gradient(145deg, #2d3b43 0%, #1c2a32 55%, #152129 100%);
+  border-color: #5f6d73;
+  border-radius: 12px;
+  box-shadow: inset 0 1px 0 #63747b, inset 0 -1px 0 #0b151a, 0 5px 12px rgba(0,0,0,.34);
+}
+.game-card:hover { box-shadow: inset 0 1px 0 #788c92, inset 0 -1px 0 #0b151a, 0 8px 17px rgba(0,0,0,.42); }
+.game-card.favorite { background: linear-gradient(145deg, #324658, #22313e 60%, #182630); }
+.game-card.watched { border-color: #81acd7; }
+.sport-icon { background: radial-gradient(circle at 35% 25%, #e6e9e5, #8d999a 36%, #455359 76%, #1b272d); border-color: #101a20; box-shadow: inset 1px 1px 2px #fff, inset -2px -2px 4px #344148, 0 2px 4px #050b0e; }
+.match-meta { color: #b0c0c3; }
+.status-live { color: #61ec96; text-shadow: 0 0 8px rgba(67,236,134,.3); }
+.status-upcoming { color: #bed3df; }
+.status-completed { color: #a9bac3; }
+.team-score { color: #f7faf3; }
+.game-context { color: #bacbd0; }
+.game-context strong { color: #f1f6f6; }
+.score-circle {
+  border-color: #5cba80;
+  color: #d2f8df;
+  background: radial-gradient(circle at 34% 25%, #276848, #10291e 66%, #08150f);
+  box-shadow: inset 1px 1px 3px #7ddb9c, inset -2px -2px 4px #07150d, 0 2px 5px #061009, 0 0 11px rgba(55,219,117,.16);
+}
+.score-circle.hot { border-color: #52ed91; color: #e3ffec; box-shadow: inset 1px 1px 3px #b4ffd0, inset -2px -2px 4px #0b2816, 0 0 17px rgba(50,239,126,.35); }
+.score-circle.warm { border-color: #76cf99; color: #dcffe8; }
+.excitement small { color: #afeec8; }
+.footer { border-top-color: #46565e; }
+.brand-mini { color: #85e9ae; }
+dialog, .detail-panel { background: linear-gradient(145deg, #31414a, #17252d); border-color: #6b7a80; box-shadow: var(--shadow), inset 1px 1px 1px #687a81; }
+.detail-scoreboard { background: linear-gradient(145deg, #2b3d46, #182831); }
+.timeline-chart { background: linear-gradient(#1d3037, #112329); }
+@media (max-width: 800px) {
+  .topbar { gap: 14px; }
+  .brand { gap: 8px; font-size: 12px; }
+  .brand-logo { width: 42px; height: 42px; flex-basis: 42px; border-radius: 11px; }
+}
+@media (max-width: 460px) {
+  .topbar { height: 67px; gap: 10px; }
+  .brand { font-size: 11px; }
+  .brand-logo { width: 38px; height: 38px; flex-basis: 38px; border-radius: 10px; }
+  .main-nav { gap: 12px; }
+  .top-actions { gap: 6px; }
+  .control-row { padding-top: 19px; }
+}
+@media (max-width: 360px) {
+  .topbar { gap: 8px; }
+  .brand-wordmark { display: none; }
+  .brand-logo { width: 38px; height: 38px; flex-basis: 38px; }
+}
