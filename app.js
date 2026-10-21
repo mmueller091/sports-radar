@@ -9,6 +9,7 @@ const FAVORITES_KEY = 'sports-radar-selected-favorites-v1';
 const LINES_KEY = 'sports-radar-last-pregame-lines-v1';
 const WATCHLIST_KEY = 'sports-radar-watched-games-v1';
 const HISTORY_KEY = 'sports-radar-rating-history-v1';
+const CONTEXT_SPORTS = new Set(['NFL','MLB','NHL','CFB','NBA','NCAAB']);
 
 const LIVE_FEEDS = [
   {sport:'NFL', url:`${ESPN_BASE}/football/nfl/scoreboard`},
@@ -360,13 +361,8 @@ function allGroup(game) {
 }
 
 function compareAllGames(a,b) {
-  const favoriteDifference =
-    Number(pinnedFavorite(b)) -
-    Number(pinnedFavorite(a));
-
-  if (favoriteDifference) {
-    return favoriteDifference;
-  }
+  const groupDifference = allGroup(a) - allGroup(b);
+  if (groupDifference) return groupDifference;
 
   const dayDifference =
     gameDayStart(a.startTime) -
@@ -625,6 +621,11 @@ function normalizeEvent(event, sport, leagueLogo, division) {
     liveRawSituation:competition?.situation
   };
 
+  Object.defineProperties(game,{
+    sourceEvent:{value:event,enumerable:false},
+    sourceCompetition:{value:competition,enumerable:false}
+  });
+
   applyLiveSnapshot(
     game,
     competition,
@@ -686,6 +687,84 @@ async function fetchFeed(feed) {
     feed,
     await fetchScoreboard(feed)
   );
+}
+
+function contextKey(game) {
+  return `${game.sport}:${game.id}`;
+}
+
+function teamObjectsForRating(game) {
+  return game.teams.map(team => ({
+    id:String(team[8] || ''),
+    name:team[0],
+    abbr:team[1],
+    score:team[2],
+    color:team[3],
+    logo:team[4],
+    record:team[5],
+    rank:team[6],
+    shortName:team[7]
+  }));
+}
+
+function applyContextsToGame(game,factors) {
+  if (!game.sourceEvent || !game.sourceCompetition || !Array.isArray(factors) || !factors.length) return false;
+  const accepted = factors
+    .filter(factor => factor?.verified !== false && Number(factor?.confidence) >= .7 && factor?.type && factor?.text)
+    .slice(0,6);
+  if (!accepted.length) return false;
+  game.sourceEvent.sportsRadarContextFactors = accepted.map(factor => ({
+    type:factor.type,
+    text:factor.text,
+    confidence:Number(factor.confidence),
+    verified:true
+  }));
+  const rating = rateGame(
+    game.sport,
+    game.state,
+    teamObjectsForRating(game),
+    game.sourceEvent,
+    game.sourceCompetition,
+    game.context
+  );
+  game.score = rating.score;
+  game.baseScore = rating.score;
+  game.openingScore = rating.openingScore;
+  game.factors = rating.factors;
+  game.why = rating.reason;
+  game.underdog = rating.underdog;
+  game.upsetText = rating.upsetText;
+  game.upsetPoints = rating.upsetPoints;
+  game.qualitativeContexts = accepted;
+  applyLiveSnapshot(game,game.sourceCompetition,null);
+  return true;
+}
+
+async function enrichQualitativeContexts(items) {
+  const endpoint = String(globalThis.SPORTS_RADAR_ALERTS_URL || '').replace(/\/$/,'');
+  const keys = items
+    .filter(game => CONTEXT_SPORTS.has(game.sport))
+    .map(contextKey)
+    .slice(0,100);
+  if (!endpoint || !keys.length) return false;
+  try {
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(),5000);
+    const response = await fetch(`${endpoint}/contexts?games=${encodeURIComponent(keys.join(','))}`,{
+      cache:'no-store',
+      signal:controller.signal
+    });
+    clearTimeout(timer);
+    if (!response.ok) return false;
+    const payload = await response.json();
+    let changed = false;
+    items.forEach(game => {
+      if (applyContextsToGame(game,payload?.contexts?.[contextKey(game)])) changed = true;
+    });
+    return changed;
+  } catch {
+    return false;
+  }
 }
 
 function nflWeekMeta(payload) {
@@ -1104,6 +1183,8 @@ async function loadLiveGames() {
   if (liveGames.length) {
     games = liveGames;
     state.source = 'live';
+
+    await enrichQualitativeContexts(games);
 
     games
       .filter(
@@ -2860,6 +2941,28 @@ function excitementTimeline(game,summary) {
   }</p><svg class="timeline-chart" viewBox="0 0 ${width} ${height}" role="img" aria-label="Excitement rating over game time, from ${points[0].score} to ${points[points.length - 1].score}"><line x1="${left}" y1="${top}" x2="${left}" y2="${height - bottom}"/><line x1="${left}" y1="${height - bottom}" x2="${width - right}" y2="${height - bottom}"/><line class="timeline-midline" x1="${left}" y1="${py({score:50})}" x2="${width - right}" y2="${py({score:50})}"/><text x="3" y="${top + 4}">100</text><text x="10" y="${py({score:50}) - 4}">50</text><text x="16" y="${height - bottom + 4}">0</text><path class="timeline-line" d="${path}"/>${markers}<circle class="timeline-end" cx="${px(points[points.length - 1]).toFixed(1)}" cy="${py(points[points.length - 1]).toFixed(1)}" r="5"/><text x="${left}" y="${height - 5}">Start</text><text x="${width - right}" y="${height - 5}" text-anchor="end">${game.state === 'completed' ? 'Final' : 'Now'}</text></svg>${moments}</section>`;
 }
 
+function safeStoryUrl(value) {
+  try {
+    const url = new URL(String(value || ''));
+    return ['http:','https:'].includes(url.protocol) ? url.href : '';
+  } catch {
+    return '';
+  }
+}
+
+function storylineDetails(game) {
+  const factors = Array.isArray(game.qualitativeContexts) ? game.qualitativeContexts : [];
+  if (!factors.length) return '';
+  const rows = factors.map(factor => {
+    const url = safeStoryUrl(factor.sourceUrl);
+    const source = url
+      ? `<a href="${safeText(url)}" target="_blank" rel="noopener noreferrer">${safeText(factor.sourceTitle || 'Read source')} ↗</a>`
+      : '';
+    return `<li><span>${safeText(factor.text)}</span>${source}</li>`;
+  }).join('');
+  return `<section class="detail-section storyline-section"><h3>Pregame storylines</h3><ul>${rows}</ul><p class="detail-empty">Only recent, source-backed context is included. It fades from the rating as the game unfolds.</p></section>`;
+}
+
 function renderDetailContent(
   game,
   summary,
@@ -2906,7 +3009,7 @@ function renderDetailContent(
       : '';
 
   $('#game-detail-content').innerHTML =
-    `<div class="detail-kicker">${safeText(labelForSport(game.sport))} · ${safeText(status)}</div><h2>${safeText(title)}</h2><button type="button" class="detail-watch ${isWatched(game) ? 'active' : ''}" data-watch-id="${safeText(watchKey(game))}" aria-pressed="${isWatched(game)}">${isWatched(game) ? '★ Watching this game' : '☆ Add to watchlist'}</button><div class="detail-scoreboard">${scores}</div><div class="detail-meta"><span>📍 ${safeText(venue)}</span><span>📺 ${safeText(game.channel || 'Channel not listed')}</span></div>${game.moment ? `<section class="detail-moment"><strong>${safeText(game.momentLabel || 'Notable play')}</strong><span>${safeText(game.moment)}</span></section>` : ''}<section class="detail-section"><h3>Why ${game.score}?</h3><p class="detail-explanation">${safeText(explainRating(game))}</p></section>${excitementTimeline(game,summary)}${detailLeaders(summary)}${detailStats(summary) ? `<section class="detail-section"><h3>Team stats</h3><div class="detail-stat-grid">${detailStats(summary)}</div></section>` : ''}${detailPlayerStats(summary,game.sport)}${detailPlays(summary)}${fallback}`;
+    `<div class="detail-kicker">${safeText(labelForSport(game.sport))} · ${safeText(status)}</div><h2>${safeText(title)}</h2><button type="button" class="detail-watch ${isWatched(game) ? 'active' : ''}" data-watch-id="${safeText(watchKey(game))}" aria-pressed="${isWatched(game)}">${isWatched(game) ? '★ Watching this game' : '☆ Add to watchlist'}</button><div class="detail-scoreboard">${scores}</div><div class="detail-meta"><span>📍 ${safeText(venue)}</span><span>📺 ${safeText(game.channel || 'Channel not listed')}</span></div>${game.moment ? `<section class="detail-moment"><strong>${safeText(game.momentLabel || 'Notable play')}</strong><span>${safeText(game.moment)}</span></section>` : ''}<section class="detail-section"><h3>Why ${game.score}?</h3><p class="detail-explanation">${safeText(explainRating(game))}</p></section>${storylineDetails(game)}${excitementTimeline(game,summary)}${detailLeaders(summary)}${detailStats(summary) ? `<section class="detail-section"><h3>Team stats</h3><div class="detail-stat-grid">${detailStats(summary)}</div></section>` : ''}${detailPlayerStats(summary,game.sport)}${detailPlays(summary)}${fallback}`;
 }
 
 async function fetchGameSummary(game) {

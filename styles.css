@@ -167,6 +167,11 @@ dialog::backdrop { background: rgba(5,7,7,.76); backdrop-filter: blur(4px); } .d
 .detail-plays li span { color: var(--selected-hi); font: 10px 'DM Mono', monospace; }
 .detail-empty, .detail-loading { color: #c3cbd2; font-size: 12px; line-height: 1.5; padding: 18px 0; }
 .detail-explanation { margin: 0; color: #d5dce2; font-size: 12px; line-height: 1.5; }
+.storyline-section ul { display: grid; gap: 10px; margin: 0; padding: 0; list-style: none; }
+.storyline-section li { display: grid; gap: 4px; color: #e8edf2; font-size: 12px; line-height: 1.45; }
+.storyline-section a { color: #9fcbff; font-size: 11px; text-decoration: none; }
+.storyline-section a:hover, .storyline-section a:focus-visible { text-decoration: underline; }
+.storyline-section .detail-empty { margin: 9px 0 0; padding: 0; font-size: 10px; }
 @media (max-width: 1050px) { .game-card { grid-template-columns: 58px 1.2fr 1fr 120px 70px; gap: 12px; padding-left: 15px; padding-right: 15px; } }
 @media (max-width: 800px) {
   .app-shell { padding: 0 17px; } .topbar { gap: 22px; } .profile-button b { display: none; }
