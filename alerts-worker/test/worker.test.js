@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {gameFromEvent,validSubscription} from '../src/index.js';
-import {articleMatchesGame,deterministicFactor,evidenceSupportsType,researchGame} from '../src/storylines.js';
+import {articleMatchesGame,contextsForGames,deterministicFactor,evidenceSupportsType,researchGame} from '../src/storylines.js';
 
 test('large live underdog receives the same explicit upset boost as the site',() => {
   const event = {id:'123',name:'Bengals at Ravens',competitions:[{status:{type:{state:'in'},period:4,displayClock:'03:00'},competitors:[
@@ -73,4 +73,40 @@ test('AI labels require explicit source evidence for the exact storyline type',(
   };
   assert.equal(evidenceSupportsType(genericPreview,'star_absence'),false);
   assert.equal(evidenceSupportsType(priorHatTrick,'star_hot_streak'),true);
+});
+
+test('context lookup batches a full 100-game request within D1 parameter limits',async () => {
+  const calls = [];
+  const env = {
+    DB:{
+      prepare() {
+        return {
+          bind(...params) {
+            calls.push(params);
+            return {
+              async all() {
+                return {
+                  results:params.includes('401892551') ? [{
+                    event_id:'401892551',
+                    sport:'NHL',
+                    factor_type:'former_star_return',
+                    context_text:'A former star returns to face his old team.',
+                    confidence:.78,
+                    source_title:'Return preview',
+                    source_url:'https://www.espn.com/story',
+                    source_published:Math.floor(Date.now() / 1000)
+                  }] : []
+                };
+              }
+            };
+          }
+        };
+      }
+    }
+  };
+  const keys = ['NHL:401892551',...Array.from({length:99},(_,index) => `NBA:game-${index}`)];
+  const result = await contextsForGames(env,keys);
+  assert.equal(calls.length,2);
+  assert.ok(calls.every(params => params.length <= 91));
+  assert.equal(result['NHL:401892551'][0].type,'former_star_return');
 });
