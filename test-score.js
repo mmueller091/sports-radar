@@ -10,11 +10,26 @@ assert.equal(teamDirectory.NBA.length,30);
 assert.ok(teamDirectory.NBA.some(team => team.name === 'Los Angeles Lakers'));
 assert.ok(teamDirectory.CFB.length > 500);
 const scoreLogic = app.slice(app.indexOf('const SPORT_BASE'),app.indexOf('function normalizeEvent'));
+const preferenceLogic = app.slice(app.indexOf('function readFavoriteSelections'),app.indexOf('const savedFavorites'));
 const explanationLogic = app.slice(app.indexOf('function explainRating'),app.indexOf('function trendFor'));
 const nflLogic = app.slice(app.indexOf('function nflWeekMeta'),app.indexOf('function dedupeGames'));
 const dedupeLogic = app.slice(app.indexOf('function dedupeGames'),app.indexOf('async function loadLiveGames'));
 assert.match(app,/scoreboard\?groups=80[^\n]*limit:500/);
 assert.match(app,/scoreboard\?groups=81[^\n]*limit:500/);
+vm.runInNewContext(`${preferenceLogic}
+  const LEGACY_DEFAULT_FAVORITES = [{sport:'NFL',name:'Baltimore Ravens'},{sport:'MLB',name:'Baltimore Orioles'},{sport:'NHL',name:'Washington Capitals'}];
+  const FAVORITE_SPORTS = ['NFL','MLB','NHL','CFB','NBA','NCAAB','Soccer'];
+  const FAVORITES_KEY = 'sports-radar-selected-favorites-v1';
+  let stored = null;
+  const localStorage = {getItem:() => stored};
+  assert.equal(readFavoriteSelections({}).length,0);
+  assert.equal(readFavoriteSelections({favoriteTeams:LEGACY_DEFAULT_FAVORITES}).length,0);
+  assert.equal(readFavoriteSelections({favoriteTeams:[{sport:'NBA',name:'Los Angeles Lakers'}]})[0].name,'Los Angeles Lakers');
+  stored = '[]';
+  assert.equal(readFavoriteSelections({favoriteTeams:[{sport:'NBA',name:'Los Angeles Lakers'}]}).length,0);
+  stored = JSON.stringify([{sport:'NHL',name:'Washington Capitals'}]);
+  assert.equal(readFavoriteSelections({})[0].name,'Washington Capitals');
+  `,{assert});
 const fixtures = `
   const state = {favoriteTeams:[{sport:'NFL',name:'Baltimore Ravens'},{sport:'MLB',name:'Baltimore Orioles'},{sport:'NHL',name:'Washington Capitals'}]};
   assert.equal(favoriteFor([{name:'Baltimore Ravens',id:'33'}],'NFL'),true);

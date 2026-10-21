@@ -1,6 +1,6 @@
 # Sports Radar
 
-A static, mobile-friendly, installable sports radar: favorite-team games are pinned when live, completed, or scheduled for today; future favorite games are ranked by excitement with everything else. Scores are always shown. Soccer gets its own feed so the home page stays focused on NFL, MLB, NHL, College Football, NBA, NCAAM, and major tennis.
+A static, mobile-friendly, installable sports radar: visitors start with no favorite teams selected. After someone chooses favorites, their game-day games are pinned; future favorite games are ranked by excitement with everything else. Scores are always shown. Soccer gets its own feed so the home page stays focused on NFL, MLB, NHL, College Football, NBA, NCAAM, and major tennis.
 
 ## Run locally
 
@@ -8,7 +8,7 @@ Open `index.html` directly for the demo shell, or serve the folder with any stat
 
 On a phone, open the deployed HTTPS URL in Safari or Chrome and use **Add to Home Screen** / **Install app**. The included manifest and service worker make the site open as a standalone app and keep the UI shell available when connectivity is briefly unavailable.
 
-The Preferences dialog lets each visitor remove or add favorite teams and choose which sports appear on the home page. Ravens, Orioles, and Capitals are the initial favorites; users can search a bundled team directory across NFL, MLB, NHL, College Football, NBA, NCAAM, and soccer, or enter a full team name if a team is missing. `teams.json` was generated from ESPN's public team listings and can be refreshed periodically as leagues change. Adding a favorite also enables its sport on the home page (soccer stays on its own page). The college-football row has a one-tap **FCS: On/Off** filter; FBS remains visible either way. These choices are saved with browser `localStorage`, so they persist on that device and browser but do not sync automatically to another device. Cross-device syncing would require a sign-in and a small hosted settings service.
+The Preferences dialog lets each visitor add or remove favorite teams and choose which sports appear on the home page. No teams are preset. Users can search a bundled team directory across NFL, MLB, NHL, College Football, NBA, NCAAM, and soccer, or enter a full team name if a team is missing. `teams.json` was generated from ESPN's public team listings and can be refreshed periodically as leagues change. Adding a favorite also enables its sport on the home page (soccer stays on its own page). The college-football row has a one-tap **FCS: On/Off** filter; FBS remains visible either way. Explicit favorite selections are saved separately in browser `localStorage`, so they persist on that device and browser but do not sync automatically to another device. Existing custom selections are retained; an untouched legacy list of the three old presets is cleared. Cross-device syncing would require a sign-in and a small hosted settings service.
 
 ## Deploy to GitHub Pages
 

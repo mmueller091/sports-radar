@@ -212,3 +212,35 @@ body.detail-open { overflow: hidden; }
   .game-card .team-column { grid-column: 2 / 4; }
   .game-card .excitement { grid-column: 3; grid-row: 2 / span 2; }
 }
+/* One compact matchup row, followed by the reason and the practical viewing details. */
+.game-card { grid-template-columns: 48px minmax(0,1fr) 66px; gap: 4px 10px; padding: 10px 12px; align-items: start; }
+.game-card.favorite { padding-top: 15px; }
+.game-card .sport-icon { grid-column: 1; grid-row: 1; align-self: center; }
+.game-card .team-column { grid-column: 2; grid-row: 1; min-width: 0; }
+.game-card .excitement { grid-column: 3; grid-row: 1; align-self: center; }
+.game-card .rating-context { grid-column: 2 / 4; grid-row: 2; line-height: 1.35; }
+.game-card .rating-context strong { display: inline; margin: 0 5px 0 0; }
+.game-card .rating-context > span { display: inline; line-height: inherit; }
+.game-card .channel-context { grid-column: 2 / 4; grid-row: 3; display: flex; align-items: baseline; flex-wrap: wrap; gap: 3px 10px; margin-top: 2px; }
+.game-card .detail-inline { display: inline-flex; align-items: baseline; gap: 4px; max-width: 100%; min-width: 0; }
+.game-card .detail-inline strong { display: inline; flex: 0 0 auto; margin: 0; color: #dceaff; font: 600 9px 'DM Mono', monospace; text-transform: uppercase; }
+.game-card .detail-inline > span { display: inline; min-width: 0; overflow-wrap: anywhere; }
+.game-card .line-inline { flex: 1 1 320px; }
+.game-card .stats-cue { order: 3; margin: 0 0 0 auto; white-space: nowrap; }
+.game-card .team-row + .team-row { margin-top: 3px; }
+.game-card .match-meta { margin-bottom: 3px; }
+.game-card .score-circle { width: 44px; height: 44px; }
+.game-card .score-trend { margin-top: 3px; }
+@media (max-width: 800px) {
+  .game-card { grid-template-columns: 38px minmax(0,1fr) 53px; gap: 4px 7px; padding: 9px 10px; }
+  .game-card .sport-icon { width: 36px; height: 36px; }
+  .game-card .channel-context { gap: 3px 8px; }
+  .game-card .line-inline { flex-basis: 100%; order: 4; }
+  .game-card .stats-cue { order: 2; }
+  .game-card .score-circle { width: 42px; height: 42px; }
+}
+@media (max-width: 460px) {
+  .game-card .team-column { grid-column: 2; }
+  .game-card .excitement { grid-column: 3; grid-row: 1; }
+  .game-card .rating-context, .game-card .channel-context { grid-column: 2 / 4; }
+}
