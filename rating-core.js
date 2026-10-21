@@ -74,6 +74,7 @@
     playoff_race:5,
     coach_return:4,
     star_hot_streak:4,
+    notable_recent_performance:2,
     team_win_streak:3,
     star_absence:-5,
     multiple_stars_out:-8
@@ -94,6 +95,7 @@
     playoff_race:'Playoff race implications',
     coach_return:'Coach returns to former team',
     star_hot_streak:'Star player hot streak',
+    notable_recent_performance:'Recent notable performance',
     team_win_streak:'Team winning streak',
     star_absence:'Notable star absence',
     multiple_stars_out:'Multiple major absences'
@@ -633,6 +635,13 @@
 
     const factors = [];
 
+    factors.push(
+      ...proTeamQualityFactors(
+        sport,
+        records
+      )
+    );
+
     if (bothWinning) {
       factors.push({
         label:'Both winning records',
@@ -685,6 +694,56 @@
       factors.push({
         label:'Winless team',
         points:-3
+      });
+    }
+
+    return factors;
+  }
+
+  function proTeamQualityFactors(sport,records) {
+    if (
+      !['MLB','NHL','NBA'].includes(sport) ||
+      !Array.isArray(records) ||
+      records.length !== 2 ||
+      !records.every(Boolean)
+    ) {
+      return [];
+    }
+
+    const priorGames = 6;
+    const adjusted = records.map(record =>
+      ((record.pct * record.games) + (.5 * priorGames)) /
+      (record.games + priorGames)
+    );
+    const average =
+      adjusted.reduce((sum,value) => sum + value,0) /
+      adjusted.length;
+    const factors = [];
+    let points = 0;
+
+    if (average >= .70) points = 10;
+    else if (average >= .64) points = 7;
+    else if (average >= .58) points = 4;
+    else if (average >= .54) points = 2;
+
+    if (points) {
+      factors.push({
+        label:'Adjusted team quality',
+        points
+      });
+    }
+
+    if (adjusted.every(value => value >= .64)) {
+      factors.push({
+        label:'Both teams have strong adjusted quality',
+        points:3
+      });
+    }
+
+    if (adjusted.every(value => value >= .70)) {
+      factors.push({
+        label:'Both teams have elite adjusted quality',
+        points:2
       });
     }
 
@@ -1127,7 +1186,12 @@
           points:3
         });
 
-        if (bothWinning) {
+        const meaningfulDivisionRace =
+          bothWinning &&
+          /playoff|postseason|wild card|race|elimination|clinching/
+            .test(detail);
+
+        if (meaningfulDivisionRace) {
           factors.push({
             label:'Division matchup between winning teams',
             points:2
