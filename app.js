@@ -2985,12 +2985,41 @@ function excitementTimeline(game,summary) {
       )
       .slice(0,3);
 
+  const timelinePointExplanation = (point,index) => {
+    const previous = points[index - 1];
+    const score = Number(point.score);
+    const prior = Number(previous?.score);
+    const delta =
+      Number.isFinite(score) && Number.isFinite(prior)
+        ? score - prior
+        : 0;
+
+    const movement =
+      delta === 0
+        ? `The rating stayed at ${score}.`
+        : `The rating moved ${delta > 0 ? 'up' : 'down'} ${Math.abs(delta)} points, from ${prior} to ${score}.`;
+
+    const detail =
+      point.text && point.text !== 'Current rating'
+        ? `${String(point.text).replace(/[.]+$/,'')}.`
+        : 'This is the current rating at that point in the game.';
+
+    return `${point.label || 'Timeline point'}: ${movement} ${detail}`;
+  };
+
+  const timelineHelpId =
+    `timeline-point-help-${String(game.id).replace(/[^a-zA-Z0-9_-]/g,'-')}`;
+
   const markers =
     points
-      .slice(1,-1)
-      .map(
-        point =>
-          `<circle cx="${px(point).toFixed(1)}" cy="${py(point).toFixed(1)}" r="3"/>`
+      .slice(1)
+      .map((point,index) => {
+        const pointIndex = index + 1;
+        const explanation = timelinePointExplanation(point,pointIndex);
+        const current = pointIndex === points.length - 1;
+
+        return `<g class="timeline-point${current ? ' timeline-point-current' : ''}" data-timeline-explanation="${safeText(explanation)}" role="button" tabindex="0" aria-expanded="false" aria-controls="${timelineHelpId}" aria-label="${safeText(explanation)}"><circle class="${current ? 'timeline-end' : ''}" cx="${px(point).toFixed(1)}" cy="${py(point).toFixed(1)}" r="${current ? '5' : '3'}"/><title>${safeText(explanation)}</title></g>`;
+      }
       )
       .join('');
 
@@ -3005,7 +3034,7 @@ function excitementTimeline(game,summary) {
     source === 'scoring plays'
       ? 'Estimated at reported scoring plays; the final point is the current rating.'
       : 'Ratings recorded while this browser was open.'
-  }</p><svg class="timeline-chart" viewBox="0 0 ${width} ${height}" role="img" aria-label="Excitement rating over game time, from ${points[0].score} to ${points[points.length - 1].score}"><line x1="${left}" y1="${top}" x2="${left}" y2="${height - bottom}"/><line x1="${left}" y1="${height - bottom}" x2="${width - right}" y2="${height - bottom}"/><line class="timeline-midline" x1="${left}" y1="${py({score:50})}" x2="${width - right}" y2="${py({score:50})}"/><text x="3" y="${top + 4}">100</text><text x="10" y="${py({score:50}) - 4}">50</text><text x="16" y="${height - bottom + 4}">0</text><path class="timeline-line" d="${path}"/>${markers}<circle class="timeline-end" cx="${px(points[points.length - 1]).toFixed(1)}" cy="${py(points[points.length - 1]).toFixed(1)}" r="5"/><text x="${left}" y="${height - 5}">Start</text><text x="${width - right}" y="${height - 5}" text-anchor="end">${game.state === 'completed' ? 'Final' : 'Now'}</text></svg>${moments}</section>`;
+  }</p><svg class="timeline-chart" viewBox="0 0 ${width} ${height}" role="img" aria-label="Excitement rating over game time, from ${points[0].score} to ${points[points.length - 1].score}"><line x1="${left}" y1="${top}" x2="${left}" y2="${height - bottom}"/><line x1="${left}" y1="${height - bottom}" x2="${width - right}" y2="${height - bottom}"/><line class="timeline-midline" x1="${left}" y1="${py({score:50})}" x2="${width - right}" y2="${py({score:50})}"/><text x="3" y="${top + 4}">100</text><text x="10" y="${py({score:50}) - 4}">50</text><text x="16" y="${height - bottom + 4}">0</text><path class="timeline-line" d="${path}"/>${markers}<text x="${left}" y="${height - 5}">Start</text><text x="${width - right}" y="${height - 5}" text-anchor="end">${game.state === 'completed' ? 'Final' : 'Now'}</text></svg><div class="timeline-point-help" id="${timelineHelpId}" role="status" aria-live="polite" hidden></div>${moments}</section>`;
 }
 
 function safeStoryUrl(value) {
@@ -4109,8 +4138,103 @@ $('#game-detail-overlay')
 
 $('#game-detail-content')
   .addEventListener(
+    'pointerover',
+    event => {
+      const point =
+        event.target.closest('.timeline-point');
+
+      if (
+        point &&
+        event.pointerType !== 'touch'
+      ) {
+        const help =
+          point.closest('.timeline-section')
+            ?.querySelector('.timeline-point-help');
+
+        if (help) {
+          help.textContent =
+            point.dataset.timelineExplanation || '';
+          help.hidden = false;
+          point.classList.add('is-open');
+          point.setAttribute('aria-expanded','true');
+        }
+      }
+    }
+  );
+
+$('#game-detail-content')
+  .addEventListener(
+    'pointerout',
+    event => {
+      const point =
+        event.target.closest('.timeline-point');
+
+      if (
+        !point ||
+        event.pointerType === 'touch' ||
+        point.contains(event.relatedTarget)
+      ) {
+        return;
+      }
+
+      const section =
+        point.closest('.timeline-section');
+
+      const help =
+        section?.querySelector('.timeline-point-help');
+
+      point.classList.remove('is-open');
+      point.setAttribute('aria-expanded','false');
+
+      if (help) {
+        help.hidden = true;
+        help.textContent = '';
+      }
+    }
+  );
+
+function toggleTimelinePoint(point) {
+  const section =
+    point.closest('.timeline-section');
+
+  const help =
+    section?.querySelector('.timeline-point-help');
+
+  if (!help) {
+    return;
+  }
+
+  const open =
+    !point.classList.contains('is-open');
+
+  section
+    .querySelectorAll('.timeline-point.is-open')
+    .forEach(item => {
+      item.classList.remove('is-open');
+      item.setAttribute('aria-expanded','false');
+    });
+
+  point.classList.toggle('is-open',open);
+  point.setAttribute('aria-expanded',String(open));
+  help.hidden = !open;
+  help.textContent =
+    open
+      ? point.dataset.timelineExplanation || ''
+      : '';
+}
+
+$('#game-detail-content')
+  .addEventListener(
     'click',
     event => {
+      const point =
+        event.target.closest('.timeline-point');
+
+      if (point) {
+        toggleTimelinePoint(point);
+        return;
+      }
+
       const button =
         event.target
           .closest('.detail-watch');
@@ -4141,6 +4265,25 @@ $('#game-detail-content')
         watching
           ? '★ Watching this game'
           : '☆ Add to watchlist';
+    }
+  );
+
+$('#game-detail-content')
+  .addEventListener(
+    'keydown',
+    event => {
+      const point =
+        event.target.closest('.timeline-point');
+
+      if (
+        !point ||
+        !['Enter',' '].includes(event.key)
+      ) {
+        return;
+      }
+
+      event.preventDefault();
+      toggleTimelinePoint(point);
     }
   );
 
