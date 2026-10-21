@@ -72,7 +72,7 @@ body { margin: 0; min-width: 320px; color: var(--ink); background: radial-gradie
 .league-logo { width: 28px; height: 28px; object-fit: contain; } .sport-icon small { font: 7px 'DM Mono', monospace; color: #242826; text-transform: uppercase; }
 .game-card.favorite .sport-icon { margin-top: 6px; }
 .match-meta { display: flex; align-items: center; flex-wrap: wrap; gap: 3px 8px; color: #b3b8ad; font: 10px 'DM Mono', monospace; text-transform: uppercase; text-shadow: 0 1px 1px #171a1a; }
-.status-live { color: #ff9587; } .status-upcoming { color: #a9d7b0; } .status-completed { color: #b2c59e; }
+.status-live { color: #ff9587; } .status-upcoming { color: #a9d7b0; } .status-completed { display: inline-flex; align-items: center; gap: 4px; padding: 3px 6px; border: 1px solid #79939d; border-radius: 999px; background: rgba(34,56,66,.78); color: #d5edf0; font-weight: 600; letter-spacing: .08em; }
 .live-phase { color: #d7eaff; font-weight: 600; }
 .live-situation { display: flex; align-items: center; gap: 9px; min-height: 23px; margin-top: 5px; color: #c8e3ff; font: 10px 'DM Mono', monospace; }
 .base-diamond { position: relative; flex: 0 0 27px; width: 27px; height: 26px; }
@@ -250,6 +250,13 @@ body.detail-open { overflow: hidden; }
 .game-card .detail-inline > span { display: inline; min-width: 0; overflow-wrap: anywhere; }
 .game-card .line-inline { flex: 1 1 320px; }
 .game-card .stats-cue { order: 3; margin: 0 0 0 auto; white-space: nowrap; }
+.game-card .detail-inline strong { padding: 2px 5px; border: 1px solid #607985; border-radius: 3px; background: rgba(18,34,42,.72); color: #9fb8c1; font-size: 8px; letter-spacing: .1em; }
+.game-card .detail-inline > span { color: #e7f0f1; font-size: 11px; }
+.game-card.completed-card { border-color: #71868d; background: linear-gradient(145deg, #2a3941 0%, #1b2a32 58%, #15232a 100%); }
+.game-card.completed-card .match-meta { color: #9fb4ba; }
+.game-card.completed-card .team-score { color: #d9e7e9; }
+.game-card.completed-card .winner-row .team-name-text { color: #ffffff; font-weight: 600; }
+.game-card.completed-card .winner-row .team-score { color: #ffffff; text-shadow: 0 0 8px rgba(215,244,238,.32); }
 .game-card .team-row + .team-row { margin-top: 3px; }
 .game-card .match-meta { margin-bottom: 3px; }
 .game-card .score-circle { width: 44px; height: 44px; }
