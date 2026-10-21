@@ -1,4 +1,4 @@
-name: Deploy THUUZ Radar to GitHub Pages
+name: Deploy Sports Radar to GitHub Pages
 
 on:
   push:
