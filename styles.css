@@ -360,13 +360,8 @@ body {
 .team-score { color: #f7faf3; }
 .game-context { color: #bacbd0; }
 .game-context strong { color: #f1f6f6; }
-.score-circle {
-  border-color: #5cba80;
-  color: #d2f8df;
-  background: radial-gradient(circle at 34% 25%, #276848, #10291e 66%, #08150f);
-  box-shadow: inset 1px 1px 3px #7ddb9c, inset -2px -2px 4px #07150d, 0 2px 5px #061009, 0 0 11px rgba(55,219,117,.16);
-}
-.score-circle.hot, .score-circle.warm {
+.score-circle, .score-circle.hot, .score-circle.warm {
+  --score-hue: 140;
   border-color: hsl(var(--score-hue, 140) 86% 62%);
   color: hsl(var(--score-hue, 140) 92% 90%);
   background: radial-gradient(circle at 34% 25%, hsl(var(--score-hue, 140) 78% 43%), hsl(var(--score-hue, 140) 70% 14%) 66%, #081117);
