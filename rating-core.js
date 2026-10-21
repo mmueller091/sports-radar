@@ -16,56 +16,40 @@
   const NHL_DIVISIONS = {
     BOS:'Atlantic Division',BUF:'Atlantic Division',DET:'Atlantic Division',FLA:'Atlantic Division',
     MTL:'Atlantic Division',OTT:'Atlantic Division',TB:'Atlantic Division',TOR:'Atlantic Division',
-
     CAR:'Metropolitan Division',CBJ:'Metropolitan Division',NJ:'Metropolitan Division',
     NYI:'Metropolitan Division',NYR:'Metropolitan Division',PHI:'Metropolitan Division',
     PIT:'Metropolitan Division',WSH:'Metropolitan Division',
-
-    CHI:'Central Division',COL:'Central Division',DAL:'Central Division',
-    MIN:'Central Division',NSH:'Central Division',STL:'Central Division',
-    UTA:'Central Division',WPG:'Central Division',
-
-    ANA:'Pacific Division',CGY:'Pacific Division',EDM:'Pacific Division',
-    LA:'Pacific Division',LAK:'Pacific Division',
-    SJ:'Pacific Division',SJS:'Pacific Division',
-    SEA:'Pacific Division',VAN:'Pacific Division',VGK:'Pacific Division'
+    CHI:'Central Division',COL:'Central Division',DAL:'Central Division',MIN:'Central Division',
+    NSH:'Central Division',STL:'Central Division',UTA:'Central Division',WPG:'Central Division',
+    ANA:'Pacific Division',CGY:'Pacific Division',EDM:'Pacific Division',LA:'Pacific Division',
+    LAK:'Pacific Division',SJ:'Pacific Division',SJS:'Pacific Division',SEA:'Pacific Division',
+    VAN:'Pacific Division',VGK:'Pacific Division'
   };
 
   const NBA_DIVISIONS = {
-    BOS:'Atlantic Division',BKN:'Atlantic Division',NY:'Atlantic Division',
-    NYK:'Atlantic Division',PHI:'Atlantic Division',TOR:'Atlantic Division',
-
-    CHI:'Central Division',CLE:'Central Division',DET:'Central Division',
-    IND:'Central Division',MIL:'Central Division',
-
+    BOS:'Atlantic Division',BKN:'Atlantic Division',NY:'Atlantic Division',NYK:'Atlantic Division',
+    PHI:'Atlantic Division',TOR:'Atlantic Division',
+    CHI:'Central Division',CLE:'Central Division',DET:'Central Division',IND:'Central Division',
+    MIL:'Central Division',
     ATL:'Southeast Division',CHA:'Southeast Division',MIA:'Southeast Division',
     ORL:'Southeast Division',WSH:'Southeast Division',
-
     DEN:'Northwest Division',MIN:'Northwest Division',OKC:'Northwest Division',
     POR:'Northwest Division',UTA:'Northwest Division',
-
     GS:'Pacific Division',GSW:'Pacific Division',LAC:'Pacific Division',
     LAL:'Pacific Division',PHX:'Pacific Division',SAC:'Pacific Division',
-
     DAL:'Southwest Division',HOU:'Southwest Division',MEM:'Southwest Division',
-    NO:'Southwest Division',NOP:'Southwest Division',
-    SA:'Southwest Division',SAS:'Southwest Division'
+    NO:'Southwest Division',NOP:'Southwest Division',SA:'Southwest Division',SAS:'Southwest Division'
   };
 
   const MLB_DIVISIONS = {
     BAL:'AL East',BOS:'AL East',NYY:'AL East',TB:'AL East',TOR:'AL East',
-
     CWS:'AL Central',CHW:'AL Central',CLE:'AL Central',DET:'AL Central',
     KC:'AL Central',KCR:'AL Central',MIN:'AL Central',
-
     ATH:'AL West',OAK:'AL West',HOU:'AL West',LAA:'AL West',SEA:'AL West',TEX:'AL West',
-
     ATL:'NL East',MIA:'NL East',NYM:'NL East',PHI:'NL East',WSH:'NL East',
-
     CHC:'NL Central',CIN:'NL Central',MIL:'NL Central',PIT:'NL Central',STL:'NL Central',
-
-    ARI:'NL West',COL:'NL West',LAD:'NL West',
-    SD:'NL West',SDP:'NL West',SF:'NL West',SFG:'NL West'
+    ARI:'NL West',COL:'NL West',LAD:'NL West',SD:'NL West',SDP:'NL West',
+    SF:'NL West',SFG:'NL West'
   };
 
   const LEAGUE_DIVISIONS = {
@@ -75,13 +59,6 @@
     MLB:MLB_DIVISIONS
   };
 
-  /*
-   * Qualitative pregame context.
-   *
-   * These factors are intentionally deterministic. Another part of the app
-   * can discover and verify the underlying facts, but this shared model
-   * decides how many excitement points those facts are worth.
-   */
   const CONTEXT_WEIGHTS = {
     former_captain_return:10,
     first_game_back:10,
@@ -177,20 +154,27 @@
     );
   }
 
-  function rankFor(competitor,sport) {
-    if (!['CFB','NCAAB'].includes(sport)) return null;
+  function rankFor(competitor, sport) {
+    if (!['CFB','NCAAB'].includes(sport)) {
+      return null;
+    }
 
-    const rank = Number(
-      competitor?.curatedRank?.current ??
-      competitor?.team?.rank
-    );
+    const rank =
+      Number(
+        competitor?.curatedRank?.current ??
+        competitor?.team?.rank
+      );
 
-    return Number.isFinite(rank) && rank >= 1 && rank <= 25
+    return (
+      Number.isFinite(rank) &&
+      rank >= 1 &&
+      rank <= 25
+    )
       ? rank
       : null;
   }
 
-  function parseLine(raw,competition,sport) {
+  function parseLine(raw, competition, sport) {
     if (!raw) return null;
 
     const listed =
@@ -205,7 +189,8 @@
       listed.total?.value;
 
     const total =
-      totalValue == null || totalValue === ''
+      totalValue == null ||
+      totalValue === ''
         ? NaN
         : Number(totalValue);
 
@@ -232,17 +217,29 @@
       !spread &&
       listed.spread != null &&
       Number.isFinite(Number(listed.spread)) &&
-      (!isMoneyline || Math.abs(Number(listed.spread)) <= 10)
+      (
+        !isMoneyline ||
+        Math.abs(Number(listed.spread)) <= 10
+      )
     ) {
-      const amount = Math.abs(Number(listed.spread));
+      const amount =
+        Math.abs(
+          Number(listed.spread)
+        );
 
       const home =
         (competition?.competitors || [])
-          .find(team => team.homeAway === 'home');
+          .find(
+            team =>
+              team.homeAway === 'home'
+          );
 
       const away =
         (competition?.competitors || [])
-          .find(team => team.homeAway === 'away');
+          .find(
+            team =>
+              team.homeAway === 'away'
+          );
 
       const favored =
         listed.homeTeamOdds?.favorite
@@ -282,7 +279,7 @@
     };
   }
 
-  function lineFromSummary(summary,sport) {
+  function lineFromSummary(summary, sport) {
     const competition =
       summary?.header?.competitions?.[0];
 
@@ -295,7 +292,7 @@
     );
   }
 
-  function eventSignalText(event,competition,context) {
+  function eventSignalText(event, competition, context) {
     return [
       event?.name,
       event?.shortName,
@@ -336,7 +333,8 @@
   }
 
   function divisionFor(sport,competitors) {
-    const map = LEAGUE_DIVISIONS[sport];
+    const map =
+      LEAGUE_DIVISIONS[sport];
 
     if (
       !map ||
@@ -367,14 +365,24 @@
 
   function recordStats(competitor) {
     const match =
-      String(recordFor(competitor))
-        .match(/^(\d+)-(\d+)(?:-(\d+))?/);
+      String(
+        recordFor(competitor)
+      ).match(
+        /^(\d+)-(\d+)(?:-(\d+))?/
+      );
 
-    if (!match) return null;
+    if (!match) {
+      return null;
+    }
 
-    const wins = Number(match[1]);
-    const losses = Number(match[2]);
-    const ties = Number(match[3] || 0);
+    const wins =
+      Number(match[1]);
+
+    const losses =
+      Number(match[2]);
+
+    const ties =
+      Number(match[3] || 0);
 
     const games =
       wins +
@@ -387,13 +395,19 @@
           losses,
           ties,
           games,
-          pct:(wins + ties / 2) / games
+          pct:
+            (
+              wins +
+              ties / 2
+            ) /
+            games
         }
       : null;
   }
 
   function winningRecord(competitor) {
-    const record = recordStats(competitor);
+    const record =
+      recordStats(competitor);
 
     return Boolean(
       record &&
@@ -431,7 +445,10 @@
     const n =
       Number(
         String(value)
-          .replace(/[^+\-.\d]/g,'')
+          .replace(
+            /[^+\-.\d]/g,
+            ''
+          )
       );
 
     return Number.isFinite(n)
@@ -439,11 +456,10 @@
       : null;
   }
 
-  /*
-   * Extract American moneyline prices from several ESPN shapes.
-   */
   function moneylinePrices(raw) {
-    if (!raw) return [];
+    if (!raw) {
+      return [];
+    }
 
     const odds =
       raw.close ||
@@ -455,12 +471,10 @@
       odds.awayTeamOdds?.moneyLine,
       odds.homeTeamOdds?.moneyline,
       odds.awayTeamOdds?.moneyline,
-
       odds.moneyline?.home?.close?.odds,
       odds.moneyline?.away?.close?.odds,
       odds.moneyline?.home?.open?.odds,
       odds.moneyline?.away?.open?.odds,
-
       odds.moneyLine?.home?.close?.odds,
       odds.moneyLine?.away?.close?.odds,
       odds.moneyLine?.home?.open?.odds,
@@ -472,7 +486,9 @@
         odds.details ||
         odds.displayValue ||
         ''
-      ).match(/[+-]\d{3,4}\b/g) || [];
+      ).match(
+        /[+-]\d{3,4}\b/g
+      ) || [];
 
     return [
       ...new Set(
@@ -481,26 +497,21 @@
           ...details
         ]
           .map(numberFromLine)
-          .filter(
-            value =>
-              value !== null &&
-              Math.abs(value) >= 100
+          .filter(value =>
+            value !== null &&
+            Math.abs(value) >= 100
           )
       )
     ];
   }
 
-  /*
-   * Market competitiveness.
-   *
-   * NBA uses the point spread.
-   * NHL and MLB commonly expose moneyline prices instead.
-   */
   function pregameMarketFactor(sport,competition) {
     const raw =
       competition?.odds?.[0];
 
-    if (!raw) return null;
+    if (!raw) {
+      return null;
+    }
 
     if (
       ['NBA','CFB','NCAAB']
@@ -546,7 +557,8 @@
       const shortest =
         Math.min(
           ...prices.map(
-            value => Math.abs(value)
+            value =>
+              Math.abs(value)
           )
         );
 
@@ -568,13 +580,6 @@
     return null;
   }
 
-  /*
-   * Regular-season quality scoring for the major professional leagues.
-   *
-   * We wait for a few games before giving full weight to records so that
-   * a 2-0 team in October does not receive the same treatment as an
-   * established winning team later in the season.
-   */
   function proRecordFactors(sport,competitors) {
     if (
       !['MLB','NHL','NBA']
@@ -584,7 +589,9 @@
     }
 
     const records =
-      competitors.map(recordStats);
+      competitors.map(
+        recordStats
+      );
 
     if (
       records.length !== 2 ||
@@ -602,7 +609,8 @@
     const mature =
       records.every(
         record =>
-          record.games >= minimumGames
+          record.games >=
+          minimumGames
       );
 
     const bothWinning =
@@ -687,33 +695,12 @@
     return String(value || '')
       .trim()
       .toLowerCase()
-      .replace(/[\s-]+/g,'_');
+      .replace(
+        /[\s-]+/g,
+        '_'
+      );
   }
 
-  /*
-   * Qualitative context can be attached to either the ESPN-like event or
-   * competition object.
-   *
-   * Supported input shapes:
-   *
-   * event.sportsRadarContextFactors = [...]
-   *
-   * or:
-   *
-   * event.sportsRadarContext = {
-   *   factors:[...]
-   * }
-   *
-   * Example:
-   *
-   * {
-   *   type:'former_captain_return',
-   *   label:"Brady Tkachuk's first game back in Ottawa",
-   *   text:'Former Senators captain returns to Ottawa for the first time',
-   *   confidence:.98,
-   *   verified:true
-   * }
-   */
   function pregameContextFactors(event,competition) {
     const sources = [
       event?.sportsRadarContextFactors,
@@ -738,12 +725,16 @@
     const candidates = [];
 
     for (const item of items) {
-      if (item?.verified === false) {
+      if (
+        item?.verified === false
+      ) {
         continue;
       }
 
       const confidence =
-        Number(item?.confidence);
+        Number(
+          item?.confidence
+        );
 
       if (
         Number.isFinite(confidence) &&
@@ -760,45 +751,51 @@
       const points =
         CONTEXT_WEIGHTS[type];
 
-      if (!Number.isFinite(points)) {
+      if (
+        !Number.isFinite(points)
+      ) {
         continue;
       }
 
       candidates.push({
         type,
-        label:String(
-          item?.label ||
-          CONTEXT_LABELS[type] ||
-          type
-        ).trim(),
 
-        text:String(
-          item?.text ||
-          item?.description ||
-          item?.label ||
-          CONTEXT_LABELS[type] ||
-          ''
-        ).trim(),
+        label:
+          String(
+            item?.label ||
+            CONTEXT_LABELS[type] ||
+            type
+          ).trim(),
+
+        text:
+          String(
+            item?.text ||
+            item?.description ||
+            item?.label ||
+            CONTEXT_LABELS[type] ||
+            ''
+          ).trim(),
 
         points,
 
-        dedupeKey:String(
-          item?.dedupeKey ||
-          (
-            [
-              'former_captain_return',
-              'first_game_back',
-              'former_star_return'
-            ].includes(type)
-              ? 'former-team-return'
-              : [
-                  'championship_rematch',
-                  'playoff_rematch'
-                ].includes(type)
-                ? 'rematch'
-                : type
+        dedupeKey:
+          String(
+            item?.dedupeKey ||
+            (
+              [
+                'former_captain_return',
+                'first_game_back',
+                'former_star_return'
+              ].includes(type)
+                ? 'former-team-return'
+                : [
+                    'championship_rematch',
+                    'playoff_rematch'
+                  ].includes(type)
+                  ? 'rematch'
+                  : type
+            )
           )
-        )
       });
     }
 
@@ -878,7 +875,9 @@
     let reason =
       'Regular-season matchup · no extra stakes listed';
 
-    if (/world series/.test(detail)) {
+    if (
+      /world series/.test(detail)
+    ) {
       factors.push({
         label:'World Series',
         points:42
@@ -954,15 +953,16 @@
     const competitors =
       competition?.competitors || [];
 
-    /*
-     * NFL-specific pregame context.
-     */
     if (sport === 'NFL') {
       const division =
-        nflDivisionFor(competitors);
+        nflDivisionFor(
+          competitors
+        );
 
       const records =
-        competitors.map(recordStats);
+        competitors.map(
+          recordStats
+        );
 
       const knownRecords =
         records.length === 2 &&
@@ -1065,7 +1065,9 @@
       }
 
       const spread =
-        listedSpread(competition);
+        listedSpread(
+          competition
+        );
 
       if (
         spread !== null &&
@@ -1092,9 +1094,6 @@
       }
     }
 
-    /*
-     * MLB, NHL and NBA now get meaningful regular-season matchup scoring.
-     */
     if (
       ['MLB','NHL','NBA']
         .includes(sport)
@@ -1160,9 +1159,6 @@
       }
     }
 
-    /*
-     * College rankings.
-     */
     const ranks =
       ['CFB','NCAAB']
         .includes(sport)
@@ -1173,10 +1169,9 @@
                 item.team?.rank
               )
             )
-            .filter(
-              rank =>
-                rank > 0 &&
-                rank <= 25
+            .filter(rank =>
+              rank > 0 &&
+              rank <= 25
             )
         : [];
 
@@ -1225,11 +1220,10 @@
             );
 
         if (
-          records.every(
-            match =>
-              match &&
-              Number(match[1]) >
-              Number(match[2])
+          records.every(match =>
+            match &&
+            Number(match[1]) >
+            Number(match[2])
           )
         ) {
           factors.push({
@@ -1239,11 +1233,10 @@
         }
 
         if (
-          records.some(
-            match =>
-              match &&
-              Number(match[1]) >= 4 &&
-              Number(match[2]) === 0
+          records.some(match =>
+            match &&
+            Number(match[1]) >= 4 &&
+            Number(match[2]) === 0
           )
         ) {
           factors.push({
@@ -1255,7 +1248,9 @@
 
       reason +=
         ' · two ranked teams';
-    } else if (ranks.length === 1) {
+    } else if (
+      ranks.length === 1
+    ) {
       factors.push({
         label:'Ranked team',
         points:
@@ -1295,9 +1290,6 @@
         ' · rivalry';
     }
 
-    /*
-     * Verified qualitative context supplied by the enrichment layer.
-     */
     const contextFactors =
       pregameContextFactors(
         event,
@@ -1314,13 +1306,14 @@
     }
 
     return {
-      score:clampScore(
-        factors.reduce(
-          (sum,item) =>
-            sum + item.points,
-          0
-        )
-      ),
+      score:
+        clampScore(
+          factors.reduce(
+            (sum,item) =>
+              sum + item.points,
+            0
+          )
+        ),
       factors,
       reason,
       contextFactors
@@ -1336,7 +1329,7 @@
         status.period || 0
       );
 
-    const total = {
+    const total = ({
       NFL:4,
       CFB:4,
       NHL:3,
@@ -1345,27 +1338,73 @@
       MLB:9,
       Soccer:2,
       Tennis:3
-    }[sport] || 4;
+    })[sport] || 4;
 
     if (!period) {
       return 0;
     }
 
     if (sport === 'MLB') {
-      return Math.min(
-        1,
-        period / total
+      const detail =
+        String(
+          status.type?.detail ||
+          status.type?.shortDetail ||
+          ''
+        ).toLowerCase();
+
+      const half =
+        /bottom|bot\b/.test(detail)
+          ? .75
+          : /top\b/.test(detail)
+            ? .25
+            : .5;
+
+      return Math.max(
+        0,
+        Math.min(
+          1,
+          (
+            (period - 1) +
+            half
+          ) /
+          9
+        )
       );
     }
 
-    const length = {
+    if (sport === 'Tennis') {
+      const bestOf =
+        Number(
+          competition?.format?.regulation?.periods ||
+          competition?.format?.bestOf ||
+          total
+        ) ||
+        total;
+
+      return Math.max(
+        0,
+        Math.min(
+          .98,
+          (
+            (period - 1) +
+            .5
+          ) /
+          Math.max(
+            1,
+            bestOf
+          )
+        )
+      );
+    }
+
+    const length = ({
       NFL:15,
       CFB:15,
       NHL:20,
       NBA:12,
       NCAAB:20,
       Soccer:45
-    }[sport];
+    })[sport];
 
     const clock =
       String(
@@ -1398,9 +1437,189 @@
                 (length * 60)
               : .5
           )
-        ) / total
+        ) /
+        total
       )
     );
+  }
+
+  function normalizeWinProbability(value) {
+    if (
+      value === null ||
+      value === undefined ||
+      value === ''
+    ) {
+      return null;
+    }
+
+    let probability =
+      Number(value);
+
+    if (
+      !Number.isFinite(probability)
+    ) {
+      return null;
+    }
+
+    if (
+      probability > 1 &&
+      probability <= 100
+    ) {
+      probability /= 100;
+    }
+
+    return (
+      probability >= 0 &&
+      probability <= 1
+    )
+      ? probability
+      : null;
+  }
+
+  function winProbabilitySeries(summary) {
+    return (
+      summary?.winprobability ||
+      []
+    )
+      .map(item =>
+        normalizeWinProbability(
+          item?.homeWinPercentage ??
+          item?.homeWinProbability ??
+          item?.homeWinPct ??
+          item?.value
+        )
+      )
+      .filter(
+        value =>
+          value !== null
+      );
+  }
+
+  function winProbabilityImpact(summary,progress,state='live') {
+    if (state !== 'live') {
+      return {
+        points:0,
+        text:'',
+        probability:null,
+        uncertainty:null
+      };
+    }
+
+    const series =
+      winProbabilitySeries(summary);
+
+    if (!series.length) {
+      return {
+        points:0,
+        text:'',
+        probability:null,
+        uncertainty:null
+      };
+    }
+
+    const probability =
+      series.at(-1);
+
+    const uncertainty =
+      Math.max(
+        0,
+        1 -
+        2 *
+        Math.abs(
+          probability -
+          .5
+        )
+      );
+
+    const p =
+      Math.max(
+        0,
+        Math.min(
+          1,
+          Number(progress) || 0
+        )
+      );
+
+    const leverageWeight =
+      .35 +
+      .65 *
+      Math.pow(
+        p,
+        1.5
+      );
+
+    const bonus =
+      Math.round(
+        18 *
+        uncertainty *
+        leverageWeight
+      );
+
+    let penalty = 0;
+
+    if (
+      p >= .55 &&
+      uncertainty < .35
+    ) {
+      penalty =
+        Math.round(
+          (
+            (
+              .35 -
+              uncertainty
+            ) /
+            .35
+          ) *
+          12 *
+          (
+            .4 +
+            .6 * p
+          )
+        );
+    }
+
+    const points =
+      Math.max(
+        -14,
+        Math.min(
+          18,
+          bonus -
+          penalty
+        )
+      );
+
+    const pct =
+      Math.round(
+        probability *
+        100
+      );
+
+    let text = '';
+
+    if (
+      uncertainty >= .8
+    ) {
+      text =
+        `Win probability is nearly even (${pct}% / ${100-pct}%)`;
+    } else if (
+      uncertainty >= .55 &&
+      p >= .65
+    ) {
+      text =
+        `The outcome is still highly uncertain (${pct}% / ${100-pct}%)`;
+    } else if (
+      points < 0
+    ) {
+      text =
+        `Win probability is lopsided (${pct}% / ${100-pct}%) despite the current score`;
+    }
+
+    return {
+      points,
+      text,
+      probability,
+      uncertainty
+    };
   }
 
   function momentumImpact(
@@ -1409,7 +1628,9 @@
     progress,
     state
   ) {
-    if (state === 'upcoming') {
+    if (
+      state === 'upcoming'
+    ) {
       return {
         points:0,
         text:'',
@@ -1451,7 +1672,12 @@
                       period,
                       displayClock:
                         play.clock?.displayValue ||
-                        ''
+                        '',
+                      type:{
+                        detail:
+                          play.period?.displayValue ||
+                          ''
+                      }
                     }
                   }
                 )
@@ -1475,7 +1701,7 @@
             (b.position ?? 0)
         );
 
-    const threshold = {
+    const threshold = ({
       NFL:7,
       CFB:10,
       NHL:2,
@@ -1484,9 +1710,9 @@
       NCAAB:10,
       Soccer:2,
       Tennis:2
-    }[sport] || 7;
+    })[sport] || 7;
 
-    const units = {
+    const units = ({
       NFL:'points',
       CFB:'points',
       NHL:'goals',
@@ -1495,12 +1721,13 @@
       NCAAB:'points',
       Soccer:'goals',
       Tennis:'sets'
-    }[sport] || 'points';
+    })[sport] || 'points';
 
     const competitors =
       summary?.header
         ?.competitions?.[0]
-        ?.competitors || [];
+        ?.competitors ||
+      [];
 
     const nameFor =
       side =>
@@ -1523,7 +1750,10 @@
         ? 1
         : Math.max(
             0,
-            Number(progress) || 0
+            Math.min(
+              1,
+              Number(progress) || 0
+            )
           );
 
     let previousLeader = 0;
@@ -1571,7 +1801,8 @@
       ) {
         comeback = {
           side:'home',
-          deficit:deepestHomeDeficit
+          deficit:
+            deepestHomeDeficit
         };
       }
 
@@ -1586,7 +1817,8 @@
       ) {
         comeback = {
           side:'away',
-          deficit:deepestAwayDeficit
+          deficit:
+            deepestAwayDeficit
         };
       }
 
@@ -1631,7 +1863,9 @@
             : '';
 
       if (scorer) {
-        if (runSide !== scorer) {
+        if (
+          runSide !== scorer
+        ) {
           runSide = scorer;
           runPoints = 0;
           runCount = 0;
@@ -1663,13 +1897,14 @@
       const points =
         state === 'live'
           ? Math.min(
-              8,
+              7,
               flipPositions.reduce(
                 (sum,position) =>
                   sum +
                   (
                     position >=
-                    currentProgress - .25
+                    currentProgress -
+                    .2
                       ? 3
                       : 1
                   ),
@@ -1695,14 +1930,16 @@
     if (comeback) {
       factors.push({
         label:'Erased a large deficit',
-        points:Math.min(
-          8,
-          4 +
-          Math.floor(
-            comeback.deficit /
-            threshold
-          ) * 2
-        )
+        points:
+          Math.min(
+            8,
+            4 +
+            Math.floor(
+              comeback.deficit /
+              threshold
+            ) *
+            2
+          )
       });
 
       details.push(
@@ -1713,7 +1950,7 @@
     if (
       lastFlip >= .65 &&
       currentProgress -
-      lastFlip <= .18
+      lastFlip <= .16
     ) {
       factors.push({
         label:'Recent late lead change',
@@ -1726,8 +1963,7 @@
     }
 
     const latestPosition =
-      moments.at(-1)
-        ?.position ??
+      moments.at(-1)?.position ??
       null;
 
     if (
@@ -1736,7 +1972,7 @@
       runPoints >= threshold &&
       latestPosition !== null &&
       currentProgress -
-      latestPosition <= .12
+      latestPosition <= .1
     ) {
       factors.push({
         label:'Recent unanswered scoring run',
@@ -1750,7 +1986,7 @@
 
     if (
       moments.length >= 3 &&
-      currentProgress >= .45
+      currentProgress >= .4
     ) {
       let competitiveTime = 0;
       let priorPosition = 0;
@@ -1805,12 +2041,18 @@
       if (
         competitiveShare >= .55
       ) {
+        const points =
+          state === 'completed'
+            ? (
+                competitiveShare >= .75
+                  ? 7
+                  : 5
+              )
+            : 3;
+
         factors.push({
           label:'Sustained competitive game',
-          points:
-            state === 'completed'
-              ? 6
-              : 4
+          points
         });
 
         details.push(
@@ -1820,18 +2062,9 @@
     }
 
     const winChances =
-      (summary?.winprobability || [])
-        .map(item =>
-          Number(
-            item.homeWinPercentage
-          )
-        )
-        .filter(
-          value =>
-            Number.isFinite(value) &&
-            value >= 0 &&
-            value <= 1
-        );
+      winProbabilitySeries(
+        summary
+      );
 
     let strongestSwing = {
       size:0,
@@ -1846,7 +2079,10 @@
     ) {
       for (
         let start =
-          Math.max(0,end - 10);
+          Math.max(
+            0,
+            end - 10
+          );
         start < end;
         start++
       ) {
@@ -1859,7 +2095,8 @@
           strongestSwing.size
         ) {
           strongestSwing = {
-            size:Math.abs(change),
+            size:
+              Math.abs(change),
             end,
             direction:
               Math.sign(change)
@@ -1873,16 +2110,19 @@
     ) {
       const points =
         Math.min(
-          8,
+          state === 'completed'
+            ? 9
+            : 7,
           Math.round(
             strongestSwing.size *
-            16
+            15
           ) +
           (
             state === 'live' &&
             strongestSwing.end >=
-            winChances.length - 12
-              ? 2
+            winChances.length -
+            10
+              ? 1
               : 0
           )
         );
@@ -1893,24 +2133,105 @@
       });
 
       details.push(
-        `${possessive(
-          nameFor(
-            strongestSwing.direction > 0
-              ? 'home'
-              : 'away'
-          )
-        )} estimated win chance swung by ${Math.round(strongestSwing.size * 100)} percentage points`
+        `${possessive(nameFor(strongestSwing.direction > 0 ? 'home' : 'away'))} estimated win chance swung by ${Math.round(strongestSwing.size * 100)} percentage points`
       );
     }
 
-    let remaining = 20;
+    if (
+      state === 'completed' &&
+      winChances.length >= 8
+    ) {
+      const uncertainties =
+        winChances.map(
+          probability =>
+            1 -
+            2 *
+            Math.abs(
+              probability -
+              .5
+            )
+        );
+
+      const averageUncertainty =
+        uncertainties.reduce(
+          (sum,value) =>
+            sum + value,
+          0
+        ) /
+        uncertainties.length;
+
+      const lateSlice =
+        uncertainties.slice(
+          Math.max(
+            0,
+            Math.floor(
+              uncertainties.length *
+              .75
+            )
+          )
+        );
+
+      const lateUncertainty =
+        lateSlice.length
+          ? lateSlice.reduce(
+              (sum,value) =>
+                sum + value,
+              0
+            ) /
+            lateSlice.length
+          : 0;
+
+      if (
+        averageUncertainty >= .58
+      ) {
+        factors.push({
+          label:'Competitive throughout',
+          points:6
+        });
+
+        details.push(
+          'win probability stayed balanced for much of the game'
+        );
+      } else if (
+        averageUncertainty >= .45
+      ) {
+        factors.push({
+          label:'Competitive for much of game',
+          points:4
+        });
+      }
+
+      if (
+        lateUncertainty >= .65
+      ) {
+        factors.push({
+          label:'High late uncertainty',
+          points:5
+        });
+
+        details.push(
+          'the outcome remained highly uncertain late'
+        );
+      }
+    }
+
+    const cap =
+      state === 'completed'
+        ? 25
+        : 15;
+
+    let remaining =
+      cap;
 
     const cappedFactors =
       factors
         .map(factor => {
           const points =
             Math.min(
-              factor.points,
+              Math.max(
+                0,
+                factor.points
+              ),
               remaining
             );
 
@@ -1929,7 +2250,8 @@
 
     return {
       points:
-        20 - remaining,
+        cap -
+        remaining,
 
       text:
         details
@@ -1945,11 +2267,7 @@
     };
   }
 
-  function underdogCandidate(
-    sport,
-    competition,
-    raw
-  ) {
+  function underdogCandidate(sport,competition,raw) {
     if (
       !raw ||
       !competition?.competitors ||
@@ -2010,23 +2328,25 @@
         })
         .filter(Boolean);
 
-    if (sides.length !== 2) {
+    if (
+      sides.length !== 2
+    ) {
       return null;
     }
 
-    const spreadMinimum = {
+    const spreadMinimum = ({
       NFL:7,
       CFB:10,
       NBA:8,
       NCAAB:8
-    }[sport];
+    })[sport];
 
-    const moneylineMinimum = {
+    const moneylineMinimum = ({
       MLB:180,
       NHL:180,
       Soccer:250,
       Tennis:180
-    }[sport];
+    })[sport];
 
     let pick =
       spreadMinimum
@@ -2127,25 +2447,24 @@
         );
 
     return {
-      side:pick.side,
+      side:
+        pick.side,
 
-      teamId:String(
-        pick.competitor.team?.id ||
-        pick.competitor.id ||
-        ''
-      ),
+      teamId:
+        String(
+          pick.competitor.team?.id ||
+          pick.competitor.id ||
+          ''
+        ),
 
       teamIndex,
 
       teamName:
-        pick.competitor.team
-          ?.displayName ||
-        pick.competitor.team
-          ?.name ||
+        pick.competitor.team?.displayName ||
+        pick.competitor.team?.name ||
         'The underdog',
 
       type,
-
       value,
 
       strength:
@@ -2189,15 +2508,14 @@
     }
 
     const index =
-      teams.findIndex(
-        team =>
-          candidate.teamId &&
-          String(
-            team.id ||
-            team[8] ||
-            ''
-          ) ===
-          candidate.teamId
+      teams.findIndex(team =>
+        candidate.teamId &&
+        String(
+          team.id ||
+          team[8] ||
+          ''
+        ) ===
+        candidate.teamId
       );
 
     const teamIndex =
@@ -2224,8 +2542,8 @@
 
     const other =
       Number(
-        teams[1 - teamIndex].score ??
-        teams[1 - teamIndex][2]
+        teams[1-teamIndex].score ??
+        teams[1-teamIndex][2]
       );
 
     if (
@@ -2242,14 +2560,19 @@
       score -
       other;
 
-    if (gameState === 'completed') {
+    if (
+      gameState === 'completed'
+    ) {
       return margin > 0
         ? {
             points:
-              20 +
-              Math.round(
-                5 *
-                candidate.strength
+              Math.min(
+                22,
+                18 +
+                Math.round(
+                  4 *
+                  candidate.strength
+                )
               ),
 
             text:
@@ -2267,13 +2590,17 @@
     ) {
       return {
         points:
-          8 +
-          Math.round(
-            8 * progress
-          ) +
-          Math.round(
-            5 *
-            candidate.strength
+          Math.min(
+            18,
+            7 +
+            Math.round(
+              7 *
+              progress
+            ) +
+            Math.round(
+              4 *
+              candidate.strength
+            )
           ),
 
         text:
@@ -2287,13 +2614,17 @@
     ) {
       return {
         points:
-          4 +
-          Math.round(
-            6 * progress
-          ) +
-          Math.round(
-            3 *
-            candidate.strength
+          Math.min(
+            12,
+            4 +
+            Math.round(
+              5 *
+              progress
+            ) +
+            Math.round(
+              2 *
+              candidate.strength
+            )
           ),
 
         text:
@@ -2307,17 +2638,88 @@
     };
   }
 
+  function contextCarryWeight(
+    progress,
+    gameState
+  ) {
+    if (
+      gameState === 'completed'
+    ) {
+      return .05;
+    }
+
+    const p =
+      Math.max(
+        0,
+        Math.min(
+          1,
+          Number(progress) || 0
+        )
+      );
+
+    const anchors = [
+      [0,.38],
+      [.25,.30],
+      [.5,.20],
+      [.75,.12],
+      [.9,.08],
+      [1,.06]
+    ];
+
+    for (
+      let i = 1;
+      i < anchors.length;
+      i++
+    ) {
+      if (
+        p <= anchors[i][0]
+      ) {
+        const [
+          x0,
+          y0
+        ] = anchors[i-1];
+
+        const [
+          x1,
+          y1
+        ] = anchors[i];
+
+        const t =
+          (
+            p -
+            x0
+          ) /
+          (
+            x1 -
+            x0
+          );
+
+        return (
+          y0 +
+          (
+            y1 -
+            y0
+          ) *
+          t
+        );
+      }
+    }
+
+    return .06;
+  }
+
   function stateRating(
     openingScore,
     sport,
     gameState,
     gap,
-    progress
+    progress,
+    homeWinProbability=null
   ) {
     const closeLimit =
       CLOSE_MARGIN[sport] || 10;
 
-    const close =
+    const marginClose =
       gap === null
         ? 0
         : Math.max(
@@ -2327,14 +2729,35 @@
             closeLimit
           );
 
-    const contextWeight =
-      gameState === 'completed'
-        ? .22
-        : Math.max(
-            .26,
-            .44 -
-            .18 * progress
+    const probability =
+      normalizeWinProbability(
+        homeWinProbability
+      );
+
+    const uncertainty =
+      probability === null
+        ? null
+        : 1 -
+          2 *
+          Math.abs(
+            probability -
+            .5
           );
+
+    const close =
+      uncertainty === null ||
+      gameState === 'completed'
+        ? marginClose
+        : .3 *
+          marginClose +
+          .7 *
+          uncertainty;
+
+    const contextWeight =
+      contextCarryWeight(
+        progress,
+        gameState
+      );
 
     const contextPoints =
       Math.round(
@@ -2344,14 +2767,21 @@
 
     const stateBase =
       gameState === 'completed'
-        ? 24
-        : 14;
+        ? 18
+        : 12;
 
     const closeCeiling =
       gameState === 'completed'
-        ? 42
-        : 16 +
-          24 * progress;
+        ? 24
+        : 14 +
+          16 *
+          Math.max(
+            0,
+            Math.min(
+              1,
+              progress
+            )
+          );
 
     const closePoints =
       Math.round(
@@ -2364,8 +2794,9 @@
         ? 0
         : Math.round(
             (
-              3 +
-              7 * progress
+              2 +
+              5 *
+              progress
             ) *
             close
           );
@@ -2375,13 +2806,13 @@
       gap >= closeLimit &&
       progress > .3
         ? Math.min(
-            24,
+            28,
             Math.round(
               (
                 gap /
                 closeLimit
               ) *
-              12 *
+              13 *
               progress
             )
           )
@@ -2404,7 +2835,9 @@
         label:
           gameState === 'completed'
             ? 'Final margin'
-            : 'Score closeness and leverage',
+            : uncertainty === null
+              ? 'Score closeness and leverage'
+              : 'Outcome uncertainty and score closeness',
         points:closePoints
       });
     }
@@ -2424,17 +2857,20 @@
     }
 
     return {
-      score:clampScore(
-        factors.reduce(
-          (sum,item) =>
-            sum + item.points,
-          0
-        )
-      ),
+      score:
+        clampScore(
+          factors.reduce(
+            (sum,item) =>
+              sum + item.points,
+            0
+          )
+        ),
 
       factors,
       closePoints,
-      widePenalty
+      widePenalty,
+      contextWeight,
+      uncertainty
     };
   }
 
@@ -2466,7 +2902,8 @@
     ) {
       return {
         ...opening,
-        openingScore:opening.score,
+        openingScore:
+          opening.score,
         underdog:null,
         upsetText:'',
         upsetPoints:0
@@ -2498,10 +2935,6 @@
             competition
           );
 
-    /*
-     * Once play starts, actual game state matters more than reputation.
-     * A marquee matchup cannot remain near the top if it turns into a blowout.
-     */
     const stateValue =
       stateRating(
         opening.score,
@@ -2578,7 +3011,9 @@
             ? 'set'
             : 'point';
 
-    if (gameState === 'live') {
+    if (
+      gameState === 'live'
+    ) {
       reason =
         gap === 0
           ? `Tied ${teams[0].score}–${teams[1].score}${progress > .65 ? ' late' : ''}`
@@ -2635,10 +3070,7 @@
     }`;
   }
 
-  function livePhase(
-    sport,
-    status
-  ) {
+  function livePhase(sport,status) {
     const detail =
       String(
         status?.type?.detail ||
@@ -2651,14 +3083,19 @@
         status?.period || 0
       );
 
-    if (sport === 'MLB') {
+    if (
+      sport === 'MLB'
+    ) {
       const half =
         detail.match(
           /\b(top|bottom|bot)\b/i
         )?.[1] ||
         status?.inningHalf;
 
-      return half && period
+      return (
+        half &&
+        period
+      )
         ? `${/^bot/i.test(half) ? 'Bottom' : 'Top'} ${ordinal(period)}`
         : detail ||
           (
@@ -2666,6 +3103,19 @@
               ? `${ordinal(period)} inning`
               : 'Live'
           );
+    }
+
+    if (
+      sport === 'Tennis'
+    ) {
+      return (
+        detail ||
+        (
+          period
+            ? `${ordinal(period)} set`
+            : 'Live'
+        )
+      );
     }
 
     if (
@@ -2742,7 +3192,548 @@
       : Boolean(value);
   }
 
-  function hockeyPowerPlay(
+  function clockSeconds(status) {
+    const match =
+      String(
+        status?.displayClock || ''
+      ).match(
+        /^(\d+):(\d+)/
+      );
+
+    return match
+      ? Number(match[1]) * 60 +
+        Number(match[2])
+      : null;
+  }
+
+  function footballFieldPosition(
+    game,
+    holder,
+    spot,
+    downText
+  ) {
+    const text =
+      `${spot || ''} ${downText || ''}`
+        .toUpperCase();
+
+    const match =
+      text.match(
+        /\b([A-Z]{2,4})\s+(\d{1,2})\b/
+      );
+
+    if (!match) {
+      return /\b50\b/.test(text)
+        ? 50
+        : null;
+    }
+
+    const code =
+      match[1];
+
+    const yard =
+      Number(match[2]);
+
+    if (
+      !Number.isFinite(yard) ||
+      yard < 0 ||
+      yard > 50
+    ) {
+      return null;
+    }
+
+    const holderAbbr =
+      String(
+        holder?.[1] || ''
+      ).toUpperCase();
+
+    return code === holderAbbr
+      ? yard
+      : 100 - yard;
+  }
+
+  function footballSituationImpact(
+    game,
+    competition,
+    status,
+    situation,
+    progress,
+    scoreGap
+  ) {
+    const possessionId =
+      String(
+        situation.possession?.id ||
+        situation.possession ||
+        ''
+      );
+
+    const holder =
+      game.teams.find(team =>
+        String(
+          team[8] || ''
+        ) ===
+        possessionId
+      );
+
+    const down =
+      Number(
+        situation.down
+      );
+
+    const distance =
+      Number(
+        situation.distance
+      );
+
+    const downText =
+      String(
+        situation.downDistanceText ||
+        situation.shortDownDistanceText ||
+        (
+          down >= 1 &&
+          down <= 4
+            ? `${ordinal(down)} & ${Number.isFinite(distance) ? distance : 'goal'}`
+            : ''
+        )
+      ).trim();
+
+    const spot =
+      String(
+        situation.possessionText ||
+        ''
+      ).trim();
+
+    const redZone =
+      situation.isRedZone === true ||
+      (
+        /\b(?:[A-Z]{2,4}\s)?(?:[1-9]|1\d|20)\b/
+          .test(spot) &&
+        /red zone/i
+          .test(
+            String(
+              situation.shortText ||
+              situation.text ||
+              ''
+            )
+          )
+      );
+
+    const goalToGo =
+      situation.isGoalToGo === true ||
+      /&\s*goal/i
+        .test(downText);
+
+    const fieldPosition =
+      footballFieldPosition(
+        game,
+        holder,
+        spot,
+        downText
+      );
+
+    const lateOneScore =
+      progress >= .72 &&
+      scoreGap <= 8;
+
+    let points = 0;
+    const reasons = [];
+
+    if (redZone) {
+      points +=
+        lateOneScore
+          ? 4
+          : 2;
+
+      reasons.push(
+        `${holder?.[0] || 'The offense'} is in the red zone`
+      );
+    }
+
+    if (
+      down === 4 &&
+      downText
+    ) {
+      let fourth = 2;
+
+      if (
+        Number.isFinite(distance) &&
+        distance <= 2
+      ) {
+        fourth += 2;
+      }
+
+      if (lateOneScore) {
+        fourth += 3;
+      }
+
+      if (redZone) {
+        fourth += 1;
+      } else if (
+        fieldPosition !== null &&
+        fieldPosition >= 70
+      ) {
+        fourth += 1;
+      }
+
+      if (goalToGo) {
+        fourth += 2;
+      }
+
+      if (
+        progress >= .9 &&
+        lateOneScore
+      ) {
+        fourth += 2;
+      }
+
+      fourth =
+        Math.min(
+          10,
+          fourth
+        );
+
+      points +=
+        fourth;
+
+      reasons.push(
+        `${downText} is a pivotal down`
+      );
+    }
+
+    const seconds =
+      clockSeconds(status);
+
+    if (
+      !redZone &&
+      fieldPosition !== null &&
+      fieldPosition >= 80 &&
+      scoreGap <= 8
+    ) {
+      points += 2;
+
+      reasons.push(
+        `${holder?.[0] || 'The offense'} is deep in opponent territory`
+      );
+    }
+
+    if (lateOneScore) {
+      points +=
+        progress >= .9
+          ? 4
+          : 2;
+
+      reasons.push(
+        `It is a one-possession game late in the ${Number(status?.period) >= 4 ? 'fourth quarter' : 'game'}`
+      );
+    }
+
+    if (
+      seconds !== null &&
+      Number(status?.period) >= 4 &&
+      seconds <= 120 &&
+      scoreGap <= 8
+    ) {
+      points += 2;
+
+      reasons.push(
+        'The game is in a two-minute decision window'
+      );
+    }
+
+    return {
+      points:
+        Math.min(
+          12,
+          points
+        ),
+
+      note:
+        [
+          holder
+            ? `${holder[1] || holder[0]} ball`
+            : '',
+          downText,
+          spot &&
+          !downText.includes(spot)
+            ? spot
+            : ''
+        ]
+          .filter(Boolean)
+          .join(' · '),
+
+      reasons
+    };
+  }
+
+  function sideScores(
+    game,
+    competition
+  ) {
+    const byId =
+      new Map(
+        game.teams.map(
+          team => [
+            String(
+              team[8] || ''
+            ),
+            Number(team[2])
+          ]
+        )
+      );
+
+    const result = {};
+
+    for (
+      const item of
+      competition?.competitors ||
+      []
+    ) {
+      const side =
+        item.homeAway;
+
+      const id =
+        String(
+          item.team?.id ||
+          item.id ||
+          ''
+        );
+
+      const direct =
+        Number(
+          item.score
+        );
+
+      const fallback =
+        byId.get(id);
+
+      if (side) {
+        result[side] =
+          Number.isFinite(direct)
+            ? direct
+            : fallback;
+      }
+    }
+
+    return result;
+  }
+
+  function baseballSituationImpact(
+    game,
+    competition,
+    status,
+    situation,
+    progress,
+    scoreGap
+  ) {
+    const bases = {
+      first:
+        runnerOn(
+          situation,
+          'First'
+        ),
+      second:
+        runnerOn(
+          situation,
+          'Second'
+        ),
+      third:
+        runnerOn(
+          situation,
+          'Third'
+        )
+    };
+
+    const occupied =
+      Object.entries(bases)
+        .filter(
+          ([,value]) =>
+            value
+        )
+        .map(
+          ([base]) =>
+            base
+        );
+
+    const outs =
+      Number(
+        situation.outs
+      );
+
+    const hasOuts =
+      situation.outs !== undefined &&
+      situation.outs !== null &&
+      Number.isInteger(outs) &&
+      outs >= 0 &&
+      outs <= 2;
+
+    const inning =
+      Number(
+        status?.period || 0
+      );
+
+    const detail =
+      String(
+        status?.type?.detail ||
+        status?.type?.shortDetail ||
+        ''
+      ).toLowerCase();
+
+    const half =
+      /bottom|bot\b/.test(detail)
+        ? 'bottom'
+        : /top\b/.test(detail)
+          ? 'top'
+          : '';
+
+    const battingSide =
+      half === 'bottom'
+        ? 'home'
+        : half === 'top'
+          ? 'away'
+          : '';
+
+    const scores =
+      sideScores(
+        game,
+        competition
+      );
+
+    const battingScore =
+      battingSide
+        ? Number(
+            scores[battingSide]
+          )
+        : NaN;
+
+    const fieldingScore =
+      battingSide
+        ? Number(
+            scores[
+              battingSide === 'home'
+                ? 'away'
+                : 'home'
+            ]
+          )
+        : NaN;
+
+    const differential =
+      Number.isFinite(battingScore) &&
+      Number.isFinite(fieldingScore)
+        ? battingScore -
+          fieldingScore
+        : null;
+
+    let points = 0;
+    const reasons = [];
+
+    if (occupied.length) {
+      const occupiedText =
+        occupied.length === 3
+          ? `${occupied[0]}, ${occupied[1]}, and ${occupied[2]}`
+          : occupied.join(' and ');
+
+      reasons.push(
+        `Runners on ${occupiedText}`
+      );
+    }
+
+    if (
+      occupied.length === 3
+    ) {
+      points +=
+        inning >= 7
+          ? 4
+          : 2;
+
+      reasons.push(
+        'The bases are loaded'
+      );
+    }
+
+    if (
+      (
+        bases.second ||
+        bases.third
+      ) &&
+      inning >= 7 &&
+      scoreGap <= 2
+    ) {
+      points +=
+        inning >= 9
+          ? 6
+          : 4;
+
+      reasons.push(
+        'The tying or go-ahead run is in scoring position late'
+      );
+    }
+
+    if (
+      bases.third &&
+      inning >= 9 &&
+      scoreGap <= 1
+    ) {
+      points += 2;
+
+      reasons.push(
+        'A critical run is 90 feet away'
+      );
+    }
+
+    if (
+      half === 'bottom' &&
+      inning >= 9 &&
+      differential === 0
+    ) {
+      points += 7;
+
+      reasons.push(
+        'The home team has a walk-off opportunity'
+      );
+    } else if (
+      half === 'bottom' &&
+      inning >= 9 &&
+      differential === -1 &&
+      occupied.length
+    ) {
+      points += 5;
+
+      reasons.push(
+        'The tying run is on base in the bottom of the ninth or later'
+      );
+    }
+
+    if (
+      hasOuts &&
+      outs === 2 &&
+      occupied.length &&
+      inning >= 7 &&
+      scoreGap <= 2
+    ) {
+      points += 2;
+
+      reasons.push(
+        'The inning has reached a two-out pressure spot'
+      );
+    }
+
+    return {
+      points:
+        Math.min(
+          12,
+          points
+        ),
+
+      note:
+        hasOuts
+          ? `${outs} ${outs === 1 ? 'out' : 'outs'}`
+          : '',
+
+      reasons,
+      bases
+    };
+  }
+
+  function hockeyOnIceState(
     summary,
     teams
   ) {
@@ -2750,10 +3741,12 @@
       summary?.onIce || [];
 
     const blocks =
-      summary?.boxscore
-        ?.players || [];
+      summary?.boxscore?.players ||
+      [];
 
-    if (onIce.length !== 2) {
+    if (
+      onIce.length !== 2
+    ) {
       return null;
     }
 
@@ -2788,96 +3781,514 @@
       );
 
     const sides =
-      onIce.map(side => ({
-        id:String(
-          side.teamId || ''
-        ),
+      onIce.map(side => {
+        const id =
+          String(
+            side.teamId ||
+            side.team?.id ||
+            ''
+          );
 
-        count:
-          (side.entries || [])
-            .length,
+        const entries =
+          side.entries || [];
 
-        hasGoalie:
-          (side.entries || [])
-            .some(entry =>
-              goalieIds
-                .get(
-                  String(
-                    side.teamId ||
-                    ''
-                  )
-                )
-                ?.has(
-                  String(
-                    entry.athleteid ||
-                    ''
-                  )
-                )
+        const goalies =
+          goalieIds.get(id) ||
+          new Set();
+
+        const hasGoalie =
+          entries.some(entry =>
+            goalies.has(
+              String(
+                entry.athleteid ||
+                entry.athleteId ||
+                entry.athlete?.id ||
+                ''
+              )
             )
-      }));
+          );
+
+        return {
+          id,
+          count:
+            entries.length,
+          hasGoalie,
+          name:
+            teams.find(team =>
+              String(
+                team[8] || ''
+              ) === id
+            )?.[0] ||
+            'A team'
+        };
+      });
+
+    let powerPlayTeam = null;
+    let powerPlayAdvantage = 0;
+    let pulledGoalieTeam = null;
 
     if (
-      !sides.every(
+      sides.every(
         side =>
           side.hasGoalie
-      ) ||
-      sides[0].count ===
-      sides[1].count ||
-      Math.max(
-        ...sides.map(
-          side =>
-            side.count
-        )
-      ) !== 6 ||
-      Math.min(
-        ...sides.map(
-          side =>
-            side.count
-        )
-      ) < 4
+      ) &&
+      sides[0].count !==
+      sides[1].count
     ) {
-      return null;
+      const high =
+        sides[0].count >
+        sides[1].count
+          ? sides[0]
+          : sides[1];
+
+      const low =
+        high === sides[0]
+          ? sides[1]
+          : sides[0];
+
+      powerPlayTeam =
+        high.name;
+
+      powerPlayAdvantage =
+        high.count -
+        low.count;
     }
 
-    const advantaged =
-      sides.find(
-        side =>
-          side.count === 6
+    const noGoalie =
+      sides.find(side =>
+        !side.hasGoalie &&
+        side.count >= 5
+      );
+
+    const withGoalie =
+      sides.find(side =>
+        side.hasGoalie
+      );
+
+    if (
+      noGoalie &&
+      withGoalie
+    ) {
+      pulledGoalieTeam =
+        noGoalie.name;
+    }
+
+    return {
+      sides,
+      powerPlayTeam,
+      powerPlayAdvantage,
+      pulledGoalieTeam
+    };
+  }
+
+  function hockeyPowerPlay(
+    summary,
+    teams
+  ) {
+    const state =
+      hockeyOnIceState(
+        summary,
+        teams
       );
 
     return (
-      teams.find(
-        team =>
-          String(
-            team[8] || ''
-          ) ===
-          advantaged.id
-      )?.[0] ||
+      state?.powerPlayTeam ||
       null
     );
+  }
+
+  function hockeySituationImpact(
+    game,
+    competition,
+    summary,
+    status,
+    progress,
+    scoreGap
+  ) {
+    const state =
+      summary
+        ? hockeyOnIceState(
+            summary,
+            game.teams
+          )
+        : null;
+
+    let points = 0;
+    let note = '';
+
+    const reasons = [];
+
+    if (
+      state?.powerPlayTeam
+    ) {
+      points +=
+        state.powerPlayAdvantage >= 2
+          ? 6
+          : 4;
+
+      note =
+        `${state.powerPlayTeam} power play`;
+
+      reasons.push(
+        state.powerPlayAdvantage >= 2
+          ? `${state.powerPlayTeam} has a two-skater advantage`
+          : `${state.powerPlayTeam} is on the power play`
+      );
+    }
+
+    if (
+      state?.pulledGoalieTeam
+    ) {
+      points +=
+        scoreGap <= 1
+          ? 7
+          : 4;
+
+      note =
+        `${state.pulledGoalieTeam} goalie pulled`;
+
+      reasons.push(
+        `${state.pulledGoalieTeam} pulled the goalie for an extra attacker`
+      );
+    }
+
+    if (
+      progress >= .82 &&
+      scoreGap <= 1
+    ) {
+      points +=
+        progress >= .93
+          ? 6
+          : 4;
+
+      reasons.push(
+        'It is a one-goal game late in the third period'
+      );
+    }
+
+    const detail =
+      String(
+        status?.type?.detail ||
+        status?.type?.shortDetail ||
+        ''
+      );
+
+    if (
+      /shootout/i.test(detail)
+    ) {
+      points += 10;
+
+      reasons.push(
+        'The game is in a shootout'
+      );
+    } else if (
+      Number(
+        status?.period
+      ) > 3 ||
+      /overtime|\bOT\b/i
+        .test(detail)
+    ) {
+      points += 8;
+
+      reasons.push(
+        'The game is in overtime'
+      );
+    }
+
+    return {
+      points:
+        Math.min(
+          12,
+          points
+        ),
+      note,
+      reasons
+    };
+  }
+
+  function basketballSituationImpact(
+    game,
+    status,
+    progress,
+    scoreGap,
+    situation={}
+  ) {
+    let points = 0;
+    const reasons = [];
+
+    const seconds =
+      clockSeconds(status);
+
+    const regulationPeriods =
+      game.sport === 'NCAAB'
+        ? 2
+        : 4;
+
+    const possessionId =
+      String(
+        situation.possession?.id ||
+        situation.possession ||
+        ''
+      );
+
+    const holderIndex =
+      possessionId
+        ? game.teams.findIndex(team =>
+            String(
+              team[8] || ''
+            ) ===
+            possessionId
+          )
+        : -1;
+
+    const holder =
+      holderIndex >= 0
+        ? game.teams[holderIndex]
+        : null;
+
+    const other =
+      holderIndex >= 0
+        ? game.teams[1-holderIndex]
+        : null;
+
+    const holderScore =
+      holder
+        ? Number(holder[2])
+        : NaN;
+
+    const otherScore =
+      other
+        ? Number(other[2])
+        : NaN;
+
+    if (
+      progress >= .78 &&
+      scoreGap <= 6
+    ) {
+      if (
+        scoreGap === 0
+      ) {
+        points +=
+          progress >= .9
+            ? 9
+            : 6;
+      } else if (
+        scoreGap <= 3
+      ) {
+        points +=
+          progress >= .9
+            ? 7
+            : 5;
+      } else {
+        points += 3;
+      }
+
+      reasons.push(
+        scoreGap === 0
+          ? 'The game is tied late'
+          : `It is a ${scoreGap}-point game late`
+      );
+    }
+
+    if (
+      seconds !== null &&
+      Number(status?.period) >=
+      regulationPeriods &&
+      seconds <= 24 &&
+      scoreGap <= 3
+    ) {
+      if (
+        holder &&
+        Number.isFinite(holderScore) &&
+        Number.isFinite(otherScore) &&
+        holderScore <= otherScore
+      ) {
+        points += 5;
+
+        reasons.push(
+          `${holder[0]} has a potential tying or go-ahead final possession`
+        );
+      } else {
+        points += 3;
+
+        reasons.push(
+          'The game may come down to the final possession'
+        );
+      }
+    }
+
+    if (
+      Number(status?.period) >
+      regulationPeriods
+    ) {
+      points += 6;
+
+      reasons.push(
+        'The game is in overtime'
+      );
+    }
+
+    return {
+      points:
+        Math.min(
+          12,
+          points
+        ),
+
+      note:
+        holder
+          ? `${holder[1] || holder[0]} possession`
+          : '',
+
+      reasons
+    };
+  }
+
+  function tennisSituationImpact(
+    game,
+    competition,
+    summary,
+    status,
+    progress
+  ) {
+    const situation =
+      competition?.situation ||
+      summary?.header
+        ?.competitions?.[0]
+        ?.situation ||
+      summary?.situation ||
+      {};
+
+    const text =
+      [
+        status?.type?.detail,
+        status?.type?.shortDetail,
+        situation?.displayValue,
+        situation?.description,
+        situation?.pointScore,
+        situation?.score
+      ]
+        .filter(Boolean)
+        .join(' ');
+
+    let points = 0;
+    const reasons = [];
+
+    if (
+      situation.matchPoint === true ||
+      situation.isMatchPoint === true ||
+      /match point/i
+        .test(text)
+    ) {
+      points += 12;
+
+      reasons.push(
+        'The match is at match point'
+      );
+    } else if (
+      situation.setPoint === true ||
+      situation.isSetPoint === true ||
+      /set point/i
+        .test(text)
+    ) {
+      points += 7;
+
+      reasons.push(
+        'The current set is at set point'
+      );
+    }
+
+    if (
+      situation.breakPoint === true ||
+      situation.isBreakPoint === true ||
+      /break point/i
+        .test(text)
+    ) {
+      points += 5;
+
+      reasons.push(
+        'A break point is in progress'
+      );
+    }
+
+    if (
+      situation.tiebreak === true ||
+      situation.isTiebreak === true ||
+      /tie.?break/i
+        .test(text)
+    ) {
+      points +=
+        progress >= .65
+          ? 8
+          : 5;
+
+      reasons.push(
+        'The match is in a tiebreak'
+      );
+    }
+
+    if (
+      /\bdeuce\b/i
+        .test(text)
+    ) {
+      points += 3;
+
+      reasons.push(
+        'The current game is at deuce'
+      );
+    }
+
+    if (
+      progress >= .75 &&
+      /deciding|final set|fifth set|third set/i
+        .test(text)
+    ) {
+      points += 5;
+
+      reasons.push(
+        'The match is deep in a deciding set'
+      );
+    }
+
+    return {
+      points:
+        Math.min(
+          12,
+          points
+        ),
+
+      note:
+        text.slice(
+          0,
+          80
+        ),
+
+      reasons
+    };
   }
 
   function noHitBid(summary) {
     const competitors =
       summary?.header
         ?.competitions?.[0]
-        ?.competitors || [];
+        ?.competitors ||
+      [];
 
     for (
       const block of
-      summary?.boxscore?.players || []
+      summary?.boxscore?.players ||
+      []
     ) {
       const opponent =
-        competitors.find(
-          item =>
-            String(
-              item.team?.id ||
-              ''
-            ) !==
-            String(
-              block.team?.id ||
-              ''
-            )
+        competitors.find(item =>
+          String(
+            item.team?.id ||
+            ''
+          ) !==
+          String(
+            block.team?.id ||
+            ''
+          )
         );
 
       if (
@@ -2890,7 +4301,8 @@
 
       for (
         const group of
-        block.statistics || []
+        block.statistics ||
+        []
       ) {
         const labels =
           group.labels || [];
@@ -2923,7 +4335,6 @@
           return {
             text:
               `${pitcher.athlete?.displayName || 'A pitcher'} has thrown ${Math.floor(Number.parseFloat(pitcher.stats[innings]))} hitless innings in a no-hit bid`,
-
             points:14
           };
         }
@@ -2936,11 +4347,13 @@
   function hockeyGoalMilestone(summary) {
     for (
       const block of
-      summary?.boxscore?.players || []
+      summary?.boxscore?.players ||
+      []
     ) {
       for (
         const group of
-        block.statistics || []
+        block.statistics ||
+        []
       ) {
         if (
           /goalie/i.test(
@@ -2956,7 +4369,9 @@
           (group.labels || [])
             .indexOf('G');
 
-        if (goals < 0) {
+        if (
+          goals < 0
+        ) {
           continue;
         }
 
@@ -2984,8 +4399,7 @@
             );
 
           const name =
-            scorer.athlete
-              ?.displayName ||
+            scorer.athlete?.displayName ||
             'A player';
 
           return {
@@ -2993,7 +4407,6 @@
               count >= 3
                 ? `${name} has a hat trick (${count} goals)`
                 : `${name} has 2 goals and is one away from a hat trick`,
-
             points:
               count >= 3
                 ? 12
@@ -3009,11 +4422,13 @@
   function footballMilestone(summary) {
     for (
       const block of
-      summary?.boxscore?.players || []
+      summary?.boxscore?.players ||
+      []
     ) {
       for (
         const group of
-        block.statistics || []
+        block.statistics ||
+        []
       ) {
         if (
           !/pass/i.test(
@@ -3027,13 +4442,14 @@
 
         const touchdowns =
           (group.labels || [])
-            .findIndex(
-              label =>
-                /^TD$|^PASS TD$/i
-                  .test(label)
+            .findIndex(label =>
+              /^TD$|^PASS TD$/i
+                .test(label)
             );
 
-        if (touchdowns < 0) {
+        if (
+          touchdowns < 0
+        ) {
           continue;
         }
 
@@ -3041,8 +4457,7 @@
           (group.athletes || [])
             .find(entry =>
               Number(
-                entry.stats
-                  ?.[touchdowns]
+                entry.stats?.[touchdowns]
               ) >= 3
             );
 
@@ -3050,7 +4465,6 @@
           return {
             text:
               `${passer.athlete?.displayName || 'A quarterback'} has thrown ${passer.stats[touchdowns]} touchdown passes`,
-
             points:6
           };
         }
@@ -3089,15 +4503,23 @@
       {};
 
     const snapshot = {
-      phase:livePhase(
-        game.sport,
-        status
-      ),
+      phase:
+        livePhase(
+          game.sport,
+          status
+        ),
 
       note:'',
       reasons:[],
       bonus:0,
-      bases:null
+      bases:null,
+      winProbability:null,
+
+      components:{
+        probability:0,
+        situation:0,
+        milestone:0
+      }
     };
 
     const progress =
@@ -3119,235 +4541,135 @@
         )
       );
 
+    const probability =
+      summary
+        ? winProbabilityImpact(
+            summary,
+            progress,
+            'live'
+          )
+        : {
+            points:0,
+            text:'',
+            probability:null,
+            uncertainty:null
+          };
+
+    snapshot.winProbability =
+      probability.probability;
+
+    snapshot.components.probability =
+      probability.points;
+
+    if (
+      probability.text
+    ) {
+      snapshot.reasons.push(
+        probability.text
+      );
+    }
+
+    let sportImpact = {
+      points:0,
+      note:'',
+      reasons:[],
+      bases:null
+    };
+
     if (
       ['NFL','CFB']
         .includes(game.sport)
     ) {
-      const possessionId =
-        String(
-          situation.possession?.id ||
-          situation.possession ||
-          ''
+      sportImpact =
+        footballSituationImpact(
+          game,
+          competition,
+          status,
+          situation,
+          progress,
+          scoreGap
         );
-
-      const holder =
-        game.teams.find(
-          team =>
-            String(
-              team[8] || ''
-            ) ===
-            possessionId
-        );
-
-      const down =
-        Number(
-          situation.down
-        );
-
-      const distance =
-        Number(
-          situation.distance
-        );
-
-      const downText =
-        String(
-          situation.downDistanceText ||
-          situation.shortDownDistanceText ||
-          (
-            down >= 1 &&
-            down <= 4
-              ? `${ordinal(down)} & ${Number.isFinite(distance) ? distance : 'goal'}`
-              : ''
-          )
-        ).trim();
-
-      const spot =
-        String(
-          situation.possessionText ||
-          ''
-        ).trim();
-
-      snapshot.note =
-        [
-          holder
-            ? `${holder[1] || holder[0]} ball`
-            : '',
-
-          downText,
-
-          spot &&
-          !downText.includes(spot)
-            ? spot
-            : ''
-        ]
-          .filter(Boolean)
-          .join(' · ');
-
-      if (
-        situation.isRedZone === true
-      ) {
-        snapshot.reasons.push(
-          `${holder?.[0] || 'The offense'} is in the red zone`
-        );
-
-        snapshot.bonus += 4;
-      }
-
-      if (
-        down === 4 &&
-        downText
-      ) {
-        snapshot.reasons.push(
-          `${downText} is a pivotal down`
-        );
-
-        snapshot.bonus += 3;
-      }
-
-      if (
-        progress >= .78 &&
-        scoreGap <= 8
-      ) {
-        snapshot.reasons.push(
-          `It is a one-possession game late in the ${
-            Number(status?.period) >= 4
-              ? 'fourth quarter'
-              : 'game'
-          }`
-        );
-
-        snapshot.bonus += 6;
-      }
     } else if (
       game.sport === 'MLB'
     ) {
-      const bases = {
-        first:
-          runnerOn(
-            situation,
-            'First'
-          ),
-
-        second:
-          runnerOn(
-            situation,
-            'Second'
-          ),
-
-        third:
-          runnerOn(
-            situation,
-            'Third'
-          )
-      };
-
-      snapshot.bases =
-        Object.values(bases)
-          .some(
-            value =>
-              value !== null
-          )
-          ? bases
-          : null;
-
-      const outs =
-        Number(
-          situation.outs
+      sportImpact =
+        baseballSituationImpact(
+          game,
+          competition,
+          status,
+          situation,
+          progress,
+          scoreGap
         );
-
-      const hasOuts =
-        situation.outs !== undefined &&
-        situation.outs !== null &&
-        Number.isInteger(outs) &&
-        outs >= 0 &&
-        outs <= 2;
-
-      snapshot.note =
-        hasOuts
-          ? `${outs} ${outs === 1 ? 'out' : 'outs'}`
-          : '';
-
-      const occupied =
-        Object.entries(bases)
-          .filter(
-            ([,value]) =>
-              value
-          )
-          .map(
-            ([base]) =>
-              base
-          );
-
-      if (occupied.length) {
-        snapshot.reasons.push(
-          `Runners on ${occupied.join(' and ')}`
-        );
-      }
-
-      if (
-        (
-          bases.second ||
-          bases.third
-        ) &&
-        Number(
-          status?.period || 0
-        ) >= 7 &&
-        scoreGap <= 1
-      ) {
-        snapshot.reasons.push(
-          'The tying or go-ahead run is in scoring position late'
-        );
-
-        snapshot.bonus +=
-          Number(
-            status?.period || 0
-          ) >= 9
-            ? 8
-            : 5;
-      }
     } else if (
       game.sport === 'NHL'
     ) {
-      const powerPlayTeam =
-        summary
-          ? hockeyPowerPlay(
-              summary,
-              game.teams
-            )
-          : null;
-
-      if (powerPlayTeam) {
-        snapshot.note =
-          `${powerPlayTeam} power play`;
-
-        snapshot.bonus += 4;
-      }
-
-      if (
-        progress >= .82 &&
-        scoreGap <= 1
-      ) {
-        snapshot.reasons.push(
-          'It is a one-goal game late in the third period'
+      sportImpact =
+        hockeySituationImpact(
+          game,
+          competition,
+          summary,
+          status,
+          progress,
+          scoreGap
         );
-
-        snapshot.bonus += 6;
-      }
     } else if (
       ['NBA','NCAAB']
-        .includes(game.sport) &&
-      progress >= .86 &&
-      scoreGap <= 6
+        .includes(game.sport)
     ) {
-      snapshot.reasons.push(
-        `It is a ${scoreGap || 'tied'}-point game in the closing minutes`
-      );
-
-      snapshot.bonus +=
-        scoreGap <= 3
-          ? 8
-          : 5;
+      sportImpact =
+        basketballSituationImpact(
+          game,
+          status,
+          progress,
+          scoreGap,
+          situation
+        );
+    } else if (
+      game.sport === 'Tennis'
+    ) {
+      sportImpact =
+        tennisSituationImpact(
+          game,
+          competition,
+          summary,
+          status,
+          progress
+        );
     }
+
+    if (
+      sportImpact.note
+    ) {
+      snapshot.note =
+        sportImpact.note;
+    }
+
+    if (
+      sportImpact.bases
+    ) {
+      snapshot.bases =
+        sportImpact.bases;
+    }
+
+    snapshot.reasons.push(
+      ...(
+        sportImpact.reasons ||
+        []
+      )
+    );
+
+    snapshot.components.situation =
+      Math.min(
+        12,
+        Math.max(
+          0,
+          Number(
+            sportImpact.points
+          ) ||
+          0
+        )
+      );
 
     const milestone =
       summary
@@ -3362,9 +4684,51 @@
         milestone.text
       );
 
-      snapshot.bonus +=
-        milestone.points;
+      snapshot.components.milestone =
+        Math.min(
+          14,
+          Math.max(
+            0,
+            milestone.points
+          )
+        );
     }
+
+    const probabilityPositive =
+      Math.max(
+        0,
+        snapshot.components.probability
+      );
+
+    const probabilityNegative =
+      Math.min(
+        0,
+        snapshot.components.probability
+      );
+
+    const competitiveSituation =
+      Math.min(
+        20,
+        probabilityPositive +
+        snapshot.components.situation
+      );
+
+    const positiveBonus =
+      Math.min(
+        30,
+        competitiveSituation +
+        snapshot.components.milestone
+      );
+
+    const negativeBonus =
+      Math.max(
+        -14,
+        probabilityNegative
+      );
+
+    snapshot.bonus =
+      positiveBonus +
+      negativeBonus;
 
     return snapshot;
   }
@@ -3420,15 +4784,27 @@
     pregameContextFactors,
     pregameRating,
     gameProgress,
+    normalizeWinProbability,
+    winProbabilitySeries,
+    winProbabilityImpact,
     momentumImpact,
     underdogCandidate,
     upsetImpact,
+    contextCarryWeight,
     stateRating,
     rateGame,
     ordinal,
     livePhase,
     runnerOn,
+    clockSeconds,
+    footballFieldPosition,
+    footballSituationImpact,
+    baseballSituationImpact,
+    hockeyOnIceState,
     hockeyPowerPlay,
+    hockeySituationImpact,
+    basketballSituationImpact,
+    tennisSituationImpact,
     noHitBid,
     hockeyGoalMilestone,
     footballMilestone,
