@@ -74,25 +74,27 @@ function rankFor(competitor, sport) {
   const rank = Number(competitor?.curatedRank?.current ?? competitor?.team?.rank);
   return Number.isFinite(rank) && rank >= 1 && rank <= 25 ? rank : null;
 }
-function parseLine(raw, competition) {
+function parseLine(raw, competition, sport) {
   if (!raw) return null;
   const listed = raw.close || raw.closing || raw;
   const totalValue = listed.overUnder ?? listed.over_under ?? listed.total?.overUnder ?? listed.total?.value;
   const total = totalValue == null || totalValue === '' ? NaN : Number(totalValue);
-  let spread = String(listed.details || listed.displayValue || listed.spread?.displayValue || '').trim();
-  if (!spread && Number.isFinite(Number(listed.spread))) {
+  const details = String(listed.details || listed.displayValue || '').trim();
+  const isMoneyline = /[+-]\d{3,}\b/.test(details) && !/[+-]\d+\.\d+/.test(details);
+  let spread = isMoneyline ? '' : String(listed.spread?.displayValue || details).trim();
+  if (!spread && listed.spread != null && Number.isFinite(Number(listed.spread)) && (!isMoneyline || Math.abs(Number(listed.spread)) <= 10)) {
     const amount = Math.abs(Number(listed.spread));
     const home = (competition?.competitors || []).find(team => team.homeAway === 'home');
     const away = (competition?.competitors || []).find(team => team.homeAway === 'away');
     const favored = listed.homeTeamOdds?.favorite ? home : listed.awayTeamOdds?.favorite ? away : null;
     if (favored) spread = amount === 0 ? 'PK' : `${favored.team?.abbreviation || favored.abbreviation || 'Favorite'} -${amount}`;
   }
-  if (!spread && !Number.isFinite(total)) return null;
-  return {spread:spread || '',total:Number.isFinite(total) ? total : null,provider:listed.provider?.name || raw.provider?.name || '',verifiedClose:Boolean(raw.close || raw.closing)};
+  if (!spread && !details && !Number.isFinite(total)) return null;
+  return {spread:spread || '',moneyline:isMoneyline ? details : '',total:Number.isFinite(total) ? total : null,provider:listed.provider?.name || raw.provider?.name || '',verifiedClose:Boolean(raw.close || raw.closing)};
 }
-function lineFromSummary(summary) {
+function lineFromSummary(summary, sport) {
   const competition = summary?.header?.competitions?.[0];
-  return parseLine(summary?.pickcenter?.[0] || competition?.odds?.[0] || summary?.odds?.[0],competition);
+  return parseLine(summary?.pickcenter?.[0] || competition?.odds?.[0] || summary?.odds?.[0],competition,sport);
 }
 function readLineSnapshots() { try { return JSON.parse(localStorage.getItem(LINES_KEY) || '{}'); } catch { return {}; } }
 let lineSnapshots = readLineSnapshots();
@@ -106,7 +108,7 @@ function rememberPregameLine(game) {
 function displayLine(game) {
   const line = game.line || lineSnapshots[game.id]?.line;
   if (!line) return {label:game.state === 'upcoming' ? 'Current line' : 'Pregame line',text:'Not listed'};
-  const pieces = [line.spread ? `Spread ${line.spread}` : '',line.total !== null ? `O/U ${line.total}` : ''].filter(Boolean);
+  const pieces = [line.spread ? `${game.sport === 'NHL' ? 'Puck line' : game.sport === 'MLB' ? 'Run line' : 'Spread'} ${line.spread}` : '',line.moneyline ? `Moneyline ${line.moneyline}` : '',line.total !== null ? `O/U ${line.total}` : ''].filter(Boolean);
   const label = game.state === 'upcoming' ? 'Current line' : line.verifiedClose ? 'Closing line' : 'Last listed pregame line';
   return {label,text:pieces.join(' · '),provider:line.provider};
 }
@@ -156,15 +158,16 @@ function rateGame(sport,gameState,teams,event,competition,context) {
   if (gameState === 'completed' && /overtime|\bot\b/i.test(detail)) factors.push({label:'Overtime',points:13});
   const score = clampScore(factors.reduce((sum,item) => sum + item.points,0));
   let reason = opening.reason;
-  if (gameState === 'live') reason = gap === 0 ? `Tied ${teams[0].score}–${teams[1].score}${progress > .65 ? ' late' : ''}` : gap !== null && closePoints > 0 ? `${gap}-point game${progress > .65 ? ' late' : ''}` : `Game in progress · ${Math.round(progress * 100)}% elapsed`;
-  if (gameState === 'completed') reason = /overtime|\bot\b/i.test(detail) ? `Overtime finish · ${gap}-point margin` : gap !== null ? `Decided by ${gap} point${gap === 1 ? '' : 's'}` : 'Final result';
+  const unit = sport === 'NHL' || sport === 'Soccer' ? 'goal' : sport === 'MLB' ? 'run' : sport === 'Tennis' ? 'set' : 'point';
+  if (gameState === 'live') reason = gap === 0 ? `Tied ${teams[0].score}–${teams[1].score}${progress > .65 ? ' late' : ''}` : gap !== null && closePoints > 0 ? `${gap}-${unit} game${progress > .65 ? ' late' : ''}` : `Game in progress · ${Math.round(progress * 100)}% elapsed`;
+  if (gameState === 'completed') reason = /overtime|\bot\b/i.test(detail) ? `Overtime finish · ${gap}-${unit} margin` : gap !== null ? `Decided by ${gap} ${unit}${gap === 1 ? '' : 's'}` : 'Final result';
   return {score,factors,reason,openingScore:opening.score};
 }
 function normalizeEvent(event, sport, leagueLogo) {
   const competition = event.competitions?.[0]; const competitors = competition?.competitors || []; if (competitors.length < 2) return null;
   const teams = competitors.slice(0,2).map(competitor => ({name:competitor.team?.displayName || competitor.athlete?.displayName || 'Unknown', shortName:competitor.team?.shortDisplayName || competitor.team?.name || competitor.athlete?.shortName || '', abbr:competitor.team?.abbreviation || competitor.abbreviation || '', score:scoreValue(competitor), logo:competitor.team?.logo || '', color:'white',record:recordFor(competitor),rank:rankFor(competitor,sport)}));
   const gameState = stateFromEvent(event); const status = competition?.status?.type?.shortDetail || competition?.status?.type?.detail || (gameState === 'completed' ? 'Final' : 'Scheduled'); const context = competition?.notes?.[0]?.headline || event.name || `${sport} matchup`; const rating = rateGame(sport,gameState,teams,event,competition,context); const eventId = event.id || `${sport}-${event.name}`;
-  return {id:eventId,summaryUrl:summaryUrlFor(sport,eventId),favorite:favoriteFor(teams),sport,icon:iconFor(sport),leagueLogo:leagueLogo || LEAGUE_LOGOS[sport],startTime:event.date,state:gameState,status,channel:broadcastFor(competition) || 'Channel not listed',teams:teams.map(team => [team.name,team.abbr,team.score,team.color,team.logo,team.record,team.rank,team.shortName]),line:gameState === 'upcoming' ? parseLine(competition?.odds?.[0],competition) : null,context,why:rating.reason,sub:competition?.venue?.fullName || competition?.venue?.address?.city || 'Live scoreboard',score:rating.score,openingScore:rating.openingScore,factors:rating.factors};
+  return {id:eventId,summaryUrl:summaryUrlFor(sport,eventId),favorite:favoriteFor(teams),sport,icon:iconFor(sport),leagueLogo:leagueLogo || LEAGUE_LOGOS[sport],startTime:event.date,state:gameState,status,channel:broadcastFor(competition) || 'Channel not listed',teams:teams.map(team => [team.name,team.abbr,team.score,team.color,team.logo,team.record,team.rank,team.shortName]),line:gameState === 'upcoming' ? parseLine(competition?.odds?.[0],competition,sport) : null,context,why:rating.reason,sub:competition?.venue?.fullName || competition?.venue?.address?.city || 'Live scoreboard',score:rating.score,openingScore:rating.openingScore,factors:rating.factors};
 }
 async function fetchFeed(feed) { const controller = new AbortController(); const timer = setTimeout(() => controller.abort(), 7000); try { const response = await fetch(`${feed.url}?limit=100`, {signal:controller.signal,cache:'no-store'}); if (!response.ok) throw new Error(`HTTP ${response.status}`); const payload = await response.json(); const leagueLogo = payload.leagues?.[0]?.logos?.[0]?.href; const events = (payload.events || []).map(event => normalizeEvent(event,feed.sport,leagueLogo)).filter(Boolean); events.forEach(rememberPregameLine); return events; } finally { clearTimeout(timer); } }
 async function loadLiveGames() { $('#data-status-label').textContent = 'Connecting to live scoreboards…'; const results = await Promise.allSettled(LIVE_FEEDS.map(fetchFeed)); const liveGames = results.flatMap(result => result.status === 'fulfilled' ? result.value : []); if (liveGames.length) { games = liveGames; state.source = 'live'; } else { games = [...DEMO_GAMES]; state.source = 'demo'; } $('#data-status-label').textContent = state.source === 'live' ? `Live scores · updated ${new Date().toLocaleTimeString([], {hour:'numeric',minute:'2-digit'})}` : 'Demo data · live feed unavailable'; $('#footer-status').textContent = state.source === 'live' ? 'Live feed' : 'Demo data'; render(); if (state.source === 'live') enrichGameSignals(); }
@@ -181,7 +184,7 @@ function explainRating(game) {
     if (labels.has('Major tournament')) return `This match is part of a tennis major, so it starts at ${game.score} before play.`;
     const ranked = game.teams.filter(team => team[6]);
     if (ranked.length === 2) return `Both teams are ranked (${ranked.map(team => `No. ${team[6]}`).join(' and ')}), so this matchup starts at ${game.score}. No game action is counted yet.`;
-    if (ranked.length === 1) return `${ranked[0][0]} is ranked No. ${ranked[0][6]}, which lifts this regular-season matchup to ${game.score} before play.`;
+    if (ranked.length === 1) return `With No. ${ranked[0][6]} ${ranked[0][0]} in the matchup, this regular-season game starts at ${game.score} before play.`;
     if (labels.has('Rivalry')) return `A listed rivalry adds to the anticipation, putting this matchup at ${game.score} before play.`;
     return `No championship, playoff, or ranked-team stakes are listed for this matchup, so it starts at ${game.score} before play.`;
   }
@@ -255,7 +258,7 @@ async function enrichGameSignals() {
     await Promise.allSettled(candidates.slice(start,start + 6).map(async game => {
     try {
       const summary = await fetchGameSummary(game);
-      const line = lineFromSummary(summary);
+      const line = lineFromSummary(summary,game.sport);
       if (line && (game.state !== 'upcoming' || !game.line)) { game.line = line; changed = true; if (game.state === 'upcoming') rememberPregameLine(game); }
       const moment = summarySpecificWhy(game,summary);
       if (moment) { game.moment = moment; changed = true; }
@@ -308,5 +311,5 @@ $('#game-detail-overlay').addEventListener('click',event => { if (event.target =
 document.addEventListener('keydown',event => { if (event.key === 'Escape' && !$('#game-detail-overlay').hidden) hideGameDetails(); });
 syncSportToggles(); $('#profile-button').addEventListener('click', syncSportToggles); $$('[data-visible-sport]').forEach(input => input.addEventListener('change', () => { const sport = input.dataset.visibleSport; if (input.checked) state.visibleSports.add(sport); else state.visibleSports.delete(sport); persistPreferences(); render(); }));
 let deferredInstallPrompt; window.addEventListener('beforeinstallprompt',event => { event.preventDefault(); deferredInstallPrompt = event; $('#install-button').classList.remove('hidden'); }); $('#install-button').addEventListener('click',async() => { if (!deferredInstallPrompt) return; deferredInstallPrompt.prompt(); await deferredInstallPrompt.userChoice; deferredInstallPrompt = null; $('#install-button').classList.add('hidden'); }); window.addEventListener('appinstalled',() => $('#install-button').classList.add('hidden'));
-if ('serviceWorker' in navigator) navigator.serviceWorker.register('./sw.js?rev=20261020-12').then(registration => registration.update()).catch(() => {});
+if ('serviceWorker' in navigator) navigator.serviceWorker.register('./sw.js?rev=20261020-13').then(registration => registration.update()).catch(() => {});
 render(); loadLiveGames(); setInterval(loadLiveGames,60000);

@@ -26,6 +26,11 @@ const fixtures = `
   assert.equal(line.total,44.5);
   assert.equal(displayLine({id:'test',state:'upcoming',line}).text,'Spread Iowa -3.5 · O/U 44.5');
   assert.equal(displayLine({id:'test',state:'live',line}).label,'Last listed pregame line');
+  const hockeyLine = parseLine({details:'WSH -162',overUnder:5.5}, {}, 'NHL');
+  assert.equal(hockeyLine.spread,'');
+  assert.equal(displayLine({id:'hockey',sport:'NHL',state:'live',line:hockeyLine}).text,'Moneyline WSH -162 · O/U 5.5');
+  const hockeyFinal = rateGame('NHL','completed',[{score:'2'},{score:'5'}],{name:'Capitals vs Kings'},{status:{type:{detail:'Final'}}},'');
+  assert.match(hockeyFinal.reason,/goals/);
   const prose = explainRating({state:'upcoming',score:85,factors:championship.factors,teams:[['Brewers'],['Rays']]});
   assert.match(prose,/Game 1 of the World Series/);
   assert.doesNotMatch(prose,/Sport baseline/);

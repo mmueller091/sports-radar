@@ -39,7 +39,7 @@ The arrow shown only for live or completed games compares the current rating wit
 - standings, playoff, rivalry, and tournament context;
 - unusual events such as overtime, extra innings, match points, or red-zone possessions.
 
-Favorite teams are sorted before the score. The preferences dialog controls which sports appear on the home page. Team records and college rankings are taken from the scoreboard feed when present. Spreads and totals are shown from ESPN scoreboard or game-summary data when available. For started games, a line without a verified closing marker is labeled as the last listed pregame line; this is not a guarantee of the exact market close. The browser also retains the latest line it saw before each game started, but only on that device and only if it was opened while the game was upcoming.
+Favorite teams are sorted before the score. The preferences dialog controls which sports appear on the home page. Team records and college rankings are taken from the scoreboard feed when present. Spreads and totals are shown from ESPN scoreboard or game-summary data when available. ESPN's MLB and NHL listings sometimes provide a moneyline instead of a run/puck spread; the app labels that as a moneyline and never calls it a spread. For started games, a line without a verified closing marker is labeled as the last listed pregame line; this is not a guarantee of the exact market close. The browser also retains the latest line it saw before each game started, but only on that device and only if it was opened while the game was upcoming.
 
 ## Suggested normalized API shape
 
