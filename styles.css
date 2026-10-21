@@ -366,8 +366,12 @@ body {
   background: radial-gradient(circle at 34% 25%, #276848, #10291e 66%, #08150f);
   box-shadow: inset 1px 1px 3px #7ddb9c, inset -2px -2px 4px #07150d, 0 2px 5px #061009, 0 0 11px rgba(55,219,117,.16);
 }
-.score-circle.hot { border-color: #52ed91; color: #e3ffec; box-shadow: inset 1px 1px 3px #b4ffd0, inset -2px -2px 4px #0b2816, 0 0 17px rgba(50,239,126,.35); }
-.score-circle.warm { border-color: #76cf99; color: #dcffe8; }
+.score-circle.hot, .score-circle.warm {
+  border-color: hsl(var(--score-hue, 140) 86% 62%);
+  color: hsl(var(--score-hue, 140) 92% 90%);
+  background: radial-gradient(circle at 34% 25%, hsl(var(--score-hue, 140) 78% 43%), hsl(var(--score-hue, 140) 70% 14%) 66%, #081117);
+  box-shadow: inset 1px 1px 3px hsl(var(--score-hue, 140) 85% 74%), inset -2px -2px 4px hsl(var(--score-hue, 140) 70% 8%), 0 2px 5px #061009, 0 0 15px hsl(var(--score-hue, 140) 90% 55% / .28);
+}
 .excitement small { color: #afeec8; }
 .footer { border-top-color: #46565e; }
 .brand-mini { color: #85e9ae; }
