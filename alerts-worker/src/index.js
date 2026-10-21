@@ -1,7 +1,7 @@
 import {buildPushPayload} from '@block65/webcrypto-web-push';
 import '../../rating-core.js';
 
-const {rateGame,applyLiveSnapshot,recordFor,rankFor,clampScore,underdogCandidate,upsetImpact,gameProgress} = globalThis.SportsRadarScore;
+const {rateGame,applyLiveSnapshot,recordFor,rankFor,clampScore,underdogCandidate,upsetImpact,gameProgress,momentumImpact} = globalThis.SportsRadarScore;
 const ORIGIN = 'https://mmueller091.github.io';
 const ESPN = 'https://site.api.espn.com/apis/site/v2/sports';
 const FEEDS = [
@@ -48,7 +48,7 @@ async function liveGames() {
   return [...new Map(feeds.flat().map(item => [item.key,item])).values()];
 }
 async function addDetails(items,minimum) {
-  await Promise.all(items.filter(item => item.game.score >= minimum - 20).slice(0,18).map(async item => {
+  await Promise.all(items.filter(item => item.game.score >= minimum - 30).slice(0,18).map(async item => {
     try {
       const path = item.path.split('?')[0].replace('/scoreboard','/summary');
       const response = await fetch(`${ESPN}/${path}?event=${encodeURIComponent(item.event.id)}`,{cf:{cacheTtl:0}});
@@ -64,6 +64,12 @@ async function addDetails(items,minimum) {
           item.game.score = clampScore(item.game.baseScore + (item.game.live?.bonus || 0));
           item.rating.upsetText = impact.text;
         }
+      }
+      const momentum = momentumImpact(item.sport,summary,gameProgress(item.sport,competition),'live');
+      if (momentum.points) {
+        item.game.baseScore = clampScore(item.game.baseScore + momentum.points);
+        item.game.score = clampScore(item.game.baseScore + (item.game.live?.bonus || 0));
+        item.rating.momentumText = momentum.text;
       }
     } catch {}
   }));
@@ -86,7 +92,7 @@ async function checkGames(env) {
     for (const sub of subscribers) {
       if (prior < sub.threshold && score >= sub.threshold) {
         const names = item.game.teams.map(team => team[0]).join(' vs ');
-        const reason = item.rating.upsetText || item.rating.reason || 'The game has become more exciting.';
+        const reason = [item.rating.momentumText,item.rating.upsetText].filter(Boolean).join('. ') || item.rating.reason || 'The game has become more exciting.';
         pending.push(env.DB.prepare('INSERT OR IGNORE INTO alerts (token_hash, game_key, score, title, body, created_at) VALUES (?, ?, ?, ?, ?, ?)').bind(sub.token_hash,item.key,score,`${names} · ${score}`,reason.slice(0,230),now));
       }
     }
