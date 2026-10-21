@@ -1,6 +1,10 @@
 /* Shared, browser/server scoring rules. The alert checker imports this same model. */
 (function (root) {
-  const SPORT_BASE = {NFL:38,MLB:38,NHL:35,CFB:36,NBA:37,NCAAB:35,Tennis:38,Soccer:35};
+  const SPORT_FLOOR = 32;
+  const SCHEDULE_SCARCITY = {NFL:10,MLB:0,NHL:5,CFB:8,NBA:5,NCAAB:3,Tennis:2,Soccer:4};
+  const SPORT_BASE = Object.fromEntries(
+    Object.entries(SCHEDULE_SCARCITY).map(([sport,points]) => [sport,SPORT_FLOOR + points])
+  );
 
   const NFL_DIVISIONS = {
     BUF:'AFC East',MIA:'AFC East',NE:'AFC East',NYJ:'AFC East',
@@ -76,6 +80,10 @@
     star_hot_streak:4,
     notable_recent_performance:2,
     team_win_streak:3,
+    elite_efficiency_profile:4,
+    strength_of_schedule:3,
+    confirmed_key_starters:4,
+    ace_pitching_matchup:5,
     star_absence:-5,
     multiple_stars_out:-8
   };
@@ -97,6 +105,10 @@
     star_hot_streak:'Star player hot streak',
     notable_recent_performance:'Recent notable performance',
     team_win_streak:'Team winning streak',
+    elite_efficiency_profile:'Elite efficiency profile',
+    strength_of_schedule:'Battle-tested schedule',
+    confirmed_key_starters:'Confirmed key starters',
+    ace_pitching_matchup:'Confirmed ace pitching matchup',
     star_absence:'Notable star absence',
     multiple_stars_out:'Multiple major absences'
   };
@@ -918,6 +930,92 @@
     return factors;
   }
 
+  function aggregateScoreFromText(value) {
+    const text =
+      String(value || '')
+        .toLowerCase();
+
+    const match =
+      text.match(
+        /(?:aggregate(?: score)?|on aggregate)[^0-9]{0,12}(\d+)\D{1,5}(\d+)/
+      ) ||
+      text.match(
+        /(\d+)\s*[-–:]\s*(\d+)[^.;]{0,24}(?:on aggregate|aggregate score)/
+      );
+
+    return match
+      ? [
+          Number(match[1]),
+          Number(match[2])
+        ]
+      : null;
+  }
+
+  function specificStakesFactors(sport,detail) {
+    const text =
+      String(detail || '')
+        .toLowerCase();
+
+    const factors = [];
+
+    if (
+      /\bgame\s*(?:7|seven)\b|\bdeciding game\b/
+        .test(text)
+    ) {
+      factors.push({
+        label:'Deciding game',
+        points:12
+      });
+    } else if (
+      /\belimination game\b|\bwin or go home\b|\bwinner advances\b|\bmust[- ]win\b/
+        .test(text)
+    ) {
+      factors.push({
+        label:'Elimination stakes',
+        points:9
+      });
+    }
+
+    if (
+      /\bclinches?\b|\bclinching (?:game|opportunity|scenario)\b|\bcan clinch\b/
+        .test(text)
+    ) {
+      factors.push({
+        label:'Clinching opportunity',
+        points:6
+      });
+    }
+
+    if (
+      sport === 'Soccer' &&
+      /\bsecond leg\b|\b2nd leg\b|\bon aggregate\b|\baggregate score\b/
+        .test(text)
+    ) {
+      const aggregate =
+        aggregateScoreFromText(text);
+
+      const closeAggregate =
+        aggregate &&
+        Math.abs(
+          aggregate[0] -
+          aggregate[1]
+        ) <= 1;
+
+      factors.push({
+        label:
+          closeAggregate
+            ? 'Close aggregate tie'
+            : 'Second-leg consequences',
+        points:
+          closeAggregate
+            ? 7
+            : 4
+      });
+    }
+
+    return factors;
+  }
+
   function pregameRating(sport,event,competition,context) {
     const detail =
       eventSignalText(
@@ -928,8 +1026,18 @@
 
     const factors = [{
       label:'Sport baseline',
-      points:SPORT_BASE[sport] || 35
+      points:SPORT_FLOOR
     }];
+
+    const scheduleScarcity = SCHEDULE_SCARCITY[sport] || 0;
+    if (scheduleScarcity) {
+      factors.push({
+        label:'Schedule scarcity',
+        points:scheduleScarcity
+      });
+    }
+
+    const mlbPostseasonScarcity = sport === 'MLB' ? 6 : 0;
 
     let reason =
       'Regular-season matchup · no extra stakes listed';
@@ -941,6 +1049,13 @@
         label:'World Series',
         points:42
       });
+
+      if (mlbPostseasonScarcity) {
+        factors.push({
+          label:'Postseason scarcity',
+          points:mlbPostseasonScarcity
+        });
+      }
 
       reason =
         'World Series championship';
@@ -979,6 +1094,13 @@
         points:22
       });
 
+      if (mlbPostseasonScarcity) {
+        factors.push({
+          label:'Postseason scarcity',
+          points:mlbPostseasonScarcity
+        });
+      }
+
       reason =
         'Postseason game';
     } else if (
@@ -1007,6 +1129,23 @@
 
       reason +=
         ' · Game 1';
+    }
+
+    const specificStakes =
+      specificStakesFactors(
+        sport,
+        detail
+      );
+
+    if (specificStakes.length) {
+      factors.push(
+        ...specificStakes
+      );
+
+      reason +=
+        ` · ${specificStakes
+          .map(item => item.label)
+          .join(', ')}`;
     }
 
     const competitors =
@@ -1754,7 +1893,13 @@
             ? {
                 home,
                 away,
-                position
+                position,
+                text:
+                  String(
+                    play.text ||
+                    play.shortText ||
+                    ''
+                  )
               }
             : null;
         })
@@ -2130,6 +2275,49 @@
         summary
       );
 
+    let controlSwings = 0;
+    let controlSide = 0;
+
+    for (const chance of winChances) {
+      const side =
+        chance >= .65
+          ? 1
+          : chance <= .35
+            ? -1
+            : 0;
+
+      if (
+        side &&
+        controlSide &&
+        side !== controlSide
+      ) {
+        controlSwings++;
+      }
+
+      if (side) {
+        controlSide = side;
+      }
+    }
+
+    if (
+      controlSwings >= 2 &&
+      leadChanges < 2
+    ) {
+      factors.push({
+        label:'Repeated swings in control',
+        points:
+          Math.min(
+            7,
+            3 +
+            controlSwings
+          )
+      });
+
+      details.push(
+        `win probability swung decisively between both teams ${controlSwings} times`
+      );
+    }
+
     let strongestSwing = {
       size:0,
       end:-1,
@@ -2275,6 +2463,58 @@
 
         details.push(
           'the outcome remained highly uncertain late'
+        );
+      }
+    }
+
+    if (
+      state === 'completed' &&
+      moments.length
+    ) {
+      const decisive =
+        moments.at(-1);
+
+      const prior =
+        moments.length > 1
+          ? moments.at(-2)
+          : {
+              home:0,
+              away:0
+            };
+
+      const finalMargin =
+        decisive.home -
+        decisive.away;
+
+      const priorMargin =
+        prior.home -
+        prior.away;
+
+      const finalLeader =
+        Math.sign(finalMargin);
+
+      const changedOutcome =
+        finalLeader &&
+        (
+          priorMargin === 0 ||
+          Math.sign(priorMargin) !==
+            finalLeader
+        );
+
+      if (
+        decisive.position >= .94 &&
+        changedOutcome &&
+        Math.abs(finalMargin) <= threshold
+      ) {
+        factors.push({
+          label:'Decisive final score',
+          points:8
+        });
+
+        details.push(
+          decisive.text
+            ? `the decisive score came at the end: ${decisive.text}`
+            : 'the decisive score came in the final moments'
         );
       }
     }
@@ -4331,6 +4571,219 @@
     };
   }
 
+  function dangerousChanceImpact(
+    sport,
+    summary,
+    progress,
+    scoreGap
+  ) {
+    if (
+      !['NHL','Soccer'].includes(sport) ||
+      !summary ||
+      (
+        sport === 'NHL'
+          ? scoreGap > 2
+          : scoreGap > 1
+      )
+    ) {
+      return {
+        points:0,
+        reasons:[]
+      };
+    }
+
+    const recent =
+      (summary.plays || [])
+        .slice(-18)
+        .filter(play =>
+          !play?.scoringPlay
+        )
+        .map(play =>
+          String(
+            play?.text ||
+            play?.shortText ||
+            play?.type?.text ||
+            ''
+          ).toLowerCase()
+        )
+        .filter(Boolean);
+
+    const dangerous =
+      recent.filter(text =>
+        /shot on goal|saved by|\bsave\b|breakaway|penalty shot|hit (?:the )?(?:post|crossbar)|off (?:the )?(?:post|crossbar)|big chance|close range|point-blank/
+          .test(text)
+      );
+
+    const premium =
+      recent.filter(text =>
+        /breakaway|penalty shot|hit (?:the )?(?:post|crossbar)|off (?:the )?(?:post|crossbar)|big chance|point-blank/
+          .test(text)
+      );
+
+    let points = 0;
+    const reasons = [];
+
+    if (premium.length) {
+      points +=
+        Math.min(
+          4,
+          2 +
+          premium.length
+        );
+
+      reasons.push(
+        `${premium.length} premium scoring chance${premium.length === 1 ? '' : 's'} recently`
+      );
+    }
+
+    if (dangerous.length >= 4) {
+      points +=
+        dangerous.length >= 7
+          ? 3
+          : 2;
+
+      reasons.push(
+        `${dangerous.length} dangerous attempts or saves in the recent action`
+      );
+    }
+
+    if (
+      points &&
+      progress >= .78
+    ) {
+      points++;
+    }
+
+    return {
+      points:
+        Math.min(
+          7,
+          points
+        ),
+      reasons
+    };
+  }
+
+  function soccerSituationImpact(
+    competition,
+    summary,
+    status,
+    progress,
+    scoreGap
+  ) {
+    const situation =
+      competition?.situation ||
+      summary?.situation ||
+      {};
+
+    const text =
+      [
+        status?.type?.detail,
+        status?.type?.shortDetail,
+        situation?.description,
+        situation?.displayValue,
+        ...(competition?.notes || [])
+          .map(note => note.headline),
+        competition?.series?.summary,
+        competition?.series?.title
+      ]
+        .filter(Boolean)
+        .join(' ')
+        .toLowerCase();
+
+    const teamRedCards =
+      (summary?.boxscore?.teams || [])
+        .reduce(
+          (sum,team) =>
+            sum +
+            (team.statistics || [])
+              .filter(stat =>
+                /redcards|red cards|\brc\b/i.test(
+                  `${stat.name || ''} ${stat.displayName || ''} ${stat.abbreviation || ''}`
+                )
+              )
+              .reduce(
+                (teamSum,stat) =>
+                  teamSum +
+                  (Number(stat.value ?? stat.displayValue) || 0),
+                0
+              ),
+          0
+        );
+
+    let points = 0;
+    const reasons = [];
+
+    if (
+      teamRedCards > 0 ||
+      /\bred card\b|\bsent off\b|\bdown to (?:ten|10)\b/
+        .test(text)
+    ) {
+      points +=
+        progress >= .55 &&
+        scoreGap <= 1
+          ? 5
+          : 3;
+
+      reasons.push(
+        'A red card has changed the match conditions'
+      );
+    }
+
+    const aggregate =
+      aggregateScoreFromText(text);
+
+    if (aggregate) {
+      const aggregateGap =
+        Math.abs(
+          aggregate[0] -
+          aggregate[1]
+        );
+
+      if (aggregateGap <= 1) {
+        points +=
+          progress >= .7
+            ? 6
+            : 4;
+
+        reasons.push(
+          aggregateGap === 0
+            ? 'The knockout tie is level on aggregate'
+            : 'The knockout tie is separated by one goal on aggregate'
+        );
+      }
+    }
+
+    if (
+      /penalty shootout|penalties|shootout/
+        .test(text)
+    ) {
+      points += 10;
+      reasons.push(
+        'The match is being decided by penalties'
+      );
+    } else if (
+      /stoppage time|added time|90\+\d+/
+        .test(text) &&
+      scoreGap <= 1
+    ) {
+      points += 3;
+      reasons.push(
+        'A close match is in stoppage time'
+      );
+    }
+
+    return {
+      points:
+        Math.min(
+          12,
+          points
+        ),
+      note:'',
+      reasons
+    };
+  }
+
   function noHitBid(summary) {
     const competitors =
       summary?.header
@@ -4519,17 +4972,229 @@
 
         const passer =
           (group.athletes || [])
-            .find(entry =>
+            .filter(entry =>
               Number(
                 entry.stats?.[touchdowns]
               ) >= 3
-            );
+            )
+            .sort((a,b) =>
+              Number(b.stats?.[touchdowns]) -
+              Number(a.stats?.[touchdowns])
+            )[0];
 
         if (passer) {
+          const count =
+            Number(
+              passer.stats[touchdowns]
+            );
+
           return {
             text:
-              `${passer.athlete?.displayName || 'A quarterback'} has thrown ${passer.stats[touchdowns]} touchdown passes`,
-            points:6
+              `${passer.athlete?.displayName || 'A quarterback'} has thrown ${count} touchdown passes`,
+            points:
+              count >= 5
+                ? 12
+                : count >= 4
+                  ? 8
+                  : 5
+          };
+        }
+      }
+    }
+
+    return null;
+  }
+
+  function basketballScoringMilestone(
+    summary,
+    sport
+  ) {
+    const threshold =
+      sport === 'NCAAB'
+        ? 30
+        : 40;
+
+    let leader = null;
+
+    for (const block of summary?.boxscore?.players || []) {
+      for (const group of block.statistics || []) {
+        const points =
+          (group.labels || [])
+            .findIndex(label =>
+              /^PTS$|^POINTS$/i.test(label)
+            );
+
+        if (points < 0) {
+          continue;
+        }
+
+        for (const entry of group.athletes || []) {
+          const count =
+            Number(
+              entry.stats?.[points]
+            );
+
+          if (
+            count >= threshold &&
+            (
+              !leader ||
+              count > leader.count
+            )
+          ) {
+            leader = {
+              count,
+              name:
+                entry.athlete?.displayName ||
+                'A player'
+            };
+          }
+        }
+      }
+    }
+
+    if (!leader) {
+      return null;
+    }
+
+    const rare =
+      leader.count >=
+      (sport === 'NCAAB' ? 40 : 50);
+
+    return {
+      text:
+        `${leader.name} has scored ${leader.count} points`,
+      points:
+        rare
+          ? 12
+          : 7
+    };
+  }
+
+  function baseballPerformanceMilestone(summary) {
+    const candidates = [];
+    const noHit =
+      noHitBid(summary);
+
+    if (noHit) {
+      candidates.push(noHit);
+    }
+
+    for (const block of summary?.boxscore?.players || []) {
+      for (const group of block.statistics || []) {
+        const labels =
+          group.labels || [];
+
+        const homeRuns =
+          labels.findIndex(label =>
+            /^HR$|^HOME RUNS$/i.test(label)
+          );
+
+        const strikeouts =
+          labels.findIndex(label =>
+            /^K$|^SO$|^STRIKEOUTS$/i.test(label)
+          );
+
+        for (const entry of group.athletes || []) {
+          const name =
+            entry.athlete?.displayName ||
+            'A player';
+
+          if (homeRuns >= 0) {
+            const count =
+              Number(
+                entry.stats?.[homeRuns]
+              );
+
+            if (count >= 2) {
+              candidates.push({
+                text:
+                  count >= 3
+                    ? `${name} has hit ${count} home runs`
+                    : `${name} has hit 2 home runs and is one away from a rare three-homer game`,
+                points:
+                  count >= 4
+                    ? 14
+                    : count >= 3
+                      ? 12
+                      : 6
+              });
+            }
+          }
+
+          if (
+            strikeouts >= 0 &&
+            /pitch/i.test(
+              `${group.name || ''} ${group.displayName || ''}`
+            )
+          ) {
+            const count =
+              Number(
+                entry.stats?.[strikeouts]
+              );
+
+            if (count >= 10) {
+              candidates.push({
+                text:
+                  `${name} has struck out ${count} batters`,
+                points:
+                  count >= 15
+                    ? 12
+                    : 7
+              });
+            }
+          }
+        }
+      }
+    }
+
+    return candidates
+      .sort((a,b) =>
+        b.points -
+        a.points
+      )[0] ||
+      null;
+  }
+
+  function soccerScoringMilestone(summary) {
+    for (const block of summary?.boxscore?.players || []) {
+      for (const group of block.statistics || []) {
+        const goals =
+          (group.labels || [])
+            .findIndex(label =>
+              /^G$|^GOALS$/i.test(label)
+            );
+
+        if (goals < 0) {
+          continue;
+        }
+
+        const scorer =
+          (group.athletes || [])
+            .filter(entry =>
+              Number(
+                entry.stats?.[goals]
+              ) >= 2
+            )
+            .sort((a,b) =>
+              Number(b.stats?.[goals]) -
+              Number(a.stats?.[goals])
+            )[0];
+
+        if (scorer) {
+          const count =
+            Number(
+              scorer.stats[goals]
+            );
+
+          return {
+            text:
+              count >= 3
+                ? `${scorer.athlete?.displayName || 'A player'} has a hat trick`
+                : `${scorer.athlete?.displayName || 'A player'} has scored twice`,
+            points:
+              count >= 3
+                ? 12
+                : 6
           };
         }
       }
@@ -4543,9 +5208,17 @@
     summary
   ) {
     return sport === 'MLB'
-      ? noHitBid(summary)
+      ? baseballPerformanceMilestone(summary)
       : sport === 'NHL'
         ? hockeyGoalMilestone(summary)
+        : ['NBA','NCAAB']
+            .includes(sport)
+          ? basketballScoringMilestone(
+              summary,
+              sport
+            )
+          : sport === 'Soccer'
+            ? soccerScoringMilestone(summary)
         : ['NFL','CFB']
             .includes(sport)
           ? footballMilestone(summary)
@@ -4582,6 +5255,7 @@
       components:{
         probability:0,
         situation:0,
+        pressure:0,
         milestone:0
       }
     };
@@ -4700,6 +5374,17 @@
           status,
           progress
         );
+    } else if (
+      game.sport === 'Soccer'
+    ) {
+      sportImpact =
+        soccerSituationImpact(
+          competition,
+          summary,
+          status,
+          progress,
+          scoreGap
+        );
     }
 
     if (
@@ -4734,6 +5419,21 @@
           0
         )
       );
+
+    const pressure =
+      dangerousChanceImpact(
+        game.sport,
+        summary,
+        progress,
+        scoreGap
+      );
+
+    snapshot.components.pressure =
+      pressure.points;
+
+    snapshot.reasons.push(
+      ...(pressure.reasons || [])
+    );
 
     const milestone =
       summary
@@ -4774,7 +5474,8 @@
       Math.min(
         20,
         probabilityPositive +
-        snapshot.components.situation
+        snapshot.components.situation +
+        snapshot.components.pressure
       );
 
     const positiveBonus =
@@ -4823,6 +5524,8 @@
   }
 
   const api = {
+    SPORT_FLOOR,
+    SCHEDULE_SCARCITY,
     SPORT_BASE,
     NFL_DIVISIONS,
     NHL_DIVISIONS,
@@ -4846,6 +5549,7 @@
     pregameMarketFactor,
     proRecordFactors,
     pregameContextFactors,
+    specificStakesFactors,
     pregameRating,
     gameProgress,
     normalizeWinProbability,
@@ -4869,9 +5573,14 @@
     hockeySituationImpact,
     basketballSituationImpact,
     tennisSituationImpact,
+    dangerousChanceImpact,
+    soccerSituationImpact,
     noHitBid,
     hockeyGoalMilestone,
     footballMilestone,
+    basketballScoringMilestone,
+    baseballPerformanceMilestone,
+    soccerScoringMilestone,
     liveMilestone,
     liveSnapshot,
     applyLiveSnapshot

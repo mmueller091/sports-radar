@@ -4503,7 +4503,7 @@ if (
 ) {
   navigator.serviceWorker
     .register(
-      './sw.js?rev=20261021-28'
+      './sw.js?rev=20261021-30'
     )
     .then(
       registration =>

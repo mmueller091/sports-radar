@@ -3,6 +3,7 @@ const fs = require('node:fs');
 const vm = require('node:vm');
 
 const app = fs.readFileSync('app.js','utf8');
+const styles = fs.readFileSync('styles.css','utf8');
 const favoriteLogic = app.slice(app.indexOf('function normalizedTeamName'),app.indexOf('function stateFromEvent'));
 const pickerLogic = app.slice(app.indexOf('function sameFavorite'),app.indexOf('function syncFavoriteGames'));
 const teamDirectory = JSON.parse(fs.readFileSync('teams.json','utf8'));
@@ -11,7 +12,7 @@ assert.ok(teamDirectory.NBA.some(team => team.name === 'Los Angeles Lakers'));
 assert.ok(teamDirectory.CFB.length > 500);
 const scoreLogic = fs.readFileSync('rating-core.js','utf8');
 const lineLogic = app.slice(app.indexOf('function displayLine'),app.indexOf('function normalizeEvent'));
-const coreBindings = 'const {SPORT_BASE,CLOSE_MARGIN,clampScore,factorText,recordFor,rankFor,parseLine,lineFromSummary,gameProgress,momentumImpact,underdogCandidate,upsetImpact,stateRating,rateGame,applyLiveSnapshot} = globalThis.SportsRadarScore;';
+const coreBindings = 'const {SPORT_FLOOR,SCHEDULE_SCARCITY,SPORT_BASE,CLOSE_MARGIN,clampScore,factorText,recordFor,rankFor,parseLine,lineFromSummary,gameProgress,momentumImpact,underdogCandidate,upsetImpact,stateRating,rateGame,applyLiveSnapshot} = globalThis.SportsRadarScore;';
 const preferenceLogic = app.slice(app.indexOf('function readFavoriteSelections'),app.indexOf('const savedFavorites'));
 const explanationLogic = app.slice(app.indexOf('function explainRating'),app.indexOf('function trendFor'));
 const nflLogic = app.slice(app.indexOf('function nflWeekMeta'),app.indexOf('function dedupeGames'));
@@ -19,6 +20,17 @@ const dedupeLogic = app.slice(app.indexOf('function dedupeGames'),app.indexOf('a
 assert.match(app,/scoreboard\?groups=80[^\n]*limit:500/);
 assert.match(app,/scoreboard\?groups=81[^\n]*limit:500/);
 assert.match(app,/\[yesterday,today\]\.map/);
+assert.match(app,/`Why \$\{score\}\? \$\{explainRating\(game\)\}`/);
+assert.doesNotMatch(app,/class="game-context rating-context"/);
+assert.match(styles,/\.game-card:has\(\.score-dot-wrap:hover\).*z-index: 8/);
+assert.match(app,/style="\$\{scoreColorStyle\}"/);
+assert.match(styles,/--score-hue/);
+assert.match(styles,/hsl\(var\(--score-hue, 140\) 86% 62%\)/);
+assert.match(app,/status-\$\{game\.state\}/);
+assert.match(app,/strong>Broadcast<\/strong>/);
+assert.match(app,/completed-card/);
+assert.match(styles,/\.status-completed \{ display: inline-flex/);
+assert.match(styles,/\.game-card\.completed-card \.winner-row \.team-score/);
 vm.runInNewContext(`${preferenceLogic}
   const LEGACY_DEFAULT_FAVORITES = [{sport:'NFL',name:'Baltimore Ravens'},{sport:'MLB',name:'Baltimore Orioles'},{sport:'NHL',name:'Washington Capitals'}];
   const FAVORITE_SPORTS = ['NFL','MLB','NHL','CFB','NBA','NCAAB','Soccer'];
@@ -49,8 +61,14 @@ const fixtures = `
   const ordinary = rateGame('CFB','upcoming',scheduledTeams,{name:'Minnesota vs Iowa'},cfb,'');
   const championship = rateGame('MLB','upcoming',scheduledTeams,{name:'Brewers vs Rays'},worldSeries,'');
   const postseason = rateGame('MLB','upcoming',scheduledTeams,{name:'Brewers vs Rays',season:{type:3}},{notes:[],competitors:[]},'');
-  assert.equal(ordinary.score,36);
+  assert.equal(SPORT_FLOOR,32);
+  assert.deepEqual(SCHEDULE_SCARCITY,{NFL:10,MLB:0,NHL:5,CFB:8,NBA:5,NCAAB:3,Tennis:2,Soccer:4});
+  assert.deepEqual(SPORT_BASE,{NFL:42,MLB:32,NHL:37,CFB:40,NBA:37,NCAAB:35,Tennis:34,Soccer:36});
+  assert.equal(ordinary.score,40);
+  assert.equal(ordinary.factors.find(factor => factor.label === 'Sport baseline').points,32);
+  assert.equal(ordinary.factors.find(factor => factor.label === 'Schedule scarcity').points,8);
   assert.equal(championship.score,85);
+  assert.equal(championship.factors.find(factor => factor.label === 'Postseason scarcity').points,6);
   assert.ok(championship.score > ordinary.score);
   assert.equal(postseason.score,60);
   const ravensBengals = {notes:[],competitors:[
@@ -58,7 +76,7 @@ const fixtures = `
     {team:{abbreviation:'CIN'},records:[{type:'overall',summary:'3-2'}]}
   ],odds:[{details:'BAL -3',overUnder:51.5}]};
   const rivalry = rateGame('NFL','upcoming',scheduledTeams,{name:'Ravens vs Bengals'},ravensBengals,'');
-  assert.equal(rivalry.score,70);
+  assert.equal(rivalry.score,74);
   function nflMatchup(name,awayCode,awayRecord,homeCode,homeRecord,spread) {
     const competition = {notes:[],competitors:[
       {homeAway:'away',team:{abbreviation:awayCode},records:[{type:'overall',summary:awayRecord}]},
@@ -70,10 +88,10 @@ const fixtures = `
   const bearsPatriots = nflMatchup('Patriots at Bears','NE','4-2','CHI','4-2',3);
   const ramsRaiders = nflMatchup('Rams at Raiders','LAR','2-4','LV','3-3',4.5);
   const seahawksChiefs = nflMatchup('Chiefs at Seahawks','KC','5-0','SEA','3-3',2.5);
-  assert.equal(jetsDolphins.score,34);
-  assert.equal(bearsPatriots.score,63);
-  assert.equal(ramsRaiders.score,42);
-  assert.equal(seahawksChiefs.score,57);
+  assert.equal(jetsDolphins.score,38);
+  assert.equal(bearsPatriots.score,67);
+  assert.equal(ramsRaiders.score,46);
+  assert.equal(seahawksChiefs.score,61);
   assert.ok([bearsPatriots,ramsRaiders,seahawksChiefs].every(matchup => matchup.score > jetsDolphins.score));
   assert.equal(bearsPatriots.factors.find(factor => factor.label === 'Both winning records').points,14);
   assert.equal(jetsDolphins.factors.find(factor => factor.label === 'AFC East matchup').points,4);
@@ -83,7 +101,7 @@ const fixtures = `
   assert.match(nflProse,/BAL -3/);
   assert.match(nflProse,/Lamar Jackson vs\. Joe Burrow if both start/);
   assert.doesNotMatch(nflProse,/ranked/);
-  assert.doesNotMatch(explainRating({...nflGame,score:38,factors:[{label:'Sport baseline',points:38}],teams:[['Team One','ONE'],['Team Two','TWO']]}),/ranked/);
+  assert.doesNotMatch(explainRating({...nflGame,score:42,factors:[{label:'Sport baseline',points:32},{label:'Schedule scarcity',points:10}],teams:[['Team One','ONE'],['Team Two','TWO']]}),/ranked/);
   const weakDivisionProse = explainRating({sport:'NFL',state:'upcoming',score:jetsDolphins.score,factors:jetsDolphins.factors,startTime:'2026-10-25T17:00:00Z',line:{spread:'NYJ -4.5'},teams:[['Miami Dolphins','MIA','0','',null,'0-5'],['New York Jets','NYJ','0','',null,'2-4']]});
   assert.match(weakDivisionProse,/below .500/);
   assert.match(weakDivisionProse,/only a small boost/);
@@ -129,12 +147,14 @@ const fixtures = `
   ]};
   const texasOleMiss = rateGame('CFB','upcoming',scheduledTeams,{name:'Texas vs Ole Miss'},rankedPair,'');
   const utahHouston = rateGame('CFB','upcoming',scheduledTeams,{name:'Utah vs Houston'},unbeatenPair,'');
-  assert.equal(texasOleMiss.score,76);
-  assert.equal(utahHouston.score,80);
+  assert.equal(texasOleMiss.score,80);
+  assert.equal(utahHouston.score,84);
   assert.ok(championship.score > utahHouston.score);
   assert.ok(!ordinary.factors.some(item => /close/i.test(item.label)));
   const final = rateGame('NFL','completed',[{score:'24'},{score:'27'}],{name:'Jaguars vs Texans'},{status:{type:{detail:'Final'}}},'');
-  assert.ok(final.score > final.openingScore);
+  const blowoutFinal = rateGame('NFL','completed',[{score:'10'},{score:'38'}],{name:'Jaguars vs Texans'},{status:{type:{detail:'Final'}}},'');
+  assert.ok(final.score > blowoutFinal.score);
+  assert.ok(final.factors.some(factor => factor.label === 'Final margin'));
   const lateClose = stateRating(38,'NFL','live',3,.95);
   const earlyClose = stateRating(38,'NFL','live',3,.2);
   const lateBlowout = stateRating(80,'NFL','live',28,.95);
@@ -295,7 +315,11 @@ vm.runInNewContext(`${scoreLogic}\n${coreBindings}\n${timelineLogic}\n${momentLo
   assert.ok(chart.points[1].x < chart.points[2].x && chart.points[2].x < chart.points[3].x);
   assert.equal(chart.points[3].score,86);
   assert.equal(chart.points.at(-1).score,86);
-  assert.match(excitementTimeline(hockey,summary),/timeline-chart/);
+  const chartMarkup = excitementTimeline(hockey,summary);
+  assert.match(chartMarkup,/timeline-chart/);
+  assert.match(chartMarkup,/timeline-point/);
+  assert.match(chartMarkup,/data-timeline-explanation/);
+  assert.match(chartMarkup,/timeline-point-help/);
   assert.match(summarySpecificWhy(hockey,summary).label,/Decisive/);
   assert.equal(timelinePoints({...hockey,state:'upcoming'},summary).points.length,0);
   assert.match(excitementTimeline({...hockey,state:'live'},null),/Not enough play-by-play/);
