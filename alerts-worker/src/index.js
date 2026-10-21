@@ -48,7 +48,7 @@ async function liveGames() {
   return [...new Map(feeds.flat().map(item => [item.key,item])).values()];
 }
 async function addDetails(items,minimum) {
-  await Promise.all(items.filter(item => item.game.score >= minimum - 30).slice(0,18).map(async item => {
+  await Promise.all(items.filter(item => item.game.score >= minimum - 40).slice(0,18).map(async item => {
     try {
       const path = item.path.split('?')[0].replace('/scoreboard','/summary');
       const response = await fetch(`${ESPN}/${path}?event=${encodeURIComponent(item.event.id)}`,{cf:{cacheTtl:0}});
