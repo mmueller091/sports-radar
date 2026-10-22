@@ -6,6 +6,10 @@
     Object.entries(SCHEDULE_SCARCITY).map(([sport,points]) => [sport,SPORT_FLOOR + points])
   );
 
+  // Retain opening context across the existing browser and Worker adapters.
+  // Weak keys release it when each scoreboard snapshot is discarded.
+  const liveRatingContexts = new WeakMap();
+
   const NFL_DIVISIONS = {
     BUF:'AFC East',MIA:'AFC East',NE:'AFC East',NYJ:'AFC East',
     BAL:'AFC North',CIN:'AFC North',CLE:'AFC North',PIT:'AFC North',
@@ -1698,8 +1702,72 @@
       );
   }
 
-  function winProbabilityImpact(summary,progress,state='live') {
-    if (state !== 'live') {
+  function winProbabilityImpact(summary,progress,state='live',sport='') {
+    const competition =
+      summary?.header?.competitions?.[0];
+
+    const summaryStatus =
+      competition?.status?.type;
+
+    const estimate =
+      (summary?.winprobability || [])
+        .filter(item => normalizeWinProbability(
+          item?.homeWinPercentage ?? item?.homeWinProbability ??
+          item?.homeWinPct ?? item?.value
+        ) !== null)
+        .at(-1);
+
+    const estimatePlay =
+      estimate?.playId == null
+        ? null
+        : (summary?.plays || []).find(play =>
+            String(play.id) === String(estimate.playId)
+          );
+
+    // A prediction for an earlier score or a finished game is not a live
+    // estimate. Keep valid one-sided predictions, even in close games.
+    const scoreChanged =
+      estimatePlay &&
+      (competition?.competitors || []).some(team => {
+        const value = team.homeAway === 'home'
+          ? estimatePlay.homeScore
+          : team.homeAway === 'away'
+            ? estimatePlay.awayScore
+            : null;
+        return value != null && team.score != null &&
+          Number.isFinite(Number(value)) &&
+          Number.isFinite(Number(team.score)) &&
+          Number(value) !== Number(team.score);
+      });
+
+    const estimatePeriod =
+      Number(estimatePlay?.period?.number || 0);
+
+    const estimateProgress =
+      sport && estimatePeriod
+        ? gameProgress(sport,{
+            status:{
+              period:estimatePeriod,
+              displayClock:estimatePlay.clock?.displayValue,
+              type:{detail:estimatePlay.period?.displayValue}
+            }
+          })
+        : null;
+
+    if (
+      state !== 'live' ||
+      summaryStatus?.completed === true ||
+      summaryStatus?.state === 'post' ||
+      summaryStatus?.state === 'pre' ||
+      scoreChanged ||
+      /end (?:of )?game/i.test(
+        `${estimatePlay?.type?.text || ''} ${estimatePlay?.text || ''}`
+      ) ||
+      (
+        estimateProgress !== null &&
+        Math.abs(Number(progress) - estimateProgress) > .05
+      )
+    ) {
       return {
         points:0,
         text:'',
@@ -1753,7 +1821,7 @@
 
     const bonus =
       Math.round(
-        18 *
+        16 *
         uncertainty *
         leverageWeight
       );
@@ -1783,9 +1851,9 @@
 
     const points =
       Math.max(
-        -14,
+        -8,
         Math.min(
-          18,
+          16,
           bonus -
           penalty
         )
@@ -1814,7 +1882,7 @@
       points < 0
     ) {
       text =
-        `Win probability is lopsided (${pct}% / ${100-pct}%) despite the current score`;
+        `The feed estimates a one-sided outcome (${pct}% / ${100-pct}%)`;
     }
 
     return {
@@ -2113,9 +2181,13 @@
                   (
                     position >=
                     currentProgress -
-                    .2
+                    .1
                       ? 3
-                      : 1
+                      : position >=
+                        currentProgress -
+                        .25
+                        ? 2
+                        : 1
                   ),
                 0
               )
@@ -3418,6 +3490,17 @@
             : 'Final result';
     }
 
+    if (
+      gameState === 'live' &&
+      competition?.status
+    ) {
+      liveRatingContexts.set(competition.status,{
+        openingScore:opening.score,
+        underdog,
+        competition
+      });
+    }
+
     return {
       score,
       factors,
@@ -3717,6 +3800,9 @@
       progress >= .72 &&
       scoreGap <= 8;
 
+    const competitive =
+      scoreGap <= 14;
+
     let points = 0;
     const reasons = [];
 
@@ -3735,9 +3821,20 @@
       down === 4 &&
       downText
     ) {
-      let fourth = 2;
+      let fourth = 1;
 
       if (
+        competitive &&
+        (
+          redZone ||
+          fieldPosition > 50
+        )
+      ) {
+        fourth++;
+      }
+
+      if (
+        competitive &&
         Number.isFinite(distance) &&
         distance <= 2
       ) {
@@ -3748,16 +3845,17 @@
         fourth += 3;
       }
 
-      if (redZone) {
+      if (competitive && redZone) {
         fourth += 1;
       } else if (
+        competitive &&
         fieldPosition !== null &&
         fieldPosition >= 70
       ) {
         fourth += 1;
       }
 
-      if (goalToGo) {
+      if (competitive && goalToGo) {
         fourth += 2;
       }
 
@@ -3778,7 +3876,9 @@
         fourth;
 
       reasons.push(
-        `${downText} is a pivotal down`
+        fourth > 1
+          ? `${downText} is a pivotal down`
+          : downText
       );
     }
 
@@ -5363,7 +5463,8 @@
         ? winProbabilityImpact(
             summary,
             progress,
-            'live'
+            'live',
+            game.sport
           )
         : {
             points:0,
@@ -5566,7 +5667,7 @@
 
     const negativeBonus =
       Math.max(
-        -14,
+        -8,
         probabilityNegative
       );
 
@@ -5575,6 +5676,109 @@
       negativeBonus;
 
     return snapshot;
+  }
+
+  function refreshLiveState(game,competition,summary) {
+    const context =
+      liveRatingContexts.get(game.liveRawStatus) ||
+      liveRatingContexts.get(competition?.status);
+
+    const previous = {
+      ...(context?.competition || game.sourceCompetition),
+      status:game.liveRawStatus || context?.competition?.status,
+      situation:game.liveRawSituation || context?.competition?.situation
+    };
+
+    const candidate =
+      competition || summary?.header?.competitions?.[0] || previous;
+
+    const type = candidate.status?.type;
+    const competitors = candidate.competitors || [];
+    const matched = game.teams.map(team => {
+      const id = String(team[8] || team.id || '');
+      if (id) {
+        return competitors.find(item =>
+          String(item.team?.id || item.athlete?.id || item.id || '') === id
+        );
+      }
+      // Existing tennis adapters retain athlete names but omit their IDs.
+      // Only use an exact, unique name match; never assume feed order.
+      const names = competitors.filter(item =>
+        (item.team?.displayName || item.athlete?.displayName) === team[0]
+      );
+      return names.length === 1 ? names[0] : undefined;
+    });
+
+    const wrongTeams = competitors.length > 0 &&
+      matched.some(team => !team);
+    const older = previous.status?.period && candidate.status?.period &&
+      gameProgress(game.sport,candidate) <
+      gameProgress(game.sport,previous);
+    const rejected = wrongTeams || older ||
+      type?.completed === true ||
+      (type?.state && type.state !== 'in');
+
+    // Keep scoreboard state through a final/summary race. The next
+    // scoreboard refresh owns the transition to the completed-game model.
+    const current = rejected
+      ? previous
+      : {
+          ...previous,
+          ...candidate,
+          status:candidate.status || previous.status,
+          situation:candidate.status ? candidate.situation || {} : previous.situation
+        };
+
+    if (!rejected && matched.length === 2 && matched.every(team =>
+      team && team.score != null && team.score !== '' &&
+      Number.isFinite(Number(team.score))
+    )) {
+      matched.forEach((team,index) => {
+        game.teams[index][2] = String(team.score);
+        if ('score' in game.teams[index]) {
+          game.teams[index].score = String(team.score);
+        }
+      });
+    }
+
+    const openingScore = game.openingScore ?? context?.openingScore;
+    if (Number.isFinite(openingScore)) {
+      const gap = Math.abs(Number(game.teams[0][2]) - Number(game.teams[1][2]));
+      const progress = gameProgress(game.sport,current);
+      const state = stateRating(
+        openingScore,game.sport,'live',Number.isFinite(gap) ? gap : null,progress
+      );
+      const underdog = game.underdog || context?.underdog;
+      const upset = upsetImpact(underdog,game.teams,'live',progress);
+      const factors = [...state.factors];
+      if (upset.points) {
+        factors.push({label:'Underdog threatens upset',points:upset.points});
+      }
+
+      game.baseScore = clampScore(factors.reduce((sum,item) => sum + item.points,0));
+      game.factors = factors;
+      game.openingScore = openingScore;
+      game.underdog = underdog;
+      game.upsetPoints = upset.points;
+      game.upsetText = upset.text;
+      const unit = ({NHL:'goal',Soccer:'goal',MLB:'run',Tennis:'set'})[game.sport] || 'point';
+      game.why = gap === 0
+        ? `Tied ${game.teams[0][2]}–${game.teams[1][2]}${progress > .65 ? ' late' : ''}`
+        : state.closePoints > 0
+          ? `${gap}-${unit} game${progress > .65 ? ' late' : ''}`
+          : `Game in progress · ${Math.round(progress * 100)}% elapsed`;
+
+      if (current.status) {
+        liveRatingContexts.set(current.status,{openingScore,underdog,competition:current});
+      }
+    }
+
+    game.liveRawStatus = current.status;
+    game.liveRawSituation = current.situation;
+    game.status = current.status?.type?.shortDetail ||
+      current.status?.type?.detail || game.status;
+
+    return {competition:current,summary:rejected ? null : summary};
   }
 
   function applyLiveSnapshot(
@@ -5588,11 +5792,14 @@
       return;
     }
 
+    const current =
+      refreshLiveState(game,competition,summary);
+
     game.live =
       liveSnapshot(
         game,
-        competition,
-        summary
+        current.competition,
+        current.summary
       );
 
     game.score =
