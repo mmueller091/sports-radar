@@ -405,3 +405,669 @@ dialog, .detail-panel { background: linear-gradient(145deg, #31414a, #17252d); b
 .alert-controls button{padding:9px 13px;border:1px solid #7d9ba8;border-radius:8px;background:linear-gradient(#354954,#24333c);color:#f5f7f9;font:inherit;cursor:pointer}
 .alert-controls button.alert-enabled{border-color:#42d66a;color:#b8f7c6}
 .alert-controls button:disabled{opacity:.52;cursor:not-allowed}
+/* --------------------------------------------------------------------------
+   Sports Radar visual cleanup
+   Keeps the existing layout and behavior, but removes most of the glossy,
+   generated-dashboard styling in favor of a flatter sports information UI.
+   -------------------------------------------------------------------------- */
+
+:root {
+  --bg: #0b141b;
+  --surface: #152129;
+  --surface-2: #18262f;
+  --surface-3: #101a20;
+  --ink: #f2f6f7;
+  --muted: #93a3aa;
+  --selected: #6ca9d8;
+  --selected-hi: #d9ecfa;
+  --green: #43dc7b;
+  --red: #ff776e;
+  --line: #2f414b;
+  --shadow: 0 2px 8px rgba(0,0,0,.22);
+}
+
+html {
+  background: var(--bg);
+}
+
+body {
+  color: var(--ink);
+  background: var(--bg);
+  background-attachment: initial;
+}
+
+.app-shell {
+  max-width: 1460px;
+}
+
+.topbar {
+  height: 72px;
+  border-bottom: 1px solid #263942;
+  box-shadow: none;
+}
+
+.brand {
+  color: #f5f8f8;
+  text-shadow: none;
+  letter-spacing: .08em;
+}
+
+.brand em {
+  color: #69e59a;
+}
+
+.brand-logo {
+  border-radius: 8px;
+  box-shadow: none;
+}
+
+.main-nav {
+  gap: 22px;
+}
+
+.nav-link {
+  color: #8fa1a9;
+  text-shadow: none;
+  font-weight: 500;
+}
+
+.nav-link:hover {
+  color: #c7d4d9;
+}
+
+.nav-link.active {
+  color: #f3f7f8;
+}
+
+.nav-link.active:after {
+  height: 2px;
+  background: #64b88b;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.icon-button {
+  color: #c6d4da;
+  text-shadow: none;
+  transition: color .15s ease;
+}
+
+.icon-button:hover {
+  color: #ffffff;
+  transform: none;
+}
+
+.install-button,
+.outline-button,
+.data-status button,
+.favorite-manual-button,
+.detail-watch,
+.alert-controls button {
+  border: 1px solid #3a505c;
+  background: #17242c;
+  color: #dce6ea;
+  border-radius: 5px;
+  box-shadow: none;
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+.install-button:hover,
+.outline-button:hover,
+.data-status button:hover,
+.favorite-manual-button:hover,
+.detail-watch:hover,
+.alert-controls button:hover {
+  background: #1d2d36;
+  border-color: #506b78;
+}
+
+.profile-button {
+  text-shadow: none;
+}
+
+.profile-button span {
+  width: 30px;
+  height: 30px;
+  background: #1a2931;
+  color: #cad8dd;
+  border: 1px solid #394c56;
+  box-shadow: none;
+}
+
+.section-label {
+  text-shadow: none;
+  letter-spacing: -.02em;
+}
+
+.live-count {
+  color: #8ee8b1;
+  background: #10251b;
+  border: 1px solid #275e40;
+  border-radius: 4px;
+  box-shadow: none;
+}
+
+.score-guide-button {
+  background: #16242c;
+  color: #bacbd2;
+  border: 1px solid #415660;
+  box-shadow: none;
+}
+
+.score-guide-button:hover,
+.score-guide-button:focus-visible {
+  border-color: #6f8a96;
+  box-shadow: none;
+}
+
+.segmented {
+  background: #10191f;
+  border: 1px solid #263840;
+  border-radius: 6px;
+  padding: 3px;
+  box-shadow: none;
+}
+
+.seg,
+.outline-button,
+.sport-chip {
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+.seg {
+  color: #8fa0a7;
+  text-shadow: none;
+  border-radius: 4px;
+  font-weight: 500;
+}
+
+.seg:hover {
+  color: #c9d4d8;
+}
+
+.seg.active {
+  color: #f5f8f9;
+  background: #223640;
+  box-shadow: none;
+  text-shadow: none;
+}
+
+.seg span {
+  color: #74868e;
+}
+
+.seg.active span {
+  color: #b4c7ce;
+}
+
+.sport-chip {
+  color: #aebdc3;
+  background: #142129;
+  border: 1px solid #2d414b;
+  border-radius: 5px;
+  box-shadow: none;
+  font-weight: 500;
+}
+
+.sport-chip:hover {
+  color: #e3e9eb;
+  border-color: #455d68;
+  background: #182730;
+}
+
+.sport-chip span {
+  color: #8fb1c3;
+}
+
+.sport-chip.active {
+  color: #f3f7f8;
+  background: #24404a;
+  border-color: #52717c;
+  box-shadow: none;
+  text-shadow: none;
+}
+
+.sport-chip.active span {
+  color: #c9e2ec;
+}
+
+.fcs-toggle {
+  border-style: solid;
+}
+
+.notice {
+  background: #14231a;
+  border: 1px solid #31523c;
+  border-radius: 6px;
+  box-shadow: none;
+}
+
+.data-status {
+  color: #8fa1a8;
+}
+
+.data-status .status-dot,
+.footer .status-dot {
+  background: #43dc7b;
+  box-shadow: none;
+}
+
+.game-date-divider {
+  border: 1px solid #2f434d;
+  border-radius: 5px;
+  background: rgba(14,26,33,.96);
+  color: #aebfc7;
+  box-shadow: none;
+  backdrop-filter: blur(6px);
+}
+
+.game-date-divider i {
+  background: #2d414b;
+}
+
+.game-card {
+  background: #152129;
+  border: 1px solid #2d3f48;
+  border-radius: 7px;
+  box-shadow: 0 1px 2px rgba(0,0,0,.28);
+  transition: background .15s ease, border-color .15s ease;
+}
+
+.game-card:hover {
+  background: #182730;
+  border-color: #405560;
+  transform: none;
+  box-shadow: 0 1px 2px rgba(0,0,0,.28);
+}
+
+.game-card.favorite {
+  background: #172631;
+  border-color: #40657d;
+}
+
+.game-card.favorite:before {
+  color: #9dc8e3;
+  text-shadow: none;
+}
+
+.game-card.watched {
+  border-color: #4e7187;
+}
+
+.game-card.completed-card {
+  background: #121e25;
+  border-color: #293b44;
+}
+
+.game-card.completed-card .winner-row .team-score {
+  text-shadow: none;
+}
+
+.sport-icon,
+.game-card .sport-icon {
+  width: 42px;
+  height: 42px;
+  max-width: 42px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.league-logo {
+  width: 30px;
+  height: 30px;
+}
+
+.match-meta {
+  color: #8799a1;
+  text-shadow: none;
+}
+
+.status-live {
+  color: #56df8a;
+  text-shadow: none;
+}
+
+.status-upcoming {
+  color: #aabac1;
+}
+
+.status-completed {
+  padding: 2px 5px;
+  border: 1px solid #384c56;
+  border-radius: 4px;
+  background: #111d23;
+  color: #93a6ae;
+}
+
+.live-phase {
+  color: #c5d6dd;
+}
+
+.live-situation {
+  color: #b9cbd3;
+}
+
+.base {
+  background: #293b44;
+  border-color: #667b84;
+  box-shadow: none;
+}
+
+.base.occupied {
+  background: #77b1d8;
+  border-color: #b8d8eb;
+  box-shadow: none;
+}
+
+.team-row {
+  text-shadow: none;
+}
+
+.team-record {
+  color: #899ba3;
+}
+
+.team-rank {
+  color: #b7d2e2;
+}
+
+.team-logo {
+  filter: none;
+}
+
+.team-score {
+  color: #f5f8f8;
+  font-weight: 700;
+}
+
+.game-context {
+  color: #9aacb3;
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+.game-context strong {
+  color: #dce5e8;
+  text-shadow: none;
+  font-weight: 600;
+}
+
+.game-card .detail-inline strong {
+  color: #91a9b4;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  padding: 0;
+  letter-spacing: .06em;
+}
+
+.game-card .detail-inline > span {
+  color: #c8d5da;
+}
+
+.sparkline i {
+  box-shadow: none;
+}
+
+.score-circle,
+.score-circle.hot,
+.score-circle.warm {
+  border: 2px solid hsl(var(--score-hue, 140) 72% 55%);
+  color: #f4f7f8;
+  background: #101a20;
+  box-shadow: none;
+}
+
+.excitement small {
+  color: #aabac1;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: .04em;
+}
+
+.score-help,
+.timeline-point-help {
+  border: 1px solid #405864;
+  border-radius: 6px;
+  background: #17262e;
+  color: #dce7eb;
+  box-shadow: 0 4px 12px rgba(0,0,0,.28);
+}
+
+.score-help::after {
+  background: #17262e;
+  border-color: #405864;
+}
+
+.empty-state div {
+  color: #8aa9b7;
+}
+
+.footer {
+  border-top: 1px solid #263942;
+  color: #7f9199;
+  box-shadow: none;
+}
+
+.brand-mini {
+  color: #82dca4;
+}
+
+.footer button {
+  color: #a7c6d5;
+}
+
+dialog,
+.detail-panel {
+  background: #152129;
+  border: 1px solid #344953;
+  border-radius: 8px;
+  box-shadow: 0 18px 50px rgba(0,0,0,.48);
+}
+
+dialog::backdrop {
+  background: rgba(4,9,12,.8);
+  backdrop-filter: blur(3px);
+}
+
+.preference-block {
+  border-top-color: #2c3d45;
+}
+
+.subtle,
+.dialog-copy {
+  color: #9aabb2;
+}
+
+.favorite-tag {
+  border: 1px solid #3c5867;
+  color: #c9dce4;
+  background: #172630;
+  border-radius: 4px;
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+.favorite-tag button {
+  color: #dce8ed;
+  background: #223741;
+  border-radius: 4px;
+}
+
+.favorite-picker,
+.detail-stat-team,
+.detail-player-team {
+  border-color: #314750;
+  background: #111d23;
+  border-radius: 6px;
+}
+
+.favorite-picker label {
+  color: #9fb2bb;
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+.favorite-picker select,
+.favorite-picker input,
+.alert-controls input {
+  border: 1px solid #3a505b;
+  border-radius: 5px;
+  background: #101b21;
+  color: #eef3f4;
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+.favorite-result {
+  border: 1px solid #304650;
+  border-radius: 4px;
+  background: #16252d;
+  color: #dce6e9;
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+.favorite-result:hover,
+.favorite-result:focus-visible {
+  border-color: #587483;
+  background: #1b2e37;
+}
+
+.favorite-help,
+.favorite-empty,
+.preference-note {
+  color: #8fa1aa;
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+.primary-button {
+  border: 1px solid #4a6978;
+  border-radius: 5px;
+  background: #24404a;
+  color: #f1f5f6;
+  box-shadow: none;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 600;
+}
+
+.primary-button:hover {
+  background: #2a4b56;
+}
+
+.source-grid div,
+.score-range-list > div {
+  border-color: #31444d;
+  background: #111d23;
+  border-radius: 5px;
+  box-shadow: none;
+}
+
+.model-note {
+  background: #15231a;
+  border-color: #31523c;
+  border-radius: 5px;
+}
+
+.toggle-option {
+  border: 1px solid #314650;
+  border-radius: 5px;
+  background: #142129;
+  color: #cdd8dc;
+  box-shadow: none;
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+.toggle-option:has(input:checked) {
+  border-color: #4c6a78;
+  background: #203a45;
+  color: #f1f5f6;
+}
+
+.detail-scoreboard {
+  background: #111d23;
+  border-color: #314750;
+  box-shadow: none;
+}
+
+.detail-meta,
+.detail-stat-team div,
+.detail-leaders div,
+.detail-player-table,
+.detail-plays li span,
+.timeline-note,
+.timeline-chart text,
+.card-moment,
+.detail-moment strong,
+.timeline-moments li b {
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+.detail-section {
+  border-top-color: #2c3e47;
+}
+
+.detail-player-table th,
+.detail-player-table td,
+.detail-plays li {
+  border-bottom-color: rgba(118,140,150,.18);
+}
+
+.detail-player-table thead th {
+  color: #8faebc;
+}
+
+.detail-moment {
+  border: 1px solid #395564;
+  border-radius: 6px;
+  background: #172630;
+  color: #dce8ed;
+}
+
+.timeline-chart {
+  background: #101b21;
+  border: 1px solid #304650;
+  border-radius: 6px;
+}
+
+.timeline-chart .timeline-line {
+  stroke: #77afd5;
+}
+
+.timeline-chart circle {
+  fill: #b8d7e9;
+  stroke: #3b657e;
+}
+
+.timeline-chart .timeline-end {
+  fill: #edf5f8;
+  stroke: #6ea7ca;
+}
+
+.card-moment {
+  color: #c8d7dd;
+}
+
+.card-moment strong {
+  color: #95b9cb;
+}
+
+.alert-controls label,
+.alert-controls span {
+  color: #9fb0b7;
+}
+
+.alert-controls button.alert-enabled {
+  border-color: #34734f;
+  color: #92e8b1;
+}
+
+@media (max-width: 800px) {
+  .brand-logo {
+    border-radius: 7px;
+  }
+}
+
+@media (max-width: 460px) {
+  .brand-logo {
+    border-radius: 6px;
+  }
+}
