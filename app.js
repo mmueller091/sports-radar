@@ -3534,7 +3534,7 @@ if (
 ) {
   navigator.serviceWorker
     .register(
-      './sw.js?rev=20261021-30'
+      './sw.js?rev=20261022-feed1'
     )
     .then(
       registration =>
