@@ -1071,3 +1071,150 @@ dialog::backdrop {
     border-radius: 6px;
   }
 }
+
+/* --------------------------------------------------------------------------
+   Typography and metadata separation
+   -------------------------------------------------------------------------- */
+
+:root {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, Helvetica, sans-serif;
+}
+
+body,
+button,
+input,
+select,
+textarea,
+.brand,
+.nav-link,
+.section-label,
+.seg,
+.outline-button,
+.sport-chip,
+.game-context,
+.game-context strong,
+.game-card .detail-inline strong,
+.game-card .detail-inline > span,
+.card-moment,
+.card-moment strong,
+.footer,
+.dialog-header,
+.preference-block,
+.subtle,
+.dialog-copy,
+.favorite-tag,
+.favorite-result,
+.favorite-picker label,
+.favorite-help,
+.favorite-empty,
+.favorite-manual-button,
+.preference-note,
+.primary-button,
+.source-grid,
+.model-note,
+.score-range-list,
+.toggle-option,
+.detail-section,
+.detail-explanation,
+.storyline-section,
+.detail-watch,
+.detail-moment,
+.timeline-note,
+.timeline-point-help,
+.timeline-moments,
+.alert-controls,
+.alert-controls button,
+.excitement small {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, Helvetica, sans-serif;
+}
+
+/* Keep mono only where fixed-width information improves scanning. */
+.team-score,
+.team-record,
+.team-rank,
+.match-meta,
+.live-situation,
+.score-circle,
+.score-breakdown,
+.score-trend,
+.detail-meta,
+.detail-player-table,
+.timeline-chart text {
+  font-family: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;
+}
+
+/* Reduce the synthetic dashboard look from excessive tracking and all-caps. */
+.match-meta {
+  letter-spacing: 0;
+}
+
+.card-moment strong {
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.game-card .detail-inline strong {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: #7f98a3;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .02em;
+  text-transform: uppercase;
+}
+
+/* Give the live moment its own visual row. */
+.card-moment {
+  margin-top: 7px;
+  padding-top: 7px;
+  border-top: 1px solid #263a43;
+}
+
+/* Separate broadcast and betting information from the scoring moment. */
+.game-card .channel-context {
+  margin-top: 7px;
+  padding-top: 7px;
+  border-top: 1px solid #263a43;
+  gap: 6px 12px;
+}
+
+/* Vertical divider between Broadcast and Last Pregame Line groups. */
+.game-card .channel-context .detail-inline + .detail-inline::before {
+  content: "";
+  display: inline-block;
+  width: 1px;
+  height: 14px;
+  margin-right: 12px;
+  background: #3a4d56;
+  vertical-align: middle;
+}
+
+/* Keep metadata values readable and visually distinct from their labels. */
+.game-card .detail-inline > span {
+  color: #c8d5da;
+  font-size: 12px;
+}
+
+/* Small screens use spacing instead of a cramped vertical divider. */
+@media (max-width: 800px) {
+  .game-card .channel-context .detail-inline + .detail-inline::before {
+    display: none;
+  }
+
+  .game-card .channel-context .detail-inline + .detail-inline {
+    padding-left: 12px;
+    border-left: 1px solid #3a4d56;
+  }
+}
+
+@media (max-width: 520px) {
+  .game-card .channel-context .detail-inline + .detail-inline {
+    padding-left: 0;
+    border-left: 0;
+  }
+
+  .game-card .channel-context {
+    row-gap: 7px;
+  }
+}
