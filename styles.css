@@ -1218,3 +1218,20 @@ textarea,
     row-gap: 7px;
   }
 }
+/* Consistent sport filter icons */
+.sport-chip:not(.fcs-toggle)::before {
+  content: "";
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  margin-right: 8px;
+  border: 1px solid #78909a;
+  border-radius: 50%;
+  background: transparent;
+  vertical-align: 1px;
+}
+
+.sport-chip.active:not(.fcs-toggle)::before {
+  background: #c7e3ef;
+  border-color: #c7e3ef;
+}
