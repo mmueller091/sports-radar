@@ -1,4 +1,4 @@
-:root {
+root {
   --bg: #202526;
   --surface: #343a3b;
   --ink: #f3eee2;
@@ -1218,20 +1218,212 @@ textarea,
     row-gap: 7px;
   }
 }
-/* Consistent sport filter icons */
-.sport-chip:not(.fcs-toggle)::before {
-  content: "";
-  display: inline-block;
-  width: 6px;
-  height: 6px;
-  margin-right: 8px;
-  border: 1px solid #78909a;
-  border-radius: 50%;
-  background: transparent;
-  vertical-align: 1px;
+
+/* --------------------------------------------------------------------------
+   Sports scoreboard refinement
+   Stronger information hierarchy, fewer dashboard-style components.
+   -------------------------------------------------------------------------- */
+
+/* Cards read more like scoreboards and less like floating UI components. */
+.game-card {
+  border-radius: 3px;
 }
 
+.game-card.favorite,
+.game-card.completed-card {
+  border-radius: 3px;
+}
+
+/* Date headers behave like section dividers, not cards. */
+.game-date-divider {
+  border: 0;
+  border-bottom: 1px solid #2d414a;
+  border-radius: 0;
+  background: transparent;
+  padding: 8px 0;
+  box-shadow: none;
+}
+
+.game-date-divider i {
+  background: #2d414a;
+}
+
+/* Sport filters are simple text tabs. FCS remains a real toggle button. */
+.sport-chip:not(.fcs-toggle) {
+  background: transparent;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  border-radius: 0;
+  padding: 8px 10px;
+  box-shadow: none;
+  color: #93a5ad;
+}
+
+.sport-chip:not(.fcs-toggle):hover {
+  background: transparent;
+  border-bottom-color: #425760;
+  color: #d9e2e5;
+}
+
+.sport-chip.active:not(.fcs-toggle) {
+  background: transparent;
+  border: 0;
+  border-bottom: 2px solid #67c28d;
+  color: #f1f5f6;
+  box-shadow: none;
+}
+
+.sport-chip:not(.fcs-toggle)::before,
 .sport-chip.active:not(.fcs-toggle)::before {
-  background: #c7e3ef;
-  border-color: #c7e3ef;
+  display: none;
+}
+
+.fcs-toggle {
+  background: #16242c;
+  border: 1px solid #344a55;
+  border-radius: 4px;
+  color: #aebfc6;
+  box-shadow: none;
+}
+
+.fcs-toggle.active {
+  background: #203a45;
+  border-color: #4f6a76;
+  color: #eef4f5;
+}
+
+/* Real game score is the primary number. */
+.team-score {
+  font-size: 20px;
+  font-weight: 700;
+  color: #f7f9fa;
+}
+
+/* Excitement becomes a clean secondary readout instead of a gauge. */
+.score-circle,
+.score-circle.hot,
+.score-circle.warm {
+  width: auto;
+  height: auto;
+  min-width: 42px;
+  border: 0;
+  border-left: 3px solid hsl(var(--score-hue, 140) 70% 52%);
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  padding: 3px 0 3px 10px;
+  color: #f4f7f8;
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.score-dot-wrap .score-circle {
+  cursor: help;
+}
+
+.excitement {
+  text-align: right;
+}
+
+.excitement small {
+  margin-top: 5px;
+  color: #7f939c;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: .04em;
+}
+
+/* Quieter utility labels. */
+.game-card .detail-inline strong,
+.card-moment strong {
+  color: #6f8792;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: .02em;
+}
+
+/* Latest score stays close to the matchup. One separator before utility info. */
+.card-moment {
+  margin-top: 4px;
+  padding-top: 3px;
+  border-top: 0;
+}
+
+.game-card .channel-context {
+  margin-top: 7px;
+  padding-top: 8px;
+  border-top: 1px solid #263a43;
+}
+
+/* Broadcast and line remain distinct without looking like nested components. */
+.game-card .channel-context .detail-inline + .detail-inline::before {
+  content: "";
+  display: inline-block;
+  width: 1px;
+  height: 13px;
+  margin-right: 12px;
+  background: #354952;
+  vertical-align: middle;
+}
+
+/* Radar green is reserved for active and live signal states. */
+.status-live,
+.live-count,
+.nav-link.active,
+.watch-indicator {
+  color: #67dc95;
+}
+
+.nav-link.active:after {
+  background: #67c28d;
+}
+
+.data-status .status-dot,
+.footer .status-dot {
+  background: #43dc7b;
+}
+
+/* Reduce remaining decorative polish. */
+.game-card:hover {
+  transform: none;
+  box-shadow: 0 1px 2px rgba(0,0,0,.28);
+}
+
+.score-help,
+.timeline-point-help,
+dialog,
+.detail-panel {
+  border-radius: 4px;
+}
+
+/* Mobile adjustments for the flatter score treatment. */
+@media (max-width: 800px) {
+  .team-score {
+    font-size: 18px;
+  }
+
+  .score-circle,
+  .score-circle.hot,
+  .score-circle.warm {
+    min-width: 38px;
+    font-size: 20px;
+    padding-left: 8px;
+  }
+
+  .game-card .channel-context .detail-inline + .detail-inline::before {
+    display: none;
+  }
+
+  .game-card .channel-context .detail-inline + .detail-inline {
+    padding-left: 12px;
+    border-left: 1px solid #354952;
+  }
+}
+
+@media (max-width: 520px) {
+  .game-card .channel-context .detail-inline + .detail-inline {
+    padding-left: 0;
+    border-left: 0;
+  }
 }
