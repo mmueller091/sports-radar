@@ -1,16 +1,10 @@
 import {buildPushPayload} from '@block65/webcrypto-web-push';
 import '../../rating-core.js';
 import {contextsForGames,refreshStorylines} from './storylines.js';
+import {readFeed,withFreshness,gameDetails,refreshSportsData} from './sports-feed.js';
 
 const {rateGame,applyLiveSnapshot,recordFor,rankFor,clampScore,underdogCandidate,upsetImpact,gameProgress,momentumImpact} = globalThis.SportsRadarScore;
 const ORIGIN = 'https://mmueller091.github.io';
-const ESPN = 'https://site.api.espn.com/apis/site/v2/sports';
-const FEEDS = [
-  ['NFL','football/nfl/scoreboard'],['MLB','baseball/mlb/scoreboard'],['NHL','hockey/nhl/scoreboard'],
-  ['CFB','football/college-football/scoreboard?groups=80&limit=500'],['CFB','football/college-football/scoreboard?groups=81&limit=500'],
-  ['NBA','basketball/nba/scoreboard'],['NCAAB','basketball/mens-college-basketball/scoreboard'],
-  ['Soccer','soccer/eng.1/scoreboard'],['Soccer','soccer/uefa.champions/scoreboard'],['Tennis','tennis/atp/scoreboard']
-];
 const PUSH_HOSTS = ['web.push.apple.com','fcm.googleapis.com','updates.push.services.mozilla.com','push.services.mozilla.com'];
 const JSON_HEADERS = {'Content-Type':'application/json','Cache-Control':'no-store'};
 
@@ -42,46 +36,12 @@ function gameFromEvent(sport,path,event) {
   const game = {id:String(event.id),sport,state:'live',teams:teams.map(team => [team.name,team.abbr,team.score,'','',team.record,team.rank,'',team.id]),score:rating.score,baseScore:rating.score,liveRawStatus:competition.status,liveRawSituation:competition.situation};
   return {key:`${sport}:${event.id}`,sport,path,competition,event,game,rating};
 }
-async function liveGames() {
-  const feeds = await Promise.all(FEEDS.map(async ([sport,path]) => {
-    try { const url = `${ESPN}/${path}${path.includes('?') ? '&' : '?'}limit=500`; const response = await fetch(url,{headers:{Accept:'application/json'},cf:{cacheTtl:0}}); if (!response.ok) return []; const json = await response.json(); return (json.events || []).map(event => gameFromEvent(sport,path,event)).filter(Boolean); } catch { return []; }
-  }));
-  return [...new Map(feeds.flat().map(item => [item.key,item])).values()];
-}
-async function addDetails(items,minimum) {
-  await Promise.all(items.filter(item => item.game.score >= minimum - 40).slice(0,18).map(async item => {
-    try {
-      const path = item.path.split('?')[0].replace('/scoreboard','/summary');
-      const response = await fetch(`${ESPN}/${path}?event=${encodeURIComponent(item.event.id)}`,{cf:{cacheTtl:0}});
-      if (!response.ok) return;
-      const summary = await response.json();
-      const competition = summary?.header?.competitions?.[0] || item.competition;
-      applyLiveSnapshot(item.game,competition,summary);
-      if (!item.rating.underdog) {
-        const candidate = underdogCandidate(item.sport,competition,summary?.pickcenter?.[0] || competition?.odds?.[0]);
-        const impact = upsetImpact(candidate,item.game.teams,'live',gameProgress(item.sport,competition));
-        if (impact.points) {
-          item.game.baseScore = clampScore(item.game.baseScore + impact.points);
-          item.game.score = clampScore(item.game.baseScore + (item.game.live?.bonus || 0));
-          item.rating.upsetText = impact.text;
-        }
-      }
-      const momentum = momentumImpact(item.sport,summary,gameProgress(item.sport,competition),'live');
-      if (momentum.points) {
-        item.game.baseScore = clampScore(item.game.baseScore + momentum.points);
-        item.game.score = clampScore(item.game.baseScore + (item.game.live?.bonus || 0));
-        item.rating.momentumText = momentum.text;
-      }
-    } catch {}
-  }));
-}
-async function checkGames(env) {
+async function checkGames(env,feed) {
   const now = Math.floor(Date.now()/1000);
   const subscribers = (await env.DB.prepare('SELECT token_hash, endpoint, p256dh, auth, threshold FROM subscriptions LIMIT 200').all()).results || [];
   if (!subscribers.length) return;
-  const items = await liveGames();
+  const items = (feed?.games || []).filter(game=>game.state==='live' && !game.detailStale).map(game=>({key:`${game.sport}:${game.id}`,game,rating:{reason:game.why,momentumText:game.momentumText,upsetText:game.upsetText}}));
   if (!items.length) return;
-  await addDetails(items,Math.min(...subscribers.map(item => item.threshold)));
   const previous = new Map(((await env.DB.prepare('SELECT game_key, score FROM game_state WHERE seen_at > ?').bind(now-172800).all()).results || []).map(row => [row.game_key,row.score]));
   const writes = items.map(item => env.DB.prepare('INSERT INTO game_state (game_key, score, seen_at) VALUES (?, ?, ?) ON CONFLICT(game_key) DO UPDATE SET score=excluded.score, seen_at=excluded.seen_at').bind(item.key,item.game.score,now));
   for (let start=0;start<writes.length;start+=50) await env.DB.batch(writes.slice(start,start+50));
@@ -112,12 +72,32 @@ async function checkGames(env) {
   await env.DB.prepare('DELETE FROM alerts WHERE created_at < ?').bind(now-604800).run();
 }
 
-export {gameFromEvent,validSubscription};
+export {gameFromEvent,validSubscription,checkGames};
 export default {
-  async fetch(request,env) {
+  async fetch(request,env,ctx) {
     const url = new URL(request.url);
     if (request.method === 'OPTIONS') return new Response(null,{status:204,headers:cors(request)});
     if (request.headers.get('Origin') && request.headers.get('Origin') !== ORIGIN) return reply(request,{error:'Origin not allowed'},403);
+    if (url.pathname === '/feed' && request.method === 'GET') {
+      try {
+        const cache = globalThis.caches?.default;
+        const key = new Request(`${url.origin}/feed`);
+        const cached = await cache?.match(key);
+        const feed = cached ? withFreshness(await cached.json()) : await readFeed(env);
+        if (feed && !cached && cache) {
+          const write = cache.put(key,new Response(JSON.stringify(feed),{headers:{'Content-Type':'application/json','Cache-Control':'public, max-age=15'}}));
+          if (ctx) ctx.waitUntil(write); else await write;
+        }
+        return reply(request,feed || {error:'Feed is warming up'},feed ? 200 : 503);
+      } catch { return reply(request,{error:'Feed temporarily unavailable'},503); }
+    }
+    const detail = /^\/game\/([A-Za-z]+)\/([A-Za-z0-9_-]{1,100})$/.exec(url.pathname);
+    if (detail && request.method === 'GET') {
+      try {
+        const summary = await gameDetails(env,detail[1],detail[2]);
+        return reply(request,summary || {error:'Game not found'},summary ? 200 : 404);
+      } catch { return reply(request,{error:'Game details temporarily unavailable'},503); }
+    }
     if (url.pathname === '/config' && request.method === 'GET') return reply(request,{publicKey:env.VAPID_SERVER_PUBLIC_KEY || '',pollSeconds:60});
     if (url.pathname === '/health' && request.method === 'GET') {
       const research = await env.DB.prepare('SELECT last_run,candidates,articles,factors,ai_used,last_error FROM research_status WHERE id=1').first().catch(() => null);
@@ -155,7 +135,7 @@ export default {
     return reply(request,{error:'Method not allowed'},405);
   },
   async scheduled(event,env,ctx) {
-    if (event.cron === '* * * * *') ctx.waitUntil(checkGames(env));
+    if (event.cron === '* * * * *') ctx.waitUntil(refreshSportsData(env).then(feed => feed && !feed.freshness.stale ? checkGames(env,feed) : undefined));
     else ctx.waitUntil(refreshStorylines(env).catch(async error => {
       console.error('Storyline refresh failed',String(error));
       await env.DB.prepare(`INSERT INTO research_status (id,last_run,candidates,articles,factors,ai_used,last_error)

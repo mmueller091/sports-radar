@@ -6,6 +6,26 @@ CREATE TABLE IF NOT EXISTS subscriptions (
   threshold INTEGER NOT NULL,
   updated_at INTEGER NOT NULL
 );
+
+CREATE TABLE IF NOT EXISTS sports_feed (id INTEGER PRIMARY KEY CHECK (id=1), payload TEXT NOT NULL);
+CREATE TABLE IF NOT EXISTS sports_feed_parts (revision INTEGER NOT NULL, part INTEGER NOT NULL, payload TEXT NOT NULL, PRIMARY KEY (revision,part));
+CREATE TABLE IF NOT EXISTS sports_resources (key TEXT PRIMARY KEY, payload TEXT NOT NULL, updated_at INTEGER NOT NULL);
+CREATE INDEX IF NOT EXISTS sports_resources_age ON sports_resources(updated_at);
+CREATE TABLE IF NOT EXISTS sports_leases (key TEXT PRIMARY KEY, owner TEXT NOT NULL, expires_at INTEGER NOT NULL);
+CREATE TABLE IF NOT EXISTS sports_snapshots (
+  game_key TEXT NOT NULL,
+  observed_at INTEGER NOT NULL,
+  sport TEXT NOT NULL,
+  state TEXT NOT NULL,
+  rating INTEGER NOT NULL,
+  score_a TEXT NOT NULL,
+  score_b TEXT NOT NULL,
+  phase TEXT NOT NULL,
+  clock TEXT NOT NULL,
+  normalized_state TEXT NOT NULL,
+  PRIMARY KEY (game_key, observed_at)
+);
+CREATE INDEX IF NOT EXISTS sports_snapshots_age ON sports_snapshots(observed_at);
 CREATE TABLE IF NOT EXISTS game_state (
   game_key TEXT PRIMARY KEY,
   score INTEGER NOT NULL,
@@ -46,4 +66,9 @@ CREATE TABLE IF NOT EXISTS research_status (
   factors INTEGER NOT NULL DEFAULT 0,
   ai_used INTEGER NOT NULL DEFAULT 0,
   last_error TEXT
+);
+
+CREATE TABLE IF NOT EXISTS research_ai_budget (
+  day TEXT PRIMARY KEY,
+  reserved_neurons INTEGER NOT NULL
 );

@@ -3,23 +3,24 @@ const fs = require('node:fs');
 const vm = require('node:vm');
 
 const app = fs.readFileSync('app.js','utf8');
+const provider = fs.readFileSync('alerts-worker/src/providers/espn.js','utf8');
 const styles = fs.readFileSync('styles.css','utf8');
-const favoriteLogic = app.slice(app.indexOf('function normalizedTeamName'),app.indexOf('function stateFromEvent'));
+const favoriteLogic = app.slice(app.indexOf('function normalizedTeamName'),app.indexOf('function readLineSnapshots'));
 const pickerLogic = app.slice(app.indexOf('function sameFavorite'),app.indexOf('function syncFavoriteGames'));
 const teamDirectory = JSON.parse(fs.readFileSync('teams.json','utf8'));
 assert.equal(teamDirectory.NBA.length,30);
 assert.ok(teamDirectory.NBA.some(team => team.name === 'Los Angeles Lakers'));
 assert.ok(teamDirectory.CFB.length > 500);
 const scoreLogic = fs.readFileSync('rating-core.js','utf8');
-const lineLogic = app.slice(app.indexOf('function displayLine'),app.indexOf('function normalizeEvent'));
+const lineLogic = app.slice(app.indexOf('function displayLine'),app.indexOf('async function loadLiveGames'));
 const coreBindings = 'const {SPORT_FLOOR,SCHEDULE_SCARCITY,SPORT_BASE,CLOSE_MARGIN,clampScore,factorText,recordFor,rankFor,parseLine,lineFromSummary,gameProgress,momentumImpact,underdogCandidate,upsetImpact,stateRating,rateGame,applyLiveSnapshot} = globalThis.SportsRadarScore;';
 const preferenceLogic = app.slice(app.indexOf('function readFavoriteSelections'),app.indexOf('const savedFavorites'));
 const explanationLogic = app.slice(app.indexOf('function explainRating'),app.indexOf('function trendFor'));
-const nflLogic = app.slice(app.indexOf('function nflWeekMeta'),app.indexOf('function dedupeGames'));
-const dedupeLogic = app.slice(app.indexOf('function dedupeGames'),app.indexOf('async function loadLiveGames'));
-assert.match(app,/scoreboard\?groups=80[^\n]*limit:500/);
-assert.match(app,/scoreboard\?groups=81[^\n]*limit:500/);
-assert.match(app,/\[yesterday,today\]\.map/);
+const nflLogic = provider.slice(provider.indexOf('function nflWeekMeta'),provider.indexOf('function dedupeGames'));
+const dedupeLogic = provider.slice(provider.indexOf('function dedupeGames'),provider.indexOf('async function fetchDailyWindow'));
+assert.match(provider,/scoreboard\?groups=80[^\n]*limit:500/);
+assert.match(provider,/scoreboard\?groups=81[^\n]*limit:500/);
+assert.match(provider,/\[yesterday,today\]\.map/);
 assert.match(app,/`Why \$\{score\}\? \$\{explainRating\(game\)\}`/);
 assert.doesNotMatch(app,/class="game-context rating-context"/);
 assert.match(styles,/\.game-card:has\(\.score-dot-wrap:hover\).*z-index: 8/);
@@ -301,7 +302,7 @@ vm.runInNewContext(`${watchLogic}
 `,{assert});
 
 const timelineLogic = app.slice(app.indexOf('function readRatingHistory'),app.indexOf('function renderDetailContent'));
-const momentLogic = app.slice(app.indexOf('function summarySpecificWhy'),app.indexOf('async function enrichGameSignals'));
+const momentLogic = app.slice(app.indexOf('function summarySpecificWhy'),app.indexOf('function render()'));
 vm.runInNewContext(`${scoreLogic}\n${coreBindings}\n${timelineLogic}\n${momentLogic}
   const hockey = {sport:'NHL',id:'match',state:'completed',score:86,openingScore:35};
   const summary = {plays:[

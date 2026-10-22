@@ -1,0 +1,5819 @@
+{
+  "CFB-20261017-401856719.json": {
+    "score": 99,
+    "baseScore": 62,
+    "openingScore": 56,
+    "factors": [
+      {
+        "label": "Game-state baseline",
+        "points": 18
+      },
+      {
+        "label": "Pregame context carried into play",
+        "points": 3
+      },
+      {
+        "label": "Final margin",
+        "points": 19
+      },
+      {
+        "label": "Underdog won outright",
+        "points": 22
+      },
+      {
+        "label": "1 lead change",
+        "points": 3
+      },
+      {
+        "label": "Erased a large deficit",
+        "points": 6
+      },
+      {
+        "label": "Sustained competitive game",
+        "points": 7
+      },
+      {
+        "label": "Repeated swings in control",
+        "points": 6
+      },
+      {
+        "label": "Big win-chance swing",
+        "points": 3
+      },
+      {
+        "label": "Decisive last play",
+        "points": 14
+      }
+    ],
+    "teams": [
+      [
+        "Georgia Bulldogs",
+        "UGA",
+        "24",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/ncaa/500/61.png",
+        "6-1",
+        1,
+        "Georgia",
+        "61"
+      ],
+      [
+        "Auburn Tigers",
+        "AUB",
+        "27",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/ncaa/500/2.png",
+        "4-2",
+        null,
+        "Auburn",
+        "2"
+      ]
+    ]
+  },
+  "CFB-20261017-401856720.json": {
+    "score": 1,
+    "baseScore": 1,
+    "openingScore": 71,
+    "factors": [
+      {
+        "label": "Game-state baseline",
+        "points": 18
+      },
+      {
+        "label": "Pregame context carried into play",
+        "points": 4
+      },
+      {
+        "label": "Wide margin",
+        "points": -28
+      }
+    ],
+    "teams": [
+      [
+        "LSU Tigers",
+        "LSU",
+        "31",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/ncaa/500/99.png",
+        "5-2",
+        22,
+        "LSU",
+        "99"
+      ],
+      [
+        "Mississippi State Bulldogs",
+        "MSST",
+        "0",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/ncaa/500/344.png",
+        "4-2",
+        16,
+        "Mississippi St",
+        "344"
+      ]
+    ]
+  },
+  "CFB-20261017-401856721.json": {
+    "score": 4,
+    "baseScore": 1,
+    "openingScore": 80,
+    "factors": [
+      {
+        "label": "Game-state baseline",
+        "points": 18
+      },
+      {
+        "label": "Pregame context carried into play",
+        "points": 4
+      },
+      {
+        "label": "Wide margin",
+        "points": -26
+      },
+      {
+        "label": "1 lead change",
+        "points": 3
+      }
+    ],
+    "teams": [
+      [
+        "Ole Miss Rebels",
+        "MISS",
+        "31",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/ncaa/500/145.png",
+        "5-1",
+        9,
+        "Ole Miss",
+        "145"
+      ],
+      [
+        "Missouri Tigers",
+        "MIZ",
+        "3",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/ncaa/500/142.png",
+        "5-2",
+        13,
+        "Missouri",
+        "142"
+      ]
+    ]
+  },
+  "CFB-20261017-401856722.json": {
+    "score": 56,
+    "baseScore": 31,
+    "openingScore": 51,
+    "factors": [
+      {
+        "label": "Game-state baseline",
+        "points": 18
+      },
+      {
+        "label": "Pregame context carried into play",
+        "points": 3
+      },
+      {
+        "label": "Final margin",
+        "points": 10
+      },
+      {
+        "label": "2 lead changes",
+        "points": 6
+      },
+      {
+        "label": "Sustained competitive game",
+        "points": 7
+      },
+      {
+        "label": "Big win-chance swing",
+        "points": 6
+      },
+      {
+        "label": "Competitive throughout",
+        "points": 6
+      }
+    ],
+    "teams": [
+      [
+        "Oklahoma Sooners",
+        "OU",
+        "13",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/ncaa/500/201.png",
+        "3-3",
+        null,
+        "Oklahoma",
+        "201"
+      ],
+      [
+        "Kentucky Wildcats",
+        "UK",
+        "21",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/ncaa/500/96.png",
+        "6-1",
+        15,
+        "Kentucky",
+        "96"
+      ]
+    ]
+  },
+  "CFB-20261017-401856723.json": {
+    "score": 24,
+    "baseScore": 7,
+    "openingScore": 80,
+    "factors": [
+      {
+        "label": "Game-state baseline",
+        "points": 18
+      },
+      {
+        "label": "Pregame context carried into play",
+        "points": 4
+      },
+      {
+        "label": "Wide margin",
+        "points": -15
+      },
+      {
+        "label": "Sustained competitive game",
+        "points": 7
+      },
+      {
+        "label": "Big win-chance swing",
+        "points": 4
+      },
+      {
+        "label": "Competitive throughout",
+        "points": 6
+      }
+    ],
+    "teams": [
+      [
+        "Tennessee Volunteers",
+        "TENN",
+        "26",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/ncaa/500/2633.png",
+        "6-1",
+        14,
+        "Tennessee",
+        "2633"
+      ],
+      [
+        "Alabama Crimson Tide",
+        "ALA",
+        "10",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/ncaa/500/333.png",
+        "5-2",
+        6,
+        "Alabama",
+        "333"
+      ]
+    ]
+  },
+  "CFB-20261017-401856724.json": {
+    "score": 83,
+    "baseScore": 59,
+    "openingScore": 56,
+    "factors": [
+      {
+        "label": "Game-state baseline",
+        "points": 18
+      },
+      {
+        "label": "Pregame context carried into play",
+        "points": 3
+      },
+      {
+        "label": "Final margin",
+        "points": 19
+      },
+      {
+        "label": "Underdog won outright",
+        "points": 19
+      },
+      {
+        "label": "1 lead change",
+        "points": 3
+      },
+      {
+        "label": "Erased a large deficit",
+        "points": 6
+      },
+      {
+        "label": "Sustained competitive game",
+        "points": 7
+      },
+      {
+        "label": "Big win-chance swing",
+        "points": 8
+      }
+    ],
+    "teams": [
+      [
+        "Texas Longhorns",
+        "TEX",
+        "24",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/ncaa/500/251.png",
+        "4-2",
+        7,
+        "Texas",
+        "251"
+      ],
+      [
+        "Florida Gators",
+        "FLA",
+        "27",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/ncaa/500/57.png",
+        "5-2",
+        null,
+        "Florida",
+        "57"
+      ]
+    ]
+  },
+  "CFB-20261017-401856725.json": {
+    "score": 1,
+    "baseScore": 1,
+    "openingScore": 40,
+    "factors": [
+      {
+        "label": "Game-state baseline",
+        "points": 18
+      },
+      {
+        "label": "Pregame context carried into play",
+        "points": 2
+      },
+      {
+        "label": "Wide margin",
+        "points": -28
+      }
+    ],
+    "teams": [
+      [
+        "Texas A&M Aggies",
+        "TA&M",
+        "41",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/ncaa/500/245.png",
+        "4-3",
+        null,
+        "Texas A&M",
+        "245"
+      ],
+      [
+        "The Citadel Bulldogs",
+        "CIT",
+        "0",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/ncaa/500/2643.png",
+        "2-5",
+        null,
+        "The Citadel",
+        "2643"
+      ]
+    ]
+  },
+  "CFB-20261017-401856726.json": {
+    "score": 48,
+    "baseScore": 27,
+    "openingScore": 40,
+    "factors": [
+      {
+        "label": "Game-state baseline",
+        "points": 18
+      },
+      {
+        "label": "Pregame context carried into play",
+        "points": 2
+      },
+      {
+        "label": "Final margin",
+        "points": 7
+      },
+      {
+        "label": "1 lead change",
+        "points": 3
+      },
+      {
+        "label": "Sustained competitive game",
+        "points": 7
+      },
+      {
+        "label": "Big win-chance swing",
+        "points": 5
+      },
+      {
+        "label": "Competitive throughout",
+        "points": 6
+      }
+    ],
+    "teams": [
+      [
+        "Vanderbilt Commodores",
+        "VAN",
+        "21",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/ncaa/500/238.png",
+        "3-4",
+        null,
+        "Vanderbilt",
+        "238"
+      ],
+      [
+        "Arkansas Razorbacks",
+        "ARK",
+        "31",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/ncaa/500/8.png",
+        "3-4",
+        null,
+        "Arkansas",
+        "8"
+      ]
+    ]
+  },
+  "CFB-20261017-401856809.json": {
+    "score": 82,
+    "baseScore": 57,
+    "openingScore": 84,
+    "factors": [
+      {
+        "label": "Game-state baseline",
+        "points": 18
+      },
+      {
+        "label": "Pregame context carried into play",
+        "points": 4
+      },
+      {
+        "label": "Final margin",
+        "points": 17
+      },
+      {
+        "label": "Underdog won outright",
+        "points": 18
+      },
+      {
+        "label": "4 lead changes",
+        "points": 9
+      },
+      {
+        "label": "Erased a large deficit",
+        "points": 6
+      },
+      {
+        "label": "Recent late lead change",
+        "points": 5
+      },
+      {
+        "label": "Sustained competitive game",
+        "points": 5
+      }
+    ],
+    "teams": [
+      [
+        "BYU Cougars",
+        "BYU",
+        "28",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/ncaa/500/252.png",
+        "6-0",
+        8,
+        "BYU",
+        "252"
+      ],
+      [
+        "Notre Dame Fighting Irish",
+        "ND",
+        "24",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/ncaa/500/87.png",
+        "6-1",
+        2,
+        "Notre Dame",
+        "87"
+      ]
+    ]
+  },
+  "CFB-20261017-401856828.json": {
+    "score": 1,
+    "baseScore": 1,
+    "openingScore": 56,
+    "factors": [
+      {
+        "label": "Game-state baseline",
+        "points": 18
+      },
+      {
+        "label": "Pregame context carried into play",
+        "points": 3
+      },
+      {
+        "label": "Wide margin",
+        "points": -26
+      }
+    ],
+    "teams": [
+      [
+        "Texas Tech Red Raiders",
+        "TTU",
+        "53",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/ncaa/500/2641.png",
+        "6-0",
+        10,
+        "Texas Tech",
+        "2641"
+      ],
+      [
+        "Arizona State Sun Devils",
+        "ASU",
+        "25",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/ncaa/500/9.png",
+        "3-3",
+        null,
+        "Arizona St",
+        "9"
+      ]
+    ]
+  },
+  "CFB-20261017-401856829.json": {
+    "score": 78,
+    "baseScore": 39,
+    "openingScore": 40,
+    "factors": [
+      {
+        "label": "Game-state baseline",
+        "points": 18
+      },
+      {
+        "label": "Pregame context carried into play",
+        "points": 2
+      },
+      {
+        "label": "Final margin",
+        "points": 19
+      },
+      {
+        "label": "1 lead change",
+        "points": 3
+      },
+      {
+        "label": "Recent late lead change",
+        "points": 5
+      },
+      {
+        "label": "Sustained competitive game",
+        "points": 7
+      },
+      {
+        "label": "Big win-chance swing",
+        "points": 9
+      },
+      {
+        "label": "Competitive throughout",
+        "points": 1
+      },
+      {
+        "label": "Decisive last play",
+        "points": 14
+      }
+    ],
+    "teams": [
+      [
+        "West Virginia Mountaineers",
+        "WVU",
+        "45",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/ncaa/500/277.png",
+        "4-3",
+        null,
+        "West Virginia",
+        "277"
+      ],
+      [
+        "Cincinnati Bearcats",
+        "CIN",
+        "42",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/ncaa/500/2132.png",
+        "4-2",
+        null,
+        "Cincinnati",
+        "2132"
+      ]
+    ]
+  },
+  "CFB-20261017-401856830.json": {
+    "score": 50,
+    "baseScore": 25,
+    "openingScore": 40,
+    "factors": [
+      {
+        "label": "Game-state baseline",
+        "points": 18
+      },
+      {
+        "label": "Pregame context carried into play",
+        "points": 2
+      },
+      {
+        "label": "Final margin",
+        "points": 5
+      },
+      {
+        "label": "4 lead changes",
+        "points": 9
+      },
+      {
+        "label": "Erased a large deficit",
+        "points": 6
+      },
+      {
+        "label": "Sustained competitive game",
+        "points": 7
+      },
+      {
+        "label": "Big win-chance swing",
+        "points": 3
+      }
+    ],
+    "teams": [
+      [
+        "Kansas State Wildcats",
+        "KSU",
+        "35",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/ncaa/500/2306.png",
+        "4-2",
+        null,
+        "Kansas St",
+        "2306"
+      ],
+      [
+        "Kansas Jayhawks",
+        "KU",
+        "24",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/ncaa/500/2305.png",
+        "2-4",
+        null,
+        "Kansas",
+        "2305"
+      ]
+    ]
+  },
+  "CFB-20261017-401856831.json": {
+    "score": 52,
+    "baseScore": 41,
+    "openingScore": 75,
+    "factors": [
+      {
+        "label": "Game-state baseline",
+        "points": 18
+      },
+      {
+        "label": "Pregame context carried into play",
+        "points": 4
+      },
+      {
+        "label": "Final margin",
+        "points": 19
+      },
+      {
+        "label": "1 lead change",
+        "points": 3
+      },
+      {
+        "label": "Sustained competitive game",
+        "points": 5
+      },
+      {
+        "label": "Big win-chance swing",
+        "points": 3
+      }
+    ],
+    "teams": [
+      [
+        "Houston Cougars",
+        "HOU",
+        "35",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/ncaa/500/248.png",
+        "6-1",
+        20,
+        "Houston",
+        "248"
+      ],
+      [
+        "Oklahoma State Cowboys",
+        "OKST",
+        "32",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/ncaa/500/197.png",
+        "4-2",
+        18,
+        "Oklahoma St",
+        "197"
+      ]
+    ]
+  },
+  "CFB-20261017-401856832.json": {
+    "score": 38,
+    "baseScore": 25,
+    "openingScore": 40,
+    "factors": [
+      {
+        "label": "Game-state baseline",
+        "points": 18
+      },
+      {
+        "label": "Pregame context carried into play",
+        "points": 2
+      },
+      {
+        "label": "Final margin",
+        "points": 5
+      },
+      {
+        "label": "Sustained competitive game",
+        "points": 5
+      },
+      {
+        "label": "Big win-chance swing",
+        "points": 4
+      },
+      {
+        "label": "Competitive for much of game",
+        "points": 4
+      }
+    ],
+    "teams": [
+      [
+        "Baylor Bears",
+        "BAY",
+        "6",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/ncaa/500/239.png",
+        "4-2",
+        null,
+        "Baylor",
+        "239"
+      ],
+      [
+        "TCU Horned Frogs",
+        "TCU",
+        "17",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/ncaa/500/2628.png",
+        "3-3",
+        null,
+        "TCU",
+        "2628"
+      ]
+    ]
+  },
+  "CFB-20261017-401856833.json": {
+    "score": 63,
+    "baseScore": 40,
+    "openingScore": 51,
+    "factors": [
+      {
+        "label": "Game-state baseline",
+        "points": 18
+      },
+      {
+        "label": "Pregame context carried into play",
+        "points": 3
+      },
+      {
+        "label": "Final margin",
+        "points": 19
+      },
+      {
+        "label": "2 lead changes",
+        "points": 6
+      },
+      {
+        "label": "Erased a large deficit",
+        "points": 6
+      },
+      {
+        "label": "Sustained competitive game",
+        "points": 7
+      },
+      {
+        "label": "Big win-chance swing",
+        "points": 4
+      }
+    ],
+    "teams": [
+      [
+        "Colorado Buffaloes",
+        "COLO",
+        "24",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/ncaa/500/38.png",
+        "2-4",
+        null,
+        "Colorado",
+        "38"
+      ],
+      [
+        "Utah Utes",
+        "UTAH",
+        "27",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/ncaa/500/254.png",
+        "6-0",
+        11,
+        "Utah",
+        "254"
+      ]
+    ]
+  },
+  "CFB-20261017-401858261.json": {
+    "score": 1,
+    "baseScore": 1,
+    "openingScore": 40,
+    "factors": [
+      {
+        "label": "Game-state baseline",
+        "points": 18
+      },
+      {
+        "label": "Pregame context carried into play",
+        "points": 2
+      },
+      {
+        "label": "Wide margin",
+        "points": -28
+      }
+    ],
+    "teams": [
+      [
+        "Clemson Tigers",
+        "CLEM",
+        "37",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/ncaa/500/228.png",
+        "4-2",
+        null,
+        "Clemson",
+        "228"
+      ],
+      [
+        "Charleston Southern Buccaneers",
+        "CHSO",
+        "0",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/ncaa/500/2127.png",
+        "3-4",
+        null,
+        "Charleston So",
+        "2127"
+      ]
+    ]
+  },
+  "CFB-20261017-401858262.json": {
+    "score": 1,
+    "baseScore": 1,
+    "openingScore": 40,
+    "factors": [
+      {
+        "label": "Game-state baseline",
+        "points": 18
+      },
+      {
+        "label": "Pregame context carried into play",
+        "points": 2
+      },
+      {
+        "label": "Wide margin",
+        "points": -25
+      }
+    ],
+    "teams": [
+      [
+        "Stanford Cardinal",
+        "STAN",
+        "34",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/ncaa/500/24.png",
+        "3-4",
+        null,
+        "Stanford",
+        "24"
+      ],
+      [
+        "Elon Phoenix",
+        "ELON",
+        "7",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/ncaa/500/2210.png",
+        "4-4",
+        null,
+        "Elon",
+        "2210"
+      ]
+    ]
+  },
+  "CFB-20261017-401858263.json": {
+    "score": 56,
+    "baseScore": 31,
+    "openingScore": 56,
+    "factors": [
+      {
+        "label": "Game-state baseline",
+        "points": 18
+      },
+      {
+        "label": "Pregame context carried into play",
+        "points": 3
+      },
+      {
+        "label": "Final margin",
+        "points": 10
+      },
+      {
+        "label": "4 lead changes",
+        "points": 9
+      },
+      {
+        "label": "Recent late lead change",
+        "points": 5
+      },
+      {
+        "label": "Sustained competitive game",
+        "points": 7
+      },
+      {
+        "label": "Big win-chance swing",
+        "points": 4
+      }
+    ],
+    "teams": [
+      [
+        "Miami Hurricanes",
+        "MIA",
+        "43",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/ncaa/500/2390.png",
+        "6-0",
+        3,
+        "Miami",
+        "2390"
+      ],
+      [
+        "Florida State Seminoles",
+        "FSU",
+        "35",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/ncaa/500/52.png",
+        "3-4",
+        null,
+        "Florida St",
+        "52"
+      ]
+    ]
+  },
+  "CFB-20261017-401858264.json": {
+    "score": 27,
+    "baseScore": 27,
+    "openingScore": 40,
+    "factors": [
+      {
+        "label": "Game-state baseline",
+        "points": 18
+      },
+      {
+        "label": "Pregame context carried into play",
+        "points": 2
+      },
+      {
+        "label": "Final margin",
+        "points": 7
+      }
+    ],
+    "teams": [
+      [
+        "Virginia Tech Hokies",
+        "VT",
+        "34",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/ncaa/500/259.png",
+        "5-2",
+        null,
+        "Virginia Tech",
+        "259"
+      ],
+      [
+        "Georgia Tech Yellow Jackets",
+        "GT",
+        "24",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/ncaa/500/59.png",
+        "2-4",
+        null,
+        "Georgia Tech",
+        "59"
+      ]
+    ]
+  },
+  "CFB-20261017-401858265.json": {
+    "score": 55,
+    "baseScore": 30,
+    "openingScore": 40,
+    "factors": [
+      {
+        "label": "Game-state baseline",
+        "points": 18
+      },
+      {
+        "label": "Pregame context carried into play",
+        "points": 2
+      },
+      {
+        "label": "Final margin",
+        "points": 10
+      },
+      {
+        "label": "5 lead changes",
+        "points": 9
+      },
+      {
+        "label": "Erased a large deficit",
+        "points": 6
+      },
+      {
+        "label": "Sustained competitive game",
+        "points": 7
+      },
+      {
+        "label": "Big win-chance swing",
+        "points": 3
+      }
+    ],
+    "teams": [
+      [
+        "Syracuse Orange",
+        "SYR",
+        "26",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/ncaa/500/183.png",
+        "2-4",
+        null,
+        "Syracuse",
+        "183"
+      ],
+      [
+        "Louisville Cardinals",
+        "LOU",
+        "34",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/ncaa/500/97.png",
+        "4-3",
+        null,
+        "Louisville",
+        "97"
+      ]
+    ]
+  },
+  "CFB-20261017-401858266.json": {
+    "score": 62,
+    "baseScore": 37,
+    "openingScore": 40,
+    "factors": [
+      {
+        "label": "Game-state baseline",
+        "points": 18
+      },
+      {
+        "label": "Pregame context carried into play",
+        "points": 2
+      },
+      {
+        "label": "Final margin",
+        "points": 17
+      },
+      {
+        "label": "2 lead changes",
+        "points": 6
+      },
+      {
+        "label": "Erased a large deficit",
+        "points": 6
+      },
+      {
+        "label": "Recent late lead change",
+        "points": 5
+      },
+      {
+        "label": "Sustained competitive game",
+        "points": 7
+      },
+      {
+        "label": "Big win-chance swing",
+        "points": 1
+      }
+    ],
+    "teams": [
+      [
+        "Duke Blue Devils",
+        "DUKE",
+        "20",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/ncaa/500/150.png",
+        "4-2",
+        null,
+        "Duke",
+        "150"
+      ],
+      [
+        "North Carolina Tar Heels",
+        "UNC",
+        "24",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/ncaa/500/153.png",
+        "4-2",
+        null,
+        "North Carolina",
+        "153"
+      ]
+    ]
+  },
+  "CFB-20261017-401858267.json": {
+    "score": 55,
+    "baseScore": 34,
+    "openingScore": 40,
+    "factors": [
+      {
+        "label": "Game-state baseline",
+        "points": 18
+      },
+      {
+        "label": "Pregame context carried into play",
+        "points": 2
+      },
+      {
+        "label": "Final margin",
+        "points": 14
+      },
+      {
+        "label": "1 lead change",
+        "points": 3
+      },
+      {
+        "label": "Erased a large deficit",
+        "points": 6
+      },
+      {
+        "label": "Sustained competitive game",
+        "points": 7
+      },
+      {
+        "label": "Big win-chance swing",
+        "points": 5
+      }
+    ],
+    "teams": [
+      [
+        "Boston College Eagles",
+        "BC",
+        "27",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/ncaa/500/103.png",
+        "3-3",
+        null,
+        "Boston College",
+        "103"
+      ],
+      [
+        "Pittsburgh Panthers",
+        "PITT",
+        "21",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/ncaa/500/221.png",
+        "5-2",
+        null,
+        "Pitt",
+        "221"
+      ]
+    ]
+  },
+  "CFB-20261017-401858268.json": {
+    "score": 44,
+    "baseScore": 28,
+    "openingScore": 51,
+    "factors": [
+      {
+        "label": "Game-state baseline",
+        "points": 18
+      },
+      {
+        "label": "Pregame context carried into play",
+        "points": 3
+      },
+      {
+        "label": "Final margin",
+        "points": 7
+      },
+      {
+        "label": "2 lead changes",
+        "points": 6
+      },
+      {
+        "label": "Sustained competitive game",
+        "points": 7
+      },
+      {
+        "label": "Big win-chance swing",
+        "points": 3
+      }
+    ],
+    "teams": [
+      [
+        "SMU Mustangs",
+        "SMU",
+        "23",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/ncaa/500/2567.png",
+        "5-1",
+        24,
+        "SMU",
+        "2567"
+      ],
+      [
+        "Virginia Cavaliers",
+        "UVA",
+        "13",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/ncaa/500/258.png",
+        "4-3",
+        null,
+        "Virginia",
+        "258"
+      ]
+    ]
+  },
+  "CFB-20261017-401858269.json": {
+    "score": 1,
+    "baseScore": 1,
+    "openingScore": 51,
+    "factors": [
+      {
+        "label": "Game-state baseline",
+        "points": 18
+      },
+      {
+        "label": "Pregame context carried into play",
+        "points": 3
+      },
+      {
+        "label": "Wide margin",
+        "points": -28
+      }
+    ],
+    "teams": [
+      [
+        "California Golden Bears",
+        "CAL",
+        "7",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/ncaa/500/25.png",
+        "3-4",
+        null,
+        "California",
+        "25"
+      ],
+      [
+        "Wake Forest Demon Deacons",
+        "WAKE",
+        "41",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/ncaa/500/154.png",
+        "6-1",
+        21,
+        "Wake Forest",
+        "154"
+      ]
+    ]
+  },
+  "CFB-20261017-401858488.json": {
+    "score": 63,
+    "baseScore": 39,
+    "openingScore": 80,
+    "factors": [
+      {
+        "label": "Game-state baseline",
+        "points": 18
+      },
+      {
+        "label": "Pregame context carried into play",
+        "points": 4
+      },
+      {
+        "label": "Final margin",
+        "points": 17
+      },
+      {
+        "label": "2 lead changes",
+        "points": 6
+      },
+      {
+        "label": "Sustained competitive game",
+        "points": 7
+      },
+      {
+        "label": "Big win-chance swing",
+        "points": 5
+      },
+      {
+        "label": "Competitive throughout",
+        "points": 6
+      }
+    ],
+    "teams": [
+      [
+        "Indiana Hoosiers",
+        "IU",
+        "15",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/ncaa/500/84.png",
+        "6-1",
+        5,
+        "Indiana",
+        "84"
+      ],
+      [
+        "Ohio State Buckeyes",
+        "OSU",
+        "19",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/ncaa/500/194.png",
+        "6-1",
+        4,
+        "Ohio State",
+        "194"
+      ]
+    ]
+  },
+  "CFB-20261017-401858489.json": {
+    "score": 57,
+    "baseScore": 32,
+    "openingScore": 40,
+    "factors": [
+      {
+        "label": "Game-state baseline",
+        "points": 18
+      },
+      {
+        "label": "Pregame context carried into play",
+        "points": 2
+      },
+      {
+        "label": "Final margin",
+        "points": 12
+      },
+      {
+        "label": "1 lead change",
+        "points": 3
+      },
+      {
+        "label": "Erased a large deficit",
+        "points": 6
+      },
+      {
+        "label": "Sustained competitive game",
+        "points": 7
+      },
+      {
+        "label": "Big win-chance swing",
+        "points": 5
+      },
+      {
+        "label": "Competitive for much of game",
+        "points": 4
+      }
+    ],
+    "teams": [
+      [
+        "Maryland Terrapins",
+        "MD",
+        "30",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/ncaa/500/120.png",
+        "2-5",
+        null,
+        "Maryland",
+        "120"
+      ],
+      [
+        "Rutgers Scarlet Knights",
+        "RUTG",
+        "37",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/ncaa/500/164.png",
+        "2-4",
+        null,
+        "Rutgers",
+        "164"
+      ]
+    ]
+  },
+  "CFB-20261017-401858490.json": {
+    "score": 59,
+    "baseScore": 39,
+    "openingScore": 40,
+    "factors": [
+      {
+        "label": "Game-state baseline",
+        "points": 18
+      },
+      {
+        "label": "Pregame context carried into play",
+        "points": 2
+      },
+      {
+        "label": "Final margin",
+        "points": 19
+      },
+      {
+        "label": "1 lead change",
+        "points": 3
+      },
+      {
+        "label": "Sustained competitive game",
+        "points": 7
+      },
+      {
+        "label": "Big win-chance swing",
+        "points": 4
+      },
+      {
+        "label": "Competitive throughout",
+        "points": 6
+      }
+    ],
+    "teams": [
+      [
+        "Michigan Wolverines",
+        "MICH",
+        "21",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/ncaa/500/130.png",
+        "4-2",
+        null,
+        "Michigan",
+        "130"
+      ],
+      [
+        "Penn State Nittany Lions",
+        "PSU",
+        "18",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/ncaa/500/213.png",
+        "3-4",
+        null,
+        "Penn State",
+        "213"
+      ]
+    ]
+  },
+  "CFB-20261017-401858491.json": {
+    "score": 65,
+    "baseScore": 40,
+    "openingScore": 51,
+    "factors": [
+      {
+        "label": "Game-state baseline",
+        "points": 18
+      },
+      {
+        "label": "Pregame context carried into play",
+        "points": 3
+      },
+      {
+        "label": "Final margin",
+        "points": 19
+      },
+      {
+        "label": "4 lead changes",
+        "points": 9
+      },
+      {
+        "label": "Recent late lead change",
+        "points": 5
+      },
+      {
+        "label": "Sustained competitive game",
+        "points": 7
+      },
+      {
+        "label": "Big win-chance swing",
+        "points": 4
+      }
+    ],
+    "teams": [
+      [
+        "Michigan State Spartans",
+        "MSU",
+        "21",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/ncaa/500/127.png",
+        "2-5",
+        null,
+        "Michigan St",
+        "127"
+      ],
+      [
+        "Northwestern Wildcats",
+        "NU",
+        "24",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/ncaa/500/77.png",
+        "5-1",
+        25,
+        "Northwestern",
+        "77"
+      ]
+    ]
+  },
+  "CFB-20261017-401858494.json": {
+    "score": 43,
+    "baseScore": 28,
+    "openingScore": 51,
+    "factors": [
+      {
+        "label": "Game-state baseline",
+        "points": 18
+      },
+      {
+        "label": "Pregame context carried into play",
+        "points": 3
+      },
+      {
+        "label": "Final margin",
+        "points": 7
+      },
+      {
+        "label": "Sustained competitive game",
+        "points": 7
+      },
+      {
+        "label": "Big win-chance swing",
+        "points": 4
+      },
+      {
+        "label": "Competitive for much of game",
+        "points": 4
+      }
+    ],
+    "teams": [
+      [
+        "UCLA Bruins",
+        "UCLA",
+        "17",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/ncaa/500/26.png",
+        "6-0",
+        12,
+        "UCLA",
+        "26"
+      ],
+      [
+        "Wisconsin Badgers",
+        "WIS",
+        "7",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/ncaa/500/275.png",
+        "4-2",
+        null,
+        "Wisconsin",
+        "275"
+      ]
+    ]
+  },
+  "CFB-20261017-401860903.json": {
+    "score": 3,
+    "baseScore": 3,
+    "openingScore": 40,
+    "factors": [
+      {
+        "label": "Game-state baseline",
+        "points": 18
+      },
+      {
+        "label": "Pregame context carried into play",
+        "points": 2
+      },
+      {
+        "label": "Wide margin",
+        "points": -17
+      }
+    ],
+    "teams": [
+      [
+        "Oregon State Beavers",
+        "ORST",
+        "48",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/ncaa/500/204.png",
+        "5-2",
+        null,
+        "Oregon St",
+        "204"
+      ],
+      [
+        "Washington State Cougars",
+        "WSU",
+        "30",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/ncaa/500/265.png",
+        "1-6",
+        null,
+        "Washington St",
+        "265"
+      ]
+    ]
+  },
+  "CFB-20261017-401860904.json": {
+    "score": 64,
+    "baseScore": 39,
+    "openingScore": 40,
+    "factors": [
+      {
+        "label": "Game-state baseline",
+        "points": 18
+      },
+      {
+        "label": "Pregame context carried into play",
+        "points": 2
+      },
+      {
+        "label": "Final margin",
+        "points": 19
+      },
+      {
+        "label": "2 lead changes",
+        "points": 6
+      },
+      {
+        "label": "Erased a large deficit",
+        "points": 6
+      },
+      {
+        "label": "Sustained competitive game",
+        "points": 7
+      },
+      {
+        "label": "Big win-chance swing",
+        "points": 6
+      }
+    ],
+    "teams": [
+      [
+        "San Diego State Aztecs",
+        "SDSU",
+        "26",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/ncaa/500/21.png",
+        "3-4",
+        null,
+        "San Diego St",
+        "21"
+      ],
+      [
+        "Fresno State Bulldogs",
+        "FRES",
+        "23",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/ncaa/500/278.png",
+        "4-3",
+        null,
+        "Fresno St",
+        "278"
+      ]
+    ]
+  },
+  "CFB-20261017-401862802.json": {
+    "score": 1,
+    "baseScore": 1,
+    "openingScore": 40,
+    "factors": [
+      {
+        "label": "Game-state baseline",
+        "points": 18
+      },
+      {
+        "label": "Pregame context carried into play",
+        "points": 2
+      },
+      {
+        "label": "Wide margin",
+        "points": -28
+      }
+    ],
+    "teams": [
+      [
+        "Army Black Knights",
+        "ARMY",
+        "56",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/ncaa/500/349.png",
+        "4-2",
+        null,
+        "Army",
+        "349"
+      ],
+      [
+        "Florida Atlantic Owls",
+        "FAU",
+        "24",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/ncaa/500/2226.png",
+        "4-2",
+        null,
+        "FAU",
+        "2226"
+      ]
+    ]
+  },
+  "CFB-20261017-401862803.json": {
+    "score": 72,
+    "baseScore": 53,
+    "openingScore": 40,
+    "factors": [
+      {
+        "label": "Game-state baseline",
+        "points": 18
+      },
+      {
+        "label": "Pregame context carried into play",
+        "points": 2
+      },
+      {
+        "label": "Final margin",
+        "points": 12
+      },
+      {
+        "label": "Underdog won outright",
+        "points": 21
+      },
+      {
+        "label": "2 lead changes",
+        "points": 6
+      },
+      {
+        "label": "Sustained competitive game",
+        "points": 7
+      },
+      {
+        "label": "Big win-chance swing",
+        "points": 6
+      }
+    ],
+    "teams": [
+      [
+        "Temple Owls",
+        "TEM",
+        "31",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/ncaa/500/218.png",
+        "2-5",
+        null,
+        "Temple",
+        "218"
+      ],
+      [
+        "Charlotte 49ers",
+        "CLT",
+        "38",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/ncaa/500/2429.png",
+        "1-6",
+        null,
+        "Charlotte",
+        "2429"
+      ]
+    ]
+  },
+  "CFB-20261017-401862804.json": {
+    "score": 62,
+    "baseScore": 37,
+    "openingScore": 40,
+    "factors": [
+      {
+        "label": "Game-state baseline",
+        "points": 18
+      },
+      {
+        "label": "Pregame context carried into play",
+        "points": 2
+      },
+      {
+        "label": "Final margin",
+        "points": 17
+      },
+      {
+        "label": "5 lead changes",
+        "points": 9
+      },
+      {
+        "label": "Erased a large deficit",
+        "points": 6
+      },
+      {
+        "label": "Recent late lead change",
+        "points": 5
+      },
+      {
+        "label": "Sustained competitive game",
+        "points": 5
+      }
+    ],
+    "teams": [
+      [
+        "UTSA Roadrunners",
+        "UTSA",
+        "38",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/ncaa/500/2636.png",
+        "6-1",
+        null,
+        "UTSA",
+        "2636"
+      ],
+      [
+        "Navy Midshipmen",
+        "NAVY",
+        "34",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/ncaa/500/2426.png",
+        "2-4",
+        null,
+        "Navy",
+        "2426"
+      ]
+    ]
+  },
+  "CFB-20261017-401862805.json": {
+    "score": 26,
+    "baseScore": 1,
+    "openingScore": 40,
+    "factors": [
+      {
+        "label": "Game-state baseline",
+        "points": 18
+      },
+      {
+        "label": "Pregame context carried into play",
+        "points": 2
+      },
+      {
+        "label": "Wide margin",
+        "points": -20
+      },
+      {
+        "label": "1 lead change",
+        "points": 3
+      },
+      {
+        "label": "Erased a large deficit",
+        "points": 6
+      },
+      {
+        "label": "Sustained competitive game",
+        "points": 7
+      },
+      {
+        "label": "Repeated swings in control",
+        "points": 5
+      },
+      {
+        "label": "Big win-chance swing",
+        "points": 4
+      }
+    ],
+    "teams": [
+      [
+        "Rice Owls",
+        "RICE",
+        "17",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/ncaa/500/242.png",
+        "1-6",
+        null,
+        "Rice",
+        "242"
+      ],
+      [
+        "Tulsa Golden Hurricane",
+        "TLSA",
+        "38",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/ncaa/500/202.png",
+        "4-3",
+        null,
+        "Tulsa",
+        "202"
+      ]
+    ]
+  },
+  "CFB-20261017-401862806.json": {
+    "score": 9,
+    "baseScore": 1,
+    "openingScore": 40,
+    "factors": [
+      {
+        "label": "Game-state baseline",
+        "points": 18
+      },
+      {
+        "label": "Pregame context carried into play",
+        "points": 2
+      },
+      {
+        "label": "Wide margin",
+        "points": -25
+      },
+      {
+        "label": "1 lead change",
+        "points": 3
+      },
+      {
+        "label": "Sustained competitive game",
+        "points": 5
+      }
+    ],
+    "teams": [
+      [
+        "South Florida Bulls",
+        "USF",
+        "29",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/ncaa/500/58.png",
+        "5-2",
+        null,
+        "South Florida",
+        "58"
+      ],
+      [
+        "Kent State Golden Flashes",
+        "KENT",
+        "2",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/ncaa/500/2309.png",
+        "2-5",
+        null,
+        "Kent State",
+        "2309"
+      ]
+    ]
+  },
+  "CFB-20261017-401864520.json": {
+    "score": 26,
+    "baseScore": 7,
+    "openingScore": 40,
+    "factors": [
+      {
+        "label": "Game-state baseline",
+        "points": 18
+      },
+      {
+        "label": "Pregame context carried into play",
+        "points": 2
+      },
+      {
+        "label": "Wide margin",
+        "points": -13
+      },
+      {
+        "label": "1 lead change",
+        "points": 3
+      },
+      {
+        "label": "Erased a large deficit",
+        "points": 6
+      },
+      {
+        "label": "Sustained competitive game",
+        "points": 5
+      },
+      {
+        "label": "Big win-chance swing",
+        "points": 5
+      }
+    ],
+    "teams": [
+      [
+        "North Dakota State Bison",
+        "NDSU",
+        "31",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/ncaa/500/2449.png",
+        "6-1",
+        null,
+        "N Dakota St",
+        "2449"
+      ],
+      [
+        "Nevada Wolf Pack",
+        "NEV",
+        "17",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/ncaa/500/2440.png",
+        "2-4",
+        null,
+        "Nevada",
+        "2440"
+      ]
+    ]
+  },
+  "CFB-20261017-401864522.json": {
+    "score": 3,
+    "baseScore": 3,
+    "openingScore": 40,
+    "factors": [
+      {
+        "label": "Game-state baseline",
+        "points": 18
+      },
+      {
+        "label": "Pregame context carried into play",
+        "points": 2
+      },
+      {
+        "label": "Wide margin",
+        "points": -17
+      }
+    ],
+    "teams": [
+      [
+        "Wyoming Cowboys",
+        "WYO",
+        "41",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/ncaa/500/2751.png",
+        "4-3",
+        null,
+        "Wyoming",
+        "2751"
+      ],
+      [
+        "Northern Illinois Huskies",
+        "NIU",
+        "23",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/ncaa/500/2459.png",
+        "0-6",
+        null,
+        "N Illinois",
+        "2459"
+      ]
+    ]
+  },
+  "CFB-20261017-401864523.json": {
+    "score": 22,
+    "baseScore": 22,
+    "openingScore": 40,
+    "factors": [
+      {
+        "label": "Game-state baseline",
+        "points": 18
+      },
+      {
+        "label": "Pregame context carried into play",
+        "points": 2
+      },
+      {
+        "label": "Final margin",
+        "points": 2
+      }
+    ],
+    "teams": [
+      [
+        "UTEP Miners",
+        "UTEP",
+        "11",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/ncaa/500/2638.png",
+        "1-6",
+        null,
+        "UTEP",
+        "2638"
+      ],
+      [
+        "San José State Spartans",
+        "SJSU",
+        "24",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/ncaa/500/23.png",
+        "4-3",
+        null,
+        "San José St",
+        "23"
+      ]
+    ]
+  },
+  "CFB-20261017-401864524.json": {
+    "score": 52,
+    "baseScore": 27,
+    "openingScore": 40,
+    "factors": [
+      {
+        "label": "Game-state baseline",
+        "points": 18
+      },
+      {
+        "label": "Pregame context carried into play",
+        "points": 2
+      },
+      {
+        "label": "Final margin",
+        "points": 7
+      },
+      {
+        "label": "6 lead changes",
+        "points": 9
+      },
+      {
+        "label": "Sustained competitive game",
+        "points": 7
+      },
+      {
+        "label": "Big win-chance swing",
+        "points": 7
+      },
+      {
+        "label": "Competitive throughout",
+        "points": 2
+      }
+    ],
+    "teams": [
+      [
+        "Air Force Falcons",
+        "AFA",
+        "41",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/ncaa/500/2005.png",
+        "5-1",
+        null,
+        "Air Force",
+        "2005"
+      ],
+      [
+        "UNLV Rebels",
+        "UNLV",
+        "31",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/ncaa/500/2439.png",
+        "4-3",
+        null,
+        "UNLV",
+        "2439"
+      ]
+    ]
+  },
+  "CFB-20261017-401866441.json": {
+    "score": 80,
+    "baseScore": 55,
+    "openingScore": 40,
+    "factors": [
+      {
+        "label": "Game-state baseline",
+        "points": 18
+      },
+      {
+        "label": "Pregame context carried into play",
+        "points": 2
+      },
+      {
+        "label": "Final margin",
+        "points": 22
+      },
+      {
+        "label": "Overtime",
+        "points": 13
+      },
+      {
+        "label": "2 lead changes",
+        "points": 6
+      },
+      {
+        "label": "Erased a large deficit",
+        "points": 6
+      },
+      {
+        "label": "Recent late lead change",
+        "points": 5
+      },
+      {
+        "label": "Sustained competitive game",
+        "points": 7
+      },
+      {
+        "label": "Big win-chance swing",
+        "points": 1
+      }
+    ],
+    "teams": [
+      [
+        "Bowling Green Falcons",
+        "BGSU",
+        "31",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/ncaa/500/189.png",
+        "2-5",
+        null,
+        "Bowling Green",
+        "189"
+      ],
+      [
+        "Ball State Cardinals",
+        "BALL",
+        "32",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/ncaa/500/2050.png",
+        "2-5",
+        null,
+        "Ball State",
+        "2050"
+      ]
+    ]
+  },
+  "CFB-20261017-401866442.json": {
+    "score": 70,
+    "baseScore": 45,
+    "openingScore": 40,
+    "factors": [
+      {
+        "label": "Game-state baseline",
+        "points": 18
+      },
+      {
+        "label": "Pregame context carried into play",
+        "points": 2
+      },
+      {
+        "label": "Final margin",
+        "points": 12
+      },
+      {
+        "label": "Overtime",
+        "points": 13
+      },
+      {
+        "label": "3 lead changes",
+        "points": 9
+      },
+      {
+        "label": "Recent late lead change",
+        "points": 5
+      },
+      {
+        "label": "Sustained competitive game",
+        "points": 7
+      },
+      {
+        "label": "Big win-chance swing",
+        "points": 4
+      }
+    ],
+    "teams": [
+      [
+        "Buffalo Bulls",
+        "BUFF",
+        "25",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/ncaa/500/2084.png",
+        "4-3",
+        null,
+        "Buffalo",
+        "2084"
+      ],
+      [
+        "Massachusetts Minutemen",
+        "MASS",
+        "18",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/ncaa/500/113.png",
+        "4-3",
+        null,
+        "UMass",
+        "113"
+      ]
+    ]
+  },
+  "CFB-20261017-401866443.json": {
+    "score": 32,
+    "baseScore": 32,
+    "openingScore": 40,
+    "factors": [
+      {
+        "label": "Game-state baseline",
+        "points": 18
+      },
+      {
+        "label": "Pregame context carried into play",
+        "points": 2
+      },
+      {
+        "label": "Final margin",
+        "points": 12
+      }
+    ],
+    "teams": [
+      [
+        "Central Michigan Chippewas",
+        "CMU",
+        "14",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/ncaa/500/2117.png",
+        "3-4",
+        null,
+        "C Michigan",
+        "2117"
+      ],
+      [
+        "Western Michigan Broncos",
+        "WMU",
+        "21",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/ncaa/500/2711.png",
+        "5-2",
+        null,
+        "W Michigan",
+        "2711"
+      ]
+    ]
+  },
+  "CFB-20261017-401866444.json": {
+    "score": 1,
+    "baseScore": 1,
+    "openingScore": 40,
+    "factors": [
+      {
+        "label": "Game-state baseline",
+        "points": 18
+      },
+      {
+        "label": "Pregame context carried into play",
+        "points": 2
+      },
+      {
+        "label": "Wide margin",
+        "points": -19
+      }
+    ],
+    "teams": [
+      [
+        "Eastern Michigan Eagles",
+        "EMU",
+        "14",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/ncaa/500/2199.png",
+        "4-4",
+        null,
+        "E Michigan",
+        "2199"
+      ],
+      [
+        "Toledo Rockets",
+        "TOL",
+        "34",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/ncaa/500/2649.png",
+        "5-2",
+        null,
+        "Toledo",
+        "2649"
+      ]
+    ]
+  },
+  "CFB-20261017-401866445.json": {
+    "score": 1,
+    "baseScore": 1,
+    "openingScore": 40,
+    "factors": [
+      {
+        "label": "Game-state baseline",
+        "points": 18
+      },
+      {
+        "label": "Pregame context carried into play",
+        "points": 2
+      },
+      {
+        "label": "Wide margin",
+        "points": -28
+      }
+    ],
+    "teams": [
+      [
+        "Sacramento State Hornets",
+        "SAC",
+        "7",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/ncaa/500/16.png",
+        "1-6",
+        null,
+        "Sacramento St",
+        "16"
+      ],
+      [
+        "Ohio Bobcats",
+        "OHIO",
+        "48",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/ncaa/500/195.png",
+        "5-2",
+        null,
+        "Ohio",
+        "195"
+      ]
+    ]
+  },
+  "CFB-20261017-401866478.json": {
+    "score": 9,
+    "baseScore": 1,
+    "openingScore": 40,
+    "factors": [
+      {
+        "label": "Game-state baseline",
+        "points": 18
+      },
+      {
+        "label": "Pregame context carried into play",
+        "points": 2
+      },
+      {
+        "label": "Wide margin",
+        "points": -19
+      },
+      {
+        "label": "1 lead change",
+        "points": 3
+      },
+      {
+        "label": "Sustained competitive game",
+        "points": 5
+      }
+    ],
+    "teams": [
+      [
+        "Miami (OH) RedHawks",
+        "M-OH",
+        "34",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/ncaa/500/193.png",
+        "4-3",
+        null,
+        "Miami OH",
+        "193"
+      ],
+      [
+        "Akron Zips",
+        "AKR",
+        "14",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/ncaa/500/2006.png",
+        "1-6",
+        null,
+        "Akron",
+        "2006"
+      ]
+    ]
+  },
+  "CFB-20261017-401869934.json": {
+    "score": 37,
+    "baseScore": 27,
+    "openingScore": 40,
+    "factors": [
+      {
+        "label": "Game-state baseline",
+        "points": 18
+      },
+      {
+        "label": "Pregame context carried into play",
+        "points": 2
+      },
+      {
+        "label": "Final margin",
+        "points": 7
+      },
+      {
+        "label": "Sustained competitive game",
+        "points": 7
+      },
+      {
+        "label": "Big win-chance swing",
+        "points": 3
+      }
+    ],
+    "teams": [
+      [
+        "Southern Miss Golden Eagles",
+        "USM",
+        "13",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/ncaa/500/2572.png",
+        "1-5",
+        null,
+        "Southern Miss",
+        "2572"
+      ],
+      [
+        "Arkansas State Red Wolves",
+        "ARST",
+        "23",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/ncaa/500/2032.png",
+        "3-4",
+        null,
+        "Arkansas St",
+        "2032"
+      ]
+    ]
+  },
+  "CFB-20261017-401869957.json": {
+    "score": 1,
+    "baseScore": 1,
+    "openingScore": 40,
+    "factors": [
+      {
+        "label": "Game-state baseline",
+        "points": 18
+      },
+      {
+        "label": "Pregame context carried into play",
+        "points": 2
+      },
+      {
+        "label": "Wide margin",
+        "points": -25
+      }
+    ],
+    "teams": [
+      [
+        "James Madison Dukes",
+        "JMU",
+        "49",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/ncaa/500/256.png",
+        "7-0",
+        null,
+        "James Madison",
+        "256"
+      ],
+      [
+        "Georgia State Panthers",
+        "GAST",
+        "22",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/ncaa/500/2247.png",
+        "4-2",
+        null,
+        "Georgia St",
+        "2247"
+      ]
+    ]
+  },
+  "CFB-20261017-401869966.json": {
+    "score": 1,
+    "baseScore": 1,
+    "openingScore": 40,
+    "factors": [
+      {
+        "label": "Game-state baseline",
+        "points": 18
+      },
+      {
+        "label": "Pregame context carried into play",
+        "points": 2
+      },
+      {
+        "label": "Wide margin",
+        "points": -25
+      }
+    ],
+    "teams": [
+      [
+        "Louisiana Ragin' Cajuns",
+        "UL",
+        "33",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/ncaa/500/309.png",
+        "5-2",
+        null,
+        "Louisiana",
+        "309"
+      ],
+      [
+        "Troy Trojans",
+        "TROY",
+        "6",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/ncaa/500/2653.png",
+        "3-3",
+        null,
+        "Troy",
+        "2653"
+      ]
+    ]
+  },
+  "CFB-20261017-401871091.json": {
+    "score": 6,
+    "baseScore": 1,
+    "openingScore": 40,
+    "factors": [
+      {
+        "label": "Game-state baseline",
+        "points": 18
+      },
+      {
+        "label": "Pregame context carried into play",
+        "points": 2
+      },
+      {
+        "label": "Wide margin",
+        "points": -22
+      },
+      {
+        "label": "Sustained competitive game",
+        "points": 5
+      }
+    ],
+    "teams": [
+      [
+        "UL Monroe Warhawks",
+        "ULM",
+        "0",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/ncaa/500/2433.png",
+        "0-6",
+        null,
+        "UL Monroe",
+        "2433"
+      ],
+      [
+        "Louisiana Tech Bulldogs",
+        "LT",
+        "24",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/ncaa/500/2348.png",
+        "4-2",
+        null,
+        "Louisiana Tech",
+        "2348"
+      ]
+    ]
+  },
+  "MLB-20261013-401908024.json": {
+    "score": 47,
+    "baseScore": 30,
+    "openingScore": 72,
+    "factors": [
+      {
+        "label": "Game-state baseline",
+        "points": 18
+      },
+      {
+        "label": "Pregame context carried into play",
+        "points": 4
+      },
+      {
+        "label": "Final margin",
+        "points": 8
+      },
+      {
+        "label": "Sustained competitive game",
+        "points": 7
+      },
+      {
+        "label": "Big win-chance swing",
+        "points": 6
+      },
+      {
+        "label": "Competitive for much of game",
+        "points": 4
+      }
+    ],
+    "teams": [
+      [
+        "Tampa Bay Rays",
+        "TB",
+        "3",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/mlb/500/scoreboard/tb.png",
+        "98-64",
+        null,
+        "Rays",
+        "30"
+      ],
+      [
+        "Cleveland Guardians",
+        "CLE",
+        "1",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/mlb/500/scoreboard/cle.png",
+        "85-77",
+        null,
+        "Guardians",
+        "5"
+      ]
+    ]
+  },
+  "MLB-20261018-401930515.json": {
+    "score": 45,
+    "baseScore": 30,
+    "openingScore": 72,
+    "factors": [
+      {
+        "label": "Game-state baseline",
+        "points": 18
+      },
+      {
+        "label": "Pregame context carried into play",
+        "points": 4
+      },
+      {
+        "label": "Final margin",
+        "points": 8
+      },
+      {
+        "label": "Sustained competitive game",
+        "points": 7
+      },
+      {
+        "label": "Big win-chance swing",
+        "points": 4
+      },
+      {
+        "label": "Competitive for much of game",
+        "points": 4
+      }
+    ],
+    "teams": [
+      [
+        "Cleveland Guardians",
+        "CLE",
+        "1",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/mlb/500/scoreboard/cle.png",
+        "85-77",
+        null,
+        "Guardians",
+        "5"
+      ],
+      [
+        "Tampa Bay Rays",
+        "TB",
+        "3",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/mlb/500/scoreboard/tb.png",
+        "98-64",
+        null,
+        "Rays",
+        "30"
+      ]
+    ]
+  },
+  "NBA-20261020-401909088.json": {
+    "score": 73,
+    "baseScore": 48,
+    "openingScore": 37,
+    "factors": [
+      {
+        "label": "Game-state baseline",
+        "points": 23
+      },
+      {
+        "label": "Pregame context carried into play",
+        "points": 2
+      },
+      {
+        "label": "Final margin",
+        "points": 23
+      },
+      {
+        "label": "1 late lead change",
+        "points": 2
+      },
+      {
+        "label": "Erased a large deficit",
+        "points": 8
+      },
+      {
+        "label": "Sustained competitive game",
+        "points": 7
+      },
+      {
+        "label": "Big win-chance swing",
+        "points": 6
+      },
+      {
+        "label": "Competitive for much of game",
+        "points": 2
+      }
+    ],
+    "teams": [
+      [
+        "Detroit Pistons",
+        "DET",
+        "121",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/det.png",
+        "1-0",
+        null,
+        "Pistons",
+        "8"
+      ],
+      [
+        "Boston Celtics",
+        "BOS",
+        "113",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/bos.png",
+        "0-1",
+        null,
+        "Celtics",
+        "2"
+      ]
+    ]
+  },
+  "NBA-20261020-401909089.json": {
+    "score": 76,
+    "baseScore": 51,
+    "openingScore": 40,
+    "factors": [
+      {
+        "label": "Game-state baseline",
+        "points": 23
+      },
+      {
+        "label": "Pregame context carried into play",
+        "points": 2
+      },
+      {
+        "label": "Final margin",
+        "points": 26
+      },
+      {
+        "label": "Second-half lead changes",
+        "points": 3
+      },
+      {
+        "label": "Erased a large deficit",
+        "points": 6
+      },
+      {
+        "label": "Sustained competitive game",
+        "points": 7
+      },
+      {
+        "label": "Big win-chance swing",
+        "points": 5
+      },
+      {
+        "label": "Competitive throughout",
+        "points": 4
+      }
+    ],
+    "teams": [
+      [
+        "New York Knicks",
+        "NY",
+        "100",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/ny.png",
+        "0-1",
+        null,
+        "Knicks",
+        "18"
+      ],
+      [
+        "Philadelphia 76ers",
+        "PHI",
+        "106",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/phi.png",
+        "1-0",
+        null,
+        "76ers",
+        "20"
+      ]
+    ]
+  },
+  "NBA-20261020-401909090.json": {
+    "score": 53,
+    "baseScore": 43,
+    "openingScore": 37,
+    "factors": [
+      {
+        "label": "Game-state baseline",
+        "points": 23
+      },
+      {
+        "label": "Pregame context carried into play",
+        "points": 2
+      },
+      {
+        "label": "Final margin",
+        "points": 18
+      },
+      {
+        "label": "Erased a large deficit",
+        "points": 6
+      },
+      {
+        "label": "Big win-chance swing",
+        "points": 4
+      }
+    ],
+    "teams": [
+      [
+        "San Antonio Spurs",
+        "SA",
+        "104",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/sa.png",
+        "0-1",
+        null,
+        "Spurs",
+        "24"
+      ],
+      [
+        "Oklahoma City Thunder",
+        "OKC",
+        "116",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/okc.png",
+        "1-0",
+        null,
+        "Thunder",
+        "25"
+      ]
+    ]
+  },
+  "NCAAB-20260328-401856574.json": {
+    "score": 34,
+    "baseScore": 9,
+    "openingScore": 74,
+    "factors": [
+      {
+        "label": "Game-state baseline",
+        "points": 18
+      },
+      {
+        "label": "Pregame context carried into play",
+        "points": 4
+      },
+      {
+        "label": "Wide margin",
+        "points": -13
+      },
+      {
+        "label": "4 late lead changes",
+        "points": 11
+      },
+      {
+        "label": "Erased a large deficit",
+        "points": 6
+      },
+      {
+        "label": "2 late ties",
+        "points": 2
+      },
+      {
+        "label": "Sustained competitive game",
+        "points": 6
+      }
+    ],
+    "teams": [
+      [
+        "Illinois Fighting Illini",
+        "ILL",
+        "71",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/ncaa/500/356.png",
+        "28-8",
+        3,
+        "Illinois",
+        "356"
+      ],
+      [
+        "Iowa Hawkeyes",
+        "IOWA",
+        "59",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/ncaa/500/2294.png",
+        "24-13",
+        9,
+        "Iowa",
+        "2294"
+      ]
+    ]
+  },
+  "NCAAB-20260328-401856575.json": {
+    "score": 23,
+    "baseScore": 6,
+    "openingScore": 74,
+    "factors": [
+      {
+        "label": "Game-state baseline",
+        "points": 18
+      },
+      {
+        "label": "Pregame context carried into play",
+        "points": 4
+      },
+      {
+        "label": "Wide margin",
+        "points": -16
+      },
+      {
+        "label": "Second-half lead changes",
+        "points": 1
+      },
+      {
+        "label": "Sustained competitive game",
+        "points": 7
+      },
+      {
+        "label": "Big win-chance swing",
+        "points": 5
+      },
+      {
+        "label": "Competitive for much of game",
+        "points": 4
+      }
+    ],
+    "teams": [
+      [
+        "Arizona Wildcats",
+        "ARIZ",
+        "79",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/ncaa/500/12.png",
+        "36-2",
+        1,
+        "Arizona",
+        "12"
+      ],
+      [
+        "Purdue Boilermakers",
+        "PUR",
+        "64",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/ncaa/500/2509.png",
+        "30-9",
+        2,
+        "Purdue",
+        "2509"
+      ]
+    ]
+  },
+  "NFL-20261011-401872981.json": {
+    "score": 80,
+    "baseScore": 41,
+    "openingScore": 42,
+    "factors": [
+      {
+        "label": "Game-state baseline",
+        "points": 18
+      },
+      {
+        "label": "Pregame context carried into play",
+        "points": 2
+      },
+      {
+        "label": "Final margin",
+        "points": 21
+      },
+      {
+        "label": "4 lead changes",
+        "points": 9
+      },
+      {
+        "label": "Erased a large deficit",
+        "points": 6
+      },
+      {
+        "label": "Recent late lead change",
+        "points": 5
+      },
+      {
+        "label": "Sustained competitive game",
+        "points": 5
+      },
+      {
+        "label": "Decisive last play",
+        "points": 14
+      }
+    ],
+    "teams": [
+      [
+        "Jacksonville Jaguars",
+        "JAX",
+        "19",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/jax.png",
+        "4-1",
+        null,
+        "Jaguars",
+        "30"
+      ],
+      [
+        "Philadelphia Eagles",
+        "PHI",
+        "17",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/phi.png",
+        "2-3",
+        null,
+        "Eagles",
+        "21"
+      ]
+    ]
+  },
+  "NFL-20261011-401872982.json": {
+    "score": 41,
+    "baseScore": 32,
+    "openingScore": 37,
+    "factors": [
+      {
+        "label": "Game-state baseline",
+        "points": 18
+      },
+      {
+        "label": "Pregame context carried into play",
+        "points": 2
+      },
+      {
+        "label": "Final margin",
+        "points": 12
+      },
+      {
+        "label": "Erased a large deficit",
+        "points": 6
+      },
+      {
+        "label": "Big win-chance swing",
+        "points": 3
+      }
+    ],
+    "teams": [
+      [
+        "Miami Dolphins",
+        "MIA",
+        "24",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/mia.png",
+        "0-5",
+        null,
+        "Dolphins",
+        "15"
+      ],
+      [
+        "Cincinnati Bengals",
+        "CIN",
+        "31",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/cin.png",
+        "3-2",
+        null,
+        "Bengals",
+        "4"
+      ]
+    ]
+  },
+  "NFL-20261011-401872983.json": {
+    "score": 60,
+    "baseScore": 35,
+    "openingScore": 42,
+    "factors": [
+      {
+        "label": "Game-state baseline",
+        "points": 18
+      },
+      {
+        "label": "Pregame context carried into play",
+        "points": 2
+      },
+      {
+        "label": "Final margin",
+        "points": 15
+      },
+      {
+        "label": "2 lead changes",
+        "points": 6
+      },
+      {
+        "label": "Erased a large deficit",
+        "points": 6
+      },
+      {
+        "label": "Recent late lead change",
+        "points": 5
+      },
+      {
+        "label": "Sustained competitive game",
+        "points": 7
+      },
+      {
+        "label": "Big win-chance swing",
+        "points": 1
+      }
+    ],
+    "teams": [
+      [
+        "New York Jets",
+        "NYJ",
+        "17",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/nyj.png",
+        "2-3",
+        null,
+        "Jets",
+        "20"
+      ],
+      [
+        "Cleveland Browns",
+        "CLE",
+        "12",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/cle.png",
+        "3-2",
+        null,
+        "Browns",
+        "5"
+      ]
+    ]
+  },
+  "NFL-20261011-401872984.json": {
+    "score": 4,
+    "baseScore": 1,
+    "openingScore": 34,
+    "factors": [
+      {
+        "label": "Game-state baseline",
+        "points": 18
+      },
+      {
+        "label": "Pregame context carried into play",
+        "points": 2
+      },
+      {
+        "label": "Wide margin",
+        "points": -21
+      },
+      {
+        "label": "1 lead change",
+        "points": 3
+      }
+    ],
+    "teams": [
+      [
+        "Tennessee Titans",
+        "TEN",
+        "3",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/ten.png",
+        "0-5",
+        null,
+        "Titans",
+        "10"
+      ],
+      [
+        "Houston Texans",
+        "HOU",
+        "26",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/hou.png",
+        "1-4",
+        null,
+        "Texans",
+        "34"
+      ]
+    ]
+  },
+  "NFL-20261011-401872985.json": {
+    "score": 41,
+    "baseScore": 23,
+    "openingScore": 42,
+    "factors": [
+      {
+        "label": "Game-state baseline",
+        "points": 18
+      },
+      {
+        "label": "Pregame context carried into play",
+        "points": 2
+      },
+      {
+        "label": "Final margin",
+        "points": 3
+      },
+      {
+        "label": "1 lead change",
+        "points": 3
+      },
+      {
+        "label": "Sustained competitive game",
+        "points": 5
+      },
+      {
+        "label": "Big win-chance swing",
+        "points": 4
+      },
+      {
+        "label": "Competitive throughout",
+        "points": 6
+      }
+    ],
+    "teams": [
+      [
+        "Pittsburgh Steelers",
+        "PIT",
+        "34",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/pit.png",
+        "3-2",
+        null,
+        "Steelers",
+        "23"
+      ],
+      [
+        "Indianapolis Colts",
+        "IND",
+        "22",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/ind.png",
+        "2-3",
+        null,
+        "Colts",
+        "11"
+      ]
+    ]
+  },
+  "NFL-20261011-401872986.json": {
+    "score": 7,
+    "baseScore": 1,
+    "openingScore": 60,
+    "factors": [
+      {
+        "label": "Game-state baseline",
+        "points": 18
+      },
+      {
+        "label": "Pregame context carried into play",
+        "points": 3
+      },
+      {
+        "label": "Wide margin",
+        "points": -26
+      },
+      {
+        "label": "Erased a large deficit",
+        "points": 6
+      }
+    ],
+    "teams": [
+      [
+        "New England Patriots",
+        "NE",
+        "45",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/ne.png",
+        "3-2",
+        null,
+        "Patriots",
+        "17"
+      ],
+      [
+        "Las Vegas Raiders",
+        "LV",
+        "17",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/lv.png",
+        "3-2",
+        null,
+        "Raiders",
+        "13"
+      ]
+    ]
+  },
+  "NFL-20261011-401872987.json": {
+    "score": 49,
+    "baseScore": 27,
+    "openingScore": 49,
+    "factors": [
+      {
+        "label": "Game-state baseline",
+        "points": 18
+      },
+      {
+        "label": "Pregame context carried into play",
+        "points": 2
+      },
+      {
+        "label": "Final margin",
+        "points": 7
+      },
+      {
+        "label": "2 lead changes",
+        "points": 6
+      },
+      {
+        "label": "Sustained competitive game",
+        "points": 7
+      },
+      {
+        "label": "Big win-chance swing",
+        "points": 5
+      },
+      {
+        "label": "Competitive for much of game",
+        "points": 4
+      }
+    ],
+    "teams": [
+      [
+        "New Orleans Saints",
+        "NO",
+        "13",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/no.png",
+        "1-4",
+        null,
+        "Saints",
+        "18"
+      ],
+      [
+        "Minnesota Vikings",
+        "MIN",
+        "23",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/min.png",
+        "5-0",
+        null,
+        "Vikings",
+        "16"
+      ]
+    ]
+  },
+  "NFL-20261011-401872988.json": {
+    "score": 82,
+    "baseScore": 57,
+    "openingScore": 46,
+    "factors": [
+      {
+        "label": "Game-state baseline",
+        "points": 18
+      },
+      {
+        "label": "Pregame context carried into play",
+        "points": 2
+      },
+      {
+        "label": "Final margin",
+        "points": 24
+      },
+      {
+        "label": "Overtime",
+        "points": 13
+      },
+      {
+        "label": "Erased a large deficit",
+        "points": 8
+      },
+      {
+        "label": "Sustained competitive game",
+        "points": 5
+      },
+      {
+        "label": "Repeated swings in control",
+        "points": 7
+      },
+      {
+        "label": "Big win-chance swing",
+        "points": 5
+      }
+    ],
+    "teams": [
+      [
+        "Washington Commanders",
+        "WSH",
+        "27",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/wsh.png",
+        "1-3-1",
+        null,
+        "Commanders",
+        "28"
+      ],
+      [
+        "New York Giants",
+        "NYG",
+        "27",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/nyg.png",
+        "3-1-1",
+        null,
+        "Giants",
+        "19"
+      ]
+    ]
+  },
+  "NFL-20261011-401872989.json": {
+    "score": 59,
+    "baseScore": 34,
+    "openingScore": 41,
+    "factors": [
+      {
+        "label": "Game-state baseline",
+        "points": 18
+      },
+      {
+        "label": "Pregame context carried into play",
+        "points": 2
+      },
+      {
+        "label": "Final margin",
+        "points": 14
+      },
+      {
+        "label": "2 lead changes",
+        "points": 6
+      },
+      {
+        "label": "Erased a large deficit",
+        "points": 6
+      },
+      {
+        "label": "Recent late lead change",
+        "points": 5
+      },
+      {
+        "label": "Sustained competitive game",
+        "points": 7
+      },
+      {
+        "label": "Big win-chance swing",
+        "points": 1
+      }
+    ],
+    "teams": [
+      [
+        "Los Angeles Chargers",
+        "LAC",
+        "17",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/lac.png",
+        "0-5",
+        null,
+        "Chargers",
+        "24"
+      ],
+      [
+        "Denver Broncos",
+        "DEN",
+        "23",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/den.png",
+        "3-2",
+        null,
+        "Broncos",
+        "7"
+      ]
+    ]
+  },
+  "NFL-20261011-401872990.json": {
+    "score": 4,
+    "baseScore": 1,
+    "openingScore": 67,
+    "factors": [
+      {
+        "label": "Game-state baseline",
+        "points": 18
+      },
+      {
+        "label": "Pregame context carried into play",
+        "points": 3
+      },
+      {
+        "label": "Wide margin",
+        "points": -22
+      },
+      {
+        "label": "Big win-chance swing",
+        "points": 3
+      }
+    ],
+    "teams": [
+      [
+        "Green Bay Packers",
+        "GB",
+        "31",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/gb.png",
+        "3-2",
+        null,
+        "Packers",
+        "9"
+      ],
+      [
+        "Chicago Bears",
+        "CHI",
+        "7",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/chi.png",
+        "3-2",
+        null,
+        "Bears",
+        "3"
+      ]
+    ]
+  },
+  "NFL-20261011-401872991.json": {
+    "score": 14,
+    "baseScore": 1,
+    "openingScore": 42,
+    "factors": [
+      {
+        "label": "Game-state baseline",
+        "points": 18
+      },
+      {
+        "label": "Pregame context carried into play",
+        "points": 2
+      },
+      {
+        "label": "Wide margin",
+        "points": -22
+      },
+      {
+        "label": "1 lead change",
+        "points": 3
+      },
+      {
+        "label": "Erased a large deficit",
+        "points": 6
+      },
+      {
+        "label": "Big win-chance swing",
+        "points": 4
+      }
+    ],
+    "teams": [
+      [
+        "Arizona Cardinals",
+        "ARI",
+        "21",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/ari.png",
+        "1-4",
+        null,
+        "Cardinals",
+        "22"
+      ],
+      [
+        "Detroit Lions",
+        "DET",
+        "45",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/det.png",
+        "3-2",
+        null,
+        "Lions",
+        "8"
+      ]
+    ]
+  },
+  "NFL-20261011-401872992.json": {
+    "score": 66,
+    "baseScore": 41,
+    "openingScore": 70,
+    "factors": [
+      {
+        "label": "Game-state baseline",
+        "points": 18
+      },
+      {
+        "label": "Pregame context carried into play",
+        "points": 4
+      },
+      {
+        "label": "Final margin",
+        "points": 19
+      },
+      {
+        "label": "4 lead changes",
+        "points": 9
+      },
+      {
+        "label": "Erased a large deficit",
+        "points": 6
+      },
+      {
+        "label": "Sustained competitive game",
+        "points": 7
+      },
+      {
+        "label": "Big win-chance swing",
+        "points": 3
+      }
+    ],
+    "teams": [
+      [
+        "Seattle Seahawks",
+        "SEA",
+        "29",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/sea.png",
+        "3-2",
+        null,
+        "Seahawks",
+        "26"
+      ],
+      [
+        "San Francisco 49ers",
+        "SF",
+        "32",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/sf.png",
+        "5-0",
+        null,
+        "49ers",
+        "25"
+      ]
+    ]
+  },
+  "NFL-20261011-401872993.json": {
+    "score": 70,
+    "baseScore": 45,
+    "openingScore": 42,
+    "factors": [
+      {
+        "label": "Game-state baseline",
+        "points": 18
+      },
+      {
+        "label": "Pregame context carried into play",
+        "points": 2
+      },
+      {
+        "label": "Final margin",
+        "points": 12
+      },
+      {
+        "label": "Overtime",
+        "points": 13
+      },
+      {
+        "label": "2 lead changes",
+        "points": 6
+      },
+      {
+        "label": "Erased a large deficit",
+        "points": 6
+      },
+      {
+        "label": "Recent late lead change",
+        "points": 5
+      },
+      {
+        "label": "Sustained competitive game",
+        "points": 7
+      },
+      {
+        "label": "Big win-chance swing",
+        "points": 1
+      }
+    ],
+    "teams": [
+      [
+        "Atlanta Falcons",
+        "ATL",
+        "23",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/atl.png",
+        "2-3",
+        null,
+        "Falcons",
+        "1"
+      ],
+      [
+        "Baltimore Ravens",
+        "BAL",
+        "30",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/bal.png",
+        "4-1",
+        null,
+        "Ravens",
+        "33"
+      ]
+    ]
+  },
+  "NFL-20261018-401872996.json": {
+    "score": 78,
+    "baseScore": 39,
+    "openingScore": 46,
+    "factors": [
+      {
+        "label": "Game-state baseline",
+        "points": 18
+      },
+      {
+        "label": "Pregame context carried into play",
+        "points": 2
+      },
+      {
+        "label": "Final margin",
+        "points": 19
+      },
+      {
+        "label": "2 lead changes",
+        "points": 6
+      },
+      {
+        "label": "Erased a large deficit",
+        "points": 6
+      },
+      {
+        "label": "Sustained competitive game",
+        "points": 7
+      },
+      {
+        "label": "Big win-chance swing",
+        "points": 6
+      },
+      {
+        "label": "Decisive last play",
+        "points": 14
+      }
+    ],
+    "teams": [
+      [
+        "Jacksonville Jaguars",
+        "JAX",
+        "31",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/jax.png",
+        "4-2",
+        null,
+        "Jaguars",
+        "30"
+      ],
+      [
+        "Houston Texans",
+        "HOU",
+        "34",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/hou.png",
+        "2-4",
+        null,
+        "Texans",
+        "34"
+      ]
+    ]
+  },
+  "NFL-20261018-401872997.json": {
+    "score": 79,
+    "baseScore": 40,
+    "openingScore": 67,
+    "factors": [
+      {
+        "label": "Game-state baseline",
+        "points": 18
+      },
+      {
+        "label": "Pregame context carried into play",
+        "points": 3
+      },
+      {
+        "label": "Final margin",
+        "points": 19
+      },
+      {
+        "label": "1 lead change",
+        "points": 3
+      },
+      {
+        "label": "Erased a large deficit",
+        "points": 6
+      },
+      {
+        "label": "Recent late lead change",
+        "points": 5
+      },
+      {
+        "label": "Sustained competitive game",
+        "points": 5
+      },
+      {
+        "label": "Big win-chance swing",
+        "points": 6
+      },
+      {
+        "label": "Decisive last play",
+        "points": 14
+      }
+    ],
+    "teams": [
+      [
+        "Cleveland Browns",
+        "CLE",
+        "13",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/cle.png",
+        "4-2",
+        null,
+        "Browns",
+        "5"
+      ],
+      [
+        "Baltimore Ravens",
+        "BAL",
+        "10",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/bal.png",
+        "4-2",
+        null,
+        "Ravens",
+        "33"
+      ]
+    ]
+  },
+  "NFL-20261018-401872998.json": {
+    "score": 40,
+    "baseScore": 25,
+    "openingScore": 42,
+    "factors": [
+      {
+        "label": "Game-state baseline",
+        "points": 18
+      },
+      {
+        "label": "Pregame context carried into play",
+        "points": 2
+      },
+      {
+        "label": "Final margin",
+        "points": 5
+      },
+      {
+        "label": "Sustained competitive game",
+        "points": 7
+      },
+      {
+        "label": "Big win-chance swing",
+        "points": 4
+      },
+      {
+        "label": "Competitive for much of game",
+        "points": 4
+      }
+    ],
+    "teams": [
+      [
+        "Philadelphia Eagles",
+        "PHI",
+        "14",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/phi.png",
+        "2-4",
+        null,
+        "Eagles",
+        "21"
+      ],
+      [
+        "Carolina Panthers",
+        "CAR",
+        "25",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/car.png",
+        "3-2",
+        null,
+        "Panthers",
+        "29"
+      ]
+    ]
+  },
+  "NFL-20261018-401872999.json": {
+    "score": 30,
+    "baseScore": 30,
+    "openingScore": 42,
+    "factors": [
+      {
+        "label": "Game-state baseline",
+        "points": 18
+      },
+      {
+        "label": "Pregame context carried into play",
+        "points": 2
+      },
+      {
+        "label": "Final margin",
+        "points": 10
+      }
+    ],
+    "teams": [
+      [
+        "Atlanta Falcons",
+        "ATL",
+        "23",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/atl.png",
+        "2-4",
+        null,
+        "Falcons",
+        "1"
+      ],
+      [
+        "Chicago Bears",
+        "CHI",
+        "31",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/chi.png",
+        "4-2",
+        null,
+        "Bears",
+        "3"
+      ]
+    ]
+  },
+  "NFL-20261018-401873000.json": {
+    "score": 51,
+    "baseScore": 32,
+    "openingScore": 42,
+    "factors": [
+      {
+        "label": "Game-state baseline",
+        "points": 18
+      },
+      {
+        "label": "Pregame context carried into play",
+        "points": 2
+      },
+      {
+        "label": "Final margin",
+        "points": 12
+      },
+      {
+        "label": "1 lead change",
+        "points": 3
+      },
+      {
+        "label": "Erased a large deficit",
+        "points": 6
+      },
+      {
+        "label": "Sustained competitive game",
+        "points": 5
+      },
+      {
+        "label": "Big win-chance swing",
+        "points": 5
+      }
+    ],
+    "teams": [
+      [
+        "New York Giants",
+        "NYG",
+        "27",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/nyg.png",
+        "3-2-1",
+        null,
+        "Giants",
+        "19"
+      ],
+      [
+        "New Orleans Saints",
+        "NO",
+        "34",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/no.png",
+        "2-4",
+        null,
+        "Saints",
+        "18"
+      ]
+    ]
+  },
+  "NFL-20261018-401873001.json": {
+    "score": 42,
+    "baseScore": 32,
+    "openingScore": 46,
+    "factors": [
+      {
+        "label": "Game-state baseline",
+        "points": 18
+      },
+      {
+        "label": "Pregame context carried into play",
+        "points": 2
+      },
+      {
+        "label": "Final margin",
+        "points": 12
+      },
+      {
+        "label": "1 lead change",
+        "points": 3
+      },
+      {
+        "label": "Sustained competitive game",
+        "points": 7
+      }
+    ],
+    "teams": [
+      [
+        "New England Patriots",
+        "NE",
+        "26",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/ne.png",
+        "4-2",
+        null,
+        "Patriots",
+        "17"
+      ],
+      [
+        "New York Jets",
+        "NYJ",
+        "19",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/nyj.png",
+        "2-4",
+        null,
+        "Jets",
+        "20"
+      ]
+    ]
+  },
+  "NFL-20261018-401873002.json": {
+    "score": 70,
+    "baseScore": 45,
+    "openingScore": 42,
+    "factors": [
+      {
+        "label": "Game-state baseline",
+        "points": 18
+      },
+      {
+        "label": "Pregame context carried into play",
+        "points": 2
+      },
+      {
+        "label": "Final margin",
+        "points": 12
+      },
+      {
+        "label": "Overtime",
+        "points": 13
+      },
+      {
+        "label": "1 lead change",
+        "points": 3
+      },
+      {
+        "label": "Erased a large deficit",
+        "points": 6
+      },
+      {
+        "label": "Recent late lead change",
+        "points": 5
+      },
+      {
+        "label": "Big win-chance swing",
+        "points": 9
+      },
+      {
+        "label": "Competitive for much of game",
+        "points": 2
+      }
+    ],
+    "teams": [
+      [
+        "Tampa Bay Buccaneers",
+        "TB",
+        "19",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/tb.png",
+        "1-5",
+        null,
+        "Buccaneers",
+        "27"
+      ],
+      [
+        "Pittsburgh Steelers",
+        "PIT",
+        "26",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/pit.png",
+        "4-2",
+        null,
+        "Steelers",
+        "23"
+      ]
+    ]
+  },
+  "NFL-20261018-401873003.json": {
+    "score": 59,
+    "baseScore": 34,
+    "openingScore": 39,
+    "factors": [
+      {
+        "label": "Game-state baseline",
+        "points": 18
+      },
+      {
+        "label": "Pregame context carried into play",
+        "points": 2
+      },
+      {
+        "label": "Final margin",
+        "points": 14
+      },
+      {
+        "label": "1 lead change",
+        "points": 3
+      },
+      {
+        "label": "Erased a large deficit",
+        "points": 6
+      },
+      {
+        "label": "Sustained competitive game",
+        "points": 7
+      },
+      {
+        "label": "Repeated swings in control",
+        "points": 6
+      },
+      {
+        "label": "Big win-chance swing",
+        "points": 3
+      }
+    ],
+    "teams": [
+      [
+        "Indianapolis Colts",
+        "IND",
+        "20",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/ind.png",
+        "2-4",
+        null,
+        "Colts",
+        "11"
+      ],
+      [
+        "Tennessee Titans",
+        "TEN",
+        "26",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/ten.png",
+        "1-5",
+        null,
+        "Titans",
+        "10"
+      ]
+    ]
+  },
+  "NFL-20261018-401873004.json": {
+    "score": 99,
+    "baseScore": 63,
+    "openingScore": 39,
+    "factors": [
+      {
+        "label": "Game-state baseline",
+        "points": 18
+      },
+      {
+        "label": "Pregame context carried into play",
+        "points": 2
+      },
+      {
+        "label": "Final margin",
+        "points": 21
+      },
+      {
+        "label": "Underdog won outright",
+        "points": 22
+      },
+      {
+        "label": "5 lead changes",
+        "points": 9
+      },
+      {
+        "label": "Recent late lead change",
+        "points": 5
+      },
+      {
+        "label": "Sustained competitive game",
+        "points": 7
+      },
+      {
+        "label": "Big win-chance swing",
+        "points": 4
+      },
+      {
+        "label": "Decisive last play",
+        "points": 14
+      }
+    ],
+    "teams": [
+      [
+        "Los Angeles Rams",
+        "LAR",
+        "16",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/lar.png",
+        "2-4",
+        null,
+        "Rams",
+        "14"
+      ],
+      [
+        "Arizona Cardinals",
+        "ARI",
+        "18",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/ari.png",
+        "2-4",
+        null,
+        "Cardinals",
+        "22"
+      ]
+    ]
+  },
+  "NFL-20261018-401873005.json": {
+    "score": 63,
+    "baseScore": 39,
+    "openingScore": 47,
+    "factors": [
+      {
+        "label": "Game-state baseline",
+        "points": 18
+      },
+      {
+        "label": "Pregame context carried into play",
+        "points": 2
+      },
+      {
+        "label": "Final margin",
+        "points": 19
+      },
+      {
+        "label": "2 lead changes",
+        "points": 6
+      },
+      {
+        "label": "Erased a large deficit",
+        "points": 6
+      },
+      {
+        "label": "Sustained competitive game",
+        "points": 7
+      },
+      {
+        "label": "Big win-chance swing",
+        "points": 5
+      }
+    ],
+    "teams": [
+      [
+        "Las Vegas Raiders",
+        "LV",
+        "30",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/lv.png",
+        "3-3",
+        null,
+        "Raiders",
+        "13"
+      ],
+      [
+        "Buffalo Bills",
+        "BUF",
+        "33",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/buf.png",
+        "5-1",
+        null,
+        "Bills",
+        "2"
+      ]
+    ]
+  },
+  "NFL-20261018-401873006.json": {
+    "score": 5,
+    "baseScore": 5,
+    "openingScore": 48,
+    "factors": [
+      {
+        "label": "Game-state baseline",
+        "points": 18
+      },
+      {
+        "label": "Pregame context carried into play",
+        "points": 2
+      },
+      {
+        "label": "Wide margin",
+        "points": -15
+      }
+    ],
+    "teams": [
+      [
+        "Kansas City Chiefs",
+        "KC",
+        "22",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/kc.png",
+        "5-0",
+        null,
+        "Chiefs",
+        "12"
+      ],
+      [
+        "Los Angeles Chargers",
+        "LAC",
+        "6",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/lac.png",
+        "0-6",
+        null,
+        "Chargers",
+        "24"
+      ]
+    ]
+  },
+  "NFL-20261018-401873007.json": {
+    "score": 27,
+    "baseScore": 27,
+    "openingScore": 42,
+    "factors": [
+      {
+        "label": "Game-state baseline",
+        "points": 18
+      },
+      {
+        "label": "Pregame context carried into play",
+        "points": 2
+      },
+      {
+        "label": "Final margin",
+        "points": 7
+      }
+    ],
+    "teams": [
+      [
+        "Green Bay Packers",
+        "GB",
+        "23",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/gb.png",
+        "4-2",
+        null,
+        "Packers",
+        "9"
+      ],
+      [
+        "Dallas Cowboys",
+        "DAL",
+        "13",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/dal.png",
+        "2-4",
+        null,
+        "Cowboys",
+        "6"
+      ]
+    ]
+  },
+  "NHL-20261017-401892519.json": {
+    "score": 38,
+    "baseScore": 28,
+    "openingScore": 44,
+    "factors": [
+      {
+        "label": "Game-state baseline",
+        "points": 18
+      },
+      {
+        "label": "Pregame context carried into play",
+        "points": 2
+      },
+      {
+        "label": "Final margin",
+        "points": 8
+      },
+      {
+        "label": "1 lead change",
+        "points": 3
+      },
+      {
+        "label": "Sustained competitive game",
+        "points": 7
+      }
+    ],
+    "teams": [
+      [
+        "Washington Capitals",
+        "WSH",
+        "4",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/nhl/500/scoreboard/wsh.png",
+        "5-3-0",
+        null,
+        "Capitals",
+        "23"
+      ],
+      [
+        "New Jersey Devils",
+        "NJ",
+        "2",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/nhl/500/scoreboard/nj.png",
+        "4-4-0",
+        null,
+        "Devils",
+        "11"
+      ]
+    ]
+  },
+  "NHL-20261017-401892520.json": {
+    "score": 51,
+    "baseScore": 36,
+    "openingScore": 48,
+    "factors": [
+      {
+        "label": "Game-state baseline",
+        "points": 18
+      },
+      {
+        "label": "Pregame context carried into play",
+        "points": 2
+      },
+      {
+        "label": "Final margin",
+        "points": 16
+      },
+      {
+        "label": "1 lead change",
+        "points": 3
+      },
+      {
+        "label": "Recent late lead change",
+        "points": 5
+      },
+      {
+        "label": "Sustained competitive game",
+        "points": 7
+      }
+    ],
+    "teams": [
+      [
+        "Winnipeg Jets",
+        "WPG",
+        "2",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/nhl/500/scoreboard/wpg.png",
+        "4-2-2",
+        null,
+        "Jets",
+        "28"
+      ],
+      [
+        "Carolina Hurricanes",
+        "CAR",
+        "3",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/nhl/500/scoreboard/car.png",
+        "7-1-1",
+        null,
+        "Hurricanes",
+        "7"
+      ]
+    ]
+  },
+  "NHL-20261017-401892521.json": {
+    "score": 44,
+    "baseScore": 28,
+    "openingScore": 37,
+    "factors": [
+      {
+        "label": "Game-state baseline",
+        "points": 18
+      },
+      {
+        "label": "Pregame context carried into play",
+        "points": 2
+      },
+      {
+        "label": "Final margin",
+        "points": 8
+      },
+      {
+        "label": "1 lead change",
+        "points": 3
+      },
+      {
+        "label": "Erased a large deficit",
+        "points": 6
+      },
+      {
+        "label": "Sustained competitive game",
+        "points": 7
+      }
+    ],
+    "teams": [
+      [
+        "Tampa Bay Lightning",
+        "TB",
+        "4",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/nhl/500/scoreboard/tb.png",
+        "6-2-0",
+        null,
+        "Lightning",
+        "20"
+      ],
+      [
+        "Vancouver Canucks",
+        "VAN",
+        "2",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/nhl/500/scoreboard/van.png",
+        "2-7-1",
+        null,
+        "Canucks",
+        "22"
+      ]
+    ]
+  },
+  "NHL-20261017-401892522.json": {
+    "score": 7,
+    "baseScore": 1,
+    "openingScore": 51,
+    "factors": [
+      {
+        "label": "Game-state baseline",
+        "points": 18
+      },
+      {
+        "label": "Pregame context carried into play",
+        "points": 3
+      },
+      {
+        "label": "Wide margin",
+        "points": -22
+      },
+      {
+        "label": "Erased a large deficit",
+        "points": 6
+      }
+    ],
+    "teams": [
+      [
+        "Florida Panthers",
+        "FLA",
+        "8",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/nhl/500/scoreboard/fla.png",
+        "5-2-2",
+        null,
+        "Panthers",
+        "26"
+      ],
+      [
+        "Seattle Kraken",
+        "SEA",
+        "3",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/nhl/500/scoreboard/sea.png",
+        "5-3-1",
+        null,
+        "Kraken",
+        "124292"
+      ]
+    ]
+  },
+  "NHL-20261017-401892523.json": {
+    "score": 14,
+    "baseScore": 7,
+    "openingScore": 37,
+    "factors": [
+      {
+        "label": "Game-state baseline",
+        "points": 18
+      },
+      {
+        "label": "Pregame context carried into play",
+        "points": 2
+      },
+      {
+        "label": "Wide margin",
+        "points": -13
+      },
+      {
+        "label": "Sustained competitive game",
+        "points": 7
+      }
+    ],
+    "teams": [
+      [
+        "Toronto Maple Leafs",
+        "TOR",
+        "1",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/nhl/500/scoreboard/tor.png",
+        "3-4-2",
+        null,
+        "Maple Leafs",
+        "21"
+      ],
+      [
+        "New York Islanders",
+        "NYI",
+        "4",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/nhl/500/scoreboard/nyi.png",
+        "4-3-1",
+        null,
+        "Islanders",
+        "12"
+      ]
+    ]
+  },
+  "NHL-20261017-401892524.json": {
+    "score": 75,
+    "baseScore": 50,
+    "openingScore": 50,
+    "factors": [
+      {
+        "label": "Game-state baseline",
+        "points": 18
+      },
+      {
+        "label": "Pregame context carried into play",
+        "points": 3
+      },
+      {
+        "label": "Final margin",
+        "points": 16
+      },
+      {
+        "label": "Overtime",
+        "points": 13
+      },
+      {
+        "label": "2 lead changes",
+        "points": 6
+      },
+      {
+        "label": "Erased a large deficit",
+        "points": 6
+      },
+      {
+        "label": "Sustained competitive game",
+        "points": 7
+      },
+      {
+        "label": "Decisive final score",
+        "points": 6
+      }
+    ],
+    "teams": [
+      [
+        "Montreal Canadiens",
+        "MTL",
+        "4",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/nhl/500/scoreboard/mtl.png",
+        "4-3-1",
+        null,
+        "Canadiens",
+        "10"
+      ],
+      [
+        "Buffalo Sabres",
+        "BUF",
+        "3",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/nhl/500/scoreboard/buf.png",
+        "4-3-2",
+        null,
+        "Sabres",
+        "2"
+      ]
+    ]
+  },
+  "NHL-20261017-401892525.json": {
+    "score": 75,
+    "baseScore": 36,
+    "openingScore": 41,
+    "factors": [
+      {
+        "label": "Game-state baseline",
+        "points": 18
+      },
+      {
+        "label": "Pregame context carried into play",
+        "points": 2
+      },
+      {
+        "label": "Final margin",
+        "points": 16
+      },
+      {
+        "label": "2 lead changes",
+        "points": 6
+      },
+      {
+        "label": "Erased a large deficit",
+        "points": 6
+      },
+      {
+        "label": "Recent late lead change",
+        "points": 5
+      },
+      {
+        "label": "Sustained competitive game",
+        "points": 7
+      },
+      {
+        "label": "Decisive final score",
+        "points": 1
+      },
+      {
+        "label": "Decisive last play",
+        "points": 14
+      }
+    ],
+    "teams": [
+      [
+        "Detroit Red Wings",
+        "DET",
+        "4",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/nhl/500/scoreboard/det.png",
+        "3-3-2",
+        null,
+        "Red Wings",
+        "5"
+      ],
+      [
+        "San Jose Sharks",
+        "SJ",
+        "3",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/nhl/500/scoreboard/sj.png",
+        "4-3-1",
+        null,
+        "Sharks",
+        "18"
+      ]
+    ]
+  },
+  "NHL-20261017-401892526.json": {
+    "score": 41,
+    "baseScore": 28,
+    "openingScore": 37,
+    "factors": [
+      {
+        "label": "Game-state baseline",
+        "points": 18
+      },
+      {
+        "label": "Pregame context carried into play",
+        "points": 2
+      },
+      {
+        "label": "Final margin",
+        "points": 8
+      },
+      {
+        "label": "2 lead changes",
+        "points": 6
+      },
+      {
+        "label": "Sustained competitive game",
+        "points": 7
+      }
+    ],
+    "teams": [
+      [
+        "Philadelphia Flyers",
+        "PHI",
+        "3",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/nhl/500/scoreboard/phi.png",
+        "1-6-3",
+        null,
+        "Flyers",
+        "15"
+      ],
+      [
+        "Ottawa Senators",
+        "OTT",
+        "1",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/nhl/500/scoreboard/ott.png",
+        "6-3-0",
+        null,
+        "Senators",
+        "14"
+      ]
+    ]
+  },
+  "NHL-20261017-401892527.json": {
+    "score": 57,
+    "baseScore": 49,
+    "openingScore": 46,
+    "factors": [
+      {
+        "label": "Game-state baseline",
+        "points": 18
+      },
+      {
+        "label": "Pregame context carried into play",
+        "points": 2
+      },
+      {
+        "label": "Final margin",
+        "points": 16
+      },
+      {
+        "label": "Overtime",
+        "points": 13
+      },
+      {
+        "label": "Decisive final score",
+        "points": 8
+      }
+    ],
+    "teams": [
+      [
+        "Columbus Blue Jackets",
+        "CBJ",
+        "1",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/nhl/500/scoreboard/cbj.png",
+        "3-3-0",
+        null,
+        "Blue Jackets",
+        "29"
+      ],
+      [
+        "New York Rangers",
+        "NYR",
+        "0",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/nhl/500/scoreboard/nyr.png",
+        "6-3-1",
+        null,
+        "Rangers",
+        "13"
+      ]
+    ]
+  },
+  "NHL-20261017-401892528.json": {
+    "score": 10,
+    "baseScore": 3,
+    "openingScore": 40,
+    "factors": [
+      {
+        "label": "Game-state baseline",
+        "points": 18
+      },
+      {
+        "label": "Pregame context carried into play",
+        "points": 2
+      },
+      {
+        "label": "Wide margin",
+        "points": -17
+      },
+      {
+        "label": "Sustained competitive game",
+        "points": 7
+      }
+    ],
+    "teams": [
+      [
+        "Chicago Blackhawks",
+        "CHI",
+        "0",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/nhl/500/scoreboard/chi.png",
+        "3-6-0",
+        null,
+        "Blackhawks",
+        "4"
+      ],
+      [
+        "Dallas Stars",
+        "DAL",
+        "4",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/nhl/500/scoreboard/dal.png",
+        "4-3-1",
+        null,
+        "Stars",
+        "9"
+      ]
+    ]
+  },
+  "NHL-20261017-401892529.json": {
+    "score": 20,
+    "baseScore": 7,
+    "openingScore": 40,
+    "factors": [
+      {
+        "label": "Game-state baseline",
+        "points": 18
+      },
+      {
+        "label": "Pregame context carried into play",
+        "points": 2
+      },
+      {
+        "label": "Wide margin",
+        "points": -13
+      },
+      {
+        "label": "2 lead changes",
+        "points": 6
+      },
+      {
+        "label": "Sustained competitive game",
+        "points": 7
+      }
+    ],
+    "teams": [
+      [
+        "Nashville Predators",
+        "NSH",
+        "5",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/nhl/500/scoreboard/nsh.png",
+        "3-2-3",
+        null,
+        "Predators",
+        "27"
+      ],
+      [
+        "St. Louis Blues",
+        "STL",
+        "2",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/nhl/500/scoreboard/stl.png",
+        "3-4-1",
+        null,
+        "Blues",
+        "19"
+      ]
+    ]
+  },
+  "NHL-20261017-401892530.json": {
+    "score": 17,
+    "baseScore": 7,
+    "openingScore": 34,
+    "factors": [
+      {
+        "label": "Game-state baseline",
+        "points": 18
+      },
+      {
+        "label": "Pregame context carried into play",
+        "points": 2
+      },
+      {
+        "label": "Wide margin",
+        "points": -13
+      },
+      {
+        "label": "1 lead change",
+        "points": 3
+      },
+      {
+        "label": "Sustained competitive game",
+        "points": 7
+      }
+    ],
+    "teams": [
+      [
+        "Los Angeles Kings",
+        "LA",
+        "1",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/nhl/500/scoreboard/la.png",
+        "0-4-2",
+        null,
+        "Kings",
+        "8"
+      ],
+      [
+        "Boston Bruins",
+        "BOS",
+        "4",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/nhl/500/scoreboard/bos.png",
+        "7-2-0",
+        null,
+        "Bruins",
+        "1"
+      ]
+    ]
+  },
+  "NHL-20261017-401892531.json": {
+    "score": 3,
+    "baseScore": 3,
+    "openingScore": 48,
+    "factors": [
+      {
+        "label": "Game-state baseline",
+        "points": 18
+      },
+      {
+        "label": "Pregame context carried into play",
+        "points": 2
+      },
+      {
+        "label": "Wide margin",
+        "points": -17
+      }
+    ],
+    "teams": [
+      [
+        "Utah Mammoth",
+        "UTA",
+        "2",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/nhl/500/scoreboard/uta.png",
+        "6-3-0",
+        null,
+        "Mammoth",
+        "129764"
+      ],
+      [
+        "Edmonton Oilers",
+        "EDM",
+        "6",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/nhl/500/scoreboard/edm.png",
+        "6-1-1",
+        null,
+        "Oilers",
+        "6"
+      ]
+    ]
+  },
+  "NHL-20261017-401892532.json": {
+    "score": 3,
+    "baseScore": 3,
+    "openingScore": 39,
+    "factors": [
+      {
+        "label": "Game-state baseline",
+        "points": 18
+      },
+      {
+        "label": "Pregame context carried into play",
+        "points": 2
+      },
+      {
+        "label": "Wide margin",
+        "points": -17
+      }
+    ],
+    "teams": [
+      [
+        "Vegas Golden Knights",
+        "VGK",
+        "6",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/nhl/500/scoreboard/vgk.png",
+        "8-2-0",
+        null,
+        "Golden Knights",
+        "37"
+      ],
+      [
+        "Pittsburgh Penguins",
+        "PIT",
+        "2",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/nhl/500/scoreboard/pit.png",
+        "3-5-1",
+        null,
+        "Penguins",
+        "16"
+      ]
+    ]
+  },
+  "NHL-20261020-401892539.json": {
+    "score": 92,
+    "baseScore": 67,
+    "openingScore": 47,
+    "factors": [
+      {
+        "label": "Game-state baseline",
+        "points": 18
+      },
+      {
+        "label": "Pregame context carried into play",
+        "points": 2
+      },
+      {
+        "label": "Final margin",
+        "points": 16
+      },
+      {
+        "label": "Overtime",
+        "points": 13
+      },
+      {
+        "label": "Underdog won outright",
+        "points": 18
+      },
+      {
+        "label": "2 lead changes",
+        "points": 6
+      },
+      {
+        "label": "Erased a large deficit",
+        "points": 6
+      },
+      {
+        "label": "Recent late lead change",
+        "points": 5
+      },
+      {
+        "label": "Sustained competitive game",
+        "points": 7
+      },
+      {
+        "label": "Decisive final score",
+        "points": 1
+      }
+    ],
+    "teams": [
+      [
+        "Montreal Canadiens",
+        "MTL",
+        "3",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/nhl/500/scoreboard/mtl.png",
+        "4-3-2",
+        null,
+        "Canadiens",
+        "10"
+      ],
+      [
+        "San Jose Sharks",
+        "SJ",
+        "4",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/nhl/500/scoreboard/sj.png",
+        "5-4-1",
+        null,
+        "Sharks",
+        "18"
+      ]
+    ]
+  },
+  "NHL-20261020-401892540.json": {
+    "score": 43,
+    "baseScore": 36,
+    "openingScore": 47,
+    "factors": [
+      {
+        "label": "Game-state baseline",
+        "points": 18
+      },
+      {
+        "label": "Pregame context carried into play",
+        "points": 2
+      },
+      {
+        "label": "Final margin",
+        "points": 16
+      },
+      {
+        "label": "Sustained competitive game",
+        "points": 7
+      }
+    ],
+    "teams": [
+      [
+        "New Jersey Devils",
+        "NJ",
+        "4",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/nhl/500/scoreboard/nj.png",
+        "5-4-0",
+        null,
+        "Devils",
+        "11"
+      ],
+      [
+        "Colorado Avalanche",
+        "COL",
+        "3",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/nhl/500/scoreboard/col.png",
+        "5-4-1",
+        null,
+        "Avalanche",
+        "17"
+      ]
+    ]
+  },
+  "NHL-20261020-401892541.json": {
+    "score": 43,
+    "baseScore": 36,
+    "openingScore": 37,
+    "factors": [
+      {
+        "label": "Game-state baseline",
+        "points": 18
+      },
+      {
+        "label": "Pregame context carried into play",
+        "points": 2
+      },
+      {
+        "label": "Final margin",
+        "points": 16
+      },
+      {
+        "label": "Sustained competitive game",
+        "points": 7
+      }
+    ],
+    "teams": [
+      [
+        "New York Islanders",
+        "NYI",
+        "3",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/nhl/500/scoreboard/nyi.png",
+        "5-3-1",
+        null,
+        "Islanders",
+        "12"
+      ],
+      [
+        "Anaheim Ducks",
+        "ANA",
+        "2",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/nhl/500/scoreboard/ana.png",
+        "4-5-0",
+        null,
+        "Ducks",
+        "25"
+      ]
+    ]
+  },
+  "NHL-20261020-401892542.json": {
+    "score": 23,
+    "baseScore": 7,
+    "openingScore": 37,
+    "factors": [
+      {
+        "label": "Game-state baseline",
+        "points": 18
+      },
+      {
+        "label": "Pregame context carried into play",
+        "points": 2
+      },
+      {
+        "label": "Wide margin",
+        "points": -13
+      },
+      {
+        "label": "1 lead change",
+        "points": 3
+      },
+      {
+        "label": "Erased a large deficit",
+        "points": 6
+      },
+      {
+        "label": "Sustained competitive game",
+        "points": 7
+      }
+    ],
+    "teams": [
+      [
+        "Washington Capitals",
+        "WSH",
+        "2",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/nhl/500/scoreboard/wsh.png",
+        "5-4-0",
+        null,
+        "Capitals",
+        "23"
+      ],
+      [
+        "Los Angeles Kings",
+        "LA",
+        "5",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/nhl/500/scoreboard/la.png",
+        "1-4-2",
+        null,
+        "Kings",
+        "8"
+      ]
+    ]
+  },
+  "NHL-20261020-401892543.json": {
+    "score": 11,
+    "baseScore": 3,
+    "openingScore": 37,
+    "factors": [
+      {
+        "label": "Game-state baseline",
+        "points": 18
+      },
+      {
+        "label": "Pregame context carried into play",
+        "points": 2
+      },
+      {
+        "label": "Wide margin",
+        "points": -17
+      },
+      {
+        "label": "1 lead change",
+        "points": 3
+      },
+      {
+        "label": "Sustained competitive game",
+        "points": 5
+      }
+    ],
+    "teams": [
+      [
+        "Columbus Blue Jackets",
+        "CBJ",
+        "2",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/nhl/500/scoreboard/cbj.png",
+        "3-5-0",
+        null,
+        "Blue Jackets",
+        "29"
+      ],
+      [
+        "Toronto Maple Leafs",
+        "TOR",
+        "6",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/nhl/500/scoreboard/tor.png",
+        "5-4-2",
+        null,
+        "Maple Leafs",
+        "21"
+      ]
+    ]
+  },
+  "NHL-20261020-401892544.json": {
+    "score": 43,
+    "baseScore": 36,
+    "openingScore": 44,
+    "factors": [
+      {
+        "label": "Game-state baseline",
+        "points": 18
+      },
+      {
+        "label": "Pregame context carried into play",
+        "points": 2
+      },
+      {
+        "label": "Final margin",
+        "points": 16
+      },
+      {
+        "label": "Sustained competitive game",
+        "points": 7
+      }
+    ],
+    "teams": [
+      [
+        "St. Louis Blues",
+        "STL",
+        "2",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/nhl/500/scoreboard/stl.png",
+        "4-4-1",
+        null,
+        "Blues",
+        "19"
+      ],
+      [
+        "Winnipeg Jets",
+        "WPG",
+        "1",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/nhl/500/scoreboard/wpg.png",
+        "4-3-2",
+        null,
+        "Jets",
+        "28"
+      ]
+    ]
+  },
+  "NHL-20261020-401892545.json": {
+    "score": 72,
+    "baseScore": 49,
+    "openingScore": 48,
+    "factors": [
+      {
+        "label": "Game-state baseline",
+        "points": 18
+      },
+      {
+        "label": "Pregame context carried into play",
+        "points": 2
+      },
+      {
+        "label": "Final margin",
+        "points": 16
+      },
+      {
+        "label": "Overtime",
+        "points": 13
+      },
+      {
+        "label": "1 lead change",
+        "points": 3
+      },
+      {
+        "label": "Recent late lead change",
+        "points": 5
+      },
+      {
+        "label": "Sustained competitive game",
+        "points": 7
+      },
+      {
+        "label": "Decisive final score",
+        "points": 8
+      }
+    ],
+    "teams": [
+      [
+        "Dallas Stars",
+        "DAL",
+        "3",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/nhl/500/scoreboard/dal.png",
+        "5-3-1",
+        null,
+        "Stars",
+        "9"
+      ],
+      [
+        "Boston Bruins",
+        "BOS",
+        "2",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/nhl/500/scoreboard/bos.png",
+        "7-2-1",
+        null,
+        "Bruins",
+        "1"
+      ]
+    ]
+  },
+  "NHL-20261020-401892546.json": {
+    "score": 66,
+    "baseScore": 50,
+    "openingScore": 51,
+    "factors": [
+      {
+        "label": "Game-state baseline",
+        "points": 18
+      },
+      {
+        "label": "Pregame context carried into play",
+        "points": 3
+      },
+      {
+        "label": "Final margin",
+        "points": 16
+      },
+      {
+        "label": "Overtime",
+        "points": 13
+      },
+      {
+        "label": "1 lead change",
+        "points": 3
+      },
+      {
+        "label": "Erased a large deficit",
+        "points": 6
+      },
+      {
+        "label": "Sustained competitive game",
+        "points": 7
+      }
+    ],
+    "teams": [
+      [
+        "Edmonton Oilers",
+        "EDM",
+        "4",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/nhl/500/scoreboard/edm.png",
+        "7-1-1",
+        null,
+        "Oilers",
+        "6"
+      ],
+      [
+        "Minnesota Wild",
+        "MIN",
+        "3",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/nhl/500/scoreboard/min.png",
+        "6-2-2",
+        null,
+        "Wild",
+        "30"
+      ]
+    ]
+  },
+  "NHL-20261020-401892547.json": {
+    "score": 63,
+    "baseScore": 36,
+    "openingScore": 43,
+    "factors": [
+      {
+        "label": "Game-state baseline",
+        "points": 18
+      },
+      {
+        "label": "Pregame context carried into play",
+        "points": 2
+      },
+      {
+        "label": "Final margin",
+        "points": 16
+      },
+      {
+        "label": "Erased a large deficit",
+        "points": 6
+      },
+      {
+        "label": "Sustained competitive game",
+        "points": 7
+      },
+      {
+        "label": "Decisive last play",
+        "points": 14
+      }
+    ],
+    "teams": [
+      [
+        "Seattle Kraken",
+        "SEA",
+        "4",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/nhl/500/scoreboard/sea.png",
+        "6-3-1",
+        null,
+        "Kraken",
+        "124292"
+      ],
+      [
+        "Detroit Red Wings",
+        "DET",
+        "3",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/nhl/500/scoreboard/det.png",
+        "3-3-3",
+        null,
+        "Red Wings",
+        "5"
+      ]
+    ]
+  },
+  "NHL-20261020-401892548.json": {
+    "score": 14,
+    "baseScore": 7,
+    "openingScore": 37,
+    "factors": [
+      {
+        "label": "Game-state baseline",
+        "points": 18
+      },
+      {
+        "label": "Pregame context carried into play",
+        "points": 2
+      },
+      {
+        "label": "Wide margin",
+        "points": -13
+      },
+      {
+        "label": "Sustained competitive game",
+        "points": 7
+      }
+    ],
+    "teams": [
+      [
+        "Vancouver Canucks",
+        "VAN",
+        "3",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/nhl/500/scoreboard/van.png",
+        "2-8-1",
+        null,
+        "Canucks",
+        "22"
+      ],
+      [
+        "Carolina Hurricanes",
+        "CAR",
+        "6",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/nhl/500/scoreboard/car.png",
+        "8-2-1",
+        null,
+        "Hurricanes",
+        "7"
+      ]
+    ]
+  },
+  "NHL-20261020-401892549.json": {
+    "score": 11,
+    "baseScore": 4,
+    "openingScore": 57,
+    "factors": [
+      {
+        "label": "Game-state baseline",
+        "points": 18
+      },
+      {
+        "label": "Pregame context carried into play",
+        "points": 3
+      },
+      {
+        "label": "Wide margin",
+        "points": -17
+      },
+      {
+        "label": "Sustained competitive game",
+        "points": 7
+      }
+    ],
+    "teams": [
+      [
+        "Vegas Golden Knights",
+        "VGK",
+        "2",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/nhl/500/scoreboard/vgk.png",
+        "8-3-0",
+        null,
+        "Golden Knights",
+        "37"
+      ],
+      [
+        "Tampa Bay Lightning",
+        "TB",
+        "6",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/nhl/500/scoreboard/tb.png",
+        "7-2-0",
+        null,
+        "Lightning",
+        "20"
+      ]
+    ]
+  }
+}

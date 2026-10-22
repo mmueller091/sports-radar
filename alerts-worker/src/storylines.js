@@ -1,4 +1,5 @@
 import '../../rating-core.js';
+import {reserveResearchAi} from './ai-budget.js';
 
 const {
   rateGame,
@@ -195,12 +196,14 @@ async function aiFactors(env,items) {
     published:new Date(item.article.published).toISOString()
   }));
   const prompt = `Classify sports-news snippets only when the snippet explicitly supports a meaningful pregame storyline for the listed matchup. Never infer facts that are not stated. Ignore generic previews, recaps, score reports, and ordinary injuries without clear impact. Allowed types: ${[...ALLOWED_TYPES].join(', ')}. Return JSON only as {"factors":[{"id":"i0","type":"allowed_type","text":"one short plain-English sentence","confidence":0.0}]}. Confidence must be at least 0.70 and text must not add unsupported facts. Items: ${JSON.stringify(compact)}`;
+  const messages = [
+    {role:'system',content:'You extract conservative, source-grounded sports matchup context into JSON.'},
+    {role:'user',content:prompt}
+  ];
+  if (!await reserveResearchAi(env,messages)) return [];
   try {
     const result = await env.AI.run(AI_MODEL,{
-      messages:[
-        {role:'system',content:'You extract conservative, source-grounded sports matchup context into JSON.'},
-        {role:'user',content:prompt}
-      ],
+      messages,
       temperature:0,
       max_tokens:1200
     });

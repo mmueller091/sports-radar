@@ -1,9 +1,7 @@
 const LEGACY_DEFAULT_FAVORITES = [{sport:'NFL',name:'Baltimore Ravens'},{sport:'MLB',name:'Baltimore Orioles'},{sport:'NHL',name:'Washington Capitals'}];
 const FAVORITE_SPORTS = ['NFL','MLB','NHL','CFB','NBA','NCAAB','Soccer'];
-const ESPN_BASE = 'https://site.api.espn.com/apis/site/v2/sports';
 const HOME_SPORTS = ['NFL','MLB','NHL','CFB','NBA','NCAAB','Tennis'];
 const SPORT_LABELS = {NFL:'NFL',MLB:'MLB',NHL:'NHL',CFB:'College Football',NBA:'NBA',NCAAB:'NCAAM',Tennis:'Tennis',Soccer:'Soccer'};
-const SPORT_PATHS = {NFL:'football/nfl',MLB:'baseball/mlb',NHL:'hockey/nhl',CFB:'football/college-football',NBA:'basketball/nba',NCAAB:'basketball/mens-college-basketball',Tennis:'tennis/atp',Soccer:'soccer/eng.1'};
 const PREFERENCES_KEY = 'sports-radar-preferences-v2';
 const FAVORITES_KEY = 'sports-radar-selected-favorites-v1';
 const LINES_KEY = 'sports-radar-last-pregame-lines-v1';
@@ -11,18 +9,6 @@ const WATCHLIST_KEY = 'sports-radar-watched-games-v1';
 const HISTORY_KEY = 'sports-radar-rating-history-v1';
 const CONTEXT_SPORTS = new Set(['NFL','MLB','NHL','CFB','NBA','NCAAB']);
 
-const LIVE_FEEDS = [
-  {sport:'NFL', url:`${ESPN_BASE}/football/nfl/scoreboard`},
-  {sport:'MLB', url:`${ESPN_BASE}/baseball/mlb/scoreboard`},
-  {sport:'NHL', url:`${ESPN_BASE}/hockey/nhl/scoreboard`},
-  {sport:'CFB', division:'FBS', url:`${ESPN_BASE}/football/college-football/scoreboard?groups=80`, limit:500},
-  {sport:'CFB', division:'FCS', url:`${ESPN_BASE}/football/college-football/scoreboard?groups=81`, limit:500},
-  {sport:'NBA', url:`${ESPN_BASE}/basketball/nba/scoreboard`},
-  {sport:'NCAAB', url:`${ESPN_BASE}/basketball/mens-college-basketball/scoreboard`},
-  {sport:'Soccer', url:`${ESPN_BASE}/soccer/eng.1/scoreboard`},
-  {sport:'Soccer', url:`${ESPN_BASE}/soccer/uefa.champions/scoreboard`},
-  {sport:'Tennis', url:`${ESPN_BASE}/tennis/atp/scoreboard`}
-];
 
 const LEAGUE_LOGOS = {
   NFL:'https://a.espncdn.com/i/leaguelogos/500/nfl.png',
@@ -233,8 +219,8 @@ function teamLogoUrl(sport, abbreviation) {
   return `https://a.espncdn.com/i/teamlogos/${league}/500/${String(abbreviation).toLowerCase()}.png`;
 }
 
-function summaryUrlFor(sport, eventId) {
-  return `${ESPN_BASE}/${SPORT_PATHS[sport] || SPORT_PATHS.NFL}/summary?event=${encodeURIComponent(eventId)}`;
+function summaryUrlFor(sport,eventId) {
+  return `${String(globalThis.SPORTS_RADAR_ALERTS_URL || '').replace(/\/$/,'')}/game/${encodeURIComponent(sport)}/${encodeURIComponent(eventId)}`;
 }
 
 const {
@@ -410,43 +396,8 @@ function renderGameList(items,selectedState) {
   }).join('');
 }
 
-function stateFromEvent(event) {
-  const type = event.competitions?.[0]?.status?.type;
 
-  if (type?.completed || type?.state === 'post') return 'completed';
-  if (type?.state === 'in') return 'live';
 
-  return 'upcoming';
-}
-
-function scoreValue(competitor) {
-  const value = Number(competitor.score);
-  return Number.isFinite(value) ? String(value) : '—';
-}
-
-function broadcastFor(competition) {
-  const values = [];
-
-  const add = value => {
-    if (typeof value === 'string' && value.trim()) {
-      values.push(value.trim());
-    }
-  };
-
-  (competition?.broadcasts || []).forEach(broadcast => {
-    (broadcast.names || []).forEach(add);
-    add(broadcast.name);
-    add(broadcast.shortName);
-  });
-
-  (competition?.geoBroadcasts || []).forEach(broadcast => {
-    add(broadcast.media?.shortName);
-    add(broadcast.media?.name);
-    add(broadcast.type?.shortName);
-  });
-
-  return [...new Set(values)].slice(0,2).join(' · ');
-}
 
 function readLineSnapshots() {
   try {
@@ -516,717 +467,59 @@ function displayLine(game) {
   };
 }
 
-function normalizeEvent(event, sport, leagueLogo, division) {
-  const competition = event.competitions?.[0];
-  const competitors = competition?.competitors || [];
 
-  if (competitors.length < 2) return null;
 
-  const teams = competitors.slice(0,2).map(competitor => ({
-    id:String(competitor.team?.id || ''),
-    name:
-      competitor.team?.displayName ||
-      competitor.athlete?.displayName ||
-      'Unknown',
-    shortName:
-      competitor.team?.shortDisplayName ||
-      competitor.team?.name ||
-      competitor.athlete?.shortName ||
-      '',
-    abbr:
-      competitor.team?.abbreviation ||
-      competitor.abbreviation ||
-      '',
-    score:scoreValue(competitor),
-    logo:competitor.team?.logo || '',
-    color:'white',
-    record:recordFor(competitor),
-    rank:rankFor(competitor,sport)
-  }));
 
-  const gameState = stateFromEvent(event);
 
-  const status =
-    competition?.status?.type?.shortDetail ||
-    competition?.status?.type?.detail ||
-    (
-      gameState === 'completed'
-        ? 'Final'
-        : 'Scheduled'
-    );
 
-  const context =
-    competition?.notes?.[0]?.headline ||
-    event.name ||
-    `${sport} matchup`;
 
-  const rating = rateGame(
-    sport,
-    gameState,
-    teams,
-    event,
-    competition,
-    context
-  );
 
-  const eventId =
-    event.id ||
-    `${sport}-${event.name}`;
 
-  const game = {
-    id:eventId,
-    summaryUrl:summaryUrlFor(sport,eventId),
-    favorite:favoriteFor(teams,sport),
-    sport,
-    division,
-    icon:iconFor(sport),
-    leagueLogo:leagueLogo || LEAGUE_LOGOS[sport],
-    startTime:event.date,
-    state:gameState,
-    status,
-    channel:broadcastFor(competition) || 'Channel not listed',
-    teams:teams.map(team => [
-      team.name,
-      team.abbr,
-      team.score,
-      team.color,
-      team.logo,
-      team.record,
-      team.rank,
-      team.shortName,
-      team.id
-    ]),
-    line:
-      gameState === 'upcoming'
-        ? parseLine(
-            competition?.odds?.[0],
-            competition,
-            sport
-          )
-        : null,
-    context,
-    why:rating.reason,
-    sub:
-      competition?.venue?.fullName ||
-      competition?.venue?.address?.city ||
-      'Live scoreboard',
-    score:rating.score,
-    baseScore:rating.score,
-    openingScore:rating.openingScore,
-    factors:rating.factors,
-    underdog:rating.underdog,
-    upsetText:rating.upsetText,
-    upsetPoints:rating.upsetPoints,
-    liveRawStatus:competition?.status,
-    liveRawSituation:competition?.situation
-  };
 
-  Object.defineProperties(game,{
-    sourceEvent:{value:event,enumerable:false},
-    sourceCompetition:{value:competition,enumerable:false}
-  });
 
-  applyLiveSnapshot(
-    game,
-    competition,
-    null
-  );
 
-  return game;
-}
 
-async function fetchScoreboard(feed) {
-  const controller = new AbortController();
-  const timer = setTimeout(() => controller.abort(),7000);
 
-  try {
-    const url = new URL(feed.url);
 
-    url.searchParams.set(
-      'limit',
-      String(feed.limit || 100)
-    );
 
-    const response = await fetch(url,{
-      signal:controller.signal,
-      cache:'no-store'
-    });
 
-    if (!response.ok) {
-      throw new Error(`HTTP ${response.status}`);
-    }
 
-    return await response.json();
-  } finally {
-    clearTimeout(timer);
-  }
-}
 
-function gamesFromScoreboard(feed,payload) {
-  const leagueLogo =
-    payload.leagues?.[0]?.logos?.[0]?.href;
-
-  const events = (payload.events || [])
-    .map(event =>
-      normalizeEvent(
-        event,
-        feed.sport,
-        leagueLogo,
-        feed.division
-      )
-    )
-    .filter(Boolean);
-
-  events.forEach(rememberPregameLine);
-
-  return events;
-}
-
-async function fetchFeed(feed) {
-  return gamesFromScoreboard(
-    feed,
-    await fetchScoreboard(feed)
-  );
-}
-
-function contextKey(game) {
-  return `${game.sport}:${game.id}`;
-}
-
-function teamObjectsForRating(game) {
-  return game.teams.map(team => ({
-    id:String(team[8] || ''),
-    name:team[0],
-    abbr:team[1],
-    score:team[2],
-    color:team[3],
-    logo:team[4],
-    record:team[5],
-    rank:team[6],
-    shortName:team[7]
-  }));
-}
-
-function applyContextsToGame(game,factors) {
-  if (!game.sourceEvent || !game.sourceCompetition || !Array.isArray(factors) || !factors.length) return false;
-  const accepted = factors
-    .filter(factor => factor?.verified !== false && Number(factor?.confidence) >= .7 && factor?.type && factor?.text)
-    .slice(0,6);
-  if (!accepted.length) return false;
-  game.sourceEvent.sportsRadarContextFactors = accepted.map(factor => ({
-    type:factor.type,
-    text:factor.text,
-    confidence:Number(factor.confidence),
-    verified:true
-  }));
-  const rating = rateGame(
-    game.sport,
-    game.state,
-    teamObjectsForRating(game),
-    game.sourceEvent,
-    game.sourceCompetition,
-    game.context
-  );
-  game.score = rating.score;
-  game.baseScore = rating.score;
-  game.openingScore = rating.openingScore;
-  game.factors = rating.factors;
-  game.why = rating.reason;
-  game.underdog = rating.underdog;
-  game.upsetText = rating.upsetText;
-  game.upsetPoints = rating.upsetPoints;
-  game.qualitativeContexts = accepted;
-  applyLiveSnapshot(game,game.sourceCompetition,null);
-  return true;
-}
-
-async function enrichQualitativeContexts(items) {
-  const endpoint = String(globalThis.SPORTS_RADAR_ALERTS_URL || '').replace(/\/$/,'');
-  const keys = items
-    .filter(game => CONTEXT_SPORTS.has(game.sport))
-    .map(contextKey)
-    .slice(0,100);
-  if (!endpoint || !keys.length) return false;
-  try {
-    const controller = new AbortController();
-    const timer = setTimeout(() => controller.abort(),5000);
-    const response = await fetch(`${endpoint}/contexts?games=${encodeURIComponent(keys.join(','))}`,{
-      cache:'no-store',
-      signal:controller.signal
-    });
-    clearTimeout(timer);
-    if (!response.ok) return false;
-    const payload = await response.json();
-    let changed = false;
-    items.forEach(game => {
-      if (applyContextsToGame(game,payload?.contexts?.[contextKey(game)])) changed = true;
-    });
-    return changed;
-  } catch {
-    return false;
-  }
-}
-
-function nflWeekMeta(payload) {
-  const rawType =
-    payload.season?.type ??
-    payload.leagues?.[0]?.season?.type;
-
-  const seasonType =
-    Number(
-      typeof rawType === 'object'
-        ? rawType.id ?? rawType.type
-        : rawType
-    );
-
-  const year =
-    Number(
-      payload.season?.year ??
-      payload.leagues?.[0]?.season?.year
-    );
-
-  const week =
-    Number(
-      payload.week?.number ??
-      payload.week?.id ??
-      payload.events?.[0]?.week?.number
-    );
-
-  return Number.isInteger(year) &&
-    Number.isInteger(seasonType) &&
-    Number.isInteger(week) &&
-    week > 0
-      ? {
-          year,
-          seasonType,
-          week
-        }
-      : null;
-}
-
-function nflWeekKey(meta) {
-  return meta.year * 1000 +
-    meta.seasonType * 100 +
-    meta.week;
-}
-
-function adjacentNFLWeek(meta,step) {
-  const week = meta.week + step;
-
-  const maxWeek =
-    meta.seasonType === 2
-      ? 18
-      : meta.seasonType === 3
-        ? 5
-        : 4;
-
-  if (week >= 1 && week <= maxWeek) {
-    return {
-      ...meta,
-      week
-    };
-  }
-
-  if (
-    step === 1 &&
-    meta.seasonType === 2
-  ) {
-    return {
-      ...meta,
-      seasonType:3,
-      week:1
-    };
-  }
-
-  if (
-    step === -1 &&
-    meta.seasonType === 3
-  ) {
-    return {
-      ...meta,
-      seasonType:2,
-      week:18
-    };
-  }
-
-  return null;
-}
-
-function nflWeekFeed(base,meta) {
-  const url = new URL(base.url);
-
-  url.searchParams.set(
-    'dates',
-    String(meta.year)
-  );
-
-  url.searchParams.set(
-    'seasontype',
-    String(meta.seasonType)
-  );
-
-  url.searchParams.set(
-    'week',
-    String(meta.week)
-  );
-
-  return {
-    ...base,
-    url:url.toString(),
-    limit:100
-  };
-}
-
-function selectNFLWindow(items) {
-  const unique = dedupeGames(items);
-
-  const weeks = [
-    ...new Set(
-      unique.map(game => game.nflWeek)
-    )
-  ].sort((a,b) => a - b);
-
-  const started = weeks.filter(week =>
-    unique.some(game =>
-      game.nflWeek === week &&
-      game.state !== 'upcoming'
-    )
-  );
-
-  const latestStarted = started.at(-1);
-
-  const latestComplete = weeks.filter(week => {
-    const slate = unique.filter(
-      game => game.nflWeek === week
-    );
-
-    return slate.length &&
-      slate.every(
-        game => game.state === 'completed'
-      );
-  }).at(-1);
-
-  const next =
-    weeks.find(
-      week => week > latestStarted
-    );
-
-  const earliestUpcoming =
-    weeks.find(week =>
-      unique.some(game =>
-        game.nflWeek === week &&
-        game.state === 'upcoming'
-      )
-    );
-
-  return unique.filter(game =>
-    game.state === 'live' ||
-    (
-      game.state === 'completed' &&
-      (
-        game.nflWeek === latestComplete ||
-        game.nflWeek === latestStarted
-      )
-    ) ||
-    (
-      game.state === 'upcoming' &&
-      (
-        latestStarted === undefined
-          ? game.nflWeek === earliestUpcoming
-          : game.nflWeek === latestStarted ||
-            game.nflWeek === next
-      )
-    )
-  );
-}
-
-async function fetchNFLWindow() {
-  const base =
-    LIVE_FEEDS.find(
-      feed => feed.sport === 'NFL'
-    );
-
-  const payload =
-    await fetchScoreboard(base);
-
-  const meta =
-    nflWeekMeta(payload);
-
-  const current =
-    gamesFromScoreboard(
-      base,
-      payload
-    );
-
-  if (!meta) return current;
-
-  const currentKey =
-    nflWeekKey(meta);
-
-  current.forEach(game => {
-    game.nflWeek = currentKey;
-  });
-
-  const neighbors = [
-    adjacentNFLWeek(meta,-1),
-    adjacentNFLWeek(meta,1)
-  ].filter(Boolean);
-
-  const results =
-    await Promise.allSettled(
-      neighbors.map(
-        async weekMeta => {
-          const events =
-            await fetchFeed(
-              nflWeekFeed(
-                base,
-                weekMeta
-              )
-            );
-
-          const key =
-            nflWeekKey(weekMeta);
-
-          events.forEach(game => {
-            game.nflWeek = key;
-          });
-
-          return events;
-        }
-      )
-    );
-
-  return selectNFLWindow([
-    ...current,
-    ...results.flatMap(
-      result =>
-        result.status === 'fulfilled'
-          ? result.value
-          : []
-    )
-  ]);
-}
-
-function dedupeGames(items) {
-  const unique = new Map();
-
-  for (const game of items) {
-    const key =
-      `${game.sport}:${game.id}`;
-
-    const existing =
-      unique.get(key);
-
-    if (
-      !existing ||
-      game.division === 'FCS'
-    ) {
-      unique.set(key,game);
-    }
-  }
-
-  return [...unique.values()];
-}
-
-function dateToken(value) {
-  const date = new Date(value);
-
-  return `${date.getFullYear()}${String(date.getMonth() + 1).padStart(2,'0')}${String(date.getDate()).padStart(2,'0')}`;
-}
-
-function datedFeed(feed,value) {
-  const url = new URL(feed.url);
-
-  url.searchParams.set(
-    'dates',
-    dateToken(value)
-  );
-
-  return {
-    ...feed,
-    url:url.toString()
-  };
-}
-
-const scheduleWindowCache = new Map();
-
-async function fetchDailyWindow(feed,futureDays=7) {
-  const today = new Date();
-  today.setHours(12,0,0,0);
-
-  const yesterday = new Date(today);
-  yesterday.setDate(
-    yesterday.getDate() - 1
-  );
-
-  const cached =
-    scheduleWindowCache.get(feed.sport);
-
-  const activeDatesRequest =
-    Promise.allSettled(
-      [yesterday,today].map(
-        date =>
-          fetchFeed(
-            datedFeed(
-              feed,
-              date
-            )
-          )
-      )
-    ).then(results =>
-      results.flatMap(
-        result =>
-          result.status === 'fulfilled'
-            ? result.value
-            : []
-      )
-    );
-
-  const futureRequest =
-    !cached ||
-    cached.anchor !== dateToken(today) ||
-    cached.expiresAt <= Date.now()
-      ? Promise.allSettled(
-          Array.from(
-            {length:futureDays},
-            (_,index) => {
-              const date =
-                new Date(today);
-
-              date.setDate(
-                date.getDate() +
-                index +
-                1
-              );
-
-              return fetchFeed(
-                datedFeed(
-                  feed,
-                  date
-                )
-              );
-            }
-          )
-        ).then(results => {
-          const futureGames =
-            results.flatMap(
-              result =>
-                result.status === 'fulfilled'
-                  ? result.value
-                  : []
-            );
-
-          scheduleWindowCache.set(
-            feed.sport,
-            {
-              anchor:dateToken(today),
-              games:futureGames,
-              expiresAt:
-                Date.now() +
-                15 * 60 * 1000
-            }
-          );
-
-          return futureGames;
-        })
-      : Promise.resolve(
-          cached.games
-        );
-
-  const [
-    activeGames,
-    futureGames
-  ] = await Promise.all([
-    activeDatesRequest,
-    futureRequest
-  ]);
-
-  return dedupeGames([
-    ...activeGames,
-    ...futureGames
-  ]);
-}
 
 async function loadLiveGames() {
-  $('#data-status-label').textContent =
-    'Connecting to live scoreboards…';
-
-  const requests = [
-    fetchNFLWindow(),
-    ...LIVE_FEEDS
-      .filter(
-        feed =>
-          feed.sport !== 'NFL'
-      )
-      .map(feed =>
-        ['NBA','NHL'].includes(feed.sport)
-          ? fetchDailyWindow(feed)
-          : fetchFeed(feed)
-      )
-  ];
-
-  const results =
-    await Promise.allSettled(
-      requests
-    );
-
-  const liveGames =
-    dedupeGames(
-      results.flatMap(
-        result =>
-          result.status === 'fulfilled'
-            ? result.value
-            : []
-      )
-    );
-
-  if (liveGames.length) {
-    games = liveGames;
+  $('#data-status-label').textContent = 'Connecting to live scoreboards…';
+  try {
+    const endpoint = String(globalThis.SPORTS_RADAR_ALERTS_URL || '').replace(/\/$/,'');
+    const response = await fetch(`${endpoint}/feed`,{cache:'no-store',signal:AbortSignal.timeout(10000)});
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    const feed = await response.json();
+    if (!Array.isArray(feed.games) || !Number.isFinite(Date.parse(feed.updatedAt))) throw new Error('Invalid feed');
+    const baseline = feed.games.map(game => ({...(game.scoreboard || game),favorite:favoriteFor(game.teams,game.sport)}));
+    const selected = new Set(baseline.filter(game => (game.state !== 'upcoming' || !game.line) && !(game.division === 'FCS' && game.state === 'upcoming'))
+      .sort((a,b) => Number(isWatched(b))-Number(isWatched(a)) || Number(b.state==='live')-Number(a.state==='live') || Number(b.favorite)-Number(a.favorite) || b.score-a.score)
+      .slice(0,60).map(watchKey));
+    games = baseline.map((game,index) => selected.has(watchKey(game)) ? {...feed.games[index],scoreboard:undefined,favorite:game.favorite} : game);
     state.source = 'live';
-
-    await enrichQualitativeContexts(games);
-
-    games
-      .filter(
-        game =>
-          game.state === 'live'
-      )
-      .forEach(
-        recordRatingSnapshot
-      );
-  } else {
-    games = DEMO_GAMES.map(
-      game => ({
-        ...game,
-        favorite:favoriteFor(
-          game.teams,
-          game.sport
-        )
-      })
-    );
-
-    state.source = 'demo';
+    state.updatedAt = feed.updatedAt;
+    state.feedStale = feed.freshness?.stale === true;
+    state.feedDegraded = feed.freshness?.degraded === true;
+    games.forEach(rememberPregameLine);
+    games.filter(game => game.state === 'live').forEach(recordRatingSnapshot);
+  } catch {
+    state.feedStale = true;
   }
-
-  $('#data-status-label').textContent =
-    state.source === 'live'
-      ? `Live scores · updated ${new Date().toLocaleTimeString([],{
-          hour:'numeric',
-          minute:'2-digit'
-        })}`
-      : 'Demo data · live feed unavailable';
-
-  $('#footer-status').textContent =
-    state.source === 'live'
-      ? 'Live feed'
-      : 'Demo data';
-
+  updateDataStatus();
   render();
-
-  if (state.source === 'live') {
-    enrichGameSignals();
-  }
 }
+
+function updateDataStatus() {
+  const stale = state.feedStale || Date.now() - Date.parse(state.updatedAt) > 120000;
+  $('#data-status-label').textContent = state.source === 'live'
+    ? `${stale ? 'Stale scores' : 'Live scores'}${!stale && state.feedDegraded ? ' · some details unavailable' : ''} · updated ${new Date(state.updatedAt).toLocaleTimeString([],{hour:'numeric',minute:'2-digit'})}`
+    : 'Demo data · live feed unavailable';
+  $('#footer-status').textContent = state.source === 'live' ? (stale ? 'Stale feed' : 'Live feed') : 'Demo data';
+}
+setInterval(updateDataStatus,15000);
 
 function safeText(value) {
   return String(value ?? '')
@@ -3134,7 +2427,9 @@ function renderDetailContent(
   const fallback =
     !summary
       ? `<p class="detail-empty">The live summary feed did not return additional stats for this game yet. The score, rating explanation, and broadcast are still current.</p>`
-      : '';
+      : summary.sportsRadarFreshness?.stale
+        ? `<p class="detail-empty">Cached game details · last updated ${safeText(new Date(summary.sportsRadarFreshness.updatedAt).toLocaleTimeString())}. Live details are temporarily unavailable.</p>`
+        : '';
 
   $('#game-detail-content').innerHTML =
     `<div class="detail-kicker">${safeText(labelForSport(game.sport))} · ${safeText(status)}</div><h2>${safeText(title)}</h2><button type="button" class="detail-watch ${isWatched(game) ? 'active' : ''}" data-watch-id="${safeText(watchKey(game))}" aria-pressed="${isWatched(game)}">${isWatched(game) ? '★ Watching this game' : '☆ Add to watchlist'}</button><div class="detail-scoreboard">${scores}</div><div class="detail-meta"><span>📍 ${safeText(venue)}</span><span>📺 ${safeText(game.channel || 'Channel not listed')}</span></div>${game.moment ? `<section class="detail-moment"><strong>${safeText(game.momentLabel || 'Notable play')}</strong><span>${safeText(game.moment)}</span></section>` : ''}<section class="detail-section"><h3>Why ${game.score}?</h3><p class="detail-explanation">${safeText(explainRating(game))}</p></section>${storylineDetails(game)}${excitementTimeline(game,summary)}${detailLeaders(summary)}${detailStats(summary) ? `<section class="detail-section"><h3>Team stats</h3><div class="detail-stat-grid">${detailStats(summary)}</div></section>` : ''}${detailPlayerStats(summary,game.sport)}${detailPlays(summary)}${fallback}`;
@@ -3153,7 +2448,6 @@ async function fetchGameSummary(game) {
   try {
     const response =
       await fetch(
-        game.summaryUrl ||
         summaryUrlFor(
           game.sport,
           game.id
@@ -3419,269 +2713,6 @@ function summarySpecificWhy(game,summary) {
   };
 }
 
-async function enrichGameSignals() {
-  const candidates =
-    games
-      .filter(game =>
-        (
-          game.state !== 'upcoming' ||
-          !game.line
-        ) &&
-        !(
-          game.division === 'FCS' &&
-          game.state === 'upcoming'
-        )
-      )
-      .sort((a,b) =>
-        Number(isWatched(b)) -
-        Number(isWatched(a)) ||
-        Number(b.state === 'live') -
-        Number(a.state === 'live') ||
-        Number(b.favorite) -
-        Number(a.favorite) ||
-        b.score -
-        a.score
-      )
-      .slice(0,60);
-
-  let changed = false;
-
-  for (
-    let start = 0;
-    start < candidates.length;
-    start += 6
-  ) {
-    await Promise.allSettled(
-      candidates
-        .slice(
-          start,
-          start + 6
-        )
-        .map(async game => {
-          try {
-            const summary =
-              await fetchGameSummary(
-                game
-              );
-
-            if (
-              game.state === 'live'
-            ) {
-              applyLiveSnapshot(
-                game,
-                summary?.header?.competitions?.[0],
-                summary
-              );
-
-              changed = true;
-            }
-
-            const line =
-              lineFromSummary(
-                summary,
-                game.sport
-              );
-
-            if (
-              line &&
-              (
-                game.state !== 'upcoming' ||
-                !game.line
-              )
-            ) {
-              game.line = line;
-              changed = true;
-
-              if (
-                game.state === 'upcoming'
-              ) {
-                rememberPregameLine(
-                  game
-                );
-              }
-            }
-
-            if (
-              !game.underdog &&
-              game.state !== 'upcoming'
-            ) {
-              const summaryCompetition =
-                summary?.header
-                  ?.competitions?.[0];
-
-              const candidate =
-                underdogCandidate(
-                  game.sport,
-                  summaryCompetition,
-                  summary?.pickcenter?.[0] ||
-                  summaryCompetition?.odds?.[0]
-                );
-
-              if (candidate) {
-                game.underdog =
-                  candidate;
-
-                const impact =
-                  upsetImpact(
-                    candidate,
-                    game.teams,
-                    game.state,
-                    game.state === 'completed'
-                      ? 1
-                      : gameProgress(
-                          game.sport,
-                          summaryCompetition
-                        )
-                  );
-
-                if (impact.points) {
-                  game.upsetPoints =
-                    impact.points;
-
-                  game.upsetText =
-                    impact.text;
-
-                  game.factors.push({
-                    label:
-                      game.state === 'completed'
-                        ? 'Underdog won outright'
-                        : 'Underdog threatens upset',
-                    points:
-                      impact.points
-                  });
-
-                  game.baseScore =
-                    clampScore(
-                      game.baseScore +
-                      impact.points
-                    );
-
-                  game.score =
-                    clampScore(
-                      game.baseScore +
-                      (
-                        game.live?.bonus ||
-                        0
-                      )
-                    );
-
-                  changed = true;
-                }
-              }
-            }
-
-            if (
-              game.state !== 'upcoming'
-            ) {
-              const momentum =
-                momentumImpact(
-                  game.sport,
-                  summary,
-                  game.state === 'completed'
-                    ? 1
-                    : gameProgress(
-                        game.sport,
-                        summary?.header?.competitions?.[0] ||
-                        {
-                          status:
-                            game.liveRawStatus
-                        }
-                      ),
-                  game.state
-                );
-
-              if (momentum.points) {
-                game.momentumText =
-                  momentum.text;
-
-                game.momentumPoints =
-                  momentum.points;
-
-                game.factors.push(
-                  ...momentum.factors
-                );
-
-                game.score =
-                  clampScore(
-                    game.score +
-                    momentum.points
-                  );
-
-                changed = true;
-              }
-            }
-
-            const moment =
-              summarySpecificWhy(
-                game,
-                summary
-              );
-
-            if (moment) {
-              game.moment =
-                moment.text;
-
-              game.momentLabel =
-                moment.label;
-
-              changed = true;
-            }
-
-            if (
-              game.state !== 'completed'
-            ) {
-              return;
-            }
-
-            const plays =
-              scoringEvents(summary);
-
-            const last =
-              plays[
-                plays.length - 1
-              ];
-
-            const finalText =
-              `${last?.clock?.displayValue || ''} ${compactPlay(last)}`;
-
-            if (
-              /(0:00|last second|game[- ]winning)/i
-                .test(finalText) &&
-              /field goal|goal|home run|touchdown/i
-                .test(finalText)
-            ) {
-              game.factors.push({
-                label:'Decisive last play',
-                points:14
-              });
-
-              game.score =
-                clampScore(
-                  game.score +
-                  14
-                );
-
-              changed = true;
-            }
-          } catch {}
-        })
-    );
-
-    if (changed) {
-      candidates
-        .slice(
-          start,
-          start + 6
-        )
-        .forEach(
-          recordRatingSnapshot
-        );
-
-      render();
-      changed = false;
-    }
-  }
-}
 
 function render() {
   const isSoccer =
