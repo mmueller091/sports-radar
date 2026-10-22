@@ -3117,13 +3117,371 @@
     return 0;
   }
 
+  /*
+   * Football is possession-based rather than purely point-based. A 14-point
+   * gap can be very live with a quarter remaining and nearly dead with two
+   * minutes left. Use a piecewise margin curve, then scale it by the number
+   * of scoring possessions the trailing team needs versus the opportunities
+   * it can reasonably expect to have left.
+   */
+  function footballMarginCloseness(gap) {
+    if (
+      gap === null ||
+      !Number.isFinite(Number(gap))
+    ) {
+      return 0;
+    }
+
+    const points =
+      Math.max(
+        0,
+        Number(gap)
+      );
+
+    const anchors = [
+      [0,1],
+      [3,.98],
+      [8,.90],
+      [9,.82],
+      [11,.72],
+      [14,.58],
+      [16,.52],
+      [24,.28],
+      [32,0]
+    ];
+
+    if (points <= anchors[0][0]) {
+      return anchors[0][1];
+    }
+
+    for (
+      let i = 1;
+      i < anchors.length;
+      i++
+    ) {
+      if (points <= anchors[i][0]) {
+        const [x0,y0] = anchors[i-1];
+        const [x1,y1] = anchors[i];
+        const t =
+          (points - x0) /
+          (x1 - x0);
+
+        return (
+          y0 +
+          (y1 - y0) * t
+        );
+      }
+    }
+
+    return 0;
+  }
+
+  function footballCompetitorId(item) {
+    return String(
+      item?.team?.id ||
+      item?.id ||
+      ''
+    );
+  }
+
+  function footballCompetitorAbbreviation(item) {
+    return String(
+      item?.team?.abbreviation ||
+      item?.abbreviation ||
+      ''
+    ).toUpperCase();
+  }
+
+  function footballSituationFieldPosition(
+    situation,
+    holderAbbr
+  ) {
+    const text =
+      `${situation?.possessionText || ''} ${situation?.downDistanceText || ''} ${situation?.shortDownDistanceText || ''}`
+        .toUpperCase();
+
+    const match =
+      text.match(
+        /\b([A-Z]{2,4})\s+(\d{1,2})\b/
+      );
+
+    if (!match) {
+      return /\b50\b/.test(text)
+        ? 50
+        : null;
+    }
+
+    const code = match[1];
+    const yard = Number(match[2]);
+
+    if (
+      !Number.isFinite(yard) ||
+      yard < 0 ||
+      yard > 50
+    ) {
+      return null;
+    }
+
+    return code === holderAbbr
+      ? yard
+      : 100 - yard;
+  }
+
+  function footballLiveCloseness(
+    sport,
+    gap,
+    progress,
+    context=null
+  ) {
+    const points =
+      Number(gap);
+
+    if (
+      !['NFL','CFB'].includes(sport) ||
+      !Number.isFinite(points)
+    ) {
+      return null;
+    }
+
+    const p =
+      Math.max(
+        0,
+        Math.min(
+          1,
+          Number(progress) || 0
+        )
+      );
+
+    const requiredPossessions =
+      points <= 0
+        ? 0
+        : Math.ceil(
+            points / 8
+          );
+
+    const fullGamePossessions =
+      sport === 'CFB'
+        ? 12.5
+        : 10.5;
+
+    let possessionAdjustment = 0;
+    let possessionState = '';
+    let fieldPosition = null;
+
+    const competition =
+      context?.competition ||
+      context ||
+      null;
+
+    const situation =
+      context?.situation ||
+      competition?.situation ||
+      {};
+
+    const competitors =
+      competition?.competitors ||
+      [];
+
+    if (
+      points > 0 &&
+      competitors.length === 2
+    ) {
+      const scored =
+        competitors
+          .map(item => ({
+            item,
+            score:Number(item?.score)
+          }))
+          .filter(item =>
+            Number.isFinite(item.score)
+          );
+
+      if (scored.length === 2) {
+        const trailing =
+          scored[0].score < scored[1].score
+            ? scored[0].item
+            : scored[1].score < scored[0].score
+              ? scored[1].item
+              : null;
+
+        const holderId =
+          String(
+            situation?.possession?.id ||
+            situation?.possession ||
+            ''
+          );
+
+        const trailingId =
+          footballCompetitorId(
+            trailing
+          );
+
+        if (
+          trailing &&
+          holderId &&
+          trailingId
+        ) {
+          if (holderId === trailingId) {
+            possessionAdjustment += .45;
+            possessionState = 'trailing';
+
+            const holderAbbr =
+              footballCompetitorAbbreviation(
+                trailing
+              );
+
+            fieldPosition =
+              footballSituationFieldPosition(
+                situation,
+                holderAbbr
+              );
+
+            if (
+              fieldPosition !== null &&
+              fieldPosition >= 70
+            ) {
+              possessionAdjustment += .25;
+            }
+          } else if (p >= .9) {
+            possessionAdjustment -= .35;
+            possessionState = 'leading';
+          }
+        }
+      }
+    }
+
+    const expectedPossessions =
+      Math.max(
+        0,
+        fullGamePossessions *
+          (1 - p) +
+          .5 +
+          possessionAdjustment
+      );
+
+    const possessionSlack =
+      expectedPossessions -
+      requiredPossessions;
+
+    const comebackFeasibility =
+      requiredPossessions === 0
+        ? 1
+        : 1 /
+          (
+            1 +
+            Math.exp(
+              -2 *
+              (
+                possessionSlack +
+                .8
+              )
+            )
+          );
+
+    const marginClose =
+      footballMarginCloseness(
+        points
+      );
+
+    const close =
+      marginClose *
+      (
+        .45 +
+        .55 *
+        comebackFeasibility
+      );
+
+    return {
+      close,
+      marginClose,
+      comebackFeasibility,
+      requiredPossessions,
+      expectedPossessions,
+      possessionSlack,
+      possessionAdjustment,
+      possessionState,
+      fieldPosition
+    };
+  }
+
+  function footballRunwayPenalty(
+    gap,
+    progress,
+    footballState
+  ) {
+    if (
+      !footballState ||
+      gap === null ||
+      !Number.isFinite(Number(gap))
+    ) {
+      return 0;
+    }
+
+    const points = Number(gap);
+    const p =
+      Math.max(
+        0,
+        Math.min(
+          1,
+          Number(progress) || 0
+        )
+      );
+
+    const possessionMismatch =
+      Math.max(
+        0,
+        footballState.requiredPossessions -
+        footballState.expectedPossessions
+      );
+
+    const lowFeasibility =
+      Math.max(
+        0,
+        .55 -
+        footballState.comebackFeasibility
+      ) / .55;
+
+    const runwayPenalty =
+      points >= 9
+        ? lowFeasibility *
+          16 *
+          (.5 + .5 * p) +
+          Math.min(
+            8,
+            possessionMismatch * 4
+          )
+        : 0;
+
+    const marginPenalty =
+      points >= 17
+        ? Math.min(
+            14,
+            (
+              (points - 16) /
+              16
+            ) *
+            10 *
+            (.5 + .5 * p)
+          )
+        : 0;
+
+    return Math.min(
+      28,
+      Math.round(
+        runwayPenalty +
+        marginPenalty
+      )
+    );
+  }
+
   function stateRating(
     openingScore,
     sport,
     gameState,
     gap,
     progress,
-    homeWinProbability=null
+    homeWinProbability=null,
+    footballContext=null
   ) {
     const closeLimit =
       CLOSE_MARGIN[sport] || 10;
@@ -3140,20 +3498,33 @@
         ? 24
         : closeLimit;
 
+    const footballState =
+      ['NFL','CFB'].includes(sport) &&
+      gameState === 'live'
+        ? footballLiveCloseness(
+            sport,
+            gap,
+            progress,
+            footballContext
+          )
+        : null;
+
     const marginClose =
       gap === null
         ? 0
-        : sport === 'NHL' &&
-          gameState === 'live'
-          ? nhlLiveMarginCloseness(
-              gap
-            )
-          : Math.max(
-              0,
-              1 -
-              gap /
-              completedCloseLimit
-            );
+        : footballState
+          ? footballState.close
+          : sport === 'NHL' &&
+            gameState === 'live'
+            ? nhlLiveMarginCloseness(
+                gap
+              )
+            : Math.max(
+                0,
+                1 -
+                gap /
+                completedCloseLimit
+              );
 
     const probability =
       normalizeWinProbability(
@@ -3257,21 +3628,27 @@
               )
             )
           : 0
-        : gap !== null &&
-          gap >= closeLimit &&
-          progress > .3
-          ? Math.min(
-              28,
-              Math.round(
-                (
-                  gap /
-                  closeLimit
-                ) *
-                13 *
-                progress
-              )
+        : footballState
+          ? footballRunwayPenalty(
+              gap,
+              progress,
+              footballState
             )
-          : 0;
+          : gap !== null &&
+            gap >= closeLimit &&
+            progress > .3
+            ? Math.min(
+                28,
+                Math.round(
+                  (
+                    gap /
+                    closeLimit
+                  ) *
+                  13 *
+                  progress
+                )
+              )
+            : 0;
 
     const factors = [{
       label:'Game-state baseline',
@@ -3306,7 +3683,10 @@
 
     if (widePenalty) {
       factors.push({
-        label:'Wide margin',
+        label:
+          footballState
+            ? 'Limited comeback runway'
+            : 'Wide margin',
         points:-widePenalty
       });
     }
@@ -3325,7 +3705,8 @@
       closePoints,
       widePenalty,
       contextWeight,
-      uncertainty
+      uncertainty,
+      footballState
     };
   }
 
@@ -3396,7 +3777,12 @@
         sport,
         gameState,
         gap,
-        progress
+        progress,
+        null,
+        {
+          competition,
+          teams
+        }
       );
 
     factors.length = 0;
@@ -5746,7 +6132,16 @@
       const gap = Math.abs(Number(game.teams[0][2]) - Number(game.teams[1][2]));
       const progress = gameProgress(game.sport,current);
       const state = stateRating(
-        openingScore,game.sport,'live',Number.isFinite(gap) ? gap : null,progress
+        openingScore,
+        game.sport,
+        'live',
+        Number.isFinite(gap) ? gap : null,
+        progress,
+        null,
+        {
+          competition:current,
+          teams:game.teams
+        }
       );
       const underdog = game.underdog || context?.underdog;
       const upset = upsetImpact(underdog,game.teams,'live',progress);
@@ -5846,6 +6241,9 @@
     upsetImpact,
     contextCarryWeight,
     nhlLiveMarginCloseness,
+    footballMarginCloseness,
+    footballLiveCloseness,
+    footballRunwayPenalty,
     stateRating,
     rateGame,
     ordinal,
