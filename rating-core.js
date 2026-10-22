@@ -2038,6 +2038,7 @@
     let lastFlip = -1;
 
     const flipPositions = [];
+    const tiePositions = [];
 
     let deepestHomeDeficit = 0;
     let deepestAwayDeficit = 0;
@@ -2101,6 +2102,16 @@
 
       const leader =
         Math.sign(margin);
+
+      if (
+        margin === 0 &&
+        moment.position !== null &&
+        Number.isFinite(moment.position)
+      ) {
+        tiePositions.push(
+          moment.position
+        );
+      }
 
       if (
         leader &&
@@ -2169,43 +2180,172 @@
 
     const factors = [];
     const details = [];
+    const basketball =
+      ['NBA','NCAAB']
+        .includes(sport);
+
+    const basketballLatePhase =
+      sport === 'NBA'
+        ? 'fourth quarter'
+        : 'final 10 minutes';
+
+    const basketballDramaBucket =
+      'basketball-late-drama';
 
     if (leadChanges) {
-      const points =
-        state === 'live'
-          ? Math.min(
-              7,
-              flipPositions.reduce(
-                (sum,position) =>
-                  sum +
-                  (
-                    position >=
-                    currentProgress -
-                    .1
-                      ? 3
-                      : position >=
-                        currentProgress -
-                        .25
-                        ? 2
-                        : 1
-                  ),
-                0
-              )
+      if (basketball) {
+        /*
+         * Basketball lead changes are common early and become meaningful
+         * only as leverage rises. Ignore first-half flips, lightly value
+         * middle-game flips, and heavily weight changes in the closing
+         * portion of the game.
+         */
+        const weightedLeadChanges =
+          flipPositions.reduce(
+            (sum,position) => {
+              if (
+                position === null ||
+                !Number.isFinite(position) ||
+                position < .5
+              ) {
+                return sum;
+              }
+
+              if (position < .75) {
+                return sum + .5;
+              }
+
+              if (position < .875) {
+                return sum + 1.5;
+              }
+
+              if (position < .95) {
+                return sum + 3;
+              }
+
+              return sum + 4;
+            },
+            0
+          );
+
+        const leadChangePoints =
+          Math.min(
+            state === 'completed'
+              ? 12
+              : 10,
+            Math.round(
+              weightedLeadChanges
             )
-          : Math.min(
-              9,
-              leadChanges * 3
-            );
+          );
 
-      factors.push({
-        label:
-          `${leadChanges} lead change${leadChanges === 1 ? '' : 's'}`,
-        points
-      });
+        if (leadChangePoints) {
+          const lateLeadChanges =
+            flipPositions.filter(
+              position =>
+                Number.isFinite(position) &&
+                position >= .75
+            ).length;
 
-      details.push(
-        `the lead changed ${leadChanges} time${leadChanges === 1 ? '' : 's'}`
-      );
+          factors.push({
+            label:
+              lateLeadChanges
+                ? `${lateLeadChanges} late lead change${lateLeadChanges === 1 ? '' : 's'}`
+                : 'Second-half lead changes',
+            points:
+              leadChangePoints,
+            bucket:
+              basketballDramaBucket
+          });
+
+          details.push(
+            lateLeadChanges
+              ? `the lead changed ${lateLeadChanges} time${lateLeadChanges === 1 ? '' : 's'} in the ${basketballLatePhase}`
+              : 'the lead changed after halftime'
+          );
+        }
+
+        /*
+         * A burst of lead changes in a short late window is more dramatic
+         * than the same number spread across the game. For live games use
+         * the most recent 12.5% of regulation; for completed games use the
+         * final 12.5% outright.
+         */
+        const clusterStart =
+          state === 'completed'
+            ? .875
+            : Math.max(
+                .75,
+                currentProgress -
+                .125
+              );
+
+        const clusteredLateFlips =
+          flipPositions.filter(
+            position =>
+              Number.isFinite(position) &&
+              position >=
+              clusterStart
+          ).length;
+
+        if (clusteredLateFlips >= 2) {
+          const clusterPoints =
+            clusteredLateFlips >= 5
+              ? 7
+              : clusteredLateFlips === 4
+                ? 6
+                : clusteredLateFlips === 3
+                  ? 4
+                  : 2;
+
+          factors.push({
+            label:'Late back-and-forth lead changes',
+            points:
+              clusterPoints,
+            bucket:
+              basketballDramaBucket
+          });
+
+          details.push(
+            `${clusteredLateFlips} lead changes came in a compressed late-game window`
+          );
+        }
+      } else {
+        const points =
+          state === 'live'
+            ? Math.min(
+                7,
+                flipPositions.reduce(
+                  (sum,position) =>
+                    sum +
+                    (
+                      position >=
+                      currentProgress -
+                      .1
+                        ? 3
+                        : position >=
+                          currentProgress -
+                          .25
+                          ? 2
+                          : 1
+                    ),
+                  0
+                )
+              )
+            : Math.min(
+                9,
+                leadChanges * 3
+              );
+
+        factors.push({
+          label:
+            `${leadChanges} lead change${leadChanges === 1 ? '' : 's'}`,
+          points
+        });
+
+        details.push(
+          `the lead changed ${leadChanges} time${leadChanges === 1 ? '' : 's'}`
+        );
+      }
     }
 
     if (comeback) {
@@ -2229,6 +2369,7 @@
     }
 
     if (
+      !basketball &&
       lastFlip >= .65 &&
       currentProgress -
       lastFlip <= .16
@@ -2241,6 +2382,48 @@
       details.push(
         'the lead flipped late'
       );
+    }
+
+    if (basketball) {
+      const lateTies =
+        tiePositions.filter(
+          position =>
+            position >= .75
+        );
+
+      if (lateTies.length) {
+        const lastLateTie =
+          lateTies.at(-1);
+
+        const tiePoints =
+          lastLateTie >= .95
+            ? Math.min(
+                4,
+                2 +
+                lateTies.length
+              )
+            : Math.min(
+                3,
+                lateTies.length
+              );
+
+        factors.push({
+          label:
+            lateTies.length === 1
+              ? 'Late tie'
+              : `${lateTies.length} late ties`,
+          points:
+            tiePoints,
+          bucket:
+            basketballDramaBucket
+        });
+
+        details.push(
+          lastLateTie >= .95
+            ? 'the game was tied in the final 5% of regulation'
+            : `the game was tied ${lateTies.length} time${lateTies.length === 1 ? '' : 's'} in the ${basketballLatePhase}`
+        );
+      }
     }
 
     const latestPosition =
@@ -2382,7 +2565,11 @@
             7,
             3 +
             controlSwings
-          )
+          ),
+        bucket:
+          basketball
+            ? basketballDramaBucket
+            : undefined
       });
 
       details.push(
@@ -2453,7 +2640,11 @@
 
       factors.push({
         label:'Big win-chance swing',
-        points
+        points,
+        bucket:
+          basketball
+            ? basketballDramaBucket
+            : undefined
       });
 
       details.push(
@@ -2530,7 +2721,11 @@
       ) {
         factors.push({
           label:'High late uncertainty',
-          points:5
+          points:5,
+          bucket:
+            basketball
+              ? basketballDramaBucket
+              : undefined
         });
 
         details.push(
@@ -2580,7 +2775,11 @@
       ) {
         factors.push({
           label:'Decisive final score',
-          points:8
+          points:8,
+          bucket:
+            basketball
+              ? basketballDramaBucket
+              : undefined
         });
 
         details.push(
@@ -2599,23 +2798,62 @@
     let remaining =
       cap;
 
+    const bucketRemaining =
+      new Map();
+
+    if (basketball) {
+      bucketRemaining.set(
+        basketballDramaBucket,
+        15
+      );
+    }
+
     const cappedFactors =
       factors
         .map(factor => {
+          const bucketLimit =
+            factor.bucket &&
+            bucketRemaining.has(
+              factor.bucket
+            )
+              ? bucketRemaining.get(
+                  factor.bucket
+                )
+              : remaining;
+
           const points =
             Math.min(
               Math.max(
                 0,
                 factor.points
               ),
-              remaining
+              remaining,
+              bucketLimit
             );
 
           remaining -=
             points;
 
+          if (
+            factor.bucket &&
+            bucketRemaining.has(
+              factor.bucket
+            )
+          ) {
+            bucketRemaining.set(
+              factor.bucket,
+              bucketLimit -
+              points
+            );
+          }
+
+          const {
+            bucket,
+            ...visibleFactor
+          } = factor;
+
           return {
-            ...factor,
+            ...visibleFactor,
             points
           };
         })
@@ -4640,6 +4878,8 @@
                 (group.athletes || [])
                   .map(entry =>
                     String(
+                      entry.athleteid ||
+                      entry.athleteId ||
                       entry.athlete?.id ||
                       ''
                     )
