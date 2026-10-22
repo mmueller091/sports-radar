@@ -1,5 +1,3 @@
-@import url("https://cdn.jsdelivr.net/npm/@fontsource/dseg7-classic@5.3.0/700.css");
-
 :root {
   --bg: #202526;
   --surface: #343a3b;
@@ -1935,5 +1933,142 @@ dialog,
     height: 44px;
     min-width: 54px;
     font-size: 26px;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Tinted excitement score block
+   The excitement number stays native to the card. Color, scale, and a subtle
+   tint communicate urgency without using a circle or seven-segment display.
+   -------------------------------------------------------------------------- */
+
+.score-circle,
+.score-circle.hot,
+.score-circle.warm,
+.score-circle.very-hot,
+.score-circle.extreme {
+  width: 58px;
+  height: 48px;
+  min-width: 58px;
+  padding: 0 8px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid hsl(var(--score-hue, 140) 42% 34% / .72);
+  border-radius: 4px;
+
+  background:
+    linear-gradient(
+      180deg,
+      hsl(var(--score-hue, 140) 55% 28% / .16) 0%,
+      hsl(var(--score-hue, 140) 45% 18% / .10) 100%
+    );
+
+  color: hsl(var(--score-hue, 140) 88% 62%);
+
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, Helvetica, sans-serif;
+  font-size: 27px;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -.03em;
+  line-height: 1;
+
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.035),
+    inset 0 -1px 0 rgba(0,0,0,.45);
+
+  text-shadow: none;
+}
+
+/* Slightly stronger tint for genuinely hot games. */
+.score-circle.hot,
+.score-circle.very-hot {
+  background:
+    linear-gradient(
+      180deg,
+      hsl(var(--score-hue, 35) 70% 32% / .22) 0%,
+      hsl(var(--score-hue, 35) 55% 20% / .12) 100%
+    );
+  border-color:
+    hsl(var(--score-hue, 35) 58% 42% / .78);
+}
+
+/* Semantic extreme state for 95+ if app.js assigns it. */
+.score-circle.extreme {
+  color: #ff4343;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255, 48, 48, .16) 0%,
+      rgba(120, 18, 18, .10) 100%
+    );
+  border-color: rgba(255, 70, 70, .52);
+
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.035),
+    inset 0 -1px 0 rgba(0,0,0,.50),
+    0 0 10px rgba(255, 45, 45, .14);
+
+  text-shadow:
+    0 0 8px rgba(255, 55, 55, .24);
+}
+
+/* Current inline hue model: make the reddest range more alarming. */
+.score-circle[style*="--score-hue: 0"],
+.score-circle[style*="--score-hue: 1"],
+.score-circle[style*="--score-hue: 2"],
+.score-circle[style*="--score-hue: 3"],
+.score-circle[style*="--score-hue: 4"],
+.score-circle[style*="--score-hue: 5"],
+.score-circle[style*="--score-hue: 6"],
+.score-circle[style*="--score-hue: 7"],
+.score-circle[style*="--score-hue: 8"],
+.score-circle[style*="--score-hue: 9"] {
+  color: #ff4343;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255, 48, 48, .17) 0%,
+      rgba(120, 18, 18, .10) 100%
+    );
+
+  border-color: rgba(255, 70, 70, .55);
+
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.035),
+    inset 0 -1px 0 rgba(0,0,0,.50),
+    0 0 11px rgba(255, 45, 45, .16);
+
+  text-shadow:
+    0 0 8px rgba(255, 55, 55, .25);
+}
+
+/* Keep the label quiet so the number is the visual signal. */
+.excitement small {
+  margin-top: 5px;
+  color: #7f939c;
+
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, Helvetica, sans-serif;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: .04em;
+
+  text-shadow: none;
+}
+
+@media (max-width: 800px) {
+  .score-circle,
+  .score-circle.hot,
+  .score-circle.warm,
+  .score-circle.very-hot,
+  .score-circle.extreme {
+    width: 52px;
+    height: 44px;
+    min-width: 52px;
+    padding: 0 7px;
+    font-size: 24px;
   }
 }
