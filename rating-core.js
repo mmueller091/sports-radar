@@ -1020,6 +1020,169 @@
     return factors;
   }
 
+
+  function completedStakesImpact(
+    sport,
+    event,
+    competition,
+    context
+  ) {
+    const detail =
+      eventSignalText(
+        event,
+        competition,
+        context
+      );
+
+    let stage = null;
+    let consequence = null;
+
+    if (
+      /world series|super bowl|stanley cup final|champions league final|national championship|grand slam final/
+        .test(detail)
+    ) {
+      stage = {
+        label:'Championship stakes',
+        points:18
+      };
+    } else if (
+      /\bnba finals\b|\bwnba finals\b|\bleague final\b|\bchampionship series\b|\btitle series\b|\bfinals\b/
+        .test(detail)
+    ) {
+      stage = {
+        label:'Final-round stakes',
+        points:15
+      };
+    } else if (
+      /conference final|conference championship|\bsemifinal\b|\bsemi-final\b/
+        .test(detail)
+    ) {
+      stage = {
+        label:'Semifinal stakes',
+        points:13
+      };
+    } else if (
+      /playoff|postseason|wild card|divisional round|quarterfinal|knockout/
+        .test(detail) ||
+      Number(
+        event?.season?.type?.id ??
+        event?.season?.type
+      ) === 3
+    ) {
+      stage = {
+        label:'Postseason stakes',
+        points:10
+      };
+    }
+
+    if (
+      /\bgame\s*(?:7|seven)\b|\bdeciding game\b|\bwinner[- ]take[- ]all\b/
+        .test(detail) ||
+      /super bowl|national championship|champions league final|grand slam final/
+        .test(detail)
+    ) {
+      consequence = {
+        label:'Winner-take-all consequence',
+        points:10
+      };
+    } else if (
+      /\bwinner advances\b|\badvances? to\b|\badvanced to\b|\beliminates?\b|\beliminated\b|\bloser (?:is )?eliminated\b/
+        .test(detail)
+    ) {
+      consequence = {
+        label:'Advancement or elimination decided',
+        points:8
+      };
+    } else if (
+      /\bwinner (?:wins|takes) (?:the )?(?:division|league|conference)\b/
+        .test(detail) ||
+      /\b(?:wins|won|clinches|clinched|secures|secured|captures|captured|takes|took)\b[^.;]{0,50}\b(?:division|league|conference) (?:title|championship)\b/
+        .test(detail) ||
+      /\b(?:division|league|conference) (?:title|championship) (?:decided|clinched|secured|won)\b/
+        .test(detail)
+    ) {
+      consequence = {
+        label:'Division or conference title decided',
+        points:8
+      };
+    } else if (
+      /\b(?:clinches|clinched|secures|secured|earns|earned)\b[^.;]{0,40}\bplayoff berth\b/
+        .test(detail) ||
+      /\bplayoff berth\b[^.;]{0,30}\b(?:clinched|secured|earned|decided)\b/
+        .test(detail)
+    ) {
+      consequence = {
+        label:'Playoff berth decided',
+        points:7
+      };
+    } else if (
+      /\bwinner (?:takes|gets) (?:the )?(?:first place|top seed|no\.?\s*1 seed|number one seed)\b/
+        .test(detail) ||
+      /\b(?:clinches|clinched|secures|secured|takes|took|wins|won)\b[^.;]{0,45}\b(?:first place|top seed|no\.?\s*1 seed|number one seed)\b/
+        .test(detail) ||
+      /\b(?:first place|top seed|no\.?\s*1 seed|number one seed)\b[^.;]{0,30}\b(?:decided|clinched|secured|won)\b/
+        .test(detail)
+    ) {
+      consequence = {
+        label:'First place or major seeding decided',
+        points:6
+      };
+    } else if (
+      /\b(?:clinched|secured|captured|earned)\b/
+        .test(detail) &&
+      !/\b(?:can|could|may|might) clinch\b|\bclinching (?:opportunity|scenario)\b/
+        .test(detail)
+    ) {
+      consequence = {
+        label:'Competitive consequence clinched',
+        points:5
+      };
+    } else if (
+      /\bavoids? elimination\b|\bstays? alive\b|\bsurvives? elimination\b/
+        .test(detail)
+    ) {
+      consequence = {
+        label:'Elimination survival',
+        points:5
+      };
+    }
+
+    const factors = [];
+    let remaining = 24;
+
+    for (const factor of [stage,consequence]) {
+      if (
+        !factor ||
+        remaining <= 0
+      ) {
+        continue;
+      }
+
+      const points =
+        Math.min(
+          factor.points,
+          remaining
+        );
+
+      if (points) {
+        factors.push({
+          ...factor,
+          points
+        });
+
+        remaining -=
+          points;
+      }
+    }
+
+    return {
+      points:
+        24 -
+        remaining,
+      factors
+    };
+  }
+
   function pregameRating(sport,event,competition,context) {
     const detail =
       eventSignalText(
@@ -4032,6 +4195,25 @@
     const detail =
       `${competition?.status?.type?.detail || ''} ${competition?.status?.type?.shortDetail || ''}`;
 
+    const completedStakes =
+      gameState === 'completed'
+        ? completedStakesImpact(
+            sport,
+            event,
+            competition,
+            context
+          )
+        : {
+            points:0,
+            factors:[]
+          };
+
+    if (completedStakes.points) {
+      factors.push(
+        ...completedStakes.factors
+      );
+    }
+
     if (
       gameState === 'completed' &&
       /overtime|\bot\b/i
@@ -6471,6 +6653,7 @@
     proRecordFactors,
     pregameContextFactors,
     specificStakesFactors,
+    completedStakesImpact,
     pregameRating,
     gameProgress,
     normalizeWinProbability,
