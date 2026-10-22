@@ -3056,6 +3056,18 @@
     const closeLimit =
       CLOSE_MARGIN[sport] || 10;
 
+    /*
+     * NBA final scores need a wider interpretation of "close" than live
+     * basketball. A 10-12 point final margin can come from a competitive
+     * game that separated only in the final possessions, so completed NBA
+     * games use a 24-point closeness range while live NBA stays at 12.
+     */
+    const completedCloseLimit =
+      sport === 'NBA' &&
+      gameState === 'completed'
+        ? 24
+        : closeLimit;
+
     const marginClose =
       gap === null
         ? 0
@@ -3068,7 +3080,7 @@
               0,
               1 -
               gap /
-              closeLimit
+              completedCloseLimit
             );
 
     const probability =
@@ -3108,14 +3120,23 @@
         contextWeight
       );
 
+    /*
+     * Completed NBA games use a higher state floor and larger closeness
+     * ceiling so a genuinely close basketball game lands in the 50s before
+     * comeback, lead-change, upset, or other game-history bonuses.
+     */
     const stateBase =
       gameState === 'completed'
-        ? 18
+        ? sport === 'NBA'
+          ? 23
+          : 18
         : 12;
 
     const closeCeiling =
       gameState === 'completed'
-        ? 24
+        ? sport === 'NBA'
+          ? 35
+          : 24
         : 14 +
           16 *
           Math.max(
@@ -3144,22 +3165,41 @@
             close
           );
 
+    /*
+     * The old NBA logic started the blowout penalty at exactly 12 points,
+     * creating a huge cliff from an 11-point final to a 12-point final.
+     * NBA finals now start taking a blowout penalty at 20 points and the
+     * penalty rises gradually from there.
+     */
     const widePenalty =
-      gap !== null &&
-      gap >= closeLimit &&
-      progress > .3
-        ? Math.min(
-            28,
-            Math.round(
-              (
-                gap /
-                closeLimit
-              ) *
-              13 *
-              progress
+      sport === 'NBA' &&
+      gameState === 'completed'
+        ? gap !== null &&
+          gap >= 20
+          ? Math.min(
+              28,
+              Math.round(
+                2 +
+                (gap - 20) *
+                1.1
+              )
             )
-          )
-        : 0;
+          : 0
+        : gap !== null &&
+          gap >= closeLimit &&
+          progress > .3
+          ? Math.min(
+              28,
+              Math.round(
+                (
+                  gap /
+                  closeLimit
+                ) *
+                13 *
+                progress
+              )
+            )
+          : 0;
 
     const factors = [{
       label:'Game-state baseline',
