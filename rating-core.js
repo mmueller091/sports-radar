@@ -2944,7 +2944,8 @@
 
   function contextCarryWeight(
     progress,
-    gameState
+    gameState,
+    sport=''
   ) {
     if (
       gameState === 'completed'
@@ -2961,14 +2962,25 @@
         )
       );
 
-    const anchors = [
-      [0,.38],
-      [.25,.30],
-      [.5,.20],
-      [.75,.12],
-      [.9,.08],
-      [1,.06]
-    ];
+    const anchors =
+      sport === 'NHL'
+        ? [
+            [0,.40],
+            [.25,.34],
+            [.5,.27],
+            [.67,.21],
+            [.82,.13],
+            [.93,.08],
+            [1,.06]
+          ]
+        : [
+            [0,.38],
+            [.25,.30],
+            [.5,.20],
+            [.75,.12],
+            [.9,.08],
+            [1,.06]
+          ];
 
     for (
       let i = 1;
@@ -3012,6 +3024,27 @@
     return .06;
   }
 
+  function nhlLiveMarginCloseness(gap) {
+    if (
+      gap === null ||
+      !Number.isFinite(Number(gap))
+    ) {
+      return 0;
+    }
+
+    const goals =
+      Math.max(
+        0,
+        Number(gap)
+      );
+
+    if (goals === 0) return 1;
+    if (goals === 1) return .90;
+    if (goals === 2) return .45;
+
+    return 0;
+  }
+
   function stateRating(
     openingScore,
     sport,
@@ -3026,12 +3059,17 @@
     const marginClose =
       gap === null
         ? 0
-        : Math.max(
-            0,
-            1 -
-            gap /
-            closeLimit
-          );
+        : sport === 'NHL' &&
+          gameState === 'live'
+          ? nhlLiveMarginCloseness(
+              gap
+            )
+          : Math.max(
+              0,
+              1 -
+              gap /
+              closeLimit
+            );
 
     const probability =
       normalizeWinProbability(
@@ -3060,7 +3098,8 @@
     const contextWeight =
       contextCarryWeight(
         progress,
-        gameState
+        gameState,
+        sport
       );
 
     const contextPoints =
@@ -5559,6 +5598,7 @@
     underdogCandidate,
     upsetImpact,
     contextCarryWeight,
+    nhlLiveMarginCloseness,
     stateRating,
     rateGame,
     ordinal,
