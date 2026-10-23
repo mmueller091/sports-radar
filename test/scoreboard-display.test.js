@@ -49,6 +49,18 @@ test('accepted summary updates situation; missing situation clears possession; o
   update('4:40',undefined);assert.equal(game.footballSituation.possessionTeamId,null);
 });
 
+test('football situation falls back to the accepted current drive play end when competition situation is absent',()=>{
+  const teams=[['Virginia','UVA','0','','','','','','258'],['Duke','DUKE','7','','','','','','150']];
+  const competition={status:{period:1,displayClock:'7:12',type:{state:'in'}},competitors:teams.map(team=>({team:{id:team[8],abbreviation:team[1],displayName:team[0]},score:team[2]}))};
+  const game=normalizeEvent({id:'cfb-drive',competitions:[competition]},'CFB');
+  const summary={header:{competitions:[competition]},drives:{current:{plays:[{end:{down:1,distance:10,downDistanceText:'1st & 10 at UVA 20',shortDownDistanceText:'1st & 10',possessionText:'UVA 20',team:{id:'258'}}}]}}};
+  enrichGame(game,summary);
+  assert.deepEqual(JSON.parse(JSON.stringify(game.footballSituation)),{possessionTeamId:'258',downAndDistance:'1st & 10',fieldPosition:'UVA 20'});
+  const oldSummary={...summary,header:{competitions:[{...competition,status:{...competition.status,displayClock:'8:00'}}]},drives:{current:{plays:[{end:{down:3,distance:4,downDistanceText:'3rd & 4 at DUKE 38',shortDownDistanceText:'3rd & 4',possessionText:'DUKE 38',team:{id:'150'}}}]}}};
+  enrichGame(game,oldSummary);
+  assert.deepEqual(JSON.parse(JSON.stringify(game.footballSituation)),{possessionTeamId:null,downAndDistance:'',fieldPosition:''});
+});
+
 test('MLB live situation uses explicit bases, outs, and count; missing fields stay hidden',()=>{
   const teams=[['Baltimore','BAL','4','','','','','','1'],['New York','NYY','3','','','','','','2']];
   const game=normalizeEvent({id:'mlb1',competitions:[{status:{type:{state:'in'}},competitors:teams.map(team=>({team:{id:team[8],abbreviation:team[1]},score:team[2]})),situation:{onFirst:true,onSecond:false,onThird:true,outs:2,balls:2,strikes:1}}]},'MLB');

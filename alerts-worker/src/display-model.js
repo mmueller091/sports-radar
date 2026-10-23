@@ -1,7 +1,12 @@
 // Additive presentation data only; never participates in rating calculations.
-export function footballSituation(game) {
+export function footballSituation(game,summary=null) {
   if (!['NFL','CFB'].includes(game.sport) || game.state !== 'live') return null;
-  const source = game.liveRawSituation || {};
+  const liveSituation = game.liveRawSituation || {};
+  const plays = summary?.drives?.current?.plays;
+  const lastPlayEnd = Array.isArray(plays) ? plays.at(-1)?.end : null;
+  // ESPN's competition.situation is often absent for CFB; the current drive's
+  // last play end carries the same explicit possession and down/spot fields.
+  const source = {...(lastPlayEnd ? {...lastPlayEnd,possession:lastPlayEnd.team?.id} : {}),...liveSituation};
   const possession = String(source.possession?.id ?? source.possession ?? '');
   const holders = game.teams.filter(team => team[8] && String(team[8]) === possession);
   const text = String(source.shortDownDistanceText || source.downDistanceText || '');

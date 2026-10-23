@@ -524,19 +524,21 @@ function summarySpecificWhy(game,summary) {
 }
 
 function enrichGame(game,summary) {
+            const summaryCompetition = summary?.header?.competitions?.[0];
             if (
               game.state === 'live'
             ) {
               applyLiveSnapshot(
                 game,
-                summary?.header?.competitions?.[0],
+                summaryCompetition,
                 summary
               );
 
 
             }
 
-            if (['NFL','CFB'].includes(game.sport)) game.footballSituation = footballSituation(game);
+            const acceptedSummary = summaryCompetition?.status && game.liveRawStatus === summaryCompetition.status ? summary : null;
+            if (['NFL','CFB'].includes(game.sport)) game.footballSituation = footballSituation(game,acceptedSummary);
             if (game.sport === 'MLB') game.baseballSituation = baseballSituation(game);
 
             const line =

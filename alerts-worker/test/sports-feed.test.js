@@ -7,7 +7,7 @@ import vm from 'node:vm';
 import worker,{checkGames} from '../src/index.js';
 import {refreshSportsData,readFeed,gameDetails} from '../src/sports-feed.js';
 import {normalizeEvent,enrichGame} from '../src/game-model.js';
-import {footballSituation} from '../src/display-model.js';
+import {baseballSituation,footballSituation} from '../src/display-model.js';
 
 function database() {
   const db = new DatabaseSync(':memory:');
@@ -25,7 +25,7 @@ function database() {
 }
 const event = {id:'42',name:'Away at Home',date:'2026-10-22T20:00:00Z',competitions:[{
   status:{type:{state:'in',shortDetail:'Q4 1:00'},period:4,displayClock:'1:00'},
-  competitors:[{team:{id:'1',displayName:'Home',abbreviation:'H'},score:'24'},{team:{id:'2',displayName:'Away',abbreviation:'A'},score:'23'}]
+  competitors:[{team:{id:'1',displayName:'Home',abbreviation:'HME'},score:'24'},{team:{id:'2',displayName:'Away',abbreviation:'AWY'},score:'23'}]
 }]};
 const summary = {header:{competitions:event.competitions},boxscore:{teams:[],players:[]},plays:[],scoringPlays:[],winprobability:[]};
 
@@ -52,7 +52,8 @@ test('central refresh, API, shared alerts, history, failures and CORS',async t=>
   const calls=[];
   globalThis.fetch=async url=>{
     calls.push(String(url));
-    return Response.json(String(url).includes('/summary') ? summary : {events:String(url).includes('/football/nfl/') ? [structuredClone(event)] : []});
+    const summaryWithSituation={...summary,drives:{current:{plays:[{end:{down:3,distance:4,downDistanceText:'3rd & 4 at AWY 38',shortDownDistanceText:'3rd & 4',possessionText:'AWY 38',team:{id:'2'}}}]}}};
+    return Response.json(String(url).includes('/summary') ? summaryWithSituation : {events:String(url).includes('/football/nfl/') ? [structuredClone(event)] : []});
   };
   t.after(()=>{globalThis.fetch=original;env.db.close();});
   const now=Date.now();
@@ -60,6 +61,8 @@ test('central refresh, API, shared alerts, history, failures and CORS',async t=>
   assert.equal(feed.games.length,1,'works with zero push subscribers');
   assert.equal(feed.games[0].sport,'NFL');
   assert.equal(feed.games[0].teams[0][2],'24');
+  assert.deepEqual(feed.games[0].footballSituation,{possessionTeamId:'2',downAndDistance:'3rd & 4',fieldPosition:'AWY 38'});
+  assert.deepEqual(feed.games[0].scoreboard.footballSituation,feed.games[0].footballSituation,'browser-selected snapshot keeps the refreshed presentation-only situation');
   assert.equal(feed.freshness.stale,false);
   assert.equal(feed.updatedAt,new Date(now).toISOString());
   assert.equal(new Set(calls).size,calls.length,'each source fetched only once');
@@ -147,7 +150,7 @@ test('moved normalization and enrichment preserve pre-migration fixture ratings 
   const originalCore=gunzipSync(fs.readFileSync(new URL('./fixtures/pre-migration-core.js.gz',import.meta.url))).toString();
   const model=fs.readFileSync(new URL('../src/game-model.js',import.meta.url),'utf8')
     .replace(/^import .*;\s*$/gm,'').replace(/^export .*;\s*$/gm,'');
-  const {normalizeEvent,enrichGame}=vm.runInNewContext(`${originalCore}\n${model}\n({normalizeEvent,enrichGame})`,{footballSituation});
+  const {normalizeEvent,enrichGame}=vm.runInNewContext(`${originalCore}\n${model}\n({normalizeEvent,enrichGame})`,{baseballSituation,footballSituation});
   const expected=JSON.parse(fs.readFileSync(new URL('./fixtures/migration-parity.json',import.meta.url),'utf8'));
   const inputs=JSON.parse(gunzipSync(fs.readFileSync(new URL('./fixtures/migration-inputs.json.gz',import.meta.url))));
   assert.equal(Object.keys(expected).length,107);
@@ -182,7 +185,7 @@ test('current shared core preserves all 107 games between the original browser a
     await context.enrichGameSignals();
     const migrated=normalizeEvent(structuredClone(fixture.event),fixture.modelSport);
     if ((migrated.state!=='upcoming'||!migrated.line)&&!(migrated.division==='FCS'&&migrated.state==='upcoming')) enrichGame(migrated,structuredClone(fixture.summary));
-    const clean=game=>{const value=JSON.parse(JSON.stringify(game));delete value.summaryUrl;delete value.footballSituation;return value;};
+    const clean=game=>{const value=JSON.parse(JSON.stringify(game));delete value.summaryUrl;delete value.footballSituation;delete value.baseballSituation;return value;};
     assert.deepEqual(clean(migrated),clean(original),file);
   }
 });

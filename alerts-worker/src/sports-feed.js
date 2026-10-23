@@ -163,7 +163,14 @@ export async function refreshSportsData(env,now=Date.now()) {
     games.forEach(game=>{
       const prior = priorGames.get(`${game.sport}:${game.id}`);
       if (!game.line && prior?.line) game.line = prior.line;
-      if (scoreboardStates.has(game)) game.scoreboard = scoreboardStates.get(game);
+      if (scoreboardStates.has(game)) {
+        const scoreboard = scoreboardStates.get(game);
+        // The browser deliberately renders this pre-enrichment snapshot to keep
+        // rating inputs stable; carry refreshed additive situation fields over.
+        if (['NFL','CFB'].includes(game.sport)) scoreboard.footballSituation = game.footballSituation || null;
+        if (game.sport === 'MLB') scoreboard.baseballSituation = game.baseballSituation || null;
+        game.scoreboard = scoreboard;
+      }
     });
     const feed = {version:1,updatedAt:new Date(now).toISOString(),source:'ESPN',sourceErrors:errors,games};
     const priorPregame = new Set(((await env.DB.prepare("SELECT DISTINCT game_key FROM sports_snapshots WHERE state='upcoming' AND observed_at>? ").bind(Math.floor(now/1000)-RETENTION_MS/1000).all()).results || []).map(row=>row.game_key));
