@@ -68,8 +68,9 @@ const fixtures = `
   assert.equal(ordinary.score,40);
   assert.equal(ordinary.factors.find(factor => factor.label === 'Sport baseline').points,32);
   assert.equal(ordinary.factors.find(factor => factor.label === 'Schedule scarcity').points,8);
-  assert.equal(championship.score,85);
-  assert.equal(championship.factors.find(factor => factor.label === 'Postseason scarcity').points,6);
+  assert.equal(championship.score,82);
+  assert.equal(championship.factors.find(factor => factor.label === 'World Series').points,50);
+  assert.ok(!championship.factors.some(factor => ['Postseason scarcity','Series opener'].includes(factor.label)));
   assert.ok(championship.score > ordinary.score);
   assert.equal(postseason.score,60);
   const ravensBengals = {notes:[],competitors:[
@@ -150,7 +151,8 @@ const fixtures = `
   const utahHouston = rateGame('CFB','upcoming',scheduledTeams,{name:'Utah vs Houston'},unbeatenPair,'');
   assert.equal(texasOleMiss.score,80);
   assert.equal(utahHouston.score,84);
-  assert.ok(championship.score > utahHouston.score);
+  const championshipDecider = rateGame('MLB','upcoming',scheduledTeams,{name:'World Series Game 7'},{notes:[],competitors:[]},'World Series Game 7');
+  assert.ok(championshipDecider.score > Math.max(championship.score,utahHouston.score));
   assert.ok(!ordinary.factors.some(item => /close/i.test(item.label)));
   const final = rateGame('NFL','completed',[{score:'24'},{score:'27'}],{name:'Jaguars vs Texans'},{status:{type:{detail:'Final'}}},'');
   const blowoutFinal = rateGame('NFL','completed',[{score:'10'},{score:'38'}],{name:'Jaguars vs Texans'},{status:{type:{detail:'Final'}}},'');
@@ -226,7 +228,7 @@ const fixtures = `
   assert.ok(edmontonCarolina.score > dallasWinnipeg.score);
   assert.ok(edmontonCarolina.factors.some(factor => factor.label === 'Adjusted team quality'));
   assert.equal(dallasWinnipeg.factors.filter(factor => /Division matchup/.test(factor.label)).reduce((sum,factor) => sum + factor.points,0),3);
-  const prose = explainRating({state:'upcoming',score:85,factors:championship.factors,teams:[['Brewers'],['Rays']]});
+  const prose = explainRating({state:'upcoming',score:82,factors:championship.factors,teams:[['Brewers'],['Rays']]});
   assert.match(prose,/Game 1 of the World Series/);
   assert.doesNotMatch(prose,/Sport baseline/);
   const cfbProse = explainRating({sport:'CFB',state:'upcoming',score:80,factors:utahHouston.factors,teams:[['Utah','UTA','—','',null,'6-0',10],['Houston','HOU','—','',null,'6-1',14]]});

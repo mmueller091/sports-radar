@@ -1021,6 +1021,52 @@
   }
 
 
+  function singleEliminationRound(sport,detail) {
+    if (sport === 'NFL') {
+      return /\bwild[- ]card\b(?!\s+(?:race|berth|spot|picture|contention|hunt))|\bdivisional (?:round|playoff)\b|\b(?:afc|nfc|conference) championship\b|\bsuper bowl\b(?!\s+rematch)/.test(detail);
+    }
+    if (sport === 'CFB') {
+      return /\b(?:college football playoff|cfp)\b(?!\s+(?:race|berth|spot|picture|contention|hunt))|\bnational championship\b(?!\s+rematch)/.test(detail);
+    }
+    return sport === 'NCAAB' &&
+      /\bncaa (?:tournament|championship)\b|\bmarch madness\b|\bfirst four\b|\bsweet (?:16|sixteen)\b|\belite (?:8|eight)\b|\bfinal four\b|\bnational championship\b/.test(detail);
+  }
+
+  function isPostseasonGame(sport,event,competition,detail) {
+    return Number(event?.season?.type?.id ?? event?.season?.type) === 3 ||
+      singleEliminationRound(sport,detail) ||
+      /\bworld series\b|\bsuper bowl\b|\bstanley cup final\b|\b(?:nba|wnba) finals\b|\bnational championship\b|\bconference (?:finals?|championship)\b|\b(?:quarterfinal|semifinal|knockout)\b|\b(?:wild[- ]card|divisional) (?:round|game|playoff)\b|\b(?:playoffs?|postseason) (?:game|round|series)\b/.test(detail) ||
+      (sport === 'CFB' && /\bbowl\b/.test(detail)) ||
+      /^(?:postseason|playoffs?)$/.test(String(event?.season?.type?.name || '').toLowerCase());
+  }
+
+  function championshipSeriesFactors(sport,competition,detail) {
+    const championship =
+      (sport === 'MLB' && /\bworld series\b/.test(detail)) ||
+      (sport === 'NBA' && /\bnba finals\b/.test(detail)) ||
+      (sport === 'NHL' && /\bstanley cup finals?\b/.test(detail));
+    if (!championship) return null;
+
+    const game = Number(detail.match(/\bgame\s*([1-7])\b/)?.[1] || 0);
+    const series = String(competition?.series?.summary || '').toLowerCase();
+    const record = series.match(/\b([0-3])\s*[-–]\s*([0-3])\b/);
+    const wins = record ? [Number(record[1]),Number(record[2])] : [];
+    // One prestige factor and one highest applicable leverage factor.
+    // Neither postseason scarcity nor the generic series-opener stacks here.
+    const deciding = game === 7 || /\bgame seven\b|\bdeciding game\b|\bwinner[- ]take[- ]all\b/.test(detail) ||
+      (wins.length === 2 && wins.every(value => value === 3));
+    const elimination = /\belimination game\b|\bwin or go home\b|\bmust[- ]win\b|\bcan clinch\b|\bclinching (?:game|opportunity|scenario)\b|\bclinches?\b/.test(detail) ||
+      wins.some(value => value === 3);
+    const leverage = deciding ? 16 : elimination ? 10 : ({2:1,3:3,4:5,5:6,6:7}[game] || 0);
+    return [
+      {label:sport === 'MLB' ? 'World Series' : sport === 'NHL' ? 'Championship' : 'Final round',points:sport === 'MLB' ? 50 : 45},
+      ...(leverage ? [{
+        label:deciding ? 'Championship winner-take-all' : elimination ? 'Championship elimination / clinch' : 'Championship series leverage',
+        points:leverage
+      }] : [])
+    ];
+  }
+
   function completedStakesImpact(
     sport,
     event,
@@ -1064,6 +1110,7 @@
     } else if (
       /playoff|postseason|wild card|divisional round|quarterfinal|knockout/
         .test(detail) ||
+      singleEliminationRound(sport,detail) ||
       Number(
         event?.season?.type?.id ??
         event?.season?.type
@@ -1147,6 +1194,10 @@
       };
     }
 
+    if (!consequence && singleEliminationRound(sport,detail)) {
+      consequence = {label:'Advancement or elimination decided',points:8};
+    }
+
     const factors = [];
     let remaining = 24;
 
@@ -1205,11 +1256,16 @@
     }
 
     const mlbPostseasonScarcity = sport === 'MLB' ? 6 : 0;
+    const postseason = isPostseasonGame(sport,event,competition,detail);
+    const championshipSeries = championshipSeriesFactors(sport,competition,detail);
 
     let reason =
       'Regular-season matchup · no extra stakes listed';
 
-    if (
+    if (championshipSeries) {
+      factors.push(...championshipSeries);
+      reason = 'Championship series';
+    } else if (
       /world series/.test(detail)
     ) {
       factors.push({
@@ -1285,6 +1341,7 @@
     }
 
     if (
+      !championshipSeries &&
       factors.length > 1 &&
       /game\s*1\b|game one\b|g1\b/
         .test(detail)
@@ -1298,7 +1355,7 @@
         ' · Game 1';
     }
 
-    const specificStakes =
+    const specificStakes = championshipSeries ? [] :
       specificStakesFactors(
         sport,
         detail
@@ -1330,6 +1387,7 @@
         );
 
       const knownRecords =
+        !postseason &&
         records.length === 2 &&
         records.every(Boolean);
 
@@ -1463,7 +1521,7 @@
       ['MLB','NHL','NBA']
         .includes(sport)
     ) {
-      const recordFactors =
+      const recordFactors = postseason ? [] :
         proRecordFactors(
           sport,
           competitors
@@ -1513,6 +1571,9 @@
           ' · both teams winning';
       }
 
+    }
+
+    if (['MLB','NHL','NBA','CFB','NCAAB'].includes(sport)) {
       const market =
         pregameMarketFactor(
           sport,
@@ -1590,6 +1651,7 @@
             );
 
         if (
+          !postseason &&
           records.every(match =>
             match &&
             Number(match[1]) >
@@ -1603,6 +1665,7 @@
         }
 
         if (
+          !postseason &&
           records.some(match =>
             match &&
             Number(match[1]) >= 4 &&
@@ -2056,6 +2119,71 @@
     };
   }
 
+  function defensiveFinishFactor(sport,summary) {
+    if (!['NFL','CFB'].includes(sport)) return null;
+    const competition = summary?.header?.competitions?.[0];
+    const teams = competition?.competitors || [];
+    const home = teams.find(team => team.homeAway === 'home');
+    const away = teams.find(team => team.homeAway === 'away');
+    if (!home || !away) return null;
+
+    const drives = [...(summary?.drives?.previous || []),...(summary?.drives?.current ? [summary.drives.current] : [])];
+    const plays = summary?.plays?.length ? summary.plays : drives.flatMap(drive =>
+      (drive.plays || []).map(play => ({...play,driveTeam:drive.team?.id})));
+    const textFor = play => String(play?.text || play?.shortText || '');
+    const administrative = play => /kneel|end of (?:game|quarter|period)|timeout|two.minute warning/i.test(textFor(play));
+    const offenseFor = play => String(play?.start?.team?.id || play?.driveTeam || '');
+    const turnover = /intercept(?:ed|ion)|fumble.*(?:lost|recover)|turnover on downs|defensive stop/i;
+
+    // Match the adapter's existing decisive-scoring award. A finish gets one kind of credit.
+    const scoring = summary?.scoringPlays?.length ? summary.scoringPlays : plays.filter(play => play.scoringPlay === true);
+    const lastScore = scoring.at(-1);
+    const scoringText = `${lastScore?.clock?.displayValue || ''} ${textFor(lastScore)}`;
+    if (/(0:00|last second|game[- ]winning)/i.test(scoringText) &&
+        /field goal|goal|home run|touchdown/i.test(scoringText)) return null;
+
+    for (let index = plays.length - 1; index >= 0; index--) {
+      const play = plays[index];
+      const text = textFor(play);
+      if (administrative(play) || play.scoringPlay) continue;
+      const fourthDown = Number(play.start?.down) === 4 || /\b4th\b|fourth.down/i.test(text);
+      if (!turnover.test(text) && !(fourthDown && /incomplete|stopped|no gain|sack/i.test(text))) continue;
+      if (/nullified|no play|overturned/i.test(text)) continue;
+
+      const offense = offenseFor(play);
+      const offenseHome = offense === String(home.team?.id);
+      if (!offense || (!offenseHome && offense !== String(away.team?.id))) continue;
+      const finalMargin = Number(home.score) - Number(away.score);
+      if (!Number.isFinite(finalMargin) || (offenseHome ? finalMargin >= 0 : finalMargin <= 0)) continue;
+      const previous = plays[index - 1];
+      const homeScore = Number(play.homeScore ?? previous?.homeScore);
+      const awayScore = Number(play.awayScore ?? previous?.awayScore);
+      const deficit = offenseHome ? awayScore - homeScore : homeScore - awayScore;
+      if (!Number.isFinite(deficit) || deficit < 0 || deficit > 8) continue;
+
+      const later = plays.slice(index + 1).filter(item => !administrative(item));
+      // Reject another chance for the trailing offense, another score/turnover,
+      // or an unknown later possession. Ordinary winning-team clock runouts are fine.
+      if (later.some(item => !offenseFor(item) || offenseFor(item) === offense || item.scoringPlay || turnover.test(textFor(item)))) continue;
+      const changedPossession = play.end?.team?.id && String(play.end.team.id) !== offense;
+      const lostBall = /intercept(?:ed|ion)|turnover on downs|fumble.*lost/i.test(text) || changedPossession || fourthDown;
+      if (!lostBall && !/defensive stop.*(?:seal|end.*game)|(?:seal|end.*game).*defensive stop/i.test(text)) continue;
+
+      const period = Number(play.period?.number || play.period || 0);
+      const clock = String(play.clock?.displayValue || '').match(/^(\d+):(\d{2})$/);
+      const seconds = clock ? Number(clock[1]) * 60 + Number(clock[2]) : Infinity;
+      const late = period > 4 || (period === 4 && seconds <= 120);
+      const explicitFinal = period >= 4 && /final (?:meaningful )?possession|seals? (?:the )?(?:game|win)|game[- ]sealing/i.test(text);
+      if (!late && !explicitFinal) continue;
+
+      const endZone = /intercept(?:ed|ion)/i.test(text) && /end zone|endzone/i.test(text);
+      const yards = Number(play.start?.yardsToEndzone);
+      const redZone = (Number.isFinite(yards) && yards >= 0 && yards <= 20) || /goal.to.go|\band goal\b|red zone/i.test(text);
+      return {label:'Decisive defensive finish',points:endZone ? 14 : redZone ? 12 : 9};
+    }
+    return null;
+  }
+
   function momentumImpact(
     sport,
     summary,
@@ -2341,8 +2469,9 @@
         moment.away;
     }
 
-    const factors = [];
-    const details = [];
+    const defensiveFinish = state === 'completed' ? defensiveFinishFactor(sport,summary) : null;
+    const factors = defensiveFinish ? [defensiveFinish] : [];
+    const details = defensiveFinish ? ['a defensive stop ended the final tying or winning opportunity'] : [];
     const basketball =
       ['NBA','NCAAB']
         .includes(sport);
@@ -2899,6 +3028,7 @@
 
     if (
       state === 'completed' &&
+      !defensiveFinish &&
       moments.length
     ) {
       const decisive =
@@ -4216,7 +4346,7 @@
 
     if (
       gameState === 'completed' &&
-      /overtime|\bot\b/i
+      /overtime|\b\d*ot\b/i
         .test(detail)
     ) {
       factors.push({
@@ -4288,7 +4418,7 @@
       gameState === 'completed'
     ) {
       reason =
-        /overtime|\bot\b/i
+        /overtime|\b\d*ot\b/i
           .test(detail)
           ? `Overtime finish · ${gap}-${unit} margin`
           : gap !== null
