@@ -34,6 +34,13 @@ test('NFL: late 4th-and-goal is much more leveraged than early 4th-and-long at m
   assert.ok(late.points >= early.points + 7, `expected large separation, got ${late.points} vs ${early.points}`);
 });
 
+test('football live phase labels overtime instead of a fifth quarter', () => {
+  assert.match(core.livePhase('CFB',{period:4,displayClock:'1:15'}),/4th quarter$/);
+  assert.equal(core.livePhase('CFB',{period:5,type:{detail:'5th Quarter'}}),'OT');
+  assert.equal(core.livePhase('CFB',{period:6,type:{detail:'6th Quarter'}}),'2OT');
+  assert.match(core.livePhase('NFL',{period:5,displayClock:'8:32'}),/8:32 .* OT/);
+});
+
 test('MLB: tied bottom 9 with runner on third outranks tied bottom 9 bases empty', () => {
   const game = {sport:'MLB', teams:[team('Away','AWY',4,'a'),team('Home','HME',4,'h')]};
   const competition = {competitors:[{homeAway:'away',team:{id:'a'},score:'4'},{homeAway:'home',team:{id:'h'},score:'4'}]};

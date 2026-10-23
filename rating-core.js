@@ -5219,16 +5219,26 @@
         .includes(sport) &&
       period
     ) {
+      const footballOvertime =
+        ['NFL','CFB'].includes(sport) &&
+        period > 4;
+
       return `${
         clock &&
         /^\d+:\d+$/.test(clock)
           ? `${clock} · `
           : ''
-      }${ordinal(period)} ${
-        ['NFL','CFB','NBA']
-          .includes(sport)
-          ? 'quarter'
-          : 'half'
+      }${
+        footballOvertime
+          ? period === 5
+            ? 'OT'
+            : `${period - 4}OT`
+          : `${ordinal(period)} ${
+              ['NFL','CFB','NBA']
+                .includes(sport)
+                ? 'quarter'
+                : 'half'
+            }`
       }`;
     }
 
