@@ -24,12 +24,13 @@ test('pregame games are never queued and push endpoints are restricted',() => {
 test('audit reads stored completed ratings and persists a manual label',async()=>{
   const calls=[];
   const db={prepare(sql){return {bind(...args){calls.push({sql,args});return this},async all(){return {results:[
-    {game_key:'NFL:1',observed_at:1792700000,sport:'NFL',state:'live',rating:81,score_a:'21',score_b:'20',normalized_state:JSON.stringify({teams:[['Ravens'],['Bengals']],factors:[{label:'Momentum',points:5}]}),model_version:'v1',label:null},
-    {game_key:'NFL:1',observed_at:1792700060,sport:'NFL',state:'completed',rating:87,score_a:'24',score_b:'20',normalized_state:JSON.stringify({teams:[['Ravens'],['Bengals']],factors:[{label:'Decisive finish',points:4}]}),model_version:'v1',label:null}
+    {game_key:'NFL:1',observed_at:Date.parse('2026-10-23T15:00:00Z'),sport:'NFL',state:'live',rating:81,score_a:'21',score_b:'20',normalized_state:JSON.stringify({teams:[['Ravens'],['Bengals']],factors:[{label:'Momentum',points:5}]}),model_version:'v1',label:null},
+    {game_key:'NFL:1',observed_at:Date.parse('2026-10-23T15:01:00Z'),sport:'NFL',state:'completed',rating:87,score_a:'24',score_b:'20',normalized_state:JSON.stringify({teams:[['Ravens'],['Bengals']],factors:[{label:'Decisive finish',points:4}]}),model_version:'v1',label:null}
   ]}},async run(){return {meta:{changes:1}}}}}};
   const env={DB:db};
   const response=await worker.fetch(new Request('https://worker.test/audit?date=2026-10-23'),env,{});
   assert.equal(response.status,200);const result=await response.json();
+  assert.deepEqual(calls[0].args,[Date.parse('2026-10-23T04:00:00Z'),Date.parse('2026-10-24T04:00:00Z')],'query uses New York day boundaries in stored millisecond units');
   assert.equal(result.games.length,1);assert.equal(result.games[0].finalRating,87);assert.equal(result.games[0].peakLiveRating,81);assert.equal(result.games[0].snapshots[1].factors[0].label,'Decisive finish');
   const saved=await worker.fetch(new Request('https://worker.test/audit/NFL%3A1/label',{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify({date:'2026-10-23',label:'high'})}),env,{});
   assert.equal(saved.status,200);assert.equal(calls[1].args[0],'NFL:1');assert.equal(calls[1].args[2],'high');

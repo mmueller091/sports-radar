@@ -119,7 +119,8 @@ export default {
       const date = url.searchParams.get('date') || new Intl.DateTimeFormat('en-CA',{timeZone:'America/New_York'}).format(new Date());
       if (!validAuditDate(date)) return reply(request,{error:'Date must be YYYY-MM-DD'},400);
       const next = new Date(Date.parse(`${date}T12:00:00Z`)+86400000).toISOString().slice(0,10);
-      const start = newYorkMidnight(date)/1000, end = newYorkMidnight(next)/1000;
+      // sports_snapshots.observed_at is stored in milliseconds (same as Date.now()).
+      const start = newYorkMidnight(date), end = newYorkMidnight(next);
       const rows = (await env.DB.prepare(`SELECT s.*,l.label FROM sports_snapshots s LEFT JOIN scoring_audit_labels l ON l.game_key=s.game_key
         WHERE s.observed_at>=? AND s.observed_at<? ORDER BY s.game_key,s.observed_at`).bind(start,end).all()).results || [];
       const groups = new Map();
