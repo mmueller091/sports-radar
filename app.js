@@ -1422,25 +1422,86 @@ function basketballBoxScoreMarkup(summary,sport) {
   return `<section class="detail-section basketball-box-score"><h3>Box Score</h3><div class="detail-player-grid">${teams.map(team => `<div class="detail-player-team"><h4>${safeText(team.displayName)}</h4>${team.periods?.length ? `<p class="box-periods">Period scoring · ${team.periods.map(period => `${safeText(period.label)}: ${safeText(period.value)}`).join(' · ')}</p>` : ''}<div class="detail-table-scroll" tabindex="0" role="region" aria-label="${safeText(team.displayName)} box score, scroll for more statistics"><table class="detail-player-table basketball-player-table"><thead><tr><th scope="col">Player</th>${columns.map(([,label]) => `<th scope="col">${label}</th>`).join('')}</tr></thead><tbody>${(team.players || []).map(player => `<tr class="${player.didNotPlay ? 'box-dnp' : ''}"><th scope="row">${safeText(player.name)}${player.starter === null || player.starter === undefined ? '' : `<small>${player.starter ? 'Starter' : 'Bench'}</small>`}</th>${player.didNotPlay ? `<td colspan="${columns.length}" class="box-dnp-reason">DNP${player.dnpReason ? ` · ${safeText(player.dnpReason)}` : ''}</td>` : cells(player.stats)}</tr>`).join('')}</tbody>${team.totals ? `<tfoot><tr><th scope="row">TEAM</th>${cells(team.totals)}</tr></tfoot>` : ''}</table></div></div>`).join('')}</div></section>`;
 }
 
-function detailStats(summary) {
-  const teams =
-    summary?.boxscore?.teams || [];
+const TEAM_STAT_CONFIG = {
+  NBA:[['FG','fieldGoalsMade-fieldGoalsAttempted','fieldGoalPct'],['3PT','threePointFieldGoalsMade-threePointFieldGoalsAttempted','threePointFieldGoalPct'],['FT','freeThrowsMade-freeThrowsAttempted','freeThrowPct'],['Rebounds','totalRebounds'],['Offensive rebounds','offensiveRebounds'],['Assists','assists'],['Steals','steals'],['Blocks','blocks'],['Turnovers','turnovers'],['Paint points','pointsInPaint'],['Second-chance points','secondChancePoints'],['Fast-break points','fastBreakPoints'],['Points off turnovers','turnoverPoints'],['Fouls','fouls']],
+  NFL:[['Total yards','totalYards'],['Passing yards','netPassingYards'],['Rushing yards','rushingYards'],['First downs','firstDowns'],['3rd downs','thirdDownEff'],['4th downs','fourthDownEff'],['Red zone','redZoneAttempts'],['Turnovers','turnovers'],['Sacks–yards lost','sacksYardsLost'],['Penalties–yards','totalPenaltiesYards'],['Possession','possessionTime'],['Yards/play','yardsPerPlay']],
+  MLB:[['Runs','runs'],['Hits','hits'],['Errors','errors'],['Left on base','runnersLeftOnBase'],['Walks','walks'],['Strikeouts','strikeouts'],['Home runs','homeRuns'],['Total bases','totalBases']],
+  NHL:[['Shots','shotsTotal'],['Faceoff %','faceoffPercent'],['Power play','powerPlayGoals','powerPlayOpportunities'],['Penalty minutes','penaltyMinutes'],['Hits','hits'],['Blocks','blockedShots'],['Takeaways','takeaways'],['Giveaways','giveaways'],['Saves','saves']],
+  Soccer:[['Possession','possessionPct'],['Shots','totalShots'],['Shots on target','shotsOnTarget'],['Corners','cornerKicks'],['Fouls','fouls|foulsCommitted'],['Yellow cards','yellowCards'],['Red cards','redCards'],['Offsides','offsides'],['Saves','saves'],['Pass accuracy','passPct|accuratePassesPercentage'],['xG','expectedGoals']],
+  Tennis:[['Aces','aces'],['Double faults','doubleFaults'],['First serve %','firstServePct|firstServePercentage'],['First serve points won','firstServePointsWon'],['Second serve points won','secondServePointsWon'],['Break points','breakPointsWon'],['Winners','winners'],['Unforced errors','unforcedErrors']]
+};
+TEAM_STAT_CONFIG.NCAAB = TEAM_STAT_CONFIG.NBA;
+TEAM_STAT_CONFIG.CFB = TEAM_STAT_CONFIG.NFL;
 
-  return teams.map(team => {
-    const stats =
-      (team.statistics || [])
-        .filter(stat =>
-          stat.displayValue &&
-          stat.displayValue !== '0'
-        )
-        .slice(0,6);
+function detailCompetitors(summary) {
+  return summary?.header?.competitions?.[0]?.competitors || [];
+}
 
-    if (!stats.length) return '';
+function detailScoring(summary,sport) {
+  const teams = detailCompetitors(summary);
+  if (teams.length !== 2 || !teams.some(team => team.linescores?.length)) return '';
+  const count = Math.max(...teams.map(team => team.linescores?.length || 0));
+  const status = summary?.header?.competitions?.[0]?.status?.type?.detail || '';
+  const labels = Array.from({length:count},(_,index) => {
+    if (sport === 'MLB') return String(index + 1);
+    if (sport === 'Tennis') return `S${index + 1}`;
+    if (sport === 'Soccer') return ['1H','2H','ET','Pens'][index] || `ET${index - 1}`;
+    if (sport === 'NHL') return index < 3 ? `P${index + 1}` : index === 3 && /shootout/i.test(status) ? 'SO' : index === 3 ? 'OT' : 'SO';
+    return index < 4 ? `Q${index + 1}` : index === 4 ? 'OT' : `OT${index - 3}`;
+  });
+  const totals = sport === 'MLB' ? ['R','H','E'] : sport === 'Tennis' ? [] : ['Total'];
+  const value = entry => entry?.displayValue ?? entry?.value ?? '—';
+  return `<section class="detail-section detail-scoring"><h3>Scoring</h3><div class="detail-table-scroll" tabindex="0" role="region" aria-label="Scoring by period"><table><thead><tr><th scope="col">Team</th>${[...labels,...totals].map(label => `<th scope="col">${safeText(label)}</th>`).join('')}</tr></thead><tbody>${teams.map(team => `<tr><th scope="row">${safeText(team.team?.abbreviation || team.athlete?.shortName || team.team?.shortDisplayName || 'Team')}</th>${labels.map((_,index) => `<td>${safeText(team.linescores?.[index] ? value(team.linescores[index]) : '—')}</td>`).join('')}${sport === 'MLB' ? [team.score,team.hits,team.errors].map(item => `<td>${safeText(item ?? '—')}</td>`).join('') : sport === 'Tennis' ? '' : `<td>${safeText(team.score ?? '—')}</td>`}</tr>`).join('')}</tbody></table></div></section>`;
+}
 
-    return `<div class="detail-stat-team"><strong>${safeText(team.team?.displayName || 'Team stats')}</strong>${stats.map(stat =>
-      `<div><span>${safeText(stat.label || stat.displayName || stat.name)}</span><b>${safeText(stat.displayValue)}</b></div>`
-    ).join('')}</div>`;
-  }).join('');
+function detailStatNumber(stat) {
+  if (!stat) return null;
+  if (typeof stat.value === 'number' && Number.isFinite(stat.value)) return stat.value;
+  const text = String(stat.displayValue ?? '');
+  if (/^\d+:\d\d$/.test(text)) { const [minutes,seconds] = text.split(':').map(Number); return minutes * 60 + seconds; }
+  const match = text.match(/^\s*(\d+(?:\.\d+)?)\s*[-/]\s*(\d+(?:\.\d+)?)/);
+  if (match) return Number(match[2]) ? Number(match[1]) / Number(match[2]) : 0;
+  const number = Number(text.replace(/[% ,]/g,''));
+  return Number.isFinite(number) && text.trim() !== '' ? number : null;
+}
+
+function detailStatRow(label,left,right,colors) {
+  const display = stat => stat?.displayValue ?? '—';
+  const numeric = [detailStatNumber(left),detailStatNumber(right)];
+  const total = Math.max(0,numeric[0] || 0) + Math.max(0,numeric[1] || 0);
+  const widths = numeric.map(number => number === null || !total ? 50 : 100 * Math.max(0,number) / total);
+  return `<div class="detail-comparison-row"><div class="detail-comparison-values"><span>${safeText(display(left))}</span><span>${safeText(label)}</span><span>${safeText(display(right))}</span></div><div class="detail-comparison-bars"><span><i style="width:${widths[0]}%;background:${colors[0]}"></i></span><span><i style="width:${widths[1]}%;background:${colors[1]}"></i></span></div></div>`;
+}
+
+function detailStats(summary,sport) {
+  const competitors = detailCompetitors(summary);
+  if (competitors.length !== 2) return '';
+  const teams = competitors.map(competitor => (summary?.boxscore?.teams || []).find(team => String(team.team?.id) === String(competitor.team?.id)));
+  const stats = teams.map(team => {
+    const groups = team?.statistics || [];
+    const entries = sport === 'MLB' ? groups.flatMap(group => ['batting','fielding'].includes(group.name) ? group.stats || [] : []) : groups;
+    const available = new Map();
+    entries.filter(stat => stat?.name && stat.displayValue !== undefined && stat.displayValue !== null && stat.displayValue !== '').forEach(stat => {
+      if (!available.has(stat.name)) available.set(stat.name,stat);
+    });
+    return available;
+  });
+  if (!stats.some(map => map.size)) return '';
+  const colors = competitors.map((team,index) => /^#?[0-9a-f]{6}$/i.test(team.team?.color || '') ? `#${String(team.team.color).replace('#','')}` : index ? '#f3bd32' : '#368cf5');
+  const primary = TEAM_STAT_CONFIG[sport] || [];
+  const used = new Set();
+  const statFor = (map,key) => key.split('|').map(alias => map.get(alias)).find(Boolean);
+  const rows = primary.map(([label,...keys]) => {
+    keys.flatMap(key => key.split('|')).forEach(key => used.add(key));
+    const entries = stats.map(map => keys.map(key => statFor(map,key)).filter(Boolean));
+    if (!entries.every(items => items.length === keys.length)) return '';
+    const pair = entries.map(items => items.length === 1 ? items[0] : {displayValue:items.length === 2 && /Pct$/.test(keys[1]) ? `${items[0].displayValue} (${items[1].displayValue}%)` : items.map(item => item.displayValue).join('/'),value:items[0].value});
+    return detailStatRow(label,pair[0],pair[1],colors);
+  }).filter(Boolean);
+  const secondary = [...stats[0].keys()].filter(key => !used.has(key) && stats[1].has(key) && (sport !== 'MLB' || ['doubles','triples','stolenBases','caughtStealing','hitByPitch','sacFlies','GIDPs','atBats','plateAppearances','doublePlays'].includes(key))).slice(0,20).map(key => detailStatRow(stats[0].get(key).label || stats[0].get(key).displayName || key,stats[0].get(key),stats[1].get(key),colors));
+  if (!rows.length && !secondary.length) return '';
+  const headings = `<div class="detail-comparison-teams"><span>${safeText(competitors[0].team?.abbreviation || competitors[0].athlete?.shortName || 'Left')}</span><span>${safeText(competitors[1].team?.abbreviation || competitors[1].athlete?.shortName || 'Right')}</span></div>`;
+  return `<section class="detail-section detail-comparison"><h3>Team Stats</h3>${headings}${rows.join('')}${secondary.length ? `<details class="detail-more-stats"><summary>More Stats</summary>${secondary.join('')}</details>` : ''}</section>`;
 }
 
 function detailLeaders(summary) {
@@ -2461,7 +2522,7 @@ function renderDetailContent(
         : '';
 
   $('#game-detail-content').innerHTML =
-    `<div class="detail-kicker">${safeText(labelForSport(game.sport))} · ${safeText(status)}</div><h2>${safeText(title)}</h2><button type="button" class="detail-watch ${isWatched(game) ? 'active' : ''}" data-watch-id="${safeText(watchKey(game))}" aria-pressed="${isWatched(game)}">${isWatched(game) ? '★ Watching this game' : '☆ Add to watchlist'}</button><div class="detail-scoreboard">${scores}</div><div class="detail-meta"><span>📍 ${safeText(venue)}</span><span>📺 ${safeText(game.channel || 'Channel not listed')}</span></div>${game.moment ? `<section class="detail-moment"><strong>${safeText(game.momentLabel || 'Notable play')}</strong><span>${safeText(game.moment)}</span></section>` : ''}<section class="detail-section"><h3>Why ${game.score}?</h3><p class="detail-explanation">${safeText(explainRating(game))}</p></section>${storylineDetails(game)}${excitementTimeline(game,summary)}${detailLeaders(summary)}${detailStats(summary) ? `<section class="detail-section"><h3>Team stats</h3><div class="detail-stat-grid">${detailStats(summary)}</div></section>` : ''}${basketballBoxScoreMarkup(summary,game.sport)}${detailPlayerStats(summary,game.sport)}${detailPlays(summary)}${fallback}`;
+    `<div class="detail-kicker">${safeText(labelForSport(game.sport))} · ${safeText(status)}</div><h2>${safeText(title)}</h2><button type="button" class="detail-watch ${isWatched(game) ? 'active' : ''}" data-watch-id="${safeText(watchKey(game))}" aria-pressed="${isWatched(game)}">${isWatched(game) ? '★ Watching this game' : '☆ Add to watchlist'}</button><div class="detail-scoreboard">${scores}</div><div class="detail-meta"><span>📍 ${safeText(venue)}</span><span>📺 ${safeText(game.channel || 'Channel not listed')}</span></div>${game.moment ? `<section class="detail-moment"><strong>${safeText(game.momentLabel || 'Notable play')}</strong><span>${safeText(game.moment)}</span></section>` : ''}<section class="detail-section"><h3>Why ${game.score}?</h3><p class="detail-explanation">${safeText(explainRating(game))}</p></section>${storylineDetails(game)}${excitementTimeline(game,summary)}${detailScoring(summary,game.sport)}${detailStats(summary,game.sport)}${detailLeaders(summary)}${basketballBoxScoreMarkup(summary,game.sport)}${detailPlayerStats(summary,game.sport)}${detailPlays(summary)}${fallback}`;
 }
 
 async function fetchGameSummary(game) {

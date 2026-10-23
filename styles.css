@@ -156,6 +156,23 @@ dialog::backdrop { background: rgba(5,7,7,.76); backdrop-filter: blur(4px); } .d
 .detail-stat-team > strong { display: block; color: var(--selected-hi); font-size: 11px; margin-bottom: 6px; }
 .detail-stat-team div, .detail-leaders div { display: flex; justify-content: space-between; gap: 10px; padding: 4px 0; color: #c2cbd4; font: 10px 'DM Mono', monospace; }
 .detail-stat-team b, .detail-leaders b { color: #f3f5f7; text-align: right; }
+.detail-scoring .detail-table-scroll { max-width: 100%; }
+.detail-scoring table { width: 100%; min-width: max-content; border-collapse: collapse; font: 11px 'DM Mono', monospace; }
+.detail-scoring th, .detail-scoring td { padding: 8px 10px; text-align: right; white-space: nowrap; border-bottom: 1px solid rgba(160,175,185,.2); }
+.detail-scoring th:first-child { position: sticky; left: 0; z-index: 1; min-width: 58px; text-align: left; background: #303b41; }
+.detail-scoring thead th { color: #aebfcb; font-weight: 500; }
+.detail-scoring tbody td:last-child { color: #fff; font-weight: 700; }
+.detail-comparison-teams { display: flex; justify-content: space-between; margin: 4px 0 8px; color: #bfd1db; font: 11px 'DM Mono', monospace; }
+.detail-comparison-row { padding: 9px 0; border-bottom: 1px solid rgba(160,175,185,.12); }
+.detail-comparison-values { display: grid; grid-template-columns: minmax(0,1fr) minmax(110px,1.35fr) minmax(0,1fr); gap: 4px; align-items: center; color: #f2f6f8; font-size: 12px; }
+.detail-comparison-values span:nth-child(2) { text-align: center; color: #d5dfe5; font-size: 11px; }
+.detail-comparison-values span:last-child { text-align: right; }
+.detail-comparison-bars { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 7px; }
+.detail-comparison-bars > span { height: 5px; border-radius: 9px; background: rgba(160,175,185,.17); overflow: hidden; }
+.detail-comparison-bars > span:first-child { direction: rtl; }
+.detail-comparison-bars i { display: block; height: 100%; border-radius: inherit; min-width: 2px; }
+.detail-more-stats { margin-top: 12px; }
+.detail-more-stats summary { width: fit-content; padding: 8px 0; color: #a9d0f5; cursor: pointer; font-size: 12px; font-weight: 600; }
 .detail-leaders { display: grid; gap: 2px; }
 .detail-player-grid { display: grid; gap: 12px; }
 .detail-player-team { border: 1px solid #68758a; border-radius: 7px; padding: 10px; background: rgba(0,0,0,.13); }
