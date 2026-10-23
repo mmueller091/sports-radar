@@ -798,7 +798,6 @@
         .filter(Boolean);
 
     const candidates = [];
-
     for (const item of items) {
       if (
         item?.verified === false
@@ -1598,6 +1597,7 @@
               Number(
                 item.curatedRank?.current ||
                 item.team?.rank
+                item.team?.rank
               )
             )
             .filter(rank =>
@@ -2182,6 +2182,596 @@
       return {label:'Decisive defensive finish',points:endZone ? 14 : redZone ? 12 : 9};
     }
     return null;
+  }
+
+
+  function footballStagnationImpact(
+    sport,
+    summary,
+    progress,
+    state='live'
+  ) {
+    if (
+      !['NFL','CFB'].includes(sport) ||
+      !summary
+    ) {
+      return {
+        points:0,
+        text:''
+      };
+    }
+
+    const p =
+      state === 'completed'
+        ? 1
+        : Math.max(
+            0,
+            Math.min(
+              1,
+              Number(progress) || 0
+            )
+          );
+
+    // Wait until enough football has been played to establish a real pattern.
+    if (
+      state !== 'completed' &&
+      p < .45
+    ) {
+      return {
+        points:0,
+        text:''
+      };
+    }
+
+    const competition =
+      summary?.header
+        ?.competitions?.[0];
+
+    const scores =
+      (competition?.competitors || [])
+        .map(team =>
+          Number(team?.score)
+        )
+        .filter(Number.isFinite);
+
+    const combinedScore =
+      scores.length === 2
+        ? scores[0] + scores[1]
+        : null;
+
+    const normalize =
+      value =>
+        String(value || '')
+          .toLowerCase()
+          .replace(
+            /[^a-z0-9]/g,
+            ''
+          );
+
+    const statMaps =
+      (summary?.boxscore?.teams || [])
+        .map(team =>
+          new Map(
+            (team.statistics || [])
+              .map(stat => [
+                normalize(
+                  stat.name ||
+                  stat.abbreviation ||
+                  stat.label ||
+                  stat.displayName
+                ),
+                stat
+              ])
+              .filter(([name]) =>
+                Boolean(name)
+              )
+          )
+        );
+
+    const findStat =
+      (map,names) => {
+        for (const name of names) {
+          const stat =
+            map.get(
+              normalize(name)
+            );
+
+          if (stat) {
+            return stat;
+          }
+        }
+
+        return null;
+      };
+
+    const numberValue =
+      stat => {
+        if (!stat) {
+          return null;
+        }
+
+        const direct =
+          Number(stat.value);
+
+        if (
+          Number.isFinite(direct)
+        ) {
+          return direct;
+        }
+
+        const match =
+          String(
+            stat.displayValue ?? ''
+          ).match(
+            /-?\d+(?:\.\d+)?/
+          );
+
+        return match
+          ? Number(match[0])
+          : null;
+      };
+
+    const efficiency =
+      stat => {
+        if (!stat) {
+          return null;
+        }
+
+        const text =
+          String(
+            stat.displayValue ?? ''
+          );
+
+        const match =
+          text.match(
+            /(\d+)\s*[-/]\s*(\d+)/
+          );
+
+        if (match) {
+          const made =
+            Number(match[1]);
+
+          const attempts =
+            Number(match[2]);
+
+          return {
+            rate:
+              attempts
+                ? made / attempts
+                : 0,
+            attempts
+          };
+        }
+
+        const value =
+          numberValue(stat);
+
+        if (value === null) {
+          return null;
+        }
+
+        return {
+          rate:
+            Math.max(
+              0,
+              Math.min(
+                1,
+                value > 1
+                  ? value / 100
+                  : value
+              )
+            ),
+          attempts:null
+        };
+      };
+
+    const average =
+      values => {
+        const usable =
+          values.filter(
+            Number.isFinite
+          );
+
+        return usable.length
+          ? usable.reduce(
+              (sum,value) =>
+                sum + value,
+              0
+            ) /
+            usable.length
+          : null;
+      };
+
+    const yardsPerPlay =
+      average(
+        statMaps.map(map =>
+          numberValue(
+            findStat(
+              map,
+              [
+                'yardsPerPlay',
+                'yardsPerPlayAverage'
+              ]
+            )
+          )
+        )
+      );
+
+    const thirdDowns =
+
+      statMaps
+        .map(map =>
+          efficiency(
+            findStat(
+              map,
+              [
+                'thirdDownEff',
+                'thirdDownEfficiency'
+              ]
+            )
+          )
+        )
+        .filter(Boolean);
+
+    const thirdDownRate =
+      thirdDowns.length
+        ? average(
+            thirdDowns.map(
+              item =>
+                item.rate
+            )
+          )
+        : null;
+
+    const redZones =
+      statMaps
+        .map(map =>
+          efficiency(
+            findStat(
+              map,
+              [
+                'redZoneAttempts',
+                'redZoneEfficiency',
+                'redZoneEff'
+              ]
+            )
+          )
+        )
+        .filter(Boolean);
+
+    const redZoneAttempts =
+      redZones.length &&
+      redZones.every(item =>
+        Number.isFinite(
+          item.attempts
+        )
+      )
+        ? redZones.reduce(
+            (sum,item) =>
+              sum +
+              item.attempts,
+            0
+          )
+        : null;
+
+    const drives = [
+      ...(summary?.drives?.previous || []),
+      ...(
+        summary?.drives?.current
+          ? [summary.drives.current]
+          : []
+      )
+    ].filter(drive =>
+      drive &&
+      drive.isCurrent !== true &&
+      !/end of (?:half|game)|kneel/i
+        .test(
+          String(
+            drive.result ||
+            drive.description ||
+            ''
+          )
+        )
+    );
+
+    const puntRate =
+      drives.length >= 4
+        ? drives.filter(drive =>
+            /punt/i.test(
+              String(
+                drive.result ||
+                drive.description ||
+                ''
+              )
+            )
+          ).length /
+          drives.length
+        : null;
+
+    const clamp01 =
+      value =>
+        Math.max(
+          0,
+          Math.min(
+            1,
+            value
+          )
+        );
+
+    const signals = [];
+
+    if (
+      combinedScore !== null
+    ) {
+      const expectedLowEnd =
+        (
+          sport === 'CFB'
+            ? 28
+            : 22
+        ) *
+        p;
+
+      signals.push({
+        label:'very little scoring',
+        weight:.30,
+        value:
+          expectedLowEnd
+            ? clamp01(
+                (
+                  expectedLowEnd -
+                  combinedScore
+                ) /
+                expectedLowEnd
+              )
+            : 0
+      });
+    }
+
+    if (
+      yardsPerPlay !== null
+    ) {
+      signals.push({
+        label:'low yards per play',
+        weight:.25,
+        value:
+          clamp01(
+            (
+              4.8 -
+              yardsPerPlay
+            ) /
+            1.8
+          )
+      });
+    }
+
+    if (
+      puntRate !== null
+    ) {
+      signals.push({
+        label:'repeated empty possessions',
+        weight:.20,
+        value:
+          clamp01(
+            (
+              puntRate -
+              .35
+            ) /
+            .40
+          )
+      });
+    }
+
+    if (
+      redZoneAttempts !== null
+    ) {
+      const expected =
+        (
+          sport === 'CFB'
+            ? 5
+            : 4
+        ) *
+        p;
+
+      signals.push({
+        label:'few scoring opportunities',
+        weight:.15,
+        value:
+          expected
+            ? clamp01(
+                (
+                  expected -
+                  redZoneAttempts
+                ) /
+                expected
+              )
+            : 0
+      });
+    }
+
+    if (
+      thirdDownRate !== null
+    ) {
+      signals.push({
+        label:'poor third-down offense',
+        weight:.10,
+        value:
+          clamp01(
+            (
+              .34 -
+              thirdDownRate
+            ) /
+            .22
+          )
+      });
+    }
+
+    // Low scoring by itself is not enough. Require several independent signs
+    // that both offenses are failing to create meaningful action.
+    const meaningful =
+      signals.filter(
+        signal =>
+          signal.value >= .35
+      );
+
+    if (
+      meaningful.length < 3
+    ) {
+      return {
+        points:0,
+        text:''
+      };
+    }
+
+    const totalWeight =
+      signals.reduce(
+        (sum,signal) =>
+          sum +
+          signal.weight,
+        0
+      );
+
+    let index =
+      totalWeight
+        ? signals.reduce(
+            (sum,signal) =>
+              sum +
+              signal.value *
+              signal.weight,
+            0
+          ) /
+          totalWeight
+        : 0;
+
+    // Defensive playmaking can make a low-scoring game entertaining, so
+    // turnovers, sacks, fourth-down drama, blocks and explosive plays soften
+    // the penalty without erasing genuine prolonged stagnation.
+    let action = 0;
+
+    for (
+      const play of
+      summary?.plays || []
+    ) {
+      const text =
+        String(
+          play.text ||
+          play.shortText ||
+          play.type?.text ||
+          ''
+        ).toLowerCase();
+
+      if (
+        /intercept(?:ed|ion)|fumble.*(?:lost|recover)/
+          .test(text)
+      ) {
+        action += 1.5;
+      }
+
+      if (
+        /\bsack(?:ed)?\b/
+          .test(text)
+      ) {
+        action += .35;
+      }
+
+      if (
+        /turnover on downs|4th down|fourth down/
+          .test(text)
+      ) {
+        action += 1;
+      }
+
+      if (
+        /blocked (?:punt|field goal|kick)|\bsafety\b/
+          .test(text)
+      ) {
+        action += 2;
+      }
+
+      const yards =
+        Number(
+          play.statYardage ??
+          play.yards ??
+          play.statYards
+        );
+
+      if (
+        Number.isFinite(yards) &&
+        Math.abs(yards) >= 20
+      ) {
+        action += 1;
+      }
+    }
+
+    index *=
+      1 -
+      Math.min(
+        .25,
+        action / 40
+      );
+
+    if (
+      index < .45
+    ) {
+      return {
+        points:0,
+        text:''
+      };
+    }
+
+    const progressMultiplier =
+      state === 'completed'
+        ? 1
+        : Math.min(
+            1,
+            .55 +
+            .45 *
+            Math.max(
+              0,
+              (
+                p -
+                .45
+              ) /
+              .55
+            )
+          );
+
+    const cap =
+      state === 'completed'
+        ? 20
+        : 18;
+
+    const points =
+      Math.max(
+        1,
+        Math.round(
+          cap *
+          progressMultiplier *
+          index
+        )
+      );
+
+    const strongest =
+      [...signals]
+        .sort(
+          (a,b) =>
+            b.value -
+            a.value
+        )
+        .filter(
+          signal =>
+            signal.value >= .35
+        )
+        .slice(0,3)
+        .map(
+          signal =>
+            signal.label
+        );
+
+    return {
+      points,
+      text:
+        `Offensive stagnation: ${strongest.join(', ')}`
+    };
   }
 
   function momentumImpact(
@@ -3153,10 +3743,34 @@
             factor.points > 0
         );
 
+    const stagnation =
+      footballStagnationImpact(
+        sport,
+        summary,
+        currentProgress,
+        state
+      );
+
+    if (
+      stagnation.points
+    ) {
+      cappedFactors.push({
+        label:
+          'Offensive stagnation',
+        points:
+          -stagnation.points
+      });
+
+      details.push(
+        stagnation.text
+      );
+    }
+
     return {
       points:
         cap -
-        remaining,
+        remaining -
+        stagnation.points,
 
       text:
         details
@@ -3932,7 +4546,6 @@
       fieldPosition
     };
   }
-
   function footballRunwayPenalty(
     gap,
     progress,
@@ -5424,387 +6037,138 @@
       reasons
     };
   }
-
-  function basketballSituationImpact(
-    game,
-    status,
-    progress,
-    scoreGap,
-    situation={}
-  ) {
+  function basketballSituationImpact(game,status,progress,scoreGap,situation={}) {
     let points = 0;
     const reasons = [];
+    const seconds = clockSeconds(status);
+    const regulationPeriods = game.sport === 'NCAAB' ? 2 : 4;
+    const possessionId = String(situation.possession?.id || situation.possession || '');
+    const holderIndex = possessionId ? game.teams.findIndex(team => String(team[8] || '') === possessionId) : -1;
+    const holder = holderIndex >= 0 ? game.teams[holderIndex] : null;
+    const other = holderIndex >= 0 ? game.teams[1-holderIndex] : null;
+    const holderScore = holder ? Number(holder[2]) : NaN;
+    const otherScore = other ? Number(other[2]) : NaN;
 
-    const seconds =
-      clockSeconds(status);
-
-    const regulationPeriods =
-      game.sport === 'NCAAB'
-        ? 2
-        : 4;
-
-    const possessionId =
-      String(
-        situation.possession?.id ||
-        situation.possession ||
-        ''
-      );
-
-    const holderIndex =
-      possessionId
-        ? game.teams.findIndex(team =>
-            String(
-              team[8] || ''
-            ) ===
-            possessionId
-          )
-        : -1;
-
-    const holder =
-      holderIndex >= 0
-        ? game.teams[holderIndex]
-        : null;
-
-    const other =
-      holderIndex >= 0
-        ? game.teams[1-holderIndex]
-        : null;
-
-    const holderScore =
-      holder
-        ? Number(holder[2])
-        : NaN;
-
-    const otherScore =
-      other
-        ? Number(other[2])
-        : NaN;
-
-    if (
-      progress >= .78 &&
-      scoreGap <= 6
-    ) {
-      if (
-        scoreGap === 0
-      ) {
-        points +=
-          progress >= .9
-            ? 9
-            : 6;
-      } else if (
-        scoreGap <= 3
-      ) {
-        points +=
-          progress >= .9
-            ? 7
-            : 5;
-      } else {
-        points += 3;
-      }
-
-      reasons.push(
-        scoreGap === 0
-          ? 'The game is tied late'
-          : `It is a ${scoreGap}-point game late`
-      );
+    if (progress >= .78 && scoreGap <= 6) {
+      if (scoreGap === 0) points += progress >= .9 ? 9 : 6;
+      else if (scoreGap <= 3) points += progress >= .9 ? 7 : 5;
+      else points += 3;
+      reasons.push(scoreGap === 0 ? 'The game is tied late' : `It is a ${scoreGap}-point game late`);
     }
 
-    if (
-      seconds !== null &&
-      Number(status?.period) >=
-      regulationPeriods &&
-      seconds <= 24 &&
-      scoreGap <= 3
-    ) {
-      if (
-        holder &&
-        Number.isFinite(holderScore) &&
-        Number.isFinite(otherScore) &&
-        holderScore <= otherScore
-      ) {
+    if (seconds !== null && Number(status?.period) >= regulationPeriods && seconds <= 24 && scoreGap <= 3) {
+      if (holder && Number.isFinite(holderScore) && Number.isFinite(otherScore) && holderScore <= otherScore) {
         points += 5;
-
-        reasons.push(
-          `${holder[0]} has a potential tying or go-ahead final possession`
-        );
+        reasons.push(`${holder[0]} has a potential tying or go-ahead final possession`);
       } else {
         points += 3;
-
-        reasons.push(
-          'The game may come down to the final possession'
-        );
+        reasons.push('The game may come down to the final possession');
       }
     }
 
-    if (
-      Number(status?.period) >
-      regulationPeriods
-    ) {
+    if (Number(status?.period) > regulationPeriods) {
       points += 6;
-
-      reasons.push(
-        'The game is in overtime'
-      );
+      reasons.push('The game is in overtime');
     }
 
-    return {
-      points:
-        Math.min(
-          12,
-          points
-        ),
-
-      note:
-        holder
-          ? `${holder[1] || holder[0]} possession`
-          : '',
-
-      reasons
-    };
+    return {points:Math.min(12,points),note:holder ? `${holder[1] || holder[0]} possession` : '',reasons};
   }
 
-  function tennisSituationImpact(
-    game,
-    competition,
-    summary,
-    status,
-    progress
-  ) {
-    const situation =
-      competition?.situation ||
-      summary?.header
-        ?.competitions?.[0]
-        ?.situation ||
-      summary?.situation ||
-      {};
-
-    const text =
-      [
-        status?.type?.detail,
-        status?.type?.shortDetail,
-        situation?.displayValue,
-        situation?.description,
-        situation?.pointScore,
-        situation?.score
-      ]
-        .filter(Boolean)
-        .join(' ');
-
+  function tennisSituationImpact(game,competition,summary,status,progress) {
+    const situation = competition?.situation || summary?.header?.competitions?.[0]?.situation || summary?.situation || {};
+    const text = [status?.type?.detail,status?.type?.shortDetail,situation?.displayValue,situation?.description,situation?.pointScore,situation?.score].filter(Boolean).join(' ');
     let points = 0;
     const reasons = [];
 
-    if (
-      situation.matchPoint === true ||
-      situation.isMatchPoint === true ||
-      /match point/i
-        .test(text)
-    ) {
+    if (situation.matchPoint === true || situation.isMatchPoint === true || /match point/i.test(text)) {
       points += 12;
-
-      reasons.push(
-        'The match is at match point'
-      );
-    } else if (
-      situation.setPoint === true ||
-      situation.isSetPoint === true ||
-      /set point/i
-        .test(text)
-    ) {
+      reasons.push('The match is at match point');
+    } else if (situation.setPoint === true || situation.isSetPoint === true || /set point/i.test(text)) {
       points += 7;
-
-      reasons.push(
-        'The current set is at set point'
-      );
+      reasons.push('The current set is at set point');
     }
 
-    if (
-      situation.breakPoint === true ||
-      situation.isBreakPoint === true ||
-      /break point/i
-        .test(text)
-    ) {
+    if (situation.breakPoint === true || situation.isBreakPoint === true || /break point/i.test(text)) {
       points += 5;
-
-      reasons.push(
-        'A break point is in progress'
-      );
+      reasons.push('A break point is in progress');
     }
 
-    if (
-      situation.tiebreak === true ||
-      situation.isTiebreak === true ||
-      /tie.?break/i
-        .test(text)
-    ) {
-      points +=
-        progress >= .65
-          ? 8
-          : 5;
-
-      reasons.push(
-        'The match is in a tiebreak'
-      );
+    if (situation.tiebreak === true || situation.isTiebreak === true || /tie.?break/i.test(text)) {
+      points += progress >= .65 ? 8 : 5;
+      reasons.push('The match is in a tiebreak');
     }
 
-    if (
-      /\bdeuce\b/i
-        .test(text)
-    ) {
+    if (/\bdeuce\b/i.test(text)) {
       points += 3;
-
-      reasons.push(
-        'The current game is at deuce'
-      );
+      reasons.push('The current game is at deuce');
     }
 
-    if (
-      progress >= .75 &&
-      /deciding|final set|fifth set|third set/i
-        .test(text)
-    ) {
+    if (progress >= .75 && /deciding|final set|fifth set|third set/i.test(text)) {
       points += 5;
-
-      reasons.push(
-        'The match is deep in a deciding set'
-      );
+      reasons.push('The match is deep in a deciding set');
     }
 
-    return {
-      points:
-        Math.min(
-          12,
-          points
-        ),
-
-      note:
-        text.slice(
-          0,
-          80
-        ),
-
-      reasons
-    };
+    return {points:Math.min(12,points),note:text.slice(0,80),reasons};
   }
 
-  function dangerousChanceImpact(
-    sport,
-    summary,
-    progress,
-    scoreGap
-  ) {
-    if (
-      !['NHL','Soccer'].includes(sport) ||
-      !summary ||
-      (
-        sport === 'NHL'
-          ? scoreGap > 2
-          : scoreGap > 1
-      )
-    ) {
-      return {
-        points:0,
-        reasons:[]
-      };
+  function dangerousChanceImpact(sport,summary,progress,scoreGap) {
+    if (!['NHL','Soccer'].includes(sport) || !summary || (sport === 'NHL' ? scoreGap > 2 : scoreGap > 1)) {
+      return {points:0,reasons:[]};
     }
 
-    const recent =
-      (summary.plays || [])
-        .slice(-18)
-        .filter(play =>
-          !play?.scoringPlay
-        )
-        .map(play =>
-          String(
-            play?.text ||
-            play?.shortText ||
-            play?.type?.text ||
-            ''
-          ).toLowerCase()
-        )
-        .filter(Boolean);
+    const recent = (summary.plays || [])
+      .slice(-18)
+      .filter(play => !play?.scoringPlay)
+      .map(play => String(play?.text || play?.shortText || play?.type?.text || '').toLowerCase())
+      .filter(Boolean);
 
-    const dangerous =
-      recent.filter(text =>
-        /shot on goal|saved by|\bsave\b|breakaway|penalty shot|hit (?:the )?(?:post|crossbar)|off (?:the )?(?:post|crossbar)|big chance|close range|point-blank/
-          .test(text)
-      );
+    const dangerous = recent.filter(text =>
+      /shot on goal|saved by|\bsave\b|breakaway|penalty shot|hit (?:the )?(?:post|crossbar)|off (?:the )?(?:post|crossbar)|big chance|close range|point-blank/.test(text)
+    );
 
-    const premium =
-      recent.filter(text =>
-        /breakaway|penalty shot|hit (?:the )?(?:post|crossbar)|off (?:the )?(?:post|crossbar)|big chance|point-blank/
-          .test(text)
-      );
+    const premium = recent.filter(text =>
+      /breakaway|penalty shot|hit (?:the )?(?:post|crossbar)|off (?:the )?(?:post|crossbar)|big chance|point-blank/.test(text)
+    );
 
     let points = 0;
     const reasons = [];
 
     if (premium.length) {
-      points +=
-        Math.min(
-          4,
-          2 +
-          premium.length
-        );
-
-      reasons.push(
-        `${premium.length} premium scoring chance${premium.length === 1 ? '' : 's'} recently`
-      );
+      points += Math.min(4,2 + premium.length);
+      reasons.push(`${premium.length} premium scoring chance${premium.length === 1 ? '' : 's'} recently`);
     }
 
     if (dangerous.length >= 4) {
-      points +=
-        dangerous.length >= 7
-          ? 3
-          : 2;
-
-      reasons.push(
-        `${dangerous.length} dangerous attempts or saves in the recent action`
-      );
+      points += dangerous.length >= 7 ? 3 : 2;
+      reasons.push(`${dangerous.length} dangerous attempts or saves in the recent action`);
     }
 
-    if (
-      points &&
-      progress >= .78
-    ) {
-      points++;
-    }
+    if (points && progress >= .78) points++;
 
     return {
-      points:
-        Math.min(
-          7,
-          points
-        ),
+      points:Math.min(7,points),
       reasons
     };
   }
 
-  function soccerSituationImpact(
-    competition,
-    summary,
-    status,
-    progress,
-    scoreGap
-  ) {
+  function soccerSituationImpact(competition,summary,status,progress,scoreGap) {
     const situation =
       competition?.situation ||
       summary?.situation ||
       {};
 
-    const text =
-      [
-        status?.type?.detail,
-        status?.type?.shortDetail,
-        situation?.description,
-        situation?.displayValue,
-        ...(competition?.notes || [])
-          .map(note => note.headline),
-        competition?.series?.summary,
-        competition?.series?.title
-      ]
-        .filter(Boolean)
-        .join(' ')
-        .toLowerCase();
+    const text = [
+      status?.type?.detail,
+      status?.type?.shortDetail,
+      situation?.description,
+      situation?.displayValue,
+      ...(competition?.notes || []).map(note => note.headline),
+      competition?.series?.summary,
+      competition?.series?.title
+    ]
+      .filter(Boolean)
+      .join(' ')
+      .toLowerCase();
 
     const teamRedCards =
       (summary?.boxscore?.teams || [])
@@ -5831,8 +6195,7 @@
 
     if (
       teamRedCards > 0 ||
-      /\bred card\b|\bsent off\b|\bdown to (?:ten|10)\b/
-        .test(text)
+      /\bred card\b|\bsent off\b|\bdown to (?:ten|10)\b/.test(text)
     ) {
       points +=
         progress >= .55 &&
@@ -5874,6 +6237,7 @@
         .test(text)
     ) {
       points += 10;
+
       reasons.push(
         'The match is being decided by penalties'
       );
@@ -5883,17 +6247,14 @@
       scoreGap <= 1
     ) {
       points += 3;
+
       reasons.push(
         'A close match is in stoppage time'
       );
     }
 
     return {
-      points:
-        Math.min(
-          12,
-          points
-        ),
+      points:Math.min(12,points),
       note:'',
       reasons
     };
@@ -6131,19 +6492,34 @@
 
     let leader = null;
 
-    for (const block of summary?.boxscore?.players || []) {
-      for (const group of block.statistics || []) {
+    for (
+      const block of
+      summary?.boxscore?.players ||
+      []
+    ) {
+      for (
+        const group of
+        block.statistics ||
+        []
+      ) {
         const points =
           (group.labels || [])
             .findIndex(label =>
-              /^PTS$|^POINTS$/i.test(label)
+              /^PTS$|^POINTS$/i
+                .test(label)
             );
 
-        if (points < 0) {
+        if (
+          points < 0
+        ) {
           continue;
         }
 
-        for (const entry of group.athletes || []) {
+        for (
+          const entry of
+          group.athletes ||
+          []
+        ) {
           const count =
             Number(
               entry.stats?.[points]
@@ -6173,7 +6549,11 @@
 
     const rare =
       leader.count >=
-      (sport === 'NCAAB' ? 40 : 50);
+      (
+        sport === 'NCAAB'
+          ? 40
+          : 50
+      );
 
     return {
       text:
@@ -6187,6 +6567,7 @@
 
   function baseballPerformanceMilestone(summary) {
     const candidates = [];
+
     const noHit =
       noHitBid(summary);
 
@@ -6194,33 +6575,51 @@
       candidates.push(noHit);
     }
 
-    for (const block of summary?.boxscore?.players || []) {
-      for (const group of block.statistics || []) {
+    for (
+      const block of
+      summary?.boxscore?.players ||
+      []
+    ) {
+      for (
+        const group of
+        block.statistics ||
+        []
+      ) {
         const labels =
           group.labels || [];
 
         const homeRuns =
           labels.findIndex(label =>
-            /^HR$|^HOME RUNS$/i.test(label)
+            /^HR$|^HOME RUNS$/i
+              .test(label)
           );
 
         const strikeouts =
           labels.findIndex(label =>
-            /^K$|^SO$|^STRIKEOUTS$/i.test(label)
+            /^K$|^SO$|^STRIKEOUTS$/i
+              .test(label)
           );
 
-        for (const entry of group.athletes || []) {
+        for (
+          const entry of
+          group.athletes ||
+          []
+        ) {
           const name =
             entry.athlete?.displayName ||
             'A player';
 
-          if (homeRuns >= 0) {
+          if (
+            homeRuns >= 0
+          ) {
             const count =
               Number(
                 entry.stats?.[homeRuns]
               );
 
-            if (count >= 2) {
+            if (
+              count >= 2
+            ) {
               candidates.push({
                 text:
                   count >= 3
@@ -6247,7 +6646,9 @@
                 entry.stats?.[strikeouts]
               );
 
-            if (count >= 10) {
+            if (
+              count >= 10
+            ) {
               candidates.push({
                 text:
                   `${name} has struck out ${count} batters`,
@@ -6263,23 +6664,35 @@
     }
 
     return candidates
-      .sort((a,b) =>
-        b.points -
-        a.points
+      .sort(
+        (a,b) =>
+          b.points -
+          a.points
       )[0] ||
       null;
   }
 
   function soccerScoringMilestone(summary) {
-    for (const block of summary?.boxscore?.players || []) {
-      for (const group of block.statistics || []) {
+    for (
+      const block of
+      summary?.boxscore?.players ||
+      []
+    ) {
+      for (
+        const group of
+        block.statistics ||
+        []
+      ) {
         const goals =
           (group.labels || [])
             .findIndex(label =>
-              /^G$|^GOALS$/i.test(label)
+              /^G$|^GOALS$/i
+                .test(label)
             );
 
-        if (goals < 0) {
+        if (
+          goals < 0
+        ) {
           continue;
         }
 
@@ -6290,9 +6703,14 @@
                 entry.stats?.[goals]
               ) >= 2
             )
-            .sort((a,b) =>
-              Number(b.stats?.[goals]) -
-              Number(a.stats?.[goals])
+            .sort(
+              (a,b) =>
+                Number(
+                  b.stats?.[goals]
+                ) -
+                Number(
+                  a.stats?.[goals]
+                )
             )[0];
 
         if (scorer) {
@@ -6334,10 +6752,10 @@
             )
           : sport === 'Soccer'
             ? soccerScoringMilestone(summary)
-        : ['NFL','CFB']
-            .includes(sport)
-          ? footballMilestone(summary)
-          : null;
+            : ['NFL','CFB']
+                .includes(sport)
+              ? footballMilestone(summary)
+              : null;
   }
 
   function liveSnapshot(
@@ -6559,7 +6977,9 @@
           )
         : null;
 
-    if (milestone) {
+    if (
+      milestone
+    ) {
       snapshot.reasons.push(
         milestone.text
       );
@@ -6616,114 +7036,288 @@
 
   function refreshLiveState(game,competition,summary) {
     const context =
-      liveRatingContexts.get(game.liveRawStatus) ||
-      liveRatingContexts.get(competition?.status);
+      liveRatingContexts.get(
+        game.liveRawStatus
+      ) ||
+      liveRatingContexts.get(
+        competition?.status
+      );
 
     const previous = {
-      ...(context?.competition || game.sourceCompetition),
-      status:game.liveRawStatus || context?.competition?.status,
-      situation:game.liveRawSituation || context?.competition?.situation
+      ...(
+        context?.competition ||
+        game.sourceCompetition
+      ),
+
+      status:
+        game.liveRawStatus ||
+        context?.competition?.status,
+
+      situation:
+        game.liveRawSituation ||
+        context?.competition?.situation
     };
 
     const candidate =
-      competition || summary?.header?.competitions?.[0] || previous;
+      competition ||
+      summary?.header
+        ?.competitions?.[0] ||
+      previous;
 
-    const type = candidate.status?.type;
-    const competitors = candidate.competitors || [];
-    const matched = game.teams.map(team => {
-      const id = String(team[8] || team.id || '');
-      if (id) {
-        return competitors.find(item =>
-          String(item.team?.id || item.athlete?.id || item.id || '') === id
+    const type =
+      candidate.status?.type;
+
+    const competitors =
+      candidate.competitors ||
+      [];
+
+    const matched =
+      game.teams.map(team => {
+        const id =
+          String(
+            team[8] ||
+            team.id ||
+            ''
+          );
+
+        if (id) {
+          return competitors.find(item =>
+            String(
+              item.team?.id ||
+              item.athlete?.id ||
+              item.id ||
+              ''
+            ) === id
+          );
+        }
+
+        const names =
+          competitors.filter(item =>
+            (
+              item.team?.displayName ||
+              item.athlete?.displayName
+            ) === team[0]
+          );
+
+        return names.length === 1
+          ? names[0]
+          : undefined;
+      });
+
+    const wrongTeams =
+      competitors.length > 0 &&
+      matched.some(team =>
+        !team
+      );
+
+    const older =
+      previous.status?.period &&
+      candidate.status?.period &&
+      gameProgress(
+        game.sport,
+        candidate
+      ) <
+      gameProgress(
+        game.sport,
+        previous
+      );
+
+    const rejected =
+      wrongTeams ||
+      older ||
+      type?.completed === true ||
+      (
+        type?.state &&
+        type.state !== 'in'
+      );
+
+    const current =
+      rejected
+        ? previous
+        : {
+            ...previous,
+            ...candidate,
+
+            status:
+              candidate.status ||
+              previous.status,
+
+            situation:
+              candidate.status
+                ? candidate.situation ||
+                  {}
+                : previous.situation
+          };
+
+    if (
+      !rejected &&
+      matched.length === 2 &&
+      matched.every(team =>
+        team &&
+        team.score != null &&
+        team.score !== '' &&
+        Number.isFinite(
+          Number(team.score)
+        )
+      )
+    ) {
+      matched.forEach(
+        (team,index) => {
+          game.teams[index][2] =
+            String(team.score);
+
+          if (
+            'score' in
+            game.teams[index]
+          ) {
+            game.teams[index].score =
+              String(team.score);
+          }
+        }
+      );
+    }
+
+    const openingScore =
+      game.openingScore ??
+      context?.openingScore;
+
+    if (
+      Number.isFinite(
+        openingScore
+      )
+    ) {
+      const gap =
+        Math.abs(
+          Number(
+            game.teams[0][2]
+          ) -
+          Number(
+            game.teams[1][2]
+          )
+        );
+
+      const progress =
+        gameProgress(
+          game.sport,
+          current
+        );
+
+      const state =
+        stateRating(
+          openingScore,
+          game.sport,
+          'live',
+          Number.isFinite(gap)
+            ? gap
+            : null,
+          progress,
+          null,
+          {
+            competition:current,
+            teams:game.teams
+          }
+        );
+
+      const underdog =
+        game.underdog ||
+        context?.underdog;
+
+      const upset =
+        upsetImpact(
+          underdog,
+          game.teams,
+          'live',
+          progress
+        );
+
+      const factors = [
+        ...state.factors
+      ];
+
+      if (
+        upset.points
+      ) {
+        factors.push({
+          label:
+            'Underdog threatens upset',
+          points:
+            upset.points
+        });
+      }
+
+      game.baseScore =
+        clampScore(
+          factors.reduce(
+            (sum,item) =>
+              sum +
+              item.points,
+            0
+          )
+        );
+
+      game.factors =
+        factors;
+
+      game.openingScore =
+        openingScore;
+
+      game.underdog =
+        underdog;
+
+      game.upsetPoints =
+        upset.points;
+
+      game.upsetText =
+        upset.text;
+
+      const unit =
+        ({
+          NHL:'goal',
+          Soccer:'goal',
+          MLB:'run',
+          Tennis:'set'
+        })[game.sport] ||
+        'point';
+
+      game.why =
+        gap === 0
+          ? `Tied ${game.teams[0][2]}–${game.teams[1][2]}${progress > .65 ? ' late' : ''}`
+          : state.closePoints > 0
+            ? `${gap}-${unit} game${progress > .65 ? ' late' : ''}`
+            : `Game in progress · ${Math.round(progress * 100)}% elapsed`;
+
+      if (
+        current.status
+      ) {
+        liveRatingContexts.set(
+          current.status,
+          {
+            openingScore,
+            underdog,
+            competition:current
+          }
         );
       }
-      // Existing tennis adapters retain athlete names but omit their IDs.
-      // Only use an exact, unique name match; never assume feed order.
-      const names = competitors.filter(item =>
-        (item.team?.displayName || item.athlete?.displayName) === team[0]
-      );
-      return names.length === 1 ? names[0] : undefined;
-    });
-
-    const wrongTeams = competitors.length > 0 &&
-      matched.some(team => !team);
-    const older = previous.status?.period && candidate.status?.period &&
-      gameProgress(game.sport,candidate) <
-      gameProgress(game.sport,previous);
-    const rejected = wrongTeams || older ||
-      type?.completed === true ||
-      (type?.state && type.state !== 'in');
-
-    // Keep scoreboard state through a final/summary race. The next
-    // scoreboard refresh owns the transition to the completed-game model.
-    const current = rejected
-      ? previous
-      : {
-          ...previous,
-          ...candidate,
-          status:candidate.status || previous.status,
-          situation:candidate.status ? candidate.situation || {} : previous.situation
-        };
-
-    if (!rejected && matched.length === 2 && matched.every(team =>
-      team && team.score != null && team.score !== '' &&
-      Number.isFinite(Number(team.score))
-    )) {
-      matched.forEach((team,index) => {
-        game.teams[index][2] = String(team.score);
-        if ('score' in game.teams[index]) {
-          game.teams[index].score = String(team.score);
-        }
-      });
     }
 
-    const openingScore = game.openingScore ?? context?.openingScore;
-    if (Number.isFinite(openingScore)) {
-      const gap = Math.abs(Number(game.teams[0][2]) - Number(game.teams[1][2]));
-      const progress = gameProgress(game.sport,current);
-      const state = stateRating(
-        openingScore,
-        game.sport,
-        'live',
-        Number.isFinite(gap) ? gap : null,
-        progress,
-        null,
-        {
-          competition:current,
-          teams:game.teams
-        }
-      );
-      const underdog = game.underdog || context?.underdog;
-      const upset = upsetImpact(underdog,game.teams,'live',progress);
-      const factors = [...state.factors];
-      if (upset.points) {
-        factors.push({label:'Underdog threatens upset',points:upset.points});
-      }
+    game.liveRawStatus =
+      current.status;
 
-      game.baseScore = clampScore(factors.reduce((sum,item) => sum + item.points,0));
-      game.factors = factors;
-      game.openingScore = openingScore;
-      game.underdog = underdog;
-      game.upsetPoints = upset.points;
-      game.upsetText = upset.text;
-      const unit = ({NHL:'goal',Soccer:'goal',MLB:'run',Tennis:'set'})[game.sport] || 'point';
-      game.why = gap === 0
-        ? `Tied ${game.teams[0][2]}–${game.teams[1][2]}${progress > .65 ? ' late' : ''}`
-        : state.closePoints > 0
-          ? `${gap}-${unit} game${progress > .65 ? ' late' : ''}`
-          : `Game in progress · ${Math.round(progress * 100)}% elapsed`;
+    game.liveRawSituation =
+      current.situation;
 
-      if (current.status) {
-        liveRatingContexts.set(current.status,{openingScore,underdog,competition:current});
-      }
-    }
+    game.status =
+      current.status?.type?.shortDetail ||
+      current.status?.type?.detail ||
+      game.status;
 
-    game.liveRawStatus = current.status;
-    game.liveRawSituation = current.situation;
-    game.status = current.status?.type?.shortDetail ||
-      current.status?.type?.detail || game.status;
-
-    return {competition:current,summary:rejected ? null : summary};
+    return {
+      competition:current,
+      summary:
+        rejected
+          ? null
+          : summary
+    };
   }
 
   function applyLiveSnapshot(
@@ -6738,7 +7332,11 @@
     }
 
     const current =
-      refreshLiveState(game,competition,summary);
+      refreshLiveState(
+        game,
+        competition,
+        summary
+      );
 
     game.live =
       liveSnapshot(
@@ -6787,6 +7385,7 @@
     normalizeWinProbability,
     winProbabilitySeries,
     winProbabilityImpact,
+    footballStagnationImpact,
     momentumImpact,
     defensiveFinishFactor,
     underdogCandidate,
