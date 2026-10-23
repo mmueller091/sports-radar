@@ -1,3 +1,4 @@
+import {basketballBoxScore} from './display-model.js';
 import {createCollector,summaryUrl} from './providers/espn.js';
 import {applyContextsToGame,enrichGame} from './game-model.js';
 import {contextsForGames} from './storylines.js';
@@ -116,7 +117,7 @@ export async function gameDetails(env,sport,id,now=Date.now()) {
   const url = summaryUrl(game);
   const summary = await providerJson(env,url,55000,now,errors);
   const row = await env.DB.prepare('SELECT updated_at FROM sports_resources WHERE key=?').bind(url).first();
-  return {...summary,sportsRadarFreshness:{updatedAt:new Date(row.updated_at).toISOString(),stale:errors.length>0 || now-row.updated_at>STALE_MS}};
+  return {...summary,...(['NBA','NCAAB'].includes(sport) ? {basketballBoxScore:basketballBoxScore(summary,sport)} : {}),sportsRadarFreshness:{updatedAt:new Date(row.updated_at).toISOString(),stale:errors.length>0 || now-row.updated_at>STALE_MS}};
 }
 
 export async function refreshSportsData(env,now=Date.now()) {

@@ -2126,3 +2126,20 @@ dialog,
   }
 }
 
+/* Compact live football scoreboard and contained basketball box scores. */
+.possession-marker { width: 19px; height: 14px; margin-right: 6px; vertical-align: -1px; color: var(--selected-hi, #bcead3); }
+.football-situation { display: flex; align-items: baseline; gap: 10px; margin-top: 5px; white-space: nowrap; font: 11px 'DM Mono', monospace; }
+.football-situation strong { color: #eaf5ec; font-size: 12px; }
+.football-situation > span { color: #aabbbd; }
+.basketball-box-score, .basketball-box-score .detail-player-grid, .basketball-box-score .detail-player-team { min-width: 0; max-width: 100%; }
+.basketball-box-score h4 { margin: 0 0 8px; color: #eaf5ec; }
+.box-periods { color: #aabbbd; font: 11px 'DM Mono', monospace; }
+.detail-panel:has(.basketball-box-score) { width: min(980px, 100%); }
+.basketball-player-table { min-width: 760px; table-layout: fixed; }
+.basketball-player-table th, .basketball-player-table td { padding: 8px; }
+.basketball-player-table th:first-child { position: sticky; left: 0; z-index: 1; background: #1d2d34; width: 155px; white-space: normal; }
+.basketball-player-table small { display: block; margin-top: 3px; color: #aabbbd; font-size: 9px; font-weight: 400; }
+.basketball-player-table .box-dnp-reason { text-align: left; color: #aabbbd; white-space: normal; }
+.basketball-player-table tfoot { font-weight: 700; border-top: 1px solid #68758a; }
+.basketball-box-score .detail-table-scroll:focus-visible { outline: 2px solid #bcead3; outline-offset: 2px; }
+

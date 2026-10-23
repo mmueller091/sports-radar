@@ -1,3 +1,4 @@
+import {footballSituation} from './display-model.js';
 // Normalization and enrichment moved from app.js; scoring uses the shared core.
 import '../../rating-core.js';
 const {
@@ -194,6 +195,7 @@ function normalizeEvent(event, sport, leagueLogo, division) {
     null
   );
 
+  if (['NFL','CFB'].includes(sport)) game.footballSituation = footballSituation(game);
   return game;
 }
 
@@ -532,6 +534,8 @@ function enrichGame(game,summary) {
 
 
             }
+
+            if (['NFL','CFB'].includes(game.sport)) game.footballSituation = footballSituation(game);
 
             const line =
               lineFromSummary(

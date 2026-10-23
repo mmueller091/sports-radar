@@ -7,6 +7,7 @@ import vm from 'node:vm';
 import worker,{checkGames} from '../src/index.js';
 import {refreshSportsData,readFeed,gameDetails} from '../src/sports-feed.js';
 import {normalizeEvent,enrichGame} from '../src/game-model.js';
+import {footballSituation} from '../src/display-model.js';
 
 function database() {
   const db = new DatabaseSync(':memory:');
@@ -27,6 +28,23 @@ const event = {id:'42',name:'Away at Home',date:'2026-10-22T20:00:00Z',competiti
   competitors:[{team:{id:'1',displayName:'Home',abbreviation:'H'},score:'24'},{team:{id:'2',displayName:'Away',abbreviation:'A'},score:'23'}]
 }]};
 const summary = {header:{competitions:event.competitions},boxscore:{teams:[],players:[]},plays:[],scoringPlays:[],winprobability:[]};
+
+test('basketball detail API adds normalized players using the existing cached summary',async t=>{
+  const env=database();
+  t.after(()=>env.db.close());
+  const now=Date.now();
+  for (const sport of ['NBA','NCAAB']) {
+    const game=normalizeEvent(structuredClone(event),sport);
+    env.db.prepare('INSERT OR REPLACE INTO sports_feed (id,payload) VALUES (1,?)').run(JSON.stringify({games:[game],updatedAt:new Date(now).toISOString()}));
+    const {summaryUrl}=await import('../src/providers/espn.js');
+    const payload={...summary,boxscore:{players:[{team:{id:'1',displayName:'Home'},statistics:[{labels:['PTS','MIN'],athletes:[{athlete:{id:'7',displayName:'Player Seven'},starter:true,stats:['23','31']}]}]}]}};
+    env.db.prepare('INSERT OR REPLACE INTO sports_resources (key,payload,updated_at) VALUES (?,?,?)').run(summaryUrl(game),JSON.stringify(payload),now);
+    const detail=await gameDetails(env,sport,'42',now);
+    assert.equal(detail.basketballBoxScore.teams[0].players[0].stats.points,'23');
+    assert.equal(detail.basketballBoxScore.teams[0].players[0].stats.minutes,'31');
+    assert.deepEqual(detail.boxscore,payload.boxscore,'existing summary contract preserved');
+  }
+});
 
 test('central refresh, API, shared alerts, history, failures and CORS',async t=>{
   const env=database();
@@ -129,7 +147,7 @@ test('moved normalization and enrichment preserve pre-migration fixture ratings 
   const originalCore=gunzipSync(fs.readFileSync(new URL('./fixtures/pre-migration-core.js.gz',import.meta.url))).toString();
   const model=fs.readFileSync(new URL('../src/game-model.js',import.meta.url),'utf8')
     .replace(/^import .*;\s*$/gm,'').replace(/^export .*;\s*$/gm,'');
-  const {normalizeEvent,enrichGame}=vm.runInNewContext(`${originalCore}\n${model}\n({normalizeEvent,enrichGame})`);
+  const {normalizeEvent,enrichGame}=vm.runInNewContext(`${originalCore}\n${model}\n({normalizeEvent,enrichGame})`,{footballSituation});
   const expected=JSON.parse(fs.readFileSync(new URL('./fixtures/migration-parity.json',import.meta.url),'utf8'));
   const inputs=JSON.parse(gunzipSync(fs.readFileSync(new URL('./fixtures/migration-inputs.json.gz',import.meta.url))));
   assert.equal(Object.keys(expected).length,107);
@@ -164,7 +182,7 @@ test('current shared core preserves all 107 games between the original browser a
     await context.enrichGameSignals();
     const migrated=normalizeEvent(structuredClone(fixture.event),fixture.modelSport);
     if ((migrated.state!=='upcoming'||!migrated.line)&&!(migrated.division==='FCS'&&migrated.state==='upcoming')) enrichGame(migrated,structuredClone(fixture.summary));
-    const clean=game=>{const value=JSON.parse(JSON.stringify(game));delete value.summaryUrl;return value;};
+    const clean=game=>{const value=JSON.parse(JSON.stringify(game));delete value.summaryUrl;delete value.footballSituation;return value;};
     assert.deepEqual(clean(migrated),clean(original),file);
   }
 });
