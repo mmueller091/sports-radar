@@ -2192,7 +2192,8 @@
   ) {
     if (
       !['NFL','CFB'].includes(sport) ||
-      !summary
+      !summary ||
+      state !== 'completed'
     ) {
       return {
         points:0,
@@ -2210,17 +2211,6 @@
               Number(progress) || 0
             )
           );
-
-    // Wait until enough football has been played to establish a real pattern.
-    if (
-      state !== 'completed' &&
-      p < .45
-    ) {
-      return {
-        points:0,
-        text:''
-      };
-    }
 
     const competition =
       summary?.header
@@ -2498,6 +2488,28 @@
           drives.length
         : null;
 
+    const puntTotal =
+      (summary?.boxscore?.players || [])
+        .flatMap(block =>
+          (block.statistics || [])
+            .filter(group =>
+              group.name === 'punting'
+            )
+            .flatMap(group =>
+              (group.athletes || [])
+                .map(athlete =>
+                  Number(
+                    athlete.stats?.[0]
+                  ) || 0
+                )
+            )
+        )
+        .reduce(
+          (sum,value) =>
+            sum + value,
+          0
+        );
+
     const clamp01 =
       value =>
         Math.max(
@@ -2568,10 +2580,10 @@
         value:
           clamp01(
             (
-              4.8 -
+              4.9 -
               yardsPerPlay
             ) /
-            1.8
+            1.4
           )
       });
     }
@@ -2589,6 +2601,20 @@
               .35
             ) /
             .40
+          )
+      });
+    } else if (
+      puntTotal
+    ) {
+      signals.push({
+        label:'repeated punts',
+        weight:.15,
+        value:
+          clamp01(
+            (
+              puntTotal -
+              6
+            ) / 6
           )
       });
     }
@@ -2660,6 +2686,26 @@
       });
     }
 
+    const scoringPlays =
+      summary?.scoringPlays || [];
+
+    if (
+      scoringPlays.length >= 4
+    ) {
+      signals.push({
+        label:'no touchdowns',
+        weight:.10,
+        value:
+          scoringPlays.some(play =>
+            /touchdown/i.test(
+              `${play.text || ''} ${play.type?.text || ''}`
+            )
+          )
+            ? 0
+            : 1
+      });
+    }
+
     // Low scoring by itself is not enough. Require several independent signs
     // that both offenses are failing to create meaningful action.
     const meaningful =
@@ -2702,9 +2748,17 @@
     // the penalty without erasing genuine prolonged stagnation.
     let action = 0;
 
+    const defensivePlays =
+      summary?.plays?.length
+        ? summary.plays
+        : (summary?.drives?.previous || [])
+            .flatMap(drive =>
+              drive.plays || []
+            );
+
     for (
       const play of
-      summary?.plays || []
+      defensivePlays
     ) {
       const text =
         String(
@@ -2718,28 +2772,67 @@
         /intercept(?:ed|ion)|fumble.*(?:lost|recover)/
           .test(text)
       ) {
-        action += 1.5;
+        action += .75;
+
+        const returnYards =
+          Number(
+            text.match(
+              /return(?:ed)?(?: for)?\s+(\d+)\s+yards/
+            )?.[1] || 0
+          );
+
+        if (
+          returnYards >= 20
+        ) {
+          action += 3;
+        }
+
+        if (
+          Number(
+            play.period?.number ||
+            play.period
+          ) >= 4 &&
+          Number.isFinite(
+            Number(play.homeScore)
+          ) &&
+          Number.isFinite(
+            Number(play.awayScore)
+          ) &&
+          Math.abs(
+            Number(play.homeScore) -
+            Number(play.awayScore)
+          ) <= 8
+        ) {
+          action += 2;
+        }
       }
 
       if (
         /\bsack(?:ed)?\b/
           .test(text)
       ) {
-        action += .35;
+        action += .5;
       }
 
       if (
-        /turnover on downs|4th down|fourth down/
+        /turnover on downs|4th down|fourth down|stopped on fourth/
           .test(text)
       ) {
-        action += 1;
+        action += 2;
       }
 
       if (
         /blocked (?:punt|field goal|kick)|\bsafety\b/
           .test(text)
       ) {
-        action += 2;
+        action += 5;
+      }
+
+      if (
+        /defensive touchdown|interception return.*touchdown|fumble return.*touchdown/
+          .test(text)
+      ) {
+        action += 8;
       }
 
       const yards =
@@ -2757,11 +2850,18 @@
       }
     }
 
+    const severeCompleted =
+      meaningful.length >= 5;
+
     index *=
       1 -
       Math.min(
-        .25,
-        action / 40
+        severeCompleted
+          ? .9
+          : .25,
+        severeCompleted
+          ? action / 24
+          : action / 40
       );
 
     if (
@@ -2791,9 +2891,9 @@
           );
 
     const cap =
-      state === 'completed'
-        ? 20
-        : 18;
+      severeCompleted
+        ? 36
+        : 20;
 
     const points =
       Math.max(

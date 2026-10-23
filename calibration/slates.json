@@ -1,0 +1,12 @@
+{
+  "slates": [
+    {"modelSport":"NFL","apiSport":"football","league":"nfl","dates":["20261011","20261018"]},
+    {"modelSport":"CFB","apiSport":"football","league":"college-football","dates":["20261017"]},
+    {"modelSport":"MLB","apiSport":"baseball","league":"mlb","dates":["20261013","20261018","20261020"]},
+    {"modelSport":"NHL","apiSport":"hockey","league":"nhl","dates":["20261017","20261020"]},
+    {"modelSport":"NBA","apiSport":"basketball","league":"nba","dates":["20261020"]},
+    {"modelSport":"NCAAB","apiSport":"basketball","league":"mens-college-basketball","dates":["20260328"]},
+    {"modelSport":"Tennis","apiSport":"tennis","league":"atp","dates":["20260913"]},
+    {"modelSport":"Tennis","apiSport":"tennis","league":"wta","dates":["20260912"]}
+  ]
+}
