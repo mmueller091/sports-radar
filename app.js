@@ -498,7 +498,31 @@ async function loadLiveGames() {
     const selected = new Set(baseline.filter(game => (game.state !== 'upcoming' || !game.line) && !(game.division === 'FCS' && game.state === 'upcoming'))
       .sort((a,b) => Number(isWatched(b))-Number(isWatched(a)) || Number(b.state==='live')-Number(a.state==='live') || Number(b.favorite)-Number(a.favorite) || b.score-a.score)
       .slice(0,60).map(watchKey));
-    games = baseline.map((game,index) => selected.has(watchKey(game)) ? {...feed.games[index],scoreboard:undefined,favorite:game.favorite} : game);
+    games = baseline.map((game,index) => {
+      const enriched = feed.games[index];
+      if (selected.has(watchKey(game))) {
+        return {...enriched,scoreboard:undefined,favorite:game.favorite};
+      }
+      if (game.state === 'completed') {
+        return {
+          ...game,
+          score:enriched.score,
+          baseScore:enriched.baseScore,
+          openingScore:enriched.openingScore,
+          factors:enriched.factors,
+          why:enriched.why,
+          underdog:enriched.underdog,
+          upsetText:enriched.upsetText,
+          upsetPoints:enriched.upsetPoints,
+          momentumText:enriched.momentumText,
+          momentumPoints:enriched.momentumPoints,
+          moment:enriched.moment,
+          momentLabel:enriched.momentLabel,
+          favorite:game.favorite
+        };
+      }
+      return game;
+    });
     state.source = 'live';
     state.updatedAt = feed.updatedAt;
     state.feedStale = feed.freshness?.stale === true;
