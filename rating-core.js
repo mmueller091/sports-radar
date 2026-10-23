@@ -1597,7 +1597,6 @@
               Number(
                 item.curatedRank?.current ||
                 item.team?.rank
-                item.team?.rank
               )
             )
             .filter(rank =>
