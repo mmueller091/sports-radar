@@ -1358,6 +1358,7 @@ function gameCard(game) {
 
   const situation =
     ['NFL','CFB'].includes(game.sport) ? footballSituationMarkup(game) :
+    game.sport === 'MLB' ? baseballSituationMarkup(game) :
     game.state === 'live' &&
     (
       game.live?.note ||
@@ -1382,6 +1383,7 @@ function gameCard(game) {
     game.teams[1][2],
     game.live?.phase,
     ...(['NFL','CFB'].includes(game.sport) ? footballAccessibleSituation(game) : [game.live?.note]),
+    ...(game.sport === 'MLB' ? [game.baseballSituation?.outs != null ? `${game.baseballSituation.outs} outs` : '',game.baseballSituation?.count ? `count ${game.baseballSituation.count}` : ''] : []),
     game.live?.bases
       ? Object.entries(game.live.bases)
           .filter(([,on]) => on)
@@ -1435,6 +1437,16 @@ function footballSituationMarkup(game) {
   const situation = game.footballSituation;
   if (!situation?.downAndDistance && !situation?.fieldPosition) return '';
   return `<span class="football-situation">${situation.downAndDistance ? `<strong>${safeText(situation.downAndDistance)}</strong>` : ''}${situation.fieldPosition ? `<span>${safeText(situation.fieldPosition)}</span>` : ''}</span>`;
+}
+
+function baseballSituationMarkup(game) {
+  if (game.state !== 'live') return '';
+  const situation = game.baseballSituation;
+  if (!situation) return '';
+  const bases = situation.bases ? basesMarkup(situation.bases) : '';
+  const outs = situation.outs == null ? '' : `<span class="baseball-outs" role="img" aria-label="${situation.outs} ${situation.outs === 1 ? 'out' : 'outs'}">${[0,1,2].map(index => `<i class="out-dot ${index < situation.outs ? 'active' : ''}"></i>`).join('')}</span>`;
+  const count = situation.count ? `<strong class="baseball-count" aria-label="Count ${safeText(situation.count)}">${safeText(situation.count)}</strong>` : '';
+  return bases || outs || count ? `<span class="live-situation baseball-situation">${bases}${outs}${count}</span>` : '';
 }
 
 function basketballBoxScoreMarkup(summary,sport) {

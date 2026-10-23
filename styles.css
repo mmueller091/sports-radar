@@ -766,6 +766,13 @@ body {
   color: #b9cbd3;
 }
 
+.baseball-situation { gap: 7px; min-height: 20px; margin-top: 2px; }
+.baseball-situation .base-diamond { flex-basis: 23px; width: 23px; height: 21px; transform: scale(.82); transform-origin: center; }
+.baseball-outs { display: inline-flex; align-items: center; gap: 3px; }
+.out-dot { width: 5px; height: 5px; border: 1px solid #91a3ab; border-radius: 50%; background: transparent; }
+.out-dot.active { background: #d9e9ed; border-color: #d9e9ed; }
+.baseball-count { color: #e4edf0; font-weight: 600; }
+
 .base {
   background: #293b44;
   border-color: #667b84;

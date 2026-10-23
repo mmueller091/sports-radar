@@ -17,6 +17,23 @@ export function footballSituation(game) {
   return {possessionTeamId:holders.length === 1 ? possession : null,downAndDistance,fieldPosition};
 }
 
+export function baseballSituation(game) {
+  if (game.sport !== 'MLB' || game.state !== 'live') return null;
+  const source = game.liveRawSituation || {};
+  const bases = {};
+  for (const [key, field] of [['first','onFirst'],['second','onSecond'],['third','onThird']]) {
+    const value = source[field] ?? source.runners?.[key];
+    if (typeof value === 'boolean') bases[key] = value;
+  }
+  const validCount = (value,max) => value !== null && value !== undefined && value !== '' && Number.isInteger(Number(value)) && Number(value) >= 0 && Number(value) <= max ? Number(value) : null;
+  const outs = validCount(source.outs,3);
+  const balls = validCount(source.balls,3);
+  const strikes = validCount(source.strikes,2);
+  return Object.keys(bases).length || outs !== null || (balls !== null && strikes !== null)
+    ? {bases:Object.keys(bases).length ? bases : null,outs,count:balls !== null && strikes !== null ? `${balls}-${strikes}` : ''}
+    : null;
+}
+
 const columns = {
   minutes:['MIN','minutes'], fg:['FG','fieldGoalsMade-fieldGoalsAttempted'],
   threePt:['3PT','threePointFieldGoalsMade-threePointFieldGoalsAttempted'],

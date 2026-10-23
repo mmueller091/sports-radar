@@ -2,12 +2,12 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import vm from 'node:vm';
-import {footballSituation,basketballBoxScore} from '../alerts-worker/src/display-model.js';
+import {baseballSituation,footballSituation,basketballBoxScore} from '../alerts-worker/src/display-model.js';
 import {normalizeEvent,enrichGame} from '../alerts-worker/src/game-model.js';
 
 const source = fs.readFileSync(new URL('../app.js',import.meta.url),'utf8').replace(/\r\n/g,'\n');
 const context = vm.createContext({safeText:value => String(value).replaceAll('<','&lt;').replaceAll('"','&quot;')});
-for (const name of ['footballAccessibleSituation','possessionMarkup','footballSituationMarkup','basketballBoxScoreMarkup']) {
+for (const name of ['footballAccessibleSituation','possessionMarkup','footballSituationMarkup','baseballSituationMarkup','basketballBoxScoreMarkup','basesMarkup']) {
   const start = source.indexOf(`function ${name}(`);
   vm.runInContext(source.slice(start,source.indexOf('\n}',start)+2),context);
 }
@@ -47,6 +47,18 @@ test('accepted summary updates situation; missing situation clears possession; o
   update('4:50',{possession:'2'});assert.equal(game.footballSituation.possessionTeamId,'2');
   update('5:00',{possession:'1'});assert.equal(game.footballSituation.possessionTeamId,'2');
   update('4:40',undefined);assert.equal(game.footballSituation.possessionTeamId,null);
+});
+
+test('MLB live situation uses explicit bases, outs, and count; missing fields stay hidden',()=>{
+  const teams=[['Baltimore','BAL','4','','','','','','1'],['New York','NYY','3','','','','','','2']];
+  const game=normalizeEvent({id:'mlb1',competitions:[{status:{type:{state:'in'}},competitors:teams.map(team=>({team:{id:team[8],abbreviation:team[1]},score:team[2]})),situation:{onFirst:true,onSecond:false,onThird:true,outs:2,balls:2,strikes:1}}]},'MLB');
+  assert.deepEqual(JSON.parse(JSON.stringify(game.baseballSituation)),{bases:{first:true,second:false,third:true},outs:2,count:'2-1'});
+  const html=context.baseballSituationMarkup(game);
+  assert.match(html,/base first occupied/);assert.match(html,/base third occupied/);assert.match(html,/base second(?! occupied)/);assert.match(html,/2-1/);assert.equal((html.match(/out-dot active/g)||[]).length,2);
+  game.liveRawSituation={balls:1};game.baseballSituation=baseballSituation(game);
+  assert.equal(game.baseballSituation,null);assert.equal(context.baseballSituationMarkup(game),'');
+  game.liveRawSituation={outs:0};game.baseballSituation=baseballSituation(game);
+  assert.match(context.baseballSituationMarkup(game),/baseball-outs/);assert.equal(context.baseballSituationMarkup({...game,state:'completed'}),'');
 });
 
 const summary={boxscore:{players:['Home','Away'].map((displayName,i)=>({team:{id:String(i),displayName},statistics:[{labels:['PTS','MIN','FG','3PT','FT','REB','AST','STL','BLK','TO','PF'],athletes:[
