@@ -7,6 +7,13 @@ const {rateGame,applyLiveSnapshot,recordFor,rankFor,clampScore,underdogCandidate
 const ORIGIN = 'https://mmueller091.github.io';
 const PUSH_HOSTS = ['web.push.apple.com','fcm.googleapis.com','updates.push.services.mozilla.com','push.services.mozilla.com'];
 const JSON_HEADERS = {'Content-Type':'application/json','Cache-Control':'no-store'};
+const AUDIT_LABELS = new Set(['right','high','low']);
+function validAuditDate(value) { return /^\d{4}-\d{2}-\d{2}$/.test(value || '') && new Date(`${value}T00:00:00Z`).toISOString().slice(0,10)===value; }
+function newYorkMidnight(date) {
+  const noon=Date.parse(`${date}T12:00:00Z`);
+  const hour=Number(new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',hour:'2-digit',hourCycle:'h23'}).format(noon));
+  return Date.parse(`${date}T00:00:00Z`)-(hour-12)*3600*1000;
+}
 
 function cors(request) {
   return request.headers.get('Origin') === ORIGIN ? {'Access-Control-Allow-Origin':ORIGIN,'Access-Control-Allow-Headers':'Content-Type, Authorization','Access-Control-Allow-Methods':'GET, PUT, DELETE, POST, OPTIONS','Vary':'Origin'} : {};
@@ -107,6 +114,37 @@ export default {
       const games = String(url.searchParams.get('games') || '').split(',').map(value => value.trim()).filter(Boolean);
       if (games.length > 100 || String(url.searchParams.get('games') || '').length > 6000) return reply(request,{error:'Too many games'},400);
       return reply(request,{contexts:await contextsForGames(env,games)});
+    }
+    if (url.pathname === '/audit' && request.method === 'GET') {
+      const date = url.searchParams.get('date') || new Intl.DateTimeFormat('en-CA',{timeZone:'America/New_York'}).format(new Date());
+      if (!validAuditDate(date)) return reply(request,{error:'Date must be YYYY-MM-DD'},400);
+      const next = new Date(Date.parse(`${date}T12:00:00Z`)+86400000).toISOString().slice(0,10);
+      const start = newYorkMidnight(date)/1000, end = newYorkMidnight(next)/1000;
+      const rows = (await env.DB.prepare(`SELECT s.*,l.label FROM sports_snapshots s LEFT JOIN scoring_audit_labels l ON l.game_key=s.game_key
+        WHERE s.observed_at>=? AND s.observed_at<? ORDER BY s.game_key,s.observed_at`).bind(start,end).all()).results || [];
+      const groups = new Map();
+      for (const row of rows) { if (!groups.has(row.game_key)) groups.set(row.game_key,[]); groups.get(row.game_key).push(row); }
+      const games = [];
+      for (const [key,snapshots] of groups) {
+        const final = [...snapshots].reverse().find(row=>row.state==='completed');
+        if (!final) continue;
+        const state = JSON.parse(final.normalized_state);
+        const first = snapshots[0], teams = state.teams || [];
+        games.push({key,sport:final.sport,game:(teams.map(team=>team[0]).join(' vs ') || key),scoreA:final.score_a,scoreB:final.score_b,
+          pregameRating:snapshots.find(row=>row.state==='upcoming')?.rating ?? state.pregameRating ?? null,peakLiveRating:Math.max(...snapshots.filter(row=>row.state==='live').map(row=>row.rating),0),
+          finalRating:final.rating,modelVersion:final.model_version || 'legacy',label:final.label || null,
+          snapshots:snapshots.map(row=>({observedAt:row.observed_at,state:row.state,rating:row.rating,scoreA:row.score_a,scoreB:row.score_b,modelVersion:row.model_version || 'legacy',factors:JSON.parse(row.normalized_state).factors || []}))});
+      }
+      return reply(request,{date,games});
+    }
+    const auditLabel = /^\/audit\/([^/]{1,120})\/label$/.exec(url.pathname);
+    if (auditLabel && request.method === 'PUT') {
+      let body; try { body = await request.json(); } catch { return reply(request,{error:'Invalid JSON'},400); }
+      if (!AUDIT_LABELS.has(body?.label) || !validAuditDate(body?.date)) return reply(request,{error:'Invalid date or label'},400);
+      await env.DB.prepare(`INSERT INTO scoring_audit_labels (game_key,game_date,label,updated_at) VALUES (?,?,?,?)
+        ON CONFLICT(game_key) DO UPDATE SET game_date=excluded.game_date,label=excluded.label,updated_at=excluded.updated_at`)
+        .bind(decodeURIComponent(auditLabel[1]),body.date,body.label,Math.floor(Date.now()/1000)).run();
+      return reply(request,{ok:true,label:body.label});
     }
     if (url.pathname === '/admin/research' && request.method === 'POST') {
       const bearer = token(request);

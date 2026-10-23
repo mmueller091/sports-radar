@@ -5,6 +5,7 @@ import {contextsForGames} from './storylines.js';
 
 const STALE_MS = 120000;
 const RETENTION_MS = 30 * 86400000;
+export const MODEL_VERSION = '2026-10-23.1';
 
 export function withFreshness(feed,now=Date.now()) {
   if (!feed) return null;
@@ -165,9 +166,10 @@ export async function refreshSportsData(env,now=Date.now()) {
       if (scoreboardStates.has(game)) game.scoreboard = scoreboardStates.get(game);
     });
     const feed = {version:1,updatedAt:new Date(now).toISOString(),source:'ESPN',sourceErrors:errors,games};
-    const writes = games.filter(game=>game.state==='live').map(game=>env.DB.prepare(`INSERT OR IGNORE INTO sports_snapshots
-      (game_key,observed_at,sport,state,rating,score_a,score_b,phase,clock,normalized_state) VALUES (?,?,?,?,?,?,?,?,?,?)`)
-      .bind(`${game.sport}:${game.id}`,Math.floor(now/60000)*60000,game.sport,game.state,game.score,String(game.teams[0][2]),String(game.teams[1][2]),String(game.liveRawStatus?.period ?? ''),String(game.liveRawStatus?.displayClock || ''),JSON.stringify({...game,scoreboard:undefined})));
+    const priorPregame = new Set(((await env.DB.prepare("SELECT DISTINCT game_key FROM sports_snapshots WHERE state='upcoming' AND observed_at>? ").bind(Math.floor(now/1000)-RETENTION_MS/1000).all()).results || []).map(row=>row.game_key));
+    const writes = games.filter(game=>game.state==='live' || game.state==='completed' || (game.state==='upcoming' && !priorPregame.has(`${game.sport}:${game.id}`))).map(game=>env.DB.prepare(`INSERT OR IGNORE INTO sports_snapshots
+      (game_key,observed_at,sport,state,rating,score_a,score_b,phase,clock,normalized_state,model_version) VALUES (?,?,?,?,?,?,?,?,?,?,?)`)
+      .bind(`${game.sport}:${game.id}`,Math.floor(now/60000)*60000,game.sport,game.state,game.score,String(game.teams[0][2]),String(game.teams[1][2]),String(game.liveRawStatus?.period ?? ''),String(game.liveRawStatus?.displayClock || ''),JSON.stringify({...game,scoreboard:undefined}),MODEL_VERSION));
     for (let start=0;start<writes.length;start+=50) await env.DB.batch(writes.slice(start,start+50));
     // Keep individual D1 values small even during full college/NBA/NHL slates.
     const parts=[];

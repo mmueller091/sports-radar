@@ -110,7 +110,7 @@ test('overlapping refreshes acquire one ingestion lease and retention removes ol
   assert.equal(await refreshSportsData(env,now),null);
   release();
   assert.ok(await first);
-  env.db.prepare('INSERT INTO sports_snapshots VALUES (?,?,?,?,?,?,?,?,?,?)').run('NFL:old',0,'NFL','live',50,'0','0','1','','{}');
+  env.db.prepare('INSERT INTO sports_snapshots (game_key,observed_at,sport,state,rating,score_a,score_b,phase,clock,normalized_state) VALUES (?,?,?,?,?,?,?,?,?,?)').run('NFL:old',0,'NFL','live',50,'0','0','1','','{}');
   await refreshSportsData(env,now+60000);
   assert.equal(env.db.prepare('SELECT count(*) AS n FROM sports_snapshots').get().n,0);
 });

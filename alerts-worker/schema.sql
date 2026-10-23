@@ -23,7 +23,14 @@ CREATE TABLE IF NOT EXISTS sports_snapshots (
   phase TEXT NOT NULL,
   clock TEXT NOT NULL,
   normalized_state TEXT NOT NULL,
+  model_version TEXT NOT NULL DEFAULT 'legacy',
   PRIMARY KEY (game_key, observed_at)
+);
+CREATE TABLE IF NOT EXISTS scoring_audit_labels (
+  game_key TEXT PRIMARY KEY,
+  game_date TEXT NOT NULL,
+  label TEXT NOT NULL CHECK (label IN ('right','high','low')),
+  updated_at INTEGER NOT NULL
 );
 CREATE INDEX IF NOT EXISTS sports_snapshots_age ON sports_snapshots(observed_at);
 CREATE TABLE IF NOT EXISTS game_state (
