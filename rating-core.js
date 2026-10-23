@@ -2453,6 +2453,17 @@
           )
         : null;
 
+    const redZoneTouchdowns =
+      redZoneAttempts !== null
+        ? redZones.reduce(
+            (sum,item) =>
+              sum +
+              item.rate *
+              item.attempts,
+            0
+          )
+        : null;
+
     const drives = [
       ...(summary?.drives?.previous || []),
       ...(
@@ -2502,13 +2513,35 @@
     if (
       combinedScore !== null
     ) {
+      const total =
+        [
+          lineFromSummary(
+            summary,
+            sport
+          )?.total,
+          parseLine(
+            competition?.odds?.[0],
+            competition,
+            sport
+          )?.total,
+          parseLine(
+            summary?.odds?.[0],
+            competition,
+            sport
+          )?.total
+        ].find(value =>
+          Number.isFinite(value) &&
+          value > 0
+        );
+
       const expectedLowEnd =
         (
-          sport === 'CFB'
-            ? 28
-            : 22
-        ) *
-        p;
+          total !== undefined
+            ? total
+            : sport === 'CFB'
+              ? 28
+              : 22
+        ) * p;
 
       signals.push({
         label:'very little scoring',
@@ -2571,19 +2604,42 @@
         ) *
         p;
 
+      const fewOpportunities =
+        expected
+          ? clamp01(
+              (
+                expected -
+                redZoneAttempts
+              ) /
+              expected
+            )
+          : 0;
+
+      const failedConversions =
+        redZoneAttempts
+          ? clamp01(
+              (
+                .5 -
+                redZoneTouchdowns /
+                redZoneAttempts
+              ) / .5
+            ) *
+            clamp01(
+              redZoneAttempts / 3
+            )
+          : 0;
+
       signals.push({
-        label:'few scoring opportunities',
+        label:
+          failedConversions > fewOpportunities
+            ? 'poor red-zone touchdown conversion'
+            : 'few scoring opportunities',
         weight:.15,
         value:
-          expected
-            ? clamp01(
-                (
-                  expected -
-                  redZoneAttempts
-                ) /
-                expected
-              )
-            : 0
+          Math.max(
+            fewOpportunities,
+            failedConversions
+          )
       });
     }
 
