@@ -132,7 +132,7 @@ export function scoreFixture(fixture, core, overrides = {events:{}}) {
     game.factors.push(...(momentum.factors || []));
   }
 
-  // Mirror the current app.js final-play bonus so the report can approximate end-to-end UI scoring.
+  // Mirror the Worker's mutually exclusive finish awards, outside momentum.
   let decisiveLastPlay = 0;
   if (state === 'completed') {
     const plays = summary?.scoringPlays?.length ? summary.scoringPlays : (summary?.plays || []).filter(p => p.scoringPlay === true);
@@ -141,6 +141,12 @@ export function scoreFixture(fixture, core, overrides = {events:{}}) {
     if (/(0:00|last second|game[- ]winning)/i.test(text) && /field goal|goal|home run|touchdown/i.test(text)) {
       decisiveLastPlay = 14;
       game.score = core.clampScore(game.score + decisiveLastPlay);
+    } else {
+      const finish = core.defensiveFinishFactor?.(fixture.modelSport,summary);
+      if (finish) {
+        game.factors.push(finish);
+        game.score = core.clampScore(game.score + finish.points);
+      }
     }
   }
 

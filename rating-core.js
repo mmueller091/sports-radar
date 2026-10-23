@@ -2469,9 +2469,8 @@
         moment.away;
     }
 
-    const defensiveFinish = state === 'completed' ? defensiveFinishFactor(sport,summary) : null;
-    const factors = defensiveFinish ? [defensiveFinish] : [];
-    const details = defensiveFinish ? ['a defensive stop ended the final tying or winning opportunity'] : [];
+    const factors = [];
+    const details = [];
     const basketball =
       ['NBA','NCAAB']
         .includes(sport);
@@ -3028,7 +3027,6 @@
 
     if (
       state === 'completed' &&
-      !defensiveFinish &&
       moments.length
     ) {
       const decisive =
@@ -6790,6 +6788,7 @@
     winProbabilitySeries,
     winProbabilityImpact,
     momentumImpact,
+    defensiveFinishFactor,
     underdogCandidate,
     upsetImpact,
     contextCarryWeight,

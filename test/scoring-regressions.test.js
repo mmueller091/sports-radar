@@ -160,7 +160,10 @@ export function defensiveSummary({clock='1:02',period=4,gap=8,text='Pass interce
     homeScore:24+gap,awayScore:24,start:{team:{id:'LSU'},down,yardsToEndzone:yards},end:{team:{id:'MISS'}}
   },{id:'kneel',period:{number:period},clock:{displayValue:'0:30'},text:'Ole Miss kneels',homeScore:24+gap,awayScore:24,start:{team:{id:'MISS'}}}]};
 }
-const defense = summary => core.momentumImpact('CFB',summary,1,'completed');
+const defense = summary => {
+  const finish=core.defensiveFinishFactor('CFB',summary);
+  return {points:finish?.points || 0,factors:finish ? [finish] : []};
+};
 test('LSU-Ole Miss end-zone interception on tying drive earns one +14 defensive finish',()=>{
   const summary=defensiveSummary();const result=defense(summary);
   assert.equal(points(result,'Decisive defensive finish'),14);
@@ -201,7 +204,7 @@ test('scoring finish and defensive finish are mutually exclusive, with unchanged
   assert.ok(defense(summary).points<=25);
   assert.equal(points(core.momentumImpact('CFB',defensiveSummary(),.99,'live'),'Decisive defensive finish'),0);
 });
-test('LSU comeback replay retains finish credit within the existing completed momentum cap',()=>{
+export function cappedDefensiveSummary() {
   const summary=defensiveSummary();
   summary.scoringPlays=[
     {period:{number:1},clock:{displayValue:'4:00'},homeScore:7,awayScore:7,text:'Touchdown'},
@@ -209,9 +212,55 @@ test('LSU comeback replay retains finish credit within the existing completed mo
     {period:{number:4},clock:{displayValue:'7:00'},homeScore:24,awayScore:24,text:'Tying touchdown'},
     {period:{number:4},clock:{displayValue:'4:00'},homeScore:32,awayScore:24,text:'Touchdown and two-point conversion'}
   ];
-  const result=defense(summary);
-  assert.equal(points(result,'Decisive defensive finish'),14);
-  assert.equal(points(result,'Decisive final score'),0);
-  assert.ok(result.points<=25);
-  assert.equal(result.points,result.factors.reduce((sum,item)=>sum+item.points,0));
+  summary.winprobability=[.1,.9,.1,.9,.1,.9,.5,.5,.5,.5].map(homeWinPercentage=>({homeWinPercentage}));
+  return summary;
+}
+function enriched(summary) {
+  const game=normalizeEvent({id:'lsu-ole-miss',name:'LSU at Ole Miss',season:{type:2},competitions:summary.header.competitions},'CFB');
+  enrichGame(game,summary);
+  return game;
+}
+test('LSU end-zone interception adds all +14 after completed momentum reaches +25',()=>{
+  const summary=cappedDefensiveSummary();
+  const noFinish=structuredClone(summary);noFinish.plays=[];
+  const momentum=core.momentumImpact('CFB',summary,1,'completed');
+  assert.equal(momentum.points,25);
+  assert.deepEqual(momentum,core.momentumImpact('CFB',noFinish,1,'completed'));
+  assert.equal(points(momentum,'Decisive defensive finish'),0);
+  const base=enriched(noFinish),finished=enriched(summary);
+  assert.equal(finished.momentumPoints,25);
+  assert.equal(finished.score,base.score+14);
+  assert.equal(points(finished,'Decisive defensive finish'),14);
+  assert.equal(points(finished,'Decisive last play'),0);
+});
+test('scoring and defensive finishes each add +14 beyond identical capped momentum',()=>{
+  const defensive=cappedDefensiveSummary();
+  const scoring=structuredClone(defensive);
+  scoring.plays=[];
+  Object.assign(scoring.scoringPlays.at(-1),{clock:{displayValue:'0:00'},text:'Game-winning touchdown'});
+  const noFinish=structuredClone(defensive);noFinish.plays=[];
+  const base=enriched(noFinish),defended=enriched(defensive),scored=enriched(scoring);
+  assert.equal(base.momentumPoints,25);
+  assert.equal(defended.momentumPoints,25);
+  assert.equal(scored.momentumPoints,25);
+  assert.equal(scored.score,base.score+14);
+  assert.equal(defended.score,base.score+14);
+  assert.equal(points(scored,'Decisive last play'),14);
+  assert.equal(points(scored,'Decisive defensive finish'),0);
+  // Even ambiguous data offering both signals must select only the scoring finish.
+  scoring.plays=defensive.plays;
+  const both=enriched(scoring);
+  assert.equal(both.score,scored.score);
+  assert.equal(points(both,'Decisive last play'),14);
+  assert.equal(points(both,'Decisive defensive finish'),0);
+});
+test('finish awards remain globally clamped to 99',()=>{
+  const summary=cappedDefensiveSummary();
+  const competition=summary.header.competitions[0];
+  competition.notes=[{headline:'National championship'}];
+  competition.status.type.shortDetail='Final/OT';
+  const game=enriched(summary);
+  assert.equal(game.momentumPoints,25);
+  assert.equal(points(game,'Decisive defensive finish'),14);
+  assert.equal(game.score,99);
 });

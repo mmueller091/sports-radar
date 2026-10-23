@@ -1,4 +1,4 @@
-// Normalization and enrichment moved from app.js; rating-core is unchanged.
+// Normalization and enrichment moved from app.js; scoring uses the shared core.
 import '../../rating-core.js';
 const {
   SPORT_BASE,
@@ -713,6 +713,14 @@ function enrichGame(game,summary) {
                 );
 
 
+            } else {
+              // One finishing award after momentum, outside its +25 cap.
+              // Optional lookup keeps the original-core golden replay compatible.
+              const finish = globalThis.SportsRadarScore.defensiveFinishFactor?.(game.sport,summary);
+              if (finish) {
+                game.factors.push(finish);
+                game.score = clampScore(game.score + finish.points);
+              }
             }
 
 }
