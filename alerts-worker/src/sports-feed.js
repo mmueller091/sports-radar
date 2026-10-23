@@ -5,7 +5,17 @@ import {contextsForGames} from './storylines.js';
 
 const STALE_MS = 120000;
 const RETENTION_MS = 30 * 86400000;
+const LIVE_REFRESH_MS = 12000;
+const IDLE_REFRESH_MS = 60000;
 export const MODEL_VERSION = '2026-10-23.1';
+
+export function refreshDue(feed,now=Date.now()) {
+  if (!feed) return true;
+  const updatedAt = Date.parse(feed.updatedAt || '');
+  if (!Number.isFinite(updatedAt)) return true;
+  const live = (feed.games || []).some(game=>game.state==='live');
+  return now-updatedAt >= (live ? LIVE_REFRESH_MS : IDLE_REFRESH_MS);
+}
 
 export function withFreshness(feed,now=Date.now()) {
   if (!feed) return null;
@@ -116,7 +126,7 @@ export async function gameDetails(env,sport,id,now=Date.now()) {
   if (!game) return null;
   const errors = [];
   const url = summaryUrl(game);
-  const summary = await providerJson(env,url,55000,now,errors);
+  const summary = await providerJson(env,url,game.state==='live' ? LIVE_REFRESH_MS : 55000,now,errors);
   const row = await env.DB.prepare('SELECT updated_at FROM sports_resources WHERE key=?').bind(url).first();
   return {...summary,...(['NBA','NCAAB'].includes(sport) ? {basketballBoxScore:basketballBoxScore(summary,sport)} : {}),sportsRadarFreshness:{updatedAt:new Date(row.updated_at).toISOString(),stale:errors.length>0 || now-row.updated_at>STALE_MS}};
 }
@@ -126,13 +136,19 @@ export async function refreshSportsData(env,now=Date.now()) {
   if (!owner) return null;
   try {
     const previous = await readFeed(env,now);
-    if (previous && Math.floor(Date.parse(previous.updatedAt)/60000) === Math.floor(now/60000)) return previous;
+    if (previous && !refreshDue(previous,now)) return previous;
     const errors = [];
     const resources = await refreshReader(env,now);
+    const liveSports = new Set((previous?.games || []).filter(game=>game.state==='live').map(game=>game.sport));
     const readJson = url => {
-      const dates = new URL(url).searchParams.get('dates');
+      const parsed = new URL(url);
+      const dates = parsed.searchParams.get('dates');
       const today = new Intl.DateTimeFormat('en-CA',{timeZone:'America/New_York',year:'numeric',month:'2-digit',day:'2-digit'}).format(now).replaceAll('-','');
-      const ttl = dates?.length === 8 && dates > today ? 900000 : 55000;
+      const path = parsed.pathname;
+      const sport = path.includes('/football/nfl/') ? 'NFL' : path.includes('/baseball/mlb/') ? 'MLB' : path.includes('/hockey/nhl/') ? 'NHL' : path.includes('/football/college-football/') ? 'CFB' : path.includes('/basketball/nba/') ? 'NBA' : path.includes('/basketball/mens-college-basketball/') ? 'NCAAB' : path.includes('/soccer/') ? 'Soccer' : path.includes('/tennis/') ? 'Tennis' : '';
+      const futureSchedule = dates?.length === 8 && dates > today;
+      const liveScoreboard = path.endsWith('/scoreboard') && liveSports.has(sport);
+      const ttl = futureSchedule ? 900000 : liveScoreboard ? LIVE_REFRESH_MS : 55000;
       return resources.read(url,ttl,errors);
     };
     const games = await createCollector(readJson)();
@@ -152,7 +168,7 @@ export async function refreshSportsData(env,now=Date.now()) {
       await Promise.all(candidates.slice(start,start+6).map(async game=>{
         const detailErrors = [];
         try {
-          const summary = await resources.read(summaryUrl(game),55000,detailErrors);
+          const summary = await resources.read(summaryUrl(game),game.state==='live' ? LIVE_REFRESH_MS : 55000,detailErrors);
           enrichGame(game,summary);
           game.detailStale = detailErrors.length > 0;
         } catch { game.detailStale = true; }
@@ -176,7 +192,7 @@ export async function refreshSportsData(env,now=Date.now()) {
     const priorPregame = new Set(((await env.DB.prepare("SELECT DISTINCT game_key FROM sports_snapshots WHERE state='upcoming' AND observed_at>? ").bind(Math.floor(now/1000)-RETENTION_MS/1000).all()).results || []).map(row=>row.game_key));
     const writes = games.filter(game=>game.state==='live' || game.state==='completed' || (game.state==='upcoming' && !priorPregame.has(`${game.sport}:${game.id}`))).map(game=>env.DB.prepare(`INSERT OR IGNORE INTO sports_snapshots
       (game_key,observed_at,sport,state,rating,score_a,score_b,phase,clock,normalized_state,model_version) VALUES (?,?,?,?,?,?,?,?,?,?,?)`)
-      .bind(`${game.sport}:${game.id}`,Math.floor(now/60000)*60000,game.sport,game.state,game.score,String(game.teams[0][2]),String(game.teams[1][2]),String(game.liveRawStatus?.period ?? ''),String(game.liveRawStatus?.displayClock || ''),JSON.stringify({...game,scoreboard:undefined}),MODEL_VERSION));
+      .bind(`${game.sport}:${game.id}`,Math.floor(now/(game.state==='live'?15000:60000))*(game.state==='live'?15000:60000),game.sport,game.state,game.score,String(game.teams[0][2]),String(game.teams[1][2]),String(game.liveRawStatus?.period ?? ''),String(game.liveRawStatus?.displayClock || ''),JSON.stringify({...game,scoreboard:undefined}),MODEL_VERSION));
     for (let start=0;start<writes.length;start+=50) await env.DB.batch(writes.slice(start,start+50));
     // Keep individual D1 values small even during full college/NBA/NHL slates.
     const parts=[];

@@ -486,7 +486,23 @@ function displayLine(game) {
 
 
 
+function liveRefreshDelay(hasLiveGames,isHidden) {
+  return hasLiveGames && !isHidden ? 15000 : 60000;
+}
+
+let liveRefreshTimer = null;
+let liveRefreshInFlight = false;
+let feedHasLiveGames = false;
+
+function scheduleLiveRefresh() {
+  clearTimeout(liveRefreshTimer);
+  liveRefreshTimer = setTimeout(loadLiveGames,liveRefreshDelay(feedHasLiveGames,document.hidden));
+}
+
 async function loadLiveGames() {
+  if (liveRefreshInFlight) return;
+  clearTimeout(liveRefreshTimer);
+  liveRefreshInFlight = true;
   $('#data-status-label').textContent = 'Connecting to live scoreboards…';
   try {
     const endpoint = String(globalThis.SPORTS_RADAR_ALERTS_URL || '').replace(/\/$/,'');
@@ -495,6 +511,7 @@ async function loadLiveGames() {
     const feed = await response.json();
     if (!Array.isArray(feed.games) || !Number.isFinite(Date.parse(feed.updatedAt))) throw new Error('Invalid feed');
     const baseline = feed.games.map(game => ({...(game.scoreboard || game),favorite:favoriteFor(game.teams,game.sport)}));
+    feedHasLiveGames = baseline.some(game => game.state === 'live');
     const selected = new Set(baseline.filter(game => (game.state !== 'upcoming' || !game.line) && !(game.division === 'FCS' && game.state === 'upcoming'))
       .sort((a,b) => Number(isWatched(b))-Number(isWatched(a)) || Number(b.state==='live')-Number(a.state==='live') || Number(b.favorite)-Number(a.favorite) || b.score-a.score)
       .slice(0,60).map(watchKey));
@@ -531,9 +548,12 @@ async function loadLiveGames() {
     games.filter(game => game.state === 'live').forEach(recordRatingSnapshot);
   } catch {
     state.feedStale = true;
+  } finally {
+    liveRefreshInFlight = false;
+    scheduleLiveRefresh();
+    updateDataStatus();
+    render();
   }
-  updateDataStatus();
-  render();
 }
 
 function updateDataStatus() {
@@ -3685,8 +3705,7 @@ renderFavoriteTags();
 renderFavoriteResults();
 render();
 loadLiveGames();
-
-setInterval(
-  loadLiveGames,
-  60000
-);
+document.addEventListener('visibilitychange',() => {
+  if (document.hidden) scheduleLiveRefresh();
+  else loadLiveGames();
+});

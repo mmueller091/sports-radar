@@ -7,11 +7,22 @@ import {normalizeEvent,enrichGame} from '../alerts-worker/src/game-model.js';
 
 const source = fs.readFileSync(new URL('../app.js',import.meta.url),'utf8').replace(/\r\n/g,'\n');
 const context = vm.createContext({safeText:value => String(value).replaceAll('<','&lt;').replaceAll('"','&quot;')});
-for (const name of ['footballAccessibleSituation','possessionMarkup','footballSituationMarkup','baseballSituationMarkup','basketballBoxScoreMarkup','basesMarkup']) {
+for (const name of ['liveRefreshDelay','footballAccessibleSituation','possessionMarkup','footballSituationMarkup','baseballSituationMarkup','basketballBoxScoreMarkup','basesMarkup']) {
   const start = source.indexOf(`function ${name}(`);
   vm.runInContext(source.slice(start,source.indexOf('\n}',start)+2),context);
 }
 const teams = [['Baltimore','BAL','24','','','','','','1'],['Denver','DEN','21','','','','','','2']];
+
+test('adaptive browser polling is fast only for visible live feeds',()=>{
+  assert.equal(context.liveRefreshDelay(true,false),15000);
+  assert.equal(context.liveRefreshDelay(true,true),60000);
+  assert.equal(context.liveRefreshDelay(false,false),60000);
+  assert.equal(context.liveRefreshDelay(false,true),60000);
+  assert.match(source,/if \(liveRefreshInFlight\) return/);
+  assert.match(source,/document\.addEventListener\('visibilitychange'/);
+  assert.doesNotMatch(source,/setInterval\s*\(\s*loadLiveGames/);
+});
+
 for (const sport of ['NFL','CFB']) {
   test(`${sport}: possession, punt/turnover changes, missing state and field position`,() => {
     const game={sport,state:'live',teams,liveRawSituation:{possession:'1',down:3,distance:4,possessionText:'DEN 38'}};

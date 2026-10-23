@@ -5,7 +5,7 @@ import fs from 'node:fs';
 import {gunzipSync} from 'node:zlib';
 import vm from 'node:vm';
 import worker,{checkGames} from '../src/index.js';
-import {refreshSportsData,readFeed,gameDetails} from '../src/sports-feed.js';
+import {refreshSportsData,readFeed,gameDetails,refreshDue} from '../src/sports-feed.js';
 import {normalizeEvent,enrichGame} from '../src/game-model.js';
 import {baseballSituation,footballSituation} from '../src/display-model.js';
 
@@ -28,6 +28,16 @@ const event = {id:'42',name:'Away at Home',date:'2026-10-22T20:00:00Z',competiti
   competitors:[{team:{id:'1',displayName:'Home',abbreviation:'HME'},score:'24'},{team:{id:'2',displayName:'Away',abbreviation:'AWY'},score:'23'}]
 }]};
 const summary = {header:{competitions:event.competitions},boxscore:{teams:[],players:[]},plays:[],scoringPlays:[],winprobability:[]};
+
+test('refresh cadence is 12 seconds for live feeds and 60 seconds otherwise',()=>{
+  const live={updatedAt:new Date(100000).toISOString(),games:[{state:'live'}]};
+  const idle={updatedAt:new Date(100000).toISOString(),games:[{state:'upcoming'}]};
+  assert.equal(refreshDue(null,100000),true);
+  assert.equal(refreshDue(live,111999),false);
+  assert.equal(refreshDue(live,112000),true);
+  assert.equal(refreshDue(idle,159999),false);
+  assert.equal(refreshDue(idle,160000),true);
+});
 
 test('basketball detail API adds normalized players using the existing cached summary',async t=>{
   const env=database();
@@ -73,31 +83,43 @@ test('central refresh, API, shared alerts, history, failures and CORS',async t=>
   assert.equal(JSON.parse(snapshot.normalized_state).teams[1][2],'23');
   await refreshSportsData(env,now+1);
   assert.equal(env.db.prepare('SELECT count(*) AS n FROM sports_snapshots').get().n,1);
+  const callsBeforeLiveRefresh=calls.length;
+  const refreshed=await refreshSportsData(env,now+15000);
+  assert.equal(refreshed.updatedAt,new Date(now+15000).toISOString());
+  assert.ok(calls.length>callsBeforeLiveRefresh,'live ESPN scoreboard and summary caches expire in time for the demand refresh');
+  assert.equal(env.db.prepare('SELECT count(*) AS n FROM sports_snapshots').get().n,2);
+  const snapshotTimes=env.db.prepare('SELECT observed_at FROM sports_snapshots ORDER BY observed_at').all().map(row=>row.observed_at);
+  assert.equal(snapshotTimes[1]-snapshotTimes[0],15000,'live audit observations retain 15-second resolution');
   const before=calls.length;
+  env.db.prepare('UPDATE sports_feed SET payload=? WHERE id=1').run(JSON.stringify({...refreshed,games:undefined,revision:undefined,parts:undefined,updatedAt:new Date(Date.now()-13000).toISOString(),games:refreshed.games}));
+  env.db.prepare('UPDATE sports_resources SET updated_at=?').run(Date.now()-60000);
   const response=await worker.fetch(new Request('https://test/feed',{headers:{Origin:'https://mmueller091.github.io'}}),env);
   assert.equal(response.status,200);
   assert.equal(response.headers.get('Access-Control-Allow-Origin'),'https://mmueller091.github.io');
-  assert.equal((await response.json()).games[0].id,'42');
+  const demandFeed=await response.json();
+  assert.equal(demandFeed.games[0].id,'42');
+  assert.ok(calls.length>before,'a stale live /feed request performs a demand refresh');
+  const afterDemandRefresh=calls.length;
   await Promise.all(Array.from({length:100},()=>readFeed(env)));
-  assert.equal(calls.length,before,'public feed reads never fetch ESPN');
+  assert.equal(calls.length,afterDemandRefresh,'fresh public feed reads reuse the stored data');
   const detail=await worker.fetch(new Request('https://test/game/NFL/42'),env);
   assert.equal(detail.status,200);
   const details=await detail.json();
   assert.deepEqual(details.header,summary.header);
   assert.deepEqual(details.boxscore,summary.boxscore);
   assert.ok(details.sportsRadarFreshness.updatedAt);
-  assert.equal(calls.length,before,'detail reuses ingestion cache');
+  assert.equal(calls.length,afterDemandRefresh,'detail reuses ingestion cache');
   assert.equal(await gameDetails(env,'NFL','unknown'),null);
   assert.equal((await worker.fetch(new Request('https://test/feed',{headers:{Origin:'https://evil.example'}}),env)).status,403);
   assert.deepEqual(await (await worker.fetch(new Request('https://test/contexts?games=NFL:42'),env)).json(),{contexts:{}});
   env.db.prepare('INSERT INTO subscriptions VALUES (?,?,?,?,?,?)').run('device','https://example.test','key','auth',99,now);
   await checkGames(env,feed);
   assert.equal(env.db.prepare('SELECT score FROM game_state WHERE game_key=?').get('NFL:42').score,feed.games[0].score);
-  assert.equal(calls.length,before,'alert evaluation does not acquire sports data');
+  assert.equal(calls.length,afterDemandRefresh,'alert evaluation does not acquire sports data');
   globalThis.fetch=async()=>{throw new Error('ESPN unavailable');};
   assert.equal(await refreshSportsData(env,now+180000),null);
   const stale=await readFeed(env,now+180000);
-  assert.equal(stale.updatedAt,feed.updatedAt);
+  assert.equal(stale.updatedAt,demandFeed.updatedAt);
   assert.equal(stale.freshness.stale,true);
   assert.deepEqual(stale.games,JSON.parse(JSON.stringify(feed.games)));
 });

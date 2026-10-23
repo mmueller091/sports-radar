@@ -1,7 +1,7 @@
 import {buildPushPayload} from '@block65/webcrypto-web-push';
 import '../../rating-core.js';
 import {contextsForGames,refreshStorylines} from './storylines.js';
-import {readFeed,withFreshness,gameDetails,refreshSportsData} from './sports-feed.js';
+import {readFeed,withFreshness,gameDetails,refreshDue,refreshSportsData} from './sports-feed.js';
 
 const {rateGame,applyLiveSnapshot,recordFor,rankFor,clampScore,underdogCandidate,upsetImpact,gameProgress,momentumImpact} = globalThis.SportsRadarScore;
 const ORIGIN = 'https://mmueller091.github.io';
@@ -87,13 +87,9 @@ export default {
     if (request.headers.get('Origin') && request.headers.get('Origin') !== ORIGIN) return reply(request,{error:'Origin not allowed'},403);
     if (url.pathname === '/feed' && request.method === 'GET') {
       try {
-        const cache = globalThis.caches?.default;
-        const key = new Request(`${url.origin}/feed`);
-        const cached = await cache?.match(key);
-        const feed = cached ? withFreshness(await cached.json()) : await readFeed(env);
-        if (feed && !cached && cache) {
-          const write = cache.put(key,new Response(JSON.stringify(feed),{headers:{'Content-Type':'application/json','Cache-Control':'public, max-age=15'}}));
-          if (ctx) ctx.waitUntil(write); else await write;
+        let feed = await readFeed(env);
+        if (refreshDue(feed)) {
+          feed = await refreshSportsData(env) || await readFeed(env);
         }
         return reply(request,feed || {error:'Feed is warming up'},feed ? 200 : 503);
       } catch { return reply(request,{error:'Feed temporarily unavailable'},503); }
