@@ -168,7 +168,7 @@ export async function refreshSportsData(env,now=Date.now()) {
         const detailErrors = [];
         try {
           const summary = await resources.read(summaryUrl(game),game.state==='live' ? LIVE_REFRESH_MS : 55000,detailErrors);
-          enrichGame(game,summary);
+          enrichGame(game,summary,priorGames.get(`${game.sport}:${game.id}`));
           game.detailStale = detailErrors.length > 0;
         } catch { game.detailStale = true; }
         errors.push(...detailErrors);

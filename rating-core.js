@@ -4039,7 +4039,8 @@
 
     const spreadMinimum = ({
       NFL:7,
-      CFB:10,
+      // Ramp CFB impact through ten instead of creating a +9.5/+10 cliff.
+      CFB:7,
       NBA:8,
       NCAAB:8
     })[sport];
@@ -4187,6 +4188,11 @@
           )
         ),
 
+      activation:
+        sport === 'CFB' && type === 'spread'
+          ? Math.min(1,Math.max(0,(value - 7) / 3))
+          : 1,
+
       description:
         type === 'spread'
           ? `${value}-point underdog`
@@ -4263,20 +4269,25 @@
       score -
       other;
 
+    const activation = Number.isFinite(candidate.activation)
+      ? candidate.activation
+      : 1;
+    const scaled = points => Math.round(points * activation);
+
     if (
       gameState === 'completed'
     ) {
       return margin > 0
         ? {
             points:
-              Math.min(
+              scaled(Math.min(
                 22,
                 18 +
                 Math.round(
                   4 *
                   candidate.strength
                 )
-              ),
+              )),
 
             text:
               `${candidate.teamName} won outright after entering as a ${candidate.description}`
@@ -4293,7 +4304,7 @@
     ) {
       return {
         points:
-          Math.min(
+          scaled(Math.min(
             18,
             7 +
             Math.round(
@@ -4304,7 +4315,7 @@
               4 *
               candidate.strength
             )
-          ),
+          )),
 
         text:
           `${candidate.teamName}, a ${candidate.description}, leads ${score}–${other}`
@@ -4317,7 +4328,7 @@
     ) {
       return {
         points:
-          Math.min(
+          scaled(Math.min(
             12,
             4 +
             Math.round(
@@ -4328,7 +4339,7 @@
               2 *
               candidate.strength
             )
-          ),
+          )),
 
         text:
           `${candidate.teamName}, a ${candidate.description}, is tied ${score}–${other} late`
@@ -5662,17 +5673,29 @@
     const competitive =
       scoreGap <= 14;
 
+    const holderIndex = holder ? game.teams.indexOf(holder) : -1;
+    const holderScore = Number(game.teams?.[holderIndex]?.[2]);
+    const opponentScore = Number(game.teams?.[1-holderIndex]?.[2]);
+    // A goal-line possession matters most when it can tie or change the lead.
+    const offenseTrailingOrTied = holderIndex >= 0 && Number.isFinite(holderScore) && Number.isFinite(opponentScore) && holderScore <= opponentScore;
+    const offenseCanTieOrLead = offenseTrailingOrTied && holderScore + 7 >= opponentScore;
+
     let points = 0;
     const reasons = [];
 
     if (redZone) {
-      points +=
-        lateOneScore
-          ? 4
-          : 2;
+      const goalLine = goalToGo && fieldPosition !== null && fieldPosition >= 95;
+      const redZonePoints = offenseCanTieOrLead
+        ? (goalLine ? 5 : lateOneScore ? 4 : 3)
+        : offenseTrailingOrTied
+          ? (goalLine ? 3 : 2)
+          : 0;
+      points += redZonePoints;
 
-      reasons.push(
-        `${holder?.[0] || 'The offense'} is in the red zone`
+      if (redZonePoints) reasons.push(
+        goalLine
+          ? `${holder?.[0] || 'The offense'} is goal-to-go at the doorstep`
+          : `${holder?.[0] || 'The offense'} is in the red zone`
       );
     }
 
@@ -5748,7 +5771,8 @@
       !redZone &&
       fieldPosition !== null &&
       fieldPosition >= 80 &&
-      scoreGap <= 8
+      scoreGap <= 8 &&
+      offenseTrailingOrTied
     ) {
       points += 2;
 
@@ -7443,17 +7467,17 @@
         context?.competition?.situation
     };
 
-    const candidate =
-      competition ||
-      summary?.header
-        ?.competitions?.[0] ||
-      previous;
+    // The scoreboard is the live authority.  A summary may enrich it, but it
+    // must never become the source of score, clock, possession, or situation.
+    const candidate = competition || previous;
+    const summaryCandidate = summary?.header?.competitions?.[0];
+    const validationCandidate = summaryCandidate || candidate;
 
     const type =
-      candidate.status?.type;
+      validationCandidate.status?.type;
 
     const competitors =
-      candidate.competitors ||
+      validationCandidate.competitors ||
       [];
 
     const matched =
@@ -7495,21 +7519,42 @@
         !team
       );
 
+    // A summary at the same nominal clock can still be one scoring play
+    // behind. Its win probability then describes a different game state.
+    const summaryScoreConflict = Boolean(summaryCandidate && candidate.competitors) &&
+      game.teams.some(team => {
+        const id = String(team[8] || team.id || '');
+        const find = items => items.find(item => id
+          ? String(item.team?.id || item.athlete?.id || item.id || '') === id
+          : (item.team?.displayName || item.athlete?.displayName) === team[0]);
+        const fromSummary = find(summaryCandidate.competitors || []);
+        const fromScoreboard = find(candidate.competitors || []);
+        return Number.isFinite(Number(fromSummary?.score)) &&
+          Number.isFinite(Number(fromScoreboard?.score)) &&
+          Number(fromSummary.score) !== Number(fromScoreboard.score);
+      });
+
     const older =
       previous.status?.period &&
-      candidate.status?.period &&
+      validationCandidate.status?.period &&
       gameProgress(
         game.sport,
-        candidate
+        validationCandidate
       ) <
       gameProgress(
         game.sport,
         previous
       );
 
+    const lastAccepted = game.summaryState;
+    const summaryRegressed = Boolean(summaryCandidate && lastAccepted?.status) &&
+      gameProgress(game.sport,summaryCandidate) < gameProgress(game.sport,lastAccepted);
+
     const rejected =
       wrongTeams ||
+      summaryScoreConflict ||
       older ||
+      summaryRegressed ||
       type?.completed === true ||
       (
         type?.state &&
@@ -7517,6 +7562,16 @@
       );
 
     game.lastSummaryAccepted = Boolean(summary) && !rejected;
+
+    if (game.lastSummaryAccepted && summaryCandidate) {
+      game.summaryState = {
+        status:summaryCandidate.status,
+        competitors:(summaryCandidate.competitors || []).map(team => ({
+          team:{id:team.team?.id || team.athlete?.id || team.id || ''},
+          score:team.score
+        }))
+      };
+    }
 
     const current =
       rejected
@@ -7548,7 +7603,18 @@
         )
       )
     ) {
-      matched.forEach(
+      // Scores always come from the scoreboard candidate, never the summary.
+      const scoreboardCompetitors = candidate.competitors || [];
+      const scoreboardMatched = candidate === validationCandidate
+        ? matched
+        : game.teams.map(team => {
+            const id = String(team[8] || team.id || '');
+            if (id) return scoreboardCompetitors.find(item => String(item.team?.id || item.athlete?.id || item.id || '') === id);
+            const names = scoreboardCompetitors.filter(item => (item.team?.displayName || item.athlete?.displayName) === team[0]);
+            return names.length === 1 ? names[0] : undefined;
+          });
+      if (scoreboardMatched.some(team => !team)) return {competition:current,summary:rejected ? null : summary};
+      scoreboardMatched.forEach(
         (team,index) => {
           game.teams[index][2] =
             String(team.score);

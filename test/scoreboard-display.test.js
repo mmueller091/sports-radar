@@ -62,7 +62,12 @@ for (const sport of ['NFL','CFB']) {
 test('accepted summary updates situation; missing situation clears possession; older summary cannot rewind it',()=>{
   const comp={status:{period:4,displayClock:'5:00',type:{state:'in'}},competitors:teams.map(t=>({team:{id:t[8],abbreviation:t[1]},score:t[2]})),situation:{possession:'1',down:3,distance:4,possessionText:'DEN 38'}};
   const game=normalizeEvent({id:'1',competitions:[comp]},'NFL');
-  const update=(clock,situation)=>enrichGame(game,{header:{competitions:[{...comp,status:{...comp.status,displayClock:clock},situation}]}});
+  const update=(clock,situation)=>{
+    comp.status={...comp.status,displayClock:clock};
+    if (situation === undefined) delete comp.situation;
+    else comp.situation=situation;
+    enrichGame(game,{header:{competitions:[{...comp,status:{...comp.status},situation}]}});
+  };
   update('4:50',{possession:'2'});assert.equal(game.footballSituation.possessionTeamId,'2');
   update('5:00',{possession:'1'});assert.equal(game.footballSituation.possessionTeamId,'2');
   update('4:40',undefined);assert.equal(game.footballSituation.possessionTeamId,null);

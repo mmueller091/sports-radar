@@ -546,7 +546,8 @@ function summarySpecificWhy(game,summary) {
   };
 }
 
-function enrichGame(game,summary) {
+function enrichGame(game,summary,previousGame=null) {
+            if (previousGame?.summaryState) game.summaryState = previousGame.summaryState;
             const summaryCompetition = summary?.header?.competitions?.[0];
             const driveEnd = ['NFL','CFB'].includes(game.sport) ? summary?.drives?.current?.plays?.at(-1)?.end : null;
             const normalizedCompetition = summaryCompetition && driveEnd
@@ -557,7 +558,9 @@ function enrichGame(game,summary) {
             ) {
               applyLiveSnapshot(
                 game,
-                normalizedCompetition,
+                // The freshly-normalized event is the scoreboard authority.
+                // Summary data may only enrich it after chronology validation.
+                game.sourceCompetition || normalizedCompetition,
                 summary
               );
 
@@ -566,7 +569,22 @@ function enrichGame(game,summary) {
 
             const acceptedSummary = game.state === 'live' && (!game.lastSummaryAccepted || !summaryCompetition?.status) ? null : summary;
             if (game.state === 'live' && !acceptedSummary) {
-              if (!game.sourceCompetition?.situation) game.liveRawSituation = {};
+              // Preserve only verified historical enrichment for a short,
+              // compatible scoreboard advance. Situation is always rebuilt
+              // from the current scoreboard above.
+              const priorLive = previousGame?.live;
+              const priorProgress = previousGame?.summaryState?.status
+                ? gameProgress(game.sport,{status:previousGame.summaryState.status})
+                : null;
+              const currentProgress = gameProgress(game.sport,{status:game.liveRawStatus});
+              const sameScores = previousGame?.teams?.every((team,index) => String(team[2]) === String(game.teams[index]?.[2]));
+              if (priorLive && sameScores && priorProgress !== null && currentProgress >= priorProgress && currentProgress - priorProgress <= .04) {
+                const historic = Number(previousGame.score) - Number(previousGame.baseScore) - Number(priorLive.components?.situation || 0);
+                if (Number.isFinite(historic) && historic > 0) {
+                  game.score = clampScore(game.score + Math.floor(historic * .9));
+                  game.staleEnrichment = true;
+                }
+              }
               if (['NFL','CFB'].includes(game.sport)) game.footballSituation = footballSituation(game);
               if (game.sport === 'MLB') game.baseballSituation = baseballSituation(game);
               return;

@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {loadCore} from '../calibration/helpers.mjs';
+import {normalizeEvent,enrichGame} from '../alerts-worker/src/game-model.js';
 
 const core = await loadCore();
 
@@ -199,4 +200,57 @@ test('a summary for different teams cannot replace the scoreboard state',() => {
   core.applyLiveSnapshot(game,unrelated,summary(unrelated,.99));
   assert.deepEqual(game.teams.map(team => team[2]),['104','105']);
   assert.equal(game.live.winProbability,null);
+});
+
+test('a lagging summary retains compatible verified enrichment without rewinding the scoreboard',() => {
+  const eventFor = (clock='5:18') => ({id:'summary-lag',competitions:[{
+    ...competition(16,14,clock,2),
+    situation:{possession:'h',down:2,distance:1,isGoalToGo:true,isRedZone:true,possessionText:'AWY 1'}
+  }]});
+  const first = normalizeEvent(eventFor(),'CFB');
+  const fresh = summary(eventFor().competitions[0],.82,[{id:'p',homeScore:16,awayScore:14,period:{number:2},clock:{displayValue:'5:18'}}]);
+  fresh.winprobability[0].playId = 'p';
+  enrichGame(first,fresh);
+  const enriched = first.score;
+
+  const advancedEvent = eventFor('5:05');
+  const middle = normalizeEvent(advancedEvent,'CFB');
+  enrichGame(middle,fresh,first);
+  assert.deepEqual(middle.teams.map(team => team[2]),['14','16']);
+  assert.match(middle.status,/5:05/);
+  assert.ok(middle.score >= enriched - 8,`stale refresh collapsed ${enriched} to ${middle.score}`);
+  assert.equal(middle.staleEnrichment,true);
+
+  const caughtUp = normalizeEvent(advancedEvent,'CFB');
+  const current = summary(advancedEvent.competitions[0],.82,[{id:'p2',homeScore:16,awayScore:14,period:{number:2},clock:{displayValue:'5:05'}}]);
+  current.winprobability[0].playId = 'p2';
+  enrichGame(caughtUp,current,middle);
+  assert.ok(Math.abs(caughtUp.score - middle.score) <= 10);
+  assert.equal(caughtUp.staleEnrichment,undefined);
+});
+
+test('a genuine score change is not protected by stale-enrichment carryover',() => {
+  const eventFor = (home,away,clock) => ({id:'real-score-change',competitions:[competition(home,away,clock,4)]});
+  const first = normalizeEvent(eventFor(24,24,'2:00'),'NFL');
+  enrichGame(first,summary(eventFor(24,24,'2:00').competitions[0],.8));
+  const changed = normalizeEvent(eventFor(24,42,'1:45'),'NFL');
+  enrichGame(changed,summary(eventFor(24,24,'2:00').competitions[0],.8),first);
+  assert.deepEqual(changed.teams.map(team => team[2]),['42','24']);
+  assert.equal(changed.staleEnrichment,undefined);
+  assert.ok(changed.score < first.score - 8);
+});
+
+test('football goal-line leverage is directional and CFB underdogs transition continuously through +10',() => {
+  const game = {sport:'CFB',teams:[['FAU','FAU','16','','','','','','h'],['Rice','RICE','14','','','','','','a']]};
+  const leadingFavorite = core.footballSituationImpact(game,{}, {period:2,displayClock:'5:18'}, {possession:'h',down:2,distance:1,isGoalToGo:true,isRedZone:true,possessionText:'RICE 1'},.37,2);
+  const trailing = core.footballSituationImpact({...game,teams:[['FAU','FAU','14','','','','','','h'],['Rice','RICE','16','','','','','','a']]},{}, {period:2,displayClock:'5:18'}, {possession:'h',down:2,distance:1,isGoalToGo:true,isRedZone:true,possessionText:'RICE 1'},.37,2);
+  assert.equal(leadingFavorite.points,0);
+  assert.ok(trailing.points >= 5);
+  const comp = {competitors:[{homeAway:'home',team:{id:'h'}},{homeAway:'away',team:{id:'a'}}]};
+  const odds = line => ({pointSpread:{home:{close:{line:`-${line}`}},away:{close:{line:`+${line}`}}}});
+  const at95 = core.underdogCandidate('CFB',comp,odds(9.5));
+  const at10 = core.underdogCandidate('CFB',comp,odds(10));
+  assert.ok(at95.activation > 0 && at95.activation < at10.activation);
+  const teams = [{id:'h',score:'14'},{id:'a',score:'21'}];
+  assert.ok(core.upsetImpact(at10,teams,'live',.6).points - core.upsetImpact(at95,teams,'live',.6).points <= 3);
 });
