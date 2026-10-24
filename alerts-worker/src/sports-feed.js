@@ -184,7 +184,10 @@ export async function refreshSportsData(env,now=Date.now()) {
         // The browser deliberately renders this pre-enrichment snapshot to keep
         // rating inputs stable; carry refreshed additive situation fields over.
         if (['NFL','CFB'].includes(game.sport)) scoreboard.footballSituation = game.footballSituation || null;
-        if (game.sport === 'MLB') scoreboard.baseballSituation = game.baseballSituation || null;
+        if (game.sport === 'MLB') {
+          scoreboard.baseballSituation = game.baseballSituation || scoreboard.baseballSituation || null;
+          game.baseballSituation = scoreboard.baseballSituation;
+        }
         game.scoreboard = scoreboard;
       }
     });
