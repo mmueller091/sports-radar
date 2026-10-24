@@ -54,6 +54,14 @@ test('soccer elapsed and stoppage clocks preserve chronology',()=>{
   assert.equal(first.live.components.situation,3);
 });
 
+test('NHL display clocks count down to elapsed period time',()=>{
+  const at=displayClock=>core.eventPosition('NHL',{status:{period:1,displayClock}});
+  assert.ok(at('19:00') < at('10:00'));
+  assert.ok(at('10:00') < at('1:00'));
+  assert.equal(core.normalizedTime('NHL',{status:{period:1,displayClock:'19:00'}}).elapsedSeconds,60);
+  assert.equal(core.normalizedTime('NHL',{status:{period:1,displayClock:'1:00'}}).elapsedSeconds,1140);
+});
+
 test('older and wrong-team summaries contribute no live momentum or odds',()=>{
   const source=event('NBA','0:12',104,105);
   const original=rated(source);

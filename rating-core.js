@@ -3009,7 +3009,6 @@
                         play.clock?.displayValue ||
                         '',
                       clock:play.clock?.value,
-                      clockMode:sport === 'NHL' ? 'elapsed' : undefined,
                       type:{
                         detail:
                           play.period?.displayValue ||
@@ -7068,7 +7067,7 @@
     const currentProgress = gameProgress(sport,{status});
     const positioned = plays.map((play,index) => {
       const period = Number(play.period?.number || play.period || 0);
-      const position = period ? eventPosition(sport,{status:{period,displayClock:play.clock?.displayValue || '',clock:play.clock?.value,clockMode:sport === 'NHL' ? 'elapsed' : undefined,type:{detail:play.period?.displayValue || ''}}}) : null;
+      const position = period ? eventPosition(sport,{status:{period,displayClock:play.clock?.displayValue || '',clock:play.clock?.value,type:{detail:play.period?.displayValue || ''}}}) : null;
       return {play,index,position};
     }).filter(item => item.position !== null && item.position <= eventPosition(sport,{status}) + .01).sort((a,b) => a.position-b.position || a.index-b.index);
     let points = 0;

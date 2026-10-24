@@ -1876,7 +1876,6 @@ function playPosition(sport,play) {
     period,
     displayClock:play?.clock?.displayValue || '',
     clock:play?.clock?.value,
-    clockMode:sport === 'NHL' ? 'elapsed' : undefined,
     type:{detail:play?.period?.displayValue || play?.inningHalf || ''}
   }});
 }

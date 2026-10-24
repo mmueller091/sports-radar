@@ -313,10 +313,18 @@ test('live event shock rewards major plays briefly and expires after seven plays
     ['NHL','Shorthanded goal',6,'1st Period']
   ]) {
     const period=sport==='MLB'?2:sport==='NHL'?1:sport==='NBA'?4:4;
-    const gameStatus={period,displayClock:'5:00',type:{detail:phase}};
+    const gameStatus={period,displayClock:sport==='NHL'?'15:00':'5:00',type:{detail:phase}};
     const summary={plays:[{period:{number:period,displayValue:phase},clock:{displayValue:sport==='NHL'?'15:00':'5:00'},text}]};
     assert.equal(core.eventShockImpact(sport,summary,gameStatus).points,expected,`${sport}: ${text}`);
   }
+});
+
+test('NHL event shock ages by remaining-clock chronology',()=>{
+  const play={period:{number:1},clock:{displayValue:'19:00'},text:'Shorthanded goal'};
+  const summary={plays:[play]};
+  const recent=core.eventShockImpact('NHL',summary,{period:1,displayClock:'19:30'}).points;
+  const older=core.eventShockImpact('NHL',summary,{period:1,displayClock:'18:30'}).points;
+  assert.ok(recent > older);
 });
 
 test('event shock recognizes intercepted pass return touchdowns without promoting ordinary interceptions',()=>{
