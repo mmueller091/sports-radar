@@ -264,3 +264,21 @@ test('finish awards remain globally clamped to 99',()=>{
   assert.equal(points(game,'Decisive defensive finish'),14);
   assert.equal(game.score,99);
 });
+
+test('live MLB margin closeness widens early and returns to the three-run standard late',()=>{
+  const closeness=(inning,half='Top')=>core.mlbLiveMarginCloseness(2,(inning-1+(half==='Bottom'?.75:.25))/9);
+  assert.ok(closeness(2,'Bottom') >= .65 && closeness(2,'Bottom') <= .70);
+  assert.ok(closeness(5) >= .55 && closeness(5) <= .60);
+  assert.ok(closeness(9,'Bottom') >= .30 && closeness(9,'Bottom') <= .37);
+  assert.equal(points(core.stateRating(87,'MLB','completed',2,1),'Final margin'),8);
+});
+
+test('championship MLB context carries explicitly and scales down with margin',()=>{
+  assert.deepEqual([0,.25,.5,.75,.9].map(p=>core.contextCarryWeight(p,'live','MLB',true)),[.58,.5,.4,.3,.24]);
+  assert.equal(core.contextCarryWeight(.25,'live','MLB',false),.30);
+  const close=core.stateRating(87,'MLB','live',2,.2,null,{championship:true});
+  const blowout=core.stateRating(87,'MLB','live',7,.2,null,{championship:true});
+  assert.ok(close.score >= 65 && close.score <= 70,`expected 65-70, got ${close.score}`);
+  assert.ok(blowout.score < close.score-12,`expected blowout to fall substantially: ${close.score} -> ${blowout.score}`);
+  assert.equal(core.stateRating(87,'MLB','completed',2,1,null,{championship:true}).contextWeight,.05);
+});

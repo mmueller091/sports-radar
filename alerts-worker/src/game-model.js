@@ -176,6 +176,7 @@ function normalizeEvent(event, sport, leagueLogo, division) {
     score:rating.score,
     baseScore:rating.score,
     openingScore:rating.openingScore,
+    ...(rating.championshipStakes ? {championshipStakes:true} : {}),
     factors:rating.factors,
     underdog:rating.underdog,
     upsetText:rating.upsetText,
@@ -241,6 +242,8 @@ function applyContextsToGame(game,factors) {
   game.score = rating.score;
   game.baseScore = rating.score;
   game.openingScore = rating.openingScore;
+  if (rating.championshipStakes) game.championshipStakes = true;
+  else delete game.championshipStakes;
   game.factors = rating.factors;
   game.why = rating.reason;
   game.underdog = rating.underdog;

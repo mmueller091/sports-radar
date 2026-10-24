@@ -4315,7 +4315,8 @@
   function contextCarryWeight(
     progress,
     gameState,
-    sport=''
+    sport='',
+    championship=false
   ) {
     if (
       gameState === 'completed'
@@ -4333,7 +4334,9 @@
       );
 
     const anchors =
-      sport === 'NHL'
+      championship && sport === 'MLB'
+        ? [[0,.58],[.25,.50],[.5,.40],[.75,.30],[.9,.24],[1,.22]]
+        : sport === 'NHL'
         ? [
             [0,.40],
             [.25,.34],
@@ -4413,6 +4416,13 @@
     if (goals === 2) return .45;
 
     return 0;
+  }
+
+  function mlbLiveMarginCloseness(gap,progress) {
+    if (gap === null || !Number.isFinite(Number(gap))) return 0;
+    const p = Math.max(0,Math.min(1,Number(progress) || 0));
+    const tolerance = 6.5 - 3.6 * p;
+    return Math.max(0,1 - Number(gap) / tolerance);
   }
 
   /*
@@ -4816,6 +4826,9 @@
             ? nhlLiveMarginCloseness(
                 gap
               )
+            : sport === 'MLB' &&
+              gameState === 'live'
+              ? mlbLiveMarginCloseness(gap,progress)
             : Math.max(
                 0,
                 1 -
@@ -4851,13 +4864,18 @@
       contextCarryWeight(
         progress,
         gameState,
-        sport
+        sport,
+        Boolean(footballContext?.championship)
       );
 
+    const retainedContextWeight =
+      sport === 'MLB' && gameState === 'live' && footballContext?.championship
+        ? contextWeight * (.75 + .25 * marginClose)
+        : contextWeight;
     const contextPoints =
       Math.round(
         openingScore *
-        contextWeight
+        retainedContextWeight
       );
 
     /*
@@ -5002,6 +5020,7 @@
       closePoints,
       widePenalty,
       contextWeight,
+      retainedContextWeight,
       uncertainty,
       footballState
     };
@@ -5068,6 +5087,10 @@
             competition
           );
 
+    const championship = sport === 'MLB' && opening.factors.some(item =>
+      /world series|championship|final round|finals|title game/i.test(item.label)
+    );
+
     const stateValue =
       stateRating(
         opening.score,
@@ -5078,7 +5101,8 @@
         null,
         {
           competition,
-          teams
+          teams,
+          championship
         }
       );
 
@@ -5198,6 +5222,7 @@
     ) {
       liveRatingContexts.set(competition.status,{
         openingScore:opening.score,
+        championshipStakes:championship,
         underdog,
         competition
       });
@@ -5209,6 +5234,7 @@
       reason,
       openingScore:
         opening.score,
+      ...(championship ? {championshipStakes:true} : {}),
       underdog,
       upsetText:
         upset.text,
@@ -7346,6 +7372,9 @@
       game.openingScore ??
       context?.openingScore;
 
+    if (game.championshipStakes || context?.championshipStakes) game.championshipStakes = true;
+    else delete game.championshipStakes;
+
     if (
       Number.isFinite(
         openingScore
@@ -7379,7 +7408,8 @@
           null,
           {
             competition:current,
-            teams:game.teams
+            teams:game.teams,
+            championship:game.championshipStakes
           }
         );
 
@@ -7557,6 +7587,7 @@
     upsetImpact,
     contextCarryWeight,
     nhlLiveMarginCloseness,
+    mlbLiveMarginCloseness,
     footballMarginCloseness,
     footballLiveCloseness,
     footballRunwayPenalty,
