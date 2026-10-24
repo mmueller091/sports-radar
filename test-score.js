@@ -239,12 +239,12 @@ const fixtures = `
   assert.match(football.live.note,/BAL ball.*4th & 2 at CIN 12/);
   assert.ok(football.score >= 79);
   const baseball = {sport:'MLB',state:'live',teams:[['Orioles','BAL',3],['Yankees','NYY',3]],baseScore:65};
-  applyLiveSnapshot(baseball,{status:{period:7,type:{detail:'Top 7th'}},situation:{onFirst:true,onSecond:false,onThird:true,outs:2}},null);
+  applyLiveSnapshot(baseball,{status:{period:7,type:{detail:'Top 7th'}},situation:{onFirst:true,onSecond:false,onThird:true,outs:2},competitors:[{homeAway:'away',team:{displayName:'Orioles'},score:'3'},{homeAway:'home',team:{displayName:'Yankees'},score:'3'}]},null);
   assert.equal(baseball.live.phase,'Top 7th');
   assert.equal(baseball.live.bases.third,true);
   assert.equal(baseball.live.note,'2 outs');
   const noHitSummary = {header:{competitions:[{competitors:[{team:{id:'1'},hits:0},{team:{id:'2'},hits:5}]}]},boxscore:{players:[{team:{id:'2'},statistics:[{name:'pitching',labels:['IP','H'],athletes:[{athlete:{displayName:'Ace Pitcher'},stats:['6.0','0']}]}]}]}};
-  applyLiveSnapshot(baseball,{status:{period:7,type:{detail:'Top 7th'}},situation:{onFirst:true,onSecond:false,onThird:true,outs:2}},noHitSummary);
+  applyLiveSnapshot(baseball,{status:{period:7,type:{detail:'Top 7th'}},situation:{onFirst:true,onSecond:false,onThird:true,outs:2},competitors:[{homeAway:'away',team:{displayName:'Orioles'},score:'3'},{homeAway:'home',team:{displayName:'Yankees'},score:'3'}]},noHitSummary);
   assert.match(baseball.live.reasons.join(' '),/Ace Pitcher.*6 hitless innings/);
   assert.ok(baseball.score >= 84);
   const hockey = {sport:'NHL',state:'live',teams:[['Capitals','WSH',2,,,,,,'23'],['Penguins','PIT',2,,,,,,'16']],baseScore:60};

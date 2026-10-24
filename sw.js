@@ -1,4 +1,4 @@
-const CACHE_NAME = 'sports-radar-shell-v35';
+const CACHE_NAME = 'sports-radar-shell-v36';
 const SHELL = ['./', './index.html', './styles.css', './rating-core.js', './alert-config.js', './notifications.js', './app.js', './teams.json', './manifest.webmanifest', './sports-radar-logo.png'];
 self.addEventListener('install', event => { event.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll(SHELL))); self.skipWaiting(); });
 self.addEventListener('activate', event => { event.waitUntil(caches.keys().then(keys => Promise.all(keys.filter(key => key !== CACHE_NAME).map(key => caches.delete(key)))).then(() => self.clients.claim())); });

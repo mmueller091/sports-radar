@@ -1039,6 +1039,29 @@
       /^(?:postseason|playoffs?)$/.test(String(event?.season?.type?.name || '').toLowerCase());
   }
 
+  function playoffSeriesLeverage(sport,competition,detail) {
+    if (!['MLB','NHL','NBA'].includes(sport)) return null;
+    const seriesData = competition?.series || {};
+    const series = String([seriesData.summary,seriesData.title,seriesData.type].filter(Boolean).join(' ')).toLowerCase();
+    if (!isPostseasonGame(sport,{},competition,detail) && !series) return null;
+    const game = Number(detail.match(/\bgame\s*([1-7])\b/)?.[1] || series.match(/\bgame\s*([1-7])\b/)?.[1] || seriesData.gameNumber || 0);
+    const winsMatch = series.match(/\b([0-3])\s*[-–]\s*([0-3])\b/);
+    const structuredWins = [seriesData.homeWins ?? seriesData.homeTeamWins,seriesData.awayWins ?? seriesData.awayTeamWins].map(value=>value == null ? NaN : Number(value));
+    const wins = winsMatch ? [Number(winsMatch[1]),Number(winsMatch[2])] : structuredWins.every(Number.isFinite) ? structuredWins : [];
+    const bestOf = Number(seriesData.bestOf || series.match(/best[- ]of[- ]([357])/i)?.[1] || 7);
+    const clinchWins = Number(seriesData.winsRequired || Math.ceil(bestOf / 2));
+    const winsNeeded = seriesData.winsNeeded;
+    const clinchOpportunity = (Array.isArray(winsNeeded) ? winsNeeded : Object.values(winsNeeded && typeof winsNeeded === 'object' ? winsNeeded : {value:winsNeeded})).some(value=>value !== null && value !== undefined && Number.isFinite(Number(value)) && Number(value) <= 1);
+    const deciding = seriesData.winnerTakeAll === true || game === bestOf || /\bdeciding game\b|\bwinner[- ]take[- ]all\b/.test(detail) ||
+      (wins.length === 2 && wins[0] === wins[1] && wins[0] === clinchWins - 1);
+    const clinchChance = Number(seriesData.clinchChance);
+    const elimination = seriesData.eliminationRisk === true || seriesData.clinchChance === true || Number.isFinite(clinchChance) && clinchChance >= .5 || clinchOpportunity || /\belimination game\b|\bwin or go home\b|\bmust[- ]win\b|\bcan clinch\b|\bclinching (?:game|opportunity|scenario)\b|\bclinches?\b/.test(detail) ||
+      (wins.length === 2 && Math.max(...wins) >= clinchWins - 1);
+    const tiedGameFive = game === 5 && wins.length === 2 && wins[0] === 2 && wins[1] === 2;
+    const points = deciding ? 16 : elimination ? 10 : tiedGameFive ? 5 : ({2:2,3:3,4:4,5:4,6:4}[game] || 0);
+    return points ? {label:deciding ? 'Playoff winner-take-all' : elimination ? 'Playoff elimination / clinch' : 'Playoff series leverage',points} : null;
+  }
+
   function championshipSeriesFactors(sport,competition,detail) {
     const championship =
       (sport === 'MLB' && /\bworld series\b/.test(detail)) ||
@@ -1046,6 +1069,7 @@
       (sport === 'NHL' && /\bstanley cup finals?\b/.test(detail));
     if (!championship) return null;
 
+    const seriesLeverage = playoffSeriesLeverage(sport,competition,detail);
     const game = Number(detail.match(/\bgame\s*([1-7])\b/)?.[1] || 0);
     const series = String(competition?.series?.summary || '').toLowerCase();
     const record = series.match(/\b([0-3])\s*[-–]\s*([0-3])\b/);
@@ -1056,7 +1080,7 @@
       (wins.length === 2 && wins.every(value => value === 3));
     const elimination = /\belimination game\b|\bwin or go home\b|\bmust[- ]win\b|\bcan clinch\b|\bclinching (?:game|opportunity|scenario)\b|\bclinches?\b/.test(detail) ||
       wins.some(value => value === 3);
-    const leverage = deciding ? 16 : elimination ? 10 : ({2:1,3:3,4:5,5:6,6:7}[game] || 0);
+    const leverage = seriesLeverage?.points ?? (deciding ? 16 : elimination ? 10 : ({2:1,3:3,4:5,5:6,6:7}[game] || 0));
     return [
       {label:sport === 'MLB' ? 'World Series' : sport === 'NHL' ? 'Championship' : 'Final round',points:sport === 'MLB' ? 50 : 45},
       ...(leverage ? [{
@@ -1339,6 +1363,11 @@
         'Tennis major';
     }
 
+    if (!championshipSeries) {
+      const seriesLeverage = playoffSeriesLeverage(sport,competition,detail);
+      if (seriesLeverage) factors.push(seriesLeverage);
+    }
+
     if (
       !championshipSeries &&
       factors.length > 1 &&
@@ -1354,11 +1383,12 @@
         ' · Game 1';
     }
 
+    const seriesLeverage = playoffSeriesLeverage(sport,competition,detail);
     const specificStakes = championshipSeries ? [] :
       specificStakesFactors(
         sport,
         detail
-      );
+      ).filter(item => !seriesLeverage || !['Deciding game','Elimination stakes','Clinching opportunity'].includes(item.label));
 
     if (specificStakes.length) {
       factors.push(
@@ -4397,7 +4427,7 @@
     return .06;
   }
 
-  function nhlLiveMarginCloseness(gap) {
+  function nhlLiveMarginCloseness(gap,progress=0,situation={}) {
     if (
       gap === null ||
       !Number.isFinite(Number(gap))
@@ -4413,9 +4443,43 @@
 
     if (goals === 0) return 1;
     if (goals === 1) return .90;
-    if (goals === 2) return .45;
+    if (goals > 2) return 0;
+    const p = Math.max(0,Math.min(1,Number(progress) || 0));
+    const tolerance = 4.4 - 2 * p + (situation.trailingGoaliePulled ? .35 : 0) + (situation.trailingPowerPlay ? .25 : 0);
+    return Math.max(0,1-goals/tolerance);
+  }
 
-    return 0;
+  function basketballLiveCloseness(sport,gap,progress,context={}) {
+    if (!['NBA','NCAAB'].includes(sport) || !Number.isFinite(Number(gap))) return null;
+    const points = Math.max(0,Number(gap));
+    const marginClose = Math.max(0,1-points/24);
+    const status = context.competition?.status || context.status || {};
+    const seconds = clockSeconds(status);
+    if (seconds === null) return {close:marginClose,marginClose,comebackFeasibility:1,expectedPossessions:null,requiredPossessions:Math.ceil(points/3)};
+    const regulationPeriods = sport === 'NCAAB' ? 2 : 4;
+    const periodLength = sport === 'NCAAB' ? 20 : 12;
+    const period = Number(status.period || 0);
+    const remaining = period > regulationPeriods ? seconds : seconds + Math.max(0,regulationPeriods-period) * periodLength * 60;
+    const situation = context.situation || context.competition?.situation || {};
+    const teams = context.teams || [];
+    const scores = teams.map(team=>Number(Array.isArray(team) ? team[2] : team.score));
+    const trailingIndex = scores.length === 2 && scores[0] !== scores[1] ? (scores[0] < scores[1] ? 0 : 1) : -1;
+    const trailingId = trailingIndex >= 0 ? String(Array.isArray(teams[trailingIndex]) ? teams[trailingIndex][8] || '' : teams[trailingIndex].team?.id || teams[trailingIndex].id || '') : '';
+    const possessionId = String(situation.possession?.id || situation.possession || '');
+    let expectedPossessions = remaining / 24 + .5;
+    if (possessionId && trailingId) expectedPossessions += possessionId === trailingId ? .65 : -.65;
+    const timeoutSource = situation.timeoutsRemaining || situation.timeouts || {};
+    const trailingSide = trailingIndex === 0 ? 'home' : 'away';
+    const rawCompetitor = (context.competition?.competitors || []).find(item=>String(item.team?.id || item.id || '')===trailingId);
+    const rawTimeouts = rawCompetitor?.timeoutsRemaining ?? rawCompetitor?.timeouts?.remaining ?? rawCompetitor?.timeouts;
+    const trailingTimeouts = Number(timeoutSource[trailingId] ?? timeoutSource[trailingSide] ?? situation[`${trailingSide}TimeoutsRemaining`] ?? rawTimeouts);
+    if (Number.isFinite(trailingTimeouts)) expectedPossessions += Math.min(2,Math.max(0,trailingTimeouts)) * .4;
+    expectedPossessions = Math.max(0,expectedPossessions);
+    const requiredPossessions = Math.ceil(points/3);
+    const slack = expectedPossessions-requiredPossessions;
+    const comebackFeasibility = requiredPossessions === 0 ? 1 : 1/(1+Math.exp(-2*(slack+.4)));
+    const close = marginClose * (.25 + .75*comebackFeasibility);
+    return {close,marginClose,comebackFeasibility,expectedPossessions,requiredPossessions,slack};
   }
 
   function mlbLiveMarginCloseness(gap,progress) {
@@ -4816,6 +4880,27 @@
           )
         : null;
 
+    const basketballState =
+      ['NBA','NCAAB'].includes(sport) && gameState === 'live'
+        ? basketballLiveCloseness(sport,gap,progress,footballContext || {})
+        : null;
+
+    const hockeyTeams = footballContext?.teams?.[0]?.[0]
+      ? footballContext.teams
+      : (footballContext?.competition?.competitors || []).map(item=>[
+          item.team?.displayName || item.team?.name || '', '', item.score, '', '', '', null, '', String(item.team?.id || item.id || '')
+        ]);
+    const hockeySituation = footballContext?.summary
+      ? hockeyOnIceState(footballContext.summary,hockeyTeams)
+      : null;
+    const hockeyScores = hockeyTeams.map(team=>Number(team[2]));
+    const hockeyTrailingIndex = hockeyScores.length === 2 && hockeyScores[0] !== hockeyScores[1] ? (hockeyScores[0] < hockeyScores[1] ? 0 : 1) : -1;
+    const hockeyTrailingName = hockeyTrailingIndex >= 0 ? String(hockeyTeams[hockeyTrailingIndex][0]).toLowerCase() : '';
+    const hockeyMarginSituation = {
+      trailingGoaliePulled:Boolean(hockeySituation?.pulledGoalieTeam && hockeySituation.pulledGoalieTeam.toLowerCase() === hockeyTrailingName),
+      trailingPowerPlay:Boolean(hockeySituation?.powerPlayTeam && hockeySituation.powerPlayTeam.toLowerCase() === hockeyTrailingName)
+    };
+
     const marginClose =
       gap === null
         ? 0
@@ -4824,8 +4909,12 @@
           : sport === 'NHL' &&
             gameState === 'live'
             ? nhlLiveMarginCloseness(
-                gap
+                gap,
+                progress,
+                hockeyMarginSituation
               )
+            : basketballState
+              ? basketballState.close
             : sport === 'MLB' &&
               gameState === 'live'
               ? mlbLiveMarginCloseness(gap,progress)
@@ -4949,6 +5038,10 @@
               progress,
               footballState
             )
+          : basketballState
+            ? gap !== null && gap >= 4 && basketballState.comebackFeasibility < .45
+              ? Math.min(14,Math.round((.45-basketballState.comebackFeasibility)/.45 * 14 * (.5+.5*progress)))
+              : 0
           : gap !== null &&
             gap >= closeLimit &&
             progress > .3
@@ -4999,7 +5092,7 @@
     if (widePenalty) {
       factors.push({
         label:
-          footballState
+          footballState || basketballState && basketballState.comebackFeasibility < .45
             ? 'Limited comeback runway'
             : 'Wide margin',
         points:-widePenalty
@@ -5022,7 +5115,8 @@
       contextWeight,
       retainedContextWeight,
       uncertainty,
-      footballState
+      footballState,
+      basketballState
     };
   }
 
@@ -5842,6 +5936,8 @@
         ? battingScore -
           fieldingScore
         : null;
+    const countText = String(situation.count || `${situation.balls ?? ''}-${situation.strikes ?? ''}`);
+    const fullCount = /^3-2$/.test(countText.trim());
 
     let points = 0;
     const reasons = [];
@@ -5876,7 +5972,9 @@
         bases.third
       ) &&
       inning >= 7 &&
-      scoreGap <= 2
+      scoreGap <= 2 &&
+      differential !== null &&
+      differential <= 0
     ) {
       points +=
         inning >= 9
@@ -5935,6 +6033,30 @@
       reasons.push(
         'The inning has reached a two-out pressure spot'
       );
+    }
+
+    if (inning >= 7 && scoreGap <= 2 && hasOuts && outs === 2 && fullCount) {
+      points += 3;
+      reasons.push('A full count with two outs raises the plate appearance leverage');
+    }
+
+    if (inning >= 7 && scoreGap <= 2 && differential !== null && differential <= 0) {
+      if (differential === 0) {
+        points += occupied.length ? 3 : 4;
+        reasons.push(occupied.length ? 'The go-ahead run is on base' : 'The go-ahead run is at the plate');
+      } else {
+        const runsToTie = Math.abs(differential);
+        if (occupied.length >= runsToTie) {
+          points += 3;
+          reasons.push('The tying run is on base');
+        } else if (occupied.length + 1 === runsToTie) {
+          points += 4;
+          reasons.push('The tying run is at the plate');
+        } else if (occupied.length + 2 === runsToTie && (situation.onDeck || situation.onDeckBatter || situation.nextBatter)) {
+          points += 2;
+          reasons.push('The tying run is on deck');
+        }
+      }
     }
 
     return {
@@ -6949,6 +7071,43 @@
               : null;
   }
 
+  function eventShockImpact(sport,summary,status) {
+    const plays = summary?.plays?.length ? summary.plays : summary?.scoringPlays || [];
+    const duration = ({NFL:60,CFB:60,NHL:60,NBA:48,NCAAB:40,Soccer:90,MLB:180})[sport] || 60;
+    const currentProgress = gameProgress(sport,{status});
+    const positioned = plays.map((play,index) => {
+      const period = Number(play.period?.number || play.period || 0);
+      const position = period ? gameProgress(sport,{status:{period,displayClock:play.clock?.displayValue || '',type:{detail:play.period?.displayValue || ''}}}) : null;
+      return {play,index,position};
+    }).filter(item => item.position !== null && item.position <= currentProgress + .01).sort((a,b) => a.position-b.position || a.index-b.index);
+    let points = 0;
+    const reasons = [];
+    for (let i=0;i<positioned.length;i++) {
+      const {play,position} = positioned[i];
+      const text = String(play.text || play.shortText || play.type?.text || '').toLowerCase();
+      let value = 0;
+      let label = '';
+      if (/blocked.{0,30}(?:punt|kick|field goal)|(?:punt|kick|field goal).{0,30}blocked/.test(text) && /touchdown|\btd\b/.test(text)) { value=12; label='Blocked kick or punt returned for a touchdown'; }
+      else if (/pick[- ]six|intercept(?:ion|ed).{0,80}(?:touchdown|\btd\b)|fumble.{0,40}(?:returned|touchdown)|defensive touchdown/.test(text)) { value=10; label='Defensive touchdown'; }
+      else if (/\bsafety\b/.test(text)) { value=6; label='Safety'; }
+      else if (/grand slam/.test(text)) { value=8; label='Grand slam'; }
+      else if (sport==='MLB' && /\bhome run\b/.test(text) && (/\b(?:tying|go[- ]ahead|game[- ]tying|takes the lead|puts .* ahead)\b.{0,45}\bhome run\b|\bhome run\b.{0,45}\b(?:ties|takes the lead|goes ahead|go[- ]ahead)\b/.test(text) || (()=>{const before=positioned.slice(0,i).reverse().find(item=>Number.isFinite(Number(item.play.homeScore))&&Number.isFinite(Number(item.play.awayScore)));const afterHome=Number(play.homeScore);const afterAway=Number(play.awayScore);if(!before||!Number.isFinite(afterHome)||!Number.isFinite(afterAway))return false;const beforeMargin=Number(before.play.homeScore)-Number(before.play.awayScore);const afterMargin=afterHome-afterAway;return afterMargin===0||beforeMargin===0||beforeMargin*afterMargin<0;})())) { value=6; label='Tying or go-ahead home run'; }
+      else if (/\bturnover\b|intercepted|fumble recovered by|picked off|caught stealing/.test(text)) { value=4; label='Turnover'; }
+      else if (['NFL','CFB'].includes(sport) && /touchdown|\btd\b/.test(text) && /\b(?:[4-9]\d|1\d\d)[ -]?(?:yard|yd)s?\b/.test(text)) { value=5; label='40-plus-yard touchdown'; }
+      else if (['NBA','NCAAB'].includes(sport) && /buzzer[- ]beater|at the buzzer|game[- ]tying three|ties the game with (?:a )?three|three.{0,30}(?:ties|tie) the game/.test(text)) { value=10; label='Buzzer-beater or tying three'; }
+      else if (sport==='NHL' && /shorthanded goal|short-handed goal/.test(text)) { value=6; label='Shorthanded goal'; }
+      if (!value) continue;
+      const playsSince = positioned.length - 1 - i;
+      const periodGap = Math.abs(Number(status?.period || 0)-Number(play.period?.number || play.period || 0));
+      const ageMinutes = sport === 'MLB' ? periodGap * 20 : Math.max(0,currentProgress-position) * duration;
+      const decay = Math.min(Math.max(0,1-playsSince/7),Math.max(0,1-ageMinutes/3));
+      if (decay <= 0) continue;
+      points += value * decay;
+      reasons.push(label);
+    }
+    return {points:Math.min(12,Math.round(points)),reasons:[...new Set(reasons)]};
+  }
+
   function liveSnapshot(
     game,
     competition,
@@ -6980,7 +7139,8 @@
         probability:0,
         situation:0,
         pressure:0,
-        milestone:0
+        milestone:0,
+        eventShock:0
       }
     };
 
@@ -7185,6 +7345,10 @@
         );
     }
 
+    const shock = eventShockImpact(game.sport,summary,status);
+    snapshot.components.eventShock = Math.max(0,Math.min(12,shock.points));
+    if (snapshot.components.eventShock) snapshot.reasons.push(...shock.reasons);
+
     const probabilityPositive =
       Math.max(
         0,
@@ -7209,7 +7373,8 @@
       Math.min(
         30,
         competitiveSituation +
-        snapshot.components.milestone
+        snapshot.components.milestone +
+        snapshot.components.eventShock
       );
 
     const negativeBonus =
@@ -7409,7 +7574,9 @@
           {
             competition:current,
             teams:game.teams,
-            championship:game.championshipStakes
+            championship:game.championshipStakes,
+            situation:current.situation,
+            summary
           }
         );
 
@@ -7606,6 +7773,7 @@
     basketballSituationImpact,
     tennisSituationImpact,
     dangerousChanceImpact,
+    eventShockImpact,
     soccerSituationImpact,
     noHitBid,
     hockeyGoalMilestone,

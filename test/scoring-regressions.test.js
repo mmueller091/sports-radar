@@ -282,3 +282,126 @@ test('championship MLB context carries explicitly and scales down with margin',(
   assert.ok(blowout.score < close.score-12,`expected blowout to fall substantially: ${close.score} -> ${blowout.score}`);
   assert.equal(core.stateRating(87,'MLB','completed',2,1,null,{championship:true}).contextWeight,.05);
 });
+
+test('live event shock rewards major plays briefly and expires after seven plays',()=>{
+  const status={period:4,displayClock:'5:00',type:{detail:'4th Quarter'}};
+  const play={period:{number:4,displayValue:'4th Quarter'},clock:{displayValue:'5:00'},text:'Interception returned 45 yards for a touchdown'};
+  assert.equal(core.eventShockImpact('NFL',{plays:[play]},status).points,10);
+  const stale={plays:[play,...Array.from({length:7},(_,i)=>({period:{number:4,displayValue:'4th Quarter'},clock:{displayValue:`4:${59-i}`},text:'Run for no gain'}))]};
+  assert.equal(core.eventShockImpact('NFL',stale,status).points,0);
+  const blocked={plays:[{...play,text:'Blocked punt returned for a touchdown'}]};
+  assert.equal(core.eventShockImpact('CFB',blocked,status).points,12);
+  const momentumSummary={
+    plays:[play],
+    scoringPlays:[
+      {period:{number:1,displayValue:'1st Quarter'},clock:{displayValue:'8:00'},homeScore:0,awayScore:7,text:'Touchdown'},
+      {period:{number:2,displayValue:'2nd Quarter'},clock:{displayValue:'6:00'},homeScore:7,awayScore:7,text:'Touchdown'},
+      {period:{number:3,displayValue:'3rd Quarter'},clock:{displayValue:'4:00'},homeScore:7,awayScore:14,text:'Touchdown'},
+      {period:{number:4,displayValue:'4th Quarter'},clock:{displayValue:'5:00'},homeScore:21,awayScore:14,text:'Touchdown'}
+    ]
+  };
+  const live=core.liveSnapshot({sport:'NFL',teams:[],liveRawStatus:status}, {status,situation:{}},momentumSummary);
+  assert.ok(core.momentumImpact('NFL',momentumSummary,.8,'live').points>=10);
+  assert.equal(live.components.eventShock,10,'recent defensive TD remains fully credited alongside accumulated momentum');
+  for (const [sport,text,expected,phase] of [
+    ['NFL','Fumble recovered by defense (turnover)',4,'4th Quarter'],
+    ['NFL','40 Yd touchdown pass',5,'4th Quarter'],
+    ['NFL','Safety',6,'4th Quarter'],
+    ['MLB','Grand slam home run',8,'Top 2nd'],
+    ['MLB','Go-ahead home run',6,'Top 2nd'],
+    ['NBA','Buzzer-beater three ties the game',10,'4th Quarter'],
+    ['NHL','Shorthanded goal',6,'1st Period']
+  ]) {
+    const period=sport==='MLB'?2:sport==='NHL'?1:sport==='NBA'?4:4;
+    const gameStatus={period,displayClock:'5:00',type:{detail:phase}};
+    const summary={plays:[{period:{number:period,displayValue:phase},clock:{displayValue:'5:00'},text}]};
+    assert.equal(core.eventShockImpact(sport,summary,gameStatus).points,expected,`${sport}: ${text}`);
+  }
+});
+
+test('event shock recognizes intercepted pass return touchdowns without promoting ordinary interceptions',()=>{
+  const status={period:4,displayClock:'5:00',type:{detail:'4th Quarter'}};
+  const shock = text => core.eventShockImpact('NFL',{plays:[{
+    period:{number:4,displayValue:'4th Quarter'},
+    clock:{displayValue:'5:00'},
+    text
+  }]},status).points;
+  assert.equal(shock('Pass intercepted by Ray Lewis and returned 50 yards for a touchdown'),10);
+  assert.equal(shock('Pass intercepted by Ray Lewis for a touchdown'),10);
+  assert.equal(shock('Interception return for a touchdown'),10);
+  assert.equal(shock('Pick-six by Ray Lewis'),10);
+  assert.equal(shock('Fumble returned for a touchdown'),10);
+  assert.equal(shock('Pass intercepted by Ray Lewis at the BAL 35'),4);
+  assert.equal(shock('Blocked kick returned for a touchdown'),12);
+});
+
+test('MLB, NHL and NBA playoff series leverage uses series state and carries live',()=>{
+  const input=matchup('NBA','NBA Playoffs Game 5',true);
+  input.competition.series={summary:'Series tied 2-2'};
+  const swing=pregame(input);
+  assert.equal(points(swing,'Playoff series leverage'),5);
+  assert.ok(core.stateRating(swing.score,'NBA','live',2,.25).factors.some(f=>f.label==='Pregame context carried into play'));
+  input.detail='NBA Playoffs Game 6';input.competition.notes=[{headline:input.detail}];input.competition.series.summary='Home leads 3-2';
+  assert.equal(points(pregame(input),'Playoff elimination / clinch'),10);
+  input.detail='NBA Playoffs Game 7';input.competition.notes=[{headline:input.detail}];input.competition.series.summary='Series tied 3-3';
+  assert.equal(points(pregame(input),'Playoff winner-take-all'),16);
+  for (const sport of ['MLB','NHL']) {
+    const game=matchup(sport,`${sport} Playoffs Game 3`,true);game.competition.series={summary:'Series tied 1-1'};
+    assert.ok(points(pregame(game),'Playoff series leverage')>=2);
+  }
+});
+
+test('NBA comeback runway separates a live four-minute game from eight seconds with leader possession',()=>{
+  const teams=[team('Away','AWY',90,'a'),team('Home','HME',96,'b')];
+  const atFour=core.stateRating(70,'NBA','live',6,.92,null,{teams,competition:{status:{period:4,displayClock:'4:00'},situation:{possession:'b'}}});
+  const atEight=core.stateRating(70,'NBA','live',6,.99,null,{teams,competition:{status:{period:4,displayClock:'0:08'},situation:{possession:'b'}}});
+  assert.ok(atFour.basketballState.comebackFeasibility > atEight.basketballState.comebackFeasibility + .7);
+  assert.ok(atFour.closePoints >= atEight.closePoints + 8,`${atFour.closePoints} should exceed ${atEight.closePoints} by at least 8`);
+  assert.ok(atEight.widePenalty > 0);
+  const comebackTeams=[team('Away','AWY',90,'a'),team('Home','HME',102,'b')];
+  const downTwelve=core.stateRating(70,'NBA','live',12,.65,null,{teams:comebackTeams,competition:{status:{period:4,displayClock:'8:00'},situation:{possession:'a',timeoutsRemaining:{a:2}}}});
+  assert.ok(downTwelve.basketballState.marginClose>=.49);
+  assert.equal(downTwelve.widePenalty,0);
+  assert.ok(downTwelve.score>=20,`12 down with 8:00 and possession should remain live, got ${downTwelve.score}`);
+  const college=core.stateRating(70,'NCAAB','live',12,.8,null,{teams:comebackTeams,competition:{status:{period:2,displayClock:'8:00'},situation:{possession:'a',timeoutsRemaining:{a:2}}}});
+  assert.ok(college.basketballState.marginClose>=.49);
+  assert.equal(college.widePenalty,0);
+});
+
+test('NHL two-goal margin gets tighter late and rises for a trailing extra attacker or power play',()=>{
+  const early=core.nhlLiveMarginCloseness(2,.05);
+  const late=core.nhlLiveMarginCloseness(2,.98);
+  const pulled=core.nhlLiveMarginCloseness(2,.98,{trailingGoaliePulled:true});
+  const powerPlay=core.nhlLiveMarginCloseness(2,.98,{trailingPowerPlay:true});
+  assert.ok(early>.5 && early<.6);
+  assert.ok(late>=.15 && late<=.20);
+  assert.ok(pulled>late && powerPlay>late);
+  assert.ok(pulled>=.25 && pulled<=.35);
+  assert.ok(powerPlay>=.25 && powerPlay<=.35);
+});
+
+test('late MLB two-out full-count plate appearances elevate tying run at plate or on deck',()=>{
+  const game={sport:'MLB',teams:[team('Away','AWY',1,'a'),team('Home','HME',0,'h')]};
+  const competition={competitors:[{homeAway:'away',team:{id:'a'},score:'1'},{homeAway:'home',team:{id:'h'},score:'0'}]};
+  const status={period:9,type:{detail:'Bottom 9th'}};
+  const atPlate=core.baseballSituationImpact(game,competition,status,{outs:2,count:'3-2',onFirst:false,onSecond:false,onThird:false},.97,1);
+  assert.ok(atPlate.points>=7);
+  assert.match(atPlate.reasons.join(' '),/full count.*two outs/i);
+  assert.match(atPlate.reasons.join(' '),/tying run is at the plate/i);
+  competition.competitors[0].score='2';game.teams[0][2]='2';
+  const onDeck=core.baseballSituationImpact(game,competition,status,{outs:2,count:'3-2',onFirst:false,onSecond:false,onThird:false,onDeck:true},.97,2);
+  assert.ok(onDeck.reasons.some(reason=>/tying run is on deck/i.test(reason)));
+  const leadingGame={sport:'MLB',teams:[team('Away','AWY',1,'a'),team('Home','HME',3,'h')]};
+  const leadingComp={competitors:[{homeAway:'away',team:{id:'a'},score:'1'},{homeAway:'home',team:{id:'h'},score:'3'}]};
+  const leading=core.baseballSituationImpact(leadingGame,leadingComp,status,{outs:2,count:'3-2',onFirst:false,onSecond:true,onThird:false},.97,2);
+  assert.ok(!leading.reasons.some(reason=>/tying or go-ahead run is in scoring position/i.test(reason)));
+});
+
+test('playoff series clinch stakes use only the highest applicable series factor',()=>{
+  const input=matchup('NBA','NBA Playoffs Game 6: clinching opportunity',true);
+  input.competition.series={summary:'Home leads 3-2'};
+  const rating=pregame(input);
+  assert.equal(points(rating,'Playoff elimination / clinch'),10);
+  assert.equal(points(rating,'Clinching opportunity'),0);
+  assert.equal(rating.factors.filter(item=>/Deciding game|Elimination stakes|Clinching opportunity|Playoff elimination \/ clinch/.test(item.label)).reduce((sum,item)=>sum+item.points,0),10);
+});

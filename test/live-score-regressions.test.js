@@ -45,7 +45,7 @@ test('fresh live summaries update scores by team ID and rebuild the base rating 
   const details = summary(current);
   core.applyLiveSnapshot(game,current,details);
   assert.deepEqual(game.teams.map(team => team[2]),['104','105']);
-  const expected = core.stateRating(game.openingScore,'NBA','live',1,core.gameProgress('NBA',current));
+  const expected = core.stateRating(game.openingScore,'NBA','live',1,core.gameProgress('NBA',current),null,{competition:current,teams:game.teams,situation:current.situation,summary:details});
   assert.equal(game.baseScore,expected.score);
   assert.equal(game.factors.reduce((sum,item) => sum + item.points,0),game.baseScore);
   assert.match(game.why,/1-point game late/);
