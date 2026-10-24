@@ -293,7 +293,7 @@ export async function contextsForGames(env,keys) {
   const parsed = keys.map(key => {
     const separator = key.indexOf(':');
     return separator > 0 ? {sport:key.slice(0,separator),eventId:key.slice(separator + 1)} : null;
-  }).filter(item => item && /^[A-Za-z0-9]+$/.test(item.sport) && /^[A-Za-z0-9_-]+$/.test(item.eventId)).slice(0,100);
+  }).filter(item => item && /^[A-Za-z0-9]+$/.test(item.sport) && /^[A-Za-z0-9_-]+$/.test(item.eventId));
   if (!parsed.length) return {};
   const eventIds = [...new Set(parsed.map(item => item.eventId))];
   const rows = [];

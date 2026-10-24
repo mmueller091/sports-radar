@@ -233,6 +233,7 @@ const {
   parseLine,
   lineFromSummary,
   gameProgress,
+  eventPosition,
   momentumImpact,
   underdogCandidate,
   upsetImpact,
@@ -499,6 +500,10 @@ function scheduleLiveRefresh() {
   liveRefreshTimer = setTimeout(loadLiveGames,liveRefreshDelay(feedHasLiveGames,document.hidden));
 }
 
+function canonicalFeedGames(items) {
+  return items.map(game => ({...game,scoreboard:undefined,favorite:favoriteFor(game.teams,game.sport)}));
+}
+
 async function loadLiveGames() {
   if (liveRefreshInFlight) return;
   clearTimeout(liveRefreshTimer);
@@ -510,36 +515,8 @@ async function loadLiveGames() {
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
     const feed = await response.json();
     if (!Array.isArray(feed.games) || !Number.isFinite(Date.parse(feed.updatedAt))) throw new Error('Invalid feed');
-    const baseline = feed.games.map(game => ({...(game.scoreboard || game),favorite:favoriteFor(game.teams,game.sport)}));
-    feedHasLiveGames = baseline.some(game => game.state === 'live');
-    const selected = new Set(baseline.filter(game => (game.state !== 'upcoming' || !game.line) && !(game.division === 'FCS' && game.state === 'upcoming'))
-      .sort((a,b) => Number(isWatched(b))-Number(isWatched(a)) || Number(b.state==='live')-Number(a.state==='live') || Number(b.favorite)-Number(a.favorite) || b.score-a.score)
-      .slice(0,60).map(watchKey));
-    games = baseline.map((game,index) => {
-      const enriched = feed.games[index];
-      if (selected.has(watchKey(game))) {
-        return {...enriched,scoreboard:undefined,favorite:game.favorite};
-      }
-      if (game.state === 'completed') {
-        return {
-          ...game,
-          score:enriched.score,
-          baseScore:enriched.baseScore,
-          openingScore:enriched.openingScore,
-          factors:enriched.factors,
-          why:enriched.why,
-          underdog:enriched.underdog,
-          upsetText:enriched.upsetText,
-          upsetPoints:enriched.upsetPoints,
-          momentumText:enriched.momentumText,
-          momentumPoints:enriched.momentumPoints,
-          moment:enriched.moment,
-          momentLabel:enriched.momentLabel,
-          favorite:game.favorite
-        };
-      }
-      return game;
-    });
+    games = canonicalFeedGames(feed.games);
+    feedHasLiveGames = games.some(game => game.state === 'live');
     state.source = 'live';
     state.updatedAt = feed.updatedAt;
     state.feedStale = feed.freshness?.stale === true;
@@ -1892,6 +1869,19 @@ function recordRatingSnapshot(game) {
 }
 
 function playPosition(sport,play) {
+  if (typeof eventPosition !== 'function') return legacyPlayPosition(sport,play);
+  const period = Number(play?.period?.number || play?.period?.value || play?.period || 0);
+  if (!Number.isFinite(period) || period < 1) return null;
+  return eventPosition(sport,{status:{
+    period,
+    displayClock:play?.clock?.displayValue || '',
+    clock:play?.clock?.value,
+    clockMode:sport === 'NHL' ? 'elapsed' : undefined,
+    type:{detail:play?.period?.displayValue || play?.inningHalf || ''}
+  }});
+}
+
+function legacyPlayPosition(sport,play) {
   const period =
     Number(
       play?.period?.number ||
@@ -2024,6 +2014,7 @@ function playPosition(sport,play) {
     )
   );
 }
+
 
 function scoringEvents(summary) {
   return summary?.scoringPlays?.length

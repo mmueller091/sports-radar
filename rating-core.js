@@ -1782,7 +1782,7 @@
     };
   }
 
-  function gameProgress(sport,competition) {
+  function normalizedTime(sport,competition) {
     const status =
       competition?.status || {};
 
@@ -1802,9 +1802,7 @@
       Tennis:3
     })[sport] || 4;
 
-    if (!period) {
-      return 0;
-    }
+    if (!period) return {progress:0,elapsedSeconds:null,remainingSeconds:null};
 
     if (sport === 'MLB') {
       const detail =
@@ -1821,17 +1819,15 @@
             ? .25
             : .5;
 
-      return Math.max(
+      const elapsed = (period - 1) + half;
+      return {elapsedSeconds:elapsed * 20 * 60,remainingSeconds:null,progress:Math.max(
         0,
         Math.min(
           1,
-          (
-            (period - 1) +
-            half
-          ) /
+          elapsed /
           9
         )
-      );
+      )};
     }
 
     if (sport === 'Tennis') {
@@ -1843,20 +1839,18 @@
         ) ||
         total;
 
-      return Math.max(
+      const elapsed = (period - 1) + .5;
+      return {elapsedSeconds:null,remainingSeconds:null,progress:Math.max(
         0,
         Math.min(
           .98,
-          (
-            (period - 1) +
-            .5
-          ) /
+          elapsed /
           Math.max(
             1,
             bestOf
           )
         )
-      );
+      )};
     }
 
     const length = ({
@@ -1868,41 +1862,45 @@
       Soccer:45
     })[sport];
 
-    const clock =
-      String(
-        status.displayClock || ''
-      ).match(
-        /^(\d+):(\d+)/
-      );
+    const display = String(status.displayClock || '').trim();
+    const colon = display.match(/^(\d+):(\d+(?:\.\d+)?)$/);
+    const decimal = display.match(/^(\d+\.\d+)$/);
+    const soccer = display.match(/^(\d+)'?(?:\+(\d+)'?)?$/);
+    const numeric = Number(status.clock);
+    let elapsedSeconds = null;
+    let remainingSeconds = null;
+    if (sport === 'Soccer') {
+      const minute = soccer ? Number(soccer[1]) + Number(soccer[2] || 0) : null;
+      elapsedSeconds = soccer?.[2] ? minute * 60
+        : Number.isFinite(numeric) && status.clock != null ? numeric
+        : minute !== null ? minute * 60
+        : colon ? (Number(colon[1]) * 60 + Number(colon[2])) : null;
+    } else {
+      remainingSeconds = colon ? Number(colon[1]) * 60 + Number(colon[2])
+        : decimal ? Number(decimal[1])
+        : Number.isFinite(numeric) && status.clock != null ? numeric : null;
+      if (remainingSeconds !== null) {
+        if (status.clockMode === 'elapsed') {
+          elapsedSeconds = ((period - 1) * length * 60) + remainingSeconds;
+          remainingSeconds = Math.max(0,length * 60 - remainingSeconds);
+        } else {
+          elapsedSeconds = ((period - 1) * length * 60) + Math.max(0,length * 60 - remainingSeconds);
+        }
+      }
+    }
+    const elapsedPeriods = elapsedSeconds === null ? period - .5 : elapsedSeconds / (length * 60);
+    return {elapsedSeconds,remainingSeconds,progress:Math.max(0,Math.min(1,elapsedPeriods / total))};
+  }
 
-    const remaining =
-      clock && length
-        ? Math.min(
-            length * 60,
-            Number(clock[1]) * 60 +
-            Number(clock[2])
-          )
-        : length
-          ? length * 30
-          : 0;
+  function gameProgress(sport,competition) {
+    return normalizedTime(sport,competition).progress;
+  }
 
-    return Math.max(
-      0,
-      Math.min(
-        1,
-        (
-          (period - 1) +
-          (
-            length
-              ? 1 -
-                remaining /
-                (length * 60)
-              : .5
-          )
-        ) /
-        total
-      )
-    );
+  function eventPosition(sport,competition) {
+    const time = normalizedTime(sport,competition);
+    const regulationMinutes = {NFL:60,CFB:60,NHL:60,NBA:48,NCAAB:40,MLB:180,Soccer:90}[sport];
+    return time.elapsedSeconds !== null && regulationMinutes
+      ? time.elapsedSeconds / (regulationMinutes * 60) : time.progress;
   }
 
   function normalizeWinProbability(value) {
@@ -3002,7 +3000,7 @@
 
           const position =
             period
-              ? gameProgress(
+              ? eventPosition(
                   sport,
                   {
                     status:{
@@ -3010,6 +3008,8 @@
                       displayClock:
                         play.clock?.displayValue ||
                         '',
+                      clock:play.clock?.value,
+                      clockMode:sport === 'NHL' ? 'elapsed' : undefined,
                       type:{
                         detail:
                           play.period?.displayValue ||
@@ -4469,8 +4469,8 @@
     let expectedPossessions = remaining / 24 + .5;
     if (possessionId && trailingId) expectedPossessions += possessionId === trailingId ? .65 : -.65;
     const timeoutSource = situation.timeoutsRemaining || situation.timeouts || {};
-    const trailingSide = trailingIndex === 0 ? 'home' : 'away';
     const rawCompetitor = (context.competition?.competitors || []).find(item=>String(item.team?.id || item.id || '')===trailingId);
+    const trailingSide = rawCompetitor?.homeAway || (Array.isArray(teams[trailingIndex]) ? teams[trailingIndex]?.[7] : teams[trailingIndex]?.homeAway) || '';
     const rawTimeouts = rawCompetitor?.timeoutsRemaining ?? rawCompetitor?.timeouts?.remaining ?? rawCompetitor?.timeouts;
     const trailingTimeouts = Number(timeoutSource[trailingId] ?? timeoutSource[trailingSide] ?? situation[`${trailingSide}TimeoutsRemaining`] ?? rawTimeouts);
     if (Number.isFinite(trailingTimeouts)) expectedPossessions += Math.min(2,Math.max(0,trailingTimeouts)) * .4;
@@ -5491,17 +5491,7 @@
   }
 
   function clockSeconds(status) {
-    const match =
-      String(
-        status?.displayClock || ''
-      ).match(
-        /^(\d+):(\d+)/
-      );
-
-    return match
-      ? Number(match[1]) * 60 +
-        Number(match[2])
-      : null;
+    return normalizedTime('NBA',{status:{...status,period:status?.period || 1}}).remainingSeconds;
   }
 
   function footballFieldPosition(
@@ -6473,6 +6463,7 @@
     const text = [
       status?.type?.detail,
       status?.type?.shortDetail,
+      status?.displayClock,
       situation?.description,
       situation?.displayValue,
       ...(competition?.notes || []).map(note => note.headline),
@@ -6555,8 +6546,8 @@
         'The match is being decided by penalties'
       );
     } else if (
-      /stoppage time|added time|90\+\d+/
-        .test(text) &&
+      (/stoppage time|added time|90'?\+\d+/.test(text) ||
+        Number(status?.period) === 2 && normalizedTime('Soccer',{status}).elapsedSeconds > 90 * 60) &&
       scoreGap <= 1
     ) {
       points += 3;
@@ -7077,9 +7068,9 @@
     const currentProgress = gameProgress(sport,{status});
     const positioned = plays.map((play,index) => {
       const period = Number(play.period?.number || play.period || 0);
-      const position = period ? gameProgress(sport,{status:{period,displayClock:play.clock?.displayValue || '',type:{detail:play.period?.displayValue || ''}}}) : null;
+      const position = period ? eventPosition(sport,{status:{period,displayClock:play.clock?.displayValue || '',clock:play.clock?.value,clockMode:sport === 'NHL' ? 'elapsed' : undefined,type:{detail:play.period?.displayValue || ''}}}) : null;
       return {play,index,position};
-    }).filter(item => item.position !== null && item.position <= currentProgress + .01).sort((a,b) => a.position-b.position || a.index-b.index);
+    }).filter(item => item.position !== null && item.position <= eventPosition(sport,{status}) + .01).sort((a,b) => a.position-b.position || a.index-b.index);
     let points = 0;
     const reasons = [];
     for (let i=0;i<positioned.length;i++) {
@@ -7099,7 +7090,8 @@
       if (!value) continue;
       const playsSince = positioned.length - 1 - i;
       const periodGap = Math.abs(Number(status?.period || 0)-Number(play.period?.number || play.period || 0));
-      const ageMinutes = sport === 'MLB' ? periodGap * 20 : Math.max(0,currentProgress-position) * duration;
+      const currentEventPosition = eventPosition(sport,{status});
+      const ageMinutes = sport === 'MLB' ? periodGap * 20 : Math.max(0,currentEventPosition-position) * duration;
       const decay = Math.min(Math.max(0,1-playsSince/7),Math.max(0,1-ageMinutes/3));
       if (decay <= 0) continue;
       points += value * decay;
@@ -7487,6 +7479,8 @@
         type.state !== 'in'
       );
 
+    game.lastSummaryAccepted = Boolean(summary) && !rejected;
+
     const current =
       rejected
         ? previous
@@ -7576,7 +7570,7 @@
             teams:game.teams,
             championship:game.championshipStakes,
             situation:current.situation,
-            summary
+            summary:rejected ? null : summary
           }
         );
 
@@ -7744,6 +7738,8 @@
     completedStakesImpact,
     pregameRating,
     gameProgress,
+    normalizedTime,
+    eventPosition,
     normalizeWinProbability,
     winProbabilitySeries,
     winProbabilityImpact,

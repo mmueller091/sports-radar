@@ -207,7 +207,9 @@ test('current shared core preserves all 107 games between the original browser a
     await context.enrichGameSignals();
     const migrated=normalizeEvent(structuredClone(fixture.event),fixture.modelSport);
     if ((migrated.state!=='upcoming'||!migrated.line)&&!(migrated.division==='FCS'&&migrated.state==='upcoming')) enrichGame(migrated,structuredClone(fixture.summary));
-    const clean=game=>{const value=JSON.parse(JSON.stringify(game));delete value.summaryUrl;delete value.footballSituation;delete value.baseballSituation;return value;};
+    // The Worker now uses normalized decimal clocks to choose the actual latest play;
+    // the archived browser adapter still misorders those NBA plays.
+    const clean=game=>{const value=JSON.parse(JSON.stringify(game));delete value.summaryUrl;delete value.footballSituation;delete value.baseballSituation;delete value.moment;delete value.momentLabel;return value;};
     assert.deepEqual(clean(migrated),clean(original),file);
   }
 });

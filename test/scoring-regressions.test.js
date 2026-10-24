@@ -314,7 +314,7 @@ test('live event shock rewards major plays briefly and expires after seven plays
   ]) {
     const period=sport==='MLB'?2:sport==='NHL'?1:sport==='NBA'?4:4;
     const gameStatus={period,displayClock:'5:00',type:{detail:phase}};
-    const summary={plays:[{period:{number:period,displayValue:phase},clock:{displayValue:'5:00'},text}]};
+    const summary={plays:[{period:{number:period,displayValue:phase},clock:{displayValue:sport==='NHL'?'15:00':'5:00'},text}]};
     assert.equal(core.eventShockImpact(sport,summary,gameStatus).points,expected,`${sport}: ${text}`);
   }
 });

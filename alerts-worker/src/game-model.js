@@ -11,6 +11,7 @@ const {
   parseLine,
   lineFromSummary,
   gameProgress,
+  eventPosition,
   momentumImpact,
   underdogCandidate,
   upsetImpact,
@@ -255,6 +256,19 @@ function applyContextsToGame(game,factors) {
 }
 
 function playPosition(sport,play) {
+  if (typeof eventPosition !== 'function') return legacyPlayPosition(sport,play);
+  const period = Number(play?.period?.number || play?.period?.value || play?.period || 0);
+  if (!Number.isFinite(period) || period < 1) return null;
+  return eventPosition(sport,{status:{
+    period,
+    displayClock:play?.clock?.displayValue || '',
+    clock:play?.clock?.value,
+    clockMode:sport === 'NHL' ? 'elapsed' : undefined,
+    type:{detail:play?.period?.displayValue || play?.inningHalf || ''}
+  }});
+}
+
+function legacyPlayPosition(sport,play) {
   const period =
     Number(
       play?.period?.number ||
@@ -387,6 +401,7 @@ function playPosition(sport,play) {
     )
   );
 }
+
 
 function scoringEvents(summary) {
   return summary?.scoringPlays?.length
@@ -528,25 +543,35 @@ function summarySpecificWhy(game,summary) {
 
 function enrichGame(game,summary) {
             const summaryCompetition = summary?.header?.competitions?.[0];
+            const driveEnd = ['NFL','CFB'].includes(game.sport) ? summary?.drives?.current?.plays?.at(-1)?.end : null;
+            const normalizedCompetition = summaryCompetition && driveEnd
+              ? {...summaryCompetition,situation:{...driveEnd,possession:driveEnd.team?.id,...summaryCompetition.situation}}
+              : summaryCompetition;
             if (
               game.state === 'live'
             ) {
               applyLiveSnapshot(
                 game,
-                summaryCompetition,
+                normalizedCompetition,
                 summary
               );
 
 
             }
 
-            const acceptedSummary = summaryCompetition?.status && game.liveRawStatus === summaryCompetition.status ? summary : null;
+            const acceptedSummary = game.state === 'live' && (!game.lastSummaryAccepted || !summaryCompetition?.status) ? null : summary;
+            if (game.state === 'live' && !acceptedSummary) {
+              if (!game.sourceCompetition?.situation) game.liveRawSituation = {};
+              if (['NFL','CFB'].includes(game.sport)) game.footballSituation = footballSituation(game);
+              if (game.sport === 'MLB') game.baseballSituation = baseballSituation(game);
+              return;
+            }
             if (['NFL','CFB'].includes(game.sport)) game.footballSituation = footballSituation(game,acceptedSummary);
             if (game.sport === 'MLB') game.baseballSituation = baseballSituation(game);
 
             const line =
               lineFromSummary(
-                summary,
+                acceptedSummary,
                 game.sport
               );
 
@@ -568,14 +593,14 @@ function enrichGame(game,summary) {
               game.state !== 'upcoming'
             ) {
               const summaryCompetition =
-                summary?.header
+                acceptedSummary?.header
                   ?.competitions?.[0];
 
               const candidate =
                 underdogCandidate(
                   game.sport,
                   summaryCompetition,
-                  summary?.pickcenter?.[0] ||
+                  acceptedSummary?.pickcenter?.[0] ||
                   summaryCompetition?.odds?.[0]
                 );
 
@@ -638,12 +663,12 @@ function enrichGame(game,summary) {
               const momentum =
                 momentumImpact(
                   game.sport,
-                  summary,
+                  acceptedSummary,
                   game.state === 'completed'
                     ? 1
                     : gameProgress(
                         game.sport,
-                        summary?.header?.competitions?.[0] ||
+                        acceptedSummary?.header?.competitions?.[0] ||
                         {
                           status:
                             game.liveRawStatus

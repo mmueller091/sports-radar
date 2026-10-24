@@ -1,6 +1,8 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import { pathToFileURL, fileURLToPath } from 'node:url';
+import { fileURLToPath } from 'node:url';
+import vm from 'node:vm';
+import {normalizeEvent,enrichGame} from '../alerts-worker/src/game-model.js';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 export const repoRoot = path.resolve(here, '..');
@@ -27,7 +29,7 @@ export async function loadCore() {
   }
 
   delete globalThis.SportsRadarScore;
-  await import(`${pathToFileURL(corePath).href}?calibration=${Date.now()}`);
+  vm.runInThisContext(fs.readFileSync(corePath,'utf8'),{filename:corePath});
   if (!globalThis.SportsRadarScore) throw new Error('rating-core.js loaded but did not create globalThis.SportsRadarScore.');
   return globalThis.SportsRadarScore;
 }
@@ -88,67 +90,16 @@ export function scoreFixture(fixture, core, overrides = {events:{}}) {
   const event = fixture.event || {};
   const summary = fixture.summary || {};
   const eventCompetition = event.competitions?.[0] || {};
-  const summaryCompetition = summary?.header?.competitions?.[0] || null;
-  let competition = mergeCompetition(eventCompetition, summaryCompetition);
-  const eventId = String(fixture.eventId || event.id || competition.id || '');
-  const injected = applyContextOverride(event, competition, eventId, overrides);
-  competition = injected.competition;
-  const eventWithContext = injected.event;
-  const state = stateFromCompetition(competition);
-  const teams = (competition.competitors || eventCompetition.competitors || []).map(c => teamArray(c, fixture.modelSport, core));
-
-  if (teams.length !== 2) {
-    return { eventId, modelSport: fixture.modelSport, state, error: `Expected 2 competitors, found ${teams.length}` };
-  }
-
-  const base = core.rateGame(fixture.modelSport, state, teams, eventWithContext, competition, '');
-  const game = {
-    id: eventId,
-    sport: fixture.modelSport,
-    state,
-    teams,
-    baseScore: base.score,
-    score: base.score,
-    factors: [...(base.factors || [])],
-    openingScore: base.openingScore ?? (state === 'upcoming' ? base.score : undefined),
-    underdog: base.underdog,
-    upsetText: base.upsetText || '',
-    upsetPoints: base.upsetPoints || 0,
-    liveRawStatus: competition.status,
-    liveRawSituation: competition.situation
-  };
-
-  if (state === 'live' && core.applyLiveSnapshot) {
-    core.applyLiveSnapshot(game, competition, summary);
-  }
-
-  const progress = state === 'completed' ? 1 : core.gameProgress(fixture.modelSport, competition);
-  const momentum = state === 'upcoming'
-    ? { points:0, factors:[], text:'' }
-    : core.momentumImpact(fixture.modelSport, summary, progress, state);
-
-  if (momentum.points) {
-    game.score = core.clampScore(game.score + momentum.points);
-    game.factors.push(...(momentum.factors || []));
-  }
-
-  // Mirror the Worker's mutually exclusive finish awards, outside momentum.
-  let decisiveLastPlay = 0;
-  if (state === 'completed') {
-    const plays = summary?.scoringPlays?.length ? summary.scoringPlays : (summary?.plays || []).filter(p => p.scoringPlay === true);
-    const last = plays.at(-1);
-    const text = `${last?.clock?.displayValue || ''} ${last?.text || last?.shortText || last?.type?.text || ''}`;
-    if (/(0:00|last second|game[- ]winning)/i.test(text) && /field goal|goal|home run|touchdown/i.test(text)) {
-      decisiveLastPlay = 14;
-      game.score = core.clampScore(game.score + decisiveLastPlay);
-    } else {
-      const finish = core.defensiveFinishFactor?.(fixture.modelSport,summary);
-      if (finish) {
-        game.factors.push(finish);
-        game.score = core.clampScore(game.score + finish.points);
-      }
-    }
-  }
+  const eventId = String(fixture.eventId || event.id || eventCompetition.id || '');
+  const injected = applyContextOverride(event,eventCompetition,eventId,overrides);
+  const eventWithContext = {...injected.event,competitions:[injected.competition]};
+  const game = normalizeEvent(eventWithContext,fixture.modelSport);
+  if (!game) return {eventId,modelSport:fixture.modelSport,error:'Expected 2 competitors'};
+  enrichGame(game,summary);
+  const state = game.state;
+  const teams = game.teams;
+  const momentum = {points:game.momentumPoints || 0,text:game.momentumText || ''};
+  const decisiveLastPlay = game.factors.some(factor=>factor.label === 'Decisive last play') ? 14 : 0;
 
   const names = teams.map(t => t[0]);
   const scores = teams.map(t => Number(t[2]));
@@ -167,18 +118,19 @@ export function scoreFixture(fixture, core, overrides = {events:{}}) {
     matchup: names.join(' vs '),
     scoreLine: `${scores[0]}-${scores[1]}`,
     gap,
-    openingScore: base.openingScore ?? (state === 'upcoming' ? base.score : null),
-    baseScore: base.score,
+    openingScore: game.openingScore,
+    baseScore: game.baseScore,
     liveBonus: game.live?.bonus || 0,
     momentumPoints: momentum.points || 0,
     decisiveLastPlay,
     finalScore: game.score,
     factors: game.factors,
+    components:game.live?.components || null,
     momentumText: momentum.text || '',
     finalWp,
     maxConsecutiveWpSwing: maxWpSwing,
     appliedContext: injected.appliedContext,
-    raw: { event: eventWithContext, competition, summary }
+    raw: { event: eventWithContext, competition:eventCompetition, summary }
   };
 }
 

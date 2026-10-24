@@ -155,8 +155,7 @@ export async function refreshSportsData(env,now=Date.now()) {
     await resources.flush();
     // Do not publish a partial/failed scoreboard refresh as a fresh feed.
     if (errors.length) return null;
-    // Match the browser's existing context eligibility and first-100-game window.
-    const contextGames = games.filter(game=>['NFL','MLB','NHL','CFB','NBA','NCAAB'].includes(game.sport)).slice(0,100);
+    const contextGames = games.filter(game=>['NFL','MLB','NHL','CFB','NBA','NCAAB'].includes(game.sport));
     const contexts = await contextsForGames(env,contextGames.map(game=>`${game.sport}:${game.id}`));
     contextGames.forEach(game=>applyContextsToGame(game,contexts[`${game.sport}:${game.id}`]));
     const priorGames = new Map((previous?.games || []).map(game=>[`${game.sport}:${game.id}`,game]));
