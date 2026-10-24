@@ -527,6 +527,10 @@
     return Math.round(5 / (1 + (spread / 6) ** 2));
   }
 
+  function nflSpreadPoints(spread) {
+    return Math.round(7 * Math.exp(-((spread / 7.5) ** 2)));
+  }
+
   function pregameMarketFactor(sport,competition) {
     const raw =
       competition?.odds?.[0];
@@ -1512,28 +1516,21 @@
           competition
         );
 
-      if (
-        spread !== null &&
-        spread <= 3
-      ) {
+      const spreadPoints = spread === null
+        ? 0
+        : nflSpreadPoints(spread);
+      if (spreadPoints) {
+        const tight = spreadPoints >= 5;
         factors.push({
-          label:'Tight projected spread',
-          points:7
+          label:tight
+            ? 'Tight projected spread'
+            : 'Competitive projected spread',
+          points:spreadPoints
         });
 
-        reason +=
-          ' · close line';
-      } else if (
-        spread !== null &&
-        spread <= 6
-      ) {
-        factors.push({
-          label:'Competitive projected spread',
-          points:4
-        });
-
-        reason +=
-          ' · competitive line';
+        reason += tight
+          ? ' · close line'
+          : ' · competitive line';
       }
     }
 

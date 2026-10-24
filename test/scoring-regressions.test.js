@@ -26,6 +26,48 @@ const rankingPoints = rating => rating.factors
   .filter(item=>/^(Two ranked teams|Both top 10|Both top 20|Top 10 team|Ranked team)$/.test(item.label))
   .reduce((sum,item)=>sum+item.points,0);
 
+const nflMarketPoints=spread=>{
+  const input=matchup('NFL');
+  if (spread !== null) input.competition.odds=[{details:`Home -${spread}`,spread:-spread}];
+  const market=pregame(input).factors.filter(item=>/projected spread/.test(item.label));
+  assert.ok(market.length<=1);
+  return market[0]?.points || 0;
+};
+
+test('NFL spread bonus declines smoothly from pick’em to a wide line',()=>{
+  const spreads=[0,3,6,9,12,14];
+  const awards=spreads.map(nflMarketPoints);
+  for (let i=1;i<awards.length;i++) {
+    assert.ok(awards[i-1]>=awards[i],awards.join(', '));
+  }
+  assert.equal(awards[0],7);
+  assert.ok(awards[1]>=5 && awards[1]<=6);
+  assert.ok(awards[2]>=3 && awards[2]<=4);
+  assert.ok(awards[3]>=1 && awards[3]<=2);
+  assert.ok(awards[4]<=1);
+  assert.equal(awards[5],0);
+  assert.equal(nflMarketPoints(null),0);
+});
+
+test('NFL market points do not jump at the old spread boundaries',()=>{
+  for (const spreads of [[2.5,3,3.5],[5.5,6,6.5]]) {
+    const awards=spreads.map(nflMarketPoints);
+    for (let i=1;i<awards.length;i++) {
+      assert.ok(awards[i-1]>=awards[i]);
+      assert.ok(awards[i-1]-awards[i]<=1,`${spreads.join(', ')}: ${awards.join(', ')}`);
+    }
+  }
+});
+
+test('NFL close-line factor contributes once to the pregame score',()=>{
+  for (const spread of [0,3,6,9,12,14]) {
+    const input=matchup('NFL');
+    const before=pregame(input).score;
+    input.competition.odds=[{details:`Home -${spread}`,spread:-spread}];
+    assert.equal(pregame(input).score-before,nflMarketPoints(spread));
+  }
+});
+
 for (const sport of ['CFB','NCAAB']) {
   test(`${sport} ranking value follows matchup competitiveness`,()=>{
     const scenarios=[
