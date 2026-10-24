@@ -273,14 +273,29 @@ test('live MLB margin closeness widens early and returns to the three-run standa
   assert.equal(points(core.stateRating(87,'MLB','completed',2,1),'Final margin'),8);
 });
 
-test('championship MLB context carries explicitly and scales down with margin',()=>{
-  assert.deepEqual([0,.25,.5,.75,.9].map(p=>core.contextCarryWeight(p,'live','MLB',true)),[.58,.5,.4,.3,.24]);
+test('persistent postseason stakes outlast transient pregame context while viability gates their carry',()=>{
+  const stakes=[{label:'World Series',points:50},{label:'Championship series leverage',points:1}];
+  const context={teams:[['Home','HME','1','','','','','','h'],['Away','AWY','3','','','','','','a']],competition:{status:{period:8,type:{detail:'Bottom 8th'}}}};
+  const championship=core.stateRating(82,'MLB','live',2,.85,null,context,stakes);
+  const ordinary=core.stateRating(82,'MLB','live',2,.85,null,context,[]);
+  assert.ok(championship.score >= 58 && championship.score <= 70,`expected viable championship score near 58-65, got ${championship.score}`);
+  assert.ok(championship.score > ordinary.score+15);
+  assert.equal(championship.factors.filter(item=>item.label==='Persistent postseason stakes').length,1);
+  assert.ok(championship.contextWeight < .1,'ordinary pregame context should keep decaying');
+  assert.equal(core.stateRating(82,'MLB','live',2,.85,null,context,[]).persistentStakes,0);
   assert.equal(core.contextCarryWeight(.25,'live','MLB',false),.30);
-  const close=core.stateRating(87,'MLB','live',2,.2,null,{championship:true});
-  const blowout=core.stateRating(87,'MLB','live',7,.2,null,{championship:true});
-  assert.ok(close.score >= 65 && close.score <= 70,`expected 65-70, got ${close.score}`);
-  assert.ok(blowout.score < close.score-12,`expected blowout to fall substantially: ${close.score} -> ${blowout.score}`);
-  assert.equal(core.stateRating(87,'MLB','completed',2,1,null,{championship:true}).contextWeight,.05);
+  assert.equal(core.stateRating(82,'MLB','completed',2,1,null,context,stakes).contextWeight,.05);
+});
+
+test('late championship stakes collapse when comeback viability is gone and rise with live leverage',()=>{
+  const stakes=[{label:'World Series',points:50}];
+  const base={teams:[['Home','HME','1','','','','','','h'],['Away','AWY','8','','','','','','a']],competition:{status:{period:9,type:{detail:'Top 9th'}}}};
+  const dead=core.stateRating(82,'MLB','live',7,.98,null,base,stakes);
+  const deadOrdinary=core.stateRating(82,'MLB','live',7,.98,null,base,[]);
+  assert.equal(dead.retainedStakeWeight,0);
+  assert.equal(dead.score,deadOrdinary.score);
+  const live=core.stateRating(82,'MLB','live',1,.98,null,{teams:[['Home','HME','3','','','','','','h'],['Away','AWY','4','','','','','','a']],competition:{status:{period:9,type:{detail:'Top 9th'}}}},stakes);
+  assert.ok(live.score > dead.score+15);
 });
 
 test('live event shock rewards major plays briefly and expires after seven plays',()=>{

@@ -4851,7 +4851,8 @@
     gap,
     progress,
     homeWinProbability=null,
-    footballContext=null
+    footballContext=null,
+    openingFactors=[]
   ) {
     const closeLimit =
       CLOSE_MARGIN[sport] || 10;
@@ -4948,23 +4949,50 @@
           .7 *
           uncertainty;
 
+    // Keep postseason stakes separate from records, market, matchup quality,
+    // and ordinary narrative. Those transient factors continue to use the
+    // established context decay curve; stakes get their own live viability.
+    const persistentStakeLabels =
+      /world series|championship|final round|finals|title game|semifinal|postseason|playoff|elimination|clinching|deciding game|winner[- ]take[- ]all|aggregate tie|second-leg consequences/i;
+    const persistentStakes =
+      gameState === 'live'
+        ? openingFactors
+            .filter(item => persistentStakeLabels.test(item.label))
+            .reduce((sum,item) => sum + Math.max(0,Number(item.points) || 0),0)
+        : 0;
+
     const contextWeight =
       contextCarryWeight(
         progress,
         gameState,
         sport,
-        Boolean(footballContext?.championship)
+        false
       );
 
-    const retainedContextWeight =
-      sport === 'MLB' && gameState === 'live' && footballContext?.championship
-        ? contextWeight * (.75 + .25 * marginClose)
-        : contextWeight;
+    const transientOpeningScore = Math.max(0,openingScore-persistentStakes);
+    const liveSituation = footballContext?.situation || footballContext?.competition?.situation || {};
+    const liveStatus = footballContext?.competition?.status || {};
+    const inning = Number(liveStatus.period || liveStatus.inning || 0);
+    const inningHalf = String(liveSituation.halfInning || liveSituation.inningHalf || liveSituation.lastPlay?.type?.text || `${liveStatus.type?.detail || ''} ${liveStatus.type?.shortDetail || ''}`).toLowerCase();
+    const homeTrailing = Array.isArray(footballContext?.teams) && footballContext.teams.length === 2 &&
+      Number(footballContext.teams[0][2]) < Number(footballContext.teams[1][2]);
+    const guaranteedMlbAtBat = sport === 'MLB' && inning >= 8 &&
+      (homeTrailing && /bottom|middle|home/.test(inningHalf) || !homeTrailing && /top|away/.test(inningHalf));
+    let comebackViability = Math.sqrt(Math.max(0,Math.min(1,marginClose)));
+    if (guaranteedMlbAtBat) comebackViability = Math.max(comebackViability,.9);
+    if (footballState) comebackViability = footballState.comebackFeasibility;
+    if (basketballState) comebackViability = basketballState.comebackFeasibility;
+    // NHL's one-goal state is live even where the generic margin curve is
+    // conservative; multi-goal margins still decay sharply with time.
+    if (sport === 'NHL' && gap === 1) comebackViability = Math.max(comebackViability,.82);
+    const retainedStakeWeight = .68 * Math.max(0,Math.min(1,comebackViability));
+    const retainedContextWeight = contextWeight;
     const contextPoints =
       Math.round(
-        openingScore *
+        transientOpeningScore *
         retainedContextWeight
       );
+    const retainedStakePoints = Math.round(persistentStakes * retainedStakeWeight);
 
     /*
      * Completed NBA games use a higher state floor and larger closeness
@@ -5069,6 +5097,10 @@
       });
     }
 
+    if (retainedStakePoints) {
+      factors.push({label:'Persistent postseason stakes',points:retainedStakePoints});
+    }
+
     if (closePoints) {
       factors.push({
         label:
@@ -5113,6 +5145,9 @@
       widePenalty,
       contextWeight,
       retainedContextWeight,
+      persistentStakes,
+      retainedStakeWeight,
+      comebackViability,
       uncertainty,
       footballState,
       basketballState
@@ -5196,7 +5231,8 @@
           competition,
           teams,
           championship
-        }
+        },
+        opening.factors
       );
 
     factors.length = 0;
@@ -5315,6 +5351,7 @@
     ) {
       liveRatingContexts.set(competition.status,{
         openingScore:opening.score,
+        openingFactors:opening.factors,
         championshipStakes:championship,
         underdog,
         competition
@@ -5327,6 +5364,7 @@
       reason,
       openingScore:
         opening.score,
+      openingFactors:opening.factors,
       ...(championship ? {championshipStakes:true} : {}),
       underdog,
       upsetText:
@@ -7530,6 +7568,8 @@
       game.openingScore ??
       context?.openingScore;
 
+    const openingFactors = game.openingFactors || context?.openingFactors || [];
+
     if (game.championshipStakes || context?.championshipStakes) game.championshipStakes = true;
     else delete game.championshipStakes;
 
@@ -7570,7 +7610,8 @@
             championship:game.championshipStakes,
             situation:current.situation,
             summary:rejected ? null : summary
-          }
+          },
+          openingFactors
         );
 
       const underdog =
@@ -7615,6 +7656,8 @@
 
       game.openingScore =
         openingScore;
+
+      game.openingFactors = openingFactors;
 
       game.underdog =
         underdog;
