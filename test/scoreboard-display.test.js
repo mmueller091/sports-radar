@@ -13,6 +13,14 @@ for (const name of ['liveRefreshDelay','footballAccessibleSituation','possession
 }
 const teams = [['Baltimore','BAL','24','','','','','','1'],['Denver','DEN','21','','','','','','2']];
 
+test('scoreboard places the home team on the bottom when the feed lists it first',()=>{
+  const game=normalizeEvent({id:'home-first',competitions:[{competitors:[
+    {homeAway:'home',team:{id:'army',displayName:'Army',abbreviation:'ARMY'},score:'28'},
+    {homeAway:'away',team:{id:'tulsa',displayName:'Tulsa',abbreviation:'TLS'},score:'41'}
+  ]}]},'CFB');
+  assert.deepEqual(game.teams.map(team=>team[0]),['Tulsa','Army']);
+});
+
 test('adaptive browser polling is fast only for visible live feeds',()=>{
   assert.equal(context.liveRefreshDelay(true,false),15000);
   assert.equal(context.liveRefreshDelay(true,true),60000);

@@ -29,6 +29,12 @@ const event = {id:'42',name:'Away at Home',date:'2026-10-22T20:00:00Z',competiti
 }]};
 const summary = {header:{competitions:event.competitions},boxscore:{teams:[],players:[]},plays:[],scoringPlays:[],winprobability:[]};
 
+function awayHomeTeams(teams,fixture){
+  const competitors=fixture.event.competitions?.[0]?.competitors||[];
+  const order=new Map(competitors.map(competitor=>[String(competitor.team?.id||''),competitor.homeAway==='home'?1:competitor.homeAway==='away'?0:2]));
+  return [...teams].sort((a,b)=>(order.get(String(a[8]||''))??2)-(order.get(String(b[8]||''))??2));
+}
+
 test('refresh cadence is 12 seconds for live feeds and 60 seconds otherwise',()=>{
   const live={updatedAt:new Date(100000).toISOString(),games:[{state:'live'}]};
   const idle={updatedAt:new Date(100000).toISOString(),games:[{state:'upcoming'}]};
@@ -180,8 +186,9 @@ test('moved normalization and enrichment preserve pre-migration fixture ratings 
     const fixture=inputs[file];
     const game=normalizeEvent(fixture.event,fixture.modelSport);
     if ((game.state!=='upcoming'||!game.line)&&!(game.division==='FCS'&&game.state==='upcoming')) enrichGame(game,fixture.summary);
-    const actual=JSON.parse(JSON.stringify({score:game.score,baseScore:game.baseScore,openingScore:game.openingScore,factors:game.factors,teams:game.teams}));
-    assert.deepEqual(actual,value,file);
+    const actual=JSON.parse(JSON.stringify({score:game.score,baseScore:game.baseScore,openingScore:game.openingScore,factors:game.factors,teams:awayHomeTeams(game.teams,fixture)}));
+    const canonicalExpected={...value,teams:awayHomeTeams(value.teams,fixture)};
+    assert.deepEqual(actual,canonicalExpected,file);
   }
 });
 
@@ -209,7 +216,7 @@ test('current shared core preserves all 107 games between the original browser a
     if ((migrated.state!=='upcoming'||!migrated.line)&&!(migrated.division==='FCS'&&migrated.state==='upcoming')) enrichGame(migrated,structuredClone(fixture.summary));
     // The Worker now uses normalized decimal clocks to choose the actual latest play;
     // the archived browser adapter still misorders those NBA plays.
-    const clean=game=>{const value=JSON.parse(JSON.stringify(game));delete value.summaryUrl;delete value.footballSituation;delete value.baseballSituation;delete value.moment;delete value.momentLabel;return value;};
-    assert.deepEqual(clean(migrated),clean(original),file);
+    const clean=(game,fixture)=>{const value=JSON.parse(JSON.stringify(game));delete value.summaryUrl;delete value.footballSituation;delete value.baseballSituation;delete value.moment;delete value.momentLabel;value.teams=awayHomeTeams(value.teams,fixture);return value;};
+    assert.deepEqual(clean(migrated,fixture),clean(original,fixture),file);
   }
 });

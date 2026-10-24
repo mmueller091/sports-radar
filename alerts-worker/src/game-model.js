@@ -87,7 +87,13 @@ function normalizeEvent(event, sport, leagueLogo, division) {
 
   if (competitors.length < 2) return null;
 
-  const teams = competitors.slice(0,2).map(competitor => ({
+  // ESPN can return competitors in either order. Keep the scoreboard convention
+  // consistent across sports: away team first, home team second.
+  const sideOrder = side => side === 'away' ? 0 : side === 'home' ? 1 : 2;
+  const orderedCompetitors = competitors.slice(0,2).sort((a,b) =>
+    sideOrder(a.homeAway) - sideOrder(b.homeAway)
+  );
+  const teams = orderedCompetitors.map(competitor => ({
     id:String(competitor.team?.id || ''),
     name:
       competitor.team?.displayName ||
