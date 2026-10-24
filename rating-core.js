@@ -523,6 +523,10 @@
     ];
   }
 
+  function spreadMarketPoints(spread) {
+    return Math.round(5 / (1 + (spread / 6) ** 2));
+  }
+
   function pregameMarketFactor(sport,competition) {
     const raw =
       competition?.odds?.[0];
@@ -537,28 +541,15 @@
     ) {
       const spread =
         listedSpread(competition);
-
-      if (
-        spread !== null &&
-        spread <= 2.5
-      ) {
-        return {
-          label:'Very close projected spread',
-          points:5
-        };
-      }
-
-      if (
-        spread !== null &&
-        spread <= 5.5
-      ) {
-        return {
-          label:'Competitive projected spread',
-          points:3
-        };
-      }
-
-      return null;
+      const points = spread === null
+        ? 0
+        : spreadMarketPoints(spread);
+      return points ? {
+        label:points >= 4
+          ? 'Very close projected spread'
+          : 'Competitive projected spread',
+        points
+      } : null;
     }
 
     if (
@@ -1635,8 +1626,16 @@
             )
         : [];
 
+    // A ranking adds interest only when the matchup can plausibly compete.
+    // Two ranked teams retain some importance even with a wider line.
+    const rankingFactors = [];
+    const rankingSpread = listedSpread(competition);
+    const competitiveness = rankingSpread === null
+      ? null
+      : 1 / (1 + (rankingSpread / 10) ** 2);
+
     if (ranks.length === 2) {
-      factors.push({
+      rankingFactors.push({
         label:'Two ranked teams',
         points:
           sport === 'CFB'
@@ -1651,7 +1650,7 @@
               rank <= 20
           )
         ) {
-          factors.push({
+          rankingFactors.push({
             label:'Both top 20',
             points:4
           });
@@ -1663,7 +1662,7 @@
               rank <= 10
           )
         ) {
-          factors.push({
+          rankingFactors.push({
             label:'Top 10 team',
             points:5
           });
@@ -1706,6 +1705,15 @@
             points:4
           });
         }
+      } else {
+        if (ranks.every(rank => rank <= 10)) {
+          rankingFactors.push({label:'Both top 10',points:6});
+        } else if (ranks.every(rank => rank <= 20)) {
+          rankingFactors.push({label:'Both top 20',points:3});
+        }
+        if (ranks.some(rank => rank <= 10)) {
+          rankingFactors.push({label:'Top 10 team',points:3});
+        }
       }
 
       reason +=
@@ -1713,7 +1721,7 @@
     } else if (
       ranks.length === 1
     ) {
-      factors.push({
+      rankingFactors.push({
         label:'Ranked team',
         points:
           sport === 'CFB'
@@ -1725,14 +1733,34 @@
         sport === 'CFB' &&
         ranks[0] <= 10
       ) {
-        factors.push({
+        rankingFactors.push({
           label:'Top 10 team',
           points:5
         });
       }
 
+      if (sport === 'NCAAB' && ranks[0] <= 10) {
+        rankingFactors.push({label:'Top 10 team',points:3});
+      }
+
       reason +=
         ' · ranked team';
+    }
+
+    if (rankingFactors.length) {
+      const multiplier = ranks.length === 2
+        ? .15 + .85 * (competitiveness ?? .7)
+        : competitiveness ?? .35;
+      let rawPoints = 0;
+      let scaledPoints = 0;
+      for (const factor of rankingFactors) {
+        rawPoints += factor.points;
+        const next = Math.round(rawPoints * multiplier);
+        if (next > scaledPoints) {
+          factors.push({...factor,points:next - scaledPoints});
+        }
+        scaledPoints = next;
+      }
     }
 
     if (

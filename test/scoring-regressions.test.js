@@ -16,21 +16,101 @@ export function matchup(sport,detail='',postseason=false) {
 }
 export const pregame = (input,engine=core) => engine.pregameRating(input.sport,input.event,input.competition,input.detail);
 
+const rankedMatchup = (sport,ranks,spread) => {
+  const input=matchup(sport);
+  input.competition.competitors.forEach((item,i)=>{item.curatedRank.current=ranks[i];});
+  if (spread !== null) input.competition.odds=[{details:`Home -${spread}`,spread:-spread}];
+  return input;
+};
+const rankingPoints = rating => rating.factors
+  .filter(item=>/^(Two ranked teams|Both top 10|Both top 20|Top 10 team|Ranked team)$/.test(item.label))
+  .reduce((sum,item)=>sum+item.points,0);
+
+for (const sport of ['CFB','NCAAB']) {
+  test(`${sport} ranking value follows matchup competitiveness`,()=>{
+    const scenarios=[
+      rankedMatchup(sport,[1,3],2.5),
+      rankedMatchup(sport,[4,18],6),
+      rankedMatchup(sport,[2,null],3),
+      rankedMatchup(sport,[8,22],17),
+      rankedMatchup(sport,[1,null],21)
+    ];
+    const scores=scenarios.map(input=>pregame(input).score);
+    for (let i=1;i<scores.length;i++) assert.ok(scores[i-1]>scores[i],`${sport}: ${scores.join(' > ')}`);
+    assert.ok(scores[4]<scores[2]-5);
+    assert.ok(rankingPoints(pregame(scenarios[4]))<rankingPoints(pregame(scenarios[2]))/2);
+    assert.ok(rankingPoints(pregame(scenarios[3]))>rankingPoints(pregame(scenarios[4])));
+  });
+  test(`${sport} spread attenuation has no 20-point cliff`,()=>{
+    const at=(ranks,spread)=>rankingPoints(pregame(rankedMatchup(sport,ranks,spread)));
+    for (const ranks of [[1,null],[8,22]]) {
+      assert.ok(at(ranks,3)>at(ranks,21));
+      assert.ok(at(ranks,19.5)>=at(ranks,20));
+      assert.ok(at(ranks,19.5)-at(ranks,20)<=1);
+      assert.ok(at(ranks,20)>=at(ranks,20.5));
+      assert.ok(at(ranks,20)-at(ranks,20.5)<=1);
+    }
+    assert.ok(at([1,null],null)<at([1,null],3));
+  });
+  test(`${sport} ranking attenuation leaves context factors intact`,()=>{
+    const input=rankedMatchup(sport,[1,null],21);
+    input.detail='rivalry';
+    input.event.sportsRadarContext=[{type:'playoff_rematch',text:'Verified rematch'}];
+    const rating=pregame(input);
+    assert.equal(points(rating,'Rivalry'),7);
+    assert.equal(points(rating,'Playoff rematch'),6);
+  });
+}
+
 for (const sport of ['CFB','NCAAB','NBA']) {
-  for (const [spread,expected] of [[0,5],[2.5,5],[2.51,3],[5.5,3],[6,0]]) {
-    test(`${sport} spread ${spread} applies market factor exactly once (${expected})`,()=>{
+  const marketPoints=spread=>{
+    const input=matchup(sport);
+    input.competition.odds=[{details:`Home -${spread}`,spread:-spread}];
+    const market=pregame(input).factors.filter(item=>/projected spread/.test(item.label));
+    assert.ok(market.length<=1);
+    return market[0]?.points || 0;
+  };
+  test(`${sport} market bonus decreases smoothly with the spread`,()=>{
+    const spreads=[0,2.5,3,5.5,6,9,12,20];
+    const awards=spreads.map(marketPoints);
+    for (let i=1;i<awards.length;i++) {
+      assert.ok(awards[i-1]>=awards[i],`${sport}: ${awards.join(', ')}`);
+    }
+    assert.ok(awards[0]>=4 && awards[0]<=5);
+    assert.ok(awards[2]>=3 && awards[2]<=4);
+    assert.ok(awards[4]>=2 && awards[4]<=3);
+    assert.ok(awards[5]>=1 && awards[5]<=2);
+    assert.ok(awards[6]<=1);
+    assert.equal(awards[7],0);
+    assert.ok(awards[3]-awards[4]<=1);
+  });
+  for (const spread of [0,2.5,3,5.5,6,9,12,20]) {
+    test(`${sport} spread ${spread} applies market factor exactly once`,()=>{
       const input=matchup(sport);
       const before=pregame(input);
       input.competition.odds=[{details:`Home -${spread}`,spread:-spread}];
       const after=pregame(input);
       const market=after.factors.filter(item=>/projected spread/.test(item.label));
-      assert.equal(market.length,expected ? 1 : 0);
-      assert.equal(after.score-before.score,expected);
+      const award=marketPoints(spread);
+      assert.equal(market.length,award ? 1 : 0);
+      assert.equal(after.score-before.score,award);
+      assert.ok(Number.isInteger(award) && award>=0 && award<=5);
     });
   }
   test(`${sport} missing odds has no market factor`,()=>{
     assert.equal(pregame(matchup(sport)).factors.some(item=>/projected spread/.test(item.label)),false);
   });
+  if (sport !== 'NBA') {
+    test(`${sport} market bonus is independent of ranked-matchup points`,()=>{
+      const at=spread=>pregame(rankedMatchup(sport,[1,3],spread));
+      for (const spread of [3,6,12]) {
+        const market=at(spread).factors.filter(item=>/projected spread/.test(item.label));
+        assert.equal(market.length,1);
+        assert.equal(market[0].points,marketPoints(spread));
+      }
+      assert.ok(rankingPoints(at(3))>rankingPoints(at(12)));
+    });
+  }
 }
 for (const sport of ['MLB','NHL']) {
   for (const [price,expected] of [[125,5],[150,3],[160,0]]) {
@@ -44,10 +124,10 @@ for (const sport of ['MLB','NHL']) {
     });
   }
 }
-test('2026 LSU at Ole Miss, Ole Miss -2.5, gets +5',()=>{
+test('2026 LSU at Ole Miss, Ole Miss -2.5, receives a close-market bonus',()=>{
   const input=matchup('CFB');input.event.name='LSU at Ole Miss';
   input.competition.odds=[{details:'MISS -2.5',spread:-2.5}];
-  assert.equal(points(pregame(input),'Very close projected spread'),5);
+  assert.ok(points(pregame(input),'Very close projected spread')>=4);
 });
 
 const recordLabel=/winning records|adjusted quality|Adjusted team quality|Unbeaten team|at least .500|below .500|Winless team|between winning teams/;
