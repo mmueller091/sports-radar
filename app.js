@@ -21,24 +21,7 @@ const LEAGUE_LOGOS = {
   Soccer:'https://a.espncdn.com/i/leaguelogos/500/soccer.png'
 };
 
-const DEMO_GAMES = [
-  {id:'ravens-browns',favorite:true,sport:'NFL',state:'live',status:'Q3 · 04:18',channel:'ESPN',teams:[['Baltimore Ravens','BAL','17','red'],['Cleveland Browns','CLE','13','brown']],context:'Ravens driving • red zone',sub:'Baltimore, MD',score:84,signal:'HOT'},
-  {id:'orioles-yankees',favorite:true,sport:'MLB',state:'live',status:'7th inning',channel:'MASN',teams:[['Baltimore Orioles','BAL','4','orange'],['New York Yankees','NYY','3','black']],context:'One-run game • 2 outs',sub:'Bronx, NY',score:78,signal:'RISING'},
-  {id:'capitals-devils',favorite:true,sport:'NHL',state:'upcoming',status:'Tonight · 7:30 PM',channel:'Monumental Sports Network',teams:[['Washington Capitals','WSH','—','red'],['New Jersey Devils','NJD','—','red']],context:'Division matchup',sub:'Washington, DC',score:66,signal:'WATCH'},
-  {id:'chiefs-bills',sport:'NFL',state:'live',status:'Q4 · 02:51',channel:'CBS',teams:[['Kansas City Chiefs','KC','24','red'],['Buffalo Bills','BUF','27','blue']],context:'Bills up 3 • 4th down',sub:'Orchard Park, NY',score:92,signal:'HOT'},
-  {id:'mets-dodgers',sport:'MLB',state:'live',status:'9th inning',channel:'TBS',teams:[['New York Mets','NYM','5','blue'],['Los Angeles Dodgers','LAD','5','blue']],context:'Tied in the 9th',sub:'Los Angeles, CA',score:89,signal:'HOT'},
-  {id:'alabama-georgia',sport:'CFB',state:'upcoming',status:'Sat · 3:30 PM',channel:'CBS',teams:[['Alabama','ALA','—','red'],['Georgia','UGA','—','black']],context:'#4 vs #7 • SEC showdown',sub:'Athens, GA',score:86,signal:'CAN’T MISS'},
-  {id:'leafs-habs',sport:'NHL',state:'upcoming',status:'Tonight · 7:00 PM',channel:'ESPN+',teams:[['Toronto Maple Leafs','TOR','—','blue'],['Montreal Canadiens','MTL','—','red']],context:'Original Six rivalry',sub:'Montreal, QC',score:73,signal:'WATCH'},
-  {id:'astros-tigers',sport:'MLB',state:'completed',status:'Final',channel:'MLB Network',teams:[['Houston Astros','HOU','2','orange'],['Detroit Tigers','DET','1','blue']],context:'Low-scoring thriller',sub:'Detroit, MI',score:61,signal:'REPLAY'},
-  {id:'wta-final',sport:'Tennis',state:'upcoming',status:'Tomorrow · 11:00 AM',channel:'Tennis Channel',teams:[['WTA Finals • SF','SF','—','purple'],['Singapore','SGP','—','green']],context:'Quarterfinal draw',sub:'Singapore',score:68,signal:'WATCH'},
-  {id:'eagles-cowboys',sport:'NFL',state:'completed',status:'Final',channel:'FOX',teams:[['Philadelphia Eagles','PHI','31','green'],['Dallas Cowboys','DAL','28','blue']],context:'OT finish • instant classic',sub:'Arlington, TX',score:87,signal:'REPLAY'},
-  {id:'ucla-usc',sport:'CFB',state:'upcoming',status:'Sat · 8:00 PM',channel:'FOX',teams:[['UCLA','UCLA','—','blue'],['USC','USC','—','gold']],context:'Rivalry game • LA',sub:'Los Angeles, CA',score:64,signal:'WATCH'},
-  {id:'bruins-rangers',sport:'NHL',state:'completed',status:'Final',channel:'ESPN',teams:[['Boston Bruins','BOS','4','gold'],['New York Rangers','NYR','2','blue']],context:'Boston controls late',sub:'New York, NY',score:54,signal:'REPLAY'},
-  {id:'arsenal-city',sport:'Soccer',state:'live',status:'2nd half · 71’',channel:'NBC, Peacock',teams:[['Arsenal','ARS','1','red'],['Man City','MCI','1','blue']],context:'EPL • level late',sub:'London, UK',score:90,signal:'HOT'},
-  {id:'bayern-real',sport:'Soccer',state:'upcoming',status:'Wed · 3:00 PM',channel:'Paramount+',teams:[['Bayern Munich','FCB','—','red'],['Real Madrid','RMA','—','white']],context:'Champions League • QF',sub:'Munich, DE',score:88,signal:'CAN’T MISS'}
-];
-
-let games = [...DEMO_GAMES];
+let games = [];
 
 function readPreferences() {
   try {
@@ -114,7 +97,7 @@ const state = {
   visibleSports:new Set(savedSports),
   favoriteTeams:savedFavorites,
   watchedGames:readWatchedGames(),
-  source:'demo'
+  source:'loading'
 };
 
 const $ = selector => document.querySelector(selector);
@@ -525,6 +508,7 @@ async function loadLiveGames() {
     games.filter(game => game.state === 'live').forEach(recordRatingSnapshot);
   } catch {
     state.feedStale = true;
+    if (state.source !== 'live') state.source = 'unavailable';
   } finally {
     liveRefreshInFlight = false;
     scheduleLiveRefresh();
@@ -534,11 +518,17 @@ async function loadLiveGames() {
 }
 
 function updateDataStatus() {
+  if (state.source !== 'live') {
+    $('#data-status-label').textContent = state.source === 'loading'
+      ? 'Connecting to live scoreboards…'
+      : 'Live scores unavailable. Retry to reconnect.';
+    $('#footer-status').textContent = state.source === 'loading' ? 'Loading feed' : 'Feed unavailable';
+    return;
+  }
   const stale = state.feedStale || Date.now() - Date.parse(state.updatedAt) > 120000;
-  $('#data-status-label').textContent = state.source === 'live'
-    ? `${stale ? 'Stale scores' : 'Live scores'}${!stale && state.feedDegraded ? ' · some details unavailable' : ''} · updated ${new Date(state.updatedAt).toLocaleTimeString([],{hour:'numeric',minute:'2-digit'})}`
-    : 'Demo data · live feed unavailable';
-  $('#footer-status').textContent = state.source === 'live' ? (stale ? 'Stale feed' : 'Live feed') : 'Demo data';
+  $('#data-status-label').textContent =
+    `${stale ? 'Stale scores' : 'Live scores'}${!stale && state.feedDegraded ? ' · some details unavailable' : ''} · updated ${new Date(state.updatedAt).toLocaleTimeString([],{hour:'numeric',minute:'2-digit'})}`;
+  $('#footer-status').textContent = stale ? 'Stale feed' : 'Live feed';
 }
 setInterval(updateDataStatus,15000);
 
@@ -2956,10 +2946,19 @@ function render() {
     visible.length !== 0
   );
 
+  $('#empty-state h3').textContent =
+    state.source === 'loading' ? 'Loading live scores…' :
+    state.source === 'unavailable' ? 'Live scores unavailable' :
+    'No games in this view';
+
   $('#empty-message').textContent =
-    state.gameState === 'watching'
-      ? 'Open a game and tap “Add to watchlist.” Saved games appear here while they are in the current scoreboard feed.'
-      : 'Try a different sport or game state.';
+    state.source === 'loading'
+      ? 'Connecting to the live feed.'
+      : state.source === 'unavailable'
+        ? 'The feed could not be reached. Use Refresh to retry.'
+        : state.gameState === 'watching'
+          ? 'Open a game and tap “Add to watchlist.” Saved games appear here while they are in the current scoreboard feed.'
+          : 'Try a different sport or game state.';
 
   $('#live-count').textContent =
     `${scopeGames.filter(game => game.state === 'live').length} LIVE`;
@@ -3679,18 +3678,6 @@ if (
     )
     .catch(() => {});
 }
-
-games =
-  DEMO_GAMES.map(
-    game => ({
-      ...game,
-      favorite:
-        favoriteFor(
-          game.teams,
-          game.sport
-        )
-    })
-  );
 
 renderFavoriteTags();
 renderFavoriteResults();
