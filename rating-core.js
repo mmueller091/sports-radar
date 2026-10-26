@@ -4415,6 +4415,16 @@
     };
   }
 
+  function unbeatenStartImpact(sport,gameState,teams) {
+    if (sport !== 'NFL' || gameState !== 'completed' || teams.length !== 2) return 0;
+    const scores = teams.map(team => Number(team.score ?? team[2]));
+    if (!scores.every(Number.isFinite) || scores[0] === scores[1]) return 0;
+    const loser = teams[scores[0] < scores[1] ? 0 : 1];
+    const record = String(loser.pregameRecord || '').match(/^(\d+)-(\d+)(?:-(\d+))?$/);
+    if (!record || Number(record[1]) < 4 || Number(record[2]) !== 0) return 0;
+    return Math.round(Math.min(10,4 + .75 * (Number(record[1]) - 4)));
+  }
+
   function contextCarryWeight(
     progress,
     gameState,
@@ -5378,6 +5388,11 @@
             : 'Underdog threatens upset',
         points:upset.points
       });
+    }
+
+    const unbeatenPoints = unbeatenStartImpact(sport,gameState,teams);
+    if (unbeatenPoints) {
+      factors.push({label:'Ended unbeaten start',points:unbeatenPoints});
     }
 
     const score =
@@ -8046,6 +8061,7 @@
     defensiveFinishFactor,
     underdogCandidate,
     upsetImpact,
+    unbeatenStartImpact,
     contextCarryWeight,
     nhlLiveMarginCloseness,
     mlbLiveMarginCloseness,

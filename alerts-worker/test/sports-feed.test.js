@@ -45,6 +45,37 @@ test('refresh cadence is 12 seconds for live feeds and 60 seconds otherwise',()=
   assert.equal(refreshDue(idle,160000),true);
 });
 
+test('feed carries an NFL entering record from live scoreboard to final result',async t=>{
+  const env=database();
+  const original=globalThis.fetch;
+  const gameEvent={id:'sf-atl',name:'San Francisco 49ers at Atlanta Falcons',date:'2026-10-25T17:00:00Z',season:{type:2},competitions:[{
+    status:{type:{state:'in',shortDetail:'Q4'},period:4},
+    competitors:[
+      {homeAway:'away',team:{id:'25',displayName:'San Francisco 49ers',abbreviation:'SF'},score:'20',records:[{type:'total',summary:'6-0'}]},
+      {homeAway:'home',team:{id:'1',displayName:'Atlanta Falcons',abbreviation:'ATL'},score:'20',records:[{type:'total',summary:'3-3'}]}
+    ],
+    odds:[{details:'SF -3',spread:3,homeTeamOdds:{underdog:true}}]
+  }]};
+  globalThis.fetch=async url=>Response.json(String(url).includes('/summary')
+    ? {header:{competitions:structuredClone(gameEvent.competitions)},plays:[],scoringPlays:[],winprobability:[]}
+    : {events:String(url).includes('/football/nfl/') ? [structuredClone(gameEvent)] : []});
+  t.after(()=>{globalThis.fetch=original;env.db.close();});
+  const now=Date.now();
+  const live=await refreshSportsData(env,now);
+  assert.deepEqual(live.games[0].pregameRecords,['6-0','3-3']);
+  gameEvent.competitions[0].status={type:{state:'post',completed:true,shortDetail:'Final'},period:4};
+  gameEvent.competitions[0].competitors[0].records[0].summary='6-1';
+  gameEvent.competitions[0].competitors[1].records[0].summary='4-3';
+  gameEvent.competitions[0].competitors[1].score='29';
+  const baseline=normalizeEvent(structuredClone(gameEvent),'NFL').score;
+  const final=await refreshSportsData(env,now+15000);
+  const game=final.games[0];
+  assert.deepEqual(game.pregameRecords,['6-0','3-3']);
+  assert.equal(game.factors.filter(factor=>factor.label==='Ended unbeaten start').length,1);
+  assert.equal(game.factors.find(factor=>factor.label==='Ended unbeaten start').points,6);
+  assert.equal(game.score,baseline+6);
+});
+
 test('basketball detail API adds normalized players using the existing cached summary',async t=>{
   const env=database();
   t.after(()=>env.db.close());

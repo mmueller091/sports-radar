@@ -15,6 +15,7 @@ const {
   momentumImpact,
   underdogCandidate,
   upsetImpact,
+  unbeatenStartImpact,
   stateRating,
   rateGame,
   applyLiveSnapshot
@@ -166,6 +167,9 @@ function normalizeEvent(event, sport, leagueLogo, division) {
       team.shortName,
       team.id
     ]),
+    ...(sport === 'NFL' && gameState !== 'completed'
+      ? {pregameRecords:teams.map(team => team.record)}
+      : {}),
     line:
       gameState === 'upcoming'
         ? parseLine(
@@ -213,7 +217,7 @@ function contextKey(game) {
 }
 
 function teamObjectsForRating(game) {
-  return game.teams.map(team => ({
+  return game.teams.map((team,index) => ({
     id:String(team[8] || ''),
     name:team[0],
     abbr:team[1],
@@ -222,8 +226,27 @@ function teamObjectsForRating(game) {
     logo:team[4],
     record:team[5],
     rank:team[6],
-    shortName:team[7]
+    shortName:team[7],
+    pregameRecord:game.pregameRecords?.[index]
   }));
+}
+
+function preservePregameRecords(game,previousGame) {
+  if (game.sport !== 'NFL' || !previousGame || game.state === 'upcoming') return;
+  const records = game.teams.map(team => {
+    const index = previousGame.teams?.findIndex(prior => String(prior[8]) === String(team[8]));
+    if (index == null || index < 0 || !team[8]) return null;
+    return previousGame.pregameRecords?.[index] ||
+      (previousGame.state === 'completed' ? null : previousGame.teams[index][5]);
+  });
+  if (records.some(record => !record)) return;
+  game.pregameRecords = records;
+  if (game.state !== 'completed' || game.factors.some(item => item.label === 'Ended unbeaten start')) return;
+  const bonus = unbeatenStartImpact(game.sport,game.state,teamObjectsForRating(game));
+  if (!bonus) return;
+  game.factors.push({label:'Ended unbeaten start',points:bonus});
+  game.baseScore = clampScore(game.baseScore + bonus);
+  game.score = clampScore(game.score + bonus);
 }
 
 function applyContextsToGame(game,factors) {
@@ -785,4 +808,4 @@ function enrichGame(game,summary,previousGame=null) {
             }
 
 }
-export {normalizeEvent,applyContextsToGame,enrichGame};
+export {normalizeEvent,preservePregameRecords,applyContextsToGame,enrichGame};

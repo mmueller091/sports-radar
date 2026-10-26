@@ -1,13 +1,13 @@
 import {basketballBoxScore} from './display-model.js';
 import {createCollector,summaryUrl} from './providers/espn.js';
-import {applyContextsToGame,enrichGame} from './game-model.js';
+import {preservePregameRecords,applyContextsToGame,enrichGame} from './game-model.js';
 import {contextsForGames} from './storylines.js';
 
 const STALE_MS = 120000;
 const RETENTION_MS = 30 * 86400000;
 const LIVE_REFRESH_MS = 12000;
 const IDLE_REFRESH_MS = 60000;
-export const MODEL_VERSION = '2026-10-23.1';
+export const MODEL_VERSION = '2026-10-26.1';
 
 export function refreshDue(feed,now=Date.now()) {
   if (!feed) return true;
@@ -155,10 +155,11 @@ export async function refreshSportsData(env,now=Date.now()) {
     await resources.flush();
     // Do not publish a partial/failed scoreboard refresh as a fresh feed.
     if (errors.length) return null;
+    const priorGames = new Map((previous?.games || []).map(game=>[`${game.sport}:${game.id}`,game]));
+    games.forEach(game=>preservePregameRecords(game,priorGames.get(`${game.sport}:${game.id}`)));
     const contextGames = games.filter(game=>['NFL','MLB','NHL','CFB','NBA','NCAAB'].includes(game.sport));
     const contexts = await contextsForGames(env,contextGames.map(game=>`${game.sport}:${game.id}`));
     contextGames.forEach(game=>applyContextsToGame(game,contexts[`${game.sport}:${game.id}`]));
-    const priorGames = new Map((previous?.games || []).map(game=>[`${game.sport}:${game.id}`,game]));
     // All eligible games share the browser's enrichment, independent of personal favorites.
     const candidates = games.filter(game=>(game.state!=='upcoming' || !game.line) && !(game.division==='FCS' && game.state==='upcoming'));
     // Preserve the old per-client 60-game enrichment selection without client scoring.
