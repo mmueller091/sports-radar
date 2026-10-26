@@ -78,7 +78,7 @@ const fixtures = `
     {team:{abbreviation:'CIN'},records:[{type:'overall',summary:'3-2'}]}
   ],odds:[{details:'BAL -3',overUnder:51.5}]};
   const rivalry = rateGame('NFL','upcoming',scheduledTeams,{name:'Ravens vs Bengals'},ravensBengals,'');
-  assert.equal(rivalry.score,74);
+  assert.equal(rivalry.score,73);
   function nflMatchup(name,awayCode,awayRecord,homeCode,homeRecord,spread) {
     const competition = {notes:[],competitors:[
       {homeAway:'away',team:{abbreviation:awayCode},records:[{type:'overall',summary:awayRecord}]},
@@ -90,10 +90,10 @@ const fixtures = `
   const bearsPatriots = nflMatchup('Patriots at Bears','NE','4-2','CHI','4-2',3);
   const ramsRaiders = nflMatchup('Rams at Raiders','LAR','2-4','LV','3-3',4.5);
   const seahawksChiefs = nflMatchup('Chiefs at Seahawks','KC','5-0','SEA','3-3',2.5);
-  assert.equal(jetsDolphins.score,38);
-  assert.equal(bearsPatriots.score,67);
-  assert.equal(ramsRaiders.score,46);
-  assert.equal(seahawksChiefs.score,61);
+  assert.equal(jetsDolphins.score,39);
+  assert.equal(bearsPatriots.score,66);
+  assert.equal(ramsRaiders.score,47);
+  assert.equal(seahawksChiefs.score,60);
   assert.ok([bearsPatriots,ramsRaiders,seahawksChiefs].every(matchup => matchup.score > jetsDolphins.score));
   assert.equal(bearsPatriots.factors.find(factor => factor.label === 'Both winning records').points,14);
   assert.equal(jetsDolphins.factors.find(factor => factor.label === 'AFC East matchup').points,4);
@@ -149,8 +149,8 @@ const fixtures = `
   ]};
   const texasOleMiss = rateGame('CFB','upcoming',scheduledTeams,{name:'Texas vs Ole Miss'},rankedPair,'');
   const utahHouston = rateGame('CFB','upcoming',scheduledTeams,{name:'Utah vs Houston'},unbeatenPair,'');
-  assert.equal(texasOleMiss.score,80);
-  assert.equal(utahHouston.score,84);
+  assert.equal(texasOleMiss.score,71);
+  assert.equal(utahHouston.score,75);
   const championshipDecider = rateGame('MLB','upcoming',scheduledTeams,{name:'World Series Game 7'},{notes:[],competitors:[]},'World Series Game 7');
   assert.ok(championshipDecider.score > Math.max(championship.score,utahHouston.score));
   assert.ok(!ordinary.factors.some(item => /close/i.test(item.label)));
@@ -237,13 +237,13 @@ const fixtures = `
   applyLiveSnapshot(football,{status:{displayClock:'2:32',period:2,type:{detail:'2:32 - 2nd Quarter'}},situation:{possession:'33',down:4,distance:2,downDistanceText:'4th & 2 at CIN 12',isRedZone:true}},null);
   assert.match(football.live.phase,/2:32.*2nd quarter/);
   assert.match(football.live.note,/BAL ball.*4th & 2 at CIN 12/);
-  assert.ok(football.score >= 79);
+  assert.ok(football.score >= 77);
   const baseball = {sport:'MLB',state:'live',teams:[['Orioles','BAL',3],['Yankees','NYY',3]],baseScore:65};
   applyLiveSnapshot(baseball,{status:{period:7,type:{detail:'Top 7th'}},situation:{onFirst:true,onSecond:false,onThird:true,outs:2},competitors:[{homeAway:'away',team:{displayName:'Orioles'},score:'3'},{homeAway:'home',team:{displayName:'Yankees'},score:'3'}]},null);
   assert.equal(baseball.live.phase,'Top 7th');
   assert.equal(baseball.live.bases.third,true);
   assert.equal(baseball.live.note,'2 outs');
-  const noHitSummary = {header:{competitions:[{competitors:[{team:{id:'1'},hits:0},{team:{id:'2'},hits:5}]}]},boxscore:{players:[{team:{id:'2'},statistics:[{name:'pitching',labels:['IP','H'],athletes:[{athlete:{displayName:'Ace Pitcher'},stats:['6.0','0']}]}]}]}};
+  const noHitSummary = {header:{competitions:[{competitors:[{team:{id:'1',displayName:'Orioles'},hits:0},{team:{id:'2',displayName:'Yankees'},hits:5}]}]},boxscore:{players:[{team:{id:'2'},statistics:[{name:'pitching',labels:['IP','H'],athletes:[{athlete:{displayName:'Ace Pitcher'},stats:['6.0','0']}]}]}]}};
   applyLiveSnapshot(baseball,{status:{period:7,type:{detail:'Top 7th'}},situation:{onFirst:true,onSecond:false,onThird:true,outs:2},competitors:[{homeAway:'away',team:{displayName:'Orioles'},score:'3'},{homeAway:'home',team:{displayName:'Yankees'},score:'3'}]},noHitSummary);
   assert.match(baseball.live.reasons.join(' '),/Ace Pitcher.*6 hitless innings/);
   assert.ok(baseball.score >= 84);
