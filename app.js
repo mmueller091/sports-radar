@@ -2069,7 +2069,8 @@ function estimatedEventRating(
       candidate,
       simulated,
       'live',
-      progress
+      progress,
+      game.sport
     ).points;
 
   const momentum =

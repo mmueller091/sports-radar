@@ -641,7 +641,9 @@ function enrichGame(game,summary,previousGame=null) {
                       : gameProgress(
                           game.sport,
                           summaryCompetition
-                        )
+                        ),
+                    game.sport,
+                    normalizedCompetition || summaryCompetition
                   );
 
                 if (impact.points) {

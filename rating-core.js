@@ -4229,7 +4229,9 @@
     candidate,
     teams,
     gameState,
-    progress
+    progress,
+    sport='',
+    competition=null
   ) {
     if (
       !candidate ||
@@ -4368,6 +4370,42 @@
 
         text:
           `${candidate.teamName}, a ${candidate.description}, is tied ${score}–${other} late`
+      };
+    }
+
+    if (
+      margin < 0 &&
+      progress >= .7 &&
+      ['NFL','CFB'].includes(sport)
+    ) {
+      const footballState = footballLiveCloseness(
+        sport,-margin,progress,competition
+      );
+      const tiedPoints = Math.min(12,
+        4 + Math.round(5 * progress) + Math.round(2 * candidate.strength)
+      );
+      // The margin curve measures upset threat, while the ordinary state
+      // score handles game closeness. Possession and remaining chances decide
+      // how much of the tied upset bonus is still in play.
+      const possessionWeight = footballState.possessionState === 'trailing'
+        ? 1
+        : footballState.possessionState === 'leading'
+          ? .68
+          : .8;
+      const fieldWeight = footballState.possessionState === 'trailing' &&
+        footballState.fieldPosition !== null
+          ? 1 + .08 * Math.max(0,(footballState.fieldPosition - 50) / 50)
+          : 1;
+      const marginWeight = Math.exp(-Math.pow(-margin / 10,1.6));
+      const points = scaled(Math.round(
+        tiedPoints * marginWeight * footballState.comebackFeasibility *
+        possessionWeight * fieldWeight
+      ));
+      return {
+        points,
+        text:points
+          ? `${candidate.teamName}, a ${candidate.description}, trails ${score}–${other} but remains an upset threat`
+          : ''
       };
     }
 
@@ -4932,9 +4970,14 @@
     const hockeyScores = hockeyTeams.map(team=>Number(team[2]));
     const hockeyTrailingIndex = hockeyScores.length === 2 && hockeyScores[0] !== hockeyScores[1] ? (hockeyScores[0] < hockeyScores[1] ? 0 : 1) : -1;
     const hockeyTrailingName = hockeyTrailingIndex >= 0 ? String(hockeyTeams[hockeyTrailingIndex][0]).toLowerCase() : '';
+    const hockeyTrailingId = hockeyTrailingIndex >= 0 ? String(hockeyTeams[hockeyTrailingIndex][8] || '') : '';
     const hockeyMarginSituation = {
-      trailingGoaliePulled:Boolean(hockeySituation?.pulledGoalieTeam && hockeySituation.pulledGoalieTeam.toLowerCase() === hockeyTrailingName),
-      trailingPowerPlay:Boolean(hockeySituation?.powerPlayTeam && hockeySituation.powerPlayTeam.toLowerCase() === hockeyTrailingName)
+      trailingGoaliePulled:Boolean(hockeyTrailingId && hockeySituation?.pulledGoalieTeamId
+        ? hockeySituation.pulledGoalieTeamId === hockeyTrailingId
+        : hockeySituation?.pulledGoalieTeam && hockeySituation.pulledGoalieTeam.toLowerCase() === hockeyTrailingName),
+      trailingPowerPlay:Boolean(hockeyTrailingId && hockeySituation?.powerPlayTeamId
+        ? hockeySituation.powerPlayTeamId === hockeyTrailingId
+        : hockeySituation?.powerPlayTeam && hockeySituation.powerPlayTeam.toLowerCase() === hockeyTrailingName)
     };
 
     const marginClose =
@@ -5322,7 +5365,9 @@
         underdog,
         teams,
         gameState,
-        progress
+        progress,
+        sport,
+        competition
       );
 
     if (upset.points) {
@@ -5706,6 +5751,7 @@
     const offenseCanTieOrLead = offenseTrailingOrTied && holderScore + 7 >= opponentScore;
 
     let points = 0;
+    let fourthPoints = 0;
     const reasons = [];
 
     if (redZone) {
@@ -5779,8 +5825,8 @@
           fourth
         );
 
-      points +=
-        fourth;
+      fourthPoints = fourth;
+      points += fourth;
 
       reasons.push(
         fourth > 1
@@ -5830,6 +5876,41 @@
       );
     }
 
+    // A live tying or winning possession has leverage even when the leader's
+    // win probability has grown. Share the existing situation cap with the
+    // clock, field-position and fourth-down bonuses rather than stacking them.
+    const decisiveDrive =
+      Number(status?.period) >= 4 &&
+      holderIndex >= 0 &&
+      holderScore < opponentScore &&
+      scoreGap <= 8;
+    const clockUrgency = seconds === null
+      ? 0
+      : Math.max(0,Math.min(1,(240 - seconds) / 120));
+    const driveUrgency = Number(status?.period) > 4
+      ? Math.max(.6,seconds === null ? 1 : clockUrgency)
+      : clockUrgency;
+    let driveLeverage = null;
+    if (decisiveDrive && driveUrgency > 0) {
+      const positionBonus = goalToGo && fieldPosition >= 95
+        ? 3
+        : redZone
+          ? 2
+          : fieldPosition >= 70
+            ? 2
+            : fieldPosition > 50
+              ? 1
+              : 0;
+      const drivePoints = Math.round(
+        driveUrgency * ((scoreGap >= 4 ? 9 : 8) + positionBonus)
+      );
+      driveLeverage = {urgency:driveUrgency,positionBonus};
+      points = Math.max(points,drivePoints + Math.min(2,fourthPoints));
+      reasons.push(
+        `${holder?.[0] || 'The trailing team'} has a ${scoreGap >= 4 ? 'tying or winning TD' : 'tying or winning score'} drive in progress`
+      );
+    }
+
     return {
       points:
         Math.min(
@@ -5851,7 +5932,8 @@
           .filter(Boolean)
           .join(' · '),
 
-      reasons
+      reasons,
+      decisiveDrive:driveLeverage
     };
   }
 
@@ -6015,6 +6097,10 @@
     const countText = String(situation.count || `${situation.balls ?? ''}-${situation.strikes ?? ''}`);
     const fullCount = /^3-2$/.test(countText.trim());
 
+    if (Number.isFinite(outs) && outs >= 3) {
+      return {points:0,note:'3 outs',reasons:[],bases,competitiveFloor:0};
+    }
+
     let points = 0;
     const reasons = [];
 
@@ -6033,13 +6119,13 @@
       occupied.length === 3
     ) {
       points +=
-        inning >= 7
-          ? 4
-          : 2;
+        scoreGap <= 2
+          ? (inning >= 7 ? 4 : 2)
+          : scoreGap <= 4
+            ? 1
+            : 0;
 
-      reasons.push(
-        'The bases are loaded'
-      );
+      if (scoreGap <= 4) reasons.push('The bases are loaded');
     }
 
     if (
@@ -6135,6 +6221,16 @@
       }
     }
 
+    const decisivePlateAppearance = inning >= 9 &&
+      (half === 'bottom' || half === 'top' && differential < 0) &&
+      differential !== null && differential <= 0 &&
+      -differential <= occupied.length + 1 && scoreGap <= 3;
+    const competitiveFloor = decisivePlateAppearance
+      ? Math.min(20,15 + (hasOuts && outs === 2 ? 2 : 0) +
+          (fullCount ? 2 : 0) + (occupied.length ? 1 : 0) +
+          (bases.second || bases.third ? 1 : 0))
+      : 0;
+
     return {
       points:
         Math.min(
@@ -6148,7 +6244,8 @@
           : '',
 
       reasons,
-      bases
+      bases,
+      competitiveFloor
     };
   }
 
@@ -6245,8 +6342,10 @@
       });
 
     let powerPlayTeam = null;
+    let powerPlayTeamId = null;
     let powerPlayAdvantage = 0;
     let pulledGoalieTeam = null;
+    let pulledGoalieTeamId = null;
 
     if (
       sides.every(
@@ -6269,6 +6368,7 @@
 
       powerPlayTeam =
         high.name;
+      powerPlayTeamId = high.id;
 
       powerPlayAdvantage =
         high.count -
@@ -6292,13 +6392,16 @@
     ) {
       pulledGoalieTeam =
         noGoalie.name;
+      pulledGoalieTeamId = noGoalie.id;
     }
 
     return {
       sides,
       powerPlayTeam,
+      powerPlayTeamId,
       powerPlayAdvantage,
-      pulledGoalieTeam
+      pulledGoalieTeam,
+      pulledGoalieTeamId
     };
   }
 
@@ -6338,14 +6441,22 @@
     let note = '';
 
     const reasons = [];
+    const scored = game.teams.map(team => Number(team[2]));
+    const trailingId = scored.length === 2 && scored.every(Number.isFinite) && scored[0] !== scored[1]
+      ? String(game.teams[scored[0] < scored[1] ? 0 : 1][8] || '')
+      : '';
+    const leadingId = scored.length === 2 && scored.every(Number.isFinite) && scored[0] !== scored[1]
+      ? String(game.teams[scored[0] > scored[1] ? 0 : 1][8] || '')
+      : '';
 
     if (
       state?.powerPlayTeam
     ) {
-      points +=
-        state.powerPlayAdvantage >= 2
-          ? 6
-          : 4;
+      points += state.powerPlayTeamId && state.powerPlayTeamId === trailingId
+        ? (progress >= .82 ? 8 : 6)
+        : state.powerPlayTeamId && state.powerPlayTeamId === leadingId
+          ? 1
+          : state.powerPlayAdvantage >= 2 ? 6 : 4;
 
       note =
         `${state.powerPlayTeam} power play`;
@@ -6360,10 +6471,11 @@
     if (
       state?.pulledGoalieTeam
     ) {
-      points +=
-        scoreGap <= 1
-          ? 7
-          : 4;
+      points += state.pulledGoalieTeamId && state.pulledGoalieTeamId === trailingId
+        ? (scoreGap <= 1 ? (progress >= .82 ? 8 : 7) : 3)
+        : state.pulledGoalieTeamId && state.pulledGoalieTeamId === leadingId
+          ? 0
+          : scoreGap <= 1 ? 7 : 4;
 
       note =
         `${state.pulledGoalieTeam} goalie pulled`;
@@ -6437,6 +6549,13 @@
     const other = holderIndex >= 0 ? game.teams[1-holderIndex] : null;
     const holderScore = holder ? Number(holder[2]) : NaN;
     const otherScore = other ? Number(other[2]) : NaN;
+    const finalPossession = seconds !== null &&
+      Number(status?.period) >= regulationPeriods &&
+      scoreGap <= 3 && holder &&
+      Number.isFinite(holderScore) && Number.isFinite(otherScore) &&
+      holderScore <= otherScore && seconds < 40
+        ? {urgency:Math.max(0,Math.min(1,(40-seconds)/28))}
+        : null;
 
     if (progress >= .78 && scoreGap <= 6) {
       if (scoreGap === 0) points += progress >= .9 ? 9 : 6;
@@ -6460,47 +6579,58 @@
       reasons.push('The game is in overtime');
     }
 
-    return {points:Math.min(12,points),note:holder ? `${holder[1] || holder[0]} possession` : '',reasons};
+    return {points:Math.min(12,points),note:holder ? `${holder[1] || holder[0]} possession` : '',reasons,
+      competitiveFloor:finalPossession ? Math.round(20*finalPossession.urgency) : 0,
+      finalPossession};
   }
 
   function tennisSituationImpact(game,competition,summary,status,progress) {
     const situation = competition?.situation || summary?.header?.competitions?.[0]?.situation || summary?.situation || {};
     const text = [status?.type?.detail,status?.type?.shortDetail,situation?.displayValue,situation?.description,situation?.pointScore,situation?.score].filter(Boolean).join(' ');
+    const period = Number(status?.period || 0);
+    const bestOf = Number(competition?.format?.regulation?.periods || competition?.format?.bestOf || (period >= 5 ? 5 : 3));
+    const sets = game.teams.map(team => Number(team[2]));
+    const deciding = /deciding|final set|fifth set|third set/i.test(text) && period >= bestOf ||
+      period >= bestOf && sets.length === 2 && sets.every(Number.isFinite) && Math.abs(sets[0]-sets[1]) <= 1;
+    const late = Math.max(0,Math.min(1,(progress-.45)/.5));
+    const tiebreak = situation.tiebreak === true || situation.isTiebreak === true || /tie.?break/i.test(text);
+    const matchPoint = situation.matchPoint === true || situation.isMatchPoint === true || /match point/i.test(text);
     let points = 0;
     const reasons = [];
 
-    if (situation.matchPoint === true || situation.isMatchPoint === true || /match point/i.test(text)) {
-      points += 12;
+    if (matchPoint) {
+      points = Math.max(points,Math.round((deciding ? 10 : 6) + 2*late + (tiebreak ? 1 : 0)));
       reasons.push('The match is at match point');
     } else if (situation.setPoint === true || situation.isSetPoint === true || /set point/i.test(text)) {
-      points += 7;
+      points = Math.max(points,Math.round(4 + 2*late + (deciding ? 2 : 0)));
       reasons.push('The current set is at set point');
     }
 
     if (situation.breakPoint === true || situation.isBreakPoint === true || /break point/i.test(text)) {
-      points += 5;
+      points = Math.max(points,Math.round(2 + 2*late + (deciding ? 1 : 0)));
       reasons.push('A break point is in progress');
     }
 
-    if (situation.tiebreak === true || situation.isTiebreak === true || /tie.?break/i.test(text)) {
-      points += progress >= .65 ? 8 : 5;
+    if (tiebreak) {
+      points = Math.max(points,Math.round(4 + 2*late + (deciding ? 2 : 0)));
       reasons.push('The match is in a tiebreak');
     }
 
     if (/\bdeuce\b/i.test(text)) {
-      points += 3;
+      points = Math.max(points,Math.round(1 + late + (deciding ? 1 : 0)));
       reasons.push('The current game is at deuce');
     }
 
-    if (progress >= .75 && /deciding|final set|fifth set|third set/i.test(text)) {
-      points += 5;
+    if (deciding && progress >= .75) {
+      points = Math.max(points,5);
       reasons.push('The match is deep in a deciding set');
     }
 
-    return {points:Math.min(12,points),note:text.slice(0,80),reasons};
+    return {points:Math.min(12,points),note:text.slice(0,80),reasons,
+      competitiveFloor:matchPoint && deciding ? (tiebreak ? 20 : 19) : 0};
   }
 
-  function dangerousChanceImpact(sport,summary,progress,scoreGap) {
+  function dangerousChanceImpact(sport,summary,progress,scoreGap,competition=null) {
     if (!['NHL','Soccer'].includes(sport) || !summary || (sport === 'NHL' ? scoreGap > 2 : scoreGap > 1)) {
       return {points:0,reasons:[]};
     }
@@ -6508,15 +6638,18 @@
     const recent = (summary.plays || [])
       .slice(-18)
       .filter(play => !play?.scoringPlay)
-      .map(play => String(play?.text || play?.shortText || play?.type?.text || '').toLowerCase())
-      .filter(Boolean);
+      .map(play => ({
+        text:String(play?.text || play?.shortText || play?.type?.text || '').toLowerCase(),
+        teamId:String(play?.team?.id || play?.teamId || play?.team?.team?.id || '')
+      }))
+      .filter(play => play.text);
 
-    const dangerous = recent.filter(text =>
-      /shot on goal|saved by|\bsave\b|breakaway|penalty shot|hit (?:the )?(?:post|crossbar)|off (?:the )?(?:post|crossbar)|big chance|close range|point-blank/.test(text)
+    const dangerous = recent.filter(play =>
+      /shot on goal|saved by|\bsave\b|breakaway|penalty shot|hit (?:the )?(?:post|crossbar)|off (?:the )?(?:post|crossbar)|big chance|close range|point-blank/.test(play.text)
     );
 
-    const premium = recent.filter(text =>
-      /breakaway|penalty shot|hit (?:the )?(?:post|crossbar)|off (?:the )?(?:post|crossbar)|big chance|point-blank/.test(text)
+    const premium = recent.filter(play =>
+      /breakaway|penalty shot|hit (?:the )?(?:post|crossbar)|off (?:the )?(?:post|crossbar)|big chance|point-blank/.test(play.text)
     );
 
     let points = 0;
@@ -6533,6 +6666,18 @@
     }
 
     if (points && progress >= .78) points++;
+
+    if (sport === 'Soccer' && scoreGap === 1 && dangerous.length) {
+      const teams = (competition?.competitors || [])
+        .map(item => ({id:String(item.team?.id || item.id || ''),score:Number(item.score)}));
+      if (teams.length === 2 && teams.every(team => team.id && Number.isFinite(team.score))) {
+        const trailingId = teams[teams[0].score < teams[1].score ? 0 : 1].id;
+        const leadingId = teams[teams[0].score > teams[1].score ? 0 : 1].id;
+        const trailing = dangerous.filter(play => play.teamId === trailingId).length;
+        const leading = dangerous.filter(play => play.teamId === leadingId).length;
+        points = Math.round(points * (1 + .4*trailing/dangerous.length - .6*leading/dangerous.length));
+      }
+    }
 
     return {
       points:Math.min(7,points),
@@ -6560,25 +6705,21 @@
       .join(' ')
       .toLowerCase();
 
-    const teamRedCards =
-      (summary?.boxscore?.teams || [])
-        .reduce(
-          (sum,team) =>
-            sum +
-            (team.statistics || [])
-              .filter(stat =>
-                /redcards|red cards|\brc\b/i.test(
-                  `${stat.name || ''} ${stat.displayName || ''} ${stat.abbreviation || ''}`
-                )
-              )
-              .reduce(
-                (teamSum,stat) =>
-                  teamSum +
-                  (Number(stat.value ?? stat.displayValue) || 0),
-                0
-              ),
-          0
-        );
+    const cardCounts = (summary?.boxscore?.teams || []).map(team => ({
+      id:String(team.team?.id || team.id || ''),
+      count:(team.statistics || [])
+        .filter(stat => /redcards|red cards|\brc\b/i.test(
+          `${stat.name || ''} ${stat.displayName || ''} ${stat.abbreviation || ''}`))
+        .reduce((sum,stat) => sum + (Number(stat.value ?? stat.displayValue) || 0),0)
+    }));
+    const cardsById = new Map(cardCounts.filter(team => team.id).map(team => [team.id,team.count]));
+    const teamRedCards = cardCounts.reduce((sum,team) => sum + team.count,0);
+    const scoredTeams = (competition?.competitors || [])
+      .map(item => ({id:String(item.team?.id || item.id || ''),score:Number(item.score)}));
+    const haveCardDirection = scoredTeams.length === 2 &&
+      scoredTeams.every(team => team.id && Number.isFinite(team.score)) &&
+      scoredTeams[0].score !== scoredTeams[1].score &&
+      scoredTeams.some(team => cardsById.has(team.id));
 
     let points = 0;
     const reasons = [];
@@ -6587,11 +6728,19 @@
       teamRedCards > 0 ||
       /\bred card\b|\bsent off\b|\bdown to (?:ten|10)\b/.test(text)
     ) {
-      points +=
-        progress >= .55 &&
-        scoreGap <= 1
-          ? 5
-          : 3;
+      const generic = progress >= .55 && scoreGap <= 1 ? 5 : 3;
+      const leader = haveCardDirection
+        ? scoredTeams[scoredTeams[0].score > scoredTeams[1].score ? 0 : 1]
+        : null;
+      const trailer = haveCardDirection
+        ? scoredTeams[scoredTeams[0].score < scoredTeams[1].score ? 0 : 1]
+        : null;
+      const cardDifference = leader
+        ? ((cardsById.get(leader.id) || 0) - (cardsById.get(trailer.id) || 0))
+        : 0;
+      points += scoreGap <= 1 && progress >= .55 && cardDifference !== 0
+        ? (cardDifference > 0 ? 7 : 2)
+        : generic;
 
       reasons.push(
         'A red card has changed the match conditions'
@@ -7388,7 +7537,8 @@
         game.sport,
         summary,
         progress,
-        scoreGap
+        scoreGap,
+        competition
       );
 
     snapshot.components.pressure =
@@ -7439,12 +7589,25 @@
         snapshot.components.probability
       );
 
+    // An active tying or winning drive has immediate competitive leverage
+    // even when the leader's win probability is high. Keep that estimate
+    // untouched and apply the floor only within the existing 20-point cap.
+    const driveFloor = sportImpact.decisiveDrive
+      ? Math.round(
+          sportImpact.decisiveDrive.urgency *
+          (18 + Math.min(2,sportImpact.decisiveDrive.positionBonus))
+        )
+      : 0;
     const competitiveSituation =
       Math.min(
         20,
-        probabilityPositive +
-        snapshot.components.situation +
-        snapshot.components.pressure
+        Math.max(
+          driveFloor,
+          Number(sportImpact.competitiveFloor) || 0,
+          probabilityPositive +
+          snapshot.components.situation +
+          snapshot.components.pressure
+        )
       );
 
     const positiveBonus =
@@ -7714,7 +7877,9 @@
           underdog,
           game.teams,
           'live',
-          progress
+          progress,
+          game.sport,
+          current
         );
 
       const factors = [

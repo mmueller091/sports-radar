@@ -127,18 +127,59 @@ test('a current one-sided prediction remains valid in a close game, with a bound
   assert.ok(even.score > game.score);
 });
 
-test('a verified upset bonus follows the latest score and is removed after the favorite retakes the lead',() => {
+test('a verified upset bonus follows the latest score after the favorite retakes the lead',() => {
   const old = competition(21,24,'3:00');
   old.odds = [{pointSpread:{home:{close:{line:'-10'}},away:{close:{line:'+10'}}}}];
   const game = gameFromCompetition(old,'NFL');
   assert.ok(game.upsetPoints >= 15);
   const current = competition(28,24,'1:00');
   core.applyLiveSnapshot(game,current,summary(current,.8));
-  assert.equal(game.upsetPoints,0);
-  assert.ok(!game.factors.some(item => item.label === 'Underdog threatens upset'));
+  assert.ok(game.upsetPoints > 0 && game.upsetPoints < 15);
+  assert.equal(game.factors.find(item => item.label === 'Underdog threatens upset')?.points,game.upsetPoints);
   assert.equal(game.baseScore,core.stateRating(
     game.openingScore,'NFL','live',4,core.gameProgress('NFL',current)
-  ).score);
+  ).score + game.upsetPoints);
+  const withoutBall = game.upsetPoints;
+  const withBall = {...current,situation:{possession:'a',possessionText:'AWY 35'}};
+  core.applyLiveSnapshot(game,withBall,summary(withBall,.8));
+  assert.ok(game.upsetPoints > withoutBall,'possession change should affect the current snapshot');
+});
+
+test('a large CFB underdog retains live upset threat according to margin, possession, and runway',() => {
+  const points = (away,home,possession,clock='2:00',spot='AWY 35') => {
+    const comp = competition(home,away,clock);
+    comp.competitors[1].team.displayName = 'Underdog';
+    comp.odds = [{pointSpread:{home:{close:{line:'-17'}},away:{close:{line:'+17'}}}}];
+    comp.situation = {possession,possessionText:spot};
+    const teams = comp.competitors.map(item => ({id:item.team.id,score:item.score}));
+    return core.rateGame('CFB','live',teams,{name:'Underdog at Home'},comp,'').upsetPoints;
+  };
+  const sequence = [
+    points(27,24,'h'),
+    points(27,27,'a'),
+    points(27,29,'a'),
+    points(27,29,'h'),
+    points(27,36,'a'),
+    points(27,44,'h','0:45')
+  ];
+  assert.ok(sequence[0] > sequence[1]);
+  assert.ok(sequence[1] >= 10);
+  assert.ok(sequence[2] >= sequence[1] - 3);
+  assert.ok(sequence[2] > sequence[3]);
+  assert.ok(sequence[3] > sequence[4]);
+  assert.ok(sequence[4] > 0);
+  assert.equal(sequence[5],0);
+  assert.ok(Math.abs(points(27,30,'a') - points(27,31,'a')) <= 2);
+  assert.ok(Math.abs(points(27,35,'a') - points(27,36,'a')) <= 2);
+  assert.ok(points(27,29,'a','2:00','HME 15') > points(27,29,'a','2:00','AWY 15'));
+  const nfl = competition(29,27,'2:00');
+  nfl.situation = {possession:'a',possessionText:'AWY 35'};
+  nfl.odds = [{pointSpread:{home:{close:{line:'-10'}},away:{close:{line:'+10'}}}}];
+  assert.ok(core.rateGame('NFL','live',nfl.competitors.map(item => ({id:item.team.id,score:item.score})),{},nfl,'').upsetPoints > 0);
+  const completed = competition(24,27,'0:00');
+  completed.odds = [{pointSpread:{home:{close:{line:'-17'}},away:{close:{line:'+17'}}}}];
+  const teams = completed.competitors.map(item => ({id:item.team.id,score:item.score}));
+  assert.equal(core.rateGame('CFB','completed',teams,{},completed,'').upsetPoints,22);
 });
 
 test('lead-change weight falls as a live game moves beyond the scoring swing',() => {
