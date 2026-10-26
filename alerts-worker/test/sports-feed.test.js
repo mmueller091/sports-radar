@@ -76,6 +76,73 @@ test('feed carries an NFL entering record from live scoreboard to final result',
   assert.equal(game.score,baseline+6);
 });
 
+test('completed NFL refresh recovers the latest valid pre-final records by team ID',async t=>{
+  const original=globalThis.fetch;
+  t.after(()=>{globalThis.fetch=original;});
+  const now=Date.now();
+  const finalEvent={id:'sf-atl',name:'San Francisco 49ers at Atlanta Falcons',date:'2026-10-25T17:00:00Z',season:{type:2},competitions:[{
+    status:{type:{state:'post',completed:true,shortDetail:'Final'},period:4},
+    competitors:[
+      {homeAway:'away',team:{id:'25',displayName:'San Francisco 49ers',abbreviation:'SF'},score:'20',records:[{type:'total',summary:'6-1'}]},
+      {homeAway:'home',team:{id:'1',displayName:'Atlanta Falcons',abbreviation:'ATL'},score:'29',records:[{type:'total',summary:'4-3'}]}
+    ],
+    odds:[{details:'SF -7',spread:7,homeTeamOdds:{underdog:true}}]
+  }]};
+  const baseline=normalizeEvent(structuredClone(finalEvent),'NFL');
+  assert.equal(baseline.score,48);
+  globalThis.fetch=async url=>Response.json(String(url).includes('/summary')
+    ? {header:{competitions:structuredClone(finalEvent.competitions)},plays:[],scoringPlays:[],winprobability:[]}
+    : {events:String(url).includes('/football/nfl/') ? [structuredClone(finalEvent)] : []});
+
+  async function runCase({record,reverse=false,invalidBeforeFinal=false,lateBad=false,context=false}={}) {
+    const env=database();
+    t.after(()=>env.db.close());
+    env.db.prepare('INSERT INTO sports_feed (id,payload) VALUES (1,?)').run(JSON.stringify({updatedAt:new Date(now-120000).toISOString(),games:[baseline]}));
+    const insert=env.db.prepare(`INSERT INTO sports_snapshots
+      (game_key,observed_at,sport,state,rating,score_a,score_b,phase,clock,normalized_state)
+      VALUES (?,?,?,?,?,?,?,?,?,?)`);
+    const snapshot=(state,at,game)=>insert.run('NFL:sf-atl',at,'NFL',state,48,'20','29','4','',JSON.stringify(game));
+    if (record) {
+      const earlier={...baseline,state:'live',teams:structuredClone(baseline.teams)};
+      earlier.teams.find(team=>String(team[8])==='25')[5]=record;
+      earlier.teams.find(team=>String(team[8])==='1')[5]='3-3';
+      if (reverse) earlier.teams.reverse();
+      snapshot('live',now-240000,earlier);
+    }
+    if (invalidBeforeFinal) {
+      const invalid={...baseline,state:'live',teams:structuredClone(baseline.teams)};
+      invalid.teams.forEach(team=>{team[5]='unknown';});
+      snapshot('live',now-210000,invalid);
+    }
+    snapshot('completed',now-180000,baseline);
+    if (lateBad) snapshot('live',now-150000,{...baseline,state:'live',pregameRecords:['6-0','3-3']});
+    if (context) env.db.prepare(`INSERT INTO game_context
+      (event_id,sport,factor_type,context_text,confidence,source_title,source_url,expires_at,updated_at)
+      VALUES (?,?,?,?,?,?,?,?,?)`).run('sf-atl','NFL','playoff_rematch','Verified rematch',.9,'Test','https://example.test',Math.floor(now/1000)+86400,now);
+    const feed=await refreshSportsData(env,now);
+    assert.ok(feed);
+    return {env,game:feed.games[0]};
+  }
+
+  const recovered=await runCase({record:'6-0',reverse:true,invalidBeforeFinal:true,lateBad:true,context:true});
+  assert.equal(recovered.game.pregameRecords[recovered.game.teams.findIndex(team=>String(team[8])==='25')],'6-0');
+  assert.equal(recovered.game.pregameRecords[recovered.game.teams.findIndex(team=>String(team[8])==='1')],'3-3');
+  assert.equal(recovered.game.score,54,'49ers-Falcons rises from 48 to 54');
+  assert.equal(recovered.game.factors.filter(f=>f.label==='Ended unbeaten start').length,1);
+  assert.equal(recovered.game.factors.find(f=>f.label==='Ended unbeaten start').points,6);
+  assert.equal(recovered.game.factors.find(f=>f.label==='Underdog won outright').points,18);
+  assert.ok(recovered.game.qualitativeContexts?.length,'context rerating retains the bonus');
+  const again=await refreshSportsData(recovered.env,now+60000);
+  assert.equal(again.games[0].score,54);
+  assert.equal(again.games[0].factors.filter(f=>f.label==='Ended unbeaten start').length,1);
+
+  for (const options of [{lateBad:true},{record:'6-1'}]) {
+    const {game}=await runCase(options);
+    assert.equal(game.score,48);
+    assert.equal(game.factors.filter(f=>f.label==='Ended unbeaten start').length,0);
+  }
+});
+
 test('basketball detail API adds normalized players using the existing cached summary',async t=>{
   const env=database();
   t.after(()=>env.db.close());

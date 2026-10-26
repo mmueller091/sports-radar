@@ -7,7 +7,52 @@ const STALE_MS = 120000;
 const RETENTION_MS = 30 * 86400000;
 const LIVE_REFRESH_MS = 12000;
 const IDLE_REFRESH_MS = 60000;
+const RECORD = /^\d+-\d+(?:-\d+)?$/;
 export const MODEL_VERSION = '2026-10-26.1';
+
+function validPregameRecords(game) {
+  return game.teams?.length === 2 && game.pregameRecords?.length === 2 &&
+    game.pregameRecords.every(record=>typeof record === 'string' && RECORD.test(record));
+}
+
+// Read history in pages so a long live game cannot create an unbounded D1 result.
+// The first usable row seen for each game is its latest pre-final observation.
+async function recoverPregameRecords(env,games,now,previous) {
+  const missing = games.filter(game=>game.sport==='NFL' && game.state==='completed' && !validPregameRecords(game));
+  const cutoff = previous?.updatedAt ? Math.min(now,Date.parse(previous.updatedAt) || now) : now;
+  for (let start=0;start<missing.length;start+=40) {
+    const group = missing.slice(start,start+40);
+    const pending = new Map(group.map(game=>[`${game.sport}:${game.id}`,game]));
+    const keys = [...pending.keys()];
+    const sql = `SELECT s.game_key,s.normalized_state FROM sports_snapshots s
+      WHERE s.game_key IN (${keys.map(()=>'?').join(',')}) AND s.sport='NFL'
+        AND s.state IN ('upcoming','live') AND s.observed_at >= ?
+        AND s.observed_at < COALESCE((SELECT MIN(f.observed_at) FROM sports_snapshots f
+          WHERE f.game_key=s.game_key AND f.state='completed'),?)
+      ORDER BY s.observed_at DESC LIMIT 100 OFFSET ?`;
+    for (let offset=0;pending.size;offset+=100) {
+      const rows = (await env.DB.prepare(sql).bind(...keys,now-RETENTION_MS,cutoff,offset).all()).results || [];
+      for (const row of rows) {
+        const game = pending.get(row.game_key);
+        if (!game) continue;
+        let snapshot;
+        try { snapshot = JSON.parse(row.normalized_state); } catch { continue; }
+        if (snapshot?.sport !== 'NFL' || String(snapshot.id) !== String(game.id) ||
+            !['upcoming','live'].includes(snapshot.state) || snapshot.teams?.length !== 2) continue;
+        const records = snapshot.teams.map((team,index)=>{
+          if (!team?.[8] || game.teams.filter(current=>String(current?.[8])===String(team[8])).length !== 1 ||
+              snapshot.teams.filter(prior=>String(prior?.[8])===String(team[8])).length !== 1) return null;
+          const record = snapshot.pregameRecords?.[index] || team[5];
+          return typeof record === 'string' && RECORD.test(record) ? record : null;
+        });
+        if (records.some(record=>!record)) continue;
+        preservePregameRecords(game,{state:snapshot.state,teams:snapshot.teams,pregameRecords:records});
+        if (validPregameRecords(game)) pending.delete(row.game_key);
+      }
+      if (rows.length < 100) break;
+    }
+  }
+}
 
 export function refreshDue(feed,now=Date.now()) {
   if (!feed) return true;
@@ -157,6 +202,7 @@ export async function refreshSportsData(env,now=Date.now()) {
     if (errors.length) return null;
     const priorGames = new Map((previous?.games || []).map(game=>[`${game.sport}:${game.id}`,game]));
     games.forEach(game=>preservePregameRecords(game,priorGames.get(`${game.sport}:${game.id}`)));
+    await recoverPregameRecords(env,games,now,previous);
     const contextGames = games.filter(game=>['NFL','MLB','NHL','CFB','NBA','NCAAB'].includes(game.sport));
     const contexts = await contextsForGames(env,contextGames.map(game=>`${game.sport}:${game.id}`));
     contextGames.forEach(game=>applyContextsToGame(game,contexts[`${game.sport}:${game.id}`]));
