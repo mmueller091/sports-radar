@@ -700,7 +700,8 @@
       phase:
         livePhase(
           game.sport,
-          status
+          status,
+          competition?.format || game.sourceCompetition?.format || game.sourceEvent?.competitions?.[0]?.format || game.format
         ),
 
       note:'',

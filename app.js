@@ -2086,6 +2086,83 @@ function estimatedEventRating(
   );
 }
 
+// Display-only chronology. CFB OT units represent ordered segments, not time.
+function timelineFormat(game,summary) {
+  const competition = summary?.header?.competitions?.[0] || {};
+  const format = competition.format || game.sourceCompetition?.format || game.sourceEvent?.competitions?.[0]?.format || game.format || {};
+  const sport = game.sport;
+  const periods = sport === 'NCAAB' ? Number(format.regulation?.periods) || 2 : ({NBA:4,NHL:3,NFL:4,CFB:4})[sport];
+  if (!periods) return {regulation:1,periods:0};
+  const regulation = sport === 'NBA' ? 2880 : sport === 'NCAAB' ? 2400 : 3600;
+  const postseason = Number(summary?.header?.season?.type || game.sourceEvent?.season?.type) === 3;
+  // Accept explicit seconds or clock strings, never ambiguous bare duration numbers.
+  const duration = format.overtime?.clock?.displayValue || format.overtime?.duration;
+  const match = typeof duration === 'string' && duration.match(/^(\d+):(\d+)$/);
+  const supplied = Number(format.overtime?.durationSeconds || format.overtime?.periodLengthSeconds)
+    || (match ? Number(match[1])*60 + Number(match[2]) : 0);
+  // Visualization fallbacks: NHL 5m/20m postseason; NFL 10m/15m postseason.
+  const overtime = supplied > 0 ? supplied : sport === 'NHL' ? (postseason ? 1200 : 300)
+    : sport === 'NFL' ? (postseason ? 900 : 600) : 300;
+  return {regulation,periods,periodLength:regulation/periods,
+    overtime:sport === 'CFB' ? regulation/periods : overtime,untimed:sport === 'CFB'};
+}
+
+function timelineEventPosition(game,play,format,ordinal=.5) {
+  const period = Number(play?.period?.number || play?.period?.value || play?.period || 0);
+  if (!Number.isFinite(period) || period < 1) return null;
+  if (!format.periods) {
+    // Preserve the existing non-OT-sport display spacing without eventPosition.
+    if (game.sport === 'MLB') {
+      const detail = String(play.period?.displayValue || play.inningHalf || '');
+      return (period-1+(/bottom|bot\b/i.test(detail) ? .75 : /top\b/i.test(detail) ? .25 : .5))/9;
+    }
+    if (game.sport === 'Tennis') return Math.max(0,Math.min(.98,(period-.5)/3));
+    if (game.sport === 'Soccer') {
+      const display = String(play.clock?.displayValue || '').trim();
+      const minute = display.match(/^(\d+)'?(?:\+(\d+)'?)?$/);
+      const colon = display.match(/^(\d+):(\d+(?:\.\d+)?)$/);
+      const numeric = play.clock?.value;
+      const seconds = minute?.[2] ? (Number(minute[1])+Number(minute[2]))*60
+        : numeric != null && Number.isFinite(Number(numeric)) ? Number(numeric)
+        : minute ? Number(minute[1])*60 : colon ? Number(colon[1])*60+Number(colon[2]) : null;
+      return seconds === null ? Math.max(0,Math.min(1,(period-.5)/2)) : seconds/5400;
+    }
+    return legacyPlayPosition(game.sport,play);
+  }
+  const ot = period > format.periods;
+  const length = ot ? format.overtime : format.periodLength;
+  const start = ot ? format.regulation+(period-format.periods-1)*length : (period-1)*length;
+  const clock = String(play?.clock?.displayValue ?? '').trim();
+  const match = clock.match(/^(\d+):(\d+(?:\.\d+)?)$/);
+  const numeric = play?.clock?.value;
+  const remaining = match ? Number(match[1])*60+Number(match[2])
+    : /^\d+(?:\.\d+)?$/.test(clock) ? Number(clock)
+    : numeric != null && Number.isFinite(Number(numeric)) ? Number(numeric) : null;
+  const fraction = ot && format.untimed ? ordinal : remaining === null ? (ot ? ordinal : .5)
+    : Math.max(0,Math.min(1,1-remaining/length));
+  return start+fraction*length;
+}
+
+function timelinePeriodLabel(play,format) {
+  const period = Number(play?.period?.number || play?.period?.value || play?.period || 0);
+  const ot = period-format.periods;
+  return format.periods && ot > 0 ? (ot === 1 ? 'OT' : `${ot}OT`)
+    : play.period?.displayValue || `Period ${period}`;
+}
+
+function timelineFinalScores(game,summary) {
+  const competitors = summary?.header?.competitions?.[0]?.competitors;
+  const score = side => {
+    const competitor = competitors?.find(team => team.homeAway === side);
+    const value = competitor?.score?.value ?? competitor?.score;
+    if (value != null && value !== '' && Number.isFinite(Number(value))) return Number(value);
+    // Normalized display teams are away first, home second.
+    const fallback = game.teams?.[side === 'home' ? 1 : 0]?.[2];
+    return fallback != null && fallback !== '' && Number.isFinite(Number(fallback)) ? Number(fallback) : null;
+  };
+  return {home:score('home'),away:score('away')};
+}
+
 function timelinePoints(game,summary) {
   if (
     game.state === 'upcoming'
@@ -2096,200 +2173,57 @@ function timelinePoints(game,summary) {
     };
   }
 
-  const plays =
-    scoringEvents(summary);
-
-  const events =
-    plays
-      .map((play,index) => {
-        const x =
-          playPosition(
-            game.sport,
-            play
-          );
-
-        const home =
-          Number(
-            play.homeScore
-          );
-
-        const away =
-          Number(
-            play.awayScore
-          );
-
-        if (
-          x === null ||
-          !Number.isFinite(home) ||
-          !Number.isFinite(away) ||
-          (!home && !away)
-        ) {
-          return null;
-        }
-
-        return {
-          x,
-
-          score:
-            estimatedEventRating(
-              game,
-              home,
-              away,
-              x,
-              {
-                ...summary,
-                scoringPlays:
-                  plays.slice(
-                    0,
-                    index + 1
-                  ),
-                winprobability:[]
-              }
-            ),
-
-          label:
-            `${
-              play.period?.displayValue ||
-              `Period ${play.period?.number || ''}`
-            } ${play.clock?.displayValue || ''}`
-              .trim(),
-
-          text:
-            compactPlay(play),
-
-          overtime:
-            Number(
-              play.period?.number
-            ) >
-            ({
-              NHL:3,
-              NFL:4,
-              CFB:4,
-              NBA:4,
-              NCAAB:2
-            })[game.sport]
-        };
-      })
-      .filter(Boolean)
-      .sort(
-        (a,b) =>
-          a.x -
-          b.x
-      );
+  const format = timelineFormat(game,summary);
+  const plays = scoringEvents(summary);
+  const periodNumber = play => Number(play?.period?.number || play?.period?.value || play?.period || 0);
+  const events = plays.map((play,index) => {
+    const siblings = plays.filter(item => periodNumber(item) === periodNumber(play));
+    const ordinal = (siblings.indexOf(play)+1)/(siblings.length+1);
+    const x = timelineEventPosition(game,play,format,ordinal);
+    const home = play.homeScore == null || play.homeScore === '' ? NaN : Number(play.homeScore);
+    const away = play.awayScore == null || play.awayScore === '' ? NaN : Number(play.awayScore);
+    if (x === null || !Number.isFinite(home) || !Number.isFinite(away) || (!home && !away)) return null;
+    const scoringProgress = Math.max(0,Math.min(1,x/format.regulation));
+    return {x,chartPosition:x,scoringProgress,home,away,
+      score:estimatedEventRating(game,home,away,scoringProgress,{
+        ...summary,scoringPlays:plays.slice(0,index+1),winprobability:[]
+      }),
+      label:`${timelinePeriodLabel(play,format)} ${format.untimed && periodNumber(play)>format.periods ? '' : play.clock?.displayValue || ''}`.trim(),
+      text:compactPlay(play),overtime:format.periods > 0 && periodNumber(play)>format.periods};
+  }).filter(Boolean).sort((a,b) => a.x-b.x);
 
   if (events.length) {
-    const finalEvent =
-      events[
-        events.length - 1
-      ];
-
-    const overtimeWinner =
-      game.state === 'completed' &&
-      finalEvent.overtime &&
-      /goal|field goal|touchdown|basket|walk.off/i
-        .test(
-          finalEvent.text
-        );
-
-    if (
-      overtimeWinner ||
-      (
-        game.state === 'completed' &&
-        /game[- ]winning|walk.off|last.second/i
-          .test(
-            finalEvent.text
-          )
-      )
-    ) {
-      finalEvent.score =
-        game.score;
+    const finalEvent = events[events.length-1];
+    const scores = timelineFinalScores(game,summary);
+    const structured = scores.home !== null && scores.away !== null;
+    const matchesFinal = structured ? finalEvent.home === scores.home && finalEvent.away === scores.away
+      : /game[- ]winning|walk.off|last.second/i.test(finalEvent.text)
+        || (game.sport === 'NHL' && finalEvent.home !== finalEvent.away && /overtime goal/i.test(finalEvent.text));
+    const terminal = game.state === 'completed' && finalEvent.overtime && matchesFinal;
+    if (terminal) finalEvent.score = game.score;
+    const status = game.liveRawStatus || summary?.header?.competitions?.[0]?.status || {};
+    const currentPosition = timelineEventPosition(game,{
+      period:status.period,clock:{displayValue:status.displayClock,value:status.clock}
+    },format,1);
+    const endX = Math.max(finalEvent.x,currentPosition ?? 0,
+      game.state === 'completed' ? format.regulation : 0);
+    const points = [{x:0,score:game.openingScore || SPORT_BASE[game.sport] || 35,
+      label:'Start',text:'Opening estimate'},...events];
+    if (!terminal && (endX > finalEvent.x || game.score !== finalEvent.score)) {
+      points.push({x:endX,score:game.score,
+        label:game.state === 'completed' ? 'Final'
+          : format.periods && Number(status.period)>format.periods
+            ? `${timelinePeriodLabel({period:status.period},format)} ${format.untimed ? '' : status.displayClock || ''}`.trim()
+            : game.live?.phase || 'Now',text:'Current rating'});
     }
-
-    const points = [
-      {
-        x:0,
-        score:
-          game.openingScore ||
-          SPORT_BASE[game.sport] ||
-          35,
-        label:'Start',
-        text:'Opening estimate'
-      },
-      ...events
-    ];
-
-    const currentPosition =
-      playPosition(
-        game.sport,
-        {
-          period:{
-            number:
-              game.liveRawStatus?.period
-          },
-          clock:{
-            displayValue:
-              game.liveRawStatus?.displayClock
-          }
-        }
-      );
-
-    const endX =
-      game.state === 'completed'
-        ? 1
-        : Math.max(
-            events[
-              events.length - 1
-            ].x,
-            currentPosition ??
-              gameProgress(
-                game.sport,
-                {
-                  status:
-                    game.liveRawStatus ||
-                    {}
-                }
-              )
-          );
-
-    if (
-      endX >
-        events[
-          events.length - 1
-        ].x ||
-      game.score !==
-        events[
-          events.length - 1
-        ].score
-    ) {
-      points.push({
-        x:
-          Math.min(
-            1,
-            Math.max(
-              endX,
-              events[
-                events.length - 1
-              ].x +
-              .005
-            )
-          ),
-
-        score:game.score,
-
-        label:
-          game.state === 'completed'
-            ? 'Final'
-            : game.live?.phase ||
-              'Now',
-
-        text:'Current rating'
-      });
+    const domainEnd = Math.max(format.regulation,endX,...points.map(point => point.x));
+    const dividers = [];
+    if (format.periods && domainEnd > format.regulation) {
+      for (let x=format.regulation,ot=1; x<domainEnd; x+=format.overtime,ot++) {
+        dividers.push({x,label:ot === 1 ? 'OT' : `${ot}OT`});
+      }
     }
-
-    return {
-      points,
-      source:'scoring plays'
-    };
+    return {points,source:'scoring plays',domainEnd,dividers};
   }
 
   const samples =
@@ -2364,7 +2298,9 @@ function excitementTimeline(game,summary) {
 
   const {
     points,
-    source
+    source,
+    domainEnd = 1,
+    dividers = []
   } = timelinePoints(
     game,
     summary
@@ -2386,12 +2322,19 @@ function excitementTimeline(game,summary) {
   const px =
     point =>
       left +
-      point.x *
+      (point.x / domainEnd) *
       (
         width -
         left -
         right
       );
+
+  const overtimeGuides = dividers.map((divider,index) => {
+    const x = px(divider);
+    const next = index+1 < dividers.length ? px(dividers[index+1]) : width-right;
+    const label = next-x >= 28 ? `<text x="${((x+next)/2).toFixed(1)}" y="${top+10}" text-anchor="middle">${divider.label}</text>` : '';
+    return `<g class="timeline-overtime"><line class="timeline-midline" x1="${x.toFixed(1)}" x2="${x.toFixed(1)}" y1="${top}" y2="${height-bottom}" stroke-dasharray="3 4"/><title>${index === 0 ? 'End regulation / ' : ''}${divider.label}</title>${label}</g>`;
+  }).join('');
 
   const py =
     point =>
@@ -2486,7 +2429,7 @@ function excitementTimeline(game,summary) {
     source === 'scoring plays'
       ? 'Estimated at reported scoring plays; the final point is the current rating.'
       : 'Ratings recorded while this browser was open.'
-  }</p><svg class="timeline-chart" viewBox="0 0 ${width} ${height}" role="img" aria-label="Excitement rating over game time, from ${points[0].score} to ${points[points.length - 1].score}"><line x1="${left}" y1="${top}" x2="${left}" y2="${height - bottom}"/><line x1="${left}" y1="${height - bottom}" x2="${width - right}" y2="${height - bottom}"/><line class="timeline-midline" x1="${left}" y1="${py({score:50})}" x2="${width - right}" y2="${py({score:50})}"/><text x="3" y="${top + 4}">100</text><text x="10" y="${py({score:50}) - 4}">50</text><text x="16" y="${height - bottom + 4}">0</text><path class="timeline-line" d="${path}"/>${markers}<text x="${left}" y="${height - 5}">Start</text><text x="${width - right}" y="${height - 5}" text-anchor="end">${game.state === 'completed' ? 'Final' : 'Now'}</text></svg><div class="timeline-point-help" id="${timelineHelpId}" role="status" aria-live="polite" hidden></div>${moments}</section>`;
+  }</p><svg class="timeline-chart" viewBox="0 0 ${width} ${height}" role="img" aria-label="Excitement rating over game time, from ${points[0].score} to ${points[points.length - 1].score}"><line x1="${left}" y1="${top}" x2="${left}" y2="${height - bottom}"/><line x1="${left}" y1="${height - bottom}" x2="${width - right}" y2="${height - bottom}"/><line class="timeline-midline" x1="${left}" y1="${py({score:50})}" x2="${width - right}" y2="${py({score:50})}"/><text x="3" y="${top + 4}">100</text><text x="10" y="${py({score:50}) - 4}">50</text><text x="16" y="${height - bottom + 4}">0</text>${overtimeGuides}<path class="timeline-line" d="${path}"/>${markers}<text x="${left}" y="${height - 5}">Start</text><text x="${width - right}" y="${height - 5}" text-anchor="end">${game.state === 'completed' ? 'Final' : 'Now'}</text></svg><div class="timeline-point-help" id="${timelineHelpId}" role="status" aria-live="polite" hidden></div>${moments}</section>`;
 }
 
 function safeStoryUrl(value) {
@@ -2544,6 +2487,7 @@ function renderDetailContent(
         ).join('');
 
   const status =
+    (game.state === 'live' ? game.live?.phase : '') ||
     competition?.status?.type?.detail ||
     game.status;
 

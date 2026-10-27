@@ -140,7 +140,7 @@
     }`;
   }
 
-  function livePhase(sport,status) {
+  function livePhase(sport,status,format={}) {
     const detail =
       String(
         status?.type?.detail ||
@@ -188,59 +188,25 @@
       );
     }
 
-    if (
-      /halftime|intermission|end of/i
-        .test(detail)
-    ) {
-      return detail;
+    const regulationPeriods = sport === 'NCAAB'
+      ? Number(format?.regulation?.periods) || 2
+      : ({NFL:4,CFB:4,NBA:4,NHL:3})[sport];
+    const overtime = regulationPeriods && period > regulationPeriods
+      ? period - regulationPeriods : 0;
+    const overtimeLabel = overtime === 1 ? 'OT' : `${overtime}OT`;
+
+    if (/halftime|intermission|end of/i.test(detail)) {
+      return overtime
+        ? detail.replace(/\b\d+(?:st|nd|rd|th)?\s+(?:quarter|half|period)\b/gi,overtimeLabel)
+        : detail;
     }
 
-    const clock =
-      String(
-        status?.displayClock || ''
-      ).trim();
-
-    if (
-      sport === 'NHL' &&
-      period
-    ) {
-      return `${
-        clock &&
-        /^\d+:\d+$/.test(clock)
-          ? `${clock} · `
-          : ''
-      }${
-        period > 3
-          ? 'OT'
-          : `${ordinal(period)} period`
-      }`;
-    }
-
-    if (
-      ['NFL','CFB','NBA','NCAAB']
-        .includes(sport) &&
-      period
-    ) {
-      const footballOvertime =
-        ['NFL','CFB'].includes(sport) &&
-        period > 4;
-
-      return `${
-        clock &&
-        /^\d+:\d+$/.test(clock)
-          ? `${clock} · `
-          : ''
-      }${
-        footballOvertime
-          ? period === 5
-            ? 'OT'
-            : `${period - 4}OT`
-          : `${ordinal(period)} ${
-              ['NFL','CFB','NBA']
-                .includes(sport)
-                ? 'quarter'
-                : 'half'
-            }`
+    const clock = String(status?.displayClock || '').trim();
+    if (regulationPeriods && period) {
+      const unit = sport === 'NHL' ? 'period'
+        : sport === 'NCAAB' && regulationPeriods === 2 ? 'half' : 'quarter';
+      return `${clock && /^\d+:\d+$/.test(clock) ? `${clock} · ` : ''}${
+        overtime ? overtimeLabel : `${ordinal(period)} ${unit}`
       }`;
     }
 

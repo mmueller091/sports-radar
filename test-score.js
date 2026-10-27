@@ -314,7 +314,7 @@ vm.runInNewContext(`${scoreLogic}\n${coreBindings}\n${timelineLogic}\n${momentLo
   ]};
   const chart = timelinePoints(hockey,summary);
   assert.equal(chart.source,'scoring plays');
-  assert.equal(chart.points.length,5);
+  assert.equal(chart.points.length,4); // Terminal OT score already carries the final rating.
   assert.ok(chart.points[1].x < chart.points[2].x && chart.points[2].x < chart.points[3].x);
   assert.equal(chart.points[3].score,86);
   assert.equal(chart.points.at(-1).score,86);
