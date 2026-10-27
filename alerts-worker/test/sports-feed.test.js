@@ -295,16 +295,24 @@ test('current shared core preserves all 107 games between the original browser a
   const source=gunzipSync(fs.readFileSync(new URL('./fixtures/pre-migration-browser.js.gz',import.meta.url))).toString().replace(/\r\n/g,'\n');
   const core=sourceHelper.scoringSource();
   const names=['iconFor','stateFromEvent','scoreValue','broadcastFor','normalizeEvent','playPosition','scoringEvents','compactPlay','summarySpecificWhy','enrichGameSignals'];
-  const functions=names.map(name=>{
+  let functions=names.map(name=>{
     const start=source.search(new RegExp(`^(?:async )?function ${name}\\(`,'m'));
     assert.ok(start>=0,`original browser function ${name} is present`);
     return source.slice(start,source.indexOf('\n}',start)+2);
   }).join('\n');
+  // The archived adapter predates the optional completed aggregation context.
+  // Supply that one integration argument while replaying its original behavior.
+  functions=functions.replace(/(momentumImpact\([\s\S]*?\n\s+game\.state)\n(\s+\);)/,
+    "$1,\n                  game.sport === 'CFB' && game.state === 'completed' ? {game,finishPoints:completedFinishPoints(game,summary)} : null\n$2");
+  functions=functions.replace(/(upsetImpact\([\s\S]*?summaryCompetition\n\s+\))\n(\s+\);)/,
+    '$1, game.sport, summaryCompetition\n$2');
+  const currentModel=fs.readFileSync(new URL('../src/game-model.js',import.meta.url),'utf8');
+  const finishHelper=currentModel.slice(currentModel.indexOf('function completedFinishPoints('),currentModel.indexOf('\nexport {normalizeEvent'));
   const bindings=source.slice(source.indexOf('const {\n  SPORT_BASE,'),source.indexOf('function normalizedTeamName'));
   const logos=source.slice(source.indexOf('const LEAGUE_LOGOS'),source.indexOf('const DEMO_GAMES'));
   const context=vm.createContext({games:[],summary:null,favoriteFor:()=>false,isWatched:()=>false,summaryUrlFor:()=>'',rememberPregameLine:()=>{},recordRatingSnapshot:()=>{},render:()=>{}});
   context.fetchGameSummary=async()=>context.summary;
-  vm.runInContext(`${core}\n${bindings}\n${logos}\n${functions}`,context);
+  vm.runInContext(`${core}\n${bindings}\n${logos}\n${functions}\n${finishHelper}`,context);
   const inputs=JSON.parse(gunzipSync(fs.readFileSync(new URL('./fixtures/migration-inputs.json.gz',import.meta.url))));
   assert.equal(Object.keys(inputs).length,107);
   for (const [file,fixture] of Object.entries(inputs)) {

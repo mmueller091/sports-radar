@@ -81,7 +81,7 @@
     if (
       !['NFL','CFB'].includes(sport) ||
       !summary ||
-      state !== 'completed'
+      (state !== 'completed' && !(sport === 'NFL' && state === 'live' && progress >= .65))
     ) {
       return {
         points:0,
@@ -345,7 +345,7 @@
     const drives = [
       ...(summary?.drives?.previous || []),
       ...(
-        summary?.drives?.current
+        state === 'completed' && summary?.drives?.current
           ? [summary.drives.current]
           : []
       )
@@ -603,7 +603,7 @@
       );
 
     if (
-      meaningful.length < 3
+      (state === 'live' ? meaningful.filter(signal => signal.label !== 'no touchdowns').length : meaningful.length) < 3
     ) {
       return {
         points:0,
@@ -656,6 +656,8 @@
           ''
         ).toLowerCase();
 
+      if (state === 'live' && /no play|nullified|overturned/i.test(text)) continue;
+
       if (
         /intercept(?:ed|ion)|fumble.*(?:lost|recover)/
           .test(text)
@@ -703,8 +705,10 @@
       }
 
       if (
-        /turnover on downs|4th down|fourth down|stopped on fourth/
-          .test(text)
+        (state === 'live'
+          ? /turnover on downs|stopped on fourth|fourth.down stop/.test(text) ||
+            (Number(play.start?.down) === 4 && /incomplete|no gain|sack/.test(text))
+          : /turnover on downs|4th down|fourth down|stopped on fourth/.test(text))
       ) {
         action += 2;
       }
@@ -741,13 +745,24 @@
     const severeCompleted =
       meaningful.length >= 5;
 
+    if (state === 'live') {
+      // Boxscore evidence may cover more plays than a partial play feed.
+      // Take the larger evidence estimate; never add the same action twice.
+      const statAction = statMaps.reduce((sum,map) => sum + [
+        [['turnovers'],.75], [['sacks'],.5], [['fourthDownStops'],2],
+        [['blockedKicks','kicksBlocked'],5], [['safeties'],5],
+        [['defensiveTouchdowns'],8], [['explosivePlays'],1]
+      ].reduce((value,[names,weight]) => value+Math.max(0,numberValue(findStat(map,names)) || 0)*weight,0),0);
+      action = Math.max(action,statAction);
+    }
+
     index *=
       1 -
       Math.min(
-        severeCompleted
+        state === 'live' ? 1 : severeCompleted
           ? .9
           : .25,
-        severeCompleted
+        state === 'live' ? action / 12 : severeCompleted
           ? action / 24
           : action / 40
       );
@@ -764,28 +779,16 @@
     const progressMultiplier =
       state === 'completed'
         ? 1
-        : Math.min(
-            1,
-            .55 +
-            .45 *
-            Math.max(
-              0,
-              (
-                p -
-                .45
-              ) /
-              .55
-            )
-          );
+        : clamp01((p-.65)/.20);
 
     const cap =
-      severeCompleted
+      state === 'live' ? 10 : severeCompleted
         ? 36
         : 20;
 
     const points =
       Math.max(
-        1,
+        state === 'live' ? 0 : 1,
         Math.round(
           cap *
           progressMultiplier *
@@ -1035,7 +1038,7 @@
             ) {
               possessionAdjustment += .25;
             }
-          } else if (p >= .9) {
+          } else if (p >= .9 && (sport !== 'NFL' || competitors.some(item => footballCompetitorId(item) === holderId))) {
             possessionAdjustment -= .35;
             possessionState = 'leading';
           }
@@ -1043,7 +1046,7 @@
       }
     }
 
-    const expectedPossessions =
+    let expectedPossessions =
       Math.max(
         0,
         fullGamePossessions *
@@ -1051,6 +1054,11 @@
           .5 +
           possessionAdjustment
       );
+
+    // NFL timeout information changes the available runway, not a flat bonus.
+    // Missing/invalid fields leave the established possession estimate intact.
+    const runway = sport === 'NFL' ? footballClockRunway(competition,situation) : null;
+    if (runway) expectedPossessions = runway.expectedPossessions;
 
     const possessionSlack =
       expectedPossessions -
@@ -1095,6 +1103,35 @@
       possessionState,
       fieldPosition
     };
+  }
+
+  function footballTimeouts(competition,situation,team) {
+    const value = situation?.[`${team?.homeAway}Timeouts`] ?? team?.timeouts;
+    if (value === null || value === undefined || value === '' || typeof value === 'boolean') return null;
+    const count = Number(value);
+    return Number.isInteger(count) && count >= 0 && count <= 3 ? count : null;
+  }
+
+  function footballClockRunway(competition,situation=competition?.situation) {
+    const status = competition?.status;
+    const seconds = clockSeconds(status);
+    if (Number(status?.period) !== 4 || seconds === null || seconds > 180) return null;
+    const teams = competition?.competitors || [];
+    if (teams.length !== 2 || teams.some(t => t.score == null || !Number.isFinite(Number(t.score)))) return null;
+    const trailing = teams.find(t => Number(t.score) < Number(teams.find(other => other !== t).score));
+    const holder = teams.find(t => footballCompetitorId(t) === String(situation?.possession?.id || situation?.possession || ''));
+    if (!trailing || !holder || holder === trailing) return null;
+    const timeouts = footballTimeouts(competition,situation,trailing);
+    const down = Number(situation?.down);
+    if (timeouts === null || down < 1 || down > 4 || !Number.isInteger(down)) return null;
+    // Estimate a stop without a first down. The two-minute warning supplies
+    // one clock stop; whether the clock is running is often absent, so reserve
+    // only the intervals after the remaining scrimmage downs (conservative).
+    const snaps = 4-down;
+    const stops = timeouts + (seconds > 120 ? 1 : 0);
+    const drain = 6*snaps + 40*Math.max(0,snaps-stops);
+    const remaining = Math.max(0,seconds-drain-8); // punt/change of possession
+    return {timeouts,remaining,expectedPossessions:remaining === 0 ? 0 : Math.min(1.4,.25+remaining/100)};
   }
 
   function footballRunwayPenalty(
@@ -1218,7 +1255,8 @@
     status,
     situation,
     progress,
-    scoreGap
+    scoreGap,
+    options=null
   ) {
     const possessionId =
       String(
@@ -1304,6 +1342,10 @@
     // A goal-line possession matters most when it can tie or change the lead.
     const offenseTrailingOrTied = holderIndex >= 0 && Number.isFinite(holderScore) && Number.isFinite(opponentScore) && holderScore <= opponentScore;
     const offenseCanTieOrLead = offenseTrailingOrTied && holderScore + 7 >= opponentScore;
+    const nfl = game.sport === 'NFL';
+    const seconds = clockSeconds(status);
+    const period = Number(status?.period);
+    const runway = nfl ? footballClockRunway({...competition,status},situation) : null;
 
     let points = 0;
     let fourthPoints = 0;
@@ -1380,6 +1422,16 @@
           fourth
         );
 
+      if (nfl) {
+        const urgent = period >= 4 && (period > 4 || (seconds !== null && seconds <= 240));
+        const liveDrive = offenseTrailingOrTied && scoreGap <= 8;
+        fourth = urgent && liveDrive
+          ? (seconds !== null && seconds <= 120 ? 10 : 7) + (fieldPosition >= 65 ? 1 : 0)
+          : urgent && scoreGap <= 8 && holderIndex >= 0
+            ? (runway?.remaining === 0 ? 2 : 6)
+            : competitive ? Math.min(3,1 + (distance > 0 && distance <= 2 ? 1 : 0) + (fieldPosition >= 70 ? 1 : 0)) : 1;
+      }
+
       fourthPoints = fourth;
       points += fourth;
 
@@ -1389,9 +1441,6 @@
           : downText
       );
     }
-
-    const seconds =
-      clockSeconds(status);
 
     if (
       !redZone &&
@@ -1407,7 +1456,7 @@
       );
     }
 
-    if (lateOneScore) {
+    if (lateOneScore && !nfl) {
       points +=
         progress >= .9
           ? 4
@@ -1422,7 +1471,7 @@
       seconds !== null &&
       Number(status?.period) >= 4 &&
       seconds <= 120 &&
-      scoreGap <= 8
+      scoreGap <= 8 && !nfl
     ) {
       points += 2;
 
@@ -1434,16 +1483,21 @@
     // A live tying or winning possession has leverage even when the leader's
     // win probability has grown. Share the existing situation cap with the
     // clock, field-position and fourth-down bonuses rather than stacking them.
+    if (nfl && lateOneScore) {
+      const direction = holderIndex < 0 ? 1 : offenseTrailingOrTied ? 4 : runway?.remaining === 0 ? 0 : 2;
+      points = Math.max(points,direction);
+      if (direction) reasons.push(offenseTrailingOrTied ? 'A tying or winning possession is available late' : 'A late one-possession game');
+    }
     const decisiveDrive =
       Number(status?.period) >= 4 &&
       holderIndex >= 0 &&
-      holderScore < opponentScore &&
+      (nfl ? holderScore <= opponentScore : holderScore < opponentScore) &&
       scoreGap <= 8;
-    const clockUrgency = seconds === null
+    const clockUrgency = seconds === null || (nfl && seconds <= 0)
       ? 0
       : Math.max(0,Math.min(1,(240 - seconds) / 120));
     const driveUrgency = Number(status?.period) > 4
-      ? Math.max(.6,seconds === null ? 1 : clockUrgency)
+      ? (nfl ? (options?.overtime?.canWin ? 1 : .35) : Math.max(.6,seconds === null ? 1 : clockUrgency))
       : clockUrgency;
     let driveLeverage = null;
     if (decisiveDrive && driveUrgency > 0) {
@@ -1451,19 +1505,30 @@
         ? 3
         : redZone
           ? 2
-          : fieldPosition >= 70
+          : fieldPosition >= (nfl && scoreGap <= 3 && (!options?.overtime?.active || options.overtime.fieldGoalWins) ? 58 : 70)
             ? 2
             : fieldPosition > 50
               ? 1
               : 0;
       const drivePoints = Math.round(
-        driveUrgency * ((scoreGap >= 4 ? 9 : 8) + positionBonus)
+        driveUrgency * ((nfl && scoreGap === 0 ? 10 : scoreGap >= 4 ? 9 : 8) + positionBonus)
       );
       driveLeverage = {urgency:driveUrgency,positionBonus};
       points = Math.max(points,drivePoints + Math.min(2,fourthPoints));
       reasons.push(
-        `${holder?.[0] || 'The trailing team'} has a ${scoreGap >= 4 ? 'tying or winning TD' : 'tying or winning score'} drive in progress`
+        `${holder?.[0] || 'The trailing team'} has a ${scoreGap >= 4 ? 'tying or winning TD' : !nfl ? 'tying or winning score' : scoreGap === 0 ? 'go-ahead scoring' : scoreGap === 3 ? 'tying FG or winning TD' : 'winning FG or TD'} drive in progress`
       );
+    }
+
+    // Explicit pending tries only: last-play touchdown/try text can be stale.
+    if (nfl && situation.isTwoPointAttempt === true && holderIndex >= 0 &&
+        period >= 4 && (period > 4 || (seconds !== null && seconds <= 180))) {
+      const deficit = opponentScore-holderScore;
+      if ([1,2,9,10].includes(deficit)) {
+        points = 12;
+        driveLeverage = {urgency:1,positionBonus:2};
+        reasons.push(deficit === 1 ? 'Two-point try to take the lead' : deficit === 2 ? 'Two-point try to tie' : 'Two-point try needed to stay within one possession');
+      }
     }
 
     return {
@@ -1593,7 +1658,7 @@
     return footballSituationImpact(game,competition,status,situation,progress,scoreGap);
   }
 
-  const api = {defensiveFinishFactor,footballStagnationImpact,footballMarginCloseness,footballCompetitorId,footballCompetitorAbbreviation,footballSituationFieldPosition,footballLiveCloseness,footballRunwayPenalty,footballFieldPosition,footballSituationImpact,footballMilestone,footballGameState,footballEventShock,footballSituation};
+  const api = {defensiveFinishFactor,footballStagnationImpact,footballMarginCloseness,footballCompetitorId,footballCompetitorAbbreviation,footballSituationFieldPosition,footballLiveCloseness,footballRunwayPenalty,footballFieldPosition,footballSituationImpact,footballMilestone,footballGameState,footballEventShock,footballSituation,footballTimeouts,footballClockRunway};
   if (typeof module !== 'undefined' && module.exports) {
     module.exports = api;
   } else {

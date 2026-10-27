@@ -137,7 +137,7 @@ test('a verified upset bonus follows the latest score after the favorite retakes
   assert.ok(game.upsetPoints > 0 && game.upsetPoints < 15);
   assert.equal(game.factors.find(item => item.label === 'Underdog threatens upset')?.points,game.upsetPoints);
   assert.equal(game.baseScore,core.stateRating(
-    game.openingScore,'NFL','live',4,core.gameProgress('NFL',current)
+    game.openingScore,'NFL','live',4,core.gameProgress('NFL',current),null,{competition:current}
   ).score + game.upsetPoints);
   const withoutBall = game.upsetPoints;
   const withBall = {...current,situation:{possession:'a',possessionText:'AWY 35'}};
@@ -179,7 +179,11 @@ test('a large CFB underdog retains live upset threat according to margin, posses
   const completed = competition(24,27,'0:00');
   completed.odds = [{pointSpread:{home:{close:{line:'-17'}},away:{close:{line:'+17'}}}}];
   const teams = completed.competitors.map(item => ({id:item.team.id,score:item.score}));
-  assert.equal(core.rateGame('CFB','completed',teams,{},completed,'').upsetPoints,22);
+  const finalUpset=spread=>{
+    completed.odds=[{pointSpread:{home:{close:{line:`-${spread}`}},away:{close:{line:`+${spread}`}}}}];
+    return core.rateGame('CFB','completed',teams,{},completed,'').upsetPoints;
+  };
+  assert.ok(finalUpset(28)>finalUpset(17) && finalUpset(17)>finalUpset(7),'completed magnitude scales separately from live threat');
 });
 
 test('lead-change weight falls as a live game moves beyond the scoring swing',() => {

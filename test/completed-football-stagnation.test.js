@@ -82,10 +82,13 @@ test('low scoring alone does not trigger a completed-game stagnation penalty', (
   assert.equal(finalScore(summary).momentum.factors.some(f => f.label === 'Offensive stagnation'),false);
 });
 
-test('CFB finals use the same guard while live momentum stays unchanged', () => {
+test('CFB finals preserve the guard; NFL live stagnation is smaller than final stagnation', () => {
   const summary = coltsBroncosSummary();
   assert.ok(core.momentumImpact('CFB',summary,1,'completed').factors.some(f =>
     f.label === 'Offensive stagnation' && f.points < 0));
-  assert.equal(core.momentumImpact('NFL',summary,.95,'live').factors.some(f =>
+  assert.equal(core.momentumImpact('CFB',summary,.95,'live').factors.some(f =>
     f.label === 'Offensive stagnation'),false);
+  const live = core.footballStagnationImpact('NFL',summary,.95,'live').points;
+  assert.ok(live > 0 && live <= 10);
+  assert.ok(live < core.footballStagnationImpact('NFL',summary,1,'completed').points);
 });

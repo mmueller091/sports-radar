@@ -237,7 +237,7 @@ const fixtures = `
   applyLiveSnapshot(football,{status:{displayClock:'2:32',period:2,type:{detail:'2:32 - 2nd Quarter'}},situation:{possession:'33',down:4,distance:2,downDistanceText:'4th & 2 at CIN 12',isRedZone:true}},null);
   assert.match(football.live.phase,/2:32.*2nd quarter/);
   assert.match(football.live.note,/BAL ball.*4th & 2 at CIN 12/);
-  assert.ok(football.score >= 77);
+  assert.equal(football.score,75,'NFL early fourth-down leverage stays modest (72 base + 3 situation)');
   const baseball = {sport:'MLB',state:'live',teams:[['Orioles','BAL',3],['Yankees','NYY',3]],baseScore:65};
   applyLiveSnapshot(baseball,{status:{period:7,type:{detail:'Top 7th'}},situation:{onFirst:true,onSecond:false,onThird:true,outs:2},competitors:[{homeAway:'away',team:{displayName:'Orioles'},score:'3'},{homeAway:'home',team:{displayName:'Yankees'},score:'3'}]},null);
   assert.equal(baseball.live.phase,'Top 7th');

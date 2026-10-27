@@ -381,8 +381,13 @@ test('finish awards remain globally clamped to 99',()=>{
   const competition=summary.header.competitions[0];
   competition.notes=[{headline:'National championship'}];
   competition.status.type.shortDetail='Final/OT';
+  assert.equal(core.momentumImpact('CFB',summary,1,'completed').points,25,'original history cap remains intact');
+  const ordinaryOT=enriched(summary);
+  assert.ok(ordinaryOT.score<99,'one OT and title context alone cannot fill the scale');
+  competition.status.period=7;
+  competition.status.type.shortDetail='Final/3OT';
   const game=enriched(summary);
-  assert.equal(game.momentumPoints,25);
+  assert.equal(points(game,'Completed OT correlated stakes cap'),-16);
   assert.equal(points(game,'Decisive defensive finish'),14);
   assert.equal(game.score,99);
 });

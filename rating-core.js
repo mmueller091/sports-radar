@@ -18,7 +18,7 @@
   const {underdogCandidate,parseLine,lineFromSummary,listedSpread,moneylinePrices,pregameMarketFactor} = typeof module !== 'undefined' && module.exports
     ? require('./scoring/shared/market.js')
     : root.SportsRadarScoring.shared_market;
-  const {upsetImpact} = typeof module !== 'undefined' && module.exports
+  const {upsetImpact:sharedUpsetImpact} = typeof module !== 'undefined' && module.exports
     ? require('./scoring/shared/upset.js')
     : root.SportsRadarScoring.shared_upset;
   const {historyImpact} = typeof module !== 'undefined' && module.exports
@@ -36,7 +36,7 @@
   const {nflDivisionFor,unbeatenStartImpact} = typeof module !== 'undefined' && module.exports
     ? require('./scoring/sports/nfl.js')
     : root.SportsRadarScoring.sports_nfl;
-  const {footballStagnationImpact,defensiveFinishFactor,footballMarginCloseness,footballLiveCloseness,footballRunwayPenalty,footballFieldPosition,footballSituationImpact,footballMilestone} = typeof module !== 'undefined' && module.exports
+  const {footballStagnationImpact,defensiveFinishFactor,footballMarginCloseness,footballLiveCloseness:sharedFootballLiveCloseness,footballRunwayPenalty,footballFieldPosition,footballSituationImpact,footballMilestone} = typeof module !== 'undefined' && module.exports
     ? require('./scoring/shared/football.js')
     : root.SportsRadarScoring.shared_football;
   const {nhlLiveMarginCloseness,hockeyOnIceState,hockeyPowerPlay,hockeySituationImpact,hockeyGoalMilestone} = typeof module !== 'undefined' && module.exports
@@ -58,6 +58,17 @@
   // Retain opening context across the existing browser and Worker adapters.
   // Weak keys release it when each scoreboard snapshot is discarded.
   const liveRatingContexts = new WeakMap();
+
+  // Keep the public API and generic helpers stable while allowing independent
+  // sport calibration. Models without these hooks retain the original path.
+  function footballLiveCloseness(sport,gap,progress,context=null) {
+    return (SPORT_MODELS[sport]?.liveCloseness || sharedFootballLiveCloseness)(sport,gap,progress,context);
+  }
+
+  function upsetImpact(candidate,teams,gameState,progress,sport='',competition=null) {
+    return SPORT_MODELS[sport]?.upset?.(candidate,teams,gameState,progress,sport,competition) ??
+      sharedUpsetImpact(candidate,teams,gameState,progress,sport,competition);
+  }
 
   const clampScore = value =>
     Math.max(1,Math.min(99,Math.round(value)));
@@ -312,7 +323,7 @@
         : .3 *
           marginClose +
           .7 *
-          uncertainty;
+          Math.min(uncertainty,modelState.uncertaintyCeiling ?? 1);
 
     // Keep postseason stakes separate from records, market, matchup quality,
     // and ordinary narrative. Those transient factors continue to use the
@@ -340,7 +351,7 @@
       modelState.minimumComebackViability || 0
     );
     const retainedStakeWeight = .68 * Math.max(0,Math.min(1,comebackViability));
-    const retainedContextWeight = contextWeight;
+    const retainedContextWeight = contextWeight * (modelState.contextViability ?? 1);
     const contextPoints =
       Math.round(
         transientOpeningScore *
@@ -453,6 +464,7 @@
     competition,
     context
   ) {
+    competition = SPORT_MODELS[sport]?.prepareCompetition?.(competition,event) ?? competition;
     const opening =
       pregameRating(
         sport,
@@ -506,9 +518,9 @@
             competition
           );
 
-    const championship = Boolean(SPORT_MODELS[sport]?.championshipContext) && opening.factors.some(item =>
+    const championship = (Boolean(SPORT_MODELS[sport]?.championshipContext) && opening.factors.some(item =>
       /world series|championship|final round|finals|title game/i.test(item.label)
-    );
+    )) || Boolean(gameState === 'live' && SPORT_MODELS[sport]?.decisiveStakes?.(eventSignalText(event,competition,context)));
 
     const stateValue =
       stateRating(
@@ -850,16 +862,18 @@
 
     // An active tying or winning drive has immediate competitive leverage
     // even when the leader's win probability is high. Keep that estimate
-    // untouched and apply the floor only within the existing 20-point cap.
+    // untouched. NFL decisive states can raise the competitive floor beyond
+    // the ordinary cap; overlapping situation/probability points still use max.
     const driveFloor = sportImpact.decisiveDrive
       ? Math.round(
           sportImpact.decisiveDrive.urgency *
           (18 + Math.min(2,sportImpact.decisiveDrive.positionBonus))
         )
       : 0;
+    const decisiveFloor = game.sport === 'NFL' || SPORT_MODELS[game.sport]?.decisiveFloor ? Math.max(0,Number(sportImpact.competitiveFloor) || 0) : 0;
     const competitiveSituation =
-      Math.min(
-        20,
+      SPORT_MODELS[game.sport]?.decisiveFloor && decisiveFloor > 0 ? decisiveFloor : Math.min(
+        Math.max(20,decisiveFloor),
         Math.max(
           driveFloor,
           Number(sportImpact.competitiveFloor) || 0,
@@ -871,7 +885,7 @@
 
     const positiveBonus =
       Math.min(
-        30,
+        Math.max(30,decisiveFloor),
         competitiveSituation +
         snapshot.components.milestone +
         snapshot.components.eventShock
@@ -884,8 +898,9 @@
       );
 
     snapshot.bonus =
-      positiveBonus +
-      negativeBonus;
+      decisiveFloor > 0
+        ? Math.max(decisiveFloor,positiveBonus + negativeBonus)
+        : positiveBonus + negativeBonus;
 
     return snapshot;
   }
@@ -1258,8 +1273,13 @@
       );
   }
 
-  function momentumImpact(sport,summary,progress,state) {
-    return historyImpact(sport,summary,progress,state,SPORT_MODELS[sport]?.history);
+  function momentumImpact(sport,summary,progress,state,completedContext=null) {
+    const history = historyImpact(sport,summary,progress,state,SPORT_MODELS[sport]?.history);
+    // The optional adapter context supplies the actual base and finishing award.
+    // Standalone histories, public arity, and every non-completed path stay intact.
+    return state === 'completed' && completedContext
+      ? SPORT_MODELS[sport]?.completedHistory?.(summary,history,completedContext) ?? history
+      : history;
   }
 
   function contextCarryWeight(progress,gameState,sport='',championship=false) {

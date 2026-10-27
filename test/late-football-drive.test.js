@@ -26,7 +26,7 @@ function scoreSequence(sport) {
   };
   const snapshot = (target,comp,probability) => {
     core.applyLiveSnapshot(target,comp,{header:{competitions:[comp]},winprobability:[{homeWinPercentage:probability}]});
-    return {score:target.score,bonus:target.live.bonus,situation:target.live.components.situation,
+    return {score:target.score,base:target.baseScore,bonus:target.live.bonus,situation:target.live.components.situation,
       probability:target.live.components.probability,winProbability:target.live.winProbability,reasons:target.live.reasons};
   };
   const early = snapshot(game,first,.54);
@@ -47,9 +47,9 @@ for (const sport of ['NFL','CFB']) {
     assert.ok(drive.probability < early.probability,'win probability still reflects the more one-sided game');
     assert.equal(drive.probability,leader.probability,'possession does not alter the probability component');
     assert.equal(drive.winProbability,.80);
-    assert.equal(drive.bonus,18,'the active drive reaches the competitive floor at own 25');
-    assert.equal(advanced.bonus,20,'red-zone leverage reaches the existing competitive cap');
-    assert.match(drive.reasons.join(' '),/winning TD drive/);
+    assert.equal(drive.bonus,Math.round((99-drive.base)*(sport === 'NFL' ? .70 : .73)),'the active drive reaches its competitive floor at own 25');
+    assert.equal(advanced.bonus,Math.round((99-advanced.base)*(sport === 'NFL' ? .76 : .79)),'red-zone leverage replaces overlapping situation points');
+    assert.match(drive.reasons.join(' '),sport === 'NFL' ? /winning TD drive/ : /viable tying or winning possession/);
     assert.doesNotMatch(leader.reasons.join(' '),/winning TD drive/);
     assert.doesNotMatch(failed.reasons.join(' '),/winning TD drive/);
   });
@@ -88,6 +88,10 @@ for (const sport of ['NFL','CFB']) {
     assert.ok(fourth.points > two.points);
     assert.ok(goal.points <= 12);
     assert.match(two.reasons.join(' '),/winning TD drive/);
-    assert.ok(impact('','KAN 40',{},5).points >= three.points,'clockless overtime keeps decisive-drive leverage');
+    if (sport === 'CFB') {
+      assert.ok(impact('','KAN 40',{},5).points >= three.points,'clockless CFB overtime keeps decisive-drive leverage');
+    } else {
+      assert.ok(impact('','KAN 40',{},5).points < two.points,'unknown NFL overtime possession rights get modest leverage');
+    }
   });
 }

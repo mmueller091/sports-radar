@@ -722,7 +722,10 @@ function enrichGame(game,summary,previousGame=null) {
                             game.liveRawStatus
                         }
                       ),
-                  game.state
+                  game.state,
+                  game.sport === 'CFB' && game.state === 'completed'
+                    ? {game,finishPoints:completedFinishPoints(game,summary)}
+                    : null
                 );
 
               if (momentum.points) {
@@ -807,5 +810,13 @@ function enrichGame(game,summary,previousGame=null) {
               }
             }
 
+}
+// Use the same finishing award as enrichment when measuring completed floors;
+// it must consume floor headroom instead of stacking on top of it.
+function completedFinishPoints(game,summary) {
+  const last = scoringEvents(summary).at(-1);
+  const text = `${last?.clock?.displayValue || ''} ${compactPlay(last)}`;
+  return /(0:00|last second|game[- ]winning)/i.test(text) && /field goal|goal|home run|touchdown/i.test(text)
+    ? 14 : (globalThis.SportsRadarScore.defensiveFinishFactor?.(game.sport,summary)?.points || 0);
 }
 export {normalizeEvent,preservePregameRecords,applyContextsToGame,enrichGame};

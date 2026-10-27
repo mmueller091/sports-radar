@@ -63,8 +63,30 @@ for (const sport of sports) {
             return {rating,history,snapshot,applied,reapplied:game};
           };
           const expected = evaluate(before);
-          same(evaluate(current), expected, `${sport} ${state} gap=${gap} late=${late} Node`);
-          same(evaluate(browser), expected, `${sport} ${state} gap=${gap} late=${late} browser`);
+          const actual = evaluate(current);
+          const inBrowser = evaluate(browser);
+          // NFL live state/situation formulas intentionally diverge. Keep old
+          // pregame/final ratings and these non-stagnant histories pinned, and
+          // compare every current output (including snapshots) across runtimes.
+          if (sport === 'NFL') {
+            if (state !== 'live' || !late) same(actual.rating,expected.rating,`NFL ${state} rating`);
+            same(actual.history,expected.history,`NFL ${state} history`);
+            same(inBrowser,actual,`NFL ${state} gap=${gap} late=${late} browser/Node`);
+          } else if (sport === 'CFB') {
+            // Live and completed calibrations are independently tested against
+            // their immediate baselines; pregame and shared history stay pinned.
+            if (state === 'upcoming') same(actual.rating,expected.rating,`CFB ${state} rating`);
+            if (state === 'completed') {
+              const stable=({score,upsetText,upsetPoints,factors,...rest})=>({...rest,factors:factors.filter(f=>f.label!=='Underdog won outright')});
+              same(stable(actual.rating),stable(expected.rating),'only completed upset may change the base rating');
+              assert.equal(actual.rating.score,current.clampScore(expected.rating.factors.reduce((sum,f)=>sum+f.points,0)-expected.rating.upsetPoints+actual.rating.upsetPoints));
+            }
+            same(actual.history,expected.history,`CFB ${state} history`);
+            same(inBrowser,actual,`CFB ${state} gap=${gap} late=${late} browser/Node`);
+          } else {
+            same(actual, expected, `${sport} ${state} gap=${gap} late=${late} Node`);
+            same(inBrowser, expected, `${sport} ${state} gap=${gap} late=${late} browser`);
+          }
         }
       }
     }
@@ -79,7 +101,9 @@ test('state-model boundary parity includes missing margins, clocks, probabilitie
           for (const probability of [null,.01,.5,.99]) {
             for (const context of [null,{}, {competition:{status:{period:4,displayClock:'0:00'}},situation:{possession:'h'}}]) {
               const args = [71,sport,state,gap,progress,probability,context,[{label:'Postseason',points:22},{label:'Both winning records',points:14}]];
-              same(current.stateRating(...args),before.stateRating(...args),`${sport} ${state} gap=${gap} progress=${progress}`);
+              const changedNFL = sport === 'NFL' && state === 'live' && Number.isFinite(gap) && gap >= 0 && gap <= 8 && progress >= .75 && context?.competition;
+              const changedCFB = sport === 'CFB' && state === 'live';
+              same(current.stateRating(...args),(changedNFL || changedCFB ? browser : before).stateRating(...args),`${sport} ${state} gap=${gap} progress=${progress}`);
             }
           }
         }
@@ -88,7 +112,7 @@ test('state-model boundary parity includes missing margins, clocks, probabilitie
   }
 });
 
-test('all 107 archived provider fixtures preserve complete normalized and enriched games', () => {
+test('all 107 archived provider fixtures preserve complete games outside completed CFB calibration', () => {
   const adapter = fs.readFileSync(new URL('../alerts-worker/src/game-model.js',import.meta.url),'utf8')
     .replace(/^import .*;\s*$/gm,'').replace(/^export .*;\s*$/gm,'');
   const original = vm.runInNewContext(`${archivedSource}\n${adapter}\n({normalizeEvent,enrichGame})`,{baseballSituation,footballSituation});
@@ -102,6 +126,12 @@ test('all 107 archived provider fixtures preserve complete normalized and enrich
       }
       return game;
     };
-    same(evaluate({normalizeEvent,enrichGame}),evaluate(original),file);
+    const actual=evaluate({normalizeEvent,enrichGame}),old=evaluate(original);
+    if(fixture.modelSport==='CFB'&&actual.state==='completed') {
+      const stable=({score,baseScore,upsetText,upsetPoints,momentumText,momentumPoints,factors,...rest})=>rest;
+      same(stable(actual),stable(old),`${file}: all non-calibrated fields`);
+      // Full CFB outputs are covered by cfb-completed-calibration's current
+      // browser/Node replay and frozen immediate baseline, including histories.
+    } else same(actual,old,file);
   }
 });

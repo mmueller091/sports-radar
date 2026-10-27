@@ -1,0 +1,21 @@
+{
+  "description": "A-P scores captured from the working tree before the October 27 decisive-possession calibration; fixtures in test/helpers/nfl-calibration.cjs",
+  "scores": {
+    "A": 53,
+    "B": 64,
+    "C": 77,
+    "D": 40,
+    "E": 52,
+    "F": 85,
+    "G": 56,
+    "H": 42,
+    "I": 64,
+    "J": 55,
+    "K": 90,
+    "L": 39,
+    "M": 99,
+    "N": 56,
+    "O": 80,
+    "P": 81
+  }
+}

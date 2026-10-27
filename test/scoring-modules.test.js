@@ -76,4 +76,12 @@ test('Worker entry bundles and executes the same scoring graph without Node-only
       assert.deepEqual(bundled.rateGame(...args),direct.rateGame(...args),`${sport} ${state}`);
     }
   }
+  const {cases,evaluate} = require('./helpers/nfl-calibration.cjs');
+  for (const [key,input] of Object.entries(cases)) {
+    assert.deepEqual(evaluate(bundled,input),evaluate(direct,input),`NFL ${key} bundled live snapshot`);
+  }
+  const cfb = require('./helpers/cfb-calibration.cjs');
+  for (const [key,input] of Object.entries(cfb.cases)) {
+    assert.deepEqual(cfb.evaluate(bundled,input),cfb.evaluate(direct,input),`CFB ${key} bundled live snapshot`);
+  }
 });
