@@ -4,6 +4,7 @@ import {DatabaseSync} from 'node:sqlite';
 import fs from 'node:fs';
 import {gunzipSync} from 'node:zlib';
 import vm from 'node:vm';
+import sourceHelper from '../../test/helpers/scoring-source.cjs';
 import worker,{checkGames} from '../src/index.js';
 import {refreshSportsData,readFeed,gameDetails,refreshDue} from '../src/sports-feed.js';
 import {normalizeEvent,enrichGame} from '../src/game-model.js';
@@ -292,7 +293,7 @@ test('moved normalization and enrichment preserve pre-migration fixture ratings 
 
 test('current shared core preserves all 107 games between the original browser adapter and Worker',async()=>{
   const source=gunzipSync(fs.readFileSync(new URL('./fixtures/pre-migration-browser.js.gz',import.meta.url))).toString().replace(/\r\n/g,'\n');
-  const core=fs.readFileSync(new URL('../../rating-core.js',import.meta.url),'utf8');
+  const core=sourceHelper.scoringSource();
   const names=['iconFor','stateFromEvent','scoreValue','broadcastFor','normalizeEvent','playPosition','scoringEvents','compactPlay','summarySpecificWhy','enrichGameSignals'];
   const functions=names.map(name=>{
     const start=source.search(new RegExp(`^(?:async )?function ${name}\\(`,'m'));

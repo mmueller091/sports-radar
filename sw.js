@@ -1,5 +1,5 @@
-const CACHE_NAME = 'sports-radar-shell-v39';
-const SHELL = ['./', './index.html', './styles.css', './rating-core.js', './alert-config.js', './notifications.js', './app.js', './teams.json', './manifest.webmanifest', './sports-radar-logo.png'];
+const CACHE_NAME = 'sports-radar-shell-v40';
+const SHELL = ['./', './index.html', './styles.css', './rating-core.js', './scoring/shared/config.js', './scoring/shared/records.js', './scoring/shared/market.js', './scoring/shared/time.js', './scoring/shared/football.js', './scoring/sports/nfl.js', './scoring/shared/pregame.js', './scoring/sports/mlb.js', './scoring/sports/nhl.js', './scoring/shared/college.js', './scoring/shared/basketball.js', './scoring/sports/basketball.js', './scoring/sports/cfb.js', './scoring/sports/tennis.js', './scoring/shared/context.js', './scoring/sports/soccer.js', './scoring/models.js', './scoring/shared/probability.js', './scoring/shared/upset.js', './scoring/shared/history.js', './scoring/shared/events.js', './scoring/shared/pressure.js', './alert-config.js', './notifications.js', './app.js', './teams.json', './manifest.webmanifest', './sports-radar-logo.png'];
 self.addEventListener('install', event => { event.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll(SHELL))); self.skipWaiting(); });
 self.addEventListener('activate', event => { event.waitUntil(caches.keys().then(keys => Promise.all(keys.filter(key => key !== CACHE_NAME).map(key => caches.delete(key)))).then(() => self.clients.claim())); });
 self.addEventListener('fetch', event => {

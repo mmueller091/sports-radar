@@ -2,6 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import vm from 'node:vm';
+import sourceHelper from '../test/helpers/scoring-source.cjs';
 import {normalizeEvent,enrichGame} from '../alerts-worker/src/game-model.js';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
@@ -29,7 +30,8 @@ export async function loadCore() {
   }
 
   delete globalThis.SportsRadarScore;
-  vm.runInThisContext(fs.readFileSync(corePath,'utf8'),{filename:corePath});
+  const source = sourceHelper.scoringSource(corePath);
+  vm.runInThisContext(source,{filename:corePath});
   if (!globalThis.SportsRadarScore) throw new Error('rating-core.js loaded but did not create globalThis.SportsRadarScore.');
   return globalThis.SportsRadarScore;
 }

@@ -2,9 +2,10 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import vm from 'node:vm';
+import sourceHelper from './helpers/scoring-source.cjs';
 
 const source = fs.readFileSync(new URL('../app.js',import.meta.url),'utf8');
-const ratingCore = fs.readFileSync(new URL('../rating-core.js',import.meta.url),'utf8');
+const ratingCore = sourceHelper.scoringSource();
 
 function startApp() {
   const elements = new Map();
