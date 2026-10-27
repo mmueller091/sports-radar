@@ -187,6 +187,7 @@ function normalizeEvent(event, sport, leagueLogo, division) {
     score:rating.score,
     baseScore:rating.score,
     openingScore:rating.openingScore,
+    rawPregameScore:rating.rawPregameScore,
     ...(rating.championshipStakes ? {championshipStakes:true} : {}),
     factors:rating.factors,
     underdog:rating.underdog,
@@ -272,6 +273,7 @@ function applyContextsToGame(game,factors) {
   game.score = rating.score;
   game.baseScore = rating.score;
   game.openingScore = rating.openingScore;
+  game.rawPregameScore = rating.rawPregameScore;
   if (rating.championshipStakes) game.championshipStakes = true;
   else delete game.championshipStakes;
   game.factors = rating.factors;
@@ -570,6 +572,7 @@ function summarySpecificWhy(game,summary) {
 }
 
 function enrichGame(game,summary,previousGame=null) {
+            let completedFinishHandled = false;
             if (previousGame?.summaryState) game.summaryState = previousGame.summaryState;
             const summaryCompetition = summary?.header?.competitions?.[0];
             const driveEnd = ['NFL','CFB'].includes(game.sport) ? summary?.drives?.current?.plays?.at(-1)?.end : null;
@@ -723,11 +726,12 @@ function enrichGame(game,summary,previousGame=null) {
                         }
                       ),
                   game.state,
-                  game.sport === 'CFB' && game.state === 'completed'
+                  ['CFB','NHL'].includes(game.sport) && game.state === 'completed'
                     ? {game,finishPoints:completedFinishPoints(game,summary)}
                     : null
                 );
 
+              completedFinishHandled = Boolean(momentum.handlesFinish);
               if (momentum.points) {
                 game.momentumText =
                   momentum.text;
@@ -783,7 +787,7 @@ function enrichGame(game,summary,previousGame=null) {
               `${last?.clock?.displayValue || ''} ${compactPlay(last)}`;
 
             if (
-              /(0:00|last second|game[- ]winning)/i
+              !completedFinishHandled && /(0:00|last second|game[- ]winning)/i
                 .test(finalText) &&
               /field goal|goal|home run|touchdown/i
                 .test(finalText)

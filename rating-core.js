@@ -265,15 +265,10 @@
         ' · verified matchup context';
     }
 
+    const rawPregameScore = factors.reduce((sum,item) => sum + item.points,0);
     return {
-      score:
-        clampScore(
-          factors.reduce(
-            (sum,item) =>
-              sum + item.points,
-            0
-          )
-        ),
+      score:Math.min(90,clampScore(rawPregameScore)),
+      rawPregameScore,
       factors,
       reason,
       contextFactors
@@ -290,6 +285,8 @@
     footballContext=null,
     openingFactors=[]
   ) {
+    // Every caller, including restored snapshots, uses the capped opening basis.
+    openingScore = Math.min(90,openingScore);
     const closeLimit =
       CLOSE_MARGIN[sport] || 10;
 
@@ -332,9 +329,9 @@
       /world series|championship|final round|finals|title game|semifinal|postseason|playoff|elimination|clinching|deciding game|winner[- ]take[- ]all|aggregate tie|second-leg consequences/i;
     const persistentStakes =
       gameState === 'live'
-        ? openingFactors
+        ? Math.min(openingScore,openingFactors
             .filter(item => persistentStakeLabels.test(item.label))
-            .reduce((sum,item) => sum + Math.max(0,Number(item.points) || 0),0)
+            .reduce((sum,item) => sum + Math.max(0,Number(item.points) || 0),0))
         : 0;
 
     const contextWeight =
@@ -568,7 +565,7 @@
 
     if (
       gameState === 'completed' &&
-      /overtime|\b\d*ot\b/i
+      !SPORT_MODELS[sport]?.ownsCompletedOvertime && /overtime|\b\d*ot\b/i
         .test(detail)
     ) {
       factors.push({
@@ -604,7 +601,7 @@
       });
     }
 
-    const completedResult = SPORT_MODELS[sport]?.completedResult?.(sport,gameState,teams);
+    const completedResult = SPORT_MODELS[sport]?.completedResult?.(sport,gameState,teams,event,competition,context);
     if (completedResult?.points) {
       factors.push(completedResult);
     }
@@ -666,6 +663,7 @@
       reason,
       openingScore:
         opening.score,
+      rawPregameScore:opening.rawPregameScore,
       openingFactors:opening.factors,
       ...(championship ? {championshipStakes:true} : {}),
       underdog,
@@ -822,10 +820,10 @@
 
     const milestone =
       summary
-        ? liveMilestone(
+        ? (SPORT_MODELS[game.sport]?.liveMilestone?.(summary,{game,competition,status,progress,scoreGap}) ?? liveMilestone(
             game.sport,
             summary
-          )
+          ))
         : null;
 
     if (
@@ -1093,9 +1091,9 @@
       );
     }
 
-    const openingScore =
+    const openingScore = Math.min(90,
       game.openingScore ??
-      context?.openingScore;
+      context?.openingScore);
 
     const openingFactors = game.openingFactors || context?.openingFactors || [];
 
@@ -1275,7 +1273,9 @@
   }
 
   function momentumImpact(sport,summary,progress,state,completedContext=null) {
-    const history = historyImpact(sport,summary,progress,state,SPORT_MODELS[sport]?.history);
+    const history = SPORT_MODELS[sport]?.historyImpact
+      ? SPORT_MODELS[sport].historyImpact(summary,progress,state)
+      : historyImpact(sport,summary,progress,state,SPORT_MODELS[sport]?.history);
     // The optional adapter context supplies the actual base and finishing award.
     // Standalone histories, public arity, and every non-completed path stay intact.
     return state === 'completed' && completedContext

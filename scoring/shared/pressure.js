@@ -1,6 +1,7 @@
 /* Shared scoring module; supports classic browser scripts and Worker/Node bundling. */
 (function (root) {
   function pressureImpact(summary,progress,scoreGap,competition,policy) {
+    if (policy?.impact) return policy.impact(summary,progress,scoreGap,competition);
     if (!policy || !summary || scoreGap > policy.maxGap) {
       return {points:0,reasons:[]};
     }
