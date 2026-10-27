@@ -301,11 +301,14 @@ test('current shared core preserves all 107 games between the original browser a
     return source.slice(start,source.indexOf('\n}',start)+2);
   }).join('\n');
   // The archived adapter predates the optional completed aggregation context.
-  // Supply that one integration argument while replaying its original behavior.
+  // Supply it for the calibrated completed CFB and NHL aggregation hooks.
   functions=functions.replace(/(momentumImpact\([\s\S]*?\n\s+game\.state)\n(\s+\);)/,
-    "$1,\n                  game.sport === 'CFB' && game.state === 'completed' ? {game,finishPoints:completedFinishPoints(game,summary)} : null\n$2");
+    "$1,\n                  ['CFB','NHL'].includes(game.sport) && game.state === 'completed' ? {game,finishPoints:completedFinishPoints(game,summary)} : null\n$2");
   functions=functions.replace(/(upsetImpact\([\s\S]*?summaryCompetition\n\s+\))\n(\s+\);)/,
     '$1, game.sport, summaryCompetition\n$2');
+  // NHL history now owns its finishing award; raw opening total is audit metadata.
+  functions=functions.replace(/(openingScore:\s*rating\.openingScore,)/g,'$1 rawPregameScore:rating.rawPregameScore,');
+  functions=functions.replace('/(0:00|last second|game[- ]winning)/i',"game.sport !== 'NHL' && /(0:00|last second|game[- ]winning)/i");
   const currentModel=fs.readFileSync(new URL('../src/game-model.js',import.meta.url),'utf8');
   const finishHelper=currentModel.slice(currentModel.indexOf('function completedFinishPoints('),currentModel.indexOf('\nexport {normalizeEvent'));
   const bindings=source.slice(source.indexOf('const {\n  SPORT_BASE,'),source.indexOf('function normalizedTeamName'));

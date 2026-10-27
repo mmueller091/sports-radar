@@ -1,3 +1,4 @@
+import {capPregameOracle} from './helpers/cap-pregame-oracle.cjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
@@ -11,7 +12,8 @@ import {baseballSituation,footballSituation} from '../alerts-worker/src/display-
 const require = createRequire(import.meta.url);
 const current = require('../rating-core.js');
 const archivedSource = gunzipSync(fs.readFileSync(new URL('./fixtures/scoring-core-before-extraction.js.gz', import.meta.url))).toString();
-const before = vm.runInNewContext(`${archivedSource}\nSportsRadarScore`);
+const cappedSource = capPregameOracle(archivedSource);
+const before = vm.runInNewContext(`${cappedSource}\nSportsRadarScore`);
 const browser = vm.runInNewContext(`${sourceHelper.scoringSource()}\nSportsRadarScore`);
 const sports = ['NFL','MLB','NHL','NBA','NCAAB','CFB','Tennis','Soccer'];
 const same = (actual, expected, message) => assert.deepEqual(structuredClone(actual), structuredClone(expected), message);
@@ -68,7 +70,10 @@ for (const sport of sports) {
           // NFL live state/situation formulas intentionally diverge. Keep old
           // pregame/final ratings and these non-stagnant histories pinned, and
           // compare every current output (including snapshots) across runtimes.
-          if (sport === 'NFL') {
+          if (sport === 'NHL') {
+            if (state === 'upcoming') same(actual.rating,expected.rating,'NHL capped pregame factors preserved');
+            same(inBrowser,actual,`NHL ${state} gap=${gap} late=${late} browser/Node`);
+          } else if (sport === 'NFL') {
             if (state !== 'live' || !late) same(actual.rating,expected.rating,`NFL ${state} rating`);
             same(actual.history,expected.history,`NFL ${state} history`);
             same(inBrowser,actual,`NFL ${state} gap=${gap} late=${late} browser/Node`);
@@ -103,7 +108,7 @@ test('state-model boundary parity includes missing margins, clocks, probabilitie
               const args = [71,sport,state,gap,progress,probability,context,[{label:'Postseason',points:22},{label:'Both winning records',points:14}]];
               const changedNFL = sport === 'NFL' && state === 'live' && Number.isFinite(gap) && gap >= 0 && gap <= 8 && progress >= .75 && context?.competition;
               const changedCFB = sport === 'CFB' && state === 'live';
-              same(current.stateRating(...args),(changedNFL || changedCFB ? browser : before).stateRating(...args),`${sport} ${state} gap=${gap} progress=${progress}`);
+              same(current.stateRating(...args),(changedNFL || changedCFB || sport === 'NHL' ? browser : before).stateRating(...args),`${sport} ${state} gap=${gap} progress=${progress}`);
             }
           }
         }
@@ -115,7 +120,7 @@ test('state-model boundary parity includes missing margins, clocks, probabilitie
 test('all 107 archived provider fixtures preserve complete games outside completed CFB calibration', () => {
   const adapter = fs.readFileSync(new URL('../alerts-worker/src/game-model.js',import.meta.url),'utf8')
     .replace(/^import .*;\s*$/gm,'').replace(/^export .*;\s*$/gm,'');
-  const original = vm.runInNewContext(`${archivedSource}\n${adapter}\n({normalizeEvent,enrichGame})`,{baseballSituation,footballSituation});
+  const original = vm.runInNewContext(`${cappedSource}\n${adapter}\n({normalizeEvent,enrichGame})`,{baseballSituation,footballSituation});
   const inputs = JSON.parse(gunzipSync(fs.readFileSync(new URL('../alerts-worker/test/fixtures/migration-inputs.json.gz',import.meta.url))));
   assert.equal(Object.keys(inputs).length,107);
   for (const [file,fixture] of Object.entries(inputs)) {
@@ -127,7 +132,10 @@ test('all 107 archived provider fixtures preserve complete games outside complet
       return game;
     };
     const actual=evaluate({normalizeEvent,enrichGame}),old=evaluate(original);
-    if(fixture.modelSport==='CFB'&&actual.state==='completed') {
+    if(fixture.modelSport==='NHL') {
+      const inBrowser=vm.runInNewContext(`${sourceHelper.scoringSource()}\n${adapter}\n({normalizeEvent,enrichGame})`,{baseballSituation,footballSituation});
+      same(actual,evaluate(inBrowser),`${file}: NHL browser/Node`);
+    } else if(fixture.modelSport==='CFB'&&actual.state==='completed') {
       const stable=({score,baseScore,upsetText,upsetPoints,momentumText,momentumPoints,factors,...rest})=>rest;
       same(stable(actual),stable(old),`${file}: all non-calibrated fields`);
       // Full CFB outputs are covered by cfb-completed-calibration's current

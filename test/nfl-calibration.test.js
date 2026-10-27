@@ -1,3 +1,4 @@
+import {capPregameOracle} from './helpers/cap-pregame-oracle.cjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {createRequire} from 'node:module';
@@ -11,7 +12,7 @@ const core = require('../rating-core.js');
 const {nflOvertime,nflModel} = require('../scoring/sports/nfl.js');
 const {footballClockRunway} = require('../scoring/shared/football.js');
 const {fixture,cases,evaluate} = calibration;
-const archived = vm.runInNewContext(`${gunzipSync(fs.readFileSync(new URL('./fixtures/scoring-core-before-extraction.js.gz',import.meta.url)))}\nSportsRadarScore`);
+const archived = vm.runInNewContext(`${capPregameOracle(gunzipSync(fs.readFileSync(new URL('./fixtures/scoring-core-before-extraction.js.gz',import.meta.url))).toString())}\nSportsRadarScore`);
 const browser = vm.runInNewContext(`${sourceHelper.scoringSource()}\nSportsRadarScore`);
 const results = Object.fromEntries(Object.entries(cases).map(([key,input]) => [key,evaluate(core,input)]));
 

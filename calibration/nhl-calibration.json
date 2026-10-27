@@ -1,0 +1,2182 @@
+{
+  "synthetic": {
+    "Tied 12:00 third": {
+      "old": {
+        "score": 52,
+        "base": 52,
+        "bonus": 0,
+        "history": 0,
+        "historyFactors": [],
+        "upset": 0,
+        "opening": 49,
+        "components": {
+          "probability": 0,
+          "situation": 0,
+          "pressure": 0,
+          "milestone": 0,
+          "eventShock": 0
+        }
+      },
+      "new": {
+        "score": 58,
+        "base": 52,
+        "bonus": 6,
+        "history": 0,
+        "historyFactors": [],
+        "upset": 0,
+        "opening": 49,
+        "components": {
+          "probability": 0,
+          "situation": 0,
+          "pressure": 0,
+          "milestone": 0,
+          "eventShock": 0
+        }
+      }
+    },
+    "Tied 10:00 third": {
+      "old": {
+        "score": 55,
+        "base": 51,
+        "bonus": 4,
+        "history": 0,
+        "historyFactors": [],
+        "upset": 0,
+        "opening": 49,
+        "components": {
+          "probability": 0,
+          "situation": 4,
+          "pressure": 0,
+          "milestone": 0,
+          "eventShock": 0
+        }
+      },
+      "new": {
+        "score": 65,
+        "base": 51,
+        "bonus": 14,
+        "history": 0,
+        "historyFactors": [],
+        "upset": 0,
+        "opening": 49,
+        "components": {
+          "probability": 0,
+          "situation": 0,
+          "pressure": 0,
+          "milestone": 0,
+          "eventShock": 0
+        }
+      }
+    },
+    "Tied 7:30 third": {
+      "old": {
+        "score": 55,
+        "base": 51,
+        "bonus": 4,
+        "history": 0,
+        "historyFactors": [],
+        "upset": 0,
+        "opening": 49,
+        "components": {
+          "probability": 0,
+          "situation": 4,
+          "pressure": 0,
+          "milestone": 0,
+          "eventShock": 0
+        }
+      },
+      "new": {
+        "score": 71,
+        "base": 51,
+        "bonus": 20,
+        "history": 0,
+        "historyFactors": [],
+        "upset": 0,
+        "opening": 49,
+        "components": {
+          "probability": 0,
+          "situation": 0,
+          "pressure": 0,
+          "milestone": 0,
+          "eventShock": 0
+        }
+      }
+    },
+    "Tied 5:00 third": {
+      "old": {
+        "score": 56,
+        "base": 52,
+        "bonus": 4,
+        "history": 0,
+        "historyFactors": [],
+        "upset": 0,
+        "opening": 49,
+        "components": {
+          "probability": 0,
+          "situation": 4,
+          "pressure": 0,
+          "milestone": 0,
+          "eventShock": 0
+        }
+      },
+      "new": {
+        "score": 77,
+        "base": 52,
+        "bonus": 25,
+        "history": 0,
+        "historyFactors": [],
+        "upset": 0,
+        "opening": 49,
+        "components": {
+          "probability": 0,
+          "situation": 0,
+          "pressure": 0,
+          "milestone": 0,
+          "eventShock": 0
+        }
+      }
+    },
+    "Tied 2:00 third": {
+      "old": {
+        "score": 57,
+        "base": 51,
+        "bonus": 6,
+        "history": 0,
+        "historyFactors": [],
+        "upset": 0,
+        "opening": 49,
+        "components": {
+          "probability": 0,
+          "situation": 6,
+          "pressure": 0,
+          "milestone": 0,
+          "eventShock": 0
+        }
+      },
+      "new": {
+        "score": 84,
+        "base": 51,
+        "bonus": 33,
+        "history": 0,
+        "historyFactors": [],
+        "upset": 0,
+        "opening": 49,
+        "components": {
+          "probability": 0,
+          "situation": 0,
+          "pressure": 0,
+          "milestone": 0,
+          "eventShock": 0
+        }
+      }
+    },
+    "Tied 1:00 third": {
+      "old": {
+        "score": 58,
+        "base": 52,
+        "bonus": 6,
+        "history": 0,
+        "historyFactors": [],
+        "upset": 0,
+        "opening": 49,
+        "components": {
+          "probability": 0,
+          "situation": 6,
+          "pressure": 0,
+          "milestone": 0,
+          "eventShock": 0
+        }
+      },
+      "new": {
+        "score": 88,
+        "base": 52,
+        "bonus": 36,
+        "history": 0,
+        "historyFactors": [],
+        "upset": 0,
+        "opening": 49,
+        "components": {
+          "probability": 0,
+          "situation": 0,
+          "pressure": 0,
+          "milestone": 0,
+          "eventShock": 0
+        }
+      }
+    },
+    "Down 1, 2:00": {
+      "old": {
+        "score": 54,
+        "base": 48,
+        "bonus": 6,
+        "history": 0,
+        "historyFactors": [],
+        "upset": 0,
+        "opening": 49,
+        "components": {
+          "probability": 0,
+          "situation": 6,
+          "pressure": 0,
+          "milestone": 0,
+          "eventShock": 0
+        }
+      },
+      "new": {
+        "score": 74,
+        "base": 48,
+        "bonus": 26,
+        "history": 0,
+        "historyFactors": [],
+        "upset": 0,
+        "opening": 49,
+        "components": {
+          "probability": 0,
+          "situation": 0,
+          "pressure": 0,
+          "milestone": 0,
+          "eventShock": 0
+        }
+      }
+    },
+    "Down 1, goalie pulled, 1:00": {
+      "old": {
+        "score": 60,
+        "base": 48,
+        "bonus": 12,
+        "history": 0,
+        "historyFactors": [],
+        "upset": 0,
+        "opening": 49,
+        "components": {
+          "probability": 0,
+          "situation": 12,
+          "pressure": 0,
+          "milestone": 0,
+          "eventShock": 0
+        }
+      },
+      "new": {
+        "score": 85,
+        "base": 48,
+        "bonus": 37,
+        "history": 0,
+        "historyFactors": [],
+        "upset": 0,
+        "opening": 49,
+        "components": {
+          "probability": 0,
+          "situation": 3,
+          "pressure": 0,
+          "milestone": 0,
+          "eventShock": 0
+        }
+      }
+    },
+    "Down 1, 6-on-4, 1:00": {
+      "old": {
+        "score": 60,
+        "base": 48,
+        "bonus": 12,
+        "history": 0,
+        "historyFactors": [],
+        "upset": 0,
+        "opening": 49,
+        "components": {
+          "probability": 0,
+          "situation": 12,
+          "pressure": 0,
+          "milestone": 0,
+          "eventShock": 0
+        }
+      },
+      "new": {
+        "score": 91,
+        "base": 48,
+        "bonus": 43,
+        "history": 0,
+        "historyFactors": [],
+        "upset": 0,
+        "opening": 49,
+        "components": {
+          "probability": 0,
+          "situation": 5,
+          "pressure": 0,
+          "milestone": 0,
+          "eventShock": 0
+        }
+      }
+    },
+    "Down 2, 10:00 third": {
+      "old": {
+        "score": 27,
+        "base": 27,
+        "bonus": 0,
+        "history": 0,
+        "historyFactors": [],
+        "upset": 0,
+        "opening": 49,
+        "components": {
+          "probability": 0,
+          "situation": 0,
+          "pressure": 0,
+          "milestone": 0,
+          "eventShock": 0
+        }
+      },
+      "new": {
+        "score": 33,
+        "base": 33,
+        "bonus": 0,
+        "history": 0,
+        "historyFactors": [],
+        "upset": 0,
+        "opening": 49,
+        "components": {
+          "probability": 0,
+          "situation": 0,
+          "pressure": 0,
+          "milestone": 0,
+          "eventShock": 0
+        }
+      }
+    },
+    "Down 2, 5:00 third": {
+      "old": {
+        "score": 23,
+        "base": 23,
+        "bonus": 0,
+        "history": 0,
+        "historyFactors": [],
+        "upset": 0,
+        "opening": 49,
+        "components": {
+          "probability": 0,
+          "situation": 0,
+          "pressure": 0,
+          "milestone": 0,
+          "eventShock": 0
+        }
+      },
+      "new": {
+        "score": 24,
+        "base": 24,
+        "bonus": 0,
+        "history": 0,
+        "historyFactors": [],
+        "upset": 0,
+        "opening": 49,
+        "components": {
+          "probability": 0,
+          "situation": 0,
+          "pressure": 0,
+          "milestone": 0,
+          "eventShock": 0
+        }
+      }
+    },
+    "Down 2, 2:00 third": {
+      "old": {
+        "score": 22,
+        "base": 22,
+        "bonus": 0,
+        "history": 0,
+        "historyFactors": [],
+        "upset": 0,
+        "opening": 49,
+        "components": {
+          "probability": 0,
+          "situation": 0,
+          "pressure": 0,
+          "milestone": 0,
+          "eventShock": 0
+        }
+      },
+      "new": {
+        "score": 15,
+        "base": 15,
+        "bonus": 0,
+        "history": 0,
+        "historyFactors": [],
+        "upset": 0,
+        "opening": 49,
+        "components": {
+          "probability": 0,
+          "situation": 0,
+          "pressure": 0,
+          "milestone": 0,
+          "eventShock": 0
+        }
+      }
+    },
+    "Down 2, 1:00 third": {
+      "old": {
+        "score": 21,
+        "base": 21,
+        "bonus": 0,
+        "history": 0,
+        "historyFactors": [],
+        "upset": 0,
+        "opening": 49,
+        "components": {
+          "probability": 0,
+          "situation": 0,
+          "pressure": 0,
+          "milestone": 0,
+          "eventShock": 0
+        }
+      },
+      "new": {
+        "score": 8,
+        "base": 8,
+        "bonus": 0,
+        "history": 0,
+        "historyFactors": [],
+        "upset": 0,
+        "opening": 49,
+        "components": {
+          "probability": 0,
+          "situation": 0,
+          "pressure": 0,
+          "milestone": 0,
+          "eventShock": 0
+        }
+      }
+    },
+    "Down 3, 10:00 first": {
+      "old": {
+        "score": 30,
+        "base": 30,
+        "bonus": 0,
+        "history": 0,
+        "historyFactors": [],
+        "upset": 0,
+        "opening": 49,
+        "components": {
+          "probability": 0,
+          "situation": 0,
+          "pressure": 0,
+          "milestone": 0,
+          "eventShock": 0
+        }
+      },
+      "new": {
+        "score": 34,
+        "base": 34,
+        "bonus": 0,
+        "history": 0,
+        "historyFactors": [],
+        "upset": 0,
+        "opening": 49,
+        "components": {
+          "probability": 0,
+          "situation": 0,
+          "pressure": 0,
+          "milestone": 0,
+          "eventShock": 0
+        }
+      }
+    },
+    "Down 3, 10:00 third": {
+      "old": {
+        "score": 7,
+        "base": 7,
+        "bonus": 0,
+        "history": 0,
+        "historyFactors": [],
+        "upset": 0,
+        "opening": 49,
+        "components": {
+          "probability": 0,
+          "situation": 0,
+          "pressure": 0,
+          "milestone": 0,
+          "eventShock": 0
+        }
+      },
+      "new": {
+        "score": 10,
+        "base": 10,
+        "bonus": 0,
+        "history": 0,
+        "historyFactors": [],
+        "upset": 0,
+        "opening": 49,
+        "components": {
+          "probability": 0,
+          "situation": 0,
+          "pressure": 0,
+          "milestone": 0,
+          "eventShock": 0
+        }
+      }
+    },
+    "Down 3, 5:00 third": {
+      "old": {
+        "score": 4,
+        "base": 4,
+        "bonus": 0,
+        "history": 0,
+        "historyFactors": [],
+        "upset": 0,
+        "opening": 49,
+        "components": {
+          "probability": 0,
+          "situation": 0,
+          "pressure": 0,
+          "milestone": 0,
+          "eventShock": 0
+        }
+      },
+      "new": {
+        "score": 7,
+        "base": 7,
+        "bonus": 0,
+        "history": 0,
+        "historyFactors": [],
+        "upset": 0,
+        "opening": 49,
+        "components": {
+          "probability": 0,
+          "situation": 0,
+          "pressure": 0,
+          "milestone": 0,
+          "eventShock": 0
+        }
+      }
+    },
+    "Down 3, 2:00 third": {
+      "old": {
+        "score": 2,
+        "base": 2,
+        "bonus": 0,
+        "history": 0,
+        "historyFactors": [],
+        "upset": 0,
+        "opening": 49,
+        "components": {
+          "probability": 0,
+          "situation": 0,
+          "pressure": 0,
+          "milestone": 0,
+          "eventShock": 0
+        }
+      },
+      "new": {
+        "score": 5,
+        "base": 5,
+        "bonus": 0,
+        "history": 0,
+        "historyFactors": [],
+        "upset": 0,
+        "opening": 49,
+        "components": {
+          "probability": 0,
+          "situation": 0,
+          "pressure": 0,
+          "milestone": 0,
+          "eventShock": 0
+        }
+      }
+    },
+    "Down 3, 1:00 third": {
+      "old": {
+        "score": 2,
+        "base": 2,
+        "bonus": 0,
+        "history": 0,
+        "historyFactors": [],
+        "upset": 0,
+        "opening": 49,
+        "components": {
+          "probability": 0,
+          "situation": 0,
+          "pressure": 0,
+          "milestone": 0,
+          "eventShock": 0
+        }
+      },
+      "new": {
+        "score": 5,
+        "base": 5,
+        "bonus": 0,
+        "history": 0,
+        "historyFactors": [],
+        "upset": 0,
+        "opening": 49,
+        "components": {
+          "probability": 0,
+          "situation": 0,
+          "pressure": 0,
+          "milestone": 0,
+          "eventShock": 0
+        }
+      }
+    },
+    "Regular-season OT": {
+      "old": {
+        "score": 64,
+        "base": 52,
+        "bonus": 12,
+        "history": 0,
+        "historyFactors": [],
+        "upset": 0,
+        "opening": 49,
+        "components": {
+          "probability": 0,
+          "situation": 12,
+          "pressure": 0,
+          "milestone": 0,
+          "eventShock": 0
+        }
+      },
+      "new": {
+        "score": 80,
+        "base": 52,
+        "bonus": 28,
+        "history": 0,
+        "historyFactors": [],
+        "upset": 0,
+        "opening": 49,
+        "components": {
+          "probability": 0,
+          "situation": 0,
+          "pressure": 0,
+          "milestone": 0,
+          "eventShock": 0
+        }
+      }
+    },
+    "Shootout": {
+      "old": {
+        "score": 64,
+        "base": 52,
+        "bonus": 12,
+        "history": 0,
+        "historyFactors": [],
+        "upset": 0,
+        "opening": 49,
+        "components": {
+          "probability": 0,
+          "situation": 12,
+          "pressure": 0,
+          "milestone": 0,
+          "eventShock": 0
+        }
+      },
+      "new": {
+        "score": 82,
+        "base": 52,
+        "bonus": 30,
+        "history": 0,
+        "historyFactors": [],
+        "upset": 0,
+        "opening": 49,
+        "components": {
+          "probability": 0,
+          "situation": 0,
+          "pressure": 0,
+          "milestone": 0,
+          "eventShock": 0
+        }
+      }
+    },
+    "Playoff OT": {
+      "old": {
+        "score": 78,
+        "base": 66,
+        "bonus": 12,
+        "history": 0,
+        "historyFactors": [],
+        "upset": 0,
+        "opening": 59,
+        "components": {
+          "probability": 0,
+          "situation": 12,
+          "pressure": 0,
+          "milestone": 0,
+          "eventShock": 0
+        }
+      },
+      "new": {
+        "score": 90,
+        "base": 66,
+        "bonus": 24,
+        "history": 0,
+        "historyFactors": [],
+        "upset": 0,
+        "opening": 59,
+        "components": {
+          "probability": 0,
+          "situation": 0,
+          "pressure": 0,
+          "milestone": 0,
+          "eventShock": 0
+        }
+      }
+    },
+    "Playoff 2OT": {
+      "old": {
+        "score": 78,
+        "base": 66,
+        "bonus": 12,
+        "history": 0,
+        "historyFactors": [],
+        "upset": 0,
+        "opening": 59,
+        "components": {
+          "probability": 0,
+          "situation": 12,
+          "pressure": 0,
+          "milestone": 0,
+          "eventShock": 0
+        }
+      },
+      "new": {
+        "score": 93,
+        "base": 66,
+        "bonus": 27,
+        "history": 0,
+        "historyFactors": [],
+        "upset": 0,
+        "opening": 59,
+        "components": {
+          "probability": 0,
+          "situation": 0,
+          "pressure": 0,
+          "milestone": 0,
+          "eventShock": 0
+        }
+      }
+    },
+    "Playoff 3OT": {
+      "old": {
+        "score": 78,
+        "base": 66,
+        "bonus": 12,
+        "history": 0,
+        "historyFactors": [],
+        "upset": 0,
+        "opening": 59,
+        "components": {
+          "probability": 0,
+          "situation": 12,
+          "pressure": 0,
+          "milestone": 0,
+          "eventShock": 0
+        }
+      },
+      "new": {
+        "score": 96,
+        "base": 66,
+        "bonus": 30,
+        "history": 0,
+        "historyFactors": [],
+        "upset": 0,
+        "opening": 59,
+        "components": {
+          "probability": 0,
+          "situation": 0,
+          "pressure": 0,
+          "milestone": 0,
+          "eventShock": 0
+        }
+      }
+    },
+    "Stanley Cup Final deciding game OT": {
+      "old": {
+        "score": 99,
+        "base": 92,
+        "bonus": 12,
+        "history": 0,
+        "historyFactors": [],
+        "upset": 0,
+        "opening": 98,
+        "components": {
+          "probability": 0,
+          "situation": 12,
+          "pressure": 0,
+          "milestone": 0,
+          "eventShock": 0
+        }
+      },
+      "new": {
+        "score": 99,
+        "base": 92,
+        "bonus": 7,
+        "history": 0,
+        "historyFactors": [],
+        "upset": 0,
+        "opening": 90,
+        "components": {
+          "probability": 0,
+          "situation": 0,
+          "pressure": 0,
+          "milestone": 0,
+          "eventShock": 0
+        }
+      }
+    }
+  },
+  "fixtures": [
+    {
+      "eventId": "401892519",
+      "matchup": "New Jersey Devils vs Washington Capitals",
+      "final": "2-4",
+      "old": 38,
+      "new": 34,
+      "difference": -4,
+      "oldFactors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 8
+        },
+        {
+          "label": "1 lead change",
+          "points": 3
+        },
+        {
+          "label": "Sustained competitive game",
+          "points": 7
+        }
+      ],
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 8
+        },
+        {
+          "label": "1 lead change",
+          "points": 3
+        },
+        {
+          "label": "Time tied or within one goal",
+          "points": 3
+        }
+      ]
+    },
+    {
+      "eventId": "401892520",
+      "matchup": "Carolina Hurricanes vs Winnipeg Jets",
+      "final": "3-2",
+      "old": 51,
+      "new": 46,
+      "difference": -5,
+      "oldFactors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 16
+        },
+        {
+          "label": "1 lead change",
+          "points": 3
+        },
+        {
+          "label": "Recent late lead change",
+          "points": 5
+        },
+        {
+          "label": "Sustained competitive game",
+          "points": 7
+        }
+      ],
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 16
+        },
+        {
+          "label": "1 lead change",
+          "points": 3
+        },
+        {
+          "label": "Time tied or within one goal",
+          "points": 7
+        }
+      ]
+    },
+    {
+      "eventId": "401892521",
+      "matchup": "Vancouver Canucks vs Tampa Bay Lightning",
+      "final": "2-4",
+      "old": 44,
+      "new": 43,
+      "difference": -1,
+      "oldFactors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 8
+        },
+        {
+          "label": "1 lead change",
+          "points": 3
+        },
+        {
+          "label": "Erased a large deficit",
+          "points": 6
+        },
+        {
+          "label": "Sustained competitive game",
+          "points": 7
+        }
+      ],
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 8
+        },
+        {
+          "label": "Erased a multi-goal deficit",
+          "points": 6
+        },
+        {
+          "label": "1 lead change",
+          "points": 3
+        },
+        {
+          "label": "Time tied or within one goal",
+          "points": 6
+        }
+      ]
+    },
+    {
+      "eventId": "401892522",
+      "matchup": "Seattle Kraken vs Florida Panthers",
+      "final": "3-8",
+      "old": 7,
+      "new": 3,
+      "difference": -4,
+      "oldFactors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 3
+        },
+        {
+          "label": "Wide margin",
+          "points": -22
+        },
+        {
+          "label": "Erased a large deficit",
+          "points": 6
+        }
+      ],
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 3
+        },
+        {
+          "label": "Wide margin",
+          "points": -22
+        },
+        {
+          "label": "Time tied or within one goal",
+          "points": 2
+        }
+      ]
+    },
+    {
+      "eventId": "401892523",
+      "matchup": "New York Islanders vs Toronto Maple Leafs",
+      "final": "4-1",
+      "old": 14,
+      "new": 12,
+      "difference": -2,
+      "oldFactors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Wide margin",
+          "points": -13
+        },
+        {
+          "label": "Sustained competitive game",
+          "points": 7
+        }
+      ],
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Wide margin",
+          "points": -13
+        },
+        {
+          "label": "Time tied or within one goal",
+          "points": 5
+        }
+      ]
+    },
+    {
+      "eventId": "401892524",
+      "matchup": "Buffalo Sabres vs Montreal Canadiens",
+      "final": "3-4",
+      "old": 75,
+      "new": 65,
+      "difference": -10,
+      "oldFactors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 3
+        },
+        {
+          "label": "Final margin",
+          "points": 16
+        },
+        {
+          "label": "Overtime",
+          "points": 13
+        },
+        {
+          "label": "2 lead changes",
+          "points": 6
+        },
+        {
+          "label": "Erased a large deficit",
+          "points": 6
+        },
+        {
+          "label": "Sustained competitive game",
+          "points": 7
+        },
+        {
+          "label": "Decisive final score",
+          "points": 6
+        }
+      ],
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 3
+        },
+        {
+          "label": "Final margin",
+          "points": 16
+        },
+        {
+          "label": "Overtime winner",
+          "points": 13
+        },
+        {
+          "label": "Erased a multi-goal deficit",
+          "points": 6
+        },
+        {
+          "label": "1 lead change",
+          "points": 3
+        },
+        {
+          "label": "Time tied or within one goal",
+          "points": 6
+        }
+      ]
+    },
+    {
+      "eventId": "401892525",
+      "matchup": "San Jose Sharks vs Detroit Red Wings",
+      "final": "3-4",
+      "old": 75,
+      "new": 69,
+      "difference": -6,
+      "oldFactors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 16
+        },
+        {
+          "label": "2 lead changes",
+          "points": 6
+        },
+        {
+          "label": "Erased a large deficit",
+          "points": 6
+        },
+        {
+          "label": "Recent late lead change",
+          "points": 5
+        },
+        {
+          "label": "Sustained competitive game",
+          "points": 7
+        },
+        {
+          "label": "Decisive final score",
+          "points": 1
+        },
+        {
+          "label": "Decisive last play",
+          "points": 14
+        }
+      ],
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 16
+        },
+        {
+          "label": "Shootout finish",
+          "points": 9
+        },
+        {
+          "label": "Late tying goal",
+          "points": 9
+        },
+        {
+          "label": "Erased a multi-goal deficit",
+          "points": 6
+        },
+        {
+          "label": "1 lead change",
+          "points": 3
+        },
+        {
+          "label": "Time tied or within one goal",
+          "points": 6
+        }
+      ]
+    },
+    {
+      "eventId": "401892526",
+      "matchup": "Ottawa Senators vs Philadelphia Flyers",
+      "final": "1-3",
+      "old": 41,
+      "new": 38,
+      "difference": -3,
+      "oldFactors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 8
+        },
+        {
+          "label": "2 lead changes",
+          "points": 6
+        },
+        {
+          "label": "Sustained competitive game",
+          "points": 7
+        }
+      ],
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 8
+        },
+        {
+          "label": "1 lead change",
+          "points": 3
+        },
+        {
+          "label": "Time tied or within one goal",
+          "points": 7
+        }
+      ]
+    },
+    {
+      "eventId": "401892527",
+      "matchup": "New York Rangers vs Columbus Blue Jackets",
+      "final": "0-1",
+      "old": 57,
+      "new": 63,
+      "difference": 6,
+      "oldFactors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 16
+        },
+        {
+          "label": "Overtime",
+          "points": 13
+        },
+        {
+          "label": "Decisive final score",
+          "points": 8
+        }
+      ],
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 16
+        },
+        {
+          "label": "Overtime winner",
+          "points": 13
+        },
+        {
+          "label": "Time tied or within one goal",
+          "points": 8
+        },
+        {
+          "label": "Completed overtime floor",
+          "points": 6
+        }
+      ]
+    },
+    {
+      "eventId": "401892528",
+      "matchup": "Dallas Stars vs Chicago Blackhawks",
+      "final": "4-0",
+      "old": 10,
+      "new": 7,
+      "difference": -3,
+      "oldFactors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Wide margin",
+          "points": -17
+        },
+        {
+          "label": "Sustained competitive game",
+          "points": 7
+        }
+      ],
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Wide margin",
+          "points": -17
+        },
+        {
+          "label": "Time tied or within one goal",
+          "points": 4
+        }
+      ]
+    },
+    {
+      "eventId": "401892529",
+      "matchup": "St. Louis Blues vs Nashville Predators",
+      "final": "2-5",
+      "old": 20,
+      "new": 14,
+      "difference": -6,
+      "oldFactors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Wide margin",
+          "points": -13
+        },
+        {
+          "label": "2 lead changes",
+          "points": 6
+        },
+        {
+          "label": "Sustained competitive game",
+          "points": 7
+        }
+      ],
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Wide margin",
+          "points": -13
+        },
+        {
+          "label": "1 lead change",
+          "points": 3
+        },
+        {
+          "label": "Time tied or within one goal",
+          "points": 4
+        }
+      ]
+    },
+    {
+      "eventId": "401892530",
+      "matchup": "Boston Bruins vs Los Angeles Kings",
+      "final": "4-1",
+      "old": 17,
+      "new": 17,
+      "difference": 0,
+      "oldFactors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Wide margin",
+          "points": -13
+        },
+        {
+          "label": "1 lead change",
+          "points": 3
+        },
+        {
+          "label": "Sustained competitive game",
+          "points": 7
+        }
+      ],
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Wide margin",
+          "points": -13
+        },
+        {
+          "label": "1 lead change",
+          "points": 3
+        },
+        {
+          "label": "Time tied or within one goal",
+          "points": 7
+        }
+      ]
+    },
+    {
+      "eventId": "401892531",
+      "matchup": "Edmonton Oilers vs Utah Mammoth",
+      "final": "6-2",
+      "old": 3,
+      "new": 4,
+      "difference": 1,
+      "oldFactors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Wide margin",
+          "points": -17
+        }
+      ],
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Wide margin",
+          "points": -17
+        },
+        {
+          "label": "Time tied or within one goal",
+          "points": 1
+        }
+      ]
+    },
+    {
+      "eventId": "401892532",
+      "matchup": "Pittsburgh Penguins vs Vegas Golden Knights",
+      "final": "2-6",
+      "old": 3,
+      "new": 3,
+      "difference": 0,
+      "oldFactors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Wide margin",
+          "points": -17
+        }
+      ],
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Wide margin",
+          "points": -17
+        }
+      ]
+    },
+    {
+      "eventId": "401892539",
+      "matchup": "San Jose Sharks vs Montreal Canadiens",
+      "final": "4-3",
+      "old": 92,
+      "new": 71,
+      "difference": -21,
+      "oldFactors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 16
+        },
+        {
+          "label": "Overtime",
+          "points": 13
+        },
+        {
+          "label": "Underdog won outright",
+          "points": 18
+        },
+        {
+          "label": "2 lead changes",
+          "points": 6
+        },
+        {
+          "label": "Erased a large deficit",
+          "points": 6
+        },
+        {
+          "label": "Recent late lead change",
+          "points": 5
+        },
+        {
+          "label": "Sustained competitive game",
+          "points": 7
+        },
+        {
+          "label": "Decisive final score",
+          "points": 1
+        }
+      ],
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 16
+        },
+        {
+          "label": "Overtime winner",
+          "points": 13
+        },
+        {
+          "label": "Underdog won outright",
+          "points": 4
+        },
+        {
+          "label": "Erased a multi-goal deficit",
+          "points": 6
+        },
+        {
+          "label": "2 lead changes",
+          "points": 6
+        },
+        {
+          "label": "Time tied or within one goal",
+          "points": 6
+        }
+      ]
+    },
+    {
+      "eventId": "401892540",
+      "matchup": "Colorado Avalanche vs New Jersey Devils",
+      "final": "3-4",
+      "old": 43,
+      "new": 41,
+      "difference": -2,
+      "oldFactors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 16
+        },
+        {
+          "label": "Sustained competitive game",
+          "points": 7
+        }
+      ],
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 16
+        },
+        {
+          "label": "Time tied or within one goal",
+          "points": 5
+        }
+      ]
+    },
+    {
+      "eventId": "401892541",
+      "matchup": "Anaheim Ducks vs New York Islanders",
+      "final": "2-3",
+      "old": 43,
+      "new": 38,
+      "difference": -5,
+      "oldFactors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 16
+        },
+        {
+          "label": "Sustained competitive game",
+          "points": 7
+        }
+      ],
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 16
+        },
+        {
+          "label": "Time tied or within one goal",
+          "points": 2
+        }
+      ]
+    },
+    {
+      "eventId": "401892542",
+      "matchup": "Los Angeles Kings vs Washington Capitals",
+      "final": "5-2",
+      "old": 23,
+      "new": 22,
+      "difference": -1,
+      "oldFactors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Wide margin",
+          "points": -13
+        },
+        {
+          "label": "1 lead change",
+          "points": 3
+        },
+        {
+          "label": "Erased a large deficit",
+          "points": 6
+        },
+        {
+          "label": "Sustained competitive game",
+          "points": 7
+        }
+      ],
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Wide margin",
+          "points": -13
+        },
+        {
+          "label": "Erased a multi-goal deficit",
+          "points": 6
+        },
+        {
+          "label": "1 lead change",
+          "points": 3
+        },
+        {
+          "label": "Time tied or within one goal",
+          "points": 6
+        }
+      ]
+    },
+    {
+      "eventId": "401892543",
+      "matchup": "Toronto Maple Leafs vs Columbus Blue Jackets",
+      "final": "6-2",
+      "old": 11,
+      "new": 9,
+      "difference": -2,
+      "oldFactors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Wide margin",
+          "points": -17
+        },
+        {
+          "label": "1 lead change",
+          "points": 3
+        },
+        {
+          "label": "Sustained competitive game",
+          "points": 5
+        }
+      ],
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Wide margin",
+          "points": -17
+        },
+        {
+          "label": "1 lead change",
+          "points": 3
+        },
+        {
+          "label": "Time tied or within one goal",
+          "points": 3
+        }
+      ]
+    },
+    {
+      "eventId": "401892544",
+      "matchup": "Winnipeg Jets vs St. Louis Blues",
+      "final": "1-2",
+      "old": 43,
+      "new": 42,
+      "difference": -1,
+      "oldFactors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 16
+        },
+        {
+          "label": "Sustained competitive game",
+          "points": 7
+        }
+      ],
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 16
+        },
+        {
+          "label": "Time tied or within one goal",
+          "points": 6
+        }
+      ]
+    },
+    {
+      "eventId": "401892545",
+      "matchup": "Boston Bruins vs Dallas Stars",
+      "final": "2-3",
+      "old": 72,
+      "new": 63,
+      "difference": -9,
+      "oldFactors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 16
+        },
+        {
+          "label": "Overtime",
+          "points": 13
+        },
+        {
+          "label": "1 lead change",
+          "points": 3
+        },
+        {
+          "label": "Recent late lead change",
+          "points": 5
+        },
+        {
+          "label": "Sustained competitive game",
+          "points": 7
+        },
+        {
+          "label": "Decisive final score",
+          "points": 8
+        }
+      ],
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 16
+        },
+        {
+          "label": "Overtime winner",
+          "points": 13
+        },
+        {
+          "label": "1 lead change",
+          "points": 3
+        },
+        {
+          "label": "Time tied or within one goal",
+          "points": 6
+        },
+        {
+          "label": "Completed overtime floor",
+          "points": 5
+        }
+      ]
+    },
+    {
+      "eventId": "401892546",
+      "matchup": "Minnesota Wild vs Edmonton Oilers",
+      "final": "3-4",
+      "old": 66,
+      "new": 63,
+      "difference": -3,
+      "oldFactors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 3
+        },
+        {
+          "label": "Final margin",
+          "points": 16
+        },
+        {
+          "label": "Overtime",
+          "points": 13
+        },
+        {
+          "label": "1 lead change",
+          "points": 3
+        },
+        {
+          "label": "Erased a large deficit",
+          "points": 6
+        },
+        {
+          "label": "Sustained competitive game",
+          "points": 7
+        }
+      ],
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 3
+        },
+        {
+          "label": "Final margin",
+          "points": 16
+        },
+        {
+          "label": "Overtime winner",
+          "points": 13
+        },
+        {
+          "label": "Erased a multi-goal deficit",
+          "points": 6
+        },
+        {
+          "label": "1 lead change",
+          "points": 3
+        },
+        {
+          "label": "Time tied or within one goal",
+          "points": 4
+        }
+      ]
+    },
+    {
+      "eventId": "401892547",
+      "matchup": "Detroit Red Wings vs Seattle Kraken",
+      "final": "3-4",
+      "old": 63,
+      "new": 66,
+      "difference": 3,
+      "oldFactors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 16
+        },
+        {
+          "label": "Erased a large deficit",
+          "points": 6
+        },
+        {
+          "label": "Sustained competitive game",
+          "points": 7
+        },
+        {
+          "label": "Decisive last play",
+          "points": 14
+        }
+      ],
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 16
+        },
+        {
+          "label": "Shootout finish",
+          "points": 9
+        },
+        {
+          "label": "Late tying goal",
+          "points": 9
+        },
+        {
+          "label": "Erased a multi-goal deficit",
+          "points": 8
+        },
+        {
+          "label": "Time tied or within one goal",
+          "points": 4
+        }
+      ]
+    },
+    {
+      "eventId": "401892548",
+      "matchup": "Carolina Hurricanes vs Vancouver Canucks",
+      "final": "6-3",
+      "old": 14,
+      "new": 13,
+      "difference": -1,
+      "oldFactors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Wide margin",
+          "points": -13
+        },
+        {
+          "label": "Sustained competitive game",
+          "points": 7
+        }
+      ],
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Wide margin",
+          "points": -13
+        },
+        {
+          "label": "Time tied or within one goal",
+          "points": 6
+        }
+      ]
+    },
+    {
+      "eventId": "401892549",
+      "matchup": "Tampa Bay Lightning vs Vegas Golden Knights",
+      "final": "6-2",
+      "old": 11,
+      "new": 7,
+      "difference": -4,
+      "oldFactors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 3
+        },
+        {
+          "label": "Wide margin",
+          "points": -17
+        },
+        {
+          "label": "Sustained competitive game",
+          "points": 7
+        }
+      ],
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 3
+        },
+        {
+          "label": "Wide margin",
+          "points": -17
+        },
+        {
+          "label": "Time tied or within one goal",
+          "points": 3
+        }
+      ]
+    }
+  ]
+}

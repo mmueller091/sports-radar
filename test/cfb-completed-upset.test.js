@@ -1,3 +1,4 @@
+import {capPregameOracle} from './helpers/cap-pregame-oracle.cjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {createRequire} from 'node:module';
@@ -10,6 +11,7 @@ import source from './helpers/scoring-source.cjs';
 import * as adapter from '../alerts-worker/src/game-model.js';
 import {baseballSituation,footballSituation} from '../alerts-worker/src/display-model.js';
 const core=createRequire(import.meta.url)('../rating-core.js');
+const cappedBefore=vm.runInNewContext(`${capPregameOracle(u.source)}\nSportsRadarScore`);
 const same=(a,b,label)=>assert.deepEqual(structuredClone(a),structuredClone(b),label);
 const score=input=>c.evaluate(core,input).score;
 test('completed upset A-S: nonlinear magnitude, quality, rank and bounded stakes',()=>{
@@ -29,14 +31,14 @@ test('exact pre-upset-pass protection: completed OT/path/defense, live CFB, NFL,
  for(const [k,v] of Object.entries(nfl.cases))same(nfl.evaluate(core,v),nfl.evaluate(u.before,v),`NFL ${k}`);
  for(const v of Object.values(u.cases)){
   const f=c.fixture(v),teams=f.competition.competitors.map(t=>({...t,id:t.team.id}));
-  same(core.rateGame('CFB','upcoming',teams,f.event,f.competition,''),u.before.rateGame('CFB','upcoming',teams,f.event,f.competition,''),'pregame');
+  same(core.rateGame('CFB','upcoming',teams,f.event,f.competition,''),cappedBefore.rateGame('CFB','upcoming',teams,f.event,f.competition,''),'pregame');
   same(core.momentumImpact('CFB',f.summary,1,'completed'),u.before.momentumImpact('CFB',f.summary,1,'completed'),'standalone history');
  }
 });
 test('upset matrix browser/Node equivalence and full provider replay against immediate baseline',()=>{
  const browser=vm.runInNewContext(`${source.scoringSource()}\nSportsRadarScore`);
  for(const v of Object.values(u.cases))same(c.evaluate(core,v),c.evaluate(browser,v),'synthetic browser');
- const now=c.providers(adapter),old=c.providers(c.adapter(u.source,{baseballSituation,footballSituation}));
+ const now=c.providers(adapter),old=c.providers(c.adapter(capPregameOracle(u.source),{baseballSituation,footballSituation}));
  same(now,c.providers(c.adapter(source.scoringSource(),{baseballSituation,footballSituation})),'all provider browser outputs');
- for(const [file,g] of Object.entries(now))if(g.sport!=='CFB'||g.state!=='completed')same(g,old[file],file);
+ for(const [file,g] of Object.entries(now))if(g.sport!=='NHL'&&(g.sport!=='CFB'||g.state!=='completed'))same(g,old[file],file);
 });

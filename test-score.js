@@ -253,7 +253,8 @@ const fixtures = `
   assert.match(hockey.live.phase,/12:10.*3rd period/);
   assert.match(hockey.live.note,/Capitals power play/);
   assert.match(hockey.live.reasons.join(' '),/Star Skater.*hat trick/);
-  assert.ok(hockey.score >= 71);
+  assert.equal(hockey.live.components.milestone,3,'NHL hat-trick chase is a modest competitive bump');
+  assert.equal(hockey.score,67);
   const unique = dedupeGames([{sport:'CFB',id:'1',division:'FBS'},{sport:'CFB',id:'1',division:'FCS'},{sport:'CFB',id:'2',division:'FBS'}]);
   assert.equal(unique.length,2);
   assert.equal(unique[0].division,'FCS');

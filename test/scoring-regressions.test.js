@@ -212,7 +212,8 @@ for (const [sport,title] of [['MLB','World Series'],['NBA','NBA Finals'],['NHL',
       const input=matchup(sport,`${title} ${detail} postseason championship`,true);
       if (detail==='Game 3') input.competition.series={summary:'Series tied 1-1'};
       const result=pregame(input);
-      assert.equal(result.score,expected);
+      assert.equal(result.score,Math.min(90,expected));
+      assert.equal(result.rawPregameScore,expected);
       assert.equal(result.factors.filter(item=>/Championship|World Series|Final round/.test(item.label)).length,detail==='Game 1' ? 1 : 2);
       assert.equal(result.factors.some(item=>['Postseason','Postseason scarcity','Series opener','Clinching opportunity','Elimination stakes','Deciding game'].includes(item.label)),false);
     }
@@ -220,14 +221,14 @@ for (const [sport,title] of [['MLB','World Series'],['NBA','NBA Finals'],['NHL',
     close.competition.odds=[{details:"Home -2",spread:2,homeTeamOdds:{moneyLine:-110},awayTeamOdds:{moneyLine:110}}];
     assert.equal(pregame(close).score,87);
     close.detail=`${title} Game 7`;close.competition.notes=[{headline:close.detail}];
-    assert.equal(pregame(close).score,99);
+    assert.equal(pregame(close).score,90);
   });
   test(`${title}: series state identifies clinch and winner-take-all without game number`,()=>{
     const input=matchup(sport,title,true);
     input.competition.series={summary:'Home leads 3-2'};
-    assert.equal(pregame(input).score,92);
+    assert.equal(pregame(input).score,90);
     input.competition.series.summary='Series tied 3-3';
-    assert.equal(pregame(input).score,98);
+    assert.equal(pregame(input).score,90);
   });
 }
 
@@ -524,10 +525,10 @@ test('NHL two-goal margin gets tighter late and rises for a trailing extra attac
   const pulled=core.nhlLiveMarginCloseness(2,.98,{trailingGoaliePulled:true});
   const powerPlay=core.nhlLiveMarginCloseness(2,.98,{trailingPowerPlay:true});
   assert.ok(early>.5 && early<.6);
-  assert.ok(late>=.15 && late<=.20);
+  assert.ok(late>=.02 && late<=.06);
   assert.ok(pulled>late && powerPlay>late);
-  assert.ok(pulled>=.25 && pulled<=.35);
-  assert.ok(powerPlay>=.25 && powerPlay<=.35);
+  assert.ok(pulled>=.10 && pulled<=.16);
+  assert.ok(powerPlay>=.10 && powerPlay<=.16);
 });
 
 test('late MLB two-out full-count plate appearances elevate tying run at plate or on deck',()=>{

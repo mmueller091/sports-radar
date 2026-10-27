@@ -1,3 +1,4 @@
+import {capPregameOracle} from './helpers/cap-pregame-oracle.cjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
@@ -11,7 +12,7 @@ const require = createRequire(import.meta.url);
 const core = require('../rating-core.js');
 const baseline = require('../calibration/cfb-baseline.json');
 const {cfbClockRunway,cfbOvertime,cfbModel} = require('../scoring/sports/cfb.js');
-const before = vm.runInNewContext(`${gunzipSync(fs.readFileSync(new URL('./fixtures/scoring-core-before-cfb.js.gz',import.meta.url)))}\nSportsRadarScore`);
+const before = vm.runInNewContext(`${capPregameOracle(gunzipSync(fs.readFileSync(new URL('./fixtures/scoring-core-before-cfb.js.gz',import.meta.url))).toString())}\nSportsRadarScore`);
 const browser = vm.runInNewContext(`${sourceHelper.scoringSource()}\nSportsRadarScore`);
 const {fixture,evaluate,evaluateFixture,cases,margins} = calibration;
 const score = input => evaluate(core,input).score;
@@ -204,7 +205,7 @@ test('CFB browser equivalence and frozen pre-change calibration; all NFL A-P out
   // Include older periods, missing provider fields and all public API shapes.
   same(Object.keys(core),Object.keys(before));
   for(const key of Object.keys(core)) if(typeof core[key]==='function') assert.equal(core[key].length,before[key].length,key);
-  for(const sport of ['NFL','NBA','NCAAB','MLB','NHL','Soccer','Tennis']) {
+  for(const sport of ['NFL','NBA','NCAAB','MLB','Soccer','Tennis']) {
     for(const input of [...Object.values(nfl.cases),{clock:''},{possession:''},{scores:[56,0]}]) {
       same(nfl.evaluate(core,input,sport),nfl.evaluate(before,input,sport),`${sport} live unchanged`);
     }

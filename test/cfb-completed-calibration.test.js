@@ -1,3 +1,4 @@
+import {capPregameOracle} from './helpers/cap-pregame-oracle.cjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import vm from 'node:vm';
@@ -11,6 +12,7 @@ import {baseballSituation,footballSituation} from '../alerts-worker/src/display-
 const require=createRequire(import.meta.url),core=require('../rating-core.js');
 const baseline=require('../calibration/cfb-completed-baseline.json');
 const before=vm.runInNewContext(`${completed.frozen()}\nSportsRadarScore`);
+const cappedBefore=vm.runInNewContext(`${capPregameOracle(completed.frozen())}\nSportsRadarScore`);
 const browser=vm.runInNewContext(`${source.scoringSource()}\nSportsRadarScore`);
 const same=(a,b,msg)=>assert.deepEqual(structuredClone(a),structuredClone(b),msg);
 const score=input=>completed.evaluate(core,input).score;
@@ -40,21 +42,22 @@ test('saved baseline provenance and exact CFB A-Y / NFL A-P preservation',()=>{
 });
 
 test('all sport states preserve standalone histories; pregame and other sports preserve full ratings',()=>{
- for(const sport of ['CFB','NFL','NBA','NCAAB','NHL','MLB','Soccer','Tennis'])for(const state of ['upcoming','live','completed'])for(const input of Object.values(completed.cases)){
+ for(const sport of ['CFB','NFL','NBA','NCAAB','MLB','Soccer','Tennis'])for(const state of ['upcoming','live','completed'])for(const input of Object.values(completed.cases)){
   const f=completed.fixture(input),teams=f.competition.competitors.map(t=>({...t,id:t.team.id}));
   same(core.momentumImpact(sport,f.summary,1,state),before.momentumImpact(sport,f.summary,1,state),`${sport} ${state} history`);
-  if(sport!=='CFB'||state!=='completed')same(core.rateGame(sport,state,teams,f.event,f.competition,''),before.rateGame(sport,state,teams,f.event,f.competition,''),`${sport} ${state} rating`);
+  if(sport!=='CFB'||state!=='completed')same(core.rateGame(sport,state,teams,f.event,f.competition,''),cappedBefore.rateGame(sport,state,teams,f.event,f.competition,''),`${sport} ${state} rating`);
  }
 });
 
 test('all stored provider fixtures preserve non-CFB complete outputs and CFB history; browser equals Node',()=>{
  const old=completed.providers(completed.adapter(completed.frozen(),{baseballSituation,footballSituation}));
+ const cappedOld=completed.providers(completed.adapter(capPregameOracle(completed.frozen()),{baseballSituation,footballSituation}));
  const now=completed.providers(adapter);
  const inBrowser=completed.providers(completed.adapter(source.scoringSource(),{baseballSituation,footballSituation}));
  same(JSON.parse(JSON.stringify(old)),baseline.providers,'serialized provider baseline provenance');
  same(now,inBrowser,'every normalized/enriched provider output browser/Node');
  for(const [file,g]of Object.entries(now)){
-  if(g.sport!=='CFB'||g.state!=='completed')same(g,old[file],file);
+  if(g.sport!=='NHL'&&(g.sport!=='CFB'||g.state!=='completed'))same(g,cappedOld[file],file);
   assert.ok(g.score>=1&&g.score<=99,file);
  }
 });
