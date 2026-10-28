@@ -58,7 +58,8 @@ for (const [sport,names] of Object.entries(cases)) {
 
 test('sport-specific scoring labels include periods, sets, and baseball totals',() => {
   assert.match(context.detailScoring(summary('NBA',cases.NBA,5),'NBA'),/Q4.*OT.*Total/s);
-  assert.match(context.detailScoring(summary('NCAAB',cases.NBA,4),'NCAAB'),/Q1.*Q4.*Total/s);
+  assert.match(context.detailScoring(summary('NCAAB',cases.NBA,2),'NCAAB'),/1H.*2H.*Total/s);
+  assert.match(context.detailScoring(summary('NCAAB',cases.NBA,3),'NCAAB'),/1H.*2H.*OT.*Total/s);
   assert.match(context.detailScoring(summary('NFL',cases.NFL,5),'NFL'),/Q4.*OT.*Total/s);
   assert.match(context.detailScoring(summary('MLB',cases.MLB,10),'MLB'),/>10<.*>R<.*>H<.*>E</s);
   assert.match(context.detailScoring(summary('NHL',cases.NHL,4),'NHL'),/P3.*OT.*Total/s);
@@ -74,8 +75,47 @@ test('missing scoring and team statistics are omitted gracefully',() => {
   assert.equal(context.detailStats(payload,'NBA'),'');
 });
 
-test('detail rendering keeps the existing timeline and player-stat sections',() => {
-  assert.match(source,/\$\{excitementTimeline\(game,summary\)\}\$\{detailScoring/);
-  assert.match(source,/\$\{basketballBoxScoreMarkup\(summary,game\.sport\)\}\$\{detailPlayerStats\(summary,game\.sport\)\}/);
+test('Game Center shell keeps excitement first-class and moves detail into sport-aware tabs',() => {
+  assert.match(source,/const DETAIL_TAB_CONFIG =/);
+  assert.match(source,/NFL:\[\['overview','Overview'\],\['team-stats','Team Stats'\],\['players','Players'\],\['plays','Plays'\]\]/);
+  assert.match(source,/NHL:\[\['overview','Overview'\],\['team-stats','Team Stats'\],\['players','Skaters'\],\['plays','Plays'\]\]/);
+  assert.match(source,/NBA:\[\['overview','Overview'\],\['box-score','Box Score'\],\['team-stats','Team Stats'\],\['plays','Plays'\]\]/);
+
+  const detailStart = source.indexOf('function renderDetailContent(');
+  const detailEnd = source.indexOf('async function fetchGameSummary(',detailStart);
+  const detailSource = source.slice(detailStart,detailEnd);
+
+  assert.match(detailSource,/detail-excitement-score/);
+  assert.match(detailSource,/\$\{excitementTimeline\(game,summary\)\}/);
+  assert.match(detailSource,/\$\{detailTabsMarkup\(game,summary\)\}/);
+  assert.ok(
+    detailSource.indexOf('${excitementTimeline(game,summary)}') <
+    detailSource.indexOf('${detailTabsMarkup(game,summary)}')
+  );
   assert.doesNotMatch(source,/https?:\/\/[^'"\s]*espn[^'"\s]*\/(?:scoreboard|summary)/i);
+});
+
+test('Game Center selected tab is preserved across live-detail rerenders and resets for a new game',() => {
+  assert.match(source,/let activeDetailTab = 'overview'/);
+  assert.match(source,/function setActiveDetailTab\(/);
+  assert.match(source,/function moveDetailTabFocus\(/);
+  assert.match(source,/activeDetailTab = 'overview';\n  detailFinalPending = false;/);
+  assert.match(source,/renderDetailContent\(game,summary\);/);
+});
+
+test('football Players tab includes defense and special teams from the existing summary payload',() => {
+  assert.match(source,/const FOOTBALL_PLAYER_GROUPS = new Set/);
+  for (const group of ['fumbles','defensive','interceptions','kickreturns','puntreturns','kicking','punting']) {
+    assert.match(source,new RegExp(`['"]${group}['"]`));
+  }
+  assert.doesNotMatch(source,/\/pass\|rush\|receiv\/i\.test/);
+});
+
+test('Game Center refinement uses sport-correct basketball period labels and reduced timeline markers',() => {
+  assert.match(source,/function basketballPeriodLabel\(sport,index\)/);
+  assert.match(source,/sport === 'NCAAB'/);
+  assert.match(source,/Math\.abs\(delta\) >= 5/);
+  assert.match(source,/enteredOvertime/);
+  assert.match(source,/detail-why-toggle/);
+  assert.match(source,/textContent =\s*'Game Center'/);
 });

@@ -1437,13 +1437,55 @@ function baseballSituationMarkup(game) {
   return bases || outs || count ? `<span class="live-situation baseball-situation">${bases}${outs}${count}</span>` : '';
 }
 
+function basketballPeriodLabel(sport,index) {
+  if (sport === 'NCAAB') {
+    return index < 2
+      ? `${index + 1}H`
+      : index === 2
+        ? 'OT'
+        : `${index - 1}OT`;
+  }
+
+  return index < 4
+    ? `Q${index + 1}`
+    : index === 4
+      ? 'OT'
+      : `${index - 3}OT`;
+}
+
 function basketballBoxScoreMarkup(summary,sport) {
   if (!['NBA','NCAAB'].includes(sport)) return '';
-  const teams = summary?.basketballBoxScore?.teams || [];
-  if (!teams.length) return '<section class="detail-section"><h3>Box Score</h3><p class="detail-empty">Box score unavailable</p></section>';
-  const columns = [['minutes','MIN'],['fg','FG'],['threePt','3PT'],['ft','FT'],['rebounds','REB'],['assists','AST'],['steals','STL'],['blocks','BLK'],['turnovers','TO'],['fouls','PF'],['points','PTS']];
-  const cells = stats => columns.map(([key]) => `<td>${safeText(stats?.[key] ?? '—')}</td>`).join('');
-  return `<section class="detail-section basketball-box-score"><h3>Box Score</h3><div class="detail-player-grid">${teams.map(team => `<div class="detail-player-team"><h4>${safeText(team.displayName)}</h4>${team.periods?.length ? `<p class="box-periods">Period scoring · ${team.periods.map(period => `${safeText(period.label)}: ${safeText(period.value)}`).join(' · ')}</p>` : ''}<div class="detail-table-scroll" tabindex="0" role="region" aria-label="${safeText(team.displayName)} box score, scroll for more statistics"><table class="detail-player-table basketball-player-table"><thead><tr><th scope="col">Player</th>${columns.map(([,label]) => `<th scope="col">${label}</th>`).join('')}</tr></thead><tbody>${(team.players || []).map(player => `<tr class="${player.didNotPlay ? 'box-dnp' : ''}"><th scope="row">${safeText(player.name)}${player.starter === null || player.starter === undefined ? '' : `<small>${player.starter ? 'Starter' : 'Bench'}</small>`}</th>${player.didNotPlay ? `<td colspan="${columns.length}" class="box-dnp-reason">DNP${player.dnpReason ? ` · ${safeText(player.dnpReason)}` : ''}</td>` : cells(player.stats)}</tr>`).join('')}</tbody>${team.totals ? `<tfoot><tr><th scope="row">TEAM</th>${cells(team.totals)}</tr></tfoot>` : ''}</table></div></div>`).join('')}</div></section>`;
+
+  const teams =
+    summary?.basketballBoxScore?.teams || [];
+
+  if (!teams.length) {
+    return '<section class="detail-section"><h3>Box Score</h3><p class="detail-empty">Box score unavailable</p></section>';
+  }
+
+  const columns = [
+    ['minutes','MIN'],
+    ['fg','FG'],
+    ['threePt','3PT'],
+    ['ft','FT'],
+    ['rebounds','REB'],
+    ['assists','AST'],
+    ['steals','STL'],
+    ['blocks','BLK'],
+    ['turnovers','TO'],
+    ['fouls','PF'],
+    ['points','PTS']
+  ];
+
+  const cells =
+    stats =>
+      columns
+        .map(([key]) =>
+          `<td>${safeText(stats?.[key] ?? '—')}</td>`
+        )
+        .join('');
+
+  return `<section class="detail-section basketball-box-score"><h3>Box Score</h3><div class="detail-player-grid">${teams.map(team => `<div class="detail-player-team"><h4>${safeText(team.displayName)}</h4>${team.periods?.length ? `<p class="box-periods">${team.periods.map((period,index) => `${basketballPeriodLabel(sport,index)} ${safeText(period.value)}</`).join(' · ')}</p>` : ''}<div class="detail-table-scroll" tabindex="0" role="region" aria-label="${safeText(team.displayName)} box score, scroll for more statistics"><table class="detail-player-table basketball-player-table"><thead><tr><th scope="col">Player</th>${columns.map(([,label]) => `<th scope="col">${label}</th>`).join('')}</tr></thead><tbody>${(team.players || []).map(player => `<tr class="${player.didNotPlay ? 'box-dnp' : ''}"><th scope="row">${safeText(player.name)}${player.starter === null || player.starter === undefined ? '' : `<small>${player.starter ? 'Starter' : 'Bench'}</small>`}</th>${player.didNotPlay ? `<td colspan="${columns.length}" class="box-dnp-reason">DNP${player.dnpReason ? ` · ${safeText(player.dnpReason)}` : ''}</td>` : cells(player.stats)}</tr>`).join('')}</tbody>${team.totals ? `<tfoot><tr><th scope="row">TEAM</th>${cells(team.totals)}</tr></tfoot>` : ''}</table></div></div>`).join('')}</div></section>`;
 }
 
 const TEAM_STAT_CONFIG = {
@@ -1470,6 +1512,7 @@ function detailScoring(summary,sport) {
     if (sport === 'MLB') return String(index + 1);
     if (sport === 'Tennis') return `S${index + 1}`;
     if (sport === 'Soccer') return ['1H','2H','ET','Pens'][index] || `ET${index - 1}`;
+    if (sport === 'NCAAB') return index < 2 ? `${index + 1}H` : index === 2 ? 'OT' : `OT${index - 1}`;
     if (sport === 'NHL') return index < 3 ? `P${index + 1}` : index === 3 && /shootout/i.test(status) ? 'SO' : index === 3 ? 'OT' : 'SO';
     return index < 4 ? `Q${index + 1}` : index === 4 ? 'OT' : `OT${index - 3}`;
   });
@@ -1661,6 +1704,45 @@ function playerTable(group, columns, title) {
   ).join('')}</tbody></table></div></div>`;
 }
 
+const FOOTBALL_PLAYER_GROUPS = new Set([
+  'passing',
+  'rushing',
+  'receiving',
+  'fumbles',
+  'defensive',
+  'interceptions',
+  'kickreturns',
+  'puntreturns',
+  'kicking',
+  'punting'
+]);
+
+const FOOTBALL_PLAYER_GROUP_ORDER = [
+  'passing',
+  'rushing',
+  'receiving',
+  'fumbles',
+  'defensive',
+  'interceptions',
+  'kickreturns',
+  'puntreturns',
+  'kicking',
+  'punting'
+];
+
+const FOOTBALL_PLAYER_GROUP_TITLES = {
+  passing:'Passing',
+  rushing:'Rushing',
+  receiving:'Receiving',
+  fumbles:'Fumbles',
+  defensive:'Defense',
+  interceptions:'Interceptions',
+  kickreturns:'Kick Returns',
+  puntreturns:'Punt Returns',
+  kicking:'Kicking',
+  punting:'Punting'
+};
+
 function detailPlayerStats(summary, sport) {
   const blocks =
     summary?.boxscore?.players || [];
@@ -1727,11 +1809,32 @@ function detailPlayerStats(summary, sport) {
         }
 
         const groups =
-          statGroups.filter(group =>
-            /pass|rush|receiv/i.test(
-              `${group.name || ''} ${group.displayName || ''}`
-            )
-          );
+          statGroups
+            .filter(group => {
+              const key =
+                statKey(
+                  group.name ||
+                  group.displayName
+                );
+
+              return (
+                FOOTBALL_PLAYER_GROUPS.has(key) &&
+                (group.athletes || group.players || []).length
+              );
+            })
+            .sort((a,b) => {
+              const left =
+                FOOTBALL_PLAYER_GROUP_ORDER.indexOf(
+                  statKey(a.name || a.displayName)
+                );
+
+              const right =
+                FOOTBALL_PLAYER_GROUP_ORDER.indexOf(
+                  statKey(b.name || b.displayName)
+                );
+
+              return left - right;
+            });
 
         return groups.length
           ? `<div class="detail-player-team"><strong>${safeText(teamName)}</strong>${groups.map(group => {
@@ -1754,10 +1857,19 @@ function detailPlayerStats(summary, sport) {
                   aliases:[label]
                 }));
 
+              const key =
+                statKey(
+                  group.name ||
+                  group.displayName
+                );
+
               return playerTable(
                 group,
                 columns,
-                group.displayName || group.name || 'Player stats'
+                FOOTBALL_PLAYER_GROUP_TITLES[key] ||
+                  group.displayName ||
+                  group.name ||
+                  'Player stats'
               );
             }).join('')}</div>`
           : '';
@@ -1768,7 +1880,7 @@ function detailPlayerStats(summary, sport) {
     ? `<section class="detail-section"><h3>${
         sport === 'NHL'
           ? 'Player stats · Skaters'
-          : 'Player stats · Passing, rushing & receiving'
+          : 'Player stats'
       }</h3><div class="detail-player-grid">${teamSections.join('')}</div></section>`
     : '';
 }
@@ -2406,17 +2518,53 @@ function excitementTimeline(game,summary) {
   const timelineHelpId =
     `timeline-point-help-${String(game.id).replace(/[^a-zA-Z0-9_-]/g,'-')}`;
 
-  const markers =
+  const markerCandidates =
     points
+      .map((point,index) => ({
+        point,
+        index,
+        previous:points[index - 1]
+      }))
       .slice(1)
-      .map((point,index) => {
-        const pointIndex = index + 1;
-        const explanation = timelinePointExplanation(point,pointIndex);
-        const current = pointIndex === points.length - 1;
+      .filter(({point,index,previous}) => {
+        const current =
+          index ===
+          points.length - 1;
+
+        const delta =
+          Number(point.score) -
+          Number(previous?.score);
+
+        const majorMove =
+          Number.isFinite(delta) &&
+          Math.abs(delta) >= 5;
+
+        const enteredOvertime =
+          point.overtime === true &&
+          previous?.overtime !== true;
+
+        return (
+          current ||
+          majorMove ||
+          enteredOvertime
+        );
+      });
+
+  const markers =
+    markerCandidates
+      .map(({point,index}) => {
+        const explanation =
+          timelinePointExplanation(
+            point,
+            index
+          );
+
+        const current =
+          index ===
+          points.length - 1;
 
         return `<g class="timeline-point${current ? ' timeline-point-current' : ''}" data-timeline-explanation="${safeText(explanation)}" role="button" tabindex="0" aria-expanded="false" aria-controls="${timelineHelpId}" aria-label="${safeText(explanation)}"><circle class="${current ? 'timeline-end' : ''}" cx="${px(point).toFixed(1)}" cy="${py(point).toFixed(1)}" r="${current ? '5' : '3'}"/><title>${safeText(explanation)}</title></g>`;
-      }
-      )
+      })
       .join('');
 
   const moments =
@@ -2455,11 +2603,139 @@ function storylineDetails(game) {
   return `<section class="detail-section storyline-section"><h3>Pregame storylines</h3><ul>${rows}</ul><p class="detail-empty">Only recent, source-backed context is included. It fades from the rating as the game unfolds.</p></section>`;
 }
 
+const DETAIL_TAB_CONFIG = {
+  NFL:[['overview','Overview'],['team-stats','Team Stats'],['players','Players'],['plays','Plays']],
+  CFB:[['overview','Overview'],['team-stats','Team Stats'],['players','Players'],['plays','Plays']],
+  MLB:[['overview','Overview'],['team-stats','Team Stats'],['plays','Plays']],
+  NHL:[['overview','Overview'],['team-stats','Team Stats'],['players','Skaters'],['plays','Plays']],
+  NBA:[['overview','Overview'],['box-score','Box Score'],['team-stats','Team Stats'],['plays','Plays']],
+  NCAAB:[['overview','Overview'],['box-score','Box Score'],['team-stats','Team Stats'],['plays','Plays']],
+  Soccer:[['overview','Overview'],['team-stats','Team Stats'],['plays','Plays']],
+  Tennis:[['overview','Overview']]
+};
+
+let activeDetailTab = 'overview';
+
+function detailTabSections(game,summary) {
+  const overviewParts = [
+    storylineDetails(game),
+    detailScoring(summary,game.sport),
+    detailLeaders(summary)
+  ].filter(Boolean);
+
+  const sections = new Map([
+    [
+      'overview',
+      overviewParts.length
+        ? overviewParts.join('')
+        : '<section class="detail-section"><p class="detail-empty">No additional summary sections are available for this game yet.</p></section>'
+    ],
+    ['team-stats',detailStats(summary,game.sport)],
+    ['players',detailPlayerStats(summary,game.sport)],
+    ['box-score',basketballBoxScoreMarkup(summary,game.sport)],
+    ['plays',detailPlays(summary)]
+  ]);
+
+  return (DETAIL_TAB_CONFIG[game.sport] || DETAIL_TAB_CONFIG.Tennis)
+    .map(([id,label]) => ({
+      id,
+      label,
+      content:sections.get(id) || ''
+    }))
+    .filter(tab =>
+      tab.id === 'overview' ||
+      Boolean(tab.content)
+    );
+}
+
+function detailTabsMarkup(game,summary) {
+  const tabs = detailTabSections(game,summary);
+
+  if (!tabs.length) return '';
+
+  if (!tabs.some(tab => tab.id === activeDetailTab)) {
+    activeDetailTab = tabs[0].id;
+  }
+
+  const gameKey =
+    String(game.id || 'game')
+      .replace(/[^a-zA-Z0-9_-]/g,'-');
+
+  const buttons = tabs.map(tab => {
+    const selected = tab.id === activeDetailTab;
+    const tabId = `detail-tab-${gameKey}-${tab.id}`;
+    const panelId = `detail-panel-${gameKey}-${tab.id}`;
+
+    return `<button type="button" class="detail-tab ${selected ? 'active' : ''}" id="${tabId}" role="tab" data-detail-tab="${tab.id}" aria-selected="${selected}" aria-controls="${panelId}" tabindex="${selected ? '0' : '-1'}">${safeText(tab.label)}</button>`;
+  }).join('');
+
+  const panels = tabs.map(tab => {
+    const selected = tab.id === activeDetailTab;
+    const tabId = `detail-tab-${gameKey}-${tab.id}`;
+    const panelId = `detail-panel-${gameKey}-${tab.id}`;
+
+    return `<div class="detail-tab-panel" id="${panelId}" role="tabpanel" aria-labelledby="${tabId}"${selected ? '' : ' hidden'}>${tab.content}</div>`;
+  }).join('');
+
+  return `<div class="detail-tab-shell"><div class="detail-tabs" role="tablist" aria-label="${safeText(labelForSport(game.sport))} game details">${buttons}</div>${panels}</div>`;
+}
+
+function setActiveDetailTab(button) {
+  const shell = button?.closest('.detail-tab-shell');
+  const nextTab = button?.dataset.detailTab;
+
+  if (!shell || !nextTab) return;
+
+  activeDetailTab = nextTab;
+
+  shell.querySelectorAll('.detail-tab').forEach(tab => {
+    const selected = tab.dataset.detailTab === nextTab;
+    tab.classList.toggle('active',selected);
+    tab.setAttribute('aria-selected',String(selected));
+    tab.tabIndex = selected ? 0 : -1;
+  });
+
+  shell.querySelectorAll('.detail-tab-panel').forEach(panel => {
+    panel.hidden =
+      panel.id !== button.getAttribute('aria-controls');
+  });
+}
+
+function moveDetailTabFocus(event,button) {
+  if (!['ArrowLeft','ArrowRight','Home','End'].includes(event.key)) {
+    return false;
+  }
+
+  const tabs = [
+    ...button
+      .closest('.detail-tabs')
+      ?.querySelectorAll('.detail-tab') || []
+  ];
+
+  if (!tabs.length) return false;
+
+  const current = tabs.indexOf(button);
+  let index = current;
+
+  if (event.key === 'Home') index = 0;
+  if (event.key === 'End') index = tabs.length - 1;
+  if (event.key === 'ArrowLeft') index = (current - 1 + tabs.length) % tabs.length;
+  if (event.key === 'ArrowRight') index = (current + 1) % tabs.length;
+
+  event.preventDefault();
+  tabs[index].focus();
+  tabs[index].click();
+  return true;
+}
+
 function renderDetailContent(
   game,
   summary,
   loading=false
 ) {
+  $('#game-detail-title').textContent =
+    'Game Center';
+
   if (loading) {
     $('#game-detail-content').innerHTML =
       `<div class="detail-loading">Loading live game details…</div>`;
@@ -2472,24 +2748,68 @@ function renderDetailContent(
 
   // Score, clock and rating always describe the same canonical feed state.
   const title = `${game.teams[0][0]} vs ${game.teams[1][0]}`;
-  const scores = game.teams.map(team =>
-    `<div class="detail-team"><img src="${safeText(team[4] || teamLogoUrl(game.sport,team[1]))}" alt="" onerror="this.style.display='none'"><span>${safeText(team[0])}</span><b>${safeText(team[2])}</b></div>`
-  ).join('');
-  const status = (game.state === 'live' ? game.live?.phase : '') || game.status;
+
+  const scores = game.teams.map(team => {
+    const teamMeta = [
+      Number(team[6]) > 0
+        ? `No. ${team[6]}`
+        : '',
+      team[5] || ''
+    ].filter(Boolean);
+
+    return `<div class="detail-team"><img src="${safeText(team[4] || teamLogoUrl(game.sport,team[1]))}" alt="" onerror="this.style.display='none'"><span class="detail-team-copy"><strong>${safeText(team[0])}</strong>${teamMeta.length ? `<small>${safeText(teamMeta.join(' · '))}</small>` : ''}</span><b>${safeText(team[2])}</b></div>`;
+  }).join('');
+
+  const status =
+    (game.state === 'live' ? game.live?.phase : '') ||
+    game.status;
 
   const venue =
     competition?.venue?.fullName ||
     game.sub;
 
-  const fallback =
+  const line =
+    displayLine(game);
+
+  const lineMeta =
+    line.text &&
+    line.text !== 'Not listed'
+      ? `<span><strong>${safeText(line.label)}</strong> ${safeText(line.text)}${line.provider ? ` · ${safeText(line.provider)}` : ''}</span>`
+      : '';
+
+  const freshness =
     !summary
-      ? `<p class="detail-empty">The live summary feed did not return additional stats for this game yet. The score, rating explanation, and broadcast are still current.</p>`
+      ? `<p class="detail-freshness">The live summary feed did not return additional stats for this game yet. The score, rating explanation, and broadcast are still current.</p>`
       : summary.sportsRadarFreshness?.stale
-        ? `<p class="detail-empty">Cached game details · last updated ${safeText(new Date(summary.sportsRadarFreshness.updatedAt).toLocaleTimeString())}. Rich details may be behind or ahead of the canonical scoreboard; score and rating follow the main feed.</p>`
+        ? `<p class="detail-freshness">Cached game details · last updated ${safeText(new Date(summary.sportsRadarFreshness.updatedAt).toLocaleTimeString())}. Rich details may be behind or ahead of the canonical scoreboard; score and rating follow the main feed.</p>`
         : '';
 
+  const rating =
+    Number(game.score);
+
+  const normalizedRating =
+    Number.isFinite(rating)
+      ? Math.min(100,Math.max(0,rating))
+      : 50;
+
+  const scoreHue =
+    Math.round(
+      215 -
+      normalizedRating * 2.15
+    );
+
+  const opening =
+    Number(game.openingScore);
+
+  const ratingContext =
+    game.state === 'upcoming'
+      ? `Pregame rating ${safeText(game.score)}`
+      : Number.isFinite(opening)
+        ? `Opening ${safeText(opening)} · Current ${safeText(game.score)}`
+        : `Current rating ${safeText(game.score)}`;
+
   $('#game-detail-content').innerHTML =
-    `<div class="detail-kicker">${safeText(labelForSport(game.sport))} · ${safeText(status)}</div><h2>${safeText(title)}</h2><button type="button" class="detail-watch ${isWatched(game) ? 'active' : ''}" data-watch-id="${safeText(watchKey(game))}" aria-pressed="${isWatched(game)}">${isWatched(game) ? '★ Watching this game' : '☆ Add to watchlist'}</button><div class="detail-scoreboard">${scores}</div><div class="detail-meta"><span>📍 ${safeText(venue)}</span><span>📺 ${safeText(game.channel || 'Channel not listed')}</span></div>${game.moment ? `<section class="detail-moment"><strong>${safeText(game.momentLabel || 'Notable play')}</strong><span>${safeText(game.moment)}</span></section>` : ''}<section class="detail-section"><h3>Why ${game.score}?</h3><p class="detail-explanation">${safeText(explainRating(game))}</p></section>${storylineDetails(game)}${excitementTimeline(game,summary)}${detailScoring(summary,game.sport)}${detailStats(summary,game.sport)}${detailLeaders(summary)}${basketballBoxScoreMarkup(summary,game.sport)}${detailPlayerStats(summary,game.sport)}${detailPlays(summary)}${fallback}`;
+    `<header class="detail-header"><div class="detail-kicker">${safeText(labelForSport(game.sport))} · ${safeText(status)}</div><h2>${safeText(title)}</h2><button type="button" class="detail-watch ${isWatched(game) ? 'active' : ''}" data-watch-id="${safeText(watchKey(game))}" aria-pressed="${isWatched(game)}">${isWatched(game) ? '★ Watching this game' : '☆ Add to watchlist'}</button><div class="detail-scoreboard">${scores}</div><div class="detail-meta"><span><strong>Venue</strong> ${safeText(venue)}</span><span><strong>Broadcast</strong> ${safeText(game.channel || 'Channel not listed')}</span>${lineMeta}</div>${freshness}${game.moment ? `<section class="detail-moment"><strong>${safeText(game.momentLabel || 'Notable play')}</strong><span>${safeText(game.moment)}</span></section>` : ''}</header><section class="detail-radar"><div class="detail-excitement-head"><span class="detail-excitement-score" style="--score-hue:${scoreHue}">${safeText(game.score)}</span><span class="detail-excitement-copy"><small>Sports Radar excitement</small><strong>${safeText(ratingContext)}</strong></span></div><div class="detail-radar-why"><h3>Why ${safeText(game.score)}?</h3><p class="detail-explanation detail-why-text">${safeText(explainRating(game))}</p><button type="button" class="detail-why-toggle" aria-expanded="false">More</button></div>${excitementTimeline(game,summary)}</section>${detailTabsMarkup(game,summary)}`;
 }
 
 async function fetchGameSummary(game,controller=new AbortController()) {
@@ -2669,6 +2989,7 @@ function hideGameDetails() {
   document.body.classList.remove('detail-open');
   activeDetailGame = null;
   activeDetailSummary = null;
+  activeDetailTab = 'overview';
   detailFinalPending = false;
 }
 
@@ -2678,6 +2999,7 @@ async function openGameDetails(id) {
   stopDetailRequest();
   activeDetailGame = game;
   activeDetailSummary = null;
+  activeDetailTab = 'overview';
   detailFinalPending = false;
   detailFailed = false;
   renderDetailContent(game,null,true);
@@ -3400,6 +3722,41 @@ $('#game-detail-content')
   .addEventListener(
     'click',
     event => {
+      const whyToggle =
+        event.target.closest('.detail-why-toggle');
+
+      if (whyToggle) {
+        const why =
+          whyToggle
+            .closest('.detail-radar-why')
+            ?.querySelector('.detail-why-text');
+
+        if (why) {
+          const expanded =
+            why.classList.toggle('expanded');
+
+          whyToggle.textContent =
+            expanded
+              ? 'Less'
+              : 'More';
+
+          whyToggle.setAttribute(
+            'aria-expanded',
+            String(expanded)
+          );
+        }
+
+        return;
+      }
+
+      const tabButton =
+        event.target.closest('.detail-tab');
+
+      if (tabButton) {
+        setActiveDetailTab(tabButton);
+        return;
+      }
+
       const point =
         event.target.closest('.timeline-point');
 
@@ -3445,6 +3802,16 @@ $('#game-detail-content')
   .addEventListener(
     'keydown',
     event => {
+      const tabButton =
+        event.target.closest('.detail-tab');
+
+      if (
+        tabButton &&
+        moveDetailTabFocus(event,tabButton)
+      ) {
+        return;
+      }
+
       const point =
         event.target.closest('.timeline-point');
 
