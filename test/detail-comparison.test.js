@@ -78,7 +78,7 @@ test('missing scoring and team statistics are omitted gracefully',() => {
 test('Game Center shell keeps excitement first-class and moves detail into sport-aware tabs',() => {
   assert.match(source,/const DETAIL_TAB_CONFIG =/);
   assert.match(source,/NFL:\[\['overview','Overview'\],\['drives','Drives'\],\['team-stats','Team Stats'\],\['players','Players'\],\['plays','Plays'\]\]/);
-  assert.match(source,/NHL:\[\['overview','Overview'\],\['team-stats','Team Stats'\],\['players','Skaters'\],\['plays','Plays'\]\]/);
+  assert.match(source,/NHL:\[\['overview','Overview'\],\['team-stats','Team Stats'\],\['players','Skaters'\],\['goalies','Goalies'\],\['plays','Plays'\]\]/);
   assert.match(source,/NBA:\[\['overview','Overview'\],\['box-score','Box Score'\],\['team-stats','Team Stats'\],\['plays','Plays'\]\]/);
 
   const detailStart = source.indexOf('function renderDetailContent(');
@@ -278,4 +278,94 @@ test('MLB Game Center renders separate Batting and Pitching tabs from existing s
 
   assert.equal(context.detailMlbPlayerStats(payload,'fielding'),'');
   assert.equal(context.detailMlbPlayerStats({},'batting'),'');
+});
+
+test('NHL Game Center separates Skaters and Goalies from the existing summary payload',() => {
+  const payload = {
+    boxscore:{
+      players:[
+        {
+          team:{displayName:'Washington Capitals'},
+          statistics:[
+            {
+              type:'skaters',
+              name:'skaters',
+              displayName:'Skaters',
+              labels:['S','G','A','+/-','PIM'],
+              athletes:[
+                {
+                  athlete:{displayName:'Alex Ovechkin'},
+                  stats:['5','1','0','1','2']
+                }
+              ]
+            },
+            {
+              type:'goalies',
+              name:'goalies',
+              displayName:'Goalies',
+              labels:['GA','SA','SOS','SOSA','SV','SV%','ESSV','PPSV','SHSV','TOI','YTDG','PIM'],
+              athletes:[
+                {
+                  athlete:{displayName:'Logan Thompson'},
+                  stats:['2','31','0','0','29','.935','24','4','1','60:00','12','0']
+                }
+              ]
+            }
+          ]
+        },
+        {
+          team:{displayName:'Pittsburgh Penguins'},
+          statistics:[
+            {
+              type:'skaters',
+              name:'skaters',
+              displayName:'Skaters',
+              labels:['S','G','A','+/-','PIM'],
+              athletes:[
+                {
+                  athlete:{displayName:'Sidney Crosby'},
+                  stats:['4','1','1','0','0']
+                }
+              ]
+            },
+            {
+              type:'goalies',
+              name:'goalies',
+              displayName:'Goalies',
+              labels:['GA','SA','SOS','SOSA','SV','SV%','ESSV','PPSV','SHSV','TOI','YTDG','PIM'],
+              athletes:[
+                {
+                  athlete:{displayName:'Tristan Jarry'},
+                  stats:['3','28','0','0','25','.893','20','5','0','58:41','8','0']
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  };
+
+  const skaters = context.detailPlayerStats(payload,'NHL');
+  const goalies = context.detailNhlGoalies(payload);
+
+  assert.match(source,/NHL:\[\['overview','Overview'\],\['team-stats','Team Stats'\],\['players','Skaters'\],\['goalies','Goalies'\],\['plays','Plays'\]\]/);
+
+  assert.match(skaters,/Skaters/);
+  assert.match(skaters,/Alex Ovechkin/);
+  assert.match(skaters,/Sidney Crosby/);
+  assert.doesNotMatch(skaters,/Logan Thompson/);
+  assert.doesNotMatch(skaters,/Tristan Jarry/);
+
+  assert.match(goalies,/Goalies/);
+  assert.match(goalies,/Washington Capitals/);
+  assert.match(goalies,/Pittsburgh Penguins/);
+  assert.match(goalies,/Logan Thompson/);
+  assert.match(goalies,/Tristan Jarry/);
+  assert.match(goalies,/SV%/);
+  assert.match(goalies,/TOI/);
+  assert.match(goalies,/YTDG/);
+  assert.doesNotMatch(goalies,/Alex Ovechkin/);
+
+  assert.equal(context.detailNhlGoalies({}),'');
 });

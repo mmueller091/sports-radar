@@ -2055,6 +2055,70 @@ const FOOTBALL_PLAYER_GROUP_TITLES = {
   punting:'Punting'
 };
 
+
+function detailNhlGoalies(summary) {
+  const blocks =
+    summary?.boxscore?.players || [];
+
+  if (!blocks.length) {
+    return '';
+  }
+
+  const teamSections =
+    blocks
+      .map(block => {
+        const teamName =
+          block.team?.displayName ||
+          block.team?.shortDisplayName ||
+          block.team?.abbreviation ||
+          'Team';
+
+        const groups =
+          (block.statistics || [])
+            .filter(group =>
+              (group.athletes || group.players || []).length &&
+              /goalie|goaltender/i.test(
+                `${group.type || ''} ${group.name || ''} ${group.displayName || ''}`
+              )
+            );
+
+        if (!groups.length) {
+          return '';
+        }
+
+        return `<div class="detail-player-team"><strong>${safeText(teamName)}</strong>${groups.map(group => {
+          const athletes =
+            group.athletes ||
+            group.players ||
+            [];
+
+          const labels =
+            Array.isArray(group.labels) && group.labels.length
+              ? group.labels
+              : Array.isArray(group.headers) && group.headers.length
+                ? group.headers
+                : Object.keys(athletes[0]?.stats || {});
+
+          const columns =
+            labels.map(label => ({
+              title:label,
+              aliases:[label]
+            }));
+
+          return playerTable(
+            group,
+            columns,
+            group.displayName || group.name || 'Goalies'
+          );
+        }).join('')}</div>`;
+      })
+      .filter(Boolean);
+
+  return teamSections.length
+    ? `<section class="detail-section"><h3>Goalies</h3><div class="detail-player-grid">${teamSections.join('')}</div></section>`
+    : '';
+}
+
 function detailPlayerStats(summary, sport) {
   const blocks =
     summary?.boxscore?.players || [];
@@ -2082,7 +2146,7 @@ function detailPlayerStats(summary, sport) {
             statGroups.filter(group =>
               (group.athletes || group.players || []).length &&
               !/goalie|goaltender/i.test(
-                `${group.name || ''} ${group.displayName || ''}`
+                `${group.type || ''} ${group.name || ''} ${group.displayName || ''}`
               )
             );
 
@@ -2919,7 +2983,7 @@ const DETAIL_TAB_CONFIG = {
   NFL:[['overview','Overview'],['drives','Drives'],['team-stats','Team Stats'],['players','Players'],['plays','Plays']],
   CFB:[['overview','Overview'],['drives','Drives'],['team-stats','Team Stats'],['players','Players'],['plays','Plays']],
   MLB:[['overview','Overview'],['batting','Batting'],['pitching','Pitching'],['team-stats','Team Stats'],['plays','Plays']],
-  NHL:[['overview','Overview'],['team-stats','Team Stats'],['players','Skaters'],['plays','Plays']],
+  NHL:[['overview','Overview'],['team-stats','Team Stats'],['players','Skaters'],['goalies','Goalies'],['plays','Plays']],
   NBA:[['overview','Overview'],['box-score','Box Score'],['team-stats','Team Stats'],['plays','Plays']],
   NCAAB:[['overview','Overview'],['box-score','Box Score'],['team-stats','Team Stats'],['plays','Plays']],
   Soccer:[['overview','Overview'],['team-stats','Team Stats'],['plays','Plays']],
@@ -2947,6 +3011,7 @@ function detailTabSections(game,summary) {
     ['pitching',detailMlbPlayerStats(summary,'pitching')],
     ['team-stats',detailStats(summary,game.sport)],
     ['players',detailPlayerStats(summary,game.sport)],
+    ['goalies',detailNhlGoalies(summary)],
     ['box-score',basketballBoxScoreMarkup(summary,game.sport)],
     ['plays',detailPlays(summary)]
   ]);
