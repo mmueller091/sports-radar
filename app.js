@@ -1888,6 +1888,134 @@ function playerTable(group, columns, title) {
   ).join('')}</tbody></table></div></div>`;
 }
 
+
+function mlbPitchingDecision(entry) {
+  const notes = [
+    ...(Array.isArray(entry?.notes) ? entry.notes : []),
+    ...(Array.isArray(entry?.athlete?.notes) ? entry.athlete.notes : [])
+  ];
+
+  const decision =
+    notes.find(note =>
+      statKey(
+        note?.type ||
+        note?.name ||
+        ''
+      ) === 'pitchingdecision'
+    );
+
+  return (
+    decision?.text ||
+    decision?.displayValue ||
+    decision?.shortText ||
+    decision?.value ||
+    ''
+  );
+}
+
+function mlbPlayerTable(group, title, includeDecision=false) {
+  const athletes =
+    group?.athletes ||
+    group?.players ||
+    [];
+
+  if (!athletes.length) {
+    return '';
+  }
+
+  const labels =
+    Array.isArray(group.labels) && group.labels.length
+      ? group.labels
+      : Array.isArray(group.headers) && group.headers.length
+        ? group.headers
+        : Object.keys(athletes[0]?.stats || {});
+
+  if (!labels.length) {
+    return '';
+  }
+
+  const columns =
+    labels.map(label => ({
+      title:label,
+      aliases:[label]
+    }));
+
+  const showDecision =
+    includeDecision &&
+    athletes.some(entry =>
+      Boolean(mlbPitchingDecision(entry))
+    );
+
+  return `<div class="detail-player-group"><h4>${safeText(title)}</h4><div class="detail-table-scroll detail-player-scroll" tabindex="0" role="region" aria-label="${safeText(title)} statistics, horizontally scroll for more columns"><table class="detail-player-table"><thead><tr><th>Player</th>${columns.map(column =>
+    `<th>${safeText(column.title)}</th>`
+  ).join('')}${showDecision ? '<th>Decision</th>' : ''}</tr></thead><tbody>${athletes.map(entry =>
+    `<tr><th scope="row">${safeText(athleteName(entry))}</th>${columns.map((column,index) =>
+      `<td>${safeText(statValue(entry,column,findStatIndex(labels,column.aliases,index)))}</td>`
+    ).join('')}${showDecision ? `<td>${safeText(mlbPitchingDecision(entry) || '—')}</td>` : ''}</tr>`
+  ).join('')}</tbody></table></div></div>`;
+}
+
+function detailMlbPlayerStats(summary, type) {
+  if (!['batting','pitching'].includes(type)) {
+    return '';
+  }
+
+  const blocks =
+    summary?.boxscore?.players || [];
+
+  if (!blocks.length) {
+    return '';
+  }
+
+  const title =
+    type === 'batting'
+      ? 'Batting'
+      : 'Pitching';
+
+  const teamSections =
+    blocks
+      .map(block => {
+        const teamName =
+          block.team?.displayName ||
+          block.team?.shortDisplayName ||
+          block.team?.abbreviation ||
+          'Team';
+
+        const groups =
+          (block.statistics || [])
+            .filter(group => {
+              const groupType =
+                statKey(
+                  group.type ||
+                  group.name ||
+                  group.displayName
+                );
+
+              return (
+                groupType === type &&
+                (group.athletes || group.players || []).length
+              );
+            });
+
+        if (!groups.length) {
+          return '';
+        }
+
+        return `<div class="detail-player-team"><strong>${safeText(teamName)}</strong>${groups.map(group =>
+          mlbPlayerTable(
+            group,
+            group.displayName || group.name || title,
+            type === 'pitching'
+          )
+        ).join('')}</div>`;
+      })
+      .filter(Boolean);
+
+  return teamSections.length
+    ? `<section class="detail-section"><h3>${title}</h3><div class="detail-player-grid">${teamSections.join('')}</div></section>`
+    : '';
+}
+
 const FOOTBALL_PLAYER_GROUPS = new Set([
   'passing',
   'rushing',
@@ -2790,7 +2918,7 @@ function storylineDetails(game) {
 const DETAIL_TAB_CONFIG = {
   NFL:[['overview','Overview'],['drives','Drives'],['team-stats','Team Stats'],['players','Players'],['plays','Plays']],
   CFB:[['overview','Overview'],['drives','Drives'],['team-stats','Team Stats'],['players','Players'],['plays','Plays']],
-  MLB:[['overview','Overview'],['team-stats','Team Stats'],['plays','Plays']],
+  MLB:[['overview','Overview'],['batting','Batting'],['pitching','Pitching'],['team-stats','Team Stats'],['plays','Plays']],
   NHL:[['overview','Overview'],['team-stats','Team Stats'],['players','Skaters'],['plays','Plays']],
   NBA:[['overview','Overview'],['box-score','Box Score'],['team-stats','Team Stats'],['plays','Plays']],
   NCAAB:[['overview','Overview'],['box-score','Box Score'],['team-stats','Team Stats'],['plays','Plays']],
@@ -2815,6 +2943,8 @@ function detailTabSections(game,summary) {
         : '<section class="detail-section"><p class="detail-empty">No additional summary sections are available for this game yet.</p></section>'
     ],
     ['drives',detailDrives(summary,game.sport)],
+    ['batting',detailMlbPlayerStats(summary,'batting')],
+    ['pitching',detailMlbPlayerStats(summary,'pitching')],
     ['team-stats',detailStats(summary,game.sport)],
     ['players',detailPlayerStats(summary,game.sport)],
     ['box-score',basketballBoxScoreMarkup(summary,game.sport)],

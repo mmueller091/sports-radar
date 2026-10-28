@@ -5,7 +5,7 @@ import vm from 'node:vm';
 
 const source = fs.readFileSync(new URL('../app.js',import.meta.url),'utf8').replace(/\r\n/g,'\n');
 const start = source.indexOf('const TEAM_STAT_CONFIG =');
-const end = source.indexOf('function detailLeaders(',start);
+const end = source.indexOf('function readRatingHistory(',start);
 const context = vm.createContext({safeText:value => String(value).replaceAll('<','&lt;').replaceAll('"','&quot;')});
 vm.runInContext(source.slice(start,end),context);
 
@@ -185,4 +185,97 @@ test('NFL and CFB Drives tab renders current and previous drives from the existi
   assert.match(context.detailDrives(payload,'CFB'),/Drives/);
   assert.equal(context.detailDrives(payload,'NBA'),'');
   assert.equal(context.detailDrives({},'NFL'),'');
+});
+
+test('MLB Game Center renders separate Batting and Pitching tabs from existing summary player groups',() => {
+  const payload = {
+    boxscore:{
+      players:[
+        {
+          team:{displayName:'Baltimore Orioles'},
+          statistics:[
+            {
+              type:'batting',
+              displayName:'Batting',
+              labels:['H-AB','AB','R','H','RBI','HR','BB','K','#P','AVG','OBP','SLG'],
+              athletes:[
+                {
+                  athlete:{displayName:'Gunnar Henderson'},
+                  stats:['2-4','4','1','2','2','1','1','1','18','.285','.362','.512']
+                }
+              ]
+            },
+            {
+              type:'pitching',
+              displayName:'Pitching',
+              labels:['IP','H','R','ER','BB','K','HR','PC-ST','ERA','PC'],
+              athletes:[
+                {
+                  athlete:{displayName:'Corbin Burnes'},
+                  stats:['7.0','5','1','1','1','8','0','101-67','2.88','101'],
+                  notes:[{type:'pitchingDecision',text:'W (12-5)'}]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          team:{displayName:'New York Yankees'},
+          statistics:[
+            {
+              type:'batting',
+              displayName:'Batting',
+              labels:['H-AB','AB','R','H','RBI','HR','BB','K','#P','AVG','OBP','SLG'],
+              athletes:[
+                {
+                  athlete:{displayName:'Aaron Judge'},
+                  stats:['1-4','4','0','1','0','0','0','2','16','.310','.425','.640']
+                }
+              ]
+            },
+            {
+              type:'pitching',
+              displayName:'Pitching',
+              labels:['IP','H','R','ER','BB','K','HR','PC-ST','ERA','PC'],
+              athletes:[
+                {
+                  athlete:{displayName:'Gerrit Cole'},
+                  stats:['6.0','7','3','3','2','6','1','96-62','3.41','96'],
+                  notes:[{type:'pitchingDecision',text:'L (8-4)'}]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  };
+
+  const batting = context.detailMlbPlayerStats(payload,'batting');
+  const pitching = context.detailMlbPlayerStats(payload,'pitching');
+
+  assert.match(source,/MLB:\[\['overview','Overview'\],\['batting','Batting'\],\['pitching','Pitching'\],\['team-stats','Team Stats'\],\['plays','Plays'\]\]/);
+
+  assert.match(batting,/Batting/);
+  assert.match(batting,/Baltimore Orioles/);
+  assert.match(batting,/New York Yankees/);
+  assert.match(batting,/Gunnar Henderson/);
+  assert.match(batting,/Aaron Judge/);
+  assert.match(batting,/H-AB/);
+  assert.match(batting,/OBP/);
+  assert.match(batting,/SLG/);
+  assert.doesNotMatch(batting,/Corbin Burnes/);
+
+  assert.match(pitching,/Pitching/);
+  assert.match(pitching,/Corbin Burnes/);
+  assert.match(pitching,/Gerrit Cole/);
+  assert.match(pitching,/PC-ST/);
+  assert.match(pitching,/ERA/);
+  assert.match(pitching,/Decision/);
+  assert.match(pitching,/W \(12-5\)/);
+  assert.match(pitching,/L \(8-4\)/);
+  assert.doesNotMatch(pitching,/Gunnar Henderson/);
+
+  assert.equal(context.detailMlbPlayerStats(payload,'fielding'),'');
+  assert.equal(context.detailMlbPlayerStats({},'batting'),'');
 });
