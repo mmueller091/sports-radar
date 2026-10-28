@@ -72,6 +72,12 @@ export async function snapshotHistory(env,games,now) {
 
 // Canonical content, not acquisition health or JSON property insertion order.
 // The full original payload is still stored whenever a snapshot is warranted.
+export function providerIdentity(value) {
+  if (typeof value !== 'string') return value;
+  const name = value.trim().toLowerCase().replace(/\s+/g,' ');
+  return /^draft\s*kings$/.test(name) ? 'draftkings' : name;
+}
+
 export function finalContent(game) {
   const {scoreboard,detailStale,staleEnrichment,lastSummaryAccepted,summaryState,
     favorite,updatedAt,freshness,...content} = game;
@@ -79,6 +85,9 @@ export function finalContent(game) {
     : value && typeof value==='object'
       ? Object.fromEntries(Object.keys(value).sort().filter(key=>value[key]!==undefined).map(key=>[key,ordered(value[key])]))
       : value;
+  // Normalize only provider identity; preserve the display text and every odds
+  // value in storage. Arbitrary punctuation and other semantic fields stay intact.
+  if (content.line) content.line = {...content.line,provider:providerIdentity(content.line.provider)};
   return JSON.stringify(ordered(content));
 }
 

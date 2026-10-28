@@ -1,7 +1,7 @@
 import {buildPushPayload} from '@block65/webcrypto-web-push';
 import '../../rating-core.js';
 import {contextsForGames,refreshStorylines} from './storylines.js';
-import {readFeed,withFreshness,gameDetails,refreshDue,refreshSportsData} from './sports-feed.js';
+import {readFeed,withFreshness,gameDetails,refreshDue,refreshSportsData,requestFeedRefresh} from './sports-feed.js';
 
 const {rateGame,applyLiveSnapshot,recordFor,rankFor,clampScore,underdogCandidate,upsetImpact,gameProgress,momentumImpact} = globalThis.SportsRadarScore;
 const ORIGIN = 'https://mmueller091.github.io';
@@ -89,7 +89,7 @@ export default {
       try {
         let feed = await readFeed(env);
         if (refreshDue(feed)) {
-          feed = await refreshSportsData(env) || await readFeed(env);
+          feed = await requestFeedRefresh(env,feed,ctx);
         }
         return reply(request,feed || {error:'Feed is warming up'},feed ? 200 : 503);
       } catch { return reply(request,{error:'Feed temporarily unavailable'},503); }
@@ -170,7 +170,7 @@ export default {
     return reply(request,{error:'Method not allowed'},405);
   },
   async scheduled(event,env,ctx) {
-    if (event.cron === '* * * * *') ctx.waitUntil(refreshSportsData(env).then(feed => feed && !feed.freshness.stale ? checkGames(env,feed) : undefined));
+    if (event.cron === '* * * * *') ctx.waitUntil(refreshSportsData(env,Date.now(),{trigger:'cron'}).then(feed => feed && !feed.freshness.stale ? checkGames(env,feed) : undefined));
     else ctx.waitUntil(refreshStorylines(env).catch(async error => {
       console.error('Storyline refresh failed',String(error));
       await env.DB.prepare(`INSERT INTO research_status (id,last_run,candidates,articles,factors,ai_used,last_error)
