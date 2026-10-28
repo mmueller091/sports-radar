@@ -330,3 +330,66 @@ test('current shared core preserves all 107 games between the original browser a
     assert.deepEqual(clean(migrated,fixture),clean(original,fixture),file);
   }
 });
+
+test('detail cache hit performs no D1 writes or provider requests',async t=>{
+  const env=database();t.after(()=>env.db.close());const now=Date.now();
+  const game=normalizeEvent(event,'NFL');
+  env.db.prepare('INSERT INTO sports_feed (id,payload) VALUES (1,?)').run(JSON.stringify({updatedAt:new Date(now).toISOString(),games:[game]}));
+  const {summaryUrl}=await import('../src/providers/espn.js');const url=summaryUrl(game);
+  env.db.prepare('INSERT INTO sports_resources VALUES (?,?,?)').run(url,JSON.stringify(summary),now);
+  const original=globalThis.fetch;globalThis.fetch=()=>{throw new Error('Unexpected provider call');};t.after(()=>{globalThis.fetch=original;});
+  const before=env.db.prepare('SELECT total_changes() AS n').get().n;
+  const result=await gameDetails(env,'NFL','42',now+1000);
+  assert.equal(env.db.prepare('SELECT total_changes() AS n').get().n,before);
+  assert.equal(result.sportsRadarFreshness.updatedAt,new Date(now).toISOString());
+  assert.equal(result.sportsRadarFreshness.canonicalUpdatedAt,new Date(now).toISOString());
+});
+
+test('canonical summary contender reuses detail-owned resource and cannot duplicate fetch',async t=>{
+  const env=database();t.after(()=>env.db.close());const now=Date.now();const game=normalizeEvent(event,'NFL');
+  const {summaryUrl}=await import('../src/providers/espn.js');const url=summaryUrl(game);
+  env.db.prepare('INSERT INTO sports_feed (id,payload) VALUES (1,?)').run(JSON.stringify({updatedAt:new Date(now-60000).toISOString(),games:[game]}));
+  env.db.prepare('INSERT INTO sports_resources VALUES (?,?,?)').run(url,JSON.stringify(summary),now-60000);
+  let resolve,started;const ready=new Promise(r=>started=r);let calls=0;
+  const original=globalThis.fetch;t.after(()=>{globalThis.fetch=original;});
+  globalThis.fetch=async value=>{
+    if(String(value).includes('/summary')){calls++;started();return new Promise(r=>resolve=r);}
+    return Response.json({events:String(value).includes('/football/nfl/')?[event]:[]});
+  };
+  const pending=gameDetails(env,'NFL','42',now);await ready;
+  const feed=await refreshSportsData(env,now+1);
+  assert.equal(calls,1);assert.equal(feed.games[0].detailStale,true);
+  resolve(Response.json({...summary,marker:'detail'}));await pending;
+  assert.equal(JSON.parse(env.db.prepare('SELECT payload FROM sports_resources WHERE key=?').get(url).payload).marker,'detail');
+});
+
+test('expired detail owner cannot overwrite canonical successor summary or mislabel version',async t=>{
+  const env=database();t.after(()=>env.db.close());const now=Date.now();const game=normalizeEvent(event,'NFL');
+  const {summaryUrl}=await import('../src/providers/espn.js');const url=summaryUrl(game);
+  env.db.prepare('INSERT INTO sports_feed (id,payload) VALUES (1,?)').run(JSON.stringify({updatedAt:new Date(now-60000).toISOString(),games:[game]}));
+  let resolve,started;const ready=new Promise(r=>started=r);let calls=0;
+  const original=globalThis.fetch;t.after(()=>{globalThis.fetch=original;});
+  globalThis.fetch=async value=>{
+    if(String(value).includes('/summary')){
+      calls++;if(calls===1){started();return new Promise(r=>resolve=r);}
+      return Response.json({...summary,marker:'new'});
+    }
+    return Response.json({events:String(value).includes('/football/nfl/')?[event]:[]});
+  };
+  const pending=gameDetails(env,'NFL','42',now);await ready;
+  await refreshSportsData(env,now+16000);
+  resolve(Response.json({...summary,marker:'old'}));const result=await pending;
+  assert.equal(result.marker,'new');assert.equal(result.sportsRadarFreshness.updatedAt,new Date(now+16000).toISOString());
+  assert.equal(result.sportsRadarFreshness.stale,true);
+  assert.equal(JSON.parse(env.db.prepare('SELECT payload FROM sports_resources WHERE key=?').get(url).payload).marker,'new');
+});
+
+test('detail provider timeout returns last stored payload and its original timestamp',async t=>{
+  const env=database();t.after(()=>env.db.close());const now=Date.now();const game=normalizeEvent(event,'NFL');
+  const {summaryUrl}=await import('../src/providers/espn.js');
+  env.db.prepare('INSERT INTO sports_feed (id,payload) VALUES (1,?)').run(JSON.stringify({updatedAt:new Date(now).toISOString(),games:[game]}));
+  env.db.prepare('INSERT INTO sports_resources VALUES (?,?,?)').run(summaryUrl(game),JSON.stringify(summary),now-60000);
+  const original=globalThis.fetch;t.after(()=>{globalThis.fetch=original;});globalThis.fetch=async()=>{throw new DOMException('timeout','TimeoutError');};
+  const result=await gameDetails(env,'NFL','42',now);
+  assert.equal(result.sportsRadarFreshness.stale,true);assert.equal(result.sportsRadarFreshness.updatedAt,new Date(now-60000).toISOString());
+});

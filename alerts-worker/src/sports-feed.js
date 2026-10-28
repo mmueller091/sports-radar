@@ -2,57 +2,12 @@ import {basketballBoxScore} from './display-model.js';
 import {createCollector,summaryUrl} from './providers/espn.js';
 import {preservePregameRecords,applyContextsToGame,enrichGame} from './game-model.js';
 import {contextsForGames} from './storylines.js';
+import {RETENTION_MS,recoverPregameRecords,snapshotHistory,shouldSnapshot} from './snapshot-history.js';
 
 const STALE_MS = 120000;
-const RETENTION_MS = 30 * 86400000;
 const LIVE_REFRESH_MS = 12000;
 const IDLE_REFRESH_MS = 60000;
-const RECORD = /^\d+-\d+(?:-\d+)?$/;
 export const MODEL_VERSION = '2026-10-26.1';
-
-function validPregameRecords(game) {
-  return game.teams?.length === 2 && game.pregameRecords?.length === 2 &&
-    game.pregameRecords.every(record=>typeof record === 'string' && RECORD.test(record));
-}
-
-// Read history in pages so a long live game cannot create an unbounded D1 result.
-// The first usable row seen for each game is its latest pre-final observation.
-async function recoverPregameRecords(env,games,now,previous) {
-  const missing = games.filter(game=>game.sport==='NFL' && game.state==='completed' && !validPregameRecords(game));
-  const cutoff = previous?.updatedAt ? Math.min(now,Date.parse(previous.updatedAt) || now) : now;
-  for (let start=0;start<missing.length;start+=40) {
-    const group = missing.slice(start,start+40);
-    const pending = new Map(group.map(game=>[`${game.sport}:${game.id}`,game]));
-    const keys = [...pending.keys()];
-    const sql = `SELECT s.game_key,s.normalized_state FROM sports_snapshots s
-      WHERE s.game_key IN (${keys.map(()=>'?').join(',')}) AND s.sport='NFL'
-        AND s.state IN ('upcoming','live') AND s.observed_at >= ?
-        AND s.observed_at < COALESCE((SELECT MIN(f.observed_at) FROM sports_snapshots f
-          WHERE f.game_key=s.game_key AND f.state='completed'),?)
-      ORDER BY s.observed_at DESC LIMIT 100 OFFSET ?`;
-    for (let offset=0;pending.size;offset+=100) {
-      const rows = (await env.DB.prepare(sql).bind(...keys,now-RETENTION_MS,cutoff,offset).all()).results || [];
-      for (const row of rows) {
-        const game = pending.get(row.game_key);
-        if (!game) continue;
-        let snapshot;
-        try { snapshot = JSON.parse(row.normalized_state); } catch { continue; }
-        if (snapshot?.sport !== 'NFL' || String(snapshot.id) !== String(game.id) ||
-            !['upcoming','live'].includes(snapshot.state) || snapshot.teams?.length !== 2) continue;
-        const records = snapshot.teams.map((team,index)=>{
-          if (!team?.[8] || game.teams.filter(current=>String(current?.[8])===String(team[8])).length !== 1 ||
-              snapshot.teams.filter(prior=>String(prior?.[8])===String(team[8])).length !== 1) return null;
-          const record = snapshot.pregameRecords?.[index] || team[5];
-          return typeof record === 'string' && RECORD.test(record) ? record : null;
-        });
-        if (records.some(record=>!record)) continue;
-        preservePregameRecords(game,{state:snapshot.state,teams:snapshot.teams,pregameRecords:records});
-        if (validPregameRecords(game)) pending.delete(row.game_key);
-      }
-      if (rows.length < 100) break;
-    }
-  }
-}
 
 export function refreshDue(feed,now=Date.now()) {
   if (!feed) return true;
@@ -102,7 +57,7 @@ async function fetchSourceJson(url,ttl) {
 
 // The cron already owns the global refresh lease. Read the small cache index once
 // and batch writes, rather than spending four D1 operations on every source URL.
-// Public detail misses still use their own resource lease below.
+// Summary reads share the per-URL ownership path with public details.
 async function refreshReader(env,now) {
   const rows = await env.DB.prepare('SELECT key,updated_at FROM sports_resources').all();
   const dates = new Map(rows.results.map(row=>[row.key,row.updated_at]));
@@ -115,6 +70,7 @@ async function refreshReader(env,now) {
   return {
     read(url,ttl,errors) {
       if (!requests.has(url)) requests.set(url,(async()=>{
+        if (new URL(url).pathname.endsWith('/summary')) return (await providerJson(env,url,ttl,now,errors)).payload;
         if (dates.has(url) && now-dates.get(url)<ttl) return stored(url);
         try {
           const payload = await fetchSourceJson(url,ttl);
@@ -133,7 +89,8 @@ async function refreshReader(env,now) {
       for (let start=0;start<entries.length;start+=20) {
         const group = entries.slice(start,start+20);
         await env.DB.prepare(`INSERT INTO sports_resources (key,payload,updated_at) VALUES ${group.map(()=>'(?,?,?)').join(',')}
-          ON CONFLICT(key) DO UPDATE SET payload=excluded.payload,updated_at=excluded.updated_at`)
+          ON CONFLICT(key) DO UPDATE SET payload=excluded.payload,updated_at=excluded.updated_at
+          WHERE excluded.updated_at > sports_resources.updated_at`)
           .bind(...group.flatMap(([url,payload])=>[url,payload,now])).run();
         group.forEach(([url])=>dates.set(url,now));
       }
@@ -144,22 +101,37 @@ async function refreshReader(env,now) {
 }
 
 async function providerJson(env,url,ttl,now,errors) {
-  const row = await env.DB.prepare('SELECT payload,updated_at FROM sports_resources WHERE key=?').bind(url).first();
-  if (row && now-row.updated_at < ttl) return JSON.parse(row.payload);
+  const read = () => env.DB.prepare('SELECT payload,updated_at FROM sports_resources WHERE key=?').bind(url).first();
+  const unpack = row => ({payload:JSON.parse(row.payload),updatedAt:row.updated_at});
+  let row = await read();
+  if (row && now-row.updated_at < ttl) return unpack(row);
   const owner = await acquire(env,url,now,15000);
   if (!owner) {
     errors.push(url);
-    if (row) return JSON.parse(row.payload);
+    row = await read();
+    if (row) return unpack(row);
     throw new Error('Source refresh in progress');
   }
   try {
+    // Another owner may have committed between our first read and acquisition.
+    row = await read();
+    if (row && now-row.updated_at < ttl) return unpack(row);
     const payload = await fetchSourceJson(url,ttl);
-    await env.DB.prepare(`INSERT INTO sports_resources (key,payload,updated_at) VALUES (?,?,?)
-      ON CONFLICT(key) DO UPDATE SET payload=excluded.payload,updated_at=excluded.updated_at`).bind(url,JSON.stringify(payload),now).run();
-    return payload;
+    // Atomic owner fencing plus monotonic versions: an expired owner cannot write
+    // after a successor, even if its provider request eventually completes.
+    await env.DB.prepare(`INSERT INTO sports_resources (key,payload,updated_at)
+      SELECT ?,?,? WHERE EXISTS (SELECT 1 FROM sports_leases WHERE key=? AND owner=?)
+      ON CONFLICT(key) DO UPDATE SET payload=excluded.payload,updated_at=excluded.updated_at
+      WHERE excluded.updated_at > sports_resources.updated_at`)
+      .bind(url,JSON.stringify(payload),now,url,owner).run();
+    const stored = await read();
+    if (!stored) throw new Error('Source lease lost');
+    if (stored.updated_at !== now) errors.push(url);
+    return unpack(stored);
   } catch (error) {
     errors.push(url);
-    if (row) return JSON.parse(row.payload);
+    row = await read();
+    if (row) return unpack(row);
     throw error;
   } finally { await release(env,url,owner); }
 }
@@ -171,9 +143,9 @@ export async function gameDetails(env,sport,id,now=Date.now()) {
   if (!game) return null;
   const errors = [];
   const url = summaryUrl(game);
-  const summary = await providerJson(env,url,game.state==='live' ? LIVE_REFRESH_MS : 55000,now,errors);
-  const row = await env.DB.prepare('SELECT updated_at FROM sports_resources WHERE key=?').bind(url).first();
-  return {...summary,...(['NBA','NCAAB'].includes(sport) ? {basketballBoxScore:basketballBoxScore(summary,sport)} : {}),sportsRadarFreshness:{updatedAt:new Date(row.updated_at).toISOString(),stale:errors.length>0 || now-row.updated_at>STALE_MS}};
+  const resource = await providerJson(env,url,game.state==='live' ? LIVE_REFRESH_MS : 55000,now,errors);
+  const summary = resource.payload;
+  return {...summary,...(['NBA','NCAAB'].includes(sport) ? {basketballBoxScore:basketballBoxScore(summary,sport)} : {}),sportsRadarFreshness:{updatedAt:new Date(resource.updatedAt).toISOString(),canonicalUpdatedAt:feed.updatedAt,canonicalRevision:feed.revision || Date.parse(feed.updatedAt),receivedAt:new Date(now).toISOString(),stale:errors.length>0 || now-resource.updatedAt>STALE_MS}};
 }
 
 export async function refreshSportsData(env,now=Date.now()) {
@@ -185,7 +157,7 @@ export async function refreshSportsData(env,now=Date.now()) {
     const errors = [];
     const resources = await refreshReader(env,now);
     const liveSports = new Set((previous?.games || []).filter(game=>game.state==='live').map(game=>game.sport));
-    const readJson = url => {
+    const readJson = (url,{purpose}={}) => {
       const parsed = new URL(url);
       const dates = parsed.searchParams.get('dates');
       const today = new Intl.DateTimeFormat('en-CA',{timeZone:'America/New_York',year:'numeric',month:'2-digit',day:'2-digit'}).format(now).replaceAll('-','');
@@ -193,7 +165,9 @@ export async function refreshSportsData(env,now=Date.now()) {
       const sport = path.includes('/football/nfl/') ? 'NFL' : path.includes('/baseball/mlb/') ? 'MLB' : path.includes('/hockey/nhl/') ? 'NHL' : path.includes('/football/college-football/') ? 'CFB' : path.includes('/basketball/nba/') ? 'NBA' : path.includes('/basketball/mens-college-basketball/') ? 'NCAAB' : path.includes('/soccer/') ? 'Soccer' : path.includes('/tennis/') ? 'Tennis' : '';
       const futureSchedule = dates?.length === 8 && dates > today;
       const liveScoreboard = path.endsWith('/scoreboard') && liveSports.has(sport);
-      const ttl = futureSchedule ? 900000 : liveScoreboard ? LIVE_REFRESH_MS : 55000;
+      const weekKey = Number(dates)*1000 + Number(parsed.searchParams.get('seasontype'))*100 + Number(parsed.searchParams.get('week'));
+      const adjacentLive = purpose==='adjacent-schedule' && (previous?.games || []).some(game=>game.sport==='NFL' && game.state==='live' && game.nflWeek===weekKey);
+      const ttl = (futureSchedule || (purpose==='adjacent-schedule' && !adjacentLive)) ? 900000 : liveScoreboard ? LIVE_REFRESH_MS : 55000;
       return resources.read(url,ttl,errors);
     };
     const games = await createCollector(readJson)();
@@ -238,10 +212,10 @@ export async function refreshSportsData(env,now=Date.now()) {
       }
     });
     const feed = {version:1,updatedAt:new Date(now).toISOString(),source:'ESPN',sourceErrors:errors,games};
-    const priorPregame = new Set(((await env.DB.prepare("SELECT DISTINCT game_key FROM sports_snapshots WHERE state='upcoming' AND observed_at>? ").bind(Math.floor(now/1000)-RETENTION_MS/1000).all()).results || []).map(row=>row.game_key));
-    const writes = games.filter(game=>game.state==='live' || game.state==='completed' || (game.state==='upcoming' && !priorPregame.has(`${game.sport}:${game.id}`))).map(game=>env.DB.prepare(`INSERT OR IGNORE INTO sports_snapshots
+    const history = await snapshotHistory(env,games,now);
+    const writes = games.filter(game=>shouldSnapshot(game,history,now,MODEL_VERSION)).map(game=>env.DB.prepare(`INSERT OR IGNORE INTO sports_snapshots
       (game_key,observed_at,sport,state,rating,score_a,score_b,phase,clock,normalized_state,model_version) VALUES (?,?,?,?,?,?,?,?,?,?,?)`)
-      .bind(`${game.sport}:${game.id}`,Math.floor(now/(game.state==='live'?15000:60000))*(game.state==='live'?15000:60000),game.sport,game.state,game.score,String(game.teams[0][2]),String(game.teams[1][2]),String(game.liveRawStatus?.period ?? ''),String(game.liveRawStatus?.displayClock || ''),JSON.stringify({...game,scoreboard:undefined}),MODEL_VERSION));
+      .bind(`${game.sport}:${game.id}`,game.state==='completed' ? now : Math.floor(now/(game.state==='live'?15000:60000))*(game.state==='live'?15000:60000),game.sport,game.state,game.score,String(game.teams[0][2]),String(game.teams[1][2]),String(game.liveRawStatus?.period ?? ''),String(game.liveRawStatus?.displayClock || ''),JSON.stringify({...game,scoreboard:undefined}),MODEL_VERSION));
     for (let start=0;start<writes.length;start+=50) await env.DB.batch(writes.slice(start,start+50));
     // Keep individual D1 values small even during full college/NBA/NHL slates.
     const parts=[];

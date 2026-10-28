@@ -89,3 +89,10 @@ test('a later refresh failure keeps the last verified game and marks scores stal
   assert.match(app.element('#game-list').innerHTML,/Seattle Seahawks/);
   assert.match(app.element('#data-status-label').textContent,/Stale scores/);
 });
+
+test('older feed revision cannot rewind the current canonical games',async()=>{
+  const app=startApp();app.resolveFeed({ok:true,json:async()=>({updatedAt:'2026-10-26T20:01:00Z',games:[realGame]})});
+  await new Promise(resolve=>setImmediate(resolve));
+  await app.refreshWith({ok:true,json:async()=>({updatedAt:'2026-10-26T20:00:00Z',games:[]})});
+  assert.match(app.element('#game-list').innerHTML,/Seattle Seahawks/);
+});

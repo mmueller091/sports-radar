@@ -498,6 +498,7 @@ async function loadLiveGames() {
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
     const feed = await response.json();
     if (!Array.isArray(feed.games) || !Number.isFinite(Date.parse(feed.updatedAt))) throw new Error('Invalid feed');
+    if (state.updatedAt && Date.parse(feed.updatedAt) < Date.parse(state.updatedAt)) return;
     games = canonicalFeedGames(feed.games);
     feedHasLiveGames = games.some(game => game.state === 'live');
     state.source = 'live';
@@ -2469,27 +2470,12 @@ function renderDetailContent(
   const competition =
     summary?.header?.competitions?.[0];
 
-  const competitors =
-    competition?.competitors || [];
-
-  const title =
-    competitors.length >= 2
-      ? `${competitors[0].team?.displayName || competitors[0].athlete?.displayName || game.teams[0][0]} vs ${competitors[1].team?.displayName || competitors[1].athlete?.displayName || game.teams[1][0]}`
-      : `${game.teams[0][0]} vs ${game.teams[1][0]}`;
-
-  const scores =
-    competitors.length >= 2
-      ? competitors.map(team =>
-          `<div class="detail-team"><img src="${safeText(team.team?.logo || teamLogoUrl(game.sport,team.team?.abbreviation || ''))}" alt="" onerror="this.style.display='none'"><span>${safeText(team.team?.displayName || team.athlete?.displayName || 'Team')}</span><b>${safeText(team.score || '—')}</b></div>`
-        ).join('')
-      : game.teams.map(team =>
-          `<div class="detail-team"><img src="${safeText(team[4] || teamLogoUrl(game.sport,team[1]))}" alt="" onerror="this.style.display='none'"><span>${safeText(team[0])}</span><b>${safeText(team[2])}</b></div>`
-        ).join('');
-
-  const status =
-    (game.state === 'live' ? game.live?.phase : '') ||
-    competition?.status?.type?.detail ||
-    game.status;
+  // Score, clock and rating always describe the same canonical feed state.
+  const title = `${game.teams[0][0]} vs ${game.teams[1][0]}`;
+  const scores = game.teams.map(team =>
+    `<div class="detail-team"><img src="${safeText(team[4] || teamLogoUrl(game.sport,team[1]))}" alt="" onerror="this.style.display='none'"><span>${safeText(team[0])}</span><b>${safeText(team[2])}</b></div>`
+  ).join('');
+  const status = (game.state === 'live' ? game.live?.phase : '') || game.status;
 
   const venue =
     competition?.venue?.fullName ||
@@ -2499,16 +2485,14 @@ function renderDetailContent(
     !summary
       ? `<p class="detail-empty">The live summary feed did not return additional stats for this game yet. The score, rating explanation, and broadcast are still current.</p>`
       : summary.sportsRadarFreshness?.stale
-        ? `<p class="detail-empty">Cached game details · last updated ${safeText(new Date(summary.sportsRadarFreshness.updatedAt).toLocaleTimeString())}. Live details are temporarily unavailable.</p>`
+        ? `<p class="detail-empty">Cached game details · last updated ${safeText(new Date(summary.sportsRadarFreshness.updatedAt).toLocaleTimeString())}. Rich details may be behind or ahead of the canonical scoreboard; score and rating follow the main feed.</p>`
         : '';
 
   $('#game-detail-content').innerHTML =
     `<div class="detail-kicker">${safeText(labelForSport(game.sport))} · ${safeText(status)}</div><h2>${safeText(title)}</h2><button type="button" class="detail-watch ${isWatched(game) ? 'active' : ''}" data-watch-id="${safeText(watchKey(game))}" aria-pressed="${isWatched(game)}">${isWatched(game) ? '★ Watching this game' : '☆ Add to watchlist'}</button><div class="detail-scoreboard">${scores}</div><div class="detail-meta"><span>📍 ${safeText(venue)}</span><span>📺 ${safeText(game.channel || 'Channel not listed')}</span></div>${game.moment ? `<section class="detail-moment"><strong>${safeText(game.momentLabel || 'Notable play')}</strong><span>${safeText(game.moment)}</span></section>` : ''}<section class="detail-section"><h3>Why ${game.score}?</h3><p class="detail-explanation">${safeText(explainRating(game))}</p></section>${storylineDetails(game)}${excitementTimeline(game,summary)}${detailScoring(summary,game.sport)}${detailStats(summary,game.sport)}${detailLeaders(summary)}${basketballBoxScoreMarkup(summary,game.sport)}${detailPlayerStats(summary,game.sport)}${detailPlays(summary)}${fallback}`;
 }
 
-async function fetchGameSummary(game) {
-  const controller =
-    new AbortController();
+async function fetchGameSummary(game,controller=new AbortController()) {
 
   const timer =
     setTimeout(
@@ -2535,7 +2519,7 @@ async function fetchGameSummary(game) {
       );
     }
 
-    return response.json();
+    return await response.json();
   } finally {
     clearTimeout(timer);
   }
@@ -2586,74 +2570,119 @@ function showGameDetails() {
 }
 
 let activeDetailGame = null;
+let activeDetailSummary = null;
+let detailGeneration = 0;
+let detailTimer = null;
+let detailRequest = null;
+let detailFinalPending = false;
+let detailFailed = false;
+
+function stopDetailRequest() {
+  if (detailRequest && activeDetailGame?.state === 'completed') detailFinalPending = true;
+  clearTimeout(detailTimer);
+  detailTimer = null;
+  detailGeneration++;
+  detailRequest?.controller.abort();
+  detailRequest = null;
+}
+
+function latestDetailGame() {
+  if (!activeDetailGame) return null;
+  const latest = games.find(game => game.sport === activeDetailGame.sport &&
+    String(game.id) === String(activeDetailGame.id));
+  if (latest) {
+    if (activeDetailGame.state === 'live' && latest.state !== 'live') detailFinalPending = true;
+    activeDetailGame = latest;
+  }
+  return activeDetailGame;
+}
+
+function renderActiveDetail() {
+  const game = latestDetailGame();
+  if (!game) return;
+  let summary = activeDetailSummary;
+  if (summary) {
+    // Source competitions are not serialized into /feed. Rebuild only the
+    // validator's scoreboard inputs; this path never calculates a rating.
+    const scoreboard = {status:game.liveRawStatus,competitors:game.teams.map(team => ({
+      team:{id:team[8] || '',displayName:team[0]},score:team[2]
+    }))};
+    const summaryState = summary.header?.competitions?.[0]?.status?.type?.state;
+    const compatible = game.state === 'live'
+      ? globalThis.SportsRadarDetail.validateLiveSummary(game,scoreboard,summary)
+      : !summaryState || summaryState === (game.state === 'completed' ? 'post' : 'pre');
+    const missing = !games.some(item => item.sport === game.sport && String(item.id) === String(game.id));
+    summary = {...summary,sportsRadarFreshness:{...summary.sportsRadarFreshness,
+      stale:detailFailed || missing || !compatible || summary.sportsRadarFreshness?.stale === true}};
+  }
+  renderDetailContent(game,summary);
+}
+
+function syncActiveDetail() {
+  renderActiveDetail();
+  if (detailFinalPending && !document.hidden && !detailRequest) refreshActiveDetail();
+}
+
+async function refreshActiveDetail() {
+  const game = latestDetailGame();
+  if (!game || document.hidden || detailRequest) return;
+  clearTimeout(detailTimer);
+  const request = {generation:detailGeneration,controller:new AbortController()};
+  detailRequest = request;
+  detailFinalPending = false;
+  try {
+    const summary = await fetchGameSummary(game,request.controller);
+    if (request.generation !== detailGeneration || detailRequest !== request) return;
+    const previousVersion = Date.parse(activeDetailSummary?.sportsRadarFreshness?.updatedAt || '');
+    const version = Date.parse(summary?.sportsRadarFreshness?.updatedAt || '');
+    if (!Number.isFinite(previousVersion) || (Number.isFinite(version) && version >= previousVersion)) {
+      activeDetailSummary = summary;
+      detailFailed = false;
+    } else detailFailed = true;
+    renderActiveDetail();
+  } catch {
+    if (request.generation !== detailGeneration || detailRequest !== request) return;
+    detailFailed = true;
+    renderActiveDetail();
+  } finally {
+    if (request.generation === detailGeneration && detailRequest === request) {
+      detailRequest = null;
+      const latest = latestDetailGame();
+      if (!document.hidden && latest && (latest.state === 'live' || detailFinalPending)) {
+        detailTimer = setTimeout(refreshActiveDetail,10000);
+      }
+    }
+  }
+}
+
+function detailVisibilityChanged() {
+  if (document.hidden) stopDetailRequest();
+  else {
+    const game = latestDetailGame();
+    if (game && (game.state === 'live' || detailFinalPending || !activeDetailSummary)) refreshActiveDetail();
+  }
+}
 
 function hideGameDetails() {
-  const overlay =
-    $('#game-detail-overlay');
-
-  overlay.hidden = true;
-
-  document.body.classList.remove(
-    'detail-open'
-  );
-
+  stopDetailRequest();
+  $('#game-detail-overlay').hidden = true;
+  document.body.classList.remove('detail-open');
   activeDetailGame = null;
+  activeDetailSummary = null;
+  detailFinalPending = false;
 }
 
 async function openGameDetails(id) {
-  const game =
-    games.find(
-      item => item.id === id
-    );
-
+  const game = games.find(item => String(item.id) === String(id));
   if (!game) return;
-
+  stopDetailRequest();
   activeDetailGame = game;
-
-  renderDetailContent(
-    game,
-    null,
-    true
-  );
-
+  activeDetailSummary = null;
+  detailFinalPending = false;
+  detailFailed = false;
+  renderDetailContent(game,null,true);
   showGameDetails();
-
-  try {
-    const summary =
-      await fetchGameSummary(game);
-
-    if (
-      activeDetailGame === game
-    ) {
-      const moment =
-        summarySpecificWhy(
-          game,
-          summary
-        );
-
-      if (moment) {
-        game.moment =
-          moment.text;
-
-        game.momentLabel =
-          moment.label;
-      }
-
-      renderDetailContent(
-        game,
-        summary
-      );
-    }
-  } catch {
-    if (
-      activeDetailGame === game
-    ) {
-      renderDetailContent(
-        game,
-        null
-      );
-    }
-  }
+  await refreshActiveDetail();
 }
 
 function compactPlay(play) {
@@ -2786,6 +2815,7 @@ function summarySpecificWhy(game,summary) {
 
 
 function render() {
+  syncActiveDetail();
   const isSoccer =
     state.page === 'soccer';
 
@@ -3628,6 +3658,7 @@ renderFavoriteResults();
 render();
 loadLiveGames();
 document.addEventListener('visibilitychange',() => {
+  detailVisibilityChanged();
   if (document.hidden) scheduleLiveRefresh();
   else loadLiveGames();
 });

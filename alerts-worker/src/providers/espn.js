@@ -16,7 +16,7 @@ const LIVE_FEEDS = [
 
 export function createCollector(readJson) {
 const scheduleWindowCache = new Map();
-async function fetchScoreboard(feed) { const url=new URL(feed.url); url.searchParams.set("limit",String(feed.limit || 100)); return readJson(url.href); }
+async function fetchScoreboard(feed) { const url=new URL(feed.url); url.searchParams.set("limit",String(feed.limit || 100)); return readJson(url.href,{purpose:feed.purpose}); }
 function gamesFromScoreboard(feed,payload) {
   const leagueLogo =
     payload.leagues?.[0]?.logos?.[0]?.href;
@@ -146,7 +146,8 @@ function nflWeekFeed(base,meta) {
   return {
     ...base,
     url:url.toString(),
-    limit:100
+    limit:100,
+    purpose:'adjacent-schedule'
   };
 }
 function selectNFLWindow(items) {
@@ -262,8 +263,7 @@ async function fetchNFLWindow() {
             game.nflWeek = key;
           });
 
-          events.forEach(game => { game.providerPath = new URL(feed.url).pathname.split("/sports/")[1].split("/scoreboard")[0]; });
-  return events;
+          return events;
         }
       )
     );

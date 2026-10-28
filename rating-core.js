@@ -908,7 +908,7 @@
     return snapshot;
   }
 
-  function refreshLiveState(game,competition,summary) {
+  function refreshLiveState(game,competition,summary,validateOnly=false) {
     const context =
       liveRatingContexts.get(
         game.liveRawStatus
@@ -1025,6 +1025,8 @@
         type?.state &&
         type.state !== 'in'
       );
+
+    if (validateOnly) return Boolean(summaryCandidate?.status) && !rejected;
 
     game.lastSummaryAccepted = Boolean(summary) && !rejected;
 
@@ -1382,6 +1384,10 @@
     applyLiveSnapshot
   };
 
+  // Detail validation shares chronology rules without extending the scoring API.
+  root.SportsRadarDetail = {
+    validateLiveSummary:(game,competition,summary) => refreshLiveState(game,competition,summary,true)
+  };
   root.SportsRadarScore = api;
 
   if (
