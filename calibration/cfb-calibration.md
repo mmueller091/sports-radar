@@ -57,9 +57,9 @@ Each cell is **before → after**. Trailing team owns the ball at its 25; no tim
 
 | Time remaining | Down 7 | Down 10 | Down 14 | Down 17 | Down 21 | Down 28 |
 | --- | --- | --- | --- | --- | --- | --- |
-| 30:00 | 44 → 45 | 40 → 43 | 36 → 40 | 33 → 37 | 28 → 33 | 18 → 27 |
-| 15:00 | 48 → 47 | 41 → 45 | 35 → 41 | 32 → 38 | 25 → 33 | 14 → 26 |
-| 8:00 | 49 → 61 | 42 → 49 | 36 → 45 | 28 → 39 | 23 → 30 | 1 → 6 |
+| 30:00 | 44 → 51 | 40 → 43 | 36 → 40 | 33 → 37 | 28 → 33 | 18 → 27 |
+| 15:00 | 48 → 61 | 41 → 52 | 35 → 41 | 32 → 38 | 25 → 33 | 14 → 26 |
+| 8:00 | 49 → 62 | 42 → 52 | 36 → 45 | 28 → 39 | 23 → 30 | 1 → 6 |
 | 4:00 | 51 → 80 | 37 → 52 | 32 → 43 | 14 → 29 | 9 → 6 | 1 → 1 |
 | 2:00 | 65 → 88 | 33 → 45 | 28 → 22 | 7 → 6 | 1 → 1 | 1 → 1 |
 
@@ -120,21 +120,21 @@ Full normalization/enrichment, including completed histories and final bonuses, 
 | NBA | 3 | 3 |
 | NCAAB | 2 | 2 |
 | NFL | 25 | 25 |
-| NHL | 25 | 25 |
+| NHL | 25 | 1 |
 
 ### All stored CFB results
 
 | Matchup (same order as final) | Final | Before | After | Base | History | Coverage |
 | --- | --- | --- | --- | --- | --- | --- |
-| Auburn Tigers vs Georgia Bulldogs | 27-24 | 99 | 93 | 54 | 25 | upset, comeback |
+| Auburn Tigers vs Georgia Bulldogs | 27-24 | 99 | 99 | 62 | 25 | upset, comeback |
 | Mississippi State Bulldogs vs LSU Tigers | 0-31 | 1 | 1 | 1 | 0 | ranked pairing, blowout, low scoring |
 | Missouri Tigers vs Ole Miss Rebels | 3-31 | 4 | 4 | 1 | 3 | ranked pairing, blowout, low scoring |
 | Kentucky Wildcats vs Oklahoma Sooners | 21-13 | 64 | 69 | 35 | 25 | upset, low scoring |
 | Alabama Crimson Tide vs Tennessee Volunteers | 10-26 | 27 | 28 | 11 | 17 | ranked pairing, upset |
-| Florida Gators vs Texas Longhorns | 27-24 | 94 | 83 | 50 | 24 | upset, comeback |
+| Florida Gators vs Texas Longhorns | 27-24 | 94 | 86 | 53 | 24 | upset, comeback |
 | The Citadel Bulldogs vs Texas A&M Aggies | 0-41 | 1 | 1 | 1 | 0 | blowout |
 | Arkansas Razorbacks vs Vanderbilt Commodores | 31-21 | 48 | 76 | 27 | 49 |  |
-| Notre Dame Fighting Irish vs BYU Cougars | 24-28 | 84 | 72 | 47 | 25 | ranked pairing, upset, comeback |
+| Notre Dame Fighting Irish vs BYU Cougars | 24-28 | 84 | 73 | 48 | 25 | ranked pairing, upset, comeback |
 | Arizona State Sun Devils vs Texas Tech Red Raiders | 25-53 | 1 | 1 | 1 | 0 | blowout, shootout |
 | Cincinnati Bearcats vs West Virginia Mountaineers | 42-45 | 78 | 78 | 39 | 25 | shootout |
 | Kansas Jayhawks vs Kansas State Wildcats | 24-35 | 50 | 79 | 25 | 54 | comeback |
@@ -158,7 +158,7 @@ Full normalization/enrichment, including completed histories and final bonuses, 
 | Washington State Cougars vs Oregon State Beavers | 30-48 | 3 | 3 | 3 | 0 | shootout |
 | Fresno State Bulldogs vs San Diego State Aztecs | 23-26 | 73 | 73 | 39 | 25 | comeback |
 | Florida Atlantic Owls vs Army Black Knights | 24-56 | 1 | 1 | 1 | 0 | blowout, shootout |
-| Charlotte 49ers vs Temple Owls | 38-31 | 73 | 63 | 44 | 19 | upset |
+| Charlotte 49ers vs Temple Owls | 38-31 | 73 | 67 | 48 | 19 | upset |
 | Navy Midshipmen vs UTSA Roadrunners | 34-38 | 62 | 82 | 37 | 45 | comeback |
 | Tulsa Golden Hurricane vs Rice Owls | 38-17 | 26 | 61 | 1 | 60 | comeback |
 | Kent State Golden Flashes vs South Florida Bulls | 2-29 | 9 | 9 | 1 | 8 | low scoring |

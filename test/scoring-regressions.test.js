@@ -433,6 +433,9 @@ test('live event shock rewards major plays briefly and expires after seven plays
   const stale={plays:[play,...Array.from({length:7},(_,i)=>({period:{number:4,displayValue:'4th Quarter'},clock:{displayValue:`4:${59-i}`},text:'Run for no gain'}))]};
   assert.equal(core.eventShockImpact('NFL',stale,status).points,0);
   const blocked={plays:[{...play,text:'Blocked punt returned for a touchdown'}]};
+  assert.equal(core.eventShockImpact('CFB',blocked,status).points,0,'unknown scoring direction is conservative');
+  blocked.plays=[{...play,text:'Previous play',homeScore:21,awayScore:14},
+    {...blocked.plays[0],homeScore:21,awayScore:21}];
   assert.equal(core.eventShockImpact('CFB',blocked,status).points,12);
   const momentumSummary={
     plays:[play],

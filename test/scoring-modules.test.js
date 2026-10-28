@@ -84,4 +84,9 @@ test('Worker entry bundles and executes the same scoring graph without Node-only
   for (const [key,input] of Object.entries(cfb.cases)) {
     assert.deepEqual(cfb.evaluate(bundled,input),cfb.evaluate(direct,input),`CFB ${key} bundled live snapshot`);
   }
+  const midgame = require('./helpers/midgame.cjs');
+  for (const input of Object.values(midgame.cfbCases))
+    assert.deepEqual(cfb.evaluate(bundled,input),cfb.evaluate(direct,input),'CFB midgame bundled live snapshot');
+  for (const input of Object.values(midgame.hockeyCases))
+    assert.equal(midgame.hockey(bundled,input),midgame.hockey(direct,input),'NHL opening bundled live snapshot');
 });

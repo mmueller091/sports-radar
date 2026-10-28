@@ -17,6 +17,43 @@
     : root.SportsRadarScoring.shared_time;
 
   const unit = value => Math.max(0,Math.min(1,value));
+  const smooth = value => { const x=unit(value); return x*x*(3-2*x); };
+
+  function cfbMidgameFloor({progress,scoreGap}) {
+    if (!Number.isFinite(scoreGap) || progress <= 23/60 || progress >= 11/12) return 0;
+    const ramp=smooth((progress-23/60)/(5/60));
+    // Add one point over the final two minutes of Q3, then carry the target
+    // gently into Q4 until the existing leverage model overtakes it.
+    const boundaryLift=smooth((progress-43/60)/(2/60));
+    const target=60+44*Math.max(0,Math.min(.75,progress)-.5)+boundaryLift+
+      6*Math.max(0,progress-.75);
+    const anchors=[[0,1],[3,.955],[7,.85],[10,.72],[14,.62],[21,.30],[28,0]];
+    let viability=0;
+    for (let i=1;i<anchors.length;i++) if (scoreGap<=anchors[i][0]) {
+      const [x,y]=anchors[i-1], [xx,yy]=anchors[i];
+      viability=y+(yy-y)*smooth((scoreGap-x)/(xx-x)); break;
+    }
+    // Carryover is for close games. Smoothly remove it beyond ten points
+    // after the accepted 2:00-Q3 calibration point.
+    const carryMargin=progress<=43/60 ? 1 : smooth((14-scoreGap)/4);
+    return target*ramp*viability*carryMargin;
+  }
+
+  function cfbEventShockWeight({text,positioned,i,play}) {
+    if (!/touchdown|\btd\b|\bsafety\b/.test(text)) return 1;
+    // Consecutive verified score states establish direction without guessing
+    // possession, team names in prose, or whether the PAT was already added.
+    const previous=positioned[i-1]?.play;
+    const scores=p => p && [p.homeScore,p.awayScore].every(v=>v!==null && v!=='' && Number.isFinite(Number(v)))
+      ? [Number(p.homeScore),Number(p.awayScore)] : null;
+    const before=scores(previous),after=scores(play);
+    if (!before || !after) return 0;
+    const delta=after.map((v,j)=>v-before[j]);
+    if (!((delta[0]>0 && delta[1]===0) || (delta[1]>0 && delta[0]===0))) return 0;
+    const oldGap=Math.abs(before[0]-before[1]),gap=Math.abs(after[0]-after[1]);
+    if (gap<oldGap) return 1-smooth((gap-8)/13);
+    return oldGap===0 && gap<=8 ? .6 : 0;
+  }
 
   function cfbPossession(competition,situation=competition?.situation) {
     const teams = competition?.competitors || [];
@@ -91,7 +128,12 @@
     const possession = cfbPossession(competition,situation);
     const p = unit(Number(progress) || 0);
     const runway = cfbClockRunway(competition,situation);
-    const expectedPossessions = runway?.expectedPossessions ?? Math.max(0,14*(1-p)+.5+state.possessionAdjustment);
+    const broad = Math.max(0,14*(1-p)+.5+state.possessionAdjustment);
+    // A Q3 pace estimate, not the Q4 timeout/runoff simulation. Fade the
+    // correction into the unchanged Q4 authority over the final two minutes.
+    const q3Weight=smooth((p-.5)/(43/60-.5))*smooth((.75-p)/(2/60));
+    const q3Opportunities=Math.max(0,2.1+6*Math.max(0,43/60-p)+.15*state.possessionAdjustment);
+    const expectedPossessions = runway?.expectedPossessions ?? broad+(q3Opportunities-broad)*q3Weight;
     // Fractional scoring opportunities avoid an artificial 8-to-9 point cliff
     // while still charging for the conversion needed at an eight-point margin.
     const requiredPossessions = gap > 0 ? Math.max(1,gap/7) : 0;
@@ -428,6 +470,7 @@
     // Preserve it through the core's existing live context without mutating feeds.
     prepareCompetition:(competition,event) => ({...competition,season:competition?.season || event?.season}),
     gameState:cfbGameState,
+    liveFloor:cfbMidgameFloor,
     liveCloseness:cfbLiveCloseness,
     upset:(...args) => args[2] === 'completed' ? cfbCompletedUpset(...args) : cfbUpsetImpact(...args),
     completedHistory:cfbCompletedHistory,
@@ -436,6 +479,7 @@
     situation:cfbSituation,
     milestone:footballMilestone,
     eventShock:footballEventShock,
+    eventShockWeight:cfbEventShockWeight,
     history:{threshold:10,units:'points',stagnation:footballStagnationImpact}
   };
 

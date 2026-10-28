@@ -68,7 +68,8 @@ async function main() {
   const currentAdapter = await import('../alerts-worker/src/game-model.js');
   const adapterSource = fs.readFileSync(path.join(root,'alerts-worker/src/game-model.js'),'utf8')
     .replace(/^import .*;\s*$/gm,'').replace(/^export .*;\s*$/gm,'');
-  const oldAdapter = vm.runInNewContext(`${frozenSource}\n${adapterSource}\n({normalizeEvent,enrichGame})`,{
+  const cappedSource = require('../test/helpers/cap-pregame-oracle.cjs').capPregameOracle(frozenSource);
+  const oldAdapter = vm.runInNewContext(`${cappedSource}\n${adapterSource}\n({normalizeEvent,enrichGame})`,{
     baseballSituation:display.baseballSituation,footballSituation:display.footballSituation
   });
   const dir=path.join(root,'test/fixtures/real-games');
@@ -85,7 +86,9 @@ async function main() {
     (bySport[input.modelSport] ||= {count:0,identical:0}).count++;
     const identical=JSON.stringify(old)===JSON.stringify(now);
     if(identical) bySport[input.modelSport].identical++;
-    if(input.modelSport!=='CFB' || now.state==='upcoming') assert.deepEqual(now,old,`${file}: preserved complete adapter output`);
+    // NHL was independently calibrated after this historical CFB baseline.
+    // Its exact immediate-baseline regression lives in midgame-calibration.
+    if(!['CFB','NHL'].includes(input.modelSport) || now.state==='upcoming') assert.deepEqual(now,old,`${file}: preserved complete adapter output`);
     if(input.modelSport==='CFB') assert.deepEqual(structuredClone(core.momentumImpact('CFB',input.summary,1,now.state)),
       structuredClone(before.momentumImpact('CFB',input.summary,1,now.state)),`${file}: shared history preserved`);
     if(input.modelSport==='CFB') {

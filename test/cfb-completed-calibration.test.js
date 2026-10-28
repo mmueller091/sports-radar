@@ -36,7 +36,10 @@ test('saved baseline provenance and exact CFB A-Y / NFL A-P preservation',()=>{
   same(live.evaluate(before,input),baseline.cfb[key],`CFB live ${key} provenance`);
  }
  for(const [key,input]of Object.entries(nfl.cases))same(nfl.evaluate(core,input),baseline.nfl[key],`NFL ${key}`);
- for(const input of Object.values(live.margins))same(live.evaluate(core,input),live.evaluate(before,input),'full live margin grid');
+ // Midgame and early-Q4 carryover have separate boundary coverage. The
+ // established 4:00/2:00 Q4 margin grid remains exact.
+ for(const input of Object.values(live.margins).filter(input=>input.period===4&&['4:00','2:00'].includes(input.clock)))
+  same(live.evaluate(core,input),live.evaluate(before,input),'late-Q4 live margin grid');
  same(Object.keys(core),Object.keys(before));
  for(const key of Object.keys(core))if(typeof core[key]==='function')assert.equal(core[key].length,before[key].length,key);
 });

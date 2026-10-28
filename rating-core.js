@@ -901,6 +901,10 @@
         ? Math.max(decisiveFloor,positiveBonus + negativeBonus)
         : positiveBonus + negativeBonus;
 
+    // Sport-owned floors consume already-earned context and live leverage.
+    const liveFloor = SPORT_MODELS[game.sport]?.liveFloor?.({game,competition,progress,scoreGap});
+    if (Number.isFinite(liveFloor) && liveFloor>0) snapshot.bonus = Math.max(snapshot.bonus,Math.round(liveFloor)-game.baseScore);
+
     return snapshot;
   }
 

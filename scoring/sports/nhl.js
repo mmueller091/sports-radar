@@ -560,6 +560,21 @@
   const nhlModel = {
     unit:'goal',pregame:proPregame,
     gameState:hockeyGameState,
+    liveFloor:({game,progress,scoreGap}) => {
+      if (!Number.isFinite(scoreGap) || progress>=2/3) return 0;
+      const elapsed=Math.max(0,progress*60);
+      const anchors=[[0,1],[10,1],[20,.88],[30,.55],[40,0]];
+      let retention=0;
+      for (let i=1;i<anchors.length;i++) if (elapsed<=anchors[i][0]) {
+        const [a,y]=anchors[i-1], [b,z]=anchors[i], x=(elapsed-a)/(b-a);
+        retention=y+(z-y)*x*x*(3-2*x); break;
+      }
+      // A lone early goal is weak evidence against the opening matchup.
+      // Its protection fades faster once the first ten minutes are played.
+      const oneGoal=.98-.04*Math.max(0,Math.min(1,(elapsed-10)/10));
+      const margin=scoreGap<=1 ? 1-(1-oneGoal)*scoreGap : oneGoal*Math.exp(-3*Math.pow(scoreGap-1,2));
+      return Math.min(90,Math.max(0,Number(game.openingScore)||0))*retention*margin;
+    },
     situation:({game,competition,summary,status,progress,scoreGap}) =>
       hockeySituationImpact(game,competition,summary,status,progress,scoreGap),
     milestone:hockeyGoalMilestone,

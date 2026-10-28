@@ -28,6 +28,7 @@
       else if (model.earlyEventShock && (shock = model.earlyEventShock({text,positioned,i,play}))) { ({value,label} = shock); }
       else if (/\bturnover\b|intercepted|fumble recovered by|picked off|caught stealing/.test(text)) { value=4; label='Turnover'; }
       else if (model.eventShock && (shock = model.eventShock({text,positioned,i,play}))) { ({value,label} = shock); }
+      if (model.eventShockWeight) value *= model.eventShockWeight({text,positioned,i,play});
       if (!value) continue;
       const playsSince = positioned.length - 1 - i;
       const periodGap = Math.abs(Number(status?.period || 0)-Number(play.period?.number || play.period || 0));
