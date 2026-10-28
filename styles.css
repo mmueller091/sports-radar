@@ -167,10 +167,10 @@ dialog::backdrop { background: rgba(5,7,7,.76); backdrop-filter: blur(4px); } .d
 .detail-comparison-values { display: grid; grid-template-columns: minmax(0,1fr) minmax(110px,1.35fr) minmax(0,1fr); gap: 4px; align-items: center; color: #f2f6f8; font-size: 12px; }
 .detail-comparison-values span:nth-child(2) { text-align: center; color: #d5dfe5; font-size: 11px; }
 .detail-comparison-values span:last-child { text-align: right; }
-.detail-comparison-bars { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 7px; }
-.detail-comparison-bars > span { height: 5px; border-radius: 9px; background: rgba(160,175,185,.17); overflow: hidden; }
-.detail-comparison-bars > span:first-child { direction: rtl; }
-.detail-comparison-bars i { display: block; height: 100%; border-radius: inherit; min-width: 2px; }
+.detail-comparison-bars { margin-top: 7px; }
+.detail-comparison-bars > span { display: flex; width: 100%; height: 6px; border-radius: 9px; background: rgba(160,175,185,.17); overflow: hidden; }
+.detail-comparison-bars i { display: block; flex: 0 0 auto; height: 100%; min-width: 0; }
+.detail-comparison-bars i + i { box-shadow: -1px 0 0 rgba(8,14,18,.75); }
 .detail-more-stats { margin-top: 12px; }
 .detail-more-stats summary { width: fit-content; padding: 8px 0; color: #a9d0f5; cursor: pointer; font-size: 12px; font-weight: 600; }
 .detail-leaders { display: grid; gap: 2px; }

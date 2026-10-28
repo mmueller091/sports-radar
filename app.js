@@ -1536,8 +1536,17 @@ function detailStatRow(label,left,right,colors) {
   const display = stat => stat?.displayValue ?? '—';
   const numeric = [detailStatNumber(left),detailStatNumber(right)];
   const total = Math.max(0,numeric[0] || 0) + Math.max(0,numeric[1] || 0);
-  const widths = numeric.map(number => number === null || !total ? 50 : 100 * Math.max(0,number) / total);
-  return `<div class="detail-comparison-row"><div class="detail-comparison-values"><span>${safeText(display(left))}</span><span>${safeText(label)}</span><span>${safeText(display(right))}</span></div><div class="detail-comparison-bars"><span><i style="width:${widths[0]}%;background:${colors[0]}"></i></span><span><i style="width:${widths[1]}%;background:${colors[1]}"></i></span></div></div>`;
+  const widths = numeric.map(number =>
+    number === null
+      ? 0
+      : !total
+        ? 0
+        : 100 * Math.max(0,number) / total
+  );
+  const width = value => Math.max(0,Math.min(100,value)).toFixed(3);
+  const comparisonLabel = `${label}: ${display(left)} versus ${display(right)}`;
+
+  return `<div class="detail-comparison-row"><div class="detail-comparison-values"><span>${safeText(display(left))}</span><span>${safeText(label)}</span><span>${safeText(display(right))}</span></div><div class="detail-comparison-bars" role="img" aria-label="${safeText(comparisonLabel)}"><span><i class="detail-comparison-left" style="width:${width(widths[0])}%;background:${colors[0]}"></i><i class="detail-comparison-right" style="width:${width(widths[1])}%;background:${colors[1]}"></i></span></div></div>`;
 }
 
 function detailStats(summary,sport) {

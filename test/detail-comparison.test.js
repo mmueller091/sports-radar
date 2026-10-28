@@ -369,3 +369,21 @@ test('NHL Game Center separates Skaters and Goalies from the existing summary pa
 
   assert.equal(context.detailNhlGoalies({}),'');
 });
+
+test('Team Stats uses one shared proportional comparison bar',() => {
+  const row = context.detailStatRow(
+    'Shots',
+    {displayValue:'23',value:23},
+    {displayValue:'33',value:33},
+    ['#f15a24','#0055aa']
+  );
+
+  assert.match(row,/detail-comparison-bars/);
+  assert.match(row,/aria-label="Shots: 23 versus 33"/);
+  assert.match(row,/detail-comparison-left/);
+  assert.match(row,/detail-comparison-right/);
+  assert.match(row,/width:41\.071%/);
+  assert.match(row,/width:58\.929%/);
+  assert.match(row,/<span><i class="detail-comparison-left"[^>]*><\/i><i class="detail-comparison-right"/);
+  assert.doesNotMatch(row,/<\/span><span><i/);
+});
