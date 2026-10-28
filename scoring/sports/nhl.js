@@ -240,9 +240,10 @@
     const ot = hockeyOvertime(game.sourceEvent,{...competition,status},summary);
     let target = 0;
     let note = '';
-    if (ot.shootout) { target=82; note='Shootout'; }
+    if (ot.shootout) { target=90; note='Shootout'; }
     else if (ot.depth && scoreGap === 0) {
-      target = ot.postseason ? Math.min(97,90 + 3 * (ot.depth-1)) : 80;
+      target = ot.postseason ? Math.min(98,95 + 2 * (ot.depth-1))
+        : Math.round(smoothNhlTarget(seconds ?? 300,[[300,92],[0,94]]));
       if (ot.postseason && ot.deciding) target=Math.max(target,96);
       if (ot.postseason && ot.final) target=Math.max(target,95);
       if (ot.postseason && ot.final && ot.deciding) target=99;
@@ -510,7 +511,7 @@
       const homeGain=moment.home-prior.home,awayGain=moment.away-prior.away;
       return (homeGain===1 && awayGain===0) || (homeGain===0 && awayGain===1);
     });
-    let lastTime=0,margin=0,leader=0,changes=0,tiedTime=0,oneGoalTime=0,homeDeficit=0,awayDeficit=0,comeback=0,lateTie=0,lateAhead=0,pulledComeback=false;
+    let lastTime=0,margin=0,leader=0,changes=0,lateChanges=0,tiedTime=0,oneGoalTime=0,homeDeficit=0,awayDeficit=0,comeback=0,lateTie=0,lateAhead=0,pulledComeback=false,dramaticTime=null,majorDrama=false;
     for (const moment of moments) {
       const duration=Math.max(0,Math.min(3600,moment.time)-Math.min(3600,lastTime));
       if (margin===0) tiedTime+=duration;
@@ -519,7 +520,16 @@
       homeDeficit=Math.max(homeDeficit,-next); awayDeficit=Math.max(awayDeficit,next);
       if (next>=0) comeback=Math.max(comeback,homeDeficit);
       if (next<=0) comeback=Math.max(comeback,awayDeficit);
-      if (next && leader && Math.sign(next)!==leader) changes++;
+      const leadChange=next && leader && Math.sign(next)!==leader;
+      const tyingGoal=next===0 && margin!==0;
+      const goAheadGoal=next!==0 && (margin===0 || Math.sign(next)!==Math.sign(margin));
+      const multiGoalComeback=tyingGoal && (margin<0 ? homeDeficit : awayDeficit)>=2;
+      if (leadChange) {
+        changes++;
+        if (moment.time>=3300 && moment.time<=3600) lateChanges++;
+      }
+      if (tyingGoal || goAheadGoal || leadChange || multiGoalComeback) dramaticTime=moment.time;
+      if (multiGoalComeback) majorDrama=true;
       if (next) leader=Math.sign(next);
       const recent=state === 'completed' || current-moment.time<=180;
       if (moment.time>=3300 && moment.time<=3600 && recent) {
@@ -546,7 +556,36 @@
     if (completeLedger && current>=1440) add('Time tied or within one goal',Math.round((state==='completed' ? 8 : 3)*(.7*oneGoalTime/duration+.3*tiedTime/duration)));
     let remaining=state==='completed' ? 32 : 12;
     const capped=factors.map(f=>{const points=Math.min(remaining,f.points);remaining-=points;return {...f,points};}).filter(f=>f.points);
-    return {points:capped.reduce((sum,f)=>sum+f.points,0),text:capped.map(f=>f.label).join('; '),factors:capped,
+    let finalFactors=capped;
+    if (state === 'live') {
+      const status=comp.status || {};
+      const period=Number(status.period || 0);
+      const seconds=clockSeconds(status);
+      const scores=(comp.competitors || []).map(team=>Number(team.score));
+      const tied=scores.length === 2 && scores.every(Number.isFinite) && scores[0] === scores[1];
+      let headroom=null;
+      if (tied && !ot.postseason && period === 3 && seconds !== null && seconds <= 15) {
+        const age=dramaticTime === null ? Infinity : Math.max(0,current-dramaticTime);
+        // At regulation's edge, history survives only in proportion to how
+        // recently a real tying/go-ahead/lead-change event occurred. A major
+        // comeback, goalie pull or repeated late lead changes can buy one more
+        // point, but only while that sequence is itself fresh.
+        const recency=smoothNhlTarget(age,[[300,0],[240,2],[120,3],[60,4],[0,4]]);
+        const significant=majorDrama || pulledComeback || lateChanges>=2;
+        const significance=significant ? smoothNhlTarget(age,[[90,0],[60,1],[0,1]]) : 0;
+        headroom=Math.max(0,Math.min(5,Math.round(recency+significance)));
+      } else if (tied && !ot.postseason && ot.shootout) {
+        headroom=2;
+      } else if (tied && !ot.postseason && ot.depth) {
+        const target=Math.round(smoothNhlTarget(seconds ?? 300,[[300,92],[0,94]]));
+        headroom=Math.max(0,94-target);
+      }
+      if (headroom !== null) {
+        let available=headroom;
+        finalFactors=capped.map(f=>{const points=Math.min(available,f.points);available-=points;return {...f,points};}).filter(f=>f.points);
+      }
+    }
+    return {points:finalFactors.reduce((sum,f)=>sum+f.points,0),text:finalFactors.map(f=>f.label).join('; '),factors:finalFactors,
       handlesFinish:true,tiedShare:tiedTime/duration,withinOneShare:oneGoalTime/duration};
   }
 

@@ -24,11 +24,14 @@ Baseline: repository commit `848f720f15db76d931ac560854a7c91de5e4dade`, frozen b
 | Down 3, 5:00 third | 4 | 7 | 3 |  |
 | Down 3, 2:00 third | 2 | 5 | 3 |  |
 | Down 3, 1:00 third | 2 | 5 | 3 |  |
-| Regular-season OT | 64 | 80 | 16 | **FLAG** |
-| Shootout | 64 | 82 | 18 | **FLAG** |
-| Playoff OT | 78 | 90 | 12 | **FLAG** |
-| Playoff 2OT | 78 | 93 | 15 | **FLAG** |
-| Playoff 3OT | 78 | 96 | 18 | **FLAG** |
+| Tied 0:10 third | 58 | 90 | 32 | **FLAG** |
+| Tied end regulation | 58 | 90 | 32 | **FLAG** |
+| Start regular-season OT | 64 | 92 | 28 | **FLAG** |
+| Regular-season OT | 64 | 93 | 29 | **FLAG** |
+| Shootout | 64 | 90 | 26 | **FLAG** |
+| Playoff OT | 78 | 95 | 17 | **FLAG** |
+| Playoff 2OT | 78 | 97 | 19 | **FLAG** |
+| Playoff 3OT | 78 | 98 | 20 | **FLAG** |
 | Stanley Cup Final deciding game OT | 99 | 99 | 0 |  |
 
 ## Every NHL provider fixture

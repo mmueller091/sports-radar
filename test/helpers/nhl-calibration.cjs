@@ -35,7 +35,8 @@ const cases={
   'Down 2, 2:00 third':{gap:2,clock:'2:00'},'Down 2, 1:00 third':{gap:2,clock:'1:00'},
   'Down 3, 10:00 first':{gap:3,period:1,clock:'10:00'},'Down 3, 10:00 third':{gap:3,clock:'10:00'},
   'Down 3, 5:00 third':{gap:3,clock:'5:00'},'Down 3, 2:00 third':{gap:3,clock:'2:00'},
-  'Down 3, 1:00 third':{gap:3,clock:'1:00'},'Regular-season OT':{period:4,clock:'3:00'},
+  'Down 3, 1:00 third':{gap:3,clock:'1:00'},'Tied 0:10 third':{clock:'0:10'},'Tied end regulation':{clock:'0:00'},
+  'Start regular-season OT':{period:4,clock:'5:00'},'Regular-season OT':{period:4,clock:'2:30'},
   'Shootout':{period:5,shootout:true},'Playoff OT':{period:4,postseason:true,clock:'15:00'},
   'Playoff 2OT':{period:5,postseason:true,clock:'15:00'},'Playoff 3OT':{period:6,postseason:true,clock:'15:00'},
   'Stanley Cup Final deciding game OT':{period:4,postseason:true,final:true,deciding:true,clock:'15:00'}

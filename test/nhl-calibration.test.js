@@ -72,15 +72,69 @@ test('NHL two-goal third-period runway stays viable while three-goal deficits re
 });
 
 test('NHL regular OT, shootout, playoff OT depth and deciding final separate without chance data',()=>{
+  const end=score(cases['Tied end regulation']),start=score(cases['Start regular-season OT']);
   const regular=score(cases['Regular-season OT']),shootout=score(cases.Shootout),playoff=score(cases['Playoff OT']);
-  assert.ok(regular>=78&&regular<=84&&shootout>=80&&shootout<=85);
-  assert.ok(playoff>=regular+8);
+  assert.equal(end,90);assert.ok(start>=91&&start<=92);assert.ok(regular>=92&&regular<=94);assert.ok(shootout>=89&&shootout<=92);
+  assert.ok(start>=end&&regular>=start&&shootout>=89,'regulation to OT to shootout has no artificial collapse');
+  assert.ok(playoff>=regular+2);
   assert.ok(score(cases['Playoff 2OT'])>playoff);
   assert.ok(score(cases['Playoff 3OT'])>score(cases['Playoff 2OT']));
   assert.equal(score(cases['Stanley Cup Final deciding game OT']),99);
   assert.ok(score({period:4,postseason:true,deciding:true,clock:'15:00'})>=96);
   assert.ok(score({period:4,postseason:true,final:true,clock:'15:00'})>=95);
   const f=fixture({period:7,postseason:true});assert.equal(hockeyOvertime(f.event,f.competition,f.summary).depth,4);
+});
+
+test('NHL end-regulation target consumes generic stacking and leaves limited dramatic-history headroom',()=>{
+  const ordinary=evaluate(core,{clock:'0:00'});
+  assert.equal(ordinary.score,90);
+  const dramatic=[goal(0,1,1,'15:00'),goal(1,1,1,'10:00'),goal(2,1,2,'15:00'),goal(2,2,2,'10:00'),
+    goal(2,3,3,'5:00'),goal(3,3,3,'0:10','Shorthanded goal, extra attacker goal')];
+  const end=evaluate(core,{clock:'0:00',plays:dramatic});
+  assert.equal(end.base+end.bonus,90);assert.equal(end.history,5);assert.equal(end.score,95);
+  assert.ok(end.historyFactors.some(f=>f.label==='Late tying goal'));
+  const routine=[goal(1,0,1,'15:00'),goal(1,1,2,'10:00'),goal(2,1,2,'5:00'),goal(2,2,3,'10:00'),goal(3,2,3,'5:00'),goal(3,3,3,'4:00')];
+  const routineEnd=evaluate(core,{clock:'0:00',plays:routine});
+  assert.ok(routineEnd.score>=90&&routineEnd.score<=92);
+  const f=fixture({clock:'0:00',goals:2,plays:dramatic});
+  f.summary.winprobability=[{homeWinPercentage:.5}];
+  f.summary.plays.push(...Array.from({length:5},(_,i)=>({period:{number:3},clock:{displayValue:`0:${String(50-i*10).padStart(2,'0')}`},team:{id:i%2?'a':'h'},text:'Shot on goal'})));
+  const teams=f.competition.competitors.map(c=>({...c,id:c.team.id}));
+  const rating=core.rateGame('NHL','live',teams,f.event,f.competition,'');
+  const game={sport:'NHL',state:'live',sourceEvent:f.event,sourceCompetition:f.competition,
+    teams:teams.map(c=>[c.team.displayName,c.team.abbreviation,c.score,'','','',null,c.homeAway,c.id]),baseScore:rating.score,score:rating.score,
+    openingScore:rating.openingScore,liveRawStatus:f.competition.status};
+  core.applyLiveSnapshot(game,f.competition,f.summary);
+  assert.equal(game.score,92);assert.equal(game.live.components.probability,16);assert.ok(game.live.components.pressure>0);
+  assert.equal(game.live.components.milestone,3);assert.ok(game.live.components.eventShock>0);
+  const history=core.momentumImpact('NHL',f.summary,core.gameProgress('NHL',f.competition),'live');
+  assert.equal(core.clampScore(game.score+history.points),97,'verified last-seconds drama remains below 99');
+});
+
+test('NHL regular-season end-regulation history headroom decays with dramatic-event recency and significance',()=>{
+  const sequence=(clock,major=false)=>major
+    ? [goal(0,1,1,'15:00'),goal(0,2,2,'10:00'),goal(1,2,3,'3:00'),goal(2,2,3,clock,'Extra attacker goal')]
+    : [goal(0,1,1,'15:00'),goal(1,1,1,'10:00'),goal(2,1,2,'15:00'),goal(2,2,2,'10:00'),
+      goal(2,3,3,'5:00'),goal(3,3,3,clock)];
+  const scores=['4:16','2:00','0:45'].map(clock=>evaluate(core,{clock:'0:00',plays:sequence(clock)}));
+  assert.deepEqual(scores.map(item=>item.score),[92,93,94]);
+  assert.deepEqual(scores.map(item=>item.history),[2,3,4]);
+  const exceptional=evaluate(core,{clock:'0:00',plays:sequence('0:15',true)});
+  assert.equal(exceptional.score,95);assert.equal(exceptional.history,5);
+  const stale=evaluate(core,{clock:'0:00',plays:sequence('5:30')});
+  assert.equal(stale.score,90);assert.equal(stale.history,0);
+
+  const reproducer=fixture({clock:'0:00',goals:2,plays:sequence('4:16')});
+  reproducer.summary.winprobability=[{homeWinPercentage:.5}];
+  reproducer.summary.plays.push(...Array.from({length:5},(_,i)=>({period:{number:3},clock:{displayValue:`0:${String(50-i*10).padStart(2,'0')}`},team:{id:i%2?'a':'h'},text:'Shot on goal'})));
+  const teams=reproducer.competition.competitors.map(c=>({...c,id:c.team.id}));
+  const rating=core.rateGame('NHL','live',teams,reproducer.event,reproducer.competition,'');
+  const game={sport:'NHL',state:'live',sourceEvent:reproducer.event,sourceCompetition:reproducer.competition,
+    teams:teams.map(c=>[c.team.displayName,c.team.abbreviation,c.score,'','','',null,c.homeAway,c.id]),baseScore:rating.score,score:rating.score,
+    openingScore:rating.openingScore,liveRawStatus:reproducer.competition.status};
+  core.applyLiveSnapshot(game,reproducer.competition,reproducer.summary);
+  const history=core.momentumImpact('NHL',reproducer.summary,core.gameProgress('NHL',reproducer.competition),'live');
+  assert.equal(game.score,92);assert.equal(history.points,2);assert.equal(core.clampScore(game.score+history.points),94);
 });
 
 test('NHL completed overtime floors consume earned history and retain depth ordering',()=>{

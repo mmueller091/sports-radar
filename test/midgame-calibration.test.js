@@ -93,7 +93,8 @@ test('Q3 runway contracts as opportunities diminish and possession is a modest i
 test('exact CFB A-Y, NFL A-P and NHL P3/OT regression matrices',()=>{
   for(const helper of [cfb,nfl]) for(const input of Object.values(helper.cases))
     assert.deepEqual(helper.evaluate(core,input),helper.evaluate(before,input));
-  for(const input of Object.values(nhl.cases).filter(x=>(x.period??3)>=3))
+  const recalibrated=new Set(['Start regular-season OT','Regular-season OT','Shootout','Playoff OT','Playoff 2OT','Playoff 3OT']);
+  for(const [name,input] of Object.entries(nhl.cases).filter(([name,input])=>(input.period??3)>=3&&!recalibrated.has(name)))
     assert.deepEqual(nhl.evaluate(core,input),structuredClone(nhl.evaluate(before,input)));
 });
 test('new CFB/NHL states have browser/Node parity and CFB Worker parity',()=>{

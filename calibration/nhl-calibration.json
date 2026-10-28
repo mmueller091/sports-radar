@@ -612,6 +612,108 @@
         }
       }
     },
+    "Tied 0:10 third": {
+      "old": {
+        "score": 58,
+        "base": 52,
+        "bonus": 6,
+        "history": 0,
+        "historyFactors": [],
+        "upset": 0,
+        "opening": 49,
+        "components": {
+          "probability": 0,
+          "situation": 6,
+          "pressure": 0,
+          "milestone": 0,
+          "eventShock": 0
+        }
+      },
+      "new": {
+        "score": 90,
+        "base": 52,
+        "bonus": 38,
+        "history": 0,
+        "historyFactors": [],
+        "upset": 0,
+        "opening": 49,
+        "components": {
+          "probability": 0,
+          "situation": 0,
+          "pressure": 0,
+          "milestone": 0,
+          "eventShock": 0
+        }
+      }
+    },
+    "Tied end regulation": {
+      "old": {
+        "score": 58,
+        "base": 52,
+        "bonus": 6,
+        "history": 0,
+        "historyFactors": [],
+        "upset": 0,
+        "opening": 49,
+        "components": {
+          "probability": 0,
+          "situation": 6,
+          "pressure": 0,
+          "milestone": 0,
+          "eventShock": 0
+        }
+      },
+      "new": {
+        "score": 90,
+        "base": 52,
+        "bonus": 38,
+        "history": 0,
+        "historyFactors": [],
+        "upset": 0,
+        "opening": 49,
+        "components": {
+          "probability": 0,
+          "situation": 0,
+          "pressure": 0,
+          "milestone": 0,
+          "eventShock": 0
+        }
+      }
+    },
+    "Start regular-season OT": {
+      "old": {
+        "score": 64,
+        "base": 52,
+        "bonus": 12,
+        "history": 0,
+        "historyFactors": [],
+        "upset": 0,
+        "opening": 49,
+        "components": {
+          "probability": 0,
+          "situation": 12,
+          "pressure": 0,
+          "milestone": 0,
+          "eventShock": 0
+        }
+      },
+      "new": {
+        "score": 92,
+        "base": 52,
+        "bonus": 40,
+        "history": 0,
+        "historyFactors": [],
+        "upset": 0,
+        "opening": 49,
+        "components": {
+          "probability": 0,
+          "situation": 0,
+          "pressure": 0,
+          "milestone": 0,
+          "eventShock": 0
+        }
+      }
+    },
     "Regular-season OT": {
       "old": {
         "score": 64,
@@ -630,9 +732,9 @@
         }
       },
       "new": {
-        "score": 80,
+        "score": 93,
         "base": 52,
-        "bonus": 28,
+        "bonus": 41,
         "history": 0,
         "historyFactors": [],
         "upset": 0,
@@ -664,9 +766,9 @@
         }
       },
       "new": {
-        "score": 82,
+        "score": 90,
         "base": 52,
-        "bonus": 30,
+        "bonus": 38,
         "history": 0,
         "historyFactors": [],
         "upset": 0,
@@ -698,9 +800,9 @@
         }
       },
       "new": {
-        "score": 90,
+        "score": 95,
         "base": 66,
-        "bonus": 24,
+        "bonus": 29,
         "history": 0,
         "historyFactors": [],
         "upset": 0,
@@ -732,9 +834,9 @@
         }
       },
       "new": {
-        "score": 93,
+        "score": 97,
         "base": 66,
-        "bonus": 27,
+        "bonus": 31,
         "history": 0,
         "historyFactors": [],
         "upset": 0,
@@ -766,9 +868,9 @@
         }
       },
       "new": {
-        "score": 96,
+        "score": 98,
         "base": 66,
-        "bonus": 30,
+        "bonus": 32,
         "history": 0,
         "historyFactors": [],
         "upset": 0,
