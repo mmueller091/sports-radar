@@ -2654,3 +2654,168 @@ dialog,
   }
 }
 
+/* --------------------------------------------------------------------------
+   Football Game Center: Drives
+   -------------------------------------------------------------------------- */
+
+.detail-section-heading {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.detail-section-heading > span {
+  color: #78909c;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.detail-drive-list {
+  display: grid;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.detail-drive {
+  overflow: hidden;
+  border: 1px solid #243740;
+  border-radius: 10px;
+  background: #101a20;
+}
+
+.detail-drive.current {
+  border-color: #3f6d80;
+  box-shadow: inset 3px 0 0 #6ca5bb;
+}
+
+.detail-drive > summary {
+  display: grid;
+  grid-template-columns: minmax(52px,auto) minmax(0,1fr) auto;
+  gap: 8px 12px;
+  align-items: center;
+  padding: 11px 12px;
+  cursor: pointer;
+  list-style: none;
+}
+
+.detail-drive > summary::-webkit-details-marker {
+  display: none;
+}
+
+.detail-drive > summary::after {
+  content: '▾';
+  grid-column: 3;
+  grid-row: 1;
+  justify-self: end;
+  color: #78909c;
+  transition: transform .15s ease;
+}
+
+.detail-drive:not([open]) > summary::after {
+  transform: rotate(-90deg);
+}
+
+.detail-drive-team {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 42px;
+  min-height: 25px;
+  padding: 3px 7px;
+  border: 1px solid #344b56;
+  border-radius: 6px;
+  color: #d6e3e9;
+  background: #15242c;
+  font: 700 11px ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;
+  letter-spacing: .04em;
+}
+
+.detail-drive-result {
+  min-width: 0;
+  color: #edf5f8;
+  font-size: 13px;
+  font-weight: 750;
+}
+
+.detail-drive-meta {
+  grid-column: 2 / 4;
+  color: #8298a3;
+  font: 10px ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;
+}
+
+.detail-drive-body {
+  padding: 0 12px 12px;
+  border-top: 1px solid #21323b;
+}
+
+.detail-drive-live {
+  display: inline-block;
+  margin-top: 10px;
+  color: #8fc4d8;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+}
+
+.detail-drive-field {
+  margin: 9px 0 0;
+  color: #9eb0b8;
+  font: 10px ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;
+}
+
+.detail-drive-plays {
+  display: grid;
+  gap: 0;
+  margin: 9px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.detail-drive-plays li {
+  display: grid;
+  grid-template-columns: minmax(76px,auto) minmax(0,1fr);
+  gap: 12px;
+  padding: 9px 0;
+  border-top: 1px solid #1e2e36;
+}
+
+.detail-drive-plays li:first-child {
+  border-top: 0;
+}
+
+.detail-drive-plays li.scoring .detail-drive-play-text {
+  color: #f0f7fa;
+  font-weight: 700;
+}
+
+.detail-drive-play-meta {
+  color: #718a96;
+  font: 10px ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;
+  white-space: nowrap;
+}
+
+.detail-drive-play-text {
+  color: #b7c6cd;
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+@media (max-width: 600px) {
+  .detail-drive > summary {
+    grid-template-columns: auto minmax(0,1fr) auto;
+  }
+
+  .detail-drive-meta {
+    grid-column: 1 / 4;
+  }
+
+  .detail-drive-plays li {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+}
+

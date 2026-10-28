@@ -77,7 +77,7 @@ test('missing scoring and team statistics are omitted gracefully',() => {
 
 test('Game Center shell keeps excitement first-class and moves detail into sport-aware tabs',() => {
   assert.match(source,/const DETAIL_TAB_CONFIG =/);
-  assert.match(source,/NFL:\[\['overview','Overview'\],\['team-stats','Team Stats'\],\['players','Players'\],\['plays','Plays'\]\]/);
+  assert.match(source,/NFL:\[\['overview','Overview'\],\['drives','Drives'\],\['team-stats','Team Stats'\],\['players','Players'\],\['plays','Plays'\]\]/);
   assert.match(source,/NHL:\[\['overview','Overview'\],\['team-stats','Team Stats'\],\['players','Skaters'\],\['plays','Plays'\]\]/);
   assert.match(source,/NBA:\[\['overview','Overview'\],\['box-score','Box Score'\],\['team-stats','Team Stats'\],\['plays','Plays'\]\]/);
 
@@ -125,4 +125,64 @@ test('player stat tables keep every column scrollable with an accessible pinned-
   assert.match(source,/tabindex="0"/);
   assert.match(source,/role="region"/);
   assert.match(source,/horizontally scroll for more columns/);
+});
+
+test('NFL and CFB Drives tab renders current and previous drives from the existing summary payload',() => {
+  const payload = {
+    drives:{
+      current:{
+        id:'drive-2',
+        team:{abbreviation:'BAL'},
+        result:'Touchdown',
+        offensivePlays:8,
+        yards:75,
+        timeElapsed:{displayValue:'4:12'},
+        start:{text:'BAL 25'},
+        end:{text:'BUF 0'},
+        plays:[
+          {
+            period:{number:4},
+            clock:{displayValue:'1:02'},
+            start:{shortDownDistanceText:'3rd & 4'},
+            text:'Touchdown pass',
+            scoringPlay:true
+          }
+        ]
+      },
+      previous:[
+        {
+          id:'drive-1',
+          team:{abbreviation:'BUF'},
+          result:'Punt',
+          offensivePlays:3,
+          yards:4,
+          timeElapsed:{displayValue:'1:11'},
+          plays:[
+            {
+              period:{number:1},
+              clock:{displayValue:'13:45'},
+              text:'Run for 2 yards'
+            }
+          ]
+        }
+      ]
+    }
+  };
+
+  const nfl = context.detailDrives(payload,'NFL');
+  assert.match(nfl,/Drives/);
+  assert.match(nfl,/Latest first/);
+  assert.match(nfl,/Current drive/);
+  assert.match(nfl,/BAL/);
+  assert.match(nfl,/Touchdown/);
+  assert.match(nfl,/Q4 1:02/);
+  assert.match(nfl,/3rd &amp; 4|3rd & 4/);
+  assert.match(nfl,/Touchdown pass/);
+  assert.match(nfl,/BUF/);
+  assert.match(nfl,/Punt/);
+  assert.match(nfl,/Run for 2 yards/);
+
+  assert.match(context.detailDrives(payload,'CFB'),/Drives/);
+  assert.equal(context.detailDrives(payload,'NBA'),'');
+  assert.equal(context.detailDrives({},'NFL'),'');
 });

@@ -1571,6 +1571,190 @@ function detailStats(summary,sport) {
   return `<section class="detail-section detail-comparison"><h3>Team Stats</h3>${headings}${rows.join('')}${secondary.length ? `<details class="detail-more-stats"><summary>More Stats</summary>${secondary.join('')}</details>` : ''}</section>`;
 }
 
+function detailDrives(summary,sport) {
+  if (!['NFL','CFB'].includes(sport)) return '';
+
+  const previous =
+    Array.isArray(summary?.drives?.previous)
+      ? summary.drives.previous
+      : [];
+
+  const current =
+    summary?.drives?.current &&
+    typeof summary.drives.current === 'object'
+      ? summary.drives.current
+      : null;
+
+  const seen = new Set();
+  const drives = [];
+
+  const addDrive = (drive,isCurrent=false) => {
+    if (!drive || typeof drive !== 'object') return;
+
+    const id =
+      drive.id ??
+      drive.driveId ??
+      `${drive.team?.id || drive.team?.abbreviation || 'team'}:${drive.sequenceNumber ?? drives.length}`;
+
+    const key = String(id);
+    if (seen.has(key)) return;
+
+    seen.add(key);
+    drives.push({
+      ...drive,
+      _sportsRadarCurrent:isCurrent
+    });
+  };
+
+  addDrive(current,true);
+  [...previous]
+    .reverse()
+    .forEach(drive => addDrive(drive,false));
+
+  if (!drives.length) return '';
+
+  const teamLabel = drive =>
+    drive.team?.abbreviation ||
+    drive.team?.shortDisplayName ||
+    drive.team?.displayName ||
+    'Drive';
+
+  const resultLabel = drive =>
+    drive.displayResult ||
+    drive.result ||
+    drive.description ||
+    (drive.isScore ? 'Score' : 'Drive');
+
+  const fieldLabel = value => {
+    if (!value) return '';
+
+    return (
+      value.text ||
+      value.shortText ||
+      value.possessionText ||
+      value.yardLineText ||
+      (
+        value.yardLine != null &&
+        Number.isFinite(Number(value.yardLine))
+          ? `Yard ${value.yardLine}`
+          : ''
+      )
+    );
+  };
+
+  const playMeta = play => {
+    const period =
+      Number(
+        play?.period?.number ||
+        play?.period?.value ||
+        play?.period ||
+        0
+      );
+
+    const periodText =
+      period > 4
+        ? period === 5
+          ? 'OT'
+          : `${period - 4}OT`
+        : period > 0
+          ? `Q${period}`
+          : '';
+
+    const clock =
+      play?.clock?.displayValue ||
+      '';
+
+    const down =
+      play?.start?.shortDownDistanceText ||
+      play?.start?.downDistanceText ||
+      play?.downDistanceText ||
+      '';
+
+    return [
+      periodText && clock
+        ? `${periodText} ${clock}`
+        : periodText || clock,
+      down
+    ]
+      .filter(Boolean)
+      .join(' · ');
+  };
+
+  const rows =
+    drives
+      .map((drive,index) => {
+        const plays =
+          Array.isArray(drive.plays)
+            ? drive.plays
+            : [];
+
+        const count =
+          drive.offensivePlays ??
+          drive.playCount ??
+          plays.length;
+
+        const yards =
+          drive.yards ??
+          drive.netYards;
+
+        const elapsed =
+          drive.timeElapsed?.displayValue ||
+          drive.timeElapsed?.text ||
+          (
+            typeof drive.timeElapsed === 'string'
+              ? drive.timeElapsed
+              : ''
+          );
+
+        const summaryBits = [
+          Number.isFinite(Number(count))
+            ? `${count} play${Number(count) === 1 ? '' : 's'}`
+            : '',
+          yards != null && yards !== ''
+            ? `${yards} yds`
+            : '',
+          elapsed
+        ].filter(Boolean);
+
+        const start =
+          fieldLabel(drive.start);
+
+        const end =
+          fieldLabel(drive.end);
+
+        const field =
+          start && end
+            ? `${start} → ${end}`
+            : start || end;
+
+        const currentText =
+          drive._sportsRadarCurrent
+            ? '<span class="detail-drive-live">Current drive</span>'
+            : '';
+
+        const playRows =
+          plays.length
+            ? `<ol class="detail-drive-plays">${plays.map(play => {
+                const text =
+                  play.text ||
+                  play.shortText ||
+                  play.type?.text ||
+                  'Play recorded';
+
+                const meta =
+                  playMeta(play);
+
+                return `<li class="${play.scoringPlay ? 'scoring' : ''}"><span class="detail-drive-play-meta">${safeText(meta)}</span><span class="detail-drive-play-text">${safeText(text)}</span></li>`;
+              }).join('')}</ol>`
+            : '<p class="detail-empty">Play-by-play is unavailable for this drive.</p>';
+
+        return `<details class="detail-drive ${drive._sportsRadarCurrent ? 'current' : ''}" ${drive._sportsRadarCurrent || index === 0 ? 'open' : ''}><summary><span class="detail-drive-team">${safeText(teamLabel(drive))}</span><span class="detail-drive-result">${safeText(resultLabel(drive))}</span><span class="detail-drive-meta">${safeText(summaryBits.join(' · '))}</span></summary><div class="detail-drive-body">${currentText}${field ? `<p class="detail-drive-field">${safeText(field)}</p>` : ''}${playRows}</div></details>`;
+      })
+      .join('');
+
+  return `<section class="detail-section detail-drives"><div class="detail-section-heading"><h3>Drives</h3><span>Latest first</span></div><div class="detail-drive-list">${rows}</div></section>`;
+}
+
 function detailLeaders(summary) {
   const groups =
     summary?.leaders || [];
@@ -2604,8 +2788,8 @@ function storylineDetails(game) {
 }
 
 const DETAIL_TAB_CONFIG = {
-  NFL:[['overview','Overview'],['team-stats','Team Stats'],['players','Players'],['plays','Plays']],
-  CFB:[['overview','Overview'],['team-stats','Team Stats'],['players','Players'],['plays','Plays']],
+  NFL:[['overview','Overview'],['drives','Drives'],['team-stats','Team Stats'],['players','Players'],['plays','Plays']],
+  CFB:[['overview','Overview'],['drives','Drives'],['team-stats','Team Stats'],['players','Players'],['plays','Plays']],
   MLB:[['overview','Overview'],['team-stats','Team Stats'],['plays','Plays']],
   NHL:[['overview','Overview'],['team-stats','Team Stats'],['players','Skaters'],['plays','Plays']],
   NBA:[['overview','Overview'],['box-score','Box Score'],['team-stats','Team Stats'],['plays','Plays']],
@@ -2630,6 +2814,7 @@ function detailTabSections(game,summary) {
         ? overviewParts.join('')
         : '<section class="detail-section"><p class="detail-empty">No additional summary sections are available for this game yet.</p></section>'
     ],
+    ['drives',detailDrives(summary,game.sport)],
     ['team-stats',detailStats(summary,game.sport)],
     ['players',detailPlayerStats(summary,game.sport)],
     ['box-score',basketballBoxScoreMarkup(summary,game.sport)],
