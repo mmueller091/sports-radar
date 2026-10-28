@@ -23,6 +23,31 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Stamp asset revisions
+        env:
+          ASSET_REV: ${{ github.sha }}
+        run: |
+          python - <<'PY'
+          import os
+          import re
+          from pathlib import Path
+
+          path = Path("index.html")
+          text = path.read_text(encoding="utf-8")
+          revision = os.environ["ASSET_REV"]
+
+          updated, count = re.subn(
+              r'(\?rev=)[^"]+',
+              lambda match: match.group(1) + revision,
+              text,
+          )
+
+          if count == 0:
+              raise SystemExit("No revisioned frontend assets found in index.html")
+
+          path.write_text(updated, encoding="utf-8")
+          print(f"Stamped {count} asset URLs with revision {revision}")
+          PY
       - name: Configure Pages
         uses: actions/configure-pages@v5
       - name: Upload site
