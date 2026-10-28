@@ -1695,7 +1695,7 @@ function playerTable(group, columns, title) {
     group.headers ||
     [];
 
-  return `<div class="detail-player-group"><h4>${safeText(title)}</h4><div class="detail-table-scroll"><table class="detail-player-table"><thead><tr><th>Player</th>${columns.map(column =>
+  return `<div class="detail-player-group"><h4>${safeText(title)}</h4><div class="detail-table-scroll detail-player-scroll" tabindex="0" role="region" aria-label="${safeText(title)} statistics, horizontally scroll for more columns"><table class="detail-player-table"><thead><tr><th>Player</th>${columns.map(column =>
     `<th>${safeText(column.title)}</th>`
   ).join('')}</tr></thead><tbody>${athletes.map(entry =>
     `<tr><th scope="row">${safeText(athleteName(entry))}</th>${columns.map((column,index) =>

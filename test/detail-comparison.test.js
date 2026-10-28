@@ -119,3 +119,10 @@ test('Game Center refinement uses sport-correct basketball period labels and red
   assert.match(source,/detail-why-toggle/);
   assert.match(source,/textContent =\s*'Game Center'/);
 });
+
+test('player stat tables keep every column scrollable with an accessible pinned-name wrapper',() => {
+  assert.match(source,/detail-table-scroll detail-player-scroll/);
+  assert.match(source,/tabindex="0"/);
+  assert.match(source,/role="region"/);
+  assert.match(source,/horizontally scroll for more columns/);
+});
