@@ -15,7 +15,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="styles.css?rev=20261023-detail1" />
+<link rel="stylesheet" href="styles.css?rev=20261029-mobile-sports3" />
   </head>
   <body>
     <div class="app-shell">
@@ -54,7 +54,20 @@
           </div>
         </section>
 
-       <button class="sport-chip active" data-sport="all">All sports</button>
+       <button
+          class="mobile-sport-filter-toggle"
+          id="mobile-sport-filter-toggle"
+          type="button"
+          aria-expanded="false"
+          aria-controls="mobile-sport-panel"
+        >
+          <span>Sports</span>
+          <strong id="mobile-sport-filter-label">All</strong>
+          <span class="mobile-sport-filter-chevron" aria-hidden="true">⌄</span>
+        </button>
+
+        <section class="mobile-sport-panel" id="mobile-sport-panel" aria-label="Sport filters">
+          <button class="sport-chip active" data-sport="all">All sports</button>
 <button class="sport-chip fcs-toggle active" id="fcs-toggle" type="button" aria-pressed="true">FCS: On</button>
 <button class="sport-chip" data-sport="NFL">NFL</button>
 <button class="sport-chip" data-sport="MLB">MLB</button>
@@ -137,5 +150,89 @@
     <script src="alert-config.js?rev=20261021-29"></script>
     <script src="notifications.js?rev=20261021-29"></script>
     <script src="app.js?rev=20261028-detail1"></script>
+    <script>
+      (() => {
+        const toggle = document.getElementById('mobile-sport-filter-toggle');
+        const panel = document.getElementById('mobile-sport-panel');
+        const label = document.getElementById('mobile-sport-filter-label');
+
+        if (!toggle || !panel || !label) return;
+
+        const mobile = window.matchMedia('(max-width: 600px)');
+        const labels = {
+          all:'All',
+          NFL:'NFL',
+          MLB:'MLB',
+          NHL:'NHL',
+          CFB:'College Football',
+          NBA:'NBA',
+          NCAAB:'NCAAM',
+          Tennis:'Tennis',
+          Soccer:'Soccer'
+        };
+
+        function activeSport() {
+          return (
+            panel.querySelector('.sport-chip[data-sport].active')
+              ?.dataset?.sport || 'all'
+          );
+        }
+
+        function syncLabel() {
+          const sport = activeSport();
+          label.textContent = labels[sport] || sport;
+        }
+
+        function setExpanded(expanded) {
+          const next = Boolean(expanded && mobile.matches);
+
+          panel.classList.toggle('mobile-expanded',next);
+          toggle.setAttribute('aria-expanded',String(next));
+        }
+
+        toggle.addEventListener('click',() => {
+          setExpanded(
+            !panel.classList.contains('mobile-expanded')
+          );
+        });
+
+        panel.addEventListener('click',event => {
+          const chip = event.target.closest('.sport-chip[data-sport]');
+          if (!chip) return;
+
+          requestAnimationFrame(() => {
+            syncLabel();
+            setExpanded(false);
+          });
+        });
+
+        document.addEventListener('click',event => {
+          if (
+            !mobile.matches ||
+            !panel.classList.contains('mobile-expanded') ||
+            panel.contains(event.target) ||
+            toggle.contains(event.target)
+          ) {
+            return;
+          }
+
+          setExpanded(false);
+        });
+
+        window.addEventListener('hashchange',() => {
+          requestAnimationFrame(() => {
+            syncLabel();
+            setExpanded(false);
+          });
+        });
+
+        if (mobile.addEventListener) {
+          mobile.addEventListener('change',() => setExpanded(false));
+        }
+
+        syncLabel();
+        setExpanded(false);
+      })();
+    </script>
   </body>
 </html>
