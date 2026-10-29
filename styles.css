@@ -5176,16 +5176,13 @@ button.team-spotlight-card {
   .main-nav {
     height: auto;
     margin-left: auto;
-    gap: 4px;
+    gap: 2px;
   }
 
-  .main-nav .nav-link[data-page="home"] {
-    display: none;
-  }
-
+  .main-nav .nav-link[data-page="home"],
   .main-nav .nav-link[data-page="soccer"] {
     min-height: 38px;
-    padding: 0 10px;
+    padding: 0 8px;
     border-radius: 999px;
     font-size: 12px;
   }
@@ -5500,9 +5497,9 @@ button:active,
   -webkit-overflow-scrolling: touch;
 }
 
-/* Reduce repaint/layout work on long slates without changing card geometry. */
+/* Isolate card layout without clipping score explanations outside the card. */
 .game-card {
-  contain: layout paint;
+  contain: layout;
 }
 
 /* Team pages should arrive instead of abruptly replacing the radar. */
