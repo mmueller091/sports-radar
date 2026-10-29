@@ -639,3 +639,11 @@ test('Basketball Box Score hides optional raw columns when the provider does not
   assert.match(markup,/MIN/);
   assert.match(markup,/PTS/);
 });
+
+test('Global search is wired to the canonical feed and opens Game Center directly',() => {
+  assert.match(source,/function normalizeGlobalSearch\(/);
+  assert.match(source,/function globalSearchGameScore\(game,query\)/);
+  assert.match(source,/function globalSearchTeams\(\)/);
+  assert.match(source,/data-search-game/);
+  assert.match(source,/async function openGameDetails\(id,sport=null\)/);
+});

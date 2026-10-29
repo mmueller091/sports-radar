@@ -29,6 +29,10 @@
           <a class="nav-link" href="#soccer" data-page="soccer">Soccer</a>
         </nav>
         <div class="top-actions">
+          <button class="search-button" id="search-button" type="button" aria-label="Search teams and games" title="Search">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m21 21-4.35-4.35m2.35-5.65a8 8 0 1 1-16 0 8 8 0 0 1 16 0Z"></path></svg>
+            <span>Search</span>
+          </button>
           <button class="icon-button" id="refresh-button" title="Refresh games" aria-label="Refresh games">↻</button>
           <button class="install-button hidden" id="install-button">Install</button>
           <button class="profile-button" id="profile-button" aria-label="Open preferences"><span>⚙</span><b>Preferences</b></button>
@@ -69,6 +73,19 @@
 
       <footer class="footer"><div><span class="brand-mini">SPORTS RADAR</span><span>What's worth watching?</span></div><div><span class="status-dot"></span> <span id="footer-status">Loading feed</span> <span class="footer-sep">•</span> <button id="data-info">Data sources &amp; scoring</button></div></footer>
     </div>
+
+    <dialog id="search-dialog" class="search-dialog">
+      <div class="search-dialog-header">
+        <div class="search-field">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m21 21-4.35-4.35m2.35-5.65a8 8 0 1 1-16 0 8 8 0 0 1 16 0Z"></path></svg>
+          <input id="search-query" type="search" autocomplete="off" spellcheck="false" placeholder="Search teams or games" aria-label="Search teams or games" />
+          <button id="search-clear" type="button" aria-label="Clear search" hidden>×</button>
+        </div>
+        <button type="button" class="close-dialog search-close" aria-label="Close search">Close</button>
+      </div>
+      <p class="search-meta" id="search-meta">Search every game in the current feed, regardless of your active Radar filters.</p>
+      <div id="search-results" class="search-results" aria-live="polite"></div>
+    </dialog>
 
     <dialog id="preferences-dialog">
       <div class="dialog-header"><div><div class="eyebrow">SETTINGS</div><h2>Make the signal yours.</h2></div><button class="close-dialog" aria-label="Close">×</button></div>

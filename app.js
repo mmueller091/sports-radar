@@ -672,6 +672,295 @@ function knownFavoriteTeams(sport) {
   return [...unique.values()];
 }
 
+let visibleGlobalSearchTeams = [];
+
+function normalizeGlobalSearch(value) {
+  return String(value || '')
+    .normalize('NFKD')
+    .replace(/[\u0300-\u036f]/g,'')
+    .toLocaleLowerCase()
+    .replace(/[^a-z0-9]+/g,' ')
+    .trim()
+    .replace(/\s+/g,' ');
+}
+
+function globalSearchTextScore(query,text) {
+  const needle = normalizeGlobalSearch(query);
+  const haystack = normalizeGlobalSearch(text);
+
+  if (!needle || !haystack) return 0;
+  if (haystack === needle) return 1000;
+  if (haystack.startsWith(needle)) return 800;
+
+  const words = haystack.split(' ');
+  if (words.some(word => word === needle)) return 750;
+  if (words.some(word => word.startsWith(needle))) return 650;
+
+  const tokens = needle.split(' ');
+  if (tokens.every(token => haystack.includes(token))) return 450;
+
+  return 0;
+}
+
+function globalSearchGameScore(game,query) {
+  const teamValues = (game.teams || []).flatMap(team => [
+    team?.[0],
+    team?.[1],
+    team?.[7]
+  ]).filter(Boolean);
+
+  const exactTeamScore = Math.max(
+    0,
+    ...teamValues.map(value =>
+      globalSearchTextScore(query,value)
+    )
+  );
+
+  const general = [
+    game.sport,
+    labelForSport(game.sport),
+    game.division,
+    game.status,
+    game.sub,
+    game.context,
+    game.live?.phase,
+    game.live?.note,
+    teamValues.join(' ')
+  ]
+    .filter(Boolean)
+    .join(' ');
+
+  const generalScore =
+    globalSearchTextScore(query,general);
+
+  const score =
+    Math.max(exactTeamScore,generalScore);
+
+  if (!score) return 0;
+
+  return score +
+    (game.state === 'live' ? 45 : 0) +
+    (game.favorite ? 20 : 0) +
+    Math.min(19,Math.max(0,Number(game.score) || 0) / 5);
+}
+
+function globalSearchTeams() {
+  const unique = new Map();
+
+  for (const game of games) {
+    for (const team of game.teams || []) {
+      const item = {
+        sport:game.sport,
+        id:String(team?.[8] || ''),
+        name:String(team?.[0] || ''),
+        abbreviation:String(team?.[1] || ''),
+        logo:String(team?.[4] || '')
+      };
+
+      if (!item.name) continue;
+
+      const key =
+        item.id
+          ? `${item.sport}:id:${item.id}`
+          : `${item.sport}:name:${normalizeGlobalSearch(item.name)}`;
+
+      unique.set(key,item);
+    }
+  }
+
+  for (const sport of FAVORITE_SPORTS) {
+    for (const team of favoriteCatalog.get(sport) || []) {
+      const item = {
+        sport,
+        id:String(team.id || ''),
+        name:String(team.name || ''),
+        abbreviation:String(team.abbreviation || ''),
+        logo:String(team.logo || '')
+      };
+
+      if (!item.name) continue;
+
+      const key =
+        item.id
+          ? `${sport}:id:${item.id}`
+          : `${sport}:name:${normalizeGlobalSearch(item.name)}`;
+
+      if (!unique.has(key)) unique.set(key,item);
+    }
+  }
+
+  return [...unique.values()];
+}
+
+function globalSearchTeamScore(team,query) {
+  return Math.max(
+    globalSearchTextScore(query,team.name),
+    globalSearchTextScore(query,team.abbreviation),
+    globalSearchTextScore(query,`${labelForSport(team.sport)} ${team.name}`)
+  );
+}
+
+function globalSearchTeamGames(team) {
+  return games.filter(game =>
+    game.sport === team.sport &&
+    (game.teams || []).some(item => {
+      const id = String(item?.[8] || '');
+      const name = normalizeGlobalSearch(item?.[0]);
+
+      return Boolean(
+        team.id &&
+        id &&
+        String(team.id) === id
+      ) ||
+      name === normalizeGlobalSearch(team.name);
+    })
+  );
+}
+
+function globalSearchGameMeta(game) {
+  if (game.state === 'live') {
+    return [
+      labelForSport(game.sport),
+      'LIVE',
+      game.live?.phase || game.status
+    ].filter(Boolean).join(' · ');
+  }
+
+  if (game.state === 'completed') {
+    return [
+      labelForSport(game.sport),
+      game.status || 'Final'
+    ].filter(Boolean).join(' · ');
+  }
+
+  const start = new Date(game.startTime);
+  const when = Number.isFinite(start.getTime())
+    ? start.toLocaleString([],{
+        weekday:'short',
+        hour:'numeric',
+        minute:'2-digit'
+      })
+    : game.status;
+
+  return [
+    labelForSport(game.sport),
+    when
+  ].filter(Boolean).join(' · ');
+}
+
+function globalSearchGameMarkup(game) {
+  const matchup =
+    (game.teams || [])
+      .map(team => team?.[0])
+      .filter(Boolean)
+      .join(' vs ');
+
+  const scores =
+    game.state === 'upcoming'
+      ? ''
+      : (game.teams || [])
+          .map(team => team?.[2])
+          .filter(value => value !== undefined && value !== null && value !== '')
+          .join(' – ');
+
+  return `<button type="button" class="search-result search-game-result" data-search-game="${safeText(game.sport)}" data-search-game-id="${safeText(game.id)}"><span class="search-result-leading"><img src="${safeText(game.leagueLogo || LEAGUE_LOGOS[game.sport] || '')}" alt="" loading="lazy" onerror="this.style.display='none'"></span><span class="search-result-copy"><strong>${safeText(matchup || 'Game')}</strong><span>${safeText(globalSearchGameMeta(game))}${scores ? ` · ${safeText(scores)}` : ''}</span></span><span class="search-result-rating"><small>Excitement</small><b>${safeText(game.score)}</b></span></button>`;
+}
+
+function renderGlobalSearch() {
+  const input = $('#search-query');
+  const results = $('#search-results');
+  const meta = $('#search-meta');
+  const clear = $('#search-clear');
+
+  if (!input || !results || !meta || !clear) return;
+
+  const raw = input.value;
+  const query = normalizeGlobalSearch(raw);
+
+  clear.hidden = !raw;
+
+  if (query.length < 2) {
+    const topGames =
+      [...games]
+        .sort((a,b) =>
+          Number(b.state === 'live') - Number(a.state === 'live') ||
+          Number(b.score || 0) - Number(a.score || 0)
+        )
+        .slice(0,6);
+
+    meta.textContent =
+      'Search every game in the current feed, regardless of your active Radar filters.';
+
+    results.innerHTML =
+      topGames.length
+        ? `<section class="search-section"><h3>Top games right now</h3><div class="search-result-list">${topGames.map(globalSearchGameMarkup).join('')}</div></section>`
+        : '<div class="search-empty"><strong>No games loaded yet.</strong><span>Search will be available as soon as the live feed loads.</span></div>';
+
+    visibleGlobalSearchTeams = [];
+    return;
+  }
+
+  const gameMatches =
+    games
+      .map(game => ({
+        game,
+        score:globalSearchGameScore(game,query)
+      }))
+      .filter(item => item.score > 0)
+      .sort((a,b) =>
+        b.score - a.score ||
+        Number(b.game.score || 0) - Number(a.game.score || 0)
+      )
+      .slice(0,10)
+      .map(item => item.game);
+
+  visibleGlobalSearchTeams =
+    globalSearchTeams()
+      .map(team => ({
+        team,
+        score:globalSearchTeamScore(team,query)
+      }))
+      .filter(item => item.score > 0)
+      .sort((a,b) =>
+        b.score - a.score ||
+        a.team.name.localeCompare(b.team.name)
+      )
+      .slice(0,10)
+      .map(item => item.team);
+
+  const gameSection =
+    gameMatches.length
+      ? `<section class="search-section"><h3>Games</h3><div class="search-result-list">${gameMatches.map(globalSearchGameMarkup).join('')}</div></section>`
+      : '';
+
+  const teamSection =
+    visibleGlobalSearchTeams.length
+      ? `<section class="search-section"><h3>Teams</h3><div class="search-result-list">${visibleGlobalSearchTeams.map((team,index) => {
+          const currentGames = globalSearchTeamGames(team);
+          const logo = team.logo || (currentGames[0]?.teams || []).find(item =>
+            String(item?.[8] || '') === String(team.id || '') ||
+            normalizeGlobalSearch(item?.[0]) === normalizeGlobalSearch(team.name)
+          )?.[4] || '';
+
+          return `<button type="button" class="search-result search-team-result" data-search-team="${index}"><span class="search-result-leading search-team-logo">${logo ? `<img src="${safeText(logo)}" alt="" loading="lazy" onerror="this.style.display='none'">` : `<span aria-hidden="true">${safeText(iconFor(team.sport))}</span>`}</span><span class="search-result-copy"><strong>${safeText(team.name)}</strong><span>${safeText(labelForSport(team.sport))} · ${currentGames.length ? `${currentGames.length} game${currentGames.length === 1 ? '' : 's'} in current feed` : 'No game in current feed'}</span></span><span class="search-result-arrow" aria-hidden="true">›</span></button>`;
+        }).join('')}</div></section>`
+      : '';
+
+  const total =
+    gameMatches.length +
+    visibleGlobalSearchTeams.length;
+
+  meta.textContent =
+    total
+      ? `${total} result${total === 1 ? '' : 's'} for “${raw.trim()}”`
+      : `No results for “${raw.trim()}”`;
+
+  results.innerHTML =
+    gameSection || teamSection
+      ? gameSection + teamSection
+      : '<div class="search-empty"><strong>No matching games or teams.</strong><span>Try a full team name, abbreviation, sport, or matchup.</span></div>';
+}
+
 function renderFavoriteResults() {
   const sport =
     $('#favorite-sport').value;
@@ -4099,8 +4388,8 @@ function hideGameDetails() {
   detailFinalPending = false;
 }
 
-async function openGameDetails(id) {
-  const game = games.find(item => String(item.id) === String(id));
+async function openGameDetails(id,sport=null) {
+  const game = games.find(item => String(item.id) === String(id) && (!sport || item.sport === sport));
   if (!game) return;
   stopDetailRequest();
   activeDetailGame = game;
@@ -4405,6 +4694,10 @@ function render() {
     scopeGames.filter(
       isWatched
     ).length;
+
+  if ($('#search-dialog')?.open) {
+    renderGlobalSearch();
+  }
 }
 
 $$('.nav-link').forEach(
@@ -4541,6 +4834,101 @@ function wireDialog(id,opener) {
       )
     );
 }
+
+wireDialog(
+  '#search-dialog',
+  '#search-button'
+);
+
+$('#search-button')
+  .addEventListener(
+    'click',
+    () => {
+      renderGlobalSearch();
+
+      loadFavoriteCatalog()
+        .finally(() => {
+          if ($('#search-dialog')?.open) {
+            renderGlobalSearch();
+          }
+        });
+
+      requestAnimationFrame(() =>
+        $('#search-query')?.focus()
+      );
+    }
+  );
+
+$('#search-query')
+  .addEventListener(
+    'input',
+    renderGlobalSearch
+  );
+
+$('#search-clear')
+  .addEventListener(
+    'click',
+    () => {
+      $('#search-query').value = '';
+      renderGlobalSearch();
+      $('#search-query').focus();
+    }
+  );
+
+$('#search-results')
+  .addEventListener(
+    'click',
+    event => {
+      const gameButton =
+        event.target.closest('[data-search-game]');
+
+      if (gameButton) {
+        const sport = gameButton.dataset.searchGame;
+        const id = gameButton.dataset.searchGameId;
+
+        hideDialog($('#search-dialog'));
+        openGameDetails(id,sport);
+        return;
+      }
+
+      const teamButton =
+        event.target.closest('[data-search-team]');
+
+      if (!teamButton) return;
+
+      const team =
+        visibleGlobalSearchTeams[
+          Number(teamButton.dataset.searchTeam)
+        ];
+
+      if (!team) return;
+
+      const matching =
+        globalSearchTeamGames(team)
+          .sort(compareGames);
+
+      if (matching.length === 1) {
+        hideDialog($('#search-dialog'));
+        openGameDetails(
+          matching[0].id,
+          matching[0].sport
+        );
+        return;
+      }
+
+      $('#search-query').value =
+        team.name;
+
+      renderGlobalSearch();
+
+      $('#search-meta').textContent =
+        matching.length
+          ? `${matching.length} current-feed games for ${team.name}`
+          : `No current-feed game for ${team.name}. Team pages can use this same search result later.`;
+
+      $('#search-query').focus();
+    }
+  );
 
 wireDialog(
   '#preferences-dialog',
