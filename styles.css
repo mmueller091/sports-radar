@@ -4596,3 +4596,548 @@ button.team-spotlight-card {
     font-size: clamp(24px,8vw,34px);
   }
 }
+
+
+/* TEAM PAGE V3: STANDINGS + TEAM NAVIGATION */
+.detail-team-link {
+  width: 100%;
+  margin: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  appearance: none;
+}
+
+.detail-team-link:hover,
+.detail-team-link:focus-visible {
+  background: rgba(155,217,200,.06);
+  outline: 1px solid rgba(155,217,200,.28);
+  outline-offset: 3px;
+}
+
+.detail-team-link:hover .detail-team-copy strong,
+.detail-team-link:focus-visible .detail-team-copy strong {
+  color: var(--md-on-primary-container, #c9f4e8);
+}
+
+.team-standings-section {
+  display: grid;
+  gap: 18px;
+}
+
+.team-standing-summary {
+  display: grid;
+  grid-template-columns: repeat(2,minmax(0,1fr));
+  gap: 12px;
+}
+
+.team-standing-card {
+  display: grid;
+  gap: 5px;
+  min-height: 112px;
+  padding: 18px 20px;
+  border: 1px solid var(--md-outline-soft, rgba(159,181,191,.16));
+  border-radius: var(--md-radius-lg, 20px);
+  background: var(--md-surface-2, #151f24);
+}
+
+.team-standing-card.playoff {
+  border-color: rgba(155,217,200,.26);
+  background: linear-gradient(145deg,rgba(25,59,52,.62),var(--md-surface-2,#151f24));
+}
+
+.team-standing-card small,
+.team-standing-head,
+.team-standing-row small {
+  color: var(--md-text-3, #8fa1aa);
+  font: 600 10px 'DM Mono', monospace;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.team-standing-card strong {
+  color: var(--md-text, #edf3f5);
+  font-size: 20px;
+}
+
+.team-standing-card span {
+  color: var(--md-text-2, #bac8ce);
+  font-size: 13px;
+}
+
+.team-standing-table {
+  overflow: hidden;
+  border: 1px solid var(--md-outline-soft, rgba(159,181,191,.16));
+  border-radius: var(--md-radius-lg, 20px);
+  background: var(--md-surface-2, #151f24);
+}
+
+.team-standing-head,
+.team-standing-row {
+  display: grid;
+  grid-template-columns: 58px minmax(0,1fr) 105px 82px;
+  align-items: center;
+  gap: 12px;
+  min-height: 64px;
+  padding: 10px 18px;
+}
+
+.team-standing-head {
+  min-height: 42px;
+  border-bottom: 1px solid var(--md-outline-soft, rgba(159,181,191,.16));
+}
+
+.team-standing-row {
+  width: 100%;
+  border: 0;
+  border-bottom: 1px solid rgba(159,181,191,.09);
+  background: transparent;
+  color: var(--md-text, #edf3f5);
+  font: inherit;
+  text-align: left;
+}
+
+.team-standing-row:last-child {
+  border-bottom: 0;
+}
+
+.team-standing-row.is-clickable {
+  cursor: pointer;
+}
+
+.team-standing-row.is-clickable:hover,
+.team-standing-row.is-clickable:focus-visible {
+  background: rgba(155,217,200,.055);
+  outline: none;
+}
+
+.team-standing-row.current {
+  background: rgba(155,217,200,.09);
+  box-shadow: inset 3px 0 0 var(--md-primary, #83d7c1);
+}
+
+.team-standing-rank {
+  display: grid;
+  gap: 2px;
+  color: var(--md-text-2, #bac8ce);
+  font: 700 16px 'DM Mono', monospace;
+}
+
+.team-standing-rank small {
+  color: var(--md-primary, #83d7c1);
+  font-size: 8px;
+}
+
+.team-standing-team {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  gap: 11px;
+}
+
+.team-standing-team img {
+  width: 34px;
+  height: 34px;
+  object-fit: contain;
+  flex: 0 0 34px;
+}
+
+.team-standing-team > span {
+  display: grid;
+  min-width: 0;
+  gap: 2px;
+}
+
+.team-standing-team strong {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.team-standing-record,
+.team-standing-extra {
+  display: grid;
+  justify-items: end;
+  gap: 2px;
+}
+
+.team-standing-record strong,
+.team-standing-extra strong {
+  color: var(--md-text, #edf3f5);
+  font: 700 16px 'DM Mono', monospace;
+}
+
+@media (max-width: 760px) {
+  .team-standing-summary {
+    grid-template-columns: 1fr;
+  }
+
+  .team-standing-head,
+  .team-standing-row {
+    grid-template-columns: 42px minmax(0,1fr) 72px 56px;
+    gap: 8px;
+    padding-inline: 12px;
+  }
+
+  .team-standing-team img {
+    width: 28px;
+    height: 28px;
+    flex-basis: 28px;
+  }
+}
+.team-playoff-picture {
+  display: grid;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.team-playoff-table {
+  overflow: hidden;
+  border: 1px solid var(--md-outline-soft, rgba(159,181,191,.16));
+  border-radius: var(--md-radius-lg, 20px);
+  background: var(--md-surface-2, #151f24);
+}
+
+.team-playoff-head,
+.team-playoff-row {
+  display: grid;
+  grid-template-columns: 64px minmax(0,1fr) 105px 132px;
+  align-items: center;
+  gap: 12px;
+  min-height: 62px;
+  padding: 9px 18px;
+}
+
+.team-playoff-head {
+  min-height: 42px;
+  border-bottom: 1px solid var(--md-outline-soft, rgba(159,181,191,.16));
+  color: var(--md-text-3, #8fa1aa);
+  font: 600 10px 'DM Mono', monospace;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.team-playoff-row {
+  width: 100%;
+  border: 0;
+  border-bottom: 1px solid rgba(159,181,191,.09);
+  background: transparent;
+  color: var(--md-text, #edf3f5);
+  font: inherit;
+  text-align: left;
+}
+
+.team-playoff-row.is-clickable {
+  cursor: pointer;
+}
+
+.team-playoff-row.is-clickable:hover,
+.team-playoff-row.is-clickable:focus-visible {
+  background: rgba(155,217,200,.055);
+  outline: none;
+}
+
+.team-playoff-row.current {
+  background: rgba(155,217,200,.11);
+  box-shadow: inset 4px 0 0 var(--md-primary, #83d7c1);
+}
+
+.team-playoff-row.in-field:not(.current) {
+  background: rgba(155,217,200,.025);
+}
+
+.team-playoff-seed {
+  color: var(--md-text, #edf3f5);
+  font: 800 18px 'DM Mono', monospace;
+}
+
+.team-playoff-status {
+  justify-self: end;
+  color: var(--md-text-2, #bac8ce);
+  font: 600 11px 'DM Mono', monospace;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+}
+
+.team-playoff-row.current .team-playoff-status,
+.team-playoff-row.current .team-playoff-seed {
+  color: var(--md-primary, #83d7c1);
+}
+
+.team-playoff-band {
+  padding: 7px 18px;
+  border-bottom: 1px solid rgba(159,181,191,.09);
+  background: rgba(159,181,191,.035);
+  color: var(--md-text-3, #8fa1aa);
+  font: 700 9px 'DM Mono', monospace;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+.team-playoff-band.wildcard {
+  background: rgba(155,217,200,.035);
+}
+
+.team-playoff-band.outside {
+  border-top: 2px solid rgba(155,217,200,.24);
+  background: rgba(159,181,191,.02);
+}
+
+@media (max-width: 760px) {
+  .team-playoff-head,
+  .team-playoff-row {
+    grid-template-columns: 44px minmax(0,1fr) 72px;
+    gap: 8px;
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .team-playoff-head > :last-child,
+  .team-playoff-row > :last-child {
+    display: none;
+  }
+
+  .team-playoff-row .team-standing-team img {
+    width: 28px;
+    height: 28px;
+    flex-basis: 28px;
+  }
+}
+/* TEAM STANDINGS V4: HERO SEMANTICS + NHL PLAYOFF FORMAT */
+.team-standing-row.division-qualifier:not(.current) {
+  background: rgba(155,217,200,.025);
+}
+
+.team-standing-row.division-cutoff {
+  border-bottom: 2px solid rgba(155,217,200,.28);
+}
+
+.nhl-playoff-picture .team-playoff-seed {
+  font-size: 14px;
+  letter-spacing: .04em;
+}
+
+.nhl-playoff-picture .team-playoff-row.current {
+  background: rgba(155,217,200,.12);
+}
+/* TEAM LOGO CONTRAST SYSTEM
+   Official colors stay untouched. Transparent/dark marks sit on a neutral
+   light plate so navy/black linework remains legible on Sports Radar. */
+.team-hero-logo {
+  background: rgba(255,255,255,.055);
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,.075),
+    0 1px 2px rgba(0,0,0,.16);
+}
+
+.team-hero-logo img,
+.team-standing-team img,
+.team-spotlight-matchup img,
+.team-schedule-opponent img,
+.search-team-logo img,
+.favorite-result img,
+.detail-team img,
+.team-name .team-logo {
+  object-fit: contain;
+  background: rgba(238,242,244,.88);
+  box-shadow:
+    inset 0 0 0 1px rgba(15,26,31,.10),
+    0 1px 2px rgba(0,0,0,.20);
+  filter: drop-shadow(0 1px 1px rgba(0,0,0,.18));
+}
+
+.team-standing-team img,
+.team-spotlight-matchup img,
+.team-schedule-opponent img,
+.search-team-logo img,
+.favorite-result img,
+.detail-team img,
+.team-name .team-logo {
+  border-radius: 8px;
+  padding: 3px;
+}
+
+/* Hero logos get the strongest contrast treatment. */
+.team-hero-logo img {
+  border-radius: 12px;
+  padding: 10px;
+  background: rgba(238,242,244,.94);
+  box-shadow:
+    inset 0 0 0 1px rgba(15,26,31,.12),
+    0 2px 5px rgba(0,0,0,.16);
+  filter: none;
+}
+
+/* Tiny marks need a light plate because dark fine linework disappears first. */
+.team-standing-team img,
+.team-name .team-logo {
+  background: rgba(238,242,244,.92);
+}
+
+/* Preserve the selected-team accent without reducing logo contrast. */
+.team-standing-row.current .team-standing-team img,
+.team-playoff-row.current .team-standing-team img {
+  box-shadow:
+    inset 0 0 0 1px rgba(15,26,31,.12),
+    0 0 0 2px rgba(131,215,193,.18);
+}
+/* Large hero marks get a softer plate instead of looking boxed-in. */
+.team-hero-logo img {
+  border-radius: 12px;
+  background: rgba(255,255,255,.035);
+  box-shadow: none;
+}
+
+/* Tiny marks need slightly more separation because fine dark linework disappears first. */
+.team-standing-team img,
+.team-name .team-logo {
+  background: rgba(255,255,255,.095);
+}
+
+/* Preserve the current-team highlight as the strongest visual signal. */
+.team-standing-row.current .team-standing-team img,
+.team-playoff-row.current .team-standing-team img {
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,.095),
+    0 0 0 1px rgba(131,215,193,.10);
+}
+/* TEAM LOGO CONTRAST SURFACE FIX
+   Game Center already reads well. Force the same neutral plate on the
+   team-page hero and home-page game-card team logos only. */
+
+/* Team page hero: make the entire visible logo well light, not just the image box. */
+.team-hero-logo {
+  background: rgba(238,242,244,.94) !important;
+  border-color: rgba(15,26,31,.16) !important;
+  box-shadow:
+    inset 0 0 0 1px rgba(15,26,31,.10),
+    0 2px 6px rgba(0,0,0,.20) !important;
+}
+
+.team-hero-logo img {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  padding: 14px !important;
+  background: transparent !important;
+  border-radius: inherit;
+  filter: none !important;
+}
+
+/* Home-page game cards: the visible logo square itself must be light. */
+.game-card .team-logo {
+  box-sizing: border-box;
+  padding: 4px !important;
+  background: rgba(238,242,244,.94) !important;
+  border: 1px solid rgba(15,26,31,.12) !important;
+  border-radius: 9px !important;
+  box-shadow:
+    0 1px 2px rgba(0,0,0,.22) !important;
+  filter: none !important;
+}
+
+/* Keep league logos untouched. */
+.game-card .league-logo {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+}
+/* TEAM LOGO POLISHED HALO SYSTEM
+   Remove sticker-like light boxes. Keep transparent official marks and use
+   a soft neutral halo plus a pixel-following light edge for dark artwork. */
+
+/* Shared transparent logo treatment */
+.team-hero-logo img,
+.team-standing-team img,
+.team-spotlight-matchup img,
+.team-schedule-opponent img,
+.search-team-logo img,
+.favorite-result img,
+.detail-team img,
+.team-name .team-logo,
+.game-card .team-logo {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  object-fit: contain;
+  filter:
+    drop-shadow(0 0 .65px rgba(239,246,248,.95))
+    drop-shadow(0 0 1.6px rgba(239,246,248,.42))
+    drop-shadow(0 1px 1px rgba(0,0,0,.30)) !important;
+}
+
+/* Hero: soft circular light behind the mark, no visible tile edges. */
+.team-hero-logo {
+  background:
+    radial-gradient(
+      circle at center,
+      rgba(235,242,245,.18) 0%,
+      rgba(235,242,245,.11) 42%,
+      rgba(235,242,245,.045) 63%,
+      transparent 76%
+    ) !important;
+  border-color: rgba(159,181,191,.13) !important;
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,.025),
+    0 2px 6px rgba(0,0,0,.16) !important;
+}
+
+.team-hero-logo img {
+  width: 78% !important;
+  height: 78% !important;
+  margin: 11% !important;
+  border-radius: 0 !important;
+}
+
+/* Small marks: localized halo follows the logo footprint rather than a square card. */
+.team-standing-team img,
+.team-spotlight-matchup img,
+.team-schedule-opponent img,
+.search-team-logo img,
+.favorite-result img,
+.detail-team img,
+.team-name .team-logo,
+.game-card .team-logo {
+  border-radius: 0 !important;
+  background-image:
+    radial-gradient(
+      circle at center,
+      rgba(235,242,245,.16) 0%,
+      rgba(235,242,245,.075) 48%,
+      transparent 74%
+    ) !important;
+}
+
+/* Home cards need a slightly stronger edge because marks are only ~32px. */
+.game-card .team-logo {
+  filter:
+    drop-shadow(0 0 .7px rgba(244,249,250,1))
+    drop-shadow(0 0 1.7px rgba(244,249,250,.52))
+    drop-shadow(0 1px 1px rgba(0,0,0,.32)) !important;
+}
+
+/* Game Center already looked good; keep its treatment restrained. */
+.detail-team img {
+  background-image:
+    radial-gradient(
+      circle at center,
+      rgba(235,242,245,.10) 0%,
+      rgba(235,242,245,.04) 50%,
+      transparent 74%
+    ) !important;
+}
+
+/* League logos are intentionally excluded from the team-logo treatment. */
+.game-card .league-logo {
+  background: transparent !important;
+  background-image: none !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  filter: none !important;
+}

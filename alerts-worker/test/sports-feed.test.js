@@ -6,8 +6,8 @@ import {gunzipSync} from 'node:zlib';
 import vm from 'node:vm';
 import sourceHelper from '../../test/helpers/scoring-source.cjs';
 import worker,{checkGames} from '../src/index.js';
-import {refreshSportsData,readFeed,gameDetails,teamDetails,refreshDue,normalizeTeamSchedule,normalizeTeamLeaders} from '../src/sports-feed.js';
-import {coreTeamProfileUrl,teamLeadersUrl} from '../src/providers/espn.js';
+import {refreshSportsData,readFeed,gameDetails,teamDetails,teamStandings,refreshDue,normalizeTeamSchedule,normalizeTeamLeaders,normalizeTeamStandings} from '../src/sports-feed.js';
+import {coreTeamProfileUrl,teamLeadersUrl,standingsUrl} from '../src/providers/espn.js';
 import {normalizeEvent,enrichGame} from '../src/game-model.js';
 import {baseballSituation,footballSituation} from '../src/display-model.js';
 
@@ -696,4 +696,215 @@ test('partial provider categories never substitute unrelated stats for the reque
   assert.deepEqual(normalizeTeamLeaders(fixture.fallback.payload,'NFL').map(l => l.category),['Passing Yards','Rushing Yards','Receiving Yards']);
   assert.equal(teamLeadersUrl('NFL','33',2026),fixture.fallback.url);
   assert.equal(teamLeadersUrl('Tennis','1',2026),null);
+});
+
+
+test('team standings normalize division rank and NFL wildcard position',() => {
+  const payload = {
+    season:{year:2026},
+    children:[{
+      name:'AFC North',
+      abbreviation:'AFCN',
+      standings:{entries:[
+        {team:{id:'4',displayName:'Cincinnati Bengals',abbreviation:'CIN'},stats:[
+          {name:'wins',value:5,displayValue:'5'},
+          {name:'losses',value:2,displayValue:'2'},
+          {name:'divisionRank',value:1,displayValue:'1'},
+          {name:'playoffSeed',value:3,displayValue:'3'},
+          {name:'winPercent',value:.714,displayValue:'.714'}
+        ]},
+        {team:{id:'33',displayName:'Baltimore Ravens',abbreviation:'BAL'},stats:[
+          {name:'wins',value:4,displayValue:'4'},
+          {name:'losses',value:3,displayValue:'3'},
+          {name:'divisionRank',value:3,displayValue:'3'},
+          {name:'playoffSeed',value:6,displayValue:'6'},
+          {name:'conferenceRank',value:6,displayValue:'6'},
+          {name:'winPercent',value:.571,displayValue:'.571'},
+          {name:'divisionRecord',displayValue:'2-1'}
+        ]},
+        {team:{id:'23',displayName:'Pittsburgh Steelers',abbreviation:'PIT'},stats:[
+          {name:'wins',value:4,displayValue:'4'},
+          {name:'losses',value:3,displayValue:'3'},
+          {name:'divisionRank',value:2,displayValue:'2'},
+          {name:'playoffSeed',value:5,displayValue:'5'}
+        ]}
+      ]}
+    }]
+  };
+
+  const result = normalizeTeamStandings(payload,'NFL','33',2026);
+  assert.equal(result.available,true);
+  assert.equal(result.group.name,'AFC North');
+  assert.equal(result.team.rank,3);
+  assert.equal(result.team.record,'4-3');
+  assert.equal(result.playoff.label,'Wild Card');
+  assert.equal(result.playoff.seed,6);
+  assert.deepEqual(result.group.entries.map(row => row.id),['4','23','33']);
+});
+
+
+test('NFL standings retain the full conference playoff picture around the selected division',() => {
+  const makeEntry = (id,name,seed,record) => ({
+    team:{id:String(id),displayName:name,abbreviation:name.slice(0,3).toUpperCase()},
+    stats:[
+      {name:'overall',displayValue:record},
+      {name:'playoffSeed',value:seed,displayValue:String(seed)}
+    ]
+  });
+
+  const divisions = [
+    ['AFC North',[
+      makeEntry(33,'Baltimore Ravens',9,'4-3'),
+      makeEntry(23,'Pittsburgh Steelers',6,'5-2')
+    ]],
+    ['AFC East',[
+      makeEntry(2,'Buffalo Bills',1,'6-1'),
+      makeEntry(15,'Miami Dolphins',8,'4-3')
+    ]],
+    ['AFC South',[
+      makeEntry(11,'Indianapolis Colts',4,'5-2'),
+      makeEntry(30,'Jacksonville Jaguars',5,'5-2')
+    ]],
+    ['AFC West',[
+      makeEntry(12,'Kansas City Chiefs',2,'6-1'),
+      makeEntry(7,'Denver Broncos',3,'6-1'),
+      makeEntry(24,'Las Vegas Raiders',7,'4-3'),
+      makeEntry(18,'Los Angeles Chargers',10,'3-4')
+    ]],
+    ['NFC North',[
+      makeEntry(8,'Detroit Lions',1,'6-1')
+    ]]
+  ];
+
+  const payload = {
+    children:divisions.map(([name,entries]) => ({
+      name,
+      standings:{entries}
+    }))
+  };
+
+  const result = normalizeTeamStandings(payload,'NFL','33',2026);
+  assert.equal(result.group.name,'AFC North');
+  assert.equal(result.team.playoffSeed,9);
+  assert.equal(result.playoffField.name,'AFC Playoff Picture');
+  assert.equal(result.playoffField.cutoff,7);
+  assert.deepEqual(
+    result.playoffField.entries.map(row => row.playoffSeed),
+    [1,2,3,4,5,6,7,8,9,10]
+  );
+  assert.ok(result.playoffField.entries.every(row => row.divisionName.startsWith('AFC ')));
+  assert.equal(result.playoffField.entries.find(row => row.id === '33').divisionName,'AFC North');
+  assert.equal(result.playoffField.entries.some(row => row.name === 'Detroit Lions'),false);
+});
+
+
+test('NHL standings model top three per division plus two conference wild cards',() => {
+  const makeEntry = (id,name,record,points,divisionRank,playoffSeed,wildCardRank=null) => ({
+    team:{
+      id:String(id),
+      displayName:name,
+      abbreviation:name.split(' ').map(word => word[0]).join('').slice(0,3).toUpperCase()
+    },
+    stats:[
+      {name:'overall',displayValue:record},
+      {name:'points',value:points,displayValue:String(points)},
+      {name:'gamesPlayed',value:8,displayValue:'8'},
+      {name:'divisionRank',value:divisionRank,displayValue:String(divisionRank)},
+      {name:'playoffSeed',value:playoffSeed,displayValue:String(playoffSeed)},
+      ...(wildCardRank === null ? [] : [
+        {name:'wildCardRank',value:wildCardRank,displayValue:String(wildCardRank)}
+      ])
+    ]
+  });
+
+  const payload = {
+    children:[
+      {
+        name:'Metropolitan Division',
+        standings:{entries:[
+          makeEntry(1,'New York Rangers','6-1-1',13,1,1),
+          makeEntry(2,'Carolina Hurricanes','6-2-0',12,2,3),
+          makeEntry(3,'New Jersey Devils','5-2-1',11,3,5),
+          makeEntry(23,'Washington Capitals','5-3-0',10,4,8,2),
+          makeEntry(5,'Columbus Blue Jackets','3-4-1',7,5,11,5)
+        ]}
+      },
+      {
+        name:'Atlantic Division',
+        standings:{entries:[
+          makeEntry(6,'Toronto Maple Leafs','7-1-0',14,1,2),
+          makeEntry(7,'Florida Panthers','6-2-0',12,2,4),
+          makeEntry(8,'Tampa Bay Lightning','5-2-1',11,3,6),
+          makeEntry(9,'Boston Bruins','5-2-1',11,4,7,1),
+          makeEntry(10,'Ottawa Senators','4-3-1',9,5,9,3)
+        ]}
+      },
+      {
+        name:'Central Division',
+        standings:{entries:[
+          makeEntry(11,'Colorado Avalanche','7-1-0',14,1,1)
+        ]}
+      }
+    ]
+  };
+
+  const result = normalizeTeamStandings(payload,'NHL','23',2026);
+
+  assert.equal(result.group.name,'Metropolitan Division');
+  assert.equal(result.team.rank,4);
+  assert.equal(result.playoffField.type,'nhl');
+  assert.equal(result.playoffField.conference,'Eastern');
+  assert.equal(result.playoffField.divisionCutoff,3);
+  assert.deepEqual(
+    result.playoffField.wildCards.slice(0,3).map(row => [
+      row.name,
+      row.wildCardSlot,
+      row.wildCardOrder
+    ]),
+    [
+      ['Boston Bruins',1,1],
+      ['Washington Capitals',2,2],
+      ['Ottawa Senators',null,3]
+    ]
+  );
+  assert.equal(
+    result.playoffField.wildCards.some(row => row.name === 'Colorado Avalanche'),
+    false
+  );
+});
+
+test('standings endpoint is division-scoped, demand cached and non-scoring',async t => {
+  const env = database();
+  t.after(() => env.db.close());
+  const originalFetch = globalThis.fetch;
+  const calls = [];
+  const payload = {
+    children:[{
+      name:'AFC North',
+      standings:{entries:[
+        {team:{id:'33',displayName:'Baltimore Ravens',abbreviation:'BAL'},stats:[
+          {name:'wins',value:4,displayValue:'4'},
+          {name:'losses',value:3,displayValue:'3'},
+          {name:'divisionRank',value:3,displayValue:'3'},
+          {name:'playoffSeed',value:6,displayValue:'6'}
+        ]}
+      ]}
+    }]
+  };
+  globalThis.fetch = async (input,options) => {
+    calls.push({url:String(input),options});
+    return Response.json(payload);
+  };
+  t.after(() => { globalThis.fetch = originalFetch; });
+
+  const now = Date.parse('2026-10-29T14:00:00Z');
+  const first = await teamStandings(env,'NFL','33',now);
+  const second = await teamStandings(env,'NFL','33',now + 60_000);
+  assert.equal(first.team.id,'33');
+  assert.equal(second.team.id,'33');
+  assert.equal(calls.length,1);
+  assert.equal(calls[0].url,standingsUrl('NFL',2026));
+  assert.equal(calls[0].options.cf.cacheTtl,15*60);
+  assert.match(calls[0].url,/level=3/);
+  assert.match(calls[0].url,/seasontype=2/);
 });

@@ -26,6 +26,9 @@ let games = [];
 const teamPageData = new Map();
 const teamPageRequests = new Map();
 const teamPageErrors = new Map();
+const teamStandingsData = new Map();
+const teamStandingsRequests = new Map();
+const teamStandingsErrors = new Map();
 let teamPageTab = 'overview';
 let activeTeamPageKey = '';
 
@@ -249,6 +252,11 @@ function teamDetailsUrlFor(team) {
     ).replace(/\/$/,'');
 
   return `${base}/team/${encodeURIComponent(team.sport)}/${encodeURIComponent(team.id)}`;
+}
+
+function teamStandingsUrlFor(team) {
+  const base = String(globalThis.SPORTS_RADAR_ALERTS_URL || '').replace(/\/$/,'');
+  return `${base}/team/${encodeURIComponent(team.sport)}/${encodeURIComponent(team.id)}/standings`;
 }
 
 const {
@@ -967,6 +975,109 @@ function teamPageLogo(team,teamGames,data) {
   return '';
 }
 
+
+function compactTeamStanding(value) {
+  return String(value || '')
+    .replace(/American Football Conference/g,'AFC')
+    .replace(/National Football Conference/g,'NFC')
+    .replace(/American League/g,'AL')
+    .replace(/National League/g,'NL');
+}
+
+
+function teamUiOrdinal(value) {
+  const number = Number(value);
+  if (!Number.isInteger(number) || number < 1) return '';
+  const mod100 = number % 100;
+  const suffix =
+    mod100 >= 11 && mod100 <= 13
+      ? 'th'
+      : number % 10 === 1
+        ? 'st'
+        : number % 10 === 2
+          ? 'nd'
+          : number % 10 === 3
+            ? 'rd'
+            : 'th';
+  return `${number}${suffix}`;
+}
+
+function teamStandingConference(value) {
+  const match = String(value || '').match(/\b(AFC|NFC)\b/);
+  return match ? match[1] : '';
+}
+
+function teamHeroStat(value,label) {
+  if (!value) return '';
+  return `<span><strong>${safeText(value)}</strong><small>${safeText(label)}</small></span>`;
+}
+
+function teamHeroStandings(team,conferenceStanding) {
+  const standings = teamStandingsData.get(teamDataKey(team));
+  const row = standings?.team;
+  const group = standings?.group;
+
+  if (team.sport === 'NFL') {
+    const conference = teamStandingConference(conferenceStanding);
+    const divisionRank = Number(row?.rank ?? row?.divisionRank);
+    const playoffSeed = Number(row?.playoffSeed);
+    const divisionValue =
+      Number.isFinite(divisionRank) && group?.name
+        ? `${teamUiOrdinal(divisionRank)} in ${group.name}`
+        : '';
+
+    const primary =
+      divisionRank === 1 && Number.isFinite(playoffSeed)
+        ? teamHeroStat(`No. ${playoffSeed} seed`,'Playoff Seed')
+        : teamHeroStat(
+            conferenceStanding,
+            conference ? `${conference} Standing` : 'Conference Standing'
+          );
+
+    return primary + teamHeroStat(divisionValue,'Division Standing');
+  }
+
+  if (team.sport === 'NHL' && row) {
+    const divisionRank = Number(row.rank ?? row.divisionRank);
+    const divisionValue =
+      Number.isFinite(divisionRank) && group?.name
+        ? `${teamUiOrdinal(divisionRank)} in ${group.name.replace(/ Division$/i,'')}`
+        : '';
+
+    const wildCards = standings?.playoffField?.wildCards || [];
+    const wildCard = wildCards.find(item =>
+      String(item.id) === String(team.id)
+    );
+
+    let playoffValue = '';
+    if (Number.isFinite(divisionRank) && divisionRank <= 3) {
+      playoffValue = 'Division qualifier';
+    } else if (wildCard?.wildCardSlot) {
+      playoffValue = `WC${wildCard.wildCardSlot}`;
+    } else if (wildCard) {
+      playoffValue = wildCard.wildCardOrder === 3
+        ? 'First team out'
+        : 'Outside playoff field';
+    }
+
+    return (
+      teamHeroStat(divisionValue,'Division Standing') +
+      teamHeroStat(playoffValue,'Playoff Position')
+    );
+  }
+
+  if (!conferenceStanding) return '';
+
+  const label =
+    team.sport === 'MLB' && /\b(AL|NL)\b/.test(conferenceStanding)
+      ? `${conferenceStanding.match(/\b(AL|NL)\b/)?.[1] || ''} Standing`
+      : ['NBA','NCAAB'].includes(team.sport)
+        ? 'Conference Standing'
+        : 'League Standing';
+
+  return teamHeroStat(conferenceStanding,label);
+}
+
 function sameTeamRoute(team) {
   return Boolean(
     state.page === 'team' &&
@@ -1043,6 +1154,50 @@ function loadTeamPageData(team,{force=false}={}) {
     request
   );
 
+  return request;
+}
+
+
+function loadTeamStandings(team,{force=false}={}) {
+  if (!team?.sport || !team?.id) return Promise.resolve(null);
+
+  const key = teamDataKey(team);
+  if (!force && teamStandingsData.has(key)) {
+    return Promise.resolve(teamStandingsData.get(key));
+  }
+  if (teamStandingsRequests.has(key)) {
+    return teamStandingsRequests.get(key);
+  }
+
+  teamStandingsErrors.delete(key);
+
+  const request = fetch(
+    teamStandingsUrlFor(team),
+    {cache:'no-store'}
+  )
+    .then(async response => {
+      const payload = await response.json();
+      if (!response.ok) {
+        throw new Error(payload?.error || `Standings HTTP ${response.status}`);
+      }
+      teamStandingsData.set(key,payload);
+      return payload;
+    })
+    .catch(error => {
+      teamStandingsErrors.set(
+        key,
+        String(error?.message || error || 'Standings unavailable')
+      );
+      return null;
+    })
+    .finally(() => {
+      teamStandingsRequests.delete(key);
+      if (sameTeamRoute(team)) {
+        renderTeamPage();
+      }
+    });
+
+  teamStandingsRequests.set(key,request);
   return request;
 }
 
@@ -1597,8 +1752,163 @@ function teamScheduleMarkup(schedule,team) {
   return `<section class="team-schedule-section"><div class="team-section-heading"><div><span class="eyebrow">Season</span><h2>Full Schedule</h2></div><span>${safeText(schedule.length)} games</span></div><div class="team-schedule-groups">${[...groups.entries()].map(([label,rows]) => `<section class="team-schedule-month"><h3>${safeText(label)}</h3><div class="team-schedule-list">${rows.map(row => teamScheduleRowMarkup(row,team)).join('')}</div></section>`).join('')}</div></section>`;
 }
 
+
+
+function teamStandingExtra(row,sport) {
+  if (sport === 'NHL' || sport === 'Soccer') {
+    return {label:'PTS',value:row.points || '—'};
+  }
+  if (['MLB','NBA','NCAAB'].includes(sport)) {
+    return {label:'GB',value:row.gamesBehind || '—'};
+  }
+  return {label:'PCT',value:row.winPercent || '—'};
+}
+
+function teamStandingRowMarkup(row,team) {
+  const extra = teamStandingExtra(row,team.sport);
+  const current = String(row.id) === String(team.id);
+  const clickable = Boolean(row.id);
+  const divisionQualifier =
+    team.sport === 'NHL' &&
+    Number(row.rank) >= 1 &&
+    Number(row.rank) <= 3;
+  const divisionCutoff =
+    team.sport === 'NHL' &&
+    Number(row.rank) === 3;
+  const tag = clickable ? 'button' : 'div';
+  const attrs = clickable
+    ? ` type="button" data-standing-team="${safeText(row.id)}" data-standing-name="${safeText(row.name || '')}" data-standing-abbreviation="${safeText(row.abbreviation || '')}" data-standing-logo="${safeText(row.logo || '')}"`
+    : '';
+
+  return `<${tag} class="team-standing-row ${current ? 'current' : ''} ${clickable ? 'is-clickable' : ''} ${divisionQualifier ? 'division-qualifier' : ''} ${divisionCutoff ? 'division-cutoff' : ''}"${attrs}><span class="team-standing-rank">${safeText(row.rank || '—')}</span><span class="team-standing-team">${row.logo ? `<img src="${safeText(row.logo)}" alt="" loading="lazy" onerror="this.style.display='none'">` : ''}<span><strong>${safeText(row.name || row.abbreviation || 'Team')}</strong>${row.streak ? `<small>${safeText(row.streak)}</small>` : ''}</span></span><span class="team-standing-record"><strong>${safeText(row.record || '—')}</strong><small>Record</small></span><span class="team-standing-extra"><strong>${safeText(extra.value)}</strong><small>${safeText(extra.label)}</small></span></${tag}>`;
+}
+
+function teamPlayoffStatus(row,cutoff) {
+  const seed = Number(row?.playoffSeed);
+  if (!Number.isFinite(seed)) return '';
+  if (seed <= 4) return 'Division leader';
+  if (seed <= cutoff) return `Wild Card ${seed - 4}`;
+  if (seed === cutoff + 1) return 'First team out';
+  return 'Outside';
+}
+
+function teamPlayoffRowMarkup(row,team,field) {
+  const current = String(row.id) === String(team.id);
+  const seed = Number(row.playoffSeed);
+  const inField = Number.isFinite(seed) && seed <= Number(field.cutoff || 7);
+  const clickable = Boolean(row.id);
+  const tag = clickable ? 'button' : 'div';
+  const attrs = clickable
+    ? ` type="button" data-standing-team="${safeText(row.id)}" data-standing-name="${safeText(row.name || '')}" data-standing-abbreviation="${safeText(row.abbreviation || '')}" data-standing-logo="${safeText(row.logo || '')}"`
+    : '';
+
+  return `<${tag} class="team-playoff-row ${current ? 'current' : ''} ${inField ? 'in-field' : 'out-field'} ${clickable ? 'is-clickable' : ''}"${attrs}><span class="team-playoff-seed">${safeText(Number.isFinite(seed) ? seed : '—')}</span><span class="team-standing-team">${row.logo ? `<img src="${safeText(row.logo)}" alt="" loading="lazy" onerror="this.style.display='none'">` : ''}<span><strong>${safeText(row.name || row.abbreviation || 'Team')}</strong><small>${safeText(row.divisionName || '')}</small></span></span><span class="team-standing-record"><strong>${safeText(row.record || '—')}</strong><small>Record</small></span><span class="team-playoff-status">${safeText(teamPlayoffStatus(row,field.cutoff || 7))}</span></${tag}>`;
+}
+
+function teamPlayoffFieldMarkup(standings,team) {
+  const field = standings?.playoffField;
+  if (field?.type === 'nhl' || !field?.entries?.length) return '';
+
+  const rows = [];
+  for (const row of field.entries) {
+    const seed = Number(row.playoffSeed);
+    if (seed === 1) {
+      rows.push('<div class="team-playoff-band division">Division Leaders</div>');
+    } else if (seed === 5) {
+      rows.push('<div class="team-playoff-band wildcard">Wild Cards</div>');
+    } else if (seed === Number(field.cutoff || 7) + 1) {
+      rows.push('<div class="team-playoff-band outside">Outside Looking In</div>');
+    }
+    rows.push(teamPlayoffRowMarkup(row,team,field));
+  }
+
+  return `<section class="team-playoff-picture"><div class="team-section-heading"><div><span class="eyebrow">Conference</span><h2>${safeText(field.name || 'Playoff Picture')}</h2></div><span>Top ${safeText(field.cutoff || 7)} qualify</span></div><div class="team-playoff-table" role="table" aria-label="${safeText(field.name || 'Conference playoff picture')}"><div class="team-playoff-head" role="row"><span>Seed</span><span>Team</span><span>Record</span><span>Status</span></div>${rows.join('')}</div></section>`;
+}
+
+function teamNhlWildCardRowMarkup(row,team) {
+  const current = String(row.id) === String(team.id);
+  const slot =
+    row.wildCardSlot
+      ? `WC${row.wildCardSlot}`
+      : row.wildCardOrder === 3
+        ? 'OUT'
+        : '—';
+  const status =
+    row.wildCardSlot
+      ? `Wild Card ${row.wildCardSlot}`
+      : row.wildCardOrder === 3
+        ? 'First team out'
+        : 'Outside';
+  const clickable = Boolean(row.id);
+  const tag = clickable ? 'button' : 'div';
+  const attrs = clickable
+    ? ` type="button" data-standing-team="${safeText(row.id)}" data-standing-name="${safeText(row.name || '')}" data-standing-abbreviation="${safeText(row.abbreviation || '')}" data-standing-logo="${safeText(row.logo || '')}"`
+    : '';
+
+  return `<${tag} class="team-playoff-row nhl-wild-card ${current ? 'current' : ''} ${row.wildCardSlot ? 'in-field' : 'out-field'} ${clickable ? 'is-clickable' : ''}"${attrs}><span class="team-playoff-seed">${safeText(slot)}</span><span class="team-standing-team">${row.logo ? `<img src="${safeText(row.logo)}" alt="" loading="lazy" onerror="this.style.display='none'">` : ''}<span><strong>${safeText(row.name || row.abbreviation || 'Team')}</strong><small>${safeText(String(row.divisionName || '').replace(/ Division$/i,''))}</small></span></span><span class="team-standing-record"><strong>${safeText(row.points || '—')}</strong><small>PTS</small></span><span class="team-playoff-status">${safeText(status)}</span></${tag}>`;
+}
+
+function teamNhlPlayoffMarkup(standings,team) {
+  const field = standings?.playoffField;
+  if (field?.type !== 'nhl' || !field?.wildCards?.length) return '';
+
+  const selected = field.wildCards.find(row =>
+    String(row.id) === String(team.id)
+  );
+
+  const divisionRank = Number(standings?.team?.rank);
+  const currentText =
+    Number.isFinite(divisionRank) && divisionRank <= 3
+      ? `Currently qualifies through ${String(standings.group?.name || 'division').replace(/ Division$/i,'')}`
+      : selected?.wildCardSlot
+        ? `Currently WC${selected.wildCardSlot}`
+        : selected?.wildCardOrder === 3
+          ? 'Currently first team out'
+          : selected
+            ? 'Currently outside the Wild Card spots'
+            : '';
+
+  const rows = field.wildCards.map((row,index) => {
+    const divider =
+      index === 0
+        ? '<div class="team-playoff-band wildcard">Wild Card Spots</div>'
+        : index === 2
+          ? '<div class="team-playoff-band outside">Outside Looking In</div>'
+          : '';
+    return divider + teamNhlWildCardRowMarkup(row,team);
+  }).join('');
+
+  return `<section class="team-playoff-picture nhl-playoff-picture"><div class="team-section-heading"><div><span class="eyebrow">Conference</span><h2>${safeText(field.name)}</h2></div>${currentText ? `<span>${safeText(currentText)}</span>` : ''}</div><div class="team-playoff-table" role="table" aria-label="${safeText(field.name)}"><div class="team-playoff-head" role="row"><span>Slot</span><span>Team</span><span>PTS</span><span>Status</span></div>${rows}</div></section>`;
+}
+
+function teamStandingsMarkup(team) {
+  const key = teamDataKey(team);
+  const standings = teamStandingsData.get(key);
+  const loading = teamStandingsRequests.has(key);
+  const error = teamStandingsErrors.get(key);
+
+  if (!standings) {
+    return `<section class="team-standings-section"><div class="team-section-heading"><div><span class="eyebrow">Season</span><h2>Standings</h2></div></div><div class="team-page-state compact"><strong>${error ? 'Standings unavailable' : 'Loading standings…'}</strong><p>${error ? 'The standings provider could not be reached. The rest of the team page is unaffected.' : loading ? 'Loading division context and playoff position.' : 'Standings are loading.'}</p></div></section>`;
+  }
+
+  if (!standings.available || !standings.group?.entries?.length) {
+    return `<section class="team-standings-section"><div class="team-section-heading"><div><span class="eyebrow">Season</span><h2>Standings</h2></div></div><div class="team-page-state compact"><strong>Standings unavailable</strong><p>The provider has not supplied a standings group for this team yet.</p></div></section>`;
+  }
+
+  const target = standings.team || {};
+  const rank = Number(target.rank);
+  const rankLabel = Number.isFinite(rank) ? teamUiOrdinal(rank) : '—';
+  const playoff = standings.playoff;
+  const postseasonMarkup =
+    team.sport === 'NHL'
+      ? teamNhlPlayoffMarkup(standings,team)
+      : teamPlayoffFieldMarkup(standings,team);
+
+  return `<section class="team-standings-section"><div class="team-section-heading"><div><span class="eyebrow">Season</span><h2>${safeText(standings.group.name || 'Standings')}</h2></div>${standings.season ? `<span>${safeText(standings.season)}</span>` : ''}</div><div class="team-standing-summary"><article class="team-standing-card"><small>Division Standing</small><strong>${safeText(`${rankLabel} in ${String(standings.group.name || 'division').replace(/ Division$/i,'')}`)}</strong><span>${safeText(target.record || 'Record unavailable')}</span></article>${playoff && !standings.playoffField ? `<article class="team-standing-card playoff"><small>Playoff picture</small><strong>${safeText(playoff.label)}</strong><span>${safeText(playoff.detail || playoff.note || 'Current seed not listed')}</span></article>` : ''}</div><div class="team-standing-table" role="table" aria-label="${safeText(standings.group.name || 'Team standings')}"><div class="team-standing-head" role="row"><span>#</span><span>Team</span><span>Record</span><span>${safeText(teamStandingExtra(target,team.sport).label)}</span></div>${standings.group.entries.map(row => teamStandingRowMarkup(row,team)).join('')}</div>${postseasonMarkup}</section>`;
+}
+
 function teamTabsMarkup() {
-  return `<div class="team-tabs" role="tablist" aria-label="Team page"><button type="button" class="team-tab ${teamPageTab === 'overview' ? 'active' : ''}" data-team-tab="overview" role="tab" aria-selected="${teamPageTab === 'overview'}">Overview</button><button type="button" class="team-tab ${teamPageTab === 'schedule' ? 'active' : ''}" data-team-tab="schedule" role="tab" aria-selected="${teamPageTab === 'schedule'}">Schedule</button></div>`;
+  return `<div class="team-tabs" role="tablist" aria-label="Team page"><button type="button" class="team-tab ${teamPageTab === 'overview' ? 'active' : ''}" data-team-tab="overview" role="tab" aria-selected="${teamPageTab === 'overview'}">Overview</button><button type="button" class="team-tab ${teamPageTab === 'standings' ? 'active' : ''}" data-team-tab="standings" role="tab" aria-selected="${teamPageTab === 'standings'}">Standings</button><button type="button" class="team-tab ${teamPageTab === 'schedule' ? 'active' : ''}" data-team-tab="schedule" role="tab" aria-selected="${teamPageTab === 'schedule'}">Schedule</button></div>`;
 }
 
 function teamOverviewMarkup(team,data) {
@@ -1608,7 +1918,7 @@ function teamOverviewMarkup(team,data) {
       data
     );
 
-  return `<div class="team-overview"><section class="team-spotlights"><div class="team-section-heading"><div><span class="eyebrow">SlateSignal</span><h2>Last & Next</h2></div></div><div class="team-spotlight-grid">${teamSpotlightMarkup('Last Game',spotlights.last,team)}${teamSpotlightMarkup('Next Game',spotlights.next,team)}</div></section>${teamLeaderMarkup(data?.leaders || [])}</div>`;
+  return `<div class="team-overview"><section class="team-spotlights"><div class="team-section-heading"><div><span class="eyebrow">SPORTS RADAR</span><h2>Last & Next</h2></div></div><div class="team-spotlight-grid">${teamSpotlightMarkup('Last Game',spotlights.last,team)}${teamSpotlightMarkup('Next Game',spotlights.next,team)}</div></section>${teamLeaderMarkup(data?.leaders || [])}</div>`;
 }
 
 function renderTeamPage() {
@@ -1683,8 +1993,18 @@ function renderTeamPage() {
       sameFavorite(item,team)
     );
 
+  const heroStanding =
+    compactTeamStanding(
+      identity.standing
+    );
+
+  const heroStandings =
+    teamHeroStandings(
+      team,
+      heroStanding
+    );
+
   const secondaryMeta = [
-    identity.standing,
     identity.venue
   ]
     .filter(Boolean)
@@ -1703,13 +2023,15 @@ function renderTeamPage() {
           data?.schedule || [],
           team
         )
-      : teamOverviewMarkup(
-          team,
-          data
-        );
+      : teamPageTab === 'standings'
+        ? teamStandingsMarkup(team)
+        : teamOverviewMarkup(
+            team,
+            data
+          );
 
   panel.innerHTML =
-    `<button type="button" class="team-back-button" data-team-back>← Radar</button><section class="team-hero"><div class="team-hero-logo">${logo ? `<img src="${safeText(logo)}" alt="" loading="eager" onerror="this.style.display='none'">` : `<span aria-hidden="true">${safeText(iconFor(team.sport))}</span>`}</div><div class="team-hero-copy"><span class="eyebrow">${safeText(labelForSport(team.sport))}${abbreviation ? ` · ${safeText(abbreviation)}` : ''}</span><h1>${safeText(identity.name || team.name)}</h1><div class="team-hero-meta">${record ? `<span><strong>${safeText(record)}</strong><small>Record</small></span>` : ''}${identity.standing ? `<span><strong>${safeText(identity.standing)}</strong><small>Standing</small></span>` : ''}</div>${secondaryMeta ? `<p>${safeText(secondaryMeta)}</p>` : ''}</div><button type="button" class="team-favorite-button ${favorite ? 'active' : ''}" data-team-favorite aria-pressed="${favorite}">${favorite ? '★ Favorite' : '☆ Add favorite'}</button></section>${teamTabsMarkup()}${dataState}<div class="team-tab-content">${content}</div>`;
+    `<button type="button" class="team-back-button" data-team-back>← Radar</button><section class="team-hero"><div class="team-hero-logo">${logo ? `<img src="${safeText(logo)}" alt="" loading="eager" onerror="this.style.display='none'">` : `<span aria-hidden="true">${safeText(iconFor(team.sport))}</span>`}</div><div class="team-hero-copy"><span class="eyebrow">${safeText(labelForSport(team.sport))}${abbreviation ? ` · ${safeText(abbreviation)}` : ''}</span><h1>${safeText(identity.name || team.name)}</h1><div class="team-hero-meta">${record ? `<span><strong>${safeText(record)}</strong><small>Record</small></span>` : ''}${heroStandings}</div>${secondaryMeta ? `<p>${safeText(secondaryMeta)}</p>` : ''}</div><button type="button" class="team-favorite-button ${favorite ? 'active' : ''}" data-team-favorite aria-pressed="${favorite}">${favorite ? '★ Favorite' : '☆ Add favorite'}</button></section>${teamTabsMarkup()}${dataState}<div class="team-tab-content">${content}</div>`;
 
   document.title =
     `${identity.name || team.name} | Sports Radar`;
@@ -1740,6 +2062,10 @@ function openTeamPage(team) {
   state.page = 'team';
 
   loadTeamPageData(team);
+
+  if (['NFL','NHL'].includes(team.sport)) {
+    loadTeamStandings(team);
+  }
 
   const nextHash =
     teamHash(team);
@@ -5094,7 +5420,17 @@ function renderDetailContent(
       team[5] || ''
     ].filter(Boolean);
 
-    return `<div class="detail-team"><img src="${safeText(team[4] || teamLogoUrl(game.sport,team[1]))}" alt="" onerror="this.style.display='none'"><span class="detail-team-copy"><strong>${safeText(team[0])}</strong>${teamMeta.length ? `<small>${safeText(teamMeta.join(' · '))}</small>` : ''}</span><b>${safeText(team[2])}</b></div>`;
+    const teamPageId =
+      ['NFL','MLB','NHL','CFB','NBA','NCAAB','Soccer'].includes(game.sport)
+        ? String(team[8] || '')
+        : '';
+
+    const tag = teamPageId ? 'button' : 'div';
+    const attrs = teamPageId
+      ? ` type="button" data-detail-team-id="${safeText(teamPageId)}" data-detail-team-sport="${safeText(game.sport)}" aria-label="Open ${safeText(team[0])} team page"`
+      : '';
+
+    return `<${tag} class="detail-team ${teamPageId ? 'detail-team-link' : ''}"${attrs}><img src="${safeText(team[4] || teamLogoUrl(game.sport,team[1]))}" alt="" onerror="this.style.display='none'"><span class="detail-team-copy"><strong>${safeText(team[0])}</strong>${teamMeta.length ? `<small>${safeText(teamMeta.join(' · '))}</small>` : ''}</span><b>${safeText(team[2])}</b></${tag}>`;
   }).join('');
 
   const status =
@@ -5747,6 +6083,10 @@ window.addEventListener(
 
       loadTeamPageData(route);
 
+      if (['NFL','NHL'].includes(route.sport)) {
+        loadTeamStandings(route);
+      }
+
       loadFavoriteCatalog()
         .finally(() => {
           if (
@@ -5979,13 +6319,34 @@ $('#team-page')
         );
 
       if (tabButton) {
+        const requestedTab =
+          tabButton.dataset.teamTab;
+
         teamPageTab =
-          tabButton.dataset.teamTab ===
-          'schedule'
-            ? 'schedule'
+          ['overview','standings','schedule'].includes(requestedTab)
+            ? requestedTab
             : 'overview';
 
+        if (teamPageTab === 'standings') {
+          const team = teamPageTeam();
+          if (team) loadTeamStandings(team);
+        }
+
         renderTeamPage();
+        return;
+      }
+
+      const standingTeamButton =
+        event.target.closest('[data-standing-team]');
+
+      if (standingTeamButton) {
+        openTeamPage({
+          sport:state.teamRoute?.sport,
+          id:String(standingTeamButton.dataset.standingTeam || ''),
+          name:standingTeamButton.dataset.standingName || '',
+          abbreviation:standingTeamButton.dataset.standingAbbreviation || '',
+          logo:standingTeamButton.dataset.standingLogo || ''
+        });
         return;
       }
 
@@ -6327,6 +6688,30 @@ $('#game-detail-content')
   .addEventListener(
     'click',
     event => {
+      const detailTeamButton =
+        event.target.closest('[data-detail-team-id]');
+
+      if (detailTeamButton && activeDetailGame) {
+        const id = String(detailTeamButton.dataset.detailTeamId || '');
+        const teamTuple = activeDetailGame.teams?.find(team =>
+          String(team?.[8] || '') === id
+        );
+
+        if (id && teamTuple) {
+          const sport = detailTeamButton.dataset.detailTeamSport || activeDetailGame.sport;
+          const team = {
+            sport,
+            id,
+            name:teamTuple[0] || '',
+            abbreviation:teamTuple[1] || '',
+            logo:teamTuple[4] || ''
+          };
+          hideGameDetails();
+          openTeamPage(team);
+          return;
+        }
+      }
+
       const whyToggle =
         event.target.closest('.detail-why-toggle');
 
@@ -6637,6 +7022,10 @@ if (state.page === 'team') {
   loadTeamPageData(
     state.teamRoute
   );
+
+  if (['NFL','NHL'].includes(state.teamRoute?.sport)) {
+    loadTeamStandings(state.teamRoute);
+  }
 
   loadFavoriteCatalog()
     .finally(() => {

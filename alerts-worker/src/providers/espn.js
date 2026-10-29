@@ -441,6 +441,35 @@ export function teamResourceUrls(sport,id) {
   };
 }
 
+const ESPN_STANDINGS_BASE =
+  'https://site.api.espn.com/apis/v2/sports';
+
+export function standingsUrl(sport,season) {
+  const sportPath = SPORT_PATHS[sport];
+  const year = Number(season);
+
+  if (
+    !sportPath ||
+    sport === 'Tennis' ||
+    !Number.isInteger(year)
+  ) {
+    return null;
+  }
+
+  const params = new URLSearchParams({
+    season:String(year),
+    seasontype:'2',
+    type:'0',
+    level:'3'
+  });
+
+  if (sport === 'CFB') {
+    params.set('groups','80');
+  }
+
+  return `${ESPN_STANDINGS_BASE}/${sportPath}/standings?${params.toString()}`;
+}
+
 const ESPN_CORE_BASE =
   'https://sports.core.api.espn.com/v2/sports';
 

@@ -1,5 +1,5 @@
 import {basketballBoxScore} from './display-model.js';
-import {createCollector,summaryUrl,teamResourceUrls,coreTeamProfileUrl,teamLeadersUrl} from './providers/espn.js';
+import {createCollector,summaryUrl,teamResourceUrls,coreTeamProfileUrl,teamLeadersUrl,standingsUrl} from './providers/espn.js';
 import {preservePregameRecords,applyContextsToGame,enrichGame} from './game-model.js';
 import {contextsForGames} from './storylines.js';
 import {fingerprint,summaryCandidate,reusable,refreshBudget,boundedFeedRefresh,REFRESH_LEASE_MS} from './refresh-policy.js';
@@ -161,6 +161,7 @@ async function providerJson(env,url,ttl,now,errors,budget) {
 const TEAM_STATIC_TTL_MS = 6 * 60 * 60 * 1000;
 const TEAM_LEADER_TTL_MS = 6 * 60 * 60 * 1000;
 const TEAM_IDENTITY_TTL_MS = 24 * 60 * 60 * 1000;
+const TEAM_STANDINGS_TTL_MS = 15 * 60 * 1000;
 
 function inferredTeamSeason(sport,now) {
   const date =
@@ -335,6 +336,439 @@ export function normalizeTeamIdentity(teamPayload,schedulePayload,sport,id) {
       raw.color || '',
     alternateColor:
       raw.alternateColor || ''
+  };
+}
+
+
+function standingKey(value) {
+  return String(value || '')
+    .toLowerCase()
+    .replace(/[^a-z0-9]/g,'');
+}
+
+function standingStatMap(entry) {
+  const result = {};
+
+  for (const stat of (entry?.stats || [])) {
+    const key = standingKey(stat?.name || stat?.abbreviation || stat?.displayName);
+    if (!key) continue;
+
+    result[key] = {
+      value:stat?.value ?? null,
+      displayValue:
+        stat?.displayValue ??
+        stat?.value ??
+        ''
+    };
+  }
+
+  return result;
+}
+
+function standingPick(stats,names) {
+  for (const name of names) {
+    const value = stats?.[standingKey(name)];
+    if (value) return value;
+  }
+  return null;
+}
+
+function standingNumber(stats,names) {
+  const stat = standingPick(stats,names);
+  const value = Number(stat?.value ?? stat?.displayValue);
+  return Number.isFinite(value) ? value : null;
+}
+
+function standingText(stats,names) {
+  const stat = standingPick(stats,names);
+  return stat?.displayValue === null || stat?.displayValue === undefined
+    ? ''
+    : String(stat.displayValue);
+}
+
+function standingTeamLogo(team) {
+  if (!team) return '';
+  if (typeof team.logo === 'string') return team.logo;
+  return team.logos?.find(item => item?.rel?.includes?.('default'))?.href ||
+    team.logos?.[0]?.href || '';
+}
+
+function standingRecord(sport,stats) {
+  const supplied = standingText(stats,['overall','record']);
+  if (supplied) return supplied;
+
+  const wins = standingNumber(stats,['wins']);
+  const losses = standingNumber(stats,['losses']);
+  const ties = standingNumber(stats,['ties','draws']);
+  const overtimeLosses = standingNumber(stats,['otLosses','overtimeLosses']);
+
+  if (wins === null || losses === null) return '';
+
+  if (sport === 'NHL' && overtimeLosses !== null) {
+    return `${wins}-${losses}-${overtimeLosses}`;
+  }
+
+  if (sport === 'Soccer' && ties !== null) {
+    return `${wins}-${ties}-${losses}`;
+  }
+
+  return ties && ties > 0
+    ? `${wins}-${losses}-${ties}`
+    : `${wins}-${losses}`;
+}
+
+function standingRow(entry,sport,index) {
+  const team = entry?.team || {};
+  const stats = standingStatMap(entry);
+  const divisionRank = standingNumber(stats,['divisionRank']);
+
+  return {
+    id:String(team.id || entry?.id || ''),
+    name:
+      team.displayName ||
+      team.shortDisplayName ||
+      team.name ||
+      team.abbreviation ||
+      'Team',
+    abbreviation:team.abbreviation || '',
+    logo:standingTeamLogo(team),
+    rank:divisionRank ?? index + 1,
+    record:standingRecord(sport,stats),
+    winPercent:standingText(stats,['winPercent','pct']),
+    gamesBehind:standingText(stats,['gamesBehind']),
+    points:standingText(stats,['points']),
+    gamesPlayed:standingText(stats,['gamesPlayed']),
+    divisionRecord:standingText(stats,['divisionRecord']),
+    conferenceRecord:standingText(stats,['conferenceRecord']),
+    streak:standingText(stats,['streak']),
+    divisionRank,
+    conferenceRank:standingNumber(stats,['conferenceRank']),
+    leagueRank:standingNumber(stats,['leagueRank']),
+    playoffSeed:standingNumber(stats,['playoffSeed']),
+    wildCardRank:standingNumber(stats,['wildCardRank','wildcardRank']),
+    clincher:standingText(stats,['clincher']),
+    note:
+      entry?.note?.description ||
+      entry?.note?.text ||
+      '',
+    stats:Object.fromEntries(
+      Object.entries(stats).map(([key,value]) => [
+        key,
+        value.displayValue
+      ])
+    )
+  };
+}
+
+function collectStandingGroups(value,out=[],depth=0) {
+  if (!value || depth > 6 || typeof value !== 'object') return out;
+
+  const entries = value?.standings?.entries;
+  if (Array.isArray(entries) && entries.length) {
+    out.push({
+      name:
+        value.name ||
+        value.displayName ||
+        value.standings?.displayName ||
+        'Standings',
+      abbreviation:value.abbreviation || '',
+      entries
+    });
+  }
+
+  if (Array.isArray(value.children)) {
+    value.children.forEach(child =>
+      collectStandingGroups(child,out,depth + 1)
+    );
+  }
+
+  return out;
+}
+
+function ordinalStanding(value) {
+  const number = Number(value);
+  if (!Number.isInteger(number) || number < 1) return '';
+  const mod100 = number % 100;
+  const suffix = mod100 >= 11 && mod100 <= 13
+    ? 'th'
+    : number % 10 === 1
+      ? 'st'
+      : number % 10 === 2
+        ? 'nd'
+        : number % 10 === 3
+          ? 'rd'
+          : 'th';
+  return `${number}${suffix}`;
+}
+
+function playoffPicture(sport,row,groupName) {
+  if (!['NFL','MLB','NHL','NBA'].includes(sport) || !row) return null;
+
+  const seed = row.playoffSeed ?? row.conferenceRank ?? row.leagueRank;
+  const divisionRank = row.divisionRank;
+  const wildCardRank = row.wildCardRank;
+  let label = '';
+
+  if (sport === 'NFL') {
+    if (divisionRank === 1 && seed !== null && seed <= 4) label = 'Division leader';
+    else if (seed !== null && seed <= 7) label = 'Wild Card';
+    else if (seed !== null) label = 'Outside playoff field';
+  } else if (sport === 'MLB') {
+    if (divisionRank === 1 && (seed === null || seed <= 3)) label = 'Division leader';
+    else if ((wildCardRank !== null && wildCardRank <= 3) || (seed !== null && seed <= 6)) label = 'Wild Card';
+    else if (seed !== null) label = 'Outside playoff field';
+  } else if (sport === 'NHL') {
+    if (divisionRank !== null && divisionRank <= 3) label = 'Division playoff position';
+    else if (wildCardRank !== null && wildCardRank <= 2) label = `Wild Card ${wildCardRank}`;
+    else if (seed !== null && seed <= 8) label = 'Playoff position';
+    else if (seed !== null) label = 'Outside playoff field';
+  } else if (sport === 'NBA') {
+    if (seed !== null && seed <= 6) label = 'Playoff position';
+    else if (seed !== null && seed <= 10) label = 'Play-In position';
+    else if (seed !== null) label = 'Outside playoff field';
+  }
+
+  if (!label && row.note) label = row.note;
+  if (!label && row.clincher) label = row.clincher;
+  if (!label) label = 'Playoff position not listed';
+
+  const detail = [
+    seed !== null ? `No. ${seed} seed` : '',
+    divisionRank !== null && groupName
+      ? `${ordinalStanding(divisionRank)} in ${groupName}`
+      : '',
+    row.note && row.note !== label ? row.note : ''
+  ].filter(Boolean).join(' · ');
+
+  return {
+    label,
+    detail,
+    seed,
+    wildCardRank,
+    divisionRank,
+    note:row.note || row.clincher || ''
+  };
+}
+
+
+function nflConferenceCode(groupName) {
+  const match = /^(AFC|NFC)\b/i.exec(String(groupName || '').trim());
+  return match ? match[1].toUpperCase() : '';
+}
+
+function nflConferencePlayoffField(groups,group,teamId) {
+  const conference = nflConferenceCode(group?.name);
+  if (!conference) return null;
+
+  const entriesByTeam = new Map();
+
+  for (const candidate of groups) {
+    if (nflConferenceCode(candidate?.name) !== conference) continue;
+
+    for (const row of (candidate?.entries || [])) {
+      if (!row?.id || row.playoffSeed === null) continue;
+
+      const enriched = {
+        ...row,
+        divisionName:candidate.name || ''
+      };
+
+      const existing = entriesByTeam.get(row.id);
+      if (
+        !existing ||
+        Number(enriched.playoffSeed) < Number(existing.playoffSeed)
+      ) {
+        entriesByTeam.set(row.id,enriched);
+      }
+    }
+  }
+
+  const entries = [...entriesByTeam.values()]
+    .sort((left,right) => {
+      const a = Number(left.playoffSeed);
+      const b = Number(right.playoffSeed);
+      if (Number.isFinite(a) && Number.isFinite(b) && a !== b) return a - b;
+      return left.name.localeCompare(right.name);
+    });
+
+  if (!entries.length) return null;
+
+  return {
+    name:`${conference} Playoff Picture`,
+    conference,
+    cutoff:7,
+    teamId:String(teamId),
+    entries
+  };
+}
+
+
+function nhlDivisionKey(name) {
+  const value = String(name || '');
+  if (/Atlantic/i.test(value)) return 'Atlantic';
+  if (/Metropolitan/i.test(value)) return 'Metropolitan';
+  if (/Central/i.test(value)) return 'Central';
+  if (/Pacific/i.test(value)) return 'Pacific';
+  return '';
+}
+
+function nhlConferenceForDivision(name) {
+  const division = nhlDivisionKey(name);
+  if (['Atlantic','Metropolitan'].includes(division)) return 'Eastern';
+  if (['Central','Pacific'].includes(division)) return 'Western';
+  return '';
+}
+
+function nhlNumeric(value) {
+  const number = Number(String(value ?? '').replace(/[^0-9.-]/g,''));
+  return Number.isFinite(number) ? number : null;
+}
+
+function nhlWildCardCompare(left,right) {
+  const leftWild = Number(left.wildCardRank);
+  const rightWild = Number(right.wildCardRank);
+
+  if (Number.isFinite(leftWild) && Number.isFinite(rightWild) && leftWild !== rightWild) {
+    return leftWild - rightWild;
+  }
+
+  const leftSeed = Number(left.playoffSeed);
+  const rightSeed = Number(right.playoffSeed);
+
+  if (Number.isFinite(leftSeed) && Number.isFinite(rightSeed) && leftSeed !== rightSeed) {
+    return leftSeed - rightSeed;
+  }
+
+  const leftPoints = nhlNumeric(left.points);
+  const rightPoints = nhlNumeric(right.points);
+
+  if (leftPoints !== null && rightPoints !== null && leftPoints !== rightPoints) {
+    return rightPoints - leftPoints;
+  }
+
+  const leftGames = nhlNumeric(left.gamesPlayed);
+  const rightGames = nhlNumeric(right.gamesPlayed);
+
+  if (leftGames !== null && rightGames !== null && leftGames !== rightGames) {
+    return leftGames - rightGames;
+  }
+
+  return String(left.name || '').localeCompare(String(right.name || ''));
+}
+
+function nhlPlayoffField(groups,group,teamId) {
+  const conference = nhlConferenceForDivision(group?.name);
+  if (!conference) return null;
+
+  const divisions = groups
+    .filter(candidate =>
+      nhlConferenceForDivision(candidate?.name) === conference &&
+      nhlDivisionKey(candidate?.name)
+    )
+    .map(candidate => ({
+      name:candidate.name,
+      abbreviation:candidate.abbreviation || '',
+      entries:[...(candidate.entries || [])]
+        .sort((left,right) => {
+          const a = Number(left.rank);
+          const b = Number(right.rank);
+          if (Number.isFinite(a) && Number.isFinite(b) && a !== b) return a - b;
+          return String(left.name || '').localeCompare(String(right.name || ''));
+        })
+        .map(row => ({
+          ...row,
+          divisionName:candidate.name || '',
+          divisionKey:nhlDivisionKey(candidate.name)
+        }))
+    }));
+
+  if (divisions.length < 2) return null;
+
+  const eligible = divisions
+    .flatMap(division =>
+      division.entries
+        .filter(row => Number(row.rank) > 3)
+        .map(row => ({
+          ...row,
+          divisionName:division.name
+        }))
+    )
+    .sort(nhlWildCardCompare)
+    .map((row,index) => ({
+      ...row,
+      wildCardSlot:index < 2 ? index + 1 : null,
+      wildCardOrder:index + 1
+    }));
+
+  return {
+    type:'nhl',
+    name:`${conference} Conference Wild Card`,
+    conference,
+    divisionCutoff:3,
+    wildCardCutoff:2,
+    teamId:String(teamId),
+    divisions,
+    wildCards:eligible
+  };
+}
+
+export function normalizeTeamStandings(payload,sport,id,season) {
+  const teamId = String(id);
+  const groups = collectStandingGroups(payload)
+    .map(group => ({
+      name:group.name,
+      abbreviation:group.abbreviation,
+      entries:group.entries.map((entry,index) =>
+        standingRow(entry,sport,index)
+      )
+    }))
+    .filter(group => group.entries.length);
+
+  const matching = groups
+    .filter(group =>
+      group.entries.some(entry => entry.id === teamId)
+    )
+    .sort((left,right) =>
+      left.entries.length - right.entries.length
+    );
+
+  const group = matching[0] || null;
+  const team = group?.entries.find(entry => entry.id === teamId) || null;
+
+  if (!group || !team) {
+    return {
+      sport,
+      season:Number(season) || payload?.season?.year || null,
+      teamId,
+      available:false,
+      group:null,
+      team:null,
+      playoff:null,
+      playoffField:null
+    };
+  }
+
+  group.entries.sort((left,right) => {
+    const a = Number(left.rank);
+    const b = Number(right.rank);
+    if (Number.isFinite(a) && Number.isFinite(b) && a !== b) return a - b;
+    return left.name.localeCompare(right.name);
+  });
+
+  return {
+    sport,
+    season:Number(season) || payload?.season?.year || null,
+    teamId,
+    available:true,
+    group,
+    team,
+    playoff:playoffPicture(sport,team,group.name),
+    playoffField:
+      sport === 'NFL'
+        ? nflConferencePlayoffField(groups,group,teamId)
+        : sport === 'NHL'
+          ? nhlPlayoffField(groups,group,teamId)
+          : null
   };
 }
 
@@ -1028,6 +1462,85 @@ async function loadTeamLeaders(env,sport,id,season,now) {
     return [...merged.values()].sort((a,b) => rank(a) - rank(b)).slice(0,4);
   } catch {
     return core;
+  }
+}
+
+
+export async function teamStandings(env,sport,id,now=Date.now()) {
+  const season = inferredTeamSeason(sport,now);
+  const url = standingsUrl(sport,season);
+
+  if (!url) return null;
+
+  const key = `team-standings:v1:${sport}:${id}:${season}`;
+  const read = () =>
+    env.DB.prepare(
+      'SELECT payload,updated_at FROM sports_resources WHERE key=?'
+    ).bind(key).first();
+
+  const unpack = row => ({
+    ...JSON.parse(row.payload),
+    sportsRadarFreshness:{
+      updatedAt:new Date(row.updated_at).toISOString(),
+      receivedAt:new Date(now).toISOString()
+    }
+  });
+
+  let row = await read();
+  if (row && now - row.updated_at < TEAM_STANDINGS_TTL_MS) {
+    return unpack(row);
+  }
+
+  const owner = await acquire(env,key,now,15000);
+  if (!owner) {
+    if (row) return unpack(row);
+    throw new Error('Team standings refresh in progress');
+  }
+
+  try {
+    row = await read();
+    if (row && now - row.updated_at < TEAM_STANDINGS_TTL_MS) {
+      return unpack(row);
+    }
+
+    const source = await fetchSourceJson(
+      url,
+      TEAM_STANDINGS_TTL_MS
+    );
+
+    const normalized = normalizeTeamStandings(
+      source,
+      sport,
+      id,
+      season
+    );
+
+    await env.DB.prepare(
+      `INSERT INTO sports_resources (key,payload,updated_at)
+       SELECT ?,?,? WHERE EXISTS (
+         SELECT 1 FROM sports_leases
+         WHERE key=? AND owner=?
+       )
+       ON CONFLICT(key) DO UPDATE
+       SET payload=excluded.payload,
+           updated_at=excluded.updated_at
+       WHERE excluded.updated_at > sports_resources.updated_at`
+    ).bind(
+      key,
+      JSON.stringify(normalized),
+      now,
+      key,
+      owner
+    ).run();
+
+    const stored = await read();
+    if (!stored) throw new Error('Team standings cache write lost');
+    return unpack(stored);
+  } catch (error) {
+    if (row) return unpack(row);
+    throw error;
+  } finally {
+    await release(env,key,owner);
   }
 }
 
