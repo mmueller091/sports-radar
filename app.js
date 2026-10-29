@@ -1532,6 +1532,304 @@ function detailStatNumber(stat) {
   return Number.isFinite(number) && text.trim() !== '' ? number : null;
 }
 
+function detailNormalizeHex(value) {
+  const match = String(value || '')
+    .trim()
+    .replace(/^#/,'')
+    .match(/^[0-9a-f]{6}$/i);
+
+  return match
+    ? `#${match[0].toLowerCase()}`
+    : '';
+}
+
+function detailHexRgb(value) {
+  const hex = detailNormalizeHex(value);
+  if (!hex) return null;
+
+  return {
+    r:parseInt(hex.slice(1,3),16) / 255,
+    g:parseInt(hex.slice(3,5),16) / 255,
+    b:parseInt(hex.slice(5,7),16) / 255
+  };
+}
+
+function detailOklab(value) {
+  const rgb = detailHexRgb(value);
+  if (!rgb) return null;
+
+  const linear = component =>
+    component <= 0.04045
+      ? component / 12.92
+      : Math.pow((component + 0.055) / 1.055,2.4);
+
+  const r = linear(rgb.r);
+  const g = linear(rgb.g);
+  const b = linear(rgb.b);
+
+  const l = Math.cbrt(0.4122214708*r + 0.5363325363*g + 0.0514459929*b);
+  const m = Math.cbrt(0.2119034982*r + 0.6806995451*g + 0.1073969566*b);
+  const s = Math.cbrt(0.0883024619*r + 0.2817188376*g + 0.6299787005*b);
+
+  return {
+    L:0.2104542553*l + 0.793617785*m - 0.0040720468*s,
+    a:1.9779984951*l - 2.428592205*m + 0.4505937099*s,
+    b:0.0259040371*l + 0.7827717662*m - 0.808675766*s
+  };
+}
+
+function detailColorSeparation(left,right) {
+  const a = detailOklab(left);
+  const b = detailOklab(right);
+  if (!a || !b) return 0;
+
+  return Math.hypot(
+    a.L - b.L,
+    a.a - b.a,
+    a.b - b.b
+  );
+}
+
+function detailColorHue(value) {
+  const lab = detailOklab(value);
+  if (!lab) {
+    return {
+      hue:null,
+      chroma:0,
+      lightness:0
+    };
+  }
+
+  const chroma = Math.hypot(lab.a,lab.b);
+  const hue =
+    chroma < .035
+      ? null
+      : (
+          Math.atan2(lab.b,lab.a) *
+          180 /
+          Math.PI +
+          360
+        ) % 360;
+
+  return {
+    hue,
+    chroma,
+    lightness:lab.L
+  };
+}
+
+function detailHueDistance(left,right) {
+  const a = detailColorHue(left);
+  const b = detailColorHue(right);
+
+  if (
+    a.hue === null ||
+    b.hue === null
+  ) {
+    return 180;
+  }
+
+  const difference =
+    Math.abs(a.hue - b.hue);
+
+  return Math.min(
+    difference,
+    360 - difference
+  );
+}
+
+function detailColorsTooClose(left,right) {
+  const a = detailColorHue(left);
+  const b = detailColorHue(right);
+  const separation = detailColorSeparation(left,right);
+  const hueDistance = detailHueDistance(left,right);
+  const lightnessDistance =
+    Math.abs(a.lightness - b.lightness);
+
+  if (separation < .105) {
+    return true;
+  }
+
+  const bothChromatic =
+    a.chroma >= .055 &&
+    b.chroma >= .055;
+
+  // Adjacent color families can be mathematically different but still read
+  // as the same side of the spectrum in a thin stat bar. Red/orange,
+  // blue/blue-green, etc. should therefore trigger alternate-color selection.
+  if (
+    bothChromatic &&
+    hueDistance < 58 &&
+    lightnessDistance < .24
+  ) {
+    return true;
+  }
+
+  return false;
+}
+
+function detailColorPairScore(left,right) {
+  const a = detailColorHue(left);
+  const b = detailColorHue(right);
+  const separation = detailColorSeparation(left,right);
+  const hueDistance = detailHueDistance(left,right);
+  const lightnessDistance =
+    Math.abs(a.lightness - b.lightness);
+
+  const hueBonus =
+    Math.min(120,hueDistance) /
+    120 *
+    .14;
+
+  const lightnessBonus =
+    Math.min(.35,lightnessDistance) /
+    .35 *
+    .05;
+
+  return (
+    separation +
+    hueBonus +
+    lightnessBonus
+  );
+}
+
+function detailRelativeLuminance(value) {
+  const rgb = detailHexRgb(value);
+  if (!rgb) return 0;
+
+  const linear = component =>
+    component <= 0.04045
+      ? component / 12.92
+      : Math.pow((component + 0.055) / 1.055,2.4);
+
+  return (
+    0.2126 * linear(rgb.r) +
+    0.7152 * linear(rgb.g) +
+    0.0722 * linear(rgb.b)
+  );
+}
+
+function detailColorContrast(left,right) {
+  const a = detailRelativeLuminance(left);
+  const b = detailRelativeLuminance(right);
+  const lighter = Math.max(a,b);
+  const darker = Math.min(a,b);
+
+  return (lighter + 0.05) / (darker + 0.05);
+}
+
+function detailTintHex(value,amount=.28) {
+  const rgb = detailHexRgb(value);
+  if (!rgb) return '';
+
+  const channel = component =>
+    Math.round(
+      (component + (1 - component) * amount) * 255
+    )
+      .toString(16)
+      .padStart(2,'0');
+
+  return `#${channel(rgb.r)}${channel(rgb.g)}${channel(rgb.b)}`;
+}
+
+function detailTeamColorCandidates(competitor,index) {
+  const team = competitor?.team || {};
+  const fallback = index ? '#f3bd32' : '#368cf5';
+
+  return [
+    detailNormalizeHex(team.color),
+    detailNormalizeHex(team.alternateColor),
+    detailNormalizeHex(team.alternateColor2),
+    detailNormalizeHex(team.secondaryColor),
+    detailNormalizeHex(fallback)
+  ]
+    .filter(Boolean)
+    .filter((color,item,array) =>
+      array.indexOf(color) === item
+    );
+}
+
+function detailTeamComparisonColors(competitors) {
+  const palettes = competitors.map(detailTeamColorCandidates);
+  const primary = [palettes[0][0],palettes[1][0]];
+  const darkSurface = '#122129';
+
+  const visibleEnough = color =>
+    detailColorContrast(color,darkSurface) >= 1.35;
+
+  if (
+    !detailColorsTooClose(primary[0],primary[1]) &&
+    visibleEnough(primary[0]) &&
+    visibleEnough(primary[1])
+  ) {
+    return primary;
+  }
+
+  const combinations = [];
+
+  palettes[0].forEach((left,leftIndex) => {
+    palettes[1].forEach((right,rightIndex) => {
+      if (
+        !visibleEnough(left) ||
+        !visibleEnough(right)
+      ) {
+        return;
+      }
+
+      const alternatePenalty =
+        (leftIndex > 0 ? .012 : 0) +
+        (rightIndex > 0 ? .012 : 0);
+
+      combinations.push({
+        colors:[left,right],
+        acceptable:
+          !detailColorsTooClose(left,right),
+        score:
+          detailColorPairScore(left,right) -
+          alternatePenalty
+      });
+    });
+  });
+
+  combinations.sort((a,b) => {
+    if (a.acceptable !== b.acceptable) {
+      return Number(b.acceptable) -
+        Number(a.acceptable);
+    }
+
+    return b.score - a.score;
+  });
+
+  const best = combinations[0];
+
+  if (
+    best &&
+    best.acceptable
+  ) {
+    return best.colors;
+  }
+
+  const left = primary[0];
+  const right = primary[1];
+
+  const fallbackPairs = [
+    [left,detailTintHex(right,.48)],
+    [detailTintHex(left,.48),right],
+    [detailTintHex(left,.58),right],
+    [left,detailTintHex(right,.58)]
+  ]
+    .filter(pair =>
+      pair.every(Boolean) &&
+      pair.every(visibleEnough)
+    )
+    .sort((a,b) =>
+      detailColorPairScore(b[0],b[1]) -
+      detailColorPairScore(a[0],a[1])
+    );
+
+  return fallbackPairs[0] || primary;
+}
+
 function detailStatRow(label,left,right,colors) {
   const display = stat => stat?.displayValue ?? '—';
   const numeric = [detailStatNumber(left),detailStatNumber(right)];
@@ -1563,7 +1861,7 @@ function detailStats(summary,sport) {
     return available;
   });
   if (!stats.some(map => map.size)) return '';
-  const colors = competitors.map((team,index) => /^#?[0-9a-f]{6}$/i.test(team.team?.color || '') ? `#${String(team.team.color).replace('#','')}` : index ? '#f3bd32' : '#368cf5');
+  const colors = detailTeamComparisonColors(competitors);
   const primary = TEAM_STAT_CONFIG[sport] || [];
   const used = new Set();
   const statFor = (map,key) => key.split('|').map(alias => map.get(alias)).find(Boolean);

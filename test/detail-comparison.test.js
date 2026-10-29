@@ -387,3 +387,54 @@ test('Team Stats uses one shared proportional comparison bar',() => {
   assert.match(row,/<span><i class="detail-comparison-left"[^>]*><\/i><i class="detail-comparison-right"/);
   assert.doesNotMatch(row,/<\/span><span><i/);
 });
+
+test('Team Stats chooses more distinguishable team colors when primaries are too close',() => {
+  const close = [
+    {team:{color:'003b5c',alternateColor:'a2aaad'}},
+    {team:{color:'041e42',alternateColor:'869397'}}
+  ];
+
+  const selected = context.detailTeamComparisonColors(close);
+
+  assert.equal(selected.length,2);
+  assert.ok(context.detailColorSeparation(selected[0],selected[1]) >= .105);
+  assert.notDeepEqual(
+    [...selected],
+    ['#003b5c','#041e42']
+  );
+});
+
+test('Team Stats treats adjacent red and orange primaries as too similar',() => {
+  const adjacent = [
+    {team:{color:'c8102e',alternateColor:'041e42'}},
+    {team:{color:'ff4c00',alternateColor:'fcba03'}}
+  ];
+
+  const selected =
+    [...context.detailTeamComparisonColors(adjacent)];
+
+  assert.notDeepEqual(
+    selected,
+    ['#c8102e','#ff4c00']
+  );
+
+  assert.equal(
+    context.detailColorsTooClose(
+      selected[0],
+      selected[1]
+    ),
+    false
+  );
+});
+
+test('Team Stats keeps primary team colors when color families are clearly distinct',() => {
+  const distinct = [
+    {team:{color:'c8102e',alternateColor:'041e42'}},
+    {team:{color:'0057b8',alternateColor:'fdb927'}}
+  ];
+
+  assert.deepEqual(
+    [...context.detailTeamComparisonColors(distinct)],
+    ['#c8102e','#0057b8']
+  );
+});
