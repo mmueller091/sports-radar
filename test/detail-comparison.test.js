@@ -647,3 +647,12 @@ test('Global search is wired to the canonical feed and opens Game Center directl
   assert.match(source,/data-search-game/);
   assert.match(source,/async function openGameDetails\(id,sport=null\)/);
 });
+
+test('Team pages are hash-routed and reuse the existing canonical feed',() => {
+  assert.match(source,/function teamRouteFromHash\(/);
+  assert.match(source,/function renderTeamPage\(/);
+  assert.match(source,/globalSearchTeamGames\(team\)/);
+  assert.match(source,/function openTeamPage\(team\)/);
+  assert.match(source,/openTeamPage\(team\);/);
+  assert.match(source,/teamGameSection\('Upcoming',upcoming\)/);
+});
