@@ -1453,39 +1453,458 @@ function basketballPeriodLabel(sport,index) {
       : `${index - 3}OT`;
 }
 
+function basketballStatKey(value) {
+  const text =
+    String(value || '')
+      .trim()
+      .toLowerCase();
+
+  if (
+    text === '+/-' ||
+    text === 'plus/minus' ||
+    text === 'plus-minus' ||
+    text === 'plus minus'
+  ) {
+    return 'plusminus';
+  }
+
+  return text.replace(/[^a-z0-9]/g,'');
+}
+
+function basketballRawTeamData(summary,teamId) {
+  const blocks =
+    summary?.boxscore?.players || [];
+
+  const block =
+    blocks.find(item =>
+      String(item?.team?.id || '') ===
+      String(teamId || '')
+    );
+
+  if (!block) {
+    return {
+      players:new Map(),
+      totals:{}
+    };
+  }
+
+  const players = new Map();
+  const totals = {};
+
+  const addStats = (target,group,values) => {
+    const labels =
+      Array.isArray(group?.labels) && group.labels.length
+        ? group.labels
+        : Array.isArray(group?.names) && group.names.length
+          ? group.names
+          : Array.isArray(group?.keys)
+            ? group.keys
+            : [];
+
+    labels.forEach((label,index) => {
+      const key = basketballStatKey(label);
+      if (
+        key &&
+        values?.[index] !== undefined &&
+        values?.[index] !== null &&
+        values?.[index] !== ''
+      ) {
+        target[key] = String(values[index]);
+      }
+    });
+  };
+
+  for (const group of block.statistics || []) {
+    for (const entry of group.athletes || []) {
+      const name =
+        entry?.athlete?.displayName ||
+        entry?.athlete?.shortName ||
+        'Player';
+
+      const id =
+        String(entry?.athlete?.id || '');
+
+      const lookup =
+        id ||
+        `name:${basketballStatKey(name)}`;
+
+      const current =
+        players.get(lookup) || {
+          stats:{},
+          ejected:false
+        };
+
+      addStats(
+        current.stats,
+        group,
+        entry.stats
+      );
+
+      current.ejected =
+        current.ejected ||
+        entry.ejected === true ||
+        entry.athlete?.ejected === true;
+
+      players.set(lookup,current);
+
+      if (id) {
+        players.set(
+          `name:${basketballStatKey(name)}`,
+          current
+        );
+      }
+    }
+
+    if (
+      Array.isArray(group.totals) &&
+      group.totals.length
+    ) {
+      addStats(
+        totals,
+        group,
+        group.totals
+      );
+    }
+  }
+
+  return {
+    players,
+    totals
+  };
+}
+
+function basketballRawValue(stats,aliases) {
+  if (!stats) return null;
+
+  for (const alias of aliases) {
+    const value =
+      stats[basketballStatKey(alias)];
+
+    if (
+      value !== undefined &&
+      value !== null &&
+      value !== ''
+    ) {
+      return value;
+    }
+  }
+
+  return null;
+}
+
+const BASKETBALL_EXTRA_COLUMNS = [
+  {
+    key:'offensiveRebounds',
+    label:'OREB',
+    aliases:['OREB','offensiveRebounds','offensiveRebound']
+  },
+  {
+    key:'defensiveRebounds',
+    label:'DREB',
+    aliases:['DREB','defensiveRebounds','defensiveRebound']
+  },
+  {
+    key:'plusMinus',
+    label:'+/-',
+    aliases:['+/-','plusMinus','plusMinusPoints']
+  }
+];
+
+function basketballMergePlayers(players) {
+  const merged = new Map();
+
+  for (const player of players || []) {
+    const key =
+      String(player?.id || '') ||
+      `name:${basketballStatKey(player?.name)}`;
+
+    if (!merged.has(key)) {
+      merged.set(
+        key,
+        {
+          ...player,
+          stats:{...(player?.stats || {})}
+        }
+      );
+      continue;
+    }
+
+    const current = merged.get(key);
+
+    current.stats = {
+      ...(current.stats || {}),
+      ...(player?.stats || {})
+    };
+
+    if (
+      current.starter === null ||
+      current.starter === undefined
+    ) {
+      current.starter = player.starter;
+    }
+
+    current.didNotPlay =
+      current.didNotPlay ||
+      player.didNotPlay === true;
+
+    current.dnpReason =
+      current.dnpReason ||
+      player.dnpReason ||
+      '';
+  }
+
+  return [...merged.values()];
+}
+
+function basketballExpandedBoxScoreTeams(summary) {
+  const normalized =
+    summary?.basketballBoxScore?.teams || [];
+
+  return normalized.map(team => {
+    const raw =
+      basketballRawTeamData(
+        summary,
+        team.teamId
+      );
+
+    const players =
+      basketballMergePlayers(team.players)
+        .map(player => {
+          const lookup =
+            String(player.id || '') ||
+            `name:${basketballStatKey(player.name)}`;
+
+          const rawPlayer =
+            raw.players.get(lookup) ||
+            raw.players.get(
+              `name:${basketballStatKey(player.name)}`
+            ) ||
+            {
+              stats:{},
+              ejected:false
+            };
+
+          const extra =
+            Object.fromEntries(
+              BASKETBALL_EXTRA_COLUMNS.map(column => [
+                column.key,
+                basketballRawValue(
+                  rawPlayer.stats,
+                  column.aliases
+                )
+              ])
+            );
+
+          return {
+            ...player,
+            extra,
+            ejected:rawPlayer.ejected
+          };
+        });
+
+    const totalExtra =
+      Object.fromEntries(
+        BASKETBALL_EXTRA_COLUMNS.map(column => [
+          column.key,
+          basketballRawValue(
+            raw.totals,
+            column.aliases
+          )
+        ])
+      );
+
+    return {
+      ...team,
+      players,
+      totalExtra
+    };
+  });
+}
+
 function basketballBoxScoreMarkup(summary,sport) {
   if (!['NBA','NCAAB'].includes(sport)) return '';
 
   const teams =
-    summary?.basketballBoxScore?.teams || [];
+    basketballExpandedBoxScoreTeams(summary);
 
   if (!teams.length) {
     return '<section class="detail-section"><h3>Box Score</h3><p class="detail-empty">Box score unavailable</p></section>';
   }
 
-  const columns = [
-    ['minutes','MIN'],
-    ['fg','FG'],
-    ['threePt','3PT'],
-    ['ft','FT'],
-    ['rebounds','REB'],
-    ['assists','AST'],
-    ['steals','STL'],
-    ['blocks','BLK'],
-    ['turnovers','TO'],
-    ['fouls','PF'],
-    ['points','PTS']
+  const baseColumns = [
+    {key:'minutes',label:'MIN'},
+    {key:'fg',label:'FG'},
+    {key:'threePt',label:'3PT'},
+    {key:'ft',label:'FT'}
   ];
 
-  const cells =
-    stats =>
-      columns
-        .map(([key]) =>
-          `<td>${safeText(stats?.[key] ?? '—')}</td>`
-        )
-        .join('');
+  const tailColumns = [
+    {key:'rebounds',label:'REB'},
+    {key:'assists',label:'AST'},
+    {key:'steals',label:'STL'},
+    {key:'blocks',label:'BLK'},
+    {key:'turnovers',label:'TO'},
+    {key:'fouls',label:'PF'}
+  ];
 
-  return `<section class="detail-section basketball-box-score"><h3>Box Score</h3><div class="detail-player-grid">${teams.map(team => `<div class="detail-player-team"><h4>${safeText(team.displayName)}</h4>${team.periods?.length ? `<p class="box-periods">${team.periods.map((period,index) => `${basketballPeriodLabel(sport,index)} ${safeText(period.value)}</`).join(' · ')}</p>` : ''}<div class="detail-table-scroll" tabindex="0" role="region" aria-label="${safeText(team.displayName)} box score, scroll for more statistics"><table class="detail-player-table basketball-player-table"><thead><tr><th scope="col">Player</th>${columns.map(([,label]) => `<th scope="col">${label}</th>`).join('')}</tr></thead><tbody>${(team.players || []).map(player => `<tr class="${player.didNotPlay ? 'box-dnp' : ''}"><th scope="row">${safeText(player.name)}${player.starter === null || player.starter === undefined ? '' : `<small>${player.starter ? 'Starter' : 'Bench'}</small>`}</th>${player.didNotPlay ? `<td colspan="${columns.length}" class="box-dnp-reason">DNP${player.dnpReason ? ` · ${safeText(player.dnpReason)}` : ''}</td>` : cells(player.stats)}</tr>`).join('')}</tbody>${team.totals ? `<tfoot><tr><th scope="row">TEAM</th>${cells(team.totals)}</tr></tfoot>` : ''}</table></div></div>`).join('')}</div></section>`;
+  const hasExtra = key =>
+    teams.some(team =>
+      team.players.some(player =>
+        !player.didNotPlay &&
+        player.extra?.[key] !== null &&
+        player.extra?.[key] !== undefined &&
+        player.extra?.[key] !== ''
+      ) ||
+      (
+        team.totalExtra?.[key] !== null &&
+        team.totalExtra?.[key] !== undefined &&
+        team.totalExtra?.[key] !== ''
+      )
+    );
+
+  const extraBeforeRebounds =
+    BASKETBALL_EXTRA_COLUMNS
+      .filter(column =>
+        ['offensiveRebounds','defensiveRebounds'].includes(column.key) &&
+        hasExtra(column.key)
+      );
+
+  const plusMinus =
+    BASKETBALL_EXTRA_COLUMNS
+      .filter(column =>
+        column.key === 'plusMinus' &&
+        hasExtra(column.key)
+      );
+
+  const columns = [
+    ...baseColumns,
+    ...extraBeforeRebounds,
+    ...tailColumns,
+    ...plusMinus,
+    {key:'points',label:'PTS'}
+  ];
+
+  const valueFor = (source,column) =>
+    BASKETBALL_EXTRA_COLUMNS.some(extra =>
+      extra.key === column.key
+    )
+      ? source?.extra?.[column.key]
+      : source?.stats?.[column.key];
+
+  const totalValueFor = (team,column) =>
+    BASKETBALL_EXTRA_COLUMNS.some(extra =>
+      extra.key === column.key
+    )
+      ? team.totalExtra?.[column.key]
+      : team.totals?.[column.key];
+
+  const cells = source =>
+    columns
+      .map(column =>
+        `<td>${safeText(valueFor(source,column) ?? '—')}</td>`
+      )
+      .join('');
+
+  const totalCells = team =>
+    columns
+      .map(column =>
+        `<td>${safeText(totalValueFor(team,column) ?? '—')}</td>`
+      )
+      .join('');
+
+  const playerRow = (player,showRole) => {
+    const status =
+      player.ejected
+        ? '<small class="box-player-status box-ejected">Ejected</small>'
+        : showRole ||
+          player.starter === null ||
+          player.starter === undefined
+          ? ''
+          : `<small class="box-player-role">${player.starter ? 'Starter' : 'Bench'}</small>`;
+
+    if (player.didNotPlay) {
+      return `<tr class="box-dnp"><th scope="row">${safeText(player.name)}</th><td colspan="${columns.length}" class="box-dnp-reason">DNP${player.dnpReason ? ` · ${safeText(player.dnpReason)}` : ''}</td></tr>`;
+    }
+
+    return `<tr><th scope="row">${safeText(player.name)}${status}</th>${cells(player)}</tr>`;
+  };
+
+  const playerRows = team => {
+    const players =
+      team.players || [];
+
+    const active =
+      players.filter(player =>
+        !player.didNotPlay
+      );
+
+    const dnp =
+      players.filter(player =>
+        player.didNotPlay
+      );
+
+    const hasStarterGroups =
+      active.some(player =>
+        player.starter === true
+      );
+
+    const rows = [];
+
+    if (hasStarterGroups) {
+      const starters =
+        active.filter(player =>
+          player.starter === true
+        );
+
+      const bench =
+        active.filter(player =>
+          player.starter !== true
+        );
+
+      if (starters.length) {
+        rows.push(
+          `<tr class="box-group-row"><th colspan="${columns.length + 1}">Starters</th></tr>`
+        );
+        rows.push(
+          ...starters.map(player =>
+            playerRow(player,true)
+          )
+        );
+      }
+
+      if (bench.length) {
+        rows.push(
+          `<tr class="box-group-row"><th colspan="${columns.length + 1}">Bench</th></tr>`
+        );
+        rows.push(
+          ...bench.map(player =>
+            playerRow(player,true)
+          )
+        );
+      }
+    } else {
+      rows.push(
+        ...active.map(player =>
+          playerRow(player,false)
+        )
+      );
+    }
+
+    if (dnp.length) {
+      rows.push(
+        `<tr class="box-group-row box-dnp-group"><th colspan="${columns.length + 1}">Did not play</th></tr>`
+      );
+      rows.push(
+        ...dnp.map(player =>
+          playerRow(player,true)
+        )
+      );
+    }
+
+    return rows.join('');
+  };
+
+  return `<section class="detail-section basketball-box-score"><h3>Box Score</h3><div class="detail-player-grid">${teams.map(team => `<div class="detail-player-team"><h4>${safeText(team.displayName)}</h4>${team.periods?.length ? `<p class="box-periods">${team.periods.map((period,index) => `${basketballPeriodLabel(sport,index)} ${safeText(period.value)}`).join(' · ')}</p>` : ''}<div class="detail-table-scroll" tabindex="0" role="region" aria-label="${safeText(team.displayName)} box score, scroll for more statistics"><table class="detail-player-table basketball-player-table"><thead><tr><th scope="col">Player</th>${columns.map(column => `<th scope="col">${safeText(column.label)}</th>`).join('')}</tr></thead><tbody>${playerRows(team)}</tbody>${team.totals ? `<tfoot><tr><th scope="row">TEAM</th>${totalCells(team)}</tr></tfoot>` : ''}</table></div></div>`).join('')}</div></section>`;
 }
 
 const TEAM_STAT_CONFIG = {

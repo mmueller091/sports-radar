@@ -2819,3 +2819,41 @@ dialog,
   }
 }
 
+/* Basketball box score expansion */
+.basketball-player-table {
+  min-width: 960px;
+}
+
+.basketball-player-table .box-group-row th {
+  position: static;
+  left: auto;
+  width: auto;
+  padding: 7px 8px 5px;
+  background: #15252c;
+  color: #9fb8c3;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-align: left;
+  text-transform: uppercase;
+}
+
+.basketball-player-table .box-dnp-group th {
+  color: #879aa3;
+}
+
+.basketball-player-table .box-player-status.box-ejected {
+  color: #f29a91;
+  font-weight: 600;
+}
+
+.basketball-player-table tbody tr:not(.box-group-row):hover td,
+.basketball-player-table tbody tr:not(.box-group-row):hover > th {
+  background-color: rgba(119,175,213,.06);
+}
+
+@media (max-width: 600px) {
+  .basketball-player-table {
+    min-width: 900px;
+  }
+}

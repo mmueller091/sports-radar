@@ -4,7 +4,7 @@ import fs from 'node:fs';
 import vm from 'node:vm';
 
 const source = fs.readFileSync(new URL('../app.js',import.meta.url),'utf8').replace(/\r\n/g,'\n');
-const start = source.indexOf('const TEAM_STAT_CONFIG =');
+const start = source.indexOf('function basketballPeriodLabel(');
 const end = source.indexOf('function readRatingHistory(',start);
 const context = vm.createContext({safeText:value => String(value).replaceAll('<','&lt;').replaceAll('"','&quot;')});
 vm.runInContext(source.slice(start,end),context);
@@ -437,4 +437,205 @@ test('Team Stats keeps primary team colors when color families are clearly disti
     [...context.detailTeamComparisonColors(distinct)],
     ['#c8102e','#0057b8']
   );
+});
+
+test('NBA and NCAAB Box Score expands raw provider stats and groups players by role',() => {
+  const payload = {
+    basketballBoxScore:{
+      teams:[
+        {
+          teamId:'1',
+          abbreviation:'BOS',
+          displayName:'Boston Celtics',
+          periods:[
+            {value:'28'},
+            {value:'31'},
+            {value:'26'},
+            {value:'30'},
+            {value:'8'}
+          ],
+          players:[
+            {
+              id:'10',
+              name:'Jayson Tatum',
+              starter:true,
+              didNotPlay:false,
+              dnpReason:'',
+              stats:{
+                minutes:'41',
+                fg:'11-23',
+                threePt:'4-10',
+                ft:'7-8',
+                rebounds:'12',
+                assists:'6',
+                steals:'1',
+                blocks:'1',
+                turnovers:'3',
+                fouls:'2',
+                points:'33'
+              }
+            },
+            {
+              id:'11',
+              name:'Payton Pritchard',
+              starter:false,
+              didNotPlay:false,
+              dnpReason:'',
+              stats:{
+                minutes:'26',
+                fg:'5-9',
+                threePt:'3-6',
+                ft:'0-0',
+                rebounds:'3',
+                assists:'4',
+                steals:'1',
+                blocks:'0',
+                turnovers:'1',
+                fouls:'1',
+                points:'13'
+              }
+            },
+            {
+              id:'12',
+              name:'Bench DNP',
+              starter:false,
+              didNotPlay:true,
+              dnpReason:'Coach Decision',
+              stats:{}
+            }
+          ],
+          totals:{
+            minutes:'265',
+            fg:'44-91',
+            threePt:'15-39',
+            ft:'20-24',
+            rebounds:'48',
+            assists:'27',
+            steals:'8',
+            blocks:'5',
+            turnovers:'12',
+            fouls:'18',
+            points:'123'
+          }
+        }
+      ]
+    },
+    boxscore:{
+      players:[
+        {
+          team:{id:'1'},
+          statistics:[
+            {
+              labels:['MIN','FG','3PT','FT','OREB','DREB','REB','AST','STL','BLK','TO','PF','+/-','PTS'],
+              athletes:[
+                {
+                  athlete:{id:'10',displayName:'Jayson Tatum'},
+                  starter:true,
+                  stats:['41','11-23','4-10','7-8','2','10','12','6','1','1','3','2','+9','33']
+                },
+                {
+                  athlete:{id:'11',displayName:'Payton Pritchard'},
+                  starter:false,
+                  ejected:true,
+                  stats:['26','5-9','3-6','0-0','1','2','3','4','1','0','1','1','-2','13']
+                }
+              ],
+              totals:['265','44-91','15-39','20-24','11','37','48','27','8','5','12','18','','123']
+            }
+          ]
+        }
+      ]
+    }
+  };
+
+  const nba =
+    context.basketballBoxScoreMarkup(
+      payload,
+      'NBA'
+    );
+
+  assert.match(nba,/OREB/);
+  assert.match(nba,/DREB/);
+  assert.match(nba,/\+\/-/);
+  assert.match(nba,/>\+9</);
+  assert.match(nba,/Starters/);
+  assert.match(nba,/Bench/);
+  assert.match(nba,/Did not play/);
+  assert.match(nba,/Coach Decision/);
+  assert.match(nba,/Ejected/);
+  assert.match(nba,/Q4 30 · OT 8/);
+  assert.match(nba,/>11<.*>37<.*>48</s);
+
+  const ncaab =
+    context.basketballBoxScoreMarkup(
+      {
+        ...payload,
+        basketballBoxScore:{
+          teams:[
+            {
+              ...payload.basketballBoxScore.teams[0],
+              periods:[
+                {value:'35'},
+                {value:'40'},
+                {value:'7'}
+              ]
+            }
+          ]
+        }
+      },
+      'NCAAB'
+    );
+
+  assert.match(ncaab,/1H 35 · 2H 40 · OT 7/);
+});
+
+test('Basketball Box Score hides optional raw columns when the provider does not supply them',() => {
+  const payload = {
+    basketballBoxScore:{
+      teams:[
+        {
+          teamId:'1',
+          displayName:'Team One',
+          periods:[],
+          players:[
+            {
+              id:'1',
+              name:'Player One',
+              starter:null,
+              didNotPlay:false,
+              stats:{
+                minutes:'30',
+                fg:'5-10',
+                threePt:'1-3',
+                ft:'2-2',
+                rebounds:'6',
+                assists:'2',
+                steals:'1',
+                blocks:'0',
+                turnovers:'1',
+                fouls:'2',
+                points:'13'
+              }
+            }
+          ],
+          totals:null
+        }
+      ]
+    },
+    boxscore:{
+      players:[]
+    }
+  };
+
+  const markup =
+    context.basketballBoxScoreMarkup(
+      payload,
+      'NBA'
+    );
+
+  assert.doesNotMatch(markup,/OREB/);
+  assert.doesNotMatch(markup,/DREB/);
+  assert.doesNotMatch(markup,/\+\/-/);
+  assert.match(markup,/MIN/);
+  assert.match(markup,/PTS/);
 });
