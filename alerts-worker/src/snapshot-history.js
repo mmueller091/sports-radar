@@ -72,6 +72,39 @@ export async function snapshotHistory(env,games,now) {
 
 // Canonical content, not acquisition health or JSON property insertion order.
 // The full original payload is still stored whenever a snapshot is warranted.
+export async function gameHistory(env,sport,id,now=Date.now()) {
+  const gameKey = `${sport}:${id}`;
+  const rows = (await env.DB.prepare(`SELECT observed_at,state,rating,score_a,score_b,phase,clock,normalized_state,model_version
+    FROM sports_snapshots
+    WHERE game_key=? AND observed_at>=?
+    ORDER BY observed_at ASC`)
+    .bind(gameKey,now-RETENTION_MS)
+    .all()).results || [];
+
+  const snapshots = rows.map(row => {
+    let normalized = {};
+    try { normalized = JSON.parse(row.normalized_state || '{}'); } catch {}
+
+    const period = Number(row.phase);
+    return {
+      observedAt:Number(row.observed_at),
+      state:String(row.state || ''),
+      rating:Number(row.rating),
+      scoreA:String(row.score_a ?? ''),
+      scoreB:String(row.score_b ?? ''),
+      period:Number.isFinite(period) && period > 0 ? period : null,
+      clock:String(row.clock || ''),
+      phaseLabel:String(normalized?.live?.phase || normalized?.status || ''),
+      modelVersion:String(row.model_version || 'legacy')
+    };
+  }).filter(point =>
+    Number.isFinite(point.observedAt) &&
+    Number.isFinite(point.rating)
+  );
+
+  return {gameKey,snapshots};
+}
+
 export function providerIdentity(value) {
   if (typeof value !== 'string') return value;
   const name = value.trim().toLowerCase().replace(/\s+/g,' ');

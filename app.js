@@ -555,6 +555,7 @@ async function loadLiveGames() {
     games = canonicalFeedGames(feed.games);
     feedHasLiveGames = games.some(game => game.state === 'live');
     state.source = 'live';
+    games.forEach(recordRatingSnapshot);
     state.updatedAt = feed.updatedAt;
     state.feedStale = feed.freshness?.stale === true;
     state.feedDegraded = feed.freshness?.degraded === true;
@@ -4599,7 +4600,16 @@ function recordRatingSnapshot(game) {
       score:game.score,
       phase:
         game.live?.phase ||
-        game.status
+        game.status,
+      period:
+        Number(game.liveRawStatus?.period) ||
+        null,
+      clock:
+        String(game.liveRawStatus?.displayClock || ''),
+      scoreA:
+        String(game.teams?.[0]?.[2] ?? ''),
+      scoreB:
+        String(game.teams?.[1]?.[2] ?? '')
     }
   ].slice(-160);
 
@@ -4933,6 +4943,317 @@ function timelineFinalScores(game,summary) {
   return {home:score('home'),away:score('away')};
 }
 
+function recordedTimelinePoints(game,summary,format) {
+  const snapshots =
+    Array.isArray(summary?.sportsRadarHistory?.snapshots)
+      ? summary.sportsRadarHistory.snapshots
+          .filter(point =>
+            Number.isFinite(Number(point?.observedAt)) &&
+            Number.isFinite(Number(point?.rating))
+          )
+          .sort((a,b) =>
+            Number(a.observedAt) -
+            Number(b.observedAt)
+          )
+      : [];
+
+  if (!snapshots.length) return null;
+
+  const live =
+    snapshots.filter(point =>
+      ['live','completed'].includes(point.state)
+    );
+
+  if (!live.length) return null;
+
+  const opening =
+    snapshots.find(point =>
+      point.state === 'upcoming'
+    );
+
+  const periodTotals = new Map();
+  for (const point of live) {
+    const period = Number(point.period);
+    if (Number.isFinite(period) && period > 0) {
+      periodTotals.set(
+        period,
+        (periodTotals.get(period) || 0) + 1
+      );
+    }
+  }
+
+  const periodSeen = new Map();
+  const firstAt = Number(live[0].observedAt);
+  const lastAt = Number(live[live.length - 1].observedAt);
+  const observedSpan = Math.max(1,lastAt - firstAt);
+  const points = [];
+
+  if (opening) {
+    points.push({
+      x:0,
+      score:Number(opening.rating),
+      label:'Start',
+      text:'Recorded pregame rating',
+      observedAt:Number(opening.observedAt),
+      modelVersion:opening.modelVersion || 'legacy',
+      recorded:true
+    });
+  }
+
+  let lastX =
+    points.length
+      ? 0
+      : -Infinity;
+
+  for (const point of live) {
+    const period = Number(point.period);
+    const seen = (periodSeen.get(period) || 0) + 1;
+    periodSeen.set(period,seen);
+
+    const ordinal =
+      seen /
+      ((periodTotals.get(period) || 1) + 1);
+
+    let x =
+      Number.isFinite(period) && period > 0
+        ? timelineEventPosition(
+            game,
+            {
+              period:{
+                number:period,
+                displayValue:point.phaseLabel || ''
+              },
+              clock:{
+                displayValue:point.clock || ''
+              }
+            },
+            format,
+            ordinal
+          )
+        : null;
+
+    if (
+      x === null ||
+      !Number.isFinite(x)
+    ) {
+      x =
+        (Number(point.observedAt) - firstAt) /
+        observedSpan *
+        format.regulation;
+    }
+
+    if (Number.isFinite(lastX)) {
+      x = Math.max(lastX,x);
+    }
+
+    lastX = x;
+
+    const phase =
+      String(point.phaseLabel || '')
+        .trim();
+
+    const clock =
+      String(point.clock || '')
+        .trim();
+
+    let label =
+      phase && clock && !phase.includes(clock)
+        ? `${phase} ${clock}`
+        : phase || clock;
+
+    if (
+      !label &&
+      Number.isFinite(period) &&
+      period > 0
+    ) {
+      label = [
+        timelinePeriodLabel(
+          {period:{number:period}},
+          format
+        ),
+        clock
+      ].filter(Boolean).join(' ');
+    }
+
+    if (!label) {
+      label =
+        new Date(Number(point.observedAt))
+          .toLocaleTimeString(
+            [],
+            {
+              hour:'numeric',
+              minute:'2-digit'
+            }
+          );
+    }
+
+    const scoreText =
+      point.scoreA !== undefined &&
+      point.scoreA !== null &&
+      point.scoreB !== undefined &&
+      point.scoreB !== null &&
+      String(point.scoreA) !== '' &&
+      String(point.scoreB) !== ''
+        ? `${point.scoreA}-${point.scoreB}`
+        : '';
+
+    points.push({
+      x,
+      score:Number(point.rating),
+      label,
+      text:
+        scoreText
+          ? `${scoreText} ┬╖ Recorded by Sports Radar`
+          : 'Recorded by Sports Radar',
+      overtime:
+        format.periods > 0 &&
+        Number.isFinite(period) &&
+        period > format.periods,
+      observedAt:Number(point.observedAt),
+      modelVersion:
+        point.modelVersion ||
+        'legacy',
+      recorded:true
+    });
+  }
+
+  const latestCanonicalAt =
+    Math.max(
+      ...live.map(point =>
+        Number(point.observedAt)
+      )
+    );
+
+  const local =
+    (
+      ratingHistory[
+        watchKey(game)
+      ] ||
+      []
+    )
+      .filter(point =>
+        Number.isFinite(Number(point?.at)) &&
+        Number.isFinite(Number(point?.score)) &&
+        Number(point.at) >
+          latestCanonicalAt + 5000
+      )
+      .sort((a,b) =>
+        Number(a.at) -
+        Number(b.at)
+      );
+
+  let localAdded = 0;
+
+  for (const point of local) {
+    const period = Number(point.period);
+
+    let x =
+      Number.isFinite(period) && period > 0
+        ? timelineEventPosition(
+            game,
+            {
+              period:{
+                number:period,
+                displayValue:point.phase || ''
+              },
+              clock:{
+                displayValue:point.clock || ''
+              }
+            },
+            format,
+            1
+          )
+        : null;
+
+    if (
+      x === null ||
+      !Number.isFinite(x)
+    ) {
+      continue;
+    }
+
+    x = Math.max(lastX,x);
+    lastX = x;
+
+    const scoreText =
+      point.scoreA !== undefined &&
+      point.scoreA !== null &&
+      point.scoreB !== undefined &&
+      point.scoreB !== null &&
+      String(point.scoreA) !== '' &&
+      String(point.scoreB) !== ''
+        ? `${point.scoreA}-${point.scoreB}`
+        : '';
+
+    points.push({
+      x,
+      score:Number(point.score),
+      label:
+        point.phase ||
+        [
+          timelinePeriodLabel(
+            {period:{number:period}},
+            format
+          ),
+          point.clock || ''
+        ].filter(Boolean).join(' '),
+      text:
+        scoreText
+          ? `${scoreText} ┬╖ Newest browser observation`
+          : 'Newest browser observation',
+      overtime:
+        format.periods > 0 &&
+        Number.isFinite(period) &&
+        period > format.periods,
+      observedAt:Number(point.at),
+      local:true
+    });
+
+    localAdded++;
+  }
+
+  if (points.length < 2) return null;
+
+  const domainEnd =
+    Math.max(
+      format.regulation,
+      ...points.map(point =>
+        Number(point.x) || 0
+      )
+    );
+
+  const dividers = [];
+
+  if (
+    format.periods &&
+    domainEnd > format.regulation
+  ) {
+    for (
+      let x = format.regulation, ot = 1;
+      x < domainEnd;
+      x += format.overtime, ot++
+    ) {
+      dividers.push({
+        x,
+        label:
+          ot === 1
+            ? 'OT'
+            : `${ot}OT`
+      });
+    }
+  }
+
+  return {
+    points,
+    source:
+      localAdded
+        ? 'recorded + browser'
+        : 'recorded snapshots',
+    domainEnd,
+    dividers
+  };
+}
+
 function timelinePoints(game,summary) {
   if (
     game.state === 'upcoming'
@@ -4944,6 +5265,16 @@ function timelinePoints(game,summary) {
   }
 
   const format = timelineFormat(game,summary);
+  const recorded =
+    recordedTimelinePoints(
+      game,
+      summary,
+      format
+    );
+
+  if (recorded) {
+    return recorded;
+  }
   const plays = scoringEvents(summary);
   const periodNumber = play => Number(play?.period?.number || play?.period?.value || play?.period || 0);
   const events = plays.map((play,index) => {
@@ -5224,6 +5555,99 @@ function excitementTimeline(game,summary) {
       })
       .join('');
 
+  const annotationFormat =
+    timelineFormat(
+      game,
+      summary
+    );
+
+  const eventMarkers =
+    source.startsWith('recorded')
+      ? scoringEvents(summary)
+          .map((play,index,plays) => {
+            const period = Number(
+              play?.period?.number ||
+              play?.period?.value ||
+              play?.period ||
+              0
+            );
+
+            const siblings =
+              plays.filter(item =>
+                Number(
+                  item?.period?.number ||
+                  item?.period?.value ||
+                  item?.period ||
+                  0
+                ) === period
+              );
+
+            const ordinal =
+              (
+                siblings.indexOf(play) +
+                1
+              ) /
+              (
+                siblings.length +
+                1
+              );
+
+            const x =
+              timelineEventPosition(
+                game,
+                play,
+                annotationFormat,
+                ordinal
+              );
+
+            const text =
+              compactPlay(play);
+
+            if (
+              x === null ||
+              !Number.isFinite(x) ||
+              x < 0 ||
+              x > domainEnd ||
+              !text
+            ) {
+              return '';
+            }
+
+            const nearest =
+              points.reduce(
+                (best,point) =>
+                  !best ||
+                  Math.abs(point.x - x) <
+                    Math.abs(best.x - x)
+                    ? point
+                    : best,
+                null
+              );
+
+            if (!nearest) {
+              return '';
+            }
+
+            const label =
+              `${
+                timelinePeriodLabel(
+                  play,
+                  annotationFormat
+                )
+              } ${
+                play.clock?.displayValue ||
+                ''
+              }`
+                .trim();
+
+            const explanation =
+              `${label || 'Scoring play'}: ${text}`;
+
+            return `<g class="timeline-point timeline-event-marker" data-timeline-explanation="${safeText(explanation)}" role="button" tabindex="0" aria-expanded="false" aria-controls="${timelineHelpId}" aria-label="${safeText(explanation)}"><circle cx="${px({x}).toFixed(1)}" cy="${py(nearest).toFixed(1)}" r="2.25"/><title>${safeText(explanation)}</title></g>`;
+          })
+          .join('')
+      : '';
+
   const moments =
     rises.length
       ? `<ol class="timeline-moments">${rises.map(point =>
@@ -5232,10 +5656,14 @@ function excitementTimeline(game,summary) {
       : '';
 
   return `<section class="detail-section timeline-section"><h3>Excitement timeline</h3><p class="timeline-note">${
-    source === 'scoring plays'
-      ? 'Estimated at reported scoring plays; the final point is the current rating.'
-      : 'Ratings recorded while this browser was open.'
-  }</p><svg class="timeline-chart" viewBox="0 0 ${width} ${height}" role="img" aria-label="Excitement rating over game time, from ${points[0].score} to ${points[points.length - 1].score}"><line x1="${left}" y1="${top}" x2="${left}" y2="${height - bottom}"/><line x1="${left}" y1="${height - bottom}" x2="${width - right}" y2="${height - bottom}"/><line class="timeline-midline" x1="${left}" y1="${py({score:50})}" x2="${width - right}" y2="${py({score:50})}"/><text x="3" y="${top + 4}">100</text><text x="10" y="${py({score:50}) - 4}">50</text><text x="16" y="${height - bottom + 4}">0</text>${overtimeGuides}<path class="timeline-line" d="${path}"/>${markers}<text x="${left}" y="${height - 5}">Start</text><text x="${width - right}" y="${height - 5}" text-anchor="end">${game.state === 'completed' ? 'Final' : 'Now'}</text></svg><div class="timeline-point-help" id="${timelineHelpId}" role="status" aria-live="polite" hidden></div>${moments}</section>`;
+    source === 'recorded snapshots'
+      ? 'Actual Sports Radar ratings recorded by the Worker during the game.'
+      : source === 'recorded + browser'
+        ? 'Actual Worker snapshots, extended by this browserΓÇÖs newest observation while persistence catches up.'
+        : source === 'scoring plays'
+          ? 'Estimated at reported scoring plays; the final point is the current rating.'
+          : 'Ratings recorded while this browser was open.'
+  }</p><svg class="timeline-chart" viewBox="0 0 ${width} ${height}" role="img" aria-label="Excitement rating over game time, from ${points[0].score} to ${points[points.length - 1].score}"><line x1="${left}" y1="${top}" x2="${left}" y2="${height - bottom}"/><line x1="${left}" y1="${height - bottom}" x2="${width - right}" y2="${height - bottom}"/><line class="timeline-midline" x1="${left}" y1="${py({score:50})}" x2="${width - right}" y2="${py({score:50})}"/><text x="3" y="${top + 4}">100</text><text x="10" y="${py({score:50}) - 4}">50</text><text x="16" y="${height - bottom + 4}">0</text>${overtimeGuides}<path class="timeline-line" d="${path}"/>${eventMarkers}${markers}<text x="${left}" y="${height - 5}">Start</text><text x="${width - right}" y="${height - 5}" text-anchor="end">${game.state === 'completed' ? 'Final' : 'Now'}</text></svg><div class="timeline-point-help" id="${timelineHelpId}" role="status" aria-live="polite" hidden></div>${moments}</section>`;
 }
 
 function safeStoryUrl(value) {
