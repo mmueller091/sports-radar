@@ -415,3 +415,64 @@ async function fetchDailyWindow(feed,futureDays=7) {
 return async () => dedupeGames((await Promise.all([fetchNFLWindow(),...LIVE_FEEDS.filter(f=>f.sport!=="NFL").map(f=>["NBA","NHL"].includes(f.sport)?fetchDailyWindow(f):fetchFeed(f))])).flat());
 }
 export function summaryUrl(game) { const league=game.sport === "Soccer" && game.sourceEvent?.league?.slug === "uefa.champions" ? "soccer/uefa.champions" : SPORT_PATHS[game.sport]; return `${ESPN_BASE}/${game.providerPath || league}/summary?event=${encodeURIComponent(game.id)}`; }
+export function teamResourceUrls(sport,id) {
+  const path =
+    SPORT_PATHS[sport];
+
+  if (
+    !path ||
+    sport === 'Tennis' ||
+    !id
+  ) {
+    return null;
+  }
+
+  const teamId =
+    encodeURIComponent(
+      String(id)
+    );
+
+  const root =
+    `${ESPN_BASE}/${path}/teams/${teamId}`;
+
+  return {
+    team:root,
+    schedule:`${root}/schedule`
+  };
+}
+
+const ESPN_CORE_BASE =
+  'https://sports.core.api.espn.com/v2/sports';
+
+export function coreTeamProfileUrl(sport,id,season) {
+  const path =
+    SPORT_PATHS[sport];
+
+  const year =
+    Number(season);
+
+  if (
+    !path ||
+    sport === 'Tennis' ||
+    !id ||
+    !Number.isInteger(year)
+  ) {
+    return null;
+  }
+
+  const [sportPath,league] =
+    path.split('/');
+
+  if (!sportPath || !league) {
+    return null;
+  }
+
+  const teamId =
+    encodeURIComponent(
+      String(id)
+    );
+
+  return (
+    `${ESPN_CORE_BASE}/${sportPath}/leagues/${league}/seasons/${year}/teams/${teamId}?lang=en&region=us`
+  );
+}

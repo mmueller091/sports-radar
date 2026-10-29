@@ -6,7 +6,8 @@ import {gunzipSync} from 'node:zlib';
 import vm from 'node:vm';
 import sourceHelper from '../../test/helpers/scoring-source.cjs';
 import worker,{checkGames} from '../src/index.js';
-import {refreshSportsData,readFeed,gameDetails,refreshDue} from '../src/sports-feed.js';
+import {refreshSportsData,readFeed,gameDetails,refreshDue,normalizeTeamSchedule,normalizeTeamLeaders} from '../src/sports-feed.js';
+import {coreTeamProfileUrl} from '../src/providers/espn.js';
 import {normalizeEvent,enrichGame} from '../src/game-model.js';
 import {baseballSituation,footballSituation} from '../src/display-model.js';
 
@@ -392,4 +393,133 @@ test('detail provider timeout returns last stored payload and its original times
   const original=globalThis.fetch;t.after(()=>{globalThis.fetch=original;});globalThis.fetch=async()=>{throw new DOMException('timeout','TimeoutError');};
   const result=await gameDetails(env,'NFL','42',now);
   assert.equal(result.sportsRadarFreshness.stale,true);assert.equal(result.sportsRadarFreshness.updatedAt,new Date(now-60000).toISOString());
+});
+
+test('team schedule and leader normalizers produce compact team-page data',() => {
+  const schedule = normalizeTeamSchedule({
+    team:{id:'33',abbreviation:'BAL',displayName:'Baltimore Ravens'},
+    season:{year:2026,type:2},
+    events:[
+      {
+        id:'game-1',
+        date:'2026-10-25T17:00:00Z',
+        competitions:[{
+          status:{type:{state:'post',completed:true,shortDetail:'Final'}},
+          broadcasts:[{names:['CBS']}],
+          competitors:[
+            {homeAway:'home',winner:true,score:'27',team:{id:'33',displayName:'Baltimore Ravens',abbreviation:'BAL',logos:[{href:'bal.png'}]}},
+            {homeAway:'away',winner:false,score:'20',team:{id:'4',displayName:'Cincinnati Bengals',abbreviation:'CIN',logos:[{href:'cin.png'}]}}
+          ]
+        }]
+      },
+      {
+        id:'game-2',
+        date:'2026-11-01T18:00:00Z',
+        competitions:[{
+          status:{type:{state:'pre',shortDetail:'Sun 1:00 PM'}},
+          broadcasts:[{names:['FOX']}],
+          competitors:[
+            {homeAway:'away',team:{id:'33',displayName:'Baltimore Ravens',abbreviation:'BAL'}},
+            {homeAway:'home',team:{id:'23',displayName:'Pittsburgh Steelers',abbreviation:'PIT',logos:[{href:'pit.png'}]}}
+          ]
+        }]
+      }
+    ]
+  },'33','NFL');
+
+  assert.equal(schedule.length,2);
+  assert.equal(schedule[0].state,'completed');
+  assert.equal(schedule[0].result,'W');
+  assert.equal(schedule[0].opponent.name,'Cincinnati Bengals');
+  assert.equal(schedule[0].broadcast,'CBS');
+  assert.equal(schedule[1].state,'upcoming');
+  assert.equal(schedule[1].homeAway,'away');
+  assert.equal(schedule[1].opponent.abbreviation,'PIT');
+
+  const leaders = normalizeTeamLeaders({
+    leaders:{
+      categories:[
+        {
+          name:'passingYards',
+          displayName:'Passing Yards',
+          abbreviation:'YDS',
+          leaders:[{displayValue:'2,104',value:2104,athlete:{id:'1',displayName:'Lamar Jackson',position:{abbreviation:'QB'},headshot:{href:'lamar.png'}}}]
+        },
+        {
+          name:'rushingYards',
+          displayName:'Rushing Yards',
+          abbreviation:'YDS',
+          leaders:[{displayValue:'811',value:811,athlete:{id:'2',displayName:'Derrick Henry',position:{abbreviation:'RB'}}}]
+        },
+        {
+          name:'receivingYards',
+          displayName:'Receiving Yards',
+          abbreviation:'YDS',
+          leaders:[{displayValue:'702',value:702,athlete:{id:'3',displayName:'Zay Flowers',position:{abbreviation:'WR'}}}]
+        },
+        {
+          name:'sacks',
+          displayName:'Sacks',
+          abbreviation:'SACK',
+          leaders:[{displayValue:'7.5',value:7.5,athlete:{id:'4',displayName:'Kyle Van Noy',position:{abbreviation:'LB'}}}]
+        }
+      ]
+    }
+  },'NFL');
+
+  assert.equal(leaders.length,4);
+  assert.deepEqual(leaders.map(item=>item.athlete.name),['Lamar Jackson','Derrick Henry','Zay Flowers','Kyle Van Noy']);
+  assert.equal(leaders[0].athlete.headshot,'lamar.png');
+});
+
+test('Core team leader refs hydrate into the four requested NFL tiles',() => {
+  const ref = id =>
+    `http://sports.core.api.espn.com/v2/sports/football/leagues/nfl/seasons/2026/athletes/${id}?lang=en&region=us`;
+
+  const payload = {
+    categories:[
+      {name:'passingYards',displayName:'Passing Yards',leaders:[{value:967,displayValue:'967',athlete:{'$ref':ref('3916387')}}]},
+      {name:'rushingYards',displayName:'Rushing Yards',leaders:[{value:579,displayValue:'579',athlete:{'$ref':ref('3043078')}}]},
+      {name:'receivingYards',displayName:'Receiving Yards',leaders:[{value:608,displayValue:'608',athlete:{'$ref':ref('4429615')}}]},
+      {name:'sacks',displayName:'Sacks',leaders:[{value:3.5,displayValue:'3.5',athlete:{'$ref':ref('4690179')}}]},
+      {name:'interceptions',displayName:'Interceptions',leaders:[{value:1,displayValue:'1',athlete:{'$ref':ref('x')}}]}
+    ]
+  };
+
+  const athletes = new Map([
+    [ref('3916387').replace(/^http:/,'https:'),{id:'3916387',displayName:'Lamar Jackson',headshot:{href:'lamar.png'}}],
+    [ref('3043078').replace(/^http:/,'https:'),{id:'3043078',displayName:'Derrick Henry'}],
+    [ref('4429615').replace(/^http:/,'https:'),{id:'4429615',displayName:'Zay Flowers'}],
+    [ref('4690179').replace(/^http:/,'https:'),{id:'4690179',displayName:'Tavius Robinson'}]
+  ]);
+
+  const leaders =
+    normalizeTeamLeaders(
+      payload,
+      'NFL',
+      athletes
+    );
+
+  assert.deepEqual(
+    leaders.map(item => [item.category,item.value,item.athlete.name]),
+    [
+      ['Passing Yards',967,'Lamar Jackson'],
+      ['Rushing Yards',579,'Derrick Henry'],
+      ['Receiving Yards',608,'Zay Flowers'],
+      ['Sacks',3.5,'Tavius Robinson']
+    ]
+  );
+  assert.equal(leaders[0].athlete.headshot,'lamar.png');
+  assert.equal(leaders[3].athlete.id,'4690179');
+});
+
+test('Core team profile URL targets the requested ESPN season',() => {
+  assert.equal(
+    coreTeamProfileUrl('NFL','33',2026),
+    'https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/seasons/2026/teams/33?lang=en&region=us'
+  );
+  assert.equal(
+    coreTeamProfileUrl('NBA','13',2027),
+    'https://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/seasons/2027/teams/13?lang=en&region=us'
+  );
 });

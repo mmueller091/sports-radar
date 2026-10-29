@@ -1,7 +1,7 @@
 import {buildPushPayload} from '@block65/webcrypto-web-push';
 import '../../rating-core.js';
 import {contextsForGames,refreshStorylines} from './storylines.js';
-import {readFeed,withFreshness,gameDetails,refreshDue,refreshSportsData,requestFeedRefresh} from './sports-feed.js';
+import {readFeed,withFreshness,gameDetails,teamDetails,refreshDue,refreshSportsData,requestFeedRefresh} from './sports-feed.js';
 
 const {rateGame,applyLiveSnapshot,recordFor,rankFor,clampScore,underdogCandidate,upsetImpact,gameProgress,momentumImpact} = globalThis.SportsRadarScore;
 const ORIGIN = 'https://mmueller091.github.io';
@@ -100,6 +100,15 @@ export default {
         const summary = await gameDetails(env,detail[1],detail[2]);
         return reply(request,summary || {error:'Game not found'},summary ? 200 : 404);
       } catch { return reply(request,{error:'Game details temporarily unavailable'},503); }
+    }
+    const teamDetail = /^\/team\/([A-Za-z]+)\/([A-Za-z0-9_-]{1,100})$/.exec(url.pathname);
+    if (teamDetail && request.method === 'GET') {
+      try {
+        const details = await teamDetails(env,teamDetail[1],teamDetail[2]);
+        return reply(request,details || {error:'Team not found'},details ? 200 : 404);
+      } catch {
+        return reply(request,{error:'Team details temporarily unavailable'},503);
+      }
     }
     if (url.pathname === '/config' && request.method === 'GET') return reply(request,{publicKey:env.VAPID_SERVER_PUBLIC_KEY || '',pollSeconds:60});
     if (url.pathname === '/health' && request.method === 'GET') {

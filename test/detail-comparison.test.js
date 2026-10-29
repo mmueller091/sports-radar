@@ -648,11 +648,15 @@ test('Global search is wired to the canonical feed and opens Game Center directl
   assert.match(source,/async function openGameDetails\(id,sport=null\)/);
 });
 
-test('Team pages are hash-routed and reuse the existing canonical feed',() => {
-  assert.match(source,/function teamRouteFromHash\(/);
-  assert.match(source,/function renderTeamPage\(/);
-  assert.match(source,/globalSearchTeamGames\(team\)/);
-  assert.match(source,/function openTeamPage\(team\)/);
-  assert.match(source,/openTeamPage\(team\);/);
-  assert.match(source,/teamGameSection\('Upcoming',upcoming\)/);
+test('Team pages load cached team data with leaders, a full schedule, and only last/next Signal spotlights',() => {
+  assert.match(source,/function teamDetailsUrlFor\(/);
+  assert.match(source,/function loadTeamPageData\(/);
+  assert.match(source,/function teamLeaderMarkup\(/);
+  assert.match(source,/function teamScheduleMarkup\(/);
+  assert.match(source,/function teamSpotlightRows\(/);
+  assert.match(source,/teamPageTab === 'schedule'/);
+  assert.match(source,/teamSpotlightMarkup\('Last Game'/);
+  assert.match(source,/teamSpotlightMarkup\('Next Game'/);
+  assert.match(source,/teamSignalMarkup\(entry\.signal/);
+  assert.doesNotMatch(source,/teamGameSection\('Upcoming',upcoming\)/);
 });

@@ -1,5 +1,5 @@
 import {basketballBoxScore} from './display-model.js';
-import {createCollector,summaryUrl} from './providers/espn.js';
+import {createCollector,summaryUrl,teamResourceUrls,coreTeamProfileUrl} from './providers/espn.js';
 import {preservePregameRecords,applyContextsToGame,enrichGame} from './game-model.js';
 import {contextsForGames} from './storylines.js';
 import {fingerprint,summaryCandidate,reusable,refreshBudget,boundedFeedRefresh,REFRESH_LEASE_MS} from './refresh-policy.js';
@@ -157,6 +157,1221 @@ async function providerJson(env,url,ttl,now,errors,budget) {
     throw error;
   } finally { await release(env,url,owner); }
 }
+
+const TEAM_STATIC_TTL_MS = 6 * 60 * 60 * 1000;
+const TEAM_LEADER_TTL_MS = 6 * 60 * 60 * 1000;
+const TEAM_IDENTITY_TTL_MS = 24 * 60 * 60 * 1000;
+
+function inferredTeamSeason(sport,now) {
+  const date =
+    new Date(now);
+
+  const year =
+    date.getUTCFullYear();
+
+  const month =
+    date.getUTCMonth() + 1;
+
+  if ([
+    'NBA',
+    'NCAAB',
+    'NHL'
+  ].includes(sport)) {
+    return month >= 7
+      ? year + 1
+      : year;
+  }
+
+  if ([
+    'NFL',
+    'CFB'
+  ].includes(sport)) {
+    return month === 1
+      ? year - 1
+      : year;
+  }
+
+  return year;
+}
+
+function teamSeasonYear(teamPayload,schedulePayload,sport,now) {
+  const candidates = [
+    schedulePayload?.season?.year,
+    schedulePayload?.events?.find(item =>
+      Number.isInteger(
+        Number(item?.season?.year)
+      )
+    )?.season?.year,
+    teamPayload?.season?.year,
+    teamPayload?.team?.season?.year
+  ];
+
+  for (const value of candidates) {
+    const year = Number(value);
+
+    if (Number.isInteger(year)) {
+      return year;
+    }
+  }
+
+  return inferredTeamSeason(
+    sport,
+    now
+  );
+}
+
+function teamScoreValue(value) {
+  if (
+    value === null ||
+    value === undefined
+  ) {
+    return '';
+  }
+
+  if (
+    typeof value === 'object'
+  ) {
+    return String(
+      value.displayValue ??
+      value.value ??
+      ''
+    );
+  }
+
+  return String(value);
+}
+
+function teamLogo(team) {
+  if (!team) return '';
+
+  if (typeof team.logo === 'string') {
+    return team.logo;
+  }
+
+  const logos =
+    Array.isArray(team.logos)
+      ? team.logos
+      : [];
+
+  return (
+    logos.find(item =>
+      item?.rel?.includes?.('default')
+    )?.href ||
+    logos[0]?.href ||
+    ''
+  );
+}
+
+function teamRecordSummary(team) {
+  const items =
+    team?.record?.items ||
+    team?.records ||
+    [];
+
+  const total =
+    Array.isArray(items)
+      ? items.find(item =>
+          String(item?.type || '')
+            .toLowerCase() ===
+          'total'
+        ) || items[0]
+      : null;
+
+  return String(
+    total?.summary ||
+    team?.record?.summary ||
+    team?.recordSummary ||
+    ''
+  );
+}
+
+export function normalizeTeamIdentity(teamPayload,schedulePayload,sport,id) {
+  const raw =
+    teamPayload?.team ||
+    schedulePayload?.team ||
+    {};
+
+  const scheduleTeam =
+    schedulePayload?.team ||
+    {};
+
+  return {
+    sport,
+    id:String(
+      raw.id ||
+      scheduleTeam.id ||
+      id
+    ),
+    name:
+      raw.displayName ||
+      scheduleTeam.displayName ||
+      raw.name ||
+      scheduleTeam.name ||
+      '',
+    abbreviation:
+      raw.abbreviation ||
+      scheduleTeam.abbreviation ||
+      '',
+    shortName:
+      raw.shortDisplayName ||
+      scheduleTeam.shortDisplayName ||
+      raw.nickname ||
+      '',
+    logo:
+      teamLogo(raw) ||
+      teamLogo(scheduleTeam),
+    record:
+      teamRecordSummary(raw) ||
+      teamRecordSummary(scheduleTeam),
+    standing:
+      raw.standingSummary ||
+      scheduleTeam.standingSummary ||
+      '',
+    venue:
+      raw.venue?.fullName ||
+      scheduleTeam.venue?.fullName ||
+      '',
+    color:
+      raw.color || '',
+    alternateColor:
+      raw.alternateColor || ''
+  };
+}
+
+function normalizeTeamScheduleState(status) {
+  const raw =
+    String(
+      status?.type?.state ||
+      status?.state ||
+      ''
+    ).toLowerCase();
+
+  if (
+    raw === 'in' ||
+    raw === 'live'
+  ) {
+    return 'live';
+  }
+
+  if (
+    raw === 'post' ||
+    raw === 'completed' ||
+    status?.type?.completed === true
+  ) {
+    return 'completed';
+  }
+
+  return 'upcoming';
+}
+
+function scheduleBroadcast(competition,event) {
+  const broadcasts = [
+    ...(competition?.broadcasts || []),
+    ...(event?.broadcasts || [])
+  ];
+
+  const names =
+    broadcasts.flatMap(item =>
+      Array.isArray(item?.names)
+        ? item.names
+        : item?.name
+          ? [item.name]
+          : item?.market
+            ? [item.market]
+            : []
+    );
+
+  return [
+    ...new Set(
+      names.filter(Boolean)
+    )
+  ].join(', ');
+}
+
+export function normalizeTeamSchedule(payload,teamId,sport) {
+  const requestedId =
+    String(teamId);
+
+  return (payload?.events || [])
+    .map(event => {
+      const competition =
+        event?.competitions?.[0] ||
+        {};
+
+      const competitors =
+        competition.competitors ||
+        [];
+
+      const own =
+        competitors.find(item =>
+          String(
+            item?.team?.id ||
+            item?.id ||
+            ''
+          ) === requestedId
+        ) ||
+        competitors.find(item =>
+          String(
+            item?.team?.abbreviation ||
+            ''
+          ).toLowerCase() ===
+          String(
+            payload?.team?.abbreviation ||
+            ''
+          ).toLowerCase()
+        );
+
+      const opponent =
+        competitors.find(item =>
+          item !== own
+        );
+
+      const status =
+        competition.status ||
+        event.status ||
+        {};
+
+      const state =
+        normalizeTeamScheduleState(
+          status
+        );
+
+      const ownScore =
+        teamScoreValue(
+          own?.score
+        );
+
+      const opponentScore =
+        teamScoreValue(
+          opponent?.score
+        );
+
+      let result = '';
+
+      if (state === 'completed') {
+        if (own?.winner === true) {
+          result = 'W';
+        } else if (opponent?.winner === true) {
+          result = 'L';
+        } else {
+          const left =
+            Number(ownScore);
+
+          const right =
+            Number(opponentScore);
+
+          if (
+            Number.isFinite(left) &&
+            Number.isFinite(right)
+          ) {
+            result =
+              left > right
+                ? 'W'
+                : left < right
+                  ? 'L'
+                  : 'T';
+          }
+        }
+      }
+
+      const date =
+        event.date ||
+        competition.date ||
+        '';
+
+      return {
+        id:String(
+          event.id ||
+          competition.id ||
+          ''
+        ),
+        sport,
+        startTime:date,
+        state,
+        status:
+          status?.type?.shortDetail ||
+          status?.type?.detail ||
+          status?.type?.description ||
+          '',
+        homeAway:
+          own?.homeAway || '',
+        opponent:{
+          id:String(
+            opponent?.team?.id ||
+            opponent?.id ||
+            ''
+          ),
+          name:
+            opponent?.team?.displayName ||
+            opponent?.team?.shortDisplayName ||
+            opponent?.team?.name ||
+            opponent?.team?.abbreviation ||
+            'Opponent',
+          abbreviation:
+            opponent?.team?.abbreviation ||
+            '',
+          logo:
+            teamLogo(
+              opponent?.team
+            )
+        },
+        teamScore:ownScore,
+        opponentScore,
+        result,
+        broadcast:
+          scheduleBroadcast(
+            competition,
+            event
+          ),
+        week:
+          event?.week?.text ||
+          event?.week?.displayName ||
+          event?.week?.number ||
+          competition?.week?.text ||
+          competition?.week?.number ||
+          '',
+        note:
+          competition?.notes?.[0]?.headline ||
+          event?.notes?.[0]?.headline ||
+          '',
+        seasonType:
+          event?.season?.type ??
+          payload?.season?.type ??
+          null,
+        venue:
+          competition?.venue?.fullName ||
+          ''
+      };
+    })
+    .filter(item =>
+      item.id &&
+      item.startTime
+    )
+    .sort((a,b) =>
+      Date.parse(a.startTime) -
+      Date.parse(b.startTime)
+    );
+}
+
+function normalizeLeaderKey(value) {
+  return String(value || '')
+    .toLowerCase()
+    .replace(/[^a-z0-9]/g,'');
+}
+
+function collectLeaderCategories(value,out=[],depth=0) {
+  if (
+    !value ||
+    depth > 5
+  ) {
+    return out;
+  }
+
+  if (Array.isArray(value)) {
+    value.forEach(item =>
+      collectLeaderCategories(
+        item,
+        out,
+        depth + 1
+      )
+    );
+
+    return out;
+  }
+
+  if (
+    typeof value !== 'object'
+  ) {
+    return out;
+  }
+
+  if (
+    Array.isArray(value.leaders) &&
+    value.leaders.some(item =>
+      item?.athlete ||
+      item?.player
+    )
+  ) {
+    out.push(value);
+  }
+
+  if (Array.isArray(value.categories)) {
+    value.categories.forEach(item =>
+      collectLeaderCategories(
+        item,
+        out,
+        depth + 1
+      )
+    );
+  }
+
+  for (const key of [
+    'leaders',
+    'statistics',
+    'items'
+  ]) {
+    if (
+      value[key] &&
+      value[key] !== value.categories
+    ) {
+      collectLeaderCategories(
+        value[key],
+        out,
+        depth + 1
+      );
+    }
+  }
+
+  return out;
+}
+
+const TEAM_LEADER_PREFERENCES = {
+  NFL:[
+    ['passingyards'],
+    ['rushingyards'],
+    ['receivingyards'],
+    ['sacks','defensivesacks']
+  ],
+  CFB:[
+    ['passingyards'],
+    ['rushingyards'],
+    ['receivingyards'],
+    ['sacks','defensivesacks']
+  ],
+  MLB:[
+    ['battingaverage','avg'],
+    ['homeruns','hr'],
+    ['runsbattedin','rbi'],
+    ['strikeouts','pitchingstrikeouts']
+  ],
+  NHL:[
+    ['goals','offensive'],
+    ['assists'],
+    ['points'],
+    ['savepercentage','savepct','svpct']
+  ],
+  NBA:[
+    ['pointspergame','points','ppg'],
+    ['reboundspergame','rebounds','rpg'],
+    ['assistspergame','assists','apg'],
+    ['blockspergame','blocks','bpg']
+  ],
+  NCAAB:[
+    ['pointspergame','points','ppg'],
+    ['reboundspergame','rebounds','rpg'],
+    ['assistspergame','assists','apg'],
+    ['blockspergame','blocks','bpg']
+  ],
+  Soccer:[
+    ['goals'],
+    ['assists'],
+    ['shotsongoal','shots'],
+    ['saves']
+  ]
+};
+
+function leaderCategoryScore(category,aliases) {
+  const fields = [
+    category?.name,
+    category?.displayName,
+    category?.shortDisplayName,
+    category?.abbreviation
+  ]
+    .map(normalizeLeaderKey)
+    .filter(Boolean);
+
+  let score = 0;
+
+  for (const alias of aliases) {
+    const normalized =
+      normalizeLeaderKey(alias);
+
+    if (
+      fields.some(value =>
+        value === normalized
+      )
+    ) {
+      score = Math.max(
+        score,
+        100
+      );
+    } else if (
+      fields.some(value =>
+        value.includes(normalized) ||
+        normalized.includes(value)
+      )
+    ) {
+      score = Math.max(
+        score,
+        60
+      );
+    }
+  }
+
+  return score;
+}
+
+function canonicalEspnRef(value) {
+  return String(value || '')
+    .replace(/^http:/,'https:');
+}
+
+function leaderItem(category) {
+  return category?.leaders?.[0] || null;
+}
+
+function selectTeamLeaderCategories(payload,sport) {
+  const categories =
+    collectLeaderCategories(
+      payload
+    );
+
+  const unique = [];
+  const seen =
+    new Set();
+
+  for (const category of categories) {
+    const key =
+      normalizeLeaderKey(
+        category?.name ||
+        category?.displayName
+      );
+
+    if (
+      !key ||
+      seen.has(key) ||
+      !leaderItem(category)
+    ) {
+      continue;
+    }
+
+    seen.add(key);
+    unique.push(category);
+  }
+
+  const selected = [];
+  const used =
+    new Set();
+
+  for (const aliases of (
+    TEAM_LEADER_PREFERENCES[sport] ||
+    []
+  )) {
+    let best = null;
+    let bestScore = 0;
+
+    unique.forEach((category,index) => {
+      if (used.has(index)) return;
+
+      const score =
+        leaderCategoryScore(
+          category,
+          aliases
+        );
+
+      if (score > bestScore) {
+        best = {
+          category,
+          index
+        };
+        bestScore = score;
+      }
+    });
+
+    if (best && bestScore > 0) {
+      selected.push(best.category);
+      used.add(best.index);
+    }
+  }
+
+  for (
+    let index = 0;
+    index < unique.length &&
+    selected.length < 4;
+    index++
+  ) {
+    if (!used.has(index)) {
+      selected.push(unique[index]);
+    }
+  }
+
+  return selected.slice(0,4);
+}
+
+function normalizedLeader(category,athletePayloads=new Map()) {
+  const item =
+    leaderItem(category);
+
+  if (!item) return null;
+
+  const rawAthlete =
+    item.athlete ||
+    item.player ||
+    {};
+
+  const ref =
+    canonicalEspnRef(
+      rawAthlete?.['$ref'] ||
+      rawAthlete?.href ||
+      ''
+    );
+
+  const resolved =
+    ref && athletePayloads.has(ref)
+      ? athletePayloads.get(ref)
+      : rawAthlete;
+
+  const athlete =
+    resolved?.athlete ||
+    resolved ||
+    {};
+
+  const name =
+    athlete.displayName ||
+    athlete.fullName ||
+    athlete.shortName ||
+    item.displayName ||
+    '';
+
+  if (!name) return null;
+
+  const headshot =
+    athlete?.headshot?.href ||
+    (
+      typeof athlete?.headshot ===
+      'string'
+        ? athlete.headshot
+        : ''
+    ) ||
+    athlete?.images?.[0]?.href ||
+    '';
+
+  const refId =
+    ref.match(/\/athletes\/(\d+)/)?.[1] ||
+    '';
+
+  return {
+    category:
+      category.displayName ||
+      category.shortDisplayName ||
+      category.name ||
+      'Leader',
+    abbreviation:
+      category.abbreviation ||
+      category.shortDisplayName ||
+      '',
+    displayValue:
+      item.displayValue ??
+      item.value ??
+      '',
+    value:
+      item.value ?? null,
+    athlete:{
+      id:String(
+        athlete.id ||
+        refId ||
+        ''
+      ),
+      name,
+      shortName:
+        athlete.shortName ||
+        name,
+      headshot,
+      position:
+        athlete?.position?.abbreviation ||
+        athlete?.position?.name ||
+        ''
+    }
+  };
+}
+
+export function normalizeTeamLeaders(payload,sport,athletePayloads=new Map()) {
+  return selectTeamLeaderCategories(
+    payload,
+    sport
+  )
+    .map(category =>
+      normalizedLeader(
+        category,
+        athletePayloads
+      )
+    )
+    .filter(Boolean)
+    .slice(0,4);
+}
+
+async function loadCoreTeamLeaders(env,sport,id,season,now) {
+  const profileUrl =
+    coreTeamProfileUrl(
+      sport,
+      id,
+      season
+    );
+
+  if (!profileUrl) return [];
+
+  const errors = [];
+  let profile;
+
+  try {
+    profile = (
+      await providerJson(
+        env,
+        profileUrl,
+        TEAM_IDENTITY_TTL_MS,
+        now,
+        errors
+      )
+    ).payload;
+  } catch {
+    return [];
+  }
+
+  const url =
+    canonicalEspnRef(
+      profile?.leaders?.['$ref'] ||
+      ''
+    );
+
+  if (!url) return [];
+
+  let payload;
+
+  try {
+    payload = (
+      await providerJson(
+        env,
+        url,
+        TEAM_LEADER_TTL_MS,
+        now,
+        errors
+      )
+    ).payload;
+  } catch {
+    return [];
+  }
+
+  const categories =
+    selectTeamLeaderCategories(
+      payload,
+      sport
+    );
+
+  const refs = [
+    ...new Set(
+      categories
+        .map(category =>
+          canonicalEspnRef(
+            leaderItem(category)
+              ?.athlete?.['$ref'] ||
+            leaderItem(category)
+              ?.player?.['$ref'] ||
+            ''
+          )
+        )
+        .filter(Boolean)
+    )
+  ];
+
+  const athletePayloads =
+    new Map();
+
+  const results =
+    await Promise.allSettled(
+      refs.map(async ref => {
+        const resource =
+          await providerJson(
+            env,
+            ref,
+            TEAM_IDENTITY_TTL_MS,
+            now,
+            errors
+          );
+
+        return [
+          ref,
+          resource.payload
+        ];
+      })
+    );
+
+  for (const result of results) {
+    if (result.status === 'fulfilled') {
+      athletePayloads.set(
+        result.value[0],
+        result.value[1]
+      );
+    }
+  }
+
+  return normalizeTeamLeaders(
+    payload,
+    sport,
+    athletePayloads
+  );
+}
+
+async function teamStaticData(env,sport,id,now) {
+  const urls =
+    teamResourceUrls(
+      sport,
+      id
+    );
+
+  if (!urls) {
+    return null;
+  }
+
+  const key =
+    `team-details:v3:${sport}:${id}`;
+
+  const read = () =>
+    env.DB.prepare(
+      'SELECT payload,updated_at FROM sports_resources WHERE key=?'
+    )
+      .bind(key)
+      .first();
+
+  const unpack = row => ({
+    ...JSON.parse(row.payload),
+    cachedAt:row.updated_at
+  });
+
+  let row =
+    await read();
+
+  if (
+    row &&
+    now - row.updated_at <
+      TEAM_STATIC_TTL_MS
+  ) {
+    return unpack(row);
+  }
+
+  const owner =
+    await acquire(
+      env,
+      key,
+      now,
+      15000
+    );
+
+  if (!owner) {
+    if (row) {
+      return unpack(row);
+    }
+
+    throw new Error(
+      'Team data refresh in progress'
+    );
+  }
+
+  try {
+    row = await read();
+
+    if (
+      row &&
+      now - row.updated_at <
+        TEAM_STATIC_TTL_MS
+    ) {
+      return unpack(row);
+    }
+
+    const [
+      teamResult,
+      scheduleResult
+    ] =
+      await Promise.allSettled([
+        fetchSourceJson(
+          urls.team,
+          TEAM_IDENTITY_TTL_MS
+        ),
+        fetchSourceJson(
+          urls.schedule,
+          TEAM_STATIC_TTL_MS
+        )
+      ]);
+
+    const teamPayload =
+      teamResult.status ===
+      'fulfilled'
+        ? teamResult.value
+        : null;
+
+    const schedulePayload =
+      scheduleResult.status ===
+      'fulfilled'
+        ? scheduleResult.value
+        : null;
+
+
+    if (
+      !teamPayload &&
+      !schedulePayload
+    ) {
+      throw new Error(
+        'No team provider data available'
+      );
+    }
+
+    const season =
+      teamSeasonYear(
+        teamPayload,
+        schedulePayload,
+        sport,
+        now
+      );
+
+    const leaders =
+      await loadCoreTeamLeaders(
+        env,
+        sport,
+        id,
+        season,
+        now
+      );
+
+    const payload = {
+      team:normalizeTeamIdentity(
+        teamPayload,
+        schedulePayload,
+        sport,
+        id
+      ),
+      schedule:normalizeTeamSchedule(
+        schedulePayload,
+        id,
+        sport
+      ),
+      leaders,
+      updatedAt:
+        new Date(now)
+          .toISOString()
+    };
+
+    await env.DB.prepare(
+      `INSERT INTO sports_resources (key,payload,updated_at)
+       SELECT ?,?,? WHERE EXISTS (
+         SELECT 1 FROM sports_leases
+         WHERE key=? AND owner=?
+       )
+       ON CONFLICT(key) DO UPDATE
+       SET payload=excluded.payload,
+           updated_at=excluded.updated_at
+       WHERE excluded.updated_at >
+             sports_resources.updated_at`
+    )
+      .bind(
+        key,
+        JSON.stringify(payload),
+        now,
+        key,
+        owner
+      )
+      .run();
+
+    const stored =
+      await read();
+
+    if (!stored) {
+      throw new Error(
+        'Team cache write lost'
+      );
+    }
+
+    return unpack(stored);
+  } catch (error) {
+    if (row) {
+      return unpack(row);
+    }
+
+    throw error;
+  } finally {
+    await release(
+      env,
+      key,
+      owner
+    );
+  }
+}
+
+function teamSpotlightIds(schedule) {
+  const now =
+    Date.now();
+
+  const completed =
+    schedule
+      .filter(item =>
+        item.state === 'completed' ||
+        (
+          Date.parse(
+            item.startTime
+          ) < now &&
+          item.state !== 'upcoming'
+        )
+      )
+      .sort((a,b) =>
+        Date.parse(b.startTime) -
+        Date.parse(a.startTime)
+      );
+
+  const live =
+    schedule
+      .filter(item =>
+        item.state === 'live'
+      )
+      .sort((a,b) =>
+        Date.parse(a.startTime) -
+        Date.parse(b.startTime)
+      );
+
+  const upcoming =
+    schedule
+      .filter(item =>
+        item.state === 'upcoming' &&
+        Date.parse(item.startTime) >=
+          now - 6 * 60 * 60 * 1000
+      )
+      .sort((a,b) =>
+        Date.parse(a.startTime) -
+        Date.parse(b.startTime)
+      );
+
+  return {
+    last:
+      completed[0] || null,
+    next:
+      live[0] ||
+      upcoming[0] ||
+      null
+  };
+}
+
+async function historicalSignal(env,sport,id) {
+  if (!id) return null;
+
+  const row =
+    await env.DB.prepare(
+      `SELECT rating
+       FROM sports_snapshots
+       WHERE game_key=?
+         AND state='completed'
+       ORDER BY observed_at DESC
+       LIMIT 1`
+    )
+      .bind(
+        `${sport}:${id}`
+      )
+      .first()
+      .catch(() => null);
+
+  return Number.isFinite(
+    Number(row?.rating)
+  )
+    ? Number(row.rating)
+    : null;
+}
+
+export async function teamDetails(env,sport,id,now=Date.now()) {
+  const staticData =
+    await teamStaticData(
+      env,
+      sport,
+      id,
+      now
+    );
+
+  if (!staticData) {
+    return null;
+  }
+
+  const feed =
+    await readFeed(
+      env,
+      now
+    ).catch(() => null);
+
+  const spotlights =
+    teamSpotlightIds(
+      staticData.schedule || []
+    );
+
+  const canonicalSignal = row => {
+    if (!row) return null;
+
+    const game =
+      feed?.games?.find(item =>
+        item.sport === sport &&
+        String(item.id) ===
+          String(row.id)
+      );
+
+    return Number.isFinite(
+      Number(game?.score)
+    )
+      ? Number(game.score)
+      : null;
+  };
+
+  let lastSignal =
+    canonicalSignal(
+      spotlights.last
+    );
+
+  if (
+    lastSignal === null &&
+    spotlights.last
+  ) {
+    lastSignal =
+      await historicalSignal(
+        env,
+        sport,
+        spotlights.last.id
+      );
+  }
+
+  const nextSignal =
+    canonicalSignal(
+      spotlights.next
+    );
+
+  return {
+    team:staticData.team,
+    schedule:staticData.schedule,
+    leaders:staticData.leaders,
+    spotlights:{
+      last:
+        spotlights.last
+          ? {
+              gameId:
+                spotlights.last.id,
+              signal:lastSignal
+            }
+          : null,
+      next:
+        spotlights.next
+          ? {
+              gameId:
+                spotlights.next.id,
+              signal:nextSignal
+            }
+          : null
+    },
+    sportsRadarFreshness:{
+      teamUpdatedAt:
+        new Date(
+          staticData.cachedAt
+        ).toISOString(),
+      canonicalUpdatedAt:
+        feed?.updatedAt ||
+        null,
+      receivedAt:
+        new Date(now)
+          .toISOString()
+    }
+  };
+}
+
 
 export async function gameDetails(env,sport,id,now=Date.now()) {
   // Only known feed games can request provider data; no arbitrary upstream proxy.
