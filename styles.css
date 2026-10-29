@@ -5141,3 +5141,484 @@ button.team-spotlight-card {
   padding: 0 !important;
   filter: none !important;
 }
+/* MOBILE RADAR DENSITY PASS V1
+   Reduce navigation/filter chrome on phones while preserving useful
+   at-a-glance game information, including Broadcast and Current Line. */
+@media (max-width: 600px) {
+  .app-shell {
+    padding-inline: 10px;
+  }
+
+  /* One compact app bar. The brand/logo is already the Home/Radar link. */
+  .topbar {
+    min-height: 54px;
+    height: 54px;
+    padding-block: 4px;
+    gap: 6px;
+  }
+
+  .brand {
+    flex: 0 0 auto;
+    gap: 0;
+  }
+
+  .brand-logo {
+    width: 38px;
+    height: 38px;
+    flex-basis: 38px;
+    border-radius: 8px;
+  }
+
+  .brand-wordmark {
+    display: none;
+  }
+
+  .main-nav {
+    height: auto;
+    margin-left: auto;
+    gap: 4px;
+  }
+
+  .main-nav .nav-link[data-page="home"] {
+    display: none;
+  }
+
+  .main-nav .nav-link[data-page="soccer"] {
+    min-height: 38px;
+    padding: 0 10px;
+    border-radius: 999px;
+    font-size: 12px;
+  }
+
+  .main-nav .nav-link.active::after {
+    display: none;
+  }
+
+  .top-actions {
+    margin-left: 0;
+    gap: 4px;
+  }
+
+  /* Refresh remains available in the feed-status row below. */
+  #refresh-button {
+    display: none;
+  }
+
+  .search-button {
+    width: 38px;
+    min-height: 38px;
+    height: 38px;
+    padding: 0;
+    border-radius: 50%;
+  }
+
+  .profile-button {
+    width: 38px;
+    height: 38px;
+    padding: 0;
+    display: grid;
+    place-items: center;
+  }
+
+  .profile-button span {
+    width: 32px;
+    height: 32px;
+  }
+
+  .install-button {
+    min-height: 38px;
+    padding: 0 9px;
+  }
+
+  /* Title + live status stays, but loses the large desktop breathing room. */
+  .control-row {
+    display: grid;
+    grid-template-columns: minmax(0,1fr);
+    gap: 8px;
+    padding: 12px 0 8px;
+  }
+
+  .section-label {
+    gap: 8px;
+    font-size: 18px;
+    line-height: 1;
+  }
+
+  .live-count {
+    padding: 4px 6px;
+    font-size: 9px;
+  }
+
+  .score-guide-button {
+    width: 28px;
+    height: 28px;
+  }
+
+  .controls {
+    width: 100%;
+    min-width: 0;
+  }
+
+  /* State filters become one smooth, horizontally scrollable strip. */
+  .segmented {
+    width: 100%;
+    max-width: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 3px;
+    padding: 3px;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .segmented::-webkit-scrollbar {
+    display: none;
+  }
+
+  .seg {
+    flex: 0 0 auto;
+    min-height: 34px;
+    padding: 0 10px;
+    font-size: 10px;
+    white-space: nowrap;
+  }
+
+  /* Sports are one row, not a two/three-row button bank. */
+  .sport-filter {
+    display: flex !important;
+    grid-template-columns: none !important;
+    width: 100%;
+    gap: 6px !important;
+    margin: 0 !important;
+    padding: 0 0 8px !important;
+    overflow-x: auto !important;
+    overscroll-behavior-x: contain;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x proximity;
+  }
+
+  .sport-filter::-webkit-scrollbar {
+    display: none;
+  }
+
+  .sport-filter .sport-chip,
+  .sport-filter .sport-chip:not(.fcs-toggle) {
+    flex: 0 0 auto;
+    width: auto !important;
+    min-width: auto;
+    height: 34px !important;
+    padding: 0 11px !important;
+    border-radius: 999px;
+    scroll-snap-align: start;
+    font-size: 10px;
+  }
+
+  /* Keep the useful status + manual refresh, but make it a compact utility row. */
+  .data-status {
+    min-height: 30px;
+    margin: 0 0 7px !important;
+    gap: 7px;
+    font-size: 9px;
+  }
+
+  .data-status button {
+    min-height: 30px;
+    padding: 0 9px;
+    border-radius: 999px;
+  }
+
+  .game-list {
+    margin: 0 !important;
+    padding: 0 0 24px !important;
+    gap: 8px;
+  }
+
+  .game-date-divider {
+    min-height: 26px;
+    margin: 3px 0 0;
+    padding: 4px 8px;
+    font-size: 9px;
+  }
+
+  /* Card content remains intact. Tighten it instead of deleting Broadcast/Line. */
+  .game-card,
+  .game-card.favorite,
+  .game-card.completed-card {
+    padding: 8px 9px;
+    gap: 3px 7px;
+  }
+
+  .game-card .match-meta {
+    margin-bottom: 2px;
+    font-size: 8.5px;
+    line-height: 1.25;
+  }
+
+  .game-card .team-row {
+    font-size: 13px;
+    line-height: 1.18;
+  }
+
+  .game-card .team-row + .team-row {
+    margin-top: 3px;
+  }
+
+  .game-card .channel-context {
+    margin-top: 5px;
+    padding-top: 6px;
+    gap: 3px 7px;
+    font-size: 9px;
+    line-height: 1.3;
+  }
+
+  .game-card .channel-context .detail-inline {
+    gap: 4px;
+  }
+
+  .game-card .channel-context .detail-inline strong {
+    font-size: 8px;
+  }
+
+  .game-card .line-inline {
+    margin-top: 1px;
+  }
+
+  .game-card .stats-cue {
+    font-size: 9px;
+  }
+
+  .game-card .score-circle,
+  .game-card .score-circle.hot,
+  .game-card .score-circle.warm,
+  .game-card .score-circle.very-hot,
+  .game-card .score-circle.extreme {
+    width: 50px;
+    min-width: 50px;
+    height: 42px;
+    font-size: 24px;
+  }
+}
+/* SPORTS RADAR FLUID INTERACTION PASS V1
+   Short, consistent motion and immediate touch feedback without changing
+   data flow, scoring, routing, or information density. */
+:root {
+  --sr-motion-fast: 120ms;
+  --sr-motion: 170ms;
+  --sr-motion-slow: 220ms;
+  --sr-ease: cubic-bezier(.2,.75,.25,1);
+  --sr-ease-out: cubic-bezier(.16,1,.3,1);
+}
+
+/* Remove the delayed/heavy feel from touch controls. */
+button,
+a,
+[role="button"],
+.seg,
+.sport-chip,
+.game-card,
+.team-standing-row,
+.team-playoff-row {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Keep focus accessibility while avoiding persistent touch outlines. */
+button:focus-visible,
+a:focus-visible,
+[role="button"]:focus-visible {
+  outline: 2px solid rgba(188,234,211,.78);
+  outline-offset: 3px;
+}
+
+/* Shared interaction timing. */
+.nav-link,
+.search-button,
+.icon-button,
+.profile-button,
+.install-button,
+.seg,
+.sport-chip,
+.data-status button,
+.score-guide-button,
+.favorite-manual-button,
+.primary-button,
+.detail-watch,
+.alert-controls button,
+.team-page-tab,
+.team-standing-row,
+.team-playoff-row,
+.game-card,
+.score-circle {
+  transition:
+    color var(--sr-motion-fast) var(--sr-ease),
+    background-color var(--sr-motion) var(--sr-ease),
+    border-color var(--sr-motion) var(--sr-ease),
+    box-shadow var(--sr-motion) var(--sr-ease),
+    opacity var(--sr-motion-fast) linear,
+    transform var(--sr-motion-fast) var(--sr-ease);
+}
+
+/* Immediate physical feedback. */
+button:active,
+[role="button"]:active,
+.seg:active,
+.sport-chip:active,
+.team-standing-row:active,
+.team-playoff-row:active {
+  transform: scale(.975);
+}
+
+.game-card:active {
+  transform: scale(.992);
+}
+
+/* Hover should feel responsive rather than floaty. */
+@media (hover:hover) and (pointer:fine) {
+  .game-card:hover {
+    transform: translateY(-1px);
+  }
+
+  .seg:hover,
+  .sport-chip:hover,
+  .nav-link:hover,
+  .search-button:hover,
+  .data-status button:hover {
+    filter: brightness(1.06);
+  }
+}
+
+/* Smooth native-feeling horizontal filter motion. */
+.segmented,
+.sport-filter,
+.detail-tabs,
+.team-page-tabs {
+  scroll-behavior: smooth;
+  overscroll-behavior-inline: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Reduce repaint/layout work on long slates without changing card geometry. */
+.game-card {
+  contain: layout paint;
+}
+
+/* Team pages should arrive instead of abruptly replacing the radar. */
+.team-page:not(.hidden) {
+  animation: sr-page-enter var(--sr-motion-slow) var(--sr-ease-out) both;
+}
+
+@keyframes sr-page-enter {
+  from {
+    opacity: 0;
+    transform: translateY(7px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Dialogs and Game Center use the same motion language. */
+dialog[open] {
+  animation: sr-dialog-enter var(--sr-motion-slow) var(--sr-ease-out) both;
+}
+
+@keyframes sr-dialog-enter {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(.992);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.detail-overlay:not([hidden]) {
+  animation: sr-overlay-in var(--sr-motion) ease-out both;
+}
+
+.detail-overlay:not([hidden]) .detail-panel {
+  animation: sr-panel-in var(--sr-motion-slow) var(--sr-ease-out) both;
+}
+
+@keyframes sr-overlay-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes sr-panel-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(.99);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Active filters switch cleanly without a flash. */
+.seg.active,
+.sport-chip.active,
+.nav-link.active,
+.team-page-tab.active {
+  transition-duration: var(--sr-motion-fast);
+}
+
+/* Data/status changes should not visually jump the row. */
+.data-status,
+.live-count,
+.match-meta,
+.team-record,
+.team-rank {
+  transition:
+    color var(--sr-motion) var(--sr-ease),
+    opacity var(--sr-motion) linear;
+}
+
+/* Keep mobile controls feeling like one continuous surface. */
+@media (max-width: 600px) {
+  .topbar {
+    transition:
+      background-color var(--sr-motion) var(--sr-ease),
+      border-color var(--sr-motion) var(--sr-ease),
+      box-shadow var(--sr-motion) var(--sr-ease);
+  }
+
+  .segmented,
+  .sport-filter {
+    scroll-padding-inline: 6px;
+  }
+
+  .seg,
+  .sport-filter .sport-chip,
+  .search-button,
+  .profile-button,
+  .data-status button {
+    min-height: 36px;
+  }
+
+  .game-card {
+    contain-intrinsic-size: auto 132px;
+  }
+}
+
+/* Respect users who request minimal motion. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto !important;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: .001ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: .001ms !important;
+  }
+}
