@@ -1613,7 +1613,6 @@ function teamSpotlightMarkup(title,entry,team) {
     live
       ? 'LIVE'
       : view.status,
-    view.broadcast,
     view.week,
     view.note
   ]
@@ -1706,7 +1705,6 @@ function teamScheduleRowMarkup(row,team) {
 
   const details = [
     view.week,
-    view.broadcast,
     view.note
   ]
     .filter(Boolean)
