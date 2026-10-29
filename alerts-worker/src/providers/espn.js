@@ -444,6 +444,17 @@ export function teamResourceUrls(sport,id) {
 const ESPN_CORE_BASE =
   'https://sports.core.api.espn.com/v2/sports';
 
+export function teamLeadersUrl(sport,id,season) {
+  const path = SPORT_PATHS[sport];
+  const year = Number(season);
+  if (!path || sport === 'Tennis' || !id || !Number.isInteger(year)) {
+    return null;
+  }
+  // Site v3 expands the same team-season leaders with athlete identity. Keep
+  // both filters explicit: omitting team would request league-wide leaders.
+  return `https://site.api.espn.com/apis/site/v3/sports/${path}/leaders?team=${encodeURIComponent(String(id))}&season=${year}&limit=1`;
+}
+
 export function coreTeamProfileUrl(sport,id,season) {
   const path =
     SPORT_PATHS[sport];

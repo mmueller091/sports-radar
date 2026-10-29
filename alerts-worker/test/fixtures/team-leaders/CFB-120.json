@@ -1,0 +1,2148 @@
+{
+  "sport": "CFB",
+  "id": "120",
+  "season": 2026,
+  "team": {
+    "url": "https://site.api.espn.com/apis/site/v2/sports/football/college-football/teams/120",
+    "payload": {
+      "team": {
+        "id": "120",
+        "abbreviation": "MD",
+        "displayName": "Maryland Terrapins",
+        "name": "Terrapins",
+        "shortDisplayName": "Maryland",
+        "location": "Maryland",
+        "logos": [
+          {
+            "alt": "",
+            "height": 500,
+            "href": "https://a.espncdn.com/i/teamlogos/ncaa/500/120.png",
+            "rel": [
+              "full",
+              "default"
+            ],
+            "width": 500
+          },
+          {
+            "alt": "",
+            "height": 500,
+            "href": "https://a.espncdn.com/i/teamlogos/ncaa/500-dark/120.png",
+            "rel": [
+              "full",
+              "dark"
+            ],
+            "width": 500
+          },
+          {
+            "alt": "",
+            "height": 4096,
+            "href": "https://a.espncdn.com/guid/7dae6b2a-7a04-6d4d-6e35-a625805c6c0a/logos/primary_logo_on_white_color.png",
+            "rel": [
+              "full",
+              "primary_logo_on_white_color"
+            ],
+            "width": 4096
+          },
+          {
+            "alt": "",
+            "height": 4096,
+            "href": "https://a.espncdn.com/guid/7dae6b2a-7a04-6d4d-6e35-a625805c6c0a/logos/primary_logo_on_black_color.png",
+            "rel": [
+              "full",
+              "primary_logo_on_black_color"
+            ],
+            "width": 4096
+          },
+          {
+            "alt": "",
+            "height": 4096,
+            "href": "https://a.espncdn.com/guid/7dae6b2a-7a04-6d4d-6e35-a625805c6c0a/logos/primary_logo_on_primary_color.png",
+            "rel": [
+              "full",
+              "primary_logo_on_primary_color"
+            ],
+            "width": 4096
+          },
+          {
+            "alt": "",
+            "height": 4096,
+            "href": "https://a.espncdn.com/guid/7dae6b2a-7a04-6d4d-6e35-a625805c6c0a/logos/primary_logo_on_secondary_color.png",
+            "rel": [
+              "full",
+              "primary_logo_on_secondary_color"
+            ],
+            "width": 4096
+          },
+          {
+            "alt": "",
+            "height": 4096,
+            "href": "https://a.espncdn.com/guid/7dae6b2a-7a04-6d4d-6e35-a625805c6c0a/logos/primary_logo_black.png",
+            "rel": [
+              "full",
+              "primary_logo_black"
+            ],
+            "width": 4096
+          },
+          {
+            "alt": "",
+            "height": 4096,
+            "href": "https://a.espncdn.com/guid/7dae6b2a-7a04-6d4d-6e35-a625805c6c0a/logos/primary_logo_white.png",
+            "rel": [
+              "full",
+              "primary_logo_white"
+            ],
+            "width": 4096
+          },
+          {
+            "alt": "",
+            "height": 4096,
+            "href": "https://a.espncdn.com/guid/7dae6b2a-7a04-6d4d-6e35-a625805c6c0a/logos/secondary_logo_on_white_color.png",
+            "rel": [
+              "full",
+              "secondary_logo_on_white_color"
+            ],
+            "width": 4096
+          },
+          {
+            "alt": "",
+            "height": 4096,
+            "href": "https://a.espncdn.com/guid/7dae6b2a-7a04-6d4d-6e35-a625805c6c0a/logos/secondary_logo_on_black_color.png",
+            "rel": [
+              "full",
+              "secondary_logo_on_black_color"
+            ],
+            "width": 4096
+          },
+          {
+            "alt": "",
+            "height": 4096,
+            "href": "https://a.espncdn.com/guid/7dae6b2a-7a04-6d4d-6e35-a625805c6c0a/logos/secondary_logo_on_primary_color.png",
+            "rel": [
+              "full",
+              "secondary_logo_on_primary_color"
+            ],
+            "width": 4096
+          },
+          {
+            "alt": "",
+            "height": 4096,
+            "href": "https://a.espncdn.com/guid/7dae6b2a-7a04-6d4d-6e35-a625805c6c0a/logos/secondary_logo_on_secondary_color.png",
+            "rel": [
+              "full",
+              "secondary_logo_on_secondary_color"
+            ],
+            "width": 4096
+          },
+          {
+            "alt": "",
+            "height": 4096,
+            "href": "https://a.espncdn.com/guid/7dae6b2a-7a04-6d4d-6e35-a625805c6c0a/logos/secondary_logo_black.png",
+            "rel": [
+              "full",
+              "secondary_logo_black"
+            ],
+            "width": 4096
+          },
+          {
+            "alt": "",
+            "height": 4096,
+            "href": "https://a.espncdn.com/guid/7dae6b2a-7a04-6d4d-6e35-a625805c6c0a/logos/secondary_logo_white.png",
+            "rel": [
+              "full",
+              "secondary_logo_white"
+            ],
+            "width": 4096
+          }
+        ],
+        "color": "ce1126",
+        "alternateColor": "ffffff",
+        "standingSummary": "17th in Big Ten",
+        "record": {
+          "items": [
+            {
+              "description": "Overall Record",
+              "stats": [
+                {
+                  "name": "OTLosses",
+                  "value": 0
+                },
+                {
+                  "name": "OTWins",
+                  "value": 0
+                },
+                {
+                  "name": "avgPointsAgainst",
+                  "value": 33.285713
+                },
+                {
+                  "name": "avgPointsFor",
+                  "value": 28.285715
+                },
+                {
+                  "name": "differential",
+                  "value": -35
+                },
+                {
+                  "name": "divisionWinPercent",
+                  "value": 0
+                },
+                {
+                  "name": "gamesBehind",
+                  "value": 0
+                },
+                {
+                  "name": "gamesPlayed",
+                  "value": 7
+                },
+                {
+                  "name": "leagueWinPercent",
+                  "value": 0
+                },
+                {
+                  "name": "losses",
+                  "value": 5
+                },
+                {
+                  "name": "playoffSeed",
+                  "value": 17
+                },
+                {
+                  "name": "pointDifferential",
+                  "value": -35
+                },
+                {
+                  "name": "points",
+                  "value": -1.5
+                },
+                {
+                  "name": "pointsAgainst",
+                  "value": 233
+                },
+                {
+                  "name": "pointsFor",
+                  "value": 198
+                },
+                {
+                  "name": "streak",
+                  "value": -5
+                },
+                {
+                  "name": "ties",
+                  "value": 0
+                },
+                {
+                  "name": "winPercent",
+                  "value": 0.2857143
+                },
+                {
+                  "name": "wins",
+                  "value": 2
+                },
+                {
+                  "name": "divisionLosses",
+                  "value": 0
+                },
+                {
+                  "name": "divisionRecord",
+                  "value": 0
+                },
+                {
+                  "name": "divisionTies",
+                  "value": 0
+                },
+                {
+                  "name": "divisionWins",
+                  "value": 0
+                },
+                {
+                  "name": "lockedDivRank",
+                  "value": 0
+                }
+              ],
+              "summary": "2-5",
+              "type": "total"
+            }
+          ]
+        }
+      }
+    }
+  },
+  "schedule": {
+    "url": "https://site.api.espn.com/apis/site/v2/sports/football/college-football/teams/120/schedule",
+    "payload": {
+      "season": {
+        "year": 2026,
+        "type": 2,
+        "name": "Regular Season",
+        "displayName": "2026",
+        "half": 1
+      },
+      "team": {
+        "id": "120",
+        "abbreviation": "MD",
+        "displayName": "Maryland Terrapins",
+        "name": "Terrapins",
+        "location": "Maryland",
+        "color": "ce1126",
+        "standingSummary": "16th in Big Ten"
+      },
+      "events": [
+        {
+          "id": "401858427",
+          "date": "2026-09-06T00:00Z",
+          "name": "Hampton Pirates at Maryland Terrapins",
+          "season": {
+            "year": 2026,
+            "displayName": "2026"
+          },
+          "week": {
+            "number": 1,
+            "text": "Week 1"
+          },
+          "competitions": [
+            {
+              "id": "401858427",
+              "date": "2026-09-06T00:00Z",
+              "status": {
+                "clock": 0,
+                "displayClock": "0:00",
+                "period": 4,
+                "type": {
+                  "id": "3",
+                  "name": "STATUS_FINAL",
+                  "state": "post",
+                  "completed": true,
+                  "description": "Final",
+                  "detail": "Final",
+                  "shortDetail": "Final"
+                }
+              },
+              "broadcasts": [
+                {
+                  "type": {
+                    "id": "1",
+                    "shortName": "TV"
+                  },
+                  "market": {
+                    "id": "1",
+                    "type": "National"
+                  },
+                  "media": {
+                    "shortName": "BTN"
+                  },
+                  "lang": "en",
+                  "region": "us",
+                  "partnered": false
+                }
+              ],
+              "venue": {
+                "fullName": "SECU Stadium",
+                "address": {
+                  "city": "College Park",
+                  "state": "MD",
+                  "zipCode": "20742",
+                  "country": "USA"
+                }
+              },
+              "notes": [],
+              "competitors": [
+                {
+                  "id": "120",
+                  "homeAway": "home",
+                  "winner": true,
+                  "score": {
+                    "value": 62,
+                    "displayValue": "62"
+                  },
+                  "team": {
+                    "id": "120",
+                    "abbreviation": "MD",
+                    "displayName": "Maryland Terrapins",
+                    "shortDisplayName": "Maryland",
+                    "location": "Maryland",
+                    "logos": [
+                      {
+                        "href": "https://a.espncdn.com/i/teamlogos/ncaa/500/120.png",
+                        "width": 500,
+                        "height": 500,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "default"
+                        ],
+                        "lastUpdated": "2025-12-23T01:44Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/i/teamlogos/ncaa/500-dark/120.png",
+                        "width": 500,
+                        "height": 500,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "dark"
+                        ],
+                        "lastUpdated": "2025-12-23T01:44Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/7dae6b2a-7a04-6d4d-6e35-a625805c6c0a/logos/primary_logo_on_white_color.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "primary_logo_on_white_color"
+                        ],
+                        "lastUpdated": "2026-02-13T18:02Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/7dae6b2a-7a04-6d4d-6e35-a625805c6c0a/logos/primary_logo_on_black_color.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "primary_logo_on_black_color"
+                        ],
+                        "lastUpdated": "2026-02-13T18:02Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/7dae6b2a-7a04-6d4d-6e35-a625805c6c0a/logos/primary_logo_on_primary_color.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "primary_logo_on_primary_color"
+                        ],
+                        "lastUpdated": "2026-02-13T18:02Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/7dae6b2a-7a04-6d4d-6e35-a625805c6c0a/logos/primary_logo_on_secondary_color.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "primary_logo_on_secondary_color"
+                        ],
+                        "lastUpdated": "2026-02-13T18:02Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/7dae6b2a-7a04-6d4d-6e35-a625805c6c0a/logos/primary_logo_black.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "primary_logo_black"
+                        ],
+                        "lastUpdated": "2026-02-13T18:02Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/7dae6b2a-7a04-6d4d-6e35-a625805c6c0a/logos/primary_logo_white.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "primary_logo_white"
+                        ],
+                        "lastUpdated": "2026-02-13T18:02Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/7dae6b2a-7a04-6d4d-6e35-a625805c6c0a/logos/secondary_logo_on_white_color.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "secondary_logo_on_white_color"
+                        ],
+                        "lastUpdated": "2026-02-13T18:02Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/7dae6b2a-7a04-6d4d-6e35-a625805c6c0a/logos/secondary_logo_on_black_color.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "secondary_logo_on_black_color"
+                        ],
+                        "lastUpdated": "2026-02-13T18:02Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/7dae6b2a-7a04-6d4d-6e35-a625805c6c0a/logos/secondary_logo_on_primary_color.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "secondary_logo_on_primary_color"
+                        ],
+                        "lastUpdated": "2026-02-13T18:02Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/7dae6b2a-7a04-6d4d-6e35-a625805c6c0a/logos/secondary_logo_on_secondary_color.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "secondary_logo_on_secondary_color"
+                        ],
+                        "lastUpdated": "2026-02-13T18:02Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/7dae6b2a-7a04-6d4d-6e35-a625805c6c0a/logos/secondary_logo_black.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "secondary_logo_black"
+                        ],
+                        "lastUpdated": "2026-02-13T18:02Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/7dae6b2a-7a04-6d4d-6e35-a625805c6c0a/logos/secondary_logo_white.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "secondary_logo_white"
+                        ],
+                        "lastUpdated": "2026-02-13T18:02Z"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "id": "2261",
+                  "homeAway": "away",
+                  "winner": false,
+                  "score": {
+                    "value": 0,
+                    "displayValue": "0"
+                  },
+                  "team": {
+                    "id": "2261",
+                    "abbreviation": "HAMP",
+                    "displayName": "Hampton Pirates",
+                    "shortDisplayName": "Hampton",
+                    "location": "Hampton",
+                    "logos": [
+                      {
+                        "href": "https://a.espncdn.com/i/teamlogos/ncaa/500/2261.png",
+                        "width": 500,
+                        "height": 500,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "default"
+                        ],
+                        "lastUpdated": "2026-07-01T04:35Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/i/teamlogos/ncaa/500-dark/2261.png",
+                        "width": 500,
+                        "height": 500,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "dark"
+                        ],
+                        "lastUpdated": "2026-07-01T04:34Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/a3b2d4f6-cfca-aa64-8618-f843fc46863b/logos/primary_logo_on_white_color.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "primary_logo_on_white_color"
+                        ],
+                        "lastUpdated": "2026-07-23T17:28Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/a3b2d4f6-cfca-aa64-8618-f843fc46863b/logos/primary_logo_on_black_color.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "primary_logo_on_black_color"
+                        ],
+                        "lastUpdated": "2026-07-23T17:28Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/a3b2d4f6-cfca-aa64-8618-f843fc46863b/logos/primary_logo_on_primary_color.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "primary_logo_on_primary_color"
+                        ],
+                        "lastUpdated": "2026-07-23T17:28Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/a3b2d4f6-cfca-aa64-8618-f843fc46863b/logos/primary_logo_on_secondary_color.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "primary_logo_on_secondary_color"
+                        ],
+                        "lastUpdated": "2026-07-23T17:28Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/a3b2d4f6-cfca-aa64-8618-f843fc46863b/logos/primary_logo_black.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "primary_logo_black"
+                        ],
+                        "lastUpdated": "2026-07-23T17:28Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/a3b2d4f6-cfca-aa64-8618-f843fc46863b/logos/primary_logo_white.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "primary_logo_white"
+                        ],
+                        "lastUpdated": "2026-07-23T17:28Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/a3b2d4f6-cfca-aa64-8618-f843fc46863b/logos/secondary_logo_on_white_color.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "secondary_logo_on_white_color"
+                        ],
+                        "lastUpdated": "2026-07-23T17:28Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/a3b2d4f6-cfca-aa64-8618-f843fc46863b/logos/secondary_logo_on_black_color.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "secondary_logo_on_black_color"
+                        ],
+                        "lastUpdated": "2026-07-23T17:28Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/a3b2d4f6-cfca-aa64-8618-f843fc46863b/logos/secondary_logo_on_primary_color.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "secondary_logo_on_primary_color"
+                        ],
+                        "lastUpdated": "2026-07-23T17:28Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/a3b2d4f6-cfca-aa64-8618-f843fc46863b/logos/secondary_logo_on_secondary_color.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "secondary_logo_on_secondary_color"
+                        ],
+                        "lastUpdated": "2026-07-23T17:28Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/a3b2d4f6-cfca-aa64-8618-f843fc46863b/logos/secondary_logo_black.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "secondary_logo_black"
+                        ],
+                        "lastUpdated": "2026-07-23T17:28Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/a3b2d4f6-cfca-aa64-8618-f843fc46863b/logos/secondary_logo_white.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "secondary_logo_white"
+                        ],
+                        "lastUpdated": "2026-07-23T17:28Z"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "401858444",
+          "date": "2026-09-12T19:30Z",
+          "name": "Maryland Terrapins at UConn Huskies",
+          "season": {
+            "year": 2026,
+            "displayName": "2026"
+          },
+          "week": {
+            "number": 2,
+            "text": "Week 2"
+          },
+          "competitions": [
+            {
+              "id": "401858444",
+              "date": "2026-09-12T19:30Z",
+              "status": {
+                "clock": 0,
+                "displayClock": "0:00",
+                "period": 4,
+                "type": {
+                  "id": "3",
+                  "name": "STATUS_FINAL",
+                  "state": "post",
+                  "completed": true,
+                  "description": "Final",
+                  "detail": "Final",
+                  "shortDetail": "Final"
+                }
+              },
+              "broadcasts": [
+                {
+                  "type": {
+                    "id": "1",
+                    "shortName": "TV"
+                  },
+                  "market": {
+                    "id": "1",
+                    "type": "National"
+                  },
+                  "media": {
+                    "shortName": "CBSSN"
+                  },
+                  "lang": "en",
+                  "region": "us",
+                  "partnered": false
+                }
+              ],
+              "venue": {
+                "fullName": "Pratt & Whitney Stadium",
+                "address": {
+                  "city": "East Hartford",
+                  "state": "CT",
+                  "zipCode": "06118",
+                  "country": "USA"
+                }
+              },
+              "notes": [],
+              "competitors": [
+                {
+                  "id": "41",
+                  "homeAway": "home",
+                  "winner": false,
+                  "score": {
+                    "value": 14,
+                    "displayValue": "14"
+                  },
+                  "team": {
+                    "id": "41",
+                    "abbreviation": "CONN",
+                    "displayName": "UConn Huskies",
+                    "shortDisplayName": "UConn",
+                    "location": "UConn",
+                    "logos": [
+                      {
+                        "href": "https://a.espncdn.com/i/teamlogos/ncaa/500/41.png",
+                        "width": 500,
+                        "height": 500,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "default"
+                        ],
+                        "lastUpdated": "2025-12-24T20:19Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/i/teamlogos/ncaa/500-dark/41.png",
+                        "width": 500,
+                        "height": 500,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "dark"
+                        ],
+                        "lastUpdated": "2025-12-24T20:18Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/61fe4cfc-4b1e-a550-c0a4-818e3897b943/logos/primary_logo_on_white_color.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "primary_logo_on_white_color"
+                        ],
+                        "lastUpdated": "2026-07-23T17:46Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/61fe4cfc-4b1e-a550-c0a4-818e3897b943/logos/primary_logo_on_black_color.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "primary_logo_on_black_color"
+                        ],
+                        "lastUpdated": "2026-07-23T17:46Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/61fe4cfc-4b1e-a550-c0a4-818e3897b943/logos/primary_logo_on_primary_color.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "primary_logo_on_primary_color"
+                        ],
+                        "lastUpdated": "2026-07-23T17:46Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/61fe4cfc-4b1e-a550-c0a4-818e3897b943/logos/primary_logo_on_secondary_color.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "primary_logo_on_secondary_color"
+                        ],
+                        "lastUpdated": "2026-07-23T17:46Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/61fe4cfc-4b1e-a550-c0a4-818e3897b943/logos/primary_logo_black.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "primary_logo_black"
+                        ],
+                        "lastUpdated": "2026-07-23T17:46Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/61fe4cfc-4b1e-a550-c0a4-818e3897b943/logos/primary_logo_white.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "primary_logo_white"
+                        ],
+                        "lastUpdated": "2026-07-23T17:46Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/61fe4cfc-4b1e-a550-c0a4-818e3897b943/logos/secondary_logo_on_white_color.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "secondary_logo_on_white_color"
+                        ],
+                        "lastUpdated": "2026-07-23T17:46Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/61fe4cfc-4b1e-a550-c0a4-818e3897b943/logos/secondary_logo_on_black_color.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "secondary_logo_on_black_color"
+                        ],
+                        "lastUpdated": "2026-07-23T17:46Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/61fe4cfc-4b1e-a550-c0a4-818e3897b943/logos/secondary_logo_on_primary_color.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "secondary_logo_on_primary_color"
+                        ],
+                        "lastUpdated": "2026-07-23T17:46Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/61fe4cfc-4b1e-a550-c0a4-818e3897b943/logos/secondary_logo_on_secondary_color.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "secondary_logo_on_secondary_color"
+                        ],
+                        "lastUpdated": "2026-07-23T17:46Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/61fe4cfc-4b1e-a550-c0a4-818e3897b943/logos/secondary_logo_black.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "secondary_logo_black"
+                        ],
+                        "lastUpdated": "2026-07-23T17:46Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/61fe4cfc-4b1e-a550-c0a4-818e3897b943/logos/secondary_logo_white.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "secondary_logo_white"
+                        ],
+                        "lastUpdated": "2026-07-23T17:46Z"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "id": "120",
+                  "homeAway": "away",
+                  "winner": true,
+                  "score": {
+                    "value": 38,
+                    "displayValue": "38"
+                  },
+                  "team": {
+                    "id": "120",
+                    "abbreviation": "MD",
+                    "displayName": "Maryland Terrapins",
+                    "shortDisplayName": "Maryland",
+                    "location": "Maryland",
+                    "logos": [
+                      {
+                        "href": "https://a.espncdn.com/i/teamlogos/ncaa/500/120.png",
+                        "width": 500,
+                        "height": 500,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "default"
+                        ],
+                        "lastUpdated": "2025-12-23T01:44Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/i/teamlogos/ncaa/500-dark/120.png",
+                        "width": 500,
+                        "height": 500,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "dark"
+                        ],
+                        "lastUpdated": "2025-12-23T01:44Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/7dae6b2a-7a04-6d4d-6e35-a625805c6c0a/logos/primary_logo_on_white_color.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "primary_logo_on_white_color"
+                        ],
+                        "lastUpdated": "2026-02-13T18:02Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/7dae6b2a-7a04-6d4d-6e35-a625805c6c0a/logos/primary_logo_on_black_color.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "primary_logo_on_black_color"
+                        ],
+                        "lastUpdated": "2026-02-13T18:02Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/7dae6b2a-7a04-6d4d-6e35-a625805c6c0a/logos/primary_logo_on_primary_color.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "primary_logo_on_primary_color"
+                        ],
+                        "lastUpdated": "2026-02-13T18:02Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/7dae6b2a-7a04-6d4d-6e35-a625805c6c0a/logos/primary_logo_on_secondary_color.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "primary_logo_on_secondary_color"
+                        ],
+                        "lastUpdated": "2026-02-13T18:02Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/7dae6b2a-7a04-6d4d-6e35-a625805c6c0a/logos/primary_logo_black.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "primary_logo_black"
+                        ],
+                        "lastUpdated": "2026-02-13T18:02Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/7dae6b2a-7a04-6d4d-6e35-a625805c6c0a/logos/primary_logo_white.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "primary_logo_white"
+                        ],
+                        "lastUpdated": "2026-02-13T18:02Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/7dae6b2a-7a04-6d4d-6e35-a625805c6c0a/logos/secondary_logo_on_white_color.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "secondary_logo_on_white_color"
+                        ],
+                        "lastUpdated": "2026-02-13T18:02Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/7dae6b2a-7a04-6d4d-6e35-a625805c6c0a/logos/secondary_logo_on_black_color.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "secondary_logo_on_black_color"
+                        ],
+                        "lastUpdated": "2026-02-13T18:02Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/7dae6b2a-7a04-6d4d-6e35-a625805c6c0a/logos/secondary_logo_on_primary_color.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "secondary_logo_on_primary_color"
+                        ],
+                        "lastUpdated": "2026-02-13T18:02Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/7dae6b2a-7a04-6d4d-6e35-a625805c6c0a/logos/secondary_logo_on_secondary_color.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "secondary_logo_on_secondary_color"
+                        ],
+                        "lastUpdated": "2026-02-13T18:02Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/7dae6b2a-7a04-6d4d-6e35-a625805c6c0a/logos/secondary_logo_black.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "secondary_logo_black"
+                        ],
+                        "lastUpdated": "2026-02-13T18:02Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/7dae6b2a-7a04-6d4d-6e35-a625805c6c0a/logos/secondary_logo_white.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "secondary_logo_white"
+                        ],
+                        "lastUpdated": "2026-02-13T18:02Z"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "profile": {
+    "url": "https://sports.core.api.espn.com/v2/sports/football/leagues/college-football/seasons/2026/teams/120?lang=en&region=us",
+    "status": 200,
+    "payload": {
+      "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/college-football/seasons/2026/teams/120?lang=en&region=us",
+      "id": "120",
+      "leaders": {
+        "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/college-football/seasons/2026/types/2/teams/120/leaders?lang=en&region=us"
+      }
+    }
+  },
+  "core": {
+    "url": "https://sports.core.api.espn.com/v2/sports/football/leagues/college-football/seasons/2026/types/2/teams/120/leaders?lang=en&region=us",
+    "payload": {
+      "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/college-football/seasons/2026/types/2/teams/120/leaders?lang=en&region=us",
+      "id": "0",
+      "name": "Season",
+      "abbreviation": "Season",
+      "type": "season",
+      "categories": [
+        {
+          "name": "passingLeader",
+          "displayName": "Passing Leader",
+          "shortDisplayName": "PASS",
+          "abbreviation": "PYDS",
+          "leaders": [
+            {
+              "displayValue": "155/261, 1615 YDS, 9 TD, 6 INT",
+              "value": 1615,
+              "rel": [
+                "athlete"
+              ],
+              "statistics": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/college-football/seasons/2026/types/2/teams/120/athletes/5141695/statistics/0?lang=en&region=us"
+              },
+              "athlete": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/college-football/seasons/2026/athletes/5141695?lang=en&region=us"
+              },
+              "team": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/college-football/seasons/2026/teams/120?lang=en&region=us"
+              }
+            }
+          ]
+        },
+        {
+          "name": "rushingLeader",
+          "displayName": "Rushing Leader",
+          "shortDisplayName": "RUSH",
+          "abbreviation": "RYDS",
+          "leaders": [
+            {
+              "displayValue": "38 CAR, 281 YDS, 3 TD",
+              "value": 281,
+              "rel": [
+                "athlete"
+              ],
+              "statistics": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/college-football/seasons/2026/types/2/teams/120/athletes/5295550/statistics/0?lang=en&region=us"
+              },
+              "athlete": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/college-football/seasons/2026/athletes/5295550?lang=en&region=us"
+              },
+              "team": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/college-football/seasons/2026/teams/120?lang=en&region=us"
+              }
+            }
+          ]
+        },
+        {
+          "name": "receivingLeader",
+          "displayName": "Receiving Leader",
+          "shortDisplayName": "REC",
+          "abbreviation": "RECYDS",
+          "leaders": [
+            {
+              "displayValue": "52 REC, 580 YDS, 4 TD",
+              "value": 580,
+              "rel": [
+                "athlete"
+              ],
+              "statistics": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/college-football/seasons/2026/types/2/teams/120/athletes/5193298/statistics/0?lang=en&region=us"
+              },
+              "athlete": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/college-football/seasons/2026/athletes/5193298?lang=en&region=us"
+              },
+              "team": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/college-football/seasons/2026/teams/120?lang=en&region=us"
+              }
+            }
+          ]
+        },
+        {
+          "name": "passingYards",
+          "displayName": "Passing Yards",
+          "shortDisplayName": "PYDS",
+          "abbreviation": "YDS",
+          "leaders": [
+            {
+              "displayValue": "1,615",
+              "value": 1615,
+              "rel": [
+                "athlete"
+              ],
+              "statistics": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/college-football/seasons/2026/types/2/teams/120/athletes/5141695/statistics/0?lang=en&region=us"
+              },
+              "athlete": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/college-football/seasons/2026/athletes/5141695?lang=en&region=us"
+              },
+              "team": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/college-football/seasons/2026/teams/120?lang=en&region=us"
+              }
+            }
+          ]
+        },
+        {
+          "name": "rushingYards",
+          "displayName": "Rushing Yards",
+          "shortDisplayName": "RYDS",
+          "abbreviation": "YDS",
+          "leaders": [
+            {
+              "displayValue": "281",
+              "value": 281,
+              "rel": [
+                "athlete"
+              ],
+              "statistics": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/college-football/seasons/2026/types/2/teams/120/athletes/5295550/statistics/0?lang=en&region=us"
+              },
+              "athlete": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/college-football/seasons/2026/athletes/5295550?lang=en&region=us"
+              },
+              "team": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/college-football/seasons/2026/teams/120?lang=en&region=us"
+              }
+            }
+          ]
+        },
+        {
+          "name": "receivingYards",
+          "displayName": "Receiving Yards",
+          "shortDisplayName": "RECYDS",
+          "abbreviation": "YDS",
+          "leaders": [
+            {
+              "displayValue": "580",
+              "value": 580,
+              "rel": [
+                "athlete"
+              ],
+              "statistics": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/college-football/seasons/2026/types/2/teams/120/athletes/5193298/statistics/0?lang=en&region=us"
+              },
+              "athlete": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/college-football/seasons/2026/athletes/5193298?lang=en&region=us"
+              },
+              "team": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/college-football/seasons/2026/teams/120?lang=en&region=us"
+              }
+            }
+          ]
+        },
+        {
+          "name": "totalTackles",
+          "displayName": "Tackles",
+          "shortDisplayName": "TACK",
+          "abbreviation": "TOT",
+          "leaders": [
+            {
+              "displayValue": "44",
+              "value": 44,
+              "rel": [
+                "athlete"
+              ],
+              "statistics": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/college-football/seasons/2026/types/2/teams/120/athletes/4921326/statistics/0?lang=en&region=us"
+              },
+              "athlete": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/college-football/seasons/2026/athletes/4921326?lang=en&region=us"
+              },
+              "team": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/college-football/seasons/2026/teams/120?lang=en&region=us"
+              }
+            }
+          ]
+        },
+        {
+          "name": "sacks",
+          "displayName": "Sacks",
+          "shortDisplayName": "SACK",
+          "abbreviation": "SACK",
+          "leaders": [
+            {
+              "displayValue": "3.5",
+              "value": 3.5,
+              "rel": [
+                "athlete"
+              ],
+              "statistics": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/college-football/seasons/2026/types/2/teams/120/athletes/5209297/statistics/0?lang=en&region=us"
+              },
+              "athlete": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/college-football/seasons/2026/athletes/5209297?lang=en&region=us"
+              },
+              "team": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/college-football/seasons/2026/teams/120?lang=en&region=us"
+              }
+            }
+          ]
+        },
+        {
+          "name": "interceptions",
+          "displayName": "Interceptions",
+          "shortDisplayName": "INT",
+          "abbreviation": "INT",
+          "leaders": [
+            {
+              "displayValue": "2",
+              "value": 2,
+              "rel": [
+                "athlete"
+              ],
+              "statistics": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/college-football/seasons/2026/types/2/teams/120/athletes/4912140/statistics/0?lang=en&region=us"
+              },
+              "athlete": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/college-football/seasons/2026/athletes/4912140?lang=en&region=us"
+              },
+              "team": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/college-football/seasons/2026/teams/120?lang=en&region=us"
+              }
+            }
+          ]
+        },
+        {
+          "name": "passingTouchdowns",
+          "displayName": "Passing Touchdowns",
+          "shortDisplayName": "TD",
+          "abbreviation": "TD",
+          "leaders": [
+            {
+              "displayValue": "9",
+              "value": 9,
+              "rel": [
+                "athlete"
+              ],
+              "statistics": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/college-football/seasons/2026/types/2/teams/120/athletes/5141695/statistics/0?lang=en&region=us"
+              },
+              "athlete": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/college-football/seasons/2026/athletes/5141695?lang=en&region=us"
+              },
+              "team": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/college-football/seasons/2026/teams/120?lang=en&region=us"
+              }
+            }
+          ]
+        },
+        {
+          "name": "quarterbackRating",
+          "displayName": "Quarterback Rating",
+          "shortDisplayName": "RAT",
+          "abbreviation": "RAT",
+          "leaders": [
+            {
+              "displayValue": "79.3",
+              "value": 79.30000305175781,
+              "rel": [
+                "athlete"
+              ],
+              "statistics": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/college-football/seasons/2026/types/2/teams/120/athletes/5141695/statistics/0?lang=en&region=us"
+              },
+              "athlete": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/college-football/seasons/2026/athletes/5141695?lang=en&region=us"
+              },
+              "team": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/college-football/seasons/2026/teams/120?lang=en&region=us"
+              }
+            }
+          ]
+        },
+        {
+          "name": "rushingTouchdowns",
+          "displayName": "Rushing Touchdowns",
+          "shortDisplayName": "TD",
+          "abbreviation": "TD",
+          "leaders": [
+            {
+              "displayValue": "4",
+              "value": 4,
+              "rel": [
+                "athlete"
+              ],
+              "statistics": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/college-football/seasons/2026/types/2/teams/120/athletes/5141522/statistics/0?lang=en&region=us"
+              },
+              "athlete": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/college-football/seasons/2026/athletes/5141522?lang=en&region=us"
+              },
+              "team": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/college-football/seasons/2026/teams/120?lang=en&region=us"
+              }
+            }
+          ]
+        },
+        {
+          "name": "receptions",
+          "displayName": "Receptions",
+          "shortDisplayName": "REC",
+          "abbreviation": "REC",
+          "leaders": [
+            {
+              "displayValue": "52",
+              "value": 52,
+              "rel": [
+                "athlete"
+              ],
+              "statistics": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/college-football/seasons/2026/types/2/teams/120/athletes/5193298/statistics/0?lang=en&region=us"
+              },
+              "athlete": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/college-football/seasons/2026/athletes/5193298?lang=en&region=us"
+              },
+              "team": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/college-football/seasons/2026/teams/120?lang=en&region=us"
+              }
+            }
+          ]
+        },
+        {
+          "name": "receivingTouchdowns",
+          "displayName": "Receiving Touchdowns",
+          "shortDisplayName": "TD",
+          "abbreviation": "TD",
+          "leaders": [
+            {
+              "displayValue": "4",
+              "value": 4,
+              "rel": [
+                "athlete"
+              ],
+              "statistics": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/college-football/seasons/2026/types/2/teams/120/athletes/5193298/statistics/0?lang=en&region=us"
+              },
+              "athlete": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/college-football/seasons/2026/athletes/5193298?lang=en&region=us"
+              },
+              "team": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/college-football/seasons/2026/teams/120?lang=en&region=us"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "athletes": {
+    "https://sports.core.api.espn.com/v2/sports/football/leagues/college-football/seasons/2026/athletes/5295550?lang=en&region=us": {
+      "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/college-football/seasons/2026/athletes/5295550?lang=en&region=us",
+      "id": "5295550",
+      "displayName": "DeJuan Williams",
+      "fullName": "DeJuan Williams",
+      "shortName": "D. Williams",
+      "headshot": {
+        "href": "https://a.espncdn.com/i/headshots/college-football/players/full/5295550.png",
+        "alt": "DeJuan Williams"
+      },
+      "position": {
+        "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/college-football/positions/9?lang=en&region=us",
+        "id": "9",
+        "name": "Running Back",
+        "displayName": "Running Back",
+        "abbreviation": "RB",
+        "leaf": true,
+        "parent": {
+          "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/college-football/positions/70?lang=en&region=us"
+        }
+      }
+    },
+    "https://sports.core.api.espn.com/v2/sports/football/leagues/college-football/seasons/2026/athletes/5141695?lang=en&region=us": {
+      "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/college-football/seasons/2026/athletes/5141695?lang=en&region=us",
+      "id": "5141695",
+      "displayName": "Malik Washington",
+      "fullName": "Malik Washington",
+      "shortName": "M. Washington",
+      "headshot": {
+        "href": "https://a.espncdn.com/i/headshots/college-football/players/full/5141695.png",
+        "alt": "Malik Washington"
+      },
+      "position": {
+        "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/college-football/positions/8?lang=en&region=us",
+        "id": "8",
+        "name": "Quarterback",
+        "displayName": "Quarterback",
+        "abbreviation": "QB",
+        "leaf": true,
+        "parent": {
+          "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/college-football/positions/70?lang=en&region=us"
+        }
+      }
+    },
+    "https://sports.core.api.espn.com/v2/sports/football/leagues/college-football/seasons/2026/athletes/5209297?lang=en&region=us": {
+      "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/college-football/seasons/2026/athletes/5209297?lang=en&region=us",
+      "id": "5209297",
+      "displayName": "Zion Elee",
+      "fullName": "Zion Elee",
+      "shortName": "Z. Elee",
+      "headshot": {
+        "href": "https://a.espncdn.com/i/headshots/college-football/players/full/5209297.png",
+        "alt": "Zion Elee"
+      },
+      "position": {
+        "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/college-football/positions/30?lang=en&region=us",
+        "id": "30",
+        "name": "Linebacker",
+        "displayName": "Linebacker",
+        "abbreviation": "LB",
+        "leaf": true,
+        "parent": {
+          "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/college-football/positions/71?lang=en&region=us"
+        }
+      }
+    },
+    "https://sports.core.api.espn.com/v2/sports/football/leagues/college-football/seasons/2026/athletes/5193298?lang=en&region=us": {
+      "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/college-football/seasons/2026/athletes/5193298?lang=en&region=us",
+      "id": "5193298",
+      "displayName": "Chris Durr Jr.",
+      "fullName": "Chris Durr Jr.",
+      "shortName": "C. Durr Jr.",
+      "headshot": {
+        "href": "https://a.espncdn.com/i/headshots/college-football/players/full/5193298.png",
+        "alt": "Chris Durr Jr."
+      },
+      "position": {
+        "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/college-football/positions/1?lang=en&region=us",
+        "id": "1",
+        "name": "Wide Receiver",
+        "displayName": "Wide Receiver",
+        "abbreviation": "WR",
+        "leaf": true,
+        "parent": {
+          "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/college-football/positions/70?lang=en&region=us"
+        }
+      }
+    }
+  },
+  "fallback": {
+    "url": "https://site.api.espn.com/apis/site/v3/sports/football/college-football/leaders?team=120&season=2026&limit=1",
+    "payload": {
+      "currentSeason": {
+        "year": 2026,
+        "displayName": "2026",
+        "startDate": "2026-02-01T08:00:00.000+00:00",
+        "endDate": "2027-01-28T07:59:00.000+00:00",
+        "type": {
+          "id": "2",
+          "type": 2,
+          "name": "Regular Season",
+          "startDate": "2026-08-22T07:00:00.000+00:00",
+          "endDate": "2026-12-13T07:59:00.000+00:00",
+          "week": {
+            "number": 9,
+            "startDate": "2026-10-26T07:00:00.000+00:00",
+            "endDate": "2026-11-02T07:59:00.000+00:00",
+            "text": "Week 9"
+          }
+        }
+      },
+      "requestedSeason": {
+        "year": 2026,
+        "displayName": "2026",
+        "startDate": "2026-02-01T08:00:00.000+00:00",
+        "endDate": "2027-01-28T07:59:00.000+00:00",
+        "type": {
+          "id": "3",
+          "type": 3,
+          "name": "Postseason",
+          "startDate": "2026-12-13T08:00:00.000+00:00",
+          "endDate": "2027-01-28T07:59:00.000+00:00",
+          "week": {}
+        },
+        "qualifiedPostSeason": false
+      },
+      "leaders": {
+        "id": "0",
+        "name": "Season",
+        "abbreviation": "Season",
+        "categories": [
+          {
+            "name": "passingLeader",
+            "displayName": "Passing Leader",
+            "abbreviation": "PYDS",
+            "leaders": [
+              {
+                "displayValue": "155/261, 1615 YDS, 9 TD, 6 INT",
+                "value": 1615,
+                "rel": [
+                  "athlete"
+                ],
+                "statistics": {},
+                "athlete": {
+                  "id": "5141695",
+                  "displayName": "Malik Washington",
+                  "fullName": "Malik Washington",
+                  "shortName": "M. Washington",
+                  "headshot": {
+                    "href": "https://a.espncdn.com/i/headshots/college-football/players/full/5141695.png",
+                    "alt": "Malik Washington"
+                  },
+                  "position": {
+                    "id": "8",
+                    "name": "Quarterback",
+                    "displayName": "Quarterback",
+                    "abbreviation": "QB",
+                    "leaf": true,
+                    "parent": {
+                      "leaf": false
+                    },
+                    "slug": "quarterback"
+                  }
+                },
+                "team": {
+                  "id": "120"
+                }
+              }
+            ]
+          },
+          {
+            "name": "rushingLeader",
+            "displayName": "Rushing Leader",
+            "abbreviation": "RYDS",
+            "leaders": [
+              {
+                "displayValue": "38 CAR, 281 YDS, 3 TD",
+                "value": 281,
+                "rel": [
+                  "athlete"
+                ],
+                "statistics": {},
+                "athlete": {
+                  "id": "5295550",
+                  "displayName": "DeJuan Williams",
+                  "fullName": "DeJuan Williams",
+                  "shortName": "D. Williams",
+                  "headshot": {
+                    "href": "https://a.espncdn.com/i/headshots/college-football/players/full/5295550.png",
+                    "alt": "DeJuan Williams"
+                  },
+                  "position": {
+                    "id": "9",
+                    "name": "Running Back",
+                    "displayName": "Running Back",
+                    "abbreviation": "RB",
+                    "leaf": true,
+                    "parent": {
+                      "leaf": false
+                    },
+                    "slug": "running-back"
+                  }
+                },
+                "team": {
+                  "id": "120"
+                }
+              }
+            ]
+          },
+          {
+            "name": "receivingLeader",
+            "displayName": "Receiving Leader",
+            "abbreviation": "RECYDS",
+            "leaders": [
+              {
+                "displayValue": "52 REC, 580 YDS, 4 TD",
+                "value": 580,
+                "rel": [
+                  "athlete"
+                ],
+                "statistics": {},
+                "athlete": {
+                  "id": "5193298",
+                  "displayName": "Chris Durr Jr.",
+                  "fullName": "Chris Durr Jr.",
+                  "shortName": "C. Durr Jr.",
+                  "headshot": {
+                    "href": "https://a.espncdn.com/i/headshots/college-football/players/full/5193298.png",
+                    "alt": "Chris Durr Jr."
+                  },
+                  "position": {
+                    "id": "1",
+                    "name": "Wide Receiver",
+                    "displayName": "Wide Receiver",
+                    "abbreviation": "WR",
+                    "leaf": true,
+                    "parent": {
+                      "leaf": false
+                    },
+                    "slug": "wide-receiver"
+                  }
+                },
+                "team": {
+                  "id": "120"
+                }
+              }
+            ]
+          },
+          {
+            "name": "passingYards",
+            "displayName": "Passing Yards",
+            "abbreviation": "YDS",
+            "leaders": [
+              {
+                "displayValue": "1,615",
+                "value": 1615,
+                "rel": [
+                  "athlete"
+                ],
+                "statistics": {},
+                "athlete": {
+                  "id": "5141695",
+                  "displayName": "Malik Washington",
+                  "fullName": "Malik Washington",
+                  "shortName": "M. Washington",
+                  "headshot": {
+                    "href": "https://a.espncdn.com/i/headshots/college-football/players/full/5141695.png",
+                    "alt": "Malik Washington"
+                  },
+                  "position": {
+                    "id": "8",
+                    "name": "Quarterback",
+                    "displayName": "Quarterback",
+                    "abbreviation": "QB",
+                    "leaf": true,
+                    "parent": {
+                      "leaf": false
+                    },
+                    "slug": "quarterback"
+                  }
+                },
+                "team": {
+                  "id": "120"
+                }
+              }
+            ]
+          },
+          {
+            "name": "rushingYards",
+            "displayName": "Rushing Yards",
+            "abbreviation": "YDS",
+            "leaders": [
+              {
+                "displayValue": "281",
+                "value": 281,
+                "rel": [
+                  "athlete"
+                ],
+                "statistics": {},
+                "athlete": {
+                  "id": "5295550",
+                  "displayName": "DeJuan Williams",
+                  "fullName": "DeJuan Williams",
+                  "shortName": "D. Williams",
+                  "headshot": {
+                    "href": "https://a.espncdn.com/i/headshots/college-football/players/full/5295550.png",
+                    "alt": "DeJuan Williams"
+                  },
+                  "position": {
+                    "id": "9",
+                    "name": "Running Back",
+                    "displayName": "Running Back",
+                    "abbreviation": "RB",
+                    "leaf": true,
+                    "parent": {
+                      "leaf": false
+                    },
+                    "slug": "running-back"
+                  }
+                },
+                "team": {
+                  "id": "120"
+                }
+              }
+            ]
+          },
+          {
+            "name": "receivingYards",
+            "displayName": "Receiving Yards",
+            "abbreviation": "YDS",
+            "leaders": [
+              {
+                "displayValue": "580",
+                "value": 580,
+                "rel": [
+                  "athlete"
+                ],
+                "statistics": {},
+                "athlete": {
+                  "id": "5193298",
+                  "displayName": "Chris Durr Jr.",
+                  "fullName": "Chris Durr Jr.",
+                  "shortName": "C. Durr Jr.",
+                  "headshot": {
+                    "href": "https://a.espncdn.com/i/headshots/college-football/players/full/5193298.png",
+                    "alt": "Chris Durr Jr."
+                  },
+                  "position": {
+                    "id": "1",
+                    "name": "Wide Receiver",
+                    "displayName": "Wide Receiver",
+                    "abbreviation": "WR",
+                    "leaf": true,
+                    "parent": {
+                      "leaf": false
+                    },
+                    "slug": "wide-receiver"
+                  }
+                },
+                "team": {
+                  "id": "120"
+                }
+              }
+            ]
+          },
+          {
+            "name": "totalTackles",
+            "displayName": "Tackles",
+            "abbreviation": "TOT",
+            "leaders": [
+              {
+                "displayValue": "44",
+                "value": 44,
+                "rel": [
+                  "athlete"
+                ],
+                "statistics": {},
+                "athlete": {
+                  "id": "4921326",
+                  "displayName": "Daniel Wingate",
+                  "fullName": "Daniel Wingate",
+                  "shortName": "D. Wingate",
+                  "headshot": {
+                    "href": "https://a.espncdn.com/i/headshots/college-football/players/full/4921326.png",
+                    "alt": "Daniel Wingate"
+                  },
+                  "position": {
+                    "id": "30",
+                    "name": "Linebacker",
+                    "displayName": "Linebacker",
+                    "abbreviation": "LB",
+                    "leaf": true,
+                    "parent": {
+                      "leaf": false
+                    },
+                    "slug": "linebacker"
+                  }
+                },
+                "team": {
+                  "id": "120"
+                }
+              }
+            ]
+          },
+          {
+            "name": "sacks",
+            "displayName": "Sacks",
+            "abbreviation": "SACK",
+            "leaders": [
+              {
+                "displayValue": "3.5",
+                "value": 3.5,
+                "rel": [
+                  "athlete"
+                ],
+                "statistics": {},
+                "athlete": {
+                  "id": "5209297",
+                  "displayName": "Zion Elee",
+                  "fullName": "Zion Elee",
+                  "shortName": "Z. Elee",
+                  "headshot": {
+                    "href": "https://a.espncdn.com/i/headshots/college-football/players/full/5209297.png",
+                    "alt": "Zion Elee"
+                  },
+                  "position": {
+                    "id": "30",
+                    "name": "Linebacker",
+                    "displayName": "Linebacker",
+                    "abbreviation": "LB",
+                    "leaf": true,
+                    "parent": {
+                      "leaf": false
+                    },
+                    "slug": "linebacker"
+                  }
+                },
+                "team": {
+                  "id": "120"
+                }
+              }
+            ]
+          },
+          {
+            "name": "interceptions",
+            "displayName": "Interceptions",
+            "abbreviation": "INT",
+            "leaders": [
+              {
+                "displayValue": "2",
+                "value": 2,
+                "rel": [
+                  "athlete"
+                ],
+                "statistics": {},
+                "athlete": {
+                  "id": "4912140",
+                  "displayName": "Jamare Glasker",
+                  "fullName": "Jamare Glasker",
+                  "shortName": "J. Glasker",
+                  "headshot": {
+                    "href": "https://a.espncdn.com/i/headshots/college-football/players/full/4912140.png",
+                    "alt": "Jamare Glasker"
+                  },
+                  "position": {
+                    "id": "35",
+                    "name": "Defensive Back",
+                    "displayName": "Defensive Back",
+                    "abbreviation": "DB",
+                    "leaf": true,
+                    "parent": {
+                      "leaf": false
+                    },
+                    "slug": "defensive-back"
+                  }
+                },
+                "team": {
+                  "id": "120"
+                }
+              }
+            ]
+          },
+          {
+            "name": "passingTouchdowns",
+            "displayName": "Passing Touchdowns",
+            "abbreviation": "TD",
+            "leaders": [
+              {
+                "displayValue": "9",
+                "value": 9,
+                "rel": [
+                  "athlete"
+                ],
+                "statistics": {},
+                "athlete": {
+                  "id": "5141695",
+                  "displayName": "Malik Washington",
+                  "fullName": "Malik Washington",
+                  "shortName": "M. Washington",
+                  "headshot": {
+                    "href": "https://a.espncdn.com/i/headshots/college-football/players/full/5141695.png",
+                    "alt": "Malik Washington"
+                  },
+                  "position": {
+                    "id": "8",
+                    "name": "Quarterback",
+                    "displayName": "Quarterback",
+                    "abbreviation": "QB",
+                    "leaf": true,
+                    "parent": {
+                      "leaf": false
+                    },
+                    "slug": "quarterback"
+                  }
+                },
+                "team": {
+                  "id": "120"
+                }
+              }
+            ]
+          },
+          {
+            "name": "quarterbackRating",
+            "displayName": "Quarterback Rating",
+            "abbreviation": "RAT",
+            "leaders": [
+              {
+                "displayValue": "79.3",
+                "value": 79.30000305175781,
+                "rel": [
+                  "athlete"
+                ],
+                "statistics": {},
+                "athlete": {
+                  "id": "5141695",
+                  "displayName": "Malik Washington",
+                  "fullName": "Malik Washington",
+                  "shortName": "M. Washington",
+                  "headshot": {
+                    "href": "https://a.espncdn.com/i/headshots/college-football/players/full/5141695.png",
+                    "alt": "Malik Washington"
+                  },
+                  "position": {
+                    "id": "8",
+                    "name": "Quarterback",
+                    "displayName": "Quarterback",
+                    "abbreviation": "QB",
+                    "leaf": true,
+                    "parent": {
+                      "leaf": false
+                    },
+                    "slug": "quarterback"
+                  }
+                },
+                "team": {
+                  "id": "120"
+                }
+              }
+            ]
+          },
+          {
+            "name": "rushingTouchdowns",
+            "displayName": "Rushing Touchdowns",
+            "abbreviation": "TD",
+            "leaders": [
+              {
+                "displayValue": "4",
+                "value": 4,
+                "rel": [
+                  "athlete"
+                ],
+                "statistics": {},
+                "athlete": {
+                  "id": "5141522",
+                  "displayName": "Iverson Howard",
+                  "fullName": "Iverson Howard",
+                  "shortName": "I. Howard",
+                  "headshot": {
+                    "href": "https://a.espncdn.com/i/headshots/college-football/players/full/5141522.png",
+                    "alt": "Iverson Howard"
+                  },
+                  "position": {
+                    "id": "9",
+                    "name": "Running Back",
+                    "displayName": "Running Back",
+                    "abbreviation": "RB",
+                    "leaf": true,
+                    "parent": {
+                      "leaf": false
+                    },
+                    "slug": "running-back"
+                  }
+                },
+                "team": {
+                  "id": "120"
+                }
+              }
+            ]
+          },
+          {
+            "name": "receptions",
+            "displayName": "Receptions",
+            "abbreviation": "REC",
+            "leaders": [
+              {
+                "displayValue": "52",
+                "value": 52,
+                "rel": [
+                  "athlete"
+                ],
+                "statistics": {},
+                "athlete": {
+                  "id": "5193298",
+                  "displayName": "Chris Durr Jr.",
+                  "fullName": "Chris Durr Jr.",
+                  "shortName": "C. Durr Jr.",
+                  "headshot": {
+                    "href": "https://a.espncdn.com/i/headshots/college-football/players/full/5193298.png",
+                    "alt": "Chris Durr Jr."
+                  },
+                  "position": {
+                    "id": "1",
+                    "name": "Wide Receiver",
+                    "displayName": "Wide Receiver",
+                    "abbreviation": "WR",
+                    "leaf": true,
+                    "parent": {
+                      "leaf": false
+                    },
+                    "slug": "wide-receiver"
+                  }
+                },
+                "team": {
+                  "id": "120"
+                }
+              }
+            ]
+          },
+          {
+            "name": "receivingTouchdowns",
+            "displayName": "Receiving Touchdowns",
+            "abbreviation": "TD",
+            "leaders": [
+              {
+                "displayValue": "4",
+                "value": 4,
+                "rel": [
+                  "athlete"
+                ],
+                "statistics": {},
+                "athlete": {
+                  "id": "5193298",
+                  "displayName": "Chris Durr Jr.",
+                  "fullName": "Chris Durr Jr.",
+                  "shortName": "C. Durr Jr.",
+                  "headshot": {
+                    "href": "https://a.espncdn.com/i/headshots/college-football/players/full/5193298.png",
+                    "alt": "Chris Durr Jr."
+                  },
+                  "position": {
+                    "id": "1",
+                    "name": "Wide Receiver",
+                    "displayName": "Wide Receiver",
+                    "abbreviation": "WR",
+                    "leaf": true,
+                    "parent": {
+                      "leaf": false
+                    },
+                    "slug": "wide-receiver"
+                  }
+                },
+                "team": {
+                  "id": "120"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

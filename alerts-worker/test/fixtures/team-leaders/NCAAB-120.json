@@ -1,0 +1,707 @@
+{
+  "sport": "NCAAB",
+  "id": "120",
+  "season": 2027,
+  "team": {
+    "url": "https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/teams/120",
+    "payload": {
+      "team": {
+        "id": "120",
+        "abbreviation": "MD",
+        "displayName": "Maryland Terrapins",
+        "name": "Terrapins",
+        "shortDisplayName": "Maryland",
+        "location": "Maryland",
+        "logos": [
+          {
+            "alt": "",
+            "height": 500,
+            "href": "https://a.espncdn.com/i/teamlogos/ncaa/500/120.png",
+            "rel": [
+              "full",
+              "default"
+            ],
+            "width": 500
+          },
+          {
+            "alt": "",
+            "height": 500,
+            "href": "https://a.espncdn.com/i/teamlogos/ncaa/500-dark/120.png",
+            "rel": [
+              "full",
+              "dark"
+            ],
+            "width": 500
+          },
+          {
+            "alt": "",
+            "height": 4096,
+            "href": "https://a.espncdn.com/guid/5858f992-9c44-5441-8357-6b2af9bde93e/logos/primary_logo_on_white_color.png",
+            "rel": [
+              "full",
+              "primary_logo_on_white_color"
+            ],
+            "width": 4096
+          },
+          {
+            "alt": "",
+            "height": 4096,
+            "href": "https://a.espncdn.com/guid/5858f992-9c44-5441-8357-6b2af9bde93e/logos/primary_logo_on_black_color.png",
+            "rel": [
+              "full",
+              "primary_logo_on_black_color"
+            ],
+            "width": 4096
+          },
+          {
+            "alt": "",
+            "height": 4096,
+            "href": "https://a.espncdn.com/guid/5858f992-9c44-5441-8357-6b2af9bde93e/logos/primary_logo_on_primary_color.png",
+            "rel": [
+              "full",
+              "primary_logo_on_primary_color"
+            ],
+            "width": 4096
+          },
+          {
+            "alt": "",
+            "height": 4096,
+            "href": "https://a.espncdn.com/guid/5858f992-9c44-5441-8357-6b2af9bde93e/logos/primary_logo_on_secondary_color.png",
+            "rel": [
+              "full",
+              "primary_logo_on_secondary_color"
+            ],
+            "width": 4096
+          },
+          {
+            "alt": "",
+            "height": 4096,
+            "href": "https://a.espncdn.com/guid/5858f992-9c44-5441-8357-6b2af9bde93e/logos/primary_logo_black.png",
+            "rel": [
+              "full",
+              "primary_logo_black"
+            ],
+            "width": 4096
+          },
+          {
+            "alt": "",
+            "height": 4096,
+            "href": "https://a.espncdn.com/guid/5858f992-9c44-5441-8357-6b2af9bde93e/logos/primary_logo_white.png",
+            "rel": [
+              "full",
+              "primary_logo_white"
+            ],
+            "width": 4096
+          },
+          {
+            "alt": "",
+            "height": 4096,
+            "href": "https://a.espncdn.com/guid/5858f992-9c44-5441-8357-6b2af9bde93e/logos/secondary_logo_on_white_color.png",
+            "rel": [
+              "full",
+              "secondary_logo_on_white_color"
+            ],
+            "width": 4096
+          },
+          {
+            "alt": "",
+            "height": 4096,
+            "href": "https://a.espncdn.com/guid/5858f992-9c44-5441-8357-6b2af9bde93e/logos/secondary_logo_on_black_color.png",
+            "rel": [
+              "full",
+              "secondary_logo_on_black_color"
+            ],
+            "width": 4096
+          },
+          {
+            "alt": "",
+            "height": 4096,
+            "href": "https://a.espncdn.com/guid/5858f992-9c44-5441-8357-6b2af9bde93e/logos/secondary_logo_on_primary_color.png",
+            "rel": [
+              "full",
+              "secondary_logo_on_primary_color"
+            ],
+            "width": 4096
+          },
+          {
+            "alt": "",
+            "height": 4096,
+            "href": "https://a.espncdn.com/guid/5858f992-9c44-5441-8357-6b2af9bde93e/logos/secondary_logo_on_secondary_color.png",
+            "rel": [
+              "full",
+              "secondary_logo_on_secondary_color"
+            ],
+            "width": 4096
+          },
+          {
+            "alt": "",
+            "height": 4096,
+            "href": "https://a.espncdn.com/guid/5858f992-9c44-5441-8357-6b2af9bde93e/logos/secondary_logo_black.png",
+            "rel": [
+              "full",
+              "secondary_logo_black"
+            ],
+            "width": 4096
+          },
+          {
+            "alt": "",
+            "height": 4096,
+            "href": "https://a.espncdn.com/guid/5858f992-9c44-5441-8357-6b2af9bde93e/logos/secondary_logo_white.png",
+            "rel": [
+              "full",
+              "secondary_logo_white"
+            ],
+            "width": 4096
+          }
+        ],
+        "color": "ce1126",
+        "alternateColor": "ffffff"
+      }
+    }
+  },
+  "schedule": {
+    "url": "https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/teams/120/schedule",
+    "payload": {
+      "season": {
+        "year": 2027,
+        "type": 1,
+        "name": "Preseason",
+        "displayName": "2026-27",
+        "half": 1
+      },
+      "team": {
+        "id": "120",
+        "abbreviation": "MD",
+        "displayName": "Maryland Terrapins",
+        "name": "Terrapins",
+        "location": "Maryland",
+        "color": "ce1126",
+        "standingSummary": "1st in Big Ten"
+      },
+      "events": []
+    }
+  },
+  "profile": {
+    "url": "https://sports.core.api.espn.com/v2/sports/basketball/leagues/mens-college-basketball/seasons/2027/teams/120?lang=en&region=us",
+    "status": 200,
+    "payload": {
+      "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/mens-college-basketball/seasons/2027/teams/120?lang=en&region=us",
+      "id": "120"
+    }
+  },
+  "athletes": {},
+  "fallback": {
+    "url": "https://site.api.espn.com/apis/site/v3/sports/basketball/mens-college-basketball/leaders?team=120&season=2027&limit=1",
+    "payload": {
+      "currentSeason": {
+        "year": 2027,
+        "displayName": "2026-27",
+        "startDate": "2026-07-13T07:00:00.000+00:00",
+        "endDate": "2027-04-07T06:59:00.000+00:00",
+        "type": {
+          "id": "1",
+          "type": 1,
+          "name": "Preseason",
+          "startDate": "2026-07-13T07:00:00.000+00:00",
+          "endDate": "2026-11-01T06:59:00.000+00:00",
+          "week": {
+            "number": 1,
+            "startDate": "2026-07-13T07:00:00.000+00:00",
+            "endDate": "2026-11-01T06:59:00.000+00:00",
+            "text": "Week 1"
+          }
+        }
+      },
+      "requestedSeason": {
+        "year": 2026,
+        "displayName": "2025-26",
+        "startDate": "2025-07-01T07:00:00.000+00:00",
+        "endDate": "2026-04-08T06:59:00.000+00:00",
+        "type": {
+          "id": "2",
+          "type": 2,
+          "name": "Regular Season",
+          "startDate": "2025-11-03T08:00:00.000+00:00",
+          "endDate": "2026-03-17T06:59:00.000+00:00",
+          "week": {}
+        },
+        "qualifiedPostSeason": false
+      },
+      "leaders": {
+        "id": "0",
+        "name": "Season",
+        "abbreviation": "Season",
+        "categories": [
+          {
+            "name": "pointsPerGame",
+            "displayName": "Points Per Game",
+            "abbreviation": "PTS",
+            "leaders": [
+              {
+                "displayValue": "13.5",
+                "value": 13.515151977539062,
+                "rel": [
+                  "athlete"
+                ],
+                "statistics": {},
+                "athlete": {
+                  "id": "5108023",
+                  "displayName": "David Coit",
+                  "fullName": "David Coit",
+                  "shortName": "D. Coit",
+                  "headshot": {
+                    "href": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5108023.png",
+                    "alt": "David Coit"
+                  },
+                  "position": {
+                    "id": "3",
+                    "name": "Guard",
+                    "displayName": "Guard",
+                    "abbreviation": "G",
+                    "leaf": false,
+                    "slug": "guard"
+                  }
+                },
+                "team": {
+                  "id": "120"
+                }
+              }
+            ]
+          },
+          {
+            "name": "assistsPerGame",
+            "displayName": "Assists Per Game",
+            "abbreviation": "AST",
+            "leaders": [
+              {
+                "displayValue": "2.8",
+                "value": 2.757575750350952,
+                "rel": [
+                  "athlete"
+                ],
+                "statistics": {},
+                "athlete": {
+                  "id": "5108023",
+                  "displayName": "David Coit",
+                  "fullName": "David Coit",
+                  "shortName": "D. Coit",
+                  "headshot": {
+                    "href": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5108023.png",
+                    "alt": "David Coit"
+                  },
+                  "position": {
+                    "id": "3",
+                    "name": "Guard",
+                    "displayName": "Guard",
+                    "abbreviation": "G",
+                    "leaf": false,
+                    "slug": "guard"
+                  }
+                },
+                "team": {
+                  "id": "120"
+                }
+              }
+            ]
+          },
+          {
+            "name": "reboundsPerGame",
+            "displayName": "Rebounds Per Game",
+            "abbreviation": "REB",
+            "leaders": [
+              {
+                "displayValue": "9.2",
+                "value": 9.199999809265137,
+                "rel": [
+                  "athlete"
+                ],
+                "statistics": {},
+                "athlete": {
+                  "id": "5105562",
+                  "displayName": "Solomon Washington",
+                  "fullName": "Solomon Washington",
+                  "shortName": "S. Washington",
+                  "headshot": {
+                    "href": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5105562.png",
+                    "alt": "Solomon Washington"
+                  },
+                  "position": {
+                    "id": "2",
+                    "name": "Forward",
+                    "displayName": "Forward",
+                    "abbreviation": "F",
+                    "leaf": false,
+                    "slug": "forward"
+                  }
+                },
+                "team": {
+                  "id": "120"
+                }
+              }
+            ]
+          },
+          {
+            "name": "defensiveReboundsPerGame",
+            "displayName": "Defensive Rebounds Per Game",
+            "abbreviation": "DRPG",
+            "leaders": [
+              {
+                "displayValue": "6.1",
+                "value": 6.079999923706055,
+                "rel": [
+                  "athlete"
+                ],
+                "statistics": {},
+                "athlete": {
+                  "id": "5105562",
+                  "displayName": "Solomon Washington",
+                  "fullName": "Solomon Washington",
+                  "shortName": "S. Washington",
+                  "headshot": {
+                    "href": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5105562.png",
+                    "alt": "Solomon Washington"
+                  },
+                  "position": {
+                    "id": "2",
+                    "name": "Forward",
+                    "displayName": "Forward",
+                    "abbreviation": "F",
+                    "leaf": false,
+                    "slug": "forward"
+                  }
+                },
+                "team": {
+                  "id": "120"
+                }
+              }
+            ]
+          },
+          {
+            "name": "offensiveReboundsPerGame",
+            "displayName": "Offensive Rebounds Per Game",
+            "abbreviation": "ORPG",
+            "leaders": [
+              {
+                "displayValue": "3.2",
+                "value": 3.200000047683716,
+                "rel": [
+                  "athlete"
+                ],
+                "statistics": {},
+                "athlete": {
+                  "id": "5105823",
+                  "displayName": "Pharrel Payne",
+                  "fullName": "Pharrel Payne",
+                  "shortName": "P. Payne",
+                  "headshot": {
+                    "href": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5105823.png",
+                    "alt": "Pharrel Payne"
+                  },
+                  "position": {
+                    "id": "2",
+                    "name": "Forward",
+                    "displayName": "Forward",
+                    "abbreviation": "F",
+                    "leaf": false,
+                    "slug": "forward"
+                  }
+                },
+                "team": {
+                  "id": "120"
+                }
+              }
+            ]
+          },
+          {
+            "name": "stealsPerGame",
+            "displayName": "Steals Per Game",
+            "abbreviation": "STL",
+            "leaders": [
+              {
+                "displayValue": "1.1",
+                "value": 1.1200000047683716,
+                "rel": [
+                  "athlete"
+                ],
+                "statistics": {},
+                "athlete": {
+                  "id": "5105562",
+                  "displayName": "Solomon Washington",
+                  "fullName": "Solomon Washington",
+                  "shortName": "S. Washington",
+                  "headshot": {
+                    "href": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5105562.png",
+                    "alt": "Solomon Washington"
+                  },
+                  "position": {
+                    "id": "2",
+                    "name": "Forward",
+                    "displayName": "Forward",
+                    "abbreviation": "F",
+                    "leaf": false,
+                    "slug": "forward"
+                  }
+                },
+                "team": {
+                  "id": "120"
+                }
+              }
+            ]
+          },
+          {
+            "name": "blocksPerGame",
+            "displayName": "Blocks Per Game",
+            "abbreviation": "BLK",
+            "leaders": [
+              {
+                "displayValue": "0.8",
+                "value": 0.800000011920929,
+                "rel": [
+                  "athlete"
+                ],
+                "statistics": {},
+                "athlete": {
+                  "id": "5105562",
+                  "displayName": "Solomon Washington",
+                  "fullName": "Solomon Washington",
+                  "shortName": "S. Washington",
+                  "headshot": {
+                    "href": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5105562.png",
+                    "alt": "Solomon Washington"
+                  },
+                  "position": {
+                    "id": "2",
+                    "name": "Forward",
+                    "displayName": "Forward",
+                    "abbreviation": "F",
+                    "leaf": false,
+                    "slug": "forward"
+                  }
+                },
+                "team": {
+                  "id": "120"
+                }
+              }
+            ]
+          },
+          {
+            "name": "fieldGoalPercentage",
+            "displayName": "Field Goal Percentage",
+            "abbreviation": "FG%",
+            "leaders": [
+              {
+                "displayValue": "62.4",
+                "value": 0.6235294342041016,
+                "rel": [
+                  "athlete"
+                ],
+                "statistics": {},
+                "athlete": {
+                  "id": "5105823",
+                  "displayName": "Pharrel Payne",
+                  "fullName": "Pharrel Payne",
+                  "shortName": "P. Payne",
+                  "headshot": {
+                    "href": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5105823.png",
+                    "alt": "Pharrel Payne"
+                  },
+                  "position": {
+                    "id": "2",
+                    "name": "Forward",
+                    "displayName": "Forward",
+                    "abbreviation": "F",
+                    "leaf": false,
+                    "slug": "forward"
+                  }
+                },
+                "team": {
+                  "id": "120"
+                }
+              }
+            ]
+          },
+          {
+            "name": "PER",
+            "displayName": "Player Efficiency Rating",
+            "abbreviation": "PER",
+            "leaders": [
+              {
+                "displayValue": "-753.0",
+                "value": -752.9849853515625,
+                "rel": [
+                  "athlete"
+                ],
+                "statistics": {},
+                "athlete": {
+                  "id": "5311974",
+                  "displayName": "Guillermo Del Pino",
+                  "fullName": "Guillermo Del Pino",
+                  "shortName": "G. Del Pino",
+                  "headshot": {
+                    "href": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5311974.png",
+                    "alt": "Guillermo Del Pino"
+                  },
+                  "position": {
+                    "id": "3",
+                    "name": "Guard",
+                    "displayName": "Guard",
+                    "abbreviation": "G",
+                    "leaf": false,
+                    "slug": "guard"
+                  }
+                },
+                "team": {
+                  "id": "120"
+                }
+              }
+            ]
+          },
+          {
+            "name": "3PointMadePerGame",
+            "displayName": "Average 3-Point Field Goals Made",
+            "abbreviation": "3PM",
+            "leaders": [
+              {
+                "displayValue": "2.2",
+                "value": 2.151515245437622,
+                "rel": [
+                  "athlete"
+                ],
+                "statistics": {},
+                "athlete": {
+                  "id": "5108023",
+                  "displayName": "David Coit",
+                  "fullName": "David Coit",
+                  "shortName": "D. Coit",
+                  "headshot": {
+                    "href": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5108023.png",
+                    "alt": "David Coit"
+                  },
+                  "position": {
+                    "id": "3",
+                    "name": "Guard",
+                    "displayName": "Guard",
+                    "abbreviation": "G",
+                    "leaf": false,
+                    "slug": "guard"
+                  }
+                },
+                "team": {
+                  "id": "120"
+                }
+              }
+            ]
+          },
+          {
+            "name": "doubleDouble",
+            "displayName": "Double Double",
+            "abbreviation": "DBLDBL",
+            "leaders": [
+              {
+                "displayValue": "0.0",
+                "value": 0,
+                "rel": [
+                  "athlete"
+                ],
+                "statistics": {},
+                "athlete": {
+                  "id": "4709133",
+                  "displayName": "Myles Rice",
+                  "fullName": "Myles Rice",
+                  "shortName": "M. Rice",
+                  "headshot": {
+                    "href": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/4709133.png",
+                    "alt": "Myles Rice"
+                  },
+                  "position": {
+                    "id": "3",
+                    "name": "Guard",
+                    "displayName": "Guard",
+                    "abbreviation": "G",
+                    "leaf": false,
+                    "slug": "guard"
+                  }
+                },
+                "team": {
+                  "id": "120"
+                }
+              }
+            ]
+          },
+          {
+            "name": "minutesPerGame",
+            "displayName": "Minutes Per Game",
+            "abbreviation": "MPG",
+            "leaders": [
+              {
+                "displayValue": "31.9",
+                "value": 31.920000076293945,
+                "rel": [
+                  "athlete"
+                ],
+                "statistics": {},
+                "athlete": {
+                  "id": "5105562",
+                  "displayName": "Solomon Washington",
+                  "fullName": "Solomon Washington",
+                  "shortName": "S. Washington",
+                  "headshot": {
+                    "href": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5105562.png",
+                    "alt": "Solomon Washington"
+                  },
+                  "position": {
+                    "id": "2",
+                    "name": "Forward",
+                    "displayName": "Forward",
+                    "abbreviation": "F",
+                    "leaf": false,
+                    "slug": "forward"
+                  }
+                },
+                "team": {
+                  "id": "120"
+                }
+              }
+            ]
+          },
+          {
+            "name": "foulsPerGame",
+            "displayName": "Personal fouls per game",
+            "abbreviation": "PFPG",
+            "leaders": [
+              {
+                "displayValue": "3.0",
+                "value": 3.0399999618530273,
+                "rel": [
+                  "athlete"
+                ],
+                "statistics": {},
+                "athlete": {
+                  "id": "5105562",
+                  "displayName": "Solomon Washington",
+                  "fullName": "Solomon Washington",
+                  "shortName": "S. Washington",
+                  "headshot": {
+                    "href": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5105562.png",
+                    "alt": "Solomon Washington"
+                  },
+                  "position": {
+                    "id": "2",
+                    "name": "Forward",
+                    "displayName": "Forward",
+                    "abbreviation": "F",
+                    "leaf": false,
+                    "slug": "forward"
+                  }
+                },
+                "team": {
+                  "id": "120"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

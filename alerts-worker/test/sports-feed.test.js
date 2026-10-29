@@ -6,8 +6,8 @@ import {gunzipSync} from 'node:zlib';
 import vm from 'node:vm';
 import sourceHelper from '../../test/helpers/scoring-source.cjs';
 import worker,{checkGames} from '../src/index.js';
-import {refreshSportsData,readFeed,gameDetails,refreshDue,normalizeTeamSchedule,normalizeTeamLeaders} from '../src/sports-feed.js';
-import {coreTeamProfileUrl} from '../src/providers/espn.js';
+import {refreshSportsData,readFeed,gameDetails,teamDetails,refreshDue,normalizeTeamSchedule,normalizeTeamLeaders} from '../src/sports-feed.js';
+import {coreTeamProfileUrl,teamLeadersUrl} from '../src/providers/espn.js';
 import {normalizeEvent,enrichGame} from '../src/game-model.js';
 import {baseballSituation,footballSituation} from '../src/display-model.js';
 
@@ -522,4 +522,178 @@ test('Core team profile URL targets the requested ESPN season',() => {
     coreTeamProfileUrl('NBA','13',2027),
     'https://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/seasons/2027/teams/13?lang=en&region=us'
   );
+});
+
+function teamLeaderFixture(sport,id) {
+  return JSON.parse(fs.readFileSync(new URL(`./fixtures/team-leaders/${sport}-${id}.json`,import.meta.url),'utf8'));
+}
+
+function mockTeamLeaderProvider(t,fixture,{fail='profile',fallback=fixture.fallback.payload}={}) {
+  const original = globalThis.fetch;
+  const calls = [];
+  const unexpected = [];
+  const resources = new Map([
+    [fixture.team.url,fixture.team.payload],
+    [fixture.schedule.url,fixture.schedule.payload],
+    [fixture.profile.url,fixture.profile.payload],
+    ...(fixture.core ? [[fixture.core.url,fixture.core.payload]] : []),
+    ...Object.entries(fixture.athletes),
+    [fixture.fallback.url,fallback]
+  ]);
+  globalThis.fetch = async (input,options) => {
+    const url = String(input);
+    calls.push({url,options});
+    if (!resources.has(url)) {
+      unexpected.push(url);
+      throw new Error(`Unexpected provider URL: ${url}`);
+    }
+    if ((fail === 'profile' && url === fixture.profile.url) ||
+        (fail === 'leaders' && url === fixture.core?.url) ||
+        (fail?.includes('athletes') && Object.hasOwn(fixture.athletes,url)) ||
+        (fail === 'all' && url !== fixture.team.url && url !== fixture.schedule.url) ||
+        (fail === 'athletes-and-fallback' && url === fixture.fallback.url)) {
+      return new Response('<html><h1>403 Forbidden</h1></html>',{status:403});
+    }
+    return Response.json(resources.get(url));
+  };
+  t.after(() => {
+    globalThis.fetch = original;
+    assert.deepEqual(unexpected,[]);
+  });
+  return calls;
+}
+
+const liveLeaderExpectations = [
+  ['NFL','33',['Passing Yards','Rushing Yards','Receiving Yards','Sacks'],['Lamar Jackson','Derrick Henry','Zay Flowers','Tavius Robinson']],
+  ['MLB','1',['Batting Average','Home Runs','Runs Batted In','Strikeouts'],['Pete Alonso','Pete Alonso','Pete Alonso','Trevor Rogers']],
+  ['NHL','23',['Goals','Assists','Points','Save Percentage'],['Alex Tuch','Dylan Strome','Dylan Strome','Logan Thompson']],
+  ['NBA','13',['Points Per Game','Rebounds Per Game','Assists Per Game','Blocks Per Game'],['Luka Doncic','Walker Kessler','Luka Doncic','Walker Kessler']],
+  ['CFB','120',['Passing Yards','Rushing Yards','Receiving Yards','Sacks'],['Malik Washington','DeJuan Williams','Chris Durr Jr.','Zion Elee']]
+];
+
+for (const [sport,id,categories,names] of liveLeaderExpectations) {
+  test(`production Core 403 -> team-season fallback serves four ${sport}/${id} leaders`,async t => {
+    const fixture = teamLeaderFixture(sport,id);
+    const env = database();
+    t.after(() => env.db.close());
+    const calls = mockTeamLeaderProvider(t,fixture);
+    const response = await worker.fetch(new Request(`https://worker.test/team/${sport}/${id}`),env,{});
+    assert.equal(response.status,200);
+    const result = await response.json();
+    assert.equal(result.team.id,id);
+    assert.equal(result.schedule.length,fixture.schedule.payload.events.length);
+    assert.deepEqual(result.leaders.map(l => l.category),categories);
+    assert.deepEqual(result.leaders.map(l => l.athlete.name),names);
+    assert.ok(result.leaders.every(l => l.athlete.id && l.athlete.headshot && l.athlete.position));
+    const core = normalizeTeamLeaders(fixture.core.payload,sport,new Map(Object.entries(fixture.athletes)));
+    assert.deepEqual(result.leaders.map(l => [l.athlete.id,l.value,l.displayValue]),core.map(l => [l.athlete.id,l.value,l.displayValue]));
+    assert.deepEqual(calls.map(c => c.url),[fixture.team.url,fixture.schedule.url,fixture.profile.url,fixture.fallback.url]);
+    assert.equal(calls.at(-1).options.cf.cacheTtl,6*60*60);
+    assert.ok(env.db.prepare('SELECT key FROM sports_resources WHERE key=?').get(`team-details:v3:${sport}:${id}`));
+  });
+}
+
+test('production Core categories hydrate successfully without requesting the fallback',async t => {
+  const fixture = teamLeaderFixture('NFL','33');
+  const env = database();
+  t.after(() => env.db.close());
+  const calls = mockTeamLeaderProvider(t,fixture,{fail:null});
+  const now = Date.parse('2026-10-29T14:00:00Z');
+  const result = await teamDetails(env,'NFL','33',now);
+  assert.deepEqual(result.leaders.map(l => l.athlete.name),liveLeaderExpectations[0][3]);
+  assert.equal(calls.some(c => c.url === fixture.fallback.url),false);
+  for (const call of calls.filter(c => Object.hasOwn(fixture.athletes,c.url) || c.url === fixture.profile.url)) {
+    assert.equal(call.options.cf.cacheTtl,24*60*60);
+  }
+  const count = calls.length;
+  await teamDetails(env,'NFL','33',now+6*60*60*1000-1);
+  assert.equal(calls.length,count);
+  await teamDetails(env,'NFL','33',now+6*60*60*1000);
+  assert.deepEqual(calls.slice(count).map(c => c.url),[fixture.team.url,fixture.schedule.url,fixture.core.url]);
+  const refreshed = calls.length;
+  await teamDetails(env,'NFL','33',now+24*60*60*1000);
+  assert.equal(calls.slice(refreshed).filter(c => Object.hasOwn(fixture.athletes,c.url)).length,4);
+  assert.ok(calls.slice(refreshed).some(c => c.url === fixture.profile.url));
+});
+
+for (const fail of ['leaders','athletes']) {
+  test(`Core ${fail} failure uses expanded team-season fallback identities`,async t => {
+    const fixture = teamLeaderFixture('NFL','33');
+    const env = database();
+    t.after(() => env.db.close());
+    mockTeamLeaderProvider(t,fixture,{fail});
+    const result = await teamDetails(env,'NFL','33');
+    assert.deepEqual(result.leaders.map(l => l.athlete.name),liveLeaderExpectations[0][3]);
+  });
+}
+
+test('athlete and fallback failures preserve valid Core stat tiles without invented names',async t => {
+  const fixture = teamLeaderFixture('NFL','33');
+  const env = database();
+  t.after(() => env.db.close());
+  mockTeamLeaderProvider(t,fixture,{fail:'athletes-and-fallback'});
+  const result = await teamDetails(env,'NFL','33');
+  assert.deepEqual(result.leaders.map(l => l.category),liveLeaderExpectations[0][2]);
+  assert.deepEqual(result.leaders.map(l => l.displayValue),['967','579','608','3.5']);
+  assert.ok(result.leaders.every(l => l.athlete.id && l.athlete.name === ''));
+});
+
+test('leader normalization preserves inline identity when hydration is incomplete',() => {
+  const fixture = teamLeaderFixture('NFL','33');
+  const category = fixture.core.payload.categories.find(c => c.name === 'sacks');
+  const ref = category.leaders[0].athlete.$ref.replace(/^http:/,'https:');
+  category.leaders[0].athlete.displayName = 'Tavius Robinson';
+  const result = normalizeTeamLeaders({categories:[category]},'NFL',new Map([[ref,{id:'4690179'}]]));
+  assert.equal(result[0].athlete.name,'Tavius Robinson');
+});
+
+test('NCAAB without current-season stats rejects the fallback previous season',async t => {
+  const fixture = teamLeaderFixture('NCAAB','120');
+  const env = database();
+  t.after(() => env.db.close());
+  assert.equal(fixture.season,2027);
+  assert.equal(fixture.fallback.payload.requestedSeason.year,2026);
+  const calls = mockTeamLeaderProvider(t,fixture,{fail:null});
+  const result = await teamDetails(env,'NCAAB','120');
+  assert.equal(result.team.id,'120');
+  assert.equal(result.schedule.length,fixture.schedule.payload.events.length);
+  assert.deepEqual(result.leaders,[]);
+  const count = calls.length;
+  await teamDetails(env,'NCAAB','120');
+  assert.equal(calls.length,count);
+});
+
+for (const invalid of ['team','season']) {
+  test(`fallback rejects a mismatched ${invalid} and leaves the team page available`,async t => {
+    const fixture = teamLeaderFixture('NFL','33');
+    const fallback = structuredClone(fixture.fallback.payload);
+    if (invalid === 'season') fallback.requestedSeason.year = 2025;
+    else fallback.leaders.categories.forEach(c => c.leaders?.forEach(l => {l.team.id='1';}));
+    const env = database();
+    t.after(() => env.db.close());
+    mockTeamLeaderProvider(t,fixture,{fallback});
+    const result = await teamDetails(env,'NFL','33');
+    assert.equal(result.team.name,'Baltimore Ravens');
+    assert.deepEqual(result.leaders,[]);
+  });
+}
+
+test('all leader sources failing remains nonfatal to team identity, schedule and spotlights',async t => {
+  const fixture = teamLeaderFixture('NFL','33');
+  const env = database();
+  t.after(() => env.db.close());
+  mockTeamLeaderProvider(t,fixture,{fail:'all'});
+  const result = await teamDetails(env,'NFL','33');
+  assert.equal(result.team.name,'Baltimore Ravens');
+  assert.equal(result.schedule.length,2);
+  assert.ok(result.spotlights.last);
+  assert.deepEqual(result.leaders,[]);
+});
+
+test('partial provider categories never substitute unrelated stats for the requested four',() => {
+  const fixture = teamLeaderFixture('NFL','33');
+  fixture.fallback.payload.leaders.categories = fixture.fallback.payload.leaders.categories.filter(c => c.name !== 'sacks');
+  assert.deepEqual(normalizeTeamLeaders(fixture.fallback.payload,'NFL').map(l => l.category),['Passing Yards','Rushing Yards','Receiving Yards']);
+  assert.equal(teamLeadersUrl('NFL','33',2026),fixture.fallback.url);
+  assert.equal(teamLeadersUrl('Tennis','1',2026),null);
 });

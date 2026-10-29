@@ -1,0 +1,2472 @@
+{
+  "sport": "NHL",
+  "id": "23",
+  "season": 2027,
+  "team": {
+    "url": "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/teams/23",
+    "payload": {
+      "team": {
+        "id": "23",
+        "abbreviation": "WSH",
+        "displayName": "Washington Capitals",
+        "name": "Capitals",
+        "shortDisplayName": "Capitals",
+        "location": "Washington",
+        "logos": [
+          {
+            "alt": "",
+            "height": 500,
+            "href": "https://a.espncdn.com/i/teamlogos/nhl/500/wsh.png",
+            "rel": [
+              "full",
+              "default"
+            ],
+            "width": 500
+          },
+          {
+            "alt": "",
+            "height": 500,
+            "href": "https://a.espncdn.com/i/teamlogos/nhl/500-dark/wsh.png",
+            "rel": [
+              "full",
+              "dark"
+            ],
+            "width": 500
+          },
+          {
+            "alt": "",
+            "height": 500,
+            "href": "https://a.espncdn.com/i/teamlogos/nhl/500/scoreboard/wsh.png",
+            "rel": [
+              "full",
+              "scoreboard"
+            ],
+            "width": 500
+          },
+          {
+            "alt": "",
+            "height": 500,
+            "href": "https://a.espncdn.com/i/teamlogos/nhl/500-dark/scoreboard/wsh.png",
+            "rel": [
+              "full",
+              "scoreboard",
+              "dark"
+            ],
+            "width": 500
+          },
+          {
+            "alt": "",
+            "height": 4096,
+            "href": "https://a.espncdn.com/guid/cbe677ee-361e-91b4-5cae-6c4c30044743/logos/primary_logo_on_white_color.png",
+            "rel": [
+              "full",
+              "primary_logo_on_white_color"
+            ],
+            "width": 4096
+          },
+          {
+            "alt": "",
+            "height": 4096,
+            "href": "https://a.espncdn.com/guid/cbe677ee-361e-91b4-5cae-6c4c30044743/logos/primary_logo_on_black_color.png",
+            "rel": [
+              "full",
+              "primary_logo_on_black_color"
+            ],
+            "width": 4096
+          },
+          {
+            "alt": "",
+            "height": 4096,
+            "href": "https://a.espncdn.com/guid/cbe677ee-361e-91b4-5cae-6c4c30044743/logos/primary_logo_on_primary_color.png",
+            "rel": [
+              "full",
+              "primary_logo_on_primary_color"
+            ],
+            "width": 4096
+          },
+          {
+            "alt": "",
+            "height": 4096,
+            "href": "https://a.espncdn.com/guid/cbe677ee-361e-91b4-5cae-6c4c30044743/logos/primary_logo_on_secondary_color.png",
+            "rel": [
+              "full",
+              "primary_logo_on_secondary_color"
+            ],
+            "width": 4096
+          },
+          {
+            "alt": "",
+            "height": 4096,
+            "href": "https://a.espncdn.com/guid/cbe677ee-361e-91b4-5cae-6c4c30044743/logos/primary_logo_black.png",
+            "rel": [
+              "full",
+              "primary_logo_black"
+            ],
+            "width": 4096
+          },
+          {
+            "alt": "",
+            "height": 4096,
+            "href": "https://a.espncdn.com/guid/cbe677ee-361e-91b4-5cae-6c4c30044743/logos/primary_logo_white.png",
+            "rel": [
+              "full",
+              "primary_logo_white"
+            ],
+            "width": 4096
+          },
+          {
+            "alt": "",
+            "height": 4096,
+            "href": "https://a.espncdn.com/guid/cbe677ee-361e-91b4-5cae-6c4c30044743/logos/secondary_logo_on_white_color.png",
+            "rel": [
+              "full",
+              "secondary_logo_on_white_color"
+            ],
+            "width": 4096
+          },
+          {
+            "alt": "",
+            "height": 4096,
+            "href": "https://a.espncdn.com/guid/cbe677ee-361e-91b4-5cae-6c4c30044743/logos/secondary_logo_on_black_color.png",
+            "rel": [
+              "full",
+              "secondary_logo_on_black_color"
+            ],
+            "width": 4096
+          },
+          {
+            "alt": "",
+            "height": 4096,
+            "href": "https://a.espncdn.com/guid/cbe677ee-361e-91b4-5cae-6c4c30044743/logos/secondary_logo_on_primary_color.png",
+            "rel": [
+              "full",
+              "secondary_logo_on_primary_color"
+            ],
+            "width": 4096
+          },
+          {
+            "alt": "",
+            "height": 4096,
+            "href": "https://a.espncdn.com/guid/cbe677ee-361e-91b4-5cae-6c4c30044743/logos/secondary_logo_on_secondary_color.png",
+            "rel": [
+              "full",
+              "secondary_logo_on_secondary_color"
+            ],
+            "width": 4096
+          },
+          {
+            "alt": "",
+            "height": 4096,
+            "href": "https://a.espncdn.com/guid/cbe677ee-361e-91b4-5cae-6c4c30044743/logos/secondary_logo_black.png",
+            "rel": [
+              "full",
+              "secondary_logo_black"
+            ],
+            "width": 4096
+          },
+          {
+            "alt": "",
+            "height": 4096,
+            "href": "https://a.espncdn.com/guid/cbe677ee-361e-91b4-5cae-6c4c30044743/logos/secondary_logo_white.png",
+            "rel": [
+              "full",
+              "secondary_logo_white"
+            ],
+            "width": 4096
+          }
+        ],
+        "color": "d71830",
+        "alternateColor": "0b1f41",
+        "standingSummary": "10th in Eastern Conference",
+        "record": {
+          "items": [
+            {
+              "description": "Overall Record",
+              "stats": [
+                {
+                  "name": "powerPlayOpportunities",
+                  "value": 31
+                },
+                {
+                  "name": "otWins",
+                  "value": 1
+                },
+                {
+                  "name": "losses",
+                  "value": 4
+                },
+                {
+                  "name": "points",
+                  "value": 14
+                },
+                {
+                  "name": "homeWins",
+                  "value": 6
+                },
+                {
+                  "name": "homeOtLosses",
+                  "value": 0
+                },
+                {
+                  "name": "gamesPlayed",
+                  "value": 11
+                },
+                {
+                  "name": "awayWins",
+                  "value": 1
+                },
+                {
+                  "name": "wins",
+                  "value": 7
+                },
+                {
+                  "name": "pointsFor",
+                  "value": 39
+                },
+                {
+                  "name": "awayOtLosses",
+                  "value": 0
+                },
+                {
+                  "name": "streak",
+                  "value": 2
+                },
+                {
+                  "name": "divisionLosses",
+                  "value": 1
+                },
+                {
+                  "name": "divisionWins",
+                  "value": 5
+                },
+                {
+                  "name": "avgPointsFor",
+                  "value": 3.5454545
+                },
+                {
+                  "name": "playoffSeed",
+                  "value": 10
+                },
+                {
+                  "name": "pointsAgainst",
+                  "value": 34
+                },
+                {
+                  "name": "gamesBehind",
+                  "value": 0
+                },
+                {
+                  "name": "avgPointsAgainst",
+                  "value": 3.090909
+                },
+                {
+                  "name": "shootoutWins",
+                  "value": 0
+                },
+                {
+                  "name": "ties",
+                  "value": 0
+                },
+                {
+                  "name": "otLosses",
+                  "value": 0
+                },
+                {
+                  "name": "divisionTies",
+                  "value": 0
+                },
+                {
+                  "name": "homeTies",
+                  "value": 0
+                },
+                {
+                  "name": "powerPlayGoals",
+                  "value": 6
+                },
+                {
+                  "name": "timesShortHanded",
+                  "value": 36
+                },
+                {
+                  "name": "homeLosses",
+                  "value": 2
+                },
+                {
+                  "name": "awayTies",
+                  "value": 0
+                },
+                {
+                  "name": "awayLosses",
+                  "value": 2
+                },
+                {
+                  "name": "powerPlayGoalsAgainst",
+                  "value": 7
+                },
+                {
+                  "name": "shootoutLosses",
+                  "value": 0
+                },
+                {
+                  "name": "conferenceWins",
+                  "value": 7
+                },
+                {
+                  "name": "conferenceLosses",
+                  "value": 2
+                },
+                {
+                  "name": "conferenceTies",
+                  "value": 0
+                },
+                {
+                  "name": "winPercent",
+                  "value": 0.6363636
+                },
+                {
+                  "name": "pointsDiff",
+                  "value": 5
+                },
+                {
+                  "name": "differential",
+                  "value": 0.4545455
+                },
+                {
+                  "name": "regulationWins",
+                  "value": 6
+                }
+              ],
+              "summary": "7-4",
+              "type": "total"
+            }
+          ]
+        }
+      }
+    }
+  },
+  "schedule": {
+    "url": "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/teams/23/schedule",
+    "payload": {
+      "season": {
+        "year": 2027,
+        "type": 2,
+        "name": "Regular Season",
+        "displayName": "2026-27",
+        "half": 1
+      },
+      "team": {
+        "id": "23",
+        "abbreviation": "WSH",
+        "displayName": "Washington Capitals",
+        "name": "Capitals",
+        "location": "Washington",
+        "color": "d71830",
+        "standingSummary": "4th in Metropolitan Division"
+      },
+      "events": [
+        {
+          "id": "401892432",
+          "date": "2026-10-02T23:00Z",
+          "name": "Washington Capitals at Carolina Hurricanes",
+          "season": {
+            "year": 2027,
+            "displayName": "2026-27"
+          },
+          "competitions": [
+            {
+              "id": "401892432",
+              "date": "2026-10-02T23:00Z",
+              "status": {
+                "clock": 0,
+                "displayClock": "0:00",
+                "period": 3,
+                "type": {
+                  "id": "3",
+                  "name": "STATUS_FINAL",
+                  "state": "post",
+                  "completed": true,
+                  "description": "Final",
+                  "detail": "Final",
+                  "shortDetail": "Final"
+                },
+                "featuredAthletes": [
+                  {
+                    "name": "winningGoalie",
+                    "displayName": "Winning Goalie",
+                    "shortDisplayName": "Winning Goalie",
+                    "abbreviation": "W",
+                    "playerId": 4272888,
+                    "athlete": {
+                      "id": "4272888",
+                      "lastName": "Thompson",
+                      "displayName": "Logan Thompson",
+                      "shortName": "L. Thompson",
+                      "links": [
+                        {
+                          "rel": [
+                            "playercard",
+                            "desktop",
+                            "athlete"
+                          ],
+                          "href": "https://www.espn.com/nhl/player/_/id/4272888"
+                        },
+                        {
+                          "rel": [
+                            "stats",
+                            "desktop",
+                            "athlete"
+                          ],
+                          "href": "https://www.espn.com/nhl/player/stats/_/id/4272888/logan-thompson"
+                        },
+                        {
+                          "rel": [
+                            "stats",
+                            "sportscenter",
+                            "app",
+                            "athlete"
+                          ],
+                          "href": "sportscenter://x-callback-url/showClubhouse?uid=s:70~l:90~a:4272888&section=stats"
+                        },
+                        {
+                          "rel": [
+                            "splits",
+                            "desktop",
+                            "athlete"
+                          ],
+                          "href": "https://www.espn.com/nhl/player/splits/_/id/4272888/logan-thompson"
+                        },
+                        {
+                          "rel": [
+                            "gamelog",
+                            "desktop",
+                            "athlete"
+                          ],
+                          "href": "https://www.espn.com/nhl/player/gamelog/_/id/4272888/logan-thompson"
+                        },
+                        {
+                          "rel": [
+                            "gamelog",
+                            "sportscenter",
+                            "app",
+                            "athlete"
+                          ],
+                          "href": "sportscenter://x-callback-url/showClubhouse?uid=s:70~l:90~a:4272888&section=gamelog"
+                        },
+                        {
+                          "rel": [
+                            "news",
+                            "desktop",
+                            "athlete"
+                          ],
+                          "href": "https://www.espn.com/nhl/player/news/_/id/4272888/logan-thompson"
+                        },
+                        {
+                          "rel": [
+                            "news",
+                            "sportscenter",
+                            "app",
+                            "athlete"
+                          ],
+                          "href": "sportscenter://x-callback-url/showClubhouse?uid=s:70~l:90~a:4272888&section=news"
+                        },
+                        {
+                          "rel": [
+                            "bio",
+                            "desktop",
+                            "athlete"
+                          ],
+                          "href": "https://www.espn.com/nhl/player/bio/_/id/4272888/logan-thompson"
+                        },
+                        {
+                          "rel": [
+                            "bio",
+                            "sportscenter",
+                            "app",
+                            "athlete"
+                          ],
+                          "href": "sportscenter://x-callback-url/showClubhouse?uid=s:70~l:90~a:4272888&section=bio"
+                        },
+                        {
+                          "rel": [
+                            "overview",
+                            "desktop",
+                            "athlete"
+                          ],
+                          "href": "https://www.espn.com/nhl/player/_/id/4272888/logan-thompson"
+                        },
+                        {
+                          "rel": [
+                            "overview",
+                            "sportscenter",
+                            "app",
+                            "athlete"
+                          ],
+                          "href": "sportscenter://x-callback-url/showClubhouse?uid=s:70~l:90~a:4272888"
+                        }
+                      ]
+                    },
+                    "team": {
+                      "id": "23",
+                      "name": "Capitals"
+                    },
+                    "projections": {
+                      "$ref": "http://sports.core.api.espn.pvt/v2/sports/hockey/leagues/nhl/events/401892432/competitions/401892432/competitors/23/roster/4272888/projections?lang=en&region=us"
+                    }
+                  },
+                  {
+                    "name": "losingGoalie",
+                    "displayName": "Losing Goalie",
+                    "shortDisplayName": "Losing Goalie",
+                    "abbreviation": "L",
+                    "playerId": 4996097,
+                    "athlete": {
+                      "id": "4996097",
+                      "lastName": "Bussi",
+                      "displayName": "Brandon Bussi",
+                      "shortName": "B. Bussi",
+                      "links": [
+                        {
+                          "rel": [
+                            "playercard",
+                            "desktop",
+                            "athlete"
+                          ],
+                          "href": "https://www.espn.com/nhl/player/_/id/4996097"
+                        },
+                        {
+                          "rel": [
+                            "stats",
+                            "desktop",
+                            "athlete"
+                          ],
+                          "href": "https://www.espn.com/nhl/player/stats/_/id/4996097/brandon-bussi"
+                        },
+                        {
+                          "rel": [
+                            "stats",
+                            "sportscenter",
+                            "app",
+                            "athlete"
+                          ],
+                          "href": "sportscenter://x-callback-url/showClubhouse?uid=s:70~l:90~a:4996097&section=stats"
+                        },
+                        {
+                          "rel": [
+                            "splits",
+                            "desktop",
+                            "athlete"
+                          ],
+                          "href": "https://www.espn.com/nhl/player/splits/_/id/4996097/brandon-bussi"
+                        },
+                        {
+                          "rel": [
+                            "gamelog",
+                            "desktop",
+                            "athlete"
+                          ],
+                          "href": "https://www.espn.com/nhl/player/gamelog/_/id/4996097/brandon-bussi"
+                        },
+                        {
+                          "rel": [
+                            "gamelog",
+                            "sportscenter",
+                            "app",
+                            "athlete"
+                          ],
+                          "href": "sportscenter://x-callback-url/showClubhouse?uid=s:70~l:90~a:4996097&section=gamelog"
+                        },
+                        {
+                          "rel": [
+                            "news",
+                            "desktop",
+                            "athlete"
+                          ],
+                          "href": "https://www.espn.com/nhl/player/news/_/id/4996097/brandon-bussi"
+                        },
+                        {
+                          "rel": [
+                            "news",
+                            "sportscenter",
+                            "app",
+                            "athlete"
+                          ],
+                          "href": "sportscenter://x-callback-url/showClubhouse?uid=s:70~l:90~a:4996097&section=news"
+                        },
+                        {
+                          "rel": [
+                            "bio",
+                            "desktop",
+                            "athlete"
+                          ],
+                          "href": "https://www.espn.com/nhl/player/bio/_/id/4996097/brandon-bussi"
+                        },
+                        {
+                          "rel": [
+                            "bio",
+                            "sportscenter",
+                            "app",
+                            "athlete"
+                          ],
+                          "href": "sportscenter://x-callback-url/showClubhouse?uid=s:70~l:90~a:4996097&section=bio"
+                        },
+                        {
+                          "rel": [
+                            "overview",
+                            "desktop",
+                            "athlete"
+                          ],
+                          "href": "https://www.espn.com/nhl/player/_/id/4996097/brandon-bussi"
+                        },
+                        {
+                          "rel": [
+                            "overview",
+                            "sportscenter",
+                            "app",
+                            "athlete"
+                          ],
+                          "href": "sportscenter://x-callback-url/showClubhouse?uid=s:70~l:90~a:4996097"
+                        }
+                      ]
+                    },
+                    "team": {
+                      "id": "7",
+                      "name": "Hurricanes"
+                    },
+                    "projections": {
+                      "$ref": "http://sports.core.api.espn.pvt/v2/sports/hockey/leagues/nhl/events/401892432/competitions/401892432/competitors/7/roster/4996097/projections?lang=en&region=us"
+                    }
+                  }
+                ]
+              },
+              "broadcasts": [
+                {
+                  "type": {
+                    "id": "4",
+                    "shortName": "Streaming"
+                  },
+                  "market": {
+                    "id": "1",
+                    "type": "National"
+                  },
+                  "media": {
+                    "shortName": "ESPN+"
+                  },
+                  "lang": "en",
+                  "region": "us",
+                  "partnered": false
+                },
+                {
+                  "type": {
+                    "id": "1",
+                    "shortName": "TV"
+                  },
+                  "market": {
+                    "id": "3",
+                    "type": "Away"
+                  },
+                  "media": {
+                    "shortName": "MNMT"
+                  },
+                  "lang": "en",
+                  "region": "us",
+                  "partnered": true
+                },
+                {
+                  "type": {
+                    "id": "1",
+                    "shortName": "TV"
+                  },
+                  "market": {
+                    "id": "2",
+                    "type": "Home"
+                  },
+                  "media": {
+                    "shortName": "CARNHL"
+                  },
+                  "lang": "en",
+                  "region": "us",
+                  "partnered": false
+                }
+              ],
+              "venue": {
+                "fullName": "Lenovo Center",
+                "address": {
+                  "city": "Raleigh",
+                  "state": "NC",
+                  "country": "USA"
+                }
+              },
+              "notes": [],
+              "competitors": [
+                {
+                  "id": "7",
+                  "homeAway": "home",
+                  "winner": false,
+                  "score": {
+                    "value": 2,
+                    "displayValue": "2"
+                  },
+                  "team": {
+                    "id": "7",
+                    "abbreviation": "CAR",
+                    "displayName": "Carolina Hurricanes",
+                    "shortDisplayName": "Hurricanes",
+                    "location": "Carolina",
+                    "logos": [
+                      {
+                        "href": "https://a.espncdn.com/i/teamlogos/nhl/500/car.png",
+                        "width": 500,
+                        "height": 500,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "default"
+                        ],
+                        "lastUpdated": "2024-07-02T15:51Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/i/teamlogos/nhl/500-dark/car.png",
+                        "width": 500,
+                        "height": 500,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "dark"
+                        ],
+                        "lastUpdated": "2024-07-02T15:46Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/i/teamlogos/nhl/500/scoreboard/car.png",
+                        "width": 500,
+                        "height": 500,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "scoreboard"
+                        ],
+                        "lastUpdated": "2024-07-02T15:51Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/i/teamlogos/nhl/500-dark/scoreboard/car.png",
+                        "width": 500,
+                        "height": 500,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "scoreboard",
+                          "dark"
+                        ],
+                        "lastUpdated": "2024-07-02T15:46Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/b7b7b58e-e579-b39d-fb2d-70213dd93502/logos/primary_logo_on_white_color.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "primary_logo_on_white_color"
+                        ],
+                        "lastUpdated": "2026-07-22T20:31Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/b7b7b58e-e579-b39d-fb2d-70213dd93502/logos/primary_logo_on_black_color.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "primary_logo_on_black_color"
+                        ],
+                        "lastUpdated": "2026-07-22T20:31Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/b7b7b58e-e579-b39d-fb2d-70213dd93502/logos/primary_logo_on_primary_color.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "primary_logo_on_primary_color"
+                        ],
+                        "lastUpdated": "2026-07-22T20:31Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/b7b7b58e-e579-b39d-fb2d-70213dd93502/logos/primary_logo_on_secondary_color.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "primary_logo_on_secondary_color"
+                        ],
+                        "lastUpdated": "2026-07-22T20:31Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/b7b7b58e-e579-b39d-fb2d-70213dd93502/logos/primary_logo_black.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "primary_logo_black"
+                        ],
+                        "lastUpdated": "2026-07-22T20:31Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/b7b7b58e-e579-b39d-fb2d-70213dd93502/logos/primary_logo_white.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "primary_logo_white"
+                        ],
+                        "lastUpdated": "2026-07-22T20:31Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/b7b7b58e-e579-b39d-fb2d-70213dd93502/logos/secondary_logo_on_white_color.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "secondary_logo_on_white_color"
+                        ],
+                        "lastUpdated": "2026-07-22T20:31Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/b7b7b58e-e579-b39d-fb2d-70213dd93502/logos/secondary_logo_on_black_color.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "secondary_logo_on_black_color"
+                        ],
+                        "lastUpdated": "2026-07-22T20:31Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/b7b7b58e-e579-b39d-fb2d-70213dd93502/logos/secondary_logo_on_primary_color.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "secondary_logo_on_primary_color"
+                        ],
+                        "lastUpdated": "2026-07-22T20:31Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/b7b7b58e-e579-b39d-fb2d-70213dd93502/logos/secondary_logo_on_secondary_color.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "secondary_logo_on_secondary_color"
+                        ],
+                        "lastUpdated": "2026-07-22T20:31Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/b7b7b58e-e579-b39d-fb2d-70213dd93502/logos/secondary_logo_black.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "secondary_logo_black"
+                        ],
+                        "lastUpdated": "2026-07-22T20:31Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/b7b7b58e-e579-b39d-fb2d-70213dd93502/logos/secondary_logo_white.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "secondary_logo_white"
+                        ],
+                        "lastUpdated": "2026-07-22T20:31Z"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "id": "23",
+                  "homeAway": "away",
+                  "winner": true,
+                  "score": {
+                    "value": 5,
+                    "displayValue": "5"
+                  },
+                  "team": {
+                    "id": "23",
+                    "abbreviation": "WSH",
+                    "displayName": "Washington Capitals",
+                    "shortDisplayName": "Capitals",
+                    "location": "Washington",
+                    "logos": [
+                      {
+                        "href": "https://a.espncdn.com/i/teamlogos/nhl/500/wsh.png",
+                        "width": 500,
+                        "height": 500,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "default"
+                        ],
+                        "lastUpdated": "2025-12-10T22:54Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/i/teamlogos/nhl/500-dark/wsh.png",
+                        "width": 500,
+                        "height": 500,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "dark"
+                        ],
+                        "lastUpdated": "2025-12-10T22:54Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/i/teamlogos/nhl/500/scoreboard/wsh.png",
+                        "width": 500,
+                        "height": 500,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "scoreboard"
+                        ],
+                        "lastUpdated": "2025-12-10T22:54Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/i/teamlogos/nhl/500-dark/scoreboard/wsh.png",
+                        "width": 500,
+                        "height": 500,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "scoreboard",
+                          "dark"
+                        ],
+                        "lastUpdated": "2025-12-10T22:54Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/cbe677ee-361e-91b4-5cae-6c4c30044743/logos/primary_logo_on_white_color.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "primary_logo_on_white_color"
+                        ],
+                        "lastUpdated": "2026-07-22T20:31Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/cbe677ee-361e-91b4-5cae-6c4c30044743/logos/primary_logo_on_black_color.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "primary_logo_on_black_color"
+                        ],
+                        "lastUpdated": "2026-07-22T20:31Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/cbe677ee-361e-91b4-5cae-6c4c30044743/logos/primary_logo_on_primary_color.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "primary_logo_on_primary_color"
+                        ],
+                        "lastUpdated": "2026-07-22T20:31Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/cbe677ee-361e-91b4-5cae-6c4c30044743/logos/primary_logo_on_secondary_color.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "primary_logo_on_secondary_color"
+                        ],
+                        "lastUpdated": "2026-07-22T20:31Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/cbe677ee-361e-91b4-5cae-6c4c30044743/logos/primary_logo_black.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "primary_logo_black"
+                        ],
+                        "lastUpdated": "2026-07-22T20:31Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/cbe677ee-361e-91b4-5cae-6c4c30044743/logos/primary_logo_white.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "primary_logo_white"
+                        ],
+                        "lastUpdated": "2026-07-22T20:31Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/cbe677ee-361e-91b4-5cae-6c4c30044743/logos/secondary_logo_on_white_color.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "secondary_logo_on_white_color"
+                        ],
+                        "lastUpdated": "2026-07-22T20:31Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/cbe677ee-361e-91b4-5cae-6c4c30044743/logos/secondary_logo_on_black_color.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "secondary_logo_on_black_color"
+                        ],
+                        "lastUpdated": "2026-07-22T20:31Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/cbe677ee-361e-91b4-5cae-6c4c30044743/logos/secondary_logo_on_primary_color.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "secondary_logo_on_primary_color"
+                        ],
+                        "lastUpdated": "2026-07-22T20:31Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/cbe677ee-361e-91b4-5cae-6c4c30044743/logos/secondary_logo_on_secondary_color.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "secondary_logo_on_secondary_color"
+                        ],
+                        "lastUpdated": "2026-07-22T20:31Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/cbe677ee-361e-91b4-5cae-6c4c30044743/logos/secondary_logo_black.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "secondary_logo_black"
+                        ],
+                        "lastUpdated": "2026-07-22T20:31Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/cbe677ee-361e-91b4-5cae-6c4c30044743/logos/secondary_logo_white.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "secondary_logo_white"
+                        ],
+                        "lastUpdated": "2026-07-22T20:31Z"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "401891826",
+          "date": "2026-10-03T23:00Z",
+          "name": "Washington Capitals at Tampa Bay Lightning",
+          "season": {
+            "year": 2027,
+            "displayName": "2026-27"
+          },
+          "competitions": [
+            {
+              "id": "401891826",
+              "date": "2026-10-03T23:00Z",
+              "status": {
+                "clock": 0,
+                "displayClock": "0:00",
+                "period": 3,
+                "type": {
+                  "id": "3",
+                  "name": "STATUS_FINAL",
+                  "state": "post",
+                  "completed": true,
+                  "description": "Final",
+                  "detail": "Final",
+                  "shortDetail": "Final"
+                },
+                "featuredAthletes": [
+                  {
+                    "name": "winningGoalie",
+                    "displayName": "Winning Goalie",
+                    "shortDisplayName": "Winning Goalie",
+                    "abbreviation": "W",
+                    "playerId": 2976847,
+                    "athlete": {
+                      "id": "2976847",
+                      "lastName": "Vasilevskiy",
+                      "displayName": "Andrei Vasilevskiy",
+                      "shortName": "A. Vasilevskiy",
+                      "links": [
+                        {
+                          "rel": [
+                            "playercard",
+                            "desktop",
+                            "athlete"
+                          ],
+                          "href": "https://www.espn.com/nhl/player/_/id/2976847"
+                        },
+                        {
+                          "rel": [
+                            "stats",
+                            "desktop",
+                            "athlete"
+                          ],
+                          "href": "https://www.espn.com/nhl/player/stats/_/id/2976847/andrei-vasilevskiy"
+                        },
+                        {
+                          "rel": [
+                            "stats",
+                            "sportscenter",
+                            "app",
+                            "athlete"
+                          ],
+                          "href": "sportscenter://x-callback-url/showClubhouse?uid=s:70~l:90~a:2976847&section=stats"
+                        },
+                        {
+                          "rel": [
+                            "splits",
+                            "desktop",
+                            "athlete"
+                          ],
+                          "href": "https://www.espn.com/nhl/player/splits/_/id/2976847/andrei-vasilevskiy"
+                        },
+                        {
+                          "rel": [
+                            "gamelog",
+                            "desktop",
+                            "athlete"
+                          ],
+                          "href": "https://www.espn.com/nhl/player/gamelog/_/id/2976847/andrei-vasilevskiy"
+                        },
+                        {
+                          "rel": [
+                            "gamelog",
+                            "sportscenter",
+                            "app",
+                            "athlete"
+                          ],
+                          "href": "sportscenter://x-callback-url/showClubhouse?uid=s:70~l:90~a:2976847&section=gamelog"
+                        },
+                        {
+                          "rel": [
+                            "news",
+                            "desktop",
+                            "athlete"
+                          ],
+                          "href": "https://www.espn.com/nhl/player/news/_/id/2976847/andrei-vasilevskiy"
+                        },
+                        {
+                          "rel": [
+                            "news",
+                            "sportscenter",
+                            "app",
+                            "athlete"
+                          ],
+                          "href": "sportscenter://x-callback-url/showClubhouse?uid=s:70~l:90~a:2976847&section=news"
+                        },
+                        {
+                          "rel": [
+                            "bio",
+                            "desktop",
+                            "athlete"
+                          ],
+                          "href": "https://www.espn.com/nhl/player/bio/_/id/2976847/andrei-vasilevskiy"
+                        },
+                        {
+                          "rel": [
+                            "bio",
+                            "sportscenter",
+                            "app",
+                            "athlete"
+                          ],
+                          "href": "sportscenter://x-callback-url/showClubhouse?uid=s:70~l:90~a:2976847&section=bio"
+                        },
+                        {
+                          "rel": [
+                            "overview",
+                            "desktop",
+                            "athlete"
+                          ],
+                          "href": "https://www.espn.com/nhl/player/_/id/2976847/andrei-vasilevskiy"
+                        },
+                        {
+                          "rel": [
+                            "overview",
+                            "sportscenter",
+                            "app",
+                            "athlete"
+                          ],
+                          "href": "sportscenter://x-callback-url/showClubhouse?uid=s:70~l:90~a:2976847"
+                        }
+                      ]
+                    },
+                    "team": {
+                      "id": "20",
+                      "name": "Lightning"
+                    },
+                    "projections": {
+                      "$ref": "http://sports.core.api.espn.pvt/v2/sports/hockey/leagues/nhl/events/401891826/competitions/401891826/competitors/20/roster/2976847/projections?lang=en&region=us"
+                    }
+                  },
+                  {
+                    "name": "losingGoalie",
+                    "displayName": "Losing Goalie",
+                    "shortDisplayName": "Losing Goalie",
+                    "abbreviation": "L",
+                    "playerId": 3095975,
+                    "athlete": {
+                      "id": "3095975",
+                      "lastName": "Lindgren",
+                      "displayName": "Charlie Lindgren",
+                      "shortName": "C. Lindgren",
+                      "links": [
+                        {
+                          "rel": [
+                            "playercard",
+                            "desktop",
+                            "athlete"
+                          ],
+                          "href": "https://www.espn.com/nhl/player/_/id/3095975"
+                        },
+                        {
+                          "rel": [
+                            "stats",
+                            "desktop",
+                            "athlete"
+                          ],
+                          "href": "https://www.espn.com/nhl/player/stats/_/id/3095975/charlie-lindgren"
+                        },
+                        {
+                          "rel": [
+                            "stats",
+                            "sportscenter",
+                            "app",
+                            "athlete"
+                          ],
+                          "href": "sportscenter://x-callback-url/showClubhouse?uid=s:70~l:90~a:3095975&section=stats"
+                        },
+                        {
+                          "rel": [
+                            "splits",
+                            "desktop",
+                            "athlete"
+                          ],
+                          "href": "https://www.espn.com/nhl/player/splits/_/id/3095975/charlie-lindgren"
+                        },
+                        {
+                          "rel": [
+                            "gamelog",
+                            "desktop",
+                            "athlete"
+                          ],
+                          "href": "https://www.espn.com/nhl/player/gamelog/_/id/3095975/charlie-lindgren"
+                        },
+                        {
+                          "rel": [
+                            "gamelog",
+                            "sportscenter",
+                            "app",
+                            "athlete"
+                          ],
+                          "href": "sportscenter://x-callback-url/showClubhouse?uid=s:70~l:90~a:3095975&section=gamelog"
+                        },
+                        {
+                          "rel": [
+                            "news",
+                            "desktop",
+                            "athlete"
+                          ],
+                          "href": "https://www.espn.com/nhl/player/news/_/id/3095975/charlie-lindgren"
+                        },
+                        {
+                          "rel": [
+                            "news",
+                            "sportscenter",
+                            "app",
+                            "athlete"
+                          ],
+                          "href": "sportscenter://x-callback-url/showClubhouse?uid=s:70~l:90~a:3095975&section=news"
+                        },
+                        {
+                          "rel": [
+                            "bio",
+                            "desktop",
+                            "athlete"
+                          ],
+                          "href": "https://www.espn.com/nhl/player/bio/_/id/3095975/charlie-lindgren"
+                        },
+                        {
+                          "rel": [
+                            "bio",
+                            "sportscenter",
+                            "app",
+                            "athlete"
+                          ],
+                          "href": "sportscenter://x-callback-url/showClubhouse?uid=s:70~l:90~a:3095975&section=bio"
+                        },
+                        {
+                          "rel": [
+                            "overview",
+                            "desktop",
+                            "athlete"
+                          ],
+                          "href": "https://www.espn.com/nhl/player/_/id/3095975/charlie-lindgren"
+                        },
+                        {
+                          "rel": [
+                            "overview",
+                            "sportscenter",
+                            "app",
+                            "athlete"
+                          ],
+                          "href": "sportscenter://x-callback-url/showClubhouse?uid=s:70~l:90~a:3095975"
+                        }
+                      ]
+                    },
+                    "team": {
+                      "id": "23",
+                      "name": "Capitals"
+                    },
+                    "projections": {
+                      "$ref": "http://sports.core.api.espn.pvt/v2/sports/hockey/leagues/nhl/events/401891826/competitions/401891826/competitors/23/roster/3095975/projections?lang=en&region=us"
+                    }
+                  }
+                ]
+              },
+              "broadcasts": [
+                {
+                  "type": {
+                    "id": "4",
+                    "shortName": "Streaming"
+                  },
+                  "market": {
+                    "id": "1",
+                    "type": "National"
+                  },
+                  "media": {
+                    "shortName": "ESPN+"
+                  },
+                  "lang": "en",
+                  "region": "us",
+                  "partnered": false
+                },
+                {
+                  "type": {
+                    "id": "1",
+                    "shortName": "TV"
+                  },
+                  "market": {
+                    "id": "3",
+                    "type": "Away"
+                  },
+                  "media": {
+                    "shortName": "MNMT"
+                  },
+                  "lang": "en",
+                  "region": "us",
+                  "partnered": true
+                },
+                {
+                  "type": {
+                    "id": "1",
+                    "shortName": "TV"
+                  },
+                  "market": {
+                    "id": "2",
+                    "type": "Home"
+                  },
+                  "media": {
+                    "shortName": "The Spot - MTN"
+                  },
+                  "lang": "en",
+                  "region": "us",
+                  "partnered": false
+                }
+              ],
+              "venue": {
+                "fullName": "Benchmark International Arena",
+                "address": {
+                  "city": "Tampa",
+                  "state": "FL",
+                  "country": "USA"
+                }
+              },
+              "notes": [],
+              "competitors": [
+                {
+                  "id": "20",
+                  "homeAway": "home",
+                  "winner": true,
+                  "score": {
+                    "value": 3,
+                    "displayValue": "3"
+                  },
+                  "team": {
+                    "id": "20",
+                    "abbreviation": "TB",
+                    "displayName": "Tampa Bay Lightning",
+                    "shortDisplayName": "Lightning",
+                    "location": "Tampa Bay",
+                    "logos": [
+                      {
+                        "href": "https://a.espncdn.com/i/teamlogos/nhl/500/tb.png",
+                        "width": 500,
+                        "height": 500,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "default"
+                        ],
+                        "lastUpdated": "2024-07-03T19:45Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/i/teamlogos/nhl/500-dark/tb.png",
+                        "width": 500,
+                        "height": 500,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "dark"
+                        ],
+                        "lastUpdated": "2024-07-02T15:46Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/i/teamlogos/nhl/500/scoreboard/tb.png",
+                        "width": 500,
+                        "height": 500,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "scoreboard"
+                        ],
+                        "lastUpdated": "2024-07-03T19:45Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/i/teamlogos/nhl/500-dark/scoreboard/tb.png",
+                        "width": 500,
+                        "height": 500,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "scoreboard",
+                          "dark"
+                        ],
+                        "lastUpdated": "2024-07-02T15:46Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/49fa608f-040f-21c1-ebfb-99e8feb8b774/logos/primary_logo_on_white_color.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "primary_logo_on_white_color"
+                        ],
+                        "lastUpdated": "2026-07-22T20:31Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/49fa608f-040f-21c1-ebfb-99e8feb8b774/logos/primary_logo_on_black_color.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "primary_logo_on_black_color"
+                        ],
+                        "lastUpdated": "2026-07-22T20:31Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/49fa608f-040f-21c1-ebfb-99e8feb8b774/logos/primary_logo_on_primary_color.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "primary_logo_on_primary_color"
+                        ],
+                        "lastUpdated": "2026-07-22T20:31Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/49fa608f-040f-21c1-ebfb-99e8feb8b774/logos/primary_logo_on_secondary_color.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "primary_logo_on_secondary_color"
+                        ],
+                        "lastUpdated": "2026-07-22T20:31Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/49fa608f-040f-21c1-ebfb-99e8feb8b774/logos/primary_logo_black.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "primary_logo_black"
+                        ],
+                        "lastUpdated": "2026-07-22T20:31Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/49fa608f-040f-21c1-ebfb-99e8feb8b774/logos/primary_logo_white.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "primary_logo_white"
+                        ],
+                        "lastUpdated": "2026-07-22T20:31Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/49fa608f-040f-21c1-ebfb-99e8feb8b774/logos/secondary_logo_on_white_color.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "secondary_logo_on_white_color"
+                        ],
+                        "lastUpdated": "2026-07-22T20:31Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/49fa608f-040f-21c1-ebfb-99e8feb8b774/logos/secondary_logo_on_black_color.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "secondary_logo_on_black_color"
+                        ],
+                        "lastUpdated": "2026-07-22T20:31Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/49fa608f-040f-21c1-ebfb-99e8feb8b774/logos/secondary_logo_on_primary_color.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "secondary_logo_on_primary_color"
+                        ],
+                        "lastUpdated": "2026-07-22T20:31Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/49fa608f-040f-21c1-ebfb-99e8feb8b774/logos/secondary_logo_on_secondary_color.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "secondary_logo_on_secondary_color"
+                        ],
+                        "lastUpdated": "2026-07-22T20:31Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/49fa608f-040f-21c1-ebfb-99e8feb8b774/logos/secondary_logo_black.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "secondary_logo_black"
+                        ],
+                        "lastUpdated": "2026-07-22T20:31Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/49fa608f-040f-21c1-ebfb-99e8feb8b774/logos/secondary_logo_white.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "secondary_logo_white"
+                        ],
+                        "lastUpdated": "2026-07-22T20:31Z"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "id": "23",
+                  "homeAway": "away",
+                  "winner": false,
+                  "score": {
+                    "value": 1,
+                    "displayValue": "1"
+                  },
+                  "team": {
+                    "id": "23",
+                    "abbreviation": "WSH",
+                    "displayName": "Washington Capitals",
+                    "shortDisplayName": "Capitals",
+                    "location": "Washington",
+                    "logos": [
+                      {
+                        "href": "https://a.espncdn.com/i/teamlogos/nhl/500/wsh.png",
+                        "width": 500,
+                        "height": 500,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "default"
+                        ],
+                        "lastUpdated": "2025-12-10T22:54Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/i/teamlogos/nhl/500-dark/wsh.png",
+                        "width": 500,
+                        "height": 500,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "dark"
+                        ],
+                        "lastUpdated": "2025-12-10T22:54Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/i/teamlogos/nhl/500/scoreboard/wsh.png",
+                        "width": 500,
+                        "height": 500,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "scoreboard"
+                        ],
+                        "lastUpdated": "2025-12-10T22:54Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/i/teamlogos/nhl/500-dark/scoreboard/wsh.png",
+                        "width": 500,
+                        "height": 500,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "scoreboard",
+                          "dark"
+                        ],
+                        "lastUpdated": "2025-12-10T22:54Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/cbe677ee-361e-91b4-5cae-6c4c30044743/logos/primary_logo_on_white_color.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "primary_logo_on_white_color"
+                        ],
+                        "lastUpdated": "2026-07-22T20:31Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/cbe677ee-361e-91b4-5cae-6c4c30044743/logos/primary_logo_on_black_color.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "primary_logo_on_black_color"
+                        ],
+                        "lastUpdated": "2026-07-22T20:31Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/cbe677ee-361e-91b4-5cae-6c4c30044743/logos/primary_logo_on_primary_color.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "primary_logo_on_primary_color"
+                        ],
+                        "lastUpdated": "2026-07-22T20:31Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/cbe677ee-361e-91b4-5cae-6c4c30044743/logos/primary_logo_on_secondary_color.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "primary_logo_on_secondary_color"
+                        ],
+                        "lastUpdated": "2026-07-22T20:31Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/cbe677ee-361e-91b4-5cae-6c4c30044743/logos/primary_logo_black.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "primary_logo_black"
+                        ],
+                        "lastUpdated": "2026-07-22T20:31Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/cbe677ee-361e-91b4-5cae-6c4c30044743/logos/primary_logo_white.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "primary_logo_white"
+                        ],
+                        "lastUpdated": "2026-07-22T20:31Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/cbe677ee-361e-91b4-5cae-6c4c30044743/logos/secondary_logo_on_white_color.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "secondary_logo_on_white_color"
+                        ],
+                        "lastUpdated": "2026-07-22T20:31Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/cbe677ee-361e-91b4-5cae-6c4c30044743/logos/secondary_logo_on_black_color.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "secondary_logo_on_black_color"
+                        ],
+                        "lastUpdated": "2026-07-22T20:31Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/cbe677ee-361e-91b4-5cae-6c4c30044743/logos/secondary_logo_on_primary_color.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "secondary_logo_on_primary_color"
+                        ],
+                        "lastUpdated": "2026-07-22T20:31Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/cbe677ee-361e-91b4-5cae-6c4c30044743/logos/secondary_logo_on_secondary_color.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "secondary_logo_on_secondary_color"
+                        ],
+                        "lastUpdated": "2026-07-22T20:31Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/cbe677ee-361e-91b4-5cae-6c4c30044743/logos/secondary_logo_black.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "secondary_logo_black"
+                        ],
+                        "lastUpdated": "2026-07-22T20:31Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/cbe677ee-361e-91b4-5cae-6c4c30044743/logos/secondary_logo_white.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "secondary_logo_white"
+                        ],
+                        "lastUpdated": "2026-07-22T20:31Z"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "profile": {
+    "url": "https://sports.core.api.espn.com/v2/sports/hockey/leagues/nhl/seasons/2027/teams/23?lang=en&region=us",
+    "status": 200,
+    "payload": {
+      "$ref": "http://sports.core.api.espn.com/v2/sports/hockey/leagues/nhl/seasons/2027/teams/23?lang=en&region=us",
+      "id": "23",
+      "leaders": {
+        "$ref": "http://sports.core.api.espn.com/v2/sports/hockey/leagues/nhl/seasons/2027/types/2/teams/23/leaders?lang=en&region=us"
+      }
+    }
+  },
+  "core": {
+    "url": "https://sports.core.api.espn.com/v2/sports/hockey/leagues/nhl/seasons/2027/types/2/teams/23/leaders?lang=en&region=us",
+    "payload": {
+      "$ref": "http://sports.core.api.espn.com/v2/sports/hockey/leagues/nhl/seasons/2027/types/2/teams/23/leaders?lang=en&region=us",
+      "id": "0",
+      "name": "Season",
+      "abbreviation": "Season",
+      "type": "season",
+      "categories": [
+        {
+          "name": "goals",
+          "displayName": "Goals",
+          "shortDisplayName": "Goals",
+          "abbreviation": "G",
+          "leaders": [
+            {
+              "displayValue": "9",
+              "value": 9,
+              "rel": [
+                "athlete"
+              ],
+              "statistics": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/hockey/leagues/nhl/seasons/2027/types/2/teams/23/athletes/3114766/statistics/0?lang=en&region=us"
+              },
+              "athlete": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/hockey/leagues/nhl/seasons/2027/athletes/3114766?lang=en&region=us"
+              },
+              "team": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/hockey/leagues/nhl/seasons/2027/teams/23?lang=en&region=us"
+              }
+            }
+          ]
+        },
+        {
+          "name": "assists",
+          "displayName": "Assists",
+          "shortDisplayName": "Assists",
+          "abbreviation": "A",
+          "leaders": [
+            {
+              "displayValue": "9",
+              "value": 9,
+              "rel": [
+                "athlete"
+              ],
+              "statistics": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/hockey/leagues/nhl/seasons/2027/types/2/teams/23/athletes/3899933/statistics/0?lang=en&region=us"
+              },
+              "athlete": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/hockey/leagues/nhl/seasons/2027/athletes/3899933?lang=en&region=us"
+              },
+              "team": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/hockey/leagues/nhl/seasons/2027/teams/23?lang=en&region=us"
+              }
+            }
+          ]
+        },
+        {
+          "name": "points",
+          "displayName": "Points",
+          "shortDisplayName": "Points",
+          "abbreviation": "PTS",
+          "leaders": [
+            {
+              "displayValue": "12",
+              "value": 12,
+              "rel": [
+                "athlete"
+              ],
+              "statistics": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/hockey/leagues/nhl/seasons/2027/types/2/teams/23/athletes/3899933/statistics/0?lang=en&region=us"
+              },
+              "athlete": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/hockey/leagues/nhl/seasons/2027/athletes/3899933?lang=en&region=us"
+              },
+              "team": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/hockey/leagues/nhl/seasons/2027/teams/23?lang=en&region=us"
+              }
+            }
+          ]
+        },
+        {
+          "name": "plusMinus",
+          "displayName": "Plus/Minus Rating",
+          "shortDisplayName": "Plus/Minus Rating",
+          "abbreviation": "+/-",
+          "leaders": [
+            {
+              "displayValue": "9",
+              "value": 9,
+              "rel": [
+                "athlete"
+              ],
+              "statistics": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/hockey/leagues/nhl/seasons/2027/types/2/teams/23/athletes/4392260/statistics/0?lang=en&region=us"
+              },
+              "athlete": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/hockey/leagues/nhl/seasons/2027/athletes/4392260?lang=en&region=us"
+              },
+              "team": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/hockey/leagues/nhl/seasons/2027/teams/23?lang=en&region=us"
+              }
+            }
+          ]
+        },
+        {
+          "name": "avgGoalsAgainst",
+          "displayName": "Goals Against Average",
+          "shortDisplayName": "Goals Against Average",
+          "abbreviation": "GAA",
+          "leaders": [
+            {
+              "displayValue": "2.78",
+              "value": 2.783,
+              "rel": [
+                "athlete"
+              ],
+              "statistics": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/hockey/leagues/nhl/seasons/2027/types/2/teams/23/athletes/4272888/statistics/0?lang=en&region=us"
+              },
+              "athlete": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/hockey/leagues/nhl/seasons/2027/athletes/4272888?lang=en&region=us"
+              },
+              "team": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/hockey/leagues/nhl/seasons/2027/teams/23?lang=en&region=us"
+              }
+            }
+          ]
+        },
+        {
+          "name": "penaltyMinutes",
+          "displayName": "Penalty Minutes",
+          "shortDisplayName": "Penalty Minutes",
+          "abbreviation": "PIM",
+          "leaders": [
+            {
+              "displayValue": "14",
+              "value": 14,
+              "rel": [
+                "athlete"
+              ],
+              "statistics": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/hockey/leagues/nhl/seasons/2027/types/2/teams/23/athletes/2970615/statistics/0?lang=en&region=us"
+              },
+              "athlete": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/hockey/leagues/nhl/seasons/2027/athletes/2970615?lang=en&region=us"
+              },
+              "team": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/hockey/leagues/nhl/seasons/2027/teams/23?lang=en&region=us"
+              }
+            }
+          ]
+        },
+        {
+          "name": "savePct",
+          "displayName": "Save Percentage",
+          "shortDisplayName": "Save Percentage",
+          "abbreviation": "SV%",
+          "leaders": [
+            {
+              "displayValue": ".903",
+              "value": 0.903,
+              "rel": [
+                "athlete"
+              ],
+              "statistics": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/hockey/leagues/nhl/seasons/2027/types/2/teams/23/athletes/4272888/statistics/0?lang=en&region=us"
+              },
+              "athlete": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/hockey/leagues/nhl/seasons/2027/athletes/4272888?lang=en&region=us"
+              },
+              "team": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/hockey/leagues/nhl/seasons/2027/teams/23?lang=en&region=us"
+              }
+            }
+          ]
+        },
+        {
+          "name": "wins",
+          "displayName": "Wins",
+          "shortDisplayName": "Wins",
+          "abbreviation": "W",
+          "leaders": [
+            {
+              "displayValue": "5",
+              "value": 5,
+              "rel": [
+                "athlete"
+              ],
+              "statistics": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/hockey/leagues/nhl/seasons/2027/types/2/teams/23/athletes/4272888/statistics/0?lang=en&region=us"
+              },
+              "athlete": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/hockey/leagues/nhl/seasons/2027/athletes/4272888?lang=en&region=us"
+              },
+              "team": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/hockey/leagues/nhl/seasons/2027/teams/23?lang=en&region=us"
+              }
+            }
+          ]
+        },
+        {
+          "name": "shutouts",
+          "displayName": "Shutouts",
+          "shortDisplayName": "Shutouts",
+          "abbreviation": "SO",
+          "leaders": []
+        }
+      ]
+    }
+  },
+  "athletes": {
+    "https://sports.core.api.espn.com/v2/sports/hockey/leagues/nhl/seasons/2027/athletes/4272888?lang=en&region=us": {
+      "$ref": "http://sports.core.api.espn.com/v2/sports/hockey/leagues/nhl/seasons/2027/athletes/4272888?lang=en&region=us",
+      "id": "4272888",
+      "displayName": "Logan Thompson",
+      "fullName": "Logan Thompson",
+      "shortName": "L. Thompson",
+      "headshot": {
+        "href": "https://a.espncdn.com/i/headshots/nhl/players/full/4272888.png",
+        "alt": "Logan Thompson"
+      },
+      "position": {
+        "$ref": "http://sports.core.api.espn.com/v2/sports/hockey/leagues/nhl/positions/5?lang=en&region=us",
+        "id": "5",
+        "name": "Goaltender",
+        "displayName": "Goaltender",
+        "abbreviation": "G",
+        "leaf": false
+      }
+    },
+    "https://sports.core.api.espn.com/v2/sports/hockey/leagues/nhl/seasons/2027/athletes/3114766?lang=en&region=us": {
+      "$ref": "http://sports.core.api.espn.com/v2/sports/hockey/leagues/nhl/seasons/2027/athletes/3114766?lang=en&region=us",
+      "id": "3114766",
+      "displayName": "Alex Tuch",
+      "fullName": "Alex Tuch",
+      "shortName": "A. Tuch",
+      "headshot": {
+        "href": "https://a.espncdn.com/i/headshots/nhl/players/full/3114766.png",
+        "alt": "Alex Tuch"
+      },
+      "position": {
+        "$ref": "http://sports.core.api.espn.com/v2/sports/hockey/leagues/nhl/positions/3?lang=en&region=us",
+        "id": "3",
+        "name": "Right Wing",
+        "displayName": "Right Wing",
+        "abbreviation": "RW",
+        "leaf": true,
+        "parent": {
+          "$ref": "http://sports.core.api.espn.com/v2/sports/hockey/leagues/nhl/positions/20?lang=en&region=us"
+        }
+      }
+    },
+    "https://sports.core.api.espn.com/v2/sports/hockey/leagues/nhl/seasons/2027/athletes/3899933?lang=en&region=us": {
+      "$ref": "http://sports.core.api.espn.com/v2/sports/hockey/leagues/nhl/seasons/2027/athletes/3899933?lang=en&region=us",
+      "id": "3899933",
+      "displayName": "Dylan Strome",
+      "fullName": "Dylan Strome",
+      "shortName": "D. Strome",
+      "headshot": {
+        "href": "https://a.espncdn.com/i/headshots/nhl/players/full/3899933.png",
+        "alt": "Dylan Strome"
+      },
+      "position": {
+        "$ref": "http://sports.core.api.espn.com/v2/sports/hockey/leagues/nhl/positions/1?lang=en&region=us",
+        "id": "1",
+        "name": "Center",
+        "displayName": "Center",
+        "abbreviation": "C",
+        "leaf": true,
+        "parent": {
+          "$ref": "http://sports.core.api.espn.com/v2/sports/hockey/leagues/nhl/positions/20?lang=en&region=us"
+        }
+      }
+    }
+  },
+  "fallback": {
+    "url": "https://site.api.espn.com/apis/site/v3/sports/hockey/nhl/leaders?team=23&season=2027&limit=1",
+    "payload": {
+      "currentSeason": {
+        "year": 2027,
+        "displayName": "2026-27",
+        "startDate": "2026-09-15T07:00:00.000+00:00",
+        "endDate": "2027-07-01T06:59:00.000+00:00",
+        "type": {
+          "id": "2",
+          "type": 2,
+          "name": "Regular Season",
+          "startDate": "2026-09-28T07:00:00.000+00:00",
+          "endDate": "2027-04-11T06:59:00.000+00:00",
+          "week": {
+            "number": 5,
+            "startDate": "2026-10-26T07:00:00.000+00:00",
+            "endDate": "2026-11-02T07:59:00.000+00:00",
+            "text": "Week 5"
+          }
+        }
+      },
+      "requestedSeason": {
+        "year": 2027,
+        "displayName": "2026-27",
+        "startDate": "2026-09-15T07:00:00.000+00:00",
+        "endDate": "2027-07-01T06:59:00.000+00:00",
+        "type": {
+          "id": "2",
+          "type": 2,
+          "name": "Regular Season",
+          "startDate": "2026-09-28T07:00:00.000+00:00",
+          "endDate": "2027-04-11T06:59:00.000+00:00",
+          "week": {
+            "number": 5,
+            "startDate": "2026-10-26T07:00:00.000+00:00",
+            "endDate": "2026-11-02T07:59:00.000+00:00",
+            "text": "Week 5"
+          }
+        },
+        "qualifiedPostSeason": false
+      },
+      "leaders": {
+        "id": "0",
+        "name": "Season",
+        "abbreviation": "Season",
+        "categories": [
+          {
+            "name": "goals",
+            "displayName": "Goals",
+            "abbreviation": "G",
+            "leaders": [
+              {
+                "displayValue": "9",
+                "value": 9,
+                "rel": [
+                  "athlete"
+                ],
+                "statistics": {},
+                "athlete": {
+                  "id": "3114766",
+                  "displayName": "Alex Tuch",
+                  "fullName": "Alex Tuch",
+                  "shortName": "A. Tuch",
+                  "headshot": {
+                    "href": "https://a.espncdn.com/i/headshots/nhl/players/full/3114766.png",
+                    "alt": "Alex Tuch"
+                  },
+                  "position": {
+                    "id": "3",
+                    "name": "Right Wing",
+                    "displayName": "Right Wing",
+                    "abbreviation": "RW",
+                    "leaf": true,
+                    "parent": {
+                      "leaf": false
+                    },
+                    "slug": "right-wing"
+                  }
+                },
+                "team": {
+                  "id": "23"
+                }
+              }
+            ]
+          },
+          {
+            "name": "assists",
+            "displayName": "Assists",
+            "abbreviation": "A",
+            "leaders": [
+              {
+                "displayValue": "9",
+                "value": 9,
+                "rel": [
+                  "athlete"
+                ],
+                "statistics": {},
+                "athlete": {
+                  "id": "3899933",
+                  "displayName": "Dylan Strome",
+                  "fullName": "Dylan Strome",
+                  "shortName": "D. Strome",
+                  "headshot": {
+                    "href": "https://a.espncdn.com/i/headshots/nhl/players/full/3899933.png",
+                    "alt": "Dylan Strome"
+                  },
+                  "position": {
+                    "id": "1",
+                    "name": "Center",
+                    "displayName": "Center",
+                    "abbreviation": "C",
+                    "leaf": true,
+                    "parent": {
+                      "leaf": false
+                    },
+                    "slug": "center"
+                  }
+                },
+                "team": {
+                  "id": "23"
+                }
+              }
+            ]
+          },
+          {
+            "name": "points",
+            "displayName": "Points",
+            "abbreviation": "PTS",
+            "leaders": [
+              {
+                "displayValue": "12",
+                "value": 12,
+                "rel": [
+                  "athlete"
+                ],
+                "statistics": {},
+                "athlete": {
+                  "id": "3899933",
+                  "displayName": "Dylan Strome",
+                  "fullName": "Dylan Strome",
+                  "shortName": "D. Strome",
+                  "headshot": {
+                    "href": "https://a.espncdn.com/i/headshots/nhl/players/full/3899933.png",
+                    "alt": "Dylan Strome"
+                  },
+                  "position": {
+                    "id": "1",
+                    "name": "Center",
+                    "displayName": "Center",
+                    "abbreviation": "C",
+                    "leaf": true,
+                    "parent": {
+                      "leaf": false
+                    },
+                    "slug": "center"
+                  }
+                },
+                "team": {
+                  "id": "23"
+                }
+              }
+            ]
+          },
+          {
+            "name": "plusMinus",
+            "displayName": "Plus/Minus Rating",
+            "abbreviation": "+/-",
+            "leaders": [
+              {
+                "displayValue": "9",
+                "value": 9,
+                "rel": [
+                  "athlete"
+                ],
+                "statistics": {},
+                "athlete": {
+                  "id": "4392260",
+                  "displayName": "Vincent Desharnais",
+                  "fullName": "Vincent Desharnais",
+                  "shortName": "V. Desharnais",
+                  "headshot": {
+                    "href": "https://a.espncdn.com/i/headshots/nhl/players/full/4392260.png",
+                    "alt": "Vincent Desharnais"
+                  },
+                  "position": {
+                    "id": "4",
+                    "name": "Defense",
+                    "displayName": "Defense",
+                    "abbreviation": "D",
+                    "leaf": true,
+                    "parent": {
+                      "leaf": false
+                    },
+                    "slug": "defense"
+                  }
+                },
+                "team": {
+                  "id": "23"
+                }
+              }
+            ]
+          },
+          {
+            "name": "avgGoalsAgainst",
+            "displayName": "Goals Against Average",
+            "abbreviation": "GAA",
+            "leaders": [
+              {
+                "displayValue": "2.78",
+                "value": 2.783,
+                "rel": [
+                  "athlete"
+                ],
+                "statistics": {},
+                "athlete": {
+                  "id": "4272888",
+                  "displayName": "Logan Thompson",
+                  "fullName": "Logan Thompson",
+                  "shortName": "L. Thompson",
+                  "headshot": {
+                    "href": "https://a.espncdn.com/i/headshots/nhl/players/full/4272888.png",
+                    "alt": "Logan Thompson"
+                  },
+                  "position": {
+                    "id": "5",
+                    "name": "Goaltender",
+                    "displayName": "Goaltender",
+                    "abbreviation": "G",
+                    "leaf": false,
+                    "slug": "goaltender"
+                  }
+                },
+                "team": {
+                  "id": "23"
+                }
+              }
+            ]
+          },
+          {
+            "name": "penaltyMinutes",
+            "displayName": "Penalty Minutes",
+            "abbreviation": "PIM",
+            "leaders": [
+              {
+                "displayValue": "14",
+                "value": 14,
+                "rel": [
+                  "athlete"
+                ],
+                "statistics": {},
+                "athlete": {
+                  "id": "2970615",
+                  "displayName": "Tom Wilson",
+                  "fullName": "Tom Wilson",
+                  "shortName": "T. Wilson",
+                  "headshot": {
+                    "href": "https://a.espncdn.com/i/headshots/nhl/players/full/2970615.png",
+                    "alt": "Tom Wilson"
+                  },
+                  "position": {
+                    "id": "3",
+                    "name": "Right Wing",
+                    "displayName": "Right Wing",
+                    "abbreviation": "RW",
+                    "leaf": true,
+                    "parent": {
+                      "leaf": false
+                    },
+                    "slug": "right-wing"
+                  }
+                },
+                "team": {
+                  "id": "23"
+                }
+              }
+            ]
+          },
+          {
+            "name": "savePct",
+            "displayName": "Save Percentage",
+            "abbreviation": "SV%",
+            "leaders": [
+              {
+                "displayValue": ".903",
+                "value": 0.903,
+                "rel": [
+                  "athlete"
+                ],
+                "statistics": {},
+                "athlete": {
+                  "id": "4272888",
+                  "displayName": "Logan Thompson",
+                  "fullName": "Logan Thompson",
+                  "shortName": "L. Thompson",
+                  "headshot": {
+                    "href": "https://a.espncdn.com/i/headshots/nhl/players/full/4272888.png",
+                    "alt": "Logan Thompson"
+                  },
+                  "position": {
+                    "id": "5",
+                    "name": "Goaltender",
+                    "displayName": "Goaltender",
+                    "abbreviation": "G",
+                    "leaf": false,
+                    "slug": "goaltender"
+                  }
+                },
+                "team": {
+                  "id": "23"
+                }
+              }
+            ]
+          },
+          {
+            "name": "wins",
+            "displayName": "Wins",
+            "abbreviation": "W",
+            "leaders": [
+              {
+                "displayValue": "5",
+                "value": 5,
+                "rel": [
+                  "athlete"
+                ],
+                "statistics": {},
+                "athlete": {
+                  "id": "4272888",
+                  "displayName": "Logan Thompson",
+                  "fullName": "Logan Thompson",
+                  "shortName": "L. Thompson",
+                  "headshot": {
+                    "href": "https://a.espncdn.com/i/headshots/nhl/players/full/4272888.png",
+                    "alt": "Logan Thompson"
+                  },
+                  "position": {
+                    "id": "5",
+                    "name": "Goaltender",
+                    "displayName": "Goaltender",
+                    "abbreviation": "G",
+                    "leaf": false,
+                    "slug": "goaltender"
+                  }
+                },
+                "team": {
+                  "id": "23"
+                }
+              }
+            ]
+          },
+          {
+            "name": "shutouts",
+            "displayName": "Shutouts",
+            "abbreviation": "SO"
+          }
+        ]
+      }
+    }
+  }
+}

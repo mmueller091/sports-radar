@@ -4,13 +4,33 @@ import fs from 'node:fs';
 import vm from 'node:vm';
 import {baseballSituation,footballSituation,basketballBoxScore} from '../alerts-worker/src/display-model.js';
 import {normalizeEvent,enrichGame} from '../alerts-worker/src/game-model.js';
+import {normalizeTeamLeaders} from '../alerts-worker/src/sports-feed.js';
 
 const source = fs.readFileSync(new URL('../app.js',import.meta.url),'utf8').replace(/\r\n/g,'\n');
 const context = vm.createContext({safeText:value => String(value).replaceAll('<','&lt;').replaceAll('"','&quot;')});
-for (const name of ['liveRefreshDelay','footballAccessibleSituation','possessionMarkup','footballSituationMarkup','baseballSituationMarkup','basketballBoxScoreMarkup','basesMarkup']) {
+const basketballHelpers = source.slice(source.indexOf('function basketballStatKey('),source.indexOf('function basketballBoxScoreMarkup('));
+vm.runInContext(basketballHelpers,context);
+for (const name of ['liveRefreshDelay','footballAccessibleSituation','possessionMarkup','footballSituationMarkup','baseballSituationMarkup','basketballBoxScoreMarkup','basesMarkup','teamLeaderMarkup']) {
   const start = source.indexOf(`function ${name}(`);
   vm.runInContext(source.slice(start,source.indexOf('\n}',start)+2),context);
 }
+
+test('team leader cards render production fallback names and retain stats without athlete details',() => {
+  const fixture = JSON.parse(fs.readFileSync(new URL('../alerts-worker/test/fixtures/team-leaders/NFL-33.json',import.meta.url),'utf8'));
+  const leaders = normalizeTeamLeaders(fixture.fallback.payload,'NFL');
+  const html = context.teamLeaderMarkup(leaders);
+  assert.equal((html.match(/<article class="team-leader-card">/g) || []).length,4);
+  for (const leader of leaders) {
+    assert.ok(html.includes(leader.athlete.name));
+    assert.ok(html.includes(leader.displayValue));
+  }
+  assert.doesNotMatch(html,/Leaders unavailable/);
+  const unresolved = context.teamLeaderMarkup(normalizeTeamLeaders(fixture.core.payload,'NFL'));
+  assert.equal((unresolved.match(/<article class="team-leader-card">/g) || []).length,4);
+  assert.match(unresolved,/Team leader/);
+  assert.match(unresolved,/>967</);
+  assert.doesNotMatch(unresolved,/Leaders unavailable/);
+});
 const teams = [['Baltimore','BAL','24','','','','','','1'],['Denver','DEN','21','','','','','','2']];
 
 test('scoreboard places the home team on the bottom when the feed lists it first',()=>{

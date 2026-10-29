@@ -50,7 +50,7 @@ test('NBA 2OT flows through card, accessibility, explanation, history, detail an
     localStorage:{setItem:()=>{}},watchKey:g=>g.id,safeText:String,LEAGUE_LOGOS:{},
     displayLine:()=>({label:'Line',text:''}),isWatched:()=>false,teamMarkup:()=>'',possessionMarkup:()=>'',
     compactPlay:p=>p.text || '',$:()=>detail,labelForSport:s=>s,teamLogoUrl:()=>'',
-    storylineDetails:()=>'',detailScoring:()=>'',detailStats:()=>'',detailLeaders:()=>'',
+    detailTabsMarkup:()=>'',storylineDetails:()=>'',detailScoring:()=>'',detailStats:()=>'',detailLeaders:()=>'',
     basketballBoxScoreMarkup:()=>'',detailPlayerStats:()=>'',detailPlays:()=>''});
   for (const name of ['explainRating','gameCard','basesMarkup','trendFor','isWinningTeam','recordRatingSnapshot',
     'legacyPlayPosition','scoringEvents','estimatedEventRating','timelineFormat','timelineEventPosition',

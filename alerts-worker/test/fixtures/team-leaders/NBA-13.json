@@ -1,0 +1,2248 @@
+{
+  "sport": "NBA",
+  "id": "13",
+  "season": 2027,
+  "team": {
+    "url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/teams/13",
+    "payload": {
+      "team": {
+        "id": "13",
+        "abbreviation": "LAL",
+        "displayName": "Los Angeles Lakers",
+        "name": "Lakers",
+        "shortDisplayName": "Lakers",
+        "location": "Los Angeles",
+        "logos": [
+          {
+            "alt": "",
+            "height": 500,
+            "href": "https://a.espncdn.com/i/teamlogos/nba/500/lal.png",
+            "rel": [
+              "full",
+              "default"
+            ],
+            "width": 500
+          },
+          {
+            "alt": "",
+            "height": 500,
+            "href": "https://a.espncdn.com/i/teamlogos/nba/500-dark/lal.png",
+            "rel": [
+              "full",
+              "dark"
+            ],
+            "width": 500
+          },
+          {
+            "alt": "",
+            "height": 500,
+            "href": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/lal.png",
+            "rel": [
+              "full",
+              "scoreboard"
+            ],
+            "width": 500
+          },
+          {
+            "alt": "",
+            "height": 500,
+            "href": "https://a.espncdn.com/i/teamlogos/nba/500-dark/scoreboard/lal.png",
+            "rel": [
+              "full",
+              "scoreboard",
+              "dark"
+            ],
+            "width": 500
+          },
+          {
+            "alt": "",
+            "height": 4096,
+            "href": "https://a.espncdn.com/guid/2876e98b-b9bc-2920-4319-46e6943f8be4/logos/primary_logo_on_white_color.png",
+            "rel": [
+              "full",
+              "primary_logo_on_white_color"
+            ],
+            "width": 4096
+          },
+          {
+            "alt": "",
+            "height": 4096,
+            "href": "https://a.espncdn.com/guid/2876e98b-b9bc-2920-4319-46e6943f8be4/logos/primary_logo_on_black_color.png",
+            "rel": [
+              "full",
+              "primary_logo_on_black_color"
+            ],
+            "width": 4096
+          },
+          {
+            "alt": "",
+            "height": 4096,
+            "href": "https://a.espncdn.com/guid/2876e98b-b9bc-2920-4319-46e6943f8be4/logos/primary_logo_on_primary_color.png",
+            "rel": [
+              "full",
+              "primary_logo_on_primary_color"
+            ],
+            "width": 4096
+          },
+          {
+            "alt": "",
+            "height": 4096,
+            "href": "https://a.espncdn.com/guid/2876e98b-b9bc-2920-4319-46e6943f8be4/logos/primary_logo_on_secondary_color.png",
+            "rel": [
+              "full",
+              "primary_logo_on_secondary_color"
+            ],
+            "width": 4096
+          },
+          {
+            "alt": "",
+            "height": 4096,
+            "href": "https://a.espncdn.com/guid/2876e98b-b9bc-2920-4319-46e6943f8be4/logos/primary_logo_black.png",
+            "rel": [
+              "full",
+              "primary_logo_black"
+            ],
+            "width": 4096
+          },
+          {
+            "alt": "",
+            "height": 4096,
+            "href": "https://a.espncdn.com/guid/2876e98b-b9bc-2920-4319-46e6943f8be4/logos/primary_logo_white.png",
+            "rel": [
+              "full",
+              "primary_logo_white"
+            ],
+            "width": 4096
+          },
+          {
+            "alt": "",
+            "height": 4096,
+            "href": "https://a.espncdn.com/guid/2876e98b-b9bc-2920-4319-46e6943f8be4/logos/secondary_logo_on_white_color.png",
+            "rel": [
+              "full",
+              "secondary_logo_on_white_color"
+            ],
+            "width": 4096
+          },
+          {
+            "alt": "",
+            "height": 4096,
+            "href": "https://a.espncdn.com/guid/2876e98b-b9bc-2920-4319-46e6943f8be4/logos/secondary_logo_on_black_color.png",
+            "rel": [
+              "full",
+              "secondary_logo_on_black_color"
+            ],
+            "width": 4096
+          },
+          {
+            "alt": "",
+            "height": 4096,
+            "href": "https://a.espncdn.com/guid/2876e98b-b9bc-2920-4319-46e6943f8be4/logos/secondary_logo_on_primary_color.png",
+            "rel": [
+              "full",
+              "secondary_logo_on_primary_color"
+            ],
+            "width": 4096
+          },
+          {
+            "alt": "",
+            "height": 4096,
+            "href": "https://a.espncdn.com/guid/2876e98b-b9bc-2920-4319-46e6943f8be4/logos/secondary_logo_on_secondary_color.png",
+            "rel": [
+              "full",
+              "secondary_logo_on_secondary_color"
+            ],
+            "width": 4096
+          },
+          {
+            "alt": "",
+            "height": 4096,
+            "href": "https://a.espncdn.com/guid/2876e98b-b9bc-2920-4319-46e6943f8be4/logos/secondary_logo_black.png",
+            "rel": [
+              "full",
+              "secondary_logo_black"
+            ],
+            "width": 4096
+          },
+          {
+            "alt": "",
+            "height": 4096,
+            "href": "https://a.espncdn.com/guid/2876e98b-b9bc-2920-4319-46e6943f8be4/logos/secondary_logo_white.png",
+            "rel": [
+              "full",
+              "secondary_logo_white"
+            ],
+            "width": 4096
+          }
+        ],
+        "color": "552583",
+        "alternateColor": "fdb927",
+        "standingSummary": "1st in Pacific Division",
+        "record": {
+          "items": [
+            {
+              "description": "Overall Record",
+              "stats": [
+                {
+                  "name": "OTLosses",
+                  "value": 0
+                },
+                {
+                  "name": "OTWins",
+                  "value": 0
+                },
+                {
+                  "name": "avgPointsAgainst",
+                  "value": 113.6
+                },
+                {
+                  "name": "avgPointsFor",
+                  "value": 123.2
+                },
+                {
+                  "name": "differential",
+                  "value": 9.600000000000009
+                },
+                {
+                  "name": "divisionWinPercent",
+                  "value": 1
+                },
+                {
+                  "name": "gamesBehind",
+                  "value": 1
+                },
+                {
+                  "name": "gamesPlayed",
+                  "value": 5
+                },
+                {
+                  "name": "leagueWinPercent",
+                  "value": 0.8
+                },
+                {
+                  "name": "losses",
+                  "value": 1
+                },
+                {
+                  "name": "playoffSeed",
+                  "value": 4
+                },
+                {
+                  "name": "pointDifferential",
+                  "value": 48
+                },
+                {
+                  "name": "points",
+                  "value": 1.5
+                },
+                {
+                  "name": "pointsAgainst",
+                  "value": 568
+                },
+                {
+                  "name": "pointsFor",
+                  "value": 616
+                },
+                {
+                  "name": "streak",
+                  "value": 1
+                },
+                {
+                  "name": "ties",
+                  "value": 0
+                },
+                {
+                  "name": "winPercent",
+                  "value": 0.8
+                },
+                {
+                  "name": "wins",
+                  "value": 4
+                },
+                {
+                  "name": "gamesAhead",
+                  "value": 3.5
+                }
+              ],
+              "summary": "4-1",
+              "type": "total"
+            },
+            {
+              "description": "Home Record",
+              "stats": [
+                {
+                  "name": "wins",
+                  "value": 2
+                },
+                {
+                  "name": "losses",
+                  "value": 1
+                },
+                {
+                  "name": "ties",
+                  "value": 0
+                },
+                {
+                  "name": "winPercent",
+                  "value": 0.6666666666666666
+                },
+                {
+                  "name": "OTLosses",
+                  "value": 0
+                }
+              ],
+              "summary": "2-1",
+              "type": "home"
+            },
+            {
+              "description": "Away Record",
+              "stats": [
+                {
+                  "name": "wins",
+                  "value": 2
+                },
+                {
+                  "name": "losses",
+                  "value": 0
+                },
+                {
+                  "name": "ties",
+                  "value": 0
+                },
+                {
+                  "name": "winPercent",
+                  "value": 1
+                },
+                {
+                  "name": "OTLosses",
+                  "value": 0
+                }
+              ],
+              "summary": "2-0",
+              "type": "road"
+            }
+          ]
+        }
+      }
+    }
+  },
+  "schedule": {
+    "url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/teams/13/schedule",
+    "payload": {
+      "season": {
+        "year": 2027,
+        "type": 2,
+        "name": "Regular Season",
+        "displayName": "2026-27",
+        "half": 1
+      },
+      "team": {
+        "id": "13",
+        "abbreviation": "LAL",
+        "displayName": "Los Angeles Lakers",
+        "name": "Lakers",
+        "location": "Los Angeles",
+        "color": "552583",
+        "standingSummary": "1st in Pacific Division"
+      },
+      "events": [
+        {
+          "id": "401909092",
+          "date": "2026-10-22T02:00Z",
+          "name": "Golden State Warriors at Los Angeles Lakers",
+          "season": {
+            "year": 2027,
+            "displayName": "2026-27"
+          },
+          "competitions": [
+            {
+              "id": "401909092",
+              "date": "2026-10-22T02:00Z",
+              "status": {
+                "clock": 0,
+                "displayClock": "0.0",
+                "period": 4,
+                "type": {
+                  "id": "3",
+                  "name": "STATUS_FINAL",
+                  "state": "post",
+                  "completed": true,
+                  "description": "Final",
+                  "detail": "Final",
+                  "shortDetail": "Final"
+                }
+              },
+              "broadcasts": [
+                {
+                  "type": {
+                    "id": "1",
+                    "shortName": "TV"
+                  },
+                  "market": {
+                    "id": "1",
+                    "type": "National"
+                  },
+                  "media": {
+                    "shortName": "ESPN"
+                  },
+                  "lang": "en",
+                  "region": "us",
+                  "partnered": false
+                }
+              ],
+              "venue": {
+                "fullName": "crypto.com Arena",
+                "address": {
+                  "city": "Los Angeles",
+                  "state": "CA"
+                }
+              },
+              "notes": [],
+              "competitors": [
+                {
+                  "id": "13",
+                  "homeAway": "home",
+                  "winner": true,
+                  "score": {
+                    "value": 127,
+                    "displayValue": "127"
+                  },
+                  "team": {
+                    "id": "13",
+                    "abbreviation": "LAL",
+                    "displayName": "Los Angeles Lakers",
+                    "shortDisplayName": "Lakers",
+                    "location": "Los Angeles",
+                    "logos": [
+                      {
+                        "href": "https://a.espncdn.com/i/teamlogos/nba/500/lal.png",
+                        "width": 500,
+                        "height": 500,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "default"
+                        ],
+                        "lastUpdated": "2024-06-25T21:17Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/i/teamlogos/nba/500-dark/lal.png",
+                        "width": 500,
+                        "height": 500,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "dark"
+                        ],
+                        "lastUpdated": "2024-06-25T21:13Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/lal.png",
+                        "width": 500,
+                        "height": 500,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "scoreboard"
+                        ],
+                        "lastUpdated": "2024-06-25T21:18Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/i/teamlogos/nba/500-dark/scoreboard/lal.png",
+                        "width": 500,
+                        "height": 500,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "scoreboard",
+                          "dark"
+                        ],
+                        "lastUpdated": "2024-06-25T21:14Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/2876e98b-b9bc-2920-4319-46e6943f8be4/logos/primary_logo_on_white_color.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "primary_logo_on_white_color"
+                        ],
+                        "lastUpdated": "2026-09-03T13:50Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/2876e98b-b9bc-2920-4319-46e6943f8be4/logos/primary_logo_on_black_color.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "primary_logo_on_black_color"
+                        ],
+                        "lastUpdated": "2026-07-22T20:23Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/2876e98b-b9bc-2920-4319-46e6943f8be4/logos/primary_logo_on_primary_color.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "primary_logo_on_primary_color"
+                        ],
+                        "lastUpdated": "2026-07-22T20:23Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/2876e98b-b9bc-2920-4319-46e6943f8be4/logos/primary_logo_on_secondary_color.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "primary_logo_on_secondary_color"
+                        ],
+                        "lastUpdated": "2026-07-22T20:23Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/2876e98b-b9bc-2920-4319-46e6943f8be4/logos/primary_logo_black.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "primary_logo_black"
+                        ],
+                        "lastUpdated": "2026-07-22T20:23Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/2876e98b-b9bc-2920-4319-46e6943f8be4/logos/primary_logo_white.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "primary_logo_white"
+                        ],
+                        "lastUpdated": "2026-07-22T20:23Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/2876e98b-b9bc-2920-4319-46e6943f8be4/logos/secondary_logo_on_white_color.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "secondary_logo_on_white_color"
+                        ],
+                        "lastUpdated": "2026-07-22T20:23Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/2876e98b-b9bc-2920-4319-46e6943f8be4/logos/secondary_logo_on_black_color.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "secondary_logo_on_black_color"
+                        ],
+                        "lastUpdated": "2026-07-22T20:23Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/2876e98b-b9bc-2920-4319-46e6943f8be4/logos/secondary_logo_on_primary_color.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "secondary_logo_on_primary_color"
+                        ],
+                        "lastUpdated": "2026-07-22T20:23Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/2876e98b-b9bc-2920-4319-46e6943f8be4/logos/secondary_logo_on_secondary_color.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "secondary_logo_on_secondary_color"
+                        ],
+                        "lastUpdated": "2026-07-22T20:23Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/2876e98b-b9bc-2920-4319-46e6943f8be4/logos/secondary_logo_black.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "secondary_logo_black"
+                        ],
+                        "lastUpdated": "2026-07-22T20:23Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/2876e98b-b9bc-2920-4319-46e6943f8be4/logos/secondary_logo_white.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "secondary_logo_white"
+                        ],
+                        "lastUpdated": "2026-07-22T20:23Z"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "id": "9",
+                  "homeAway": "away",
+                  "winner": false,
+                  "score": {
+                    "value": 105,
+                    "displayValue": "105"
+                  },
+                  "team": {
+                    "id": "9",
+                    "abbreviation": "GS",
+                    "displayName": "Golden State Warriors",
+                    "shortDisplayName": "Warriors",
+                    "location": "Golden State",
+                    "logos": [
+                      {
+                        "href": "https://a.espncdn.com/i/teamlogos/nba/500/gs.png",
+                        "width": 500,
+                        "height": 500,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "default"
+                        ],
+                        "lastUpdated": "2024-06-25T21:17Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/i/teamlogos/nba/500-dark/gs.png",
+                        "width": 500,
+                        "height": 500,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "dark"
+                        ],
+                        "lastUpdated": "2024-06-25T21:13Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/gs.png",
+                        "width": 500,
+                        "height": 500,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "scoreboard"
+                        ],
+                        "lastUpdated": "2024-06-25T21:18Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/i/teamlogos/nba/500-dark/scoreboard/gs.png",
+                        "width": 500,
+                        "height": 500,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "scoreboard",
+                          "dark"
+                        ],
+                        "lastUpdated": "2024-06-25T21:14Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/77a8546f-24bf-a333-8161-bf9f75396c49/logos/primary_logo_on_white_color.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "primary_logo_on_white_color"
+                        ],
+                        "lastUpdated": "2026-07-22T20:23Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/77a8546f-24bf-a333-8161-bf9f75396c49/logos/primary_logo_on_black_color.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "primary_logo_on_black_color"
+                        ],
+                        "lastUpdated": "2026-07-22T20:23Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/77a8546f-24bf-a333-8161-bf9f75396c49/logos/primary_logo_on_primary_color.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "primary_logo_on_primary_color"
+                        ],
+                        "lastUpdated": "2026-07-22T20:23Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/77a8546f-24bf-a333-8161-bf9f75396c49/logos/primary_logo_on_secondary_color.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "primary_logo_on_secondary_color"
+                        ],
+                        "lastUpdated": "2026-07-22T20:23Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/77a8546f-24bf-a333-8161-bf9f75396c49/logos/primary_logo_black.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "primary_logo_black"
+                        ],
+                        "lastUpdated": "2026-07-22T20:23Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/77a8546f-24bf-a333-8161-bf9f75396c49/logos/primary_logo_white.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "primary_logo_white"
+                        ],
+                        "lastUpdated": "2026-07-22T20:23Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/77a8546f-24bf-a333-8161-bf9f75396c49/logos/secondary_logo_on_white_color.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "secondary_logo_on_white_color"
+                        ],
+                        "lastUpdated": "2026-07-22T20:23Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/77a8546f-24bf-a333-8161-bf9f75396c49/logos/secondary_logo_on_black_color.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "secondary_logo_on_black_color"
+                        ],
+                        "lastUpdated": "2026-07-22T20:23Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/77a8546f-24bf-a333-8161-bf9f75396c49/logos/secondary_logo_on_primary_color.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "secondary_logo_on_primary_color"
+                        ],
+                        "lastUpdated": "2026-07-22T20:23Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/77a8546f-24bf-a333-8161-bf9f75396c49/logos/secondary_logo_on_secondary_color.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "secondary_logo_on_secondary_color"
+                        ],
+                        "lastUpdated": "2026-07-22T20:23Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/77a8546f-24bf-a333-8161-bf9f75396c49/logos/secondary_logo_black.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "secondary_logo_black"
+                        ],
+                        "lastUpdated": "2026-07-22T20:23Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/77a8546f-24bf-a333-8161-bf9f75396c49/logos/secondary_logo_white.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "secondary_logo_white"
+                        ],
+                        "lastUpdated": "2026-07-22T20:23Z"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "401909851",
+          "date": "2026-10-24T02:00Z",
+          "name": "LA Clippers at Los Angeles Lakers",
+          "season": {
+            "year": 2027,
+            "displayName": "2026-27"
+          },
+          "competitions": [
+            {
+              "id": "401909851",
+              "date": "2026-10-24T02:00Z",
+              "status": {
+                "clock": 0,
+                "displayClock": "0.0",
+                "period": 4,
+                "type": {
+                  "id": "3",
+                  "name": "STATUS_FINAL",
+                  "state": "post",
+                  "completed": true,
+                  "description": "Final",
+                  "detail": "Final",
+                  "shortDetail": "Final"
+                }
+              },
+              "broadcasts": [
+                {
+                  "type": {
+                    "id": "6",
+                    "shortName": "Subscription Package"
+                  },
+                  "market": {
+                    "id": "3",
+                    "type": "Away"
+                  },
+                  "media": {
+                    "shortName": "NBA League Pass"
+                  },
+                  "lang": "en",
+                  "region": "us",
+                  "partnered": false
+                },
+                {
+                  "type": {
+                    "id": "1",
+                    "shortName": "TV"
+                  },
+                  "market": {
+                    "id": "2",
+                    "type": "Home"
+                  },
+                  "media": {
+                    "shortName": "Spectrum Sports Net"
+                  },
+                  "lang": "en",
+                  "region": "us",
+                  "partnered": false
+                },
+                {
+                  "type": {
+                    "id": "4",
+                    "shortName": "Streaming"
+                  },
+                  "market": {
+                    "id": "2",
+                    "type": "Home"
+                  },
+                  "media": {
+                    "shortName": "Spectrum Sports Net +"
+                  },
+                  "lang": "en",
+                  "region": "us",
+                  "partnered": false
+                },
+                {
+                  "type": {
+                    "id": "4",
+                    "shortName": "Streaming"
+                  },
+                  "market": {
+                    "id": "3",
+                    "type": "Away"
+                  },
+                  "media": {
+                    "shortName": "ClipperVision"
+                  },
+                  "lang": "en",
+                  "region": "us",
+                  "partnered": false
+                }
+              ],
+              "venue": {
+                "fullName": "crypto.com Arena",
+                "address": {
+                  "city": "Los Angeles",
+                  "state": "CA"
+                }
+              },
+              "notes": [],
+              "competitors": [
+                {
+                  "id": "13",
+                  "homeAway": "home",
+                  "winner": true,
+                  "score": {
+                    "value": 125,
+                    "displayValue": "125"
+                  },
+                  "team": {
+                    "id": "13",
+                    "abbreviation": "LAL",
+                    "displayName": "Los Angeles Lakers",
+                    "shortDisplayName": "Lakers",
+                    "location": "Los Angeles",
+                    "logos": [
+                      {
+                        "href": "https://a.espncdn.com/i/teamlogos/nba/500/lal.png",
+                        "width": 500,
+                        "height": 500,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "default"
+                        ],
+                        "lastUpdated": "2024-06-25T21:17Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/i/teamlogos/nba/500-dark/lal.png",
+                        "width": 500,
+                        "height": 500,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "dark"
+                        ],
+                        "lastUpdated": "2024-06-25T21:13Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/lal.png",
+                        "width": 500,
+                        "height": 500,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "scoreboard"
+                        ],
+                        "lastUpdated": "2024-06-25T21:18Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/i/teamlogos/nba/500-dark/scoreboard/lal.png",
+                        "width": 500,
+                        "height": 500,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "scoreboard",
+                          "dark"
+                        ],
+                        "lastUpdated": "2024-06-25T21:14Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/2876e98b-b9bc-2920-4319-46e6943f8be4/logos/primary_logo_on_white_color.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "primary_logo_on_white_color"
+                        ],
+                        "lastUpdated": "2026-09-03T13:50Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/2876e98b-b9bc-2920-4319-46e6943f8be4/logos/primary_logo_on_black_color.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "primary_logo_on_black_color"
+                        ],
+                        "lastUpdated": "2026-07-22T20:23Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/2876e98b-b9bc-2920-4319-46e6943f8be4/logos/primary_logo_on_primary_color.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "primary_logo_on_primary_color"
+                        ],
+                        "lastUpdated": "2026-07-22T20:23Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/2876e98b-b9bc-2920-4319-46e6943f8be4/logos/primary_logo_on_secondary_color.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "primary_logo_on_secondary_color"
+                        ],
+                        "lastUpdated": "2026-07-22T20:23Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/2876e98b-b9bc-2920-4319-46e6943f8be4/logos/primary_logo_black.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "primary_logo_black"
+                        ],
+                        "lastUpdated": "2026-07-22T20:23Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/2876e98b-b9bc-2920-4319-46e6943f8be4/logos/primary_logo_white.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "primary_logo_white"
+                        ],
+                        "lastUpdated": "2026-07-22T20:23Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/2876e98b-b9bc-2920-4319-46e6943f8be4/logos/secondary_logo_on_white_color.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "secondary_logo_on_white_color"
+                        ],
+                        "lastUpdated": "2026-07-22T20:23Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/2876e98b-b9bc-2920-4319-46e6943f8be4/logos/secondary_logo_on_black_color.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "secondary_logo_on_black_color"
+                        ],
+                        "lastUpdated": "2026-07-22T20:23Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/2876e98b-b9bc-2920-4319-46e6943f8be4/logos/secondary_logo_on_primary_color.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "secondary_logo_on_primary_color"
+                        ],
+                        "lastUpdated": "2026-07-22T20:23Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/2876e98b-b9bc-2920-4319-46e6943f8be4/logos/secondary_logo_on_secondary_color.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "secondary_logo_on_secondary_color"
+                        ],
+                        "lastUpdated": "2026-07-22T20:23Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/2876e98b-b9bc-2920-4319-46e6943f8be4/logos/secondary_logo_black.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "secondary_logo_black"
+                        ],
+                        "lastUpdated": "2026-07-22T20:23Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/2876e98b-b9bc-2920-4319-46e6943f8be4/logos/secondary_logo_white.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "secondary_logo_white"
+                        ],
+                        "lastUpdated": "2026-07-22T20:23Z"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "id": "12",
+                  "homeAway": "away",
+                  "winner": false,
+                  "score": {
+                    "value": 117,
+                    "displayValue": "117"
+                  },
+                  "team": {
+                    "id": "12",
+                    "abbreviation": "LAC",
+                    "displayName": "LA Clippers",
+                    "shortDisplayName": "Clippers",
+                    "location": "LA",
+                    "logos": [
+                      {
+                        "href": "https://a.espncdn.com/i/teamlogos/nba/500/lac.png",
+                        "width": 500,
+                        "height": 500,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "default"
+                        ],
+                        "lastUpdated": "2024-06-25T21:17Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/i/teamlogos/nba/500-dark/lac.png",
+                        "width": 500,
+                        "height": 500,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "dark"
+                        ],
+                        "lastUpdated": "2024-06-25T21:13Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/lac.png",
+                        "width": 500,
+                        "height": 500,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "scoreboard"
+                        ],
+                        "lastUpdated": "2024-06-25T21:18Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/i/teamlogos/nba/500-dark/scoreboard/lac.png",
+                        "width": 500,
+                        "height": 500,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "scoreboard",
+                          "dark"
+                        ],
+                        "lastUpdated": "2024-06-25T21:14Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/083a58a6-b849-3501-e67b-059290d12295/logos/primary_logo_on_white_color.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "primary_logo_on_white_color"
+                        ],
+                        "lastUpdated": "2026-07-22T20:23Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/083a58a6-b849-3501-e67b-059290d12295/logos/primary_logo_on_black_color.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "primary_logo_on_black_color"
+                        ],
+                        "lastUpdated": "2026-07-22T20:23Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/083a58a6-b849-3501-e67b-059290d12295/logos/primary_logo_on_primary_color.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "primary_logo_on_primary_color"
+                        ],
+                        "lastUpdated": "2026-07-22T20:23Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/083a58a6-b849-3501-e67b-059290d12295/logos/primary_logo_on_secondary_color.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "primary_logo_on_secondary_color"
+                        ],
+                        "lastUpdated": "2026-07-22T20:23Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/083a58a6-b849-3501-e67b-059290d12295/logos/primary_logo_black.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "primary_logo_black"
+                        ],
+                        "lastUpdated": "2026-07-22T20:23Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/083a58a6-b849-3501-e67b-059290d12295/logos/primary_logo_white.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "primary_logo_white"
+                        ],
+                        "lastUpdated": "2026-07-22T20:23Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/083a58a6-b849-3501-e67b-059290d12295/logos/secondary_logo_on_white_color.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "secondary_logo_on_white_color"
+                        ],
+                        "lastUpdated": "2026-07-22T20:23Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/083a58a6-b849-3501-e67b-059290d12295/logos/secondary_logo_on_black_color.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "secondary_logo_on_black_color"
+                        ],
+                        "lastUpdated": "2026-07-22T20:23Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/083a58a6-b849-3501-e67b-059290d12295/logos/secondary_logo_on_primary_color.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "secondary_logo_on_primary_color"
+                        ],
+                        "lastUpdated": "2026-07-22T20:23Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/083a58a6-b849-3501-e67b-059290d12295/logos/secondary_logo_on_secondary_color.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "secondary_logo_on_secondary_color"
+                        ],
+                        "lastUpdated": "2026-07-22T20:23Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/083a58a6-b849-3501-e67b-059290d12295/logos/secondary_logo_black.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "secondary_logo_black"
+                        ],
+                        "lastUpdated": "2026-07-22T20:23Z"
+                      },
+                      {
+                        "href": "https://a.espncdn.com/guid/083a58a6-b849-3501-e67b-059290d12295/logos/secondary_logo_white.png",
+                        "width": 4096,
+                        "height": 4096,
+                        "alt": "",
+                        "rel": [
+                          "full",
+                          "secondary_logo_white"
+                        ],
+                        "lastUpdated": "2026-07-22T20:23Z"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "profile": {
+    "url": "https://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/seasons/2027/teams/13?lang=en&region=us",
+    "status": 200,
+    "payload": {
+      "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/seasons/2027/teams/13?lang=en&region=us",
+      "id": "13",
+      "leaders": {
+        "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/seasons/2027/types/2/teams/13/leaders?lang=en&region=us"
+      }
+    }
+  },
+  "core": {
+    "url": "https://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/seasons/2027/types/2/teams/13/leaders?lang=en&region=us",
+    "payload": {
+      "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/seasons/2027/types/2/teams/13/leaders?lang=en&region=us",
+      "id": "0",
+      "name": "Total",
+      "abbreviation": "Total",
+      "type": "total",
+      "categories": [
+        {
+          "name": "pointsPerGame",
+          "displayName": "Points Per Game",
+          "shortDisplayName": "PPG",
+          "abbreviation": "PTS",
+          "leaders": [
+            {
+              "displayValue": "36.0",
+              "value": 36,
+              "rel": [
+                "athlete"
+              ],
+              "statistics": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/seasons/2027/types/2/teams/13/athletes/3945274/statistics/0?lang=en&region=us"
+              },
+              "athlete": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/seasons/2027/athletes/3945274?lang=en&region=us"
+              },
+              "team": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/seasons/2027/teams/13?lang=en&region=us"
+              }
+            }
+          ]
+        },
+        {
+          "name": "assistsPerGame",
+          "displayName": "Assists Per Game",
+          "shortDisplayName": "APG",
+          "abbreviation": "AST",
+          "leaders": [
+            {
+              "displayValue": "8.2",
+              "value": 8.25,
+              "rel": [
+                "athlete"
+              ],
+              "statistics": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/seasons/2027/types/2/teams/13/athletes/3945274/statistics/0?lang=en&region=us"
+              },
+              "athlete": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/seasons/2027/athletes/3945274?lang=en&region=us"
+              },
+              "team": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/seasons/2027/teams/13?lang=en&region=us"
+              }
+            }
+          ]
+        },
+        {
+          "name": "reboundsPerGame",
+          "displayName": "Rebounds Per Game",
+          "shortDisplayName": "RPG",
+          "abbreviation": "REB",
+          "leaders": [
+            {
+              "displayValue": "8.2",
+              "value": 8.199999809265137,
+              "rel": [
+                "athlete"
+              ],
+              "statistics": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/seasons/2027/types/2/teams/13/athletes/4433136/statistics/0?lang=en&region=us"
+              },
+              "athlete": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/seasons/2027/athletes/4433136?lang=en&region=us"
+              },
+              "team": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/seasons/2027/teams/13?lang=en&region=us"
+              }
+            }
+          ]
+        },
+        {
+          "name": "defensiveReboundsPerGame",
+          "displayName": "Defensive Rebounds Per Game",
+          "shortDisplayName": "DRPG",
+          "abbreviation": "DRPG",
+          "leaders": [
+            {
+              "displayValue": "6.5",
+              "value": 6.5,
+              "rel": [
+                "athlete"
+              ],
+              "statistics": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/seasons/2027/types/2/teams/13/athletes/3945274/statistics/0?lang=en&region=us"
+              },
+              "athlete": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/seasons/2027/athletes/3945274?lang=en&region=us"
+              },
+              "team": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/seasons/2027/teams/13?lang=en&region=us"
+              }
+            }
+          ]
+        },
+        {
+          "name": "offensiveReboundsPerGame",
+          "displayName": "Offensive Rebounds Per Game",
+          "shortDisplayName": "ORPG",
+          "abbreviation": "ORPG",
+          "leaders": [
+            {
+              "displayValue": "2.2",
+              "value": 2.200000047683716,
+              "rel": [
+                "athlete"
+              ],
+              "statistics": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/seasons/2027/types/2/teams/13/athletes/4433136/statistics/0?lang=en&region=us"
+              },
+              "athlete": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/seasons/2027/athletes/4433136?lang=en&region=us"
+              },
+              "team": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/seasons/2027/teams/13?lang=en&region=us"
+              }
+            }
+          ]
+        },
+        {
+          "name": "stealsPerGame",
+          "displayName": "Steals Per Game",
+          "shortDisplayName": "SPG",
+          "abbreviation": "STL",
+          "leaders": [
+            {
+              "displayValue": "2.2",
+              "value": 2.25,
+              "rel": [
+                "athlete"
+              ],
+              "statistics": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/seasons/2027/types/2/teams/13/athletes/4592691/statistics/0?lang=en&region=us"
+              },
+              "athlete": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/seasons/2027/athletes/4592691?lang=en&region=us"
+              },
+              "team": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/seasons/2027/teams/13?lang=en&region=us"
+              }
+            }
+          ]
+        },
+        {
+          "name": "blocksPerGame",
+          "displayName": "Blocks Per Game",
+          "shortDisplayName": "BPG",
+          "abbreviation": "BLK",
+          "leaders": [
+            {
+              "displayValue": "2.4",
+              "value": 2.4000000953674316,
+              "rel": [
+                "athlete"
+              ],
+              "statistics": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/seasons/2027/types/2/teams/13/athletes/4433136/statistics/0?lang=en&region=us"
+              },
+              "athlete": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/seasons/2027/athletes/4433136?lang=en&region=us"
+              },
+              "team": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/seasons/2027/teams/13?lang=en&region=us"
+              }
+            }
+          ]
+        },
+        {
+          "name": "fieldGoalPercentage",
+          "displayName": "Field Goal Percentage",
+          "shortDisplayName": "FG%",
+          "abbreviation": "FG%",
+          "leaders": [
+            {
+              "displayValue": "75.0",
+              "value": 75,
+              "rel": [
+                "athlete"
+              ],
+              "statistics": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/seasons/2027/types/2/teams/13/athletes/4433136/statistics/0?lang=en&region=us"
+              },
+              "athlete": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/seasons/2027/athletes/4433136?lang=en&region=us"
+              },
+              "team": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/seasons/2027/teams/13?lang=en&region=us"
+              }
+            }
+          ]
+        },
+        {
+          "name": "PER",
+          "displayName": "Player Efficiency Rating",
+          "shortDisplayName": "PER",
+          "abbreviation": "PER",
+          "leaders": [
+            {
+              "displayValue": "30.3",
+              "value": 30.34600067138672,
+              "rel": [
+                "athlete"
+              ],
+              "statistics": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/seasons/2027/types/2/teams/13/athletes/3945274/statistics/0?lang=en&region=us"
+              },
+              "athlete": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/seasons/2027/athletes/3945274?lang=en&region=us"
+              },
+              "team": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/seasons/2027/teams/13?lang=en&region=us"
+              }
+            }
+          ]
+        },
+        {
+          "name": "3PointMadePerGame",
+          "displayName": "Average 3-Point Field Goals Made",
+          "shortDisplayName": "3PM",
+          "abbreviation": "3PM",
+          "leaders": [
+            {
+              "displayValue": "5.2",
+              "value": 5.25,
+              "rel": [
+                "athlete"
+              ],
+              "statistics": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/seasons/2027/types/2/teams/13/athletes/3945274/statistics/0?lang=en&region=us"
+              },
+              "athlete": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/seasons/2027/athletes/3945274?lang=en&region=us"
+              },
+              "team": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/seasons/2027/teams/13?lang=en&region=us"
+              }
+            }
+          ]
+        },
+        {
+          "name": "doubleDouble",
+          "displayName": "Double Double",
+          "shortDisplayName": "DBLDBL",
+          "abbreviation": "DBLDBL",
+          "leaders": [
+            {
+              "displayValue": "1.0",
+              "value": 1,
+              "rel": [
+                "athlete"
+              ],
+              "statistics": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/seasons/2027/types/2/teams/13/athletes/3945274/statistics/0?lang=en&region=us"
+              },
+              "athlete": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/seasons/2027/athletes/3945274?lang=en&region=us"
+              },
+              "team": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/seasons/2027/teams/13?lang=en&region=us"
+              }
+            }
+          ]
+        },
+        {
+          "name": "minutesPerGame",
+          "displayName": "Minutes Per Game",
+          "shortDisplayName": "MPG",
+          "abbreviation": "MPG",
+          "leaders": [
+            {
+              "displayValue": "35.5",
+              "value": 35.5,
+              "rel": [
+                "athlete"
+              ],
+              "statistics": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/seasons/2027/types/2/teams/13/athletes/3945274/statistics/0?lang=en&region=us"
+              },
+              "athlete": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/seasons/2027/athletes/3945274?lang=en&region=us"
+              },
+              "team": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/seasons/2027/teams/13?lang=en&region=us"
+              }
+            }
+          ]
+        },
+        {
+          "name": "foulsPerGame",
+          "displayName": "Personal fouls per game",
+          "shortDisplayName": "PFPG",
+          "abbreviation": "PFPG",
+          "leaders": [
+            {
+              "displayValue": "3.4",
+              "value": 3.4000000953674316,
+              "rel": [
+                "athlete"
+              ],
+              "statistics": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/seasons/2027/types/2/teams/13/athletes/4066457/statistics/0?lang=en&region=us"
+              },
+              "athlete": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/seasons/2027/athletes/4066457?lang=en&region=us"
+              },
+              "team": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/seasons/2027/teams/13?lang=en&region=us"
+              }
+            }
+          ]
+        },
+        {
+          "name": "rating",
+          "displayName": "Rating",
+          "shortDisplayName": "RAT",
+          "abbreviation": "RAT",
+          "leaders": [
+            {
+              "displayValue": "36.0 PPG, 6.8 RPG, 8.2 APG, 1.2 SPG, 0.5 BPG",
+              "value": 57.63750076293945,
+              "rel": [
+                "athlete"
+              ],
+              "statistics": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/seasons/2027/types/2/teams/13/athletes/3945274/statistics/0?lang=en&region=us"
+              },
+              "athlete": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/seasons/2027/athletes/3945274?lang=en&region=us"
+              },
+              "team": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/seasons/2027/teams/13?lang=en&region=us"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "athletes": {
+    "https://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/seasons/2027/athletes/3945274?lang=en&region=us": {
+      "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/seasons/2027/athletes/3945274?lang=en&region=us",
+      "id": "3945274",
+      "displayName": "Luka Doncic",
+      "fullName": "Luka Doncic",
+      "shortName": "L. Doncic",
+      "headshot": {
+        "href": "https://a.espncdn.com/i/headshots/nba/players/full/3945274.png",
+        "alt": "Luka Doncic"
+      },
+      "position": {
+        "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/positions/3?lang=en&region=us",
+        "id": "3",
+        "name": "Guard",
+        "displayName": "Guard",
+        "abbreviation": "G",
+        "leaf": false
+      }
+    },
+    "https://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/seasons/2027/athletes/4433136?lang=en&region=us": {
+      "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/seasons/2027/athletes/4433136?lang=en&region=us",
+      "id": "4433136",
+      "displayName": "Walker Kessler",
+      "fullName": "Walker Kessler",
+      "shortName": "W. Kessler",
+      "headshot": {
+        "href": "https://a.espncdn.com/i/headshots/nba/players/full/4433136.png",
+        "alt": "Walker Kessler"
+      },
+      "position": {
+        "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/positions/9?lang=en&region=us",
+        "id": "9",
+        "name": "Center",
+        "displayName": "Center",
+        "abbreviation": "C",
+        "leaf": false
+      }
+    }
+  },
+  "fallback": {
+    "url": "https://site.api.espn.com/apis/site/v3/sports/basketball/nba/leaders?team=13&season=2027&limit=1",
+    "payload": {
+      "currentSeason": {
+        "year": 2027,
+        "displayName": "2026-27",
+        "startDate": "2026-09-30T07:00:00.000+00:00",
+        "endDate": "2027-06-26T06:59:00.000+00:00",
+        "type": {
+          "id": "2",
+          "type": 2,
+          "name": "Regular Season",
+          "startDate": "2026-10-20T07:00:00.000+00:00",
+          "endDate": "2027-04-12T06:59:00.000+00:00",
+          "week": {
+            "number": 2,
+            "startDate": "2026-10-27T07:00:00.000+00:00",
+            "endDate": "2026-11-03T07:59:00.000+00:00",
+            "text": "Week 2"
+          }
+        }
+      },
+      "requestedSeason": {
+        "year": 2027,
+        "displayName": "2026-27",
+        "startDate": "2026-09-30T07:00:00.000+00:00",
+        "endDate": "2027-06-26T06:59:00.000+00:00",
+        "type": {
+          "id": "2",
+          "type": 2,
+          "name": "Regular Season",
+          "startDate": "2026-10-20T07:00:00.000+00:00",
+          "endDate": "2027-04-12T06:59:00.000+00:00",
+          "week": {
+            "number": 2,
+            "startDate": "2026-10-27T07:00:00.000+00:00",
+            "endDate": "2026-11-03T07:59:00.000+00:00",
+            "text": "Week 2"
+          }
+        },
+        "qualifiedPostSeason": false
+      },
+      "leaders": {
+        "id": "0",
+        "name": "Total",
+        "abbreviation": "Total",
+        "categories": [
+          {
+            "name": "pointsPerGame",
+            "displayName": "Points Per Game",
+            "abbreviation": "PTS",
+            "leaders": [
+              {
+                "displayValue": "36.0",
+                "value": 36,
+                "rel": [
+                  "athlete"
+                ],
+                "statistics": {},
+                "athlete": {
+                  "id": "3945274",
+                  "displayName": "Luka Doncic",
+                  "fullName": "Luka Doncic",
+                  "shortName": "L. Doncic",
+                  "headshot": {
+                    "href": "https://a.espncdn.com/i/headshots/nba/players/full/3945274.png",
+                    "alt": "Luka Doncic"
+                  },
+                  "position": {
+                    "id": "3",
+                    "name": "Guard",
+                    "displayName": "Guard",
+                    "abbreviation": "G",
+                    "leaf": false,
+                    "slug": "guard"
+                  }
+                },
+                "team": {
+                  "id": "13"
+                }
+              }
+            ]
+          },
+          {
+            "name": "assistsPerGame",
+            "displayName": "Assists Per Game",
+            "abbreviation": "AST",
+            "leaders": [
+              {
+                "displayValue": "8.2",
+                "value": 8.25,
+                "rel": [
+                  "athlete"
+                ],
+                "statistics": {},
+                "athlete": {
+                  "id": "3945274",
+                  "displayName": "Luka Doncic",
+                  "fullName": "Luka Doncic",
+                  "shortName": "L. Doncic",
+                  "headshot": {
+                    "href": "https://a.espncdn.com/i/headshots/nba/players/full/3945274.png",
+                    "alt": "Luka Doncic"
+                  },
+                  "position": {
+                    "id": "3",
+                    "name": "Guard",
+                    "displayName": "Guard",
+                    "abbreviation": "G",
+                    "leaf": false,
+                    "slug": "guard"
+                  }
+                },
+                "team": {
+                  "id": "13"
+                }
+              }
+            ]
+          },
+          {
+            "name": "reboundsPerGame",
+            "displayName": "Rebounds Per Game",
+            "abbreviation": "REB",
+            "leaders": [
+              {
+                "displayValue": "8.2",
+                "value": 8.199999809265137,
+                "rel": [
+                  "athlete"
+                ],
+                "statistics": {},
+                "athlete": {
+                  "id": "4433136",
+                  "displayName": "Walker Kessler",
+                  "fullName": "Walker Kessler",
+                  "shortName": "W. Kessler",
+                  "headshot": {
+                    "href": "https://a.espncdn.com/i/headshots/nba/players/full/4433136.png",
+                    "alt": "Walker Kessler"
+                  },
+                  "position": {
+                    "id": "9",
+                    "name": "Center",
+                    "displayName": "Center",
+                    "abbreviation": "C",
+                    "leaf": false,
+                    "slug": "center"
+                  }
+                },
+                "team": {
+                  "id": "13"
+                }
+              }
+            ]
+          },
+          {
+            "name": "defensiveReboundsPerGame",
+            "displayName": "Defensive Rebounds Per Game",
+            "abbreviation": "DRPG",
+            "leaders": [
+              {
+                "displayValue": "6.5",
+                "value": 6.5,
+                "rel": [
+                  "athlete"
+                ],
+                "statistics": {},
+                "athlete": {
+                  "id": "3945274",
+                  "displayName": "Luka Doncic",
+                  "fullName": "Luka Doncic",
+                  "shortName": "L. Doncic",
+                  "headshot": {
+                    "href": "https://a.espncdn.com/i/headshots/nba/players/full/3945274.png",
+                    "alt": "Luka Doncic"
+                  },
+                  "position": {
+                    "id": "3",
+                    "name": "Guard",
+                    "displayName": "Guard",
+                    "abbreviation": "G",
+                    "leaf": false,
+                    "slug": "guard"
+                  }
+                },
+                "team": {
+                  "id": "13"
+                }
+              }
+            ]
+          },
+          {
+            "name": "offensiveReboundsPerGame",
+            "displayName": "Offensive Rebounds Per Game",
+            "abbreviation": "ORPG",
+            "leaders": [
+              {
+                "displayValue": "2.2",
+                "value": 2.200000047683716,
+                "rel": [
+                  "athlete"
+                ],
+                "statistics": {},
+                "athlete": {
+                  "id": "4433136",
+                  "displayName": "Walker Kessler",
+                  "fullName": "Walker Kessler",
+                  "shortName": "W. Kessler",
+                  "headshot": {
+                    "href": "https://a.espncdn.com/i/headshots/nba/players/full/4433136.png",
+                    "alt": "Walker Kessler"
+                  },
+                  "position": {
+                    "id": "9",
+                    "name": "Center",
+                    "displayName": "Center",
+                    "abbreviation": "C",
+                    "leaf": false,
+                    "slug": "center"
+                  }
+                },
+                "team": {
+                  "id": "13"
+                }
+              }
+            ]
+          },
+          {
+            "name": "stealsPerGame",
+            "displayName": "Steals Per Game",
+            "abbreviation": "STL",
+            "leaders": [
+              {
+                "displayValue": "2.2",
+                "value": 2.25,
+                "rel": [
+                  "athlete"
+                ],
+                "statistics": {},
+                "athlete": {
+                  "id": "4592691",
+                  "displayName": "Jake LaRavia",
+                  "fullName": "Jake LaRavia",
+                  "shortName": "J. LaRavia",
+                  "headshot": {
+                    "href": "https://a.espncdn.com/i/headshots/nba/players/full/4592691.png",
+                    "alt": "Jake LaRavia"
+                  },
+                  "position": {
+                    "id": "7",
+                    "name": "Forward",
+                    "displayName": "Forward",
+                    "abbreviation": "F",
+                    "leaf": false,
+                    "slug": "forward"
+                  }
+                },
+                "team": {
+                  "id": "13"
+                }
+              }
+            ]
+          },
+          {
+            "name": "blocksPerGame",
+            "displayName": "Blocks Per Game",
+            "abbreviation": "BLK",
+            "leaders": [
+              {
+                "displayValue": "2.4",
+                "value": 2.4000000953674316,
+                "rel": [
+                  "athlete"
+                ],
+                "statistics": {},
+                "athlete": {
+                  "id": "4433136",
+                  "displayName": "Walker Kessler",
+                  "fullName": "Walker Kessler",
+                  "shortName": "W. Kessler",
+                  "headshot": {
+                    "href": "https://a.espncdn.com/i/headshots/nba/players/full/4433136.png",
+                    "alt": "Walker Kessler"
+                  },
+                  "position": {
+                    "id": "9",
+                    "name": "Center",
+                    "displayName": "Center",
+                    "abbreviation": "C",
+                    "leaf": false,
+                    "slug": "center"
+                  }
+                },
+                "team": {
+                  "id": "13"
+                }
+              }
+            ]
+          },
+          {
+            "name": "fieldGoalPercentage",
+            "displayName": "Field Goal Percentage",
+            "abbreviation": "FG%",
+            "leaders": [
+              {
+                "displayValue": "75.0",
+                "value": 75,
+                "rel": [
+                  "athlete"
+                ],
+                "statistics": {},
+                "athlete": {
+                  "id": "4433136",
+                  "displayName": "Walker Kessler",
+                  "fullName": "Walker Kessler",
+                  "shortName": "W. Kessler",
+                  "headshot": {
+                    "href": "https://a.espncdn.com/i/headshots/nba/players/full/4433136.png",
+                    "alt": "Walker Kessler"
+                  },
+                  "position": {
+                    "id": "9",
+                    "name": "Center",
+                    "displayName": "Center",
+                    "abbreviation": "C",
+                    "leaf": false,
+                    "slug": "center"
+                  }
+                },
+                "team": {
+                  "id": "13"
+                }
+              }
+            ]
+          },
+          {
+            "name": "PER",
+            "displayName": "Player Efficiency Rating",
+            "abbreviation": "PER",
+            "leaders": [
+              {
+                "displayValue": "30.3",
+                "value": 30.34600067138672,
+                "rel": [
+                  "athlete"
+                ],
+                "statistics": {},
+                "athlete": {
+                  "id": "3945274",
+                  "displayName": "Luka Doncic",
+                  "fullName": "Luka Doncic",
+                  "shortName": "L. Doncic",
+                  "headshot": {
+                    "href": "https://a.espncdn.com/i/headshots/nba/players/full/3945274.png",
+                    "alt": "Luka Doncic"
+                  },
+                  "position": {
+                    "id": "3",
+                    "name": "Guard",
+                    "displayName": "Guard",
+                    "abbreviation": "G",
+                    "leaf": false,
+                    "slug": "guard"
+                  }
+                },
+                "team": {
+                  "id": "13"
+                }
+              }
+            ]
+          },
+          {
+            "name": "3PointMadePerGame",
+            "displayName": "Average 3-Point Field Goals Made",
+            "abbreviation": "3PM",
+            "leaders": [
+              {
+                "displayValue": "5.2",
+                "value": 5.25,
+                "rel": [
+                  "athlete"
+                ],
+                "statistics": {},
+                "athlete": {
+                  "id": "3945274",
+                  "displayName": "Luka Doncic",
+                  "fullName": "Luka Doncic",
+                  "shortName": "L. Doncic",
+                  "headshot": {
+                    "href": "https://a.espncdn.com/i/headshots/nba/players/full/3945274.png",
+                    "alt": "Luka Doncic"
+                  },
+                  "position": {
+                    "id": "3",
+                    "name": "Guard",
+                    "displayName": "Guard",
+                    "abbreviation": "G",
+                    "leaf": false,
+                    "slug": "guard"
+                  }
+                },
+                "team": {
+                  "id": "13"
+                }
+              }
+            ]
+          },
+          {
+            "name": "doubleDouble",
+            "displayName": "Double Double",
+            "abbreviation": "DBLDBL",
+            "leaders": [
+              {
+                "displayValue": "1.0",
+                "value": 1,
+                "rel": [
+                  "athlete"
+                ],
+                "statistics": {},
+                "athlete": {
+                  "id": "3945274",
+                  "displayName": "Luka Doncic",
+                  "fullName": "Luka Doncic",
+                  "shortName": "L. Doncic",
+                  "headshot": {
+                    "href": "https://a.espncdn.com/i/headshots/nba/players/full/3945274.png",
+                    "alt": "Luka Doncic"
+                  },
+                  "position": {
+                    "id": "3",
+                    "name": "Guard",
+                    "displayName": "Guard",
+                    "abbreviation": "G",
+                    "leaf": false,
+                    "slug": "guard"
+                  }
+                },
+                "team": {
+                  "id": "13"
+                }
+              }
+            ]
+          },
+          {
+            "name": "minutesPerGame",
+            "displayName": "Minutes Per Game",
+            "abbreviation": "MPG",
+            "leaders": [
+              {
+                "displayValue": "35.5",
+                "value": 35.5,
+                "rel": [
+                  "athlete"
+                ],
+                "statistics": {},
+                "athlete": {
+                  "id": "3945274",
+                  "displayName": "Luka Doncic",
+                  "fullName": "Luka Doncic",
+                  "shortName": "L. Doncic",
+                  "headshot": {
+                    "href": "https://a.espncdn.com/i/headshots/nba/players/full/3945274.png",
+                    "alt": "Luka Doncic"
+                  },
+                  "position": {
+                    "id": "3",
+                    "name": "Guard",
+                    "displayName": "Guard",
+                    "abbreviation": "G",
+                    "leaf": false,
+                    "slug": "guard"
+                  }
+                },
+                "team": {
+                  "id": "13"
+                }
+              }
+            ]
+          },
+          {
+            "name": "foulsPerGame",
+            "displayName": "Personal fouls per game",
+            "abbreviation": "PFPG",
+            "leaders": [
+              {
+                "displayValue": "3.4",
+                "value": 3.4000000953674316,
+                "rel": [
+                  "athlete"
+                ],
+                "statistics": {},
+                "athlete": {
+                  "id": "4066457",
+                  "displayName": "Austin Reaves",
+                  "fullName": "Austin Reaves",
+                  "shortName": "A. Reaves",
+                  "headshot": {
+                    "href": "https://a.espncdn.com/i/headshots/nba/players/full/4066457.png",
+                    "alt": "Austin Reaves"
+                  },
+                  "position": {
+                    "id": "3",
+                    "name": "Guard",
+                    "displayName": "Guard",
+                    "abbreviation": "G",
+                    "leaf": false,
+                    "slug": "guard"
+                  }
+                },
+                "team": {
+                  "id": "13"
+                }
+              }
+            ]
+          },
+          {
+            "name": "rating",
+            "displayName": "Rating",
+            "abbreviation": "RAT",
+            "leaders": [
+              {
+                "displayValue": "36.0 PPG, 6.8 RPG, 8.2 APG, 1.2 SPG, 0.5 BPG",
+                "value": 57.63750076293945,
+                "rel": [
+                  "athlete"
+                ],
+                "statistics": {},
+                "athlete": {
+                  "id": "3945274",
+                  "displayName": "Luka Doncic",
+                  "fullName": "Luka Doncic",
+                  "shortName": "L. Doncic",
+                  "headshot": {
+                    "href": "https://a.espncdn.com/i/headshots/nba/players/full/3945274.png",
+                    "alt": "Luka Doncic"
+                  },
+                  "position": {
+                    "id": "3",
+                    "name": "Guard",
+                    "displayName": "Guard",
+                    "abbreviation": "G",
+                    "leaf": false,
+                    "slug": "guard"
+                  }
+                },
+                "team": {
+                  "id": "13"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

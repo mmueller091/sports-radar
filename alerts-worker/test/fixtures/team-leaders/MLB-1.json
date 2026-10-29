@@ -1,0 +1,2038 @@
+{
+  "sport": "MLB",
+  "id": "1",
+  "season": 2026,
+  "team": {
+    "url": "https://site.api.espn.com/apis/site/v2/sports/baseball/mlb/teams/1",
+    "payload": {
+      "team": {
+        "id": "1",
+        "abbreviation": "BAL",
+        "displayName": "Baltimore Orioles",
+        "name": "Orioles",
+        "shortDisplayName": "Orioles",
+        "location": "Baltimore",
+        "logos": [
+          {
+            "alt": "",
+            "height": 500,
+            "href": "https://a.espncdn.com/i/teamlogos/mlb/500/bal.png",
+            "rel": [
+              "full",
+              "default"
+            ],
+            "width": 500
+          },
+          {
+            "alt": "",
+            "height": 500,
+            "href": "https://a.espncdn.com/i/teamlogos/mlb/500-dark/bal.png",
+            "rel": [
+              "full",
+              "dark"
+            ],
+            "width": 500
+          },
+          {
+            "alt": "",
+            "height": 500,
+            "href": "https://a.espncdn.com/i/teamlogos/mlb/500/scoreboard/bal.png",
+            "rel": [
+              "full",
+              "scoreboard"
+            ],
+            "width": 500
+          },
+          {
+            "alt": "",
+            "height": 500,
+            "href": "https://a.espncdn.com/i/teamlogos/mlb/500-dark/scoreboard/bal.png",
+            "rel": [
+              "full",
+              "scoreboard",
+              "dark"
+            ],
+            "width": 500
+          },
+          {
+            "alt": "",
+            "height": 4096,
+            "href": "https://a.espncdn.com/guid/9ca473b8-e73e-a33d-8ea0-b4d160be4be7/logos/primary_logo_on_white_color.png",
+            "rel": [
+              "full",
+              "primary_logo_on_white_color"
+            ],
+            "width": 4096
+          },
+          {
+            "alt": "",
+            "height": 4096,
+            "href": "https://a.espncdn.com/guid/9ca473b8-e73e-a33d-8ea0-b4d160be4be7/logos/primary_logo_on_black_color.png",
+            "rel": [
+              "full",
+              "primary_logo_on_black_color"
+            ],
+            "width": 4096
+          },
+          {
+            "alt": "",
+            "height": 4096,
+            "href": "https://a.espncdn.com/guid/9ca473b8-e73e-a33d-8ea0-b4d160be4be7/logos/primary_logo_on_primary_color.png",
+            "rel": [
+              "full",
+              "primary_logo_on_primary_color"
+            ],
+            "width": 4096
+          },
+          {
+            "alt": "",
+            "height": 4096,
+            "href": "https://a.espncdn.com/guid/9ca473b8-e73e-a33d-8ea0-b4d160be4be7/logos/primary_logo_on_secondary_color.png",
+            "rel": [
+              "full",
+              "primary_logo_on_secondary_color"
+            ],
+            "width": 4096
+          },
+          {
+            "alt": "",
+            "height": 4096,
+            "href": "https://a.espncdn.com/guid/9ca473b8-e73e-a33d-8ea0-b4d160be4be7/logos/primary_logo_black.png",
+            "rel": [
+              "full",
+              "primary_logo_black"
+            ],
+            "width": 4096
+          },
+          {
+            "alt": "",
+            "height": 4096,
+            "href": "https://a.espncdn.com/guid/9ca473b8-e73e-a33d-8ea0-b4d160be4be7/logos/primary_logo_white.png",
+            "rel": [
+              "full",
+              "primary_logo_white"
+            ],
+            "width": 4096
+          },
+          {
+            "alt": "",
+            "height": 4096,
+            "href": "https://a.espncdn.com/guid/9ca473b8-e73e-a33d-8ea0-b4d160be4be7/logos/secondary_logo_on_white_color.png",
+            "rel": [
+              "full",
+              "secondary_logo_on_white_color"
+            ],
+            "width": 4096
+          },
+          {
+            "alt": "",
+            "height": 4096,
+            "href": "https://a.espncdn.com/guid/9ca473b8-e73e-a33d-8ea0-b4d160be4be7/logos/secondary_logo_on_black_color.png",
+            "rel": [
+              "full",
+              "secondary_logo_on_black_color"
+            ],
+            "width": 4096
+          },
+          {
+            "alt": "",
+            "height": 4096,
+            "href": "https://a.espncdn.com/guid/9ca473b8-e73e-a33d-8ea0-b4d160be4be7/logos/secondary_logo_on_primary_color.png",
+            "rel": [
+              "full",
+              "secondary_logo_on_primary_color"
+            ],
+            "width": 4096
+          },
+          {
+            "alt": "",
+            "height": 4096,
+            "href": "https://a.espncdn.com/guid/9ca473b8-e73e-a33d-8ea0-b4d160be4be7/logos/secondary_logo_on_secondary_color.png",
+            "rel": [
+              "full",
+              "secondary_logo_on_secondary_color"
+            ],
+            "width": 4096
+          },
+          {
+            "alt": "",
+            "height": 4096,
+            "href": "https://a.espncdn.com/guid/9ca473b8-e73e-a33d-8ea0-b4d160be4be7/logos/secondary_logo_black.png",
+            "rel": [
+              "full",
+              "secondary_logo_black"
+            ],
+            "width": 4096
+          },
+          {
+            "alt": "",
+            "height": 4096,
+            "href": "https://a.espncdn.com/guid/9ca473b8-e73e-a33d-8ea0-b4d160be4be7/logos/secondary_logo_white.png",
+            "rel": [
+              "full",
+              "secondary_logo_white"
+            ],
+            "width": 4096
+          }
+        ],
+        "color": "df4601",
+        "alternateColor": "000000",
+        "standingSummary": "2nd in AL East",
+        "record": {
+          "items": [
+            {
+              "description": "Overall Record",
+              "stats": [
+                {
+                  "name": "gamesPlayed",
+                  "value": 161
+                },
+                {
+                  "name": "wins",
+                  "value": 79
+                },
+                {
+                  "name": "losses",
+                  "value": 82
+                },
+                {
+                  "name": "ties",
+                  "value": 0
+                },
+                {
+                  "name": "OTWins",
+                  "value": 8
+                },
+                {
+                  "name": "OTLosses",
+                  "value": 8
+                },
+                {
+                  "name": "homeWins",
+                  "value": 39
+                },
+                {
+                  "name": "homeLosses",
+                  "value": 42
+                },
+                {
+                  "name": "homeTies",
+                  "value": 0
+                },
+                {
+                  "name": "roadWins",
+                  "value": 40
+                },
+                {
+                  "name": "roadLosses",
+                  "value": 40
+                },
+                {
+                  "name": "roadTies",
+                  "value": 0
+                },
+                {
+                  "name": "divisionWins",
+                  "value": 22
+                },
+                {
+                  "name": "divisionLosses",
+                  "value": 29
+                },
+                {
+                  "name": "divisionTies",
+                  "value": 0
+                },
+                {
+                  "name": "pointsFor",
+                  "value": 718
+                },
+                {
+                  "name": "pointsAgainst",
+                  "value": 739
+                },
+                {
+                  "name": "pointDifferential",
+                  "value": -21
+                },
+                {
+                  "name": "streak",
+                  "value": -1
+                },
+                {
+                  "name": "points",
+                  "value": -1.5
+                },
+                {
+                  "name": "gamesBehind",
+                  "value": 0
+                },
+                {
+                  "name": "playoffSeed",
+                  "value": 8
+                },
+                {
+                  "name": "clincher",
+                  "value": 4
+                },
+                {
+                  "name": "winPercent",
+                  "value": 0.49068323
+                },
+                {
+                  "name": "divisionWinPercent",
+                  "value": 0.43137255
+                },
+                {
+                  "name": "leagueWinPercent",
+                  "value": 0.5132743
+                },
+                {
+                  "name": "avgPointsFor",
+                  "value": 4.459627
+                },
+                {
+                  "name": "avgPointsAgainst",
+                  "value": 4.590062
+                },
+                {
+                  "name": "magicNumberDivision",
+                  "value": 20
+                },
+                {
+                  "name": "magicNumberWildcard",
+                  "value": 9
+                },
+                {
+                  "name": "playoffPercent",
+                  "value": 0
+                },
+                {
+                  "name": "divisionPercent",
+                  "value": 0
+                },
+                {
+                  "name": "wildCardPercent",
+                  "value": 0
+                },
+                {
+                  "name": "divisionRank",
+                  "value": 4
+                },
+                {
+                  "name": "divisionGamesBehind",
+                  "value": 18.5
+                },
+                {
+                  "name": "divisionTied",
+                  "value": 0
+                }
+              ],
+              "summary": "79-82",
+              "type": "total"
+            },
+            {
+              "description": "Home Record",
+              "stats": [
+                {
+                  "name": "gamesPlayed",
+                  "value": 81
+                },
+                {
+                  "name": "wins",
+                  "value": 39
+                },
+                {
+                  "name": "losses",
+                  "value": 42
+                },
+                {
+                  "name": "ties",
+                  "value": 0
+                },
+                {
+                  "name": "OTWins",
+                  "value": 2
+                },
+                {
+                  "name": "OTLosses",
+                  "value": 6
+                },
+                {
+                  "name": "homeWins",
+                  "value": 0
+                },
+                {
+                  "name": "homeLosses",
+                  "value": 0
+                },
+                {
+                  "name": "homeTies",
+                  "value": 0
+                },
+                {
+                  "name": "roadWins",
+                  "value": 0
+                },
+                {
+                  "name": "roadLosses",
+                  "value": 0
+                },
+                {
+                  "name": "roadTies",
+                  "value": 0
+                },
+                {
+                  "name": "divisionWins",
+                  "value": 0
+                },
+                {
+                  "name": "divisionLosses",
+                  "value": 0
+                },
+                {
+                  "name": "divisionTies",
+                  "value": 0
+                },
+                {
+                  "name": "pointsFor",
+                  "value": 340
+                },
+                {
+                  "name": "pointsAgainst",
+                  "value": 351
+                },
+                {
+                  "name": "pointDifferential",
+                  "value": -11
+                },
+                {
+                  "name": "streak",
+                  "value": 0
+                },
+                {
+                  "name": "points",
+                  "value": -1.5
+                },
+                {
+                  "name": "gamesBehind",
+                  "value": 0
+                },
+                {
+                  "name": "playoffSeed",
+                  "value": 0
+                },
+                {
+                  "name": "clincher",
+                  "value": 4
+                },
+                {
+                  "name": "winPercent",
+                  "value": 0.4814815
+                },
+                {
+                  "name": "divisionWinPercent",
+                  "value": 0
+                },
+                {
+                  "name": "leagueWinPercent",
+                  "value": 0
+                },
+                {
+                  "name": "avgPointsFor",
+                  "value": 4.1975307
+                },
+                {
+                  "name": "avgPointsAgainst",
+                  "value": 4.3333335
+                },
+                {
+                  "name": "magicNumberDivision",
+                  "value": 0
+                },
+                {
+                  "name": "magicNumberWildcard",
+                  "value": 0
+                },
+                {
+                  "name": "playoffPercent",
+                  "value": 0
+                },
+                {
+                  "name": "divisionPercent",
+                  "value": 0
+                },
+                {
+                  "name": "wildCardPercent",
+                  "value": 0
+                },
+                {
+                  "name": "divisionRank",
+                  "value": 0
+                },
+                {
+                  "name": "divisionGamesBehind",
+                  "value": 0
+                },
+                {
+                  "name": "divisionTied",
+                  "value": 0
+                }
+              ],
+              "summary": "39-42",
+              "type": "home"
+            },
+            {
+              "description": "Away Record",
+              "stats": [
+                {
+                  "name": "gamesPlayed",
+                  "value": 80
+                },
+                {
+                  "name": "wins",
+                  "value": 40
+                },
+                {
+                  "name": "losses",
+                  "value": 40
+                },
+                {
+                  "name": "ties",
+                  "value": 0
+                },
+                {
+                  "name": "OTWins",
+                  "value": 6
+                },
+                {
+                  "name": "OTLosses",
+                  "value": 2
+                },
+                {
+                  "name": "homeWins",
+                  "value": 0
+                },
+                {
+                  "name": "homeLosses",
+                  "value": 0
+                },
+                {
+                  "name": "homeTies",
+                  "value": 0
+                },
+                {
+                  "name": "roadWins",
+                  "value": 0
+                },
+                {
+                  "name": "roadLosses",
+                  "value": 0
+                },
+                {
+                  "name": "roadTies",
+                  "value": 0
+                },
+                {
+                  "name": "divisionWins",
+                  "value": 0
+                },
+                {
+                  "name": "divisionLosses",
+                  "value": 0
+                },
+                {
+                  "name": "divisionTies",
+                  "value": 0
+                },
+                {
+                  "name": "pointsFor",
+                  "value": 378
+                },
+                {
+                  "name": "pointsAgainst",
+                  "value": 388
+                },
+                {
+                  "name": "pointDifferential",
+                  "value": -10
+                },
+                {
+                  "name": "streak",
+                  "value": 0
+                },
+                {
+                  "name": "points",
+                  "value": 0
+                },
+                {
+                  "name": "gamesBehind",
+                  "value": 0
+                },
+                {
+                  "name": "playoffSeed",
+                  "value": 0
+                },
+                {
+                  "name": "clincher",
+                  "value": 4
+                },
+                {
+                  "name": "winPercent",
+                  "value": 0.5
+                },
+                {
+                  "name": "divisionWinPercent",
+                  "value": 0
+                },
+                {
+                  "name": "leagueWinPercent",
+                  "value": 0
+                },
+                {
+                  "name": "avgPointsFor",
+                  "value": 4.725
+                },
+                {
+                  "name": "avgPointsAgainst",
+                  "value": 4.85
+                },
+                {
+                  "name": "magicNumberDivision",
+                  "value": 0
+                },
+                {
+                  "name": "magicNumberWildcard",
+                  "value": 0
+                },
+                {
+                  "name": "playoffPercent",
+                  "value": 0
+                },
+                {
+                  "name": "divisionPercent",
+                  "value": 0
+                },
+                {
+                  "name": "wildCardPercent",
+                  "value": 0
+                },
+                {
+                  "name": "divisionRank",
+                  "value": 0
+                },
+                {
+                  "name": "divisionGamesBehind",
+                  "value": 0
+                },
+                {
+                  "name": "divisionTied",
+                  "value": 0
+                }
+              ],
+              "summary": "40-40",
+              "type": "road"
+            }
+          ]
+        }
+      }
+    }
+  },
+  "schedule": {
+    "url": "https://site.api.espn.com/apis/site/v2/sports/baseball/mlb/teams/1/schedule",
+    "payload": {
+      "season": {
+        "year": 2026,
+        "type": 3,
+        "name": "Postseason",
+        "displayName": "2026",
+        "half": 1
+      },
+      "team": {
+        "id": "1",
+        "abbreviation": "BAL",
+        "displayName": "Baltimore Orioles",
+        "name": "Orioles",
+        "location": "Baltimore",
+        "color": "df4601",
+        "standingSummary": "4th in AL East"
+      },
+      "events": []
+    }
+  },
+  "profile": {
+    "url": "https://sports.core.api.espn.com/v2/sports/baseball/leagues/mlb/seasons/2026/teams/1?lang=en&region=us",
+    "status": 200,
+    "payload": {
+      "$ref": "http://sports.core.api.espn.com/v2/sports/baseball/leagues/mlb/seasons/2026/teams/1?lang=en&region=us",
+      "id": "1",
+      "leaders": {
+        "$ref": "http://sports.core.api.espn.com/v2/sports/baseball/leagues/mlb/seasons/2026/types/2/teams/1/leaders?lang=en&region=us"
+      }
+    }
+  },
+  "core": {
+    "url": "https://sports.core.api.espn.com/v2/sports/baseball/leagues/mlb/seasons/2026/types/2/teams/1/leaders?lang=en&region=us",
+    "payload": {
+      "$ref": "http://sports.core.api.espn.com/v2/sports/baseball/leagues/mlb/seasons/2026/types/2/teams/1/leaders?lang=en&region=us",
+      "id": "0",
+      "name": "Total",
+      "abbreviation": "Total",
+      "type": "total",
+      "categories": [
+        {
+          "name": "avg",
+          "displayName": "Batting Average",
+          "shortDisplayName": "BA",
+          "abbreviation": "AVG",
+          "leaders": [
+            {
+              "displayValue": ".267",
+              "value": 0.2674418091773987,
+              "rel": [
+                "athlete"
+              ],
+              "statistics": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/baseball/leagues/mlb/seasons/2026/types/2/teams/1/athletes/37498/statistics/0?lang=en&region=us"
+              },
+              "athlete": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/baseball/leagues/mlb/seasons/2026/athletes/37498?lang=en&region=us"
+              },
+              "team": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/baseball/leagues/mlb/seasons/2026/teams/1?lang=en&region=us"
+              }
+            }
+          ]
+        },
+        {
+          "name": "homeRuns",
+          "displayName": "Home Runs",
+          "shortDisplayName": "HR",
+          "abbreviation": "HR",
+          "leaders": [
+            {
+              "displayValue": "43",
+              "value": 43,
+              "rel": [
+                "athlete"
+              ],
+              "statistics": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/baseball/leagues/mlb/seasons/2026/types/2/teams/1/athletes/37498/statistics/0?lang=en&region=us"
+              },
+              "athlete": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/baseball/leagues/mlb/seasons/2026/athletes/37498?lang=en&region=us"
+              },
+              "team": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/baseball/leagues/mlb/seasons/2026/teams/1?lang=en&region=us"
+              }
+            }
+          ]
+        },
+        {
+          "name": "RBIs",
+          "displayName": "Runs Batted In",
+          "shortDisplayName": "RBI",
+          "abbreviation": "RBI",
+          "leaders": [
+            {
+              "displayValue": "113",
+              "value": 113,
+              "rel": [
+                "athlete"
+              ],
+              "statistics": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/baseball/leagues/mlb/seasons/2026/types/2/teams/1/athletes/37498/statistics/0?lang=en&region=us"
+              },
+              "athlete": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/baseball/leagues/mlb/seasons/2026/athletes/37498?lang=en&region=us"
+              },
+              "team": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/baseball/leagues/mlb/seasons/2026/teams/1?lang=en&region=us"
+              }
+            }
+          ]
+        },
+        {
+          "name": "runs",
+          "displayName": "Runs",
+          "shortDisplayName": "R",
+          "abbreviation": "R",
+          "leaders": [
+            {
+              "displayValue": "100",
+              "value": 100,
+              "rel": [
+                "athlete"
+              ],
+              "statistics": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/baseball/leagues/mlb/seasons/2026/types/2/teams/1/athletes/37498/statistics/0?lang=en&region=us"
+              },
+              "athlete": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/baseball/leagues/mlb/seasons/2026/athletes/37498?lang=en&region=us"
+              },
+              "team": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/baseball/leagues/mlb/seasons/2026/teams/1?lang=en&region=us"
+              }
+            }
+          ]
+        },
+        {
+          "name": "OPS",
+          "displayName": "On-Base-Plus-Slugging",
+          "shortDisplayName": "OPS",
+          "abbreviation": "OPS",
+          "leaders": [
+            {
+              "displayValue": ".884",
+              "value": 0.884451687335968,
+              "rel": [
+                "athlete"
+              ],
+              "statistics": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/baseball/leagues/mlb/seasons/2026/types/2/teams/1/athletes/37498/statistics/0?lang=en&region=us"
+              },
+              "athlete": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/baseball/leagues/mlb/seasons/2026/athletes/37498?lang=en&region=us"
+              },
+              "team": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/baseball/leagues/mlb/seasons/2026/teams/1?lang=en&region=us"
+              }
+            }
+          ]
+        },
+        {
+          "name": "onBasePct",
+          "displayName": "On Base Percentage",
+          "shortDisplayName": "OBP",
+          "abbreviation": "OBP",
+          "leaders": [
+            {
+              "displayValue": ".383",
+              "value": 0.38339918851852417,
+              "rel": [
+                "athlete"
+              ],
+              "statistics": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/baseball/leagues/mlb/seasons/2026/types/2/teams/1/athletes/34923/statistics/0?lang=en&region=us"
+              },
+              "athlete": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/baseball/leagues/mlb/seasons/2026/athletes/34923?lang=en&region=us"
+              },
+              "team": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/baseball/leagues/mlb/seasons/2026/teams/1?lang=en&region=us"
+              }
+            }
+          ]
+        },
+        {
+          "name": "slugAvg",
+          "displayName": "Slugging Percentage",
+          "shortDisplayName": "SLG",
+          "abbreviation": "SLG",
+          "leaders": [
+            {
+              "displayValue": ".522",
+              "value": 0.5215945839881897,
+              "rel": [
+                "athlete"
+              ],
+              "statistics": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/baseball/leagues/mlb/seasons/2026/types/2/teams/1/athletes/37498/statistics/0?lang=en&region=us"
+              },
+              "athlete": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/baseball/leagues/mlb/seasons/2026/athletes/37498?lang=en&region=us"
+              },
+              "team": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/baseball/leagues/mlb/seasons/2026/teams/1?lang=en&region=us"
+              }
+            }
+          ]
+        },
+        {
+          "name": "ERA",
+          "displayName": "Earned Run Average",
+          "shortDisplayName": "ERA",
+          "abbreviation": "ERA",
+          "leaders": [
+            {
+              "displayValue": "4.03",
+              "value": 4.031400203704834,
+              "rel": [
+                "athlete"
+              ],
+              "statistics": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/baseball/leagues/mlb/seasons/2026/types/2/teams/1/athletes/39640/statistics/0?lang=en&region=us"
+              },
+              "athlete": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/baseball/leagues/mlb/seasons/2026/athletes/39640?lang=en&region=us"
+              },
+              "team": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/baseball/leagues/mlb/seasons/2026/teams/1?lang=en&region=us"
+              }
+            }
+          ]
+        },
+        {
+          "name": "wins",
+          "displayName": "Wins",
+          "shortDisplayName": "W",
+          "abbreviation": "W",
+          "leaders": [
+            {
+              "displayValue": "10",
+              "value": 10,
+              "rel": [
+                "athlete"
+              ],
+              "statistics": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/baseball/leagues/mlb/seasons/2026/types/2/teams/1/athletes/39640/statistics/0?lang=en&region=us"
+              },
+              "athlete": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/baseball/leagues/mlb/seasons/2026/athletes/39640?lang=en&region=us"
+              },
+              "team": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/baseball/leagues/mlb/seasons/2026/teams/1?lang=en&region=us"
+              }
+            }
+          ]
+        },
+        {
+          "name": "strikeouts",
+          "displayName": "Strikeouts",
+          "shortDisplayName": "SO",
+          "abbreviation": "K",
+          "leaders": [
+            {
+              "displayValue": "157",
+              "value": 157,
+              "rel": [
+                "athlete"
+              ],
+              "statistics": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/baseball/leagues/mlb/seasons/2026/types/2/teams/1/athletes/39640/statistics/0?lang=en&region=us"
+              },
+              "athlete": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/baseball/leagues/mlb/seasons/2026/athletes/39640?lang=en&region=us"
+              },
+              "team": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/baseball/leagues/mlb/seasons/2026/teams/1?lang=en&region=us"
+              }
+            }
+          ]
+        },
+        {
+          "name": "saves",
+          "displayName": "Saves",
+          "shortDisplayName": "SV",
+          "abbreviation": "SV",
+          "leaders": [
+            {
+              "displayValue": "11",
+              "value": 11,
+              "rel": [
+                "athlete"
+              ],
+              "statistics": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/baseball/leagues/mlb/seasons/2026/types/2/teams/1/athletes/35872/statistics/0?lang=en&region=us"
+              },
+              "athlete": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/baseball/leagues/mlb/seasons/2026/athletes/35872?lang=en&region=us"
+              },
+              "team": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/baseball/leagues/mlb/seasons/2026/teams/1?lang=en&region=us"
+              }
+            }
+          ]
+        },
+        {
+          "name": "WHIP",
+          "displayName": "Walks Plus Hits Per Inning Pitched",
+          "shortDisplayName": "WHIP",
+          "abbreviation": "WHIP",
+          "leaders": [
+            {
+              "displayValue": "1.18",
+              "value": 1.1845999956130981,
+              "rel": [
+                "athlete"
+              ],
+              "statistics": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/baseball/leagues/mlb/seasons/2026/types/2/teams/1/athletes/39640/statistics/0?lang=en&region=us"
+              },
+              "athlete": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/baseball/leagues/mlb/seasons/2026/athletes/39640?lang=en&region=us"
+              },
+              "team": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/baseball/leagues/mlb/seasons/2026/teams/1?lang=en&region=us"
+              }
+            }
+          ]
+        },
+        {
+          "name": "qualityStarts",
+          "displayName": "Quality Starts",
+          "shortDisplayName": "QS",
+          "abbreviation": "QS",
+          "leaders": [
+            {
+              "displayValue": "15",
+              "value": 15,
+              "rel": [
+                "athlete"
+              ],
+              "statistics": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/baseball/leagues/mlb/seasons/2026/types/2/teams/1/athletes/39640/statistics/0?lang=en&region=us"
+              },
+              "athlete": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/baseball/leagues/mlb/seasons/2026/athletes/39640?lang=en&region=us"
+              },
+              "team": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/baseball/leagues/mlb/seasons/2026/teams/1?lang=en&region=us"
+              }
+            }
+          ]
+        },
+        {
+          "name": "opponentAvg",
+          "displayName": "Opponent Batting Average",
+          "shortDisplayName": "OBA",
+          "abbreviation": "OBA",
+          "leaders": [
+            {
+              "displayValue": ".249",
+              "value": 0.24879999458789825,
+              "rel": [
+                "athlete"
+              ],
+              "statistics": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/baseball/leagues/mlb/seasons/2026/types/2/teams/1/athletes/39640/statistics/0?lang=en&region=us"
+              },
+              "athlete": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/baseball/leagues/mlb/seasons/2026/athletes/39640?lang=en&region=us"
+              },
+              "team": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/baseball/leagues/mlb/seasons/2026/teams/1?lang=en&region=us"
+              }
+            }
+          ]
+        },
+        {
+          "name": "stolenBases",
+          "displayName": "Stolen Bases",
+          "shortDisplayName": "SB",
+          "abbreviation": "SB",
+          "leaders": [
+            {
+              "displayValue": "11",
+              "value": 11,
+              "rel": [
+                "athlete"
+              ],
+              "statistics": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/baseball/leagues/mlb/seasons/2026/types/2/teams/1/athletes/34951/statistics/0?lang=en&region=us"
+              },
+              "athlete": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/baseball/leagues/mlb/seasons/2026/athletes/34951?lang=en&region=us"
+              },
+              "team": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/baseball/leagues/mlb/seasons/2026/teams/1?lang=en&region=us"
+              }
+            }
+          ]
+        },
+        {
+          "name": "hits",
+          "displayName": "Hits",
+          "shortDisplayName": "H",
+          "abbreviation": "H",
+          "leaders": [
+            {
+              "displayValue": "161",
+              "value": 161,
+              "rel": [
+                "athlete"
+              ],
+              "statistics": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/baseball/leagues/mlb/seasons/2026/types/2/teams/1/athletes/37498/statistics/0?lang=en&region=us"
+              },
+              "athlete": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/baseball/leagues/mlb/seasons/2026/athletes/37498?lang=en&region=us"
+              },
+              "team": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/baseball/leagues/mlb/seasons/2026/teams/1?lang=en&region=us"
+              }
+            }
+          ]
+        },
+        {
+          "name": "holds",
+          "displayName": "Holds",
+          "shortDisplayName": "HLD",
+          "abbreviation": "HLD",
+          "leaders": [
+            {
+              "displayValue": "19",
+              "value": 19,
+              "rel": [
+                "athlete"
+              ],
+              "statistics": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/baseball/leagues/mlb/seasons/2026/types/2/teams/1/athletes/41382/statistics/0?lang=en&region=us"
+              },
+              "athlete": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/baseball/leagues/mlb/seasons/2026/athletes/41382?lang=en&region=us"
+              },
+              "team": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/baseball/leagues/mlb/seasons/2026/teams/1?lang=en&region=us"
+              }
+            }
+          ]
+        },
+        {
+          "name": "MLBRating",
+          "displayName": "MLB Rating",
+          "shortDisplayName": "MLB",
+          "abbreviation": "MLB",
+          "leaders": [
+            {
+              "displayValue": "620.0",
+              "value": 620,
+              "rel": [
+                "athlete"
+              ],
+              "statistics": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/baseball/leagues/mlb/seasons/2026/types/2/teams/1/athletes/37498/statistics/0?lang=en&region=us"
+              },
+              "athlete": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/baseball/leagues/mlb/seasons/2026/athletes/37498?lang=en&region=us"
+              },
+              "team": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/baseball/leagues/mlb/seasons/2026/teams/1?lang=en&region=us"
+              }
+            }
+          ]
+        },
+        {
+          "name": "avgGameScore",
+          "displayName": "Average Game Score",
+          "shortDisplayName": "AGSC",
+          "abbreviation": "AGSC",
+          "leaders": [
+            {
+              "displayValue": "54.0",
+              "value": 54,
+              "rel": [
+                "athlete"
+              ],
+              "statistics": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/baseball/leagues/mlb/seasons/2026/types/2/teams/1/athletes/32804/statistics/0?lang=en&region=us"
+              },
+              "athlete": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/baseball/leagues/mlb/seasons/2026/athletes/32804?lang=en&region=us"
+              },
+              "team": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/baseball/leagues/mlb/seasons/2026/teams/1?lang=en&region=us"
+              }
+            }
+          ]
+        },
+        {
+          "name": "WARBR",
+          "displayName": "Wins Above Replacement",
+          "shortDisplayName": "WAR",
+          "abbreviation": "WAR",
+          "leaders": [
+            {
+              "displayValue": "4.9",
+              "value": 4.940000057220459,
+              "rel": [
+                "athlete"
+              ],
+              "statistics": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/baseball/leagues/mlb/seasons/2026/types/2/teams/1/athletes/37498/statistics/0?lang=en&region=us"
+              },
+              "athlete": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/baseball/leagues/mlb/seasons/2026/athletes/37498?lang=en&region=us"
+              },
+              "team": {
+                "$ref": "http://sports.core.api.espn.com/v2/sports/baseball/leagues/mlb/seasons/2026/teams/1?lang=en&region=us"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "athletes": {
+    "https://sports.core.api.espn.com/v2/sports/baseball/leagues/mlb/seasons/2026/athletes/37498?lang=en&region=us": {
+      "$ref": "http://sports.core.api.espn.com/v2/sports/baseball/leagues/mlb/seasons/2026/athletes/37498?lang=en&region=us",
+      "id": "37498",
+      "displayName": "Pete Alonso",
+      "fullName": "Pete Alonso",
+      "shortName": "P. Alonso",
+      "headshot": {
+        "href": "https://a.espncdn.com/i/headshots/mlb/players/full/37498.png",
+        "alt": "Pete Alonso"
+      },
+      "position": {
+        "$ref": "http://sports.core.api.espn.com/v2/sports/baseball/leagues/mlb/positions/3?lang=en&region=us",
+        "id": "3",
+        "name": "First Base",
+        "displayName": "First Baseman",
+        "abbreviation": "1B",
+        "leaf": true,
+        "parent": {
+          "$ref": "http://sports.core.api.espn.com/v2/sports/baseball/leagues/mlb/positions/13?lang=en&region=us"
+        }
+      }
+    },
+    "https://sports.core.api.espn.com/v2/sports/baseball/leagues/mlb/seasons/2026/athletes/39640?lang=en&region=us": {
+      "$ref": "http://sports.core.api.espn.com/v2/sports/baseball/leagues/mlb/seasons/2026/athletes/39640?lang=en&region=us",
+      "id": "39640",
+      "displayName": "Trevor Rogers",
+      "fullName": "Trevor Rogers",
+      "shortName": "T. Rogers",
+      "headshot": {
+        "href": "https://a.espncdn.com/i/headshots/mlb/players/full/39640.png",
+        "alt": "Trevor Rogers"
+      },
+      "position": {
+        "$ref": "http://sports.core.api.espn.com/v2/sports/baseball/leagues/mlb/positions/15?lang=en&region=us",
+        "id": "15",
+        "name": "Starting Pitcher",
+        "displayName": "Starting Pitcher",
+        "abbreviation": "SP",
+        "leaf": true,
+        "parent": {
+          "$ref": "http://sports.core.api.espn.com/v2/sports/baseball/leagues/mlb/positions/1?lang=en&region=us"
+        }
+      }
+    }
+  },
+  "fallback": {
+    "url": "https://site.api.espn.com/apis/site/v3/sports/baseball/mlb/leaders?team=1&season=2026&limit=1",
+    "payload": {
+      "currentSeason": {
+        "year": 2026,
+        "displayName": "2026",
+        "startDate": "2026-02-19T08:00:00.000+00:00",
+        "endDate": "2026-11-12T07:59:00.000+00:00",
+        "type": {
+          "id": "3",
+          "type": 3,
+          "name": "Postseason",
+          "startDate": "2026-09-29T07:00:00.000+00:00",
+          "endDate": "2026-11-12T07:59:00.000+00:00",
+          "week": {}
+        }
+      },
+      "requestedSeason": {
+        "year": 2026,
+        "displayName": "2026",
+        "startDate": "2026-02-19T08:00:00.000+00:00",
+        "endDate": "2026-11-12T07:59:00.000+00:00",
+        "type": {
+          "id": "2",
+          "type": 2,
+          "name": "Regular Season",
+          "startDate": "2026-03-25T07:00:00.000+00:00",
+          "endDate": "2026-09-29T06:59:00.000+00:00",
+          "week": {
+            "number": 27,
+            "startDate": "2026-09-23T07:00:00.000+00:00",
+            "endDate": "2026-09-30T06:59:00.000+00:00",
+            "text": "Week 27"
+          }
+        },
+        "qualifiedPostSeason": false
+      },
+      "leaders": {
+        "id": "0",
+        "name": "Total",
+        "abbreviation": "Total",
+        "categories": [
+          {
+            "name": "avg",
+            "displayName": "Batting Average",
+            "abbreviation": "AVG",
+            "leaders": [
+              {
+                "displayValue": ".267",
+                "value": 0.2674418091773987,
+                "rel": [
+                  "athlete"
+                ],
+                "statistics": {},
+                "athlete": {
+                  "id": "37498",
+                  "displayName": "Pete Alonso",
+                  "fullName": "Pete Alonso",
+                  "shortName": "P. Alonso",
+                  "headshot": {
+                    "href": "https://a.espncdn.com/i/headshots/mlb/players/full/37498.png",
+                    "alt": "Pete Alonso"
+                  },
+                  "position": {
+                    "id": "3",
+                    "name": "First Base",
+                    "displayName": "First Baseman",
+                    "abbreviation": "1B",
+                    "leaf": true,
+                    "parent": {
+                      "leaf": false
+                    },
+                    "slug": "first-base"
+                  }
+                },
+                "team": {
+                  "id": "1"
+                }
+              }
+            ]
+          },
+          {
+            "name": "homeRuns",
+            "displayName": "Home Runs",
+            "abbreviation": "HR",
+            "leaders": [
+              {
+                "displayValue": "43",
+                "value": 43,
+                "rel": [
+                  "athlete"
+                ],
+                "statistics": {},
+                "athlete": {
+                  "id": "37498",
+                  "displayName": "Pete Alonso",
+                  "fullName": "Pete Alonso",
+                  "shortName": "P. Alonso",
+                  "headshot": {
+                    "href": "https://a.espncdn.com/i/headshots/mlb/players/full/37498.png",
+                    "alt": "Pete Alonso"
+                  },
+                  "position": {
+                    "id": "3",
+                    "name": "First Base",
+                    "displayName": "First Baseman",
+                    "abbreviation": "1B",
+                    "leaf": true,
+                    "parent": {
+                      "leaf": false
+                    },
+                    "slug": "first-base"
+                  }
+                },
+                "team": {
+                  "id": "1"
+                }
+              }
+            ]
+          },
+          {
+            "name": "RBIs",
+            "displayName": "Runs Batted In",
+            "abbreviation": "RBI",
+            "leaders": [
+              {
+                "displayValue": "113",
+                "value": 113,
+                "rel": [
+                  "athlete"
+                ],
+                "statistics": {},
+                "athlete": {
+                  "id": "37498",
+                  "displayName": "Pete Alonso",
+                  "fullName": "Pete Alonso",
+                  "shortName": "P. Alonso",
+                  "headshot": {
+                    "href": "https://a.espncdn.com/i/headshots/mlb/players/full/37498.png",
+                    "alt": "Pete Alonso"
+                  },
+                  "position": {
+                    "id": "3",
+                    "name": "First Base",
+                    "displayName": "First Baseman",
+                    "abbreviation": "1B",
+                    "leaf": true,
+                    "parent": {
+                      "leaf": false
+                    },
+                    "slug": "first-base"
+                  }
+                },
+                "team": {
+                  "id": "1"
+                }
+              }
+            ]
+          },
+          {
+            "name": "runs",
+            "displayName": "Runs",
+            "abbreviation": "R",
+            "leaders": [
+              {
+                "displayValue": "100",
+                "value": 100,
+                "rel": [
+                  "athlete"
+                ],
+                "statistics": {},
+                "athlete": {
+                  "id": "37498",
+                  "displayName": "Pete Alonso",
+                  "fullName": "Pete Alonso",
+                  "shortName": "P. Alonso",
+                  "headshot": {
+                    "href": "https://a.espncdn.com/i/headshots/mlb/players/full/37498.png",
+                    "alt": "Pete Alonso"
+                  },
+                  "position": {
+                    "id": "3",
+                    "name": "First Base",
+                    "displayName": "First Baseman",
+                    "abbreviation": "1B",
+                    "leaf": true,
+                    "parent": {
+                      "leaf": false
+                    },
+                    "slug": "first-base"
+                  }
+                },
+                "team": {
+                  "id": "1"
+                }
+              }
+            ]
+          },
+          {
+            "name": "OPS",
+            "displayName": "On-Base-Plus-Slugging",
+            "abbreviation": "OPS",
+            "leaders": [
+              {
+                "displayValue": ".884",
+                "value": 0.884451687335968,
+                "rel": [
+                  "athlete"
+                ],
+                "statistics": {},
+                "athlete": {
+                  "id": "37498",
+                  "displayName": "Pete Alonso",
+                  "fullName": "Pete Alonso",
+                  "shortName": "P. Alonso",
+                  "headshot": {
+                    "href": "https://a.espncdn.com/i/headshots/mlb/players/full/37498.png",
+                    "alt": "Pete Alonso"
+                  },
+                  "position": {
+                    "id": "3",
+                    "name": "First Base",
+                    "displayName": "First Baseman",
+                    "abbreviation": "1B",
+                    "leaf": true,
+                    "parent": {
+                      "leaf": false
+                    },
+                    "slug": "first-base"
+                  }
+                },
+                "team": {
+                  "id": "1"
+                }
+              }
+            ]
+          },
+          {
+            "name": "onBasePct",
+            "displayName": "On Base Percentage",
+            "abbreviation": "OBP",
+            "leaders": [
+              {
+                "displayValue": ".383",
+                "value": 0.38339918851852417,
+                "rel": [
+                  "athlete"
+                ],
+                "statistics": {},
+                "athlete": {
+                  "id": "34923",
+                  "displayName": "Taylor Ward",
+                  "fullName": "Taylor Ward",
+                  "shortName": "T. Ward",
+                  "headshot": {
+                    "href": "https://a.espncdn.com/i/headshots/mlb/players/full/34923.png",
+                    "alt": "Taylor Ward"
+                  },
+                  "position": {
+                    "id": "10",
+                    "name": "Designated Hitter",
+                    "displayName": "Designated Hitter",
+                    "abbreviation": "DH",
+                    "leaf": true,
+                    "parent": {
+                      "leaf": false
+                    },
+                    "slug": "designated-hitter"
+                  }
+                },
+                "team": {
+                  "id": "1"
+                }
+              }
+            ]
+          },
+          {
+            "name": "slugAvg",
+            "displayName": "Slugging Percentage",
+            "abbreviation": "SLG",
+            "leaders": [
+              {
+                "displayValue": ".522",
+                "value": 0.5215945839881897,
+                "rel": [
+                  "athlete"
+                ],
+                "statistics": {},
+                "athlete": {
+                  "id": "37498",
+                  "displayName": "Pete Alonso",
+                  "fullName": "Pete Alonso",
+                  "shortName": "P. Alonso",
+                  "headshot": {
+                    "href": "https://a.espncdn.com/i/headshots/mlb/players/full/37498.png",
+                    "alt": "Pete Alonso"
+                  },
+                  "position": {
+                    "id": "3",
+                    "name": "First Base",
+                    "displayName": "First Baseman",
+                    "abbreviation": "1B",
+                    "leaf": true,
+                    "parent": {
+                      "leaf": false
+                    },
+                    "slug": "first-base"
+                  }
+                },
+                "team": {
+                  "id": "1"
+                }
+              }
+            ]
+          },
+          {
+            "name": "ERA",
+            "displayName": "Earned Run Average",
+            "abbreviation": "ERA",
+            "leaders": [
+              {
+                "displayValue": "4.03",
+                "value": 4.031400203704834,
+                "rel": [
+                  "athlete"
+                ],
+                "statistics": {},
+                "athlete": {
+                  "id": "39640",
+                  "displayName": "Trevor Rogers",
+                  "fullName": "Trevor Rogers",
+                  "shortName": "T. Rogers",
+                  "headshot": {
+                    "href": "https://a.espncdn.com/i/headshots/mlb/players/full/39640.png",
+                    "alt": "Trevor Rogers"
+                  },
+                  "position": {
+                    "id": "15",
+                    "name": "Starting Pitcher",
+                    "displayName": "Starting Pitcher",
+                    "abbreviation": "SP",
+                    "leaf": true,
+                    "parent": {
+                      "leaf": false
+                    },
+                    "slug": "starting-pitcher"
+                  }
+                },
+                "team": {
+                  "id": "1"
+                }
+              }
+            ]
+          },
+          {
+            "name": "wins",
+            "displayName": "Wins",
+            "abbreviation": "W",
+            "leaders": [
+              {
+                "displayValue": "10",
+                "value": 10,
+                "rel": [
+                  "athlete"
+                ],
+                "statistics": {},
+                "athlete": {
+                  "id": "39640",
+                  "displayName": "Trevor Rogers",
+                  "fullName": "Trevor Rogers",
+                  "shortName": "T. Rogers",
+                  "headshot": {
+                    "href": "https://a.espncdn.com/i/headshots/mlb/players/full/39640.png",
+                    "alt": "Trevor Rogers"
+                  },
+                  "position": {
+                    "id": "15",
+                    "name": "Starting Pitcher",
+                    "displayName": "Starting Pitcher",
+                    "abbreviation": "SP",
+                    "leaf": true,
+                    "parent": {
+                      "leaf": false
+                    },
+                    "slug": "starting-pitcher"
+                  }
+                },
+                "team": {
+                  "id": "1"
+                }
+              }
+            ]
+          },
+          {
+            "name": "strikeouts",
+            "displayName": "Strikeouts",
+            "abbreviation": "K",
+            "leaders": [
+              {
+                "displayValue": "157",
+                "value": 157,
+                "rel": [
+                  "athlete"
+                ],
+                "statistics": {},
+                "athlete": {
+                  "id": "39640",
+                  "displayName": "Trevor Rogers",
+                  "fullName": "Trevor Rogers",
+                  "shortName": "T. Rogers",
+                  "headshot": {
+                    "href": "https://a.espncdn.com/i/headshots/mlb/players/full/39640.png",
+                    "alt": "Trevor Rogers"
+                  },
+                  "position": {
+                    "id": "15",
+                    "name": "Starting Pitcher",
+                    "displayName": "Starting Pitcher",
+                    "abbreviation": "SP",
+                    "leaf": true,
+                    "parent": {
+                      "leaf": false
+                    },
+                    "slug": "starting-pitcher"
+                  }
+                },
+                "team": {
+                  "id": "1"
+                }
+              }
+            ]
+          },
+          {
+            "name": "saves",
+            "displayName": "Saves",
+            "abbreviation": "SV",
+            "leaders": [
+              {
+                "displayValue": "11",
+                "value": 11,
+                "rel": [
+                  "athlete"
+                ],
+                "statistics": {},
+                "athlete": {
+                  "id": "35872",
+                  "displayName": "Andrew Kittredge",
+                  "fullName": "Andrew Kittredge",
+                  "shortName": "A. Kittredge",
+                  "headshot": {
+                    "href": "https://a.espncdn.com/i/headshots/mlb/players/full/35872.png",
+                    "alt": "Andrew Kittredge"
+                  },
+                  "position": {
+                    "id": "0",
+                    "name": "Relief Pitcher",
+                    "displayName": "Relief Pitcher",
+                    "abbreviation": "RP",
+                    "leaf": true,
+                    "parent": {
+                      "leaf": false
+                    },
+                    "slug": "relief-pitcher"
+                  }
+                },
+                "team": {
+                  "id": "1"
+                }
+              }
+            ]
+          },
+          {
+            "name": "WHIP",
+            "displayName": "Walks Plus Hits Per Inning Pitched",
+            "abbreviation": "WHIP",
+            "leaders": [
+              {
+                "displayValue": "1.18",
+                "value": 1.1845999956130981,
+                "rel": [
+                  "athlete"
+                ],
+                "statistics": {},
+                "athlete": {
+                  "id": "39640",
+                  "displayName": "Trevor Rogers",
+                  "fullName": "Trevor Rogers",
+                  "shortName": "T. Rogers",
+                  "headshot": {
+                    "href": "https://a.espncdn.com/i/headshots/mlb/players/full/39640.png",
+                    "alt": "Trevor Rogers"
+                  },
+                  "position": {
+                    "id": "15",
+                    "name": "Starting Pitcher",
+                    "displayName": "Starting Pitcher",
+                    "abbreviation": "SP",
+                    "leaf": true,
+                    "parent": {
+                      "leaf": false
+                    },
+                    "slug": "starting-pitcher"
+                  }
+                },
+                "team": {
+                  "id": "1"
+                }
+              }
+            ]
+          },
+          {
+            "name": "qualityStarts",
+            "displayName": "Quality Starts",
+            "abbreviation": "QS",
+            "leaders": [
+              {
+                "displayValue": "15",
+                "value": 15,
+                "rel": [
+                  "athlete"
+                ],
+                "statistics": {},
+                "athlete": {
+                  "id": "39640",
+                  "displayName": "Trevor Rogers",
+                  "fullName": "Trevor Rogers",
+                  "shortName": "T. Rogers",
+                  "headshot": {
+                    "href": "https://a.espncdn.com/i/headshots/mlb/players/full/39640.png",
+                    "alt": "Trevor Rogers"
+                  },
+                  "position": {
+                    "id": "15",
+                    "name": "Starting Pitcher",
+                    "displayName": "Starting Pitcher",
+                    "abbreviation": "SP",
+                    "leaf": true,
+                    "parent": {
+                      "leaf": false
+                    },
+                    "slug": "starting-pitcher"
+                  }
+                },
+                "team": {
+                  "id": "1"
+                }
+              }
+            ]
+          },
+          {
+            "name": "opponentAvg",
+            "displayName": "Opponent Batting Average",
+            "abbreviation": "OBA",
+            "leaders": [
+              {
+                "displayValue": ".249",
+                "value": 0.24879999458789825,
+                "rel": [
+                  "athlete"
+                ],
+                "statistics": {},
+                "athlete": {
+                  "id": "39640",
+                  "displayName": "Trevor Rogers",
+                  "fullName": "Trevor Rogers",
+                  "shortName": "T. Rogers",
+                  "headshot": {
+                    "href": "https://a.espncdn.com/i/headshots/mlb/players/full/39640.png",
+                    "alt": "Trevor Rogers"
+                  },
+                  "position": {
+                    "id": "15",
+                    "name": "Starting Pitcher",
+                    "displayName": "Starting Pitcher",
+                    "abbreviation": "SP",
+                    "leaf": true,
+                    "parent": {
+                      "leaf": false
+                    },
+                    "slug": "starting-pitcher"
+                  }
+                },
+                "team": {
+                  "id": "1"
+                }
+              }
+            ]
+          },
+          {
+            "name": "stolenBases",
+            "displayName": "Stolen Bases",
+            "abbreviation": "SB",
+            "leaders": [
+              {
+                "displayValue": "11",
+                "value": 11,
+                "rel": [
+                  "athlete"
+                ],
+                "statistics": {},
+                "athlete": {
+                  "id": "34951",
+                  "displayName": "Leody Taveras",
+                  "fullName": "Leody Taveras",
+                  "shortName": "L. Taveras",
+                  "headshot": {
+                    "href": "https://a.espncdn.com/i/headshots/mlb/players/full/34951.png",
+                    "alt": "Leody Taveras"
+                  },
+                  "position": {
+                    "id": "8",
+                    "name": "Center Field",
+                    "displayName": "Center Fielder",
+                    "abbreviation": "CF",
+                    "leaf": true,
+                    "parent": {
+                      "leaf": false
+                    },
+                    "slug": "center-field"
+                  }
+                },
+                "team": {
+                  "id": "1"
+                }
+              }
+            ]
+          },
+          {
+            "name": "hits",
+            "displayName": "Hits",
+            "abbreviation": "H",
+            "leaders": [
+              {
+                "displayValue": "161",
+                "value": 161,
+                "rel": [
+                  "athlete"
+                ],
+                "statistics": {},
+                "athlete": {
+                  "id": "37498",
+                  "displayName": "Pete Alonso",
+                  "fullName": "Pete Alonso",
+                  "shortName": "P. Alonso",
+                  "headshot": {
+                    "href": "https://a.espncdn.com/i/headshots/mlb/players/full/37498.png",
+                    "alt": "Pete Alonso"
+                  },
+                  "position": {
+                    "id": "3",
+                    "name": "First Base",
+                    "displayName": "First Baseman",
+                    "abbreviation": "1B",
+                    "leaf": true,
+                    "parent": {
+                      "leaf": false
+                    },
+                    "slug": "first-base"
+                  }
+                },
+                "team": {
+                  "id": "1"
+                }
+              }
+            ]
+          },
+          {
+            "name": "holds",
+            "displayName": "Holds",
+            "abbreviation": "HLD",
+            "leaders": [
+              {
+                "displayValue": "19",
+                "value": 19,
+                "rel": [
+                  "athlete"
+                ],
+                "statistics": {},
+                "athlete": {
+                  "id": "41382",
+                  "displayName": "Rico Garcia",
+                  "fullName": "Rico Garcia",
+                  "shortName": "R. Garcia",
+                  "headshot": {
+                    "href": "https://a.espncdn.com/i/headshots/mlb/players/full/41382.png",
+                    "alt": "Rico Garcia"
+                  },
+                  "position": {
+                    "id": "0",
+                    "name": "Relief Pitcher",
+                    "displayName": "Relief Pitcher",
+                    "abbreviation": "RP",
+                    "leaf": true,
+                    "parent": {
+                      "leaf": false
+                    },
+                    "slug": "relief-pitcher"
+                  }
+                },
+                "team": {
+                  "id": "1"
+                }
+              }
+            ]
+          },
+          {
+            "name": "MLBRating",
+            "displayName": "MLB Rating",
+            "abbreviation": "MLB",
+            "leaders": [
+              {
+                "displayValue": "620.0",
+                "value": 620,
+                "rel": [
+                  "athlete"
+                ],
+                "statistics": {},
+                "athlete": {
+                  "id": "37498",
+                  "displayName": "Pete Alonso",
+                  "fullName": "Pete Alonso",
+                  "shortName": "P. Alonso",
+                  "headshot": {
+                    "href": "https://a.espncdn.com/i/headshots/mlb/players/full/37498.png",
+                    "alt": "Pete Alonso"
+                  },
+                  "position": {
+                    "id": "3",
+                    "name": "First Base",
+                    "displayName": "First Baseman",
+                    "abbreviation": "1B",
+                    "leaf": true,
+                    "parent": {
+                      "leaf": false
+                    },
+                    "slug": "first-base"
+                  }
+                },
+                "team": {
+                  "id": "1"
+                }
+              }
+            ]
+          },
+          {
+            "name": "avgGameScore",
+            "displayName": "Average Game Score",
+            "abbreviation": "AGSC",
+            "leaders": [
+              {
+                "displayValue": "54.0",
+                "value": 54,
+                "rel": [
+                  "athlete"
+                ],
+                "statistics": {},
+                "athlete": {
+                  "id": "32804",
+                  "displayName": "Zach Eflin",
+                  "fullName": "Zach Eflin",
+                  "shortName": "Z. Eflin",
+                  "headshot": {
+                    "href": "https://a.espncdn.com/i/headshots/mlb/players/full/32804.png",
+                    "alt": "Zach Eflin"
+                  },
+                  "position": {
+                    "id": "15",
+                    "name": "Starting Pitcher",
+                    "displayName": "Starting Pitcher",
+                    "abbreviation": "SP",
+                    "leaf": true,
+                    "parent": {
+                      "leaf": false
+                    },
+                    "slug": "starting-pitcher"
+                  }
+                },
+                "team": {
+                  "id": "1"
+                }
+              }
+            ]
+          },
+          {
+            "name": "WARBR",
+            "displayName": "Wins Above Replacement",
+            "abbreviation": "WAR",
+            "leaders": [
+              {
+                "displayValue": "4.9",
+                "value": 4.940000057220459,
+                "rel": [
+                  "athlete"
+                ],
+                "statistics": {},
+                "athlete": {
+                  "id": "37498",
+                  "displayName": "Pete Alonso",
+                  "fullName": "Pete Alonso",
+                  "shortName": "P. Alonso",
+                  "headshot": {
+                    "href": "https://a.espncdn.com/i/headshots/mlb/players/full/37498.png",
+                    "alt": "Pete Alonso"
+                  },
+                  "position": {
+                    "id": "3",
+                    "name": "First Base",
+                    "displayName": "First Baseman",
+                    "abbreviation": "1B",
+                    "leaf": true,
+                    "parent": {
+                      "leaf": false
+                    },
+                    "slug": "first-base"
+                  }
+                },
+                "team": {
+                  "id": "1"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

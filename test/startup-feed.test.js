@@ -32,7 +32,7 @@ function startApp() {
   let nextFeed = feedRequest;
   let fetchCount = 0;
   const context = vm.createContext({
-    document:{querySelector:element,querySelectorAll:() => [],addEventListener(){},hidden:false},
+    document:{body:element('body'),querySelector:element,querySelectorAll:() => [],addEventListener(){},hidden:false},
     window:{addEventListener(){}},
     navigator:{},location:{hash:''},
     localStorage:{getItem:() => null,setItem(){}},

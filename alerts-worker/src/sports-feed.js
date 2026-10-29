@@ -1,5 +1,5 @@
 import {basketballBoxScore} from './display-model.js';
-import {createCollector,summaryUrl,teamResourceUrls,coreTeamProfileUrl} from './providers/espn.js';
+import {createCollector,summaryUrl,teamResourceUrls,coreTeamProfileUrl,teamLeadersUrl} from './providers/espn.js';
 import {preservePregameRecords,applyContextsToGame,enrichGame} from './game-model.js';
 import {contextsForGames} from './storylines.js';
 import {fingerprint,summaryCandidate,reusable,refreshBudget,boundedFeedRefresh,REFRESH_LEASE_MS} from './refresh-policy.js';
@@ -695,16 +695,6 @@ function leaderCategoryScore(category,aliases) {
         score,
         100
       );
-    } else if (
-      fields.some(value =>
-        value.includes(normalized) ||
-        normalized.includes(value)
-      )
-    ) {
-      score = Math.max(
-        score,
-        60
-      );
     }
   }
 
@@ -784,17 +774,6 @@ function selectTeamLeaderCategories(payload,sport) {
     }
   }
 
-  for (
-    let index = 0;
-    index < unique.length &&
-    selected.length < 4;
-    index++
-  ) {
-    if (!used.has(index)) {
-      selected.push(unique[index]);
-    }
-  }
-
   return selected.slice(0,4);
 }
 
@@ -821,10 +800,10 @@ function normalizedLeader(category,athletePayloads=new Map()) {
       ? athletePayloads.get(ref)
       : rawAthlete;
 
-  const athlete =
-    resolved?.athlete ||
-    resolved ||
-    {};
+  const athlete = {
+    ...rawAthlete,
+    ...(resolved?.athlete || resolved || {})
+  };
 
   const name =
     athlete.displayName ||
@@ -832,8 +811,6 @@ function normalizedLeader(category,athletePayloads=new Map()) {
     athlete.shortName ||
     item.displayName ||
     '';
-
-  if (!name) return null;
 
   const headshot =
     athlete?.headshot?.href ||
@@ -849,6 +826,11 @@ function normalizedLeader(category,athletePayloads=new Map()) {
   const refId =
     ref.match(/\/athletes\/(\d+)/)?.[1] ||
     '';
+
+  // A valid stat and athlete ID survive a transient identity failure. The UI
+  // already displays "Team leader" for an empty name; never manufacture one.
+  if (!name && !athlete.id && !refId) return null;
+  if (item.value == null && item.displayValue == null) return null;
 
   return {
     category:
@@ -965,7 +947,11 @@ async function loadCoreTeamLeaders(env,sport,id,season,now) {
             leaderItem(category)
               ?.athlete?.['$ref'] ||
             leaderItem(category)
+              ?.athlete?.href ||
+            leaderItem(category)
               ?.player?.['$ref'] ||
+            leaderItem(category)
+              ?.player?.href ||
             ''
           )
         )
@@ -1009,6 +995,40 @@ async function loadCoreTeamLeaders(env,sport,id,season,now) {
     sport,
     athletePayloads
   );
+}
+
+async function loadTeamLeaders(env,sport,id,season,now) {
+  const core = await loadCoreTeamLeaders(env,sport,id,season,now);
+  if (core.length === 4 && core.every(leader => leader.athlete.name)) {
+    return core;
+  }
+
+  const url = teamLeadersUrl(sport,id,season);
+  if (!url) return core;
+
+  try {
+    const {payload} = await providerJson(env,url,TEAM_LEADER_TTL_MS,now,[]);
+    // Before a season starts ESPN can silently answer with last year's stats.
+    if (Number(payload?.requestedSeason?.year) !== Number(season)) return core;
+
+    const categories = collectLeaderCategories(payload).map(category => ({
+      ...category,
+      leaders:category.leaders.filter(item => String(item?.team?.id) === String(id))
+    }));
+    const fallback = normalizeTeamLeaders({categories},sport);
+    const merged = new Map(fallback.map(leader => [normalizeLeaderKey(leader.category),leader]));
+    for (const leader of core) {
+      const key = normalizeLeaderKey(leader.category);
+      if (leader.athlete.name || !merged.has(key)) merged.set(key,leader);
+    }
+    // Retain sport-specific ordering even when either source is partial.
+    const rank = leader => (TEAM_LEADER_PREFERENCES[sport] || []).findIndex(aliases =>
+      leaderCategoryScore({displayName:leader.category,abbreviation:leader.abbreviation},aliases) > 0
+    );
+    return [...merged.values()].sort((a,b) => rank(a) - rank(b)).slice(0,4);
+  } catch {
+    return core;
+  }
 }
 
 async function teamStaticData(env,sport,id,now) {
@@ -1123,7 +1143,7 @@ async function teamStaticData(env,sport,id,now) {
       );
 
     const leaders =
-      await loadCoreTeamLeaders(
+      await loadTeamLeaders(
         env,
         sport,
         id,
