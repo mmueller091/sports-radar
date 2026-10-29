@@ -2857,3 +2857,772 @@ dialog,
     min-width: 900px;
   }
 }
+
+/* MATERIAL 3-INSPIRED SPORTS RADAR REFRESH
+   Modernizes the surrounding interface while deliberately leaving the
+   excitement score module and its dynamic color behavior untouched. */
+
+:root {
+  --md-bg: #0b1114;
+  --md-surface: #11181c;
+  --md-surface-2: #151e23;
+  --md-surface-3: #1b262c;
+  --md-surface-4: #223038;
+  --md-outline: #34454e;
+  --md-outline-soft: rgba(159, 181, 191, .16);
+  --md-text: #edf3f5;
+  --md-text-2: #c5d0d5;
+  --md-text-3: #8fa1aa;
+  --md-primary: #9bd9c8;
+  --md-primary-container: #173b34;
+  --md-on-primary-container: #c7f5e7;
+  --md-secondary-container: #26353e;
+  --md-on-secondary-container: #d7e8ef;
+  --md-danger-container: #492323;
+  --md-elevation-1: 0 1px 2px rgba(0,0,0,.26), 0 1px 4px rgba(0,0,0,.16);
+  --md-elevation-2: 0 2px 6px rgba(0,0,0,.26), 0 6px 16px rgba(0,0,0,.16);
+  --md-elevation-3: 0 8px 24px rgba(0,0,0,.30), 0 2px 8px rgba(0,0,0,.20);
+  --md-radius-xs: 8px;
+  --md-radius-sm: 12px;
+  --md-radius-md: 16px;
+  --md-radius-lg: 22px;
+  --md-radius-xl: 28px;
+}
+
+html {
+  background: var(--md-bg);
+}
+
+body {
+  color: var(--md-text);
+  background: var(--md-bg);
+  background-image: none;
+  background-attachment: scroll;
+}
+
+.app-shell {
+  max-width: 1480px;
+}
+
+/* --------------------------------------------------------------------------
+   Top app bar
+   -------------------------------------------------------------------------- */
+
+.topbar {
+  min-height: 72px;
+  height: auto;
+  padding-block: 10px;
+  background: rgba(17, 24, 28, .94);
+  border-bottom: 1px solid var(--md-outline-soft);
+  box-shadow: 0 1px 0 rgba(255,255,255,.02);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+.brand {
+  text-shadow: none;
+}
+
+.brand-logo,
+.brand-mark {
+  border: 0;
+  border-radius: var(--md-radius-sm);
+  background: var(--md-surface-3);
+  box-shadow: none;
+}
+
+.main-nav {
+  gap: 8px;
+}
+
+.nav-link {
+  min-height: 40px;
+  padding: 0 14px;
+  border-radius: 20px;
+  color: var(--md-text-3);
+  text-shadow: none;
+  transition:
+    background-color 160ms ease,
+    color 160ms ease;
+}
+
+.nav-link:hover {
+  color: var(--md-text);
+  background: rgba(255,255,255,.045);
+}
+
+.nav-link.active {
+  color: var(--md-on-primary-container);
+  background: var(--md-primary-container);
+}
+
+.nav-link.active::after {
+  display: none;
+}
+
+.top-actions {
+  gap: 8px;
+}
+
+/* --------------------------------------------------------------------------
+   Page controls
+   -------------------------------------------------------------------------- */
+
+.control-row {
+  padding-top: 26px;
+  padding-bottom: 16px;
+}
+
+.section-label {
+  color: var(--md-text);
+  text-shadow: none;
+  font-weight: 650;
+  letter-spacing: -.025em;
+}
+
+.live-count,
+.status-completed,
+.favorite-tag,
+.watch-indicator {
+  border: 0;
+  border-radius: 999px;
+  box-shadow: none;
+}
+
+.live-count {
+  color: var(--md-on-primary-container);
+  background: var(--md-primary-container);
+}
+
+.segmented {
+  gap: 2px;
+  padding: 4px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--md-surface-3);
+  box-shadow: none;
+}
+
+.seg {
+  min-height: 36px;
+  padding: 8px 14px;
+  border: 0;
+  border-radius: 999px;
+  color: var(--md-text-3);
+  text-shadow: none;
+  transition:
+    color 150ms ease,
+    background-color 150ms ease,
+    box-shadow 150ms ease;
+}
+
+.seg:hover {
+  color: var(--md-text-2);
+  background: rgba(255,255,255,.045);
+}
+
+.seg.active {
+  color: var(--md-on-primary-container);
+  background: var(--md-primary-container);
+  border: 0;
+  box-shadow: none;
+  text-shadow: none;
+}
+
+.seg span,
+.seg.active span {
+  color: inherit;
+  opacity: .72;
+}
+
+.outline-button,
+.install-button,
+.data-status button,
+.favorite-manual-button,
+.detail-watch,
+.alert-controls button,
+.primary-button {
+  min-height: 38px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--md-secondary-container);
+  color: var(--md-on-secondary-container);
+  box-shadow: none;
+  text-shadow: none;
+  transition:
+    background-color 150ms ease,
+    box-shadow 150ms ease,
+    transform 150ms ease;
+}
+
+.outline-button:hover,
+.install-button:hover,
+.data-status button:hover,
+.favorite-manual-button:hover,
+.detail-watch:hover,
+.alert-controls button:hover,
+.primary-button:hover {
+  background: var(--md-surface-4);
+  box-shadow: var(--md-elevation-1);
+}
+
+.outline-button:active,
+.install-button:active,
+.data-status button:active,
+.favorite-manual-button:active,
+.detail-watch:active,
+.alert-controls button:active,
+.primary-button:active {
+  transform: none;
+  box-shadow: none;
+}
+
+.sport-filter {
+  gap: 8px;
+  padding-bottom: 18px;
+}
+
+.sport-chip,
+.sport-chip:not(.fcs-toggle),
+.fcs-toggle {
+  min-height: 38px;
+  padding: 8px 14px;
+  border: 1px solid var(--md-outline);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--md-text-2);
+  box-shadow: none;
+  text-shadow: none;
+  transition:
+    background-color 150ms ease,
+    border-color 150ms ease,
+    color 150ms ease;
+}
+
+.sport-chip:hover,
+.sport-chip:not(.fcs-toggle):hover,
+.fcs-toggle:hover {
+  background: rgba(255,255,255,.04);
+  border-color: #4b626d;
+}
+
+.sport-chip.active,
+.sport-chip.active:not(.fcs-toggle),
+.fcs-toggle.active {
+  border-color: transparent;
+  background: var(--md-primary-container);
+  color: var(--md-on-primary-container);
+  box-shadow: none;
+}
+
+.notice {
+  border: 0;
+  border-radius: var(--md-radius-md);
+  background: #173026;
+  color: #d3ecdf;
+  box-shadow: none;
+}
+
+.data-status {
+  color: var(--md-text-3);
+}
+
+/* --------------------------------------------------------------------------
+   Radar game cards
+   -------------------------------------------------------------------------- */
+
+.game-list {
+  gap: 12px;
+}
+
+.game-date-divider {
+  min-height: 34px;
+  margin-top: 18px;
+  padding: 7px 4px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: var(--md-text-3);
+  box-shadow: none;
+  backdrop-filter: none;
+}
+
+.game-date-divider i {
+  background: var(--md-outline-soft);
+}
+
+.game-card,
+.game-card.favorite,
+.game-card.completed-card {
+  overflow: visible;
+  border: 1px solid var(--md-outline-soft);
+  border-radius: var(--md-radius-md);
+  background: var(--md-surface);
+  box-shadow: none;
+  text-shadow: none;
+  transition:
+    background-color 160ms ease,
+    border-color 160ms ease,
+    box-shadow 160ms ease,
+    transform 160ms ease;
+}
+
+.game-card:hover {
+  transform: translateY(-1px);
+  border-color: rgba(159,181,191,.28);
+  background: var(--md-surface-2);
+  box-shadow: var(--md-elevation-2);
+}
+
+.game-card:active {
+  transform: translateY(0);
+  box-shadow: var(--md-elevation-1);
+}
+
+.game-card.favorite {
+  border-color: rgba(126, 194, 224, .28);
+  background: #121d22;
+}
+
+.game-card.watched {
+  border-color: rgba(155,217,200,.34);
+}
+
+.game-card.favorite::before {
+  top: 7px;
+  color: #9fcce0;
+  text-shadow: none;
+}
+
+.sport-icon {
+  border: 0;
+  border-radius: 50%;
+  background: var(--md-surface-3);
+  box-shadow: none;
+}
+
+.team-row {
+  text-shadow: none;
+}
+
+.team-name-text,
+.team-score {
+  color: var(--md-text);
+}
+
+.team-record,
+.team-rank,
+.match-meta {
+  color: var(--md-text-3);
+  text-shadow: none;
+}
+
+.status-live {
+  color: #ff9a91;
+}
+
+.status-upcoming {
+  color: #9bcab8;
+}
+
+.status-completed {
+  padding: 3px 8px;
+  color: var(--md-text-3);
+  background: var(--md-surface-3);
+}
+
+.live-situation {
+  color: #b7d9e8;
+}
+
+.game-context {
+  color: var(--md-text-3);
+}
+
+.game-context strong {
+  color: var(--md-text-2);
+}
+
+.stats-cue {
+  color: #9fcce0;
+}
+
+/* Intentionally no .score-circle, .score-trend, or excitement color overrides.
+   Their existing dynamic hue behavior is a protected Sports Radar signature. */
+
+/* --------------------------------------------------------------------------
+   Dialogs and settings
+   -------------------------------------------------------------------------- */
+
+dialog,
+.detail-panel {
+  border: 1px solid var(--md-outline-soft);
+  border-radius: var(--md-radius-xl);
+  background: var(--md-surface);
+  box-shadow: var(--md-elevation-3);
+}
+
+dialog::backdrop,
+.detail-overlay {
+  background: rgba(0, 0, 0, .62);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+.dialog-header h2,
+.detail-header h2 {
+  color: var(--md-text);
+}
+
+.close-dialog,
+.detail-close {
+  border-radius: 50%;
+  background: transparent;
+  transition: background-color 150ms ease;
+}
+
+.close-dialog:hover,
+.detail-close:hover {
+  background: rgba(255,255,255,.06);
+}
+
+.favorite-picker,
+.detail-stat-team,
+.detail-player-team {
+  border: 1px solid var(--md-outline-soft);
+  border-radius: var(--md-radius-md);
+  background: var(--md-surface-2);
+}
+
+.favorite-picker select,
+.favorite-picker input,
+.alert-controls input {
+  min-height: 42px;
+  border: 1px solid var(--md-outline);
+  border-radius: var(--md-radius-sm);
+  background: var(--md-surface);
+  color: var(--md-text);
+  box-shadow: none;
+}
+
+.favorite-result {
+  border: 0;
+  border-radius: var(--md-radius-sm);
+  background: var(--md-surface-2);
+}
+
+.favorite-result:hover,
+.favorite-result:focus-visible {
+  background: var(--md-surface-3);
+}
+
+/* --------------------------------------------------------------------------
+   Game Center
+   -------------------------------------------------------------------------- */
+
+.detail-panel {
+  width: min(1040px, 100%);
+  padding: 24px;
+}
+
+.detail-scoreboard {
+  border: 0;
+  border-radius: var(--md-radius-lg);
+  background: var(--md-surface-2);
+  box-shadow: none;
+}
+
+.detail-meta {
+  color: var(--md-text-3);
+}
+
+.detail-section {
+  border-top: 1px solid var(--md-outline-soft);
+}
+
+.detail-section h3 {
+  color: var(--md-text);
+  letter-spacing: -.015em;
+}
+
+.detail-moment {
+  border: 0;
+  border-radius: var(--md-radius-md);
+  background: var(--md-secondary-container);
+  color: var(--md-on-secondary-container);
+  box-shadow: none;
+}
+
+.detail-tab-shell {
+  margin-top: 20px;
+}
+
+.detail-tabs {
+  top: -1px;
+  gap: 4px;
+  padding: 6px;
+  border: 0;
+  border-radius: var(--md-radius-md);
+  background: rgba(21, 30, 35, .96);
+  box-shadow: 0 1px 0 var(--md-outline-soft);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.detail-tab {
+  min-height: 38px;
+  padding-inline: 14px;
+  border: 0;
+  border-radius: 999px;
+  color: var(--md-text-3);
+  background: transparent;
+  transition:
+    background-color 150ms ease,
+    color 150ms ease;
+}
+
+.detail-tab:hover {
+  color: var(--md-text-2);
+  background: rgba(255,255,255,.045);
+}
+
+.detail-tab[aria-selected="true"],
+.detail-tab.active {
+  color: var(--md-on-primary-container);
+  background: var(--md-primary-container);
+  box-shadow: none;
+}
+
+.detail-tab-panel {
+  padding-top: 8px;
+}
+
+.detail-stat-grid,
+.detail-player-grid {
+  gap: 12px;
+}
+
+.detail-comparison-row {
+  padding-block: 9px;
+}
+
+.detail-comparison-values {
+  color: var(--md-text-2);
+}
+
+.detail-comparison-values span:nth-child(2) {
+  color: var(--md-text-3);
+}
+
+.detail-comparison-bars > span {
+  background: var(--md-surface-4);
+}
+
+.timeline-chart {
+  border: 1px solid var(--md-outline-soft);
+  border-radius: var(--md-radius-md);
+  background: #0d1519;
+  box-shadow: none;
+}
+
+.timeline-note,
+.timeline-moments,
+.detail-plays {
+  color: var(--md-text-2);
+}
+
+/* --------------------------------------------------------------------------
+   Data tables
+   -------------------------------------------------------------------------- */
+
+.detail-table-scroll {
+  border-radius: var(--md-radius-sm);
+}
+
+.detail-player-table,
+.detail-scoring table {
+  border-collapse: separate;
+  border-spacing: 0;
+  background: transparent;
+}
+
+.detail-player-table th,
+.detail-player-table td,
+.detail-scoring th,
+.detail-scoring td {
+  border-bottom-color: var(--md-outline-soft);
+}
+
+.detail-player-table thead th,
+.detail-scoring thead th {
+  color: var(--md-text-3);
+  background: var(--md-surface-2);
+}
+
+.detail-player-table th:first-child,
+.basketball-player-table th:first-child {
+  background: var(--md-surface-2);
+}
+
+.detail-player-table tbody tr:not(.box-group-row):hover td,
+.detail-player-table tbody tr:not(.box-group-row):hover > th {
+  background-color: rgba(255,255,255,.035);
+}
+
+.basketball-player-table .box-group-row th {
+  background: var(--md-surface-3);
+  color: #a9bec7;
+}
+
+.detail-player-table tfoot,
+.basketball-player-table tfoot {
+  border-top-color: var(--md-outline);
+}
+
+/* --------------------------------------------------------------------------
+   Footer
+   -------------------------------------------------------------------------- */
+
+.footer {
+  margin-top: 12px;
+  border-top: 1px solid var(--md-outline-soft);
+  color: var(--md-text-3);
+  box-shadow: none;
+}
+
+/* --------------------------------------------------------------------------
+   Interaction polish
+   -------------------------------------------------------------------------- */
+
+button,
+a,
+select,
+input {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button:focus-visible,
+a:focus-visible,
+select:focus-visible,
+input:focus-visible,
+.detail-table-scroll:focus-visible {
+  outline: 2px solid #9bd9c8;
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: .01ms !important;
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
+
+@media (max-width: 800px) {
+  .app-shell {
+    padding-inline: 14px;
+  }
+
+  .topbar {
+    min-height: 64px;
+    padding-block: 8px;
+  }
+
+  .control-row {
+    padding-top: 20px;
+  }
+
+  .game-list {
+    gap: 9px;
+  }
+
+  .game-card,
+  .game-card.favorite,
+  .game-card.completed-card {
+    border-radius: var(--md-radius-sm);
+  }
+
+  .detail-panel {
+    padding: 16px;
+    border-radius: var(--md-radius-lg);
+  }
+
+  .detail-tabs {
+    border-radius: var(--md-radius-sm);
+  }
+}
+
+@media (max-width: 460px) {
+  .app-shell {
+    padding-inline: 10px;
+  }
+
+  .nav-link {
+    padding-inline: 10px;
+  }
+
+  .seg {
+    padding-inline: 10px;
+  }
+
+  .sport-chip,
+  .sport-chip:not(.fcs-toggle),
+  .fcs-toggle {
+    padding-inline: 12px;
+  }
+
+  .detail-panel {
+    padding: 13px;
+    border-radius: var(--md-radius-md);
+  }
+}
+
+/* GAME CENTER OPEN MOTION
+   Fast Material-style entrance so details feel responsive rather than popping in. */
+
+@keyframes detail-overlay-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes detail-panel-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(.985);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.detail-overlay:not([hidden]) {
+  animation: detail-overlay-in 150ms ease-out both;
+}
+
+.detail-overlay:not([hidden]) .detail-panel {
+  transform-origin: 50% 45%;
+  animation: detail-panel-in 190ms cubic-bezier(.2, 0, 0, 1) both;
+}
+
+.game-card:active {
+  transform: scale(.995);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .detail-overlay:not([hidden]),
+  .detail-overlay:not([hidden]) .detail-panel {
+    animation: none !important;
+  }
+
+  .game-card:active {
+    transform: none;
+  }
+}
