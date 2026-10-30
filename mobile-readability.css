@@ -524,7 +524,7 @@ button.team-spotlight-matchup, button.team-schedule-opponent { position:relative
    Keep the same data and independent team/game controls; long supporting
    text is previewed on one line and remains complete in Game Center. */
 @media (max-width:600px) {
-  body:not(.team-page-open) main { display:grid; grid-template-columns:88px minmax(0,1fr); }
+  body:not(.team-page-open) main { display:grid; grid-template-columns:124px minmax(0,1fr); }
   body:not(.team-page-open) .control-row,
   body:not(.team-page-open) .mobile-sport-panel,
   body:not(.team-page-open) .game-list,
@@ -540,7 +540,18 @@ button.team-spotlight-matchup, button.team-schedule-opponent { position:relative
   .score-guide-button { width:26px; height:26px; }
   .segmented { padding:0; }
   .seg { min-height:32px; }
-  .mobile-sport-filter-toggle { min-height:30px; margin-bottom:0; }
+  .mobile-sport-filter-toggle {
+    min-width:0; min-height:32px; margin-bottom:0; padding:0 9px; gap:6px;
+    border:1px solid #547389; border-radius:6px; background:#1b2d38;
+  }
+  .mobile-sport-filter-toggle > span:first-child { color:#b0c4d0; }
+  .mobile-sport-filter-toggle strong { min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .mobile-sport-filter-chevron {
+    flex:0 0 7px; width:7px; height:7px; margin-top:-3px; font-size:0;
+    border-right:2px solid #d7e8f5; border-bottom:2px solid #d7e8f5; transform:rotate(45deg);
+  }
+  .mobile-sport-filter-toggle[aria-expanded="true"] { border-color:#98c4ff; background:#263e50; }
+  .mobile-sport-filter-toggle[aria-expanded="true"] .mobile-sport-filter-chevron { margin-top:3px; transform:rotate(225deg); }
   .data-status { min-height:28px; margin-bottom:2px !important; }
   .data-status button { min-height:28px; padding:0 9px; }
   .game-list { gap:6px; }
