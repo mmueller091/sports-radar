@@ -70,6 +70,7 @@ test('detail markup always uses canonical score and phase even for behind/ahead/
   let html='';const context=vm.createContext({$:()=>({set innerHTML(v){html=v;}}),safeText:String,teamLogoUrl:()=>'',labelForSport:x=>x,isWatched:()=>false,watchKey:()=>'',explainRating:g=>g.score,
     displayLine:()=>({text:''}),detailTabsMarkup:()=>'',
     storylineDetails:()=>'',excitementTimeline:()=>'',detailScoring:()=>'',detailStats:()=>'',detailLeaders:()=>'',basketballBoxScoreMarkup:()=>'',detailPlayerStats:()=>'',detailPlays:()=>''});
+  vm.runInContext(source.slice(source.indexOf('function compactClockPeriod('),source.indexOf('function gameCard(')),context);
   vm.runInContext(render,context);
   for(const phase of ['Q4 1:00','OT','Intermission'])for(const score of [7,40]){
     context.game={...game(),live:{phase}};context.summary={header:{competitions:[{status:{type:{detail:'Final'}},competitors:[{score},{score}]}]}};

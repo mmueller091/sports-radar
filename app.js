@@ -2779,7 +2779,7 @@ function trendFor(game) {
     delta >= 0
       ? 'Up'
       : 'Down'
-  } ${Math.abs(delta)} points from the opening rating">${arrow} ${
+  } ${Math.abs(delta)} points from the opening rating">${arrow}&#xfe0e; ${
     delta > 0
       ? '+'
       : ''
@@ -2892,13 +2892,28 @@ function basesMarkup(bases) {
   )}"><i class="base second ${bases.second ? 'occupied' : ''}"></i><i class="base third ${bases.third ? 'occupied' : ''}"></i><i class="base first ${bases.first ? 'occupied' : ''}"></i></span>`;
 }
 
+function compactClockPeriod(game) {
+  const phase = String(game.live?.phase || game.status || '')
+    .replace(/\b\d{1,2}:\d{2}\b/g,'').replace(/^[\s·|,-]+|[\s·|,-]+$/g,'');
+  if (/shootout/i.test(phase)) return 'SO';
+  if (/halftime|half time/i.test(phase)) return 'Half';
+  if (/intermission|end of|break/i.test(phase)) return phase;
+  const overtime = phase.match(/(?:(\d+)\s*(?:st|nd|rd|th)?\s*)?(?:OT\b|overtime)/i);
+  if (overtime) return Number(overtime[1]) > 1 ? `${Number(overtime[1])}OT` : 'OT';
+  const period = Number(game.liveRawStatus?.period) || Number(phase.match(/\b(\d+)(?:st|nd|rd|th)\b|\bQ(\d+)\b/i)?.slice(1).find(Boolean));
+  const format = game.sourceCompetition?.format || game.sourceEvent?.competitions?.[0]?.format || game.format || {};
+  const regulation = game.sport === 'NCAAB'
+    ? Number(format.regulation?.periods) || (/quarter|\bQ\d/i.test(phase) ? 4 : 2)
+    : {NFL:4,CFB:4,NBA:4,NHL:3}[game.sport];
+  if (regulation && period > regulation) return period === regulation + 1 ? 'OT' : `${period-regulation}OT`;
+  if (period > 0 && period <= 4) return ['1st','2nd','3rd','4th'][period-1];
+  return phase || 'Live';
+}
+
 function gameCard(game) {
   const phase = String(game.live?.phase || game.status || '');
   const clock = String(game.liveRawStatus?.displayClock || phase.match(/\b\d{1,2}:\d{2}\b/)?.[0] || '');
-  const periodNumber = Number(game.liveRawStatus?.period);
-  const period = ['NFL','CFB','NBA'].includes(game.sport) && periodNumber > 0
-    ? periodNumber <= 4 ? `Q${periodNumber}` : periodNumber === 5 ? 'OT' : `${periodNumber-4}OT`
-    : phase.replace(clock,'').replace(/^[\s·|,-]+|[\s·|,-]+$/g,'');
+  const period = compactClockPeriod(game);
   const clockMarkup = game.state === 'live' && clock
     ? `<span class="card-clock"><span>${safeText(period || 'Live')}</span><strong>${safeText(clock)}</strong></span>`
     : '';
@@ -3007,7 +3022,7 @@ function gameCard(game) {
     game.division
       ? `<span>•</span><span>${safeText(game.division)}</span>`
       : ''
-  }<span>•</span><span>${safeText(game.sub)}</span>${clockMarkup}</span><span class="team-row ${isWinningTeam(game,game.teams[0]) ? 'winner-row' : ''}">${cardTeam(game.teams[0],0)}<b class="team-score">${possessionMarkup(game,game.teams[0])}${safeText(game.teams[0][2])}</b></span><span class="team-row ${isWinningTeam(game,game.teams[1]) ? 'winner-row' : ''}">${cardTeam(game.teams[1],1)}<b class="team-score">${possessionMarkup(game,game.teams[1])}${safeText(game.teams[1][2])}</b></span>${situation}</span>${momentMarkup}<span class="game-context channel-context"><span class="detail-inline"><strong>Broadcast</strong><span>${safeText(game.channel || 'Channel not listed')}</span></span><span class="stats-cue">Stats ›</span><span class="detail-inline line-inline"><strong>${safeText(compactLineLabel)}</strong><span>${safeText(line.text)}</span></span></span><span class="excitement"><span class="score-circle ${scoreClass}" style="${scoreColorStyle}">${game.score}</span>${trendFor(game)}</span></article>`;
+  }<span>•</span><span>${safeText(game.sub)}</span><span class="card-rating-change">${trendFor(game)}</span>${clockMarkup}</span><span class="team-row ${isWinningTeam(game,game.teams[0]) ? 'winner-row' : ''}">${cardTeam(game.teams[0],0)}<b class="team-score">${possessionMarkup(game,game.teams[0])}${safeText(game.teams[0][2])}</b></span><span class="team-row ${isWinningTeam(game,game.teams[1]) ? 'winner-row' : ''}">${cardTeam(game.teams[1],1)}<b class="team-score">${possessionMarkup(game,game.teams[1])}${safeText(game.teams[1][2])}</b></span>${situation}</span>${momentMarkup}<span class="game-context channel-context"><span class="detail-inline"><strong>Broadcast</strong><span>${safeText(game.channel || 'Channel not listed')}</span></span><span class="stats-cue">Stats ›</span><span class="detail-inline line-inline"><strong>${safeText(compactLineLabel)}</strong><span>${safeText(line.text)}</span></span></span><span class="excitement"><span class="score-circle ${scoreClass}" style="${scoreColorStyle}">${game.score}</span>${trendFor(game)}</span></article>`;
 }
 
 function footballAccessibleSituation(game) {
@@ -5979,10 +5994,7 @@ function renderDetailContent(
     game.status;
 
   const detailClockValue = String(game.liveRawStatus?.displayClock || String(status || '').match(/\b\d{1,2}:\d{2}\b/)?.[0] || '');
-  const detailPeriodNumber = Number(game.liveRawStatus?.period);
-  const detailPeriod = ['NFL','CFB','NBA'].includes(game.sport) && detailPeriodNumber > 0
-    ? detailPeriodNumber <= 4 ? `Q${detailPeriodNumber}` : detailPeriodNumber === 5 ? 'OT' : `${detailPeriodNumber-4}OT`
-    : String(status || '').replace(detailClockValue,'').replace(/^[\s·|,-]+|[\s·|,-]+$/g,'');
+  const detailPeriod = compactClockPeriod(game);
   const detailClock = game.state === 'live' && detailClockValue
     ? `<span class="detail-live-clock"><span>${safeText(detailPeriod || 'Live')}</span><strong>${safeText(detailClockValue)}</strong></span>` : '';
 

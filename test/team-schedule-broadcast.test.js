@@ -9,7 +9,7 @@ const context = vm.createContext({games:[],safeText:String,teamLogoUrl:()=>'',te
   LEAGUE_LOGOS:{},displayLine:()=>({label:'Line',text:''}),isWatched:()=>false,
   teamMarkup:()=>'',possessionMarkup:()=>'',isWinningTeam:()=>false,trendFor:()=>''});
 for (const name of ['teamScheduleFromCanonical','canonicalTeamGame','teamScheduleView','teamGameDate',
-  'teamGameTimeLabel','teamSpotlightMarkup','teamScheduleResultMarkup','teamScheduleRowMarkup','gameCard']) {
+  'teamGameTimeLabel','teamSpotlightMarkup','teamScheduleResultMarkup','teamScheduleRowMarkup','compactClockPeriod','gameCard']) {
   const start = source.indexOf(`function ${name}(`);
   assert.ok(start >= 0,name);
   vm.runInContext(source.slice(start,source.indexOf('\n}',start)+2),context);
