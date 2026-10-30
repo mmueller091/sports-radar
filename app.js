@@ -2407,7 +2407,7 @@ function addTypedFavorite() {
   );
 }
 
-function teamMarkup(game, team) {
+function teamMarkup(game, team, cardTeamIndex = null) {
   const logo =
     team[4] ||
     teamLogoUrl(
@@ -2415,7 +2415,12 @@ function teamMarkup(game, team) {
       team[1]
     );
 
-  return `<span class="team-name"><img class="team-logo" src="${safeText(logo)}" alt="" loading="lazy" onerror="this.style.display='none'">${
+  const image = `<img class="team-logo" src="${safeText(logo)}" alt="" loading="lazy" onerror="this.style.display='none'">`;
+  const canOpen = cardTeamIndex !== null && ['NFL','MLB','NHL','CFB','NBA','NCAAB','Soccer'].includes(game.sport) && team[8];
+  const logoMarkup = canOpen
+    ? `<button type="button" class="card-team-link" data-card-team-index="${cardTeamIndex}" aria-label="Open ${safeText(team[0])} team page">${image}</button>`
+    : image;
+  return `<span class="team-name">${logoMarkup}${
     team[6]
       ? `<b class="team-rank">#${safeText(team[6])}</b>`
       : ''
@@ -2801,76 +2806,6 @@ function isWinningTeam(game, team) {
     score === Math.max(...scores);
 }
 
-function scoreMovementExplanation(game) {
-  const score = Number(game.score);
-  const opening = Number(game.openingScore);
-  const hasOpening = Number.isFinite(opening);
-  const delta = hasOpening ? score - opening : 0;
-
-  const why =
-    `Why ${score}? ${explainRating(game)}`;
-
-  const movement =
-    game.state === 'upcoming' || !hasOpening
-      ? `Pregame rating: ${score}.`
-      : delta === 0
-        ? `Rating stayed at ${score} from the opening rating.`
-        : `Rating moved ${delta > 0 ? 'up' : 'down'} ${Math.abs(delta)} points, from ${opening} to ${score}.`;
-
-  const drivers = (Array.isArray(game.factors) ? game.factors : [])
-    .filter(factor =>
-      factor?.label &&
-      Number.isFinite(Number(factor.points))
-    )
-    .sort((a,b) =>
-      Math.abs(Number(b.points)) -
-      Math.abs(Number(a.points))
-    )
-    .slice(0,3)
-    .map(factor => {
-      const points = Number(factor.points);
-      return `${factor.label} (${points > 0 ? '+' : ''}${points})`;
-    });
-
-  return `${why} ${movement} ${drivers.length
-    ? `Main drivers: ${drivers.join('; ')}.`
-    : 'The detailed rating explanation is available in the game card.'}`;
-}
-
-function decorateScoreDots() {
-  $$('#game-list .score-circle').forEach(dot => {
-    const card = dot.closest('.game-card');
-    const game = games.find(item =>
-      String(item.id) === card?.dataset.id
-    );
-
-    if (!game || dot.closest('.score-dot-wrap')) {
-      return;
-    }
-
-    const wrap = document.createElement('span');
-    wrap.className = 'score-dot-wrap';
-
-    const help = document.createElement('span');
-    help.className = 'score-help';
-    help.id = `score-help-${String(game.id).replace(/[^a-zA-Z0-9_-]/g,'-')}`;
-    help.setAttribute('role','tooltip');
-    help.textContent = scoreMovementExplanation(game);
-
-    dot.setAttribute('role','button');
-    dot.setAttribute('tabindex','0');
-    dot.setAttribute('aria-expanded','false');
-    dot.setAttribute('aria-controls',help.id);
-    dot.setAttribute(
-      'aria-label',
-      `Excitement rating ${game.score}. ${scoreMovementExplanation(game)} Tap for details.`
-    );
-
-    dot.parentNode.insertBefore(wrap,dot);
-    wrap.append(dot,help);
-  });
-}
-
 function basesMarkup(bases) {
   if (!bases) return '';
 
@@ -2917,12 +2852,7 @@ function gameCard(game) {
   const clockMarkup = game.state === 'live' && clock
     ? `<span class="card-clock"><span>${safeText(period || 'Live')}</span><strong>${safeText(clock)}</strong></span>`
     : '';
-  const cardTeam = (team,index) => {
-    const canOpen = ['NFL','MLB','NHL','CFB','NBA','NCAAB','Soccer'].includes(game.sport) && team[8];
-    return canOpen
-      ? `<button type="button" class="card-team-link" data-card-team-index="${index}" aria-label="Open ${safeText(team[0])} team page">${teamMarkup(game,team)}</button>`
-      : teamMarkup(game,team);
-  };
+  const cardTeam = (team,index) => teamMarkup(game,team,index);
   const scoreColorStyle = (() => {
     const value = Number(game.score);
     const normalized = Number.isFinite(value)
@@ -6508,7 +6438,6 @@ function render() {
       state.gameState
     );
 
-  decorateScoreDots();
 
   $('#empty-state').classList.toggle(
     'hidden',
@@ -6996,34 +6925,6 @@ wireDialog(
 let lastTouchOpen = 0;
 let touchStart = null;
 
-function toggleScoreHelp(dot) {
-  const wrap = dot.closest('.score-dot-wrap');
-
-  if (!wrap) {
-    return;
-  }
-
-  const open =
-    wrap.classList.toggle('is-open');
-
-  dot.setAttribute(
-    'aria-expanded',
-    String(open)
-  );
-}
-
-function closeScoreHelp(except) {
-  $$('#game-list .score-dot-wrap.is-open').forEach(wrap => {
-    if (wrap !== except) {
-      wrap.classList.remove('is-open');
-      wrap.querySelector('.score-circle')?.setAttribute(
-        'aria-expanded',
-        'false'
-      );
-    }
-  });
-}
-
 $('#game-list')
   .addEventListener(
     'pointerdown',
@@ -7068,7 +6969,7 @@ $('#game-list')
           ?.dataset.id;
 
       if (
-        event.target.closest('.score-circle, .card-team-link')
+        event.target.closest('.card-team-link')
       ) {
         touchStart = null;
         return;
@@ -7109,15 +7010,6 @@ $('#game-list')
         if (team?.[8]) openTeamPage({sport:game.sport,id:String(team[8]),name:team[0],abbreviation:team[1],logo:team[4] || ''});
         return;
       }
-      const dot =
-        event.target.closest('.score-circle');
-
-      if (dot) {
-        closeScoreHelp(dot.closest('.score-dot-wrap'));
-        toggleScoreHelp(dot);
-        return;
-      }
-
       if (
         Date.now() -
         lastTouchOpen <
@@ -7137,36 +7029,6 @@ $('#game-list')
       }
     }
   );
-
-$('#game-list')
-  .addEventListener(
-    'keydown',
-    event => {
-      const dot =
-        event.target.closest('.score-circle');
-
-      if (
-        !dot ||
-        !['Enter',' '].includes(event.key)
-      ) {
-        return;
-      }
-
-      event.preventDefault();
-      event.stopPropagation();
-      closeScoreHelp(dot.closest('.score-dot-wrap'));
-      toggleScoreHelp(dot);
-    }
-  );
-
-document.addEventListener(
-  'pointerdown',
-  event => {
-    if (!event.target.closest('.score-dot-wrap')) {
-      closeScoreHelp(null);
-    }
-  }
-);
 
 $('#game-detail-overlay')
   .addEventListener(

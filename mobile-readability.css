@@ -374,8 +374,7 @@
 
 /* Independent controls keep the entire card, its teams and rating accessible. */
 .game-card .card-open-target { position:absolute; inset:0; z-index:1; width:100%; height:100%; padding:0; border:0; border-radius:inherit; background:transparent; cursor:pointer; }
-.game-card .card-team-link { position:relative; z-index:2; display:block; min-width:0; padding:0; border:0; color:inherit; background:transparent; text-align:left; cursor:pointer; font:inherit; }
-.game-card .score-dot-wrap { z-index:2; }
+.game-card .card-team-link { position:relative; z-index:2; display:inline-flex; flex:0 0 auto; align-items:center; justify-content:center; min-width:0; padding:0; border:0; color:inherit; background:transparent; cursor:pointer; font:inherit; }
 .team-spotlight-card { position:relative; }
 .team-spotlight-card .spotlight-open-target { position:absolute; inset:0; z-index:1; width:100%; height:100%; padding:0; border:0; border-radius:inherit; background:transparent; cursor:pointer; }
 button.team-spotlight-matchup, button.team-schedule-opponent { position:relative; z-index:2; min-width:0; padding:0; border:0; background:transparent; color:inherit; font:inherit; text-align:left; cursor:pointer; }
@@ -423,7 +422,7 @@ button.team-spotlight-matchup, button.team-schedule-opponent { position:relative
   .game-card .team-row { grid-column:1; display:grid; grid-template-columns:minmax(0,1fr) auto; align-items:center; gap:6px; min-width:0; min-height:44px; margin:0; }
   .game-card .team-row:nth-of-type(2) { grid-row:2; }
   .game-card .team-row:nth-of-type(3) { grid-row:3; }
-  .game-card .card-team-link { min-height:44px; width:100%; }
+  .game-card .card-team-link { min-height:0; width:auto; }
   .game-card .team-name { display:flex; align-items:center; gap:8px; min-width:0; }
   .game-card .team-logo { flex:0 0 36px; width:36px !important; height:36px !important; object-fit:contain; padding:0 !important; }
   .game-card .team-name-text { min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; color:#f1f3f6; font:600 15px Arial,Helvetica,sans-serif; }
@@ -568,7 +567,7 @@ button.team-spotlight-matchup, button.team-schedule-opponent { position:relative
   .game-card .card-clock strong { font-size:17px; line-height:1; }
   .game-card .team-row { min-height:27px; gap:5px; }
   .game-card .team-row + .team-row { margin-top:0; }
-  .game-card .card-team-link { min-height:27px; }
+  .game-card .card-team-link { width:24px; height:24px; min-height:0; }
   .game-card .team-name { gap:6px; }
   .game-card .team-logo { flex-basis:24px; width:24px !important; height:24px !important; }
   .game-card .team-name-text { font-size:14px; }
