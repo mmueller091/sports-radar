@@ -1,6 +1,6 @@
 /* Shared scoring module; supports classic browser scripts and Worker/Node bundling. */
 (function (root) {
-  const {gameProgress} = typeof module !== 'undefined' && module.exports
+  const {gameProgress,eventPosition} = typeof module !== 'undefined' && module.exports
     ? require('./time.js')
     : root.SportsRadarScoring.shared_time;
 
@@ -37,23 +37,46 @@
       : null;
   }
 
+  const winProbabilityFor = item => normalizeWinProbability(
+    item?.homeWinPercentage ?? item?.homeWinProbability ??
+    item?.homeWinPct ?? item?.value
+  );
+
   function winProbabilitySeries(summary) {
     return (
       summary?.winprobability ||
       []
     )
-      .map(item =>
-        normalizeWinProbability(
-          item?.homeWinPercentage ??
-          item?.homeWinProbability ??
-          item?.homeWinPct ??
-          item?.value
-        )
-      )
+      .map(winProbabilityFor)
       .filter(
         value =>
           value !== null
       );
+  }
+
+  function winProbabilityObservations(sport,summary) {
+    const plays = summary?.plays || [];
+    const playsById = new Map(plays
+      .filter(play => play?.id != null)
+      .map(play => [String(play.id),play]));
+
+    return (summary?.winprobability || []).map((item,index) => {
+      const probability = winProbabilityFor(item);
+      const play = item?.playId == null ? null : playsById.get(String(item.playId));
+      const timed = play || item;
+      const period = Number(timed?.period?.number || timed?.period || 0);
+      const rawPosition = period ? eventPosition(sport,{status:{
+        period,
+        displayClock:timed?.clock?.displayValue || timed?.displayClock || '',
+        clock:timed?.clock?.value ?? timed?.clockValue,
+        ...(sport === 'NHL' ? {clockMode:'elapsed'} : {}),
+        type:{detail:timed?.period?.displayValue || timed?.periodText || ''}
+      }}) : Number(item?.position ?? item?.gameProgress);
+      const position = Number.isFinite(rawPosition)
+        ? Math.max(0,rawPosition)
+        : null;
+      return probability === null ? null : {probability,position,index,playId:item?.playId ?? null};
+    }).filter(Boolean);
   }
 
   function winProbabilityImpact(summary,progress,state='live',sport='') {
@@ -65,10 +88,7 @@
 
     const estimate =
       (summary?.winprobability || [])
-        .filter(item => normalizeWinProbability(
-          item?.homeWinPercentage ?? item?.homeWinProbability ??
-          item?.homeWinPct ?? item?.value
-        ) !== null)
+        .filter(item => winProbabilityFor(item) !== null)
         .at(-1);
 
     const estimatePlay =
@@ -247,7 +267,7 @@
     };
   }
 
-  const api = {normalizeWinProbability,winProbabilitySeries,winProbabilityImpact};
+  const api = {normalizeWinProbability,winProbabilitySeries,winProbabilityObservations,winProbabilityImpact};
   if (typeof module !== 'undefined' && module.exports) {
     module.exports = api;
   } else {

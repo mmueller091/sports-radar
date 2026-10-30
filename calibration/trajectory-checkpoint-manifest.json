@@ -1,0 +1,359 @@
+{
+  "version": 1,
+  "baseCommit": "e29a929603e7847a6a9a21590f46a22f12074cad",
+  "stageNothingAutomatically": true,
+  "assembly": "git archive of baseCommit plus only these exact overlay paths; no workspace dependency symlinks/copies",
+  "entries": [
+    {
+      "path": "rating-core.js",
+      "action": "modify",
+      "scope": "all current hunks",
+      "hunks": [
+        "@@ -30 +30 @@",
+        "@@ -850,12 +849,0 @@",
+        "@@ -866,37 +854,10 @@"
+      ],
+      "reason": "Phase 2 dependency: aggregateLiveBonus import and equivalent live aggregation call; both hunks required together with pressure.js.",
+      "sha256": "d41ed1923ee5161be2fc6a6bde692824e2c1d3e1e7ed3e71e935cd338c106667"
+    },
+    {
+      "path": "scoring/shared/pressure.js",
+      "action": "modify",
+      "scope": "all current hunks",
+      "hunks": [
+        "@@ -2,0 +3,39 @@",
+        "@@ -49 +88 @@"
+      ],
+      "reason": "Phase 2 dependency: aggregateLiveBonus implementation and export; preserve existing production aggregation.",
+      "sha256": "69e680041b38eac1ff79c54d0abd900ec78f523396ad1b8e3d827d66921f6838"
+    },
+    {
+      "path": "scoring/shared/basketball.js",
+      "action": "modify",
+      "scope": "all current hunks",
+      "hunks": [
+        "@@ -41,0 +42 @@",
+        "@@ -42,0 +44 @@",
+        "@@ -60,4 +62,6 @@",
+        "@@ -81,0 +86 @@"
+      ],
+      "reason": "Phase 2 dependency: track genericTimePoints/reasons, preserve production points, expose candidatePoints split.",
+      "sha256": "a600737d92b64fff09732ae9bc8db6e34ea145006ba161e555471ced324e07ab"
+    },
+    {
+      "path": "scoring/shared/probability.js",
+      "action": "modify",
+      "scope": "all current hunks",
+      "hunks": [
+        "@@ -71,0 +72 @@"
+      ],
+      "reason": "Telemetry correction: NHL positioned WP uses elapsed provider clocks.",
+      "sha256": "8d377d48ce5155f60a42c2ca7711b1f4a610976600ec0c7c4296d7c1f333c049"
+    },
+    {
+      "path": "scoring/shared/trajectory.js",
+      "action": "modify",
+      "scope": "all current hunks",
+      "hunks": [
+        "@@ -33,0 +34,2 @@"
+      ],
+      "reason": "Telemetry correction: NHL scoring moments use elapsed provider clocks.",
+      "sha256": "6c969374edb0f859514525dd26eb090683dde3fd4efbfcd6120511b9a8a444c6"
+    },
+    {
+      "path": "scoring/shared/history.js",
+      "action": "modify",
+      "scope": "all current hunks",
+      "hunks": [
+        "@@ -15 +15,2 @@",
+        "@@ -386,0 +388 @@",
+        "@@ -727,0 +730,5 @@"
+      ],
+      "reason": "Phase 3.1: optional ownership argument, suppress sustained factor only in explicit live path, inject trajectory before caps.",
+      "sha256": "8aea7db82bfc045f5cc21d59b063f81f80301f242c225a93fb63787e46e1b475"
+    },
+    {
+      "path": "scoring/sports/nhl.js",
+      "action": "modify",
+      "scope": "all current hunks",
+      "hunks": [
+        "@@ -495 +495 @@",
+        "@@ -556 +556,2 @@"
+      ],
+      "reason": "Phase 3.1: optional ownership argument and sustained replacement before NHL history/headroom caps.",
+      "sha256": "2680121aabbf0a08ca77e2ee224ed55ea09e73f7ce833f2ac59c65ca13eaa535"
+    },
+    {
+      "path": "calibration/shadow-candidate.cjs",
+      "action": "modify",
+      "scope": "all current hunks",
+      "hunks": [
+        "@@ -4,0 +5,3 @@",
+        "@@ -7,0 +11,2 @@ const {aggregateLiveBonus} = require('../scoring/shared/pressure.js');",
+        "@@ -249,3 +254,8 @@ function candidateBaseForPolicy(core,game,prepared,policy) {",
+        "@@ -253,0 +264,2 @@ function finishCandidateGameRating(core,game,prepared,base,live) {",
+        "@@ -270 +282 @@ function finishCandidateGameRating(core,game,prepared,base,live) {",
+        "@@ -278 +290,9 @@ function candidateGameRating(core,game,competition,summary,policy=null) {",
+        "@@ -311,0 +332 @@ module.exports = {"
+      ],
+      "reason": "Phase 2/3/3.1 integration: explicit policy dispatch, batched finalization, off default retained; all current hunks required.",
+      "sha256": "b0e7588ab5633f073573a63e89672104f0a37514c6b17dc7a30a1b74ce35c115"
+    },
+    {
+      "path": "scripts/shadow-candidate-report.mjs",
+      "action": "modify",
+      "scope": "all current hunks",
+      "hunks": [
+        "@@ -451,9 +451,2 @@ function rowForCandidate(prepared,candidate) {",
+        "@@ -521,0 +515,7 @@ export function evaluatePreparedCheckpointPolicies(prepared,policies,{verifyInpu"
+      ],
+      "reason": "Replay dependency: retain full telemetry/scoring diagnostics and batched trajectory checkpoint evaluation.",
+      "sha256": "8d85afcd216ed1773b1712e65fa27088f86f018fa1d7005a59b8013abbb0ffa1"
+    },
+    {
+      "path": "test/live-phase.test.js",
+      "action": "modify",
+      "scope": "all current hunks",
+      "hunks": [
+        "@@ -57 +57 @@ test('NBA 2OT flows through card, accessibility, explanation, history, detail an"
+      ],
+      "reason": "Full-suite dependency: load recordedTimelinePoints in the existing UI fixture VM; required test helper, no scoring change.",
+      "sha256": "c217e2f25368ab14503f89d53bc7f38caa0f492d4b47807dbdb464852a76a4d9"
+    },
+    {
+      "path": "test/trajectory.test.js",
+      "action": "modify",
+      "scope": "all current hunks",
+      "hunks": [
+        "@@ -7,0 +8,17 @@ const {analyzeTrajectory} = require('../scoring/models.js');"
+      ],
+      "reason": "Telemetry regression for NHL elapsed clocks, coverage ordering and history duration.",
+      "sha256": "74d0853747bc9a359e6b45f2923eea1224df9c1cd52004ad6fc40c6a354c1b69"
+    },
+    {
+      "path": "calibration/trajectory-policy.cjs",
+      "action": "add",
+      "scope": "entire new file",
+      "hunks": [],
+      "reason": "Frozen Phase 3 policy definitions, confidence treatment and trajectory calculation.",
+      "sha256": "36182de936c09ac11ed15f27e2e5f9151d5d0553421ce2885f2e99d55a3548bd"
+    },
+    {
+      "path": "calibration/trajectory-archetypes.mjs",
+      "action": "add",
+      "scope": "entire new file",
+      "hunks": [],
+      "reason": "Phase 3 synthetic histories through authoritative telemetry.",
+      "sha256": "c59191a5f109c4f0a04eceeb1510fff0320f89a62eee119d46cbe0f091fd7200"
+    },
+    {
+      "path": "scripts/trajectory-calibration.mjs",
+      "action": "add",
+      "scope": "entire new file",
+      "hunks": [],
+      "reason": "Phase 3 replay, summaries and report renderer; imported by Phase 3.1 tooling.",
+      "sha256": "f85798b237ffda83e141931b65448556e278b13d47d2222668a5d0d196b9f128"
+    },
+    {
+      "path": "calibration/output/trajectory-calibration.json",
+      "action": "add",
+      "scope": "entire new file",
+      "hunks": [],
+      "reason": "Preserved Phase 3 results consumed by regression tests.",
+      "sha256": "63f7fcd076bb056e5ac623c833f833ae749ad17c9bc2fa8597d1eacece1007b1"
+    },
+    {
+      "path": "calibration/trajectory-calibration-report.md",
+      "action": "add",
+      "scope": "entire new file",
+      "hunks": [],
+      "reason": "Preserved Phase 3 experimental report, not renamed.",
+      "sha256": "a40a9ed890c9f0457ebe32f955026c3e4602e64c34519b501661dddaedbf6078"
+    },
+    {
+      "path": "test/trajectory-calibration.test.js",
+      "action": "add",
+      "scope": "entire new file",
+      "hunks": [],
+      "reason": "Phase 3 grid/artifact/summary regressions.",
+      "sha256": "2d66a360d1f0fcccf8caac38ddb427f9f317da01185389b034cfe9b20a8651e9"
+    },
+    {
+      "path": "test/trajectory-shadow.test.js",
+      "action": "add",
+      "scope": "entire new file",
+      "hunks": [],
+      "reason": "Phase 3 opt-in, caps, maturity, confidence and batch regressions.",
+      "sha256": "cde893d424cdb344d2cb0c581dcbfba4173b30eddb573163d627ffbb26416bbc"
+    },
+    {
+      "path": "calibration/trajectory-live-policy.cjs",
+      "action": "add",
+      "scope": "entire new file",
+      "hunks": [],
+      "reason": "Frozen Phase 3.1 history ownership and current-urgency guardrails.",
+      "sha256": "fe1e8f78f72f21e998817f76a0545de1a6adb89d03d1221fe1845577ac65f0eb"
+    },
+    {
+      "path": "calibration/trajectory-live-fixtures.mjs",
+      "action": "add",
+      "scope": "entire new file",
+      "hunks": [],
+      "reason": "Preserved Phase 3.1 pairs, NHL headroom, revival and missing-current-WP fixtures.",
+      "sha256": "96250972d8e67ae645e5a02dc8750ae07c95b99083ccc7dfc615f420445997ec"
+    },
+    {
+      "path": "scripts/trajectory-live-calibration.mjs",
+      "action": "add",
+      "scope": "entire new file",
+      "hunks": [],
+      "reason": "Phase 3.1 direct replay, comparisons and reporting; no broad replay rerun in this task.",
+      "sha256": "dd152a57bb911f4ffd48d8873bcab3c16455f32a332c94266297617a28e1e03f"
+    },
+    {
+      "path": "calibration/output/trajectory-live-calibration.json",
+      "action": "add",
+      "scope": "entire new file",
+      "hunks": [],
+      "reason": "Preserved Phase 3.1 replay results and validation provenance.",
+      "sha256": "6581601b64d2a22a8e27e3e10387642a038a5fc5ae36fd1e1c584f489fe345c7"
+    },
+    {
+      "path": "calibration/trajectory-live-calibration-report.md",
+      "action": "add",
+      "scope": "entire new file",
+      "hunks": [],
+      "reason": "Preserved Phase 3.1 report, not relabelled.",
+      "sha256": "573930e78e18ae2bde511f547c8db1fa52abddbc6558c8b771d22b7eb6487e1f"
+    },
+    {
+      "path": "calibration/trajectory-history-ownership.md",
+      "action": "add",
+      "scope": "entire new file",
+      "hunks": [],
+      "reason": "Ownership audit and required pre-existing helper dependencies.",
+      "sha256": "a178e82a32ad6b81f6dc02dc965ef853b6582dc88f6c45a274f9019a3730a130"
+    },
+    {
+      "path": "test/fixtures/phase31-shadow-before.cjs.gz",
+      "action": "add",
+      "scope": "entire new file",
+      "hunks": [],
+      "reason": "Frozen pre-Phase-3.1 shadow orchestration oracle.",
+      "sha256": "cb763ee662a4f0cdb3d6adc9d003db9f78c1bfa3e642a0af42cc0e9be1683ae9"
+    },
+    {
+      "path": "test/helpers/phase31-oracle.cjs",
+      "action": "add",
+      "scope": "entire new file",
+      "hunks": [],
+      "reason": "Loads frozen oracle with candidate-local shared dependencies.",
+      "sha256": "95cef7d242daf90fe152501e2cb9ce52f22091061bcacd217ab1c3b9f30577b9"
+    },
+    {
+      "path": "test/trajectory-live.test.js",
+      "action": "add",
+      "scope": "entire new file",
+      "hunks": [],
+      "reason": "Phase 3.1 targeted semantics, off parity, unchanged completed path, direct/batch checks.",
+      "sha256": "5f95ecac0839d203c682d563a12703e47ec9023c8b2b88e3b559471cc8a95d5e"
+    },
+    {
+      "path": "test/trajectory-live-calibration.test.js",
+      "action": "add",
+      "scope": "entire new file",
+      "hunks": [],
+      "reason": "Phase 3.1 artifact, equal-game, 95/99, ownership and ablation checks.",
+      "sha256": "078a693cf3cddf429e90a83ba89ed0f092fa996af0d011199522002dcba7ca9f"
+    },
+    {
+      "path": "calibration/trajectory-checkpoint-fixtures.mjs",
+      "action": "add",
+      "scope": "entire new file",
+      "hunks": [],
+      "reason": "New unsaturated matched fixtures and historical thinning with fixed valid current WP.",
+      "sha256": "bf5dd636ab952f92be67e9ca04a87c7fafc6779f495420cec9b64a76412bc914"
+    },
+    {
+      "path": "scripts/trajectory-review-pack.mjs",
+      "action": "add",
+      "scope": "entire new file",
+      "hunks": [],
+      "reason": "Fixed-checkpoint review generator, explicit policy provenance and complete diagnostics.",
+      "sha256": "331d157d90384a4e575810299017155d418790f90b90e864ea6fbbf15464d533"
+    },
+    {
+      "path": "calibration/trajectory-reviewer-pack.md",
+      "action": "add",
+      "scope": "entire new file",
+      "hunks": [],
+      "reason": "Blind 22-case review pack; blank human answers; no policy outputs.",
+      "sha256": "243f4f3f9d9b58260819739305bb47c358bbf8ba41465f23f8593fd940a6c3d0"
+    },
+    {
+      "path": "calibration/trajectory-diagnostic-key.json",
+      "action": "add",
+      "scope": "entire new file",
+      "hunks": [],
+      "reason": "Separate policy/contribution key, focused results and thinning comparisons.",
+      "sha256": "83030772ff71aaa3b250bb48ff1345735afc95b7afb7da2f863c4aa61e54c186"
+    },
+    {
+      "path": "calibration/trajectory-focused-validation.md",
+      "action": "add",
+      "scope": "entire new file",
+      "hunks": [],
+      "reason": "Compact unsaturated results with retained earlier event differences.",
+      "sha256": "7c30cf3ac124312dab0bc2e2a018d3dbafe365c494f0098d1c636b6d6adcf514"
+    },
+    {
+      "path": "test/trajectory-checkpoint.test.js",
+      "action": "add",
+      "scope": "entire new file",
+      "hunks": [],
+      "reason": "Focused semantics, causal review projection, reproducibility and checkpoint off parity.",
+      "sha256": "fa8de8cfa678dcf317ca2ac1738573640d8e050f2519bd10b98a3f1acd56d7a1"
+    },
+    {
+      "path": "scripts/prepare-trajectory-checkpoint.py",
+      "action": "add",
+      "scope": "entire new file",
+      "hunks": [],
+      "reason": "Reproducible explicit-overlay isolation builder; never stages content.",
+      "sha256": "0b18f60400ebc10a343dcfd57af05515f6bd7aa46d146d2a84ed9a92270d0989"
+    },
+    {
+      "path": "calibration/trajectory-checkpoint-manifest.json",
+      "action": "add",
+      "scope": "entire new file",
+      "hunks": [],
+      "reason": "Machine-readable proposed staging manifest and source hashes.",
+      "sha256": null
+    },
+    {
+      "path": "calibration/trajectory-checkpoint-manifest.md",
+      "action": "add",
+      "scope": "entire new file",
+      "hunks": [],
+      "reason": "Human-readable exact staging paths, hunks and dependency audit.",
+      "sha256": null
+    }
+  ],
+  "excludedDirtyPaths": [],
+  "unchangedBaseDependencies": [
+    "all scoring modules and sport models at baseCommit",
+    "alerts-worker/src/game-model.js and display/provider adapters",
+    "calibration/helpers.mjs, expectations.json and context-overrides.json",
+    "scripts/current-tension-calibration.mjs and Phase 2 JSON/report/tests",
+    "test/helpers/scoring-source.cjs, index.html, sw.js and browser fixtures",
+    "107 tracked test/fixtures/real-games/*.json files and compressed parity oracles",
+    "alerts-worker/package.json and package-lock.json; npm ci required inside the candidate"
+  ],
+  "staticScanExclusions": {
+    "apply-recorded-excitement-history-v2.mjs": "Embedded patch payload imports are generated into alerts-worker/src or alerts-worker/test; not runtime imports of this root-level migration script. Targets snapshot-history.js and sports-feed.js exist in the archived tree.",
+    "apply-recorded-excitement-history-v3.mjs": "Embedded patch payload imports are generated into alerts-worker/src or alerts-worker/test; not runtime imports of this root-level migration script. Targets snapshot-history.js and sports-feed.js exist in the archived tree.",
+    "apply-recorded-excitement-history-v4.mjs": "Embedded patch payload imports are generated into alerts-worker/src or alerts-worker/test; not runtime imports of this root-level migration script. Targets snapshot-history.js and sports-feed.js exist in the archived tree.",
+    "apply-recorded-excitement-history.mjs": "Embedded patch payload imports are generated into alerts-worker/src or alerts-worker/test; not runtime imports of this root-level migration script. Targets snapshot-history.js and sports-feed.js exist in the archived tree."
+  },
+  "hashNote": "SHA256 covers source bytes including line endings. Two self-describing manifest files omit their own hashes. Git may normalize line endings on a future user-approved commit."
+}

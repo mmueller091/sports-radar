@@ -1,0 +1,313 @@
+{
+  "inputPipelineVersion": "espn-causal-replay-v2",
+  "preservedInitialFiles": [
+    {
+      "path": "scoring/models.js",
+      "sha256": "9efc69e6ffe186423515dc476a7551031b13fc35d2580b3100fb86b15a60584d"
+    },
+    {
+      "path": "scoring/shared/basketball.js",
+      "sha256": "a600737d92b64fff09732ae9bc8db6e34ea145006ba161e555471ced324e07ab"
+    },
+    {
+      "path": "scoring/shared/college.js",
+      "sha256": "340fff02259eb24f16b2560c3c84e2a8f705b0199c7396894ad8ad72385a7a47"
+    },
+    {
+      "path": "scoring/shared/config.js",
+      "sha256": "60b4409799eee9f100460c2f3a0806274a20f0ef65c113705ff15ecb91432de9"
+    },
+    {
+      "path": "scoring/shared/context.js",
+      "sha256": "8d3ae955a841c80308a19187172286d9a469eb968f5edcb67d53fbf5bbec3c0e"
+    },
+    {
+      "path": "scoring/shared/events.js",
+      "sha256": "0e3194d60a3d703a256d0779113165e7ca439ef83f2dff6d56d597e4681c1ada"
+    },
+    {
+      "path": "scoring/shared/football.js",
+      "sha256": "974f8d3ceeb1e64b44da004de13e69a703f0d04dd36928cc29aeae7355437381"
+    },
+    {
+      "path": "scoring/shared/history.js",
+      "sha256": "8aea7db82bfc045f5cc21d59b063f81f80301f242c225a93fb63787e46e1b475"
+    },
+    {
+      "path": "scoring/shared/market.js",
+      "sha256": "2456eca2c7312b780293839d8afd4a73bb8342a85dc9aab93bafebaafa013c54"
+    },
+    {
+      "path": "scoring/shared/pregame.js",
+      "sha256": "4de85f0d8d6bdbc95574765fe833caee3004d4226b55dd3bd0189d250f520e25"
+    },
+    {
+      "path": "scoring/shared/pressure.js",
+      "sha256": "69e680041b38eac1ff79c54d0abd900ec78f523396ad1b8e3d827d66921f6838"
+    },
+    {
+      "path": "scoring/shared/probability.js",
+      "sha256": "8d377d48ce5155f60a42c2ca7711b1f4a610976600ec0c7c4296d7c1f333c049"
+    },
+    {
+      "path": "scoring/shared/records.js",
+      "sha256": "5fb463f91c3399749a1b41fbfc12101e1c53955f6d9eeac1b2d902a78c83b673"
+    },
+    {
+      "path": "scoring/shared/time.js",
+      "sha256": "b503dfde190106ad82e8dcfee2f9d73ff0702775ea0c5d670e5a0f180cb312df"
+    },
+    {
+      "path": "scoring/shared/trajectory.js",
+      "sha256": "6c969374edb0f859514525dd26eb090683dde3fd4efbfcd6120511b9a8a444c6"
+    },
+    {
+      "path": "scoring/shared/upset.js",
+      "sha256": "b39e00f9f423fac4c75417e6b3ba9b4b91df12070af8cebe522baca1d24a83a6"
+    },
+    {
+      "path": "scoring/sports/basketball.js",
+      "sha256": "ebdea5b3fb25dac4e4bbf50752152386b37a9696030755521218e1cb30e239a6"
+    },
+    {
+      "path": "scoring/sports/cfb.js",
+      "sha256": "7888a40ce3a3aa3d0ebb30b12f700aee7d21707e4e44302728eb78bbb43f60b4"
+    },
+    {
+      "path": "scoring/sports/mlb.js",
+      "sha256": "3aa7243c59f38315d19db0a7432b3946b1dbdbe2e10e9263ecaab09c3b4c771a"
+    },
+    {
+      "path": "scoring/sports/nfl.js",
+      "sha256": "fdbb9b73fd03c227f5b51da1df396dd524fd1c554d769a15cda4607d473bfe4d"
+    },
+    {
+      "path": "scoring/sports/nhl.js",
+      "sha256": "2680121aabbf0a08ca77e2ee224ed55ea09e73f7ce833f2ac59c65ca13eaa535"
+    },
+    {
+      "path": "scoring/sports/soccer.js",
+      "sha256": "6ee5f88a9fec30065c7102a2846532318d72eecb05825ab52c566615b0017dec"
+    },
+    {
+      "path": "scoring/sports/tennis.js",
+      "sha256": "c29c70198cab513219b50191508490026ebc8ba7ad07c1e3277395fd9231caf0"
+    },
+    {
+      "path": "rating-core.js",
+      "sha256": "d41ed1923ee5161be2fc6a6bde692824e2c1d3e1e7ed3e71e935cd338c106667"
+    },
+    {
+      "path": "calibration/shadow-candidate.cjs",
+      "sha256": "b0e7588ab5633f073573a63e89672104f0a37514c6b17dc7a30a1b74ce35c115"
+    },
+    {
+      "path": "calibration/trajectory-archetypes.mjs",
+      "sha256": "c59191a5f109c4f0a04eceeb1510fff0320f89a62eee119d46cbe0f091fd7200"
+    },
+    {
+      "path": "calibration/trajectory-calibration-report.md",
+      "sha256": "a40a9ed890c9f0457ebe32f955026c3e4602e64c34519b501661dddaedbf6078"
+    },
+    {
+      "path": "calibration/trajectory-checkpoint-fixtures.mjs",
+      "sha256": "bf5dd636ab952f92be67e9ca04a87c7fafc6779f495420cec9b64a76412bc914"
+    },
+    {
+      "path": "calibration/trajectory-checkpoint-manifest.json",
+      "sha256": "dcfbd04b3f02b48d56f7dd53289d7143a653d1d39da29ab481cd50a7883fa428"
+    },
+    {
+      "path": "calibration/trajectory-checkpoint-manifest.md",
+      "sha256": "f7afa1e65ce5703fd2d1945da730383cd868aa33ef516acc935f38cc3b75faf8"
+    },
+    {
+      "path": "calibration/trajectory-diagnostic-key.corrected.json",
+      "sha256": "6be8ea8649c76bfa4d2cb0f954a8db9a693e2d9dbf13931f829e95fc677f6dad"
+    },
+    {
+      "path": "calibration/trajectory-diagnostic-key.json",
+      "sha256": "83030772ff71aaa3b250bb48ff1345735afc95b7afb7da2f863c4aa61e54c186"
+    },
+    {
+      "path": "calibration/trajectory-focused-validation.md",
+      "sha256": "7c30cf3ac124312dab0bc2e2a018d3dbafe365c494f0098d1c636b6d6adcf514"
+    },
+    {
+      "path": "calibration/trajectory-history-ownership.md",
+      "sha256": "a178e82a32ad6b81f6dc02dc965ef853b6582dc88f6c45a274f9019a3730a130"
+    },
+    {
+      "path": "calibration/trajectory-live-calibration-report.md",
+      "sha256": "573930e78e18ae2bde511f547c8db1fa52abddbc6558c8b771d22b7eb6487e1f"
+    },
+    {
+      "path": "calibration/trajectory-live-fixtures.mjs",
+      "sha256": "96250972d8e67ae645e5a02dc8750ae07c95b99083ccc7dfc615f420445997ec"
+    },
+    {
+      "path": "calibration/trajectory-live-policy.cjs",
+      "sha256": "fe1e8f78f72f21e998817f76a0545de1a6adb89d03d1221fe1845577ac65f0eb"
+    },
+    {
+      "path": "calibration/trajectory-policy.cjs",
+      "sha256": "36182de936c09ac11ed15f27e2e5f9151d5d0553421ce2885f2e99d55a3548bd"
+    },
+    {
+      "path": "calibration/trajectory-review-correction-findings.md",
+      "sha256": "79af6ef627817b209a5eebec38a40aa6a9955f9534cd6543b6fa05a024d7da91"
+    },
+    {
+      "path": "calibration/trajectory-reviewer-pack.corrected.md",
+      "sha256": "20a7390d013a177815ceae76293aaa473f3e9309305b2217e2af49c378a860a0"
+    },
+    {
+      "path": "calibration/trajectory-reviewer-pack.md",
+      "sha256": "243f4f3f9d9b58260819739305bb47c358bbf8ba41465f23f8593fd940a6c3d0"
+    },
+    {
+      "path": "calibration/output/trajectory-calibration.json",
+      "sha256": "63f7fcd076bb056e5ac623c833f833ae749ad17c9bc2fa8597d1eacece1007b1"
+    },
+    {
+      "path": "calibration/output/trajectory-live-calibration.json",
+      "sha256": "6581601b64d2a22a8e27e3e10387642a038a5fc5ae36fd1e1c584f489fe345c7"
+    },
+    {
+      "path": "app.js",
+      "sha256": "9eb6b9fc7d3fe28dd2e7e9126ddbf0cf0148b34995831258ba1a246eba9e9b19"
+    },
+    {
+      "path": "alerts-worker/src/ai-budget.js",
+      "sha256": "dab8943b3eededeb5d66e61e004326937b3eebbf8c1d366385d77edf40a951e6"
+    },
+    {
+      "path": "alerts-worker/src/display-model.js",
+      "sha256": "5b877149c787756c9f44581e0f46b49531a92eb56db1cdcf7e3a4396f3b872af"
+    },
+    {
+      "path": "alerts-worker/src/game-model.js",
+      "sha256": "48f4596c3d58b1c0814af4af283a6fe0a8e466155401ce5de86fffb0810e2fb2"
+    },
+    {
+      "path": "alerts-worker/src/index.js",
+      "sha256": "7c5839c17995ae5994ab260e34c85f63bcb4b0202ea22b6472f33956a5fe610f"
+    },
+    {
+      "path": "alerts-worker/src/refresh-policy.js",
+      "sha256": "a6d390fe2be9cda04844439c52f5d064564b74b34233275881ae23a230ce77b6"
+    },
+    {
+      "path": "alerts-worker/src/snapshot-history.js",
+      "sha256": "66db91a4126131a9bea078add8bd83426bb5e3fa3f0abbbf9dbe80cd612d79bc"
+    },
+    {
+      "path": "alerts-worker/src/sports-feed.js",
+      "sha256": "a2ae9bfef378988bc425072f6db1cb580d792a66024cb8258ca20a3d4739e958"
+    },
+    {
+      "path": "alerts-worker/src/storylines.js",
+      "sha256": "9e0d6b5a2e1fef328d7bf72b80e3b4d3d882c3e461169a2b6c6645e873469d1b"
+    },
+    {
+      "path": "alerts-worker/src/providers/espn.js",
+      "sha256": "6dfae4c61a879c5ad07da329cbccaedd90ad3e5c1883fc1c7d5b4391ea054f73"
+    }
+  ],
+  "newFilesAndChangedSources": [
+    {
+      "path": "scripts/replay-inputs.mjs",
+      "sha256": "1962fb464b42a744783d4789f63e6130b3d59fdf6432010a706535032dbdfcf5"
+    },
+    {
+      "path": "scripts/replay-inputs.historical.mjs",
+      "sha256": "089b106eaff61a71863874efcb21f657d1074b951b2d7b7417efa34de2258201"
+    },
+    {
+      "path": "scripts/replay-input-comparison.mjs",
+      "sha256": "d5b52bfe73ca7fe056a7015242db2e58fee98783a4661a14c3e57fc84edfb74a"
+    },
+    {
+      "path": "scripts/shadow-candidate-report.mjs",
+      "sha256": "8047ea172a4056703611042a63dd4662055c92d258a7a2841968bd34a4f9dafa"
+    },
+    {
+      "path": "scripts/trajectory-calibration.mjs",
+      "sha256": "a22cdf707989f233a5206428cbfbeada4080d0c45b6e2237fcdd0650fbed8c34"
+    },
+    {
+      "path": "scripts/trajectory-live-calibration.mjs",
+      "sha256": "3b9d7cc8ccfdf656df9ace4cd22dc68a68b97024dd8b0960ca6d47054fb3f5c5"
+    },
+    {
+      "path": "scripts/trajectory-review-pack.mjs",
+      "sha256": "235f2a32e4e7c913ef94b40427ef27925f0babeea4a1fd3a0560ffc1a0ba9814"
+    },
+    {
+      "path": "scripts/trajectory-review-correction.mjs",
+      "sha256": "28462c3030445083652d5170735260ae4c14b1acd609451f5115ac136adac6c3"
+    },
+    {
+      "path": "test/replay-inputs.test.js",
+      "sha256": "82afa98f0aa37d836258720ce23b3cfdc4d3c127b067cffae02f42e450a2c61a"
+    },
+    {
+      "path": "test/replay-input-comparison.test.js",
+      "sha256": "f4244f38abedcf856b4fd9c6a944d29102345fa07af2d5ae189464d2688654e3"
+    },
+    {
+      "path": "test/shadow-candidate-report.test.js",
+      "sha256": "42e3e7e0f309644e2e199656b54129c419376fc93d84c11d9c0e9da53dc332b8"
+    },
+    {
+      "path": "test/trajectory-checkpoint.test.js",
+      "sha256": "ddd90f240558d59afebaacf82974d717ab43727934d94ee2124bf85ac5b18d26"
+    },
+    {
+      "path": "calibration/replay-input-rules.v2.md",
+      "sha256": "c1bada0e9c8f5f405263b62a6b2c242ffe8789c5a4ba169acd70438fe1232a95"
+    },
+    {
+      "path": "calibration/replay-input-comparison.v2.md",
+      "sha256": "2cf3f18a7623a558f05413d4e006cbcf2d0858241ffea9896d167d39590b56d9"
+    },
+    {
+      "path": "calibration/output/replay-input-scope.v2.json",
+      "sha256": "d20b2adf3a28026378c0df2f650ed4ea4f06c2203967d64804a43991e5d9112f"
+    },
+    {
+      "path": "calibration/output/replay-input-comparison.v2.json",
+      "sha256": "99caa9a1cef49ffcdf74681f15cd2ed8d78340f41fa9b608c651f9984d505ddc"
+    },
+    {
+      "path": "calibration/output/replay-input-states.v2.json.gz",
+      "sha256": "f2346dd275102553e734879f87e551cdc0deafabf15fc6f02217d56bc345268d"
+    },
+    {
+      "path": "calibration/trajectory-diagnostic-key.replay-v2.json",
+      "sha256": "4f36e3678b1c41cdb088c581c733211250c61c0eae560edbd059ec8cb2f22a41"
+    },
+    {
+      "path": "calibration/trajectory-reviewer-pack.replay-v2.md",
+      "sha256": "60c69e1ffbd333ca00b9fbc58b0bc4df0b9323e2e334156d2e6d561bb0e2215d"
+    }
+  ],
+  "validation": {
+    "tests": 527,
+    "pass": 527,
+    "fail": 0,
+    "skipped": 0
+  },
+  "initialFullSuite": {
+    "tests": 527,
+    "pass": 526,
+    "fail": 1,
+    "skipped": 0
+  },
+  "workerBundleRecheck": {
+    "tests": 1,
+    "pass": 1,
+    "fail": 0
+  },
+  "stagedCommittedPushedDeployedPromoted": false
+}

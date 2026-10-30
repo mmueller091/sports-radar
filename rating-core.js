@@ -27,7 +27,7 @@
   const {eventShockFor} = typeof module !== 'undefined' && module.exports
     ? require('./scoring/shared/events.js')
     : root.SportsRadarScoring.shared_events;
-  const {pressureImpact} = typeof module !== 'undefined' && module.exports
+  const {pressureImpact,aggregateLiveBonus} = typeof module !== 'undefined' && module.exports
     ? require('./scoring/shared/pressure.js')
     : root.SportsRadarScoring.shared_pressure;
   const {recordFor,rankFor,recordStats,divisionFor,winningRecord,proRecordFactors} = typeof module !== 'undefined' && module.exports
@@ -847,59 +847,20 @@
     snapshot.components.eventShock = Math.max(0,Math.min(12,shock.points));
     if (snapshot.components.eventShock) snapshot.reasons.push(...shock.reasons);
 
-    const probabilityPositive =
-      Math.max(
-        0,
-        snapshot.components.probability
-      );
-
-    const probabilityNegative =
-      Math.min(
-        0,
-        snapshot.components.probability
-      );
-
     // An active tying or winning drive has immediate competitive leverage
     // even when the leader's win probability is high. Keep that estimate
     // untouched. NFL decisive states can raise the competitive floor beyond
     // the ordinary cap; overlapping situation/probability points still use max.
-    const driveFloor = sportImpact.decisiveDrive
-      ? Math.round(
-          sportImpact.decisiveDrive.urgency *
-          (18 + Math.min(2,sportImpact.decisiveDrive.positionBonus))
-        )
-      : 0;
-    const decisiveFloor = game.sport === 'NFL' || SPORT_MODELS[game.sport]?.decisiveFloor ? Math.max(0,Number(sportImpact.competitiveFloor) || 0) : 0;
-    const competitiveSituation =
-      SPORT_MODELS[game.sport]?.decisiveFloor && decisiveFloor > 0 ? decisiveFloor : Math.min(
-        Math.max(20,decisiveFloor),
-        Math.max(
-          driveFloor,
-          Number(sportImpact.competitiveFloor) || 0,
-          probabilityPositive +
-          snapshot.components.situation +
-          snapshot.components.pressure
-        )
-      );
-
-    const positiveBonus =
-      Math.min(
-        Math.max(30,decisiveFloor),
-        competitiveSituation +
-        snapshot.components.milestone +
-        snapshot.components.eventShock
-      );
-
-    const negativeBonus =
-      Math.max(
-        -8,
-        probabilityNegative
-      );
-
-    snapshot.bonus =
-      decisiveFloor > 0
-        ? Math.max(decisiveFloor,positiveBonus + negativeBonus)
-        : positiveBonus + negativeBonus;
+    snapshot.bonus = aggregateLiveBonus({
+      probabilityPoints:snapshot.components.probability,
+      situationPoints:snapshot.components.situation,
+      pressurePoints:snapshot.components.pressure,
+      milestonePoints:snapshot.components.milestone,
+      eventShockPoints:snapshot.components.eventShock,
+      sportImpact,
+      decisiveFloorEnabled:Boolean(SPORT_MODELS[game.sport]?.decisiveFloor),
+      nfl:game.sport === 'NFL'
+    }).bonus;
 
     // Sport-owned floors consume already-earned context and live leverage.
     const liveFloor = SPORT_MODELS[game.sport]?.liveFloor?.({game,competition,progress,scoreGap});

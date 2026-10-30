@@ -1,7 +1,7 @@
 import {normalizeEvent} from '../game-model.js';
 const ESPN_BASE = 'https://site.api.espn.com/apis/site/v2/sports';
 const SPORT_PATHS = {NFL:'football/nfl',MLB:'baseball/mlb',NHL:'hockey/nhl',CFB:'football/college-football',NBA:'basketball/nba',NCAAB:'basketball/mens-college-basketball',Tennis:'tennis/atp',Soccer:'soccer/eng.1'};
-const LIVE_FEEDS = [
+export const LIVE_FEEDS = [
   {sport:'NFL', url:`${ESPN_BASE}/football/nfl/scoreboard`},
   {sport:'MLB', url:`${ESPN_BASE}/baseball/mlb/scoreboard`},
   {sport:'NHL', url:`${ESPN_BASE}/hockey/nhl/scoreboard`},

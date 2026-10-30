@@ -1,5 +1,45 @@
 /* Shared scoring module; supports classic browser scripts and Worker/Node bundling. */
 (function (root) {
+  function aggregateLiveBonus({
+    probabilityPoints=0,
+    situationPoints=0,
+    pressurePoints=0,
+    milestonePoints=0,
+    eventShockPoints=0,
+    sportImpact={},
+    decisiveFloorEnabled=false,
+    preserveCompetitiveSupport=false,
+    nfl=false
+  }={}) {
+    const probabilityPositive = Math.max(0,Number(probabilityPoints) || 0);
+    const probabilityNegative = Math.min(0,Number(probabilityPoints) || 0);
+    const driveFloor = sportImpact.decisiveDrive
+      ? Math.round(sportImpact.decisiveDrive.urgency *
+          (18 + Math.min(2,sportImpact.decisiveDrive.positionBonus)))
+      : 0;
+    const decisiveFloor = nfl || decisiveFloorEnabled
+      ? Math.max(0,Number(sportImpact.competitiveFloor) || 0)
+      : 0;
+    const competitiveSituation = decisiveFloorEnabled && decisiveFloor > 0 && !preserveCompetitiveSupport
+      ? decisiveFloor
+      : Math.min(Math.max(20,decisiveFloor),Math.max(
+          driveFloor,
+          Number(sportImpact.competitiveFloor) || 0,
+          probabilityPositive + situationPoints + pressurePoints
+        ));
+    const positiveBonus = Math.min(
+      Math.max(30,decisiveFloor),
+      competitiveSituation + milestonePoints + eventShockPoints
+    );
+    const negativeBonus = Math.max(-8,probabilityNegative);
+    const bonus = decisiveFloor > 0
+      ? Math.max(decisiveFloor,positiveBonus + negativeBonus)
+      : positiveBonus + negativeBonus;
+
+    return {bonus,probabilityPositive,probabilityNegative,driveFloor,decisiveFloor,
+      competitiveSituation,positiveBonus,negativeBonus};
+  }
+
   function pressureImpact(summary,progress,scoreGap,competition,policy) {
     if (policy?.impact) return policy.impact(summary,progress,scoreGap,competition);
     if (!policy || !summary || scoreGap > policy.maxGap) {
@@ -46,7 +86,7 @@
     };
   }
 
-  const api = {pressureImpact};
+  const api = {pressureImpact,aggregateLiveBonus};
   if (typeof module !== 'undefined' && module.exports) {
     module.exports = api;
   } else {

@@ -5663,7 +5663,7 @@ function excitementTimeline(game,summary) {
         : source === 'scoring plays'
           ? 'Estimated at reported scoring plays; the final point is the current rating.'
           : 'Ratings recorded while this browser was open.'
-  }</p><svg class="timeline-chart" viewBox="0 0 ${width} ${height}" role="img" aria-label="Excitement rating over game time, from ${points[0].score} to ${points[points.length - 1].score}"><line x1="${left}" y1="${top}" x2="${left}" y2="${height - bottom}"/><line x1="${left}" y1="${height - bottom}" x2="${width - right}" y2="${height - bottom}"/><line class="timeline-midline" x1="${left}" y1="${py({score:50})}" x2="${width - right}" y2="${py({score:50})}"/><text x="3" y="${top + 4}">100</text><text x="10" y="${py({score:50}) - 4}">50</text><text x="16" y="${height - bottom + 4}">0</text>${overtimeGuides}<path class="timeline-line" d="${path}"/>${eventMarkers}${markers}<text x="${left}" y="${height - 5}">Start</text><text x="${width - right}" y="${height - 5}" text-anchor="end">${game.state === 'completed' ? 'Final' : 'Now'}</text></svg><div class="timeline-point-help" id="${timelineHelpId}" role="status" aria-live="polite" hidden></div>${moments}</section>`;
+  }</p><svg class="timeline-chart" viewBox="0 0 ${width} ${height}" role="img" aria-label="Excitement rating over game time, from ${points[0].score} to ${points[points.length - 1].score}"><line x1="${left}" y1="${top}" x2="${left}" y2="${height - bottom}"/><line x1="${left}" y1="${height - bottom}" x2="${width - right}" y2="${height - bottom}"/><line class="timeline-midline" x1="${left}" y1="${py({score:50})}" x2="${width - right}" y2="${py({score:50})}"/><text x="3" y="${top + 4}">100</text><text x="10" y="${py({score:50}) - 4}">50</text><text x="16" y="${height - bottom + 4}">0</text>${overtimeGuides}<path class="timeline-line" d="${path}"/>${eventMarkers}${markers}<text x="${left}" y="${height - 5}">Start</text><text x="${width - right}" y="${height - 5}" text-anchor="end">${game.state === 'completed' ? 'Final' : 'Now'}</text></svg><div class="timeline-point-help" id="${timelineHelpId}" role="status" aria-live="polite" aria-hidden="true"></div>${moments}</section>`;
 }
 
 function safeStoryUrl(value) {
@@ -7041,7 +7041,8 @@ $('#game-detail-content')
         if (help) {
           help.textContent =
             point.dataset.timelineExplanation || '';
-          help.hidden = false;
+          help.classList.add('is-visible');
+          help.setAttribute('aria-hidden','false');
           point.classList.add('is-open');
           point.setAttribute('aria-expanded','true');
         }
@@ -7070,11 +7071,20 @@ $('#game-detail-content')
       const help =
         section?.querySelector('.timeline-point-help');
 
+      const nextPoint =
+        event.relatedTarget?.closest?.('.timeline-point');
+
+      const movingToTimelinePoint =
+        nextPoint &&
+        nextPoint !== point &&
+        nextPoint.closest('.timeline-section') === section;
+
       point.classList.remove('is-open');
       point.setAttribute('aria-expanded','false');
 
-      if (help) {
-        help.hidden = true;
+      if (help && !movingToTimelinePoint) {
+        help.classList.remove('is-visible');
+        help.setAttribute('aria-hidden','true');
         help.textContent = '';
       }
     }
@@ -7103,7 +7113,8 @@ function toggleTimelinePoint(point) {
 
   point.classList.toggle('is-open',open);
   point.setAttribute('aria-expanded',String(open));
-  help.hidden = !open;
+  help.classList.toggle('is-visible',open);
+  help.setAttribute('aria-hidden',String(!open));
   help.textContent =
     open
       ? point.dataset.timelineExplanation || ''

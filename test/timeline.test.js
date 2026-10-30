@@ -11,7 +11,7 @@ const context = vm.createContext({...core,ratingHistory:{},watchKey:game=>game.i
   safeText:value=>String(value),compactPlay:play=>play.text || '',
   stateRating:(...args)=>{progresses.push(args[4]);return core.stateRating(...args);}
 });
-for (const name of ['legacyPlayPosition','scoringEvents','estimatedEventRating','timelineFormat','timelineEventPosition','timelinePeriodLabel','timelineFinalScores','timelinePoints','excitementTimeline']) {
+for (const name of ['legacyPlayPosition','scoringEvents','estimatedEventRating','timelineFormat','timelineEventPosition','timelinePeriodLabel','timelineFinalScores','recordedTimelinePoints','timelinePoints','excitementTimeline']) {
   const start=source.indexOf(`function ${name}(`);
   vm.runInContext(source.slice(start,source.indexOf('\n}',start)+2),context);
 }
@@ -150,4 +150,22 @@ test('live current OT marker uses display-specific OT label',()=>{
   summary.scoringPlays=[play(6,'4:00',127,125)];
   const result=verify(game,summary);
   assert.equal(result.points.at(-1).label,'2OT 2:00');
+});
+
+test('timeline hover help reserves stable layout space while retaining pointer, touch, and keyboard controls',()=>{
+  const {game,summary}=fixture('NBA',4,'0:00');
+  summary.scoringPlays=[play(1,'6:00',10,8),play(4,'0:00',127,125)];
+  const {html}=verify(game,summary);
+  const styles=fs.readFileSync(new URL('../styles.css',import.meta.url),'utf8');
+
+  assert.match(html,/class="timeline-point-help"[^>]*aria-hidden="true"/);
+  assert.doesNotMatch(html,/timeline-point-help[^>]*\shidden/);
+  assert.match(html,/class="timeline-point[^"]*"[^>]*role="button"[^>]*tabindex="0"[^>]*aria-expanded="false"[^>]*aria-controls=/);
+  assert.match(styles,/\.timeline-point-help \{[^}]*box-sizing: border-box;[^}]*block-size: 7\.8em;[^}]*visibility: hidden;/);
+  assert.match(styles,/\.timeline-point-help\.is-visible \{ visibility: visible; \}/);
+  assert.doesNotMatch(styles,/\.timeline-point-help\[hidden\]/);
+  assert.match(source,/event\.pointerType !== 'touch'/);
+  assert.match(source,/\['Enter',' '\]\.includes\(event\.key\)/);
+  assert.match(source,/movingToTimelinePoint/);
+  assert.doesNotMatch(source,/help\.hidden\s*=/);
 });

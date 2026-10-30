@@ -1,0 +1,2645 @@
+{
+  "reportVersion": 3,
+  "methodology": {
+    "fidelity": "full = full stream, core sport inputs and valid positioned WP when provided; partial = missing core inputs/WP; generic = scoring-only stream. Full does not certify all live information.",
+    "limitations": [
+      "Football timeout balances are unavailable unless explicitly captured; no balances are inferred from timeout events.",
+      "MLB sparse bases use the captured at-bat schema; provider outs/count values are replayed as recorded, including retrospective inconsistencies.",
+      "Only checkpoint-local basketball control events establish possession; shot/foul team IDs do not.",
+      "NHL play strength cannot establish historical skater counts or goalie presence.",
+      "Static context/records are retained from the fixture; final statistics, line scores, winners and current-drive outcomes are excluded from the primary view."
+    ],
+    "coverageRule": "At least 5 replayed games, 30 states and 30 full states; a warning heuristic, not statistical sufficiency.",
+    "groups": "Specific and decisive groups may overlap. Neutral means no observed situation award or decisive condition; partial neutral states may hide unobserved leverage.",
+    "weighting": "Checkpoint-weighted; consecutive states from one game are correlated, not independent observations."
+  },
+  "primaryCalibrationView": {
+    "name": "high-fidelity chronological replay",
+    "summary": {
+      "totalStates": 24562,
+      "count": 24562,
+      "meanLegacyRating": 50.32,
+      "medianLegacyRating": 50,
+      "meanCandidateRating": 52.09,
+      "medianCandidateRating": 56,
+      "meanDelta": 1.77,
+      "medianDelta": 1,
+      "minDelta": -28,
+      "maxDelta": 18,
+      "thresholdMovement": {
+        "70": {
+          "legacyAtOrAboveCandidateBelow": 1494,
+          "legacyBelowCandidateAtOrAbove": 349
+        },
+        "80": {
+          "legacyAtOrAboveCandidateBelow": 658,
+          "legacyBelowCandidateAtOrAbove": 67
+        },
+        "85": {
+          "legacyAtOrAboveCandidateBelow": 309,
+          "legacyBelowCandidateAtOrAbove": 8
+        },
+        "90": {
+          "legacyAtOrAboveCandidateBelow": 151,
+          "legacyBelowCandidateAtOrAbove": 1
+        }
+      },
+      "progressBuckets": {
+        "0-25%": {
+          "count": 5651,
+          "meanLegacyRating": 49.76,
+          "medianLegacyRating": 48,
+          "meanCandidateRating": 59.16,
+          "medianCandidateRating": 59,
+          "meanDelta": 9.39,
+          "medianDelta": 9,
+          "minDelta": 0,
+          "maxDelta": 18,
+          "thresholdMovement": {
+            "70": {
+              "legacyAtOrAboveCandidateBelow": 0,
+              "legacyBelowCandidateAtOrAbove": 297
+            },
+            "80": {
+              "legacyAtOrAboveCandidateBelow": 0,
+              "legacyBelowCandidateAtOrAbove": 66
+            },
+            "85": {
+              "legacyAtOrAboveCandidateBelow": 0,
+              "legacyBelowCandidateAtOrAbove": 7
+            },
+            "90": {
+              "legacyAtOrAboveCandidateBelow": 0,
+              "legacyBelowCandidateAtOrAbove": 0
+            }
+          }
+        },
+        "25-50%": {
+          "count": 6674,
+          "meanLegacyRating": 51.15,
+          "medianLegacyRating": 51,
+          "meanCandidateRating": 53.29,
+          "medianCandidateRating": 55,
+          "meanDelta": 2.13,
+          "medianDelta": 1,
+          "minDelta": -16,
+          "maxDelta": 13,
+          "thresholdMovement": {
+            "70": {
+              "legacyAtOrAboveCandidateBelow": 107,
+              "legacyBelowCandidateAtOrAbove": 47
+            },
+            "80": {
+              "legacyAtOrAboveCandidateBelow": 6,
+              "legacyBelowCandidateAtOrAbove": 1
+            },
+            "85": {
+              "legacyAtOrAboveCandidateBelow": 1,
+              "legacyBelowCandidateAtOrAbove": 0
+            },
+            "90": {
+              "legacyAtOrAboveCandidateBelow": 0,
+              "legacyBelowCandidateAtOrAbove": 0
+            }
+          }
+        },
+        "50-75%": {
+          "count": 5725,
+          "meanLegacyRating": 49.42,
+          "medianLegacyRating": 53,
+          "meanCandidateRating": 47.3,
+          "medianCandidateRating": 52,
+          "meanDelta": -2.11,
+          "medianDelta": -1,
+          "minDelta": -24,
+          "maxDelta": 8,
+          "thresholdMovement": {
+            "70": {
+              "legacyAtOrAboveCandidateBelow": 797,
+              "legacyBelowCandidateAtOrAbove": 0
+            },
+            "80": {
+              "legacyAtOrAboveCandidateBelow": 186,
+              "legacyBelowCandidateAtOrAbove": 0
+            },
+            "85": {
+              "legacyAtOrAboveCandidateBelow": 57,
+              "legacyBelowCandidateAtOrAbove": 0
+            },
+            "90": {
+              "legacyAtOrAboveCandidateBelow": 28,
+              "legacyBelowCandidateAtOrAbove": 0
+            }
+          }
+        },
+        "75-90%": {
+          "count": 3484,
+          "meanLegacyRating": 50.92,
+          "medianLegacyRating": 54,
+          "meanCandidateRating": 48.4,
+          "medianCandidateRating": 52,
+          "meanDelta": -2.52,
+          "medianDelta": 0,
+          "minDelta": -24,
+          "maxDelta": 8,
+          "thresholdMovement": {
+            "70": {
+              "legacyAtOrAboveCandidateBelow": 501,
+              "legacyBelowCandidateAtOrAbove": 4
+            },
+            "80": {
+              "legacyAtOrAboveCandidateBelow": 310,
+              "legacyBelowCandidateAtOrAbove": 0
+            },
+            "85": {
+              "legacyAtOrAboveCandidateBelow": 125,
+              "legacyBelowCandidateAtOrAbove": 1
+            },
+            "90": {
+              "legacyAtOrAboveCandidateBelow": 36,
+              "legacyBelowCandidateAtOrAbove": 1
+            }
+          }
+        },
+        "90%+": {
+          "count": 3028,
+          "meanLegacyRating": 50.55,
+          "medianLegacyRating": 48,
+          "meanCandidateRating": 49.55,
+          "medianCandidateRating": 46,
+          "meanDelta": -1,
+          "medianDelta": 0,
+          "minDelta": -28,
+          "maxDelta": 8,
+          "thresholdMovement": {
+            "70": {
+              "legacyAtOrAboveCandidateBelow": 89,
+              "legacyBelowCandidateAtOrAbove": 1
+            },
+            "80": {
+              "legacyAtOrAboveCandidateBelow": 156,
+              "legacyBelowCandidateAtOrAbove": 0
+            },
+            "85": {
+              "legacyAtOrAboveCandidateBelow": 126,
+              "legacyBelowCandidateAtOrAbove": 0
+            },
+            "90": {
+              "legacyAtOrAboveCandidateBelow": 87,
+              "legacyBelowCandidateAtOrAbove": 0
+            }
+          }
+        }
+      },
+      "sports": {
+        "CFB": {
+          "count": 8909,
+          "meanLegacyRating": 50.84,
+          "medianLegacyRating": 50,
+          "meanCandidateRating": 49.35,
+          "medianCandidateRating": 52,
+          "meanDelta": -1.48,
+          "medianDelta": 0,
+          "minDelta": -28,
+          "maxDelta": 13,
+          "thresholdMovement": {
+            "70": {
+              "legacyAtOrAboveCandidateBelow": 1178,
+              "legacyBelowCandidateAtOrAbove": 48
+            },
+            "80": {
+              "legacyAtOrAboveCandidateBelow": 380,
+              "legacyBelowCandidateAtOrAbove": 1
+            },
+            "85": {
+              "legacyAtOrAboveCandidateBelow": 126,
+              "legacyBelowCandidateAtOrAbove": 1
+            },
+            "90": {
+              "legacyAtOrAboveCandidateBelow": 28,
+              "legacyBelowCandidateAtOrAbove": 1
+            }
+          }
+        },
+        "MLB": {
+          "count": 830,
+          "meanLegacyRating": 56.9,
+          "medianLegacyRating": 60,
+          "meanCandidateRating": 59.33,
+          "medianCandidateRating": 58,
+          "meanDelta": 2.44,
+          "medianDelta": 2,
+          "minDelta": -6,
+          "maxDelta": 18,
+          "thresholdMovement": {
+            "70": {
+              "legacyAtOrAboveCandidateBelow": 0,
+              "legacyBelowCandidateAtOrAbove": 179
+            },
+            "80": {
+              "legacyAtOrAboveCandidateBelow": 0,
+              "legacyBelowCandidateAtOrAbove": 39
+            },
+            "85": {
+              "legacyAtOrAboveCandidateBelow": 0,
+              "legacyBelowCandidateAtOrAbove": 5
+            },
+            "90": {
+              "legacyAtOrAboveCandidateBelow": 0,
+              "legacyBelowCandidateAtOrAbove": 0
+            }
+          }
+        },
+        "NBA": {
+          "count": 1450,
+          "meanLegacyRating": 45.47,
+          "medianLegacyRating": 47,
+          "meanCandidateRating": 45.99,
+          "medianCandidateRating": 48,
+          "meanDelta": 0.53,
+          "medianDelta": 0,
+          "minDelta": -16,
+          "maxDelta": 13,
+          "thresholdMovement": {
+            "70": {
+              "legacyAtOrAboveCandidateBelow": 42,
+              "legacyBelowCandidateAtOrAbove": 0
+            },
+            "80": {
+              "legacyAtOrAboveCandidateBelow": 10,
+              "legacyBelowCandidateAtOrAbove": 0
+            },
+            "85": {
+              "legacyAtOrAboveCandidateBelow": 0,
+              "legacyBelowCandidateAtOrAbove": 0
+            },
+            "90": {
+              "legacyAtOrAboveCandidateBelow": 0,
+              "legacyBelowCandidateAtOrAbove": 0
+            }
+          }
+        },
+        "NCAAB": {
+          "count": 677,
+          "meanLegacyRating": 73.14,
+          "medianLegacyRating": 74,
+          "meanCandidateRating": 72.73,
+          "medianCandidateRating": 75,
+          "meanDelta": -0.42,
+          "medianDelta": 0,
+          "minDelta": -12,
+          "maxDelta": 11,
+          "thresholdMovement": {
+            "70": {
+              "legacyAtOrAboveCandidateBelow": 28,
+              "legacyBelowCandidateAtOrAbove": 68
+            },
+            "80": {
+              "legacyAtOrAboveCandidateBelow": 73,
+              "legacyBelowCandidateAtOrAbove": 27
+            },
+            "85": {
+              "legacyAtOrAboveCandidateBelow": 63,
+              "legacyBelowCandidateAtOrAbove": 2
+            },
+            "90": {
+              "legacyAtOrAboveCandidateBelow": 63,
+              "legacyBelowCandidateAtOrAbove": 0
+            }
+          }
+        },
+        "NFL": {
+          "count": 4734,
+          "meanLegacyRating": 53.48,
+          "medianLegacyRating": 52,
+          "meanCandidateRating": 53.5,
+          "medianCandidateRating": 54,
+          "meanDelta": 0.02,
+          "medianDelta": 0,
+          "minDelta": -19,
+          "maxDelta": 13,
+          "thresholdMovement": {
+            "70": {
+              "legacyAtOrAboveCandidateBelow": 246,
+              "legacyBelowCandidateAtOrAbove": 54
+            },
+            "80": {
+              "legacyAtOrAboveCandidateBelow": 195,
+              "legacyBelowCandidateAtOrAbove": 0
+            },
+            "85": {
+              "legacyAtOrAboveCandidateBelow": 120,
+              "legacyBelowCandidateAtOrAbove": 0
+            },
+            "90": {
+              "legacyAtOrAboveCandidateBelow": 60,
+              "legacyBelowCandidateAtOrAbove": 0
+            }
+          }
+        },
+        "NHL": {
+          "count": 7962,
+          "meanLegacyRating": 46.12,
+          "medianLegacyRating": 48,
+          "meanCandidateRating": 52.91,
+          "medianCandidateRating": 59,
+          "meanDelta": 6.79,
+          "medianDelta": 6,
+          "minDelta": 0,
+          "maxDelta": 18,
+          "thresholdMovement": {
+            "70": {
+              "legacyAtOrAboveCandidateBelow": 0,
+              "legacyBelowCandidateAtOrAbove": 0
+            },
+            "80": {
+              "legacyAtOrAboveCandidateBelow": 0,
+              "legacyBelowCandidateAtOrAbove": 0
+            },
+            "85": {
+              "legacyAtOrAboveCandidateBelow": 0,
+              "legacyBelowCandidateAtOrAbove": 0
+            },
+            "90": {
+              "legacyAtOrAboveCandidateBelow": 0,
+              "legacyBelowCandidateAtOrAbove": 0
+            }
+          }
+        },
+        "Soccer": {
+          "count": 0,
+          "meanLegacyRating": null,
+          "medianLegacyRating": null,
+          "meanCandidateRating": null,
+          "medianCandidateRating": null,
+          "meanDelta": null,
+          "medianDelta": null,
+          "minDelta": null,
+          "maxDelta": null,
+          "thresholdMovement": {
+            "70": {
+              "legacyAtOrAboveCandidateBelow": 0,
+              "legacyBelowCandidateAtOrAbove": 0
+            },
+            "80": {
+              "legacyAtOrAboveCandidateBelow": 0,
+              "legacyBelowCandidateAtOrAbove": 0
+            },
+            "85": {
+              "legacyAtOrAboveCandidateBelow": 0,
+              "legacyBelowCandidateAtOrAbove": 0
+            },
+            "90": {
+              "legacyAtOrAboveCandidateBelow": 0,
+              "legacyBelowCandidateAtOrAbove": 0
+            }
+          }
+        },
+        "Tennis": {
+          "count": 0,
+          "meanLegacyRating": null,
+          "medianLegacyRating": null,
+          "meanCandidateRating": null,
+          "medianCandidateRating": null,
+          "meanDelta": null,
+          "medianDelta": null,
+          "minDelta": null,
+          "maxDelta": null,
+          "thresholdMovement": {
+            "70": {
+              "legacyAtOrAboveCandidateBelow": 0,
+              "legacyBelowCandidateAtOrAbove": 0
+            },
+            "80": {
+              "legacyAtOrAboveCandidateBelow": 0,
+              "legacyBelowCandidateAtOrAbove": 0
+            },
+            "85": {
+              "legacyAtOrAboveCandidateBelow": 0,
+              "legacyBelowCandidateAtOrAbove": 0
+            },
+            "90": {
+              "legacyAtOrAboveCandidateBelow": 0,
+              "legacyBelowCandidateAtOrAbove": 0
+            }
+          }
+        }
+      },
+      "fidelityBuckets": {
+        "full": {
+          "count": 13411,
+          "meanLegacyRating": 52.08,
+          "medianLegacyRating": 51,
+          "meanCandidateRating": 51.38,
+          "medianCandidateRating": 53,
+          "meanDelta": -0.7,
+          "medianDelta": 0,
+          "minDelta": -28,
+          "maxDelta": 13,
+          "thresholdMovement": {
+            "70": {
+              "legacyAtOrAboveCandidateBelow": 1296,
+              "legacyBelowCandidateAtOrAbove": 244
+            },
+            "80": {
+              "legacyAtOrAboveCandidateBelow": 544,
+              "legacyBelowCandidateAtOrAbove": 42
+            },
+            "85": {
+              "legacyAtOrAboveCandidateBelow": 241,
+              "legacyBelowCandidateAtOrAbove": 6
+            },
+            "90": {
+              "legacyAtOrAboveCandidateBelow": 91,
+              "legacyBelowCandidateAtOrAbove": 1
+            }
+          }
+        },
+        "partial": {
+          "count": 11151,
+          "meanLegacyRating": 48.21,
+          "medianLegacyRating": 48,
+          "meanCandidateRating": 52.94,
+          "medianCandidateRating": 58,
+          "meanDelta": 4.74,
+          "medianDelta": 4,
+          "minDelta": -24,
+          "maxDelta": 18,
+          "thresholdMovement": {
+            "70": {
+              "legacyAtOrAboveCandidateBelow": 198,
+              "legacyBelowCandidateAtOrAbove": 105
+            },
+            "80": {
+              "legacyAtOrAboveCandidateBelow": 114,
+              "legacyBelowCandidateAtOrAbove": 25
+            },
+            "85": {
+              "legacyAtOrAboveCandidateBelow": 68,
+              "legacyBelowCandidateAtOrAbove": 2
+            },
+            "90": {
+              "legacyAtOrAboveCandidateBelow": 60,
+              "legacyBelowCandidateAtOrAbove": 0
+            }
+          }
+        },
+        "generic": {
+          "count": 0,
+          "meanLegacyRating": null,
+          "medianLegacyRating": null,
+          "meanCandidateRating": null,
+          "medianCandidateRating": null,
+          "meanDelta": null,
+          "medianDelta": null,
+          "minDelta": null,
+          "maxDelta": null,
+          "thresholdMovement": {
+            "70": {
+              "legacyAtOrAboveCandidateBelow": 0,
+              "legacyBelowCandidateAtOrAbove": 0
+            },
+            "80": {
+              "legacyAtOrAboveCandidateBelow": 0,
+              "legacyBelowCandidateAtOrAbove": 0
+            },
+            "85": {
+              "legacyAtOrAboveCandidateBelow": 0,
+              "legacyBelowCandidateAtOrAbove": 0
+            },
+            "90": {
+              "legacyAtOrAboveCandidateBelow": 0,
+              "legacyBelowCandidateAtOrAbove": 0
+            }
+          }
+        }
+      },
+      "groups": {
+        "neutralStates": {
+          "count": 20457,
+          "meanLegacyRating": 46.57,
+          "medianLegacyRating": 48,
+          "meanCandidateRating": 49.04,
+          "medianCandidateRating": 54,
+          "meanDelta": 2.47,
+          "medianDelta": 2,
+          "minDelta": -28,
+          "maxDelta": 18,
+          "thresholdMovement": {
+            "70": {
+              "legacyAtOrAboveCandidateBelow": 1180,
+              "legacyBelowCandidateAtOrAbove": 315
+            },
+            "80": {
+              "legacyAtOrAboveCandidateBelow": 373,
+              "legacyBelowCandidateAtOrAbove": 61
+            },
+            "85": {
+              "legacyAtOrAboveCandidateBelow": 131,
+              "legacyBelowCandidateAtOrAbove": 2
+            },
+            "90": {
+              "legacyAtOrAboveCandidateBelow": 63,
+              "legacyBelowCandidateAtOrAbove": 0
+            }
+          }
+        },
+        "specificLeverageStates": {
+          "count": 3018,
+          "meanLegacyRating": 64.15,
+          "medianLegacyRating": 62,
+          "meanCandidateRating": 61.82,
+          "medianCandidateRating": 60,
+          "meanDelta": -2.33,
+          "medianDelta": -2,
+          "minDelta": -22,
+          "maxDelta": 15,
+          "thresholdMovement": {
+            "70": {
+              "legacyAtOrAboveCandidateBelow": 310,
+              "legacyBelowCandidateAtOrAbove": 34
+            },
+            "80": {
+              "legacyAtOrAboveCandidateBelow": 285,
+              "legacyBelowCandidateAtOrAbove": 6
+            },
+            "85": {
+              "legacyAtOrAboveCandidateBelow": 178,
+              "legacyBelowCandidateAtOrAbove": 6
+            },
+            "90": {
+              "legacyAtOrAboveCandidateBelow": 88,
+              "legacyBelowCandidateAtOrAbove": 1
+            }
+          }
+        },
+        "decisiveStates": {
+          "count": 1869,
+          "meanLegacyRating": 86.08,
+          "medianLegacyRating": 86,
+          "meanCandidateRating": 84.23,
+          "medianCandidateRating": 85,
+          "meanDelta": -1.86,
+          "medianDelta": 0,
+          "minDelta": -21,
+          "maxDelta": 6,
+          "thresholdMovement": {
+            "70": {
+              "legacyAtOrAboveCandidateBelow": 50,
+              "legacyBelowCandidateAtOrAbove": 0
+            },
+            "80": {
+              "legacyAtOrAboveCandidateBelow": 138,
+              "legacyBelowCandidateAtOrAbove": 0
+            },
+            "85": {
+              "legacyAtOrAboveCandidateBelow": 118,
+              "legacyBelowCandidateAtOrAbove": 1
+            },
+            "90": {
+              "legacyAtOrAboveCandidateBelow": 80,
+              "legacyBelowCandidateAtOrAbove": 1
+            }
+          }
+        }
+      },
+      "largestIncreases": [
+        {
+          "sport": "MLB",
+          "stateId": "401908024:4019080240000000059",
+          "progress": 0.027777777777777776,
+          "legacyRating": 60,
+          "candidateRating": 78,
+          "delta": 18,
+          "fidelity": "partial"
+        },
+        {
+          "sport": "MLB",
+          "stateId": "401908024:4019080240001020036",
+          "progress": 0.027777777777777776,
+          "legacyRating": 60,
+          "candidateRating": 78,
+          "delta": 18,
+          "fidelity": "partial"
+        },
+        {
+          "sport": "MLB",
+          "stateId": "401930515:4019305150000000059",
+          "progress": 0.027777777777777776,
+          "legacyRating": 66,
+          "candidateRating": 84,
+          "delta": 18,
+          "fidelity": "partial"
+        },
+        {
+          "sport": "MLB",
+          "stateId": "401930515:4019305150001020036",
+          "progress": 0.027777777777777776,
+          "legacyRating": 66,
+          "candidateRating": 84,
+          "delta": 18,
+          "fidelity": "partial"
+        },
+        {
+          "sport": "MLB",
+          "stateId": "401930515:4019305150001030005",
+          "progress": 0.027777777777777776,
+          "legacyRating": 66,
+          "candidateRating": 84,
+          "delta": 18,
+          "fidelity": "partial"
+        },
+        {
+          "sport": "MLB",
+          "stateId": "401930515:4019305150001040021",
+          "progress": 0.027777777777777776,
+          "legacyRating": 66,
+          "candidateRating": 84,
+          "delta": 18,
+          "fidelity": "partial"
+        },
+        {
+          "sport": "MLB",
+          "stateId": "401930515:4019305150001050003",
+          "progress": 0.027777777777777776,
+          "legacyRating": 66,
+          "candidateRating": 84,
+          "delta": 18,
+          "fidelity": "partial"
+        },
+        {
+          "sport": "NHL",
+          "stateId": "401892519:401892519000000540",
+          "progress": 0,
+          "legacyRating": 46,
+          "candidateRating": 64,
+          "delta": 18,
+          "fidelity": "partial"
+        },
+        {
+          "sport": "NHL",
+          "stateId": "401892519:401892519000000530",
+          "progress": 0,
+          "legacyRating": 46,
+          "candidateRating": 64,
+          "delta": 18,
+          "fidelity": "partial"
+        },
+        {
+          "sport": "NHL",
+          "stateId": "401892519:401892519000000830",
+          "progress": 0.0016666666666666668,
+          "legacyRating": 46,
+          "candidateRating": 64,
+          "delta": 18,
+          "fidelity": "partial"
+        }
+      ],
+      "largestDecreases": [
+        {
+          "sport": "CFB",
+          "stateId": "401858490:401858490648",
+          "progress": 0.9161111111111111,
+          "score": {
+            "home": 14,
+            "away": 11
+          },
+          "margin": 3,
+          "legacyRating": 78,
+          "candidateRating": 50,
+          "delta": -28,
+          "currentWp": 0.8902,
+          "legacyGenericTimePoints": 34,
+          "legacyGenericTime": [
+            {
+              "label": "Score closeness and leverage",
+              "points": 28
+            },
+            {
+              "label": "Late-game leverage",
+              "points": 6
+            }
+          ],
+          "candidateCurrentTension": 22,
+          "candidateGenericLeverage": 5,
+          "sportSituation": 0,
+          "sportPressure": 0,
+          "decisiveFloor": 0,
+          "driveFloor": 0,
+          "competitiveFloor": 0,
+          "fidelity": "full",
+          "availableSituationFields": [
+            "clock",
+            "distance",
+            "down",
+            "downDistanceText",
+            "isRedZone",
+            "period",
+            "possession",
+            "possessionText",
+            "shortDownDistanceText",
+            "yardLine",
+            "yardsToEndzone"
+          ],
+          "fidelityLimitations": [],
+          "currentWpPositioned": true,
+          "sportSpecificSituationUsable": true,
+          "situation": {
+            "down": 2,
+            "distance": 10,
+            "yardLine": 87,
+            "yardsToEndzone": 13,
+            "downDistanceText": "2nd & 10 at PSU 13",
+            "shortDownDistanceText": "2nd & 10",
+            "possessionText": "PSU 13",
+            "possession": "130",
+            "isRedZone": true
+          },
+          "diagnosis": "A-consistent: core situation inputs are present; generic-award removal can explain a drop, but this is not causal proof"
+        },
+        {
+          "sport": "CFB",
+          "stateId": "401858264:401858264695",
+          "progress": 0.9163888888888889,
+          "score": {
+            "home": 34,
+            "away": 24
+          },
+          "margin": 10,
+          "legacyRating": 53,
+          "candidateRating": 26,
+          "delta": -27,
+          "currentWp": 0.9934,
+          "legacyGenericTimePoints": 25,
+          "legacyGenericTime": [
+            {
+              "label": "Score closeness and leverage",
+              "points": 21
+            },
+            {
+              "label": "Late-game leverage",
+              "points": 4
+            }
+          ],
+          "candidateCurrentTension": 15,
+          "candidateGenericLeverage": 3,
+          "sportSituation": 0,
+          "sportPressure": 0,
+          "decisiveFloor": 0,
+          "driveFloor": 0,
+          "competitiveFloor": 0,
+          "fidelity": "full",
+          "availableSituationFields": [
+            "clock",
+            "distance",
+            "down",
+            "downDistanceText",
+            "period",
+            "possession",
+            "possessionText",
+            "shortDownDistanceText",
+            "yardLine",
+            "yardsToEndzone"
+          ],
+          "fidelityLimitations": [],
+          "currentWpPositioned": true,
+          "sportSpecificSituationUsable": true,
+          "situation": {
+            "down": 1,
+            "distance": 10,
+            "yardLine": 50,
+            "yardsToEndzone": 50,
+            "downDistanceText": "1st & 10 at 50",
+            "shortDownDistanceText": "1st & 10",
+            "possessionText": "50",
+            "possession": "259"
+          },
+          "diagnosis": "A-consistent: core situation inputs are present; generic-award removal can explain a drop, but this is not causal proof"
+        },
+        {
+          "sport": "CFB",
+          "stateId": "401864524:401864524604",
+          "progress": 0.9116666666666666,
+          "score": {
+            "home": 34,
+            "away": 24
+          },
+          "margin": 10,
+          "legacyRating": 68,
+          "candidateRating": 44,
+          "delta": -24,
+          "currentWp": 0.9933,
+          "legacyGenericTimePoints": 27,
+          "legacyGenericTime": [
+            {
+              "label": "Score closeness and leverage",
+              "points": 22
+            },
+            {
+              "label": "Late-game leverage",
+              "points": 5
+            }
+          ],
+          "candidateCurrentTension": 16,
+          "candidateGenericLeverage": 4,
+          "sportSituation": 0,
+          "sportPressure": 0,
+          "decisiveFloor": 0,
+          "driveFloor": 0,
+          "competitiveFloor": 0,
+          "fidelity": "full",
+          "availableSituationFields": [
+            "clock",
+            "distance",
+            "down",
+            "downDistanceText",
+            "isRedZone",
+            "period",
+            "possession",
+            "possessionText",
+            "shortDownDistanceText",
+            "yardLine",
+            "yardsToEndzone"
+          ],
+          "fidelityLimitations": [],
+          "currentWpPositioned": true,
+          "sportSpecificSituationUsable": true,
+          "situation": {
+            "down": 2,
+            "distance": 6,
+            "yardLine": 89,
+            "yardsToEndzone": 11,
+            "downDistanceText": "2nd & 6 at UNLV 11",
+            "shortDownDistanceText": "2nd & 6",
+            "possessionText": "UNLV 11",
+            "possession": "2005",
+            "isRedZone": true
+          },
+          "diagnosis": "A-consistent: core situation inputs are present; generic-award removal can explain a drop, but this is not causal proof"
+        },
+        {
+          "sport": "CFB",
+          "stateId": "401864524:401864524552",
+          "progress": 0.8191666666666667,
+          "score": {
+            "home": 27,
+            "away": 24
+          },
+          "margin": 3,
+          "legacyRating": 84,
+          "candidateRating": 60,
+          "delta": -24,
+          "currentWp": 0.8673,
+          "legacyGenericTimePoints": 33,
+          "legacyGenericTime": [
+            {
+              "label": "Score closeness and leverage",
+              "points": 27
+            },
+            {
+              "label": "Late-game leverage",
+              "points": 6
+            }
+          ],
+          "candidateCurrentTension": 25,
+          "candidateGenericLeverage": 4,
+          "sportSituation": 0,
+          "sportPressure": 0,
+          "decisiveFloor": 0,
+          "driveFloor": 0,
+          "competitiveFloor": 0,
+          "fidelity": "partial",
+          "availableSituationFields": [
+            "clock",
+            "distance",
+            "down",
+            "period",
+            "possession",
+            "yardLine",
+            "yardsToEndzone"
+          ],
+          "fidelityLimitations": [
+            "usable sport situation"
+          ],
+          "currentWpPositioned": true,
+          "sportSpecificSituationUsable": false,
+          "situation": {
+            "down": 0,
+            "distance": 9,
+            "yardLine": 78,
+            "yardsToEndzone": 22,
+            "possession": "2005"
+          },
+          "diagnosis": "B-risk: replay is missing current sport-specific and/or positioned WP data; do not tune from this state alone"
+        },
+        {
+          "sport": "CFB",
+          "stateId": "401864524:401864524544",
+          "progress": 0.8191666666666667,
+          "score": {
+            "home": 27,
+            "away": 24
+          },
+          "margin": 3,
+          "legacyRating": 84,
+          "candidateRating": 60,
+          "delta": -24,
+          "currentWp": 0.8716,
+          "legacyGenericTimePoints": 33,
+          "legacyGenericTime": [
+            {
+              "label": "Score closeness and leverage",
+              "points": 27
+            },
+            {
+              "label": "Late-game leverage",
+              "points": 6
+            }
+          ],
+          "candidateCurrentTension": 25,
+          "candidateGenericLeverage": 4,
+          "sportSituation": 0,
+          "sportPressure": 0,
+          "decisiveFloor": 0,
+          "driveFloor": 0,
+          "competitiveFloor": 0,
+          "fidelity": "full",
+          "availableSituationFields": [
+            "clock",
+            "distance",
+            "down",
+            "downDistanceText",
+            "isGoalToGo",
+            "isRedZone",
+            "period",
+            "possession",
+            "possessionText",
+            "shortDownDistanceText",
+            "yardLine",
+            "yardsToEndzone"
+          ],
+          "fidelityLimitations": [],
+          "currentWpPositioned": true,
+          "sportSpecificSituationUsable": true,
+          "situation": {
+            "down": 1,
+            "distance": 4,
+            "yardLine": 96,
+            "yardsToEndzone": 4,
+            "downDistanceText": "1st & Goal at UNLV 4",
+            "shortDownDistanceText": "1st & Goal",
+            "possessionText": "UNLV 4",
+            "possession": "2005",
+            "isGoalToGo": true,
+            "isRedZone": true
+          },
+          "diagnosis": "A-consistent: core situation inputs are present; generic-award removal can explain a drop, but this is not causal proof"
+        },
+        {
+          "sport": "CFB",
+          "stateId": "401862803:401862803529",
+          "progress": 0.7188888888888889,
+          "score": {
+            "home": 21,
+            "away": 21
+          },
+          "margin": 0,
+          "legacyRating": 81,
+          "candidateRating": 57,
+          "delta": -24,
+          "currentWp": 0.7876,
+          "legacyGenericTimePoints": 32,
+          "legacyGenericTime": [
+            {
+              "label": "Score closeness and leverage",
+              "points": 26
+            },
+            {
+              "label": "Late-game leverage",
+              "points": 6
+            }
+          ],
+          "candidateCurrentTension": 27,
+          "candidateGenericLeverage": 2,
+          "sportSituation": 0,
+          "sportPressure": 0,
+          "decisiveFloor": 0,
+          "driveFloor": 0,
+          "competitiveFloor": 0,
+          "fidelity": "full",
+          "availableSituationFields": [
+            "clock",
+            "distance",
+            "down",
+            "downDistanceText",
+            "period",
+            "possession",
+            "possessionText",
+            "shortDownDistanceText",
+            "yardLine",
+            "yardsToEndzone"
+          ],
+          "fidelityLimitations": [],
+          "currentWpPositioned": true,
+          "sportSpecificSituationUsable": true,
+          "situation": {
+            "down": 2,
+            "distance": 8,
+            "yardLine": 76,
+            "yardsToEndzone": 76,
+            "downDistanceText": "2nd & 8 at CLT 24",
+            "shortDownDistanceText": "2nd & 8",
+            "possessionText": "CLT 24",
+            "possession": "2429"
+          },
+          "diagnosis": "A-consistent: core situation inputs are present; generic-award removal can explain a drop, but this is not causal proof"
+        },
+        {
+          "sport": "CFB",
+          "stateId": "401858265:401858265706",
+          "progress": 0.8658333333333333,
+          "score": {
+            "home": 26,
+            "away": 28
+          },
+          "margin": 2,
+          "legacyRating": 85,
+          "candidateRating": 61,
+          "delta": -24,
+          "currentWp": 0.0859,
+          "legacyGenericTimePoints": 35,
+          "legacyGenericTime": [
+            {
+              "label": "Score closeness and leverage",
+              "points": 29
+            },
+            {
+              "label": "Late-game leverage",
+              "points": 6
+            }
+          ],
+          "candidateCurrentTension": 24,
+          "candidateGenericLeverage": 5,
+          "sportSituation": 0,
+          "sportPressure": 0,
+          "decisiveFloor": 0,
+          "driveFloor": 0,
+          "competitiveFloor": 0,
+          "fidelity": "full",
+          "availableSituationFields": [
+            "clock",
+            "distance",
+            "down",
+            "downDistanceText",
+            "isGoalToGo",
+            "isRedZone",
+            "period",
+            "possession",
+            "possessionText",
+            "shortDownDistanceText",
+            "yardLine",
+            "yardsToEndzone"
+          ],
+          "fidelityLimitations": [],
+          "currentWpPositioned": true,
+          "sportSpecificSituationUsable": true,
+          "situation": {
+            "down": 1,
+            "distance": 5,
+            "yardLine": 5,
+            "yardsToEndzone": 5,
+            "downDistanceText": "1st & Goal at SYR 5",
+            "shortDownDistanceText": "1st & Goal",
+            "possessionText": "SYR 5",
+            "possession": "97",
+            "isGoalToGo": true,
+            "isRedZone": true
+          },
+          "diagnosis": "A-consistent: core situation inputs are present; generic-award removal can explain a drop, but this is not causal proof"
+        },
+        {
+          "sport": "CFB",
+          "stateId": "401858264:401858264697",
+          "progress": 0.9127777777777778,
+          "score": {
+            "home": 34,
+            "away": 24
+          },
+          "margin": 10,
+          "legacyRating": 53,
+          "candidateRating": 29,
+          "delta": -24,
+          "currentWp": 0.9876,
+          "legacyGenericTimePoints": 26,
+          "legacyGenericTime": [
+            {
+              "label": "Score closeness and leverage",
+              "points": 21
+            },
+            {
+              "label": "Late-game leverage",
+              "points": 5
+            }
+          ],
+          "candidateCurrentTension": 16,
+          "candidateGenericLeverage": 4,
+          "sportSituation": 0,
+          "sportPressure": 0,
+          "decisiveFloor": 0,
+          "driveFloor": 0,
+          "competitiveFloor": 0,
+          "fidelity": "partial",
+          "availableSituationFields": [
+            "clock",
+            "distance",
+            "down",
+            "period",
+            "possession",
+            "yardLine",
+            "yardsToEndzone"
+          ],
+          "fidelityLimitations": [
+            "usable sport situation"
+          ],
+          "currentWpPositioned": true,
+          "sportSpecificSituationUsable": false,
+          "situation": {
+            "down": 0,
+            "distance": 10,
+            "yardLine": 25,
+            "yardsToEndzone": 25,
+            "possession": "259"
+          },
+          "diagnosis": "B-risk: replay is missing current sport-specific and/or positioned WP data; do not tune from this state alone"
+        },
+        {
+          "sport": "CFB",
+          "stateId": "401858264:401858264691",
+          "progress": 0.9133333333333333,
+          "score": {
+            "home": 34,
+            "away": 24
+          },
+          "margin": 10,
+          "legacyRating": 53,
+          "candidateRating": 29,
+          "delta": -24,
+          "currentWp": 0.987,
+          "legacyGenericTimePoints": 26,
+          "legacyGenericTime": [
+            {
+              "label": "Score closeness and leverage",
+              "points": 21
+            },
+            {
+              "label": "Late-game leverage",
+              "points": 5
+            }
+          ],
+          "candidateCurrentTension": 16,
+          "candidateGenericLeverage": 4,
+          "sportSituation": 0,
+          "sportPressure": 0,
+          "decisiveFloor": 0,
+          "driveFloor": 0,
+          "competitiveFloor": 0,
+          "fidelity": "full",
+          "availableSituationFields": [
+            "clock",
+            "distance",
+            "down",
+            "downDistanceText",
+            "period",
+            "possession",
+            "possessionText",
+            "shortDownDistanceText",
+            "yardLine",
+            "yardsToEndzone"
+          ],
+          "fidelityLimitations": [],
+          "currentWpPositioned": true,
+          "sportSpecificSituationUsable": true,
+          "situation": {
+            "down": 2,
+            "distance": 5,
+            "yardLine": 30,
+            "yardsToEndzone": 70,
+            "downDistanceText": "2nd & 5 at VT 30",
+            "shortDownDistanceText": "2nd & 5",
+            "possessionText": "VT 30",
+            "possession": "259"
+          },
+          "diagnosis": "A-consistent: core situation inputs are present; generic-award removal can explain a drop, but this is not causal proof"
+        },
+        {
+          "sport": "CFB",
+          "stateId": "401856833:401856833688",
+          "progress": 0.9163888888888889,
+          "score": {
+            "home": 17,
+            "away": 20
+          },
+          "margin": 3,
+          "legacyRating": 85,
+          "candidateRating": 61,
+          "delta": -24,
+          "currentWp": 0.1188,
+          "legacyGenericTimePoints": 34,
+          "legacyGenericTime": [
+            {
+              "label": "Score closeness and leverage",
+              "points": 28
+            },
+            {
+              "label": "Late-game leverage",
+              "points": 6
+            }
+          ],
+          "candidateCurrentTension": 23,
+          "candidateGenericLeverage": 5,
+          "sportSituation": 0,
+          "sportPressure": 0,
+          "decisiveFloor": 0,
+          "driveFloor": 0,
+          "competitiveFloor": 0,
+          "fidelity": "full",
+          "availableSituationFields": [
+            "clock",
+            "distance",
+            "down",
+            "downDistanceText",
+            "period",
+            "possession",
+            "possessionText",
+            "shortDownDistanceText",
+            "yardLine",
+            "yardsToEndzone"
+          ],
+          "fidelityLimitations": [],
+          "currentWpPositioned": true,
+          "sportSpecificSituationUsable": true,
+          "situation": {
+            "down": 2,
+            "distance": 19,
+            "yardLine": 31,
+            "yardsToEndzone": 31,
+            "downDistanceText": "2nd & 19 at COLO 31",
+            "shortDownDistanceText": "2nd & 19",
+            "possessionText": "COLO 31",
+            "possession": "254"
+          },
+          "diagnosis": "A-consistent: core situation inputs are present; generic-award removal can explain a drop, but this is not causal proof"
+        }
+      ],
+      "regressionExamples": {
+        "nflActiveLateDriveBeforeScore": {
+          "available": true,
+          "stateId": "401872981:4018729814385",
+          "sport": "NFL",
+          "progress": 0.9416666666666667,
+          "situation": {
+            "down": 4,
+            "distance": 5,
+            "yardLine": 73,
+            "yardsToEndzone": 27,
+            "downDistanceText": "4th & 5 at PHI 27",
+            "shortDownDistanceText": "4th & 5",
+            "possessionText": "PHI 27",
+            "possession": "30"
+          },
+          "sportSituation": 8,
+          "decisiveFloor": 0,
+          "fidelity": "full"
+        },
+        "footballFourthDown": {
+          "available": true,
+          "stateId": "401856719:40185671963",
+          "sport": "CFB",
+          "progress": 0.0763888888888889,
+          "situation": {
+            "down": 4,
+            "distance": 5,
+            "yardLine": 56,
+            "yardsToEndzone": 56,
+            "downDistanceText": "4th & 5 at AUB 44",
+            "shortDownDistanceText": "4th & 5",
+            "possessionText": "AUB 44",
+            "possession": "2"
+          },
+          "sportSituation": 1,
+          "decisiveFloor": 0,
+          "fidelity": "full"
+        },
+        "basketballPotentialFinalPossession": {
+          "available": false,
+          "reason": "Insufficient archive coverage: no captured basketball checkpoint establishes a potential tying/winning final possession; no possession is fabricated."
+        },
+        "mlbRunnersAndOuts": {
+          "available": true,
+          "stateId": "401908024:4019080240001990057",
+          "sport": "MLB",
+          "progress": 0.027777777777777776,
+          "situation": {
+            "outs": 0,
+            "balls": 0,
+            "strikes": 1,
+            "count": "0-1",
+            "onFirst": true,
+            "onSecond": false,
+            "onThird": false,
+            "inningHalf": "top",
+            "battingSide": "away"
+          },
+          "sportSituation": 0,
+          "decisiveFloor": 0,
+          "fidelity": "full"
+        },
+        "nhlSpecificOnIceLeverage": {
+          "available": false,
+          "reason": "Unavailable: fixtures retain play strength but only a final onIce snapshot; historical skaters/goalie state cannot be causally positioned without fabrication."
+        }
+      },
+      "coverage": {
+        "CFB": {
+          "games": 50,
+          "fixtureGames": 50,
+          "states": 8909,
+          "fullStates": 7856,
+          "insufficient": false,
+          "warning": null
+        },
+        "MLB": {
+          "games": 2,
+          "fixtureGames": 2,
+          "states": 830,
+          "fullStates": 693,
+          "insufficient": true,
+          "warning": "Insufficient independent games, states, or full-fidelity situation coverage; do not draw tuning conclusions."
+        },
+        "NBA": {
+          "games": 3,
+          "fixtureGames": 3,
+          "states": 1450,
+          "fullStates": 347,
+          "insufficient": true,
+          "warning": "Insufficient independent games, states, or full-fidelity situation coverage; do not draw tuning conclusions."
+        },
+        "NCAAB": {
+          "games": 2,
+          "fixtureGames": 2,
+          "states": 677,
+          "fullStates": 154,
+          "insufficient": true,
+          "warning": "Insufficient independent games, states, or full-fidelity situation coverage; do not draw tuning conclusions."
+        },
+        "NFL": {
+          "games": 25,
+          "fixtureGames": 25,
+          "states": 4734,
+          "fullStates": 4361,
+          "insufficient": false,
+          "warning": null
+        },
+        "NHL": {
+          "games": 25,
+          "fixtureGames": 25,
+          "states": 7962,
+          "fullStates": 0,
+          "insufficient": true,
+          "warning": "Insufficient independent games, states, or full-fidelity situation coverage; do not draw tuning conclusions."
+        },
+        "Soccer": {
+          "games": 0,
+          "fixtureGames": 0,
+          "states": 0,
+          "fullStates": 0,
+          "insufficient": true,
+          "warning": "Insufficient independent games, states, or full-fidelity situation coverage; do not draw tuning conclusions."
+        },
+        "Tennis": {
+          "games": 0,
+          "fixtureGames": 0,
+          "states": 0,
+          "fullStates": 0,
+          "insufficient": true,
+          "warning": "Insufficient independent games, states, or full-fidelity situation coverage; do not draw tuning conclusions."
+        }
+      }
+    }
+  },
+  "genericScoringStateView": {
+    "name": "generic scoring-state comparison",
+    "purpose": "Measures removal of generic time inflation using the legacy scoring-play-only replay.",
+    "summary": {
+      "totalStates": 1326,
+      "count": 1326,
+      "meanLegacyRating": 51.6,
+      "medianLegacyRating": 50,
+      "meanCandidateRating": 51.53,
+      "medianCandidateRating": 54,
+      "meanDelta": -0.07,
+      "medianDelta": 0,
+      "minDelta": -23,
+      "maxDelta": 16,
+      "thresholdMovement": {
+        "70": {
+          "legacyAtOrAboveCandidateBelow": 107,
+          "legacyBelowCandidateAtOrAbove": 20
+        },
+        "80": {
+          "legacyAtOrAboveCandidateBelow": 54,
+          "legacyBelowCandidateAtOrAbove": 8
+        },
+        "85": {
+          "legacyAtOrAboveCandidateBelow": 32,
+          "legacyBelowCandidateAtOrAbove": 0
+        },
+        "90": {
+          "legacyAtOrAboveCandidateBelow": 20,
+          "legacyBelowCandidateAtOrAbove": 0
+        }
+      },
+      "progressBuckets": {
+        "0-25%": {
+          "count": 282,
+          "meanLegacyRating": 50.92,
+          "medianLegacyRating": 48,
+          "meanCandidateRating": 57.91,
+          "medianCandidateRating": 56,
+          "meanDelta": 6.99,
+          "medianDelta": 7,
+          "minDelta": 0,
+          "maxDelta": 16,
+          "thresholdMovement": {
+            "70": {
+              "legacyAtOrAboveCandidateBelow": 0,
+              "legacyBelowCandidateAtOrAbove": 17
+            },
+            "80": {
+              "legacyAtOrAboveCandidateBelow": 0,
+              "legacyBelowCandidateAtOrAbove": 6
+            },
+            "85": {
+              "legacyAtOrAboveCandidateBelow": 0,
+              "legacyBelowCandidateAtOrAbove": 0
+            },
+            "90": {
+              "legacyAtOrAboveCandidateBelow": 0,
+              "legacyBelowCandidateAtOrAbove": 0
+            }
+          }
+        },
+        "25-50%": {
+          "count": 365,
+          "meanLegacyRating": 52.48,
+          "medianLegacyRating": 51,
+          "meanCandidateRating": 52.71,
+          "medianCandidateRating": 53,
+          "meanDelta": 0.22,
+          "medianDelta": 0,
+          "minDelta": -13,
+          "maxDelta": 13,
+          "thresholdMovement": {
+            "70": {
+              "legacyAtOrAboveCandidateBelow": 11,
+              "legacyBelowCandidateAtOrAbove": 1
+            },
+            "80": {
+              "legacyAtOrAboveCandidateBelow": 1,
+              "legacyBelowCandidateAtOrAbove": 2
+            },
+            "85": {
+              "legacyAtOrAboveCandidateBelow": 0,
+              "legacyBelowCandidateAtOrAbove": 0
+            },
+            "90": {
+              "legacyAtOrAboveCandidateBelow": 0,
+              "legacyBelowCandidateAtOrAbove": 0
+            }
+          }
+        },
+        "50-75%": {
+          "count": 304,
+          "meanLegacyRating": 52.45,
+          "medianLegacyRating": 54,
+          "meanCandidateRating": 48.98,
+          "medianCandidateRating": 50,
+          "meanDelta": -3.48,
+          "medianDelta": -4,
+          "minDelta": -20,
+          "maxDelta": 8,
+          "thresholdMovement": {
+            "70": {
+              "legacyAtOrAboveCandidateBelow": 38,
+              "legacyBelowCandidateAtOrAbove": 0
+            },
+            "80": {
+              "legacyAtOrAboveCandidateBelow": 16,
+              "legacyBelowCandidateAtOrAbove": 0
+            },
+            "85": {
+              "legacyAtOrAboveCandidateBelow": 14,
+              "legacyBelowCandidateAtOrAbove": 0
+            },
+            "90": {
+              "legacyAtOrAboveCandidateBelow": 8,
+              "legacyBelowCandidateAtOrAbove": 0
+            }
+          }
+        },
+        "75-90%": {
+          "count": 196,
+          "meanLegacyRating": 54.83,
+          "medianLegacyRating": 58,
+          "meanCandidateRating": 50.89,
+          "medianCandidateRating": 55,
+          "meanDelta": -3.94,
+          "medianDelta": -2,
+          "minDelta": -22,
+          "maxDelta": 7,
+          "thresholdMovement": {
+            "70": {
+              "legacyAtOrAboveCandidateBelow": 41,
+              "legacyBelowCandidateAtOrAbove": 1
+            },
+            "80": {
+              "legacyAtOrAboveCandidateBelow": 20,
+              "legacyBelowCandidateAtOrAbove": 0
+            },
+            "85": {
+              "legacyAtOrAboveCandidateBelow": 8,
+              "legacyBelowCandidateAtOrAbove": 0
+            },
+            "90": {
+              "legacyAtOrAboveCandidateBelow": 8,
+              "legacyBelowCandidateAtOrAbove": 0
+            }
+          }
+        },
+        "90%+": {
+          "count": 179,
+          "meanLegacyRating": 45.87,
+          "medianLegacyRating": 48,
+          "meanCandidateRating": 44.12,
+          "medianCandidateRating": 47,
+          "meanDelta": -1.75,
+          "medianDelta": 0,
+          "minDelta": -23,
+          "maxDelta": 7,
+          "thresholdMovement": {
+            "70": {
+              "legacyAtOrAboveCandidateBelow": 17,
+              "legacyBelowCandidateAtOrAbove": 1
+            },
+            "80": {
+              "legacyAtOrAboveCandidateBelow": 17,
+              "legacyBelowCandidateAtOrAbove": 0
+            },
+            "85": {
+              "legacyAtOrAboveCandidateBelow": 10,
+              "legacyBelowCandidateAtOrAbove": 0
+            },
+            "90": {
+              "legacyAtOrAboveCandidateBelow": 4,
+              "legacyBelowCandidateAtOrAbove": 0
+            }
+          }
+        }
+      },
+      "sports": {
+        "CFB": {
+          "count": 432,
+          "meanLegacyRating": 50.8,
+          "medianLegacyRating": 50.5,
+          "meanCandidateRating": 48.6,
+          "medianCandidateRating": 52,
+          "meanDelta": -2.2,
+          "medianDelta": 0,
+          "minDelta": -22,
+          "maxDelta": 10,
+          "thresholdMovement": {
+            "70": {
+              "legacyAtOrAboveCandidateBelow": 68,
+              "legacyBelowCandidateAtOrAbove": 1
+            },
+            "80": {
+              "legacyAtOrAboveCandidateBelow": 28,
+              "legacyBelowCandidateAtOrAbove": 0
+            },
+            "85": {
+              "legacyAtOrAboveCandidateBelow": 6,
+              "legacyBelowCandidateAtOrAbove": 0
+            },
+            "90": {
+              "legacyAtOrAboveCandidateBelow": 0,
+              "legacyBelowCandidateAtOrAbove": 0
+            }
+          }
+        },
+        "MLB": {
+          "count": 7,
+          "meanLegacyRating": 58.57,
+          "medianLegacyRating": 61,
+          "meanCandidateRating": 57.86,
+          "medianCandidateRating": 60,
+          "meanDelta": -0.71,
+          "medianDelta": -1,
+          "minDelta": -6,
+          "maxDelta": 8,
+          "thresholdMovement": {
+            "70": {
+              "legacyAtOrAboveCandidateBelow": 0,
+              "legacyBelowCandidateAtOrAbove": 1
+            },
+            "80": {
+              "legacyAtOrAboveCandidateBelow": 0,
+              "legacyBelowCandidateAtOrAbove": 0
+            },
+            "85": {
+              "legacyAtOrAboveCandidateBelow": 0,
+              "legacyBelowCandidateAtOrAbove": 0
+            },
+            "90": {
+              "legacyAtOrAboveCandidateBelow": 0,
+              "legacyBelowCandidateAtOrAbove": 0
+            }
+          }
+        },
+        "NBA": {
+          "count": 352,
+          "meanLegacyRating": 45.79,
+          "medianLegacyRating": 47,
+          "meanCandidateRating": 46.26,
+          "medianCandidateRating": 49.5,
+          "meanDelta": 0.47,
+          "medianDelta": 0,
+          "minDelta": -16,
+          "maxDelta": 11,
+          "thresholdMovement": {
+            "70": {
+              "legacyAtOrAboveCandidateBelow": 14,
+              "legacyBelowCandidateAtOrAbove": 0
+            },
+            "80": {
+              "legacyAtOrAboveCandidateBelow": 1,
+              "legacyBelowCandidateAtOrAbove": 0
+            },
+            "85": {
+              "legacyAtOrAboveCandidateBelow": 0,
+              "legacyBelowCandidateAtOrAbove": 0
+            },
+            "90": {
+              "legacyAtOrAboveCandidateBelow": 0,
+              "legacyBelowCandidateAtOrAbove": 0
+            }
+          }
+        },
+        "NCAAB": {
+          "count": 152,
+          "meanLegacyRating": 73.25,
+          "medianLegacyRating": 75,
+          "meanCandidateRating": 72.93,
+          "medianCandidateRating": 76,
+          "meanDelta": -0.32,
+          "medianDelta": 0.5,
+          "minDelta": -12,
+          "maxDelta": 10,
+          "thresholdMovement": {
+            "70": {
+              "legacyAtOrAboveCandidateBelow": 4,
+              "legacyBelowCandidateAtOrAbove": 16
+            },
+            "80": {
+              "legacyAtOrAboveCandidateBelow": 15,
+              "legacyBelowCandidateAtOrAbove": 7
+            },
+            "85": {
+              "legacyAtOrAboveCandidateBelow": 19,
+              "legacyBelowCandidateAtOrAbove": 0
+            },
+            "90": {
+              "legacyAtOrAboveCandidateBelow": 16,
+              "legacyBelowCandidateAtOrAbove": 0
+            }
+          }
+        },
+        "NFL": {
+          "count": 224,
+          "meanLegacyRating": 53.42,
+          "medianLegacyRating": 53,
+          "meanCandidateRating": 52.72,
+          "medianCandidateRating": 54,
+          "meanDelta": -0.7,
+          "medianDelta": -0.5,
+          "minDelta": -23,
+          "maxDelta": 10,
+          "thresholdMovement": {
+            "70": {
+              "legacyAtOrAboveCandidateBelow": 21,
+              "legacyBelowCandidateAtOrAbove": 2
+            },
+            "80": {
+              "legacyAtOrAboveCandidateBelow": 10,
+              "legacyBelowCandidateAtOrAbove": 1
+            },
+            "85": {
+              "legacyAtOrAboveCandidateBelow": 7,
+              "legacyBelowCandidateAtOrAbove": 0
+            },
+            "90": {
+              "legacyAtOrAboveCandidateBelow": 4,
+              "legacyBelowCandidateAtOrAbove": 0
+            }
+          }
+        },
+        "NHL": {
+          "count": 159,
+          "meanLegacyRating": 43.05,
+          "medianLegacyRating": 45,
+          "meanCandidateRating": 48.74,
+          "medianCandidateRating": 57,
+          "meanDelta": 5.69,
+          "medianDelta": 5,
+          "minDelta": 0,
+          "maxDelta": 16,
+          "thresholdMovement": {
+            "70": {
+              "legacyAtOrAboveCandidateBelow": 0,
+              "legacyBelowCandidateAtOrAbove": 0
+            },
+            "80": {
+              "legacyAtOrAboveCandidateBelow": 0,
+              "legacyBelowCandidateAtOrAbove": 0
+            },
+            "85": {
+              "legacyAtOrAboveCandidateBelow": 0,
+              "legacyBelowCandidateAtOrAbove": 0
+            },
+            "90": {
+              "legacyAtOrAboveCandidateBelow": 0,
+              "legacyBelowCandidateAtOrAbove": 0
+            }
+          }
+        },
+        "Soccer": {
+          "count": 0,
+          "meanLegacyRating": null,
+          "medianLegacyRating": null,
+          "meanCandidateRating": null,
+          "medianCandidateRating": null,
+          "meanDelta": null,
+          "medianDelta": null,
+          "minDelta": null,
+          "maxDelta": null,
+          "thresholdMovement": {
+            "70": {
+              "legacyAtOrAboveCandidateBelow": 0,
+              "legacyBelowCandidateAtOrAbove": 0
+            },
+            "80": {
+              "legacyAtOrAboveCandidateBelow": 0,
+              "legacyBelowCandidateAtOrAbove": 0
+            },
+            "85": {
+              "legacyAtOrAboveCandidateBelow": 0,
+              "legacyBelowCandidateAtOrAbove": 0
+            },
+            "90": {
+              "legacyAtOrAboveCandidateBelow": 0,
+              "legacyBelowCandidateAtOrAbove": 0
+            }
+          }
+        },
+        "Tennis": {
+          "count": 0,
+          "meanLegacyRating": null,
+          "medianLegacyRating": null,
+          "meanCandidateRating": null,
+          "medianCandidateRating": null,
+          "meanDelta": null,
+          "medianDelta": null,
+          "minDelta": null,
+          "maxDelta": null,
+          "thresholdMovement": {
+            "70": {
+              "legacyAtOrAboveCandidateBelow": 0,
+              "legacyBelowCandidateAtOrAbove": 0
+            },
+            "80": {
+              "legacyAtOrAboveCandidateBelow": 0,
+              "legacyBelowCandidateAtOrAbove": 0
+            },
+            "85": {
+              "legacyAtOrAboveCandidateBelow": 0,
+              "legacyBelowCandidateAtOrAbove": 0
+            },
+            "90": {
+              "legacyAtOrAboveCandidateBelow": 0,
+              "legacyBelowCandidateAtOrAbove": 0
+            }
+          }
+        }
+      },
+      "fidelityBuckets": {
+        "full": {
+          "count": 0,
+          "meanLegacyRating": null,
+          "medianLegacyRating": null,
+          "meanCandidateRating": null,
+          "medianCandidateRating": null,
+          "meanDelta": null,
+          "medianDelta": null,
+          "minDelta": null,
+          "maxDelta": null,
+          "thresholdMovement": {
+            "70": {
+              "legacyAtOrAboveCandidateBelow": 0,
+              "legacyBelowCandidateAtOrAbove": 0
+            },
+            "80": {
+              "legacyAtOrAboveCandidateBelow": 0,
+              "legacyBelowCandidateAtOrAbove": 0
+            },
+            "85": {
+              "legacyAtOrAboveCandidateBelow": 0,
+              "legacyBelowCandidateAtOrAbove": 0
+            },
+            "90": {
+              "legacyAtOrAboveCandidateBelow": 0,
+              "legacyBelowCandidateAtOrAbove": 0
+            }
+          }
+        },
+        "partial": {
+          "count": 0,
+          "meanLegacyRating": null,
+          "medianLegacyRating": null,
+          "meanCandidateRating": null,
+          "medianCandidateRating": null,
+          "meanDelta": null,
+          "medianDelta": null,
+          "minDelta": null,
+          "maxDelta": null,
+          "thresholdMovement": {
+            "70": {
+              "legacyAtOrAboveCandidateBelow": 0,
+              "legacyBelowCandidateAtOrAbove": 0
+            },
+            "80": {
+              "legacyAtOrAboveCandidateBelow": 0,
+              "legacyBelowCandidateAtOrAbove": 0
+            },
+            "85": {
+              "legacyAtOrAboveCandidateBelow": 0,
+              "legacyBelowCandidateAtOrAbove": 0
+            },
+            "90": {
+              "legacyAtOrAboveCandidateBelow": 0,
+              "legacyBelowCandidateAtOrAbove": 0
+            }
+          }
+        },
+        "generic": {
+          "count": 1326,
+          "meanLegacyRating": 51.6,
+          "medianLegacyRating": 50,
+          "meanCandidateRating": 51.53,
+          "medianCandidateRating": 54,
+          "meanDelta": -0.07,
+          "medianDelta": 0,
+          "minDelta": -23,
+          "maxDelta": 16,
+          "thresholdMovement": {
+            "70": {
+              "legacyAtOrAboveCandidateBelow": 107,
+              "legacyBelowCandidateAtOrAbove": 20
+            },
+            "80": {
+              "legacyAtOrAboveCandidateBelow": 54,
+              "legacyBelowCandidateAtOrAbove": 8
+            },
+            "85": {
+              "legacyAtOrAboveCandidateBelow": 32,
+              "legacyBelowCandidateAtOrAbove": 0
+            },
+            "90": {
+              "legacyAtOrAboveCandidateBelow": 20,
+              "legacyBelowCandidateAtOrAbove": 0
+            }
+          }
+        }
+      },
+      "groups": {
+        "neutralStates": {
+          "count": 1257,
+          "meanLegacyRating": 50.48,
+          "medianLegacyRating": 50,
+          "meanCandidateRating": 50.7,
+          "medianCandidateRating": 53,
+          "meanDelta": 0.22,
+          "medianDelta": 0,
+          "minDelta": -22,
+          "maxDelta": 16,
+          "thresholdMovement": {
+            "70": {
+              "legacyAtOrAboveCandidateBelow": 93,
+              "legacyBelowCandidateAtOrAbove": 20
+            },
+            "80": {
+              "legacyAtOrAboveCandidateBelow": 44,
+              "legacyBelowCandidateAtOrAbove": 8
+            },
+            "85": {
+              "legacyAtOrAboveCandidateBelow": 25,
+              "legacyBelowCandidateAtOrAbove": 0
+            },
+            "90": {
+              "legacyAtOrAboveCandidateBelow": 16,
+              "legacyBelowCandidateAtOrAbove": 0
+            }
+          }
+        },
+        "specificLeverageStates": {
+          "count": 51,
+          "meanLegacyRating": 66.67,
+          "medianLegacyRating": 65,
+          "meanCandidateRating": 59.49,
+          "medianCandidateRating": 58,
+          "meanDelta": -7.18,
+          "medianDelta": -7,
+          "minDelta": -23,
+          "maxDelta": 0,
+          "thresholdMovement": {
+            "70": {
+              "legacyAtOrAboveCandidateBelow": 14,
+              "legacyBelowCandidateAtOrAbove": 0
+            },
+            "80": {
+              "legacyAtOrAboveCandidateBelow": 10,
+              "legacyBelowCandidateAtOrAbove": 0
+            },
+            "85": {
+              "legacyAtOrAboveCandidateBelow": 7,
+              "legacyBelowCandidateAtOrAbove": 0
+            },
+            "90": {
+              "legacyAtOrAboveCandidateBelow": 4,
+              "legacyBelowCandidateAtOrAbove": 0
+            }
+          }
+        },
+        "decisiveStates": {
+          "count": 18,
+          "meanLegacyRating": 86.89,
+          "medianLegacyRating": 92,
+          "meanCandidateRating": 86.89,
+          "medianCandidateRating": 92,
+          "meanDelta": 0,
+          "medianDelta": 0,
+          "minDelta": 0,
+          "maxDelta": 0,
+          "thresholdMovement": {
+            "70": {
+              "legacyAtOrAboveCandidateBelow": 0,
+              "legacyBelowCandidateAtOrAbove": 0
+            },
+            "80": {
+              "legacyAtOrAboveCandidateBelow": 0,
+              "legacyBelowCandidateAtOrAbove": 0
+            },
+            "85": {
+              "legacyAtOrAboveCandidateBelow": 0,
+              "legacyBelowCandidateAtOrAbove": 0
+            },
+            "90": {
+              "legacyAtOrAboveCandidateBelow": 0,
+              "legacyBelowCandidateAtOrAbove": 0
+            }
+          }
+        }
+      },
+      "largestIncreases": [
+        {
+          "sport": "NHL",
+          "stateId": "401892530:401892530000000570",
+          "progress": 0.008611111111111111,
+          "legacyRating": 41,
+          "candidateRating": 57,
+          "delta": 16,
+          "fidelity": "generic"
+        },
+        {
+          "sport": "NHL",
+          "stateId": "401892532:401892532000000650",
+          "progress": 0.018333333333333333,
+          "legacyRating": 42,
+          "candidateRating": 58,
+          "delta": 16,
+          "fidelity": "generic"
+        },
+        {
+          "sport": "NHL",
+          "stateId": "401892543:401892543000000780",
+          "progress": 0.04388888888888889,
+          "legacyRating": 41,
+          "candidateRating": 57,
+          "delta": 16,
+          "fidelity": "generic"
+        },
+        {
+          "sport": "NHL",
+          "stateId": "401892529:401892529000001380",
+          "progress": 0.10583333333333333,
+          "legacyRating": 43,
+          "candidateRating": 58,
+          "delta": 15,
+          "fidelity": "generic"
+        },
+        {
+          "sport": "NHL",
+          "stateId": "401892529:401892529000001530",
+          "progress": 0.14444444444444446,
+          "legacyRating": 46,
+          "candidateRating": 61,
+          "delta": 15,
+          "fidelity": "generic"
+        },
+        {
+          "sport": "NHL",
+          "stateId": "401892531:401892531000000570",
+          "progress": 0.011111111111111112,
+          "legacyRating": 47,
+          "candidateRating": 62,
+          "delta": 15,
+          "fidelity": "generic"
+        },
+        {
+          "sport": "NHL",
+          "stateId": "401892540:401892540000002520",
+          "progress": 0.1111111111111111,
+          "legacyRating": 46,
+          "candidateRating": 61,
+          "delta": 15,
+          "fidelity": "generic"
+        },
+        {
+          "sport": "NHL",
+          "stateId": "401892543:401892543000002170",
+          "progress": 0.13777777777777778,
+          "legacyRating": 45,
+          "candidateRating": 60,
+          "delta": 15,
+          "fidelity": "generic"
+        },
+        {
+          "sport": "NHL",
+          "stateId": "401892545:401892545000000890",
+          "progress": 0.035833333333333335,
+          "legacyRating": 47,
+          "candidateRating": 62,
+          "delta": 15,
+          "fidelity": "generic"
+        },
+        {
+          "sport": "NHL",
+          "stateId": "401892547:401892547000001480",
+          "progress": 0.1125,
+          "legacyRating": 44,
+          "candidateRating": 59,
+          "delta": 15,
+          "fidelity": "generic"
+        }
+      ],
+      "largestDecreases": [
+        {
+          "sport": "NFL",
+          "stateId": "401873002:4018730024264",
+          "progress": 0.9977777777777778,
+          "score": {
+            "home": 19,
+            "away": 19
+          },
+          "margin": 0,
+          "legacyRating": 95,
+          "candidateRating": 72,
+          "delta": -23,
+          "currentWp": 0.5453,
+          "legacyGenericTimePoints": 49,
+          "legacyGenericTime": [
+            {
+              "label": "Score closeness and leverage",
+              "points": 42
+            },
+            {
+              "label": "Late-game leverage",
+              "points": 7
+            }
+          ],
+          "candidateCurrentTension": 33,
+          "candidateGenericLeverage": 8,
+          "sportSituation": 1,
+          "sportPressure": 0,
+          "decisiveFloor": 0,
+          "driveFloor": 0,
+          "competitiveFloor": 0,
+          "fidelity": "generic",
+          "availableSituationFields": [
+            "clock",
+            "period"
+          ],
+          "fidelityLimitations": [
+            "scoring-only stream"
+          ],
+          "currentWpPositioned": true,
+          "sportSpecificSituationUsable": false,
+          "situation": {},
+          "diagnosis": "B-risk: replay is missing current sport-specific and/or positioned WP data; do not tune from this state alone"
+        },
+        {
+          "sport": "NFL",
+          "stateId": "401872993:4018729933875",
+          "progress": 0.9888888888888889,
+          "score": {
+            "home": 23,
+            "away": 23
+          },
+          "margin": 0,
+          "legacyRating": 86,
+          "candidateRating": 63,
+          "delta": -23,
+          "currentWp": 0.8262,
+          "legacyGenericTimePoints": 49,
+          "legacyGenericTime": [
+            {
+              "label": "Score closeness and leverage",
+              "points": 42
+            },
+            {
+              "label": "Late-game leverage",
+              "points": 7
+            }
+          ],
+          "candidateCurrentTension": 26,
+          "candidateGenericLeverage": 6,
+          "sportSituation": 1,
+          "sportPressure": 0,
+          "decisiveFloor": 0,
+          "driveFloor": 0,
+          "competitiveFloor": 0,
+          "fidelity": "generic",
+          "availableSituationFields": [
+            "clock",
+            "period"
+          ],
+          "fidelityLimitations": [
+            "scoring-only stream"
+          ],
+          "currentWpPositioned": true,
+          "sportSpecificSituationUsable": false,
+          "situation": {},
+          "diagnosis": "B-risk: replay is missing current sport-specific and/or positioned WP data; do not tune from this state alone"
+        },
+        {
+          "sport": "NFL",
+          "stateId": "401872988:4018729884087",
+          "progress": 0.9713888888888889,
+          "score": {
+            "home": 27,
+            "away": 27
+          },
+          "margin": 0,
+          "legacyRating": 90,
+          "candidateRating": 68,
+          "delta": -22,
+          "currentWp": 0.6796,
+          "legacyGenericTimePoints": 49,
+          "legacyGenericTime": [
+            {
+              "label": "Score closeness and leverage",
+              "points": 42
+            },
+            {
+              "label": "Late-game leverage",
+              "points": 7
+            }
+          ],
+          "candidateCurrentTension": 30,
+          "candidateGenericLeverage": 7,
+          "sportSituation": 1,
+          "sportPressure": 0,
+          "decisiveFloor": 0,
+          "driveFloor": 0,
+          "competitiveFloor": 0,
+          "fidelity": "generic",
+          "availableSituationFields": [
+            "clock",
+            "period"
+          ],
+          "fidelityLimitations": [
+            "scoring-only stream"
+          ],
+          "currentWpPositioned": true,
+          "sportSpecificSituationUsable": false,
+          "situation": {},
+          "diagnosis": "B-risk: replay is missing current sport-specific and/or positioned WP data; do not tune from this state alone"
+        },
+        {
+          "sport": "CFB",
+          "stateId": "401862803:401862803590",
+          "progress": 0.8155555555555556,
+          "score": {
+            "home": 28,
+            "away": 28
+          },
+          "margin": 0,
+          "legacyRating": 85,
+          "candidateRating": 63,
+          "delta": -22,
+          "currentWp": 0.7168,
+          "legacyGenericTimePoints": 33,
+          "legacyGenericTime": [
+            {
+              "label": "Score closeness and leverage",
+              "points": 27
+            },
+            {
+              "label": "Late-game leverage",
+              "points": 6
+            }
+          ],
+          "candidateCurrentTension": 29,
+          "candidateGenericLeverage": 5,
+          "sportSituation": 0,
+          "sportPressure": 0,
+          "decisiveFloor": 0,
+          "driveFloor": 0,
+          "competitiveFloor": 0,
+          "fidelity": "generic",
+          "availableSituationFields": [
+            "clock",
+            "period"
+          ],
+          "fidelityLimitations": [
+            "scoring-only stream"
+          ],
+          "currentWpPositioned": true,
+          "sportSpecificSituationUsable": false,
+          "situation": {},
+          "diagnosis": "B-risk: replay is missing current sport-specific and/or positioned WP data; do not tune from this state alone"
+        },
+        {
+          "sport": "CFB",
+          "stateId": "401858265:401858265655",
+          "progress": 0.7875,
+          "score": {
+            "home": 26,
+            "away": 28
+          },
+          "margin": 2,
+          "legacyRating": 85,
+          "candidateRating": 63,
+          "delta": -22,
+          "currentWp": 0.2547,
+          "legacyGenericTimePoints": 32,
+          "legacyGenericTime": [
+            {
+              "label": "Score closeness and leverage",
+              "points": 26
+            },
+            {
+              "label": "Late-game leverage",
+              "points": 6
+            }
+          ],
+          "candidateCurrentTension": 28,
+          "candidateGenericLeverage": 4,
+          "sportSituation": 0,
+          "sportPressure": 0,
+          "decisiveFloor": 0,
+          "driveFloor": 0,
+          "competitiveFloor": 0,
+          "fidelity": "generic",
+          "availableSituationFields": [
+            "clock",
+            "period"
+          ],
+          "fidelityLimitations": [
+            "scoring-only stream"
+          ],
+          "currentWpPositioned": true,
+          "sportSpecificSituationUsable": false,
+          "situation": {},
+          "diagnosis": "B-risk: replay is missing current sport-specific and/or positioned WP data; do not tune from this state alone"
+        },
+        {
+          "sport": "CFB",
+          "stateId": "401858263:401858263632",
+          "progress": 0.8408333333333333,
+          "score": {
+            "home": 21,
+            "away": 21
+          },
+          "margin": 0,
+          "legacyRating": 84,
+          "candidateRating": 62,
+          "delta": -22,
+          "currentWp": 0.7086,
+          "legacyGenericTimePoints": 34,
+          "legacyGenericTime": [
+            {
+              "label": "Score closeness and leverage",
+              "points": 28
+            },
+            {
+              "label": "Late-game leverage",
+              "points": 6
+            }
+          ],
+          "candidateCurrentTension": 29,
+          "candidateGenericLeverage": 6,
+          "sportSituation": 0,
+          "sportPressure": 0,
+          "decisiveFloor": 0,
+          "driveFloor": 0,
+          "competitiveFloor": 0,
+          "fidelity": "generic",
+          "availableSituationFields": [
+            "clock",
+            "period"
+          ],
+          "fidelityLimitations": [
+            "scoring-only stream"
+          ],
+          "currentWpPositioned": true,
+          "sportSpecificSituationUsable": false,
+          "situation": {},
+          "diagnosis": "B-risk: replay is missing current sport-specific and/or positioned WP data; do not tune from this state alone"
+        },
+        {
+          "sport": "NFL",
+          "stateId": "401873002:4018730023925",
+          "progress": 0.9680555555555556,
+          "score": {
+            "home": 16,
+            "away": 16
+          },
+          "margin": 0,
+          "legacyRating": 93,
+          "candidateRating": 72,
+          "delta": -21,
+          "currentWp": 0.5573,
+          "legacyGenericTimePoints": 48,
+          "legacyGenericTime": [
+            {
+              "label": "Score closeness and leverage",
+              "points": 41
+            },
+            {
+              "label": "Late-game leverage",
+              "points": 7
+            }
+          ],
+          "candidateCurrentTension": 33,
+          "candidateGenericLeverage": 8,
+          "sportSituation": 1,
+          "sportPressure": 0,
+          "decisiveFloor": 0,
+          "driveFloor": 0,
+          "competitiveFloor": 0,
+          "fidelity": "generic",
+          "availableSituationFields": [
+            "clock",
+            "period"
+          ],
+          "fidelityLimitations": [
+            "scoring-only stream"
+          ],
+          "currentWpPositioned": true,
+          "sportSpecificSituationUsable": false,
+          "situation": {},
+          "diagnosis": "B-risk: replay is missing current sport-specific and/or positioned WP data; do not tune from this state alone"
+        },
+        {
+          "sport": "NFL",
+          "stateId": "401872996:4018729964244",
+          "progress": 0.9680555555555556,
+          "score": {
+            "home": 31,
+            "away": 31
+          },
+          "margin": 0,
+          "legacyRating": 92,
+          "candidateRating": 71,
+          "delta": -21,
+          "currentWp": 0.427,
+          "legacyGenericTimePoints": 48,
+          "legacyGenericTime": [
+            {
+              "label": "Score closeness and leverage",
+              "points": 41
+            },
+            {
+              "label": "Late-game leverage",
+              "points": 7
+            }
+          ],
+          "candidateCurrentTension": 32,
+          "candidateGenericLeverage": 8,
+          "sportSituation": 1,
+          "sportPressure": 0,
+          "decisiveFloor": 0,
+          "driveFloor": 0,
+          "competitiveFloor": 0,
+          "fidelity": "generic",
+          "availableSituationFields": [
+            "clock",
+            "period"
+          ],
+          "fidelityLimitations": [
+            "scoring-only stream"
+          ],
+          "currentWpPositioned": true,
+          "sportSpecificSituationUsable": false,
+          "situation": {},
+          "diagnosis": "B-risk: replay is missing current sport-specific and/or positioned WP data; do not tune from this state alone"
+        },
+        {
+          "sport": "CFB",
+          "stateId": "401862804:401862804637",
+          "progress": 0.8619444444444444,
+          "score": {
+            "home": 31,
+            "away": 27
+          },
+          "margin": 4,
+          "legacyRating": 83,
+          "candidateRating": 63,
+          "delta": -20,
+          "currentWp": 0.781,
+          "legacyGenericTimePoints": 34,
+          "legacyGenericTime": [
+            {
+              "label": "Score closeness and leverage",
+              "points": 28
+            },
+            {
+              "label": "Late-game leverage",
+              "points": 6
+            }
+          ],
+          "candidateCurrentTension": 27,
+          "candidateGenericLeverage": 5,
+          "sportSituation": 0,
+          "sportPressure": 0,
+          "decisiveFloor": 0,
+          "driveFloor": 0,
+          "competitiveFloor": 0,
+          "fidelity": "generic",
+          "availableSituationFields": [
+            "clock",
+            "period"
+          ],
+          "fidelityLimitations": [
+            "scoring-only stream"
+          ],
+          "currentWpPositioned": true,
+          "sportSpecificSituationUsable": false,
+          "situation": {},
+          "diagnosis": "B-risk: replay is missing current sport-specific and/or positioned WP data; do not tune from this state alone"
+        },
+        {
+          "sport": "CFB",
+          "stateId": "401862803:401862803469",
+          "progress": 0.6427777777777778,
+          "score": {
+            "home": 21,
+            "away": 21
+          },
+          "margin": 0,
+          "legacyRating": 80,
+          "candidateRating": 60,
+          "delta": -20,
+          "currentWp": 0.8018,
+          "legacyGenericTimePoints": 29,
+          "legacyGenericTime": [
+            {
+              "label": "Score closeness and leverage",
+              "points": 24
+            },
+            {
+              "label": "Late-game leverage",
+              "points": 5
+            }
+          ],
+          "candidateCurrentTension": 27,
+          "candidateGenericLeverage": 1,
+          "sportSituation": 0,
+          "sportPressure": 0,
+          "decisiveFloor": 0,
+          "driveFloor": 0,
+          "competitiveFloor": 0,
+          "fidelity": "generic",
+          "availableSituationFields": [
+            "clock",
+            "period"
+          ],
+          "fidelityLimitations": [
+            "scoring-only stream"
+          ],
+          "currentWpPositioned": true,
+          "sportSpecificSituationUsable": false,
+          "situation": {},
+          "diagnosis": "B-risk: replay is missing current sport-specific and/or positioned WP data; do not tune from this state alone"
+        }
+      ],
+      "regressionExamples": {
+        "nflActiveLateDriveBeforeScore": {
+          "available": false,
+          "reason": "No NFL fixture checkpoint combined a non-scoring decisive drive with the next play scoring."
+        },
+        "footballFourthDown": {
+          "available": false,
+          "reason": "No football fourth-down state was present."
+        },
+        "basketballPotentialFinalPossession": {
+          "available": false,
+          "reason": "Insufficient archive coverage: no captured basketball checkpoint establishes a potential tying/winning final possession; no possession is fabricated."
+        },
+        "mlbRunnersAndOuts": {
+          "available": false,
+          "reason": "No MLB runner/outs state was present."
+        },
+        "nhlSpecificOnIceLeverage": {
+          "available": false,
+          "reason": "Unavailable: fixtures retain play strength but only a final onIce snapshot; historical skaters/goalie state cannot be causally positioned without fabrication."
+        }
+      },
+      "coverage": {
+        "CFB": {
+          "games": 50,
+          "fixtureGames": 50,
+          "states": 432,
+          "fullStates": 0,
+          "insufficient": true,
+          "warning": "Insufficient independent games, states, or full-fidelity situation coverage; do not draw tuning conclusions."
+        },
+        "MLB": {
+          "games": 2,
+          "fixtureGames": 2,
+          "states": 7,
+          "fullStates": 0,
+          "insufficient": true,
+          "warning": "Insufficient independent games, states, or full-fidelity situation coverage; do not draw tuning conclusions."
+        },
+        "NBA": {
+          "games": 3,
+          "fixtureGames": 3,
+          "states": 352,
+          "fullStates": 0,
+          "insufficient": true,
+          "warning": "Insufficient independent games, states, or full-fidelity situation coverage; do not draw tuning conclusions."
+        },
+        "NCAAB": {
+          "games": 2,
+          "fixtureGames": 2,
+          "states": 152,
+          "fullStates": 0,
+          "insufficient": true,
+          "warning": "Insufficient independent games, states, or full-fidelity situation coverage; do not draw tuning conclusions."
+        },
+        "NFL": {
+          "games": 25,
+          "fixtureGames": 25,
+          "states": 224,
+          "fullStates": 0,
+          "insufficient": true,
+          "warning": "Insufficient independent games, states, or full-fidelity situation coverage; do not draw tuning conclusions."
+        },
+        "NHL": {
+          "games": 25,
+          "fixtureGames": 25,
+          "states": 159,
+          "fullStates": 0,
+          "insufficient": true,
+          "warning": "Insufficient independent games, states, or full-fidelity situation coverage; do not draw tuning conclusions."
+        },
+        "Soccer": {
+          "games": 0,
+          "fixtureGames": 0,
+          "states": 0,
+          "fullStates": 0,
+          "insufficient": true,
+          "warning": "Insufficient independent games, states, or full-fidelity situation coverage; do not draw tuning conclusions."
+        },
+        "Tennis": {
+          "games": 0,
+          "fixtureGames": 0,
+          "states": 0,
+          "fullStates": 0,
+          "insufficient": true,
+          "warning": "Insufficient independent games, states, or full-fidelity situation coverage; do not draw tuning conclusions."
+        }
+      }
+    }
+  }
+}

@@ -39,7 +39,9 @@
 
   function basketballSituationImpact(game,status,progress,scoreGap,situation={}) {
     let points = 0;
+    let genericTimePoints = 0;
     const reasons = [];
+    const genericTimeReasons = [];
     const seconds = clockSeconds(status);
     const regulationPeriods = game.sport === 'NCAAB' ? 2 : 4;
     const possessionId = String(situation.possession?.id || situation.possession || '');
@@ -57,10 +59,12 @@
         : null;
 
     if (progress >= .78 && scoreGap <= 6) {
-      if (scoreGap === 0) points += progress >= .9 ? 9 : 6;
-      else if (scoreGap <= 3) points += progress >= .9 ? 7 : 5;
-      else points += 3;
-      reasons.push(scoreGap === 0 ? 'The game is tied late' : `It is a ${scoreGap}-point game late`);
+      genericTimePoints = scoreGap === 0 ? (progress >= .9 ? 9 : 6)
+        : scoreGap <= 3 ? (progress >= .9 ? 7 : 5) : 3;
+      points += genericTimePoints;
+      const reason = scoreGap === 0 ? 'The game is tied late' : `It is a ${scoreGap}-point game late`;
+      reasons.push(reason);
+      genericTimeReasons.push(reason);
     }
 
     if (seconds !== null && Number(status?.period) >= regulationPeriods && seconds <= 24 && scoreGap <= 3) {
@@ -79,6 +83,7 @@
     }
 
     return {points:Math.min(12,points),note:holder ? `${holder[1] || holder[0]} possession` : '',reasons,
+      candidatePoints:Math.min(12,Math.max(0,points-genericTimePoints)),genericTimePoints,genericTimeReasons,
       competitiveFloor:finalPossession ? Math.round(20*finalPossession.urgency) : 0,
       finalPossession};
   }

@@ -317,8 +317,8 @@ body.detail-open { overflow: hidden; }
 .timeline-chart .timeline-point { cursor: help; outline: none; }
 .timeline-chart .timeline-point circle { transition: fill .15s, stroke .15s, stroke-width .15s; }
 .timeline-chart .timeline-point:hover circle, .timeline-chart .timeline-point:focus-visible circle, .timeline-chart .timeline-point.is-open circle { fill: #f4fbff; stroke: #8fcbff; stroke-width: 2.5; }
-.timeline-point-help { margin: 9px 0 0; padding: 10px 12px; border: 1px solid #7da9c9; border-radius: 8px; background: linear-gradient(145deg, #2d4657, #1b2d37); color: #e6f3fc; font: 10px/1.45 'DM Mono', monospace; box-shadow: 0 5px 13px rgba(0,0,0,.24), inset 0 1px 1px rgba(219,240,255,.16); }
-.timeline-point-help[hidden] { display: none; }
+.timeline-point-help { box-sizing: border-box; block-size: 7.8em; margin: 9px 0 0; padding: 10px 12px; overflow: auto; border: 1px solid #7da9c9; border-radius: 8px; background: linear-gradient(145deg, #2d4657, #1b2d37); color: #e6f3fc; font: 10px/1.45 'DM Mono', monospace; box-shadow: 0 5px 13px rgba(0,0,0,.24), inset 0 1px 1px rgba(219,240,255,.16); visibility: hidden; pointer-events: none; }
+.timeline-point-help.is-visible { visibility: visible; }
 .timeline-moments { margin: 10px 0 0; padding: 0; list-style: none; display: grid; gap: 6px; }
 .timeline-moments li { display: flex; gap: 10px; color: #d7e5f1; font-size: 10px; line-height: 1.4; }
 .timeline-moments li b { color: #b5dbff; font: 600 11px 'DM Mono',monospace; }

@@ -1,5 +1,8 @@
 /* Shared scoring module; supports classic browser scripts and Worker/Node bundling. */
 (function (root) {
+  const {trajectoryAnalysis} = typeof module !== 'undefined' && module.exports
+    ? require('./shared/trajectory.js')
+    : root.SportsRadarScoring.shared_trajectory;
   const {nflModel} = typeof module !== 'undefined' && module.exports
     ? require('./sports/nfl.js')
     : root.SportsRadarScoring.sports_nfl;
@@ -28,7 +31,10 @@
     CFB:cfbModel,Tennis:tennisModel,Soccer:soccerModel
   };
 
-  const api = {SPORT_MODELS};
+  const analyzeTrajectory = (sport,summary,progress=null,state='completed') =>
+    trajectoryAnalysis(sport,summary,progress,state,SPORT_MODELS[sport] || {});
+
+  const api = {SPORT_MODELS,analyzeTrajectory};
   if (typeof module !== 'undefined' && module.exports) {
     module.exports = api;
   } else {

@@ -4,15 +4,16 @@
     ? require('./time.js')
     : root.SportsRadarScoring.shared_time;
 
-  function eventShockFor(sport,summary,status,model={}) {
+  function eventShockFor(sport,summary,status,model={},positionOverride=null) {
+    const positionFor=value=>positionOverride ? positionOverride(value) : eventPosition(sport,{status:value});
     const plays = summary?.plays?.length ? summary.plays : summary?.scoringPlays || [];
     const duration = model.duration || 60;
     const currentProgress = gameProgress(sport,{status});
     const positioned = plays.map((play,index) => {
       const period = Number(play.period?.number || play.period || 0);
-      const position = period ? eventPosition(sport,{status:{period,displayClock:play.clock?.displayValue || '',clock:play.clock?.value,type:{detail:play.period?.displayValue || ''}}}) : null;
+      const position = period ? positionFor({period,displayClock:play.clock?.displayValue || '',clock:play.clock?.value,type:{detail:play.period?.displayValue || ''}}) : null;
       return {play,index,position};
-    }).filter(item => item.position !== null && item.position <= eventPosition(sport,{status}) + .01).sort((a,b) => a.position-b.position || a.index-b.index);
+    }).filter(item => item.position !== null && positionFor(status)!==null && item.position <= positionFor(status) + .01).sort((a,b) => a.position-b.position || a.index-b.index);
     let points = 0;
     const reasons = [];
     for (let i=0;i<positioned.length;i++) {
@@ -32,7 +33,7 @@
       if (!value) continue;
       const playsSince = positioned.length - 1 - i;
       const periodGap = Math.abs(Number(status?.period || 0)-Number(play.period?.number || play.period || 0));
-      const currentEventPosition = eventPosition(sport,{status});
+      const currentEventPosition = positionFor(status);
       const ageMinutes = model.inningEventAge ? periodGap * 20 : Math.max(0,currentEventPosition-position) * duration;
       const decay = Math.min(Math.max(0,1-playsSince/7),Math.max(0,1-ageMinutes/3));
       if (decay <= 0) continue;

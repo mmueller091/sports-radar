@@ -12,7 +12,8 @@
     summary,
     progress,
     state,
-    history={}
+    history={},
+    options={}
   ) {
     if (
       state === 'upcoming'
@@ -384,6 +385,7 @@
     }
 
     if (
+      !(state === 'live' && options.replaceSustained) &&
       moments.length >= 3 &&
       currentProgress >= .4
     ) {
@@ -725,6 +727,16 @@
       }
     }
 
+    // Shadow-only ownership replacement is injected before shared/bucket caps.
+    // Default callers and completed scoring retain their original calculation.
+    if (state === 'live' && options.replaceSustained && options.trajectoryPositive > 0) {
+      factors.push({label:'Trajectory sustained history',points:options.trajectoryPositive});
+    }
+    // Explicit experimental callers only. Scale raw competition-history
+    // allocations before global/bucket caps; current milestones live elsewhere.
+    const relevance = state === 'live' && Number.isFinite(options.liveRelevance)
+      ? Math.max(0,Math.min(1,options.liveRelevance)) : null;
+    const allocations = [];
     const cap =
       state === 'completed'
         ? 25
@@ -760,7 +772,7 @@
             Math.min(
               Math.max(
                 0,
-                factor.points
+                factor.points * (relevance ?? 1)
               ),
               remaining,
               bucketLimit
@@ -768,6 +780,10 @@
 
           remaining -=
             points;
+
+          if (relevance !== null) allocations.push({label:factor.label,
+            rawPoints:factor.points,relevantPoints:factor.points*relevance,retainedPoints:points,
+            relevanceReduction:factor.points*(1-relevance),capReduction:factor.points*relevance-points});
 
           if (
             factor.bucket &&
@@ -821,6 +837,8 @@
     }
 
     return {
+      ...(relevance === null ? {} : {relevance:{retention:relevance,cap,
+        bucketCap:basketball ? history.dramaCap : null,factors:allocations}}),
       points:
         cap -
         remaining -

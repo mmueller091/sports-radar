@@ -54,7 +54,7 @@ test('NBA 2OT flows through card, accessibility, explanation, history, detail an
     basketballBoxScoreMarkup:()=>'',detailPlayerStats:()=>'',detailPlays:()=>''});
   for (const name of ['explainRating','gameCard','basesMarkup','trendFor','isWinningTeam','recordRatingSnapshot',
     'legacyPlayPosition','scoringEvents','estimatedEventRating','timelineFormat','timelineEventPosition',
-    'timelinePeriodLabel','timelineFinalScores','timelinePoints','excitementTimeline','renderDetailContent']) {
+    'timelinePeriodLabel','timelineFinalScores','recordedTimelinePoints','timelinePoints','excitementTimeline','renderDetailContent']) {
     const start=source.indexOf(`function ${name}(`);
     assert.ok(start>=0,name);
     vm.runInContext(source.slice(start,source.indexOf('\n}',start)+2),context);
