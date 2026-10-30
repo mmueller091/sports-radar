@@ -34,6 +34,7 @@ for (const sport of ['NFL','CFB','NBA','NCAAB','NHL','MLB']) {
         for (const markup of [html,spotlight]) {
           assert.doesNotMatch(markup,/\[object Object\]|Hidden Network|Other Network|Broadcast|broadcast|network/i);
           assert.match(markup,/Opponent Team/);
+          assert.match(markup,/data-opponent-id="2"/);
         }
         assert.match(html,/team-schedule-date/);
         assert.match(html,/@/);

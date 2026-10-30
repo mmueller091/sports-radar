@@ -645,7 +645,7 @@ test('Global search is wired to the canonical feed and opens Game Center directl
   assert.match(source,/function globalSearchGameScore\(game,query\)/);
   assert.match(source,/function globalSearchTeams\(\)/);
   assert.match(source,/data-search-game/);
-  assert.match(source,/async function openGameDetails\(id,sport=null\)/);
+  assert.match(source,/async function openGameDetails\(id,sport=null,restore=null\)/);
 });
 
 test('Team pages load cached team data with leaders, a full schedule, and only last/next Signal spotlights',() => {

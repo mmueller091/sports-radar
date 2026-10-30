@@ -31,6 +31,8 @@ const teamStandingsRequests = new Map();
 const teamStandingsErrors = new Map();
 let teamPageTab = 'overview';
 let activeTeamPageKey = '';
+const teamReturnStack = [];
+let pendingTeamReturn = null;
 
 function readPreferences() {
   try {
@@ -1626,17 +1628,12 @@ function teamSpotlightMarkup(title,entry,team) {
       ? 'at'
       : 'vs';
 
-  const tag =
-    canonical
-      ? 'button'
-      : 'div';
-
-  const buttonAttrs =
-    canonical
-      ? ` type="button" data-team-game="${safeText(canonical.id)}" data-team-sport="${safeText(canonical.sport)}"`
-      : '';
-
-  return `<${tag} class="team-spotlight-card ${canonical ? 'is-clickable' : ''}"${buttonAttrs}><span class="team-spotlight-label">${safeText(live ? 'Live Now' : title)}</span><span class="team-spotlight-matchup">${opponentLogo ? `<img src="${safeText(opponentLogo)}" alt="" loading="lazy" onerror="this.style.display='none'">` : ''}<span><small>${safeText(matchupPrefix)}</small><strong>${safeText(opponent.name || opponent.abbreviation || 'Opponent')}</strong></span></span><span class="team-spotlight-result"><strong>${safeText(scoreLine || 'TBD')}</strong>${meta ? `<small>${safeText(meta)}</small>` : ''}</span>${teamSignalMarkup(entry.signal,live ? 'Live Signal' : 'Signal')}</${tag}>`;
+  const opponentTag = opponent.id ? 'button' : 'span';
+  const opponentAttrs = opponent.id
+    ? ` type="button" data-opponent-id="${safeText(opponent.id)}" data-opponent-name="${safeText(opponent.name || '')}" data-opponent-abbreviation="${safeText(opponent.abbreviation || '')}" data-opponent-logo="${safeText(opponentLogo)}" aria-label="Open ${safeText(opponent.name || 'opponent')} team page"` : '';
+  const gameTarget = canonical
+    ? `<button type="button" class="spotlight-open-target" data-team-game="${safeText(canonical.id)}" data-team-sport="${safeText(canonical.sport)}" aria-label="Open game details"></button>` : '';
+  return `<div class="team-spotlight-card ${canonical ? 'is-clickable' : ''}">${gameTarget}<span class="team-spotlight-label">${safeText(live ? 'Live Now' : title)}</span><${opponentTag} class="team-spotlight-matchup"${opponentAttrs}>${opponentLogo ? `<img src="${safeText(opponentLogo)}" alt="" loading="lazy" onerror="this.style.display='none'">` : ''}<span><small>${safeText(matchupPrefix)}</small><strong>${safeText(opponent.name || opponent.abbreviation || 'Opponent')}</strong></span></${opponentTag}><span class="team-spotlight-result"><strong>${safeText(scoreLine || 'TBD')}</strong>${meta ? `<small>${safeText(meta)}</small>` : ''}</span>${teamSignalMarkup(entry.signal,live ? 'Live Signal' : 'Signal')}</div>`;
 }
 
 function teamLeaderMarkup(leaders) {
@@ -1712,7 +1709,10 @@ function teamScheduleRowMarkup(row,team) {
     .filter(Boolean)
     .join(' · ');
 
-  return `<div class="team-schedule-row"><span class="team-schedule-date"><b>${safeText(date ? date.toLocaleDateString([],{month:'short',day:'numeric'}) : 'TBD')}</b><small>${safeText(date ? date.toLocaleDateString([],{weekday:'short'}) : '')}</small></span><span class="team-schedule-opponent">${logo ? `<img src="${safeText(logo)}" alt="" loading="lazy" onerror="this.style.display='none'">` : ''}<span><small>${safeText(prefix)}</small><strong>${safeText(opponent.name || opponent.abbreviation || 'Opponent')}</strong>${details ? `<span>${safeText(details)}</span>` : ''}</span></span>${teamScheduleResultMarkup(view)}</div>`;
+  const opponentTag = opponent.id ? 'button' : 'span';
+  const opponentAttrs = opponent.id
+    ? ` type="button" data-opponent-id="${safeText(opponent.id)}" data-opponent-name="${safeText(opponent.name || '')}" data-opponent-abbreviation="${safeText(opponent.abbreviation || '')}" data-opponent-logo="${safeText(logo)}" aria-label="Open ${safeText(opponent.name || 'opponent')} team page"` : '';
+  return `<div class="team-schedule-row"><span class="team-schedule-date"><b>${safeText(date ? date.toLocaleDateString([],{month:'short',day:'numeric'}) : 'TBD')}</b><small>${safeText(date ? date.toLocaleDateString([],{weekday:'short'}) : '')}</small></span><${opponentTag} class="team-schedule-opponent"${opponentAttrs}>${logo ? `<img src="${safeText(logo)}" alt="" loading="lazy" onerror="this.style.display='none'">` : ''}<span><small>${safeText(prefix)}</small><strong>${safeText(opponent.name || opponent.abbreviation || 'Opponent')}</strong>${details ? `<span>${safeText(details)}</span>` : ''}</span></${opponentTag}>${teamScheduleResultMarkup(view)}</div>`;
 }
 
 function teamScheduleMarkup(schedule,team) {
@@ -1953,7 +1953,7 @@ function renderTeamPage() {
       teamPageErrors.has(key);
 
     panel.innerHTML =
-      `<button type="button" class="team-back-button" data-team-back>← Radar</button><div class="team-page-state"><span class="eyebrow">${safeText(labelForSport(route.sport))}</span><h1>${failed ? 'Team data unavailable' : catalogReady ? 'Loading team…' : 'Loading team…'}</h1><p>${failed ? 'The team page could not be loaded. Return to Radar and try again.' : 'Loading the team profile, season leaders, and full schedule.'}</p></div>`;
+      `<button type="button" class="team-back-button" data-team-back>← Back</button><div class="team-page-state"><span class="eyebrow">${safeText(labelForSport(route.sport))}</span><h1>${failed ? 'Team data unavailable' : catalogReady ? 'Loading team…' : 'Loading team…'}</h1><p>${failed ? 'The team page could not be loaded. Return to Radar and try again.' : 'Loading the team profile, season leaders, and full schedule.'}</p></div>`;
 
     document.title =
       'Team | Sports Radar';
@@ -2031,7 +2031,7 @@ function renderTeamPage() {
           );
 
   panel.innerHTML =
-    `<button type="button" class="team-back-button" data-team-back>← Radar</button><section class="team-hero"><div class="team-hero-logo">${logo ? `<img src="${safeText(logo)}" alt="" loading="eager" onerror="this.style.display='none'">` : `<span aria-hidden="true">${safeText(iconFor(team.sport))}</span>`}</div><div class="team-hero-copy"><span class="eyebrow">${safeText(labelForSport(team.sport))}${abbreviation ? ` · ${safeText(abbreviation)}` : ''}</span><h1>${safeText(identity.name || team.name)}</h1><div class="team-hero-meta">${record ? `<span><strong>${safeText(record)}</strong><small>Record</small></span>` : ''}${heroStandings}</div>${secondaryMeta ? `<p>${safeText(secondaryMeta)}</p>` : ''}</div><button type="button" class="team-favorite-button ${favorite ? 'active' : ''}" data-team-favorite aria-pressed="${favorite}">${favorite ? '★ Favorite' : '☆ Add favorite'}</button></section>${teamTabsMarkup()}${dataState}<div class="team-tab-content">${content}</div>`;
+    `<button type="button" class="team-back-button" data-team-back>← Back</button><section class="team-hero"><div class="team-hero-logo">${logo ? `<img src="${safeText(logo)}" alt="" loading="eager" onerror="this.style.display='none'">` : `<span aria-hidden="true">${safeText(iconFor(team.sport))}</span>`}</div><div class="team-hero-copy"><span class="eyebrow">${safeText(labelForSport(team.sport))}${abbreviation ? ` · ${safeText(abbreviation)}` : ''}</span><h1>${safeText(identity.name || team.name)}</h1><div class="team-hero-meta">${record ? `<span><strong>${safeText(record)}</strong><small>Record</small></span>` : ''}${heroStandings}</div>${secondaryMeta ? `<p>${safeText(secondaryMeta)}</p>` : ''}</div><button type="button" class="team-favorite-button ${favorite ? 'active' : ''}" data-team-favorite aria-pressed="${favorite}">${favorite ? '★ Favorite' : '☆ Add favorite'}</button></section>${teamTabsMarkup()}${dataState}<div class="team-tab-content">${content}</div>`;
 
   document.title =
     `${identity.name || team.name} | Sports Radar`;
@@ -2042,6 +2042,16 @@ function openTeamPage(team) {
 
   const nextKey =
     teamDataKey(team);
+
+  if (state.page !== 'team' || activeTeamPageKey !== nextKey || activeDetailGame) {
+    teamReturnStack.push({
+      hash:location.hash,
+      teamTab:teamPageTab,
+      detail:activeDetailGame ? {id:activeDetailGame.id,sport:activeDetailGame.sport,
+        tab:activeDetailTab,team:activePlayerTeam,category:activePlayerCategory} : null
+    });
+  }
+  if (activeDetailGame) hideGameDetails();
 
   if (
     activeTeamPageKey !==
@@ -2082,6 +2092,26 @@ function openTeamPage(team) {
         render();
       }
     });
+}
+
+function restoreTeamReturn(context) {
+  if (!context) return;
+  if (state.page === 'team') {
+    teamPageTab = context.teamTab || 'overview';
+    renderTeamPage();
+  }
+  if (context.detail) openGameDetails(context.detail.id,context.detail.sport,context.detail);
+}
+
+function returnFromTeamPage() {
+  const context = teamReturnStack.pop();
+  if (!context) { location.hash = 'home'; return; }
+  if (location.hash === context.hash) {
+    restoreTeamReturn(context);
+  } else {
+    pendingTeamReturn = context;
+    location.hash = context.hash;
+  }
 }
 
 
@@ -2863,6 +2893,21 @@ function basesMarkup(bases) {
 }
 
 function gameCard(game) {
+  const phase = String(game.live?.phase || game.status || '');
+  const clock = String(game.liveRawStatus?.displayClock || phase.match(/\b\d{1,2}:\d{2}\b/)?.[0] || '');
+  const periodNumber = Number(game.liveRawStatus?.period);
+  const period = ['NFL','CFB','NBA'].includes(game.sport) && periodNumber > 0
+    ? periodNumber <= 4 ? `Q${periodNumber}` : periodNumber === 5 ? 'OT' : `${periodNumber-4}OT`
+    : phase.replace(clock,'').replace(/^[\s·|,-]+|[\s·|,-]+$/g,'');
+  const clockMarkup = game.state === 'live' && clock
+    ? `<span class="card-clock"><span>${safeText(period || 'Live')}</span><strong>${safeText(clock)}</strong></span>`
+    : '';
+  const cardTeam = (team,index) => {
+    const canOpen = ['NFL','MLB','NHL','CFB','NBA','NCAAB','Soccer'].includes(game.sport) && team[8];
+    return canOpen
+      ? `<button type="button" class="card-team-link" data-card-team-index="${index}" aria-label="Open ${safeText(team[0])} team page">${teamMarkup(game,team)}</button>`
+      : teamMarkup(game,team);
+  };
   const scoreColorStyle = (() => {
     const value = Number(game.score);
     const normalized = Number.isFinite(value)
@@ -2946,7 +2991,7 @@ function gameCard(game) {
       ? 'completed-card'
       : '';
 
-  return `<button type="button" class="game-card ${
+  return `<article class="game-card ${
     game.favorite
       ? 'favorite'
       : ''
@@ -2954,7 +2999,7 @@ function gameCard(game) {
     isWatched(game)
       ? 'watched'
       : ''
-  } ${completionClass}" data-id="${safeText(game.id)}" data-division="${safeText(game.division || '')}" aria-label="${safeText(accessibility)}"><span class="sport-icon"><img class="league-logo" src="${safeText(leagueLogo)}" alt="" loading="lazy" onerror="this.style.display='none'"></span><span class="team-column"><span class="match-meta">${stateLabel}${
+  } ${completionClass}" data-id="${safeText(game.id)}" data-sport="${safeText(game.sport)}" data-division="${safeText(game.division || '')}"><button type="button" class="card-open-target" data-open-game aria-label="${safeText(accessibility)}"></button><span class="sport-icon"><img class="league-logo" src="${safeText(leagueLogo)}" alt="" loading="lazy" onerror="this.style.display='none'"></span><span class="team-column"><span class="match-meta">${stateLabel}<span class="mobile-card-league">${safeText(game.sport)}</span>${
     isWatched(game)
       ? '<span class="watch-indicator" aria-hidden="true">★ Watching</span>'
       : ''
@@ -2962,7 +3007,7 @@ function gameCard(game) {
     game.division
       ? `<span>•</span><span>${safeText(game.division)}</span>`
       : ''
-  }<span>•</span><span>${safeText(game.sub)}</span></span><span class="team-row ${isWinningTeam(game,game.teams[0]) ? 'winner-row' : ''}">${teamMarkup(game,game.teams[0])}<b class="team-score">${possessionMarkup(game,game.teams[0])}${safeText(game.teams[0][2])}</b></span><span class="team-row ${isWinningTeam(game,game.teams[1]) ? 'winner-row' : ''}">${teamMarkup(game,game.teams[1])}<b class="team-score">${possessionMarkup(game,game.teams[1])}${safeText(game.teams[1][2])}</b></span>${situation}</span>${momentMarkup}<span class="game-context channel-context"><span class="detail-inline"><strong>Broadcast</strong><span>${safeText(game.channel || 'Channel not listed')}</span></span><span class="stats-cue">Stats ›</span><span class="detail-inline line-inline"><strong>${safeText(compactLineLabel)}</strong><span>${safeText(line.text)}</span></span></span><span class="excitement"><span class="score-circle ${scoreClass}" style="${scoreColorStyle}">${game.score}</span>${trendFor(game)}</span></button>`;
+  }<span>•</span><span>${safeText(game.sub)}</span>${clockMarkup}</span><span class="team-row ${isWinningTeam(game,game.teams[0]) ? 'winner-row' : ''}">${cardTeam(game.teams[0],0)}<b class="team-score">${possessionMarkup(game,game.teams[0])}${safeText(game.teams[0][2])}</b></span><span class="team-row ${isWinningTeam(game,game.teams[1]) ? 'winner-row' : ''}">${cardTeam(game.teams[1],1)}<b class="team-score">${possessionMarkup(game,game.teams[1])}${safeText(game.teams[1][2])}</b></span>${situation}</span>${momentMarkup}<span class="game-context channel-context"><span class="detail-inline"><strong>Broadcast</strong><span>${safeText(game.channel || 'Channel not listed')}</span></span><span class="stats-cue">Stats ›</span><span class="detail-inline line-inline"><strong>${safeText(compactLineLabel)}</strong><span>${safeText(line.text)}</span></span></span><span class="excitement"><span class="score-circle ${scoreClass}" style="${scoreColorStyle}">${game.score}</span>${trendFor(game)}</span></article>`;
 }
 
 function footballAccessibleSituation(game) {
@@ -5704,6 +5749,60 @@ const DETAIL_TAB_CONFIG = {
 };
 
 let activeDetailTab = 'overview';
+let activePlayerTeam = '';
+let activePlayerCategory = '';
+
+// Reuse the existing sport-specific tables with one real team/category selected.
+// The original full tables remain available on desktop.
+function detailPlayerBrowser(game,summary) {
+  const blocks = Array.isArray(summary?.boxscore?.players) ? summary.boxscore.players : [];
+  const basketball = ['NBA','NCAAB'].includes(game.sport);
+  const normalizedTeams = summary?.basketballBoxScore?.teams || [];
+  if (!blocks.length && !(basketball && normalizedTeams.length)) return '';
+  const categoryFor = group => {
+    const key = statKey(group.type || group.name || group.displayName);
+    if (['NFL','CFB'].includes(game.sport)) return FOOTBALL_PLAYER_GROUPS.has(key) ? key : '';
+    if (game.sport === 'NHL') return /goalie|goaltender/i.test(key) ? 'goalies' : 'skaters';
+    if (game.sport === 'MLB') return ['batting','pitching'].includes(key) ? key : '';
+    return key;
+  };
+  const categories = new Map();
+  if (basketball && normalizedTeams.length) categories.set('box-score','Box score');
+  else for (const block of blocks) for (const group of block.statistics || []) {
+    if (!(group.athletes || group.players || []).length) continue;
+    const key = categoryFor(group);
+    if (!key) continue;
+    const label = FOOTBALL_PLAYER_GROUP_TITLES[key] || ({batting:'Batting',pitching:'Pitching',skaters:'Skaters',goalies:'Goalies'})[key] || group.displayName || group.name || group.type || 'Player stats';
+    if (!categories.has(key)) categories.set(key,label);
+  }
+  if (!categories.size || !game.teams?.length) return '';
+  if (!['0','1'].includes(activePlayerTeam) || !game.teams[Number(activePlayerTeam)]) activePlayerTeam = '0';
+  if (!categories.has(activePlayerCategory)) activePlayerCategory = categories.keys().next().value;
+  const index = Number(activePlayerTeam),team = game.teams[index];
+  const matches = source => {
+    const id = String(source?.id || source?.teamId || '');
+    if (team[8] && id) return String(team[8]) === id;
+    const names = [source?.displayName,source?.shortDisplayName,source?.abbreviation].filter(Boolean).map(normalizedTeamName);
+    return [team[0],team[1]].filter(Boolean).some(name => names.includes(normalizedTeamName(name)));
+  };
+  const filteredBlocks = blocks.filter(block => matches(block.team)).map(block => ({...block,
+    statistics:(block.statistics || []).filter(group => categoryFor(group) === activePlayerCategory)}));
+  const selected = {...summary,boxscore:{...summary.boxscore,players:filteredBlocks},
+    basketballBoxScore:{...summary.basketballBoxScore,teams:normalizedTeams.filter(matches)}};
+  let table = '';
+  if (basketball) table = basketballBoxScoreMarkup(selected,game.sport);
+  else if (game.sport === 'MLB') table = detailMlbPlayerStats(selected,activePlayerCategory);
+  else if (game.sport === 'NHL') table = activePlayerCategory === 'goalies' ? detailNhlGoalies(selected) : detailPlayerStats(selected,game.sport);
+  else if (['NFL','CFB'].includes(game.sport)) table = detailPlayerStats(selected,game.sport);
+  else table = filteredBlocks.flatMap(block => block.statistics || []).map(group => {
+    const first = (group.athletes || group.players || [])[0];
+    const labels = group.labels?.length ? group.labels : group.headers?.length ? group.headers : Object.keys(first?.stats || {});
+    return playerTable(group,labels.map(label => ({title:label,aliases:[label]})),categories.get(activePlayerCategory));
+  }).join('');
+  const buttons = game.teams.slice(0,2).map((item,i) => `<button type="button" data-player-team="${i}" aria-pressed="${i === index}"><img src="${safeText(item[4] || teamLogoUrl(game.sport,item[1]))}" alt="" onerror="this.style.display='none'"><span>${safeText(item[0])}</span></button>`).join('');
+  const options = [...categories].map(([key,label]) => `<option value="${safeText(key)}"${key === activePlayerCategory ? ' selected' : ''}>${safeText(label)}</option>`).join('');
+  return `<div class="mobile-player-browser"><div class="player-team-switch" role="group" aria-label="Team for player statistics">${buttons}</div><label class="player-category"><span>Category</span><span class="player-select-wrap"><select data-player-category aria-label="Player statistics category">${options}</select><span aria-hidden="true">⌄</span></span></label><p class="player-caption">${safeText(team[0])} · ${safeText(game.live?.phase || game.status || '')}</p>${table || '<p class="detail-empty">No player statistics are available for this team and category.</p>'}</div>`;
+}
 
 function detailTabSections(game,summary) {
   const overviewParts = [
@@ -5712,6 +5811,8 @@ function detailTabSections(game,summary) {
     detailLeaders(summary)
   ].filter(Boolean);
 
+  const playerBrowser = detailPlayerBrowser(game,summary);
+  const withPlayerBrowser = content => playerBrowser ? `${playerBrowser}<div class="desktop-player-stats">${content}</div>` : content;
   const sections = new Map([
     [
       'overview',
@@ -5720,16 +5821,19 @@ function detailTabSections(game,summary) {
         : '<section class="detail-section"><p class="detail-empty">No additional summary sections are available for this game yet.</p></section>'
     ],
     ['drives',detailDrives(summary,game.sport)],
-    ['batting',detailMlbPlayerStats(summary,'batting')],
-    ['pitching',detailMlbPlayerStats(summary,'pitching')],
+    ['batting',withPlayerBrowser(detailMlbPlayerStats(summary,'batting'))],
+    ['pitching',withPlayerBrowser(detailMlbPlayerStats(summary,'pitching'))],
     ['team-stats',detailStats(summary,game.sport)],
-    ['players',detailPlayerStats(summary,game.sport)],
-    ['goalies',detailNhlGoalies(summary)],
-    ['box-score',basketballBoxScoreMarkup(summary,game.sport)],
+    ['players',withPlayerBrowser(detailPlayerStats(summary,game.sport))],
+    ['goalies',withPlayerBrowser(detailNhlGoalies(summary))],
+    ['box-score',withPlayerBrowser(basketballBoxScoreMarkup(summary,game.sport))],
     ['plays',detailPlays(summary)]
   ]);
 
-  return (DETAIL_TAB_CONFIG[game.sport] || DETAIL_TAB_CONFIG.Tennis)
+  const configured = DETAIL_TAB_CONFIG[game.sport] || DETAIL_TAB_CONFIG.Tennis;
+  const tabs = game.sport === 'Soccer' && playerBrowser
+    ? [...configured.slice(0,-1),['players','Players'],...configured.slice(-1)] : configured;
+  return tabs
     .map(([id,label]) => ({
       id,
       label,
@@ -5770,7 +5874,7 @@ function detailTabsMarkup(game,summary) {
     return `<div class="detail-tab-panel" id="${panelId}" role="tabpanel" aria-labelledby="${tabId}"${selected ? '' : ' hidden'}>${tab.content}</div>`;
   }).join('');
 
-  return `<div class="detail-tab-shell"><div class="detail-tabs" role="tablist" aria-label="${safeText(labelForSport(game.sport))} game details">${buttons}</div>${panels}</div>`;
+  return `<div class="detail-tab-shell ${tabs.some(tab => tab.content.includes('mobile-player-browser')) ? 'has-player-browser' : ''}"><div class="detail-tabs" role="tablist" aria-label="${safeText(labelForSport(game.sport))} game details">${buttons}</div>${panels}</div>`;
 }
 
 function setActiveDetailTab(button) {
@@ -5780,6 +5884,13 @@ function setActiveDetailTab(button) {
   if (!shell || !nextTab) return;
 
   activeDetailTab = nextTab;
+
+  if (['batting','pitching','goalies'].includes(nextTab) &&
+      globalThis.matchMedia?.('(max-width: 600px)').matches && activePlayerCategory !== nextTab) {
+    activePlayerCategory = nextTab;
+    renderActiveDetail();
+    return;
+  }
 
   shell.querySelectorAll('.detail-tab').forEach(tab => {
     const selected = tab.dataset.detailTab === nextTab;
@@ -5867,6 +5978,14 @@ function renderDetailContent(
     (game.state === 'live' ? game.live?.phase : '') ||
     game.status;
 
+  const detailClockValue = String(game.liveRawStatus?.displayClock || String(status || '').match(/\b\d{1,2}:\d{2}\b/)?.[0] || '');
+  const detailPeriodNumber = Number(game.liveRawStatus?.period);
+  const detailPeriod = ['NFL','CFB','NBA'].includes(game.sport) && detailPeriodNumber > 0
+    ? detailPeriodNumber <= 4 ? `Q${detailPeriodNumber}` : detailPeriodNumber === 5 ? 'OT' : `${detailPeriodNumber-4}OT`
+    : String(status || '').replace(detailClockValue,'').replace(/^[\s·|,-]+|[\s·|,-]+$/g,'');
+  const detailClock = game.state === 'live' && detailClockValue
+    ? `<span class="detail-live-clock"><span>${safeText(detailPeriod || 'Live')}</span><strong>${safeText(detailClockValue)}</strong></span>` : '';
+
   const venue =
     competition?.venue?.fullName ||
     game.sub;
@@ -5912,7 +6031,7 @@ function renderDetailContent(
         : `Current rating ${safeText(game.score)}`;
 
   $('#game-detail-content').innerHTML =
-    `<header class="detail-header"><div class="detail-kicker">${safeText(labelForSport(game.sport))} · ${safeText(status)}</div><h2>${safeText(title)}</h2><button type="button" class="detail-watch ${isWatched(game) ? 'active' : ''}" data-watch-id="${safeText(watchKey(game))}" aria-pressed="${isWatched(game)}">${isWatched(game) ? '★ Watching this game' : '☆ Add to watchlist'}</button><div class="detail-scoreboard">${scores}</div><div class="detail-meta"><span><strong>Venue</strong> ${safeText(venue)}</span><span><strong>Broadcast</strong> ${safeText(game.channel || 'Channel not listed')}</span>${lineMeta}</div>${freshness}${game.moment ? `<section class="detail-moment"><strong>${safeText(game.momentLabel || 'Notable play')}</strong><span>${safeText(game.moment)}</span></section>` : ''}</header><section class="detail-radar"><div class="detail-excitement-head"><span class="detail-excitement-score" style="--score-hue:${scoreHue}">${safeText(game.score)}</span><span class="detail-excitement-copy"><small>Sports Radar excitement</small><strong>${safeText(ratingContext)}</strong></span></div><div class="detail-radar-why"><h3>Why ${safeText(game.score)}?</h3><p class="detail-explanation detail-why-text">${safeText(explainRating(game))}</p><button type="button" class="detail-why-toggle" aria-expanded="false">More</button></div>${excitementTimeline(game,summary)}</section>${detailTabsMarkup(game,summary)}`;
+    `<header class="detail-header"><div class="detail-kicker">${safeText(labelForSport(game.sport))} · ${safeText(status)}${detailClock}</div><h2>${safeText(title)}</h2><button type="button" class="detail-watch ${isWatched(game) ? 'active' : ''}" data-watch-id="${safeText(watchKey(game))}" aria-pressed="${isWatched(game)}">${isWatched(game) ? '★ Watching this game' : '☆ Add to watchlist'}</button><div class="detail-scoreboard">${scores}</div><div class="detail-meta"><span><strong>Venue</strong> ${safeText(venue)}</span><span><strong>Broadcast</strong> ${safeText(game.channel || 'Channel not listed')}</span>${lineMeta}</div>${freshness}${game.moment ? `<section class="detail-moment"><strong>${safeText(game.momentLabel || 'Notable play')}</strong><span>${safeText(game.moment)}</span></section>` : ''}</header><section class="detail-radar"><div class="detail-excitement-head"><span class="detail-excitement-score" style="--score-hue:${scoreHue}">${safeText(game.score)}</span><span class="detail-excitement-copy"><small>Sports Radar excitement</small><strong>${safeText(ratingContext)}</strong></span></div><div class="detail-radar-why"><h3>Why ${safeText(game.score)}?</h3><p class="detail-explanation detail-why-text">${safeText(explainRating(game))}</p><button type="button" class="detail-why-toggle" aria-expanded="false">More</button></div>${excitementTimeline(game,summary)}</section>${detailTabsMarkup(game,summary)}`;
 }
 
 async function fetchGameSummary(game,controller=new AbortController()) {
@@ -6096,7 +6215,7 @@ function hideGameDetails() {
   detailFinalPending = false;
 }
 
-async function openGameDetails(id,sport=null) {
+async function openGameDetails(id,sport=null,restore=null) {
   const game = games.find(item => String(item.id) === String(id) && (!sport || item.sport === sport));
   if (!game) return;
   stopDetailRequest();
@@ -6104,6 +6223,9 @@ async function openGameDetails(id,sport=null) {
   activeDetailSummary = null;
   activeDetailTab = 'overview';
   detailFinalPending = false;
+  activeDetailTab = restore?.tab || 'overview';
+  activePlayerTeam = restore?.team || '';
+  activePlayerCategory = restore?.category || '';
   detailFailed = false;
   renderDetailContent(game,null,true);
   showGameDetails();
@@ -6479,6 +6601,9 @@ $$('.nav-link').forEach(
 window.addEventListener(
   'hashchange',
   () => {
+    const returning = pendingTeamReturn || (state.page === 'team' && teamReturnStack.at(-1)?.hash === location.hash
+      ? teamReturnStack.pop() : null);
+    pendingTeamReturn = null;
     const route =
       teamRouteFromHash(
         location.hash
@@ -6531,6 +6656,7 @@ window.addEventListener(
       activeTeamPageKey = '';
       teamPageTab = 'overview';
     }
+    restoreTeamReturn(returning);
   }
 );
 
@@ -6739,7 +6865,15 @@ $('#team-page')
           '[data-team-back]'
         )
       ) {
-        location.hash = 'home';
+        returnFromTeamPage();
+        return;
+      }
+
+      const opponentButton = event.target.closest('[data-opponent-id]');
+      if (opponentButton) {
+        openTeamPage({sport:state.teamRoute?.sport,id:opponentButton.dataset.opponentId,
+          name:opponentButton.dataset.opponentName || '',abbreviation:opponentButton.dataset.opponentAbbreviation || '',
+          logo:opponentButton.dataset.opponentLogo || ''});
         return;
       }
 
@@ -6922,7 +7056,7 @@ $('#game-list')
           ?.dataset.id;
 
       if (
-        event.target.closest('.score-circle')
+        event.target.closest('.score-circle, .card-team-link')
       ) {
         touchStart = null;
         return;
@@ -6936,7 +7070,7 @@ $('#game-list')
         lastTouchOpen =
           Date.now();
 
-        openGameDetails(id);
+        openGameDetails(id,event.target.closest('.game-card')?.dataset.sport);
       }
 
       touchStart = null;
@@ -6955,6 +7089,14 @@ $('#game-list')
   .addEventListener(
     'click',
     event => {
+      const teamButton = event.target.closest('.card-team-link');
+      if (teamButton) {
+        const card = teamButton.closest('.game-card');
+        const game = games.find(item => String(item.id) === card?.dataset.id && item.sport === card?.dataset.sport);
+        const team = game?.teams?.[Number(teamButton.dataset.cardTeamIndex)];
+        if (team?.[8]) openTeamPage({sport:game.sport,id:String(team[8]),name:team[0],abbreviation:team[1],logo:team[4] || ''});
+        return;
+      }
       const dot =
         event.target.closest('.score-circle');
 
@@ -6978,7 +7120,7 @@ $('#game-list')
 
       if (card) {
         openGameDetails(
-          card.dataset.id
+          card.dataset.id,card.dataset.sport
         );
       }
     }
@@ -7129,6 +7271,12 @@ $('#game-detail-content')
   .addEventListener(
     'click',
     event => {
+      const playerTeam = event.target.closest('[data-player-team]');
+      if (playerTeam) {
+        activePlayerTeam = playerTeam.dataset.playerTeam;
+        renderActiveDetail();
+        return;
+      }
       const detailTeamButton =
         event.target.closest('[data-detail-team-id]');
 
@@ -7147,7 +7295,6 @@ $('#game-detail-content')
             abbreviation:teamTuple[1] || '',
             logo:teamTuple[4] || ''
           };
-          hideGameDetails();
           openTeamPage(team);
           return;
         }
@@ -7228,6 +7375,14 @@ $('#game-detail-content')
           : '☆ Add to watchlist';
     }
   );
+
+$('#game-detail-content').addEventListener('change',event => {
+  if (event.target.matches('[data-player-category]')) {
+    activePlayerCategory = event.target.value;
+    renderActiveDetail();
+    $('#game-detail-content [data-player-category]')?.focus();
+  }
+});
 
 $('#game-detail-content')
   .addEventListener(
