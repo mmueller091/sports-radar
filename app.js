@@ -551,6 +551,7 @@ async function loadLiveGames() {
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
     const feed = await response.json();
     if (!Array.isArray(feed.games) || !Number.isFinite(Date.parse(feed.updatedAt))) throw new Error('Invalid feed');
+    if (globalThis.SportsRadarScore.MODEL_VERSION && (feed.modelVersion !== globalThis.SportsRadarScore.MODEL_VERSION || feed.games.some(game => game.state === 'live' && game.modelVersion !== feed.modelVersion))) throw new Error('Scoring model update pending');
     if (state.updatedAt && Date.parse(feed.updatedAt) < Date.parse(state.updatedAt)) return;
     games = canonicalFeedGames(feed.games);
     feedHasLiveGames = games.some(game => game.state === 'live');
@@ -558,7 +559,7 @@ async function loadLiveGames() {
     games.forEach(recordRatingSnapshot);
     state.updatedAt = feed.updatedAt;
     state.feedStale = feed.freshness?.stale === true;
-    state.feedDegraded = feed.freshness?.degraded === true;
+    state.feedDegraded = feed.freshness?.degraded === true || games.some(game => game.state === 'live' && game.scoringPartial);
     games.forEach(rememberPregameLine);
     games.filter(game => game.state === 'live').forEach(recordRatingSnapshot);
   } catch {
@@ -4588,7 +4589,8 @@ function recordRatingSnapshot(game) {
       45000 &&
     previous[
       previous.length - 1
-    ].score === game.score
+    ].score === game.score &&
+    previous[previous.length - 1].modelVersion === (game.modelVersion || 'legacy')
   ) {
     return;
   }
@@ -4598,6 +4600,7 @@ function recordRatingSnapshot(game) {
     {
       at:now,
       score:game.score,
+      modelVersion:game.modelVersion || 'legacy',
       phase:
         game.live?.phase ||
         game.status,
@@ -5206,6 +5209,7 @@ function recordedTimelinePoints(game,summary,format) {
         Number.isFinite(period) &&
         period > format.periods,
       observedAt:Number(point.at),
+      modelVersion:point.modelVersion || 'legacy',
       local:true
     });
 
@@ -5301,7 +5305,7 @@ function timelinePoints(game,summary) {
       : /game[- ]winning|walk.off|last.second/i.test(finalEvent.text)
         || (game.sport === 'NHL' && finalEvent.home !== finalEvent.away && /overtime goal/i.test(finalEvent.text));
     const terminal = game.state === 'completed' && finalEvent.overtime && matchesFinal;
-    if (terminal) finalEvent.score = game.score;
+    if (terminal) { finalEvent.score = game.score; finalEvent.modelVersion = game.modelVersion || 'legacy'; }
     const status = game.liveRawStatus || summary?.header?.competitions?.[0]?.status || {};
     const currentPosition = timelineEventPosition(game,{
       period:status.period,clock:{displayValue:status.displayClock,value:status.clock}
@@ -5311,7 +5315,7 @@ function timelinePoints(game,summary) {
     const points = [{x:0,score:game.openingScore || SPORT_BASE[game.sport] || 35,
       label:'Start',text:'Opening estimate'},...events];
     if (!terminal && (endX > finalEvent.x || game.score !== finalEvent.score)) {
-      points.push({x:endX,score:game.score,
+      points.push({x:endX,score:game.score,modelVersion:game.modelVersion || 'legacy',
         label:game.state === 'completed' ? 'Final'
           : format.periods && Number(status.period)>format.periods
             ? `${timelinePeriodLabel({period:status.period},format)} ${format.untimed ? '' : status.displayClock || ''}`.trim()
@@ -5382,7 +5386,8 @@ function timelinePoints(game,summary) {
             ),
 
         text:
-          'Observed rating'
+          'Observed rating',
+        modelVersion:point.modelVersion || 'legacy'
       })),
 
     source:
@@ -5455,7 +5460,7 @@ function excitementTimeline(game,summary) {
     points
       .map(
         (point,index) =>
-          `${index ? 'L' : 'M'} ${px(point).toFixed(1)} ${py(point).toFixed(1)}`
+          `${index && (point.modelVersion || 'legacy') === (points[index-1].modelVersion || 'legacy') ? 'L' : 'M'} ${px(point).toFixed(1)} ${py(point).toFixed(1)}`
       )
       .join(' ');
 
@@ -5466,8 +5471,7 @@ function excitementTimeline(game,summary) {
         (point,index) => ({
           ...point,
           delta:
-            point.score -
-            points[index].score
+            (point.modelVersion || 'legacy') === (points[index].modelVersion || 'legacy') ? point.score - points[index].score : 0
         })
       )
       .filter(point =>
@@ -5486,7 +5490,7 @@ function excitementTimeline(game,summary) {
     const score = Number(point.score);
     const prior = Number(previous?.score);
     const delta =
-      Number.isFinite(score) && Number.isFinite(prior)
+      (point.modelVersion || 'legacy') === (previous?.modelVersion || 'legacy') && Number.isFinite(score) && Number.isFinite(prior)
         ? score - prior
         : 0;
 
@@ -5500,7 +5504,7 @@ function excitementTimeline(game,summary) {
         ? `${String(point.text).replace(/[.]+$/,'')}.`
         : 'This is the current rating at that point in the game.';
 
-    return `${point.label || 'Timeline point'}: ${movement} ${detail}`;
+    return `${point.label || 'Timeline point'}: ${movement} ${detail} Model: ${point.modelVersion || 'legacy reconstruction'}.`;
   };
 
   const timelineHelpId =
@@ -5661,9 +5665,9 @@ function excitementTimeline(game,summary) {
       : source === 'recorded + browser'
         ? 'Actual Worker snapshots, extended by this browserΓÇÖs newest observation while persistence catches up.'
         : source === 'scoring plays'
-          ? 'Estimated at reported scoring plays; the final point is the current rating.'
+          ? 'Legacy-model reconstruction at reported scoring plays; the final point is the current rating.'
           : 'Ratings recorded while this browser was open.'
-  }</p><svg class="timeline-chart" viewBox="0 0 ${width} ${height}" role="img" aria-label="Excitement rating over game time, from ${points[0].score} to ${points[points.length - 1].score}"><line x1="${left}" y1="${top}" x2="${left}" y2="${height - bottom}"/><line x1="${left}" y1="${height - bottom}" x2="${width - right}" y2="${height - bottom}"/><line class="timeline-midline" x1="${left}" y1="${py({score:50})}" x2="${width - right}" y2="${py({score:50})}"/><text x="3" y="${top + 4}">100</text><text x="10" y="${py({score:50}) - 4}">50</text><text x="16" y="${height - bottom + 4}">0</text>${overtimeGuides}<path class="timeline-line" d="${path}"/>${eventMarkers}${markers}<text x="${left}" y="${height - 5}">Start</text><text x="${width - right}" y="${height - 5}" text-anchor="end">${game.state === 'completed' ? 'Final' : 'Now'}</text></svg><div class="timeline-point-help" id="${timelineHelpId}" role="status" aria-live="polite" aria-hidden="true"></div>${moments}</section>`;
+  } Models: ${safeText([...new Set(points.map(point => point.modelVersion || 'legacy'))].join(', '))}. Gaps mark model changes.</p><svg class="timeline-chart" viewBox="0 0 ${width} ${height}" role="img" aria-label="Excitement rating over game time, from ${points[0].score} to ${points[points.length - 1].score}"><line x1="${left}" y1="${top}" x2="${left}" y2="${height - bottom}"/><line x1="${left}" y1="${height - bottom}" x2="${width - right}" y2="${height - bottom}"/><line class="timeline-midline" x1="${left}" y1="${py({score:50})}" x2="${width - right}" y2="${py({score:50})}"/><text x="3" y="${top + 4}">100</text><text x="10" y="${py({score:50}) - 4}">50</text><text x="16" y="${height - bottom + 4}">0</text>${overtimeGuides}<path class="timeline-line" d="${path}"/>${eventMarkers}${markers}<text x="${left}" y="${height - 5}">Start</text><text x="${width - right}" y="${height - 5}" text-anchor="end">${game.state === 'completed' ? 'Final' : 'Now'}</text></svg><div class="timeline-point-help" id="${timelineHelpId}" role="status" aria-live="polite" aria-hidden="true"></div>${moments}</section>`;
 }
 
 function safeStoryUrl(value) {
@@ -7438,7 +7442,7 @@ if (
 ) {
   navigator.serviceWorker
     .register(
-      './sw.js?rev=20261022-feed1'
+      './sw.js?rev=20261030-cfb1'
     )
     .then(
       registration =>

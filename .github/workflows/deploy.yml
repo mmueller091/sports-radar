@@ -23,37 +23,22 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Stamp asset revisions
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: alerts-worker/package-lock.json
+      - run: npm ci --prefix alerts-worker
+      - name: Build versioned site
         env:
           ASSET_REV: ${{ github.sha }}
-        run: |
-          python - <<'PY'
-          import os
-          import re
-          from pathlib import Path
-
-          path = Path("index.html")
-          text = path.read_text(encoding="utf-8")
-          revision = os.environ["ASSET_REV"]
-
-          updated, count = re.subn(
-              r'(\?rev=)[^"]+',
-              lambda match: match.group(1) + revision,
-              text,
-          )
-
-          if count == 0:
-              raise SystemExit("No revisioned frontend assets found in index.html")
-
-          path.write_text(updated, encoding="utf-8")
-          print(f"Stamped {count} asset URLs with revision {revision}")
-          PY
+        run: node scripts/build-site.mjs
       - name: Configure Pages
         uses: actions/configure-pages@v5
       - name: Upload site
         uses: actions/upload-pages-artifact@v3
         with:
-          path: .
+          path: dist
       - name: Deploy
         id: deployment
         uses: actions/deploy-pages@v4

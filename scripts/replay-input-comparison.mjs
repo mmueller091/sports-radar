@@ -30,7 +30,7 @@ export function currentSourceHashes() {
   return ['scripts/replay-inputs.mjs','scripts/replay-inputs.historical.mjs','scripts/replay-input-comparison.mjs',
     'calibration/shadow-candidate.cjs','calibration/trajectory-policy.cjs','calibration/trajectory-live-policy.cjs',
     'calibration/trajectory-checkpoint-manifest.json','rating-core.js',
-    ...[...read('index.html').toString().matchAll(/<script src="(scoring\/[^"?]+)(?:\?[^" ]*)?"/g)].map(m=>m[1])]
+    ...require('../test/helpers/scoring-source.cjs').legacyScripts]
     .map(path=>({path,sha256:hash(read(path))}));
 }
 

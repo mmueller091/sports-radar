@@ -1,4 +1,4 @@
-import {normalizeEvent} from '../game-model.js';
+import {normalizeEvent} from '../live-game-model.js';
 const ESPN_BASE = 'https://site.api.espn.com/apis/site/v2/sports';
 const SPORT_PATHS = {NFL:'football/nfl',MLB:'baseball/mlb',NHL:'hockey/nhl',CFB:'football/college-football',NBA:'basketball/nba',NCAAB:'basketball/mens-college-basketball',Tennis:'tennis/atp',Soccer:'soccer/eng.1'};
 export const LIVE_FEEDS = [

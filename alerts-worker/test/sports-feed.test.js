@@ -6,7 +6,7 @@ import {gunzipSync} from 'node:zlib';
 import vm from 'node:vm';
 import sourceHelper from '../../test/helpers/scoring-source.cjs';
 import worker,{checkGames} from '../src/index.js';
-import {refreshSportsData,readFeed,gameDetails,teamDetails,teamStandings,refreshDue,normalizeTeamSchedule,normalizeTeamLeaders,normalizeTeamStandings} from '../src/sports-feed.js';
+import {MODEL_VERSION,refreshSportsData,readFeed,gameDetails,teamDetails,teamStandings,refreshDue,normalizeTeamSchedule,normalizeTeamLeaders,normalizeTeamStandings} from '../src/sports-feed.js';
 import {coreTeamProfileUrl,teamLeadersUrl,standingsUrl} from '../src/providers/espn.js';
 import {normalizeEvent,enrichGame} from '../src/game-model.js';
 import {baseballSituation,footballSituation} from '../src/display-model.js';
@@ -38,8 +38,9 @@ function awayHomeTeams(teams,fixture){
 }
 
 test('refresh cadence is 12 seconds for live feeds and 60 seconds otherwise',()=>{
-  const live={updatedAt:new Date(100000).toISOString(),games:[{state:'live'}]};
-  const idle={updatedAt:new Date(100000).toISOString(),games:[{state:'upcoming'}]};
+  const live={modelVersion:MODEL_VERSION,updatedAt:new Date(100000).toISOString(),games:[{state:'live'}]};
+  const idle={modelVersion:MODEL_VERSION,updatedAt:new Date(100000).toISOString(),games:[{state:'upcoming'}]};
+  assert.equal(refreshDue({...live,modelVersion:'old'},100000),true,'model changes invalidate scored feed');
   assert.equal(refreshDue(null,100000),true);
   assert.equal(refreshDue(live,111999),false);
   assert.equal(refreshDue(live,112000),true);
@@ -220,7 +221,7 @@ test('central refresh, API, shared alerts, history, failures and CORS',async t=>
   assert.deepEqual(await (await worker.fetch(new Request('https://test/contexts?games=NFL:42'),env)).json(),{contexts:{}});
   env.db.prepare('INSERT INTO subscriptions VALUES (?,?,?,?,?,?)').run('device','https://example.test','key','auth',99,now);
   await checkGames(env,feed);
-  assert.equal(env.db.prepare('SELECT score FROM game_state WHERE game_key=?').get('NFL:42').score,feed.games[0].score);
+  assert.equal(env.db.prepare('SELECT score FROM game_state WHERE game_key=?').get(`${MODEL_VERSION}:NFL:42`).score,feed.games[0].score);
   assert.equal(calls.length,afterDemandRefresh,'alert evaluation does not acquire sports data');
   globalThis.fetch=async()=>{throw new Error('ESPN unavailable');};
   assert.equal(await refreshSportsData(env,now+180000),null);

@@ -1,16 +1,29 @@
-const CACHE_NAME = 'sports-radar-shell-trajectory-v1';
-const SHELL = ['./', './index.html', './styles.css', './rating-core.js', './scoring/shared/config.js', './scoring/shared/records.js', './scoring/shared/market.js', './scoring/shared/time.js', './scoring/shared/football.js', './scoring/sports/nfl.js', './scoring/shared/pregame.js', './scoring/sports/mlb.js', './scoring/sports/nhl.js', './scoring/shared/college.js', './scoring/shared/basketball.js', './scoring/sports/basketball.js', './scoring/sports/cfb.js', './scoring/sports/tennis.js', './scoring/shared/context.js', './scoring/sports/soccer.js', './scoring/shared/probability.js', './scoring/shared/trajectory.js', './scoring/models.js', './scoring/shared/upset.js', './scoring/shared/history.js', './scoring/shared/events.js', './scoring/shared/pressure.js', './alert-config.js', './notifications.js', './app.js', './teams.json', './manifest.webmanifest', './sports-radar-logo.png'];
-self.addEventListener('install', event => { event.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll(SHELL))); self.skipWaiting(); });
-self.addEventListener('activate', event => { event.waitUntil(caches.keys().then(keys => Promise.all(keys.filter(key => key !== CACHE_NAME).map(key => caches.delete(key)))).then(() => self.clients.claim())); });
+const CACHE_NAME = 'sports-radar-shell-__BUILD_REV__';
+const REV = '__BUILD_REV__';
+const SHELL = ['./', './index.html', './styles.css', './mobile-readability.css', './scoring-runtime.js', './alert-config.js', './notifications.js', './app.js', './teams.json', './manifest.webmanifest', './sports-radar-logo.png', './icon.svg'];
+self.addEventListener('install', event => {
+  event.waitUntil(caches.open(CACHE_NAME).then(async cache => {
+    // Fetch every dependency from the same published build before activation.
+    await cache.addAll(SHELL.map(path => new Request(path+'?rev='+REV,{cache:'reload'})));
+    await self.skipWaiting();
+  }));
+});
+self.addEventListener('activate', event => {
+  event.waitUntil(caches.keys().then(keys => Promise.all(keys.filter(key => key.startsWith('sports-radar-shell-') && key !== CACHE_NAME).map(key => caches.delete(key)))).then(() => self.clients.claim()));
+});
 self.addEventListener('fetch', event => {
   if (event.request.method !== 'GET') return;
   const url = new URL(event.request.url);
-  if (url.origin === 'https://sports-radar-alerts.mmueller918.workers.dev' && url.pathname === '/feed') {
-    event.respondWith(fetch(event.request));
-    return;
-  }
   if (url.origin !== self.location.origin) return;
-  event.respondWith(fetch(event.request).then(response => { if (response.ok) { const copy = response.clone(); caches.open(CACHE_NAME).then(cache => cache.put(event.request, copy)); } return response; }).catch(async () => await caches.match(event.request,{ignoreSearch:true}) || Response.error()));
+  event.respondWith((async () => {
+    const cache = await caches.open(CACHE_NAME);
+    // Revisioned assets are immutable: never substitute another build's module.
+    if (url.searchParams.has('rev')) {
+      return await cache.match(event.request) || fetch(event.request);
+    }
+    try { return await fetch(event.request); }
+    catch { return await cache.match(event.request,{ignoreSearch:true}) || Response.error(); }
+  })());
 });
 self.addEventListener('push',event => {
   let message = {};

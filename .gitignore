@@ -2,3 +2,4 @@ alerts-worker/node_modules/
 alerts-worker/.wrangler/
 alerts-worker/.wrangler-config/
 work/
+dist/

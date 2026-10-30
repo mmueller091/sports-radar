@@ -9,9 +9,9 @@ import {fileURLToPath} from 'node:url';
 const require = createRequire(import.meta.url);
 const root = fileURLToPath(new URL('../',import.meta.url));
 const html = fs.readFileSync(path.join(root,'index.html'),'utf8');
-const scripts = [...html.matchAll(/<script src="((?:scoring\/|rating-core\.js)[^"?]*)(?:\?[^" ]*)?"/g)].map(match => match[1]);
+const scripts = [...require('./helpers/scoring-source.cjs').legacyScripts,'rating-core.js'];
 
-test('every scoring module loads in browser order, exports in Node, and is cached offline', () => {
+test('explicit legacy modules load in order; production caches the single scoring bundle', () => {
   const browser = vm.createContext({});
   const serviceWorker = fs.readFileSync(path.join(root,'sw.js'),'utf8');
   const shell = vm.runInNewContext(`${serviceWorker.slice(0,serviceWorker.indexOf("self.addEventListener"))}\nSHELL`);
@@ -20,7 +20,7 @@ test('every scoring module loads in browser order, exports in Node, and is cache
   assert.deepEqual([...scripts].sort(),[...actualFiles,'rating-core.js'].sort());
   assert.equal(scripts.at(-1),'rating-core.js');
   for (const script of scripts) {
-    assert.ok(shell.includes(`./${script}`),`${script} is precached`);
+    assert.ok(shell.includes('./scoring-runtime.js'),'production bundle is precached');
     assert.ok(Object.keys(require(path.join(root,script))).length,`${script} exports in Node`);
     vm.runInContext(fs.readFileSync(path.join(root,script),'utf8'),browser,{filename:script});
   }

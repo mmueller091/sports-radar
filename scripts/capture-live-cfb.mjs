@@ -183,7 +183,7 @@ async function main() {
   append(path.join(dir,'run.jsonl'),{run,startedAt:new Date().toISOString(),mode:'actual-provider',date,intervalSeconds:seconds,
     node:process.version,gitHead:execFileSync('git',['rev-parse','HEAD'],{cwd:repoRoot,encoding:'utf8'}).trim(),
     gitStatus:execFileSync('git',['--no-pager','status','--short'],{cwd:repoRoot,encoding:'utf8'}).trim(),
-    policies:{production:'repository production scoring',baseline,candidate},productionSourceSha256:hash(sourceHelper.scoringSource()),
+    policies:{production:'preserved pre-upgrade production baseline (rating-core.js)',baseline,candidate},productionSourceSha256:hash(sourceHelper.scoringSource()),
     sources:Object.fromEntries(identityFiles.map(file=>[file,hash(fs.readFileSync(path.join(repoRoot,file)))])),
     note:'Observation only. Each cycle uses only its captured responses. Missing fields remain unavailable. Cadence is delay after cycle completion.'});
   const readJson=createReader({rawFile:path.join(dir,'raw.jsonl'),signal:controller.signal});

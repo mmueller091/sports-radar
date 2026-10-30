@@ -4,7 +4,7 @@ A static, mobile-friendly, installable sports radar: visitors start with no favo
 
 ## Run locally
 
-Open `index.html` directly for the demo shell, or serve the folder with any static file server. Live scores and service-worker installation require HTTPS (GitHub Pages provides this automatically). No build step or runtime dependency is required.
+Run `npm ci --prefix alerts-worker`, then `node scripts/build-site.mjs`, and serve `dist/` with a static file server. The existing locked esbuild dependency bundles the shared scoring runtime; only allowlisted public assets enter `dist/`. Live scores and service-worker installation require HTTPS (GitHub Pages provides this automatically).
 
 On a phone, open the deployed HTTPS URL in Safari or Chrome and use **Add to Home Screen** / **Install app**. The included manifest and service worker make the site open as a standalone app and keep the UI shell available when connectivity is briefly unavailable.
 
@@ -32,7 +32,9 @@ The Worker validates push endpoints, stores a hashed browser token plus subscrip
 
 1. Push the contents of this folder to a GitHub repository.
 2. In **Settings → Pages**, choose **GitHub Actions** as the source.
-3. The included workflow at `.github/workflows/deploy.yml` publishes the folder on pushes to `main`.
+3. The included workflow at `.github/workflows/deploy.yml` builds and publishes `dist/` on pushes to `main`.
+
+The default live policy is `LIVE_CFB_CONTEXT_POLICY` (`live-owned-45-95-relevant-history-cfb-context`), model `2026-10-30.cfb-context.1`. `scoring/live-runtime.cjs` calls the reviewed candidate and shared sport models without parameter changes. The Worker feed, snapshots and alerts use it; the browser accepts only that feed model. Pregame and final scoring are unchanged. `rating-core.js` and `alerts-worker/src/game-model.js` remain the explicit legacy baseline for local capture comparisons. Recorded history keeps its original model; graph gaps indicate model changes, and reconstructed older points are labeled legacy.
 
 ## Live-data architecture
 

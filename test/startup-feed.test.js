@@ -7,7 +7,7 @@ import sourceHelper from './helpers/scoring-source.cjs';
 const source = fs.readFileSync(new URL('../app.js',import.meta.url),'utf8');
 const ratingCore = sourceHelper.scoringSource();
 
-function startApp() {
+function startApp(production=false) {
   const elements = new Map();
   const element = selector => {
     if (!elements.has(selector)) {
@@ -40,9 +40,10 @@ function startApp() {
     AbortSignal,setTimeout:() => 1,clearTimeout(){},setInterval(){}
   });
   vm.runInContext(ratingCore,context);
+  if (production) vm.runInContext(fs.readFileSync(new URL('../dist/scoring-runtime.js',import.meta.url),'utf8'),context);
   vm.runInContext(source,context);
   return {
-    element,resolveFeed,rejectFeed,
+    element,resolveFeed,rejectFeed,context,
     refreshWith:response => {
       nextFeed = Promise.resolve(response);
       return vm.runInContext('loadLiveGames()',context);
@@ -57,6 +58,22 @@ const realGame = {
     ['Seattle Seahawks','SEA','—'],['Arizona Cardinals','ARI','—']
   ],score:72
 };
+
+test('production normal URL rejects old-model scores and keeps cards ordering and detail on the canonical new score',async()=>{
+  const app=startApp(true),version=app.context.SportsRadarScore.MODEL_VERSION;
+  app.resolveFeed({ok:true,json:async()=>({modelVersion:'old',updatedAt:'2026-10-30T20:00:00Z',games:[realGame]})});
+  await new Promise(resolve=>setImmediate(resolve));
+  assert.doesNotMatch(app.element('#game-list').innerHTML,/game-card/);
+  const live={...realGame,state:'live',score:83,modelVersion:version,live:{bonus:0,phase:'Q4'},factors:[],openingScore:50};
+  const lower={...live,id:'lower',score:60};
+  await app.refreshWith({ok:true,json:async()=>({modelVersion:version,updatedAt:'2026-10-30T20:01:00Z',games:[lower,live]})});
+  assert.match(app.element('#game-list').innerHTML,/83/);
+  assert.equal(vm.runInContext('games.find(g=>g.id==="verified-game").score',app.context),83);
+  const before=app.element('#game-list').innerHTML;
+  await app.refreshWith({ok:true,json:async()=>({modelVersion:'old',updatedAt:'2026-10-30T20:02:00Z',games:[{...live,score:99}]})});
+  assert.equal(app.element('#game-list').innerHTML,before);
+  assert.match(app.element('#data-status-label').textContent,/Stale scores/);
+});
 
 test('startup renders no cards before the first feed resolves, then renders real games',async () => {
   const app = startApp();

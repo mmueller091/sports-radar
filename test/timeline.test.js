@@ -16,6 +16,19 @@ for (const name of ['legacyPlayPosition','scoringEvents','estimatedEventRating',
   vm.runInContext(source.slice(start,source.indexOf('\n}',start)+2),context);
 }
 const play=(period,clock,homeScore,awayScore,text='Made shot')=>({period:{number:period,displayValue:`${period}th quarter`},clock:{displayValue:clock},homeScore,awayScore,text});
+
+test('old recorded models stay labeled and chart lines break at the new model boundary',()=>{
+  const {game,summary}=fixture('NFL',4,'1:00');game.state='live';
+  summary.sportsRadarHistory={snapshots:[
+    {observedAt:1000,state:'live',rating:60,period:4,clock:'3:00',modelVersion:'old-model'},
+    {observedAt:2000,state:'live',rating:85,period:4,clock:'2:00',modelVersion:'2026-10-30.cfb-context.1'}
+  ]};
+  const html=context.excitementTimeline(game,summary);
+  assert.match(html,/old-model/);assert.match(html,/2026-10-30.cfb-context.1/);
+  const line=html.match(/class="timeline-line" d="([^"]+)"/)[1];
+  assert.equal((line.match(/M /g)||[]).length,2);
+  assert.doesNotMatch(html,/\+25<\/b>/,'model switch is not a sporting swing');
+});
 function fixture(sport='NBA',period=5,clock='0.0',format) {
   return {game:{id:'ot',sport,state:'completed',score:95,openingScore:40,teams:[['Away','AWY','125'],['Home','HME','127']],liveRawStatus:{period,displayClock:clock}},
     summary:{header:{competitions:[{format,competitors:[{homeAway:'home',score:'127'},{homeAway:'away',score:'125'}]}]},scoringPlays:[]}};

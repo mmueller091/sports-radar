@@ -1,6 +1,7 @@
 import {basketballBoxScore} from './display-model.js';
 import {createCollector,summaryUrl,teamResourceUrls,coreTeamProfileUrl,teamLeadersUrl,standingsUrl} from './providers/espn.js';
-import {preservePregameRecords,applyContextsToGame,enrichGame} from './game-model.js';
+import {preservePregameRecords,applyContextsToGame,enrichGame} from './live-game-model.js';
+import runtime from '../../scoring/live-runtime.cjs';
 import {contextsForGames} from './storylines.js';
 import {fingerprint,summaryCandidate,reusable,refreshBudget,boundedFeedRefresh,REFRESH_LEASE_MS} from './refresh-policy.js';
 import {RETENTION_MS,recoverPregameRecords,snapshotHistory,shouldSnapshot} from './snapshot-history.js';
@@ -8,10 +9,10 @@ import {RETENTION_MS,recoverPregameRecords,snapshotHistory,shouldSnapshot} from 
 const STALE_MS = 120000;
 const LIVE_REFRESH_MS = 12000;
 const IDLE_REFRESH_MS = 60000;
-export const MODEL_VERSION = '2026-10-26.1';
+export const MODEL_VERSION = runtime.MODEL_VERSION;
 
 export function refreshDue(feed,now=Date.now()) {
-  if (!feed) return true;
+  if (!feed || feed.modelVersion !== MODEL_VERSION) return true;
   const updatedAt = Date.parse(feed.updatedAt || '');
   if (!Number.isFinite(updatedAt)) return true;
   const live = (feed.games || []).some(game=>game.state==='live');
@@ -21,7 +22,7 @@ export function refreshDue(feed,now=Date.now()) {
 export function withFreshness(feed,now=Date.now()) {
   if (!feed) return null;
   const ageMs = Math.max(0,now-Date.parse(feed.updatedAt));
-  return {...feed,freshness:{ageMs,stale:ageMs > STALE_MS,degraded:Boolean(feed.sourceErrors?.length),maxAgeMs:STALE_MS}};
+  return {...feed,freshness:{ageMs,stale:ageMs > STALE_MS || feed.modelVersion !== MODEL_VERSION,degraded:Boolean(feed.sourceErrors?.length),maxAgeMs:STALE_MS}};
 }
 
 export async function readFeed(env,now=Date.now()) {
@@ -2098,7 +2099,7 @@ export async function refreshSportsData(env,now=Date.now(),options={}) {
     });
 
     metrics.deferredCandidates=deferred.length;
-    const feed = {version:1,updatedAt:new Date(now).toISOString(),source:'ESPN',sourceErrors:[...errors],games,enrichment};
+    const feed = {version:1,modelVersion:MODEL_VERSION,scoringPolicy:runtime.POLICY_ID,updatedAt:new Date(now).toISOString(),source:'ESPN',sourceErrors:[...errors],games,enrichment};
     // History remains before publication: future NFL record recovery and audit
     // ordering depend on it. Do not let concurrent maintenance reorder snapshots.
     await stage('snapshots',async()=>{
