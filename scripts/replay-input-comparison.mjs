@@ -353,11 +353,15 @@ export async function compareHistoryRelevance({endgame=false,nhl=false}={}) {
       .map(id=>[id,summarize(rows.filter(r=>r.eventId===id))]))} : {})};
 }
 
-export async function compareCFBContext() {
-  const {LIVE_NHL_ALLOCATION_POLICY:baseline,LIVE_CFB_CONTEXT_POLICY:candidate}=require('../calibration/trajectory-live-policy.cjs');
-  const {cfbAdditional,cfbContextVariants}=await import('../calibration/cfb-context-fixtures.mjs');
+export async function compareCFBContext({watchability=false}={}) {
+  const {LIVE_NHL_ALLOCATION_POLICY,LIVE_CFB_CONTEXT_POLICY,LIVE_CFB_WATCHABILITY_POLICY}=require('../calibration/trajectory-live-policy.cjs');
+  const baseline=watchability ? LIVE_CFB_CONTEXT_POLICY : LIVE_NHL_ALLOCATION_POLICY;
+  const candidate=watchability ? LIVE_CFB_WATCHABILITY_POLICY : LIVE_CFB_CONTEXT_POLICY;
+  const {cfbAdditional:contextAdditional,cfbContextVariants}=await import('../calibration/cfb-context-fixtures.mjs');
+  const {cfbWatchabilityAdditional,cfbWatchabilityInputs}=await import('../calibration/cfb-watchability-fixtures.mjs');
+  const cfbAdditional=watchability ? cfbWatchabilityAdditional : contextAdditional;
   const {prepareSynthetic}=await import('../calibration/trajectory-live-fixtures.mjs');
-  const core=await loadCore(),fixtures=loadFixtures(),rows=[],reviewed=[],regressions=[],variants=[],parity={};
+  const core=await loadCore(),fixtures=loadFixtures(),rows=[],reviewed=[],regressions=[],variants=[],parity={},largestIncreases=[],largestDecreases=[];
   const key=JSON.parse(read('calibration/trajectory-diagnostic-key.replay-v2.json'));
   const selected=key.cases.filter(c=>['R07','R18','R08'].includes(c.id));
   const detail=r=>({score:r.score,base:r.baseScore,live:r.liveBonus,history:r.momentumPoints,
@@ -366,7 +370,8 @@ export async function compareCFBContext() {
     for(const [i,cp] of replayCheckpoints(f).checkpoints.entries()) {
       const p=prepareCheckpointEvaluation(core,f,cp,i);if(!p)continue;
       const [a,b]=shadow.candidateTrajectoryRatings(core,p.game,cp.competition,cp.summary,[baseline,candidate]);
-      assert.equal(a.currentTensionPoints,b.currentTensionPoints);assert.equal(a.genericLeveragePoints,b.genericLeveragePoints);
+      if(!watchability || f.modelSport!=='CFB')assert.equal(a.currentTensionPoints,b.currentTensionPoints);
+      assert.equal(a.genericLeveragePoints,b.genericLeveragePoints);
       assert.deepEqual(a.trajectory,b.trajectory);
       if(f.modelSport!=='CFB') {
         assert.deepEqual(b,{...a,trajectoryScoring:{...a.trajectoryScoring,policyId:candidate.id}});
@@ -377,11 +382,18 @@ export async function compareCFBContext() {
         const extra=cfbAdditional.find(([,event,play])=>event===row.eventId&&play===row.playId);
         const evidence=()=>({...row,status:cp.competition.status,scores:cp.competition.competitors.map(t=>({side:t.homeAway,score:t.score})),
           situation:cp.competition.situation,opening:p.game.openingScore,openingFactors:p.game.openingFactors,beforeDetail:detail(a),afterDetail:detail(b)});
+        if(watchability && row.delta!==0) {
+          const list=row.delta>0 ? largestIncreases : largestDecreases;
+          if(list.length<5 || Math.abs(row.delta)>Math.abs(list.at(-1).delta)) {
+            list.push(evidence());list.sort((x,y)=>Math.abs(y.delta)-Math.abs(x.delta));list.splice(5);
+          }
+        }
         if(c)reviewed.push({id:c.id,...evidence()});
         if(extra){assert.equal(a.score,extra[3]);regressions.push({label:extra[0],...evidence()});}
         if(c?.id==='R18')for(const v of cfbContextVariants({sport:'CFB',event:cp.event,competition:cp.competition,summary:cp.summary})) {
           const g=prepareSynthetic(v),[x,y]=shadow.candidateTrajectoryRatings(core,g,v.competition,v.summary,[baseline,candidate]);
-          assert.deepEqual(y.trajectory,b.trajectory);assert.deepEqual(y.historyOwnership,b.historyOwnership);
+          assert.deepEqual(y.trajectory,b.trajectory);
+          if(!watchability)assert.deepEqual(y.historyOwnership,b.historyOwnership);
           variants.push({id:v.id,hypothetical:true,before:x.score,after:y.score,opening:g.openingScore,openingFactors:g.openingFactors,
             context:v.event.sportsRadarContextFactors??[],teams:v.competition.competitors.map(t=>({side:t.homeAway,rank:t.curatedRank??null,records:t.records??null})),
             odds:v.competition.odds??null,beforeDetail:detail(x),afterDetail:detail(y)});
@@ -392,16 +404,24 @@ export async function compareCFBContext() {
     if((fi+1)%25===0)console.log(JSON.stringify({cfbComparisonGames:fi+1,cfbStates:rows.length,nonCFBStates:Object.values(parity).reduce((a,b)=>a+b,0)}));
   }
   assert.equal(reviewed.length,3);assert.equal(regressions.length,cfbAdditional.length);
+  const synthetic=watchability ? cfbWatchabilityInputs().map(input=>{
+    const game=prepareSynthetic(input);
+    const [a,b]=shadow.candidateTrajectoryRatings(core,game,input.competition,input.summary,[baseline,candidate]);
+    assert.equal(a.score,input.baselineScore);
+    return {id:input.id,hypothetical:true,before:a.score,after:b.score,beforeDetail:detail(a),afterDetail:detail(b)};
+  }) : [];
   return {policies:[baseline,candidate],overall:stats(rows,r=>r.before,r=>r.after),
     increased:rows.filter(r=>r.delta>0).length,decreased:rows.filter(r=>r.delta<0).length,
     unchanged:rows.filter(r=>r.delta===0).length,nonCFBParity:parity,reviewed,regressions,variants,
-    largestChanges:rows.slice().sort((a,b)=>Math.abs(b.delta)-Math.abs(a.delta)).slice(0,10)};
+    largestChanges:rows.slice().sort((a,b)=>Math.abs(b.delta)-Math.abs(a.delta)).slice(0,10),
+    ...(watchability ? {synthetic,largestIncreases,largestDecreases} : {})};
 }
 
 if(process.argv[1]&&import.meta.url===pathToFileURL(process.argv[1]).href) {
-  if(process.argv.includes('--cfb-context')) {
-    const result=await compareCFBContext();mkdirSync(new URL('work/',root),{recursive:true});
-    write('work/live-cfb-context-results.json',result);
+  if(process.argv.includes('--cfb-context') || process.argv.includes('--cfb-watchability')) {
+    const watchability=process.argv.includes('--cfb-watchability');
+    const result=await compareCFBContext({watchability});mkdirSync(new URL('work/',root),{recursive:true});
+    write(watchability ? 'work/live-cfb-watchability-results.json' : 'work/live-cfb-context-results.json',result);
     console.log(JSON.stringify({overall:result.overall,increased:result.increased,decreased:result.decreased,unchanged:result.unchanged,
       nonCFBParity:result.nonCFBParity,reviewed:result.reviewed.map(({id,before,after})=>({id,before,after})),
       variants:result.variants.map(({id,before,after})=>({id,before,after})),

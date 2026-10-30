@@ -24,8 +24,12 @@ const LIVE_NHL_ALLOCATION_POLICY = Object.freeze({...LIVE_ENDGAME_ALLOCATION_POL
 const LIVE_CFB_CONTEXT_POLICY = Object.freeze({...LIVE_NHL_ALLOCATION_POLICY,
   id:'live-owned-45-95-relevant-history-cfb-context',cfbContextRetention:true,
   description:'CFB supported matchup context retains its opening-live weight with existing viability; NFL/NHL unchanged.'});
+const LIVE_CFB_WATCHABILITY_POLICY = Object.freeze({...LIVE_CFB_CONTEXT_POLICY,
+  id:'live-owned-45-95-relevant-history-cfb-watchability',
+  cfbCurrentState:Object.freeze({openingCeiling:34,matureCeiling:48,matureProgress:.5,contextScale:.4}),
+  description:'CFB current competition owns more of the watch scale by halftime; discretionary context is supplementary. Other sports and history rules unchanged.'});
 
-function cfbContextRetention(core,game,state) {
+function cfbContextRetention(core,game,state,matchupScale=1) {
   const transient=Math.max(0,game.openingScore-state.persistentStakes);
   const ordinary=Math.min(transient,game.openingFactors?.length ? game.openingFactors
     .filter(f=>['Sport baseline','Schedule scarcity'].includes(f.label))
@@ -34,7 +38,7 @@ function cfbContextRetention(core,game,state) {
   // pregame reductions in that basis; never re-add individual positive factors.
   const matchup=Math.max(0,transient-ordinary);
   const viability=state.contextWeight>0 ? state.retainedContextWeight/state.contextWeight : 0;
-  const matchupWeight=core.contextCarryWeight(0,'live','CFB')*viability;
+  const matchupWeight=core.contextCarryWeight(0,'live','CFB')*viability*matchupScale;
   const points=Math.round(ordinary*state.retainedContextWeight+matchup*matchupWeight);
   return {ordinary,matchup,ordinaryWeight:state.retainedContextWeight,matchupWeight,viability,points};
 }
@@ -162,5 +166,5 @@ function liveTrajectory(core,game,prepared,base,live,policy) {
       combinedPoints:combinedHistory.points,positiveLimitedByCaps:requestedPositive*(relevance?.eventRetention??1)-positiveAfterHistoryCaps}
   };
 }
-module.exports = {LIVE_TRAJECTORY_POLICIES,LIVE_HISTORY_RELEVANCE_POLICY,LIVE_ENDGAME_ALLOCATION_POLICY,LIVE_NHL_ALLOCATION_POLICY,LIVE_CFB_CONTEXT_POLICY,
+module.exports = {LIVE_TRAJECTORY_POLICIES,LIVE_HISTORY_RELEVANCE_POLICY,LIVE_ENDGAME_ALLOCATION_POLICY,LIVE_NHL_ALLOCATION_POLICY,LIVE_CFB_CONTEXT_POLICY,LIVE_CFB_WATCHABILITY_POLICY,
   cfbContextRetention,endgameFloorBudget,ownedHistory,liveTrajectory};

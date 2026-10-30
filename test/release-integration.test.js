@@ -8,10 +8,11 @@ import * as active from '../alerts-worker/src/live-game-model.js';
 import {loadFixtures} from '../calibration/helpers.mjs';
 import {replayCheckpoints} from '../scripts/replay-inputs.mjs';
 import {prepareCheckpointEvaluation} from '../scripts/shadow-candidate-report.mjs';
+import {cfbContextVariants} from '../calibration/cfb-context-fixtures.mjs';
 const require=createRequire(import.meta.url);
 const legacy=require('../rating-core.js'),runtime=require('../scoring/live-runtime.cjs');
 const {candidateGameRating}=require('../calibration/shadow-candidate.cjs');
-const {LIVE_CFB_CONTEXT_POLICY:policy}=require('../calibration/trajectory-live-policy.cjs');
+const {LIVE_CFB_WATCHABILITY_POLICY:policy}=require('../calibration/trajectory-live-policy.cjs');
 const {buildSync}=require('../alerts-worker/node_modules/esbuild');
 const build=entry=>buildSync({entryPoints:[entry],bundle:true,write:false,format:'iife',platform:'browser',target:'es2022',logLevel:'silent'}).outputFiles[0].text;
 const browser=vm.runInNewContext(build('./scoring/browser-entry.cjs')+';SportsRadarScore');
@@ -24,6 +25,7 @@ test('normal browser build selects the complete policy with no flags or report i
   assert.match(html,/scoring-runtime.js\?rev=/);
   assert.doesNotMatch(html,/src="rating-core/);
   assert.equal(policy.nhlAllocation,true);assert.equal(policy.endgameAllocation,true);assert.equal(policy.cfbContextRetention,true);
+  assert.ok(policy.cfbCurrentState,'normal runtime selects the CFB scale correction');
 });
 
 test('reviewed NFL NHL CFB checkpoints: candidate, browser and active Worker adapter agree',()=>{
@@ -77,4 +79,26 @@ test('missing or rejected summary never carries an old-model history bonus',()=>
   const fresh=active.normalizeEvent(event,'NFL');
   assert.equal(game.score,fresh.score);assert.equal(game.scoringPartial,true);
   assert.equal(game.momentumPoints,0);
+});
+
+test('CFB upset metadata matches the awarded factor across repeated browser and Worker refreshes',()=>{
+  const p=JSON.parse(fs.readFileSync('calibration/trajectory-diagnostic-key.replay-v2.json')).cases.find(c=>c.id==='R18').provenance;
+  const fixture=fixtures.find(f=>String(f.eventId)===p.eventId);
+  const cp=replayCheckpoints(fixture).checkpoints.find(c=>String(c.play.id)===p.playId);
+  const input=cfbContextVariants({sport:'CFB',...cp}).find(v=>v.label==='credible-upset');
+  assert.ok(input);
+  const event={...input.event,competitions:[input.competition]};
+  const game=active.normalizeEvent(structuredClone(event),'CFB');
+  active.enrichGame(game,structuredClone(input.summary));
+  const expected=game.score,upset=game.upsetPoints;
+  assert.ok(upset>0);
+  for(let i=0;i<3;i++) {
+    const result=browser.applyLiveSnapshot(game,input.competition,input.summary);
+    assert.equal(game.score,expected);
+    assert.equal(game.upsetPoints,upset);
+    assert.equal(game.upsetPoints,result.factors.find(f=>f.label==='Underdog threatens upset').points);
+    active.enrichGame(game,structuredClone(input.summary));
+    assert.equal(game.score,expected);
+    assert.equal(game.upsetPoints,upset);
+  }
 });

@@ -1,5 +1,5 @@
 /*
- * Shadow-only candidate scoring. Production adapters never import this file.
+ * Authoritative candidate scoring, explicitly selected by scoring/live-runtime.
  * It replaces only generic live closeness/time/WP awards and reuses the
  * production sport models, context behavior, penalties, and live aggregation.
  * Original explicit Phase 3 policies add trajectory at final aggregation.
@@ -266,7 +266,21 @@ function candidateBaseForPolicy(core,game,prepared,policy) {
 
 function finishCandidateGameRating(core,game,prepared,base,live,trajectoryPolicy=null,currentTensionPolicy=null) {
   if (game.sport==='CFB' && trajectoryPolicy?.cfbContextRetention) {
-    const retention=cfbContextRetention(core,game,base.state);
+    const scale=trajectoryPolicy.cfbCurrentState;
+    if (scale) {
+      // Change only CFB's existing Current Tension award. Keep the shared
+      // closeness signal intact for Generic Leverage and history relevance.
+      // A smooth first-half ramp avoids treating a routine opening tie as a
+      // mature contest; no extra fourth-quarter urgency is introduced.
+      const x=unit(prepared.progress/scale.matureProgress);
+      const currentTensionCeiling=scale.openingCeiling+(scale.matureCeiling-scale.openingCeiling)*x*x*(3-2*x);
+      base=candidateBaseForPolicy(core,game,prepared,{...(currentTensionPolicy || DEFAULT_CURRENT_TENSION_POLICY),currentTensionCeiling});
+      // Rebalance the same discretionary context pool: supported matchup
+      // reputation and the existing upset factor, never history or stakes.
+      base.factors=base.factors.map(f=>f.label==='Underdog threatens upset'
+        ? {...f,points:Math.round(f.points*scale.contextScale)} : f);
+    }
+    const retention=cfbContextRetention(core,game,base.state,scale?.contextScale ?? 1);
     const replace=items=>{
       const label='Pregame context carried into play';
       const factors=items.map(f=>f.label===label ? {...f,points:retention.points} : {...f});
@@ -308,7 +322,7 @@ function finishCandidateGameRating(core,game,prepared,base,live,trajectoryPolicy
   const momentumPoints = owned?.momentumPoints ?? (Number(game.momentumPoints) || 0);
   const trajectoryScoring = owned?.trajectoryScoring ?? trajectoryAdjustment(prepared.trajectory,base.state.currentCloseness,trajectoryPolicy);
   // Final aggregation only, BEFORE the final clamp/round. Never patch a finalized
-  // rating: headroom and sport floors already used the unchanged Phase 2 base.
+  // rating: headroom and sport floors already used the selected policy's base.
   const score = core.clampScore(base.baseScore+live.bonus+momentumPoints+trajectoryScoring.adjustment);
   return {
     score,

@@ -13,7 +13,7 @@ import shadow from '../calibration/shadow-candidate.cjs';
 import policies from '../calibration/trajectory-live-policy.cjs';
 import sourceHelper from '../test/helpers/scoring-source.cjs';
 
-const baseline=policies.LIVE_NHL_ALLOCATION_POLICY,candidate=policies.LIVE_CFB_CONTEXT_POLICY;
+const baseline=policies.LIVE_CFB_CONTEXT_POLICY,candidate=policies.LIVE_CFB_WATCHABILITY_POLICY;
 export const policyNames=['production',baseline.id,candidate.id];
 const hash=value=>createHash('sha256').update(value).digest('hex');
 const numeric=v=>v!==null&&v!==undefined&&v!==''&&Number.isFinite(Number(v));
