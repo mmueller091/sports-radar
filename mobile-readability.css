@@ -519,3 +519,73 @@ button.team-spotlight-matchup, button.team-schedule-opponent { position:relative
   .card-clock { gap:6px; padding:3px 7px; }
   .card-clock strong { font-size:25px; }
 }
+
+/* Compact phone radar: three complete cards in a typical Safari viewport.
+   Keep the same data and independent team/game controls; long supporting
+   text is previewed on one line and remains complete in Game Center. */
+@media (max-width:600px) {
+  body:not(.team-page-open) main { display:grid; grid-template-columns:88px minmax(0,1fr); }
+  body:not(.team-page-open) .control-row,
+  body:not(.team-page-open) .mobile-sport-panel,
+  body:not(.team-page-open) .game-list,
+  body:not(.team-page-open) .empty-state { grid-column:1 / -1; }
+  body:not(.team-page-open) .mobile-sport-filter-toggle { grid-column:1; grid-row:2; width:auto; margin-right:10px; }
+  body:not(.team-page-open) .data-status { grid-column:2; grid-row:2; min-width:0; }
+  body:not(.team-page-open) .mobile-sport-panel { grid-row:3; }
+  #data-status-label { min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .data-status button { flex-shrink:0; }
+  .topbar, .topbar .main-nav { height:44px; min-height:44px; }
+  .control-row { gap:2px; padding:4px 0 2px; }
+  .section-label { font-size:16px; }
+  .score-guide-button { width:26px; height:26px; }
+  .segmented { padding:0; }
+  .seg { min-height:32px; }
+  .mobile-sport-filter-toggle { min-height:30px; margin-bottom:0; }
+  .data-status { min-height:28px; margin-bottom:2px !important; }
+  .data-status button { min-height:28px; padding:0 9px; }
+  .game-list { gap:6px; }
+  .game-date-divider { min-height:18px; margin:0; padding:2px 0; font-size:10px; }
+
+  .game-card, .game-card.favorite, .game-card.completed-card {
+    grid-template-columns:minmax(0,1fr) 66px;
+    grid-template-rows:auto auto auto auto auto auto;
+    gap:1px 8px;
+    padding:5px 9px;
+  }
+  .game-card .match-meta { min-height:22px; margin:0; gap:5px; font-size:10px; }
+  .game-card .card-clock { min-height:22px; gap:5px; padding:1px 5px; font-size:10px; }
+  .game-card .card-clock strong { font-size:17px; line-height:1; }
+  .game-card .team-row { min-height:27px; gap:5px; }
+  .game-card .team-row + .team-row { margin-top:0; }
+  .game-card .card-team-link { min-height:27px; }
+  .game-card .team-name { gap:6px; }
+  .game-card .team-logo { flex-basis:24px; width:24px !important; height:24px !important; }
+  .game-card .team-name-text { font-size:14px; }
+  .game-card .team-score { font-size:20px; }
+  .game-card .excitement { width:100%; min-height:55px; padding:3px 2px; }
+  .game-card .excitement::before { font-size:9px; line-height:1.1; }
+  .game-card .score-circle, .game-card .score-circle.hot, .game-card .score-circle.warm {
+    font-size:30px; line-height:1; letter-spacing:0; -webkit-text-stroke:0;
+  }
+  .game-card .excitement .score-trend { margin:1px 0 0; font-size:8px; line-height:1.1; letter-spacing:-.2px; white-space:nowrap; }
+  .game-card .football-situation, .game-card .live-situation {
+    margin:1px 0 0; font-size:11px; line-height:1.2;
+  }
+  .game-card .card-moment {
+    display:flex; flex-wrap:nowrap; align-items:baseline;
+    min-width:0; margin:2px 0 0; padding:0; gap:5px; font-size:11px; line-height:1.2;
+  }
+  .game-card .card-moment strong { flex:0 0 auto; font-size:10px; }
+  .game-card .card-moment > span { min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .game-card .channel-context {
+    display:grid; grid-template-columns:minmax(0,1fr) auto;
+    min-width:0; gap:2px 6px; margin-top:3px; padding-top:3px; line-height:1.2;
+  }
+  .game-card .channel-context .detail-inline { display:flex; flex-wrap:nowrap; min-width:0; gap:4px; }
+  .game-card .channel-context .detail-inline strong { flex:0 0 auto; font-size:10px; }
+  .game-card .channel-context .detail-inline > span {
+    min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-size:11px; line-height:1.2;
+  }
+  .game-card .channel-context .line-inline { grid-column:1 / -1; margin:0; }
+  .game-card .stats-cue { font-size:10px; }
+}
