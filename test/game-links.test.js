@@ -54,3 +54,10 @@ test('route parser rejects malformed links and preserves sport-scoped stable IDs
   assert.equal(h.run("gameRouteFromHash('#game/NFL/bad%2Fid')"),null);assert.equal(h.run("gameRouteFromHash('#game/%E0%A4%A/id')"),null);
   assert.equal(h.run("gameRouteFromHash('#game/unknown/123')"),null);assert.equal(h.run("gameRouteFromHash('#game/Soccer/123').sport"),'Soccer');
 });
+test('Game Center closes top-layer dialogs when a notification link reuses the document',()=>{
+  const dialogs=[{id:'settings'},{id:'search'}],closed=[];let focused=false;
+  const overlay={hidden:true,querySelector:()=>({focus:()=>focused=true})};
+  const context=vm.createContext({document:{querySelectorAll:()=>dialogs,body:{classList:{add(){}}}},hideDialog:dialog=>closed.push(dialog.id),$:()=>overlay});
+  vm.runInContext(source.slice(source.indexOf('function showGameDetails('),source.indexOf('let activeDetailGame = null;')),context);
+  context.showGameDetails();assert.deepEqual(closed,['settings','search']);assert.equal(overlay.hidden,false);assert.equal(focused,true);
+});

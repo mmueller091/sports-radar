@@ -6071,6 +6071,9 @@ function hideDialog(dialog) {
 }
 
 function showGameDetails() {
+  // A hash navigation can reuse the open document, including its top-layer
+  // Settings/search dialog. Game Center must become the visible destination.
+  document.querySelectorAll('dialog[open]').forEach(hideDialog);
   const overlay =
     $('#game-detail-overlay');
 
@@ -6622,6 +6625,7 @@ function handleLocationChange() {
       render();
       if(returning?.detail)restoreTeamReturn(returning);
       else if(!activeDetailGame || activeDetailGame.sport!==linked.sport || String(activeDetailGame.id)!==linked.id)openGameDetails(linked.id,linked.sport);
+      else {showGameDetails();refreshActiveDetail();}
       return;
     }
     if(activeDetailGame || linkedGameRequest)hideGameDetails({keepRoute:true});
