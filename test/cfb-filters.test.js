@@ -4,6 +4,7 @@ import fs from 'node:fs';
 import vm from 'node:vm';
 
 const source=fs.readFileSync('app.js','utf8'),runtime=fs.readFileSync('dist/scoring-runtime.js','utf8');
+const modelVersion=vm.runInNewContext(runtime+';SportsRadarScore.MODEL_VERSION');
 const now=Date.parse('2026-10-31T18:00:00Z');
 const metadata={season:2026,updatedAt:new Date(now).toISOString(),conferences:[
   {id:'8',name:'Southeastern Conference',division:'FBS'},
@@ -11,7 +12,7 @@ const metadata={season:2026,updatedAt:new Date(now).toISOString(),conferences:[
   {id:'20',name:'Big Sky Conference',division:'FCS'}
 ],teams:{'1':{conferenceId:'8',division:'FBS'},'2':{conferenceId:'18',division:'FBS'},'3':{conferenceId:'20',division:'FCS'}}};
 const team=(id,rank=null)=>['Team '+id,'T'+id,'0','','','5-2',rank,'',id];
-const game=(id,ids=['1','2'],ranks=[],extra={})=>({id,sport:'CFB',state:'live',startTime:'2026-10-31T17:00:00Z',status:'Q1',teams:ids.map((id,i)=>team(id,ranks[i])),score:60,modelVersion:'2026-10-31.football-transition.1',...extra});
+const game=(id,ids=['1','2'],ranks=[],extra={})=>({id,sport:'CFB',state:'live',startTime:'2026-10-31T17:00:00Z',status:'Q1',teams:ids.map((id,i)=>team(id,ranks[i])),score:60,modelVersion,...extra});
 function start(storage=new Map(),feed=[]) {
   const elements=new Map(),calls=[];
   const element=selector=>{
@@ -25,7 +26,7 @@ function start(storage=new Map(),feed=[]) {
   class Clock extends Date {constructor(...args){super(...(args.length?args:[now]));}static now(){return now;}}
   const context=vm.createContext({Date:Clock,document:{body:element('body'),querySelector:element,querySelectorAll:()=>[],addEventListener(){},hidden:false},window:{addEventListener(){}},navigator:{},location:{hash:''},
     localStorage:{getItem:key=>storage.get(key)??null,setItem:(key,value)=>storage.set(key,value)},
-    fetch:async url=>{calls.push(url);return {ok:true,json:async()=>String(url).includes('/metadata/')?structuredClone(metadata):{modelVersion:'2026-10-31.football-transition.1',updatedAt:new Date(now).toISOString(),games:feed}};},
+    fetch:async url=>{calls.push(url);return {ok:true,json:async()=>String(url).includes('/metadata/')?structuredClone(metadata):{modelVersion,updatedAt:new Date(now).toISOString(),games:feed}};},
     AbortSignal,setTimeout:()=>1,clearTimeout(){},setInterval(){}});
   vm.runInContext(runtime,context);vm.runInContext(source,context);
   const run=code=>vm.runInContext(code,context);

@@ -279,6 +279,7 @@ function applyContextsToGame(game,factors) {
   game.baseScore = rating.score;
   game.openingScore = rating.openingScore;
   game.rawPregameScore = rating.rawPregameScore;
+  game.openingFactors = rating.openingFactors;
   if (rating.championshipStakes) game.championshipStakes = true;
   else delete game.championshipStakes;
   game.factors = rating.factors;

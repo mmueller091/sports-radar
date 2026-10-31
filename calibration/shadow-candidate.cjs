@@ -13,6 +13,7 @@ const {eventShockFor} = require('../scoring/shared/events.js');
 const {hockeyLiveTiming,hockeyPlayClockMode} = require('../scoring/sports/nhl.js');
 const {trajectoryAdjustment} = require('./trajectory-policy.cjs');
 const {liveTrajectory,endgameFloorBudget,cfbContextRetention} = require('./trajectory-live-policy.cjs');
+const openingTransition = require('../scoring/opening-transition.cjs');
 const {footballCompetitionEvidence,transitionFootballBase} = require('../scoring/football-transition.cjs');
 
 const DEFAULT_CURRENT_TENSION_POLICY = Object.freeze({
@@ -117,7 +118,9 @@ function candidateStateRating(
     : modelState.marginClose ?? Math.max(0,1-gap/completedCloseLimit);
   const probability = policy?.footballEvidence
     ? footballCompetitionEvidence(policy.footballEvidence.game,context.competition,progress,core.normalizeWinProbability(homeWinProbability)).probability
-    : core.normalizeWinProbability(homeWinProbability);
+    : policy?.openingEvidence
+      ? openingTransition.competitionEvidence(policy.openingEvidence.game,context.competition,progress,core.normalizeWinProbability(homeWinProbability)).probability
+      : core.normalizeWinProbability(homeWinProbability);
   const candidate = candidateComponents(
     marginCloseness,
     probability,
@@ -173,10 +176,10 @@ function candidateStateRating(
   };
 }
 
-function candidateLiveSnapshot(core,game,competition,summary,floorBudget=null,nhlAllocation=null) {
+function candidateLiveSnapshot(core,game,competition,summary,floorBudget=null,nhlAllocation=null,progressOverride=null,openingEvidence=null) {
   const status = competition?.status || game.liveRawStatus;
   const situation = competition?.situation || game.liveRawSituation || {};
-  const progress = core.gameProgress(game.sport,{...competition,status});
+  const progress = progressOverride ?? core.gameProgress(game.sport,{...competition,status});
   const scoreGap = Math.abs(Number(game.teams?.[0]?.[2])-Number(game.teams?.[1]?.[2]));
   const sportImpact = SPORT_MODELS[game.sport]?.situation?.({
     game:floorBudget===null ? game : {...game,baseScore:floorBudget.floorBaseScore},
@@ -184,7 +187,7 @@ function candidateLiveSnapshot(core,game,competition,summary,floorBudget=null,nh
   }) || {points:0,note:'',reasons:[],bases:null};
   if (floorBudget) sportImpact.competitiveFloor=Math.min(floorBudget.originalFloor,sportImpact.competitiveFloor);
   const legacy = core.liveSnapshot(game,competition,summary);
-  const probabilityTelemetry = validateCurrentWinProbability(core,summary,progress,'live',game.sport);
+  const probabilityTelemetry = validateCurrentWinProbability(core,summary,core.gameProgress(game.sport,{...competition,status}),'live',game.sport);
   const components = {
     ...legacy.components,
     probability:0,
@@ -197,6 +200,19 @@ function candidateLiveSnapshot(core,game,competition,summary,floorBudget=null,nh
       const elapsed=hockeyLiveTiming(game.sourceEvent,{...competition,status:value===status ? value : {...value,clockMode}},summary).elapsed;
       return elapsed===null ? null : elapsed/3600;
     }).points;
+  }
+  if (openingEvidence && openingEvidence.maturity<1) {
+    const model=openingTransition.openingEventModel(game.sport,SPORT_MODELS[game.sport] || {});
+    const clockMode=game.sport==='NHL' ? hockeyPlayClockMode(summary || {}) : null;
+    const position=game.sport==='NHL' ? value=>{
+      const elapsed=hockeyLiveTiming(game.sourceEvent,{...competition,status:value===status?value:{...value,clockMode}},summary).elapsed;
+      return elapsed===null ? null : elapsed/3600;
+    } : null;
+    const shock=eventShockFor(game.sport,summary,status,model,position);
+    // Actual scoring events own their immediate credit while the opening basis
+    // owns the uneventful state. Fade this supplemental credit into existing
+    // live/history ownership; mature allocations remain exactly as reviewed.
+    components.eventShock+=Math.max(0,shock.points-components.eventShock)*(1-openingEvidence.maturity);
   }
   const aggregation = aggregateLiveBonus({
     probabilityPoints:0,
@@ -244,11 +260,12 @@ function nonLiveCandidateRating(game,summary) {
   };
 }
 
-function prepareCandidateGameRating(core,game,competition,summary) {
-  const progress = core.gameProgress(game.sport,competition);
+function prepareCandidateGameRating(core,game,competition,summary,productionOpening=false) {
+  const progress = productionOpening && openingTransition.supports(game)
+    ? openingTransition.gameplayProgress(game,competition,summary) : core.gameProgress(game.sport,competition);
   const scores = game.teams.map(team => Number(team[2]));
   const gap = scores.every(Number.isFinite) ? Math.abs(scores[0]-scores[1]) : null;
-  const probability = validateCurrentWinProbability(core,summary,progress,'live',game.sport);
+  const probability = validateCurrentWinProbability(core,summary,core.gameProgress(game.sport,competition),'live',game.sport);
   return {
     progress,gap,probability,
     context:{
@@ -316,6 +333,13 @@ function finishCandidateGameRating(core,game,prepared,base,live,trajectoryPolicy
     live=candidateLiveSnapshot(core,{...game,sourceEvent:game.sourceEvent,baseScore:base.baseScore,factors:base.factors},
       prepared.context.competition,prepared.context.summary,null,{context});
   }
+  if (trajectoryPolicy?.openingTransition && openingTransition.supports(game)) {
+    base=openingTransition.transitionBase(core,game,prepared,base);
+    // Reuse the existing NHL allocation and its context budget. Only the base ownership changes.
+    live=candidateLiveSnapshot(core,{...game,sourceEvent:game.sourceEvent,baseScore:base.baseScore,factors:base.factors},
+      prepared.context.competition,prepared.context.summary,null,
+      game.sport==='NHL' ? live.sportImpact.allocation : null,prepared.progress,base.state.openingEvidence);
+  }
   if (trajectoryPolicy?.footballTransition && ['NFL','CFB'].includes(game.sport)) {
     base=transitionFootballBase(core,game,prepared,base);
     live=candidateLiveSnapshot(core,{...game,baseScore:base.baseScore,factors:base.factors},
@@ -364,8 +388,9 @@ function candidateGameRating(core,game,competition,summary,policy=null,trajector
   if (game.state !== 'live') {
     return nonLiveCandidateRating(game,summary);
   }
-  const prepared = prepareCandidateGameRating(core,game,competition,summary);
+  const prepared = prepareCandidateGameRating(core,game,competition,summary,trajectoryPolicy?.openingTransition);
   if (trajectoryPolicy?.footballTransition && ['NFL','CFB'].includes(game.sport)) policy={...(policy || DEFAULT_CURRENT_TENSION_POLICY),footballEvidence:{game}};
+  if (trajectoryPolicy?.openingTransition && openingTransition.supports(game)) policy={...(policy || DEFAULT_CURRENT_TENSION_POLICY),openingEvidence:{game}};
   const base = candidateBaseForPolicy(core,game,prepared,policy);
   const candidateGame = {...game,baseScore:base.baseScore,factors:base.factors};
   const live = candidateLiveSnapshot(core,candidateGame,competition,summary);

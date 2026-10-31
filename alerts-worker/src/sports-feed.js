@@ -2044,10 +2044,10 @@ export async function refreshSportsData(env,now=Date.now(),options={}) {
     games.forEach(game=>preservePregameRecords(game,priorGames.get(`${game.sport}:${game.id}`)));
     await stage('recordRecovery',()=>recoverPregameRecords(env,games,now,previous));
     const contextGames = games.filter(game=>['NFL','MLB','NHL','CFB','NBA','NCAAB'].includes(game.sport));
-    const contexts = await stage('contexts',()=>contextsForGames(env,contextGames.map(game=>`${game.sport}:${game.id}`)));
+    const contexts = await stage('contexts',()=>contextsForGames(env,contextGames.map(game=>`${game.sport}:${game.id}`),contextGames));
     contextGames.forEach(game=>applyContextsToGame(game,contexts[`${game.sport}:${game.id}`]));
     await stage('recordRecovery',()=>recoverPregameBaselines(env,games,now,previous));
-    games.filter(game=>game.state==='live' && ['NFL','CFB'].includes(game.sport))
+    games.filter(game=>game.state==='live')
       .forEach(game=>runtime.applyLiveSnapshot(game,game.sourceCompetition,null));
 
     const candidates = games.filter(summaryCandidate);

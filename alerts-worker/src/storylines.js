@@ -165,7 +165,7 @@ function deterministicFactor(article) {
   else if (/(playoff race|wild.card race|elimination|clinching)/i.test(text)) type = 'playoff_race';
   else if (/(coach|manager).{0,70}(return|former|faces old team)/i.test(text)) type = 'coach_return';
   else if (/(hot streak|in (?:his|her|their )?(?:last|past|previous) \d+ games|(?:\d+|several|multiple) straight games|(?:goals?|homers?|points?) in .* games|scored in .* games)/i.test(text)) type = 'star_hot_streak';
-  else if (/(hat trick|overtime|three goals|scored three|previous game|last game|game-winning)/i.test(text)) type = 'notable_recent_performance';
+  else if (/(hat trick|three goals|scored three|career[- ]high|record[- ]breaking|no[- ]hitter|perfect game|four home runs|50[- ]point)/i.test(text)) type = 'notable_recent_performance';
   else if (/(winning streak|win streak|unbeaten in)/i.test(text)) type = 'team_win_streak';
   else if (/(?:top[- ]?\d+|best|leads? (?:the )?(?:league|nation)).{0,60}(?:offense|defense|efficiency|net rating)|(?:offensive|defensive|net) efficiency.{0,45}(?:top[- ]?\d+|best|first|1st)/i.test(text)) type = 'elite_efficiency_profile';
   else if (/(strength of schedule|toughest schedule|battle-tested|ranked schedule)/i.test(text)) type = 'strength_of_schedule';
@@ -179,6 +179,34 @@ function deterministicFactor(article) {
 function evidenceSupportsType(article,type) {
   const grounded = deterministicFactor(article);
   return grounded?.type === type;
+}
+
+// A team tag or an opponent mention establishes article relevance, not ownership
+// of an achievement. Resolve the achievement clause before awarding that credit.
+const ACHIEVEMENTS = new Set(['team_win_streak','star_hot_streak','notable_recent_performance','elite_efficiency_profile','milestone_chase']);
+function achievementMatchesGame(article,game,type) {
+  if (!ACHIEVEMENTS.has(type)) return true;
+  const teams=game?.teams || [];
+  const text=`${article.headline || ''}. ${article.description || ''}`;
+  const trigger=type==='team_win_streak' ? /winning streak|win streak|unbeaten in/i :
+    type==='star_hot_streak' ? /hot streak|straight games|(?:last|past|previous) \d+ games/i :
+    type==='notable_recent_performance' ? /hat trick|three goals|scored three|career[- ]high|record[- ]breaking|no[- ]hitter|perfect game|four home runs|50[- ]point/i :
+    /milestone|record|efficiency|net rating|best|leads? (?:the )?(?:league|nation)/i;
+  const match=trigger.exec(text);
+  if (!match) return false;
+  const prefix=text.slice(0,match.index).split(/[.!?;]|\b(?:while|whereas|but|against|over|versus|vs\.?|at|opponent|as)\b/i).at(-1);
+  if (type==='team_win_streak' && /\b(?:snap|end|halt|stop|break)\w*\b/i.test(prefix)) return false;
+  const clause=type==='notable_recent_performance'
+    ? String(article.headline || '').split(/\b(?:against|over|versus|vs\.?|beat|defeat)\b/i)[0] : prefix;
+  const named=teams.some(t=>{
+    const name=String(t.name || t[0] || ''),abbr=String(t.abbr || t[1] || '');
+    return [name,name.split(' ').at(-1),abbr.length>=3?abbr:''].filter(n=>n.length>=3)
+      .some(n=>new RegExp(`\\b${n.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')}\\b`,'i').test(clause));
+  });
+  if (named) return true;
+  // A single-team source can identify a player's team without guessing from a recap's opponent tags.
+  const ids=[...(article.teamIds || [])].map(String);
+  return ids.length===1 && (game.teamIds || new Set(teams.map(t=>String(t.id || t[8])))).has(ids[0]);
 }
 
 function buildResearchItems(games,articlesBySport) {
@@ -195,6 +223,7 @@ function buildResearchItems(games,articlesBySport) {
       sport:game.sport,
       matchup:game.teams.map(team => team.name).join(' vs '),
       article,
+      game,
       affectedTeamId:affectedInjuryTeam(article,game)
     }));
   }
@@ -248,7 +277,7 @@ function mergeFactors(items,classified) {
     const ai = byItem.get(item.id);
     const fallback = deterministicFactor(item.article);
     const chosen = ai && evidenceSupportsType(item.article,ai.type) ? ai : fallback;
-    if (!chosen) continue;
+    if (!chosen || (item.game && !achievementMatchesGame(item.article,item.game,chosen.type))) continue;
     const confidence = Math.min(.99,Math.max(.7,Number(chosen.confidence) || .7));
     const chosenText = String(chosen.text || '').replace(/\s+/g,' ').trim();
     const groundedText = chosenText && evidenceSupportsType({headline:chosenText,description:''},chosen.type)
@@ -270,6 +299,7 @@ function mergeFactors(items,classified) {
       factor.injuryEvidence = {...meaningfulInjuryEvidence(item.article,factor.type),affectedTeamId:item.affectedTeamId || '',reportedAt:new Date(item.article.published).toISOString()};
       factor.sourceDescription = String(item.article.description || '').slice(0,1000);
     }
+    if (ACHIEVEMENTS.has(factor.type)) {factor.sourceDescription=String(item.article.description || '').slice(0,1000);factor.sourceTeamIds=[...(item.article.teamIds || [])];}
     const key = `${factor.sport}:${factor.eventId}:${factor.type}`;
     const prior = deduped.get(key);
     if (!prior || factor.confidence > prior.confidence || factor.sourcePublished > prior.sourcePublished) deduped.set(key,factor);
@@ -294,7 +324,7 @@ async function saveFactors(env,games,factors,now) {
         expires_at=excluded.expires_at,
         updated_at=excluded.updated_at`)
       .bind(factor.eventId,factor.sport,factor.type,
-        factor.injuryEvidence ? JSON.stringify({version:2,text:factor.text,description:factor.sourceDescription || '',affectedTeamId:factor.injuryEvidence.affectedTeamId}) : factor.text,
+        ACHIEVEMENTS.has(factor.type) ? JSON.stringify({version:3,text:factor.text,description:factor.sourceDescription || '',teamIds:factor.sourceTeamIds || []}) : factor.injuryEvidence ? JSON.stringify({version:2,text:factor.text,description:factor.sourceDescription || '',affectedTeamId:factor.injuryEvidence.affectedTeamId}) : factor.text,
         factor.confidence,factor.sourceTitle,factor.sourceUrl,factor.sourcePublished,expires,Math.floor(now / 1000));
   });
   for (let start=0;start<writes.length;start+=50) await env.DB.batch(writes.slice(start,start+50));
@@ -322,7 +352,7 @@ export async function refreshStorylines(env,now=Date.now()) {
   return {candidates:games.length,articles:items.length,factors:factors.length,aiUsed:Boolean(classified.length)};
 }
 
-export async function contextsForGames(env,keys) {
+export async function contextsForGames(env,keys,games=[]) {
   const parsed = keys.map(key => {
     const separator = key.indexOf(':');
     return separator > 0 ? {sport:key.slice(0,separator),eventId:key.slice(separator + 1)} : null;
@@ -344,6 +374,14 @@ export async function contextsForGames(env,keys) {
     const key = `${row.sport}:${row.event_id}`;
     if (!allowed.has(key)) continue;
     let text = row.context_text;
+    let saved;
+    try {saved=JSON.parse(text);} catch {}
+    if (saved?.version===3) text=saved.text;
+    const game=games.find(g=>g.sport===row.sport && String(g.id)===String(row.event_id));
+    if (ACHIEVEMENTS.has(row.factor_type)) {
+      const article={headline:row.source_title,description:saved?.description || '',teamIds:new Set(saved?.teamIds || [])};
+      if (!evidenceSupportsType(article,row.factor_type) || (game && !achievementMatchesGame(article,game,row.factor_type))) continue;
+    }
     let injuryEvidence;
     if (['star_absence','star_injury_return'].includes(row.factor_type)) {
       let stored;
@@ -371,4 +409,4 @@ export async function contextsForGames(env,keys) {
   return output;
 }
 
-export {researchGame,deterministicFactor,evidenceSupportsType,articleMatchesGame,mergeFactors,saveFactors,meaningfulInjuryEvidence,affectedInjuryTeam};
+export {achievementMatchesGame,researchGame,deterministicFactor,evidenceSupportsType,articleMatchesGame,mergeFactors,saveFactors,meaningfulInjuryEvidence,affectedInjuryTeam};

@@ -142,7 +142,7 @@ test('browser bundle and active Worker agree on calibrated upcoming ratings and 
   const {buildSync}=require('../alerts-worker/node_modules/esbuild');
   const source=buildSync({entryPoints:['scoring/browser-entry.cjs'],bundle:true,write:false,platform:'browser',format:'iife',logLevel:'silent'}).outputFiles[0].text;
   const browser=vm.runInNewContext(source+';SportsRadarScore');
-  assert.equal(browser.MODEL_VERSION,'2026-10-31.football-transition.1');
+  assert.equal(browser.MODEL_VERSION,require('../scoring/live-runtime.cjs').MODEL_VERSION);
   for(const sport of ['NFL','CFB'])for(const spread of [null,0,3,7,10,14,17,20,21,27,35,60]){
     const f=fixture(sport,spread,{ranks:[5,12]});
     assert.deepEqual(plain(rating(f,browser)),plain(rating(f)));

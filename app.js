@@ -2890,7 +2890,7 @@ function explainRating(game) {
 }
 
 function trendFor(game) {
-  if (['NFL','CFB'].includes(game.sport) && game.pregameBaseline?.source !== 'observed') return '';
+  if (game.pregameBaseline?.source !== 'observed') return '';
   if (
     game.state === 'upcoming' ||
     !Number.isFinite(
@@ -6136,7 +6136,7 @@ function renderDetailContent(
     game.state === 'upcoming'
       ? `Pregame rating ${safeText(game.score)}`
       : Number.isFinite(opening)
-        ? `Opening ${safeText(opening)} · Current ${safeText(game.score)}`
+        ? `${game.pregameBaseline?.source === 'reconstructed' ? 'Estimated opening' : 'Opening'} ${safeText(opening)} · Current ${safeText(game.score)}`
         : `Current rating ${safeText(game.score)}`;
 
   $('#game-detail-content').innerHTML =

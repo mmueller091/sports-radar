@@ -4,18 +4,18 @@ const {isHalftimeStatus} = require('./shared/time.js');
 const legacy = require('../rating-core.js');
 const {candidateGameRating} = require('../calibration/shadow-candidate.cjs');
 const {LIVE_CFB_COMPETITION_POLICY:LIVE_POLICY} = require('../calibration/trajectory-live-policy.cjs');
-const {prepareFootballOpening,preservePregameBaseline} = require('./football-transition.cjs');
-const PRODUCTION_POLICY = Object.freeze({...LIVE_POLICY,id:LIVE_POLICY.id+'-football-transition',footballTransition:true});
-const MODEL_VERSION = '2026-10-31.football-transition.1';
+const {prepareOpening,preservePregameBaseline} = require('./opening-transition.cjs');
+const PRODUCTION_POLICY = Object.freeze({...LIVE_POLICY,id:LIVE_POLICY.id+'-opening-transition',footballTransition:true,openingTransition:true});
+const MODEL_VERSION = '2026-10-31.opening-transition.1';
 
 function applyLiveSnapshot(game, competition, summary) {
-  prepareFootballOpening(legacy,game,competition || game.sourceCompetition,null);
+  prepareOpening(legacy,game,competition || game.sourceCompetition,null);
   if (game.state !== 'live') return;
   legacy.applyLiveSnapshot(game, competition, summary);
   const current = {...(competition || game.sourceCompetition),
     status:game.liveRawStatus, situation:game.liveRawSituation};
   const accepted = game.lastSummaryAccepted && summary?.header?.competitions?.[0]?.status ? summary : null;
-  prepareFootballOpening(legacy,game,competition || game.sourceCompetition,accepted);
+  prepareOpening(legacy,game,competition || game.sourceCompetition,accepted);
   if (['NFL','CFB'].includes(game.sport)) {
     const upset=legacy.upsetImpact(game.underdog,game.teams,'live',legacy.gameProgress(game.sport,current),game.sport,current);
     game.factors=game.factors.filter(f=>f.label!=='Underdog threatens upset');
