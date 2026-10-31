@@ -145,6 +145,7 @@ const state = {
   sport:'all',
   gameState:'all',
   showFCS:savedPreferences.showFCS !== false,
+  sportFilters:{CFB:normalizeCfbFilters(savedPreferences.sportFilters?.CFB)},
   visibleSports:new Set(savedSports),
   favoriteTeams:savedFavorites,
   watchedGames:readWatchedGames(),
@@ -161,6 +162,7 @@ function persistPreferences() {
       JSON.stringify({
         visibleSports:[...state.visibleSports],
         showFCS:state.showFCS,
+        sportFilters:state.sportFilters,
         favoriteTeams:state.favoriteTeams
       })
     );
@@ -214,6 +216,106 @@ function syncFCSFilter() {
   chip.textContent = state.showFCS ? 'FCS: On' : 'FCS: Off';
   chip.classList.toggle('active',state.showFCS);
   chip.setAttribute('aria-pressed',String(state.showFCS));
+}
+
+function normalizeCfbFilters(value) {
+  return {conference:/^\d+$/.test(String(value?.conference || '')) ? String(value.conference) : '',top25:value?.top25 === true};
+}
+
+const cfbMetadata = new Map();
+const CFB_METADATA_KEY = 'sports-radar-cfb-conferences-v1:';
+function cfbSeasonFor(value=Date.now()) {
+  const date=new Date(value);
+  return date.getUTCFullYear() - (date.getUTCMonth()===0 ? 1 : 0);
+}
+function cfbMembership(game,team) {
+  return cfbMetadata.get(cfbSeasonFor(game.startTime))?.data?.teams?.[String(team[8] || '')];
+}
+// Each future sport owns its own predicate and preferences. Apply only when that
+// sport is explicitly selected; every existing sort and tab stays downstream.
+const SPORT_FILTERS = {
+  CFB:(game,filters)=>
+    (!filters.top25 || game.teams.some(team=>Number.isInteger(team[6]) && team[6]>=1 && team[6]<=25)) &&
+    (!filters.conference || game.teams.some(team=>cfbMembership(game,team)?.conferenceId===filters.conference))
+};
+function matchesSportFilters(game) {
+  const matches=state.page==='home' && state.sport===game.sport && SPORT_FILTERS[game.sport];
+  return !matches || matches(game,state.sportFilters[game.sport]);
+}
+function cfbFiltersActive() {
+  return state.page==='home' && state.sport==='CFB' && Boolean(state.sportFilters.CFB.conference || state.sportFilters.CFB.top25);
+}
+function selectedCfbConference() {
+  return cfbMetadata.get(cfbSeasonFor())?.data?.conferences.find(c=>c.id===state.sportFilters.CFB.conference);
+}
+async function loadCfbMetadata(season) {
+  let entry=cfbMetadata.get(season);
+  if (!entry) {
+    entry={};
+    try {
+      const cached=JSON.parse(localStorage.getItem(CFB_METADATA_KEY+season) || 'null');
+      if (cached?.data?.season===season && Array.isArray(cached.data.conferences) && cached.data.teams && Date.now()-Date.parse(cached.data.updatedAt)<7*86400000) Object.assign(entry,cached);
+    } catch {}
+    cfbMetadata.set(season,entry);
+  }
+  if (entry.loading || Date.now()<(entry.retryAt || 0) || Date.now()<(entry.expires || 0)) return;
+  entry.loading=true;
+  try {
+    const base=String(globalThis.SPORTS_RADAR_ALERTS_URL || '').replace(/\/$/,'');
+    const response=await fetch(`${base}/metadata/CFB?season=${season}`,{signal:AbortSignal.timeout(10000)});
+    if (!response.ok) throw new Error('Conference metadata unavailable');
+    const data=await response.json();
+    if (data.season!==season || !Array.isArray(data.conferences) || !data.teams || !Number.isFinite(Date.parse(data.updatedAt))) throw new Error('Invalid conference metadata');
+    entry.data=data;
+    entry.error=false;
+    entry.expires=Date.now()+(data.stale?300000:3600000);
+    try {localStorage.setItem(CFB_METADATA_KEY+season,JSON.stringify({data,expires:entry.expires}));} catch {}
+    if (selectedCfbConference()?.division==='FCS' && !state.showFCS) {
+      state.showFCS=true;persistPreferences();syncFCSFilter();
+    }
+  } catch {
+    entry.error=true;
+    entry.retryAt=Date.now()+60000;
+    entry.expires=0;
+    if (Date.now()-Date.parse(entry.data?.updatedAt)>=7*86400000) entry.data=null;
+  } finally {
+    entry.loading=false;
+    render();
+  }
+}
+function syncSportFilters() {
+  const visible=state.page==='home' && state.sport==='CFB';
+  $('#cfb-filters').classList.toggle('hidden',!visible);
+  if (!visible) return;
+  const seasons=new Set([cfbSeasonFor(),...games.filter(g=>g.sport==='CFB').map(g=>cfbSeasonFor(g.startTime)).filter(Number.isFinite)]);
+  seasons.forEach(season=>{void loadCfbMetadata(season);});
+  const entry=cfbMetadata.get(cfbSeasonFor());
+  if (selectedCfbConference()?.division==='FCS' && !state.showFCS) {
+    state.showFCS=true;persistPreferences();syncFCSFilter();
+  }
+  const filters=state.sportFilters.CFB;
+  const conferences=entry?.data?.conferences || [];
+  const select=$('#cfb-conference');
+  const options='<option value="">All Conferences</option>'+['FBS','FCS'].map(division=>
+    `<optgroup label="${division}">${conferences.filter(c=>c.division===division).sort((a,b)=>a.name.localeCompare(b.name)).map(c=>`<option value="${safeText(c.id)}">${safeText(c.name)}</option>`).join('')}</optgroup>`
+  ).join('')+(filters.conference && !conferences.some(c=>c.id===filters.conference)?`<option value="${safeText(filters.conference)}">Selected conference unavailable</option>`:'');
+  if (select.filterOptions!==options) {select.innerHTML=options;select.filterOptions=options;}
+  select.value=filters.conference;
+  select.disabled=!conferences.length;
+  $('#cfb-top25').setAttribute('aria-checked',String(filters.top25));
+  $('#cfb-top25').classList.toggle('active',filters.top25);
+  $('#cfb-clear').disabled=!cfbFiltersActive();
+  const missing=filters.conference ? games.filter(g=>g.sport==='CFB' && g.teams.some(t=>!cfbMembership(g,t))).length : 0;
+  $('#cfb-filter-status').textContent=entry?.error
+    ? (entry.data ? 'Using cached conferences. Refresh to retry.' : 'Conferences unavailable. Top 25 still works; refresh to retry.')
+    : !entry?.data ? 'Loading conferences…'
+    : entry.data.stale ? 'Using cached ESPN conferences.'
+    : selectedCfbConference()?.division==='FCS' ? 'FCS is on for this conference.'
+    : missing ? `${missing} game${missing===1?' has':'s have'} incomplete conference data; only verified matches appear.` : '';
+}
+function clearCfbFilters() {
+  state.sportFilters.CFB=normalizeCfbFilters();
+  persistPreferences();render();
 }
 
 function syncSportToggles() {
@@ -6414,6 +6516,8 @@ function summarySpecificWhy(game,summary) {
 function render() {
   syncActiveDetail();
 
+  $('#cfb-filters').classList.toggle('hidden',state.page!=='home' || state.sport!=='CFB');
+
   const isTeamPage =
     state.page === 'team' &&
     Boolean(state.teamRoute);
@@ -6495,6 +6599,8 @@ function render() {
       );
   }
 
+  syncSportFilters();
+
   const scopeGames =
     games.filter(game =>
       (
@@ -6512,7 +6618,8 @@ function render() {
       (
         state.sport === 'all' ||
         game.sport === state.sport
-      )
+      ) &&
+      matchesSportFilters(game)
     );
 
   const visible =
@@ -6555,13 +6662,17 @@ function render() {
   $('#empty-state h3').textContent =
     state.source === 'loading' ? 'Loading live scores…' :
     state.source === 'unavailable' ? 'Live scores unavailable' :
-    'No games in this view';
+    cfbFiltersActive() ? 'No games match these filters' : 'No games in this view';
+
+  $('#empty-clear-filters').classList.toggle('hidden',!cfbFiltersActive());
 
   $('#empty-message').textContent =
     state.source === 'loading'
       ? 'Connecting to the live feed.'
       : state.source === 'unavailable'
         ? 'The feed could not be reached. Use Refresh to retry.'
+        : cfbFiltersActive()
+          ? 'Try another conference, turn off Top 25 Only, or clear CFB filters. You can also change the game-state tab.'
         : state.gameState === 'watching'
           ? 'Open a game and tap “Add to watchlist.” Saved games appear here while they are in the current scoreboard feed.'
           : 'Try a different sport or game state.';
@@ -6746,11 +6857,33 @@ $('#fcs-toggle')
       state.showFCS =
         !state.showFCS;
 
+      const clearedFcsConference=!state.showFCS && selectedCfbConference()?.division==='FCS';
+      if (clearedFcsConference) state.sportFilters.CFB.conference='';
+
       persistPreferences();
       syncFCSFilter();
       render();
+      if (clearedFcsConference) $('#cfb-filter-status').textContent='Conference cleared because FCS is off.';
     }
   );
+
+$('#cfb-conference').addEventListener('change',event=>{
+  state.sportFilters.CFB.conference=normalizeCfbFilters({conference:event.target.value}).conference;
+  if (selectedCfbConference()?.division==='FCS') {state.showFCS=true;syncFCSFilter();}
+  persistPreferences();render();
+});
+$('#cfb-top25').addEventListener('click',()=>{
+  state.sportFilters.CFB.top25=!state.sportFilters.CFB.top25;
+  persistPreferences();render();
+});
+$('#cfb-clear').addEventListener('click',clearCfbFilters);
+$('#empty-clear-filters').addEventListener('click',clearCfbFilters);
+function retryCfbMetadata() {
+  if (state.page!=='home' || state.sport!=='CFB') return;
+  for (const [season,entry] of cfbMetadata) {entry.retryAt=0;entry.expires=0;void loadCfbMetadata(season);}
+}
+$('#refresh-button').addEventListener('click',retryCfbMetadata);
+$('#refresh-data').addEventListener('click',retryCfbMetadata);
 
 $$('.seg').forEach(tab =>
   tab.addEventListener(

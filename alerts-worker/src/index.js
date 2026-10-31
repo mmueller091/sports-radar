@@ -3,6 +3,7 @@ import '../../rating-core.js';
 import {contextsForGames,refreshStorylines} from './storylines.js';
 import {readFeed,withFreshness,gameDetails,teamDetails,teamStandings,refreshDue,refreshSportsData,requestFeedRefresh} from './sports-feed.js';
 import {gameHistory} from './snapshot-history.js';
+import {cfbConferenceMetadata,cfbSeason} from './cfb-metadata.js';
 import runtime from '../../scoring/live-runtime.cjs';
 import {normalizeNotificationPreferences,preferencesForRow,notificationEligible,notificationGame,gameNotificationUrl} from './notification-preferences.js';
 
@@ -99,6 +100,14 @@ export default {
     const url = new URL(request.url);
     if (request.method === 'OPTIONS') return new Response(null,{status:204,headers:cors(request)});
     if (request.headers.get('Origin') && request.headers.get('Origin') !== ORIGIN) return reply(request,{error:'Origin not allowed'},403);
+    if (url.pathname === '/metadata/CFB' && request.method === 'GET') {
+      const season=Number(url.searchParams.get('season') || cfbSeason());
+      if (!Number.isInteger(season) || season<cfbSeason()-1 || season>cfbSeason()+1) return reply(request,{error:'Invalid season'},400);
+      try {
+        const metadata=await cfbConferenceMetadata(env,season);
+        return new Response(JSON.stringify(metadata),{headers:{...cors(request),'Content-Type':'application/json','Cache-Control':metadata.stale?'public, max-age=300':'public, max-age=3600'}});
+      } catch {return reply(request,{error:'Conference metadata temporarily unavailable'},503);}
+    }
     if (url.pathname === '/feed' && request.method === 'GET') {
       try {
         let feed = await readFeed(env);

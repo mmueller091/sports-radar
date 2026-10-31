@@ -80,10 +80,17 @@
           <button class="sport-chip soccer-chip hidden" data-sport="Soccer"><span>⊙</span> Soccer</button>
         </section>
 
+        <section id="cfb-filters" class="sport-specific-filters hidden" aria-label="College Football filters">
+          <label class="conference-filter" for="cfb-conference"><span>Conference</span><select id="cfb-conference"><option value="">All Conferences</option></select></label>
+          <button id="cfb-top25" class="compact-filter-toggle" type="button" role="switch" aria-checked="false"><span class="filter-switch" aria-hidden="true"></span>Top 25 Only</button>
+          <button id="cfb-clear" class="clear-sport-filters" type="button" disabled>Clear filters</button>
+          <p id="cfb-filter-status" class="sport-filter-status" role="status"></p>
+        </section>
+
         <div class="data-status" id="data-status" aria-live="polite"><span class="status-dot"></span><span id="data-status-label">Loading live scores…</span><button id="refresh-data">Refresh</button></div>
 
         <section class="game-list" id="game-list" aria-live="polite"></section>
-        <div class="empty-state hidden" id="empty-state"><div>⌁</div><h3>No games in this view</h3><p id="empty-message">Try a different sport or game state.</p></div>
+        <div class="empty-state hidden" id="empty-state"><div>⌁</div><h3>No games in this view</h3><p id="empty-message">Try a different sport or game state.</p><button id="empty-clear-filters" type="button" class="clear-sport-filters hidden">Clear CFB filters</button></div>
       </main>
 
       <footer class="footer"><div><span class="brand-mini">SPORTS RADAR</span><span>What's worth watching?</span></div><div><span class="status-dot"></span> <span id="footer-status">Loading feed</span> <span class="footer-sep">•</span> <button id="data-info">Data sources &amp; scoring</button></div></footer>
