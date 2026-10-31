@@ -29,7 +29,7 @@ const rankingPoints = rating => rating.factors
 const nflMarketPoints=spread=>{
   const input=matchup('NFL');
   if (spread !== null) input.competition.odds=[{details:`Home -${spread}`,spread:-spread}];
-  const market=pregame(input).factors.filter(item=>/projected spread/.test(item.label));
+  const market=pregame(input).factors.filter(item=>/projected spread/i.test(item.label));
   assert.ok(market.length<=1);
   return market[0]?.points || 0;
 };
@@ -45,7 +45,7 @@ test('NFL spread bonus declines smoothly from pick’em to a wide line',()=>{
   assert.ok(awards[2]>=3 && awards[2]<=4);
   assert.ok(awards[3]>=1 && awards[3]<=2);
   assert.ok(awards[4]<=1);
-  assert.equal(awards[5],0);
+  assert.equal(awards[5],-4);
   assert.equal(nflMarketPoints(null),0);
 });
 
@@ -62,9 +62,10 @@ test('NFL market points do not jump at the old spread boundaries',()=>{
 test('NFL close-line factor contributes once to the pregame score',()=>{
   for (const spread of [0,3,6,9,12,14]) {
     const input=matchup('NFL');
-    const before=pregame(input).score;
+    input.competition.competitors.forEach(team=>delete team.records);
+    const before=pregame(input).rawPregameScore;
     input.competition.odds=[{details:`Home -${spread}`,spread:-spread}];
-    assert.equal(pregame(input).score-before,nflMarketPoints(spread));
+    assert.ok(Math.abs(pregame(input).rawPregameScore-before-nflMarketPoints(spread))<1e-9);
   }
 });
 
@@ -108,7 +109,7 @@ for (const sport of ['CFB','NCAAB','NBA']) {
   const marketPoints=spread=>{
     const input=matchup(sport);
     input.competition.odds=[{details:`Home -${spread}`,spread:-spread}];
-    const market=pregame(input).factors.filter(item=>/projected spread/.test(item.label));
+    const market=pregame(input).factors.filter(item=>/projected spread/i.test(item.label));
     assert.ok(market.length<=1);
     return market[0]?.points || 0;
   };
@@ -123,7 +124,7 @@ for (const sport of ['CFB','NCAAB','NBA']) {
     assert.ok(awards[4]>=2 && awards[4]<=3);
     assert.ok(awards[5]>=1 && awards[5]<=2);
     assert.ok(awards[6]<=1);
-    assert.equal(awards[7],0);
+    assert.equal(awards[7],sport==='CFB' ? -4 : 0);
     assert.ok(awards[3]-awards[4]<=1);
   });
   for (const spread of [0,2.5,3,5.5,6,9,12,20]) {
@@ -132,11 +133,11 @@ for (const sport of ['CFB','NCAAB','NBA']) {
       const before=pregame(input);
       input.competition.odds=[{details:`Home -${spread}`,spread:-spread}];
       const after=pregame(input);
-      const market=after.factors.filter(item=>/projected spread/.test(item.label));
+      const market=after.factors.filter(item=>/projected spread/i.test(item.label));
       const award=marketPoints(spread);
       assert.equal(market.length,award ? 1 : 0);
-      assert.equal(after.score-before.score,award);
-      assert.ok(Number.isInteger(award) && award>=0 && award<=5);
+      assert.ok(Math.abs(after.rawPregameScore-before.rawPregameScore-award)<1e-9);
+      assert.ok(Number.isFinite(award) && award>=(sport==='CFB'?-10:0) && award<=5);
     });
   }
   test(`${sport} missing odds has no market factor`,()=>{

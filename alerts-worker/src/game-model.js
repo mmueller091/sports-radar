@@ -264,7 +264,8 @@ function applyContextsToGame(game,factors) {
     type:factor.type,
     text:factor.text,
     confidence:Number(factor.confidence),
-    verified:true
+    verified:true,
+    ...(factor.injuryEvidence ? {injuryEvidence:factor.injuryEvidence} : {})
   }));
   const rating = rateGame(
     game.sport,

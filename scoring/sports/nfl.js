@@ -6,7 +6,7 @@
   const {recordStats} = typeof module !== 'undefined' && module.exports
     ? require('../shared/records.js')
     : root.SportsRadarScoring.shared_records;
-  const {listedSpread} = typeof module !== 'undefined' && module.exports
+  const {listedSpread,footballPregameSpread,footballSpreadAdjustment} = typeof module !== 'undefined' && module.exports
     ? require('../shared/market.js')
     : root.SportsRadarScoring.shared_market;
   const {footballGameState,footballSituationImpact,footballMilestone,footballEventShock,footballStagnationImpact,footballFieldPosition,footballClockRunway} = typeof module !== 'undefined' && module.exports
@@ -141,7 +141,7 @@
   }
 
   function nflSpreadPoints(spread) {
-    return Math.round(7 * Math.exp(-((spread / 7.5) ** 2)));
+    return footballSpreadAdjustment('NFL',spread);
   }
 
   function unbeatenStartImpact(sport,gameState,teams) {
@@ -154,8 +154,11 @@
     return Math.round(Math.min(10,4 + .75 * (Number(record[1]) - 4)));
   }
 
-  function nflPregame(sport,competition,competitors,postseason,factors,reason) {
+  function nflPregame(sport,competition,competitors,postseason,factors,reason,detail,options={}) {
     if (sport === 'NFL') {
+      const factorStart = factors.length;
+      const spread = options.calibratedPregame ? footballPregameSpread(competition) : listedSpread(competition);
+      const marketKnown = options.calibratedPregame && spread !== null;
       const division =
         nflDivisionFor(
           competitors
@@ -184,7 +187,7 @@
           points:4
         });
 
-        if (bothWinning) {
+        if (bothWinning && !marketKnown) {
           factors.push({
             label:'Division race between winning teams',
             points:3
@@ -202,7 +205,7 @@
         });
 
         if (
-          Math.abs(
+          !marketKnown && Math.abs(
             records[0].pct -
             records[1].pct
           ) <= .1
@@ -267,24 +270,30 @@
         });
       }
 
-      const spread =
-        listedSpread(
-          competition
-        );
-
       const spreadPoints = spread === null
         ? 0
-        : nflSpreadPoints(spread);
+        : options.calibratedPregame ? nflSpreadPoints(spread) : Math.round(7 * Math.exp(-((spread / 7.5) ** 2)));
+      if (marketKnown) {
+        // Records retain prestige, but cannot override a wide market assessment.
+        const retention = .5+.5*Math.max(0,Math.min(1,(21-spread)/14));
+        for (const factor of factors.slice(factorStart)) {
+          if (['Both winning records','Both teams at least .500','Unbeaten team'].includes(factor.label)) factor.points=Number((factor.points*retention).toFixed(2));
+        }
+        if (factors.slice(factorStart).some(factor=>factor.label==='Both teams below .500')) {
+          const index=factors.findIndex((factor,i)=>i>=factorStart && factor.label==='Winless team');
+          if (index>=0) factors.splice(index,1);
+        }
+      }
       if (spreadPoints) {
         const tight = spreadPoints >= 5;
         factors.push({
-          label:tight
+          label:spreadPoints < 0 ? 'Projected spread mismatch' : tight
             ? 'Tight projected spread'
             : 'Competitive projected spread',
-          points:spreadPoints
+          points:Number(spreadPoints.toFixed(2))
         });
 
-        reason += tight
+        reason += spreadPoints < 0 ? ' · projected mismatch' : tight
           ? ' · close line'
           : ' · competitive line';
       }

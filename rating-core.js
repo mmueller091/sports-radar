@@ -89,7 +89,8 @@
     return parts.join(' · ');
   }
 
-  function pregameRating(sport,event,competition,context) {
+  function pregameRating(sport,event,competition,context,gameState='upcoming') {
+    const options = {calibratedPregame:gameState === 'upcoming' && ['NFL','CFB'].includes(sport),sport};
     const model = SPORT_MODELS[sport] || {};
     const detail =
       eventSignalText(
@@ -230,7 +231,7 @@
       competition?.competitors || [];
 
     reason = model.pregame
-      ? model.pregame(sport,competition,competitors,postseason,factors,reason,detail)
+      ? model.pregame(sport,competition,competitors,postseason,factors,reason,detail,options)
       : reason;
 
     if (
@@ -253,8 +254,12 @@
     const contextFactors =
       pregameContextFactors(
         event,
-        competition
-      );
+        competition,
+        options
+      ).filter(factor => !options.calibratedPregame || !(
+        factor.contextType === 'rivalry' && factors.some(existing=>existing.label === 'Rivalry' || sport === 'NFL' && existing.label.endsWith('matchup')) ||
+        factor.contextType === 'playoff_race' && postseason
+      ));
 
     if (contextFactors.length) {
       factors.push(
@@ -467,7 +472,8 @@
         sport,
         event,
         competition,
-        context
+        context,
+        gameState
       );
 
     const factors =

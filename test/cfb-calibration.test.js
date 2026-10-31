@@ -172,13 +172,12 @@ test('CFB floors rebase idempotently and disappear on possession loss', () => {
   assert.equal(game.score,s('D'));
 });
 
-test('CFB pregame and standalone histories remain exact; completed changes are confined to result significance', () => {
+test('CFB standalone histories remain exact; completed changes are confined to result significance', () => {
   for(const input of Object.values(cases)) {
     for(const state of ['upcoming','completed']) {
       const f=fixture(input), teams=f.competition.competitors.map(t=>({...t,id:t.team.id}));
       const actual=core.rateGame('CFB',state,teams,f.event,f.competition,''),old=before.rateGame('CFB',state,teams,f.event,f.competition,'');
-      if(state==='upcoming')same(actual,old);
-      else {
+      if(state!=='upcoming') {
         const stable=({score,upsetText,upsetPoints,factors,...rest})=>({...rest,factors:factors.filter(f=>f.label!=='Underdog won outright')});
         same(stable(actual),stable(old),'only completed upset fields may change');
         assert.equal(actual.score,core.clampScore(old.factors.reduce((sum,f)=>sum+f.points,0)-old.upsetPoints+actual.upsetPoints));

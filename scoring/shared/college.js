@@ -1,10 +1,10 @@
 /* Shared scoring module; supports classic browser scripts and Worker/Node bundling. */
 (function (root) {
-  const {listedSpread} = typeof module !== 'undefined' && module.exports
+  const {listedSpread,footballPregameSpread} = typeof module !== 'undefined' && module.exports
     ? require('./market.js')
     : root.SportsRadarScoring.shared_market;
 
-  function collegePregame(sport,competition,competitors,postseason,factors,reason,rankingRules) {
+  function collegePregame(sport,competition,competitors,postseason,factors,reason,rankingRules,options={}) {
     const ranks =
       ['CFB','NCAAB']
         .includes(sport)
@@ -24,7 +24,7 @@
     // A ranking adds interest only when the matchup can plausibly compete.
     // Two ranked teams retain some importance even with a wider line.
     const rankingFactors = [];
-    const rankingSpread = listedSpread(competition);
+    const rankingSpread = sport === 'CFB' && options.calibratedPregame ? footballPregameSpread(competition) : listedSpread(competition);
     const competitiveness = rankingSpread === null
       ? null
       : 1 / (1 + (rankingSpread / 10) ** 2);

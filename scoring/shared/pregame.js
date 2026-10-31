@@ -7,19 +7,22 @@
     ? require('./records.js')
     : root.SportsRadarScoring.shared_records;
 
-  function marketPregame(sport,competition,factors,reason) {
+  function marketPregame(sport,competition,factors,reason,options={}) {
     if (['MLB','NHL','NBA','CFB','NCAAB'].includes(sport)) {
       const market =
         pregameMarketFactor(
           sport,
-          competition
+          competition,
+          options
         );
 
       if (market) {
         factors.push(market);
 
         reason +=
-          market.points >= 5
+          market.points < 0
+            ? ' · projected mismatch'
+            : market.points >= 5
             ? ' · near pick’em'
             : ' · competitive market';
       }

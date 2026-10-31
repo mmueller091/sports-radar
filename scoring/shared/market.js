@@ -212,12 +212,56 @@
     return Math.round(5 / (1 + (spread / 6) ** 2));
   }
 
-  function pregameMarketFactor(sport,competition) {
+  // Pregame football only; leave live/final and other-sport parsers unchanged.
+  function footballPregameSpread(competition) {
+    const raw = competition?.odds?.[0];
+    const odds = raw?.close || raw?.closing || raw;
+    if (!odds) return null;
+    const number = value => {
+      if (value == null || typeof value === 'boolean' || typeof value === 'object' || String(value).trim() === '') return null;
+      const text = String(value).trim().replace(/[−–]/g,'-');
+      if (/^(?:pk|pick(?:['’]?em)?|even)$/i.test(text)) return 0;
+      return /^[+-]?\d+(?:\.\d+)?$/.test(text) && Number.isFinite(Number(text)) ? Math.abs(Number(text)) : null;
+    };
+    for (const value of [odds.spread?.displayValue,odds.spread,
+      odds.pointSpread?.home?.close?.line,odds.pointSpread?.away?.close?.line]) {
+      const spread = number(value);
+      if (spread !== null) return spread;
+    }
+    const details = String(odds.details || odds.displayValue || '').trim().replace(/[−–]/g,'-');
+    if (/\b(?:pk|pick(?:['’]?em)?|even)\b/i.test(details)) return 0;
+    const match = details.match(/(?:^|\s)[+-](\d+(?:\.\d+)?)\s*$/);
+    return match && Number(match[1]) < 100 ? Number(match[1]) : null;
+  }
+
+  const FOOTBALL_SPREAD_ANCHORS = {
+    NFL:[[0,7],[3,6],[7,3],[10,0],[14,-4],[17,-7],[21,-10]],
+    CFB:[[0,5],[3,4],[7,2],[10,1],[14,0],[20,-4],[27,-7],[35,-10]]
+  };
+  function footballSpreadAdjustment(sport,spread) {
+    if (spread == null || typeof spread !== 'number' || !Number.isFinite(spread)) return 0;
+    const anchors = FOOTBALL_SPREAD_ANCHORS[sport];
+    if (!anchors) return 0;
+    const value = Math.abs(spread);
+    for (let i=1;i<anchors.length;i++) {
+      const [x,y]=anchors[i-1],[nextX,nextY]=anchors[i];
+      if (value <= nextX) return y+(nextY-y)*(value-x)/(nextX-x);
+    }
+    return anchors.at(-1)[1];
+  }
+
+  function pregameMarketFactor(sport,competition,options={}) {
     const raw =
       competition?.odds?.[0];
 
     if (!raw) {
       return null;
+    }
+
+    if (sport === 'CFB' && options.calibratedPregame) {
+      const spread = footballPregameSpread(competition);
+      const points = footballSpreadAdjustment(sport,spread);
+      return points ? {label:points < 0 ? 'Projected spread mismatch' : points >= 4 ? 'Very close projected spread' : 'Competitive projected spread',points:Number(points.toFixed(2))} : null;
     }
 
     if (
@@ -504,7 +548,7 @@
     };
   }
 
-  const api = {parseLine,lineFromSummary,listedSpread,numberFromLine,moneylinePrices,spreadMarketPoints,pregameMarketFactor,underdogCandidate};
+  const api = {parseLine,lineFromSummary,listedSpread,numberFromLine,moneylinePrices,spreadMarketPoints,pregameMarketFactor,underdogCandidate,footballPregameSpread,footballSpreadAdjustment,FOOTBALL_SPREAD_ANCHORS};
   if (typeof module !== 'undefined' && module.exports) {
     module.exports = api;
   } else {

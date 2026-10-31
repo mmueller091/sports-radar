@@ -3,6 +3,27 @@
   const {CONTEXT_WEIGHTS,CONTEXT_LABELS} = typeof module !== 'undefined' && module.exports
     ? require('./config.js')
     : root.SportsRadarScoring.shared_config;
+  const {footballPregameSpread} = typeof module !== 'undefined' && module.exports
+    ? require('./market.js')
+    : root.SportsRadarScoring.shared_market;
+
+  function footballAbsencePoints(item,competition) {
+    const evidence = item.injuryEvidence;
+    const competitors = competition?.competitors || [];
+    const affected = competitors.find(team=>String(team.team?.id || team.id || '') === String(evidence?.affectedTeamId || ''));
+    if (!evidence || !['star','starting-quarterback'].includes(evidence.importance) || !evidence.affectedTeamId || !affected) return 0;
+    const spread = footballPregameSpread(competition);
+    if (spread === null) return evidence.importance === 'starting-quarterback' ? -5 : -3;
+    const raw = competition?.odds?.[0];
+    const odds = raw?.close || raw?.closing || raw;
+    const marketAt = Date.parse(odds?.lastUpdated || odds?.lastModified || '');
+    const reportedAt = Date.parse(evidence.reportedAt || '');
+    const side = affected.homeAway;
+    // A listed line already describes the matchup. Only a confirmed newer
+    // absence on its underdog provides additional directional mismatch evidence.
+    return ['home','away'].includes(side) && odds?.[`${side}TeamOdds`]?.underdog === true &&
+      Number.isFinite(marketAt) && Number.isFinite(reportedAt) && reportedAt > marketAt ? -2 : 0;
+  }
 
   function eventSignalText(event, competition, context) {
     return [
@@ -34,7 +55,7 @@
       );
   }
 
-  function pregameContextFactors(event,competition) {
+  function pregameContextFactors(event,competition,options={}) {
     const sources = [
       event?.sportsRadarContextFactors,
       competition?.sportsRadarContextFactors,
@@ -80,8 +101,9 @@
           item?.type
         );
 
-      const points =
-        CONTEXT_WEIGHTS[type];
+      const points = options.calibratedPregame && type === 'star_absence'
+        ? footballAbsencePoints(item,competition)
+        : CONTEXT_WEIGHTS[type];
 
       if (
         !Number.isFinite(points)

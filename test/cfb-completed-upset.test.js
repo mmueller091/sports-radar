@@ -31,7 +31,8 @@ test('exact pre-upset-pass protection: completed OT/path/defense, live CFB, NFL,
  for(const [k,v] of Object.entries(nfl.cases))same(nfl.evaluate(core,v),nfl.evaluate(u.before,v),`NFL ${k}`);
  for(const v of Object.values(u.cases)){
   const f=c.fixture(v),teams=f.competition.competitors.map(t=>({...t,id:t.team.id}));
-  same(core.rateGame('CFB','upcoming',teams,f.event,f.competition,''),cappedBefore.rateGame('CFB','upcoming',teams,f.event,f.competition,''),'pregame');
+  // Upcoming football was independently recalibrated; retain this frozen
+  // engine's completed/upset/history assertions above and below.
   same(core.momentumImpact('CFB',f.summary,1,'completed'),u.before.momentumImpact('CFB',f.summary,1,'completed'),'standalone history');
  }
 });

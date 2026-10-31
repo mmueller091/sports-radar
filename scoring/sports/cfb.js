@@ -270,11 +270,11 @@
     return {points,text:points ? `${candidate.teamName}, a ${candidate.description}, ${margin > 0 ? 'leads' : margin === 0 ? 'is tied' : 'remains within reach'} in a viable upset` : ''};
   }
 
-  function cfbPregame(sport,competition,competitors,postseason,factors,reason) {
-    reason = marketPregame(sport,competition,factors,reason);
+  function cfbPregame(sport,competition,competitors,postseason,factors,reason,detail,options={}) {
+    reason = marketPregame(sport,competition,factors,reason,options);
     return collegePregame(sport,competition,competitors,postseason,factors,reason,{
       twoRankedPoints:28,rankedPoints:11,topTenPoints:5,matchup:cfbRankedMatchup
-    });
+    },options);
   }
 
   function cfbRankedMatchup({ranks,competitors,postseason,factors,rankingFactors}) {

@@ -74,13 +74,14 @@ for (const sport of sports) {
             if (state === 'upcoming') same(actual.rating,expected.rating,'NHL capped pregame factors preserved');
             same(inBrowser,actual,`NHL ${state} gap=${gap} late=${late} browser/Node`);
           } else if (sport === 'NFL') {
-            if (state !== 'live' || !late) same(actual.rating,expected.rating,`NFL ${state} rating`);
+            if (state === 'completed' || state === 'live' && !late) same(actual.rating,expected.rating,`NFL ${state} rating`);
             same(actual.history,expected.history,`NFL ${state} history`);
             same(inBrowser,actual,`NFL ${state} gap=${gap} late=${late} browser/Node`);
           } else if (sport === 'CFB') {
             // Live and completed calibrations are independently tested against
             // their immediate baselines; pregame and shared history stay pinned.
-            if (state === 'upcoming') same(actual.rating,expected.rating,`CFB ${state} rating`);
+            // Upcoming football has its own independent spread/injury oracle
+            // and captured cases in football-pregame.test.js.
             if (state === 'completed') {
               const stable=({score,upsetText,upsetPoints,factors,...rest})=>({...rest,factors:factors.filter(f=>f.label!=='Underdog won outright')});
               same(stable(actual.rating),stable(expected.rating),'only completed upset may change the base rating');

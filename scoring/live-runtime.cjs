@@ -4,7 +4,7 @@ const {isHalftimeStatus} = require('./shared/time.js');
 const legacy = require('../rating-core.js');
 const {candidateGameRating} = require('../calibration/shadow-candidate.cjs');
 const {LIVE_CFB_COMPETITION_POLICY:LIVE_POLICY} = require('../calibration/trajectory-live-policy.cjs');
-const MODEL_VERSION = '2026-10-30.cfb-competition.1';
+const MODEL_VERSION = '2026-10-31.football-pregame.1';
 
 function applyLiveSnapshot(game, competition, summary) {
   if (game.state !== 'live') return;

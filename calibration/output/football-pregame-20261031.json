@@ -1,0 +1,3934 @@
+{
+  "version": 1,
+  "modelVersion": "2026-10-31.football-pregame.1",
+  "capturedAt": "2026-10-31T05:09:16.871Z",
+  "historicalLimit": "Pregame projections from stored records/odds; these are not verified historical opening markets or an empirical outcome-fit study.",
+  "spreadAnchors": {
+    "NFL": [
+      [
+        0,
+        7
+      ],
+      [
+        3,
+        6
+      ],
+      [
+        7,
+        3
+      ],
+      [
+        10,
+        0
+      ],
+      [
+        14,
+        -4
+      ],
+      [
+        17,
+        -7
+      ],
+      [
+        21,
+        -10
+      ]
+    ],
+    "CFB": [
+      [
+        0,
+        5
+      ],
+      [
+        3,
+        4
+      ],
+      [
+        7,
+        2
+      ],
+      [
+        10,
+        1
+      ],
+      [
+        14,
+        0
+      ],
+      [
+        20,
+        -4
+      ],
+      [
+        27,
+        -7
+      ],
+      [
+        35,
+        -10
+      ]
+    ]
+  },
+  "named": [
+    {
+      "id": "401856737",
+      "matchup": "Mississippi State Bulldogs vs Texas Longhorns",
+      "division": "FBS",
+      "spread": "TEX -20.5",
+      "before": {
+        "score": 37,
+        "rawPregameScore": 37,
+        "factors": [
+          {
+            "label": "Sport baseline",
+            "points": 32
+          },
+          {
+            "label": "Schedule scarcity",
+            "points": 8
+          },
+          {
+            "label": "Ranked team",
+            "points": 2
+          },
+          {
+            "label": "Notable star absence",
+            "points": -5,
+            "contextType": "star_absence",
+            "contextText": "Mississippi State OL DJ Chester out vs. Texas in latest hit to offense"
+          }
+        ]
+      },
+      "after": {
+        "score": 38,
+        "rawPregameScore": 37.79,
+        "factors": [
+          {
+            "label": "Sport baseline",
+            "points": 32
+          },
+          {
+            "label": "Schedule scarcity",
+            "points": 8
+          },
+          {
+            "label": "Projected spread mismatch",
+            "points": -4.21
+          },
+          {
+            "label": "Ranked team",
+            "points": 2
+          }
+        ]
+      },
+      "injuryFactorsRemoved": [
+        "Mississippi State OL DJ Chester out vs. Texas in latest hit to offense"
+      ]
+    },
+    {
+      "id": "401859185",
+      "matchup": "Notre Dame Fighting Irish vs Navy Midshipmen",
+      "division": "FBS",
+      "spread": "ND -30.5",
+      "before": {
+        "score": 37,
+        "rawPregameScore": 37,
+        "factors": [
+          {
+            "label": "Sport baseline",
+            "points": 32
+          },
+          {
+            "label": "Schedule scarcity",
+            "points": 8
+          },
+          {
+            "label": "Ranked team",
+            "points": 1
+          },
+          {
+            "label": "Top 10 team",
+            "points": 1
+          },
+          {
+            "label": "Notable star absence",
+            "points": -5,
+            "contextType": "star_absence",
+            "contextText": "Notre Dame CB DJ McKinney out extended period with ankle injury"
+          }
+        ]
+      },
+      "after": {
+        "score": 34,
+        "rawPregameScore": 33.69,
+        "factors": [
+          {
+            "label": "Sport baseline",
+            "points": 32
+          },
+          {
+            "label": "Schedule scarcity",
+            "points": 8
+          },
+          {
+            "label": "Projected spread mismatch",
+            "points": -8.31
+          },
+          {
+            "label": "Ranked team",
+            "points": 1
+          },
+          {
+            "label": "Top 10 team",
+            "points": 1
+          }
+        ]
+      },
+      "injuryFactorsRemoved": [
+        "Notre Dame CB DJ McKinney out extended period with ankle injury"
+      ]
+    },
+    {
+      "id": "401867995",
+      "matchup": "Bucknell Bison vs Lehigh Mountain Hawks",
+      "division": "FCS",
+      "spread": "LEH -27.5",
+      "before": {
+        "score": 40,
+        "rawPregameScore": 40,
+        "factors": [
+          {
+            "label": "Sport baseline",
+            "points": 32
+          },
+          {
+            "label": "Schedule scarcity",
+            "points": 8
+          }
+        ]
+      },
+      "after": {
+        "score": 33,
+        "rawPregameScore": 32.81,
+        "factors": [
+          {
+            "label": "Sport baseline",
+            "points": 32
+          },
+          {
+            "label": "Schedule scarcity",
+            "points": 8
+          },
+          {
+            "label": "Projected spread mismatch",
+            "points": -7.19
+          }
+        ]
+      },
+      "injuryFactorsRemoved": []
+    },
+    {
+      "id": "401866680",
+      "matchup": "Hampton Pirates vs Towson Tigers",
+      "division": "FCS",
+      "spread": "TOW -18.5",
+      "before": {
+        "score": 40,
+        "rawPregameScore": 40,
+        "factors": [
+          {
+            "label": "Sport baseline",
+            "points": 32
+          },
+          {
+            "label": "Schedule scarcity",
+            "points": 8
+          }
+        ]
+      },
+      "after": {
+        "score": 37,
+        "rawPregameScore": 37,
+        "factors": [
+          {
+            "label": "Sport baseline",
+            "points": 32
+          },
+          {
+            "label": "Schedule scarcity",
+            "points": 8
+          },
+          {
+            "label": "Projected spread mismatch",
+            "points": -3
+          }
+        ]
+      },
+      "injuryFactorsRemoved": []
+    },
+    {
+      "id": "401868231",
+      "matchup": "Dayton Flyers vs Stetson Hatters",
+      "division": "FCS",
+      "spread": "DAY -18.5",
+      "before": {
+        "score": 40,
+        "rawPregameScore": 40,
+        "factors": [
+          {
+            "label": "Sport baseline",
+            "points": 32
+          },
+          {
+            "label": "Schedule scarcity",
+            "points": 8
+          }
+        ]
+      },
+      "after": {
+        "score": 37,
+        "rawPregameScore": 37,
+        "factors": [
+          {
+            "label": "Sport baseline",
+            "points": 32
+          },
+          {
+            "label": "Schedule scarcity",
+            "points": 8
+          },
+          {
+            "label": "Projected spread mismatch",
+            "points": -3
+          }
+        ]
+      },
+      "injuryFactorsRemoved": []
+    },
+    {
+      "id": "401868147",
+      "matchup": "Eastern Kentucky Colonels vs Tarleton State Texans",
+      "division": "FCS",
+      "spread": "TAR -24.5",
+      "before": {
+        "score": 40,
+        "rawPregameScore": 40,
+        "factors": [
+          {
+            "label": "Sport baseline",
+            "points": 32
+          },
+          {
+            "label": "Schedule scarcity",
+            "points": 8
+          }
+        ]
+      },
+      "after": {
+        "score": 34,
+        "rawPregameScore": 34.07,
+        "factors": [
+          {
+            "label": "Sport baseline",
+            "points": 32
+          },
+          {
+            "label": "Schedule scarcity",
+            "points": 8
+          },
+          {
+            "label": "Projected spread mismatch",
+            "points": -5.93
+          }
+        ]
+      },
+      "injuryFactorsRemoved": []
+    }
+  ],
+  "nfl": [
+    {
+      "label": "Divisional mismatch: 7-1 vs 1-7",
+      "sport": "NFL",
+      "spread": 14,
+      "records": [
+        "7-1",
+        "1-7"
+      ],
+      "postseason": false,
+      "before": {
+        "score": 46,
+        "rawPregameScore": 46,
+        "factors": [
+          {
+            "label": "Sport baseline",
+            "points": 32
+          },
+          {
+            "label": "Schedule scarcity",
+            "points": 10
+          },
+          {
+            "label": "AFC North matchup",
+            "points": 4
+          }
+        ]
+      },
+      "after": {
+        "score": 42,
+        "rawPregameScore": 42,
+        "factors": [
+          {
+            "label": "Sport baseline",
+            "points": 32
+          },
+          {
+            "label": "Schedule scarcity",
+            "points": 10
+          },
+          {
+            "label": "AFC North matchup",
+            "points": 4
+          },
+          {
+            "label": "Projected spread mismatch",
+            "points": -4
+          }
+        ]
+      }
+    },
+    {
+      "label": "Two winning teams, 14-point line",
+      "sport": "NFL",
+      "spread": 14,
+      "records": [
+        "6-2",
+        "6-2"
+      ],
+      "postseason": false,
+      "before": {
+        "score": 67,
+        "rawPregameScore": 67,
+        "factors": [
+          {
+            "label": "Sport baseline",
+            "points": 32
+          },
+          {
+            "label": "Schedule scarcity",
+            "points": 10
+          },
+          {
+            "label": "AFC North matchup",
+            "points": 4
+          },
+          {
+            "label": "Division race between winning teams",
+            "points": 3
+          },
+          {
+            "label": "Both winning records",
+            "points": 14
+          },
+          {
+            "label": "Evenly matched winning records",
+            "points": 4
+          }
+        ]
+      },
+      "after": {
+        "score": 53,
+        "rawPregameScore": 52.5,
+        "factors": [
+          {
+            "label": "Sport baseline",
+            "points": 32
+          },
+          {
+            "label": "Schedule scarcity",
+            "points": 10
+          },
+          {
+            "label": "AFC North matchup",
+            "points": 4
+          },
+          {
+            "label": "Both winning records",
+            "points": 10.5
+          },
+          {
+            "label": "Projected spread mismatch",
+            "points": -4
+          }
+        ]
+      }
+    },
+    {
+      "label": "Two winning teams, 21-point line",
+      "sport": "NFL",
+      "spread": 21,
+      "records": [
+        "6-2",
+        "6-2"
+      ],
+      "postseason": false,
+      "before": {
+        "score": 67,
+        "rawPregameScore": 67,
+        "factors": [
+          {
+            "label": "Sport baseline",
+            "points": 32
+          },
+          {
+            "label": "Schedule scarcity",
+            "points": 10
+          },
+          {
+            "label": "AFC North matchup",
+            "points": 4
+          },
+          {
+            "label": "Division race between winning teams",
+            "points": 3
+          },
+          {
+            "label": "Both winning records",
+            "points": 14
+          },
+          {
+            "label": "Evenly matched winning records",
+            "points": 4
+          }
+        ]
+      },
+      "after": {
+        "score": 43,
+        "rawPregameScore": 43,
+        "factors": [
+          {
+            "label": "Sport baseline",
+            "points": 32
+          },
+          {
+            "label": "Schedule scarcity",
+            "points": 10
+          },
+          {
+            "label": "AFC North matchup",
+            "points": 4
+          },
+          {
+            "label": "Both winning records",
+            "points": 7
+          },
+          {
+            "label": "Projected spread mismatch",
+            "points": -10
+          }
+        ]
+      }
+    },
+    {
+      "label": "Unbeaten favorite vs winless underdog",
+      "sport": "NFL",
+      "spread": 21,
+      "records": [
+        "0-8",
+        "8-0"
+      ],
+      "postseason": false,
+      "before": {
+        "score": 48,
+        "rawPregameScore": 48,
+        "factors": [
+          {
+            "label": "Sport baseline",
+            "points": 32
+          },
+          {
+            "label": "Schedule scarcity",
+            "points": 10
+          },
+          {
+            "label": "AFC North matchup",
+            "points": 4
+          },
+          {
+            "label": "Winless team",
+            "points": -5
+          },
+          {
+            "label": "Unbeaten team",
+            "points": 7
+          }
+        ]
+      },
+      "after": {
+        "score": 35,
+        "rawPregameScore": 34.5,
+        "factors": [
+          {
+            "label": "Sport baseline",
+            "points": 32
+          },
+          {
+            "label": "Schedule scarcity",
+            "points": 10
+          },
+          {
+            "label": "AFC North matchup",
+            "points": 4
+          },
+          {
+            "label": "Winless team",
+            "points": -5
+          },
+          {
+            "label": "Unbeaten team",
+            "points": 3.5
+          },
+          {
+            "label": "Projected spread mismatch",
+            "points": -10
+          }
+        ]
+      }
+    },
+    {
+      "label": "Close rivalry, winning teams",
+      "sport": "NFL",
+      "spread": 3,
+      "records": [
+        "6-2",
+        "6-2"
+      ],
+      "postseason": false,
+      "before": {
+        "score": 73,
+        "rawPregameScore": 73,
+        "factors": [
+          {
+            "label": "Sport baseline",
+            "points": 32
+          },
+          {
+            "label": "Schedule scarcity",
+            "points": 10
+          },
+          {
+            "label": "Both winning records",
+            "points": 14
+          },
+          {
+            "label": "Evenly matched winning records",
+            "points": 4
+          },
+          {
+            "label": "Tight projected spread",
+            "points": 6
+          },
+          {
+            "label": "Rivalry",
+            "points": 7
+          }
+        ]
+      },
+      "after": {
+        "score": 69,
+        "rawPregameScore": 69,
+        "factors": [
+          {
+            "label": "Sport baseline",
+            "points": 32
+          },
+          {
+            "label": "Schedule scarcity",
+            "points": 10
+          },
+          {
+            "label": "Both winning records",
+            "points": 14
+          },
+          {
+            "label": "Tight projected spread",
+            "points": 6
+          },
+          {
+            "label": "Rivalry",
+            "points": 7
+          }
+        ]
+      }
+    },
+    {
+      "label": "Close division game, winning teams",
+      "sport": "NFL",
+      "spread": 3,
+      "records": [
+        "6-2",
+        "6-2"
+      ],
+      "postseason": false,
+      "before": {
+        "score": 73,
+        "rawPregameScore": 73,
+        "factors": [
+          {
+            "label": "Sport baseline",
+            "points": 32
+          },
+          {
+            "label": "Schedule scarcity",
+            "points": 10
+          },
+          {
+            "label": "AFC North matchup",
+            "points": 4
+          },
+          {
+            "label": "Division race between winning teams",
+            "points": 3
+          },
+          {
+            "label": "Both winning records",
+            "points": 14
+          },
+          {
+            "label": "Evenly matched winning records",
+            "points": 4
+          },
+          {
+            "label": "Tight projected spread",
+            "points": 6
+          }
+        ]
+      },
+      "after": {
+        "score": 66,
+        "rawPregameScore": 66,
+        "factors": [
+          {
+            "label": "Sport baseline",
+            "points": 32
+          },
+          {
+            "label": "Schedule scarcity",
+            "points": 10
+          },
+          {
+            "label": "AFC North matchup",
+            "points": 4
+          },
+          {
+            "label": "Both winning records",
+            "points": 14
+          },
+          {
+            "label": "Tight projected spread",
+            "points": 6
+          }
+        ]
+      }
+    },
+    {
+      "label": "Playoff divisional mismatch",
+      "sport": "NFL",
+      "spread": 14,
+      "records": [
+        "6-2",
+        "6-2"
+      ],
+      "postseason": true,
+      "before": {
+        "score": 68,
+        "rawPregameScore": 68,
+        "factors": [
+          {
+            "label": "Sport baseline",
+            "points": 32
+          },
+          {
+            "label": "Schedule scarcity",
+            "points": 10
+          },
+          {
+            "label": "Postseason",
+            "points": 22
+          },
+          {
+            "label": "AFC North matchup",
+            "points": 4
+          }
+        ]
+      },
+      "after": {
+        "score": 64,
+        "rawPregameScore": 64,
+        "factors": [
+          {
+            "label": "Sport baseline",
+            "points": 32
+          },
+          {
+            "label": "Schedule scarcity",
+            "points": 10
+          },
+          {
+            "label": "Postseason",
+            "points": 22
+          },
+          {
+            "label": "AFC North matchup",
+            "points": 4
+          },
+          {
+            "label": "Projected spread mismatch",
+            "points": -4
+          }
+        ]
+      }
+    },
+    {
+      "label": "Close playoff game",
+      "sport": "NFL",
+      "spread": 3,
+      "records": [
+        "6-2",
+        "6-2"
+      ],
+      "postseason": true,
+      "before": {
+        "score": 74,
+        "rawPregameScore": 74,
+        "factors": [
+          {
+            "label": "Sport baseline",
+            "points": 32
+          },
+          {
+            "label": "Schedule scarcity",
+            "points": 10
+          },
+          {
+            "label": "Postseason",
+            "points": 22
+          },
+          {
+            "label": "AFC North matchup",
+            "points": 4
+          },
+          {
+            "label": "Tight projected spread",
+            "points": 6
+          }
+        ]
+      },
+      "after": {
+        "score": 74,
+        "rawPregameScore": 74,
+        "factors": [
+          {
+            "label": "Sport baseline",
+            "points": 32
+          },
+          {
+            "label": "Schedule scarcity",
+            "points": 10
+          },
+          {
+            "label": "Postseason",
+            "points": 22
+          },
+          {
+            "label": "AFC North matchup",
+            "points": 4
+          },
+          {
+            "label": "Tight projected spread",
+            "points": 6
+          }
+        ]
+      }
+    },
+    {
+      "label": "Missing line retains original record context",
+      "sport": "NFL",
+      "spread": null,
+      "records": [
+        "6-2",
+        "6-2"
+      ],
+      "postseason": false,
+      "before": {
+        "score": 67,
+        "rawPregameScore": 67,
+        "factors": [
+          {
+            "label": "Sport baseline",
+            "points": 32
+          },
+          {
+            "label": "Schedule scarcity",
+            "points": 10
+          },
+          {
+            "label": "AFC North matchup",
+            "points": 4
+          },
+          {
+            "label": "Division race between winning teams",
+            "points": 3
+          },
+          {
+            "label": "Both winning records",
+            "points": 14
+          },
+          {
+            "label": "Evenly matched winning records",
+            "points": 4
+          }
+        ]
+      },
+      "after": {
+        "score": 67,
+        "rawPregameScore": 67,
+        "factors": [
+          {
+            "label": "Sport baseline",
+            "points": 32
+          },
+          {
+            "label": "Schedule scarcity",
+            "points": 10
+          },
+          {
+            "label": "AFC North matchup",
+            "points": 4
+          },
+          {
+            "label": "Division race between winning teams",
+            "points": 3
+          },
+          {
+            "label": "Both winning records",
+            "points": 14
+          },
+          {
+            "label": "Evenly matched winning records",
+            "points": 4
+          }
+        ]
+      }
+    }
+  ],
+  "cfb": [
+    {
+      "label": "Two ranked teams, close line",
+      "sport": "CFB",
+      "spread": 3,
+      "records": [
+        "6-2",
+        "6-2"
+      ],
+      "postseason": false,
+      "before": {
+        "score": 81,
+        "rawPregameScore": 81,
+        "factors": [
+          {
+            "label": "Sport baseline",
+            "points": 32
+          },
+          {
+            "label": "Schedule scarcity",
+            "points": 8
+          },
+          {
+            "label": "Very close projected spread",
+            "points": 4
+          },
+          {
+            "label": "Both winning records",
+            "points": 3
+          },
+          {
+            "label": "Two ranked teams",
+            "points": 26
+          },
+          {
+            "label": "Both top 20",
+            "points": 4
+          },
+          {
+            "label": "Top 10 team",
+            "points": 4
+          }
+        ]
+      },
+      "after": {
+        "score": 81,
+        "rawPregameScore": 81,
+        "factors": [
+          {
+            "label": "Sport baseline",
+            "points": 32
+          },
+          {
+            "label": "Schedule scarcity",
+            "points": 8
+          },
+          {
+            "label": "Very close projected spread",
+            "points": 4
+          },
+          {
+            "label": "Both winning records",
+            "points": 3
+          },
+          {
+            "label": "Two ranked teams",
+            "points": 26
+          },
+          {
+            "label": "Both top 20",
+            "points": 4
+          },
+          {
+            "label": "Top 10 team",
+            "points": 4
+          }
+        ]
+      }
+    },
+    {
+      "label": "Two ranked teams, large mismatch",
+      "sport": "CFB",
+      "spread": 35,
+      "records": [
+        "6-2",
+        "6-2"
+      ],
+      "postseason": false,
+      "before": {
+        "score": 51,
+        "rawPregameScore": 51,
+        "factors": [
+          {
+            "label": "Sport baseline",
+            "points": 32
+          },
+          {
+            "label": "Schedule scarcity",
+            "points": 8
+          },
+          {
+            "label": "Both winning records",
+            "points": 3
+          },
+          {
+            "label": "Two ranked teams",
+            "points": 6
+          },
+          {
+            "label": "Both top 20",
+            "points": 1
+          },
+          {
+            "label": "Top 10 team",
+            "points": 1
+          }
+        ]
+      },
+      "after": {
+        "score": 41,
+        "rawPregameScore": 41,
+        "factors": [
+          {
+            "label": "Sport baseline",
+            "points": 32
+          },
+          {
+            "label": "Schedule scarcity",
+            "points": 8
+          },
+          {
+            "label": "Projected spread mismatch",
+            "points": -10
+          },
+          {
+            "label": "Both winning records",
+            "points": 3
+          },
+          {
+            "label": "Two ranked teams",
+            "points": 6
+          },
+          {
+            "label": "Both top 20",
+            "points": 1
+          },
+          {
+            "label": "Top 10 team",
+            "points": 1
+          }
+        ]
+      }
+    },
+    {
+      "label": "One ranked team, large mismatch",
+      "sport": "CFB",
+      "spread": 35,
+      "records": [
+        "6-2",
+        "6-2"
+      ],
+      "postseason": false,
+      "before": {
+        "score": 41,
+        "rawPregameScore": 41,
+        "factors": [
+          {
+            "label": "Sport baseline",
+            "points": 32
+          },
+          {
+            "label": "Schedule scarcity",
+            "points": 8
+          },
+          {
+            "label": "Ranked team",
+            "points": 1
+          }
+        ]
+      },
+      "after": {
+        "score": 31,
+        "rawPregameScore": 31,
+        "factors": [
+          {
+            "label": "Sport baseline",
+            "points": 32
+          },
+          {
+            "label": "Schedule scarcity",
+            "points": 8
+          },
+          {
+            "label": "Projected spread mismatch",
+            "points": -10
+          },
+          {
+            "label": "Ranked team",
+            "points": 1
+          }
+        ]
+      }
+    },
+    {
+      "label": "Unranked teams, close line",
+      "sport": "CFB",
+      "spread": 3,
+      "records": [
+        "6-2",
+        "6-2"
+      ],
+      "postseason": false,
+      "before": {
+        "score": 44,
+        "rawPregameScore": 44,
+        "factors": [
+          {
+            "label": "Sport baseline",
+            "points": 32
+          },
+          {
+            "label": "Schedule scarcity",
+            "points": 8
+          },
+          {
+            "label": "Very close projected spread",
+            "points": 4
+          }
+        ]
+      },
+      "after": {
+        "score": 44,
+        "rawPregameScore": 44,
+        "factors": [
+          {
+            "label": "Sport baseline",
+            "points": 32
+          },
+          {
+            "label": "Schedule scarcity",
+            "points": 8
+          },
+          {
+            "label": "Very close projected spread",
+            "points": 4
+          }
+        ]
+      }
+    },
+    {
+      "label": "Playoff mismatch",
+      "sport": "CFB",
+      "spread": 27,
+      "records": [
+        "6-2",
+        "6-2"
+      ],
+      "postseason": true,
+      "before": {
+        "score": 71,
+        "rawPregameScore": 71,
+        "factors": [
+          {
+            "label": "Sport baseline",
+            "points": 32
+          },
+          {
+            "label": "Schedule scarcity",
+            "points": 8
+          },
+          {
+            "label": "Postseason",
+            "points": 22
+          },
+          {
+            "label": "Two ranked teams",
+            "points": 7
+          },
+          {
+            "label": "Both top 20",
+            "points": 1
+          },
+          {
+            "label": "Top 10 team",
+            "points": 1
+          }
+        ]
+      },
+      "after": {
+        "score": 64,
+        "rawPregameScore": 64,
+        "factors": [
+          {
+            "label": "Sport baseline",
+            "points": 32
+          },
+          {
+            "label": "Schedule scarcity",
+            "points": 8
+          },
+          {
+            "label": "Postseason",
+            "points": 22
+          },
+          {
+            "label": "Projected spread mismatch",
+            "points": -7
+          },
+          {
+            "label": "Two ranked teams",
+            "points": 7
+          },
+          {
+            "label": "Both top 20",
+            "points": 1
+          },
+          {
+            "label": "Top 10 team",
+            "points": 1
+          }
+        ]
+      }
+    }
+  ],
+  "historical": [
+    {
+      "file": "CFB-20261017-401856719.json",
+      "sport": "CFB",
+      "matchup": "Auburn Tigers at Georgia Bulldogs",
+      "oddsSource": "stored provider summary",
+      "spread": 19.5,
+      "before": 43,
+      "after": 39,
+      "delta": -4
+    },
+    {
+      "file": "CFB-20261017-401856720.json",
+      "sport": "CFB",
+      "matchup": "Mississippi State Bulldogs at LSU Tigers",
+      "oddsSource": "stored provider summary",
+      "spread": 17.5,
+      "before": 54,
+      "after": 51,
+      "delta": -3
+    },
+    {
+      "file": "CFB-20261017-401856721.json",
+      "sport": "CFB",
+      "matchup": "Missouri Tigers at Ole Miss Rebels",
+      "oddsSource": "stored provider summary",
+      "spread": 4,
+      "before": 79,
+      "after": 80,
+      "delta": 1
+    },
+    {
+      "file": "CFB-20261017-401856722.json",
+      "sport": "CFB",
+      "matchup": "Kentucky Wildcats at Oklahoma Sooners",
+      "oddsSource": "stored provider summary",
+      "spread": 7,
+      "before": 49,
+      "after": 49,
+      "delta": 0
+    },
+    {
+      "file": "CFB-20261017-401856723.json",
+      "sport": "CFB",
+      "matchup": "Alabama Crimson Tide at Tennessee Volunteers",
+      "oddsSource": "stored provider summary",
+      "spread": 7.5,
+      "before": 71,
+      "after": 71,
+      "delta": 0
+    },
+    {
+      "file": "CFB-20261017-401856724.json",
+      "sport": "CFB",
+      "matchup": "Florida Gators at Texas Longhorns",
+      "oddsSource": "stored provider summary",
+      "spread": 13.5,
+      "before": 47,
+      "after": 46,
+      "delta": -1
+    },
+    {
+      "file": "CFB-20261017-401856725.json",
+      "sport": "CFB",
+      "matchup": "The Citadel Bulldogs at Texas A&M Aggies",
+      "oddsSource": "stored provider summary",
+      "spread": 46.5,
+      "before": 40,
+      "after": 30,
+      "delta": -10
+    },
+    {
+      "file": "CFB-20261017-401856726.json",
+      "sport": "CFB",
+      "matchup": "Arkansas Razorbacks at Vanderbilt Commodores",
+      "oddsSource": "stored provider summary",
+      "spread": 5.5,
+      "before": 43,
+      "after": 43,
+      "delta": 0
+    },
+    {
+      "file": "CFB-20261017-401856809.json",
+      "sport": "CFB",
+      "matchup": "Notre Dame Fighting Irish at BYU Cougars",
+      "oddsSource": "stored provider summary",
+      "spread": 10.5,
+      "before": 69,
+      "after": 69,
+      "delta": 0
+    },
+    {
+      "file": "CFB-20261017-401856828.json",
+      "sport": "CFB",
+      "matchup": "Arizona State Sun Devils at Texas Tech Red Raiders",
+      "oddsSource": "stored provider summary",
+      "spread": 16.5,
+      "before": 45,
+      "after": 42,
+      "delta": -3
+    },
+    {
+      "file": "CFB-20261017-401856829.json",
+      "sport": "CFB",
+      "matchup": "Cincinnati Bearcats at West Virginia Mountaineers",
+      "oddsSource": "stored provider summary",
+      "spread": 1.5,
+      "before": 45,
+      "after": 45,
+      "delta": 0
+    },
+    {
+      "file": "CFB-20261017-401856830.json",
+      "sport": "CFB",
+      "matchup": "Kansas Jayhawks at Kansas State Wildcats",
+      "oddsSource": "stored provider summary",
+      "spread": 3,
+      "before": 44,
+      "after": 44,
+      "delta": 0
+    },
+    {
+      "file": "CFB-20261017-401856831.json",
+      "sport": "CFB",
+      "matchup": "Oklahoma State Cowboys at Houston Cougars",
+      "oddsSource": "stored provider summary",
+      "spread": 4,
+      "before": 74,
+      "after": 75,
+      "delta": 1
+    },
+    {
+      "file": "CFB-20261017-401856832.json",
+      "sport": "CFB",
+      "matchup": "TCU Horned Frogs at Baylor Bears",
+      "oddsSource": "stored provider summary",
+      "spread": 3.5,
+      "before": 44,
+      "after": 44,
+      "delta": 0
+    },
+    {
+      "file": "CFB-20261017-401856833.json",
+      "sport": "CFB",
+      "matchup": "Utah Utes at Colorado Buffaloes",
+      "oddsSource": "stored provider summary",
+      "spread": 15.5,
+      "before": 44,
+      "after": 42,
+      "delta": -2
+    },
+    {
+      "file": "CFB-20261017-401858261.json",
+      "sport": "CFB",
+      "matchup": "Charleston Southern Buccaneers at Clemson Tigers",
+      "oddsSource": "stored provider summary",
+      "spread": 42.5,
+      "before": 40,
+      "after": 30,
+      "delta": -10
+    },
+    {
+      "file": "CFB-20261017-401858262.json",
+      "sport": "CFB",
+      "matchup": "Elon Phoenix at Stanford Cardinal",
+      "oddsSource": "stored provider summary",
+      "spread": 33.5,
+      "before": 40,
+      "after": 31,
+      "delta": -9
+    },
+    {
+      "file": "CFB-20261017-401858263.json",
+      "sport": "CFB",
+      "matchup": "Florida State Seminoles at Miami Hurricanes",
+      "oddsSource": "stored provider summary",
+      "spread": 20.5,
+      "before": 43,
+      "after": 39,
+      "delta": -4
+    },
+    {
+      "file": "CFB-20261017-401858264.json",
+      "sport": "CFB",
+      "matchup": "Georgia Tech Yellow Jackets at Virginia Tech Hokies",
+      "oddsSource": "stored provider summary",
+      "spread": 8.5,
+      "before": 42,
+      "after": 42,
+      "delta": 0
+    },
+    {
+      "file": "CFB-20261017-401858265.json",
+      "sport": "CFB",
+      "matchup": "Louisville Cardinals at Syracuse Orange",
+      "oddsSource": "stored provider summary",
+      "spread": 14.5,
+      "before": 41,
+      "after": 40,
+      "delta": -1
+    },
+    {
+      "file": "CFB-20261017-401858266.json",
+      "sport": "CFB",
+      "matchup": "North Carolina Tar Heels at Duke Blue Devils",
+      "oddsSource": "stored provider summary",
+      "spread": 3,
+      "before": 44,
+      "after": 44,
+      "delta": 0
+    },
+    {
+      "file": "CFB-20261017-401858267.json",
+      "sport": "CFB",
+      "matchup": "Pittsburgh Panthers at Boston College Eagles",
+      "oddsSource": "stored provider summary",
+      "spread": 6.5,
+      "before": 42,
+      "after": 42,
+      "delta": 0
+    },
+    {
+      "file": "CFB-20261017-401858268.json",
+      "sport": "CFB",
+      "matchup": "Virginia Cavaliers at SMU Mustangs",
+      "oddsSource": "stored provider summary",
+      "spread": 10,
+      "before": 47,
+      "after": 47,
+      "delta": 0
+    },
+    {
+      "file": "CFB-20261017-401858269.json",
+      "sport": "CFB",
+      "matchup": "Wake Forest Demon Deacons at California Golden Bears",
+      "oddsSource": "stored provider summary",
+      "spread": 10,
+      "before": 47,
+      "after": 47,
+      "delta": 0
+    },
+    {
+      "file": "CFB-20261017-401858488.json",
+      "sport": "CFB",
+      "matchup": "Ohio State Buckeyes at Indiana Hoosiers",
+      "oddsSource": "stored provider summary",
+      "spread": 3,
+      "before": 81,
+      "after": 81,
+      "delta": 0
+    },
+    {
+      "file": "CFB-20261017-401858489.json",
+      "sport": "CFB",
+      "matchup": "Rutgers Scarlet Knights at Maryland Terrapins",
+      "oddsSource": "stored provider summary",
+      "spread": 5.5,
+      "before": 43,
+      "after": 43,
+      "delta": 0
+    },
+    {
+      "file": "CFB-20261017-401858490.json",
+      "sport": "CFB",
+      "matchup": "Penn State Nittany Lions at Michigan Wolverines",
+      "oddsSource": "stored provider summary",
+      "spread": 6,
+      "before": 43,
+      "after": 43,
+      "delta": 0
+    },
+    {
+      "file": "CFB-20261017-401858491.json",
+      "sport": "CFB",
+      "matchup": "Northwestern Wildcats at Michigan State Spartans",
+      "oddsSource": "stored provider summary",
+      "spread": 7.5,
+      "before": 49,
+      "after": 49,
+      "delta": 0
+    },
+    {
+      "file": "CFB-20261017-401858494.json",
+      "sport": "CFB",
+      "matchup": "Wisconsin Badgers at UCLA Bruins",
+      "oddsSource": "stored provider summary",
+      "spread": 1.5,
+      "before": 56,
+      "after": 56,
+      "delta": 0
+    },
+    {
+      "file": "CFB-20261017-401860903.json",
+      "sport": "CFB",
+      "matchup": "Washington State Cougars at Oregon State Beavers",
+      "oddsSource": "stored provider summary",
+      "spread": 18.5,
+      "before": 40,
+      "after": 37,
+      "delta": -3
+    },
+    {
+      "file": "CFB-20261017-401860904.json",
+      "sport": "CFB",
+      "matchup": "Fresno State Bulldogs at San Diego State Aztecs",
+      "oddsSource": "stored provider summary",
+      "spread": 6.5,
+      "before": 42,
+      "after": 42,
+      "delta": 0
+    },
+    {
+      "file": "CFB-20261017-401862802.json",
+      "sport": "CFB",
+      "matchup": "Florida Atlantic Owls at Army Black Knights",
+      "oddsSource": "stored provider summary",
+      "spread": 2.5,
+      "before": 44,
+      "after": 44,
+      "delta": 0
+    },
+    {
+      "file": "CFB-20261017-401862803.json",
+      "sport": "CFB",
+      "matchup": "Charlotte 49ers at Temple Owls",
+      "oddsSource": "stored provider summary",
+      "spread": 17.5,
+      "before": 41,
+      "after": 38,
+      "delta": -3
+    },
+    {
+      "file": "CFB-20261017-401862804.json",
+      "sport": "CFB",
+      "matchup": "Navy Midshipmen at UTSA Roadrunners",
+      "oddsSource": "stored provider summary",
+      "spread": 5.5,
+      "before": 43,
+      "after": 43,
+      "delta": 0
+    },
+    {
+      "file": "CFB-20261017-401862805.json",
+      "sport": "CFB",
+      "matchup": "Tulsa Golden Hurricane at Rice Owls",
+      "oddsSource": "stored provider summary",
+      "spread": 3.5,
+      "before": 44,
+      "after": 44,
+      "delta": 0
+    },
+    {
+      "file": "CFB-20261017-401862806.json",
+      "sport": "CFB",
+      "matchup": "Kent State Golden Flashes at South Florida Bulls",
+      "oddsSource": "stored provider summary",
+      "spread": 20.5,
+      "before": 40,
+      "after": 36,
+      "delta": -4
+    },
+    {
+      "file": "CFB-20261017-401864520.json",
+      "sport": "CFB",
+      "matchup": "Nevada Wolf Pack at North Dakota State Bison",
+      "oddsSource": "stored provider summary",
+      "spread": 14.5,
+      "before": 41,
+      "after": 40,
+      "delta": -1
+    },
+    {
+      "file": "CFB-20261017-401864522.json",
+      "sport": "CFB",
+      "matchup": "Northern Illinois Huskies at Wyoming Cowboys",
+      "oddsSource": "stored provider summary",
+      "spread": 7,
+      "before": 42,
+      "after": 42,
+      "delta": 0
+    },
+    {
+      "file": "CFB-20261017-401864523.json",
+      "sport": "CFB",
+      "matchup": "San José State Spartans at UTEP Miners",
+      "oddsSource": "stored provider summary",
+      "spread": 6.5,
+      "before": 42,
+      "after": 42,
+      "delta": 0
+    },
+    {
+      "file": "CFB-20261017-401864524.json",
+      "sport": "CFB",
+      "matchup": "UNLV Rebels at Air Force Falcons",
+      "oddsSource": "stored provider summary",
+      "spread": 1.5,
+      "before": 45,
+      "after": 45,
+      "delta": 0
+    },
+    {
+      "file": "CFB-20261017-401866441.json",
+      "sport": "CFB",
+      "matchup": "Ball State Cardinals at Bowling Green Falcons",
+      "oddsSource": "stored provider summary",
+      "spread": 6,
+      "before": 43,
+      "after": 43,
+      "delta": 0
+    },
+    {
+      "file": "CFB-20261017-401866442.json",
+      "sport": "CFB",
+      "matchup": "Massachusetts Minutemen at Buffalo Bulls",
+      "oddsSource": "stored provider summary",
+      "spread": 6.5,
+      "before": 42,
+      "after": 42,
+      "delta": 0
+    },
+    {
+      "file": "CFB-20261017-401866443.json",
+      "sport": "CFB",
+      "matchup": "Western Michigan Broncos at Central Michigan Chippewas",
+      "oddsSource": "stored provider summary",
+      "spread": 7.5,
+      "before": 42,
+      "after": 42,
+      "delta": 0
+    },
+    {
+      "file": "CFB-20261017-401866444.json",
+      "sport": "CFB",
+      "matchup": "Toledo Rockets at Eastern Michigan Eagles",
+      "oddsSource": "stored provider summary",
+      "spread": 7.5,
+      "before": 42,
+      "after": 42,
+      "delta": 0
+    },
+    {
+      "file": "CFB-20261017-401866445.json",
+      "sport": "CFB",
+      "matchup": "Ohio Bobcats at Sacramento State Hornets",
+      "oddsSource": "stored provider summary",
+      "spread": 17.5,
+      "before": 41,
+      "after": 38,
+      "delta": -3
+    },
+    {
+      "file": "CFB-20261017-401866478.json",
+      "sport": "CFB",
+      "matchup": "Akron Zips at Miami (OH) RedHawks",
+      "oddsSource": "stored provider summary",
+      "spread": 9.5,
+      "before": 41,
+      "after": 41,
+      "delta": 0
+    },
+    {
+      "file": "CFB-20261017-401869934.json",
+      "sport": "CFB",
+      "matchup": "Arkansas State Red Wolves at Southern Miss Golden Eagles",
+      "oddsSource": "stored provider summary",
+      "spread": 5.5,
+      "before": 43,
+      "after": 43,
+      "delta": 0
+    },
+    {
+      "file": "CFB-20261017-401869957.json",
+      "sport": "CFB",
+      "matchup": "Georgia State Panthers at James Madison Dukes",
+      "oddsSource": "stored provider summary",
+      "spread": 7.5,
+      "before": 42,
+      "after": 42,
+      "delta": 0
+    },
+    {
+      "file": "CFB-20261017-401869966.json",
+      "sport": "CFB",
+      "matchup": "Troy Trojans at Louisiana Ragin' Cajuns",
+      "oddsSource": "stored provider summary",
+      "spread": 3,
+      "before": 44,
+      "after": 44,
+      "delta": 0
+    },
+    {
+      "file": "CFB-20261017-401871091.json",
+      "sport": "CFB",
+      "matchup": "Louisiana Tech Bulldogs at UL Monroe Warhawks",
+      "oddsSource": "stored provider summary",
+      "spread": 13.5,
+      "before": 41,
+      "after": 40,
+      "delta": -1
+    },
+    {
+      "file": "MLB-20261013-401908024.json",
+      "sport": "MLB",
+      "matchup": "Cleveland Guardians at Tampa Bay Rays",
+      "oddsSource": "scoreboard",
+      "spread": null,
+      "before": 62,
+      "after": 62,
+      "delta": 0
+    },
+    {
+      "file": "MLB-20261018-401930515.json",
+      "sport": "MLB",
+      "matchup": "Tampa Bay Rays at Cleveland Guardians",
+      "oddsSource": "scoreboard",
+      "spread": null,
+      "before": 70,
+      "after": 70,
+      "delta": 0
+    },
+    {
+      "file": "NBA-20261020-401909088.json",
+      "sport": "NBA",
+      "matchup": "Boston Celtics at Detroit Pistons",
+      "oddsSource": "scoreboard",
+      "spread": null,
+      "before": 37,
+      "after": 37,
+      "delta": 0
+    },
+    {
+      "file": "NBA-20261020-401909089.json",
+      "sport": "NBA",
+      "matchup": "Philadelphia 76ers at New York Knicks",
+      "oddsSource": "scoreboard",
+      "spread": null,
+      "before": 40,
+      "after": 40,
+      "delta": 0
+    },
+    {
+      "file": "NBA-20261020-401909090.json",
+      "sport": "NBA",
+      "matchup": "Oklahoma City Thunder at San Antonio Spurs",
+      "oddsSource": "scoreboard",
+      "spread": null,
+      "before": 37,
+      "after": 37,
+      "delta": 0
+    },
+    {
+      "file": "NCAAB-20260328-401856574.json",
+      "sport": "NCAAB",
+      "matchup": "Iowa Hawkeyes at Illinois Fighting Illini",
+      "oddsSource": "scoreboard",
+      "spread": null,
+      "before": 78,
+      "after": 78,
+      "delta": 0
+    },
+    {
+      "file": "NCAAB-20260328-401856575.json",
+      "sport": "NCAAB",
+      "matchup": "Purdue Boilermakers at Arizona Wildcats",
+      "oddsSource": "scoreboard",
+      "spread": null,
+      "before": 78,
+      "after": 78,
+      "delta": 0
+    },
+    {
+      "file": "NFL-20261011-401872981.json",
+      "sport": "NFL",
+      "matchup": "Philadelphia Eagles at Jacksonville Jaguars",
+      "oddsSource": "stored provider summary",
+      "spread": 7.5,
+      "before": 45,
+      "after": 45,
+      "delta": 0
+    },
+    {
+      "file": "NFL-20261011-401872982.json",
+      "sport": "NFL",
+      "matchup": "Cincinnati Bengals at Miami Dolphins",
+      "oddsSource": "stored provider summary",
+      "spread": 7.5,
+      "before": 40,
+      "after": 40,
+      "delta": 0
+    },
+    {
+      "file": "NFL-20261011-401872983.json",
+      "sport": "NFL",
+      "matchup": "Cleveland Browns at New York Jets",
+      "oddsSource": "stored provider summary",
+      "spread": 2.5,
+      "before": 48,
+      "after": 48,
+      "delta": 0
+    },
+    {
+      "file": "NFL-20261011-401872984.json",
+      "sport": "NFL",
+      "matchup": "Houston Texans at Tennessee Titans",
+      "oddsSource": "stored provider summary",
+      "spread": 6.5,
+      "before": 37,
+      "after": 42,
+      "delta": 5
+    },
+    {
+      "file": "NFL-20261011-401872985.json",
+      "sport": "NFL",
+      "matchup": "Indianapolis Colts at Pittsburgh Steelers",
+      "oddsSource": "stored provider summary",
+      "spread": 3,
+      "before": 48,
+      "after": 48,
+      "delta": 0
+    },
+    {
+      "file": "NFL-20261011-401872986.json",
+      "sport": "NFL",
+      "matchup": "Las Vegas Raiders at New England Patriots",
+      "oddsSource": "stored provider summary",
+      "spread": 3.5,
+      "before": 66,
+      "after": 62,
+      "delta": -4
+    },
+    {
+      "file": "NFL-20261011-401872987.json",
+      "sport": "NFL",
+      "matchup": "Minnesota Vikings at New Orleans Saints",
+      "oddsSource": "stored provider summary",
+      "spread": 2.5,
+      "before": 55,
+      "after": 55,
+      "delta": 0
+    },
+    {
+      "file": "NFL-20261011-401872988.json",
+      "sport": "NFL",
+      "matchup": "New York Giants at Washington Commanders",
+      "oddsSource": "stored provider summary",
+      "spread": 3.5,
+      "before": 52,
+      "after": 52,
+      "delta": 0
+    },
+    {
+      "file": "NFL-20261011-401872989.json",
+      "sport": "NFL",
+      "matchup": "Denver Broncos at Los Angeles Chargers",
+      "oddsSource": "stored provider summary",
+      "spread": 3,
+      "before": 47,
+      "after": 47,
+      "delta": 0
+    },
+    {
+      "file": "NFL-20261011-401872990.json",
+      "sport": "NFL",
+      "matchup": "Chicago Bears at Green Bay Packers",
+      "oddsSource": "stored provider summary",
+      "spread": 1.5,
+      "before": 74,
+      "after": 67,
+      "delta": -7
+    },
+    {
+      "file": "NFL-20261011-401872991.json",
+      "sport": "NFL",
+      "matchup": "Detroit Lions at Arizona Cardinals",
+      "oddsSource": "stored provider summary",
+      "spread": 4.5,
+      "before": 47,
+      "after": 47,
+      "delta": 0
+    },
+    {
+      "file": "NFL-20261011-401872992.json",
+      "sport": "NFL",
+      "matchup": "San Francisco 49ers at Seattle Seahawks",
+      "oddsSource": "stored provider summary",
+      "spread": 3,
+      "before": 76,
+      "after": 73,
+      "delta": -3
+    },
+    {
+      "file": "NFL-20261011-401872993.json",
+      "sport": "NFL",
+      "matchup": "Baltimore Ravens at Atlanta Falcons",
+      "oddsSource": "stored provider summary",
+      "spread": 3,
+      "before": 48,
+      "after": 48,
+      "delta": 0
+    },
+    {
+      "file": "NFL-20261018-401872996.json",
+      "sport": "NFL",
+      "matchup": "Houston Texans at Jacksonville Jaguars",
+      "oddsSource": "stored provider summary",
+      "spread": 2.5,
+      "before": 52,
+      "after": 52,
+      "delta": 0
+    },
+    {
+      "file": "NFL-20261018-401872997.json",
+      "sport": "NFL",
+      "matchup": "Baltimore Ravens at Cleveland Browns",
+      "oddsSource": "stored provider summary",
+      "spread": 3,
+      "before": 73,
+      "after": 66,
+      "delta": -7
+    },
+    {
+      "file": "NFL-20261018-401872998.json",
+      "sport": "NFL",
+      "matchup": "Carolina Panthers at Philadelphia Eagles",
+      "oddsSource": "stored provider summary",
+      "spread": 3,
+      "before": 48,
+      "after": 48,
+      "delta": 0
+    },
+    {
+      "file": "NFL-20261018-401872999.json",
+      "sport": "NFL",
+      "matchup": "Chicago Bears at Atlanta Falcons",
+      "oddsSource": "stored provider summary",
+      "spread": 1.5,
+      "before": 49,
+      "after": 49,
+      "delta": 0
+    },
+    {
+      "file": "NFL-20261018-401873000.json",
+      "sport": "NFL",
+      "matchup": "New Orleans Saints at New York Giants",
+      "oddsSource": "stored provider summary",
+      "spread": 1.5,
+      "before": 49,
+      "after": 49,
+      "delta": 0
+    },
+    {
+      "file": "NFL-20261018-401873001.json",
+      "sport": "NFL",
+      "matchup": "New York Jets at New England Patriots",
+      "oddsSource": "stored provider summary",
+      "spread": 7.5,
+      "before": 49,
+      "after": 49,
+      "delta": 0
+    },
+    {
+      "file": "NFL-20261018-401873002.json",
+      "sport": "NFL",
+      "matchup": "Pittsburgh Steelers at Tampa Bay Buccaneers",
+      "oddsSource": "stored provider summary",
+      "spread": 2.5,
+      "before": 48,
+      "after": 48,
+      "delta": 0
+    },
+    {
+      "file": "NFL-20261018-401873003.json",
+      "sport": "NFL",
+      "matchup": "Tennessee Titans at Indianapolis Colts",
+      "oddsSource": "stored provider summary",
+      "spread": 6.5,
+      "before": 42,
+      "after": 42,
+      "delta": 0
+    },
+    {
+      "file": "NFL-20261018-401873004.json",
+      "sport": "NFL",
+      "matchup": "Arizona Cardinals at Los Angeles Rams",
+      "oddsSource": "stored provider summary",
+      "spread": 13.5,
+      "before": 39,
+      "after": 36,
+      "delta": -3
+    },
+    {
+      "file": "NFL-20261018-401873005.json",
+      "sport": "NFL",
+      "matchup": "Buffalo Bills at Las Vegas Raiders",
+      "oddsSource": "stored provider summary",
+      "spread": 5.5,
+      "before": 51,
+      "after": 51,
+      "delta": 0
+    },
+    {
+      "file": "NFL-20261018-401873006.json",
+      "sport": "NFL",
+      "matchup": "Los Angeles Chargers at Kansas City Chiefs",
+      "oddsSource": "stored provider summary",
+      "spread": 7.5,
+      "before": 51,
+      "after": 50,
+      "delta": -1
+    },
+    {
+      "file": "NFL-20261018-401873007.json",
+      "sport": "NFL",
+      "matchup": "Dallas Cowboys at Green Bay Packers",
+      "oddsSource": "stored provider summary",
+      "spread": 1.5,
+      "before": 49,
+      "after": 49,
+      "delta": 0
+    },
+    {
+      "file": "NHL-20261017-401892519.json",
+      "sport": "NHL",
+      "matchup": "New Jersey Devils at Washington Capitals",
+      "oddsSource": "scoreboard",
+      "spread": null,
+      "before": 44,
+      "after": 44,
+      "delta": 0
+    },
+    {
+      "file": "NHL-20261017-401892520.json",
+      "sport": "NHL",
+      "matchup": "Carolina Hurricanes at Winnipeg Jets",
+      "oddsSource": "scoreboard",
+      "spread": null,
+      "before": 48,
+      "after": 48,
+      "delta": 0
+    },
+    {
+      "file": "NHL-20261017-401892521.json",
+      "sport": "NHL",
+      "matchup": "Vancouver Canucks at Tampa Bay Lightning",
+      "oddsSource": "scoreboard",
+      "spread": null,
+      "before": 37,
+      "after": 37,
+      "delta": 0
+    },
+    {
+      "file": "NHL-20261017-401892522.json",
+      "sport": "NHL",
+      "matchup": "Seattle Kraken at Florida Panthers",
+      "oddsSource": "scoreboard",
+      "spread": null,
+      "before": 51,
+      "after": 51,
+      "delta": 0
+    },
+    {
+      "file": "NHL-20261017-401892523.json",
+      "sport": "NHL",
+      "matchup": "New York Islanders at Toronto Maple Leafs",
+      "oddsSource": "scoreboard",
+      "spread": null,
+      "before": 37,
+      "after": 37,
+      "delta": 0
+    },
+    {
+      "file": "NHL-20261017-401892524.json",
+      "sport": "NHL",
+      "matchup": "Buffalo Sabres at Montreal Canadiens",
+      "oddsSource": "scoreboard",
+      "spread": null,
+      "before": 50,
+      "after": 50,
+      "delta": 0
+    },
+    {
+      "file": "NHL-20261017-401892525.json",
+      "sport": "NHL",
+      "matchup": "San Jose Sharks at Detroit Red Wings",
+      "oddsSource": "scoreboard",
+      "spread": null,
+      "before": 41,
+      "after": 41,
+      "delta": 0
+    },
+    {
+      "file": "NHL-20261017-401892526.json",
+      "sport": "NHL",
+      "matchup": "Ottawa Senators at Philadelphia Flyers",
+      "oddsSource": "scoreboard",
+      "spread": null,
+      "before": 37,
+      "after": 37,
+      "delta": 0
+    },
+    {
+      "file": "NHL-20261017-401892527.json",
+      "sport": "NHL",
+      "matchup": "New York Rangers at Columbus Blue Jackets",
+      "oddsSource": "scoreboard",
+      "spread": null,
+      "before": 46,
+      "after": 46,
+      "delta": 0
+    },
+    {
+      "file": "NHL-20261017-401892528.json",
+      "sport": "NHL",
+      "matchup": "Dallas Stars at Chicago Blackhawks",
+      "oddsSource": "scoreboard",
+      "spread": null,
+      "before": 40,
+      "after": 40,
+      "delta": 0
+    },
+    {
+      "file": "NHL-20261017-401892529.json",
+      "sport": "NHL",
+      "matchup": "St. Louis Blues at Nashville Predators",
+      "oddsSource": "scoreboard",
+      "spread": null,
+      "before": 40,
+      "after": 40,
+      "delta": 0
+    },
+    {
+      "file": "NHL-20261017-401892530.json",
+      "sport": "NHL",
+      "matchup": "Boston Bruins at Los Angeles Kings",
+      "oddsSource": "scoreboard",
+      "spread": null,
+      "before": 34,
+      "after": 34,
+      "delta": 0
+    },
+    {
+      "file": "NHL-20261017-401892531.json",
+      "sport": "NHL",
+      "matchup": "Edmonton Oilers at Utah Mammoth",
+      "oddsSource": "scoreboard",
+      "spread": null,
+      "before": 48,
+      "after": 48,
+      "delta": 0
+    },
+    {
+      "file": "NHL-20261017-401892532.json",
+      "sport": "NHL",
+      "matchup": "Pittsburgh Penguins at Vegas Golden Knights",
+      "oddsSource": "scoreboard",
+      "spread": null,
+      "before": 39,
+      "after": 39,
+      "delta": 0
+    },
+    {
+      "file": "NHL-20261020-401892539.json",
+      "sport": "NHL",
+      "matchup": "San Jose Sharks at Montreal Canadiens",
+      "oddsSource": "scoreboard",
+      "spread": null,
+      "before": 47,
+      "after": 47,
+      "delta": 0
+    },
+    {
+      "file": "NHL-20261020-401892540.json",
+      "sport": "NHL",
+      "matchup": "Colorado Avalanche at New Jersey Devils",
+      "oddsSource": "scoreboard",
+      "spread": null,
+      "before": 47,
+      "after": 47,
+      "delta": 0
+    },
+    {
+      "file": "NHL-20261020-401892541.json",
+      "sport": "NHL",
+      "matchup": "Anaheim Ducks at New York Islanders",
+      "oddsSource": "scoreboard",
+      "spread": null,
+      "before": 37,
+      "after": 37,
+      "delta": 0
+    },
+    {
+      "file": "NHL-20261020-401892542.json",
+      "sport": "NHL",
+      "matchup": "Los Angeles Kings at Washington Capitals",
+      "oddsSource": "scoreboard",
+      "spread": null,
+      "before": 37,
+      "after": 37,
+      "delta": 0
+    },
+    {
+      "file": "NHL-20261020-401892543.json",
+      "sport": "NHL",
+      "matchup": "Toronto Maple Leafs at Columbus Blue Jackets",
+      "oddsSource": "scoreboard",
+      "spread": null,
+      "before": 37,
+      "after": 37,
+      "delta": 0
+    },
+    {
+      "file": "NHL-20261020-401892544.json",
+      "sport": "NHL",
+      "matchup": "Winnipeg Jets at St. Louis Blues",
+      "oddsSource": "scoreboard",
+      "spread": null,
+      "before": 44,
+      "after": 44,
+      "delta": 0
+    },
+    {
+      "file": "NHL-20261020-401892545.json",
+      "sport": "NHL",
+      "matchup": "Boston Bruins at Dallas Stars",
+      "oddsSource": "scoreboard",
+      "spread": null,
+      "before": 48,
+      "after": 48,
+      "delta": 0
+    },
+    {
+      "file": "NHL-20261020-401892546.json",
+      "sport": "NHL",
+      "matchup": "Minnesota Wild at Edmonton Oilers",
+      "oddsSource": "scoreboard",
+      "spread": null,
+      "before": 51,
+      "after": 51,
+      "delta": 0
+    },
+    {
+      "file": "NHL-20261020-401892547.json",
+      "sport": "NHL",
+      "matchup": "Detroit Red Wings at Seattle Kraken",
+      "oddsSource": "scoreboard",
+      "spread": null,
+      "before": 43,
+      "after": 43,
+      "delta": 0
+    },
+    {
+      "file": "NHL-20261020-401892548.json",
+      "sport": "NHL",
+      "matchup": "Carolina Hurricanes at Vancouver Canucks",
+      "oddsSource": "scoreboard",
+      "spread": null,
+      "before": 37,
+      "after": 37,
+      "delta": 0
+    },
+    {
+      "file": "NHL-20261020-401892549.json",
+      "sport": "NHL",
+      "matchup": "Tampa Bay Lightning at Vegas Golden Knights",
+      "oddsSource": "scoreboard",
+      "spread": null,
+      "before": 57,
+      "after": 57,
+      "delta": 0
+    }
+  ],
+  "curves": {
+    "NFL": [
+      {
+        "spread": 0,
+        "adjustment": 7
+      },
+      {
+        "spread": 0.25,
+        "adjustment": 6.916666666666667
+      },
+      {
+        "spread": 0.5,
+        "adjustment": 6.833333333333333
+      },
+      {
+        "spread": 0.75,
+        "adjustment": 6.75
+      },
+      {
+        "spread": 1,
+        "adjustment": 6.666666666666667
+      },
+      {
+        "spread": 1.25,
+        "adjustment": 6.583333333333333
+      },
+      {
+        "spread": 1.5,
+        "adjustment": 6.5
+      },
+      {
+        "spread": 1.75,
+        "adjustment": 6.416666666666667
+      },
+      {
+        "spread": 2,
+        "adjustment": 6.333333333333333
+      },
+      {
+        "spread": 2.25,
+        "adjustment": 6.25
+      },
+      {
+        "spread": 2.5,
+        "adjustment": 6.166666666666667
+      },
+      {
+        "spread": 2.75,
+        "adjustment": 6.083333333333333
+      },
+      {
+        "spread": 3,
+        "adjustment": 6
+      },
+      {
+        "spread": 3.25,
+        "adjustment": 5.8125
+      },
+      {
+        "spread": 3.5,
+        "adjustment": 5.625
+      },
+      {
+        "spread": 3.75,
+        "adjustment": 5.4375
+      },
+      {
+        "spread": 4,
+        "adjustment": 5.25
+      },
+      {
+        "spread": 4.25,
+        "adjustment": 5.0625
+      },
+      {
+        "spread": 4.5,
+        "adjustment": 4.875
+      },
+      {
+        "spread": 4.75,
+        "adjustment": 4.6875
+      },
+      {
+        "spread": 5,
+        "adjustment": 4.5
+      },
+      {
+        "spread": 5.25,
+        "adjustment": 4.3125
+      },
+      {
+        "spread": 5.5,
+        "adjustment": 4.125
+      },
+      {
+        "spread": 5.75,
+        "adjustment": 3.9375
+      },
+      {
+        "spread": 6,
+        "adjustment": 3.75
+      },
+      {
+        "spread": 6.25,
+        "adjustment": 3.5625
+      },
+      {
+        "spread": 6.5,
+        "adjustment": 3.375
+      },
+      {
+        "spread": 6.75,
+        "adjustment": 3.1875
+      },
+      {
+        "spread": 7,
+        "adjustment": 3
+      },
+      {
+        "spread": 7.25,
+        "adjustment": 2.75
+      },
+      {
+        "spread": 7.5,
+        "adjustment": 2.5
+      },
+      {
+        "spread": 7.75,
+        "adjustment": 2.25
+      },
+      {
+        "spread": 8,
+        "adjustment": 2
+      },
+      {
+        "spread": 8.25,
+        "adjustment": 1.75
+      },
+      {
+        "spread": 8.5,
+        "adjustment": 1.5
+      },
+      {
+        "spread": 8.75,
+        "adjustment": 1.25
+      },
+      {
+        "spread": 9,
+        "adjustment": 1
+      },
+      {
+        "spread": 9.25,
+        "adjustment": 0.75
+      },
+      {
+        "spread": 9.5,
+        "adjustment": 0.5
+      },
+      {
+        "spread": 9.75,
+        "adjustment": 0.25
+      },
+      {
+        "spread": 10,
+        "adjustment": 0
+      },
+      {
+        "spread": 10.25,
+        "adjustment": -0.25
+      },
+      {
+        "spread": 10.5,
+        "adjustment": -0.5
+      },
+      {
+        "spread": 10.75,
+        "adjustment": -0.75
+      },
+      {
+        "spread": 11,
+        "adjustment": -1
+      },
+      {
+        "spread": 11.25,
+        "adjustment": -1.25
+      },
+      {
+        "spread": 11.5,
+        "adjustment": -1.5
+      },
+      {
+        "spread": 11.75,
+        "adjustment": -1.75
+      },
+      {
+        "spread": 12,
+        "adjustment": -2
+      },
+      {
+        "spread": 12.25,
+        "adjustment": -2.25
+      },
+      {
+        "spread": 12.5,
+        "adjustment": -2.5
+      },
+      {
+        "spread": 12.75,
+        "adjustment": -2.75
+      },
+      {
+        "spread": 13,
+        "adjustment": -3
+      },
+      {
+        "spread": 13.25,
+        "adjustment": -3.25
+      },
+      {
+        "spread": 13.5,
+        "adjustment": -3.5
+      },
+      {
+        "spread": 13.75,
+        "adjustment": -3.75
+      },
+      {
+        "spread": 14,
+        "adjustment": -4
+      },
+      {
+        "spread": 14.25,
+        "adjustment": -4.25
+      },
+      {
+        "spread": 14.5,
+        "adjustment": -4.5
+      },
+      {
+        "spread": 14.75,
+        "adjustment": -4.75
+      },
+      {
+        "spread": 15,
+        "adjustment": -5
+      },
+      {
+        "spread": 15.25,
+        "adjustment": -5.25
+      },
+      {
+        "spread": 15.5,
+        "adjustment": -5.5
+      },
+      {
+        "spread": 15.75,
+        "adjustment": -5.75
+      },
+      {
+        "spread": 16,
+        "adjustment": -6
+      },
+      {
+        "spread": 16.25,
+        "adjustment": -6.25
+      },
+      {
+        "spread": 16.5,
+        "adjustment": -6.5
+      },
+      {
+        "spread": 16.75,
+        "adjustment": -6.75
+      },
+      {
+        "spread": 17,
+        "adjustment": -7
+      },
+      {
+        "spread": 17.25,
+        "adjustment": -7.1875
+      },
+      {
+        "spread": 17.5,
+        "adjustment": -7.375
+      },
+      {
+        "spread": 17.75,
+        "adjustment": -7.5625
+      },
+      {
+        "spread": 18,
+        "adjustment": -7.75
+      },
+      {
+        "spread": 18.25,
+        "adjustment": -7.9375
+      },
+      {
+        "spread": 18.5,
+        "adjustment": -8.125
+      },
+      {
+        "spread": 18.75,
+        "adjustment": -8.3125
+      },
+      {
+        "spread": 19,
+        "adjustment": -8.5
+      },
+      {
+        "spread": 19.25,
+        "adjustment": -8.6875
+      },
+      {
+        "spread": 19.5,
+        "adjustment": -8.875
+      },
+      {
+        "spread": 19.75,
+        "adjustment": -9.0625
+      },
+      {
+        "spread": 20,
+        "adjustment": -9.25
+      },
+      {
+        "spread": 20.25,
+        "adjustment": -9.4375
+      },
+      {
+        "spread": 20.5,
+        "adjustment": -9.625
+      },
+      {
+        "spread": 20.75,
+        "adjustment": -9.8125
+      },
+      {
+        "spread": 21,
+        "adjustment": -10
+      },
+      {
+        "spread": 21.25,
+        "adjustment": -10
+      },
+      {
+        "spread": 21.5,
+        "adjustment": -10
+      },
+      {
+        "spread": 21.75,
+        "adjustment": -10
+      },
+      {
+        "spread": 22,
+        "adjustment": -10
+      },
+      {
+        "spread": 22.25,
+        "adjustment": -10
+      },
+      {
+        "spread": 22.5,
+        "adjustment": -10
+      },
+      {
+        "spread": 22.75,
+        "adjustment": -10
+      },
+      {
+        "spread": 23,
+        "adjustment": -10
+      },
+      {
+        "spread": 23.25,
+        "adjustment": -10
+      },
+      {
+        "spread": 23.5,
+        "adjustment": -10
+      },
+      {
+        "spread": 23.75,
+        "adjustment": -10
+      },
+      {
+        "spread": 24,
+        "adjustment": -10
+      },
+      {
+        "spread": 24.25,
+        "adjustment": -10
+      },
+      {
+        "spread": 24.5,
+        "adjustment": -10
+      },
+      {
+        "spread": 24.75,
+        "adjustment": -10
+      },
+      {
+        "spread": 25,
+        "adjustment": -10
+      },
+      {
+        "spread": 25.25,
+        "adjustment": -10
+      },
+      {
+        "spread": 25.5,
+        "adjustment": -10
+      },
+      {
+        "spread": 25.75,
+        "adjustment": -10
+      },
+      {
+        "spread": 26,
+        "adjustment": -10
+      },
+      {
+        "spread": 26.25,
+        "adjustment": -10
+      },
+      {
+        "spread": 26.5,
+        "adjustment": -10
+      },
+      {
+        "spread": 26.75,
+        "adjustment": -10
+      },
+      {
+        "spread": 27,
+        "adjustment": -10
+      },
+      {
+        "spread": 27.25,
+        "adjustment": -10
+      },
+      {
+        "spread": 27.5,
+        "adjustment": -10
+      },
+      {
+        "spread": 27.75,
+        "adjustment": -10
+      },
+      {
+        "spread": 28,
+        "adjustment": -10
+      },
+      {
+        "spread": 28.25,
+        "adjustment": -10
+      },
+      {
+        "spread": 28.5,
+        "adjustment": -10
+      },
+      {
+        "spread": 28.75,
+        "adjustment": -10
+      },
+      {
+        "spread": 29,
+        "adjustment": -10
+      },
+      {
+        "spread": 29.25,
+        "adjustment": -10
+      },
+      {
+        "spread": 29.5,
+        "adjustment": -10
+      },
+      {
+        "spread": 29.75,
+        "adjustment": -10
+      },
+      {
+        "spread": 30,
+        "adjustment": -10
+      },
+      {
+        "spread": 30.25,
+        "adjustment": -10
+      },
+      {
+        "spread": 30.5,
+        "adjustment": -10
+      },
+      {
+        "spread": 30.75,
+        "adjustment": -10
+      },
+      {
+        "spread": 31,
+        "adjustment": -10
+      },
+      {
+        "spread": 31.25,
+        "adjustment": -10
+      },
+      {
+        "spread": 31.5,
+        "adjustment": -10
+      },
+      {
+        "spread": 31.75,
+        "adjustment": -10
+      },
+      {
+        "spread": 32,
+        "adjustment": -10
+      },
+      {
+        "spread": 32.25,
+        "adjustment": -10
+      },
+      {
+        "spread": 32.5,
+        "adjustment": -10
+      },
+      {
+        "spread": 32.75,
+        "adjustment": -10
+      },
+      {
+        "spread": 33,
+        "adjustment": -10
+      },
+      {
+        "spread": 33.25,
+        "adjustment": -10
+      },
+      {
+        "spread": 33.5,
+        "adjustment": -10
+      },
+      {
+        "spread": 33.75,
+        "adjustment": -10
+      },
+      {
+        "spread": 34,
+        "adjustment": -10
+      },
+      {
+        "spread": 34.25,
+        "adjustment": -10
+      },
+      {
+        "spread": 34.5,
+        "adjustment": -10
+      },
+      {
+        "spread": 34.75,
+        "adjustment": -10
+      },
+      {
+        "spread": 35,
+        "adjustment": -10
+      },
+      {
+        "spread": 35.25,
+        "adjustment": -10
+      },
+      {
+        "spread": 35.5,
+        "adjustment": -10
+      },
+      {
+        "spread": 35.75,
+        "adjustment": -10
+      },
+      {
+        "spread": 36,
+        "adjustment": -10
+      },
+      {
+        "spread": 36.25,
+        "adjustment": -10
+      },
+      {
+        "spread": 36.5,
+        "adjustment": -10
+      },
+      {
+        "spread": 36.75,
+        "adjustment": -10
+      },
+      {
+        "spread": 37,
+        "adjustment": -10
+      },
+      {
+        "spread": 37.25,
+        "adjustment": -10
+      },
+      {
+        "spread": 37.5,
+        "adjustment": -10
+      },
+      {
+        "spread": 37.75,
+        "adjustment": -10
+      },
+      {
+        "spread": 38,
+        "adjustment": -10
+      },
+      {
+        "spread": 38.25,
+        "adjustment": -10
+      },
+      {
+        "spread": 38.5,
+        "adjustment": -10
+      },
+      {
+        "spread": 38.75,
+        "adjustment": -10
+      },
+      {
+        "spread": 39,
+        "adjustment": -10
+      },
+      {
+        "spread": 39.25,
+        "adjustment": -10
+      },
+      {
+        "spread": 39.5,
+        "adjustment": -10
+      },
+      {
+        "spread": 39.75,
+        "adjustment": -10
+      },
+      {
+        "spread": 40,
+        "adjustment": -10
+      },
+      {
+        "spread": 40.25,
+        "adjustment": -10
+      },
+      {
+        "spread": 40.5,
+        "adjustment": -10
+      },
+      {
+        "spread": 40.75,
+        "adjustment": -10
+      },
+      {
+        "spread": 41,
+        "adjustment": -10
+      },
+      {
+        "spread": 41.25,
+        "adjustment": -10
+      },
+      {
+        "spread": 41.5,
+        "adjustment": -10
+      },
+      {
+        "spread": 41.75,
+        "adjustment": -10
+      },
+      {
+        "spread": 42,
+        "adjustment": -10
+      },
+      {
+        "spread": 42.25,
+        "adjustment": -10
+      },
+      {
+        "spread": 42.5,
+        "adjustment": -10
+      },
+      {
+        "spread": 42.75,
+        "adjustment": -10
+      },
+      {
+        "spread": 43,
+        "adjustment": -10
+      },
+      {
+        "spread": 43.25,
+        "adjustment": -10
+      },
+      {
+        "spread": 43.5,
+        "adjustment": -10
+      },
+      {
+        "spread": 43.75,
+        "adjustment": -10
+      },
+      {
+        "spread": 44,
+        "adjustment": -10
+      },
+      {
+        "spread": 44.25,
+        "adjustment": -10
+      },
+      {
+        "spread": 44.5,
+        "adjustment": -10
+      },
+      {
+        "spread": 44.75,
+        "adjustment": -10
+      },
+      {
+        "spread": 45,
+        "adjustment": -10
+      },
+      {
+        "spread": 45.25,
+        "adjustment": -10
+      },
+      {
+        "spread": 45.5,
+        "adjustment": -10
+      },
+      {
+        "spread": 45.75,
+        "adjustment": -10
+      },
+      {
+        "spread": 46,
+        "adjustment": -10
+      },
+      {
+        "spread": 46.25,
+        "adjustment": -10
+      },
+      {
+        "spread": 46.5,
+        "adjustment": -10
+      },
+      {
+        "spread": 46.75,
+        "adjustment": -10
+      },
+      {
+        "spread": 47,
+        "adjustment": -10
+      },
+      {
+        "spread": 47.25,
+        "adjustment": -10
+      },
+      {
+        "spread": 47.5,
+        "adjustment": -10
+      },
+      {
+        "spread": 47.75,
+        "adjustment": -10
+      },
+      {
+        "spread": 48,
+        "adjustment": -10
+      },
+      {
+        "spread": 48.25,
+        "adjustment": -10
+      },
+      {
+        "spread": 48.5,
+        "adjustment": -10
+      },
+      {
+        "spread": 48.75,
+        "adjustment": -10
+      },
+      {
+        "spread": 49,
+        "adjustment": -10
+      },
+      {
+        "spread": 49.25,
+        "adjustment": -10
+      },
+      {
+        "spread": 49.5,
+        "adjustment": -10
+      },
+      {
+        "spread": 49.75,
+        "adjustment": -10
+      },
+      {
+        "spread": 50,
+        "adjustment": -10
+      }
+    ],
+    "CFB": [
+      {
+        "spread": 0,
+        "adjustment": 5
+      },
+      {
+        "spread": 0.25,
+        "adjustment": 4.916666666666667
+      },
+      {
+        "spread": 0.5,
+        "adjustment": 4.833333333333333
+      },
+      {
+        "spread": 0.75,
+        "adjustment": 4.75
+      },
+      {
+        "spread": 1,
+        "adjustment": 4.666666666666667
+      },
+      {
+        "spread": 1.25,
+        "adjustment": 4.583333333333333
+      },
+      {
+        "spread": 1.5,
+        "adjustment": 4.5
+      },
+      {
+        "spread": 1.75,
+        "adjustment": 4.416666666666667
+      },
+      {
+        "spread": 2,
+        "adjustment": 4.333333333333333
+      },
+      {
+        "spread": 2.25,
+        "adjustment": 4.25
+      },
+      {
+        "spread": 2.5,
+        "adjustment": 4.166666666666667
+      },
+      {
+        "spread": 2.75,
+        "adjustment": 4.083333333333333
+      },
+      {
+        "spread": 3,
+        "adjustment": 4
+      },
+      {
+        "spread": 3.25,
+        "adjustment": 3.875
+      },
+      {
+        "spread": 3.5,
+        "adjustment": 3.75
+      },
+      {
+        "spread": 3.75,
+        "adjustment": 3.625
+      },
+      {
+        "spread": 4,
+        "adjustment": 3.5
+      },
+      {
+        "spread": 4.25,
+        "adjustment": 3.375
+      },
+      {
+        "spread": 4.5,
+        "adjustment": 3.25
+      },
+      {
+        "spread": 4.75,
+        "adjustment": 3.125
+      },
+      {
+        "spread": 5,
+        "adjustment": 3
+      },
+      {
+        "spread": 5.25,
+        "adjustment": 2.875
+      },
+      {
+        "spread": 5.5,
+        "adjustment": 2.75
+      },
+      {
+        "spread": 5.75,
+        "adjustment": 2.625
+      },
+      {
+        "spread": 6,
+        "adjustment": 2.5
+      },
+      {
+        "spread": 6.25,
+        "adjustment": 2.375
+      },
+      {
+        "spread": 6.5,
+        "adjustment": 2.25
+      },
+      {
+        "spread": 6.75,
+        "adjustment": 2.125
+      },
+      {
+        "spread": 7,
+        "adjustment": 2
+      },
+      {
+        "spread": 7.25,
+        "adjustment": 1.9166666666666667
+      },
+      {
+        "spread": 7.5,
+        "adjustment": 1.8333333333333333
+      },
+      {
+        "spread": 7.75,
+        "adjustment": 1.75
+      },
+      {
+        "spread": 8,
+        "adjustment": 1.6666666666666667
+      },
+      {
+        "spread": 8.25,
+        "adjustment": 1.5833333333333333
+      },
+      {
+        "spread": 8.5,
+        "adjustment": 1.5
+      },
+      {
+        "spread": 8.75,
+        "adjustment": 1.4166666666666665
+      },
+      {
+        "spread": 9,
+        "adjustment": 1.3333333333333335
+      },
+      {
+        "spread": 9.25,
+        "adjustment": 1.25
+      },
+      {
+        "spread": 9.5,
+        "adjustment": 1.1666666666666665
+      },
+      {
+        "spread": 9.75,
+        "adjustment": 1.0833333333333335
+      },
+      {
+        "spread": 10,
+        "adjustment": 1
+      },
+      {
+        "spread": 10.25,
+        "adjustment": 0.9375
+      },
+      {
+        "spread": 10.5,
+        "adjustment": 0.875
+      },
+      {
+        "spread": 10.75,
+        "adjustment": 0.8125
+      },
+      {
+        "spread": 11,
+        "adjustment": 0.75
+      },
+      {
+        "spread": 11.25,
+        "adjustment": 0.6875
+      },
+      {
+        "spread": 11.5,
+        "adjustment": 0.625
+      },
+      {
+        "spread": 11.75,
+        "adjustment": 0.5625
+      },
+      {
+        "spread": 12,
+        "adjustment": 0.5
+      },
+      {
+        "spread": 12.25,
+        "adjustment": 0.4375
+      },
+      {
+        "spread": 12.5,
+        "adjustment": 0.375
+      },
+      {
+        "spread": 12.75,
+        "adjustment": 0.3125
+      },
+      {
+        "spread": 13,
+        "adjustment": 0.25
+      },
+      {
+        "spread": 13.25,
+        "adjustment": 0.1875
+      },
+      {
+        "spread": 13.5,
+        "adjustment": 0.125
+      },
+      {
+        "spread": 13.75,
+        "adjustment": 0.0625
+      },
+      {
+        "spread": 14,
+        "adjustment": 0
+      },
+      {
+        "spread": 14.25,
+        "adjustment": -0.16666666666666666
+      },
+      {
+        "spread": 14.5,
+        "adjustment": -0.3333333333333333
+      },
+      {
+        "spread": 14.75,
+        "adjustment": -0.5
+      },
+      {
+        "spread": 15,
+        "adjustment": -0.6666666666666666
+      },
+      {
+        "spread": 15.25,
+        "adjustment": -0.8333333333333334
+      },
+      {
+        "spread": 15.5,
+        "adjustment": -1
+      },
+      {
+        "spread": 15.75,
+        "adjustment": -1.1666666666666667
+      },
+      {
+        "spread": 16,
+        "adjustment": -1.3333333333333333
+      },
+      {
+        "spread": 16.25,
+        "adjustment": -1.5
+      },
+      {
+        "spread": 16.5,
+        "adjustment": -1.6666666666666667
+      },
+      {
+        "spread": 16.75,
+        "adjustment": -1.8333333333333333
+      },
+      {
+        "spread": 17,
+        "adjustment": -2
+      },
+      {
+        "spread": 17.25,
+        "adjustment": -2.1666666666666665
+      },
+      {
+        "spread": 17.5,
+        "adjustment": -2.3333333333333335
+      },
+      {
+        "spread": 17.75,
+        "adjustment": -2.5
+      },
+      {
+        "spread": 18,
+        "adjustment": -2.6666666666666665
+      },
+      {
+        "spread": 18.25,
+        "adjustment": -2.8333333333333335
+      },
+      {
+        "spread": 18.5,
+        "adjustment": -3
+      },
+      {
+        "spread": 18.75,
+        "adjustment": -3.1666666666666665
+      },
+      {
+        "spread": 19,
+        "adjustment": -3.3333333333333335
+      },
+      {
+        "spread": 19.25,
+        "adjustment": -3.5
+      },
+      {
+        "spread": 19.5,
+        "adjustment": -3.6666666666666665
+      },
+      {
+        "spread": 19.75,
+        "adjustment": -3.8333333333333335
+      },
+      {
+        "spread": 20,
+        "adjustment": -4
+      },
+      {
+        "spread": 20.25,
+        "adjustment": -4.107142857142857
+      },
+      {
+        "spread": 20.5,
+        "adjustment": -4.214285714285714
+      },
+      {
+        "spread": 20.75,
+        "adjustment": -4.321428571428571
+      },
+      {
+        "spread": 21,
+        "adjustment": -4.428571428571429
+      },
+      {
+        "spread": 21.25,
+        "adjustment": -4.535714285714286
+      },
+      {
+        "spread": 21.5,
+        "adjustment": -4.642857142857143
+      },
+      {
+        "spread": 21.75,
+        "adjustment": -4.75
+      },
+      {
+        "spread": 22,
+        "adjustment": -4.857142857142857
+      },
+      {
+        "spread": 22.25,
+        "adjustment": -4.964285714285714
+      },
+      {
+        "spread": 22.5,
+        "adjustment": -5.071428571428571
+      },
+      {
+        "spread": 22.75,
+        "adjustment": -5.178571428571429
+      },
+      {
+        "spread": 23,
+        "adjustment": -5.285714285714286
+      },
+      {
+        "spread": 23.25,
+        "adjustment": -5.392857142857142
+      },
+      {
+        "spread": 23.5,
+        "adjustment": -5.5
+      },
+      {
+        "spread": 23.75,
+        "adjustment": -5.607142857142858
+      },
+      {
+        "spread": 24,
+        "adjustment": -5.714285714285714
+      },
+      {
+        "spread": 24.25,
+        "adjustment": -5.821428571428571
+      },
+      {
+        "spread": 24.5,
+        "adjustment": -5.928571428571429
+      },
+      {
+        "spread": 24.75,
+        "adjustment": -6.035714285714286
+      },
+      {
+        "spread": 25,
+        "adjustment": -6.142857142857142
+      },
+      {
+        "spread": 25.25,
+        "adjustment": -6.25
+      },
+      {
+        "spread": 25.5,
+        "adjustment": -6.357142857142858
+      },
+      {
+        "spread": 25.75,
+        "adjustment": -6.464285714285714
+      },
+      {
+        "spread": 26,
+        "adjustment": -6.571428571428571
+      },
+      {
+        "spread": 26.25,
+        "adjustment": -6.678571428571429
+      },
+      {
+        "spread": 26.5,
+        "adjustment": -6.785714285714286
+      },
+      {
+        "spread": 26.75,
+        "adjustment": -6.892857142857142
+      },
+      {
+        "spread": 27,
+        "adjustment": -7
+      },
+      {
+        "spread": 27.25,
+        "adjustment": -7.09375
+      },
+      {
+        "spread": 27.5,
+        "adjustment": -7.1875
+      },
+      {
+        "spread": 27.75,
+        "adjustment": -7.28125
+      },
+      {
+        "spread": 28,
+        "adjustment": -7.375
+      },
+      {
+        "spread": 28.25,
+        "adjustment": -7.46875
+      },
+      {
+        "spread": 28.5,
+        "adjustment": -7.5625
+      },
+      {
+        "spread": 28.75,
+        "adjustment": -7.65625
+      },
+      {
+        "spread": 29,
+        "adjustment": -7.75
+      },
+      {
+        "spread": 29.25,
+        "adjustment": -7.84375
+      },
+      {
+        "spread": 29.5,
+        "adjustment": -7.9375
+      },
+      {
+        "spread": 29.75,
+        "adjustment": -8.03125
+      },
+      {
+        "spread": 30,
+        "adjustment": -8.125
+      },
+      {
+        "spread": 30.25,
+        "adjustment": -8.21875
+      },
+      {
+        "spread": 30.5,
+        "adjustment": -8.3125
+      },
+      {
+        "spread": 30.75,
+        "adjustment": -8.40625
+      },
+      {
+        "spread": 31,
+        "adjustment": -8.5
+      },
+      {
+        "spread": 31.25,
+        "adjustment": -8.59375
+      },
+      {
+        "spread": 31.5,
+        "adjustment": -8.6875
+      },
+      {
+        "spread": 31.75,
+        "adjustment": -8.78125
+      },
+      {
+        "spread": 32,
+        "adjustment": -8.875
+      },
+      {
+        "spread": 32.25,
+        "adjustment": -8.96875
+      },
+      {
+        "spread": 32.5,
+        "adjustment": -9.0625
+      },
+      {
+        "spread": 32.75,
+        "adjustment": -9.15625
+      },
+      {
+        "spread": 33,
+        "adjustment": -9.25
+      },
+      {
+        "spread": 33.25,
+        "adjustment": -9.34375
+      },
+      {
+        "spread": 33.5,
+        "adjustment": -9.4375
+      },
+      {
+        "spread": 33.75,
+        "adjustment": -9.53125
+      },
+      {
+        "spread": 34,
+        "adjustment": -9.625
+      },
+      {
+        "spread": 34.25,
+        "adjustment": -9.71875
+      },
+      {
+        "spread": 34.5,
+        "adjustment": -9.8125
+      },
+      {
+        "spread": 34.75,
+        "adjustment": -9.90625
+      },
+      {
+        "spread": 35,
+        "adjustment": -10
+      },
+      {
+        "spread": 35.25,
+        "adjustment": -10
+      },
+      {
+        "spread": 35.5,
+        "adjustment": -10
+      },
+      {
+        "spread": 35.75,
+        "adjustment": -10
+      },
+      {
+        "spread": 36,
+        "adjustment": -10
+      },
+      {
+        "spread": 36.25,
+        "adjustment": -10
+      },
+      {
+        "spread": 36.5,
+        "adjustment": -10
+      },
+      {
+        "spread": 36.75,
+        "adjustment": -10
+      },
+      {
+        "spread": 37,
+        "adjustment": -10
+      },
+      {
+        "spread": 37.25,
+        "adjustment": -10
+      },
+      {
+        "spread": 37.5,
+        "adjustment": -10
+      },
+      {
+        "spread": 37.75,
+        "adjustment": -10
+      },
+      {
+        "spread": 38,
+        "adjustment": -10
+      },
+      {
+        "spread": 38.25,
+        "adjustment": -10
+      },
+      {
+        "spread": 38.5,
+        "adjustment": -10
+      },
+      {
+        "spread": 38.75,
+        "adjustment": -10
+      },
+      {
+        "spread": 39,
+        "adjustment": -10
+      },
+      {
+        "spread": 39.25,
+        "adjustment": -10
+      },
+      {
+        "spread": 39.5,
+        "adjustment": -10
+      },
+      {
+        "spread": 39.75,
+        "adjustment": -10
+      },
+      {
+        "spread": 40,
+        "adjustment": -10
+      },
+      {
+        "spread": 40.25,
+        "adjustment": -10
+      },
+      {
+        "spread": 40.5,
+        "adjustment": -10
+      },
+      {
+        "spread": 40.75,
+        "adjustment": -10
+      },
+      {
+        "spread": 41,
+        "adjustment": -10
+      },
+      {
+        "spread": 41.25,
+        "adjustment": -10
+      },
+      {
+        "spread": 41.5,
+        "adjustment": -10
+      },
+      {
+        "spread": 41.75,
+        "adjustment": -10
+      },
+      {
+        "spread": 42,
+        "adjustment": -10
+      },
+      {
+        "spread": 42.25,
+        "adjustment": -10
+      },
+      {
+        "spread": 42.5,
+        "adjustment": -10
+      },
+      {
+        "spread": 42.75,
+        "adjustment": -10
+      },
+      {
+        "spread": 43,
+        "adjustment": -10
+      },
+      {
+        "spread": 43.25,
+        "adjustment": -10
+      },
+      {
+        "spread": 43.5,
+        "adjustment": -10
+      },
+      {
+        "spread": 43.75,
+        "adjustment": -10
+      },
+      {
+        "spread": 44,
+        "adjustment": -10
+      },
+      {
+        "spread": 44.25,
+        "adjustment": -10
+      },
+      {
+        "spread": 44.5,
+        "adjustment": -10
+      },
+      {
+        "spread": 44.75,
+        "adjustment": -10
+      },
+      {
+        "spread": 45,
+        "adjustment": -10
+      },
+      {
+        "spread": 45.25,
+        "adjustment": -10
+      },
+      {
+        "spread": 45.5,
+        "adjustment": -10
+      },
+      {
+        "spread": 45.75,
+        "adjustment": -10
+      },
+      {
+        "spread": 46,
+        "adjustment": -10
+      },
+      {
+        "spread": 46.25,
+        "adjustment": -10
+      },
+      {
+        "spread": 46.5,
+        "adjustment": -10
+      },
+      {
+        "spread": 46.75,
+        "adjustment": -10
+      },
+      {
+        "spread": 47,
+        "adjustment": -10
+      },
+      {
+        "spread": 47.25,
+        "adjustment": -10
+      },
+      {
+        "spread": 47.5,
+        "adjustment": -10
+      },
+      {
+        "spread": 47.75,
+        "adjustment": -10
+      },
+      {
+        "spread": 48,
+        "adjustment": -10
+      },
+      {
+        "spread": 48.25,
+        "adjustment": -10
+      },
+      {
+        "spread": 48.5,
+        "adjustment": -10
+      },
+      {
+        "spread": 48.75,
+        "adjustment": -10
+      },
+      {
+        "spread": 49,
+        "adjustment": -10
+      },
+      {
+        "spread": 49.25,
+        "adjustment": -10
+      },
+      {
+        "spread": 49.5,
+        "adjustment": -10
+      },
+      {
+        "spread": 49.75,
+        "adjustment": -10
+      },
+      {
+        "spread": 50,
+        "adjustment": -10
+      }
+    ]
+  }
+}

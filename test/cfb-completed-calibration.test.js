@@ -48,7 +48,7 @@ test('all sport states preserve standalone histories; pregame and other sports p
  for(const sport of ['CFB','NFL','NBA','NCAAB','MLB','Soccer','Tennis'])for(const state of ['upcoming','live','completed'])for(const input of Object.values(completed.cases)){
   const f=completed.fixture(input),teams=f.competition.competitors.map(t=>({...t,id:t.team.id}));
   same(core.momentumImpact(sport,f.summary,1,state),before.momentumImpact(sport,f.summary,1,state),`${sport} ${state} history`);
-  if(sport!=='CFB'||state!=='completed')same(core.rateGame(sport,state,teams,f.event,f.competition,''),cappedBefore.rateGame(sport,state,teams,f.event,f.competition,''),`${sport} ${state} rating`);
+  if(!(state==='upcoming'&&['NFL','CFB'].includes(sport)) && (sport!=='CFB'||state!=='completed'))same(core.rateGame(sport,state,teams,f.event,f.competition,''),cappedBefore.rateGame(sport,state,teams,f.event,f.competition,''),`${sport} ${state} rating`);
  }
 });
 

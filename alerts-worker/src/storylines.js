@@ -126,13 +126,37 @@ function articleMatchesGame(article,game) {
   return matchingTeams === 1 && strongStoryText(`${article.headline} ${article.description}`);
 }
 
+function meaningfulInjuryEvidence(article,type) {
+  const text = `${article.headline || ''}. ${article.description || ''}`.replace(/\s+/g,' ').trim();
+  const clauses = text.split(/[.!?;,]|\b(?:but|while|whereas|and)\b/i);
+  for (const clause of clauses) {
+    if (/\b(?:could|may|might|questionable|doubtful|uncertain|not ruled out|not sidelined|miss (?:a |the )?(?:practice|training))\b/i.test(clause)) continue;
+    const importance = /\bstarting quarterback\b|\bstarting QB\b/i.test(clause) ? 'starting-quarterback' :
+      /\b(?:star|superstar|all[- ]american|all[- ]pro|pro bowler|pro bowl|heisman|reigning MVP|first[- ]team all[- ](?:conference|sec|big ten)|leading (?:scorer|receiver|rusher|passer))\b/i.test(clause) ? 'star' : '';
+    if (!importance) continue;
+    const absence = /\b(?:ruled out|will miss|sidelined|placed on injured|out with|out for|out vs|out against)\b/i.test(clause);
+    const returning = /(?:return|activated|back in).{0,55}(?:injur|sidelined)|first game back/i.test(clause);
+    if (type === 'star_absence' ? absence && !returning : returning) return {importance};
+  }
+  return null;
+}
+
+function affectedInjuryTeam(article,game) {
+  const matching = [...(article.teamIds || [])].filter(id=>game.teamIds.has(String(id))).map(String);
+  if (matching.length === 1) return matching[0];
+  const subject = String(article.headline || '').split(/\b(?:vs\.?|against)\b/i)[0].toLowerCase();
+  const named = (game.teams || []).filter(team=>subject.includes(team.name.toLowerCase()) ||
+    (team.abbr?.length>=3 && new RegExp(`\\b${team.abbr.replace(/[^a-z0-9]/gi,'')}\\b`,'i').test(subject)));
+  return named.length === 1 ? named[0].id : '';
+}
+
 function deterministicFactor(article) {
   const text = `${article.headline}. ${article.description}`.replace(/\s+/g,' ').trim();
   let type = '';
-  if (/captain/i.test(text) && /(former|return|traded|trade)/i.test(text)) type = 'former_captain_return';
-  else if (/(former team|against (his|her|their) former|return(s|ing)? to|traded from)/i.test(text)) type = 'former_star_return';
-  else if (/(return|activated|back in).{0,55}(injur|sidelined)|first game back/i.test(text)) type = 'star_injury_return';
-  else if (/(ruled out|will miss|sidelined|placed on injured|out with)/i.test(text)) type = 'star_absence';
+  if (meaningfulInjuryEvidence(article,'star_injury_return')) type = 'star_injury_return';
+  else if (meaningfulInjuryEvidence(article,'star_absence')) type = 'star_absence';
+  else if (/captain/i.test(text) && /(former|traded|trade)/i.test(text)) type = 'former_captain_return';
+  else if (/(former team|against (his|her|their) former|traded from)/i.test(text)) type = 'former_star_return';
   else if (/championship rematch|finals rematch|super bowl rematch|world series rematch/i.test(text)) type = 'championship_rematch';
   else if (/playoff rematch/i.test(text)) type = 'playoff_rematch';
   else if (/rivalry|archrival|rival/i.test(text)) type = 'rivalry';
@@ -170,7 +194,8 @@ function buildResearchItems(games,articlesBySport) {
       eventId:game.eventId,
       sport:game.sport,
       matchup:game.teams.map(team => team.name).join(' vs '),
-      article
+      article,
+      affectedTeamId:affectedInjuryTeam(article,game)
     }));
   }
   return items.slice(0,60);
@@ -239,6 +264,12 @@ function mergeFactors(items,classified) {
       sourceUrl:item.article.url.slice(0,1000),
       sourcePublished:Math.floor(item.article.published / 1000)
     };
+    if (['star_absence','star_injury_return'].includes(factor.type)) {
+      // Injury evidence comes from the provider snippet, never AI-added claims.
+      factor.text = `${item.article.headline}. ${item.article.description || ''}`.trim().slice(0,260);
+      factor.injuryEvidence = {...meaningfulInjuryEvidence(item.article,factor.type),affectedTeamId:item.affectedTeamId || '',reportedAt:new Date(item.article.published).toISOString()};
+      factor.sourceDescription = String(item.article.description || '').slice(0,1000);
+    }
     const key = `${factor.sport}:${factor.eventId}:${factor.type}`;
     const prior = deduped.get(key);
     if (!prior || factor.confidence > prior.confidence || factor.sourcePublished > prior.sourcePublished) deduped.set(key,factor);
@@ -262,7 +293,9 @@ async function saveFactors(env,games,factors,now) {
         source_published=excluded.source_published,
         expires_at=excluded.expires_at,
         updated_at=excluded.updated_at`)
-      .bind(factor.eventId,factor.sport,factor.type,factor.text,factor.confidence,factor.sourceTitle,factor.sourceUrl,factor.sourcePublished,expires,Math.floor(now / 1000));
+      .bind(factor.eventId,factor.sport,factor.type,
+        factor.injuryEvidence ? JSON.stringify({version:2,text:factor.text,description:factor.sourceDescription || '',affectedTeamId:factor.injuryEvidence.affectedTeamId}) : factor.text,
+        factor.confidence,factor.sourceTitle,factor.sourceUrl,factor.sourcePublished,expires,Math.floor(now / 1000));
   });
   for (let start=0;start<writes.length;start+=50) await env.DB.batch(writes.slice(start,start+50));
   await env.DB.prepare('DELETE FROM game_context WHERE expires_at < ?').bind(Math.floor(now / 1000)).run();
@@ -310,17 +343,32 @@ export async function contextsForGames(env,keys) {
   for (const row of rows) {
     const key = `${row.sport}:${row.event_id}`;
     if (!allowed.has(key)) continue;
+    let text = row.context_text;
+    let injuryEvidence;
+    if (['star_absence','star_injury_return'].includes(row.factor_type)) {
+      let stored;
+      try { stored = JSON.parse(row.context_text); } catch {}
+      const versioned = stored?.version === 2 && typeof stored.text === 'string';
+      const article = {headline:row.source_title,description:versioned ? String(stored.description || '') : ''};
+      const evidence = meaningfulInjuryEvidence(article,row.factor_type);
+      // Revalidate legacy injury rows on every read. Unrelated cached storylines
+      // and historical snapshots are untouched; no production DELETE is needed.
+      if (!evidence) continue;
+      text = versioned ? stored.text : row.context_text;
+      injuryEvidence = {...evidence,affectedTeamId:versioned ? String(stored.affectedTeamId || '') : '',reportedAt:row.source_published ? new Date(Number(row.source_published)*1000).toISOString() : ''};
+    }
     (output[key] ||= []).push({
       type:row.factor_type,
-      text:row.context_text,
+      text,
       confidence:Number(row.confidence),
       verified:true,
       sourceTitle:row.source_title,
       sourceUrl:row.source_url,
-      publishedAt:row.source_published ? new Date(Number(row.source_published) * 1000).toISOString() : null
+      publishedAt:row.source_published ? new Date(Number(row.source_published) * 1000).toISOString() : null,
+      ...(injuryEvidence ? {injuryEvidence} : {})
     });
   }
   return output;
 }
 
-export {researchGame,deterministicFactor,evidenceSupportsType,articleMatchesGame,mergeFactors,saveFactors};
+export {researchGame,deterministicFactor,evidenceSupportsType,articleMatchesGame,mergeFactors,saveFactors,meaningfulInjuryEvidence,affectedInjuryTeam};
