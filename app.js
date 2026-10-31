@@ -699,7 +699,7 @@ function updateDataStatus() {
   }
   const stale = state.feedStale || Date.now() - Date.parse(state.updatedAt) > 120000;
   $('#data-status-label').textContent =
-    `${stale ? 'Stale scores' : 'Live scores'}${!stale && state.feedDegraded ? ' · some details unavailable' : ''} · updated ${new Date(state.updatedAt).toLocaleTimeString([],{hour:'numeric',minute:'2-digit'})}`;
+    stale ? 'Stale scores' : 'Live scores';
   $('#footer-status').textContent = stale ? 'Stale feed' : 'Live feed';
 }
 setInterval(updateDataStatus,15000);
