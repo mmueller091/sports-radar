@@ -60,7 +60,8 @@ function evaluate(core,input) {
 }
 function adapter(source,display) {
  const code=fs.readFileSync(path.join(root,'alerts-worker/src/game-model.js'),'utf8').replace(/^import .*;\s*$/gm,'').replace(/^export .*;\s*$/gm,'');
- return vm.runInNewContext(`${source}\n${code}\n({normalizeEvent,enrichGame})`,display);
+ const watch=fs.readFileSync(path.join(root,'watch-links.js'),'utf8');
+ return vm.runInNewContext(`${source}\n${watch}\n${code}\n({normalizeEvent,enrichGame})`,{...display,URL});
 }
 function providers(model) {
  return Object.fromEntries(fs.readdirSync(path.join(root,'test/fixtures/real-games')).filter(f=>f.endsWith('.json')).sort().map(file=>{

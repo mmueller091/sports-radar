@@ -5780,3 +5780,13 @@ dialog[open] {
     transition: none;
   }
 }
+
+
+/* Native provider links sit above the card's separate Game Center target. */
+.broadcast-watch-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 8px; min-width: 0; }
+.broadcast-watch-link { position: relative; z-index: 2; display: inline-flex; align-items: center; justify-content: center; gap: 6px; min-height: 44px; max-width: 100%; padding: 6px 10px; box-sizing: border-box; border: 1px solid #a6cad4; border-radius: 6px; background: #19333c; color: #e2f6ff; font: 600 12px/1.25 'DM Sans', sans-serif; text-decoration: none; touch-action: manipulation; pointer-events: auto; }
+.broadcast-watch-link:hover { background: #274b58; text-decoration: underline; }
+.broadcast-watch-link:focus-visible { outline: 3px solid var(--selected-hi, #b9dcff); outline-offset: 3px; }
+.external-link-icon { flex: 0 0 14px; }
+.game-card .broadcast-watch-actions { flex-basis: 100%; grid-column: 1 / -1; }
+.detail-header > .broadcast-watch-actions { margin-top: 10px; }

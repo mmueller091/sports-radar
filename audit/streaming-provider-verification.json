@@ -1,0 +1,1516 @@
+{
+  "checkedOn": "2026-10-31",
+  "method": "Read-only HTTPS fetches; not physical device app-launch tests",
+  "results": [
+    {
+      "url": "https://www.peacocktv.com/.well-known/apple-app-site-association",
+      "status": 200,
+      "finalUrl": "https://www.peacocktv.com/.well-known/apple-app-site-association",
+      "data": {
+        "applinks": {
+          "apps": [],
+          "details": [
+            {
+              "appID": "W76B757YRY.com.peacocktv.peacock",
+              "paths": [
+                "/deeplink/*",
+                "/watch/*"
+              ]
+            },
+            {
+              "appID": "W76B757YRY.com.peacocktv.peacock.dev",
+              "paths": [
+                "/deeplink/*",
+                "/watch/*"
+              ]
+            },
+            {
+              "appID": "W76B757YRY.com.peacocktv.peacock.proton",
+              "paths": [
+                "/deeplink/*",
+                "/watch/*"
+              ]
+            },
+            {
+              "appID": "85JBBGCG7V.com.bskyb.nbcu.intl.internal.us",
+              "paths": [
+                "/deeplink/*",
+                "/watch/*"
+              ]
+            }
+          ]
+        },
+        "webcredentials": {
+          "apps": [
+            "W76B757YRY.com.peacocktv.peacock",
+            "W76B757YRY.com.peacocktv.peacock.dev",
+            "W76B757YRY.com.peacocktv.peacock.proton",
+            "85JBBGCG7V.com.bskyb.nbcu.intl.internal.us"
+          ]
+        }
+      }
+    },
+    {
+      "url": "https://www.peacocktv.com/.well-known/assetlinks.json",
+      "status": 200,
+      "finalUrl": "https://www.peacocktv.com/.well-known/assetlinks.json",
+      "data": [
+        {
+          "relation": [
+            "delegate_permission/common.handle_all_urls"
+          ],
+          "target": {
+            "namespace": "android_app",
+            "package_name": "com.peacocktv.peacockandroid",
+            "sha256_cert_fingerprints": [
+              "D6:06:20:54:25:31:74:49:3E:A1:3D:0E:B4:E0:7C:B8:23:39:28:4B:E0:5B:13:D0:2A:4B:AB:7E:A2:A0:24:52",
+              "E5:EF:D5:6F:A3:24:6E:48:05:46:EC:AC:4D:79:28:05:14:22:A2:6C:56:76:19:0E:45:97:91:FA:FA:8C:80:93",
+              "41:6A:45:92:AE:2C:58:3D:E3:CC:94:90:FF:92:97:12:F7:D9:29:59:07:32:14:C8:64:F4:9B:3B:39:9D:E2:40",
+              "86:B8:15:62:A0:45:BC:30:C6:F3:63:4E:6D:06:D9:7D:27:39:14:88:92:7E:FD:18:01:0C:AA:BA:CF:BB:F5:FA",
+              "EE:50:14:EA:FE:C9:BE:9F:1B:7A:0F:00:3B:EE:39:8F:96:A6:8D:B9:B7:FE:7B:BE:52:D4:6B:33:5A:B4:01:82"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://www.espn.com/.well-known/apple-app-site-association",
+      "status": 200,
+      "finalUrl": "https://www.espn.com/.well-known/apple-app-site-association",
+      "data": {
+        "applinks": {
+          "apps": [],
+          "details": [
+            {
+              "appID": "WZ62FEL3UG.com.espn.ScoreCenter",
+              "paths": [
+                "NOT /**/feature/story/**/*",
+                "NOT /**/insider/*",
+                "NOT /**/insider/",
+                "NOT /insider/*",
+                "/ncf/scoreboard/_/*",
+                "/ncf/scoreboard",
+                "/ncf/team/_/*",
+                "/ncf/team",
+                "/ncf/standings/_/*",
+                "/ncf/standings",
+                "/ncf/rankings/_/*",
+                "/ncf/rankings",
+                "/ncf/schedule/_/*",
+                "/ncf/schedule",
+                "/ncf/conference/_/*",
+                "/ncf/conference",
+                "/nfl/team/_/*",
+                "/nfl/team",
+                "/college-football/standings/_/*",
+                "/college-football/standings",
+                "/college-football/rankings/_/*",
+                "/college-football/rankings",
+                "/college-football/schedule/_/*",
+                "/college-football/schedule",
+                "/college-football/conference/_/*",
+                "/college-football/conference",
+                "/college-football/scoreboard/_/*",
+                "/college-football/scoreboard",
+                "/college-football/team/_/*",
+                "/college-football/team",
+                "/blog/**/*",
+                "/**/story/**/*",
+                "/espnradio/play",
+                "/radio/play/_/*",
+                "/radio/play",
+                "/espnradio/podcast/",
+                "/espnradio/shows",
+                "/espnradio/",
+                "/podcast/archive",
+                "/*/game/_/gameId/*",
+                "/*/recap/_/gameId/*",
+                "/*/boxscore/_/gameId/*",
+                "/*/playbyplay/_/gameId/*",
+                "/*/matchup/_/gameId/*",
+                "/*/video/_/gameId/*",
+                "/soccer/*/gameId/*",
+                "/espn/apps/espn",
+                "/contributor/*",
+                "/contributor/*/*",
+                "/video/clip/_/*",
+                "/video/clip",
+                "/*/_/entityId/*",
+                "/soccer/league/_/*/*/entityId/*",
+                "/*/team/_/*/*/entityId/*",
+                "/*/player/_/*/*/entityId/*",
+                "/contributor/*/_/entityId/*",
+                "/verts-download",
+                "/follow-download"
+              ]
+            },
+            {
+              "appID": "N4QLZ9K83F.com.espn.enterprise.sportscenterqa",
+              "paths": [
+                "NOT /**/insider/*",
+                "NOT /**/insider/",
+                "/nfl/scoreboard/_/*",
+                "/nfl/scoreboard",
+                "/nfl/team/_/*",
+                "/nfl/team",
+                "/nfl/standings/_/*",
+                "/nfl/standings",
+                "/nfl/rankings/_/*",
+                "/nfl/rankings",
+                "/nfl/schedule/_/*",
+                "/nfl/schedule",
+                "/nfl/conference/_/*",
+                "/nfl/conference",
+                "/nfl/scoreboard/_/*",
+                "/ncb/scoreboard",
+                "/ncb/team/_/*",
+                "/ncb/team",
+                "/ncb/standings/_/*",
+                "/ncb/standings",
+                "/ncb/rankings/_/*",
+                "/ncb/rankings",
+                "/ncb/schedule/_/*",
+                "/ncb/schedule",
+                "/ncb/conference/_/*",
+                "/ncb/conference",
+                "/ncw/scoreboard/_/*",
+                "/ncw/scoreboard",
+                "/ncw/team/_/*",
+                "/ncw/team",
+                "/ncw/standings/_/*",
+                "/ncw/standings",
+                "/ncw/rankings/_/*",
+                "/ncw/rankings",
+                "/ncw/schedule/_/*",
+                "/ncw/schedule",
+                "/ncw/conference/_/*",
+                "/ncw/conference",
+                "/mens-college-basketball/standings/_/*",
+                "/mens-college-basketball/standings",
+                "/mens-college-basketball/rankings/_/*",
+                "/mens-college-basketball/rankings",
+                "/mens-college-basketball/schedule/_/*",
+                "/mens-college-basketball/schedule",
+                "/mens-college-basketball/conference/_/*",
+                "/mens-college-basketball/conference",
+                "/mens-college-basketball/scoreboard/_/*",
+                "/mens-college-basketball/scoreboard",
+                "/mens-college-basketball/team/_/*",
+                "/mens-college-basketball/team",
+                "/womens-college-basketball/standings/_/*",
+                "/womens-college-basketball/standings",
+                "/womens-college-basketball/rankings/_/*",
+                "/womens-college-basketball/rankings",
+                "/womens-college-basketball/schedule/_/*",
+                "/womens-college-basketball/schedule",
+                "/womens-college-basketball/conference/_/*",
+                "/womens-college-basketball/conference",
+                "/womens-college-basketball/scoreboard/_/*",
+                "/womens-college-basketball/scoreboard",
+                "/womens-college-basketball/team/_/*",
+                "/womens-college-basketball/team",
+                "/espnradio/play",
+                "/radio/play/_/*",
+                "/radio/play",
+                "/espnradio/podcast/",
+                "/espnradio/shows",
+                "/espnradio/",
+                "/podcast/archive",
+                "/*/game/_/gameId/*",
+                "/*/recap/_/gameId/*",
+                "/*/boxscore/_/gameId/*",
+                "/*/playbyplay/_/gameId/*",
+                "/*/matchup/_/gameId/*",
+                "/*/video/_/gameId/*",
+                "/**/story/**/*",
+                "/soccer/*/gameId/*",
+                "/contributor/*",
+                "/contributor/*/*",
+                "/espn/apps/espn",
+                "/video/clip/_/*",
+                "/video/clip",
+                "/sportscenter-for-you",
+                "/watch/player/*sportscenter-for-you",
+                "/*/_/entityId/*",
+                "/soccer/league/_/*/*/entityId/*",
+                "/*/team/_/*/*/entityId/*",
+                "/*/player/_/*/*/entityId/*",
+                "/contributor/*/_/entityId/*",
+                "/verts-download",
+                "/follow-download"
+              ]
+            },
+            {
+              "appID": "WZ62FEL3UG.com.espn.ScoreCenterDogfood",
+              "paths": [
+                "NOT /**/insider/*",
+                "NOT /**/insider/",
+                "/nfl/scoreboard/_/*",
+                "/nfl/scoreboard",
+                "/nfl/team/_/*",
+                "/nfl/team",
+                "/nfl/standings/_/*",
+                "/nfl/standings",
+                "/nfl/rankings/_/*",
+                "/nfl/rankings",
+                "/nfl/schedule/_/*",
+                "/nfl/schedule",
+                "/nfl/conference/_/*",
+                "/nfl/conference",
+                "/nfl/scoreboard/_/*",
+                "/ncb/scoreboard",
+                "/ncb/team/_/*",
+                "/ncb/team",
+                "/ncb/standings/_/*",
+                "/ncb/standings",
+                "/ncb/rankings/_/*",
+                "/ncb/rankings",
+                "/ncb/schedule/_/*",
+                "/ncb/schedule",
+                "/ncb/conference/_/*",
+                "/ncb/conference",
+                "/ncw/scoreboard/_/*",
+                "/ncw/scoreboard",
+                "/ncw/team/_/*",
+                "/ncw/team",
+                "/ncw/standings/_/*",
+                "/ncw/standings",
+                "/ncw/rankings/_/*",
+                "/ncw/rankings",
+                "/ncw/schedule/_/*",
+                "/ncw/schedule",
+                "/ncw/conference/_/*",
+                "/ncw/conference",
+                "/mens-college-basketball/standings/_/*",
+                "/mens-college-basketball/standings",
+                "/mens-college-basketball/rankings/_/*",
+                "/mens-college-basketball/rankings",
+                "/mens-college-basketball/schedule/_/*",
+                "/mens-college-basketball/schedule",
+                "/mens-college-basketball/conference/_/*",
+                "/mens-college-basketball/conference",
+                "/mens-college-basketball/scoreboard/_/*",
+                "/mens-college-basketball/scoreboard",
+                "/mens-college-basketball/team/_/*",
+                "/mens-college-basketball/team",
+                "/womens-college-basketball/standings/_/*",
+                "/womens-college-basketball/standings",
+                "/womens-college-basketball/rankings/_/*",
+                "/womens-college-basketball/rankings",
+                "/womens-college-basketball/schedule/_/*",
+                "/womens-college-basketball/schedule",
+                "/womens-college-basketball/conference/_/*",
+                "/womens-college-basketball/conference",
+                "/womens-college-basketball/scoreboard/_/*",
+                "/womens-college-basketball/scoreboard",
+                "/womens-college-basketball/team/_/*",
+                "/womens-college-basketball/team",
+                "/espnradio/play",
+                "/radio/play/_/*",
+                "/radio/play",
+                "/espnradio/podcast/",
+                "/espnradio/shows",
+                "/espnradio/",
+                "/podcast/archive",
+                "/*/game/_/gameId/*",
+                "/*/recap/_/gameId/*",
+                "/*/boxscore/_/gameId/*",
+                "/*/playbyplay/_/gameId/*",
+                "/*/matchup/_/gameId/*",
+                "/*/video/_/gameId/*",
+                "/**/story/**/*",
+                "/soccer/*/gameId/*",
+                "/contributor/*",
+                "/contributor/*/*",
+                "/espn/apps/espn",
+                "/video/clip/_/*",
+                "/video/clip",
+                "/sportscenter-for-you",
+                "/watch/player/*sportscenter-for-you",
+                "/*/_/entityId/*",
+                "/soccer/league/_/*/*/entityId/*",
+                "/*/team/_/*/*/entityId/*",
+                "/*/player/_/*/*/entityId/*",
+                "/contributor/*/_/entityId/*",
+                "/verts-download",
+                "/follow-download"
+              ]
+            },
+            {
+              "appID": "WZ62FEL3UG.com.espn.fantasyFootball",
+              "paths": [
+                "NOT /**/insider/*",
+                "/fantasy/*/story/_/id/*",
+                "/blog/stephania-bell/**/id/*",
+                "/espn/apps/fantasy"
+              ]
+            },
+            {
+              "appID": "N4QLZ9K83F.com.espn.enterprise.fantasyFootball",
+              "paths": [
+                "NOT /**/insider/*",
+                "/fantasy/*/story/_/id/*",
+                "/blog/stephania-bell/**/id/*",
+                "/espn/apps/fantasy"
+              ]
+            },
+            {
+              "appID": "N4QLZ9K83F.com.espn.enterprise.fantasyFootballQA",
+              "paths": [
+                "NOT /**/insider/*",
+                "/fantasy/*/story/_/id/*",
+                "/blog/stephania-bell/**/id/*",
+                "/espn/apps/fantasy"
+              ]
+            },
+            {
+              "appID": "N4QLZ9K83F.com.espn.enterprise.fantasyFootballCont",
+              "paths": [
+                "NOT /**/insider/*",
+                "/fantasy/*/story/_/id/*",
+                "/blog/stephania-bell/**/id/*",
+                "/espn/apps/fantasy"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "url": "https://www.espn.com/.well-known/assetlinks.json",
+      "status": 200,
+      "finalUrl": "https://www.espn.com/.well-known/assetlinks.json",
+      "data": [
+        {
+          "relation": [
+            "delegate_permission/common.handle_all_urls"
+          ],
+          "target": {
+            "namespace": "android_app",
+            "package_name": "com.espn.fantasy.lm.football",
+            "sha256_cert_fingerprints": [
+              "64:A1:F4:A5:65:80:36:11:E9:80:F3:97:EE:BF:E4:DC:EE:D0:1B:65:93:ED:E3:C7:51:D3:A7:56:41:4A:85:F7"
+            ]
+          }
+        },
+        {
+          "relation": [
+            "delegate_permission/common.handle_all_urls",
+            "delegate_permission/common.get_login_creds"
+          ],
+          "target": {
+            "namespace": "android_app",
+            "package_name": "com.espn.score_center.debug",
+            "sha256_cert_fingerprints": [
+              "4E:43:55:75:FB:1F:47:DA:6E:08:72:A9:2E:76:52:2D:2B:DA:3B:75:EE:B6:8B:71:AD:F0:3F:B3:45:5C:23:3C",
+              "14:D2:37:B8:B9:32:A4:35:D0:F5:19:47:49:80:8F:19:BE:03:35:84:78:CC:FC:E2:B6:85:A6:AD:AA:8C:7B:7D"
+            ]
+          }
+        },
+        {
+          "relation": [
+            "delegate_permission/common.handle_all_urls",
+            "delegate_permission/common.get_login_creds"
+          ],
+          "target": {
+            "namespace": "android_app",
+            "package_name": "com.espn.score_center",
+            "sha256_cert_fingerprints": [
+              "4E:43:55:75:FB:1F:47:DA:6E:08:72:A9:2E:76:52:2D:2B:DA:3B:75:EE:B6:8B:71:AD:F0:3F:B3:45:5C:23:3C",
+              "14:D2:37:B8:B9:32:A4:35:D0:F5:19:47:49:80:8F:19:BE:03:35:84:78:CC:FC:E2:B6:85:A6:AD:AA:8C:7B:7D"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://www.paramountplus.com/.well-known/apple-app-site-association",
+      "error": "HTTP Error 406: Not Acceptable"
+    },
+    {
+      "url": "https://www.paramountplus.com/.well-known/assetlinks.json",
+      "status": 200,
+      "finalUrl": "https://www.paramountplus.com/.well-known/assetlinks.json",
+      "data": [
+        {
+          "relation": [
+            "delegate_permission/common.handle_all_urls"
+          ],
+          "target": {
+            "namespace": "android_app",
+            "package_name": "com.cbs.app",
+            "sha256_cert_fingerprints": [
+              "A7:52:00:85:33:6E:50:05:3D:E6:B8:B9:2E:5A:B8:9B:6F:62:B5:C2:26:53:E5:68:48:70:58:6D:02:FB:01:4E"
+            ]
+          }
+        },
+        {
+          "relation": [
+            "delegate_permission/common.handle_all_urls"
+          ],
+          "target": {
+            "namespace": "android_app",
+            "package_name": "com.cbs.ott",
+            "sha256_cert_fingerprints": [
+              "66:23:D6:EF:F7:57:50:D5:83:02:C3:9A:C4:60:A1:D3:DA:4F:3D:AE:6A:E0:F1:56:9D:3F:7B:42:A7:52:7C:2B"
+            ]
+          }
+        },
+        {
+          "relation": [
+            "delegate_permission/common.handle_all_urls"
+          ],
+          "target": {
+            "namespace": "android_app",
+            "package_name": "com.cbs.ca",
+            "sha256_cert_fingerprints": [
+              "00:A4:E3:E8:8D:25:55:BA:F4:29:22:70:BC:EF:43:CD:FE:67:31:52:D5:20:C2:CB:81:3A:24:94:54:E6:FF:6C"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://www.primevideo.com/.well-known/apple-app-site-association",
+      "status": 200,
+      "finalUrl": "https://www.primevideo.com/.well-known/apple-app-site-association",
+      "data": {
+        "applinks": {
+          "apps": [],
+          "details": [
+            {
+              "appID": "J7P34ALZ5R.com.amazon.aiv.AIVApp",
+              "paths": [
+                "/",
+                "/storefront",
+                "/storefront/*",
+                "/movie",
+                "/tv",
+                "/kids",
+                "/store",
+                "/prime",
+                "/search",
+                "/search/*",
+                "/categories",
+                "/genre/*",
+                "/detail/*",
+                "/watch/*",
+                "/dp/*",
+                "/gp/video/detail/*",
+                "/gp/video/dp/*",
+                "/mystuff",
+                "/mystuff/*",
+                "/region/na/",
+                "/region/na/storefront",
+                "/region/na/storefront/*",
+                "/region/na/movie",
+                "/region/na/tv",
+                "/region/na/kids",
+                "/region/na/store",
+                "/region/na/prime",
+                "/region/na/search",
+                "/region/na/search/*",
+                "/region/na/categories",
+                "/region/na/genre/*",
+                "/region/na/detail/*",
+                "/region/na/watch/*",
+                "/region/na/dp/*",
+                "/region/na/gp/video/detail/*",
+                "/region/na/gp/video/dp/*",
+                "/region/na/mystuff",
+                "/region/na/mystuff/*",
+                "/region/eu/",
+                "/region/eu/storefront",
+                "/region/eu/storefront/*",
+                "/region/eu/movie",
+                "/region/eu/tv",
+                "/region/eu/kids",
+                "/region/eu/store",
+                "/region/eu/prime",
+                "/region/eu/search",
+                "/region/eu/search/*",
+                "/region/eu/categories",
+                "/region/eu/genre/*",
+                "/region/eu/detail/*",
+                "/region/eu/watch/*",
+                "/region/eu/dp/*",
+                "/region/eu/gp/video/detail/*",
+                "/region/eu/gp/video/dp/*",
+                "/region/eu/mystuff",
+                "/region/eu/mystuff/*",
+                "/region/fe/",
+                "/region/fe/storefront",
+                "/region/fe/storefront/*",
+                "/region/fe/movie",
+                "/region/fe/tv",
+                "/region/fe/kids",
+                "/region/fe/store",
+                "/region/fe/prime",
+                "/region/fe/search",
+                "/region/fe/search/*",
+                "/region/fe/categories",
+                "/region/fe/genre/*",
+                "/region/fe/detail/*",
+                "/region/fe/watch/*",
+                "/region/fe/dp/*",
+                "/region/fe/gp/video/detail/*",
+                "/region/fe/gp/video/dp/*",
+                "/region/fe/mystuff",
+                "/region/fe/mystuff/*"
+              ]
+            },
+            {
+              "appIDs": [
+                "LVTJL52RRZ.com.amazon.aiv.AIVApp.gamma",
+                "LVTJL52RRZ.com.amazon.aiv.AIVApp.beta",
+                "9734J427D3.com.amazon.aiv.AIVApp.development",
+                "9734J427D3.com.amazon.aiv.AIVApp.development.alpha",
+                "9734J427D3.com.amazon.aiv.AIVApp.development.beta"
+              ],
+              "components": [
+                {
+                  "/": "/",
+                  "?": {
+                    "dl": "1"
+                  }
+                },
+                {
+                  "/": "/storefront",
+                  "?": {
+                    "dl": "1"
+                  }
+                },
+                {
+                  "/": "/storefront/*",
+                  "?": {
+                    "dl": "1"
+                  }
+                },
+                {
+                  "/": "/movie",
+                  "?": {
+                    "dl": "1"
+                  }
+                },
+                {
+                  "/": "/tv",
+                  "?": {
+                    "dl": "1"
+                  }
+                },
+                {
+                  "/": "/sports",
+                  "?": {
+                    "dl": "1"
+                  }
+                },
+                {
+                  "/": "/livetv",
+                  "?": {
+                    "dl": "1"
+                  }
+                },
+                {
+                  "/": "/news",
+                  "?": {
+                    "dl": "1"
+                  }
+                },
+                {
+                  "/": "/kids",
+                  "?": {
+                    "dl": "1"
+                  }
+                },
+                {
+                  "/": "/addons",
+                  "?": {
+                    "dl": "1"
+                  }
+                },
+                {
+                  "/": "/store",
+                  "?": {
+                    "dl": "1"
+                  }
+                },
+                {
+                  "/": "/store/*",
+                  "?": {
+                    "dl": "1"
+                  }
+                },
+                {
+                  "/": "/prime",
+                  "?": {
+                    "dl": "1"
+                  }
+                },
+                {
+                  "/": "/collection/*",
+                  "?": {
+                    "dl": "1"
+                  }
+                },
+                {
+                  "/": "/search",
+                  "?": {
+                    "dl": "1"
+                  }
+                },
+                {
+                  "/": "/search/*",
+                  "?": {
+                    "dl": "1"
+                  }
+                },
+                {
+                  "/": "/categories",
+                  "?": {
+                    "dl": "1"
+                  }
+                },
+                {
+                  "/": "/genre/*",
+                  "?": {
+                    "dl": "1"
+                  }
+                },
+                {
+                  "/": "/tournament/*",
+                  "?": {
+                    "dl": "1"
+                  }
+                },
+                {
+                  "/": "/detail/*",
+                  "?": {
+                    "dl": "1"
+                  }
+                },
+                {
+                  "/": "/watch/*",
+                  "?": {
+                    "dl": "1"
+                  }
+                },
+                {
+                  "/": "/dp/*",
+                  "?": {
+                    "dl": "1"
+                  }
+                },
+                {
+                  "/": "/gp/video/detail/*",
+                  "?": {
+                    "dl": "1"
+                  }
+                },
+                {
+                  "/": "/gp/video/dp/*",
+                  "?": {
+                    "dl": "1"
+                  }
+                },
+                {
+                  "/": "/mystuff",
+                  "?": {
+                    "dl": "1"
+                  }
+                },
+                {
+                  "/": "/mystuff/*",
+                  "?": {
+                    "dl": "1"
+                  }
+                },
+                {
+                  "/": "/region/na/",
+                  "?": {
+                    "dl": "1"
+                  }
+                },
+                {
+                  "/": "/region/na/storefront",
+                  "?": {
+                    "dl": "1"
+                  }
+                },
+                {
+                  "/": "/region/na/storefront/*",
+                  "?": {
+                    "dl": "1"
+                  }
+                },
+                {
+                  "/": "/region/na/movie",
+                  "?": {
+                    "dl": "1"
+                  }
+                },
+                {
+                  "/": "/region/na/tv",
+                  "?": {
+                    "dl": "1"
+                  }
+                },
+                {
+                  "/": "/region/na/sports",
+                  "?": {
+                    "dl": "1"
+                  }
+                },
+                {
+                  "/": "/region/na/livetv",
+                  "?": {
+                    "dl": "1"
+                  }
+                },
+                {
+                  "/": "/region/na/news",
+                  "?": {
+                    "dl": "1"
+                  }
+                },
+                {
+                  "/": "/region/na/kids",
+                  "?": {
+                    "dl": "1"
+                  }
+                },
+                {
+                  "/": "/region/na/addons",
+                  "?": {
+                    "dl": "1"
+                  }
+                },
+                {
+                  "/": "/region/na/store",
+                  "?": {
+                    "dl": "1"
+                  }
+                },
+                {
+                  "/": "/region/na/store/*",
+                  "?": {
+                    "dl": "1"
+                  }
+                },
+                {
+                  "/": "/region/na/prime",
+                  "?": {
+                    "dl": "1"
+                  }
+                },
+                {
+                  "/": "/region/na/collection/*",
+                  "?": {
+                    "dl": "1"
+                  }
+                },
+                {
+                  "/": "/region/na/search",
+                  "?": {
+                    "dl": "1"
+                  }
+                },
+                {
+                  "/": "/region/na/search/*",
+                  "?": {
+                    "dl": "1"
+                  }
+                },
+                {
+                  "/": "/region/na/categories",
+                  "?": {
+                    "dl": "1"
+                  }
+                },
+                {
+                  "/": "/region/na/genre/*",
+                  "?": {
+                    "dl": "1"
+                  }
+                },
+                {
+                  "/": "/region/na/tournament/*",
+                  "?": {
+                    "dl": "1"
+                  }
+                },
+                {
+                  "/": "/region/na/detail/*",
+                  "?": {
+                    "dl": "1"
+                  }
+                },
+                {
+                  "/": "/region/na/watch/*",
+                  "?": {
+                    "dl": "1"
+                  }
+                },
+                {
+                  "/": "/region/na/dp/*",
+                  "?": {
+                    "dl": "1"
+                  }
+                },
+                {
+                  "/": "/region/na/gp/video/detail/*",
+                  "?": {
+                    "dl": "1"
+                  }
+                },
+                {
+                  "/": "/region/na/gp/video/dp/*",
+                  "?": {
+                    "dl": "1"
+                  }
+                },
+                {
+                  "/": "/region/na/mystuff",
+                  "?": {
+                    "dl": "1"
+                  }
+                },
+                {
+                  "/": "/region/na/mystuff/*",
+                  "?": {
+                    "dl": "1"
+                  }
+                },
+                {
+                  "/": "/region/eu/",
+                  "?": {
+                    "dl": "1"
+                  }
+                },
+                {
+                  "/": "/region/eu/storefront",
+                  "?": {
+                    "dl": "1"
+                  }
+                },
+                {
+                  "/": "/region/eu/storefront/*",
+                  "?": {
+                    "dl": "1"
+                  }
+                },
+                {
+                  "/": "/region/eu/movie",
+                  "?": {
+                    "dl": "1"
+                  }
+                },
+                {
+                  "/": "/region/eu/tv",
+                  "?": {
+                    "dl": "1"
+                  }
+                },
+                {
+                  "/": "/region/eu/sports",
+                  "?": {
+                    "dl": "1"
+                  }
+                },
+                {
+                  "/": "/region/eu/livetv",
+                  "?": {
+                    "dl": "1"
+                  }
+                },
+                {
+                  "/": "/region/eu/news",
+                  "?": {
+                    "dl": "1"
+                  }
+                },
+                {
+                  "/": "/region/eu/kids",
+                  "?": {
+                    "dl": "1"
+                  }
+                },
+                {
+                  "/": "/region/eu/addons",
+                  "?": {
+                    "dl": "1"
+                  }
+                },
+                {
+                  "/": "/region/eu/store",
+                  "?": {
+                    "dl": "1"
+                  }
+                },
+                {
+                  "/": "/region/eu/store/*",
+                  "?": {
+                    "dl": "1"
+                  }
+                },
+                {
+                  "/": "/region/eu/prime",
+                  "?": {
+                    "dl": "1"
+                  }
+                },
+                {
+                  "/": "/region/eu/collection/*",
+                  "?": {
+                    "dl": "1"
+                  }
+                },
+                {
+                  "/": "/region/eu/search",
+                  "?": {
+                    "dl": "1"
+                  }
+                },
+                {
+                  "/": "/region/eu/search/*",
+                  "?": {
+                    "dl": "1"
+                  }
+                },
+                {
+                  "/": "/region/eu/categories",
+                  "?": {
+                    "dl": "1"
+                  }
+                },
+                {
+                  "/": "/region/eu/genre/*",
+                  "?": {
+                    "dl": "1"
+                  }
+                },
+                {
+                  "/": "/region/eu/tournament/*",
+                  "?": {
+                    "dl": "1"
+                  }
+                },
+                {
+                  "/": "/region/eu/detail/*",
+                  "?": {
+                    "dl": "1"
+                  }
+                },
+                {
+                  "/": "/region/eu/watch/*",
+                  "?": {
+                    "dl": "1"
+                  }
+                },
+                {
+                  "/": "/region/eu/dp/*",
+                  "?": {
+                    "dl": "1"
+                  }
+                },
+                {
+                  "/": "/region/eu/gp/video/detail/*",
+                  "?": {
+                    "dl": "1"
+                  }
+                },
+                {
+                  "/": "/region/eu/gp/video/dp/*",
+                  "?": {
+                    "dl": "1"
+                  }
+                },
+                {
+                  "/": "/region/eu/mystuff",
+                  "?": {
+                    "dl": "1"
+                  }
+                },
+                {
+                  "/": "/region/eu/mystuff/*",
+                  "?": {
+                    "dl": "1"
+                  }
+                },
+                {
+                  "/": "/region/fe/",
+                  "?": {
+                    "dl": "1"
+                  }
+                },
+                {
+                  "/": "/region/fe/storefront",
+                  "?": {
+                    "dl": "1"
+                  }
+                },
+                {
+                  "/": "/region/fe/storefront/*",
+                  "?": {
+                    "dl": "1"
+                  }
+                },
+                {
+                  "/": "/region/fe/movie",
+                  "?": {
+                    "dl": "1"
+                  }
+                },
+                {
+                  "/": "/region/fe/tv",
+                  "?": {
+                    "dl": "1"
+                  }
+                },
+                {
+                  "/": "/region/fe/sports",
+                  "?": {
+                    "dl": "1"
+                  }
+                },
+                {
+                  "/": "/region/fe/livetv",
+                  "?": {
+                    "dl": "1"
+                  }
+                },
+                {
+                  "/": "/region/fe/news",
+                  "?": {
+                    "dl": "1"
+                  }
+                },
+                {
+                  "/": "/region/fe/kids",
+                  "?": {
+                    "dl": "1"
+                  }
+                },
+                {
+                  "/": "/region/fe/addons",
+                  "?": {
+                    "dl": "1"
+                  }
+                },
+                {
+                  "/": "/region/fe/store",
+                  "?": {
+                    "dl": "1"
+                  }
+                },
+                {
+                  "/": "/region/fe/store/*",
+                  "?": {
+                    "dl": "1"
+                  }
+                },
+                {
+                  "/": "/region/fe/prime",
+                  "?": {
+                    "dl": "1"
+                  }
+                },
+                {
+                  "/": "/region/fe/collection/*",
+                  "?": {
+                    "dl": "1"
+                  }
+                },
+                {
+                  "/": "/region/fe/search",
+                  "?": {
+                    "dl": "1"
+                  }
+                },
+                {
+                  "/": "/region/fe/search/*",
+                  "?": {
+                    "dl": "1"
+                  }
+                },
+                {
+                  "/": "/region/fe/categories",
+                  "?": {
+                    "dl": "1"
+                  }
+                },
+                {
+                  "/": "/region/fe/genre/*",
+                  "?": {
+                    "dl": "1"
+                  }
+                },
+                {
+                  "/": "/region/fe/tournament/*",
+                  "?": {
+                    "dl": "1"
+                  }
+                },
+                {
+                  "/": "/region/fe/detail/*",
+                  "?": {
+                    "dl": "1"
+                  }
+                },
+                {
+                  "/": "/region/fe/watch/*",
+                  "?": {
+                    "dl": "1"
+                  }
+                },
+                {
+                  "/": "/region/fe/dp/*",
+                  "?": {
+                    "dl": "1"
+                  }
+                },
+                {
+                  "/": "/region/fe/gp/video/detail/*",
+                  "?": {
+                    "dl": "1"
+                  }
+                },
+                {
+                  "/": "/region/fe/gp/video/dp/*",
+                  "?": {
+                    "dl": "1"
+                  }
+                },
+                {
+                  "/": "/region/fe/mystuff",
+                  "?": {
+                    "dl": "1"
+                  }
+                },
+                {
+                  "/": "/region/fe/mystuff/*",
+                  "?": {
+                    "dl": "1"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        "webcredentials": {
+          "apps": [
+            "J7P34ALZ5R.com.amazon.aiv.AIVApp",
+            "LVTJL52RRZ.com.amazon.aiv.AIVApp.gamma",
+            "LVTJL52RRZ.com.amazon.aiv.AIVApp.beta",
+            "9734J427D3.com.amazon.aiv.AIVApp.development",
+            "9734J427D3.com.amazon.aiv.AIVApp.development.alpha",
+            "9734J427D3.com.amazon.aiv.AIVApp.development.beta"
+          ]
+        },
+        "activitycontinuation": {
+          "apps": [
+            "J7P34ALZ5R.com.amazon.aiv.AIVApp",
+            "LVTJL52RRZ.com.amazon.aiv.AIVApp.gamma",
+            "LVTJL52RRZ.com.amazon.aiv.AIVApp.beta",
+            "9734J427D3.com.amazon.aiv.AIVApp.development",
+            "9734J427D3.com.amazon.aiv.AIVApp.development.alpha",
+            "9734J427D3.com.amazon.aiv.AIVApp.development.beta"
+          ]
+        }
+      }
+    },
+    {
+      "url": "https://www.primevideo.com/.well-known/assetlinks.json",
+      "status": 200,
+      "finalUrl": "https://www.primevideo.com/.well-known/assetlinks.json",
+      "data": [
+        {
+          "relation": [
+            "delegate_permission/common.handle_all_urls"
+          ],
+          "target": {
+            "namespace": "android_app",
+            "package_name": "com.amazon.avod",
+            "sha256_cert_fingerprints": [
+              "2F:19:AD:EB:28:4E:B3:6F:7F:07:78:61:52:B9:A1:D1:4B:21:65:32:03:AD:0B:04:EB:BF:9C:73:AB:6D:76:25"
+            ]
+          }
+        },
+        {
+          "relation": [
+            "delegate_permission/common.handle_all_urls"
+          ],
+          "target": {
+            "namespace": "android_app",
+            "package_name": "com.amazon.avod.thirdpartyclient",
+            "sha256_cert_fingerprints": [
+              "2F:19:AD:EB:28:4E:B3:6F:7F:07:78:61:52:B9:A1:D1:4B:21:65:32:03:AD:0B:04:EB:BF:9C:73:AB:6D:76:25"
+            ]
+          }
+        },
+        {
+          "relation": [
+            "delegate_permission/common.handle_all_urls"
+          ],
+          "target": {
+            "namespace": "android_app",
+            "package_name": "com.amazon.avod.thirdpartyclient.xiaomi",
+            "sha256_cert_fingerprints": [
+              "2F:19:AD:EB:28:4E:B3:6F:7F:07:78:61:52:B9:A1:D1:4B:21:65:32:03:AD:0B:04:EB:BF:9C:73:AB:6D:76:25"
+            ]
+          }
+        },
+        {
+          "relation": [
+            "delegate_permission/common.handle_all_urls"
+          ],
+          "target": {
+            "namespace": "android_app",
+            "package_name": "com.amazon.amazonvideo.livingroom",
+            "sha256_cert_fingerprints": [
+              "2F:19:AD:EB:28:4E:B3:6F:7F:07:78:61:52:B9:A1:D1:4B:21:65:32:03:AD:0B:04:EB:BF:9C:73:AB:6D:76:25"
+            ]
+          }
+        },
+        {
+          "relation": [
+            "delegate_permission/common.handle_all_urls"
+          ],
+          "target": {
+            "namespace": "android_app",
+            "package_name": "com.amazon.pvandroidauto",
+            "sha256_cert_fingerprints": [
+              "7C:AC:39:19:37:98:1B:61:34:BD:CE:1F:D9:83:4C:25:31:81:F5:AB:F9:1D:ED:60:78:21:0D:0F:91:AC:E3:60",
+              "4E:68:CA:A2:45:A7:CF:5E:8C:7D:3F:FB:96:A3:E1:EE:EA:01:71:6F:4F:03:79:99:2F:0B:BD:3D:62:45:FD:7C",
+              "2F:19:AD:EB:28:4E:B3:6F:7F:07:78:61:52:B9:A1:D1:4B:21:65:32:03:AD:0B:04:EB:BF:9C:73:AB:6D:76:25"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://tv.apple.com/.well-known/apple-app-site-association",
+      "error": "Expecting value: line 1 column 1 (char 0)"
+    },
+    {
+      "url": "https://tv.apple.com/.well-known/assetlinks.json",
+      "status": 200,
+      "finalUrl": "https://tv.apple.com/.well-known/assetlinks.json",
+      "data": [
+        {
+          "relation": [
+            "delegate_permission/common.handle_all_urls"
+          ],
+          "target": {
+            "namespace": "android_app",
+            "package_name": "com.apple.atve.androidtv.appletv.internal",
+            "sha256_cert_fingerprints": [
+              "1E:EF:44:46:BD:6D:56:51:FE:32:69:84:BF:CE:46:D4:64:FB:3D:E1:16:9A:AF:92:29:E0:D5:2A:4D:04:AD:3D"
+            ]
+          }
+        },
+        {
+          "relation": [
+            "delegate_permission/common.handle_all_urls"
+          ],
+          "target": {
+            "namespace": "android_app",
+            "package_name": "com.apple.atve.androidtv.appletv",
+            "sha256_cert_fingerprints": [
+              "A9:44:4C:DA:E1:F4:2C:11:B7:68:EF:3F:A8:B1:C5:77:5F:23:E6:7F:DE:ED:66:DB:33:17:ED:E8:9E:1E:00:1B"
+            ]
+          }
+        },
+        {
+          "relation": [
+            "delegate_permission/common.handle_all_urls"
+          ],
+          "target": {
+            "namespace": "android_app",
+            "package_name": "com.apple.atve.androidtv.appletv",
+            "sha256_cert_fingerprints": [
+              "77:1D:86:74:D3:D9:83:7C:9E:DF:11:B1:18:73:44:39:98:F1:91:05:AB:CE:CA:B4:25:ED:9B:8E:6F:EF:FF:9B"
+            ]
+          }
+        },
+        {
+          "relation": [
+            "delegate_permission/common.handle_all_urls"
+          ],
+          "target": {
+            "namespace": "android_app",
+            "package_name": "com.apple.atve.amazon.appletv.internal",
+            "sha256_cert_fingerprints": [
+              "1E:EF:44:46:BD:6D:56:51:FE:32:69:84:BF:CE:46:D4:64:FB:3D:E1:16:9A:AF:92:29:E0:D5:2A:4D:04:AD:3D"
+            ]
+          }
+        },
+        {
+          "relation": [
+            "delegate_permission/common.handle_all_urls"
+          ],
+          "target": {
+            "namespace": "android_app",
+            "package_name": "com.apple.atve.amazon.appletv",
+            "sha256_cert_fingerprints": [
+              "A9:44:4C:DA:E1:F4:2C:11:B7:68:EF:3F:A8:B1:C5:77:5F:23:E6:7F:DE:ED:66:DB:33:17:ED:E8:9E:1E:00:1B"
+            ]
+          }
+        },
+        {
+          "relation": [
+            "delegate_permission/common.handle_all_urls"
+          ],
+          "target": {
+            "namespace": "android_app",
+            "package_name": "com.apple.atve.sony.appletv.internal",
+            "sha256_cert_fingerprints": [
+              "1E:EF:44:46:BD:6D:56:51:FE:32:69:84:BF:CE:46:D4:64:FB:3D:E1:16:9A:AF:92:29:E0:D5:2A:4D:04:AD:3D"
+            ]
+          }
+        },
+        {
+          "relation": [
+            "delegate_permission/common.handle_all_urls"
+          ],
+          "target": {
+            "namespace": "android_app",
+            "package_name": "com.apple.atve.sony.appletv",
+            "sha256_cert_fingerprints": [
+              "A9:44:4C:DA:E1:F4:2C:11:B7:68:EF:3F:A8:B1:C5:77:5F:23:E6:7F:DE:ED:66:DB:33:17:ED:E8:9E:1E:00:1B"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://www.peacocktv.com/watch/sports",
+      "status": 200,
+      "finalUrl": "https://www.peacocktv.com/watch/sports",
+      "data": null
+    },
+    {
+      "url": "https://www.espn.com/watch/",
+      "status": 200,
+      "finalUrl": "https://www.espn.com/watch/",
+      "data": null
+    },
+    {
+      "url": "https://www.paramountplus.com/browse/sports/",
+      "error": "HTTP Error 406: Not Acceptable"
+    },
+    {
+      "url": "https://www.primevideo.com/sports",
+      "error": "HTTP Error 503: Service Temporarily Unavailable"
+    },
+    {
+      "url": "https://www.primevideo.com/storefront/sports",
+      "error": "HTTP Error 503: Service Temporarily Unavailable"
+    },
+    {
+      "url": "https://tv.apple.com/sports",
+      "status": 200,
+      "finalUrl": "https://tv.apple.com/us/channel/mls/tvs.sbd.7000",
+      "data": null
+    },
+    {
+      "url": "https://app-site-association.cdn-apple.com/a/v1/www.paramountplus.com",
+      "status": 200,
+      "finalUrl": "https://app-site-association.cdn-apple.com/a/v1/www.paramountplus.com",
+      "data": {
+        "applinks": {
+          "apps": [],
+          "details": [
+            {
+              "appID": "H443NM7F8H.com.cbsvideo.app",
+              "paths": [
+                "/",
+                "/brands/*",
+                "/shows/",
+                "/live-tv",
+                "/live-tv/*/",
+                "/live-tv/stream/*/",
+                "shows/*/",
+                "/shows/*/video/*/*/",
+                "shows/*/live_feed",
+                "shows/*/about/",
+                "/news/",
+                "/news/video/*/*/",
+                "/news/video/",
+                "shows/cbsn-originals/video/",
+                "/shows/*/video/",
+                "/movies/*/",
+                "/movies/*/*/",
+                "movies/*/trailer/*/",
+                "collections/*",
+                "/live-tv/stream/",
+                "/live-tv/stream/cbsn/",
+                "/live-tv/stream/sports/",
+                "live-tv/stream/etl/",
+                "NOT live-tv/stream/everywhere/",
+                "NOT /watch/",
+                "NOT /schedule/",
+                "NOT /shows/all/",
+                "NOT /shows/dramas/",
+                "NOT /shows/comedies/",
+                "NOT /shows/reality/",
+                "NOT /shows/daytime/",
+                "NOT /shows/primetime/",
+                "NOT /shows/late-night/",
+                "NOT /shows/specials/",
+                "NOT /shows/news/",
+                "NOT /shows/sports/",
+                "NOT /shows/*/cast/",
+                "NOT /shows/*/news/",
+                "NOT /shows/*/photos/",
+                "NOT /search/",
+                "NOT /movies/popular/",
+                "NOT /movies/action/",
+                "NOT /movies/comedy/",
+                "NOT /movies/documentaries/",
+                "NOT /movies/drama/",
+                "NOT /movies/kids-and-family/",
+                "NOT /movies/thriller/",
+                "NOT /movies/all/",
+                "NOT /live-tv/stream/tveverywhere/",
+                "NOT /shows/*/news/*/",
+                "NOT /shows/*/news/"
+              ]
+            },
+            {
+              "appID": "FMV3D35V94.com.cbs.canada.app",
+              "paths": [
+                "/",
+                "/brands/*",
+                "/movies/*",
+                "/browse/*",
+                "/shows/*"
+              ]
+            },
+            {
+              "appID": "FMV3D35V94.com.cbsdebug.canada.app",
+              "paths": [
+                "/",
+                "/brands/*",
+                "/movies/*",
+                "/browse/*",
+                "/shows/*"
+              ]
+            }
+          ]
+        },
+        "webcredentials": {
+          "apps": [
+            "K6XPG45H4A.com.cbsvideodebug.app",
+            "H443NM7F8H.com.cbsvideo.app",
+            "FMV3D35V94.com.cbs.canada.app",
+            "FMV3D35V94.com.cbsdebug.canada.app"
+          ]
+        }
+      }
+    },
+    {
+      "url": "https://app-site-association.cdn-apple.com/a/v1/tv.apple.com",
+      "error": "HTTP Error 404: Not Found"
+    }
+  ]
+}

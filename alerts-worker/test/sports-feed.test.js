@@ -279,7 +279,8 @@ test('moved normalization and enrichment preserve pre-migration fixture ratings 
   const originalCore=gunzipSync(fs.readFileSync(new URL('./fixtures/pre-migration-core.js.gz',import.meta.url))).toString();
   const model=fs.readFileSync(new URL('../src/game-model.js',import.meta.url),'utf8')
     .replace(/^import .*;\s*$/gm,'').replace(/^export .*;\s*$/gm,'');
-  const {normalizeEvent,enrichGame}=vm.runInNewContext(`${originalCore}\n${model}\n({normalizeEvent,enrichGame})`,{baseballSituation,footballSituation});
+  const watch=fs.readFileSync(new URL('../../watch-links.js',import.meta.url),'utf8');
+  const {normalizeEvent,enrichGame}=vm.runInNewContext(`${originalCore}\n${watch}\n${model}\n({normalizeEvent,enrichGame})`,{baseballSituation,footballSituation,URL});
   const expected=JSON.parse(fs.readFileSync(new URL('./fixtures/migration-parity.json',import.meta.url),'utf8'));
   const inputs=JSON.parse(gunzipSync(fs.readFileSync(new URL('./fixtures/migration-inputs.json.gz',import.meta.url))));
   assert.equal(Object.keys(expected).length,107);

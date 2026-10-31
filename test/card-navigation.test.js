@@ -19,7 +19,7 @@ function harness(kind) {
   const card={dataset:{id:'game',sport:'NHL'}};
   const logo={dataset:{cardTeamIndex:'0'},closest:()=>card};
   const dot={closest:()=>card};
-  const target={closest:selector=>selector==='.game-card'?card:selector==='.card-team-link'&&kind==='logo'?logo:selector==='.score-circle'&&kind==='rating'?dot:null};
+  const target={closest:selector=>selector==='.game-card'?card:selector==='.card-team-link'&&kind==='logo'?logo:selector==='.broadcast-watch-link'&&kind==='stream'?{}:selector==='.score-circle'&&kind==='rating'?dot:null};
   const context=vm.createContext({$:()=>({addEventListener:(name,fn)=>listeners[name]=fn}),games:[{id:'game',sport:'NHL',teams:[team]}],Date,
     openGameDetails:(...args)=>opened.push(['game',...args]),openTeamPage:args=>opened.push(['team',args.id])});
   vm.runInContext(source.slice(source.indexOf('let lastTouchOpen = 0;'),source.indexOf("$('#game-detail-overlay')\n  .addEventListener(\n    'click'")),context);
@@ -41,4 +41,15 @@ test('touch opens Game Center once and preserves scrolling',()=>{
     assert.equal(h.opened[0][0],kind==='logo'?'team':'game');
   }
   const scroll=harness('name');scroll.listeners.pointerdown(scroll.event);scroll.listeners.pointerup({...scroll.event,clientY:160});assert.equal(scroll.opened.length,0);
+});
+
+test('streaming links keep native activation and never open a game or team on touch or click',()=>{
+  for(const input of ['click','touch']) {
+    const h=harness('stream');let prevented=false;
+    h.event.preventDefault=()=>{prevented=true;};
+    if(input==='touch') { h.listeners.pointerdown(h.event);h.listeners.pointerup(h.event); }
+    h.listeners.click(h.event);
+    assert.equal(h.opened.length,0,input);
+    assert.equal(prevented,false,'browser must handle HTTPS app handoff/fallback');
+  }
 });

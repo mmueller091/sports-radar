@@ -52,7 +52,7 @@ test('NBA 2OT flows through card, accessibility, explanation, history, detail an
     compactPlay:p=>p.text || '',$:()=>detail,labelForSport:s=>s,teamLogoUrl:()=>'',
     detailTabsMarkup:()=>'',storylineDetails:()=>'',detailScoring:()=>'',detailStats:()=>'',detailLeaders:()=>'',
     basketballBoxScoreMarkup:()=>'',detailPlayerStats:()=>'',detailPlays:()=>''});
-  for (const name of ['explainRating','compactClockPeriod','gameCard','basesMarkup','trendFor','isWinningTeam','recordRatingSnapshot',
+  for (const name of ['explainRating','compactClockPeriod','broadcastWatchMarkup','gameCard','basesMarkup','trendFor','isWinningTeam','recordRatingSnapshot',
     'legacyPlayPosition','scoringEvents','estimatedEventRating','timelineFormat','timelineEventPosition',
     'timelinePeriodLabel','timelineFinalScores','recordedTimelinePoints','timelinePoints','excitementTimeline','renderDetailContent']) {
     const start=source.indexOf(`function ${name}(`);

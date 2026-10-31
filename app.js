@@ -2873,6 +2873,12 @@ function compactClockPeriod(game) {
   return phase || 'Live';
 }
 
+function broadcastWatchMarkup(game,summary=null) {
+  const links = globalThis.SportsRadarWatch?.resolve(game,summary) || [];
+  if (!links.length) return '';
+  return `<span class="broadcast-watch-actions">${links.map(link=>`<a class="broadcast-watch-link" href="${safeText(link.url)}" target="_blank" rel="noopener noreferrer" aria-label="Watch on ${safeText(link.name)} (opens externally)" title="${link.direct ? 'Open this game' : 'Browse sports'} on ${safeText(link.name)}">Watch on ${safeText(link.name)}<svg class="external-link-icon" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true" focusable="false"><path d="M9 2h5v5M14 2 7 9M6 3H2v11h11v-4"/></svg></a>`).join('')}</span>`;
+}
+
 function gameCard(game) {
   const phase = String(game.live?.phase || game.status || '');
   const clock = String(game.liveRawStatus?.displayClock || phase.match(/\b\d{1,2}:\d{2}\b/)?.[0] || '');
@@ -2980,7 +2986,7 @@ function gameCard(game) {
     game.division
       ? `<span>•</span><span>${safeText(game.division)}</span>`
       : ''
-  }<span>•</span><span>${safeText(game.sub)}</span><span class="card-rating-change">${trendFor(game)}</span>${clockMarkup}</span><span class="team-row ${isWinningTeam(game,game.teams[0]) ? 'winner-row' : ''}">${cardTeam(game.teams[0],0)}<b class="team-score">${possessionMarkup(game,game.teams[0])}${safeText(game.teams[0][2])}</b></span><span class="team-row ${isWinningTeam(game,game.teams[1]) ? 'winner-row' : ''}">${cardTeam(game.teams[1],1)}<b class="team-score">${possessionMarkup(game,game.teams[1])}${safeText(game.teams[1][2])}</b></span>${situation}</span>${momentMarkup}<span class="game-context channel-context"><span class="detail-inline"><strong>Broadcast</strong><span>${safeText(game.channel || 'Channel not listed')}</span></span><span class="stats-cue">Stats ›</span><span class="detail-inline line-inline"><strong>${safeText(compactLineLabel)}</strong><span>${safeText(line.text)}</span></span></span><span class="excitement"><span class="score-circle ${scoreClass}" style="${scoreColorStyle}">${game.score}</span>${trendFor(game)}</span></article>`;
+  }<span>•</span><span>${safeText(game.sub)}</span><span class="card-rating-change">${trendFor(game)}</span>${clockMarkup}</span><span class="team-row ${isWinningTeam(game,game.teams[0]) ? 'winner-row' : ''}">${cardTeam(game.teams[0],0)}<b class="team-score">${possessionMarkup(game,game.teams[0])}${safeText(game.teams[0][2])}</b></span><span class="team-row ${isWinningTeam(game,game.teams[1]) ? 'winner-row' : ''}">${cardTeam(game.teams[1],1)}<b class="team-score">${possessionMarkup(game,game.teams[1])}${safeText(game.teams[1][2])}</b></span>${situation}</span>${momentMarkup}<span class="game-context channel-context"><span class="detail-inline"><strong>Broadcast</strong><span>${safeText(game.channel || 'Channel not listed')}</span></span>${broadcastWatchMarkup(game)}<span class="stats-cue">Stats ›</span><span class="detail-inline line-inline"><strong>${safeText(compactLineLabel)}</strong><span>${safeText(line.text)}</span></span></span><span class="excitement"><span class="score-circle ${scoreClass}" style="${scoreColorStyle}">${game.score}</span>${trendFor(game)}</span></article>`;
 }
 
 function footballAccessibleSituation(game) {
@@ -6005,7 +6011,7 @@ function renderDetailContent(
         : `Current rating ${safeText(game.score)}`;
 
   $('#game-detail-content').innerHTML =
-    `<header class="detail-header"><div class="detail-kicker">${safeText(labelForSport(game.sport))} · ${safeText(status)}${detailClock}</div><h2>${safeText(title)}</h2><button type="button" class="detail-watch ${isWatched(game) ? 'active' : ''}" data-watch-id="${safeText(watchKey(game))}" aria-pressed="${isWatched(game)}">${isWatched(game) ? '★ Watching this game' : '☆ Add to watchlist'}</button><div class="detail-scoreboard">${scores}</div><div class="detail-meta"><span><strong>Venue</strong> ${safeText(venue)}</span><span><strong>Broadcast</strong> ${safeText(game.channel || 'Channel not listed')}</span>${lineMeta}</div>${freshness}${game.moment ? `<section class="detail-moment"><strong>${safeText(game.momentLabel || 'Notable play')}</strong><span>${safeText(game.moment)}</span></section>` : ''}</header><section class="detail-radar"><div class="detail-excitement-head"><span class="detail-excitement-score" style="--score-hue:${scoreHue}">${safeText(game.score)}</span><span class="detail-excitement-copy"><small>Sports Radar excitement</small><strong>${safeText(ratingContext)}</strong></span></div><div class="detail-radar-why"><h3>Why ${safeText(game.score)}?</h3><p class="detail-explanation detail-why-text">${safeText(explainRating(game))}</p><button type="button" class="detail-why-toggle" aria-expanded="false">More</button></div>${excitementTimeline(game,summary)}</section>${detailTabsMarkup(game,summary)}`;
+    `<header class="detail-header"><div class="detail-kicker">${safeText(labelForSport(game.sport))} · ${safeText(status)}${detailClock}</div><h2>${safeText(title)}</h2><button type="button" class="detail-watch ${isWatched(game) ? 'active' : ''}" data-watch-id="${safeText(watchKey(game))}" aria-pressed="${isWatched(game)}">${isWatched(game) ? '★ Watching this game' : '☆ Add to watchlist'}</button><div class="detail-scoreboard">${scores}</div><div class="detail-meta"><span><strong>Venue</strong> ${safeText(venue)}</span><span><strong>Broadcast</strong> ${safeText(game.channel || 'Channel not listed')}</span>${lineMeta}</div>${broadcastWatchMarkup(game,summary)}${freshness}${game.moment ? `<section class="detail-moment"><strong>${safeText(game.momentLabel || 'Notable play')}</strong><span>${safeText(game.moment)}</span></section>` : ''}</header><section class="detail-radar"><div class="detail-excitement-head"><span class="detail-excitement-score" style="--score-hue:${scoreHue}">${safeText(game.score)}</span><span class="detail-excitement-copy"><small>Sports Radar excitement</small><strong>${safeText(ratingContext)}</strong></span></div><div class="detail-radar-why"><h3>Why ${safeText(game.score)}?</h3><p class="detail-explanation detail-why-text">${safeText(explainRating(game))}</p><button type="button" class="detail-why-toggle" aria-expanded="false">More</button></div>${excitementTimeline(game,summary)}</section>${detailTabsMarkup(game,summary)}`;
 }
 
 async function fetchGameSummary(game,controller=new AbortController()) {
@@ -7013,6 +7019,10 @@ $('#game-list')
   .addEventListener(
     'pointerdown',
     event => {
+      if (event.target.closest('.broadcast-watch-link')) {
+        touchStart = null;
+        return;
+      }
       if (
         event.pointerType === 'touch'
       ) {
@@ -7053,7 +7063,7 @@ $('#game-list')
           ?.dataset.id;
 
       if (
-        event.target.closest('.card-team-link')
+        event.target.closest('.card-team-link') || event.target.closest('.broadcast-watch-link')
       ) {
         touchStart = null;
         return;
@@ -7086,6 +7096,7 @@ $('#game-list')
   .addEventListener(
     'click',
     event => {
+      if (event.target.closest('.broadcast-watch-link')) return;
       const teamButton = event.target.closest('.card-team-link');
       if (teamButton) {
         const card = teamButton.closest('.game-card');

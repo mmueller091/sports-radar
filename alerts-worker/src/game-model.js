@@ -1,6 +1,7 @@
 import {baseballSituation,footballSituation} from './display-model.js';
 // Normalization and enrichment moved from app.js; scoring uses the shared core.
 import '../../rating-core.js';
+import '../../watch-links.js';
 const {
   SPORT_BASE,
   CLOSE_MARGIN,
@@ -201,6 +202,9 @@ function normalizeEvent(event, sport, leagueLogo, division) {
     sourceEvent:{value:event,enumerable:false},
     sourceCompetition:{value:competition,enumerable:false}
   });
+
+  const watchLinks = globalThis.SportsRadarWatch.resolve(game,event).filter(link=>link.direct);
+  if (watchLinks.length) game.watchLinks = watchLinks;
 
   applyLiveSnapshot(
     game,
@@ -572,6 +576,8 @@ function summarySpecificWhy(game,summary) {
 }
 
 function enrichGame(game,summary,previousGame=null) {
+  const watchLinks = globalThis.SportsRadarWatch.resolve(game,summary).filter(link=>link.direct);
+  if (watchLinks.length) game.watchLinks = watchLinks;
             let completedFinishHandled = false;
             if (previousGame?.summaryState) game.summaryState = previousGame.summaryState;
             const summaryCompetition = summary?.header?.competitions?.[0];

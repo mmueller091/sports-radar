@@ -120,7 +120,8 @@ test('state-model boundary parity includes missing margins, clocks, probabilitie
 test('all 107 archived provider fixtures preserve complete games outside completed CFB calibration', () => {
   const adapter = fs.readFileSync(new URL('../alerts-worker/src/game-model.js',import.meta.url),'utf8')
     .replace(/^import .*;\s*$/gm,'').replace(/^export .*;\s*$/gm,'');
-  const original = vm.runInNewContext(`${cappedSource}\n${adapter}\n({normalizeEvent,enrichGame})`,{baseballSituation,footballSituation});
+  const watch=fs.readFileSync(new URL('../watch-links.js',import.meta.url),'utf8');
+  const original = vm.runInNewContext(`${cappedSource}\n${watch}\n${adapter}\n({normalizeEvent,enrichGame})`,{baseballSituation,footballSituation,URL});
   const inputs = JSON.parse(gunzipSync(fs.readFileSync(new URL('../alerts-worker/test/fixtures/migration-inputs.json.gz',import.meta.url))));
   assert.equal(Object.keys(inputs).length,107);
   for (const [file,fixture] of Object.entries(inputs)) {
@@ -133,7 +134,7 @@ test('all 107 archived provider fixtures preserve complete games outside complet
     };
     const actual=evaluate({normalizeEvent,enrichGame}),old=evaluate(original);
     if(fixture.modelSport==='NHL') {
-      const inBrowser=vm.runInNewContext(`${sourceHelper.scoringSource()}\n${adapter}\n({normalizeEvent,enrichGame})`,{baseballSituation,footballSituation});
+      const inBrowser=vm.runInNewContext(`${sourceHelper.scoringSource()}\n${watch}\n${adapter}\n({normalizeEvent,enrichGame})`,{baseballSituation,footballSituation,URL});
       same(actual,evaluate(inBrowser),`${file}: NHL browser/Node`);
     } else if(fixture.modelSport==='CFB'&&actual.state==='completed') {
       const stable=({score,baseScore,upsetText,upsetPoints,momentumText,momentumPoints,factors,...rest})=>rest;
