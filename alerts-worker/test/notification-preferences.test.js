@@ -104,6 +104,8 @@ test('finished stored games remain reachable after leaving the feed; unknown gam
   env.db.prepare('INSERT INTO sports_snapshots (game_key,observed_at,sport,state,rating,score_a,score_b,phase,clock,normalized_state) VALUES (?,?,?,?,?,?,?,?,?,?)').run('CFB:'+archived.id,Date.now(),'CFB','completed',archived.score,'0','0','','',JSON.stringify(archived));
   let calls=0;globalThis.fetch=async()=>{calls++;return Response.json(fixture.summary);};
   const details=await gameDetails(env,'CFB',archived.id);assert.equal(details.sportsRadarGame.id,archived.id);assert.equal(details.sportsRadarGame.state,'completed');assert.equal(details.sportsRadarArchived,true);assert.ok(details.header);assert.equal(calls,1);
+  for(const team of details.sportsRadarGame.teams)assert.ok(team[4],'archived provider logos remain available');
+  if(fixture.summary.gameInfo?.venue?.fullName)assert.equal(details.sportsRadarGame.sub,fixture.summary.gameInfo.venue.fullName);
   assert.equal(await gameDetails(env,'CFB','unknown'),null);assert.equal(calls,1);
   globalThis.fetch=async()=>{throw new Error('offline');};env.db.prepare('DELETE FROM sports_resources').run();
   const fallback=await gameDetails(env,'CFB',archived.id);assert.equal(fallback.sportsRadarGame.id,archived.id);assert.equal(fallback.sportsRadarFreshness.stale,true);

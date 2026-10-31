@@ -1933,7 +1933,16 @@ export async function gameDetails(env,sport,id,now=Date.now()) {
   if (archived && summary.header?.competitions?.[0]?.competitors?.length===2) {
     const event={...game.sourceEvent,id,season:summary.header.season || game.sourceEvent?.season,competitions:summary.header.competitions};
     const current=normalizeEvent(event,sport);
-    if (current) {preservePregameRecords(current,game);current.providerPath=game.providerPath;enrichGame(current,summary,game);game=current;}
+    if (current) {
+      preservePregameRecords(current,game);current.providerPath=game.providerPath;enrichGame(current,summary,game);
+      for(const team of current.teams) {
+        const identity=summary.header.competitions[0].competitors.find(item=>String(item.team?.id)===String(team[8]))?.team;
+        team[4]=identity?.logo || identity?.logos?.find(logo=>logo.rel?.includes('default'))?.href || identity?.logos?.[0]?.href || game.teams.find(item=>String(item[8])===String(team[8]))?.[4] || team[4];
+      }
+      if(current.channel==='Channel not listed')current.channel=summary.header.competitions[0].broadcasts?.map(item=>item.media?.shortName || item.media?.name).filter(Boolean).join(' · ') || game.channel || current.channel;
+      current.sub=summary.header.competitions[0].venue?.fullName || summary.gameInfo?.venue?.fullName || game.sub || current.sub;
+      current.division=game.division;game=current;
+    }
   }
   return {...summary,...(['NBA','NCAAB'].includes(sport) ? {basketballBoxScore:basketballBoxScore(summary,sport)} : {}),
     sportsRadarGame:{...game,scoreboard:undefined},sportsRadarArchived:archived,
