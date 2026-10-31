@@ -8,6 +8,14 @@ CREATE TABLE IF NOT EXISTS subscriptions (
 );
 
 CREATE TABLE IF NOT EXISTS sports_feed (id INTEGER PRIMARY KEY CHECK (id=1), payload TEXT NOT NULL);
+CREATE TABLE IF NOT EXISTS notification_preferences (
+  token_hash TEXT PRIMARY KEY,
+  enabled INTEGER NOT NULL DEFAULT 1,
+  sports_json TEXT NOT NULL,
+  teams_json TEXT NOT NULL DEFAULT '[]',
+  threshold INTEGER NOT NULL DEFAULT 85,
+  updated_at INTEGER NOT NULL
+);
 CREATE TABLE IF NOT EXISTS sports_feed_parts (revision INTEGER NOT NULL, part INTEGER NOT NULL, payload TEXT NOT NULL, PRIMARY KEY (revision,part));
 CREATE TABLE IF NOT EXISTS sports_resources (key TEXT PRIMARY KEY, payload TEXT NOT NULL, updated_at INTEGER NOT NULL);
 CREATE INDEX IF NOT EXISTS sports_resources_age ON sports_resources(updated_at);

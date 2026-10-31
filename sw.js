@@ -32,17 +32,26 @@ self.addEventListener('push',event => {
     body:String(message.body || 'A live game just reached your alert threshold.'),
     tag:String(message.tag || 'sports-radar-alert'),
     icon:'./sports-radar-logo.png',badge:'./sports-radar-logo.png',
-    data:{url:String(message.url || './#home')}
+    data:{url:String(message.url || './#home'),gameId:String(message.gameId || ''),sport:String(message.sport || ''),gameKey:String(message.gameKey || '')}
   }));
 });
 self.addEventListener('notificationclick',event => {
   event.notification.close();
   event.waitUntil((async () => {
-    const target = new URL(event.notification.data?.url || './#home',self.location.href);
-    if (target.origin !== self.location.origin) return;
+    const scope=new URL(self.registration.scope);
+    const data=event.notification.data || {};
+    let target;
+    try {target=new URL(data.url || './#home',scope);}catch {target=new URL('./#home',scope);}
+    if (target.origin!==scope.origin || ![scope.pathname,scope.pathname+'index.html'].includes(target.pathname)) target=new URL('./#home',scope);
+    if (['NFL','MLB','NHL','CFB','NBA','NCAAB','Tennis','Soccer'].includes(data.sport) && /^[A-Za-z0-9_-]{1,100}$/.test(data.gameId || '')) {
+      target=new URL(`./#game/${encodeURIComponent(data.sport)}/${encodeURIComponent(data.gameId)}`,scope);
+    }
     const windows = await self.clients.matchAll({type:'window',includeUncontrolled:true});
-    const existing = windows.find(client => new URL(client.url).pathname === target.pathname);
-    if (existing) { await existing.navigate(target.href); return existing.focus(); }
+    const existing = windows.find(client => {const url=new URL(client.url);return url.origin===scope.origin && [scope.pathname,scope.pathname+'index.html'].includes(url.pathname);});
+    if (existing) {
+      try { const navigated=await existing.navigate(target.href);return await (navigated || existing).focus(); }
+      catch { /* The window may have closed between matchAll and navigation. */ }
+    }
     return self.clients.openWindow(target.href);
   })());
 });

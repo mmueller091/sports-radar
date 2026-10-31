@@ -5620,6 +5620,35 @@ dialog[open] {
   }
 }
 
+/* Notification choices and install guidance share the existing Settings dialog. */
+.notification-settings h3,.install-settings h3 { margin:0 0 10px; font-size:18px; }
+.notification-settings fieldset { min-width:0; margin:18px 0; padding:12px; border:1px solid #344853; border-radius:10px; }
+.notification-settings legend { padding:0 6px; color:#dce8ee; font-weight:600; }
+.notification-master { min-height:44px; padding:9px 14px; border:1px solid #53758b; border-radius:8px; background:#233b54; color:#dcecff; font:600 14px Arial,sans-serif; cursor:pointer; }
+.notification-master[aria-checked=true] { border-color:#80d3aa; background:#173c30; color:#c8f5df; }
+.notification-master::before { content:''; display:inline-block; width:10px; height:10px; margin-right:9px; border:1px solid currentColor; border-radius:50%; }
+.notification-master[aria-checked=true]::before { background:currentColor; }
+.notification-sports { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:6px; }
+.notification-sports .toggle-option { min-height:44px; padding:7px; }
+.notification-team-search { display:grid; grid-template-columns:auto minmax(0,1fr); align-items:center; gap:8px; margin-top:12px; }
+.notification-team-search input,.notification-team-search select { min-width:0; width:100%; min-height:44px; padding:8px; border:1px solid #536d80; border-radius:6px; background:#101c25; color:#eef5f8; font-size:16px; }
+.notification-team-results { display:grid; max-height:200px; overflow-y:auto; border:1px solid #344853; border-radius:7px; }
+.notification-team-results:empty { display:none; }
+.notification-team-results button { display:flex; justify-content:space-between; align-items:center; gap:12px; min-width:0; min-height:44px; padding:9px; border:0; border-bottom:1px solid #2a3b47; background:#14212a; color:#eef5f8; text-align:left; cursor:pointer; }
+.notification-team-results button small { flex-shrink:0; color:#9cbdcf; font-size:11px; }
+.notification-team-results button[aria-pressed=true],.notification-favorites button[aria-pressed=true] { background:#233b54; color:#c3e0ff; }
+.notification-favorites-heading { display:flex; align-items:center; justify-content:space-between; gap:8px; margin-top:14px; }
+.notification-favorites-heading button,.notification-favorites button { min-height:44px; padding:7px 10px; border:1px solid #415c6b; border-radius:7px; color:#d9e9f4; background:#182832; cursor:pointer; }
+.notification-favorites { display:flex; flex-wrap:wrap; gap:7px; margin-top:8px; }
+.install-settings details { margin:12px 0; padding:0 12px; border:1px solid #344853; border-radius:9px; }
+.install-settings summary { display:flex; align-items:center; gap:9px; min-height:48px; cursor:pointer; color:#d7eaff; font-weight:600; }
+.install-settings summary::after { content:'⌄'; margin-left:auto; font-size:22px; }
+.install-settings details[open] summary::after { transform:rotate(180deg); }
+.install-settings li { margin:10px 0; padding-left:3px; line-height:1.5; }
+.install-share-icon { display:inline-block; width:22px; height:22px; fill:none; stroke:currentColor; stroke-width:1.8; vertical-align:middle; }
+.install-menu-icon { display:inline-block; font-size:25px; line-height:1; vertical-align:middle; }
+@media(max-width:360px) { .notification-settings fieldset { padding:8px; } .notification-team-search { grid-template-columns:minmax(0,1fr); } .notification-team-results button { flex-wrap:wrap; gap:3px; } }
+
 /* MOBILE COLLAPSIBLE SPORT FILTER V3
    Phones default to one compact Sports control. The full sport bank,
    including FCS, appears only when explicitly expanded. */

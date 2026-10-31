@@ -1,6 +1,6 @@
 import {basketballBoxScore} from './display-model.js';
 import {createCollector,summaryUrl,teamResourceUrls,coreTeamProfileUrl,teamLeadersUrl,standingsUrl} from './providers/espn.js';
-import {preservePregameRecords,applyContextsToGame,enrichGame} from './live-game-model.js';
+import {normalizeEvent,preservePregameRecords,applyContextsToGame,enrichGame} from './live-game-model.js';
 import runtime from '../../scoring/live-runtime.cjs';
 import {contextsForGames} from './storylines.js';
 import {fingerprint,summaryCandidate,reusable,refreshBudget,boundedFeedRefresh,REFRESH_LEASE_MS} from './refresh-policy.js';
@@ -1908,15 +1908,36 @@ export async function teamDetails(env,sport,id,now=Date.now()) {
 
 
 export async function gameDetails(env,sport,id,now=Date.now()) {
-  // Only known feed games can request provider data; no arbitrary upstream proxy.
+  // A notification/bookmark can outlive the scoreboard. Stored game identities
+  // remain eligible for details; unknown IDs still cannot proxy upstream calls.
   const feed = await readFeed(env,now);
-  const game = feed?.games.find(game => game.sport === sport && String(game.id) === id);
+  let game = feed?.games.find(game => game.sport === sport && String(game.id) === id);
+  const archived=!game;
+  if (!game) {
+    const snapshot=await env.DB.prepare('SELECT normalized_state FROM sports_snapshots WHERE game_key=? ORDER BY observed_at DESC LIMIT 1').bind(`${sport}:${id}`).first();
+    if (snapshot) {
+      const stored=JSON.parse(snapshot.normalized_state);
+      if (stored.sport===sport && String(stored.id)===id && stored.teams?.length===2) game=stored;
+    }
+  }
   if (!game) return null;
   const errors = [];
   const url = summaryUrl(game);
-  const resource = await providerJson(env,url,game.state==='live' ? LIVE_REFRESH_MS : 55000,now,errors);
+  let resource;
+  try { resource=await providerJson(env,url,game.state==='live' ? LIVE_REFRESH_MS : 55000,now,errors); }
+  catch (error) {
+    if (!archived) throw error;
+    return {sportsRadarGame:game,sportsRadarArchived:true,sportsRadarFreshness:{stale:true,updatedAt:null,receivedAt:new Date(now).toISOString()}};
+  }
   const summary = resource.payload;
-  return {...summary,...(['NBA','NCAAB'].includes(sport) ? {basketballBoxScore:basketballBoxScore(summary,sport)} : {}),sportsRadarFreshness:{updatedAt:new Date(resource.updatedAt).toISOString(),canonicalUpdatedAt:feed.updatedAt,canonicalRevision:feed.revision || Date.parse(feed.updatedAt),receivedAt:new Date(now).toISOString(),stale:errors.length>0 || now-resource.updatedAt>STALE_MS}};
+  if (archived && summary.header?.competitions?.[0]?.competitors?.length===2) {
+    const event={...game.sourceEvent,id,season:summary.header.season || game.sourceEvent?.season,competitions:summary.header.competitions};
+    const current=normalizeEvent(event,sport);
+    if (current) {preservePregameRecords(current,game);current.providerPath=game.providerPath;enrichGame(current,summary,game);game=current;}
+  }
+  return {...summary,...(['NBA','NCAAB'].includes(sport) ? {basketballBoxScore:basketballBoxScore(summary,sport)} : {}),
+    sportsRadarGame:{...game,scoreboard:undefined},sportsRadarArchived:archived,
+    sportsRadarFreshness:{updatedAt:new Date(resource.updatedAt).toISOString(),canonicalUpdatedAt:feed?.updatedAt || null,canonicalRevision:feed?.revision || Date.parse(feed?.updatedAt) || null,receivedAt:new Date(now).toISOString(),stale:errors.length>0 || now-resource.updatedAt>STALE_MS}};
 }
 
 // Owner-qualified revisions keep a late producer's parts separate, even when

@@ -4,6 +4,7 @@ import {contextsForGames,refreshStorylines} from './storylines.js';
 import {readFeed,withFreshness,gameDetails,teamDetails,teamStandings,refreshDue,refreshSportsData,requestFeedRefresh} from './sports-feed.js';
 import {gameHistory} from './snapshot-history.js';
 import runtime from '../../scoring/live-runtime.cjs';
+import {normalizeNotificationPreferences,preferencesForRow,notificationEligible,notificationGame,gameNotificationUrl} from './notification-preferences.js';
 
 const {rateGame,applyLiveSnapshot,recordFor,rankFor,clampScore,underdogCandidate,upsetImpact,gameProgress,momentumImpact} = globalThis.SportsRadarScore;
 const ORIGIN = 'https://mmueller091.github.io';
@@ -45,13 +46,12 @@ function gameFromEvent(sport,path,event) {
   const game = {id:String(event.id),sport,state:'live',teams:teams.map(team => [team.name,team.abbr,team.score,'','',team.record,team.rank,'',team.id]),score:rating.score,baseScore:rating.score,liveRawStatus:competition.status,liveRawSituation:competition.situation};
   return {key:`${sport}:${event.id}`,sport,path,competition,event,game,rating};
 }
-async function checkGames(env,feed) {
+async function checkGames(env,feed,deliver=sendPush) {
   if (feed?.modelVersion !== runtime.MODEL_VERSION) return;
   const now = Math.floor(Date.now()/1000);
-  const subscribers = (await env.DB.prepare('SELECT token_hash, endpoint, p256dh, auth, threshold FROM subscriptions LIMIT 200').all()).results || [];
+  const subscribers = (await env.DB.prepare('SELECT s.*,p.enabled,p.sports_json,p.teams_json FROM subscriptions s LEFT JOIN notification_preferences p ON p.token_hash=s.token_hash LIMIT 200').all()).results || [];
   if (!subscribers.length) return;
   const items = (feed?.games || []).filter(game=>game.state==='live' && !game.detailStale).map(game=>({key:`${game.sport}:${game.id}`,game,rating:{reason:game.why,momentumText:game.momentumText,upsetText:game.upsetText}}));
-  if (!items.length) return;
   const stateKey = item => `${runtime.MODEL_VERSION}:${item.key}`;
   const previous = new Map(((await env.DB.prepare('SELECT game_key, score FROM game_state WHERE seen_at > ?').bind(now-172800).all()).results || []).map(row => [row.game_key,row.score]));
   const writes = items.map(item => env.DB.prepare('INSERT INTO game_state (game_key, score, seen_at) VALUES (?, ?, ?) ON CONFLICT(game_key) DO UPDATE SET score=excluded.score, seen_at=excluded.seen_at').bind(stateKey(item),item.game.score,now));
@@ -62,7 +62,7 @@ async function checkGames(env,feed) {
     if (prior == null) continue; // First observation is a baseline, not a new alert.
     const score = clampScore(item.game.score);
     for (const sub of subscribers) {
-      if (prior < sub.threshold && score >= sub.threshold) {
+      if (notificationEligible(item.game,preferencesForRow(sub)) && prior < sub.threshold && score >= sub.threshold) {
         const names = item.game.teams.map(team => team[0]).join(' vs ');
         const reason = [item.rating.momentumText,item.rating.upsetText].filter(Boolean).join('. ') || item.rating.reason || 'The game has become more exciting.';
         pending.push(env.DB.prepare('INSERT OR IGNORE INTO alerts (token_hash, game_key, score, title, body, created_at) VALUES (?, ?, ?, ?, ?, ?)').bind(sub.token_hash,stateKey(item),score,`${names} · ${score}`,reason.slice(0,230),now));
@@ -70,10 +70,20 @@ async function checkGames(env,feed) {
     }
   }
   for (let start=0;start<pending.length;start+=50) await env.DB.batch(pending.slice(start,start+50));
-  const queued = (await env.DB.prepare("SELECT a.token_hash,a.game_key,a.score,a.title,a.body,s.endpoint,s.p256dh,s.auth FROM alerts a JOIN subscriptions s ON s.token_hash=a.token_hash WHERE a.status='pending' AND a.game_key LIKE ? ORDER BY a.created_at LIMIT 10").bind(`${runtime.MODEL_VERSION}:%`).all()).results || [];
+  const queued = (await env.DB.prepare("SELECT a.token_hash,a.game_key,a.score,a.title,a.body,s.endpoint,s.p256dh,s.auth,s.threshold,p.enabled,p.sports_json,p.teams_json FROM alerts a JOIN subscriptions s ON s.token_hash=a.token_hash LEFT JOIN notification_preferences p ON p.token_hash=s.token_hash WHERE a.status='pending' AND a.game_key LIKE ? ORDER BY a.created_at LIMIT 10").bind(`${runtime.MODEL_VERSION}:%`).all()).results || [];
   for (const row of queued) {
     try {
-      const status = await sendPush(env,row,{title:row.title,body:row.body,tag:row.game_key.slice(runtime.MODEL_VERSION.length+1),url:`${ORIGIN}/sports-radar/#home`});
+      const identity=notificationGame(row.game_key,runtime.MODEL_VERSION);
+      let game=identity && feed.games.find(game=>game.sport===identity.sport && String(game.id)===identity.gameId);
+      if (identity && !game) {
+        const snapshot=await env.DB.prepare('SELECT normalized_state FROM sports_snapshots WHERE game_key=? ORDER BY observed_at DESC LIMIT 1').bind(identity.gameKey).first();
+        if (snapshot) game=JSON.parse(snapshot.normalized_state);
+      }
+      if (!game || row.score<row.threshold || !notificationEligible(game,preferencesForRow(row))) {
+        await env.DB.prepare("UPDATE alerts SET status='cancelled' WHERE token_hash=? AND game_key=?").bind(row.token_hash,row.game_key).run();
+        continue;
+      }
+      const status = await deliver(env,row,{title:row.title,body:row.body,tag:identity.gameKey,...identity,url:gameNotificationUrl(identity.sport,identity.gameId)});
       if (status >= 200 && status < 300) await env.DB.prepare("UPDATE alerts SET status='sent' WHERE token_hash=? AND game_key=?").bind(row.token_hash,row.game_key).run();
       else if (status === 404 || status === 410) { await env.DB.prepare('DELETE FROM subscriptions WHERE token_hash=?').bind(row.token_hash).run(); await env.DB.prepare('DELETE FROM alerts WHERE token_hash=?').bind(row.token_hash).run(); }
       else console.error('Push rejected',status,row.game_key);
@@ -136,7 +146,7 @@ export default {
     if (url.pathname === '/config' && request.method === 'GET') return reply(request,{publicKey:env.VAPID_SERVER_PUBLIC_KEY || '',pollSeconds:60});
     if (url.pathname === '/health' && request.method === 'GET') {
       const research = await env.DB.prepare('SELECT last_run,candidates,articles,factors,ai_used,last_error FROM research_status WHERE id=1').first().catch(() => null);
-      return reply(request,{ok:true,modelVersion:runtime.MODEL_VERSION,scoringPolicy:runtime.POLICY_ID,storylines:{enabled:true,source:'league news + Workers AI free allocation',lastRun:research?.last_run || null,candidates:research?.candidates || 0,articles:research?.articles || 0,factors:research?.factors || 0,aiUsed:Boolean(research?.ai_used),lastError:research?.last_error || null}});
+      return reply(request,{ok:true,notificationVersion:'2026-10-30.preferences-links.1',modelVersion:runtime.MODEL_VERSION,scoringPolicy:runtime.POLICY_ID,storylines:{enabled:true,source:'league news + Workers AI free allocation',lastRun:research?.last_run || null,candidates:research?.candidates || 0,articles:research?.articles || 0,factors:research?.factors || 0,aiUsed:Boolean(research?.ai_used),lastError:research?.last_error || null}});
     }
     if (url.pathname === '/contexts' && request.method === 'GET') {
       const games = String(url.searchParams.get('games') || '').split(',').map(value => value.trim()).filter(Boolean);
@@ -184,16 +194,42 @@ export default {
     if (!['/subscription','/test'].includes(url.pathname)) return reply(request,{error:'Not found'},404);
     const bearer = token(request); if (!bearer) return reply(request,{error:'Device token required'},401);
     const id = await hashToken(bearer);
-    if (url.pathname === '/subscription' && request.method === 'DELETE') { await env.DB.prepare('DELETE FROM subscriptions WHERE token_hash=?').bind(id).run(); return reply(request,{ok:true}); }
+    if (url.pathname === '/subscription' && request.method === 'GET') {
+      const [sub,saved]=await Promise.all([
+        env.DB.prepare('SELECT threshold FROM subscriptions WHERE token_hash=?').bind(id).first(),
+        env.DB.prepare('SELECT * FROM notification_preferences WHERE token_hash=?').bind(id).first()
+      ]);
+      return reply(request,{subscribed:Boolean(sub),threshold:saved?.threshold ?? sub?.threshold ?? 85,
+        preferences:saved ? preferencesForRow(saved) : {...preferencesForRow(null),enabled:Boolean(sub)}});
+    }
+    if (url.pathname === '/subscription' && request.method === 'DELETE') {
+      await env.DB.batch([
+        env.DB.prepare('DELETE FROM subscriptions WHERE token_hash=?').bind(id),
+        env.DB.prepare('UPDATE notification_preferences SET enabled=0 WHERE token_hash=?').bind(id),
+        env.DB.prepare("UPDATE alerts SET status='cancelled' WHERE token_hash=? AND status='pending'").bind(id)
+      ]);
+      return reply(request,{ok:true});
+    }
     if (url.pathname === '/subscription' && request.method === 'PUT') {
-      if (Number(request.headers.get('Content-Length') || 0) > 4096) return reply(request,{error:'Request too large'},413);
-      let body; try { body = await request.json(); } catch { return reply(request,{error:'Invalid JSON'},400); }
-      if (!Number.isInteger(body?.threshold) || body.threshold < 50 || body.threshold > 99 || !validSubscription(body.subscription)) return reply(request,{error:'Invalid threshold or browser subscription'},400);
-      const sub = body.subscription;
-      await env.DB.prepare('INSERT INTO subscriptions (token_hash,endpoint,p256dh,auth,threshold,updated_at) VALUES (?,?,?,?,?,?) ON CONFLICT(token_hash) DO UPDATE SET endpoint=excluded.endpoint,p256dh=excluded.p256dh,auth=excluded.auth,threshold=excluded.threshold,updated_at=excluded.updated_at').bind(id,sub.endpoint,sub.keys.p256dh,sub.keys.auth,body.threshold,Math.floor(Date.now()/1000)).run();
-      return reply(request,{ok:true,threshold:body.threshold});
+      let body; try { const text=await request.text();if(new TextEncoder().encode(text).length>65536)return reply(request,{error:'Request too large'},413);body=JSON.parse(text); } catch { return reply(request,{error:'Invalid JSON'},400); }
+      if (!Number.isInteger(body?.threshold) || body.threshold < 50 || body.threshold > 99 || (body.subscription != null && !validSubscription(body.subscription))) return reply(request,{error:'Invalid threshold or browser subscription'},400);
+      const saved=await env.DB.prepare('SELECT * FROM notification_preferences WHERE token_hash=?').bind(id).first();
+      const preferences=body.preferences===undefined ? preferencesForRow(saved) : normalizeNotificationPreferences(body.preferences);
+      if (!preferences) return reply(request,{error:'Invalid notification preferences'},400);
+      const now=Math.floor(Date.now()/1000),sub=body.subscription;
+      const writes=[env.DB.prepare(`INSERT INTO notification_preferences (token_hash,enabled,sports_json,teams_json,threshold,updated_at) VALUES (?,?,?,?,?,?)
+        ON CONFLICT(token_hash) DO UPDATE SET enabled=excluded.enabled,sports_json=excluded.sports_json,teams_json=excluded.teams_json,threshold=excluded.threshold,updated_at=excluded.updated_at`)
+        .bind(id,Number(preferences.enabled),JSON.stringify(preferences.sports),JSON.stringify(preferences.teams),body.threshold,now)];
+      writes.push(!preferences.enabled ? env.DB.prepare('DELETE FROM subscriptions WHERE token_hash=?').bind(id)
+        : sub ? env.DB.prepare('INSERT INTO subscriptions (token_hash,endpoint,p256dh,auth,threshold,updated_at) VALUES (?,?,?,?,?,?) ON CONFLICT(token_hash) DO UPDATE SET endpoint=excluded.endpoint,p256dh=excluded.p256dh,auth=excluded.auth,threshold=excluded.threshold,updated_at=excluded.updated_at').bind(id,sub.endpoint,sub.keys.p256dh,sub.keys.auth,body.threshold,now)
+        : env.DB.prepare('UPDATE subscriptions SET threshold=?,updated_at=? WHERE token_hash=?').bind(body.threshold,now,id));
+      if (!preferences.enabled) writes.push(env.DB.prepare("UPDATE alerts SET status='cancelled' WHERE token_hash=? AND status='pending'").bind(id));
+      await env.DB.batch(writes);
+      return reply(request,{ok:true,threshold:body.threshold,preferences});
     }
     if (url.pathname === '/test' && request.method === 'POST') {
+      const saved=await env.DB.prepare('SELECT * FROM notification_preferences WHERE token_hash=?').bind(id).first();
+      if (!preferencesForRow(saved).enabled) return reply(request,{error:'Enable notifications before sending a test'},409);
       const row = await env.DB.prepare('SELECT * FROM subscriptions WHERE token_hash=?').bind(id).first();
       if (!row) return reply(request,{error:'No saved subscription'},404);
       const status = await sendPush(env,row,{title:'Sports Radar alerts are ready',body:'This is a test notification.',tag:'sports-radar-test',url:`${ORIGIN}/sports-radar/#home`});

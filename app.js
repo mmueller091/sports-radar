@@ -128,6 +128,17 @@ function teamHash(team) {
   return `#team/${encodeURIComponent(team.sport)}/${encodeURIComponent(team.id)}`;
 }
 
+function gameRouteFromHash(hash=location.hash) {
+  const match=/^#game\/([^/]+)\/([^/]+)$/.exec(String(hash || ''));
+  if(!match)return null;
+  try {
+    const sport=[...HOME_SPORTS,'Soccer'].find(sport=>sport.toLowerCase()===decodeURIComponent(match[1]).toLowerCase());
+    const id=decodeURIComponent(match[2]);
+    return sport && /^[A-Za-z0-9_-]{1,100}$/.test(id)?{sport,id}:null;
+  } catch {return null;}
+}
+function gameHash(game) {return `#game/${encodeURIComponent(game.sport)}/${encodeURIComponent(game.id)}`;}
+
 const state = {
   page:teamRouteFromHash(location.hash) ? 'team' : location.hash === '#soccer' ? 'soccer' : 'home',
   teamRoute:teamRouteFromHash(location.hash),
@@ -165,6 +176,7 @@ function persistFavoriteSelections() {
   } catch {}
 
   persistPreferences();
+  document.dispatchEvent?.(new CustomEvent('sports-radar:favorites-changed'));
 }
 
 function watchKey(game) {
@@ -730,6 +742,21 @@ function knownFavoriteTeams(sport) {
 }
 
 let visibleGlobalSearchTeams = [];
+
+globalThis.SportsRadarTeams = {
+  load:loadFavoriteCatalog,
+  search(query='',sport='all') {
+    const unique=new Map();
+    for(const category of FAVORITE_SPORTS)for(const team of knownFavoriteTeams(category)) {
+      if(team.id && (sport==='all' || team.sport===sport) && (!query.trim() || globalSearchTeamScore(team,normalizeGlobalSearch(query))>0)) unique.set(`${team.sport}:${team.id}`,team);
+    }
+    return [...unique.values()].sort((a,b)=>a.name.localeCompare(b.name));
+  },
+  favorites() {
+    const all=this.search();
+    return state.favoriteTeams.map(team=>all.find(item=>sameFavorite(item,team))).filter(Boolean);
+  }
+};
 
 function normalizeGlobalSearch(value) {
   return String(value || '')
@@ -2047,11 +2074,12 @@ function openTeamPage(team) {
     teamReturnStack.push({
       hash:location.hash,
       teamTab:teamPageTab,
+      page:state.page,teamRoute:state.teamRoute,
       detail:activeDetailGame ? {id:activeDetailGame.id,sport:activeDetailGame.sport,
         tab:activeDetailTab,team:activePlayerTeam,category:activePlayerCategory} : null
     });
   }
-  if (activeDetailGame) hideGameDetails();
+  if (activeDetailGame) hideGameDetails({keepRoute:true});
 
   if (
     activeTeamPageKey !==
@@ -5944,7 +5972,9 @@ function renderDetailContent(
       : '';
 
   const freshness =
-    !summary
+    summary?.sportsRadarArchived && !summary.header
+      ? '<p class="detail-freshness">Saved game information. Additional statistics are temporarily unavailable.</p>'
+      : !summary
       ? `<p class="detail-freshness">The live summary feed did not return additional stats for this game yet. The score, rating explanation, and broadcast are still current.</p>`
       : summary.sportsRadarFreshness?.stale
         ? `<p class="detail-freshness">Cached game details · last updated ${safeText(new Date(summary.sportsRadarFreshness.updatedAt).toLocaleTimeString())}. Rich details may be behind or ahead of the canonical scoreboard; score and rating follow the main feed.</p>`
@@ -6057,6 +6087,8 @@ function showGameDetails() {
 
 let activeDetailGame = null;
 let activeDetailSummary = null;
+let linkedGameRequest = null;
+let detailReturnHash = '#home';
 let detailGeneration = 0;
 let detailTimer = null;
 let detailRequest = null;
@@ -6064,6 +6096,7 @@ let detailFinalPending = false;
 let detailFailed = false;
 
 function stopDetailRequest() {
+  linkedGameRequest?.abort();linkedGameRequest=null;
   if (detailRequest && activeDetailGame?.state === 'completed') detailFinalPending = true;
   clearTimeout(detailTimer);
   detailTimer = null;
@@ -6097,7 +6130,7 @@ function renderActiveDetail() {
     const compatible = game.state === 'live'
       ? globalThis.SportsRadarDetail.validateLiveSummary(game,scoreboard,summary)
       : !summaryState || summaryState === (game.state === 'completed' ? 'post' : 'pre');
-    const missing = !games.some(item => item.sport === game.sport && String(item.id) === String(game.id));
+    const missing = !summary.sportsRadarGame && !games.some(item => item.sport === game.sport && String(item.id) === String(game.id));
     summary = {...summary,sportsRadarFreshness:{...summary.sportsRadarFreshness,
       stale:detailFailed || missing || !compatible || summary.sportsRadarFreshness?.stale === true}};
   }
@@ -6119,6 +6152,8 @@ async function refreshActiveDetail() {
   try {
     const summary = await fetchGameSummary(game,request.controller);
     if (request.generation !== detailGeneration || detailRequest !== request) return;
+    const resolved=summary?.sportsRadarGame;
+    if(resolved && resolved.sport===game.sport && String(resolved.id)===String(game.id) && !games.some(item=>item.sport===game.sport && String(item.id)===String(game.id))) activeDetailGame={...resolved,favorite:favoriteFor(resolved.teams,resolved.sport)};
     const previousVersion = Date.parse(activeDetailSummary?.sportsRadarFreshness?.updatedAt || '');
     const version = Date.parse(summary?.sportsRadarFreshness?.updatedAt || '');
     if (!Number.isFinite(previousVersion) || (Number.isFinite(version) && version >= previousVersion)) {
@@ -6149,7 +6184,7 @@ function detailVisibilityChanged() {
   }
 }
 
-function hideGameDetails() {
+function hideGameDetails({keepRoute=false}={}) {
   stopDetailRequest();
   $('#game-detail-overlay').hidden = true;
   document.body.classList.remove('detail-open');
@@ -6157,11 +6192,45 @@ function hideGameDetails() {
   activeDetailSummary = null;
   activeDetailTab = 'overview';
   detailFinalPending = false;
+  if(!keepRoute && globalThis.history && gameRouteFromHash()) {
+    history.replaceState(null,'',detailReturnHash || '#home');
+    handleLocationChange();
+  }
+}
+
+function rememberGameRoute(game) {
+  if(!globalThis.history)return;
+  if(location.hash!==gameHash(game)) {
+    detailReturnHash=gameRouteFromHash()?'#home':location.hash || '#home';
+    history.pushState(null,'',gameHash(game));
+  }
+}
+
+async function openLinkedGame(id,sport,restore=null) {
+  stopDetailRequest();const generation=detailGeneration;
+  activeDetailGame=null;activeDetailSummary=null;
+  activeDetailTab=restore?.tab || 'overview';activePlayerTeam=restore?.team || '';activePlayerCategory=restore?.category || '';
+  const controller=new AbortController();linkedGameRequest=controller;
+  $('#game-detail-title').textContent='Game Center';
+  $('#game-detail-content').innerHTML='<div class="detail-loading">Loading the latest game data…</div>';
+  showGameDetails();
+  try {
+    const summary=await fetchGameSummary({id,sport},controller);
+    if(generation!==detailGeneration || controller.signal.aborted)return;
+    const game=summary?.sportsRadarGame;
+    if(!game || game.sport!==sport || String(game.id)!==String(id) || game.teams?.length!==2)throw new Error('Game unavailable');
+    activeDetailGame={...game,favorite:favoriteFor(game.teams,sport)};activeDetailSummary=summary;detailFailed=false;
+    rememberGameRoute(game);renderActiveDetail();
+    if(game.state==='live')detailTimer=setTimeout(refreshActiveDetail,10000);
+  } catch(error) {
+    if(generation!==detailGeneration || controller.signal.aborted)return;
+    $('#game-detail-content').innerHTML=`<section class="detail-section"><h2>Game unavailable</h2><p>The game could not be loaded. It may be outside the available archive, or the data service may be temporarily unavailable.</p><button type="button" class="primary-button" data-game-retry="${safeText(id)}" data-game-retry-sport="${safeText(sport)}">Try again</button><button type="button" class="close-dialog">Return to Radar</button></section>`;
+  } finally {if(linkedGameRequest===controller)linkedGameRequest=null;}
 }
 
 async function openGameDetails(id,sport=null,restore=null) {
   const game = games.find(item => String(item.id) === String(id) && (!sport || item.sport === sport));
-  if (!game) return;
+  if (!game) {if(sport)return openLinkedGame(id,sport,restore);return;}
   stopDetailRequest();
   activeDetailGame = game;
   activeDetailSummary = null;
@@ -6171,6 +6240,7 @@ async function openGameDetails(id,sport=null,restore=null) {
   activePlayerTeam = restore?.team || '';
   activePlayerCategory = restore?.category || '';
   detailFailed = false;
+  if(globalThis.history)rememberGameRoute(game);
   renderDetailContent(game,null,true);
   showGameDetails();
   await refreshActiveDetail();
@@ -6541,12 +6611,20 @@ $$('.nav-link').forEach(
     )
 );
 
-window.addEventListener(
-  'hashchange',
-  () => {
+function handleLocationChange() {
     const returning = pendingTeamReturn || (state.page === 'team' && teamReturnStack.at(-1)?.hash === location.hash
       ? teamReturnStack.pop() : null);
     pendingTeamReturn = null;
+    const linked=gameRouteFromHash();
+    if(linked) {
+      if(returning){state.page=returning.page || 'home';state.teamRoute=returning.teamRoute || null;}
+      else if(state.page==='team'){state.page=linked.sport==='Soccer'?'soccer':'home';state.teamRoute=null;}
+      render();
+      if(returning?.detail)restoreTeamReturn(returning);
+      else if(!activeDetailGame || activeDetailGame.sport!==linked.sport || String(activeDetailGame.id)!==linked.id)openGameDetails(linked.id,linked.sport);
+      return;
+    }
+    if(activeDetailGame || linkedGameRequest)hideGameDetails({keepRoute:true});
     const route =
       teamRouteFromHash(
         location.hash
@@ -6600,8 +6678,8 @@ window.addEventListener(
       teamPageTab = 'overview';
     }
     restoreTeamReturn(returning);
-  }
-);
+}
+window.addEventListener('hashchange',handleLocationChange);
 
 $$('.sport-chip[data-sport]')
   .forEach(chip =>
@@ -7147,6 +7225,8 @@ $('#game-detail-content')
   .addEventListener(
     'click',
     event => {
+      const retry=event.target.closest('[data-game-retry]');
+      if(retry){openLinkedGame(retry.dataset.gameRetry,retry.dataset.gameRetrySport);return;}
       const playerTeam = event.target.closest('[data-player-team]');
       if (playerTeam) {
         activePlayerTeam = playerTeam.dataset.playerTeam;
@@ -7417,56 +7497,36 @@ $$('[data-visible-sport]')
   );
 
 let deferredInstallPrompt;
-
-window.addEventListener(
-  'beforeinstallprompt',
-  event => {
-    event.preventDefault();
-
-    deferredInstallPrompt =
-      event;
-
-    $('#install-button')
-      .classList.remove(
-        'hidden'
-      );
-  }
-);
-
-$('#install-button')
-  .addEventListener(
-    'click',
-    async () => {
-      if (
-        !deferredInstallPrompt
-      ) {
-        return;
-      }
-
-      deferredInstallPrompt
-        .prompt();
-
-      await deferredInstallPrompt
-        .userChoice;
-
-      deferredInstallPrompt =
-        null;
-
-      $('#install-button')
-        .classList.add(
-          'hidden'
-        );
-    }
-  );
-
-window.addEventListener(
-  'appinstalled',
-  () =>
-    $('#install-button')
-      .classList.add(
-        'hidden'
-      )
-);
+const INSTALLED_KEY='sports-radar-installed-v1';
+function installedPwa() {
+  return Boolean(navigator.standalone || globalThis.matchMedia?.('(display-mode: standalone)').matches);
+}
+function updateInstallExperience() {
+  let remembered=false;try{remembered=localStorage.getItem(INSTALLED_KEY)==='true';}catch{}
+  const installed=installedPwa() || remembered;
+  if($('#install-status'))$('#install-status').textContent=installed?'Already installed':'Choose your phone below, or use the installation button when your browser offers it.';
+  $('#install-button')?.classList.toggle('hidden',installed || !deferredInstallPrompt);
+  if($('#settings-install-button'))$('#settings-install-button').hidden=installed || !deferredInstallPrompt;
+}
+async function installSportsRadar() {
+  if(!deferredInstallPrompt || installedPwa())return;
+  const prompt=deferredInstallPrompt;deferredInstallPrompt=null;updateInstallExperience();
+  await prompt.prompt();await prompt.userChoice;
+}
+window.addEventListener('beforeinstallprompt',event=>{
+  event.preventDefault();if(installedPwa())return;
+  // A fresh native offer also handles an app removed since its last install.
+  try{localStorage.removeItem(INSTALLED_KEY);}catch{}
+  deferredInstallPrompt=event;updateInstallExperience();
+});
+$('#install-button')?.addEventListener('click',installSportsRadar);
+$('#settings-install-button')?.addEventListener('click',installSportsRadar);
+window.addEventListener('appinstalled',()=>{
+  deferredInstallPrompt=null;try{localStorage.setItem(INSTALLED_KEY,'true');}catch{}
+  updateInstallExperience();
+});
+globalThis.matchMedia?.('(display-mode: standalone)').addEventListener?.('change',updateInstallExperience);
+updateInstallExperience();
 
 if (
   'serviceWorker' in navigator
@@ -7509,6 +7569,8 @@ if (state.page === 'team') {
 
 render();
 loadLiveGames();
+const initialGameRoute=gameRouteFromHash();
+if(initialGameRoute)openGameDetails(initialGameRoute.id,initialGameRoute.sport);
 document.addEventListener('visibilitychange',() => {
   detailVisibilityChanged();
   if (document.hidden) scheduleLiveRefresh();
