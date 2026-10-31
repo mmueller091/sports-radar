@@ -37,7 +37,7 @@ Opening factor explanation: previous NHL was 12 state baseline + 21 context + 34
 
 Reviewed movements: MLB's late +1 follows actual out-based progress instead of the midpoint-of-half estimate. The additional NHL grid flags a +9 movement for a three-goal deficit ten minutes into the first: more of the valid opening basis remains during the transfer, while the existing margin penalty, pressure and event owners still operate. All mature NHL grid scores, including one/two-goal finishes, goalie pulls, shootouts and playoff sudden death, remain unchanged; deciding Stanley Cup Final OT retains 99. No unexplained movement remains in these comparisons.
 
-The actual Edmonton–Islanders opening reference becomes **48** when its invalid +5 research is removed; a controlled event-free opening with those valid factors also scores 48. The 53-based table separately isolates the systemic scoring defect from the relevance correction.
+The confirmed Edmonton–Islanders matchup-only basis is **48** after removing its invalid +5 research; an event-free projection with those four factors scores 48. Production also recovers a valid near-pick'em market from the accepted summary, adding 5. Its corrected reconstructed opening is therefore **53 = 32 + 5 + 4 + 7 + 5 market**, with factors fully reconciled and neither invalid storyline present. The 53-based table separately isolates the systemic scoring defect from the relevance correction.
 
 ## Validation and release
 
@@ -48,3 +48,28 @@ All **731 root and Worker tests passed** (zero failures/skips), along with both 
 Final commands: `node --test --test-concurrency=4 test/*.test.js alerts-worker/test/*.test.js`, `node test-score.js`, `node scripts/opening-transition-report.mjs`, `node scripts/build-site.mjs`, `node scripts/verify-opening-transition.mjs`, and Wrangler deployment dry run. Frozen files are checked using their exact Git bytes; the local historical checkpoint required by the provenance suite was imported without modifying frozen content.
 
 Publication uses the model identifier above and the commit SHA for HTML asset revisions and the service-worker cache. `node scripts/verify-opening-transition.mjs --production` checks health/feed models, current feed factor reconciliation, published bundle opening/reload probes for all six sports, and Pages/cache revisions. Graphical browser inspection is unavailable because local browser use is disabled in Work settings; executable verification uses the actual published browser bundle.
+
+Production verification succeeded for implementation commit `32592d8619e3b71d7e1cbe1bb7c35a4d11092736`. Worker deployment `3ec1730c-2b79-4d96-8044-b3dfa8c802ef` is active. [Pages run 201](https://github.com/mmueller091/sports-radar/actions/runs/41232560512) completed successfully. Health, the 309-game feed and the published scorer all report `2026-10-31.opening-transition.1`. Published HTML and service-worker cache use the deployed commit revision. All six published opening/reload probes return 53; all active feed opening factors reconcile. The NHL example was live at 61 with the reconstructed opening 53 described above. The working tree was clean after publication. A subsequent documentation-only commit records this receipt and the recovered market explanation; its Pages assets receive that commit's revision while sharing the identical Worker scoring code.
+
+## Exact changed files
+
+```text
+README.md
+alerts-worker/src/game-model.js
+alerts-worker/src/snapshot-history.js
+alerts-worker/src/sports-feed.js
+alerts-worker/src/storylines.js
+app.js
+calibration/opening-transition-20261031.md
+calibration/output/opening-transition-20261031.json
+calibration/shadow-candidate.cjs
+scoring/live-runtime.cjs
+scoring/opening-transition.cjs
+scripts/opening-transition-report.mjs
+scripts/verify-opening-transition.mjs
+test/cfb-filters.test.js
+test/football-pregame.test.js
+test/helpers/opening-transition.cjs
+test/opening-transition.test.js
+test/release-integration.test.js
+```
