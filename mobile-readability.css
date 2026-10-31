@@ -103,7 +103,7 @@
   }
 
   .detail-panel > .dialog-header {
-    margin-bottom: 8px;
+    margin-bottom: 4px;
   }
 
   #game-detail-title {
@@ -462,21 +462,23 @@ button.team-spotlight-matchup, button.team-schedule-opponent { position:relative
   .detail-tab-panel { order:3; }
   #game-detail-content:has(.detail-tab.active:not([data-detail-tab="overview"])) .detail-radar { display:none; }
   .detail-header h2 { display:none; }
-  .detail-kicker { display:flex; align-items:center; justify-content:space-between; gap:8px; font:600 11px/1.4 Arial,Helvetica,sans-serif; }
+  .detail-kicker { display:flex; align-items:center; justify-content:space-between; gap:8px; margin-bottom:4px; font:600 11px/1.4 Arial,Helvetica,sans-serif; }
   .detail-kicker > span:first-child { min-width:0; }
   .detail-live-clock { display:inline-flex; flex:0 0 auto; align-items:center; gap:6px; min-height:38px; padding:3px 8px; border:1px solid #43586b; border-radius:5px; background:#0b1219; color:#f5f8fc; font:700 12px Arial,Helvetica,sans-serif; }
   .detail-live-clock strong { font:700 25px/1.15 Arial,Helvetica,sans-serif; font-variant-numeric:tabular-nums; }
-  .detail-scoreboard { display:grid; grid-template-columns:1fr 1fr; background:#141d26; border:1px solid #2a3642; border-radius:7px; }
-  .detail-team { display:grid; grid-template-rows:44px auto; gap:4px; min-width:0; min-height:100px; padding:8px; text-align:center; }
-  .detail-team:first-child { grid-template-columns:minmax(0,1fr) auto; }
-  .detail-team:last-child { grid-template-columns:auto minmax(0,1fr); border-top:0; }
+  /* Shared tracks keep both logos, names and records aligned, with the score
+     centered independently of either team's name length. */
+  .detail-scoreboard { display:grid; grid-template-columns:minmax(0,1fr) auto auto minmax(0,1fr); grid-template-rows:44px auto auto; gap:4px 8px; padding:8px; background:#141d26; border:1px solid #2a3642; border-radius:7px; }
+  .detail-team { display:grid; grid-template-columns:subgrid; grid-template-rows:subgrid; grid-row:1 / -1; gap:4px 8px; align-items:start; min-width:0; min-height:0; padding:0; text-align:center; }
+  .detail-team:first-child { grid-column:1 / span 2; }
+  .detail-team:last-child { grid-column:3 / span 2; border-top:0; }
   .detail-team img { grid-row:1; width:40px; height:40px; margin:auto; object-fit:contain; }
   .detail-team:first-child img, .detail-team:first-child .detail-team-copy { grid-column:1; }
   .detail-team:last-child img, .detail-team:last-child .detail-team-copy { grid-column:2; }
-  .detail-team-copy { grid-row:2; text-align:center; }
-  .detail-team-copy strong { white-space:normal; line-height:1.2; }
+  .detail-team-copy { display:grid; grid-template-rows:subgrid; grid-row:2 / span 2; text-align:center; }
+  .detail-team-copy strong { white-space:normal; overflow-wrap:anywhere; line-height:1.2; }
   .detail-team-copy small { white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-  .detail-team > b { grid-row:1 / span 2; align-self:center; font:700 30px/1.15 Arial,Helvetica,sans-serif; font-variant-numeric:tabular-nums; }
+  .detail-team > b { grid-row:1 / -1; align-self:center; font:700 30px/1.15 Arial,Helvetica,sans-serif; font-variant-numeric:tabular-nums; }
   .detail-team:first-child > b { grid-column:2; }
   .detail-team:last-child > b { grid-column:1; }
   .detail-team:first-child > b::after { content:'–'; margin-left:3px; color:#a4afbd; }
