@@ -23,12 +23,14 @@ Future sport-specific predicates can be added to the `SPORT_FILTERS` registry wi
 - `node --test --test-concurrency=4 test/*.test.js alerts-worker/test/*.test.js`: complete regression suite, including the deployed NFL/CFB kickoff corrections.
 - `node scripts/build-site.mjs` and Worker deployment dry run.
 
-Publish only after desktop/mobile visual verification. Deploy the Worker first, verify `/metadata/CFB` with the production Origin, then publish main through the existing GitHub Pages workflow. Confirm the deployed HTML asset revisions and JavaScript match the release commit, and that `/health` and `/feed` retain model `2026-10-31.football-transition.1`.
+The release workflow deploys the Worker first, verifies `/metadata/CFB` with the production Origin, then publishes main through the existing GitHub Pages workflow. Publication checks compare deployed HTML asset revisions and asset hashes against the release build, and confirm `/health` and `/feed` retain model `2026-10-31.football-transition.1`.
 
 ### Current verification status (October 31, 2026)
 
 The final site build and Worker dry run passed. The focused release suite passed 102/102 tests, including the 13 new filter/metadata tests, football-transition and football-pregame checks, startup/feed behavior, notifications, history, cache upgrades, and existing mobile markup/navigation checks. Logs are under ignored `work/cfb-filters/` (`relevant-tests.txt`, `worker-dry-run.txt`). A broader regression run was interrupted after an out-of-memory error during a separate check; it did not complete and is not counted as passed.
 
-Desktop/mobile visual verification is pending: Computer Use stopped automatically because it could not determine Chrome's current URL with sufficient confidence to enforce policy. Browser input stopped, and the local preview was shut down. Neither the Worker nor GitHub Pages has been deployed for this change. The production site remains at the prior release, `f674a6b5c830c05245a789ec55596e86d68572fc`.
+The production Worker deployment is version `48e4c837-82ee-404f-bf97-2f504c17bd03`. Its metadata response was verified against the independently fetched ESPN membership index: 25 groups, 266 team IDs, valid production CORS, and unchanged model `2026-10-31.football-transition.1` in health and feed responses. Production check artifacts are saved under ignored `work/cfb-filters/`.
+
+Desktop/mobile visual verification remains incomplete: Computer Use stopped automatically because it could not determine Chrome's current URL with sufficient confidence to enforce policy. No visual QA success is claimed. The 102 automated checks include existing mobile markup/navigation checks, but those do not replace rendered layout inspection.
 
 To resume visual QA, run `node work/cfb-filters/preview.cjs` if the ignored captured source files are still present; it serves the built assets on `http://127.0.0.1:8766` with the captured production feed and verified ESPN conference index. Otherwise rerun the verification script first. Use fresh browser state, check CFB and other-sport transitions at desktop and phone widths, filter dropdowns, Top 25, FCS, combined empty states, and persisted preferences before publication.
