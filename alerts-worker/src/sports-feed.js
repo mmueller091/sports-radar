@@ -1,3 +1,4 @@
+import {nhlGameCenterStats} from './providers/nhl.js';
 import {basketballBoxScore} from './display-model.js';
 import {createCollector,summaryUrl,teamResourceUrls,coreTeamProfileUrl,teamLeadersUrl,standingsUrl} from './providers/espn.js';
 import {normalizeEvent,preservePregameRecords,applyContextsToGame,enrichGame} from './live-game-model.js';
@@ -1944,7 +1945,18 @@ export async function gameDetails(env,sport,id,now=Date.now()) {
       current.division=game.division;game=current;
     }
   }
-  return {...summary,...(['NBA','NCAAB'].includes(sport) ? {basketballBoxScore:basketballBoxScore(summary,sport)} : {}),
+  let nhlAdvanced=null;
+  if (sport==='NHL') {
+    const detailBudget=refreshBudget(now,{deadlineMs:2500});
+    try {
+      nhlAdvanced=await nhlGameCenterStats(game,summary,async (source,ttl)=>{
+        const sourceErrors=[];
+        const result=await providerJson(env,source,ttl,now,sourceErrors,detailBudget);
+        return {...result,stale:sourceErrors.length>0 || now-result.updatedAt>ttl};
+      });
+    } finally {detailBudget.close();}
+  }
+  return {...summary,...(nhlAdvanced ? {nhlAdvanced} : {}),...(['NBA','NCAAB'].includes(sport) ? {basketballBoxScore:basketballBoxScore(summary,sport)} : {}),
     sportsRadarGame:{...game,scoreboard:undefined},sportsRadarArchived:archived,
     sportsRadarFreshness:{updatedAt:new Date(resource.updatedAt).toISOString(),canonicalUpdatedAt:feed?.updatedAt || null,canonicalRevision:feed?.revision || Date.parse(feed?.updatedAt) || null,receivedAt:new Date(now).toISOString(),stale:errors.length>0 || now-resource.updatedAt>STALE_MS}};
 }

@@ -1,0 +1,6 @@
+{
+  "url": "https://api-web.nhle.com/v1/gamecenter/2024030414/play-by-play",
+  "capturedAt": "2026-10-31T04:26:20.658Z",
+  "sha256": "1df77a956ee8f1acd4145ac465ad1971d03402f6a2238779d284fd5dc5e30844",
+  "description": "Final corrected NHL public PBP; historical checkpoints reconstructed, not recorded live observations."
+}

@@ -3891,6 +3891,28 @@ function detailStats(summary,sport) {
   return `<section class="detail-section detail-comparison"><h3>Team Stats</h3>${headings}${rows.join('')}${secondary.length ? `<details class="detail-more-stats"><summary>More Stats</summary>${secondary.join('')}</details>` : ''}</section>`;
 }
 
+function detailNhlAdvanced(summary) {
+  const data=summary?.nhlAdvanced;
+  if (!data?.available) return `<section class="detail-section"><h3>Shot Attempts</h3><p class="detail-empty">${safeText(data?.reason || 'NHL play-by-play statistics are unavailable.')}</p></section>`;
+  const competitors=detailCompetitors(summary);
+  const ids=competitors.map(c=>data.teamIdMap?.[String(c.team?.id)]);
+  if (ids.length!==2 || ids.some(id=>!id)) return '';
+  const colors=detailTeamComparisonColors(competitors);
+  const row=(label,scope,key,percent=false)=>{
+    const values=ids.map(id=>scope?.[id]?.[key]);
+    const stats=values.map(value=>({displayValue:value==null?'—':percent?`${value.toFixed(1)}%`:String(value),value}));
+    return detailStatRow(label,stats[0],stats[1],colors);
+  };
+  const rows=[['Full game',data.fullGame],['5-on-5',data.fiveOnFive]].map(([label,scope])=>
+    row(`${label} Corsi`,scope,'cf')+row(`${label} Corsi %`,scope,'cfPct',true)+
+    row(`${label} Fenwick`,scope,'ff')+row(`${label} Fenwick %`,scope,'ffPct',true)).join('');
+  const trailing=data.teams.find(t=>t.id===data.trailingTeamId);
+  const pressure=trailing ? `${trailing.abbreviation}: ${data.recentPressure.trailingAttempts} attempts (${data.recentPressure.trailingUnblocked} unblocked) while trailing in the last two minutes, since the last goal.` : 'Game tied; neither team is trailing.';
+  const freshness=data.stale || data.scoreMatches===false ? ' Cached or awaiting score reconciliation.' : data.lagSeconds>30 ? ` Play-by-play is ${Math.round(data.lagSeconds)} game seconds behind.` : '';
+  const partial=Object.entries(data.quality || {}).some(([key,value])=>key!=='duplicates' && value>0) ? ' Partial data: some events could not be classified; 5-on-5 includes only confirmed situations.' : '';
+  return `<section class="detail-section detail-comparison"><h3>Shot Attempts</h3><div class="detail-comparison-teams">${competitors.map(c=>`<span>${safeText(c.team?.abbreviation || '')}</span>`).join('')}</div>${rows}${row('Last 5 minutes Corsi',data.rollingFiveMinutes.teams,'cf')}${row('Last 5 minutes Fenwick',data.rollingFiveMinutes.teams,'ff')}<p>${safeText(pressure)}</p><p class="detail-empty">Corsi includes goals, saved shots, misses and blocks. Fenwick excludes blocks. 5-on-5 requires both goalies; shootouts are excluded. Recent attempts include all manpower states. These counts do not measure shot quality.${safeText(freshness+partial)}</p></section>`;
+}
+
 function detailDrives(summary,sport,status=null) {
   const halftime = globalThis.SportsRadarScore?.isHalftimeStatus?.(status || summary?.header?.competitions?.[0]?.status);
   if (!['NFL','CFB'].includes(sport)) return '';
@@ -5816,7 +5838,7 @@ function detailTabSections(game,summary) {
     ['drives',detailDrives(summary,game.sport,game.liveRawStatus)],
     ['batting',withPlayerBrowser(detailMlbPlayerStats(summary,'batting'))],
     ['pitching',withPlayerBrowser(detailMlbPlayerStats(summary,'pitching'))],
-    ['team-stats',detailStats(summary,game.sport)],
+    ['team-stats',detailStats(summary,game.sport)+(game.sport==='NHL' ? detailNhlAdvanced(summary) : '')],
     ['players',withPlayerBrowser(detailPlayerStats(summary,game.sport))],
     ['goalies',withPlayerBrowser(detailNhlGoalies(summary))],
     ['box-score',withPlayerBrowser(basketballBoxScoreMarkup(summary,game.sport))],
