@@ -108,6 +108,22 @@
     return {remaining,timeouts,offensiveTimeouts,expectedPossessions:expectedPossessions*(deficit < 0 ? .78 : 1),driveSeconds};
   }
 
+  function cfbDriveFeasibility(competition,situation=competition?.situation) {
+    const possession=cfbPossession(competition,situation),seconds=clockSeconds(competition?.status);
+    if (!possession || possession.deficit<0 || possession.deficit>8 || Number(competition?.status?.period)!==4 || seconds===null) return 1;
+    const late=smooth((240-seconds)/120),down=Number(situation?.down),distance=Number(situation?.distance);
+    const long=Number.isFinite(distance) && distance>0 ? smooth((distance-9)/11) : 0;
+    // An elimination snap can be consequential without being an easy drive.
+    // This estimates the football tasks, independently of win probability.
+    const conversion=Number.isFinite(distance) && distance>0 ? 1-(down===4?.65:down===3?.48:down===2?.12:0)*long : 1;
+    const yards=Math.max(0,(possession.deficit<3?65:100)-(possession.position??25));
+    const timeouts=footballTimeouts(competition,situation,possession.offense)??0;
+    const clock=unit((Math.max(0,seconds)+5*timeouts)/(12+.55*yards));
+    const field=1-.16*unit((yards-25)/65)*Math.max(long,smooth(possession.deficit-7));
+    const requiredConversion=1-.15*smooth(possession.deficit-7);
+    return 1-late*(1-conversion*clock*field*requiredConversion);
+  }
+
   // Immediate tension is lower than comeback feasibility in multi-score games.
   // Smoothly taper beyond a field goal; never introduce a possession-count step.
   function cfbImmediateTension(gap,runwayCloseness) {
@@ -144,7 +160,8 @@
     // while still charging for the conversion needed at an eight-point margin.
     const requiredPossessions = gap > 0 ? Math.max(1,gap/7) : 0;
     const possessionSlack = expectedPossessions-requiredPossessions;
-    const comebackFeasibility = gap === 0 ? 1 : expectedPossessions === 0 ? 0 : 1/(1+Math.exp(-2.8*(possessionSlack+.45)));
+    const driveFeasibility=cfbDriveFeasibility(competition,situation);
+    const comebackFeasibility = gap === 0 ? 1 : expectedPossessions === 0 ? 0 : driveFeasibility/(1+Math.exp(-2.8*(possessionSlack+.45)));
     const marginClose = cfbMarginCloseness(gap);
     return {...state,requiredPossessions,expectedPossessions,possessionSlack,comebackFeasibility,marginClose,
       possessionState:gap > 0 && possession ? (possession.deficit > 0 ? 'trailing' : 'leading') : '',
@@ -250,8 +267,8 @@
       // headroom; it is not another permanent ranked-team live award.
       if (ranks.every(Boolean)) consequence = Math.min(.98,consequence+.04*Math.pow((26-Math.max(...ranks))/25,2));
       const yards = Math.max(0,(deficit < 3 ? 65 : 100)-(position ?? 25));
-      viability = criticalTry || goal ? 1 : Math.min(1,seconds/(10+.42*yards));
-      if (urgency > 0) result.reasons.push(criticalTry ? 'Critical two-point try to tie or win' : finalFourth ? 'Final meaningful fourth down' : goal ? 'Decisive goal-to-go snap' : 'A viable tying or winning possession');
+      viability = criticalTry || goal ? 1 : Math.min(1,seconds/(10+.42*yards))*cfbDriveFeasibility(current,situation);
+      if (urgency > 0) result.reasons.push(criticalTry ? 'Critical two-point try to tie or win' : finalFourth ? 'Final meaningful fourth down' : goal ? 'Decisive goal-to-go snap' : viability<.65 ? 'Tying drive limited by distance, field position and required conversions' : 'A viable tying or winning possession');
     }
     if (overtime.active && !overtime.responseFinished && Math.abs(deficit) <= 8 && (deficit >= 0 || tryState)) {
       urgency = 1;
@@ -398,7 +415,7 @@
     const moments = [];
     let valid = plays.length >= 3;
     let previous = {home:0,away:0,position:0};
-    let lastCompetitivePosition = 0, competitiveShare = 0, comeback = 0;
+    let lastCompetitivePosition = 0, competitiveShare = 0, comeback = 0, changes=0, leader=0;
     let homeDeficit = 0, awayDeficit = 0;
     for (const play of plays) {
       const period = Number(play.period?.number ?? play.period);
@@ -415,6 +432,8 @@
         lastCompetitivePosition = position;
       }
       const margin = home-away;
+      if (margin && leader && Math.sign(margin)!==leader) changes++;
+      if (margin) leader=Math.sign(margin);
       homeDeficit = Math.max(homeDeficit,-margin);
       awayDeficit = Math.max(awayDeficit,margin);
       if (margin >= 0) comeback = Math.max(comeback,homeDeficit);
@@ -429,7 +448,7 @@
       competitiveShare += 1-previous.position;
       lastCompetitivePosition=1;
     }
-    return {valid,lastCompetitivePosition,competitiveShare:unit(competitiveShare),comeback,moments};
+    return {valid,lastCompetitivePosition,competitiveShare:unit(competitiveShare),comeback,changes,moments};
   }
 
   function cfbCompletedHistory(summary,history,{game,finishPoints=0}) {
@@ -472,10 +491,12 @@
       const late = unit((path.lastCompetitivePosition-.75)/.20);
       const evidence = unit(positiveHistory/25);
       const magnitude = unit(path.comeback/21);
-      const marginWeight = 1-unit((gap-21)/21);
-      let target = 0;
-      if (gap > 8 && path.competitiveShare >= .35) target = (35+30*late+12*magnitude+8*evidence)*marginWeight;
-      if (gap <= 8 && path.comeback >= 14) target = 65+18*magnitude+5*evidence;
+      // One curve on both sides of eight points: no minimum comeback cliff.
+      // Earlier closeness cannot overwhelm a multi-score final margin.
+      const marginWeight = Math.exp(-Math.pow(Math.max(0,gap-8)/16,1.35));
+      const drama=Math.max(unit(path.changes/3),smooth((path.comeback-7)/7));
+      let target = path.competitiveShare >= .35
+        ? (35+18*late+5*evidence+5*path.competitiveShare+(16*magnitude+12*unit(path.changes/3))*drama)*marginWeight : 0;
       target += stagnation;
       const delta = Math.max(0,Math.round(target-total));
       if (delta) {adjustments.push({label:'Completed competitive path retention',points:delta});total+=delta;}

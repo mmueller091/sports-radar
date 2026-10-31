@@ -51,8 +51,10 @@ test('counterfactual context leaves action, WP and history constant; unknown is 
 });
 
 test('preselected CFB states and equal-elapsed quarter boundaries',()=>{
-  for(const [,event,play,score] of cfbAdditional) {
-    const p=archived(event,play),[a,b]=pair(p);assert.equal(a.score,score);
+  for(const [label,event,play,score] of cfbAdditional) {
+    const p=archived(event,play),[a,b]=pair(p);
+    // The finish audit now charges for the tasks in this false-close drive.
+    if(label==='false-closeness')assert.ok(a.score<score-10);else assert.equal(a.score,score);
     assert.ok(b.historyOwnership.combinedPoints<=15);assertPreparedCheckpointUnchanged(p);
   }
   const p=reviewed('R18');

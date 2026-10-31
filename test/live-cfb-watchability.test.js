@@ -61,7 +61,10 @@ test('matched hypothetical context is supplementary; unknown is not a poor-team 
 });
 
 test('preselected archives and early/defensive/decisive/garbage states keep their intended distinctions',()=>{
-  for(const [,event,play,baseline] of cfbWatchabilityAdditional)assert.equal(pair(archived(event,play))[0].score,baseline);
+  for(const [label,event,play,baseline] of cfbWatchabilityAdditional){
+    const current=pair(archived(event,play))[0].score;
+    if(label==='false-closeness')assert.ok(current<baseline-10);else assert.equal(current,baseline);
+  }
   const results=Object.fromEntries(cfbWatchabilityInputs().map(input=>{
     const [a,b]=shadow.candidateTrajectoryRatings(core,prepareSynthetic(input),input.competition,input.summary,[before,after]);
     assert.equal(a.score,input.baselineScore);return [input.id,{a,b}];

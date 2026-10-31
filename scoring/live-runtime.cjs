@@ -6,7 +6,29 @@ const {candidateGameRating} = require('../calibration/shadow-candidate.cjs');
 const {LIVE_CFB_COMPETITION_POLICY:LIVE_POLICY} = require('../calibration/trajectory-live-policy.cjs');
 const {prepareOpening,preservePregameBaseline} = require('./opening-transition.cjs');
 const PRODUCTION_POLICY = Object.freeze({...LIVE_POLICY,id:LIVE_POLICY.id+'-opening-transition',footballTransition:true,openingTransition:true});
-const MODEL_VERSION = '2026-10-31.football-live-state.1';
+const MODEL_VERSION = '2026-10-31.finish-feasibility.1';
+
+function retainSettledCfbPath(game,current,summary) {
+  if (game.sport!=='CFB' || !summary || Number(current.status?.period)!==4) return;
+  const seconds=legacy.clockSeconds(current.status),gap=Math.abs(Number(game.teams[0][2])-Number(game.teams[1][2]));
+  if (seconds===null || seconds>120 || gap===0) return;
+  const x=Math.max(0,Math.min(1,(120-seconds)/120)),weight=x*x*(3-2*x);
+  if (!weight) return;
+  const competition={...current,status:{...current.status,type:{state:'post',completed:true,detail:'Final'}}};
+  const teams=game.teams.map(t=>({name:t[0],abbr:t[1],score:t[2],record:t[5],rank:t[6],id:t[8]}));
+  const rating=legacy.rateGame('CFB','completed',teams,game.sourceEvent,competition,game.context || '');
+  const finalGame={...game,state:'completed',score:rating.score,factors:rating.factors,upsetPoints:rating.upsetPoints,sourceCompetition:competition};
+  const finish=legacy.defensiveFinishFactor('CFB',summary)?.points||0;
+  const history=legacy.momentumImpact('CFB',summary,1,'completed',{game:finalGame,finishPoints:finish});
+  const target=legacy.clampScore(rating.score+history.points+finish);
+  // Retain verified past drama as opportunities expire, while a genuinely
+  // threatening current drive keeps all of its immediate tension.
+  const delta=Math.round(Math.max(0,target-game.score)*weight);
+  if (delta) {
+    game.score=legacy.clampScore(game.score+delta);
+    game.factors.push({label:'Competitive path retained as clock expires',points:delta});
+  }
+}
 
 function applyLiveSnapshot(game, competition, summary) {
   prepareOpening(legacy,game,competition || game.sourceCompetition,null);
@@ -36,6 +58,7 @@ function applyLiveSnapshot(game, competition, summary) {
   if (game.sport==='CFB' && isHalftimeStatus(game.liveRawStatus)) game.live.note='';
   game.momentumText = (result.historyOwnership?.eventFactors || []).map(f=>f.label).join(', ');
   if (game.sport==='CFB') game.upsetPoints=result.factors.find(f=>f.label==='Underdog threatens upset')?.points || 0;
+  retainSettledCfbPath(game,current,accepted);
   delete game.staleEnrichment;
   return result;
 }

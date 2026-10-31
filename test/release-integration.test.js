@@ -48,8 +48,9 @@ test('reviewed NFL NHL CFB checkpoints: candidate, browser and active Worker ada
     const bg=legacyAdapter.normalizeEvent(structuredClone(event),fixture.modelSport);
     legacyAdapter.enrichGame(bg,structuredClone(cp.summary));
     const br=browser.applyLiveSnapshot(bg,cp.competition,cp.summary);
-    assert.equal(worker.score,expected.score,review.id+' Worker');
-    assert.equal(bg.score,expected.score,review.id+' browser');
+    const retained=worker.factors.find(f=>f.label==='Competitive path retained as clock expires')?.points||0;
+    assert.equal(worker.score,legacy.clampScore(expected.score+retained),review.id+' Worker');
+    assert.equal(bg.score,worker.score,review.id+' browser');
     assert.deepEqual(JSON.parse(JSON.stringify(br.live)),JSON.parse(JSON.stringify(worker.live)),review.id+' factors');
     assert.equal(worker.modelVersion,runtime.MODEL_VERSION);
     assert.equal(worker.scoringPolicy,policy.id);

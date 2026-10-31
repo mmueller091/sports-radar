@@ -214,8 +214,10 @@
   }
 
   function hockeyOvertime(event,competition,summary,context='',normalized=false) {
-    const status = competition?.status || {};
-    const detail = `${status.type?.detail || ''} ${status.type?.shortDetail || ''}`;
+    const status = competition?.status || summary?.header?.competitions?.[0]?.status || {};
+    const summaryStatus=summary?.header?.competitions?.[0]?.status;
+    const completedSummary=status.type?.completed && summaryStatus?.type?.completed ? summaryStatus : null;
+    const detail = `${status.type?.detail || ''} ${status.type?.shortDetail || ''} ${completedSummary?.type?.detail || ''} ${completedSummary?.type?.shortDetail || ''}`;
     const signal = eventSignalText(event,competition,context) + ' ' + eventSignalText(summary?.header,competition,'');
     const postseason = isPostseasonGame('NHL',event,competition,signal) ||
       Number(summary?.header?.season?.type?.id ?? summary?.header?.season?.type) === 3;
@@ -542,14 +544,19 @@
 
   function hockeyCompletedHistory(summary,history,{game,finishPoints=0}={}) {
     const ot=hockeyOvertime(game?.sourceEvent,game?.sourceCompetition,summary);
-    if (!ot.shootout && !ot.depth) return history;
-    const floor=ot.shootout ? 61 : ot.postseason
+    const finish=hockeyCompletedResult('NHL','completed',game?.teams,game?.sourceEvent,
+      {...game?.sourceCompetition,status:summary?.header?.competitions?.[0]?.status || game?.sourceCompetition?.status},'');
+    const awarded=(game?.factors||[]).filter(f=>/^(Shootout finish|Overtime winner|Playoff sudden-death winner)/.test(f.label)).reduce((sum,f)=>sum+f.points,0);
+    if (finish && !awarded) history={...history,points:history.points+finish.points,factors:[...history.factors,finish],text:[history.text,finish.label].filter(Boolean).join('; ')};
+    const floor=Math.max(history.completedContestTarget||0,ot.shootout ? 61 : ot.postseason && ot.depth
       ? [0,78,85,90,93][Math.min(4,ot.depth)]
-      : 63;
-    const existing=Number(game?.score)+history.points+Number(finishPoints || 0);
+      : ot.depth ? 63 : 0);
+    // NHL history owns the finishing sequence. Do not count a generic finish
+    // that the adapter will suppress because handlesFinish is true.
+    const existing=Number(game?.score)+history.points+(history.handlesFinish?0:Number(finishPoints || 0));
     const delta=Number.isFinite(existing) ? Math.max(0,Math.round(floor-existing)) : 0;
     if (!delta) return history;
-    const factor={label:`Completed ${ot.shootout ? 'shootout' : ot.postseason ? `${ot.depth}OT playoff` : 'overtime'} floor`,points:delta};
+    const factor={label:`Completed ${ot.shootout ? 'shootout' : ot.postseason && ot.depth ? `${ot.depth}OT playoff` : ot.depth ? 'overtime' : 'late competitive path'} floor`,points:delta};
     return {points:history.points+delta,text:[history.text,factor.label].filter(Boolean).join('; '),
       factors:[...history.factors,factor],handlesFinish:history.handlesFinish};
   }
@@ -575,11 +582,14 @@
       const homeGain=moment.home-prior.home,awayGain=moment.away-prior.away;
       return (homeGain===1 && awayGain===0) || (homeGain===0 && awayGain===1);
     });
-    let lastTime=0,margin=0,leader=0,changes=0,lateChanges=0,tiedTime=0,oneGoalTime=0,homeDeficit=0,awayDeficit=0,comeback=0,lateTie=0,lateAhead=0,pulledComeback=false,dramaticTime=null,majorDrama=false;
+    let lastTime=0,margin=0,leader=0,changes=0,lateChanges=0,tiedTime=0,oneGoalTime=0,lateCloseTime=0,lateTiedTime=0,homeDeficit=0,awayDeficit=0,comeback=0,lateTie=0,lateAhead=0,pulledComeback=false,dramaticTime=null,majorDrama=false;
     for (const moment of moments) {
       const duration=Math.max(0,Math.min(3600,moment.time)-Math.min(3600,lastTime));
       if (margin===0) tiedTime+=duration;
       if (Math.abs(margin)<=1) oneGoalTime+=duration;
+      const lateDuration=Math.max(0,Math.min(3600,moment.time)-Math.max(3000,lastTime));
+      if (Math.abs(margin)<=1) lateCloseTime+=lateDuration;
+      if (margin===0) lateTiedTime+=lateDuration;
       const next=moment.home-moment.away;
       homeDeficit=Math.max(homeDeficit,-next); awayDeficit=Math.max(awayDeficit,next);
       if (next>=0) comeback=Math.max(comeback,homeDeficit);
@@ -608,6 +618,9 @@
     const tail=Math.max(0,Math.min(3600,current)-Math.min(3600,lastTime));
     if (margin===0) tiedTime+=tail;
     if (Math.abs(margin)<=1) oneGoalTime+=tail;
+    const lateTail=Math.max(0,Math.min(3600,current)-Math.max(3000,lastTime));
+    if (Math.abs(margin)<=1) lateCloseTime+=lateTail;
+    if (margin===0) lateTiedTime+=lateTail;
     const duration=Math.max(1,Math.min(3600,current));
     const factors=[];
     const add=(label,points)=>{if(points) factors.push({label,points});};
@@ -669,7 +682,22 @@
         finalFactors=capped.map(f=>{const points=Math.min(available,f.points);available-=points;return {...f,points};}).filter(f=>f.points);
       }
     }
+    const finalScores=(comp.competitors||[]).map(c=>[c.homeAway,Number(c.score)]);
+    const last=moments.at(-1);
+    const reconciled=finalScores.length===2 && finalScores.every(([side,score])=>Number.isFinite(score) &&
+      (score===last[side] || ot.shootout && last.home===last.away && score===last[side]+1));
+    const trailing=(comp.competitors||[]).find(c=>Number(c.score)<Math.max(...finalScores.map(([,score])=>score)));
+    const trailingPressure=state==='completed' ? (summary?.plays||[]).filter(p=>{
+      const time=hockeyElapsed({period:p.period?.number||p.period,displayClock:p.clock?.displayValue,clockMode},ot.postseason);
+      return time!==null && time>=3300 && time<=3600 && !p.scoringPlay &&
+        String(p.team?.id||p.teamId||'')===String(trailing?.team?.id||'unresolved') &&
+        /shot on goal|saved by|breakaway|hit (?:the )?(?:post|crossbar)|point-blank/i.test(p.text||p.type?.text||'');
+    }).length : 0;
+    const meaningful=comeback>=2 || changes>0 || lateTie>0 || lateAhead>0 || lateTiedTime>=300 || trailingPressure>=3;
+    const completedContestTarget=state==='completed' && completeLedger && reconciled && Math.abs(margin)<=1 && meaningful && lateCloseTime>=300
+      ? Math.round(44+14*lateCloseTime/600+6*lateTiedTime/600+Math.min(8,2*comeback+changes)+Math.min(4,trailingPressure/2)) : 0;
     return {points:finalFactors.reduce((sum,f)=>sum+f.points,0),text:finalFactors.map(f=>f.label).join('; '),factors:finalFactors,
+      ...(state==='completed'?{completedContestTarget}:{}),
       ...(relevance===null ? {} : {relevance:{retention:relevance,cap:12,headroom:liveHeadroom,
         factors:factors.map(f=>{const retainedPoints=finalFactors.find(a=>a.label===f.label)?.points||0;
           return {label:f.label,rawPoints:f.points,relevantPoints:f.points*relevance,retainedPoints,

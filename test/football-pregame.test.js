@@ -174,7 +174,11 @@ test('all 107 archived actual live/final games and all non-football states retai
     const a=normalizeEvent(structuredClone(f.event),f.modelSport),b=old.normalizeEvent(structuredClone(f.event),f.modelSport);
     if(a.state==='upcoming' && ['NFL','CFB'].includes(a.sport))continue;
     enrichGame(a,structuredClone(f.summary));old.enrichGame(b,structuredClone(f.summary));
-    assert.deepEqual(plain(a),plain(b),file);
+    if(a.state==='completed' && ['CFB','NHL'].includes(a.sport)){
+      // Completed history was separately recalibrated by the finish audit.
+      const stable=({score,factors,momentumText,momentumPoints,...rest})=>rest;
+      assert.deepEqual(plain(stable(a)),plain(stable(b)),file+' non-history fields');
+    } else assert.deepEqual(plain(a),plain(b),file);
     if(a.state==='live' && !['NFL','CFB'].includes(a.sport)){
       const current=require('../scoring/live-runtime.cjs');
       current.applyLiveSnapshot(a,a.sourceCompetition,f.summary);before.runtime.applyLiveSnapshot(b,b.sourceCompetition,f.summary);

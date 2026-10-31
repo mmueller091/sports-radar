@@ -1,0 +1,86 @@
+{
+  "baselineCommit": "dc201f6d912cb822592a07af52ae472b311aa6ef",
+  "baselineBundleSha256": "d050f3be77bf9276e03b9ead3e3a9e4acf7b2bce5cf1b9d33c543b6817d7bdbf",
+  "fixtures": [
+    {
+      "path": "CFB-401856842.json.gz",
+      "sha256": "6efd70472c4f9e5f3b8b5e2274fb8112b64a211e30d4eb9a787679c2a860dba9",
+      "capturedAt": "2026-10-31T22:59:30.009Z",
+      "eventId": "401856842",
+      "sport": "CFB",
+      "summarySource": "https://site.api.espn.com/apis/site/v2/sports/football/college-football/summary?event=401856842",
+      "scoreboardMetadata": "Original scoreboard where available; summary header plus captured feed start time otherwise",
+      "historySource": "https://sports-radar-alerts.mmueller918.workers.dev/game/CFB/401856842"
+    },
+    {
+      "path": "CFB-401858505.json.gz",
+      "sha256": "a7d502ed3246db92d960f5d97e436bcc412fee3f431888c0fb6fdd27a822215c",
+      "capturedAt": "2026-10-31T22:59:30.052Z",
+      "eventId": "401858505",
+      "sport": "CFB",
+      "summarySource": "https://site.api.espn.com/apis/site/v2/sports/football/college-football/summary?event=401858505",
+      "scoreboardMetadata": "Original scoreboard where available; summary header plus captured feed start time otherwise",
+      "historySource": "https://sports-radar-alerts.mmueller918.workers.dev/game/CFB/401858505"
+    },
+    {
+      "path": "CFB-401867861.json.gz",
+      "sha256": "3145ab366800c76028c7f4b6013cc6378a9458af63b3a6a4808c89bfe8a77024",
+      "capturedAt": "2026-10-31T22:59:29.922Z",
+      "eventId": "401867861",
+      "sport": "CFB",
+      "summarySource": "https://site.api.espn.com/apis/site/v2/sports/football/college-football/summary?event=401867861",
+      "scoreboardMetadata": "Original scoreboard where available; summary header plus captured feed start time otherwise",
+      "historySource": "https://sports-radar-alerts.mmueller918.workers.dev/game/CFB/401867861"
+    },
+    {
+      "path": "CFB-401868342.json.gz",
+      "sha256": "bfc3f2aafae6233b1a1760f2175b30fa8d82e1e563f074812cb050f9e6bd0625",
+      "capturedAt": "2026-10-31T22:59:29.840Z",
+      "eventId": "401868342",
+      "sport": "CFB",
+      "summarySource": "https://site.api.espn.com/apis/site/v2/sports/football/college-football/summary?event=401868342",
+      "scoreboardMetadata": "Original scoreboard where available; summary header plus captured feed start time otherwise",
+      "historySource": "https://sports-radar-alerts.mmueller918.workers.dev/game/CFB/401868342"
+    },
+    {
+      "path": "NHL-401892614.json.gz",
+      "sha256": "402703aef620fb9de0ab3587529e1918f7ef955e6b372f9d996249334ae5aa22",
+      "capturedAt": "2026-10-31T22:59:30.271Z",
+      "eventId": "401892614",
+      "sport": "NHL",
+      "summarySource": "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892614",
+      "scoreboardMetadata": "Original scoreboard where available; summary header plus captured feed start time otherwise",
+      "historySource": "https://sports-radar-alerts.mmueller918.workers.dev/game/NHL/401892614"
+    },
+    {
+      "path": "NHL-401892615.json.gz",
+      "sha256": "386d81f600d403e0e1b462a5f1f1b7cc5658ffd956443731f8f3ad13f546decc",
+      "capturedAt": "2026-10-31T22:59:30.161Z",
+      "eventId": "401892615",
+      "sport": "NHL",
+      "summarySource": "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892615",
+      "scoreboardMetadata": "Original scoreboard where available; summary header plus captured feed start time otherwise",
+      "historySource": "https://sports-radar-alerts.mmueller918.workers.dev/game/NHL/401892615"
+    },
+    {
+      "path": "NHL-401892616.json.gz",
+      "sha256": "3bc293a0aa71831b27808782de5f5c583af23dde80c9c960b39277bc30628e02",
+      "capturedAt": "2026-10-31T22:59:30.217Z",
+      "eventId": "401892616",
+      "sport": "NHL",
+      "summarySource": "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892616",
+      "scoreboardMetadata": "Original scoreboard where available; summary header plus captured feed start time otherwise",
+      "historySource": "https://sports-radar-alerts.mmueller918.workers.dev/game/NHL/401892616"
+    },
+    {
+      "path": "NHL-401892618.json.gz",
+      "sha256": "c554af8307701e1cc9335e8d3b448eb8782cbe5e634d2e338b0b5b4968284c3e",
+      "capturedAt": "2026-10-31T22:59:30.107Z",
+      "eventId": "401892618",
+      "sport": "NHL",
+      "summarySource": "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892618",
+      "scoreboardMetadata": "Original scoreboard where available; summary header plus captured feed start time otherwise",
+      "historySource": "https://sports-radar-alerts.mmueller918.workers.dev/game/NHL/401892618"
+    }
+  ]
+}

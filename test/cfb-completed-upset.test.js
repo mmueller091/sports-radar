@@ -26,7 +26,14 @@ test('completed upset A-S: nonlinear magnitude, quality, rank and bounded stakes
  for(const x of [7,14,21,28,30])same(c.evaluate(core,{...u.wide,spread:x}),c.evaluate(u.before,{...u.wide,spread:x}),'wire-to-wire unchanged');
 });
 test('exact pre-upset-pass protection: completed OT/path/defense, live CFB, NFL, pregame and histories',()=>{
- for(const k of ['C','D','E','R','V','F','G','H','I','J','T','U'])same(c.evaluate(core,c.cases[k]),c.evaluate(u.before,c.cases[k]),`completed ${k}`);
+ for(const k of ['C','D','E','R','V','H'])same(c.evaluate(core,c.cases[k]),c.evaluate(u.before,c.cases[k]),`completed ${k}`);
+ // The finish audit replaces the inconsistent completed path floor. Preserve
+ // every independent component of these paths against the original oracle.
+ for(const k of ['F','G','I','J','T','U']){
+  const a=c.evaluate(core,c.cases[k]),b=c.evaluate(u.before,c.cases[k]);
+  for(const key of ['base','history','finish','upset'])same(a[key],b[key],`${k} ${key}`);
+  same(a.factors.filter(f=>f.label!=='Completed competitive path retention'),b.factors.filter(f=>f.label!=='Completed competitive path retention'),`${k} independent factors`);
+ }
  for(const [k,v] of Object.entries(live.cases))same(live.evaluate(core,v),live.evaluate(u.before,v),`CFB ${k}`);
  for(const [k,v] of Object.entries(nfl.cases))same(nfl.evaluate(core,v),nfl.evaluate(u.before,v),`NFL ${k}`);
  for(const v of Object.values(u.cases)){
