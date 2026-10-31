@@ -5269,7 +5269,7 @@ function recordedTimelinePoints(game,summary,format) {
       label,
       text:
         scoreText
-          ? `${scoreText} ┬╖ Recorded by Sports Radar`
+          ? `${scoreText} \u00b7 Recorded by Sports Radar`
           : 'Recorded by Sports Radar',
       overtime:
         format.periods > 0 &&
