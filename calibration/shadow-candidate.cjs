@@ -13,6 +13,7 @@ const {eventShockFor} = require('../scoring/shared/events.js');
 const {hockeyLiveTiming,hockeyPlayClockMode} = require('../scoring/sports/nhl.js');
 const {trajectoryAdjustment} = require('./trajectory-policy.cjs');
 const {liveTrajectory,endgameFloorBudget,cfbContextRetention} = require('./trajectory-live-policy.cjs');
+const {footballCompetitionEvidence,transitionFootballBase} = require('../scoring/football-transition.cjs');
 
 const DEFAULT_CURRENT_TENSION_POLICY = Object.freeze({
   kind:'margin-modifier',
@@ -114,7 +115,9 @@ function candidateStateRating(
   const marginCloseness = gap === null
     ? 0
     : modelState.marginClose ?? Math.max(0,1-gap/completedCloseLimit);
-  const probability = core.normalizeWinProbability(homeWinProbability);
+  const probability = policy?.footballEvidence
+    ? footballCompetitionEvidence(policy.footballEvidence.game,context.competition,progress,core.normalizeWinProbability(homeWinProbability)).probability
+    : core.normalizeWinProbability(homeWinProbability);
   const candidate = candidateComponents(
     marginCloseness,
     probability,
@@ -313,6 +316,11 @@ function finishCandidateGameRating(core,game,prepared,base,live,trajectoryPolicy
     live=candidateLiveSnapshot(core,{...game,sourceEvent:game.sourceEvent,baseScore:base.baseScore,factors:base.factors},
       prepared.context.competition,prepared.context.summary,null,{context});
   }
+  if (trajectoryPolicy?.footballTransition && ['NFL','CFB'].includes(game.sport)) {
+    base=transitionFootballBase(core,game,prepared,base);
+    live=candidateLiveSnapshot(core,{...game,baseScore:base.baseScore,factors:base.factors},
+      prepared.context.competition,prepared.context.summary);
+  }
   const owned = trajectoryPolicy?.liveOwnership
     ? liveTrajectory(core,game,prepared,base,live,trajectoryPolicy) : null;
   const budget=trajectoryPolicy?.endgameAllocation && owned
@@ -357,6 +365,7 @@ function candidateGameRating(core,game,competition,summary,policy=null,trajector
     return nonLiveCandidateRating(game,summary);
   }
   const prepared = prepareCandidateGameRating(core,game,competition,summary);
+  if (trajectoryPolicy?.footballTransition && ['NFL','CFB'].includes(game.sport)) policy={...(policy || DEFAULT_CURRENT_TENSION_POLICY),footballEvidence:{game}};
   const base = candidateBaseForPolicy(core,game,prepared,policy);
   const candidateGame = {...game,baseScore:base.baseScore,factors:base.factors};
   const live = candidateLiveSnapshot(core,candidateGame,competition,summary);

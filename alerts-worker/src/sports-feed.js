@@ -5,7 +5,7 @@ import {normalizeEvent,preservePregameRecords,applyContextsToGame,enrichGame} fr
 import runtime from '../../scoring/live-runtime.cjs';
 import {contextsForGames} from './storylines.js';
 import {fingerprint,summaryCandidate,reusable,refreshBudget,boundedFeedRefresh,REFRESH_LEASE_MS} from './refresh-policy.js';
-import {RETENTION_MS,recoverPregameRecords,snapshotHistory,shouldSnapshot} from './snapshot-history.js';
+import {RETENTION_MS,recoverPregameRecords,recoverPregameBaselines,snapshotHistory,shouldSnapshot} from './snapshot-history.js';
 
 const STALE_MS = 120000;
 const LIVE_REFRESH_MS = 12000;
@@ -2046,6 +2046,9 @@ export async function refreshSportsData(env,now=Date.now(),options={}) {
     const contextGames = games.filter(game=>['NFL','MLB','NHL','CFB','NBA','NCAAB'].includes(game.sport));
     const contexts = await stage('contexts',()=>contextsForGames(env,contextGames.map(game=>`${game.sport}:${game.id}`)));
     contextGames.forEach(game=>applyContextsToGame(game,contexts[`${game.sport}:${game.id}`]));
+    await stage('recordRecovery',()=>recoverPregameBaselines(env,games,now,previous));
+    games.filter(game=>game.state==='live' && ['NFL','CFB'].includes(game.sport))
+      .forEach(game=>runtime.applyLiveSnapshot(game,game.sourceCompetition,null));
 
     const candidates = games.filter(summaryCandidate);
     metrics.candidates=candidates.length;

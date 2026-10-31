@@ -2788,10 +2788,11 @@ function explainRating(game) {
 }
 
 function trendFor(game) {
+  if (['NFL','CFB'].includes(game.sport) && game.pregameBaseline?.source !== 'observed') return '';
   if (
     game.state === 'upcoming' ||
     !Number.isFinite(
-      game.openingScore
+      game.pregameBaseline?.score ?? game.openingScore
     )
   ) {
     return '';
@@ -2799,7 +2800,7 @@ function trendFor(game) {
 
   const delta =
     game.score -
-    game.openingScore;
+    (game.pregameBaseline?.score ?? game.openingScore);
 
   const arrow =
     delta > 2

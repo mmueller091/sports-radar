@@ -79,7 +79,8 @@ const fixtures = `
     {team:{abbreviation:'CIN'},records:[{type:'overall',summary:'3-2'}]}
   ],odds:[{details:'BAL -3',overUnder:51.5}]};
   const rivalry = rateGame('NFL','upcoming',scheduledTeams,{name:'Ravens vs Bengals'},ravensBengals,'');
-  assert.equal(rivalry.score,73);
+  // October 31 calibrated pregame anchors: record evenness is not counted twice.
+  assert.equal(rivalry.score,66);
   function nflMatchup(name,awayCode,awayRecord,homeCode,homeRecord,spread) {
     const competition = {notes:[],competitors:[
       {homeAway:'away',team:{abbreviation:awayCode},records:[{type:'overall',summary:awayRecord}]},
@@ -91,8 +92,8 @@ const fixtures = `
   const bearsPatriots = nflMatchup('Patriots at Bears','NE','4-2','CHI','4-2',3);
   const ramsRaiders = nflMatchup('Rams at Raiders','LAR','2-4','LV','3-3',4.5);
   const seahawksChiefs = nflMatchup('Chiefs at Seahawks','KC','5-0','SEA','3-3',2.5);
-  assert.equal(jetsDolphins.score,39);
-  assert.equal(bearsPatriots.score,66);
+  assert.equal(jetsDolphins.score,44);
+  assert.equal(bearsPatriots.score,62);
   assert.equal(ramsRaiders.score,47);
   assert.equal(seahawksChiefs.score,60);
   assert.ok([bearsPatriots,ramsRaiders,seahawksChiefs].every(matchup => matchup.score > jetsDolphins.score));

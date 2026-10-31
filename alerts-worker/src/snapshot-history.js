@@ -1,4 +1,42 @@
 import {preservePregameRecords} from './game-model.js';
+import runtime from '../../scoring/live-runtime.cjs';
+import transition from '../../scoring/football-transition.cjs';
+import market from '../../scoring/shared/market.js';
+
+export async function recoverPregameBaselines(env,games,now,previous) {
+  const missing=[];
+  const priors=new Map((previous?.games || []).map(g=>[`${g.sport}:${g.id}`,g]));
+  for (const game of games) {
+    if (!['NFL','CFB'].includes(game.sport) || game.state==='upcoming') continue;
+    const prior=priors.get(`${game.sport}:${game.id}`);
+    if (runtime.preservePregameBaseline(game,prior) && game.pregameBaseline.source==='observed') continue;
+    missing.push(game);
+  }
+  for (let start=0;start<missing.length;start+=40) {
+    const group=missing.slice(start,start+40);
+    const rows=(await env.DB.prepare(`WITH keys(game_key) AS (VALUES ${group.map(()=> '(?)').join(',')})
+      SELECT s.game_key,s.normalized_state,s.model_version FROM keys k JOIN sports_snapshots s
+      ON s.game_key=k.game_key AND s.observed_at=(SELECT observed_at FROM sports_snapshots p
+        WHERE p.game_key=k.game_key AND p.state='upcoming' AND p.observed_at>=?
+        AND (p.model_version=? OR json_extract(p.normalized_state,'$.pregameBaseline.calibration')=?)
+        ORDER BY p.observed_at DESC LIMIT 1)`)
+      .bind(...group.map(g=>`${g.sport}:${g.id}`),now-RETENTION_MS,transition.CALIBRATION,transition.CALIBRATION).all()).results || [];
+    for (const row of rows) {
+      const game=group.find(g=>`${g.sport}:${g.id}`===row.game_key);
+      const snapshot=JSON.parse(row.normalized_state);
+      if (!snapshot.pregameBaseline && row.model_version===transition.CALIBRATION) {
+        // The preceding release already calibrated upcoming games. Its actual
+        // observed score is valid even though it did not serialize this structure.
+        const odds=snapshot.line?.spread ? [{details:snapshot.line.spread,overUnder:snapshot.line.total}] : [];
+        const competition={competitors:snapshot.teams.map((t,i)=>({homeAway:i?'home':'away',team:{id:t[8],abbreviation:t[1]},score:t[2]})),odds};
+        snapshot.pregameBaseline={calibration:transition.CALIBRATION,source:'observed',score:snapshot.score,
+          rawPregameScore:snapshot.rawPregameScore,factors:snapshot.factors,odds,
+          spread:market.footballPregameSpread(competition),underdog:market.underdogCandidate(game.sport,competition,odds[0])};
+      }
+      runtime.preservePregameBaseline(game,snapshot);
+    }
+  }
+}
 
 export const RETENTION_MS = 30 * 86400000;
 const RECORD = /^\d+-\d+(?:-\d+)?$/;

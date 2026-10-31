@@ -17,6 +17,7 @@ export function applyContextsToGame(game,factors) {
   return changed;
 }
 export function enrichGame(game,summary,previousGame=null) {
+  runtime.preservePregameBaseline(game,previousGame);
   legacy.enrichGame(game,summary,previousGame?.modelVersion===runtime.MODEL_VERSION ? previousGame : null);
   finish(game,summary);
 }

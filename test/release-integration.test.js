@@ -12,7 +12,8 @@ import {cfbContextVariants} from '../calibration/cfb-context-fixtures.mjs';
 const require=createRequire(import.meta.url);
 const legacy=require('../rating-core.js'),runtime=require('../scoring/live-runtime.cjs');
 const {candidateGameRating}=require('../calibration/shadow-candidate.cjs');
-const {LIVE_CFB_COMPETITION_POLICY:policy}=require('../calibration/trajectory-live-policy.cjs');
+const policy=runtime.PRODUCTION_POLICY;
+const {prepareFootballOpening}=require('../scoring/football-transition.cjs');
 const {buildSync}=require('../alerts-worker/node_modules/esbuild');
 const build=entry=>buildSync({entryPoints:[entry],bundle:true,write:false,format:'iife',platform:'browser',target:'es2022',logLevel:'silent'}).outputFiles[0].text;
 const browser=vm.runInNewContext(build('./scoring/browser-entry.cjs')+';SportsRadarScore');
@@ -39,6 +40,7 @@ test('reviewed NFL NHL CFB checkpoints: candidate, browser and active Worker ada
     const cp=cache.get(fixture.eventId).find(c=>String(c.play.id)===String(p.playId));
     if(!cp)continue;
     const prepared=prepareCheckpointEvaluation(legacy,fixture,cp,0);
+    prepareFootballOpening(legacy,prepared.game,cp.competition,cp.summary);
     const expected=candidateGameRating(legacy,prepared.game,cp.competition,cp.summary,null,policy);
     const event={...cp.event,competitions:[cp.competition]};
     const worker=active.normalizeEvent(structuredClone(event),fixture.modelSport);

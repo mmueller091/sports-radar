@@ -142,7 +142,7 @@ test('browser bundle and active Worker agree on calibrated upcoming ratings and 
   const {buildSync}=require('../alerts-worker/node_modules/esbuild');
   const source=buildSync({entryPoints:['scoring/browser-entry.cjs'],bundle:true,write:false,platform:'browser',format:'iife',logLevel:'silent'}).outputFiles[0].text;
   const browser=vm.runInNewContext(source+';SportsRadarScore');
-  assert.equal(browser.MODEL_VERSION,'2026-10-31.football-pregame.1');
+  assert.equal(browser.MODEL_VERSION,'2026-10-31.football-transition.1');
   for(const sport of ['NFL','CFB'])for(const spread of [null,0,3,7,10,14,17,20,21,27,35,60]){
     const f=fixture(sport,spread,{ranks:[5,12]});
     assert.deepEqual(plain(rating(f,browser)),plain(rating(f)));
@@ -175,7 +175,7 @@ test('all 107 archived actual live/final games and all non-football states retai
     if(a.state==='upcoming' && ['NFL','CFB'].includes(a.sport))continue;
     enrichGame(a,structuredClone(f.summary));old.enrichGame(b,structuredClone(f.summary));
     assert.deepEqual(plain(a),plain(b),file);
-    if(a.state==='live'){
+    if(a.state==='live' && !['NFL','CFB'].includes(a.sport)){
       const current=require('../scoring/live-runtime.cjs');
       current.applyLiveSnapshot(a,a.sourceCompetition,f.summary);before.runtime.applyLiveSnapshot(b,b.sourceCompetition,f.summary);
       delete a.modelVersion;delete b.modelVersion;assert.deepEqual(plain(a),plain(b),file+' production');
