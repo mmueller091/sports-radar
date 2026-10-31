@@ -148,6 +148,8 @@
     let runSide = '';
     let runPoints = 0;
     let runCount = 0;
+    let runUsefulPoints = 0;
+    let cfbRun = null;
 
     for (const moment of moments) {
       const margin =
@@ -255,7 +257,14 @@
           runSide = scorer;
           runPoints = 0;
           runCount = 0;
+          runUsefulPoints = 0;
         }
+
+        const before = scorer === 'home' ? previousHome-previousAway : previousAway-previousHome;
+        const gain = scorer === 'home' ? homeGain : awayGain;
+        // Count recovery and the score that first takes a one-possession lead.
+        // Subsequent scores extending that lead are not a second comeback.
+        if (before <= 0) runUsefulPoints += Math.min(gain,-before+8);
 
         runPoints +=
           scorer === 'home'
@@ -267,6 +276,7 @@
         runSide = '';
         runPoints = 0;
         runCount = 0;
+        runUsefulPoints = 0;
       }
 
       previousHome =
@@ -374,10 +384,12 @@
       currentProgress -
       latestPosition <= .1
     ) {
-      factors.push({
-        label:'Recent unanswered scoring run',
-        points:4
-      });
+      const points = sport === 'CFB' && options.cfbCompetitionHistory
+        ? Math.round(4*Math.min(1,runUsefulPoints/runPoints)) : 4;
+      if (sport === 'CFB' && options.cfbCompetitionHistory) cfbRun = {
+        side:runSide,runPoints,usefulPoints:runUsefulPoints,rawPoints:4,points,overlapDiscount:4-points
+      };
+      if (points) factors.push({label:'Recent unanswered scoring run',points});
 
       details.push(
         `${nameFor(runSide)} scored ${runPoints} unanswered ${units} recently`
@@ -737,10 +749,11 @@
     const relevance = state === 'live' && Number.isFinite(options.liveRelevance)
       ? Math.max(0,Math.min(1,options.liveRelevance)) : null;
     const allocations = [];
+    // Reserve removed run credit so WP swings or trajectory cannot refill it.
     const cap =
       state === 'completed'
         ? 25
-        : 15;
+        : 15-(cfbRun?.overlapDiscount || 0)*(relevance ?? 1);
 
     let remaining =
       cap;
@@ -837,6 +850,7 @@
     }
 
     return {
+      ...(cfbRun ? {cfbRun} : {}),
       ...(relevance === null ? {} : {relevance:{retention:relevance,cap,
         bucketCap:basketball ? history.dramaCap : null,factors:allocations}}),
       points:

@@ -108,6 +108,12 @@
     return {remaining,timeouts,offensiveTimeouts,expectedPossessions:expectedPossessions*(deficit < 0 ? .78 : 1),driveSeconds};
   }
 
+  // Immediate tension is lower than comeback feasibility in multi-score games.
+  // Smoothly taper beyond a field goal; never introduce a possession-count step.
+  function cfbImmediateTension(gap,runwayCloseness) {
+    return runwayCloseness*(1-.18*smooth((gap-3)/11));
+  }
+
   function cfbMarginCloseness(gap) {
     const anchors = [[0,1],[3,.99],[7,.95],[10,.87],[14,.76],[17,.64],[21,.49],[28,.28],[35,.10],[42,0]];
     for (let i=1;i<anchors.length;i++) {
@@ -483,7 +489,7 @@
     history:{threshold:10,units:'points',stagnation:footballStagnationImpact}
   };
 
-  const api = {cfbPregame,cfbRankedMatchup,cfbModel,cfbClockRunway,cfbOvertime,cfbLiveCloseness,cfbMarginCloseness};
+  const api = {cfbImmediateTension,cfbPregame,cfbRankedMatchup,cfbModel,cfbClockRunway,cfbOvertime,cfbLiveCloseness,cfbMarginCloseness};
   if (typeof module !== 'undefined' && module.exports) {
     module.exports = api;
   } else {

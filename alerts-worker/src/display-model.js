@@ -1,6 +1,7 @@
+import time from '../../scoring/shared/time.js';
 // Additive presentation data only; never participates in rating calculations.
 export function footballSituation(game,summary=null) {
-  if (!['NFL','CFB'].includes(game.sport) || game.state !== 'live') return null;
+  if (!['NFL','CFB'].includes(game.sport) || game.state !== 'live' || time.isHalftimeStatus(game.liveRawStatus)) return null;
   const liveSituation = game.liveRawSituation || {};
   const plays = summary?.drives?.current?.plays;
   const lastPlayEnd = Array.isArray(plays) ? plays.at(-1)?.end : null;
@@ -9,7 +10,7 @@ export function footballSituation(game,summary=null) {
   const source = {...(lastPlayEnd ? {...lastPlayEnd,possession:lastPlayEnd.team?.id} : {}),...liveSituation};
   const possession = String(source.possession?.id ?? source.possession ?? '');
   const holders = game.teams.filter(team => team[8] && String(team[8]) === possession);
-  const text = String(source.shortDownDistanceText || source.downDistanceText || '');
+  const text = String(liveSituation.shortDownDistanceText || liveSituation.downDistanceText || source.shortDownDistanceText || source.downDistanceText || '');
   const parsed = text.match(/\b([1-4])(?:st|nd|rd|th)\s*(?:&|and)\s*(goal|\d+)/i);
   const down = Number(source.down ?? parsed?.[1]);
   const distance = source.distance == null || source.distance === '' ? (parsed && !/goal/i.test(parsed[2]) ? Number(parsed[2]) : null) : Number(source.distance);
@@ -17,7 +18,7 @@ export function footballSituation(game,summary=null) {
   const downAndDistance = Number.isInteger(down) && down >= 1 && down <= 4 && (goalToGo || (distance !== null && Number.isFinite(distance) && distance >= 0))
     ? `${['','1st','2nd','3rd','4th'][down]} & ${goalToGo ? 'Goal' : distance}` : '';
   // Use explicit field-side text, never infer the side from possession/yardLine.
-  const spot = `${source.possessionText || ''} ${source.downDistanceText || ''}`.match(/\b([A-Z][A-Z0-9]{1,5})\s+(\d{1,2})\b/);
+  const spot = `${liveSituation.possessionText || ''} ${liveSituation.downDistanceText || ''} ${source.possessionText || ''} ${source.downDistanceText || ''}`.match(/\b([A-Z][A-Z0-9]{1,5})\s+(\d{1,2})\b/);
   const fieldPosition = spot && Number(spot[2]) <= 50 && game.teams.some(team => team[1] === spot[1]) ? `${spot[1]} ${Number(spot[2])}` : '';
   return {possessionTeamId:holders.length === 1 ? possession : null,downAndDistance,fieldPosition};
 }

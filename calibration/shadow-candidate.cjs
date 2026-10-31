@@ -1,3 +1,4 @@
+const {cfbImmediateTension} = require('../scoring/sports/cfb.js');
 /*
  * Authoritative candidate scoring, explicitly selected by scoring/live-runtime.
  * It replaces only generic live closeness/time/WP awards and reuses the
@@ -121,6 +122,13 @@ function candidateStateRating(
     progress,
     policy
   );
+
+  if (sport==='CFB' && policy?.cfbImmediateTension && Number(context?.competition?.status?.period || 0)<=4) {
+    const immediateMargin=cfbImmediateTension(gap,candidate.marginCloseness);
+    const immediate=candidateComponents(immediateMargin,probability,modelState.uncertaintyCeiling ?? 1,progress,policy);
+    candidate.immediateTensionMargin=immediateMargin;
+    candidate.currentTensionPoints=immediate.currentTensionPoints;
+  }
 
   const genericLabels = new Set([
     'Score closeness and leverage',
@@ -274,7 +282,7 @@ function finishCandidateGameRating(core,game,prepared,base,live,trajectoryPolicy
       // mature contest; no extra fourth-quarter urgency is introduced.
       const x=unit(prepared.progress/scale.matureProgress);
       const currentTensionCeiling=scale.openingCeiling+(scale.matureCeiling-scale.openingCeiling)*x*x*(3-2*x);
-      base=candidateBaseForPolicy(core,game,prepared,{...(currentTensionPolicy || DEFAULT_CURRENT_TENSION_POLICY),currentTensionCeiling});
+      base=candidateBaseForPolicy(core,game,prepared,{...(currentTensionPolicy || DEFAULT_CURRENT_TENSION_POLICY),currentTensionCeiling,cfbImmediateTension:trajectoryPolicy.cfbImmediateTension});
       // Rebalance the same discretionary context pool: supported matchup
       // reputation and the existing upset factor, never history or stakes.
       base.factors=base.factors.map(f=>f.label==='Underdog threatens upset'

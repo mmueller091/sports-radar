@@ -12,7 +12,7 @@ import {cfbContextVariants} from '../calibration/cfb-context-fixtures.mjs';
 const require=createRequire(import.meta.url);
 const legacy=require('../rating-core.js'),runtime=require('../scoring/live-runtime.cjs');
 const {candidateGameRating}=require('../calibration/shadow-candidate.cjs');
-const {LIVE_CFB_WATCHABILITY_POLICY:policy}=require('../calibration/trajectory-live-policy.cjs');
+const {LIVE_CFB_COMPETITION_POLICY:policy}=require('../calibration/trajectory-live-policy.cjs');
 const {buildSync}=require('../alerts-worker/node_modules/esbuild');
 const build=entry=>buildSync({entryPoints:[entry],bundle:true,write:false,format:'iife',platform:'browser',target:'es2022',logLevel:'silent'}).outputFiles[0].text;
 const browser=vm.runInNewContext(build('./scoring/browser-entry.cjs')+';SportsRadarScore');

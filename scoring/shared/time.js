@@ -225,7 +225,15 @@
     return normalizedTime('NBA',{status:{...status,period:status?.period || 1}}).remainingSeconds;
   }
 
-  const api = {normalizedTime,gameProgress,eventPosition,ordinal,livePhase,clockSeconds};
+  function isHalftimeStatus(status) {
+    const type=status?.type || {};
+    if (type.completed || ['post','pre'].includes(type.state)) return false;
+    const text=[type.name,type.description,type.detail,type.shortDetail,status?.displayPeriod].filter(Boolean).join(' ');
+    if (/half[ -]?time/i.test(text)) return true;
+    return Number(status?.period)===2 && /^(?:0+:)?0+(?:\.0+)?$/.test(String(status?.displayClock || ''));
+  }
+
+  const api = {isHalftimeStatus,normalizedTime,gameProgress,eventPosition,ordinal,livePhase,clockSeconds};
   if (typeof module !== 'undefined' && module.exports) {
     module.exports = api;
   } else {

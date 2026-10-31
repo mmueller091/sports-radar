@@ -21,7 +21,8 @@ const dedupeLogic = provider.slice(provider.indexOf('function dedupeGames'),prov
 assert.match(provider,/scoreboard\?groups=80[^\n]*limit:500/);
 assert.match(provider,/scoreboard\?groups=81[^\n]*limit:500/);
 assert.match(provider,/\[yesterday,today\]\.map/);
-assert.match(app,/`Why \$\{score\}\? \$\{explainRating\(game\)\}`/);
+// Rating explanations live in Game Center; the card rating remains a game-navigation target.
+assert.match(app,/class="detail-explanation detail-why-text">\$\{safeText\(explainRating\(game\)\)\}/);
 assert.doesNotMatch(app,/class="game-context rating-context"/);
 assert.match(styles,/\.game-card:has\(\.score-dot-wrap:hover\).*z-index: 8/);
 assert.match(app,/style="\$\{scoreColorStyle\}"/);

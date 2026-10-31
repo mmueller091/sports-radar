@@ -2956,19 +2956,20 @@ function gameCard(game) {
 }
 
 function footballAccessibleSituation(game) {
-  if (game.state !== 'live') return [];
+  if (game.state !== 'live' || globalThis.SportsRadarScore?.isHalftimeStatus?.(game.liveRawStatus)) return [];
   const situation = game.footballSituation;
   const holder = game.teams.find(team => team[8] && String(team[8]) === situation?.possessionTeamId);
   return [holder ? `${holder[0]} possession` : '',situation?.downAndDistance,situation?.fieldPosition];
 }
 
 function possessionMarkup(game,team) {
-  if (game.state !== 'live' || !['NFL','CFB'].includes(game.sport) || !team[8] || String(team[8]) !== game.footballSituation?.possessionTeamId || game.teams.filter(item => String(item[8]) === String(team[8])).length !== 1) return '';
+  if (game.state !== 'live' || globalThis.SportsRadarScore?.isHalftimeStatus?.(game.liveRawStatus) || !['NFL','CFB'].includes(game.sport) || !team[8] || String(team[8]) !== game.footballSituation?.possessionTeamId || game.teams.filter(item => String(item[8]) === String(team[8])).length !== 1) return '';
   return '<svg class="possession-marker" viewBox="0 0 24 16" aria-hidden="true"><path d="M2 8Q6-2 22 8Q18 18 2 8Z" fill="currentColor"/><path d="M8 8h8m-6-2v4m4-4v4" stroke="var(--surface, #17252d)" stroke-width="1.4"/></svg>';
 }
 
 function footballSituationMarkup(game) {
   if (game.state !== 'live') return '';
+  if (globalThis.SportsRadarScore?.isHalftimeStatus?.(game.liveRawStatus)) return '';
   const situation = game.footballSituation;
   if (!situation?.downAndDistance && !situation?.fieldPosition) return '';
   return `<span class="football-situation">${situation.downAndDistance ? `<strong>${safeText(situation.downAndDistance)}</strong>` : ''}${situation.fieldPosition ? `<span>${safeText(situation.fieldPosition)}</span>` : ''}</span>`;
@@ -3844,7 +3845,8 @@ function detailStats(summary,sport) {
   return `<section class="detail-section detail-comparison"><h3>Team Stats</h3>${headings}${rows.join('')}${secondary.length ? `<details class="detail-more-stats"><summary>More Stats</summary>${secondary.join('')}</details>` : ''}</section>`;
 }
 
-function detailDrives(summary,sport) {
+function detailDrives(summary,sport,status=null) {
+  const halftime = globalThis.SportsRadarScore?.isHalftimeStatus?.(status || summary?.header?.competitions?.[0]?.status);
   if (!['NFL','CFB'].includes(sport)) return '';
 
   const previous =
@@ -3879,7 +3881,7 @@ function detailDrives(summary,sport) {
     });
   };
 
-  addDrive(current,true);
+  addDrive(current,!halftime);
   [...previous]
     .reverse()
     .forEach(drive => addDrive(drive,false));
@@ -3947,7 +3949,7 @@ function detailDrives(summary,sport) {
       periodText && clock
         ? `${periodText} ${clock}`
         : periodText || clock,
-      down
+      halftime && /end (?:of )?(?:period|quarter)|End Period/i.test(`${play.type?.text || ''} ${play.text || ''}`) ? '' : down
     ]
       .filter(Boolean)
       .join(' · ');
@@ -5765,7 +5767,7 @@ function detailTabSections(game,summary) {
         ? overviewParts.join('')
         : '<section class="detail-section"><p class="detail-empty">No additional summary sections are available for this game yet.</p></section>'
     ],
-    ['drives',detailDrives(summary,game.sport)],
+    ['drives',detailDrives(summary,game.sport,game.liveRawStatus)],
     ['batting',withPlayerBrowser(detailMlbPlayerStats(summary,'batting'))],
     ['pitching',withPlayerBrowser(detailMlbPlayerStats(summary,'pitching'))],
     ['team-stats',detailStats(summary,game.sport)],

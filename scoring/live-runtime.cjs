@@ -1,9 +1,10 @@
+const {isHalftimeStatus} = require('./shared/time.js');
 // Production entry: reuse the reviewed candidate verbatim and the legacy core's
 // chronology validator. rating-core.js remains the explicit capture baseline.
 const legacy = require('../rating-core.js');
 const {candidateGameRating} = require('../calibration/shadow-candidate.cjs');
-const {LIVE_CFB_WATCHABILITY_POLICY:LIVE_POLICY} = require('../calibration/trajectory-live-policy.cjs');
-const MODEL_VERSION = '2026-10-30.cfb-watchability.1';
+const {LIVE_CFB_COMPETITION_POLICY:LIVE_POLICY} = require('../calibration/trajectory-live-policy.cjs');
+const MODEL_VERSION = '2026-10-30.cfb-competition.1';
 
 function applyLiveSnapshot(game, competition, summary) {
   if (game.state !== 'live') return;
@@ -21,10 +22,11 @@ function applyLiveSnapshot(game, competition, summary) {
     modelVersion:MODEL_VERSION,scoringPolicy:LIVE_POLICY.id,
     scoringPartial:!accepted
   });
+  if (game.sport==='CFB' && isHalftimeStatus(game.liveRawStatus)) game.live.note='';
   game.momentumText = (result.historyOwnership?.eventFactors || []).map(f=>f.label).join(', ');
   if (game.sport==='CFB') game.upsetPoints=result.factors.find(f=>f.label==='Underdog threatens upset')?.points || 0;
   delete game.staleEnrichment;
   return result;
 }
 
-module.exports = {...legacy,applyLiveSnapshot,MODEL_VERSION,POLICY_ID:LIVE_POLICY.id};
+module.exports = {...legacy,isHalftimeStatus,applyLiveSnapshot,MODEL_VERSION,POLICY_ID:LIVE_POLICY.id};

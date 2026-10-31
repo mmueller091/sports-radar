@@ -29,6 +29,10 @@ const LIVE_CFB_WATCHABILITY_POLICY = Object.freeze({...LIVE_CFB_CONTEXT_POLICY,
   cfbCurrentState:Object.freeze({openingCeiling:34,matureCeiling:48,matureProgress:.5,contextScale:.4}),
   description:'CFB current competition owns more of the watch scale by halftime; discretionary context is supplementary. Other sports and history rules unchanged.'});
 
+const LIVE_CFB_COMPETITION_POLICY = Object.freeze({...LIVE_CFB_WATCHABILITY_POLICY,
+  id:'live-owned-45-95-relevant-history-cfb-competition',cfbImmediateTension:true,cfbCompetitionHistory:true,
+  description:'CFB immediate tension separates score margin from comeback runway; lead-extending run credit cannot refill through correlated history.'});
+
 function cfbContextRetention(core,game,state,matchupScale=1) {
   const transient=Math.max(0,game.openingScore-state.persistentStakes);
   const ordinary=Math.min(transient,game.openingFactors?.length ? game.openingFactors
@@ -67,9 +71,9 @@ function endgameFloorBudget(game,base,live,owned) {
     originalFloor:live.sportImpact.competitiveFloor};
 }
 
-function ownedHistory(sport,summary,progress,trajectoryPositive=0,liveRelevance=null,nhlAllocation=null) {
+function ownedHistory(sport,summary,progress,trajectoryPositive=0,liveRelevance=null,nhlAllocation=null,cfbCompetitionHistory=false) {
   const model = SPORT_MODELS[sport] || {};
-  const options = {replaceSustained:true,trajectoryPositive,...(liveRelevance === null ? {} : {liveRelevance}),
+  const options = {replaceSustained:true,trajectoryPositive,cfbCompetitionHistory,...(liveRelevance === null ? {} : {liveRelevance}),
     ...(sport==='NHL' && nhlAllocation ? {nhlAllocation} : {})};
   return model.historyImpact ? model.historyImpact(summary,progress,'live',options)
     : historyImpact(sport,summary,progress,'live',model.history,options);
@@ -136,9 +140,9 @@ function liveTrajectory(core,game,prepared,base,live,policy) {
   const effectivePositiveGate = Math.max(raw.positiveCurrentStateGate,.5*decisiveStrength);
   const requestedPositive = Math.max(0,raw.boundedTrajectory)*raw.evidenceWeight*effectivePositiveGate;
   const nhlAllocation=policy.nhlAllocation && game.sport==='NHL' ? impact.allocation : null;
-  const eventHistory = ownedHistory(game.sport,prepared.context.summary,prepared.progress,0,relevance?.eventRetention??null,nhlAllocation);
+  const eventHistory = ownedHistory(game.sport,prepared.context.summary,prepared.progress,0,relevance?.eventRetention??null,nhlAllocation,game.sport==='CFB' && policy.cfbCompetitionHistory);
   const combinedHistory = requestedPositive > 0
-    ? ownedHistory(game.sport,prepared.context.summary,prepared.progress,requestedPositive,relevance?.eventRetention??null,nhlAllocation) : eventHistory;
+    ? ownedHistory(game.sport,prepared.context.summary,prepared.progress,requestedPositive,relevance?.eventRetention??null,nhlAllocation,game.sport==='CFB' && policy.cfbCompetitionHistory) : eventHistory;
   const positiveAfterHistoryCaps = combinedHistory.points-eventHistory.points;
   // Competing explanations for the same discount use the stronger protection,
   // never multiplied gates. Recovery retains at least 43.75% of the discount.
@@ -159,6 +163,7 @@ function liveTrajectory(core,game,prepared,base,live,policy) {
       ...(relevance ? {protectionStrength,positiveReducedByRelevance:requestedPositive*(1-relevance.eventRetention)} : {}),
       negativeMultiplier,negativeAfterTaper,negativeAfterFloor,protectedRating,floorBonus},
     historyOwnership:{originalPoints:Number(game.momentumPoints)||0,eventPoints:eventHistory.points,
+      ...(eventHistory.cfbRun ? {cfbRun:eventHistory.cfbRun} : {}),
       ...(relevance ? {relevance,allocation:combinedHistory.relevance} : {}),
       replacedPoints:(Number(game.momentumPoints)||0)-eventHistory.points,
       originalSustainedFactors:(game.factors||[]).filter(f => ['Sustained competitive game','Time tied or within one goal'].includes(f.label)),
@@ -166,5 +171,5 @@ function liveTrajectory(core,game,prepared,base,live,policy) {
       combinedPoints:combinedHistory.points,positiveLimitedByCaps:requestedPositive*(relevance?.eventRetention??1)-positiveAfterHistoryCaps}
   };
 }
-module.exports = {LIVE_TRAJECTORY_POLICIES,LIVE_HISTORY_RELEVANCE_POLICY,LIVE_ENDGAME_ALLOCATION_POLICY,LIVE_NHL_ALLOCATION_POLICY,LIVE_CFB_CONTEXT_POLICY,LIVE_CFB_WATCHABILITY_POLICY,
+module.exports = {LIVE_CFB_COMPETITION_POLICY,LIVE_TRAJECTORY_POLICIES,LIVE_HISTORY_RELEVANCE_POLICY,LIVE_ENDGAME_ALLOCATION_POLICY,LIVE_NHL_ALLOCATION_POLICY,LIVE_CFB_CONTEXT_POLICY,LIVE_CFB_WATCHABILITY_POLICY,
   cfbContextRetention,endgameFloorBudget,ownedHistory,liveTrajectory};
