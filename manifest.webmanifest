@@ -8,5 +8,8 @@
   "background_color": "#0b141b",
   "theme_color": "#0b141b",
   "orientation": "portrait-primary",
-  "icons": [{"src":"sports-radar-logo.png","sizes":"1254x1254","type":"image/png","purpose":"any"}]
+  "icons": [
+    {"src":"app-icon-192.png","sizes":"192x192","type":"image/png","purpose":"any"},
+    {"src":"app-icon-512.png","sizes":"512x512","type":"image/png","purpose":"any"}
+  ]
 }
