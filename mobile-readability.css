@@ -526,6 +526,7 @@ button.team-spotlight-matchup, button.team-schedule-opponent { position:relative
   body:not(.team-page-open) main { display:grid; grid-template-columns:124px minmax(0,1fr); }
   body:not(.team-page-open) .control-row,
   body:not(.team-page-open) .mobile-sport-panel,
+  body:not(.team-page-open) .sport-specific-filters,
   body:not(.team-page-open) .game-list,
   body:not(.team-page-open) .empty-state { grid-column:1 / -1; }
   body:not(.team-page-open) .mobile-sport-filter-toggle { grid-column:1; grid-row:2; width:auto; margin-right:10px; }
@@ -553,6 +554,21 @@ button.team-spotlight-matchup, button.team-schedule-opponent { position:relative
   .mobile-sport-filter-toggle[aria-expanded="true"] .mobile-sport-filter-chevron { margin-top:3px; transform:rotate(225deg); }
   .data-status { min-height:28px; margin-bottom:2px !important; }
   .data-status button { min-height:28px; padding:0 9px; }
+  .sport-specific-filters {
+    display:grid; grid-template-columns:minmax(0,1fr) auto auto;
+    align-items:center; gap:4px 6px; margin:6px 0 2px;
+  }
+  .conference-filter { position:relative; display:block; min-width:0; }
+  .conference-filter > span {
+    position:absolute; width:1px; height:1px; padding:0; margin:-1px;
+    overflow:hidden; clip-path:inset(50%); white-space:nowrap;
+  }
+  .conference-filter select { display:block; width:100%; min-width:0; height:42px; }
+  .compact-filter-toggle { align-self:center; min-height:42px; }
+  #cfb-clear { min-height:42px; padding-inline:3px; white-space:nowrap; }
+  #cfb-clear:disabled { display:none; }
+  #cfb-clear .clear-filter-detail { display:none; }
+  .sport-filter-status { grid-column:1 / -1; }
   .game-list { gap:6px; }
   .game-date-divider { min-height:18px; margin:0; padding:2px 0; font-size:10px; }
 
