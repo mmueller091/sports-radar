@@ -5782,11 +5782,12 @@ dialog[open] {
 }
 
 
-/* Native provider links sit above the card's separate Game Center target. */
-.broadcast-watch-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 8px; min-width: 0; }
-.broadcast-watch-link { position: relative; z-index: 2; display: inline-flex; align-items: center; justify-content: center; gap: 6px; min-height: 44px; max-width: 100%; padding: 6px 10px; box-sizing: border-box; border: 1px solid #a6cad4; border-radius: 6px; background: #19333c; color: #e2f6ff; font: 600 12px/1.25 'DM Sans', sans-serif; text-decoration: none; touch-action: manipulation; pointer-events: auto; }
-.broadcast-watch-link:hover { background: #274b58; text-decoration: underline; }
-.broadcast-watch-link:focus-visible { outline: 3px solid var(--selected-hi, #b9dcff); outline-offset: 3px; }
-.external-link-icon { flex: 0 0 14px; }
-.game-card .broadcast-watch-actions { flex-basis: 100%; grid-column: 1 / -1; }
-.detail-header > .broadcast-watch-actions { margin-top: 10px; }
+/* Native provider links stay within the existing broadcast row. */
+.broadcast-watch-actions { display: flex; flex-wrap: wrap; align-items: baseline; gap: 3px 8px; min-width: 0; font: 11px/1.3 'DM Sans', sans-serif; }
+.broadcast-watch-link { position: relative; z-index: 2; display: inline; padding: 0; border: 0; background: none; color: #c1e7f5; font: inherit; white-space: nowrap; text-decoration: underline; text-underline-offset: 2px; touch-action: manipulation; pointer-events: auto; }
+.broadcast-watch-link:hover { color: #fff; }
+.broadcast-watch-link:focus-visible { outline: 2px solid var(--selected-hi, #b9dcff); outline-offset: 2px; border-radius: 2px; }
+.external-link-icon { width: 10px; height: 10px; margin-left: 3px; vertical-align: -1px; }
+.game-card .channel-context .detail-inline > .broadcast-labels { overflow-x: auto; overflow-y: hidden; white-space: nowrap; text-overflow: clip; scrollbar-width: none; }
+.broadcast-labels::-webkit-scrollbar { display: none; }
+.detail-header > .broadcast-watch-actions { margin-top: 4px; }

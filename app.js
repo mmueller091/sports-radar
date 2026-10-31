@@ -2873,10 +2873,22 @@ function compactClockPeriod(game) {
   return phase || 'Live';
 }
 
-function broadcastWatchMarkup(game,summary=null) {
+function broadcastWatchMarkup(game,summary=null,inline=false) {
+  const channel = game.channel || 'Channel not listed';
   const links = globalThis.SportsRadarWatch?.resolve(game,summary) || [];
-  if (!links.length) return '';
-  return `<span class="broadcast-watch-actions">${links.map(link=>`<a class="broadcast-watch-link" href="${safeText(link.url)}" target="_blank" rel="noopener noreferrer" aria-label="Watch on ${safeText(link.name)} (opens externally)" title="${link.direct ? 'Open this game' : 'Browse sports'} on ${safeText(link.name)}">Watch on ${safeText(link.name)}<svg class="external-link-icon" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true" focusable="false"><path d="M9 2h5v5M14 2 7 9M6 3H2v11h11v-4"/></svg></a>`).join('')}</span>`;
+  if (!links.length) return inline ? safeText(channel) : '';
+  const anchor = (link,name=link.name) => `<a class="broadcast-watch-link" href="${safeText(link.url)}" target="_blank" rel="noopener noreferrer" aria-label="Watch on ${safeText(name)} (opens externally)" title="${link.direct ? 'Open this game' : 'Browse sports'} on ${safeText(name)}">Watch on ${safeText(name)}<svg class="external-link-icon" viewBox="0 0 16 16" width="10" height="10" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true" focusable="false"><path d="M9 2h5v5M14 2 7 9M6 3H2v11h11v-4"/></svg></a>`;
+  if (!inline) return `<span class="broadcast-watch-actions">${links.map(link=>anchor(link)).join('')}</span>`;
+  // Keep the original broadcast row and all labels; link supported providers in place.
+  const rendered = new Set();
+  const labels = String(channel).split(/(\s*[·,;/|&]\s*)/).map(label=>{
+    const provider = globalThis.SportsRadarWatch.providers.find(item=>item.aliases.test(label.trim()));
+    const link = links.find(item=>item.provider === provider?.id);
+    if (!link) return safeText(label);
+    rendered.add(link.provider);
+    return anchor(link,label.trim());
+  }).join('');
+  return labels + links.filter(link=>!rendered.has(link.provider)).map(link=>` · ${anchor(link)}`).join('');
 }
 
 function gameCard(game) {
@@ -2986,7 +2998,7 @@ function gameCard(game) {
     game.division
       ? `<span>•</span><span>${safeText(game.division)}</span>`
       : ''
-  }<span>•</span><span>${safeText(game.sub)}</span><span class="card-rating-change">${trendFor(game)}</span>${clockMarkup}</span><span class="team-row ${isWinningTeam(game,game.teams[0]) ? 'winner-row' : ''}">${cardTeam(game.teams[0],0)}<b class="team-score">${possessionMarkup(game,game.teams[0])}${safeText(game.teams[0][2])}</b></span><span class="team-row ${isWinningTeam(game,game.teams[1]) ? 'winner-row' : ''}">${cardTeam(game.teams[1],1)}<b class="team-score">${possessionMarkup(game,game.teams[1])}${safeText(game.teams[1][2])}</b></span>${situation}</span>${momentMarkup}<span class="game-context channel-context"><span class="detail-inline"><strong>Broadcast</strong><span>${safeText(game.channel || 'Channel not listed')}</span></span>${broadcastWatchMarkup(game)}<span class="stats-cue">Stats ›</span><span class="detail-inline line-inline"><strong>${safeText(compactLineLabel)}</strong><span>${safeText(line.text)}</span></span></span><span class="excitement"><span class="score-circle ${scoreClass}" style="${scoreColorStyle}">${game.score}</span>${trendFor(game)}</span></article>`;
+  }<span>•</span><span>${safeText(game.sub)}</span><span class="card-rating-change">${trendFor(game)}</span>${clockMarkup}</span><span class="team-row ${isWinningTeam(game,game.teams[0]) ? 'winner-row' : ''}">${cardTeam(game.teams[0],0)}<b class="team-score">${possessionMarkup(game,game.teams[0])}${safeText(game.teams[0][2])}</b></span><span class="team-row ${isWinningTeam(game,game.teams[1]) ? 'winner-row' : ''}">${cardTeam(game.teams[1],1)}<b class="team-score">${possessionMarkup(game,game.teams[1])}${safeText(game.teams[1][2])}</b></span>${situation}</span>${momentMarkup}<span class="game-context channel-context"><span class="detail-inline"><strong>Broadcast</strong><span class="broadcast-labels" title="${safeText(game.channel || 'Channel not listed')}">${broadcastWatchMarkup(game,null,true)}</span></span><span class="stats-cue">Stats ›</span><span class="detail-inline line-inline"><strong>${safeText(compactLineLabel)}</strong><span>${safeText(line.text)}</span></span></span><span class="excitement"><span class="score-circle ${scoreClass}" style="${scoreColorStyle}">${game.score}</span>${trendFor(game)}</span></article>`;
 }
 
 function footballAccessibleSituation(game) {

@@ -22,7 +22,7 @@ Only URLs actually supplied in event links marked watch/stream/live/video or bro
 
 Normalization/enrichment retains only validated direct destinations as enumerable `watchLinks` so they survive the canonical Worker feed and stored JSON. Game Center can also resolve a link from its fetched summary. Existing cached games without this field still get the sports fallback. Broadcast text, scoring inputs, ratings, model version, watchlists, favorites and historical scoring records are not changed.
 
-Card watch anchors are siblings of the existing Game Center navigation button. Pointerdown, pointerup and click delegation leave the link's native behavior intact and do not open Game Center. Native keyboard activation, browser context menus and external navigation remain available. The links have a 44px minimum height and span the mobile card grid.
+Card watch anchors are siblings of the existing Game Center navigation button. Pointerdown, pointerup and click delegation leave the link's native behavior intact and do not open Game Center. Native keyboard activation, browser context menus and external navigation remain available. Card actions are compact inline text links in the existing broadcast row, with a 10px external-link icon. They add no row, padding or minimum height to cards. Long broadcast listings scroll horizontally within that row. Game Center uses the same compact link style.
 
 ## Test scope and outstanding device checks
 

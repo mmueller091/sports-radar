@@ -52,5 +52,5 @@ for (const sport of ['NFL','CFB','NBA','NCAAB','NHL','MLB']) {
 test('Radar game card retains valid broadcast',()=>{
   const game = {id:'game',sport:'NBA',state:'upcoming',status:'Scheduled',sub:'Tonight',score:50,
     channel:'ESPN',teams:[['Away','AWY',''],['Home','HME','']]};
-  assert.match(context.gameCard(game),/<strong>Broadcast<\/strong><span>ESPN<\/span>/);
+  assert.match(context.gameCard(game),/<strong>Broadcast<\/strong><span class="broadcast-labels" title="ESPN">ESPN<\/span>/);
 });

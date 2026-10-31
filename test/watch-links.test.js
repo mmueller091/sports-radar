@@ -106,7 +106,13 @@ test('cards and Game Center share accessible native anchors and an external-link
   assert.match(html,/aria-hidden="true" focusable="false"/);
   assert.doesNotMatch(html,/onclick|window.open|intent:|peacock:/);
   assert.equal(context.broadcastWatchMarkup({channel:'Unknown'}),'');
-  assert.match(source,/broadcastWatchMarkup\(game\)/);
+  const inline=context.broadcastWatchMarkup({channel:'NBC · Peacock / ESPN2'},null,true);
+  assert.match(inline,/NBC · <a /);
+  assert.match(inline,/Watch on Peacock<svg/);
+  assert.match(inline,/Watch on ESPN2<svg/);
+  assert.doesNotMatch(inline,/broadcast-watch-actions/);
+  assert.equal(context.broadcastWatchMarkup({channel:'Unknown'},null,true),'Unknown');
+  assert.match(source,/broadcastWatchMarkup\(game,null,true\)/);
   assert.match(source,/broadcastWatchMarkup\(game,summary\)/);
 });
 
