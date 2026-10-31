@@ -11,7 +11,6 @@ await build({entryPoints:['scoring/browser-entry.cjs'],outfile:'dist/scoring-run
   platform:'browser',format:'iife',target:'es2022',minify:true});
 for (const file of assets) copyFileSync(file,`dist/${file}`);
 let html=readFileSync('index.html','utf8').replace(/\?rev=[^"\s]+/g,`?rev=${revision}`);
-html=html.replace('data-build-id>local','data-build-id>'+revision.slice(0,12));
 writeFileSync('dist/index.html',html);
 let sw=readFileSync('sw.js','utf8').replaceAll('__BUILD_REV__',revision);
 writeFileSync('dist/sw.js',sw);

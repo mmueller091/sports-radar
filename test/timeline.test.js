@@ -17,14 +17,18 @@ for (const name of ['legacyPlayPosition','scoringEvents','estimatedEventRating',
 }
 const play=(period,clock,homeScore,awayScore,text='Made shot')=>({period:{number:period,displayValue:`${period}th quarter`},clock:{displayValue:clock},homeScore,awayScore,text});
 
-test('old recorded models stay labeled and chart lines break at the new model boundary',()=>{
+test('historical models stay internal and chart lines still break at the model boundary',()=>{
   const {game,summary}=fixture('NFL',4,'1:00');game.state='live';
   summary.sportsRadarHistory={snapshots:[
     {observedAt:1000,state:'live',rating:60,period:4,clock:'3:00',modelVersion:'old-model'},
     {observedAt:2000,state:'live',rating:85,period:4,clock:'2:00',modelVersion:'2026-10-30.cfb-context.1'}
   ]};
   const html=context.excitementTimeline(game,summary);
-  assert.match(html,/old-model/);assert.match(html,/2026-10-30.cfb-context.1/);
+  const result=context.timelinePoints(game,summary);
+  assert.deepEqual(Array.from(result.points,point=>point.modelVersion),['old-model','2026-10-30.cfb-context.1']);
+  assert.deepEqual(Array.from(result.points,point=>point.score),[60,85]);
+  assert.doesNotMatch(html,/old-model|2026-10-30.cfb-context.1|Models?:|Worker|model changes|timeline-note/);
+  assert.match(html,/The rating stayed at 85/);
   const line=html.match(/class="timeline-line" d="([^"]+)"/)[1];
   assert.equal((line.match(/M /g)||[]).length,2);
   assert.doesNotMatch(html,/\+25<\/b>/,'model switch is not a sporting swing');

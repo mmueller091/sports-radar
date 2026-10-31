@@ -5564,7 +5564,7 @@ function excitementTimeline(game,summary) {
         ? `${String(point.text).replace(/[.]+$/,'')}.`
         : 'This is the current rating at that point in the game.';
 
-    return `${point.label || 'Timeline point'}: ${movement} ${detail} Model: ${point.modelVersion || 'legacy reconstruction'}.`;
+    return `${point.label || 'Timeline point'}: ${movement} ${detail}`;
   };
 
   const timelineHelpId =
@@ -5719,15 +5719,7 @@ function excitementTimeline(game,summary) {
         ).join('')}</ol>`
       : '';
 
-  return `<section class="detail-section timeline-section"><h3>Excitement timeline</h3><p class="timeline-note">${
-    source === 'recorded snapshots'
-      ? 'Actual Sports Radar ratings recorded by the Worker during the game.'
-      : source === 'recorded + browser'
-        ? 'Actual Worker snapshots, extended by this browserΓÇÖs newest observation while persistence catches up.'
-        : source === 'scoring plays'
-          ? 'Legacy-model reconstruction at reported scoring plays; the final point is the current rating.'
-          : 'Ratings recorded while this browser was open.'
-  } Models: ${safeText([...new Set(points.map(point => point.modelVersion || 'legacy'))].join(', '))}. Gaps mark model changes.</p><svg class="timeline-chart" viewBox="0 0 ${width} ${height}" role="img" aria-label="Excitement rating over game time, from ${points[0].score} to ${points[points.length - 1].score}"><line x1="${left}" y1="${top}" x2="${left}" y2="${height - bottom}"/><line x1="${left}" y1="${height - bottom}" x2="${width - right}" y2="${height - bottom}"/><line class="timeline-midline" x1="${left}" y1="${py({score:50})}" x2="${width - right}" y2="${py({score:50})}"/><text x="3" y="${top + 4}">100</text><text x="10" y="${py({score:50}) - 4}">50</text><text x="16" y="${height - bottom + 4}">0</text>${overtimeGuides}<path class="timeline-line" d="${path}"/>${eventMarkers}${markers}<text x="${left}" y="${height - 5}">Start</text><text x="${width - right}" y="${height - 5}" text-anchor="end">${game.state === 'completed' ? 'Final' : 'Now'}</text></svg><div class="timeline-point-help" id="${timelineHelpId}" role="status" aria-live="polite" aria-hidden="true"></div>${moments}</section>`;
+  return `<section class="detail-section timeline-section"><h3>Excitement timeline</h3><svg class="timeline-chart" viewBox="0 0 ${width} ${height}" role="img" aria-label="Excitement rating over game time, from ${points[0].score} to ${points[points.length - 1].score}"><line x1="${left}" y1="${top}" x2="${left}" y2="${height - bottom}"/><line x1="${left}" y1="${height - bottom}" x2="${width - right}" y2="${height - bottom}"/><line class="timeline-midline" x1="${left}" y1="${py({score:50})}" x2="${width - right}" y2="${py({score:50})}"/><text x="3" y="${top + 4}">100</text><text x="10" y="${py({score:50}) - 4}">50</text><text x="16" y="${height - bottom + 4}">0</text>${overtimeGuides}<path class="timeline-line" d="${path}"/>${eventMarkers}${markers}<text x="${left}" y="${height - 5}">Start</text><text x="${width - right}" y="${height - 5}" text-anchor="end">${game.state === 'completed' ? 'Final' : 'Now'}</text></svg><div class="timeline-point-help" id="${timelineHelpId}" role="status" aria-live="polite" aria-hidden="true"></div>${moments}</section>`;
 }
 
 function safeStoryUrl(value) {
