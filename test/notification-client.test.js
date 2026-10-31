@@ -6,7 +6,7 @@ import {webcrypto} from 'node:crypto';
 const source=fs.readFileSync(new URL('../notifications.js',import.meta.url),'utf8');
 const allSports=['NFL','MLB','NHL','CFB','NBA','NCAAB','Tennis','Soccer'];
 const favorite={sport:'NFL',id:'33',name:'Baltimore Ravens'};
-function harness({storage=new Map(),remote={subscribed:true,threshold:85,preferences:{enabled:true,sports:allSports,teams:[]}},ios=false,installed=false,subscribed=true}={}) {
+function harness({storage=new Map(),remote={subscribed:true,threshold:85,preferences:{enabled:true,sports:allSports,teams:[]}},ios=false,installed=false,subscribed=true,syncGate=null}={}) {
   const elements=new Map(),windowEvents={},calls=[];let unsubscribed=0,subscribes=0,permissionRequests=0,online=true;
   const element=selector=>{if(!elements.has(selector))elements.set(selector,{value:selector==='#notification-team-sport'?'all':'',innerHTML:'',textContent:'',hidden:false,disabled:false,attrs:{},events:{},classList:{toggle(){}},setAttribute(key,value){this.attrs[key]=value;},addEventListener(name,fn){this.events[name]=fn;}});return elements.get(selector);};
   const transport=()=>({toJSON:()=>({endpoint:'https://web.push.apple.com/client',keys:{p256dh:'test',auth:'test'}}),async unsubscribe(){unsubscribed++;subscription=null;return true;}});
@@ -25,6 +25,7 @@ function harness({storage=new Map(),remote={subscribed:true,threshold:85,prefere
       if(url.endsWith('/config'))return Response.json({publicKey:'AQID'});
       if(options.method==='PUT'){const body=JSON.parse(options.body);remote={...remote,threshold:body.threshold,preferences:body.preferences,subscribed:Boolean(body.subscription)||remote.subscribed};return Response.json({ok:true,...remote});}
       if(options.method==='DELETE'){remote={...remote,subscribed:false,preferences:{...remote.preferences,enabled:false}};return Response.json({ok:true});}
+      if(syncGate)await syncGate;
       return Response.json(remote);
     }});
   context.window=context;context.addEventListener=(name,fn)=>windowEvents[name]=fn;
@@ -42,6 +43,12 @@ test('team/favorite preferences persist independently of disabled sports and sur
   assert.equal(reopened.element('#alert-toggle').attrs['aria-checked'],'true');assert.match(reopened.element('#notification-selected-teams').innerHTML,/Baltimore Ravens/);
   assert.doesNotMatch(reopened.element('#notification-sports').innerHTML,/data-notification-sport="NFL" checked/);
   await reopened.event('#alert-toggle','click');assert.equal(reopened.remote().preferences.enabled,false);assert.equal(reopened.counts().unsubscribed,1);
+});
+test('initial subscription sync cannot overwrite legacy master state through an early settings edit',async()=>{
+  let release;const gate=new Promise(resolve=>release=resolve);const h=harness({syncGate:gate});
+  await h.settle();assert.equal(h.element('#alert-toggle').disabled,true);assert.equal(h.element('#alert-threshold').disabled,true);
+  release();await h.settle();assert.equal(h.element('#alert-toggle').disabled,false);assert.equal(h.element('#alert-toggle').attrs['aria-checked'],'true');
+  assert.equal(h.calls.filter(call=>call.method==='PUT').length,0,'loading saved choices does not mutate an existing subscription');
 });
 test('installed iPhone and Android enroll only from a user action; regular iPhone explains installation',async()=>{
   for(const ios of [true,false]) {

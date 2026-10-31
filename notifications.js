@@ -7,7 +7,7 @@
   const read=(key,fallback)=>{try{return JSON.parse(localStorage.getItem(key)) ?? fallback;}catch{return fallback;}};
   const saved=read(PREFS_KEY,null);
   let preferences={enabled:saved?.preferences?.enabled===true,sports:saved?.preferences?.sports || Object.keys(sports),teams:saved?.preferences?.teams || []};
-  let pending=saved?.pending===true,publicKey='',subscription=null,available=false,busy=false,saveChain=Promise.resolve(),teamResults=[],favoriteResults=[];
+  let pending=saved?.pending===true,publicKey='',subscription=null,available=false,busy=false,loading=true,saveChain=Promise.resolve(),teamResults=[],favoriteResults=[];
   threshold.value=String(saved?.threshold || read(THRESHOLD_KEY,85));
   const note=message=>{status.textContent=message;};
   const escape=value=>String(value ?? '').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -27,8 +27,9 @@
   }
   function update() {
     toggle.textContent=preferences.enabled?'Notifications on — turn off':'Enable notifications';
-    toggle.setAttribute('aria-checked',String(preferences.enabled));toggle.classList.toggle('alert-enabled',preferences.enabled);toggle.disabled=busy || (!available && !preferences.enabled);
-    test.hidden=!preferences.enabled;
+    toggle.setAttribute('aria-checked',String(preferences.enabled));toggle.classList.toggle('alert-enabled',preferences.enabled);toggle.disabled=loading || busy || (!available && !preferences.enabled);
+    test.hidden=loading || !preferences.enabled;threshold.disabled=loading;
+    for(const fieldset of $('#alert-preferences').querySelectorAll?.('fieldset') || [])fieldset.disabled=loading;
     $('#notification-sports').innerHTML=Object.entries(sports).map(([id,label])=>`<label class="toggle-option"><input type="checkbox" data-notification-sport="${id}"${preferences.sports.includes(id)?' checked':''}><span>${label}</span></label>`).join('');
     $('#notification-selected-teams').innerHTML=preferences.teams.map((team,index)=>`<button type="button" data-remove-notification-team="${index}" aria-label="Remove ${escape(team.name || team.id)} notifications">${escape(team.name || team.id)} · ${escape(sports[team.sport])} ×</button>`).join('') || '<span class="preference-note">No individual teams selected.</span>';
     renderTeams();
@@ -105,19 +106,21 @@
     update();
     const directory=globalThis.SportsRadarTeams;
     if(directory){$('#notification-team-sport').innerHTML='<option value="all">All sports</option>'+Object.entries(sports).filter(([id])=>id!=='Tennis').map(([id,label])=>`<option value="${id}">${label}</option>`).join('');directory.load().then(renderTeams).catch(()=>{});renderTeams();}
-    if(!base){note('Background notifications are not connected.');return;}
+    if(!base){loading=false;update();note('Background notifications are not connected.');return;}
     const ios=/iPhone|iPad|iPod/.test(navigator.userAgent || '') || (navigator.platform==='MacIntel' && navigator.maxTouchPoints>1);
     const installed=Boolean(navigator.standalone || globalThis.matchMedia?.('(display-mode: standalone)').matches);
     available='serviceWorker' in navigator && 'PushManager' in window && 'Notification' in window && (!ios || installed);
     try {
       if(available){const config=await fetch(base+'/config',{cache:'no-store'});if(!config.ok)throw new Error('Notification service unavailable');publicKey=(await config.json()).publicKey || '';if(!publicKey)throw new Error('Notification service is not configured');subscription=await (await navigator.serviceWorker.ready).pushManager.getSubscription();}
+      if(!saved && !pending && subscription)preferences.enabled=true;
       const remote=await api('/subscription');
       if(!pending){preferences=remote.preferences;threshold.value=String(remote.threshold);}
       if(preferences.enabled && available && !subscription){preferences.enabled=false;pending=true;}
       if(pending)await queueSave();else persist();
       update();
       note(!available?(ios?'Install Sports Radar using Safari below, then open its Home Screen icon to enable notifications.':'This browser cannot receive Web Push. Your choices are saved; use a supported installed browser app to enable notifications.'):preferences.enabled?`Notifications on at ${threshold.value}+. The server checks about once a minute, even while the app is closed.`:'Notifications off. Choose your sports and teams, then enable notifications.');
-    } catch(error){note(`Notification preferences need to sync: ${error.message}`);update();}
+    } catch(error){note(`Notification preferences need to sync: ${error.message}`);}
+    finally {loading=false;update();}
   }
   document.addEventListener('sports-radar:favorites-changed',renderTeams);
   $('#profile-button').addEventListener('click',()=>{renderTeams();if(pending)queueSave().catch(()=>{});});
