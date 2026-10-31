@@ -9,7 +9,7 @@
   const {listedSpread,footballPregameSpread,footballSpreadAdjustment} = typeof module !== 'undefined' && module.exports
     ? require('../shared/market.js')
     : root.SportsRadarScoring.shared_market;
-  const {footballGameState,footballSituationImpact,footballMilestone,footballEventShock,footballStagnationImpact,footballFieldPosition,footballClockRunway} = typeof module !== 'undefined' && module.exports
+  const {footballGameState,footballSituationImpact,nflOvertimeRules,footballOvertimeResponse,footballPendingTryImpact,footballMilestone,footballEventShock,footballStagnationImpact,footballFieldPosition,footballClockRunway} = typeof module !== 'undefined' && module.exports
     ? require('../shared/football.js')
     : root.SportsRadarScoring.shared_football;
   const {clockSeconds} = typeof module !== 'undefined' && module.exports
@@ -18,40 +18,82 @@
 
   function nflOvertime(competition,summary) {
     const period = Number(competition?.status?.period);
-    const ordinary = {active:period > 4,suddenDeath:false,canWin:false,fieldGoalWins:false};
+    const rules = nflOvertimeRules(competition,summary);
+    const ordinary = {active:period > 4,suddenDeath:false,canWin:false,canTie:false,fieldGoalWins:false,clockExpired:rules.clockExpired};
     if (!ordinary.active) return ordinary;
+    const explicitTry = competition?.situation?.isTwoPointAttempt === true;
+    if (competition?.status?.type?.completed || competition?.status?.type?.state === 'post' ||
+        (rules.clockExpired && !explicitTry)) return ordinary;
     const holder = String(competition?.situation?.possession?.id || competition?.situation?.possession || '');
     const teams = competition?.competitors || [];
     const offense = teams.find(t => String(t.team?.id || t.id || '') === holder);
     const defense = teams.find(t => t !== offense);
-    if (!holder || teams.length !== 2 || !offense || !defense || offense.score == null || defense.score == null) return ordinary;
+    if (!holder || teams.length !== 2 || !offense || !defense ||
+        teams.some(t=>t.score == null || t.score === '' || typeof t.score === 'boolean' || !Number.isFinite(Number(t.score)))) return ordinary;
     const deficit = Number(defense.score)-Number(offense.score);
     if (!Number.isFinite(deficit)) return ordinary;
     // Use completed, identifiable OT offensive drives. Period alone and the
     // provider's format.overtime metadata say nothing about possession rights.
-    const completed = (summary?.drives?.previous || []).filter(d => {
+    const seen = new Set();
+    const completed = [...(summary?.drives?.previous || []),...(summary?.drives?.current ? [summary.drives.current] : [])].filter(d => {
       const plays = d.plays || [];
       const startPeriod = Number(d.start?.period?.number ?? plays[0]?.period?.number);
       return startPeriod > 4 && startPeriod <= period && d.isCurrent !== true &&
         d.result && !/end of|kickoff/i.test(d.result) &&
         plays.some(p => String(p.start?.team?.id || '') === String(d.team?.id || '') &&
           p.start?.team?.id && !/kickoff|timeout|end of/i.test(p.type?.text || p.text || ''));
+    }).filter(d => {
+      if (!d.id) return true;
+      if (seen.has(String(d.id))) return false;
+      seen.add(String(d.id));return true;
     });
     const possessed = new Set(completed.map(d => String(d.team?.id || '')));
+    // A legal defensive possession or recovered kickoff can satisfy the
+    // opportunity rule without a subsequent offensive drive being recorded.
+    const plays = summary?.plays?.length ? summary.plays :
+      [...(summary?.drives?.previous || []),...(summary?.drives?.current ? [summary.drives.current] : [])].flatMap(d=>d.plays || []);
+    const recoveredKicks = new Set();
+    for (const play of plays) {
+      if (!(Number(play.period?.number) > 4 && Number(play.period?.number) <= period) ||
+          /overturned|nullified|no play/i.test(play.text || '')) continue;
+      const startId = String(play.start?.team?.id || ''), endId = String(play.end?.team?.id || '');
+      if (!teams.some(t=>String(t.team?.id || t.id || '') === startId) ||
+          !teams.some(t=>String(t.team?.id || t.id || '') === endId)) continue;
+      if (play.isTurnover === true && startId !== endId) possessed.add(endId);
+      if (/kickoff/i.test(play.type?.text || '') && /recover/i.test(play.text || '') && startId === endId) {
+        teams.filter(t=>String(t.team?.id || t.id || '') !== startId).forEach(t=>possessed.add(String(t.team?.id || t.id)));
+        if (play.id) recoveredKicks.add(String(play.id));
+      }
+    }
+    const last = competition?.situation?.lastPlay;
+    const terminal = last?.id ? plays.find(p=>String(p.id)===String(last.id)) : null;
+    const matches = terminal && teams.every(t=>terminal[`${t.homeAway}Score`] != null && Number(terminal[`${t.homeAway}Score`]) === Number(t.score));
+    const closed = last?.id && completed.some(d=>String(d.plays?.at(-1)?.id) === String(last.id));
+    const pendingTry = explicitTry || (closed && footballPendingTryImpact({game:{sport:'NFL',state:'live',baseScore:0},competition,
+      status:competition.status,situation:competition.situation,summary}));
+    const safety = matches && terminal.scoringPlay === true && /\bsafety\b/i.test(`${terminal.type?.text || ''} ${terminal.text || ''}`);
+    if (deficit !== 0 && matches && !pendingTry && (safety ||
+        (possessed.size === 2 && (closed || recoveredKicks.has(String(last?.id)))))) return {...ordinary,resolved:true};
     const otherHadBall = possessed.has(String(defense.team?.id || defense.id || ''));
-    const suddenDeath = deficit === 0 && otherHadBall && possessed.has(holder);
-    const year = Number(summary?.header?.season?.year || competition?.season?.year);
-    const seasonType = Number(summary?.header?.season?.type || competition?.season?.type);
-    const postseason = seasonType === 3;
-    // Historical inputs can identify the pre-2025 regular-season / pre-2022
-    // postseason opening-TD rule. Unknown year uses today's two-opportunity rule.
-    const openingTdWins = year > 0 && (seasonType === 2 || postseason) && year < (postseason ? 2022 : 2025);
-    return {active:true,suddenDeath,canWin:deficit >= 0 && deficit <= 7 && (otherHadBall || openingTdWins),
-      fieldGoalWins:deficit >= 0 && deficit < 3 && otherHadBall};
+    const suddenDeath = deficit === 0 && otherHadBall;
+    const canWin = explicitTry ? deficit >= 0 && deficit <= 1 : deficit >= 0 && deficit <= 7 && (otherHadBall || rules.openingTouchdownWins);
+    return {...ordinary,suddenDeath,canWin,
+      canTie:explicitTry ? deficit === 2 : deficit > 0 && deficit <= 8 && otherHadBall,
+      fieldGoalWins:!explicitTry && deficit >= 0 && deficit < 3 && otherHadBall};
   }
 
   function nflSituation(args) {
+    args={...args,competition:{...args.competition,season:{...args.game.sourceEvent?.season,...args.competition?.season}}};
+    const pendingTry = footballPendingTryImpact(args);
+    if (pendingTry) return pendingTry;
+    const response = footballOvertimeResponse('NFL',{...args.competition,status:args.status,situation:args.situation},args.summary);
+    if (response) return {points:12,competitiveFloor:Math.round(Math.max(0,99-Number(args.game.baseScore || 0))*.86),
+      note:`${response.abbreviation || 'Opponent'} overtime response pending`,
+      reasons:['The opening overtime score does not end the game; the opponent still has a response possession']};
     const overtime = nflOvertime(args.competition,args.summary);
+    if (overtime.resolved) return {points:0,competitiveFloor:0,note:'Overtime result awaiting confirmation',reasons:[]};
+    if (overtime.clockExpired && args.situation.isTwoPointAttempt !== true)
+      return {points:0,competitiveFloor:0,note:'Overtime clock expired',reasons:[]};
     const result = footballSituationImpact(args.game,args.competition,args.status,args.situation,args.progress,args.scoreGap,{overtime});
     const {game,competition,status,situation,scoreGap} = args;
     const holderId = String(situation.possession?.id || situation.possession || '');
@@ -66,7 +108,8 @@
     // Headroom keeps an already compelling upset/stakes state from receiving
     // the same raw increase as a generic decisive possession.
     const base = Number(game.baseScore);
-    if (Number.isFinite(base) && (criticalTry || (regulation && seconds > 0 &&
+    const overtimeOpportunity = overtime.active && (overtime.canWin || overtime.canTie);
+    if (Number.isFinite(base) && (criticalTry || overtimeOpportunity || (regulation && seconds > 0 &&
         seconds <= 180 && result.decisiveDrive && deficit >= 0 && deficit <= 8))) {
       const position = footballFieldPosition(game,holder,situation.possessionText,
         situation.downDistanceText || situation.shortDownDistanceText);
@@ -89,14 +132,17 @@
       }
       if (goal) consequence = Math.max(consequence,.86);
       if (criticalTry) consequence = deficit === 1 ? .90 : .86;
+      if (overtimeOpportunity) consequence = Math.max(consequence,situation.isTwoPointAttempt === true ? (deficit <= 1 ? .90 : .86) : .86);
       // A full-field march with only seconds left is not a viable drive. A
       // goal-line snap or explicit try can still decide matters immediately.
       const yardsNeeded = position === null ? 75 : Math.max(0,(scoreGap <= 3 ? 65 : 100)-position);
-      const viability = criticalTry || goal ? 1 : Math.min(1,seconds/(8+.65*yardsNeeded));
-      const urgency = criticalTry ? 1 : result.decisiveDrive.urgency;
+      const viability = criticalTry || goal || (overtimeOpportunity && (nflOvertimeRules(competition,args.summary).postseason || situation.isTwoPointAttempt === true))
+        ? 1 : Math.min(1,Math.max(0,seconds || 0)/(8+.65*yardsNeeded));
+      const urgency = criticalTry || overtimeOpportunity ? 1 : result.decisiveDrive.urgency;
       result.competitiveFloor = Math.round(Math.max(0,99-base)*consequence*urgency*viability);
     }
     if (overtime.canWin) result.reasons.push(overtime.suddenDeath ? 'Sudden-death overtime: next score wins' : 'This overtime possession can win the game');
+    else if (overtime.canTie) result.reasons.push('This overtime possession can tie the game');
     return result;
   }
 
@@ -303,6 +349,7 @@
   }
 
   const nflModel = {
+    prepareCompetition:(competition,event) => ({...competition,season:{...event?.season,...competition?.season}}),
     pregame:nflPregame,
     gameState:nflGameState,
     situation:nflSituation,

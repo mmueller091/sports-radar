@@ -9,7 +9,7 @@
   const {recordFor,rankFor} = typeof module !== 'undefined' && module.exports
     ? require('../shared/records.js')
     : root.SportsRadarScoring.shared_records;
-  const {footballGameState,footballLiveCloseness,footballTimeouts,footballCompetitorId,footballSituationFieldPosition,footballMilestone,footballEventShock,footballStagnationImpact} = typeof module !== 'undefined' && module.exports
+  const {footballGameState,footballLiveCloseness,footballTimeouts,footballCompetitorId,footballSituationFieldPosition,footballOvertimeResponse,footballPendingTryImpact,footballMilestone,footballEventShock,footballStagnationImpact} = typeof module !== 'undefined' && module.exports
     ? require('../shared/football.js')
     : root.SportsRadarScoring.shared_football;
   const {clockSeconds} = typeof module !== 'undefined' && module.exports
@@ -173,16 +173,31 @@
   function cfbOvertime(competition,summary) {
     const period = Number(competition?.status?.period);
     const basic = {active:period > 4,response:false,decisive:false,shootout:false};
-    const possession = cfbPossession(competition);
-    if (!basic.active || !possession) return basic;
-    const {offense,defense,deficit} = possession;
+    const pending = footballOvertimeResponse('CFB',competition,summary);
+    if (pending) return {...basic,response:true,decisive:true,pendingResponse:pending};
+    if (!basic.active) return basic;
     // Only completed offensive series in THIS extra period establish order.
     // Older OT drives, period number, and pending/current drives do not.
-    const completed = (summary?.drives?.previous || []).filter(d =>
+    const seen = new Set();
+    const completed = [...(summary?.drives?.previous || []),...(summary?.drives?.current ? [summary.drives.current] : [])].filter(d =>
       d.isCurrent !== true && d.result && !/end of|kickoff/i.test(d.result) &&
       Number(d.start?.period?.number ?? d.plays?.[0]?.period?.number) === period &&
       d.plays?.some(p => String(p.start?.team?.id || '') === String(d.team?.id || '') &&
-        p.start?.team?.id && !/kickoff|timeout|end of/i.test(p.type?.text || p.text || '')));
+        p.start?.team?.id && !/kickoff|timeout|end of/i.test(p.type?.text || p.text || ''))).filter(d => {
+          if (!d.id) return true;
+          if (seen.has(String(d.id))) return false;
+          seen.add(String(d.id));return true;
+        });
+    const teams = competition?.competitors || [];
+    const last = completed.at(-1)?.plays?.at(-1);
+    const responseFinished = completed.length === 2 && new Set(completed.map(d=>String(d.team?.id))).size === 2 &&
+      competition?.situation?.isTwoPointAttempt !== true &&
+      last?.id && String(last.id) === String(competition?.situation?.lastPlay?.id) &&
+      teams.length === 2 && Number(teams[0].score) !== Number(teams[1].score) &&
+      teams.every(t=>t.score != null && last[`${t.homeAway}Score`] != null && Number(t.score) === Number(last[`${t.homeAway}Score`]));
+    const possession = cfbPossession(competition);
+    if (!possession) return {...basic,responseFinished:Boolean(responseFinished)};
+    const {offense,defense,deficit} = possession;
     const year = Number(summary?.header?.season?.year || competition?.season?.year);
     const explicitTry = competition?.situation?.isTwoPointAttempt === true;
     const shootout = explicitTry && ((year >= 2021 && period >= 7) || (year >= 2019 && year < 2021 && period >= 9));
@@ -191,18 +206,28 @@
     const pendingResponseTry = explicitTry && !shootout && own.length === 1 && other.length === 1 &&
       completed.indexOf(own[0]) > completed.indexOf(other[0]) && /touchdown/i.test(own[0].result);
     const response = other.length === 1 && (own.length === 0 || pendingResponseTry);
-    return {...basic,response,shootout,decisive:response && deficit >= 0 && deficit <= (shootout ? 2 : 8)};
+    return {...basic,response,shootout,responseFinished:Boolean(responseFinished),decisive:response && deficit >= 0 && deficit <= (shootout ? 2 : 8)};
   }
 
-  function cfbSituation({game,competition,status,situation,summary}) {
+  function cfbSituation({game,competition,status,situation,summary,scoreGap}) {
+    const pendingTry = footballPendingTryImpact({game,competition,status,situation,summary});
+    if (pendingTry) return pendingTry;
     const current = {...competition,status,situation};
     const possession = cfbPossession(current);
     const result = {points:0,note:'',reasons:[],competitiveFloor:0};
+    const overtime = cfbOvertime(current,summary);
+    const awaitingUpdate = overtime.active && !overtime.responseFinished && Number.isFinite(scoreGap) && scoreGap <= 8 &&
+      (!possession || (Number(situation.down) === -1 && Number(situation.lastPlay?.scoreValue) > 0));
+    if (overtime.pendingResponse || awaitingUpdate) {
+      const pending = overtime.pendingResponse;
+      return {points:12,competitiveFloor:Math.round(Math.max(0,99-Number(game.baseScore || 0))*(pending ? .94 : .82)),
+        note:pending ? `${pending.abbreviation || 'Opponent'} overtime response pending` : 'College overtime · Possession update pending',
+        reasons:[pending ? 'The opening overtime score does not end the game; the opponent still has a response possession' : 'College overtime is untimed; missing possession data does not mean the opportunity has expired']};
+    }
     if (!possession) return result;
     const {offense,defense,deficit,position} = possession;
     const down = Number(situation.down), distance = Number(situation.distance);
     const seconds = clockSeconds(status), period = Number(status.period);
-    const overtime = cfbOvertime(current,summary);
     const tryState = situation.isTwoPointAttempt === true;
     const goal = (situation.isGoalToGo === true || /&\s*goal/i.test(situation.downDistanceText || situation.shortDownDistanceText || '')) && position !== null && position >= 90;
     result.note = [offense.team?.abbreviation ? `${offense.team.abbreviation} ball` : '',situation.downDistanceText || situation.shortDownDistanceText,situation.possessionText].filter(Boolean).join(' · ');
@@ -228,7 +253,7 @@
       viability = criticalTry || goal ? 1 : Math.min(1,seconds/(10+.42*yards));
       if (urgency > 0) result.reasons.push(criticalTry ? 'Critical two-point try to tie or win' : finalFourth ? 'Final meaningful fourth down' : goal ? 'Decisive goal-to-go snap' : 'A viable tying or winning possession');
     }
-    if (overtime.active && Math.abs(deficit) <= 8 && (deficit >= 0 || tryState)) {
+    if (overtime.active && !overtime.responseFinished && Math.abs(deficit) <= 8 && (deficit >= 0 || tryState)) {
       urgency = 1;
       consequence = overtime.decisive ? (overtime.shootout || tryState ? .97 : .94) : .82;
       // A championship maximum requires observed response rights, not merely OT.

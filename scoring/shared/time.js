@@ -140,7 +140,7 @@
     }`;
   }
 
-  function livePhase(sport,status,format={}) {
+  function livePhase(sport,status,format={},season={}) {
     const detail =
       String(
         status?.type?.detail ||
@@ -152,6 +152,11 @@
       Number(
         status?.period || 0
       );
+
+    // A regular-season fifth period is a shootout, not a second overtime.
+    const statusText = [status?.type?.name,status?.type?.detail,status?.type?.shortDetail].join(' ');
+    if (sport === 'NHL' && (/shootout|\bSO\b/i.test(statusText) ||
+      (period === 5 && Number(season?.type?.id ?? season?.type) === 2))) return 'Shootout';
 
     if (
       sport === 'MLB'

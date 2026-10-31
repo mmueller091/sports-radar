@@ -38,11 +38,25 @@ test('period breaks preserve context without impossible overtime ordinals',()=>{
   assert.equal(core.livePhase('NHL',{period:3,type:{detail:'Intermission'}}),'Intermission');
 });
 
-test('NBA 2OT flows through card, accessibility, explanation, history, detail and timeline',()=>{
-  const {game,competition} = fixture('NBA',6);
-  const summary = {header:{competitions:[competition]},scoringPlays:[
-    {period:{number:6,displayValue:'6th quarter'},clock:{displayValue:'3:00'},homeScore:122,awayScore:120,text:'Made shot'}
-  ]};
+test('NHL shootout status takes precedence over numeric overtime and its stopped clock',()=>{
+  for (const type of [{detail:'Shootout'},{detail:'Live',shortDetail:'SO'},
+    {name:'STATUS_SHOOTOUT',detail:'Live'}]) {
+    const status={period:5,displayClock:'0:00',type:{state:'in',...type}};
+    assert.equal(core.livePhase('NHL',status),'Shootout');
+    const {competition}=fixture('NHL',5,'0:00');
+    competition.status=status;
+    const game=normalizeEvent({id:'shootout',season:{type:2},competitions:[competition]},'NHL');
+    assert.equal(game.live.phase,'Shootout');
+  }
+  const status={period:5,displayClock:'0:00',type:{state:'in',detail:'Live'}};
+  for (const type of [2,{id:'2'}]) assert.equal(core.livePhase('NHL',status,{}, {type}),'Shootout');
+  assert.equal(core.livePhase('NHL',status,{}, {type:3}),'0:00 · 2OT');
+  const {competition}=fixture('NHL',5,'0:00');
+  competition.status=status;
+  assert.equal(normalizeEvent({id:'regular',season:{type:2},competitions:[competition]},'NHL').live.phase,'Shootout');
+});
+
+function renderedGame(game,summary) {
   const source = fs.readFileSync(new URL('../app.js',import.meta.url),'utf8').replace(/\r\n/g,'\n');
   const detail = {};
   const history = {};
@@ -64,6 +78,15 @@ test('NBA 2OT flows through card, accessibility, explanation, history, detail an
   context.recordRatingSnapshot(game);
   context.renderDetailContent(game,summary);
   const timeline=context.timelinePoints(game,summary);
+  return {card,explanation,history,detail,timeline};
+}
+
+test('NBA 2OT flows through card, accessibility, explanation, history, detail and timeline',()=>{
+  const {game,competition} = fixture('NBA',6);
+  const summary = {header:{competitions:[competition]},scoringPlays:[
+    {period:{number:6,displayValue:'6th quarter'},clock:{displayValue:'3:00'},homeScore:122,awayScore:120,text:'Made shot'}
+  ]};
+  const {card,explanation,history,detail,timeline}=renderedGame(game,summary);
   for (const value of [card,card.match(/aria-label="([^"]+)"/)[1],explanation,
     history[game.id][0].phase,detail.innerHTML,timeline.points.at(-1).label]) {
     assert.match(value,/2OT/);
@@ -72,4 +95,19 @@ test('NBA 2OT flows through card, accessibility, explanation, history, detail an
   assert.match(detail.innerHTML, /detail-kicker[^>]*>NBA · 2:00 · 2OT/);
   assert.equal(timeline.points.at(-1).label,'2OT 2:00');
   assert.match(timeline.points[1].label,/^2OT/);
+});
+
+test('NHL shootout appears on card and Game Center without a fake countdown',()=>{
+  for (const clock of ['0:00','']) {
+    const {competition}=fixture('NHL',5,clock);
+    competition.status.type={state:'in',detail:'Shootout',shortDetail:'Shootout'};
+    const game=normalizeEvent({id:'shootout',season:{type:2},competitions:[competition]},'NHL');
+    const {card,explanation,history,detail}=renderedGame(game,{header:{competitions:[competition]}});
+    assert.match(card,/<span class="card-clock"><span>Shootout<\/span><\/span>/);
+    assert.match(detail.innerHTML,/<span class="detail-live-clock"><span>Shootout<\/span><\/span>/);
+    for (const value of [card,explanation,history[game.id][0].phase,detail.innerHTML]) {
+      assert.match(value,/Shootout/);
+      assert.doesNotMatch(value,/2OT|0:00/);
+    }
+  }
 });

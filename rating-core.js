@@ -705,7 +705,8 @@
         livePhase(
           game.sport,
           status,
-          competition?.format || game.sourceCompetition?.format || game.sourceEvent?.competitions?.[0]?.format || game.format
+          competition?.format || game.sourceCompetition?.format || game.sourceEvent?.competitions?.[0]?.format || game.format,
+          game.sourceEvent?.season || competition?.season || game.sourceCompetition?.season
         ),
 
       note:'',

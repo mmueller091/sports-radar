@@ -2961,6 +2961,11 @@ function basesMarkup(bases) {
 function compactClockPeriod(game) {
   const phase = String(game.live?.phase || game.status || '')
     .replace(/\b\d{1,2}:\d{2}\b/g,'').replace(/^[\s·|,-]+|[\s·|,-]+$/g,'');
+  const status = game.liveRawStatus?.type;
+  const season = game.sourceEvent?.season || game.sourceCompetition?.season;
+  const shootoutStatus = [phase,game.status,status?.name,status?.detail,status?.shortDetail].join(' ');
+  if (game.sport === 'NHL' && (/shootout|\bSO\b/i.test(shootoutStatus) ||
+    (Number(game.liveRawStatus?.period) === 5 && Number(season?.type?.id ?? season?.type) === 2))) return 'Shootout';
   if (/shootout/i.test(phase)) return 'SO';
   if (/halftime|half time/i.test(phase)) return 'Half';
   if (/intermission|end of|break/i.test(phase)) return phase;
@@ -2998,8 +3003,8 @@ function gameCard(game) {
   const phase = String(game.live?.phase || game.status || '');
   const clock = String(game.liveRawStatus?.displayClock || phase.match(/\b\d{1,2}:\d{2}\b/)?.[0] || '');
   const period = compactClockPeriod(game);
-  const clockMarkup = game.state === 'live' && clock
-    ? `<span class="card-clock"><span>${safeText(period || 'Live')}</span><strong>${safeText(clock)}</strong></span>`
+  const clockMarkup = game.state === 'live' && (clock || period === 'Shootout')
+    ? `<span class="card-clock"><span>${safeText(period || 'Live')}</span>${period === 'Shootout' ? '' : `<strong>${safeText(clock)}</strong>`}</span>`
     : '';
   const cardTeam = (team,index) => teamMarkup(game,team,index);
   const scoreColorStyle = (() => {
@@ -6090,8 +6095,8 @@ function renderDetailContent(
 
   const detailClockValue = String(game.liveRawStatus?.displayClock || String(status || '').match(/\b\d{1,2}:\d{2}\b/)?.[0] || '');
   const detailPeriod = compactClockPeriod(game);
-  const detailClock = game.state === 'live' && detailClockValue
-    ? `<span class="detail-live-clock"><span>${safeText(detailPeriod || 'Live')}</span><strong>${safeText(detailClockValue)}</strong></span>` : '';
+  const detailClock = game.state === 'live' && (detailClockValue || detailPeriod === 'Shootout')
+    ? `<span class="detail-live-clock"><span>${safeText(detailPeriod || 'Live')}</span>${detailPeriod === 'Shootout' ? '' : `<strong>${safeText(detailClockValue)}</strong>`}</span>` : '';
 
   const venue =
     competition?.venue?.fullName ||

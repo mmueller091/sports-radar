@@ -6,13 +6,14 @@ const {candidateGameRating} = require('../calibration/shadow-candidate.cjs');
 const {LIVE_CFB_COMPETITION_POLICY:LIVE_POLICY} = require('../calibration/trajectory-live-policy.cjs');
 const {prepareOpening,preservePregameBaseline} = require('./opening-transition.cjs');
 const PRODUCTION_POLICY = Object.freeze({...LIVE_POLICY,id:LIVE_POLICY.id+'-opening-transition',footballTransition:true,openingTransition:true});
-const MODEL_VERSION = '2026-10-31.opening-transition.1';
+const MODEL_VERSION = '2026-10-31.football-live-state.1';
 
 function applyLiveSnapshot(game, competition, summary) {
   prepareOpening(legacy,game,competition || game.sourceCompetition,null);
   if (game.state !== 'live') return;
   legacy.applyLiveSnapshot(game, competition, summary);
   const current = {...(competition || game.sourceCompetition),
+    ...(game.sport==='NFL' ? {season:{...game.sourceEvent?.season,...game.sourceCompetition?.season,...competition?.season}} : {}),
     status:game.liveRawStatus, situation:game.liveRawSituation};
   const accepted = game.lastSummaryAccepted && summary?.header?.competitions?.[0]?.status ? summary : null;
   prepareOpening(legacy,game,competition || game.sourceCompetition,accepted);

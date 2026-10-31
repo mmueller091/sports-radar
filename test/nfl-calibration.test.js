@@ -83,7 +83,7 @@ test('OT uses observed possession rights and historical rules, not just period n
   assert.equal(nflOvertime(competition,summary).suddenDeath,true);
   assert.equal(nflOvertime(competition,summary).fieldGoalWins,true);
   summary.drives.previous = summary.drives.previous.slice(0,1);
-  assert.equal(nflOvertime(competition,summary).suddenDeath,false);
+  assert.equal(nflOvertime(competition,summary).suddenDeath,true,'after an opening punt, the next score wins');
   assert.equal(nflOvertime(competition,summary).canWin,true,'second offense after a punt can win');
   competition.competitors[0].score = '27';
   assert.equal(nflOvertime(competition,summary).fieldGoalWins,false,'FG only ties a three-point deficit');

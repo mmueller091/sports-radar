@@ -25,7 +25,21 @@ test('overtime and pauses keep their meaning instead of becoming regulation ordi
   assert.equal(label('NBA',6,'Live'),'2OT');
   assert.equal(label('NCAAB',3,'Live'),'OT');
   assert.equal(label('CFB',5,'2OT'),'2OT');
-  assert.equal(label('NHL',5,'Shootout'),'SO');
+  assert.equal(label('NHL',5,'Shootout'),'Shootout');
+  assert.equal(label('Soccer',undefined,'Shootout'),'SO');
   assert.equal(label('NBA',2,'Halftime'),'Half');
   assert.equal(label('NHL',1,'1st Intermission'),'1st Intermission');
+});
+
+test('NHL shootout badge overrides a stale 2OT phase using raw status or regular-season metadata',()=>{
+  const game={sport:'NHL',status:'Shootout',live:{phase:'0:00 · 2OT'},liveRawStatus:{period:5,displayClock:'0:00'}};
+  assert.equal(context.compactClockPeriod(game),'Shootout');
+  game.status='Live';
+  game.liveRawStatus.type={name:'STATUS_SHOOTOUT'};
+  assert.equal(context.compactClockPeriod(game),'Shootout');
+  game.liveRawStatus.type={};
+  game.sourceEvent={season:{type:2}};
+  assert.equal(context.compactClockPeriod(game),'Shootout');
+  game.sourceEvent.season.type=3;
+  assert.equal(context.compactClockPeriod(game),'2OT');
 });

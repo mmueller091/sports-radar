@@ -1249,6 +1249,109 @@
       : 100 - yard;
   }
 
+  function nflOvertimeRules(competition,summary) {
+    const season = {...summary?.header?.season,...competition?.season};
+    const year = Number(season.year), seasonType = Number(season.type?.id ?? season.type);
+    const postseason = seasonType === 3, regularSeason = seasonType === 2;
+    const period = Number(competition?.status?.period);
+    return {postseason,regularSeason,
+      openingTouchdownWins:year > 0 && (regularSeason || postseason) && year < (postseason ? 2022 : 2025),
+      clockExpired:regularSeason && period > 4 && (period > 5 || clockSeconds(competition?.status) === 0)};
+  }
+
+  function footballOvertimeResponse(sport,competition,summary) {
+    const period = Number(competition?.status?.period);
+    const situation = competition?.situation || {}, last = situation.lastPlay;
+    if (!['CFB','NFL'].includes(sport) || period <= 4 ||
+        competition?.status?.type?.completed || competition?.status?.type?.state === 'post' ||
+        !last?.id || !(Number(last.scoreValue) > 0)) return null;
+    const teams = competition?.competitors || [];
+    if (teams.length !== 2 || teams.some(t => t.score == null || t.score === '' || !Number.isFinite(Number(t.score)))) return null;
+    const seen = new Set();
+    const completed = [...(summary?.drives?.previous || []),...(summary?.drives?.current ? [summary.drives.current] : [])].filter(d => {
+      const start = Number(d.start?.period?.number ?? d.plays?.[0]?.period?.number);
+      if (d.isCurrent === true || !d.result || /end of|kickoff/i.test(d.result) ||
+          !(sport === 'CFB' ? start === period : start > 4 && start <= period)) return false;
+      const key = String(d.id || d.plays?.[0]?.id || '');
+      if (!key || seen.has(key)) return false;
+      seen.add(key);
+      return d.plays?.some(p => String(p.start?.team?.id || '') === String(d.team?.id || '') && p.start?.team?.id);
+    });
+    if (completed.length !== 1) return null;
+    const drive = completed[0], first = drive.plays[0], end = drive.plays.at(-1);
+    if (String(end?.id) !== String(last.id) || Number(end.period?.number) !== period ||
+        !/^(?:FG|TD|field goal|touchdown)$/i.test(drive.result) ||
+        first.homeScore == null || first.awayScore == null || Number(first.homeScore) !== Number(first.awayScore) ||
+        teams.some(t => end[`${t.homeAway}Score`] == null || Number(end[`${t.homeAway}Score`]) !== Number(t.score))) return null;
+    const scorer = teams.find(t => footballCompetitorId(t) === String(drive.team?.id));
+    const responder = teams.find(t => t !== scorer);
+    if (!scorer || !responder || String(last.team?.id || '') !== footballCompetitorId(scorer)) return null;
+    const deficit = Number(scorer.score)-Number(responder.score);
+    if (deficit <= 0 || deficit > 8) return null;
+    // Preserve the NFL model's historical opening-touchdown rules.
+    const rules = nflOvertimeRules(competition,summary);
+    if (sport === 'NFL' && (rules.clockExpired || (deficit >= 6 && rules.openingTouchdownWins))) return null;
+    return {teamId:footballCompetitorId(responder),abbreviation:responder.team?.abbreviation || '',deficit};
+  }
+
+  function footballPendingTryImpact({game,competition,status,situation,summary}) {
+    const seconds = clockSeconds(status);
+    const period = Number(status?.period);
+    if (game.sport === 'NFL' && period > 5 && nflOvertimeRules(competition,summary).regularSeason) return null;
+    if (!['NFL','CFB'].includes(game.sport) || game.state !== 'live' ||
+        status?.type?.completed || status?.type?.state === 'post' || !Number.isInteger(period) || period < 4 ||
+        (period === 4 && (seconds === null || seconds < 0 || seconds > (game.sport === 'CFB' ? 150 : 120)))) return null;
+    const play = situation?.lastPlay;
+    // ESPN clears possession at the TD and reports this non-scrimmage state
+    // before setting any explicit try flag. TD prose alone is insufficient.
+    if (Number(situation?.down) !== -1 || situation?.yardLine == null || Number(situation.yardLine) !== 0 ||
+        Number(play?.scoreValue) !== 6 || !/touchdown|\btd\b/i.test(`${play?.text || ''} ${play?.scoringType?.name || ''}`)) return null;
+    const resolved = p => {
+      const pat = p?.pointAfterAttempt;
+      const text = `${p?.text || ''} ${p?.type?.text || ''}`;
+      return (pat?.id != null && Number(pat.id) !== 0) ||
+        /overturned|nullified|no play|no touchdown/i.test(text) ||
+        /\([^)]*\bkick\b[^)]*\)|\b(?:kick|pat|extra.point|two.point|2.pt|conversion)\b.*\b(?:good|failed|missed|blocked|successful|unsuccessful)\b/i.test(text);
+    };
+    if (resolved(play)) return null;
+    const teams = competition?.competitors || [];
+    const scorerId = String(play.team?.id || '');
+    const offense = teams.find(t => footballCompetitorId(t) === scorerId);
+    const defense = teams.find(t => t !== offense);
+    const possession = String(situation.possession?.id || situation.possession || '');
+    if (teams.length !== 2 || !scorerId || !offense || !defense ||
+        (possession && possession !== scorerId) ||
+        teams.some(t => t.score == null || t.score === '' || !Number.isFinite(Number(t.score))) || Number(offense.score) < 6) return null;
+    const deficit = Number(defense.score)-Number(offense.score);
+    if (![0,1,2].includes(deficit)) return null;
+    // Reject stale score-bearing last plays and accepted summaries that already
+    // contain the conversion or a later snap, including a failed scoreless try.
+    if (teams.some(t => play[`${t.homeAway}Score`] != null &&
+      Number(play[`${t.homeAway}Score`]) !== Number(t.score))) return null;
+    const drives = [...(summary?.drives?.previous || []),...(summary?.drives?.current ? [summary.drives.current] : [])];
+    const allPlays = summary?.plays?.length ? summary.plays : drives.flatMap(d => d.plays || []);
+    // The same scoring drive can appear in both previous and current.
+    const seen = new Set();
+    const plays = allPlays.filter(p => {
+      if (!p.id) return true;
+      if (seen.has(String(p.id))) return false;
+      seen.add(String(p.id));
+      return true;
+    });
+    const index = play.id ? plays.findIndex(p => String(p.id) === String(play.id)) : -1;
+    const scoring = play.id ? (summary?.scoringPlays || []).find(p => String(p.id) === String(play.id)) : null;
+    if (resolved(scoring) || allPlays.some(p => play.id && String(p.id) === String(play.id) && resolved(p)) || (index >= 0 && (
+        plays.slice(index+1).some(p => !/timeout|review|end of (?:\d+(?:st|nd|rd|th)?\s+)?(?:quarter|period|game)/i.test(`${p.type?.text || ''} ${p.text || ''}`))))) return null;
+    const base = Number(game.baseScore);
+    const consequence = game.sport === 'CFB' ? (deficit <= 1 ? .95 : .92) : (deficit <= 1 ? .90 : .86);
+    return {
+      points:12,
+      competitiveFloor:Number.isFinite(base) ? Math.round(Math.max(0,99-base)*consequence) : 0,
+      note:`${offense.team?.abbreviation || offense.team?.displayName || 'Scoring team'} · Conversion try pending`,
+      reasons:[deficit === 0 ? 'Touchdown scored; the conversion try can win the game' : deficit === 1 ? 'Touchdown scored; extra point can tie or two-point try can take the lead' : 'Touchdown scored; a two-point try can tie the game']
+    };
+  }
+
   function footballSituationImpact(
     game,
     competition,
@@ -1658,7 +1761,7 @@
     return footballSituationImpact(game,competition,status,situation,progress,scoreGap);
   }
 
-  const api = {defensiveFinishFactor,footballStagnationImpact,footballMarginCloseness,footballCompetitorId,footballCompetitorAbbreviation,footballSituationFieldPosition,footballLiveCloseness,footballRunwayPenalty,footballFieldPosition,footballSituationImpact,footballMilestone,footballGameState,footballEventShock,footballSituation,footballTimeouts,footballClockRunway};
+  const api = {defensiveFinishFactor,footballStagnationImpact,footballMarginCloseness,footballCompetitorId,footballCompetitorAbbreviation,footballSituationFieldPosition,footballLiveCloseness,footballRunwayPenalty,footballFieldPosition,footballSituationImpact,nflOvertimeRules,footballOvertimeResponse,footballPendingTryImpact,footballMilestone,footballGameState,footballEventShock,footballSituation,footballTimeouts,footballClockRunway};
   if (typeof module !== 'undefined' && module.exports) {
     module.exports = api;
   } else {

@@ -1,4 +1,4 @@
-const runtime=require('../../scoring/live-runtime.cjs');
+const {CALIBRATION}=require('../../scoring/opening-transition.cjs');
 const starts={NHL:'20:00',NBA:'12:00',NCAAB:'20:00',MLB:'',Soccer:'0',Tennis:''};
 const early={NHL:'18:00',NBA:'10:00',NCAAB:'18:00',MLB:'',Soccer:'2',Tennis:''};
 function event(sport,options={}) {
@@ -12,7 +12,7 @@ function event(sport,options={}) {
   }]};
 }
 function controlledBaseline(game,score=53) {
-  game.pregameBaseline={calibration:runtime.MODEL_VERSION,source:'observed',score,rawPregameScore:score,
+  game.pregameBaseline={calibration:CALIBRATION,source:'observed',score,rawPregameScore:score,
     factors:[{label:'Sport baseline',points:score}],odds:game.sourceCompetition?.odds || [],spread:null};
   return game;
 }

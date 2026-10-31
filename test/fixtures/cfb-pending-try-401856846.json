@@ -1,0 +1,1091 @@
+{
+  "provenance": {
+    "source": "ESPN public scoreboard and summary",
+    "capturedAt": "2026-10-31T21:17:29.560Z",
+    "scoreboard": "https://site.api.espn.com/apis/site/v2/sports/football/college-football/scoreboard?dates=20261031&groups=80&limit=500",
+    "summary": "https://site.api.espn.com/apis/site/v2/sports/football/college-football/summary?event=401856846",
+    "observedProductionRating": 40
+  },
+  "event": {
+    "id": "401856846",
+    "name": "Kansas State Wildcats at Colorado Buffaloes",
+    "shortName": "KSU @ COLO",
+    "season": {
+      "year": 2026,
+      "type": 2,
+      "slug": "regular-season"
+    },
+    "date": "2026-10-31T18:00Z",
+    "competitions": [
+      {
+        "id": "401856846",
+        "status": {
+          "clock": 1,
+          "displayClock": "0:01",
+          "period": 4,
+          "type": {
+            "id": "2",
+            "name": "STATUS_IN_PROGRESS",
+            "state": "in",
+            "completed": false,
+            "description": "In Progress",
+            "detail": "0:01 - 4th Quarter",
+            "shortDetail": "0:01 - 4th"
+          }
+        },
+        "format": {
+          "regulation": {
+            "periods": 4
+          }
+        },
+        "competitors": [
+          {
+            "id": "38",
+            "homeAway": "home",
+            "score": "21",
+            "records": [
+              {
+                "name": "overall",
+                "abbreviation": "overall",
+                "type": "total",
+                "summary": "2-5"
+              },
+              {
+                "name": "Home",
+                "abbreviation": "Home",
+                "type": "homerecord",
+                "summary": "1-2"
+              },
+              {
+                "name": "Away",
+                "abbreviation": "Away",
+                "type": "awayrecord",
+                "summary": "1-3"
+              },
+              {
+                "name": "vs. Conf.",
+                "abbreviation": "CONF",
+                "type": "vsconf",
+                "summary": "0-4"
+              }
+            ],
+            "curatedRank": {
+              "current": 99
+            },
+            "team": {
+              "id": "38",
+              "abbreviation": "COLO",
+              "displayName": "Colorado Buffaloes"
+            }
+          },
+          {
+            "id": "2306",
+            "homeAway": "away",
+            "score": "20",
+            "records": [
+              {
+                "name": "overall",
+                "abbreviation": "overall",
+                "type": "total",
+                "summary": "4-3"
+              },
+              {
+                "name": "Home",
+                "abbreviation": "Home",
+                "type": "homerecord",
+                "summary": "4-1"
+              },
+              {
+                "name": "Away",
+                "abbreviation": "Away",
+                "type": "awayrecord",
+                "summary": "0-2"
+              },
+              {
+                "name": "vs. Conf.",
+                "abbreviation": "CONF",
+                "type": "vsconf",
+                "summary": "1-3"
+              }
+            ],
+            "curatedRank": {
+              "current": 99
+            },
+            "team": {
+              "id": "2306",
+              "abbreviation": "KSU",
+              "displayName": "Kansas State Wildcats"
+            }
+          }
+        ],
+        "situation": {
+          "lastPlay": {
+            "id": "401856846740",
+            "type": {
+              "id": "24",
+              "text": "Pass Reception",
+              "abbreviation": "REC"
+            },
+            "text": "(00:06) Shotgun #3 B.Barnett pass complete short middle to #86 G.Oakley caught at COLO00, for 8 yards to the COLO00 TOUCHDOWN, clock 00:02 PENALTY COLO Offside declined COLO Pass Interference declined. The previous play is under automatic review - \"Runner broke the plane\". CALL UPHELD",
+            "scoreValue": 6,
+            "team": {
+              "id": "2306"
+            },
+            "start": {
+              "yardLine": 8,
+              "team": {
+                "id": "2306"
+              }
+            },
+            "end": {
+              "yardLine": 0,
+              "team": {
+                "id": "2306"
+              }
+            }
+          },
+          "down": -1,
+          "yardLine": 0,
+          "distance": 0,
+          "isRedZone": true,
+          "homeTimeouts": 0,
+          "awayTimeouts": 0
+        }
+      }
+    ]
+  },
+  "summary": {
+    "header": {
+      "season": {
+        "year": 2026,
+        "type": 2,
+        "slug": "regular-season"
+      },
+      "competitions": [
+        {
+          "id": "401856846",
+          "status": {
+            "clock": 1,
+            "displayClock": "0:01",
+            "period": 4,
+            "type": {
+              "id": "2",
+              "name": "STATUS_IN_PROGRESS",
+              "state": "in",
+              "completed": false,
+              "description": "In Progress",
+              "detail": "0:01 - 4th Quarter",
+              "shortDetail": "0:01 - 4th"
+            }
+          },
+          "format": {
+            "regulation": {
+              "periods": 4
+            }
+          },
+          "competitors": [
+            {
+              "id": "38",
+              "homeAway": "home",
+              "score": "21",
+              "records": [
+                {
+                  "name": "overall",
+                  "abbreviation": "overall",
+                  "type": "total",
+                  "summary": "2-5"
+                },
+                {
+                  "name": "Home",
+                  "abbreviation": "Home",
+                  "type": "homerecord",
+                  "summary": "1-2"
+                },
+                {
+                  "name": "Away",
+                  "abbreviation": "Away",
+                  "type": "awayrecord",
+                  "summary": "1-3"
+                },
+                {
+                  "name": "vs. Conf.",
+                  "abbreviation": "CONF",
+                  "type": "vsconf",
+                  "summary": "0-4"
+                }
+              ],
+              "curatedRank": {
+                "current": 99
+              },
+              "team": {
+                "id": "38",
+                "abbreviation": "COLO",
+                "displayName": "Colorado Buffaloes"
+              }
+            },
+            {
+              "id": "2306",
+              "homeAway": "away",
+              "score": "20",
+              "records": [
+                {
+                  "name": "overall",
+                  "abbreviation": "overall",
+                  "type": "total",
+                  "summary": "4-3"
+                },
+                {
+                  "name": "Home",
+                  "abbreviation": "Home",
+                  "type": "homerecord",
+                  "summary": "4-1"
+                },
+                {
+                  "name": "Away",
+                  "abbreviation": "Away",
+                  "type": "awayrecord",
+                  "summary": "0-2"
+                },
+                {
+                  "name": "vs. Conf.",
+                  "abbreviation": "CONF",
+                  "type": "vsconf",
+                  "summary": "1-3"
+                }
+              ],
+              "curatedRank": {
+                "current": 99
+              },
+              "team": {
+                "id": "2306",
+                "abbreviation": "KSU",
+                "displayName": "Kansas State Wildcats"
+              }
+            }
+          ],
+          "situation": {
+            "lastPlay": {
+              "id": "401856846740",
+              "type": {
+                "id": "24",
+                "text": "Pass Reception",
+                "abbreviation": "REC"
+              },
+              "text": "(00:06) Shotgun #3 B.Barnett pass complete short middle to #86 G.Oakley caught at COLO00, for 8 yards to the COLO00 TOUCHDOWN, clock 00:02 PENALTY COLO Offside declined COLO Pass Interference declined. The previous play is under automatic review - \"Runner broke the plane\". CALL UPHELD",
+              "scoreValue": 6,
+              "team": {
+                "id": "2306"
+              },
+              "start": {
+                "yardLine": 8,
+                "team": {
+                  "id": "2306"
+                }
+              },
+              "end": {
+                "yardLine": 0,
+                "team": {
+                  "id": "2306"
+                }
+              }
+            },
+            "down": -1,
+            "yardLine": 0,
+            "distance": 0,
+            "isRedZone": true,
+            "homeTimeouts": 0,
+            "awayTimeouts": 0
+          }
+        }
+      ]
+    },
+    "scoringPlays": [
+      {
+        "id": "401856846140",
+        "type": {
+          "id": "68",
+          "text": "Rushing Touchdown",
+          "abbreviation": "TD"
+        },
+        "text": "R. Young run for 2 yds, for a TD (E. Arnold KICK)",
+        "awayScore": 0,
+        "homeScore": 7,
+        "period": {
+          "number": 1
+        },
+        "clock": {
+          "value": 102,
+          "displayValue": "1:42"
+        },
+        "team": {
+          "id": "38",
+          "abbreviation": "COLO"
+        },
+        "scoringType": {
+          "name": "touchdown",
+          "displayName": "Touchdown",
+          "abbreviation": "TD"
+        }
+      },
+      {
+        "id": "401856846278",
+        "type": {
+          "id": "67",
+          "text": "Passing Touchdown",
+          "abbreviation": "TD"
+        },
+        "text": "B. Barnett pass to J. Manning for 28 yds, for a TD (L. Rodriguez KICK)",
+        "awayScore": 7,
+        "homeScore": 7,
+        "period": {
+          "number": 2
+        },
+        "clock": {
+          "value": 145,
+          "displayValue": "2:25"
+        },
+        "team": {
+          "id": "2306",
+          "abbreviation": "KSU"
+        },
+        "scoringType": {
+          "name": "touchdown",
+          "displayName": "Touchdown",
+          "abbreviation": "TD"
+        }
+      },
+      {
+        "id": "401856846464",
+        "type": {
+          "id": "68",
+          "text": "Rushing Touchdown",
+          "abbreviation": "TD"
+        },
+        "text": "J. Smith run for 47 yds, for a TD (E. Arnold KICK)",
+        "awayScore": 7,
+        "homeScore": 14,
+        "period": {
+          "number": 3
+        },
+        "clock": {
+          "value": 275,
+          "displayValue": "4:35"
+        },
+        "team": {
+          "id": "38",
+          "abbreviation": "COLO"
+        },
+        "scoringType": {
+          "name": "touchdown",
+          "displayName": "Touchdown",
+          "abbreviation": "TD"
+        }
+      },
+      {
+        "id": "401856846489",
+        "type": {
+          "id": "67",
+          "text": "Passing Touchdown",
+          "abbreviation": "TD"
+        },
+        "text": "B. Barnett pass to L. Cure for 33 yds, for a TD (L. Rodriguez KICK)",
+        "awayScore": 14,
+        "homeScore": 14,
+        "period": {
+          "number": 3
+        },
+        "clock": {
+          "value": 134,
+          "displayValue": "2:14"
+        },
+        "team": {
+          "id": "2306",
+          "abbreviation": "KSU"
+        },
+        "scoringType": {
+          "name": "touchdown",
+          "displayName": "Touchdown",
+          "abbreviation": "TD"
+        }
+      },
+      {
+        "id": "401856846566",
+        "type": {
+          "id": "68",
+          "text": "Rushing Touchdown",
+          "abbreviation": "TD"
+        },
+        "text": "R. Young run for 22 yds, for a TD (E. Arnold KICK)",
+        "awayScore": 14,
+        "homeScore": 21,
+        "period": {
+          "number": 4
+        },
+        "clock": {
+          "value": 747,
+          "displayValue": "12:27"
+        },
+        "team": {
+          "id": "38",
+          "abbreviation": "COLO"
+        },
+        "scoringType": {
+          "name": "touchdown",
+          "displayName": "Touchdown",
+          "abbreviation": "TD"
+        }
+      },
+      {
+        "id": "401856846740",
+        "type": {
+          "id": "24",
+          "text": "Pass Reception",
+          "abbreviation": "REC"
+        },
+        "text": "B. Barnett pass to G. Oakley for 8 yds, for a TD",
+        "awayScore": 20,
+        "homeScore": 21,
+        "period": {
+          "number": 4
+        },
+        "clock": {
+          "value": 6,
+          "displayValue": "0:06"
+        },
+        "team": {
+          "id": "2306",
+          "abbreviation": "KSU"
+        },
+        "scoringType": {
+          "name": "touchdown",
+          "displayName": "Touchdown",
+          "abbreviation": "TD"
+        }
+      }
+    ],
+    "drives": {
+      "previous": [
+        {
+          "id": "40185684630",
+          "team": {
+            "id": "2306"
+          },
+          "plays": [
+            {
+              "id": "401856846713",
+              "type": {
+                "id": "24",
+                "text": "Pass Reception",
+                "abbreviation": "REC"
+              },
+              "text": "(00:55) No Huddle-Shotgun #3 B.Barnett pass complete deep right to #5 J.Manning caught at COLO39, for 23 yards to the COLO39, End Of Play, 1ST DOWN",
+              "awayScore": 14,
+              "homeScore": 21,
+              "period": {
+                "number": 4
+              },
+              "clock": {
+                "displayValue": "0:46"
+              },
+              "scoringPlay": false,
+              "start": {
+                "down": 1,
+                "distance": 10,
+                "yardLine": 62,
+                "yardsToEndzone": 62,
+                "downDistanceText": "1st & 10 at KSU 38",
+                "shortDownDistanceText": "1st & 10",
+                "possessionText": "KSU 38",
+                "team": {
+                  "id": "2306"
+                }
+              },
+              "end": {
+                "down": 1,
+                "distance": 10,
+                "yardLine": 39,
+                "yardsToEndzone": 39,
+                "downDistanceText": "1st & 10 at COLO 39",
+                "shortDownDistanceText": "1st & 10",
+                "possessionText": "COLO 39",
+                "team": {
+                  "id": "2306"
+                }
+              }
+            },
+            {
+              "id": "401856846718",
+              "type": {
+                "id": "24",
+                "text": "Pass Reception",
+                "abbreviation": "REC"
+              },
+              "text": "(00:41) No Huddle-Shotgun #3 B.Barnett pass complete short right to #5 J.Manning caught at COLO36, for 5 yards to the COLO34, out of bounds at COLO34",
+              "awayScore": 14,
+              "homeScore": 21,
+              "period": {
+                "number": 4
+              },
+              "clock": {
+                "displayValue": "0:38"
+              },
+              "scoringPlay": false,
+              "start": {
+                "down": 1,
+                "distance": 10,
+                "yardLine": 39,
+                "yardsToEndzone": 39,
+                "downDistanceText": "1st & 10 at COLO 39",
+                "shortDownDistanceText": "1st & 10",
+                "possessionText": "COLO 39",
+                "team": {
+                  "id": "2306"
+                }
+              },
+              "end": {
+                "down": 2,
+                "distance": 5,
+                "yardLine": 34,
+                "yardsToEndzone": 34,
+                "downDistanceText": "2nd & 5 at COLO 34",
+                "shortDownDistanceText": "2nd & 5",
+                "possessionText": "COLO 34",
+                "team": {
+                  "id": "2306"
+                }
+              }
+            },
+            {
+              "id": "401856846723",
+              "type": {
+                "id": "24",
+                "text": "Pass Reception",
+                "abbreviation": "REC"
+              },
+              "text": "(00:38) No Huddle-Shotgun #3 B.Barnett pass complete deep right to #12 J.Tibbs caught at COLO05, for 31 yards to the COLO03, out of bounds at COLO03, 1ST DOWN",
+              "awayScore": 14,
+              "homeScore": 21,
+              "period": {
+                "number": 4
+              },
+              "clock": {
+                "displayValue": "0:30"
+              },
+              "scoringPlay": false,
+              "start": {
+                "down": 2,
+                "distance": 5,
+                "yardLine": 34,
+                "yardsToEndzone": 34,
+                "downDistanceText": "2nd & 5 at COLO 34",
+                "shortDownDistanceText": "2nd & 5",
+                "possessionText": "COLO 34",
+                "team": {
+                  "id": "2306"
+                }
+              },
+              "end": {
+                "down": 1,
+                "distance": 3,
+                "yardLine": 3,
+                "yardsToEndzone": 3,
+                "downDistanceText": "1st & Goal at COLO 3",
+                "shortDownDistanceText": "1st & Goal",
+                "possessionText": "COLO 3",
+                "team": {
+                  "id": "2306"
+                }
+              }
+            },
+            {
+              "id": "401856846730",
+              "type": {
+                "id": "5",
+                "text": "Rush",
+                "abbreviation": "RUSH"
+              },
+              "text": "(00:29) No Huddle-Shotgun #3 B.Barnett rush right for 0 yards to the COLO03 (#99 D.Manuel)",
+              "awayScore": 14,
+              "homeScore": 21,
+              "period": {
+                "number": 4
+              },
+              "clock": {
+                "displayValue": "0:20"
+              },
+              "scoringPlay": false,
+              "start": {
+                "down": 1,
+                "distance": 3,
+                "yardLine": 3,
+                "yardsToEndzone": 3,
+                "downDistanceText": "1st & Goal at COLO 3",
+                "shortDownDistanceText": "1st & Goal",
+                "possessionText": "COLO 3",
+                "team": {
+                  "id": "2306"
+                }
+              },
+              "end": {
+                "down": 2,
+                "distance": 3,
+                "yardLine": 3,
+                "yardsToEndzone": 3,
+                "downDistanceText": "2nd & Goal at COLO 3",
+                "shortDownDistanceText": "2nd & Goal",
+                "possessionText": "COLO 3",
+                "team": {
+                  "id": "2306"
+                }
+              }
+            },
+            {
+              "id": "401856846734",
+              "type": {
+                "id": "3",
+                "text": "Pass Incompletion"
+              },
+              "text": "(00:06) No Huddle #3 B.Barnett pass incomplete, Spike",
+              "awayScore": 14,
+              "homeScore": 21,
+              "period": {
+                "number": 4
+              },
+              "clock": {
+                "displayValue": "0:06"
+              },
+              "scoringPlay": false,
+              "start": {
+                "down": 2,
+                "distance": 3,
+                "yardLine": 3,
+                "yardsToEndzone": 3,
+                "downDistanceText": "2nd & Goal at COLO 3",
+                "shortDownDistanceText": "2nd & Goal",
+                "possessionText": "COLO 3",
+                "team": {
+                  "id": "2306"
+                }
+              },
+              "end": {
+                "down": 3,
+                "distance": 3,
+                "yardLine": 3,
+                "yardsToEndzone": 3,
+                "downDistanceText": "3rd & Goal at COLO 3",
+                "shortDownDistanceText": "3rd & Goal",
+                "possessionText": "COLO 3",
+                "team": {
+                  "id": "2306"
+                }
+              }
+            },
+            {
+              "id": "401856846737",
+              "type": {
+                "id": "8",
+                "text": "Penalty",
+                "abbreviation": "PEN"
+              },
+              "text": "PENALTY KSU Delay Of Game  5 yards from COLO03 to COLO08. NO PLAY",
+              "awayScore": 14,
+              "homeScore": 21,
+              "period": {
+                "number": 4
+              },
+              "clock": {
+                "displayValue": "0:06"
+              },
+              "scoringPlay": false,
+              "start": {
+                "down": 3,
+                "distance": 3,
+                "yardLine": 3,
+                "yardsToEndzone": 3,
+                "downDistanceText": "3rd & Goal at COLO 3",
+                "shortDownDistanceText": "3rd & Goal",
+                "possessionText": "COLO 3",
+                "team": {
+                  "id": "2306"
+                }
+              },
+              "end": {
+                "down": 3,
+                "distance": 8,
+                "yardLine": 8,
+                "yardsToEndzone": 8,
+                "downDistanceText": "3rd & Goal at COLO 8",
+                "shortDownDistanceText": "3rd & Goal",
+                "possessionText": "COLO 8",
+                "team": {
+                  "id": "2306"
+                }
+              }
+            },
+            {
+              "id": "401856846740",
+              "type": {
+                "id": "24",
+                "text": "Pass Reception",
+                "abbreviation": "REC"
+              },
+              "text": "(00:06) Shotgun #3 B.Barnett pass complete short middle to #86 G.Oakley caught at COLO00, for 8 yards to the COLO00 TOUCHDOWN, clock 00:02 PENALTY COLO Offside declined COLO Pass Interference declined. The previous play is under automatic review - \"Runner broke the plane\". CALL UPHELD",
+              "awayScore": 20,
+              "homeScore": 21,
+              "period": {
+                "number": 4
+              },
+              "clock": {
+                "displayValue": "0:06"
+              },
+              "scoringPlay": true,
+              "scoreValue": 6,
+              "start": {
+                "down": 3,
+                "distance": 8,
+                "yardLine": 8,
+                "yardsToEndzone": 8,
+                "downDistanceText": "3rd & Goal at COLO 8",
+                "shortDownDistanceText": "3rd & Goal",
+                "possessionText": "COLO 8",
+                "team": {
+                  "id": "2306"
+                }
+              },
+              "end": {
+                "down": -1,
+                "distance": 0,
+                "yardLine": 0,
+                "yardsToEndzone": 0,
+                "team": {
+                  "id": "2306"
+                }
+              },
+              "scoringType": {
+                "name": "touchdown",
+                "displayName": "Touchdown",
+                "abbreviation": "TD"
+              },
+              "pointAfterAttempt": {
+                "id": 0,
+                "text": "Not Available",
+                "abbreviation": "NA",
+                "value": 0
+              }
+            }
+          ]
+        }
+      ],
+      "current": {
+        "id": "40185684630",
+        "team": {
+          "id": "2306"
+        },
+        "plays": [
+          {
+            "id": "401856846713",
+            "type": {
+              "id": "24",
+              "text": "Pass Reception",
+              "abbreviation": "REC"
+            },
+            "text": "(00:55) No Huddle-Shotgun #3 B.Barnett pass complete deep right to #5 J.Manning caught at COLO39, for 23 yards to the COLO39, End Of Play, 1ST DOWN",
+            "awayScore": 14,
+            "homeScore": 21,
+            "period": {
+              "number": 4
+            },
+            "clock": {
+              "displayValue": "0:46"
+            },
+            "scoringPlay": false,
+            "start": {
+              "down": 1,
+              "distance": 10,
+              "yardLine": 62,
+              "yardsToEndzone": 62,
+              "downDistanceText": "1st & 10 at KSU 38",
+              "shortDownDistanceText": "1st & 10",
+              "possessionText": "KSU 38",
+              "team": {
+                "id": "2306"
+              }
+            },
+            "end": {
+              "down": 1,
+              "distance": 10,
+              "yardLine": 39,
+              "yardsToEndzone": 39,
+              "downDistanceText": "1st & 10 at COLO 39",
+              "shortDownDistanceText": "1st & 10",
+              "possessionText": "COLO 39",
+              "team": {
+                "id": "2306"
+              }
+            }
+          },
+          {
+            "id": "401856846718",
+            "type": {
+              "id": "24",
+              "text": "Pass Reception",
+              "abbreviation": "REC"
+            },
+            "text": "(00:41) No Huddle-Shotgun #3 B.Barnett pass complete short right to #5 J.Manning caught at COLO36, for 5 yards to the COLO34, out of bounds at COLO34",
+            "awayScore": 14,
+            "homeScore": 21,
+            "period": {
+              "number": 4
+            },
+            "clock": {
+              "displayValue": "0:38"
+            },
+            "scoringPlay": false,
+            "start": {
+              "down": 1,
+              "distance": 10,
+              "yardLine": 39,
+              "yardsToEndzone": 39,
+              "downDistanceText": "1st & 10 at COLO 39",
+              "shortDownDistanceText": "1st & 10",
+              "possessionText": "COLO 39",
+              "team": {
+                "id": "2306"
+              }
+            },
+            "end": {
+              "down": 2,
+              "distance": 5,
+              "yardLine": 34,
+              "yardsToEndzone": 34,
+              "downDistanceText": "2nd & 5 at COLO 34",
+              "shortDownDistanceText": "2nd & 5",
+              "possessionText": "COLO 34",
+              "team": {
+                "id": "2306"
+              }
+            }
+          },
+          {
+            "id": "401856846723",
+            "type": {
+              "id": "24",
+              "text": "Pass Reception",
+              "abbreviation": "REC"
+            },
+            "text": "(00:38) No Huddle-Shotgun #3 B.Barnett pass complete deep right to #12 J.Tibbs caught at COLO05, for 31 yards to the COLO03, out of bounds at COLO03, 1ST DOWN",
+            "awayScore": 14,
+            "homeScore": 21,
+            "period": {
+              "number": 4
+            },
+            "clock": {
+              "displayValue": "0:30"
+            },
+            "scoringPlay": false,
+            "start": {
+              "down": 2,
+              "distance": 5,
+              "yardLine": 34,
+              "yardsToEndzone": 34,
+              "downDistanceText": "2nd & 5 at COLO 34",
+              "shortDownDistanceText": "2nd & 5",
+              "possessionText": "COLO 34",
+              "team": {
+                "id": "2306"
+              }
+            },
+            "end": {
+              "down": 1,
+              "distance": 3,
+              "yardLine": 3,
+              "yardsToEndzone": 3,
+              "downDistanceText": "1st & Goal at COLO 3",
+              "shortDownDistanceText": "1st & Goal",
+              "possessionText": "COLO 3",
+              "team": {
+                "id": "2306"
+              }
+            }
+          },
+          {
+            "id": "401856846730",
+            "type": {
+              "id": "5",
+              "text": "Rush",
+              "abbreviation": "RUSH"
+            },
+            "text": "(00:29) No Huddle-Shotgun #3 B.Barnett rush right for 0 yards to the COLO03 (#99 D.Manuel)",
+            "awayScore": 14,
+            "homeScore": 21,
+            "period": {
+              "number": 4
+            },
+            "clock": {
+              "displayValue": "0:20"
+            },
+            "scoringPlay": false,
+            "start": {
+              "down": 1,
+              "distance": 3,
+              "yardLine": 3,
+              "yardsToEndzone": 3,
+              "downDistanceText": "1st & Goal at COLO 3",
+              "shortDownDistanceText": "1st & Goal",
+              "possessionText": "COLO 3",
+              "team": {
+                "id": "2306"
+              }
+            },
+            "end": {
+              "down": 2,
+              "distance": 3,
+              "yardLine": 3,
+              "yardsToEndzone": 3,
+              "downDistanceText": "2nd & Goal at COLO 3",
+              "shortDownDistanceText": "2nd & Goal",
+              "possessionText": "COLO 3",
+              "team": {
+                "id": "2306"
+              }
+            }
+          },
+          {
+            "id": "401856846734",
+            "type": {
+              "id": "3",
+              "text": "Pass Incompletion"
+            },
+            "text": "(00:06) No Huddle #3 B.Barnett pass incomplete, Spike",
+            "awayScore": 14,
+            "homeScore": 21,
+            "period": {
+              "number": 4
+            },
+            "clock": {
+              "displayValue": "0:06"
+            },
+            "scoringPlay": false,
+            "start": {
+              "down": 2,
+              "distance": 3,
+              "yardLine": 3,
+              "yardsToEndzone": 3,
+              "downDistanceText": "2nd & Goal at COLO 3",
+              "shortDownDistanceText": "2nd & Goal",
+              "possessionText": "COLO 3",
+              "team": {
+                "id": "2306"
+              }
+            },
+            "end": {
+              "down": 3,
+              "distance": 3,
+              "yardLine": 3,
+              "yardsToEndzone": 3,
+              "downDistanceText": "3rd & Goal at COLO 3",
+              "shortDownDistanceText": "3rd & Goal",
+              "possessionText": "COLO 3",
+              "team": {
+                "id": "2306"
+              }
+            }
+          },
+          {
+            "id": "401856846737",
+            "type": {
+              "id": "8",
+              "text": "Penalty",
+              "abbreviation": "PEN"
+            },
+            "text": "PENALTY KSU Delay Of Game  5 yards from COLO03 to COLO08. NO PLAY",
+            "awayScore": 14,
+            "homeScore": 21,
+            "period": {
+              "number": 4
+            },
+            "clock": {
+              "displayValue": "0:06"
+            },
+            "scoringPlay": false,
+            "start": {
+              "down": 3,
+              "distance": 3,
+              "yardLine": 3,
+              "yardsToEndzone": 3,
+              "downDistanceText": "3rd & Goal at COLO 3",
+              "shortDownDistanceText": "3rd & Goal",
+              "possessionText": "COLO 3",
+              "team": {
+                "id": "2306"
+              }
+            },
+            "end": {
+              "down": 3,
+              "distance": 8,
+              "yardLine": 8,
+              "yardsToEndzone": 8,
+              "downDistanceText": "3rd & Goal at COLO 8",
+              "shortDownDistanceText": "3rd & Goal",
+              "possessionText": "COLO 8",
+              "team": {
+                "id": "2306"
+              }
+            }
+          },
+          {
+            "id": "401856846740",
+            "type": {
+              "id": "24",
+              "text": "Pass Reception",
+              "abbreviation": "REC"
+            },
+            "text": "(00:06) Shotgun #3 B.Barnett pass complete short middle to #86 G.Oakley caught at COLO00, for 8 yards to the COLO00 TOUCHDOWN, clock 00:02 PENALTY COLO Offside declined COLO Pass Interference declined. The previous play is under automatic review - \"Runner broke the plane\". CALL UPHELD",
+            "awayScore": 20,
+            "homeScore": 21,
+            "period": {
+              "number": 4
+            },
+            "clock": {
+              "displayValue": "0:06"
+            },
+            "scoringPlay": true,
+            "scoreValue": 6,
+            "start": {
+              "down": 3,
+              "distance": 8,
+              "yardLine": 8,
+              "yardsToEndzone": 8,
+              "downDistanceText": "3rd & Goal at COLO 8",
+              "shortDownDistanceText": "3rd & Goal",
+              "possessionText": "COLO 8",
+              "team": {
+                "id": "2306"
+              }
+            },
+            "end": {
+              "down": -1,
+              "distance": 0,
+              "yardLine": 0,
+              "yardsToEndzone": 0,
+              "team": {
+                "id": "2306"
+              }
+            },
+            "scoringType": {
+              "name": "touchdown",
+              "displayName": "Touchdown",
+              "abbreviation": "TD"
+            },
+            "pointAfterAttempt": {
+              "id": 0,
+              "text": "Not Available",
+              "abbreviation": "NA",
+              "value": 0
+            }
+          }
+        ]
+      }
+    }
+  }
+}

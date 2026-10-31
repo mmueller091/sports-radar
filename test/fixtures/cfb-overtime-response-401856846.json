@@ -1,0 +1,2009 @@
+{
+  "provenance": {
+    "source": "ESPN public scoreboard/summary; handoff reconstructed from the verified overtime FG and its end state",
+    "capturedAt": "2026-10-31T21:33:40.528Z",
+    "observedProductionRatings": [
+      99,
+      60,
+      99
+    ],
+    "summary": "https://site.api.espn.com/apis/site/v2/sports/football/college-football/summary?event=401856846"
+  },
+  "event": {
+    "id": "401856846",
+    "name": "Kansas State Wildcats at Colorado Buffaloes",
+    "season": {
+      "year": 2026,
+      "type": 2,
+      "slug": "regular-season"
+    },
+    "date": "2026-10-31T18:00Z",
+    "competitions": [
+      {
+        "id": "401856846",
+        "status": {
+          "clock": 0,
+          "displayClock": "0:00",
+          "period": 5,
+          "type": {
+            "id": "2",
+            "name": "STATUS_IN_PROGRESS",
+            "state": "in",
+            "completed": false,
+            "description": "In Progress",
+            "detail": "OT",
+            "shortDetail": "OT"
+          }
+        },
+        "format": {
+          "regulation": {
+            "periods": 4
+          }
+        },
+        "competitors": [
+          {
+            "homeAway": "home",
+            "score": "21",
+            "records": [
+              {
+                "name": "overall",
+                "abbreviation": "overall",
+                "type": "total",
+                "summary": "2-5"
+              },
+              {
+                "name": "Home",
+                "abbreviation": "Home",
+                "type": "homerecord",
+                "summary": "1-2"
+              },
+              {
+                "name": "Away",
+                "abbreviation": "Away",
+                "type": "awayrecord",
+                "summary": "1-3"
+              },
+              {
+                "name": "vs. Conf.",
+                "abbreviation": "CONF",
+                "type": "vsconf",
+                "summary": "0-4"
+              }
+            ],
+            "team": {
+              "id": "38",
+              "displayName": "Colorado Buffaloes",
+              "abbreviation": "COLO"
+            }
+          },
+          {
+            "homeAway": "away",
+            "score": "24",
+            "records": [
+              {
+                "name": "overall",
+                "abbreviation": "overall",
+                "type": "total",
+                "summary": "4-3"
+              },
+              {
+                "name": "Home",
+                "abbreviation": "Home",
+                "type": "homerecord",
+                "summary": "4-1"
+              },
+              {
+                "name": "Away",
+                "abbreviation": "Away",
+                "type": "awayrecord",
+                "summary": "0-2"
+              },
+              {
+                "name": "vs. Conf.",
+                "abbreviation": "CONF",
+                "type": "vsconf",
+                "summary": "1-3"
+              }
+            ],
+            "team": {
+              "id": "2306",
+              "displayName": "Kansas State Wildcats",
+              "abbreviation": "KSU"
+            }
+          }
+        ],
+        "situation": {
+          "down": -1,
+          "distance": -1,
+          "yardLine": 35,
+          "lastPlay": {
+            "id": "401856846805",
+            "sequenceNumber": "169",
+            "text": "(00:00) #43 L.Rodriguez field goal attempt from 25 yards GOOD (H: #8 S.McClannan, LS: #33 A.Johnson), clock 00:00",
+            "type": {
+              "id": "59",
+              "text": "Field Goal Good",
+              "abbreviation": "FG"
+            },
+            "period": {
+              "number": 5
+            },
+            "clock": {
+              "displayValue": "0:00"
+            },
+            "scoringPlay": true,
+            "homeScore": 21,
+            "awayScore": 24,
+            "start": {
+              "down": 4,
+              "distance": 4,
+              "yardLine": 7,
+              "yardsToEndzone": 7,
+              "downDistanceText": "4th & 4 at COLO 7",
+              "shortDownDistanceText": "4th & 4",
+              "possessionText": "COLO 7",
+              "team": {
+                "id": "2306"
+              }
+            },
+            "end": {
+              "down": -1,
+              "distance": -1,
+              "yardLine": 35,
+              "yardsToEndzone": 65,
+              "team": {
+                "id": "2306"
+              }
+            },
+            "scoreValue": 3,
+            "team": {
+              "id": "2306"
+            }
+          }
+        }
+      }
+    ]
+  },
+  "responseSituation": {
+    "lastPlay": {
+      "id": "401856846817",
+      "text": "(00:00) Shotgun #9 R.Young rush middle for 1 yard gain to the KSU11 (#4 M.Mason)",
+      "type": {
+        "id": "5",
+        "text": "Rush",
+        "abbreviation": "RUSH"
+      },
+      "scoreValue": 0,
+      "team": {
+        "id": "38"
+      },
+      "start": {
+        "yardLine": 88,
+        "team": {
+          "id": "38"
+        }
+      },
+      "end": {
+        "yardLine": 89,
+        "team": {
+          "id": "38"
+        }
+      }
+    },
+    "down": 2,
+    "yardLine": 89,
+    "distance": 9,
+    "downDistanceText": "2nd & 9 at KSU 11",
+    "shortDownDistanceText": "2nd & 9",
+    "possessionText": "KSU 11",
+    "isRedZone": true,
+    "homeTimeouts": 0,
+    "awayTimeouts": 0,
+    "possession": "38"
+  },
+  "summary": {
+    "header": {
+      "season": {
+        "year": 2026,
+        "type": 2,
+        "slug": "regular-season"
+      },
+      "competitions": [
+        {
+          "id": "401856846",
+          "status": {
+            "clock": 0,
+            "displayClock": "0:00",
+            "period": 5,
+            "type": {
+              "id": "2",
+              "name": "STATUS_IN_PROGRESS",
+              "state": "in",
+              "completed": false,
+              "description": "In Progress",
+              "detail": "OT",
+              "shortDetail": "OT"
+            }
+          },
+          "format": {
+            "regulation": {
+              "periods": 4
+            }
+          },
+          "competitors": [
+            {
+              "homeAway": "home",
+              "score": "21",
+              "records": [
+                {
+                  "name": "overall",
+                  "abbreviation": "overall",
+                  "type": "total",
+                  "summary": "2-5"
+                },
+                {
+                  "name": "Home",
+                  "abbreviation": "Home",
+                  "type": "homerecord",
+                  "summary": "1-2"
+                },
+                {
+                  "name": "Away",
+                  "abbreviation": "Away",
+                  "type": "awayrecord",
+                  "summary": "1-3"
+                },
+                {
+                  "name": "vs. Conf.",
+                  "abbreviation": "CONF",
+                  "type": "vsconf",
+                  "summary": "0-4"
+                }
+              ],
+              "team": {
+                "id": "38",
+                "displayName": "Colorado Buffaloes",
+                "abbreviation": "COLO"
+              }
+            },
+            {
+              "homeAway": "away",
+              "score": "24",
+              "records": [
+                {
+                  "name": "overall",
+                  "abbreviation": "overall",
+                  "type": "total",
+                  "summary": "4-3"
+                },
+                {
+                  "name": "Home",
+                  "abbreviation": "Home",
+                  "type": "homerecord",
+                  "summary": "4-1"
+                },
+                {
+                  "name": "Away",
+                  "abbreviation": "Away",
+                  "type": "awayrecord",
+                  "summary": "0-2"
+                },
+                {
+                  "name": "vs. Conf.",
+                  "abbreviation": "CONF",
+                  "type": "vsconf",
+                  "summary": "1-3"
+                }
+              ],
+              "team": {
+                "id": "2306",
+                "displayName": "Kansas State Wildcats",
+                "abbreviation": "KSU"
+              }
+            }
+          ],
+          "situation": {
+            "down": -1,
+            "distance": -1,
+            "yardLine": 35,
+            "lastPlay": {
+              "id": "401856846805",
+              "sequenceNumber": "169",
+              "text": "(00:00) #43 L.Rodriguez field goal attempt from 25 yards GOOD (H: #8 S.McClannan, LS: #33 A.Johnson), clock 00:00",
+              "type": {
+                "id": "59",
+                "text": "Field Goal Good",
+                "abbreviation": "FG"
+              },
+              "period": {
+                "number": 5
+              },
+              "clock": {
+                "displayValue": "0:00"
+              },
+              "scoringPlay": true,
+              "homeScore": 21,
+              "awayScore": 24,
+              "start": {
+                "down": 4,
+                "distance": 4,
+                "yardLine": 7,
+                "yardsToEndzone": 7,
+                "downDistanceText": "4th & 4 at COLO 7",
+                "shortDownDistanceText": "4th & 4",
+                "possessionText": "COLO 7",
+                "team": {
+                  "id": "2306"
+                }
+              },
+              "end": {
+                "down": -1,
+                "distance": -1,
+                "yardLine": 35,
+                "yardsToEndzone": 65,
+                "team": {
+                  "id": "2306"
+                }
+              },
+              "scoreValue": 3,
+              "team": {
+                "id": "2306"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drives": {
+      "previous": [
+        {
+          "id": "40185684633",
+          "result": "FG",
+          "start": {
+            "period": {
+              "type": "quarter",
+              "number": 5
+            },
+            "yardLine": 25,
+            "text": "COLO 25"
+          },
+          "team": {
+            "id": "2306"
+          },
+          "plays": [
+            {
+              "id": "401856846780",
+              "sequenceNumber": "163",
+              "text": "(00:00) No Huddle-Shotgun #20 R.Fields Jr. rush right for 1 yard gain to the COLO24 (#10 M.Vickers)",
+              "type": {
+                "id": "5",
+                "text": "Rush",
+                "abbreviation": "RUSH"
+              },
+              "period": {
+                "number": 5
+              },
+              "clock": {
+                "displayValue": "0:00"
+              },
+              "scoringPlay": false,
+              "homeScore": 21,
+              "awayScore": 21,
+              "start": {
+                "down": 1,
+                "distance": 10,
+                "yardLine": 25,
+                "yardsToEndzone": 25,
+                "downDistanceText": "1st & 10 at COLO 25",
+                "shortDownDistanceText": "1st & 10",
+                "possessionText": "COLO 25",
+                "team": {
+                  "id": "2306"
+                }
+              },
+              "end": {
+                "down": 2,
+                "distance": 9,
+                "yardLine": 24,
+                "yardsToEndzone": 24,
+                "downDistanceText": "2nd & 9 at COLO 24",
+                "shortDownDistanceText": "2nd & 9",
+                "possessionText": "COLO 24",
+                "team": {
+                  "id": "2306"
+                }
+              }
+            },
+            {
+              "id": "401856846786",
+              "sequenceNumber": "164",
+              "text": "(00:00) Shotgun #3 B.Barnett rush right for 5 yards gain to the COLO19 (#44 G.Lampron; #99 D.Manuel)",
+              "type": {
+                "id": "5",
+                "text": "Rush",
+                "abbreviation": "RUSH"
+              },
+              "period": {
+                "number": 5
+              },
+              "clock": {
+                "displayValue": "0:00"
+              },
+              "scoringPlay": false,
+              "homeScore": 21,
+              "awayScore": 21,
+              "start": {
+                "down": 2,
+                "distance": 9,
+                "yardLine": 24,
+                "yardsToEndzone": 24,
+                "downDistanceText": "2nd & 9 at COLO 24",
+                "shortDownDistanceText": "2nd & 9",
+                "possessionText": "COLO 24",
+                "team": {
+                  "id": "2306"
+                }
+              },
+              "end": {
+                "down": 3,
+                "distance": 4,
+                "yardLine": 19,
+                "yardsToEndzone": 19,
+                "downDistanceText": "3rd & 4 at COLO 19",
+                "shortDownDistanceText": "3rd & 4",
+                "possessionText": "COLO 19",
+                "team": {
+                  "id": "2306"
+                }
+              }
+            },
+            {
+              "id": "401856846790",
+              "sequenceNumber": "165",
+              "text": "(00:00) No Huddle-Shotgun #3 B.Barnett pass complete short right to #86 G.Oakley caught at COLO13, for 6 yards to the COLO13 (#20 C.Thomas), 1ST DOWN",
+              "type": {
+                "id": "24",
+                "text": "Pass Reception",
+                "abbreviation": "REC"
+              },
+              "period": {
+                "number": 5
+              },
+              "clock": {
+                "displayValue": "0:00"
+              },
+              "scoringPlay": false,
+              "homeScore": 21,
+              "awayScore": 21,
+              "start": {
+                "down": 3,
+                "distance": 4,
+                "yardLine": 19,
+                "yardsToEndzone": 19,
+                "downDistanceText": "3rd & 4 at COLO 19",
+                "shortDownDistanceText": "3rd & 4",
+                "possessionText": "COLO 19",
+                "team": {
+                  "id": "2306"
+                }
+              },
+              "end": {
+                "down": 1,
+                "distance": 10,
+                "yardLine": 13,
+                "yardsToEndzone": 13,
+                "downDistanceText": "1st & 10 at COLO 13",
+                "shortDownDistanceText": "1st & 10",
+                "possessionText": "COLO 13",
+                "team": {
+                  "id": "2306"
+                }
+              }
+            },
+            {
+              "id": "401856846795",
+              "sequenceNumber": "166",
+              "text": "(00:00) No Huddle-Shotgun #20 R.Fields Jr. rush right for 6 yards gain to the COLO07 (#52 M.Ezeogu)",
+              "type": {
+                "id": "5",
+                "text": "Rush",
+                "abbreviation": "RUSH"
+              },
+              "period": {
+                "number": 5
+              },
+              "clock": {
+                "displayValue": "0:00"
+              },
+              "scoringPlay": false,
+              "homeScore": 21,
+              "awayScore": 21,
+              "start": {
+                "down": 1,
+                "distance": 10,
+                "yardLine": 13,
+                "yardsToEndzone": 13,
+                "downDistanceText": "1st & 10 at COLO 13",
+                "shortDownDistanceText": "1st & 10",
+                "possessionText": "COLO 13",
+                "team": {
+                  "id": "2306"
+                }
+              },
+              "end": {
+                "down": 2,
+                "distance": 4,
+                "yardLine": 7,
+                "yardsToEndzone": 7,
+                "downDistanceText": "2nd & 4 at COLO 7",
+                "shortDownDistanceText": "2nd & 4",
+                "possessionText": "COLO 7",
+                "team": {
+                  "id": "2306"
+                }
+              }
+            },
+            {
+              "id": "401856846799",
+              "sequenceNumber": "167",
+              "text": "(00:00) No Huddle-Shotgun #3 B.Barnett pass incomplete short middle to #15 D.Salley Jr. thrown to COLO00 broken up by #20 C.Thomas",
+              "type": {
+                "id": "3",
+                "text": "Pass Incompletion"
+              },
+              "period": {
+                "number": 5
+              },
+              "clock": {
+                "displayValue": "0:00"
+              },
+              "scoringPlay": false,
+              "homeScore": 21,
+              "awayScore": 21,
+              "start": {
+                "down": 2,
+                "distance": 4,
+                "yardLine": 7,
+                "yardsToEndzone": 7,
+                "downDistanceText": "2nd & 4 at COLO 7",
+                "shortDownDistanceText": "2nd & 4",
+                "possessionText": "COLO 7",
+                "team": {
+                  "id": "2306"
+                }
+              },
+              "end": {
+                "down": 3,
+                "distance": 4,
+                "yardLine": 7,
+                "yardsToEndzone": 7,
+                "downDistanceText": "3rd & 4 at COLO 7",
+                "shortDownDistanceText": "3rd & 4",
+                "possessionText": "COLO 7",
+                "team": {
+                  "id": "2306"
+                }
+              }
+            },
+            {
+              "id": "401856846802",
+              "sequenceNumber": "168",
+              "text": "(00:00) No Huddle-Shotgun #3 B.Barnett pass incomplete short left to #12 J.Tibbs thrown to COLO00 broken up by #6 B.Carter",
+              "type": {
+                "id": "3",
+                "text": "Pass Incompletion"
+              },
+              "period": {
+                "number": 5
+              },
+              "clock": {
+                "displayValue": "0:00"
+              },
+              "scoringPlay": false,
+              "homeScore": 21,
+              "awayScore": 21,
+              "start": {
+                "down": 3,
+                "distance": 4,
+                "yardLine": 7,
+                "yardsToEndzone": 7,
+                "downDistanceText": "3rd & 4 at COLO 7",
+                "shortDownDistanceText": "3rd & 4",
+                "possessionText": "COLO 7",
+                "team": {
+                  "id": "2306"
+                }
+              },
+              "end": {
+                "down": 4,
+                "distance": 4,
+                "yardLine": 7,
+                "yardsToEndzone": 7,
+                "downDistanceText": "4th & 4 at COLO 7",
+                "shortDownDistanceText": "4th & 4",
+                "possessionText": "COLO 7",
+                "team": {
+                  "id": "2306"
+                }
+              }
+            },
+            {
+              "id": "401856846805",
+              "sequenceNumber": "169",
+              "text": "(00:00) #43 L.Rodriguez field goal attempt from 25 yards GOOD (H: #8 S.McClannan, LS: #33 A.Johnson), clock 00:00",
+              "type": {
+                "id": "59",
+                "text": "Field Goal Good",
+                "abbreviation": "FG"
+              },
+              "period": {
+                "number": 5
+              },
+              "clock": {
+                "displayValue": "0:00"
+              },
+              "scoringPlay": true,
+              "homeScore": 21,
+              "awayScore": 24,
+              "start": {
+                "down": 4,
+                "distance": 4,
+                "yardLine": 7,
+                "yardsToEndzone": 7,
+                "downDistanceText": "4th & 4 at COLO 7",
+                "shortDownDistanceText": "4th & 4",
+                "possessionText": "COLO 7",
+                "team": {
+                  "id": "2306"
+                }
+              },
+              "end": {
+                "down": -1,
+                "distance": -1,
+                "yardLine": 35,
+                "yardsToEndzone": 65,
+                "team": {
+                  "id": "2306"
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "current": {
+        "id": "40185684633",
+        "result": "FG",
+        "start": {
+          "period": {
+            "type": "quarter",
+            "number": 5
+          },
+          "yardLine": 25,
+          "text": "COLO 25"
+        },
+        "team": {
+          "id": "2306"
+        },
+        "plays": [
+          {
+            "id": "401856846780",
+            "sequenceNumber": "163",
+            "text": "(00:00) No Huddle-Shotgun #20 R.Fields Jr. rush right for 1 yard gain to the COLO24 (#10 M.Vickers)",
+            "type": {
+              "id": "5",
+              "text": "Rush",
+              "abbreviation": "RUSH"
+            },
+            "period": {
+              "number": 5
+            },
+            "clock": {
+              "displayValue": "0:00"
+            },
+            "scoringPlay": false,
+            "homeScore": 21,
+            "awayScore": 21,
+            "start": {
+              "down": 1,
+              "distance": 10,
+              "yardLine": 25,
+              "yardsToEndzone": 25,
+              "downDistanceText": "1st & 10 at COLO 25",
+              "shortDownDistanceText": "1st & 10",
+              "possessionText": "COLO 25",
+              "team": {
+                "id": "2306"
+              }
+            },
+            "end": {
+              "down": 2,
+              "distance": 9,
+              "yardLine": 24,
+              "yardsToEndzone": 24,
+              "downDistanceText": "2nd & 9 at COLO 24",
+              "shortDownDistanceText": "2nd & 9",
+              "possessionText": "COLO 24",
+              "team": {
+                "id": "2306"
+              }
+            }
+          },
+          {
+            "id": "401856846786",
+            "sequenceNumber": "164",
+            "text": "(00:00) Shotgun #3 B.Barnett rush right for 5 yards gain to the COLO19 (#44 G.Lampron; #99 D.Manuel)",
+            "type": {
+              "id": "5",
+              "text": "Rush",
+              "abbreviation": "RUSH"
+            },
+            "period": {
+              "number": 5
+            },
+            "clock": {
+              "displayValue": "0:00"
+            },
+            "scoringPlay": false,
+            "homeScore": 21,
+            "awayScore": 21,
+            "start": {
+              "down": 2,
+              "distance": 9,
+              "yardLine": 24,
+              "yardsToEndzone": 24,
+              "downDistanceText": "2nd & 9 at COLO 24",
+              "shortDownDistanceText": "2nd & 9",
+              "possessionText": "COLO 24",
+              "team": {
+                "id": "2306"
+              }
+            },
+            "end": {
+              "down": 3,
+              "distance": 4,
+              "yardLine": 19,
+              "yardsToEndzone": 19,
+              "downDistanceText": "3rd & 4 at COLO 19",
+              "shortDownDistanceText": "3rd & 4",
+              "possessionText": "COLO 19",
+              "team": {
+                "id": "2306"
+              }
+            }
+          },
+          {
+            "id": "401856846790",
+            "sequenceNumber": "165",
+            "text": "(00:00) No Huddle-Shotgun #3 B.Barnett pass complete short right to #86 G.Oakley caught at COLO13, for 6 yards to the COLO13 (#20 C.Thomas), 1ST DOWN",
+            "type": {
+              "id": "24",
+              "text": "Pass Reception",
+              "abbreviation": "REC"
+            },
+            "period": {
+              "number": 5
+            },
+            "clock": {
+              "displayValue": "0:00"
+            },
+            "scoringPlay": false,
+            "homeScore": 21,
+            "awayScore": 21,
+            "start": {
+              "down": 3,
+              "distance": 4,
+              "yardLine": 19,
+              "yardsToEndzone": 19,
+              "downDistanceText": "3rd & 4 at COLO 19",
+              "shortDownDistanceText": "3rd & 4",
+              "possessionText": "COLO 19",
+              "team": {
+                "id": "2306"
+              }
+            },
+            "end": {
+              "down": 1,
+              "distance": 10,
+              "yardLine": 13,
+              "yardsToEndzone": 13,
+              "downDistanceText": "1st & 10 at COLO 13",
+              "shortDownDistanceText": "1st & 10",
+              "possessionText": "COLO 13",
+              "team": {
+                "id": "2306"
+              }
+            }
+          },
+          {
+            "id": "401856846795",
+            "sequenceNumber": "166",
+            "text": "(00:00) No Huddle-Shotgun #20 R.Fields Jr. rush right for 6 yards gain to the COLO07 (#52 M.Ezeogu)",
+            "type": {
+              "id": "5",
+              "text": "Rush",
+              "abbreviation": "RUSH"
+            },
+            "period": {
+              "number": 5
+            },
+            "clock": {
+              "displayValue": "0:00"
+            },
+            "scoringPlay": false,
+            "homeScore": 21,
+            "awayScore": 21,
+            "start": {
+              "down": 1,
+              "distance": 10,
+              "yardLine": 13,
+              "yardsToEndzone": 13,
+              "downDistanceText": "1st & 10 at COLO 13",
+              "shortDownDistanceText": "1st & 10",
+              "possessionText": "COLO 13",
+              "team": {
+                "id": "2306"
+              }
+            },
+            "end": {
+              "down": 2,
+              "distance": 4,
+              "yardLine": 7,
+              "yardsToEndzone": 7,
+              "downDistanceText": "2nd & 4 at COLO 7",
+              "shortDownDistanceText": "2nd & 4",
+              "possessionText": "COLO 7",
+              "team": {
+                "id": "2306"
+              }
+            }
+          },
+          {
+            "id": "401856846799",
+            "sequenceNumber": "167",
+            "text": "(00:00) No Huddle-Shotgun #3 B.Barnett pass incomplete short middle to #15 D.Salley Jr. thrown to COLO00 broken up by #20 C.Thomas",
+            "type": {
+              "id": "3",
+              "text": "Pass Incompletion"
+            },
+            "period": {
+              "number": 5
+            },
+            "clock": {
+              "displayValue": "0:00"
+            },
+            "scoringPlay": false,
+            "homeScore": 21,
+            "awayScore": 21,
+            "start": {
+              "down": 2,
+              "distance": 4,
+              "yardLine": 7,
+              "yardsToEndzone": 7,
+              "downDistanceText": "2nd & 4 at COLO 7",
+              "shortDownDistanceText": "2nd & 4",
+              "possessionText": "COLO 7",
+              "team": {
+                "id": "2306"
+              }
+            },
+            "end": {
+              "down": 3,
+              "distance": 4,
+              "yardLine": 7,
+              "yardsToEndzone": 7,
+              "downDistanceText": "3rd & 4 at COLO 7",
+              "shortDownDistanceText": "3rd & 4",
+              "possessionText": "COLO 7",
+              "team": {
+                "id": "2306"
+              }
+            }
+          },
+          {
+            "id": "401856846802",
+            "sequenceNumber": "168",
+            "text": "(00:00) No Huddle-Shotgun #3 B.Barnett pass incomplete short left to #12 J.Tibbs thrown to COLO00 broken up by #6 B.Carter",
+            "type": {
+              "id": "3",
+              "text": "Pass Incompletion"
+            },
+            "period": {
+              "number": 5
+            },
+            "clock": {
+              "displayValue": "0:00"
+            },
+            "scoringPlay": false,
+            "homeScore": 21,
+            "awayScore": 21,
+            "start": {
+              "down": 3,
+              "distance": 4,
+              "yardLine": 7,
+              "yardsToEndzone": 7,
+              "downDistanceText": "3rd & 4 at COLO 7",
+              "shortDownDistanceText": "3rd & 4",
+              "possessionText": "COLO 7",
+              "team": {
+                "id": "2306"
+              }
+            },
+            "end": {
+              "down": 4,
+              "distance": 4,
+              "yardLine": 7,
+              "yardsToEndzone": 7,
+              "downDistanceText": "4th & 4 at COLO 7",
+              "shortDownDistanceText": "4th & 4",
+              "possessionText": "COLO 7",
+              "team": {
+                "id": "2306"
+              }
+            }
+          },
+          {
+            "id": "401856846805",
+            "sequenceNumber": "169",
+            "text": "(00:00) #43 L.Rodriguez field goal attempt from 25 yards GOOD (H: #8 S.McClannan, LS: #33 A.Johnson), clock 00:00",
+            "type": {
+              "id": "59",
+              "text": "Field Goal Good",
+              "abbreviation": "FG"
+            },
+            "period": {
+              "number": 5
+            },
+            "clock": {
+              "displayValue": "0:00"
+            },
+            "scoringPlay": true,
+            "homeScore": 21,
+            "awayScore": 24,
+            "start": {
+              "down": 4,
+              "distance": 4,
+              "yardLine": 7,
+              "yardsToEndzone": 7,
+              "downDistanceText": "4th & 4 at COLO 7",
+              "shortDownDistanceText": "4th & 4",
+              "possessionText": "COLO 7",
+              "team": {
+                "id": "2306"
+              }
+            },
+            "end": {
+              "down": -1,
+              "distance": -1,
+              "yardLine": 35,
+              "yardsToEndzone": 65,
+              "team": {
+                "id": "2306"
+              }
+            }
+          }
+        ]
+      }
+    },
+    "scoringPlays": [
+      {
+        "id": "401856846140",
+        "text": "R. Young run for 2 yds, for a TD (E. Arnold KICK)",
+        "type": {
+          "id": "68",
+          "text": "Rushing Touchdown",
+          "abbreviation": "TD"
+        },
+        "period": {
+          "number": 1
+        },
+        "clock": {
+          "value": 102,
+          "displayValue": "1:42"
+        },
+        "team": {
+          "id": "38"
+        },
+        "homeScore": 7,
+        "awayScore": 0
+      },
+      {
+        "id": "401856846278",
+        "text": "B. Barnett pass to J. Manning for 28 yds, for a TD (L. Rodriguez KICK)",
+        "type": {
+          "id": "67",
+          "text": "Passing Touchdown",
+          "abbreviation": "TD"
+        },
+        "period": {
+          "number": 2
+        },
+        "clock": {
+          "value": 145,
+          "displayValue": "2:25"
+        },
+        "team": {
+          "id": "2306"
+        },
+        "homeScore": 7,
+        "awayScore": 7
+      },
+      {
+        "id": "401856846464",
+        "text": "J. Smith run for 47 yds, for a TD (E. Arnold KICK)",
+        "type": {
+          "id": "68",
+          "text": "Rushing Touchdown",
+          "abbreviation": "TD"
+        },
+        "period": {
+          "number": 3
+        },
+        "clock": {
+          "value": 275,
+          "displayValue": "4:35"
+        },
+        "team": {
+          "id": "38"
+        },
+        "homeScore": 14,
+        "awayScore": 7
+      },
+      {
+        "id": "401856846489",
+        "text": "B. Barnett pass to L. Cure for 33 yds, for a TD (L. Rodriguez KICK)",
+        "type": {
+          "id": "67",
+          "text": "Passing Touchdown",
+          "abbreviation": "TD"
+        },
+        "period": {
+          "number": 3
+        },
+        "clock": {
+          "value": 134,
+          "displayValue": "2:14"
+        },
+        "team": {
+          "id": "2306"
+        },
+        "homeScore": 14,
+        "awayScore": 14
+      },
+      {
+        "id": "401856846566",
+        "text": "R. Young run for 22 yds, for a TD (E. Arnold KICK)",
+        "type": {
+          "id": "68",
+          "text": "Rushing Touchdown",
+          "abbreviation": "TD"
+        },
+        "period": {
+          "number": 4
+        },
+        "clock": {
+          "value": 747,
+          "displayValue": "12:27"
+        },
+        "team": {
+          "id": "38"
+        },
+        "homeScore": 21,
+        "awayScore": 14
+      },
+      {
+        "id": "401856846740",
+        "text": "B. Barnett pass to G. Oakley for 8 yds, for a TD (L. Rodriguez KICK)",
+        "type": {
+          "id": "67",
+          "text": "Passing Touchdown",
+          "abbreviation": "TD"
+        },
+        "period": {
+          "number": 4
+        },
+        "clock": {
+          "value": 6,
+          "displayValue": "0:06"
+        },
+        "team": {
+          "id": "2306"
+        },
+        "homeScore": 21,
+        "awayScore": 21
+      },
+      {
+        "id": "401856846805",
+        "text": "L. Rodriguez 25 yd FG GOOD",
+        "type": {
+          "id": "59",
+          "text": "Field Goal Good",
+          "abbreviation": "FG"
+        },
+        "period": {
+          "number": 5
+        },
+        "clock": {
+          "value": 0,
+          "displayValue": "0:00"
+        },
+        "team": {
+          "id": "2306"
+        },
+        "homeScore": 21,
+        "awayScore": 24
+      }
+    ],
+    "winprobability": [
+      {
+        "homeWinPercentage": 0.3349,
+        "tiePercentage": 0,
+        "playId": "4018568463"
+      },
+      {
+        "homeWinPercentage": 0.3331,
+        "tiePercentage": 0,
+        "playId": "40185684612"
+      },
+      {
+        "homeWinPercentage": 0.3379,
+        "tiePercentage": 0,
+        "playId": "40185684616"
+      },
+      {
+        "homeWinPercentage": 0.3698,
+        "tiePercentage": 0,
+        "playId": "40185684621"
+      },
+      {
+        "homeWinPercentage": 0.3579,
+        "tiePercentage": 0,
+        "playId": "40185684625"
+      },
+      {
+        "homeWinPercentage": 0.351,
+        "tiePercentage": 0,
+        "playId": "40185684631"
+      },
+      {
+        "homeWinPercentage": 0.3393,
+        "tiePercentage": 0,
+        "playId": "40185684635"
+      },
+      {
+        "homeWinPercentage": 0.324,
+        "tiePercentage": 0,
+        "playId": "40185684638"
+      },
+      {
+        "homeWinPercentage": 0.3468,
+        "tiePercentage": 0,
+        "playId": "40185684643"
+      },
+      {
+        "homeWinPercentage": 0.3603,
+        "tiePercentage": 0,
+        "playId": "40185684657"
+      },
+      {
+        "homeWinPercentage": 0.3583,
+        "tiePercentage": 0,
+        "playId": "40185684661"
+      },
+      {
+        "homeWinPercentage": 0.3885,
+        "tiePercentage": 0,
+        "playId": "40185684665"
+      },
+      {
+        "homeWinPercentage": 0.373,
+        "tiePercentage": 0,
+        "playId": "40185684669"
+      },
+      {
+        "homeWinPercentage": 0.3752,
+        "tiePercentage": 0,
+        "playId": "40185684675"
+      },
+      {
+        "homeWinPercentage": 0.387,
+        "tiePercentage": 0,
+        "playId": "40185684679"
+      },
+      {
+        "homeWinPercentage": 0.3738,
+        "tiePercentage": 0,
+        "playId": "40185684683"
+      },
+      {
+        "homeWinPercentage": 0.3664,
+        "tiePercentage": 0,
+        "playId": "40185684687"
+      },
+      {
+        "homeWinPercentage": 0.3489,
+        "tiePercentage": 0,
+        "playId": "40185684691"
+      },
+      {
+        "homeWinPercentage": 0.3671,
+        "tiePercentage": 0,
+        "playId": "40185684696"
+      },
+      {
+        "homeWinPercentage": 0.3659,
+        "tiePercentage": 0,
+        "playId": "401856846100"
+      },
+      {
+        "homeWinPercentage": 0.3844,
+        "tiePercentage": 0,
+        "playId": "401856846104"
+      },
+      {
+        "homeWinPercentage": 0.4199,
+        "tiePercentage": 0,
+        "playId": "401856846108"
+      },
+      {
+        "homeWinPercentage": 0.3979,
+        "tiePercentage": 0,
+        "playId": "401856846112"
+      },
+      {
+        "homeWinPercentage": 0.3896,
+        "tiePercentage": 0,
+        "playId": "401856846118"
+      },
+      {
+        "homeWinPercentage": 0.3817,
+        "tiePercentage": 0,
+        "playId": "401856846122"
+      },
+      {
+        "homeWinPercentage": 0.4166,
+        "tiePercentage": 0,
+        "playId": "401856846126"
+      },
+      {
+        "homeWinPercentage": 0.452,
+        "tiePercentage": 0,
+        "playId": "401856846131"
+      },
+      {
+        "homeWinPercentage": 0.5182,
+        "tiePercentage": 0,
+        "playId": "401856846135"
+      },
+      {
+        "homeWinPercentage": 0.539,
+        "tiePercentage": 0,
+        "playId": "401856846140"
+      },
+      {
+        "homeWinPercentage": 0.5044,
+        "tiePercentage": 0,
+        "playId": "401856846147"
+      },
+      {
+        "homeWinPercentage": 0.5009,
+        "tiePercentage": 0,
+        "playId": "401856846152"
+      },
+      {
+        "homeWinPercentage": 0.5177,
+        "tiePercentage": 0,
+        "playId": "401856846156"
+      },
+      {
+        "homeWinPercentage": 0.4854,
+        "tiePercentage": 0,
+        "playId": "401856846160"
+      },
+      {
+        "homeWinPercentage": 0.4862,
+        "tiePercentage": 0,
+        "playId": "401856846166"
+      },
+      {
+        "homeWinPercentage": 0.4964,
+        "tiePercentage": 0,
+        "playId": "401856846170"
+      },
+      {
+        "homeWinPercentage": 0.4989,
+        "tiePercentage": 0,
+        "playId": "401856846176"
+      },
+      {
+        "homeWinPercentage": 0.5497,
+        "tiePercentage": 0,
+        "playId": "401856846180"
+      },
+      {
+        "homeWinPercentage": 0.5955,
+        "tiePercentage": 0,
+        "playId": "401856846183"
+      },
+      {
+        "homeWinPercentage": 0.5776,
+        "tiePercentage": 0,
+        "playId": "401856846187"
+      },
+      {
+        "homeWinPercentage": 0.5858,
+        "tiePercentage": 0,
+        "playId": "401856846193"
+      },
+      {
+        "homeWinPercentage": 0.5773,
+        "tiePercentage": 0,
+        "playId": "401856846198"
+      },
+      {
+        "homeWinPercentage": 0.6354,
+        "tiePercentage": 0,
+        "playId": "401856846202"
+      },
+      {
+        "homeWinPercentage": 0.6215,
+        "tiePercentage": 0,
+        "playId": "401856846207"
+      },
+      {
+        "homeWinPercentage": 0.6224,
+        "tiePercentage": 0,
+        "playId": "401856846210"
+      },
+      {
+        "homeWinPercentage": 0.6614,
+        "tiePercentage": 0,
+        "playId": "401856846214"
+      },
+      {
+        "homeWinPercentage": 0.6602,
+        "tiePercentage": 0,
+        "playId": "401856846218"
+      },
+      {
+        "homeWinPercentage": 0.6632,
+        "tiePercentage": 0,
+        "playId": "401856846224"
+      },
+      {
+        "homeWinPercentage": 0.5758,
+        "tiePercentage": 0,
+        "playId": "401856846222"
+      },
+      {
+        "homeWinPercentage": 0.5729,
+        "tiePercentage": 0,
+        "playId": "401856846228"
+      },
+      {
+        "homeWinPercentage": 0.6045,
+        "tiePercentage": 0,
+        "playId": "401856846232"
+      },
+      {
+        "homeWinPercentage": 0.5645,
+        "tiePercentage": 0,
+        "playId": "401856846236"
+      },
+      {
+        "homeWinPercentage": 0.5598,
+        "tiePercentage": 0,
+        "playId": "401856846241"
+      },
+      {
+        "homeWinPercentage": 0.5658,
+        "tiePercentage": 0,
+        "playId": "401856846246"
+      },
+      {
+        "homeWinPercentage": 0.5571,
+        "tiePercentage": 0,
+        "playId": "401856846250"
+      },
+      {
+        "homeWinPercentage": 0.5312,
+        "tiePercentage": 0,
+        "playId": "401856846254"
+      },
+      {
+        "homeWinPercentage": 0.5316,
+        "tiePercentage": 0,
+        "playId": "401856846258"
+      },
+      {
+        "homeWinPercentage": 0.5205,
+        "tiePercentage": 0,
+        "playId": "401856846263"
+      },
+      {
+        "homeWinPercentage": 0.5168,
+        "tiePercentage": 0,
+        "playId": "401856846267"
+      },
+      {
+        "homeWinPercentage": 0.4969,
+        "tiePercentage": 0,
+        "playId": "401856846271"
+      },
+      {
+        "homeWinPercentage": 0.5184,
+        "tiePercentage": 0,
+        "playId": "401856846275"
+      },
+      {
+        "homeWinPercentage": 0.3987,
+        "tiePercentage": 0,
+        "playId": "401856846278"
+      },
+      {
+        "homeWinPercentage": 0.3939,
+        "tiePercentage": 0,
+        "playId": "401856846286"
+      },
+      {
+        "homeWinPercentage": 0.4038,
+        "tiePercentage": 0,
+        "playId": "401856846289"
+      },
+      {
+        "homeWinPercentage": 0.4005,
+        "tiePercentage": 0,
+        "playId": "401856846298"
+      },
+      {
+        "homeWinPercentage": 0.4155,
+        "tiePercentage": 0,
+        "playId": "401856846296"
+      },
+      {
+        "homeWinPercentage": 0.4146,
+        "tiePercentage": 0,
+        "playId": "401856846302"
+      },
+      {
+        "homeWinPercentage": 0.4025,
+        "tiePercentage": 0,
+        "playId": "401856846306"
+      },
+      {
+        "homeWinPercentage": 0.3913,
+        "tiePercentage": 0,
+        "playId": "401856846309"
+      },
+      {
+        "homeWinPercentage": 0.3706,
+        "tiePercentage": 0,
+        "playId": "401856846315"
+      },
+      {
+        "homeWinPercentage": 0.3686,
+        "tiePercentage": 0,
+        "playId": "401856846321"
+      },
+      {
+        "homeWinPercentage": 0.3904,
+        "tiePercentage": 0,
+        "playId": "401856846319"
+      },
+      {
+        "homeWinPercentage": 0.3887,
+        "tiePercentage": 0,
+        "playId": "401856846325"
+      },
+      {
+        "homeWinPercentage": 0.3895,
+        "tiePercentage": 0,
+        "playId": "401856846329"
+      },
+      {
+        "homeWinPercentage": 0.3871,
+        "tiePercentage": 0,
+        "playId": "401856846334"
+      },
+      {
+        "homeWinPercentage": 0.39,
+        "tiePercentage": 0,
+        "playId": "401856846337"
+      },
+      {
+        "homeWinPercentage": 0.3908,
+        "tiePercentage": 0,
+        "playId": "401856846343"
+      },
+      {
+        "homeWinPercentage": 0.3998,
+        "tiePercentage": 0,
+        "playId": "401856846354"
+      },
+      {
+        "homeWinPercentage": 0.3834,
+        "tiePercentage": 0,
+        "playId": "401856846358"
+      },
+      {
+        "homeWinPercentage": 0.4729,
+        "tiePercentage": 0,
+        "playId": "401856846362"
+      },
+      {
+        "homeWinPercentage": 0.4573,
+        "tiePercentage": 0,
+        "playId": "401856846367"
+      },
+      {
+        "homeWinPercentage": 0.4114,
+        "tiePercentage": 0,
+        "playId": "401856846370"
+      },
+      {
+        "homeWinPercentage": 0.3909,
+        "tiePercentage": 0,
+        "playId": "401856846374"
+      },
+      {
+        "homeWinPercentage": 0.3978,
+        "tiePercentage": 0,
+        "playId": "401856846380"
+      },
+      {
+        "homeWinPercentage": 0.3956,
+        "tiePercentage": 0,
+        "playId": "401856846385"
+      },
+      {
+        "homeWinPercentage": 0.363,
+        "tiePercentage": 0,
+        "playId": "401856846390"
+      },
+      {
+        "homeWinPercentage": 0.3872,
+        "tiePercentage": 0,
+        "playId": "401856846394"
+      },
+      {
+        "homeWinPercentage": 0.428,
+        "tiePercentage": 0,
+        "playId": "401856846399"
+      },
+      {
+        "homeWinPercentage": 0.4465,
+        "tiePercentage": 0,
+        "playId": "401856846403"
+      },
+      {
+        "homeWinPercentage": 0.4302,
+        "tiePercentage": 0,
+        "playId": "401856846406"
+      },
+      {
+        "homeWinPercentage": 0.4052,
+        "tiePercentage": 0,
+        "playId": "401856846412"
+      },
+      {
+        "homeWinPercentage": 0.4062,
+        "tiePercentage": 0,
+        "playId": "401856846416"
+      },
+      {
+        "homeWinPercentage": 0.3601,
+        "tiePercentage": 0,
+        "playId": "401856846420"
+      },
+      {
+        "homeWinPercentage": 0.4056,
+        "tiePercentage": 0,
+        "playId": "401856846539"
+      },
+      {
+        "homeWinPercentage": 0.4352,
+        "tiePercentage": 0,
+        "playId": "401856846434"
+      },
+      {
+        "homeWinPercentage": 0.4212,
+        "tiePercentage": 0,
+        "playId": "401856846438"
+      },
+      {
+        "homeWinPercentage": 0.4658,
+        "tiePercentage": 0,
+        "playId": "401856846442"
+      },
+      {
+        "homeWinPercentage": 0.4449,
+        "tiePercentage": 0,
+        "playId": "401856846446"
+      },
+      {
+        "homeWinPercentage": 0.4611,
+        "tiePercentage": 0,
+        "playId": "401856846450"
+      },
+      {
+        "homeWinPercentage": 0.469,
+        "tiePercentage": 0,
+        "playId": "401856846455"
+      },
+      {
+        "homeWinPercentage": 0.4978,
+        "tiePercentage": 0,
+        "playId": "401856846459"
+      },
+      {
+        "homeWinPercentage": 0.6795,
+        "tiePercentage": 0,
+        "playId": "401856846464"
+      },
+      {
+        "homeWinPercentage": 0.6798,
+        "tiePercentage": 0,
+        "playId": "401856846471"
+      },
+      {
+        "homeWinPercentage": 0.663,
+        "tiePercentage": 0,
+        "playId": "401856846474"
+      },
+      {
+        "homeWinPercentage": 0.6521,
+        "tiePercentage": 0,
+        "playId": "401856846478"
+      },
+      {
+        "homeWinPercentage": 0.6107,
+        "tiePercentage": 0,
+        "playId": "401856846482"
+      },
+      {
+        "homeWinPercentage": 0.4474,
+        "tiePercentage": 0,
+        "playId": "401856846489"
+      },
+      {
+        "homeWinPercentage": 0.3964,
+        "tiePercentage": 0,
+        "playId": "401856846501"
+      },
+      {
+        "homeWinPercentage": 0.3718,
+        "tiePercentage": 0,
+        "playId": "401856846510"
+      },
+      {
+        "homeWinPercentage": 0.4323,
+        "tiePercentage": 0,
+        "playId": "401856846514"
+      },
+      {
+        "homeWinPercentage": 0.4565,
+        "tiePercentage": 0,
+        "playId": "401856846518"
+      },
+      {
+        "homeWinPercentage": 0.4466,
+        "tiePercentage": 0,
+        "playId": "401856846522"
+      },
+      {
+        "homeWinPercentage": 0.4243,
+        "tiePercentage": 0,
+        "playId": "401856846526"
+      },
+      {
+        "homeWinPercentage": 0.5606,
+        "tiePercentage": 0,
+        "playId": "401856846529"
+      },
+      {
+        "homeWinPercentage": 0.5628,
+        "tiePercentage": 0,
+        "playId": "401856846536"
+      },
+      {
+        "homeWinPercentage": 0.5485,
+        "tiePercentage": 0,
+        "playId": "401856846548"
+      },
+      {
+        "homeWinPercentage": 0.536,
+        "tiePercentage": 0,
+        "playId": "401856846554"
+      },
+      {
+        "homeWinPercentage": 0.6055,
+        "tiePercentage": 0,
+        "playId": "401856846558"
+      },
+      {
+        "homeWinPercentage": 0.5768,
+        "tiePercentage": 0,
+        "playId": "401856846562"
+      },
+      {
+        "homeWinPercentage": 0.7533,
+        "tiePercentage": 0,
+        "playId": "401856846566"
+      },
+      {
+        "homeWinPercentage": 0.7541,
+        "tiePercentage": 0,
+        "playId": "401856846573"
+      },
+      {
+        "homeWinPercentage": 0.7621,
+        "tiePercentage": 0,
+        "playId": "401856846576"
+      },
+      {
+        "homeWinPercentage": 0.7308,
+        "tiePercentage": 0,
+        "playId": "401856846582"
+      },
+      {
+        "homeWinPercentage": 0.749,
+        "tiePercentage": 0,
+        "playId": "401856846587"
+      },
+      {
+        "homeWinPercentage": 0.7185,
+        "tiePercentage": 0,
+        "playId": "401856846591"
+      },
+      {
+        "homeWinPercentage": 0.7368,
+        "tiePercentage": 0,
+        "playId": "401856846595"
+      },
+      {
+        "homeWinPercentage": 0.7761,
+        "tiePercentage": 0,
+        "playId": "401856846599"
+      },
+      {
+        "homeWinPercentage": 0.6988,
+        "tiePercentage": 0,
+        "playId": "401856846602"
+      },
+      {
+        "homeWinPercentage": 0.7036,
+        "tiePercentage": 0,
+        "playId": "401856846610"
+      },
+      {
+        "homeWinPercentage": 0.6927,
+        "tiePercentage": 0,
+        "playId": "401856846607"
+      },
+      {
+        "homeWinPercentage": 0.7045,
+        "tiePercentage": 0,
+        "playId": "401856846616"
+      },
+      {
+        "homeWinPercentage": 0.6803,
+        "tiePercentage": 0,
+        "playId": "401856846614"
+      },
+      {
+        "homeWinPercentage": 0.6996,
+        "tiePercentage": 0,
+        "playId": "401856846619"
+      },
+      {
+        "homeWinPercentage": 0.7383,
+        "tiePercentage": 0,
+        "playId": "401856846622"
+      },
+      {
+        "homeWinPercentage": 0.7891,
+        "tiePercentage": 0,
+        "playId": "401856846625"
+      },
+      {
+        "homeWinPercentage": 0.8134,
+        "tiePercentage": 0,
+        "playId": "401856846629"
+      },
+      {
+        "homeWinPercentage": 0.6755,
+        "tiePercentage": 0,
+        "playId": "401856846632"
+      },
+      {
+        "homeWinPercentage": 0.876,
+        "tiePercentage": 0,
+        "playId": "401856846636"
+      },
+      {
+        "homeWinPercentage": 0.8882,
+        "tiePercentage": 0,
+        "playId": "401856846640"
+      },
+      {
+        "homeWinPercentage": 0.8493,
+        "tiePercentage": 0,
+        "playId": "401856846644"
+      },
+      {
+        "homeWinPercentage": 0.8533,
+        "tiePercentage": 0,
+        "playId": "401856846648"
+      },
+      {
+        "homeWinPercentage": 0.8449,
+        "tiePercentage": 0,
+        "playId": "401856846653"
+      },
+      {
+        "homeWinPercentage": 0.8341,
+        "tiePercentage": 0,
+        "playId": "401856846659"
+      },
+      {
+        "homeWinPercentage": 0.8024,
+        "tiePercentage": 0,
+        "playId": "401856846665"
+      },
+      {
+        "homeWinPercentage": 0.8341,
+        "tiePercentage": 0,
+        "playId": "401856846669"
+      },
+      {
+        "homeWinPercentage": 0.9014,
+        "tiePercentage": 0,
+        "playId": "401856846672"
+      },
+      {
+        "homeWinPercentage": 0.9374,
+        "tiePercentage": 0,
+        "playId": "401856846676"
+      },
+      {
+        "homeWinPercentage": 0.9066,
+        "tiePercentage": 0,
+        "playId": "401856846679"
+      },
+      {
+        "homeWinPercentage": 0.9268,
+        "tiePercentage": 0,
+        "playId": "401856846683"
+      },
+      {
+        "homeWinPercentage": 0.9652,
+        "tiePercentage": 0,
+        "playId": "401856846687"
+      },
+      {
+        "homeWinPercentage": 0.9639,
+        "tiePercentage": 0,
+        "playId": "401856846693"
+      },
+      {
+        "homeWinPercentage": 0.9668,
+        "tiePercentage": 0,
+        "playId": "401856846691"
+      },
+      {
+        "homeWinPercentage": 0.9696,
+        "tiePercentage": 0,
+        "playId": "401856846698"
+      },
+      {
+        "homeWinPercentage": 0.9592,
+        "tiePercentage": 0,
+        "playId": "401856846696"
+      },
+      {
+        "homeWinPercentage": 0.9659,
+        "tiePercentage": 0,
+        "playId": "401856846703"
+      },
+      {
+        "homeWinPercentage": 0.9322,
+        "tiePercentage": 0,
+        "playId": "401856846701"
+      },
+      {
+        "homeWinPercentage": 0.9635,
+        "tiePercentage": 0,
+        "playId": "401856846708"
+      },
+      {
+        "homeWinPercentage": 0.9748,
+        "tiePercentage": 0,
+        "playId": "401856846706"
+      },
+      {
+        "homeWinPercentage": 0.9422,
+        "tiePercentage": 0,
+        "playId": "401856846713"
+      },
+      {
+        "homeWinPercentage": 0.9246,
+        "tiePercentage": 0,
+        "playId": "401856846718"
+      },
+      {
+        "homeWinPercentage": 0.6215,
+        "tiePercentage": 0,
+        "playId": "401856846723"
+      },
+      {
+        "homeWinPercentage": 0.6152,
+        "tiePercentage": 0,
+        "playId": "401856846730"
+      },
+      {
+        "homeWinPercentage": 0.6921,
+        "tiePercentage": 0,
+        "playId": "401856846734"
+      },
+      {
+        "homeWinPercentage": 0.7797,
+        "tiePercentage": 0,
+        "playId": "401856846737"
+      },
+      {
+        "homeWinPercentage": 0.4869,
+        "tiePercentage": 0,
+        "playId": "401856846740"
+      },
+      {
+        "homeWinPercentage": 0.4966,
+        "tiePercentage": 0,
+        "playId": "401856846760"
+      },
+      {
+        "homeWinPercentage": 0.4973,
+        "tiePercentage": 0,
+        "playId": "401856846765"
+      },
+      {
+        "homeWinPercentage": 0.4975,
+        "tiePercentage": 0,
+        "playId": "401856846769"
+      },
+      {
+        "homeWinPercentage": 0.5,
+        "tiePercentage": 0,
+        "playId": "401856846774"
+      },
+      {
+        "homeWinPercentage": 0.5432,
+        "tiePercentage": 0,
+        "playId": "401856846780"
+      },
+      {
+        "homeWinPercentage": 0.5582,
+        "tiePercentage": 0,
+        "playId": "401856846786"
+      },
+      {
+        "homeWinPercentage": 0.3633,
+        "tiePercentage": 0,
+        "playId": "401856846790"
+      },
+      {
+        "homeWinPercentage": 0.4687,
+        "tiePercentage": 0,
+        "playId": "401856846795"
+      },
+      {
+        "homeWinPercentage": 0.5022,
+        "tiePercentage": 0,
+        "playId": "401856846799"
+      },
+      {
+        "homeWinPercentage": 0.6,
+        "tiePercentage": 0,
+        "playId": "401856846802"
+      }
+    ]
+  }
+}
