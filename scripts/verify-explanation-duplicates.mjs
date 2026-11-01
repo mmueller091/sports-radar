@@ -33,13 +33,21 @@ try{
   const page=await context.newPage(),errors=[];page.on('pageerror',e=>errors.push(String(e)));
   await page.goto((production?site:`http://127.0.0.1:${server.address().port}/`)+`#game/NFL/${game.id}`,{waitUntil:'domcontentloaded'});
   await page.locator('.detail-why-text').waitFor({timeout:45000});await page.waitForTimeout(300);
-  const explanation=await page.locator('.detail-why-text').textContent(),rating=(await page.locator('.detail-excitement-score').textContent()).trim();
-  assert.match(explanation,/Lamar Jackson/);assert.equal((explanation.match(/\breturn\b/gi)||[]).length,1,explanation);
+  const explanation=await page.locator('.detail-why-text').textContent();
+  const displayed=await page.evaluate(id=>{
+   const current=games.find(g=>g.sport==='NFL'&&String(g.id)===String(id)) || activeDetailGame;
+   return {state:current?.state,score:current?.score,rating:document.querySelector('.detail-excitement-score')?.textContent.trim()};
+  },game.id),rating=displayed.rating;
+  // The real game can begin while a release is being verified. The published
+  // renderer's captured pregame regression above remains independent of phase.
+  if(displayed.state==='upcoming'){
+   assert.match(explanation,/Lamar Jackson/);assert.equal((explanation.match(/\breturn\b/gi)||[]).length,1,explanation);
+  }
   assert.doesNotMatch(explanation,/Ravens QB Jackson to return|bearable|[.!?]["”][.!?]/);
   const story=await page.locator('.storyline-section li span').allTextContents();
   assert.ok(story.every(text=>(text.match(/\breturn\b/gi)||[]).length<=1));
   assert.ok(story.every(text=>!/bearable|Ravens QB Jackson to return/.test(text)));
-  assert.equal(rating,String(game.score));assert.deepEqual(errors,[]);
+  assert.equal(rating,String(displayed.score));assert.deepEqual(errors,[]);
   assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);
   await page.screenshot({path:`${dir}/${production?'production':'local'}-${label}.png`,fullPage:false,animations:'disabled'});
   results.push({viewport:label,rating,explanation,errors});await context.close();
