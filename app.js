@@ -2573,10 +2573,16 @@ function explainRating(game) {
   const factors=game.factors || [],labels=factors.map(f=>f.label || ''),has=re=>labels.some(x=>re.test(x));
   const sport=game.sport,basketball=['NBA','NCAAB'].includes(sport),football=['NFL','CFB'].includes(sport);
   const unit=({MLB:'run',NHL:'goal',Soccer:'goal',Tennis:'set'})[sport] || 'point';
-  const sentences=[],add=s=>{if(s&&!sentences.includes(s))sentences.push(/[.!?]$/.test(s)?s:s+'.');};
   const clean=s=>String(s || '').trim().replace(/\s+/g,' ');
+  const sentenceKey=s=>clean(s).toLocaleLowerCase().replace(/[^\p{L}\p{N}]+/gu,' ').trim();
+  const sentences=[],add=s=>{
+    s=clean(s);
+    if(s&&!sentences.some(previous=>sentenceKey(previous)===sentenceKey(s)))
+      sentences.push(/[.!?]["'\u2019\u201d)\]]*$/.test(s)?s:s+'.');
+  };
   const safe=s=>s&&!/capped|adjustment|jointly add|projected competitiveness|winning team quality|before market|[+]\d|\b(?:trajectory|telemetry|scaling|allocation|baseline|retention|leverage points)\b/i.test(s);
   const verified=factors.filter(f=>f.contextType&&f.contextText&&Math.abs(f.points)>=2&&safe(f.contextText))
+    .map(f=>({...f,publicText:publicStorySentence(f,game.qualitativeContexts)})).filter(f=>safe(f.publicText))
     .sort((x,y)=>Math.abs(y.points)-Math.abs(x.points));
   if(game.state==='upcoming') {
     const occasion=game.eventOccasion;
@@ -2585,7 +2591,7 @@ function explainRating(game) {
       if(has(/World Series/))add(`${names.join(' and ')} meet in the World Series, with a championship on the line`);
       else if(has(/^Championship$|Super Bowl|Stanley Cup Final/))add(`${names.join(' and ')} play for a championship`);
       else if(has(/Postseason|Playoff|Elimination|Final round|Major tournament/))add(sport==='Tennis'?`${names.join(' and ')} meet on one of tennis's biggest stages`:`${names.join(' and ')} meet with postseason stakes`);
-      else if(verified.length)add(clean(verified[0].contextText));
+      else if(verified.length)add(verified[0].publicText);
       else {
         const ranked=teams.filter(t=>Number(t[6])>=1&&Number(t[6])<=25);
         if(ranked.length===2)add(`No. ${ranked[0][6]} ${ranked[0][0]} meets No. ${ranked[1][6]} ${ranked[1][0]} in a matchup of ranked teams`);
@@ -2606,7 +2612,7 @@ function explainRating(game) {
       const unbeaten=teams.find(t=>/^[1-9]\d*-0(?:-0)?$/.test(String(t[5]||'')));
       if(unbeaten)add(`${unbeaten[0]} is unbeaten at ${unbeaten[5]}`);
     }
-    if(sentences.length<2&&verified.length)add(clean(verified.find(f=>!['international_showcase','season_opener'].includes(f.contextType)&&!sentences.includes(clean(f.contextText)+'.'))?.contextText));
+    if(sentences.length<2&&verified.length)add(verified.find(f=>!['international_showcase','season_opener'].includes(f.contextType)&&!sentences.some(s=>sentenceKey(s)===sentenceKey(f.publicText)))?.publicText);
     if(!sentences.length)add(`${names.join(' and ')} ${sport==='Tennis'?'meet on court':sport==='MLB'?'meet on the diamond':sport==='NHL'?'face off':football?'meet on the football field':basketball?'meet on the basketball court':'meet on the pitch'}`);
     if(sentences.length<2)add(({MLB:'The pitching matchup and early innings will help set the tone',NHL:'The early shifts will show who can create the better chances',Soccer:'The opening exchanges will show who can take control',Tennis:'The early service games will show who can take control'})[sport] || 'The opening minutes will give a clearer picture of how the teams match up');
     return sentences.slice(0,3).join(' ');
@@ -2655,6 +2661,34 @@ function explainRating(game) {
   return sentences.slice(0,3).join(' ');
 }
 
+
+function publicStorySentence(factor,stories=[]) {
+  const clean=s=>String(s || '').trim().replace(/\s+/g,' ');
+  let text=clean(factor.contextText || factor.text);
+  const story=(Array.isArray(stories)?stories:[]).find(item=>item?.type===(factor.contextType || factor.type)&&
+    (item.text===(factor.contextText || factor.text) || (item.sourceUrl&&item.sourceUrl===factor.sourceUrl)));
+  const title=clean(factor.sourceTitle || story?.sourceTitle);
+  const description=clean(factor.sourceDescription || story?.sourceDescription);
+  const conditional=/\b(?:if|unless|pending|subject to|could|may|might|not|no|clearance|cleared|questionable|doubtful|uncertain)\b/i;
+  // Source evidence may include both a headline and its lede. Public copy
+  // uses one statement; the original evidence and mathematical factors stay intact.
+  if(title&&text.toLocaleLowerCase().startsWith(title.toLocaleLowerCase())){
+    const body=clean(text.slice(title.length).replace(/^[\s.:;\u2013\u2014-]+/,''));
+    const candidate=body || description;
+    text=candidate&&!(conditional.test(title)&&!conditional.test(candidate))?candidate:text;
+  }
+  const marker='\uE000';
+  const protectedText=text.replace(/\b(?:[A-Z]\.)+(?=\s+[A-Z])/g,s=>s.replaceAll('.',marker))
+    .replace(/\b(?:Jr|Sr|St|Dr|Mr|Mrs|Ms|No)\.(?=\s+\S)/g,s=>s.replace('.',marker));
+  const first=typeof Intl.Segmenter==='function'
+    ? [...new Intl.Segmenter('en',{granularity:'sentence'}).segment(protectedText)][0]?.segment
+    : protectedText.match(/^.*?(?:[.!?]["\u201d]?(?:\s|$)|$)/)?.[0];
+  // Attribution and quoted reactions are evidence for the story, not another
+  // reason to watch. Preserve the main clause, including any uncertainty.
+  const sentence=clean(first || text).replaceAll(marker,'.').replace(/,\s+(?:saying|adding|according to)\b[\s\S]*$/i,
+    attribution=>conditional.test(attribution)?attribution:'');
+  return !sentence || /[.!?]["'\u2019\u201d)\]]*$/.test(sentence)?sentence:sentence+'.';
+}
 
 function trendFor(game) {
   if (game.pregameBaseline?.source !== 'observed') return '';
@@ -5609,10 +5643,14 @@ function safeStoryUrl(value) {
 function storylineDetails(game) {
   const factors = Array.isArray(game.qualitativeContexts) ? game.qualitativeContexts : [];
   if (!factors.length) return '';
+  const seen=new Set();
   const rows = factors.map(factor => {
+    const text=publicStorySentence(factor),key=text.toLocaleLowerCase().replace(/[^\p{L}\p{N}]+/gu,' ').trim();
+    if(!key||seen.has(key))return '';
+    seen.add(key);
     const url = safeStoryUrl(factor.sourceUrl);
     const source = url
-      ? `<a href="${safeText(url)}" target="_blank" rel="noopener noreferrer">${safeText(factor.sourceTitle || 'Read source')} ↗</a>`
+      ? `<a href="${safeText(url)}" target="_blank" rel="noopener noreferrer" title="${safeText(factor.sourceTitle || 'Read source')}">Read source ↗</a>`
       : '';
     const contribution=game.state==='upcoming' && game.sport==='NFL'
       ? game.factors?.find(item=>item.contextType===factor.type)?.points : null;
@@ -5622,7 +5660,7 @@ function storylineDetails(game) {
     const proofUrl=safeStoryUrl(significance?.sourceUrl);
     const proof=game.sport==='NFL' && proofUrl && significance.verified
       ? `<a href="${safeText(proofUrl)}" target="_blank" rel="noopener noreferrer" title="${safeText(significance.fact)}">Player honors source ↗</a>` : '';
-    return `<li><span>${safeText(factor.text+credit)}</span>${source}${proof}</li>`;
+    return `<li><span>${safeText(text+credit)}</span>${source}${proof}</li>`;
   }).join('');
   return `<section class="detail-section storyline-section"><h3>Pregame storylines</h3><ul>${rows}</ul><p class="detail-empty">Only recent, source-backed context is included. It fades from the rating as the game unfolds.</p></section>`;
 }
