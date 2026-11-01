@@ -1,0 +1,5881 @@
+{
+  "model": "2026-11-01.football-live.1",
+  "baselineCommit": "92cec7c2a04c9d1c0c40de31b53a4f4f8110c70c",
+  "provenance": "Frozen self-contained current-production adapter; archived provider events and validated replayCheckpoints. Synthetic scenarios are separate from historical evidence. Every scoring state, 21 evenly spaced checkpoints and final ten plays are sampled; peaks are sampled checkpoint peaks.",
+  "namedExamples": [
+    {
+      "eventId": "401873026",
+      "source": "https://sports-radar-alerts.mmueller918.workers.dev/game/NFL/401873026",
+      "capturedAt": "2026-11-01T19:20:41.315Z",
+      "before": 52,
+      "after": 53,
+      "scores": [
+        {
+          "team": "Baltimore Ravens",
+          "score": "7"
+        },
+        {
+          "team": "Buffalo Bills",
+          "score": "13"
+        }
+      ],
+      "phase": "6:37 · 2nd quarter",
+      "explanation": "Buffalo Bills lead 13–7 with 6:37 left in the second quarter. Ravens' Lamar Jackson is out for the game with thumb injury suffered on 1st play. Joe Fagnano has thrown passes since Lamar Jackson's departure.",
+      "developments": [
+        {
+          "kind": "injury",
+          "status": "out",
+          "quarterback": true,
+          "text": "Ravens' Lamar Jackson out for game with thumb injury suffered on 1st play",
+          "evidenceText": "Ravens' Lamar Jackson out for game with thumb injury suffered on 1st play. Ravens quarterback Lamar Jackson has been ruled out for the rest of Sunday's game against the Bills with a right thumb injury.",
+          "verified": true,
+          "eventId": "401873026",
+          "subjectKey": "lamar jackson",
+          "subject": "Lamar Jackson",
+          "teamId": "33",
+          "position": 0.08222222222222222,
+          "reportedAt": 1793559119000,
+          "sourceUrl": "https://www.espn.com/nfl/story/_/id/50349558/ravens-lamar-jackson-rest-game-thumb-injury",
+          "sourceTitle": "Ravens' Lamar Jackson out for game with thumb injury suffered on 1st play",
+          "sourcePlayId": "401873026437",
+          "replacementName": "Joe Fagnano",
+          "replacementPlayId": "4018730261732"
+        }
+      ]
+    },
+    {
+      "eventId": "401873031",
+      "source": "https://sports-radar-alerts.mmueller918.workers.dev/game/NFL/401873031",
+      "capturedAt": "2026-11-01T19:20:41.299Z",
+      "before": 63,
+      "after": 59,
+      "scores": [
+        {
+          "team": "Tennessee Titans",
+          "score": "13"
+        },
+        {
+          "team": "Cincinnati Bengals",
+          "score": "7"
+        }
+      ],
+      "phase": "2:00 · 2nd quarter",
+      "explanation": "Tennessee Titans lead 13–7 with 2:00 left in the second quarter. Tennessee Titans are threatening an upset despite entering as a 13.5-point underdog.",
+      "developments": []
+    }
+  ],
+  "scenarios": [
+    {
+      "sport": "NFL",
+      "label": "opening live",
+      "before": 38,
+      "after": 38,
+      "delta": 0,
+      "upsetBefore": 0,
+      "upsetAfter": 0
+    },
+    {
+      "sport": "NFL",
+      "label": "one drive, 35-point underdog",
+      "before": 33,
+      "after": 35,
+      "delta": 2,
+      "upsetBefore": 0,
+      "upsetAfter": 2
+    },
+    {
+      "sport": "NFL",
+      "label": "early Q2 two-score underdog lead",
+      "before": 41,
+      "after": 48,
+      "delta": 7,
+      "upsetBefore": 0,
+      "upsetAfter": 7
+    },
+    {
+      "sport": "NFL",
+      "label": "halftime underdog lead",
+      "before": 51,
+      "after": 48,
+      "delta": -3,
+      "upsetBefore": 15,
+      "upsetAfter": 12
+    },
+    {
+      "sport": "NFL",
+      "label": "late underdog lead",
+      "before": 44,
+      "after": 44,
+      "delta": 0,
+      "upsetBefore": 17,
+      "upsetAfter": 17
+    },
+    {
+      "sport": "NFL",
+      "label": "favorite merely underperforming line",
+      "before": 34,
+      "after": 34,
+      "delta": 0,
+      "upsetBefore": 0,
+      "upsetAfter": 0
+    },
+    {
+      "sport": "NFL",
+      "label": "even close matchup",
+      "before": 61,
+      "after": 61,
+      "delta": 0,
+      "upsetBefore": 0,
+      "upsetAfter": 0
+    },
+    {
+      "sport": "NFL",
+      "label": "ranked favorite trailing, no odds",
+      "before": 50,
+      "after": 50,
+      "delta": 0,
+      "upsetBefore": 0,
+      "upsetAfter": 0
+    },
+    {
+      "sport": "CFB",
+      "label": "opening live",
+      "before": 40,
+      "after": 40,
+      "delta": 0,
+      "upsetBefore": 0,
+      "upsetAfter": 0
+    },
+    {
+      "sport": "CFB",
+      "label": "one drive, 35-point underdog",
+      "before": 30,
+      "after": 33,
+      "delta": 3,
+      "upsetBefore": 0,
+      "upsetAfter": 3
+    },
+    {
+      "sport": "CFB",
+      "label": "early Q2 two-score underdog lead",
+      "before": 40,
+      "after": 50,
+      "delta": 10,
+      "upsetBefore": 0,
+      "upsetAfter": 10
+    },
+    {
+      "sport": "CFB",
+      "label": "halftime underdog lead",
+      "before": 57,
+      "after": 68,
+      "delta": 11,
+      "upsetBefore": 6,
+      "upsetAfter": 17
+    },
+    {
+      "sport": "CFB",
+      "label": "late underdog lead",
+      "before": 28,
+      "after": 47,
+      "delta": 19,
+      "upsetBefore": 5,
+      "upsetAfter": 24
+    },
+    {
+      "sport": "CFB",
+      "label": "favorite merely underperforming line",
+      "before": 35,
+      "after": 35,
+      "delta": 0,
+      "upsetBefore": 0,
+      "upsetAfter": 0
+    },
+    {
+      "sport": "CFB",
+      "label": "even close matchup",
+      "before": 74,
+      "after": 74,
+      "delta": 0,
+      "upsetBefore": 0,
+      "upsetAfter": 0
+    },
+    {
+      "sport": "CFB",
+      "label": "ranked favorite trailing, no odds",
+      "before": 60,
+      "after": 69,
+      "delta": 9,
+      "upsetBefore": 0,
+      "upsetAfter": 9
+    }
+  ],
+  "histories": [
+    {
+      "sport": "CFB",
+      "eventId": "401856719",
+      "name": "Auburn Tigers at Georgia Bulldogs",
+      "opening": [
+        46,
+        46
+      ],
+      "first": {
+        "playId": "4018567193",
+        "period": 1,
+        "clock": "15:00",
+        "before": 46,
+        "after": 46,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "half": {
+        "playId": "401856719366",
+        "period": 2,
+        "clock": "1:20",
+        "before": 71,
+        "after": 74,
+        "delta": 3,
+        "upsetBefore": 0,
+        "upsetAfter": 3,
+        "explained": true
+      },
+      "late": {
+        "playId": "401856719605",
+        "period": 4,
+        "clock": "14:15",
+        "before": 72,
+        "after": 81,
+        "delta": 9,
+        "upsetBefore": 0,
+        "upsetAfter": 9,
+        "explained": true
+      },
+      "peakBefore": {
+        "playId": "401856719747",
+        "period": 4,
+        "clock": "2:01",
+        "before": 99,
+        "after": 99,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 5,
+        "explained": true
+      },
+      "peakAfter": {
+        "playId": "401856719747",
+        "period": 4,
+        "clock": "2:01",
+        "before": 99,
+        "after": 99,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 5,
+        "explained": true
+      },
+      "final": [
+        99,
+        99
+      ],
+      "checkpoints": 36,
+      "changed": 16
+    },
+    {
+      "sport": "CFB",
+      "eventId": "401856720",
+      "name": "Mississippi State Bulldogs at LSU Tigers",
+      "opening": [
+        64,
+        64
+      ],
+      "first": {
+        "playId": "4018567209",
+        "period": 1,
+        "clock": "15:00",
+        "before": 64,
+        "after": 64,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "half": {
+        "playId": "401856720425",
+        "period": 2,
+        "clock": "0:09",
+        "before": 35,
+        "after": 36,
+        "delta": 1,
+        "upsetBefore": 0,
+        "upsetAfter": 1,
+        "explained": true
+      },
+      "late": {
+        "playId": "401856720666",
+        "period": 4,
+        "clock": "14:13",
+        "before": 1,
+        "after": 1,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 1,
+        "explained": true
+      },
+      "peakBefore": {
+        "playId": "4018567209",
+        "period": 1,
+        "clock": "15:00",
+        "before": 64,
+        "after": 64,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakAfter": {
+        "playId": "4018567209",
+        "period": 1,
+        "clock": "15:00",
+        "before": 64,
+        "after": 64,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "final": [
+        1,
+        1
+      ],
+      "checkpoints": 33,
+      "changed": 10
+    },
+    {
+      "sport": "CFB",
+      "eventId": "401856721",
+      "name": "Missouri Tigers at Ole Miss Rebels",
+      "opening": [
+        71,
+        71
+      ],
+      "first": {
+        "playId": "4018567213",
+        "period": 1,
+        "clock": "15:00",
+        "before": 71,
+        "after": 71,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "half": {
+        "playId": "401856721388",
+        "period": 2,
+        "clock": "1:15",
+        "before": 43,
+        "after": 43,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "late": {
+        "playId": "401856721663",
+        "period": 4,
+        "clock": "12:44",
+        "before": 23,
+        "after": 23,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakBefore": {
+        "playId": "401856721198",
+        "period": 2,
+        "clock": "14:45",
+        "before": 72,
+        "after": 72,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakAfter": {
+        "playId": "401856721198",
+        "period": 2,
+        "clock": "14:45",
+        "before": 72,
+        "after": 72,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "final": [
+        4,
+        4
+      ],
+      "checkpoints": 34,
+      "changed": 0
+    },
+    {
+      "sport": "CFB",
+      "eventId": "401856722",
+      "name": "Kentucky Wildcats at Oklahoma Sooners",
+      "opening": [
+        44,
+        44
+      ],
+      "first": {
+        "playId": "4018567223",
+        "period": 1,
+        "clock": "14:56",
+        "before": 44,
+        "after": 44,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "half": {
+        "playId": "401856722343",
+        "period": 2,
+        "clock": "0:24",
+        "before": 76,
+        "after": 77,
+        "delta": 1,
+        "upsetBefore": 0,
+        "upsetAfter": 1,
+        "explained": true
+      },
+      "late": {
+        "playId": "401856722542",
+        "period": 4,
+        "clock": "14:56",
+        "before": 69,
+        "after": 71,
+        "delta": 2,
+        "upsetBefore": 0,
+        "upsetAfter": 2,
+        "explained": true
+      },
+      "peakBefore": {
+        "playId": "401856722691",
+        "period": 4,
+        "clock": "1:53",
+        "before": 99,
+        "after": 99,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 2,
+        "explained": true
+      },
+      "peakAfter": {
+        "playId": "401856722691",
+        "period": 4,
+        "clock": "1:53",
+        "before": 99,
+        "after": 99,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 2,
+        "explained": true
+      },
+      "final": [
+        72,
+        72
+      ],
+      "checkpoints": 33,
+      "changed": 9
+    },
+    {
+      "sport": "CFB",
+      "eventId": "401856723",
+      "name": "Alabama Crimson Tide at Tennessee Volunteers",
+      "opening": [
+        71,
+        71
+      ],
+      "first": {
+        "playId": "4018567233",
+        "period": 1,
+        "clock": "15:00",
+        "before": 71,
+        "after": 71,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "half": {
+        "playId": "401856723487",
+        "period": 2,
+        "clock": "0:05",
+        "before": 77,
+        "after": 78,
+        "delta": 1,
+        "upsetBefore": 0,
+        "upsetAfter": 1,
+        "explained": true
+      },
+      "late": {
+        "playId": "401856723682",
+        "period": 4,
+        "clock": "12:40",
+        "before": 62,
+        "after": 64,
+        "delta": 2,
+        "upsetBefore": 0,
+        "upsetAfter": 2,
+        "explained": true
+      },
+      "peakBefore": {
+        "playId": "401856723560",
+        "period": 3,
+        "clock": "8:17",
+        "before": 84,
+        "after": 85,
+        "delta": 1,
+        "upsetBefore": 0,
+        "upsetAfter": 1,
+        "explained": true
+      },
+      "peakAfter": {
+        "playId": "401856723560",
+        "period": 3,
+        "clock": "8:17",
+        "before": 84,
+        "after": 85,
+        "delta": 1,
+        "upsetBefore": 0,
+        "upsetAfter": 1,
+        "explained": true
+      },
+      "final": [
+        28,
+        28
+      ],
+      "checkpoints": 34,
+      "changed": 25
+    },
+    {
+      "sport": "CFB",
+      "eventId": "401856724",
+      "name": "Florida Gators at Texas Longhorns",
+      "opening": [
+        46,
+        46
+      ],
+      "first": {
+        "playId": "4018567243",
+        "period": 1,
+        "clock": "15:00",
+        "before": 46,
+        "after": 46,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "half": {
+        "playId": "401856724385",
+        "period": 2,
+        "clock": "0:18",
+        "before": 48,
+        "after": 48,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "late": {
+        "playId": "401856724581",
+        "period": 4,
+        "clock": "14:24",
+        "before": 70,
+        "after": 73,
+        "delta": 3,
+        "upsetBefore": 0,
+        "upsetAfter": 3,
+        "explained": true
+      },
+      "peakBefore": {
+        "playId": "401856724725",
+        "period": 4,
+        "clock": "2:27",
+        "before": 99,
+        "after": 99,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 4,
+        "explained": true
+      },
+      "peakAfter": {
+        "playId": "401856724725",
+        "period": 4,
+        "clock": "2:27",
+        "before": 99,
+        "after": 99,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 4,
+        "explained": true
+      },
+      "final": [
+        86,
+        86
+      ],
+      "checkpoints": 35,
+      "changed": 18
+    },
+    {
+      "sport": "CFB",
+      "eventId": "401856725",
+      "name": "The Citadel Bulldogs at Texas A&M Aggies",
+      "opening": [
+        40,
+        40
+      ],
+      "first": {
+        "playId": "4018567253",
+        "period": 1,
+        "clock": "15:00",
+        "before": 40,
+        "after": 40,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "half": {
+        "playId": "401856725323",
+        "period": 2,
+        "clock": "0:30",
+        "before": 24,
+        "after": 24,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "late": {
+        "playId": "401856725510",
+        "period": 4,
+        "clock": "14:42",
+        "before": 1,
+        "after": 1,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakBefore": {
+        "playId": "401856725135",
+        "period": 1,
+        "clock": "0:35",
+        "before": 46,
+        "after": 46,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakAfter": {
+        "playId": "401856725135",
+        "period": 1,
+        "clock": "0:35",
+        "before": 46,
+        "after": 46,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "final": [
+        1,
+        1
+      ],
+      "checkpoints": 36,
+      "changed": 0
+    },
+    {
+      "sport": "CFB",
+      "eventId": "401856726",
+      "name": "Arkansas Razorbacks at Vanderbilt Commodores",
+      "opening": [
+        40,
+        40
+      ],
+      "first": {
+        "playId": "4018567263",
+        "period": 1,
+        "clock": "15:00",
+        "before": 40,
+        "after": 40,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "half": {
+        "playId": "401856726348",
+        "period": 2,
+        "clock": "0:34",
+        "before": 73,
+        "after": 73,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "late": {
+        "playId": "401856726586",
+        "period": 4,
+        "clock": "14:55",
+        "before": 68,
+        "after": 68,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakBefore": {
+        "playId": "401856726697",
+        "period": 4,
+        "clock": "4:29",
+        "before": 90,
+        "after": 90,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakAfter": {
+        "playId": "401856726697",
+        "period": 4,
+        "clock": "4:29",
+        "before": 90,
+        "after": 90,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "final": [
+        61,
+        61
+      ],
+      "checkpoints": 35,
+      "changed": 0
+    },
+    {
+      "sport": "CFB",
+      "eventId": "401856809",
+      "name": "Notre Dame Fighting Irish at BYU Cougars",
+      "opening": [
+        75,
+        75
+      ],
+      "first": {
+        "playId": "4018568093",
+        "period": 1,
+        "clock": "15:00",
+        "before": 75,
+        "after": 75,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "half": {
+        "playId": "401856809405",
+        "period": 2,
+        "clock": "0:06",
+        "before": 69,
+        "after": 70,
+        "delta": 1,
+        "upsetBefore": 0,
+        "upsetAfter": 1,
+        "explained": true
+      },
+      "late": {
+        "playId": "401856809639",
+        "period": 4,
+        "clock": "11:55",
+        "before": 85,
+        "after": 86,
+        "delta": 1,
+        "upsetBefore": 0,
+        "upsetAfter": 1,
+        "explained": true
+      },
+      "peakBefore": {
+        "playId": "401856809792",
+        "period": 4,
+        "clock": "0:34",
+        "before": 99,
+        "after": 99,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 1,
+        "explained": true
+      },
+      "peakAfter": {
+        "playId": "401856809792",
+        "period": 4,
+        "clock": "0:34",
+        "before": 99,
+        "after": 99,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 1,
+        "explained": true
+      },
+      "final": [
+        82,
+        82
+      ],
+      "checkpoints": 37,
+      "changed": 23
+    },
+    {
+      "sport": "CFB",
+      "eventId": "401856828",
+      "name": "Arizona State Sun Devils at Texas Tech Red Raiders",
+      "opening": [
+        46,
+        46
+      ],
+      "first": {
+        "playId": "4018568283",
+        "period": 1,
+        "clock": "15:00",
+        "before": 46,
+        "after": 46,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "half": {
+        "playId": "401856828429",
+        "period": 2,
+        "clock": "0:00",
+        "before": 23,
+        "after": 23,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "late": {
+        "playId": "401856828626",
+        "period": 4,
+        "clock": "14:57",
+        "before": 9,
+        "after": 9,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakBefore": {
+        "playId": "40185682878",
+        "period": 1,
+        "clock": "7:48",
+        "before": 53,
+        "after": 53,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakAfter": {
+        "playId": "40185682878",
+        "period": 1,
+        "clock": "7:48",
+        "before": 53,
+        "after": 53,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "final": [
+        1,
+        1
+      ],
+      "checkpoints": 41,
+      "changed": 0
+    },
+    {
+      "sport": "CFB",
+      "eventId": "401856829",
+      "name": "Cincinnati Bearcats at West Virginia Mountaineers",
+      "opening": [
+        40,
+        40
+      ],
+      "first": {
+        "playId": "4018568293",
+        "period": 1,
+        "clock": "15:00",
+        "before": 40,
+        "after": 40,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "half": {
+        "playId": "401856829418",
+        "period": 2,
+        "clock": "0:37",
+        "before": 61,
+        "after": 61,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "late": {
+        "playId": "401856829649",
+        "period": 4,
+        "clock": "14:51",
+        "before": 77,
+        "after": 77,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakBefore": {
+        "playId": "401856829867",
+        "period": 4,
+        "clock": "1:55",
+        "before": 99,
+        "after": 99,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakAfter": {
+        "playId": "401856829867",
+        "period": 4,
+        "clock": "1:55",
+        "before": 99,
+        "after": 99,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "final": [
+        78,
+        78
+      ],
+      "checkpoints": 42,
+      "changed": 0
+    },
+    {
+      "sport": "CFB",
+      "eventId": "401856830",
+      "name": "Kansas Jayhawks at Kansas State Wildcats",
+      "opening": [
+        40,
+        40
+      ],
+      "first": {
+        "playId": "4018568307",
+        "period": 1,
+        "clock": "15:00",
+        "before": 40,
+        "after": 40,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "half": {
+        "playId": "401856830405",
+        "period": 2,
+        "clock": "0:24",
+        "before": 79,
+        "after": 79,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "late": {
+        "playId": "401856830576",
+        "period": 4,
+        "clock": "14:54",
+        "before": 83,
+        "after": 83,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakBefore": {
+        "playId": "401856830615",
+        "period": 4,
+        "clock": "11:15",
+        "before": 84,
+        "after": 84,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakAfter": {
+        "playId": "401856830615",
+        "period": 4,
+        "clock": "11:15",
+        "before": 84,
+        "after": 84,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "final": [
+        74,
+        74
+      ],
+      "checkpoints": 38,
+      "changed": 0
+    },
+    {
+      "sport": "CFB",
+      "eventId": "401856831",
+      "name": "Oklahoma State Cowboys at Houston Cougars",
+      "opening": [
+        67,
+        67
+      ],
+      "first": {
+        "playId": "4018568313",
+        "period": 1,
+        "clock": "14:56",
+        "before": 67,
+        "after": 67,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "half": {
+        "playId": "401856831363",
+        "period": 2,
+        "clock": "1:37",
+        "before": 53,
+        "after": 53,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "late": {
+        "playId": "401856831646",
+        "period": 4,
+        "clock": "13:19",
+        "before": 49,
+        "after": 49,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakBefore": {
+        "playId": "40185683141",
+        "period": 1,
+        "clock": "11:32",
+        "before": 71,
+        "after": 71,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakAfter": {
+        "playId": "40185683141",
+        "period": 1,
+        "clock": "11:32",
+        "before": 71,
+        "after": 71,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "final": [
+        61,
+        61
+      ],
+      "checkpoints": 37,
+      "changed": 0
+    },
+    {
+      "sport": "CFB",
+      "eventId": "401856832",
+      "name": "TCU Horned Frogs at Baylor Bears",
+      "opening": [
+        40,
+        40
+      ],
+      "first": {
+        "playId": "4018568323",
+        "period": 1,
+        "clock": "15:00",
+        "before": 40,
+        "after": 40,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "half": {
+        "playId": "401856832422",
+        "period": 2,
+        "clock": "0:58",
+        "before": 70,
+        "after": 70,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "late": {
+        "playId": "401856832653",
+        "period": 4,
+        "clock": "14:52",
+        "before": 52,
+        "after": 52,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakBefore": {
+        "playId": "401856832422",
+        "period": 2,
+        "clock": "0:58",
+        "before": 70,
+        "after": 70,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakAfter": {
+        "playId": "401856832422",
+        "period": 2,
+        "clock": "0:58",
+        "before": 70,
+        "after": 70,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "final": [
+        38,
+        38
+      ],
+      "checkpoints": 34,
+      "changed": 0
+    },
+    {
+      "sport": "CFB",
+      "eventId": "401856833",
+      "name": "Utah Utes at Colorado Buffaloes",
+      "opening": [
+        44,
+        44
+      ],
+      "first": {
+        "playId": "4018568333",
+        "period": 1,
+        "clock": "15:00",
+        "before": 44,
+        "after": 44,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "half": {
+        "playId": "401856833387",
+        "period": 2,
+        "clock": "0:00",
+        "before": 41,
+        "after": 41,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "late": {
+        "playId": "401856833630",
+        "period": 4,
+        "clock": "11:08",
+        "before": 75,
+        "after": 77,
+        "delta": 2,
+        "upsetBefore": 0,
+        "upsetAfter": 2,
+        "explained": true
+      },
+      "peakBefore": {
+        "playId": "401856833771",
+        "period": 4,
+        "clock": "0:52",
+        "before": 87,
+        "after": 88,
+        "delta": 1,
+        "upsetBefore": 0,
+        "upsetAfter": 1,
+        "explained": true
+      },
+      "peakAfter": {
+        "playId": "401856833771",
+        "period": 4,
+        "clock": "0:52",
+        "before": 87,
+        "after": 88,
+        "delta": 1,
+        "upsetBefore": 0,
+        "upsetAfter": 1,
+        "explained": true
+      },
+      "final": [
+        78,
+        78
+      ],
+      "checkpoints": 36,
+      "changed": 12
+    },
+    {
+      "sport": "CFB",
+      "eventId": "401858261",
+      "name": "Charleston Southern Buccaneers at Clemson Tigers",
+      "opening": [
+        40,
+        40
+      ],
+      "first": {
+        "playId": "4018582613",
+        "period": 1,
+        "clock": "14:54",
+        "before": 40,
+        "after": 40,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "half": {
+        "playId": "401858261413",
+        "period": 2,
+        "clock": "0:47",
+        "before": 19,
+        "after": 19,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "late": {
+        "playId": "401858261606",
+        "period": 4,
+        "clock": "15:00",
+        "before": 1,
+        "after": 1,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakBefore": {
+        "playId": "401858261202",
+        "period": 2,
+        "clock": "14:45",
+        "before": 45,
+        "after": 45,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakAfter": {
+        "playId": "401858261202",
+        "period": 2,
+        "clock": "14:45",
+        "before": 45,
+        "after": 45,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "final": [
+        1,
+        1
+      ],
+      "checkpoints": 36,
+      "changed": 0
+    },
+    {
+      "sport": "CFB",
+      "eventId": "401858262",
+      "name": "Elon Phoenix at Stanford Cardinal",
+      "opening": [
+        40,
+        40
+      ],
+      "first": {
+        "playId": "4018582623",
+        "period": 1,
+        "clock": "15:00",
+        "before": 40,
+        "after": 40,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "half": {
+        "playId": "401858262434",
+        "period": 2,
+        "clock": "0:37",
+        "before": 39,
+        "after": 39,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "late": {
+        "playId": "401858262702",
+        "period": 4,
+        "clock": "14:20",
+        "before": 8,
+        "after": 8,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakBefore": {
+        "playId": "401858262270",
+        "period": 2,
+        "clock": "10:35",
+        "before": 49,
+        "after": 49,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakAfter": {
+        "playId": "401858262270",
+        "period": 2,
+        "clock": "10:35",
+        "before": 49,
+        "after": 49,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "final": [
+        1,
+        1
+      ],
+      "checkpoints": 33,
+      "changed": 0
+    },
+    {
+      "sport": "CFB",
+      "eventId": "401858263",
+      "name": "Florida State Seminoles at Miami Hurricanes",
+      "opening": [
+        46,
+        46
+      ],
+      "first": {
+        "playId": "4018582633",
+        "period": 1,
+        "clock": "15:00",
+        "before": 46,
+        "after": 46,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "half": {
+        "playId": "401858263391",
+        "period": 2,
+        "clock": "0:33",
+        "before": 54,
+        "after": 54,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "late": {
+        "playId": "401858263595",
+        "period": 4,
+        "clock": "13:37",
+        "before": 75,
+        "after": 82,
+        "delta": 7,
+        "upsetBefore": 0,
+        "upsetAfter": 7,
+        "explained": true
+      },
+      "peakBefore": {
+        "playId": "401858263756",
+        "period": 5,
+        "clock": "0:00",
+        "before": 99,
+        "after": 99,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 4,
+        "explained": true
+      },
+      "peakAfter": {
+        "playId": "401858263756",
+        "period": 5,
+        "clock": "0:00",
+        "before": 99,
+        "after": 99,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 4,
+        "explained": true
+      },
+      "final": [
+        88,
+        88
+      ],
+      "checkpoints": 34,
+      "changed": 12
+    },
+    {
+      "sport": "CFB",
+      "eventId": "401858264",
+      "name": "Georgia Tech Yellow Jackets at Virginia Tech Hokies",
+      "opening": [
+        40,
+        40
+      ],
+      "first": {
+        "playId": "4018582643",
+        "period": 1,
+        "clock": "15:00",
+        "before": 40,
+        "after": 40,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "half": {
+        "playId": "401858264331",
+        "period": 2,
+        "clock": "1:47",
+        "before": 32,
+        "after": 32,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "late": {
+        "playId": "401858264567",
+        "period": 4,
+        "clock": "14:46",
+        "before": 33,
+        "after": 33,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakBefore": {
+        "playId": "401858264413",
+        "period": 3,
+        "clock": "12:01",
+        "before": 53,
+        "after": 53,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakAfter": {
+        "playId": "401858264413",
+        "period": 3,
+        "clock": "12:01",
+        "before": 53,
+        "after": 53,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "final": [
+        27,
+        27
+      ],
+      "checkpoints": 39,
+      "changed": 0
+    },
+    {
+      "sport": "CFB",
+      "eventId": "401858265",
+      "name": "Louisville Cardinals at Syracuse Orange",
+      "opening": [
+        40,
+        40
+      ],
+      "first": {
+        "playId": "4018582653",
+        "period": 1,
+        "clock": "15:00",
+        "before": 40,
+        "after": 40,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "half": {
+        "playId": "401858265396",
+        "period": 2,
+        "clock": "0:28",
+        "before": 71,
+        "after": 71,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "late": {
+        "playId": "401858265640",
+        "period": 4,
+        "clock": "14:21",
+        "before": 77,
+        "after": 77,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakBefore": {
+        "playId": "401858265761",
+        "period": 4,
+        "clock": "3:35",
+        "before": 91,
+        "after": 91,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakAfter": {
+        "playId": "401858265761",
+        "period": 4,
+        "clock": "3:35",
+        "before": 91,
+        "after": 91,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "final": [
+        82,
+        82
+      ],
+      "checkpoints": 35,
+      "changed": 0
+    },
+    {
+      "sport": "CFB",
+      "eventId": "401858266",
+      "name": "North Carolina Tar Heels at Duke Blue Devils",
+      "opening": [
+        40,
+        40
+      ],
+      "first": {
+        "playId": "4018582663",
+        "period": 1,
+        "clock": "14:55",
+        "before": 40,
+        "after": 40,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "half": {
+        "playId": "401858266378",
+        "period": 2,
+        "clock": "0:25",
+        "before": 54,
+        "after": 54,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "late": {
+        "playId": "401858266615",
+        "period": 4,
+        "clock": "12:59",
+        "before": 65,
+        "after": 65,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakBefore": {
+        "playId": "401858266743",
+        "period": 4,
+        "clock": "3:00",
+        "before": 99,
+        "after": 99,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakAfter": {
+        "playId": "401858266743",
+        "period": 4,
+        "clock": "3:00",
+        "before": 99,
+        "after": 99,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "final": [
+        81,
+        81
+      ],
+      "checkpoints": 35,
+      "changed": 0
+    },
+    {
+      "sport": "CFB",
+      "eventId": "401858267",
+      "name": "Pittsburgh Panthers at Boston College Eagles",
+      "opening": [
+        40,
+        40
+      ],
+      "first": {
+        "playId": "4018582673",
+        "period": 1,
+        "clock": "14:54",
+        "before": 40,
+        "after": 40,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "half": {
+        "playId": "401858267406",
+        "period": 2,
+        "clock": "0:00",
+        "before": 74,
+        "after": 74,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "late": {
+        "playId": "401858267621",
+        "period": 4,
+        "clock": "13:02",
+        "before": 65,
+        "after": 65,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakBefore": {
+        "playId": "401858267588",
+        "period": 3,
+        "clock": "0:22",
+        "before": 81,
+        "after": 81,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakAfter": {
+        "playId": "401858267588",
+        "period": 3,
+        "clock": "0:22",
+        "before": 81,
+        "after": 81,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "final": [
+        71,
+        71
+      ],
+      "checkpoints": 39,
+      "changed": 0
+    },
+    {
+      "sport": "CFB",
+      "eventId": "401858268",
+      "name": "Virginia Cavaliers at SMU Mustangs",
+      "opening": [
+        44,
+        44
+      ],
+      "first": {
+        "playId": "4018582683",
+        "period": 1,
+        "clock": "15:00",
+        "before": 44,
+        "after": 44,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "half": {
+        "playId": "401858268325",
+        "period": 2,
+        "clock": "0:00",
+        "before": 69,
+        "after": 69,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "late": {
+        "playId": "401858268537",
+        "period": 4,
+        "clock": "14:54",
+        "before": 67,
+        "after": 67,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakBefore": {
+        "playId": "401858268296",
+        "period": 2,
+        "clock": "0:25",
+        "before": 72,
+        "after": 72,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakAfter": {
+        "playId": "401858268296",
+        "period": 2,
+        "clock": "0:25",
+        "before": 72,
+        "after": 72,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "final": [
+        50,
+        50
+      ],
+      "checkpoints": 35,
+      "changed": 0
+    },
+    {
+      "sport": "CFB",
+      "eventId": "401858269",
+      "name": "Wake Forest Demon Deacons at California Golden Bears",
+      "opening": [
+        44,
+        44
+      ],
+      "first": {
+        "playId": "40185826933",
+        "period": 1,
+        "clock": "15:00",
+        "before": 44,
+        "after": 44,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "half": {
+        "playId": "401858269482",
+        "period": 2,
+        "clock": "0:02",
+        "before": 21,
+        "after": 21,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "late": {
+        "playId": "401858269679",
+        "period": 4,
+        "clock": "12:41",
+        "before": 1,
+        "after": 1,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakBefore": {
+        "playId": "401858269154",
+        "period": 1,
+        "clock": "6:15",
+        "before": 49,
+        "after": 49,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakAfter": {
+        "playId": "401858269154",
+        "period": 1,
+        "clock": "6:15",
+        "before": 49,
+        "after": 49,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "final": [
+        1,
+        1
+      ],
+      "checkpoints": 35,
+      "changed": 0
+    },
+    {
+      "sport": "CFB",
+      "eventId": "401858488",
+      "name": "Ohio State Buckeyes at Indiana Hoosiers",
+      "opening": [
+        71,
+        71
+      ],
+      "first": {
+        "playId": "4018584883",
+        "period": 1,
+        "clock": "15:00",
+        "before": 71,
+        "after": 71,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "half": {
+        "playId": "401858488374",
+        "period": 2,
+        "clock": "0:07",
+        "before": 81,
+        "after": 81,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "late": {
+        "playId": "401858488592",
+        "period": 4,
+        "clock": "13:30",
+        "before": 75,
+        "after": 75,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakBefore": {
+        "playId": "401858488755",
+        "period": 4,
+        "clock": "2:03",
+        "before": 99,
+        "after": 99,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakAfter": {
+        "playId": "401858488755",
+        "period": 4,
+        "clock": "2:03",
+        "before": 99,
+        "after": 99,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "final": [
+        72,
+        72
+      ],
+      "checkpoints": 35,
+      "changed": 0
+    },
+    {
+      "sport": "CFB",
+      "eventId": "401858489",
+      "name": "Rutgers Scarlet Knights at Maryland Terrapins",
+      "opening": [
+        40,
+        40
+      ],
+      "first": {
+        "playId": "4018584893",
+        "period": 1,
+        "clock": "14:53",
+        "before": 40,
+        "after": 40,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "half": {
+        "playId": "401858489369",
+        "period": 2,
+        "clock": "0:12",
+        "before": 52,
+        "after": 52,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "late": {
+        "playId": "401858489603",
+        "period": 4,
+        "clock": "11:54",
+        "before": 68,
+        "after": 68,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakBefore": {
+        "playId": "401858489746",
+        "period": 4,
+        "clock": "0:59",
+        "before": 99,
+        "after": 99,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakAfter": {
+        "playId": "401858489746",
+        "period": 4,
+        "clock": "0:59",
+        "before": 99,
+        "after": 99,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "final": [
+        69,
+        69
+      ],
+      "checkpoints": 39,
+      "changed": 0
+    },
+    {
+      "sport": "CFB",
+      "eventId": "401858490",
+      "name": "Penn State Nittany Lions at Michigan Wolverines",
+      "opening": [
+        40,
+        40
+      ],
+      "first": {
+        "playId": "4018584903",
+        "period": 1,
+        "clock": "15:00",
+        "before": 40,
+        "after": 40,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "half": {
+        "playId": "401858490322",
+        "period": 2,
+        "clock": "1:05",
+        "before": 70,
+        "after": 70,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "late": {
+        "playId": "401858490540",
+        "period": 4,
+        "clock": "14:55",
+        "before": 56,
+        "after": 56,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakBefore": {
+        "playId": "401858490643",
+        "period": 4,
+        "clock": "5:42",
+        "before": 88,
+        "after": 88,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakAfter": {
+        "playId": "401858490643",
+        "period": 4,
+        "clock": "5:42",
+        "before": 88,
+        "after": 88,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "final": [
+        63,
+        63
+      ],
+      "checkpoints": 32,
+      "changed": 0
+    },
+    {
+      "sport": "CFB",
+      "eventId": "401858491",
+      "name": "Northwestern Wildcats at Michigan State Spartans",
+      "opening": [
+        44,
+        44
+      ],
+      "first": {
+        "playId": "4018584913",
+        "period": 1,
+        "clock": "15:00",
+        "before": 44,
+        "after": 44,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "half": {
+        "playId": "401858491334",
+        "period": 2,
+        "clock": "0:47",
+        "before": 77,
+        "after": 77,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "late": {
+        "playId": "401858491529",
+        "period": 4,
+        "clock": "15:00",
+        "before": 79,
+        "after": 79,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakBefore": {
+        "playId": "401858491652",
+        "period": 4,
+        "clock": "3:29",
+        "before": 99,
+        "after": 99,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakAfter": {
+        "playId": "401858491652",
+        "period": 4,
+        "clock": "3:29",
+        "before": 99,
+        "after": 99,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "final": [
+        81,
+        81
+      ],
+      "checkpoints": 33,
+      "changed": 0
+    },
+    {
+      "sport": "CFB",
+      "eventId": "401858494",
+      "name": "Wisconsin Badgers at UCLA Bruins",
+      "opening": [
+        44,
+        44
+      ],
+      "first": {
+        "playId": "4018584943",
+        "period": 1,
+        "clock": "15:00",
+        "before": 44,
+        "after": 44,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "half": {
+        "playId": "401858494353",
+        "period": 2,
+        "clock": "0:00",
+        "before": 53,
+        "after": 53,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "late": {
+        "playId": "401858494579",
+        "period": 4,
+        "clock": "11:31",
+        "before": 54,
+        "after": 54,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakBefore": {
+        "playId": "401858494498",
+        "period": 3,
+        "clock": "1:21",
+        "before": 78,
+        "after": 79,
+        "delta": 1,
+        "upsetBefore": 0,
+        "upsetAfter": 1,
+        "explained": true
+      },
+      "peakAfter": {
+        "playId": "401858494498",
+        "period": 3,
+        "clock": "1:21",
+        "before": 78,
+        "after": 79,
+        "delta": 1,
+        "upsetBefore": 0,
+        "upsetAfter": 1,
+        "explained": true
+      },
+      "final": [
+        43,
+        43
+      ],
+      "checkpoints": 32,
+      "changed": 3
+    },
+    {
+      "sport": "CFB",
+      "eventId": "401860903",
+      "name": "Washington State Cougars at Oregon State Beavers",
+      "opening": [
+        40,
+        40
+      ],
+      "first": {
+        "playId": "4018609033",
+        "period": 1,
+        "clock": "15:00",
+        "before": 40,
+        "after": 40,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "half": {
+        "playId": "401860903389",
+        "period": 2,
+        "clock": "1:13",
+        "before": 34,
+        "after": 34,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "late": {
+        "playId": "401860903641",
+        "period": 4,
+        "clock": "14:02",
+        "before": 26,
+        "after": 26,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakBefore": {
+        "playId": "401860903136",
+        "period": 1,
+        "clock": "5:36",
+        "before": 45,
+        "after": 45,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakAfter": {
+        "playId": "401860903136",
+        "period": 1,
+        "clock": "5:36",
+        "before": 45,
+        "after": 45,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "final": [
+        3,
+        3
+      ],
+      "checkpoints": 41,
+      "changed": 0
+    },
+    {
+      "sport": "CFB",
+      "eventId": "401860904",
+      "name": "Fresno State Bulldogs at San Diego State Aztecs",
+      "opening": [
+        40,
+        40
+      ],
+      "first": {
+        "playId": "4018609043",
+        "period": 1,
+        "clock": "15:00",
+        "before": 40,
+        "after": 40,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "half": {
+        "playId": "401860904377",
+        "period": 2,
+        "clock": "0:01",
+        "before": 72,
+        "after": 72,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "late": {
+        "playId": "401860904587",
+        "period": 4,
+        "clock": "12:00",
+        "before": 77,
+        "after": 77,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakBefore": {
+        "playId": "401860904673",
+        "period": 4,
+        "clock": "3:38",
+        "before": 99,
+        "after": 99,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakAfter": {
+        "playId": "401860904673",
+        "period": 4,
+        "clock": "3:38",
+        "before": 99,
+        "after": 99,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "final": [
+        79,
+        79
+      ],
+      "checkpoints": 36,
+      "changed": 0
+    },
+    {
+      "sport": "CFB",
+      "eventId": "401862802",
+      "name": "Florida Atlantic Owls at Army Black Knights",
+      "opening": [
+        40,
+        40
+      ],
+      "first": {
+        "playId": "4018628023",
+        "period": 1,
+        "clock": "14:55",
+        "before": 40,
+        "after": 40,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "half": {
+        "playId": "401862802383",
+        "period": 2,
+        "clock": "0:06",
+        "before": 34,
+        "after": 34,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "late": {
+        "playId": "401862802582",
+        "period": 4,
+        "clock": "12:44",
+        "before": 1,
+        "after": 1,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakBefore": {
+        "playId": "401862802306",
+        "period": 2,
+        "clock": "3:10",
+        "before": 52,
+        "after": 52,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakAfter": {
+        "playId": "401862802306",
+        "period": 2,
+        "clock": "3:10",
+        "before": 52,
+        "after": 52,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "final": [
+        1,
+        1
+      ],
+      "checkpoints": 39,
+      "changed": 0
+    },
+    {
+      "sport": "CFB",
+      "eventId": "401862803",
+      "name": "Charlotte 49ers at Temple Owls",
+      "opening": [
+        40,
+        40
+      ],
+      "first": {
+        "playId": "4018628033",
+        "period": 1,
+        "clock": "14:54",
+        "before": 40,
+        "after": 40,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "half": {
+        "playId": "401862803339",
+        "period": 2,
+        "clock": "0:26",
+        "before": 55,
+        "after": 55,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "late": {
+        "playId": "401862803557",
+        "period": 4,
+        "clock": "14:12",
+        "before": 72,
+        "after": 72,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakBefore": {
+        "playId": "401862803652",
+        "period": 4,
+        "clock": "6:01",
+        "before": 83,
+        "after": 83,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakAfter": {
+        "playId": "401862803652",
+        "period": 4,
+        "clock": "6:01",
+        "before": 83,
+        "after": 83,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "final": [
+        71,
+        71
+      ],
+      "checkpoints": 39,
+      "changed": 0
+    },
+    {
+      "sport": "CFB",
+      "eventId": "401862804",
+      "name": "Navy Midshipmen at UTSA Roadrunners",
+      "opening": [
+        40,
+        40
+      ],
+      "first": {
+        "playId": "4018628043",
+        "period": 1,
+        "clock": "15:00",
+        "before": 40,
+        "after": 40,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "half": {
+        "playId": "401862804369",
+        "period": 2,
+        "clock": "0:58",
+        "before": 76,
+        "after": 76,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "late": {
+        "playId": "401862804591",
+        "period": 4,
+        "clock": "12:47",
+        "before": 88,
+        "after": 88,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakBefore": {
+        "playId": "401862804591",
+        "period": 4,
+        "clock": "12:47",
+        "before": 88,
+        "after": 88,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakAfter": {
+        "playId": "401862804591",
+        "period": 4,
+        "clock": "12:47",
+        "before": 88,
+        "after": 88,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "final": [
+        86,
+        86
+      ],
+      "checkpoints": 38,
+      "changed": 0
+    },
+    {
+      "sport": "CFB",
+      "eventId": "401862805",
+      "name": "Tulsa Golden Hurricane at Rice Owls",
+      "opening": [
+        40,
+        40
+      ],
+      "first": {
+        "playId": "4018628053",
+        "period": 1,
+        "clock": "14:55",
+        "before": 40,
+        "after": 40,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "half": {
+        "playId": "401862805363",
+        "period": 2,
+        "clock": "0:33",
+        "before": 74,
+        "after": 74,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "late": {
+        "playId": "401862805565",
+        "period": 4,
+        "clock": "11:30",
+        "before": 65,
+        "after": 65,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakBefore": {
+        "playId": "401862805357",
+        "period": 2,
+        "clock": "1:01",
+        "before": 77,
+        "after": 77,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakAfter": {
+        "playId": "401862805357",
+        "period": 2,
+        "clock": "1:01",
+        "before": 77,
+        "after": 77,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "final": [
+        26,
+        26
+      ],
+      "checkpoints": 36,
+      "changed": 0
+    },
+    {
+      "sport": "CFB",
+      "eventId": "401862806",
+      "name": "Kent State Golden Flashes at South Florida Bulls",
+      "opening": [
+        40,
+        40
+      ],
+      "first": {
+        "playId": "4018628063",
+        "period": 1,
+        "clock": "14:53",
+        "before": 40,
+        "after": 40,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "half": {
+        "playId": "401862806382",
+        "period": 2,
+        "clock": "0:00",
+        "before": 50,
+        "after": 50,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "late": {
+        "playId": "401862806570",
+        "period": 4,
+        "clock": "13:28",
+        "before": 31,
+        "after": 31,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakBefore": {
+        "playId": "401862806154",
+        "period": 1,
+        "clock": "1:52",
+        "before": 53,
+        "after": 53,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakAfter": {
+        "playId": "401862806154",
+        "period": 1,
+        "clock": "1:52",
+        "before": 53,
+        "after": 53,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "final": [
+        9,
+        9
+      ],
+      "checkpoints": 33,
+      "changed": 0
+    },
+    {
+      "sport": "CFB",
+      "eventId": "401864520",
+      "name": "Nevada Wolf Pack at North Dakota State Bison",
+      "opening": [
+        40,
+        40
+      ],
+      "first": {
+        "playId": "4018645203",
+        "period": 1,
+        "clock": "15:00",
+        "before": 40,
+        "after": 40,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "half": {
+        "playId": "401864520432",
+        "period": 2,
+        "clock": "0:00",
+        "before": 64,
+        "after": 64,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "late": {
+        "playId": "401864520675",
+        "period": 4,
+        "clock": "14:08",
+        "before": 45,
+        "after": 45,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakBefore": {
+        "playId": "401864520392",
+        "period": 2,
+        "clock": "0:21",
+        "before": 76,
+        "after": 76,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakAfter": {
+        "playId": "401864520392",
+        "period": 2,
+        "clock": "0:21",
+        "before": 76,
+        "after": 76,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "final": [
+        39,
+        39
+      ],
+      "checkpoints": 36,
+      "changed": 0
+    },
+    {
+      "sport": "CFB",
+      "eventId": "401864522",
+      "name": "Northern Illinois Huskies at Wyoming Cowboys",
+      "opening": [
+        40,
+        40
+      ],
+      "first": {
+        "playId": "4018645223",
+        "period": 1,
+        "clock": "15:00",
+        "before": 40,
+        "after": 40,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "half": {
+        "playId": "401864522378",
+        "period": 2,
+        "clock": "0:00",
+        "before": 41,
+        "after": 41,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "late": {
+        "playId": "401864522577",
+        "period": 4,
+        "clock": "14:54",
+        "before": 34,
+        "after": 34,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakBefore": {
+        "playId": "401864522217",
+        "period": 2,
+        "clock": "11:33",
+        "before": 49,
+        "after": 49,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakAfter": {
+        "playId": "401864522217",
+        "period": 2,
+        "clock": "11:33",
+        "before": 49,
+        "after": 49,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "final": [
+        3,
+        3
+      ],
+      "checkpoints": 41,
+      "changed": 0
+    },
+    {
+      "sport": "CFB",
+      "eventId": "401864523",
+      "name": "San José State Spartans at UTEP Miners",
+      "opening": [
+        40,
+        40
+      ],
+      "first": {
+        "playId": "4018645233",
+        "period": 1,
+        "clock": "15:00",
+        "before": 40,
+        "after": 40,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "half": {
+        "playId": "401864523367",
+        "period": 2,
+        "clock": "0:22",
+        "before": 53,
+        "after": 53,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "late": {
+        "playId": "401864523600",
+        "period": 4,
+        "clock": "14:54",
+        "before": 27,
+        "after": 27,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakBefore": {
+        "playId": "401864523299",
+        "period": 2,
+        "clock": "4:08",
+        "before": 53,
+        "after": 53,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakAfter": {
+        "playId": "401864523299",
+        "period": 2,
+        "clock": "4:08",
+        "before": 53,
+        "after": 53,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "final": [
+        22,
+        22
+      ],
+      "checkpoints": 35,
+      "changed": 0
+    },
+    {
+      "sport": "CFB",
+      "eventId": "401864524",
+      "name": "UNLV Rebels at Air Force Falcons",
+      "opening": [
+        40,
+        40
+      ],
+      "first": {
+        "playId": "4018645243",
+        "period": 1,
+        "clock": "15:00",
+        "before": 40,
+        "after": 40,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "half": {
+        "playId": "401864524344",
+        "period": 2,
+        "clock": "0:00",
+        "before": 74,
+        "after": 74,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "late": {
+        "playId": "401864524499",
+        "period": 4,
+        "clock": "14:54",
+        "before": 80,
+        "after": 80,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakBefore": {
+        "playId": "401864524446",
+        "period": 3,
+        "clock": "4:23",
+        "before": 82,
+        "after": 82,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakAfter": {
+        "playId": "401864524446",
+        "period": 3,
+        "clock": "4:23",
+        "before": 82,
+        "after": 82,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "final": [
+        64,
+        64
+      ],
+      "checkpoints": 39,
+      "changed": 0
+    },
+    {
+      "sport": "CFB",
+      "eventId": "401866441",
+      "name": "Ball State Cardinals at Bowling Green Falcons",
+      "opening": [
+        40,
+        40
+      ],
+      "first": {
+        "playId": "4018664413",
+        "period": 1,
+        "clock": "15:00",
+        "before": 40,
+        "after": 40,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "half": {
+        "playId": "401866441337",
+        "period": 2,
+        "clock": "0:01",
+        "before": 80,
+        "after": 80,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "late": {
+        "playId": "401866441502",
+        "period": 4,
+        "clock": "12:39",
+        "before": 70,
+        "after": 70,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakBefore": {
+        "playId": "401866441719",
+        "period": 5,
+        "clock": "15:00",
+        "before": 99,
+        "after": 99,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakAfter": {
+        "playId": "401866441719",
+        "period": 5,
+        "clock": "15:00",
+        "before": 99,
+        "after": 99,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "final": [
+        80,
+        80
+      ],
+      "checkpoints": 34,
+      "changed": 0
+    },
+    {
+      "sport": "CFB",
+      "eventId": "401866442",
+      "name": "Massachusetts Minutemen at Buffalo Bulls",
+      "opening": [
+        40,
+        40
+      ],
+      "first": {
+        "playId": "4018664423",
+        "period": 1,
+        "clock": "15:00",
+        "before": 40,
+        "after": 40,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "half": {
+        "playId": "401866442388",
+        "period": 2,
+        "clock": "1:03",
+        "before": 75,
+        "after": 75,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "late": {
+        "playId": "401866442606",
+        "period": 4,
+        "clock": "14:49",
+        "before": 78,
+        "after": 78,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakBefore": {
+        "playId": "401866442727",
+        "period": 4,
+        "clock": "2:22",
+        "before": 99,
+        "after": 99,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakAfter": {
+        "playId": "401866442727",
+        "period": 4,
+        "clock": "2:22",
+        "before": 99,
+        "after": 99,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "final": [
+        80,
+        80
+      ],
+      "checkpoints": 37,
+      "changed": 0
+    },
+    {
+      "sport": "CFB",
+      "eventId": "401866443",
+      "name": "Western Michigan Broncos at Central Michigan Chippewas",
+      "opening": [
+        40,
+        40
+      ],
+      "first": {
+        "playId": "4018664433",
+        "period": 1,
+        "clock": "15:00",
+        "before": 40,
+        "after": 40,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "half": {
+        "playId": "401866443255",
+        "period": 2,
+        "clock": "1:55",
+        "before": 43,
+        "after": 43,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "late": {
+        "playId": "401866443464",
+        "period": 4,
+        "clock": "13:52",
+        "before": 33,
+        "after": 33,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakBefore": {
+        "playId": "401866443714",
+        "period": 4,
+        "clock": "0:35",
+        "before": 86,
+        "after": 86,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakAfter": {
+        "playId": "401866443714",
+        "period": 4,
+        "clock": "0:35",
+        "before": 86,
+        "after": 86,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "final": [
+        55,
+        55
+      ],
+      "checkpoints": 33,
+      "changed": 0
+    },
+    {
+      "sport": "CFB",
+      "eventId": "401866444",
+      "name": "Toledo Rockets at Eastern Michigan Eagles",
+      "opening": [
+        40,
+        40
+      ],
+      "first": {
+        "playId": "4018664443",
+        "period": 1,
+        "clock": "15:00",
+        "before": 40,
+        "after": 40,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "half": {
+        "playId": "401866444423",
+        "period": 2,
+        "clock": "0:24",
+        "before": 28,
+        "after": 28,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "late": {
+        "playId": "401866444715",
+        "period": 4,
+        "clock": "13:13",
+        "before": 23,
+        "after": 23,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakBefore": {
+        "playId": "401866444168",
+        "period": 1,
+        "clock": "0:57",
+        "before": 47,
+        "after": 47,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakAfter": {
+        "playId": "401866444168",
+        "period": 1,
+        "clock": "0:57",
+        "before": 47,
+        "after": 47,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "final": [
+        1,
+        1
+      ],
+      "checkpoints": 38,
+      "changed": 0
+    },
+    {
+      "sport": "CFB",
+      "eventId": "401866445",
+      "name": "Ohio Bobcats at Sacramento State Hornets",
+      "opening": [
+        40,
+        40
+      ],
+      "first": {
+        "playId": "4018664457",
+        "period": 1,
+        "clock": "15:00",
+        "before": 40,
+        "after": 40,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "half": {
+        "playId": "401866445375",
+        "period": 2,
+        "clock": "0:00",
+        "before": 25,
+        "after": 25,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "late": {
+        "playId": "401866445547",
+        "period": 4,
+        "clock": "13:40",
+        "before": 1,
+        "after": 1,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakBefore": {
+        "playId": "401866445213",
+        "period": 2,
+        "clock": "11:52",
+        "before": 49,
+        "after": 49,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakAfter": {
+        "playId": "401866445213",
+        "period": 2,
+        "clock": "11:52",
+        "before": 49,
+        "after": 49,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "final": [
+        1,
+        1
+      ],
+      "checkpoints": 34,
+      "changed": 0
+    },
+    {
+      "sport": "CFB",
+      "eventId": "401866478",
+      "name": "Akron Zips at Miami (OH) RedHawks",
+      "opening": [
+        40,
+        40
+      ],
+      "first": {
+        "playId": "4018664783",
+        "period": 1,
+        "clock": "14:54",
+        "before": 40,
+        "after": 40,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "half": {
+        "playId": "401866478405",
+        "period": 2,
+        "clock": "0:00",
+        "before": 53,
+        "after": 53,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "late": {
+        "playId": "401866478604",
+        "period": 4,
+        "clock": "13:57",
+        "before": 34,
+        "after": 34,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakBefore": {
+        "playId": "401866478308",
+        "period": 2,
+        "clock": "2:29",
+        "before": 66,
+        "after": 66,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakAfter": {
+        "playId": "401866478308",
+        "period": 2,
+        "clock": "2:29",
+        "before": 66,
+        "after": 66,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "final": [
+        9,
+        9
+      ],
+      "checkpoints": 37,
+      "changed": 0
+    },
+    {
+      "sport": "CFB",
+      "eventId": "401869934",
+      "name": "Arkansas State Red Wolves at Southern Miss Golden Eagles",
+      "opening": [
+        40,
+        40
+      ],
+      "first": {
+        "playId": "4018699343",
+        "period": 1,
+        "clock": "15:00",
+        "before": 40,
+        "after": 40,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "half": {
+        "playId": "401869934281",
+        "period": 2,
+        "clock": "10:48",
+        "before": 42,
+        "after": 42,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "late": {
+        "playId": "401869934655",
+        "period": 4,
+        "clock": "13:10",
+        "before": 34,
+        "after": 34,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakBefore": {
+        "playId": "401869934191",
+        "period": 1,
+        "clock": "0:31",
+        "before": 52,
+        "after": 52,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakAfter": {
+        "playId": "401869934191",
+        "period": 1,
+        "clock": "0:31",
+        "before": 52,
+        "after": 52,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "final": [
+        37,
+        37
+      ],
+      "checkpoints": 33,
+      "changed": 0
+    },
+    {
+      "sport": "CFB",
+      "eventId": "401869957",
+      "name": "Georgia State Panthers at James Madison Dukes",
+      "opening": [
+        40,
+        40
+      ],
+      "first": {
+        "playId": "4018699573",
+        "period": 1,
+        "clock": "15:00",
+        "before": 40,
+        "after": 40,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "half": {
+        "playId": "401869957400",
+        "period": 2,
+        "clock": "0:28",
+        "before": 27,
+        "after": 27,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "late": {
+        "playId": "401869957639",
+        "period": 4,
+        "clock": "13:30",
+        "before": 20,
+        "after": 20,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakBefore": {
+        "playId": "401869957203",
+        "period": 1,
+        "clock": "0:00",
+        "before": 47,
+        "after": 47,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakAfter": {
+        "playId": "401869957203",
+        "period": 1,
+        "clock": "0:00",
+        "before": 47,
+        "after": 47,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "final": [
+        1,
+        1
+      ],
+      "checkpoints": 38,
+      "changed": 0
+    },
+    {
+      "sport": "CFB",
+      "eventId": "401869966",
+      "name": "Troy Trojans at Louisiana Ragin' Cajuns",
+      "opening": [
+        40,
+        40
+      ],
+      "first": {
+        "playId": "4018699665",
+        "period": 1,
+        "clock": "15:00",
+        "before": 40,
+        "after": 40,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "half": {
+        "playId": "401869966390",
+        "period": 2,
+        "clock": "0:00",
+        "before": 36,
+        "after": 36,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "late": {
+        "playId": "401869966565",
+        "period": 4,
+        "clock": "14:47",
+        "before": 32,
+        "after": 32,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakBefore": {
+        "playId": "401869966250",
+        "period": 2,
+        "clock": "8:19",
+        "before": 55,
+        "after": 55,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakAfter": {
+        "playId": "401869966250",
+        "period": 2,
+        "clock": "8:19",
+        "before": 55,
+        "after": 55,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "final": [
+        1,
+        1
+      ],
+      "checkpoints": 35,
+      "changed": 0
+    },
+    {
+      "sport": "CFB",
+      "eventId": "401871091",
+      "name": "Louisiana Tech Bulldogs at UL Monroe Warhawks",
+      "opening": [
+        40,
+        40
+      ],
+      "first": {
+        "playId": "4018710913",
+        "period": 1,
+        "clock": "14:55",
+        "before": 40,
+        "after": 40,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "half": {
+        "playId": "401871091317",
+        "period": 2,
+        "clock": "0:08",
+        "before": 55,
+        "after": 55,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "late": {
+        "playId": "401871091514",
+        "period": 4,
+        "clock": "14:51",
+        "before": 37,
+        "after": 37,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakBefore": {
+        "playId": "401871091349",
+        "period": 3,
+        "clock": "14:39",
+        "before": 58,
+        "after": 58,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakAfter": {
+        "playId": "401871091349",
+        "period": 3,
+        "clock": "14:39",
+        "before": 58,
+        "after": 58,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "final": [
+        6,
+        6
+      ],
+      "checkpoints": 32,
+      "changed": 0
+    },
+    {
+      "sport": "NFL",
+      "eventId": "401872981",
+      "name": "Philadelphia Eagles at Jacksonville Jaguars",
+      "opening": [
+        42,
+        42
+      ],
+      "first": {
+        "playId": "40187298139",
+        "period": 1,
+        "clock": "15:00",
+        "before": 49,
+        "after": 49,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "half": {
+        "playId": "4018729812208",
+        "period": 2,
+        "clock": "0:00",
+        "before": 66,
+        "after": 66,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "late": {
+        "playId": "4018729813607",
+        "period": 4,
+        "clock": "14:07",
+        "before": 68,
+        "after": 68,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakBefore": {
+        "playId": "4018729814895",
+        "period": 4,
+        "clock": "0:17",
+        "before": 94,
+        "after": 94,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakAfter": {
+        "playId": "4018729814895",
+        "period": 4,
+        "clock": "0:17",
+        "before": 94,
+        "after": 94,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "final": [
+        80,
+        80
+      ],
+      "checkpoints": 34,
+      "changed": 0
+    },
+    {
+      "sport": "NFL",
+      "eventId": "401872982",
+      "name": "Cincinnati Bengals at Miami Dolphins",
+      "opening": [
+        37,
+        37
+      ],
+      "first": {
+        "playId": "40187298240",
+        "period": 1,
+        "clock": "15:00",
+        "before": 38,
+        "after": 38,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "half": {
+        "playId": "4018729822063",
+        "period": 2,
+        "clock": "0:32",
+        "before": 42,
+        "after": 42,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "late": {
+        "playId": "4018729823321",
+        "period": 4,
+        "clock": "10:22",
+        "before": 29,
+        "after": 29,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakBefore": {
+        "playId": "4018729821123",
+        "period": 2,
+        "clock": "14:23",
+        "before": 53,
+        "after": 53,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakAfter": {
+        "playId": "4018729821123",
+        "period": 2,
+        "clock": "14:23",
+        "before": 53,
+        "after": 53,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "final": [
+        41,
+        41
+      ],
+      "checkpoints": 37,
+      "changed": 0
+    },
+    {
+      "sport": "NFL",
+      "eventId": "401872983",
+      "name": "Cleveland Browns at New York Jets",
+      "opening": [
+        42,
+        42
+      ],
+      "first": {
+        "playId": "40187298341",
+        "period": 1,
+        "clock": "15:00",
+        "before": 43,
+        "after": 43,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "half": {
+        "playId": "4018729832078",
+        "period": 2,
+        "clock": "1:10",
+        "before": 58,
+        "after": 58,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "late": {
+        "playId": "4018729833194",
+        "period": 4,
+        "clock": "14:37",
+        "before": 61,
+        "after": 61,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakBefore": {
+        "playId": "4018729834516",
+        "period": 4,
+        "clock": "0:57",
+        "before": 89,
+        "after": 89,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakAfter": {
+        "playId": "4018729834516",
+        "period": 4,
+        "clock": "0:57",
+        "before": 89,
+        "after": 89,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "final": [
+        69,
+        69
+      ],
+      "checkpoints": 35,
+      "changed": 0
+    },
+    {
+      "sport": "NFL",
+      "eventId": "401872984",
+      "name": "Houston Texans at Tennessee Titans",
+      "opening": [
+        34,
+        34
+      ],
+      "first": {
+        "playId": "40187298440",
+        "period": 1,
+        "clock": "15:00",
+        "before": 39,
+        "after": 39,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "half": {
+        "playId": "4018729842063",
+        "period": 2,
+        "clock": "0:10",
+        "before": 48,
+        "after": 48,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "late": {
+        "playId": "4018729843175",
+        "period": 4,
+        "clock": "14:09",
+        "before": 25,
+        "after": 25,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakBefore": {
+        "playId": "4018729841443",
+        "period": 2,
+        "clock": "6:56",
+        "before": 54,
+        "after": 54,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakAfter": {
+        "playId": "4018729841443",
+        "period": 2,
+        "clock": "6:56",
+        "before": 54,
+        "after": 54,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "final": [
+        4,
+        4
+      ],
+      "checkpoints": 34,
+      "changed": 0
+    },
+    {
+      "sport": "NFL",
+      "eventId": "401872985",
+      "name": "Indianapolis Colts at Pittsburgh Steelers",
+      "opening": [
+        42,
+        42
+      ],
+      "first": {
+        "playId": "40187298540",
+        "period": 1,
+        "clock": "15:00",
+        "before": 43,
+        "after": 43,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "half": {
+        "playId": "4018729852008",
+        "period": 2,
+        "clock": "0:33",
+        "before": 57,
+        "after": 57,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "late": {
+        "playId": "4018729853205",
+        "period": 4,
+        "clock": "14:27",
+        "before": 67,
+        "after": 67,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakBefore": {
+        "playId": "4018729853398",
+        "period": 4,
+        "clock": "11:42",
+        "before": 68,
+        "after": 68,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakAfter": {
+        "playId": "4018729853398",
+        "period": 4,
+        "clock": "11:42",
+        "before": 68,
+        "after": 68,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "final": [
+        41,
+        41
+      ],
+      "checkpoints": 40,
+      "changed": 0
+    },
+    {
+      "sport": "NFL",
+      "eventId": "401872986",
+      "name": "Las Vegas Raiders at New England Patriots",
+      "opening": [
+        60,
+        60
+      ],
+      "first": {
+        "playId": "40187298640",
+        "period": 1,
+        "clock": "15:00",
+        "before": 50,
+        "after": 50,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "half": {
+        "playId": "4018729862189",
+        "period": 2,
+        "clock": "0:24",
+        "before": 46,
+        "after": 46,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "late": {
+        "playId": "4018729863698",
+        "period": 4,
+        "clock": "14:12",
+        "before": 11,
+        "after": 11,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakBefore": {
+        "playId": "401872986932",
+        "period": 1,
+        "clock": "1:55",
+        "before": 63,
+        "after": 63,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakAfter": {
+        "playId": "401872986932",
+        "period": 1,
+        "clock": "1:55",
+        "before": 63,
+        "after": 63,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "final": [
+        7,
+        7
+      ],
+      "checkpoints": 38,
+      "changed": 0
+    },
+    {
+      "sport": "NFL",
+      "eventId": "401872987",
+      "name": "Minnesota Vikings at New Orleans Saints",
+      "opening": [
+        49,
+        49
+      ],
+      "first": {
+        "playId": "40187298740",
+        "period": 1,
+        "clock": "15:00",
+        "before": 51,
+        "after": 51,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "half": {
+        "playId": "4018729871920",
+        "period": 2,
+        "clock": "0:00",
+        "before": 65,
+        "after": 65,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "late": {
+        "playId": "4018729872886",
+        "period": 4,
+        "clock": "14:06",
+        "before": 60,
+        "after": 60,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakBefore": {
+        "playId": "4018729872643",
+        "period": 3,
+        "clock": "2:34",
+        "before": 76,
+        "after": 76,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakAfter": {
+        "playId": "4018729872643",
+        "period": 3,
+        "clock": "2:34",
+        "before": 76,
+        "after": 76,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "final": [
+        49,
+        49
+      ],
+      "checkpoints": 35,
+      "changed": 0
+    },
+    {
+      "sport": "NFL",
+      "eventId": "401872988",
+      "name": "New York Giants at Washington Commanders",
+      "opening": [
+        46,
+        46
+      ],
+      "first": {
+        "playId": "40187298840",
+        "period": 1,
+        "clock": "15:00",
+        "before": 48,
+        "after": 48,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "half": {
+        "playId": "4018729881992",
+        "period": 2,
+        "clock": "0:36",
+        "before": 43,
+        "after": 43,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "late": {
+        "playId": "4018729883292",
+        "period": 4,
+        "clock": "13:00",
+        "before": 45,
+        "after": 45,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakBefore": {
+        "playId": "4018729885002",
+        "period": 5,
+        "clock": "1:55",
+        "before": 95,
+        "after": 95,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakAfter": {
+        "playId": "4018729885002",
+        "period": 5,
+        "clock": "1:55",
+        "before": 95,
+        "after": 95,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "final": [
+        82,
+        82
+      ],
+      "checkpoints": 40,
+      "changed": 0
+    },
+    {
+      "sport": "NFL",
+      "eventId": "401872989",
+      "name": "Denver Broncos at Los Angeles Chargers",
+      "opening": [
+        41,
+        41
+      ],
+      "first": {
+        "playId": "40187298939",
+        "period": 1,
+        "clock": "15:00",
+        "before": 42,
+        "after": 42,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "half": {
+        "playId": "4018729892087",
+        "period": 2,
+        "clock": "0:20",
+        "before": 50,
+        "after": 50,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "late": {
+        "playId": "4018729893144",
+        "period": 4,
+        "clock": "14:49",
+        "before": 62,
+        "after": 62,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakBefore": {
+        "playId": "4018729894156",
+        "period": 4,
+        "clock": "1:02",
+        "before": 87,
+        "after": 87,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakAfter": {
+        "playId": "4018729894156",
+        "period": 4,
+        "clock": "1:02",
+        "before": 87,
+        "after": 87,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "final": [
+        59,
+        59
+      ],
+      "checkpoints": 35,
+      "changed": 0
+    },
+    {
+      "sport": "NFL",
+      "eventId": "401872990",
+      "name": "Chicago Bears at Green Bay Packers",
+      "opening": [
+        67,
+        67
+      ],
+      "first": {
+        "playId": "40187299040",
+        "period": 1,
+        "clock": "15:00",
+        "before": 54,
+        "after": 54,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "half": {
+        "playId": "4018729901722",
+        "period": 2,
+        "clock": "1:22",
+        "before": 55,
+        "after": 55,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "late": {
+        "playId": "4018729903052",
+        "period": 4,
+        "clock": "14:55",
+        "before": 30,
+        "after": 30,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakBefore": {
+        "playId": "401872990423",
+        "period": 1,
+        "clock": "5:51",
+        "before": 59,
+        "after": 59,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakAfter": {
+        "playId": "401872990423",
+        "period": 1,
+        "clock": "5:51",
+        "before": 59,
+        "after": 59,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "final": [
+        4,
+        4
+      ],
+      "checkpoints": 33,
+      "changed": 0
+    },
+    {
+      "sport": "NFL",
+      "eventId": "401872991",
+      "name": "Detroit Lions at Arizona Cardinals",
+      "opening": [
+        42,
+        42
+      ],
+      "first": {
+        "playId": "40187299139",
+        "period": 1,
+        "clock": "15:00",
+        "before": 43,
+        "after": 43,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "half": {
+        "playId": "4018729912435",
+        "period": 2,
+        "clock": "0:36",
+        "before": 47,
+        "after": 47,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "late": {
+        "playId": "4018729913551",
+        "period": 4,
+        "clock": "15:00",
+        "before": 30,
+        "after": 30,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakBefore": {
+        "playId": "4018729911567",
+        "period": 2,
+        "clock": "9:30",
+        "before": 62,
+        "after": 62,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakAfter": {
+        "playId": "4018729911567",
+        "period": 2,
+        "clock": "9:30",
+        "before": 62,
+        "after": 62,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "final": [
+        14,
+        14
+      ],
+      "checkpoints": 38,
+      "changed": 0
+    },
+    {
+      "sport": "NFL",
+      "eventId": "401872992",
+      "name": "San Francisco 49ers at Seattle Seahawks",
+      "opening": [
+        70,
+        70
+      ],
+      "first": {
+        "playId": "40187299239",
+        "period": 1,
+        "clock": "15:00",
+        "before": 67,
+        "after": 67,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "half": {
+        "playId": "4018729922201",
+        "period": 2,
+        "clock": "0:13",
+        "before": 65,
+        "after": 65,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "late": {
+        "playId": "4018729923381",
+        "period": 4,
+        "clock": "13:11",
+        "before": 73,
+        "after": 73,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakBefore": {
+        "playId": "4018729924135",
+        "period": 4,
+        "clock": "1:00",
+        "before": 93,
+        "after": 93,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakAfter": {
+        "playId": "4018729924135",
+        "period": 4,
+        "clock": "1:00",
+        "before": 93,
+        "after": 93,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "final": [
+        66,
+        66
+      ],
+      "checkpoints": 40,
+      "changed": 0
+    },
+    {
+      "sport": "NFL",
+      "eventId": "401872993",
+      "name": "Baltimore Ravens at Atlanta Falcons",
+      "opening": [
+        42,
+        42
+      ],
+      "first": {
+        "playId": "40187299339",
+        "period": 1,
+        "clock": "15:00",
+        "before": 44,
+        "after": 44,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "half": {
+        "playId": "4018729932013",
+        "period": 2,
+        "clock": "0:00",
+        "before": 54,
+        "after": 54,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "late": {
+        "playId": "4018729932987",
+        "period": 4,
+        "clock": "13:38",
+        "before": 62,
+        "after": 62,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakBefore": {
+        "playId": "4018729933847",
+        "period": 4,
+        "clock": "0:52",
+        "before": 92,
+        "after": 92,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakAfter": {
+        "playId": "4018729933847",
+        "period": 4,
+        "clock": "0:52",
+        "before": 92,
+        "after": 92,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "final": [
+        79,
+        79
+      ],
+      "checkpoints": 38,
+      "changed": 0
+    },
+    {
+      "sport": "NFL",
+      "eventId": "401872996",
+      "name": "Houston Texans at Jacksonville Jaguars",
+      "opening": [
+        46,
+        46
+      ],
+      "first": {
+        "playId": "40187299640",
+        "period": 1,
+        "clock": "15:00",
+        "before": 48,
+        "after": 48,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "half": {
+        "playId": "4018729962088",
+        "period": 2,
+        "clock": "0:08",
+        "before": 69,
+        "after": 69,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "late": {
+        "playId": "4018729963617",
+        "period": 4,
+        "clock": "11:26",
+        "before": 68,
+        "after": 68,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakBefore": {
+        "playId": "4018729964431",
+        "period": 4,
+        "clock": "0:47",
+        "before": 93,
+        "after": 93,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakAfter": {
+        "playId": "4018729964431",
+        "period": 4,
+        "clock": "0:47",
+        "before": 93,
+        "after": 93,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "final": [
+        78,
+        78
+      ],
+      "checkpoints": 39,
+      "changed": 0
+    },
+    {
+      "sport": "NFL",
+      "eventId": "401872997",
+      "name": "Baltimore Ravens at Cleveland Browns",
+      "opening": [
+        67,
+        67
+      ],
+      "first": {
+        "playId": "40187299740",
+        "period": 1,
+        "clock": "15:00",
+        "before": 59,
+        "after": 59,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "half": {
+        "playId": "4018729971974",
+        "period": 2,
+        "clock": "0:00",
+        "before": 47,
+        "after": 47,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "late": {
+        "playId": "4018729972775",
+        "period": 4,
+        "clock": "15:00",
+        "before": 52,
+        "after": 52,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakBefore": {
+        "playId": "4018729973905",
+        "period": 4,
+        "clock": "0:42",
+        "before": 93,
+        "after": 93,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakAfter": {
+        "playId": "4018729973905",
+        "period": 4,
+        "clock": "0:42",
+        "before": 93,
+        "after": 93,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "final": [
+        79,
+        79
+      ],
+      "checkpoints": 33,
+      "changed": 0
+    },
+    {
+      "sport": "NFL",
+      "eventId": "401872998",
+      "name": "Carolina Panthers at Philadelphia Eagles",
+      "opening": [
+        42,
+        42
+      ],
+      "first": {
+        "playId": "40187299840",
+        "period": 1,
+        "clock": "15:00",
+        "before": 43,
+        "after": 43,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "half": {
+        "playId": "4018729982248",
+        "period": 2,
+        "clock": "2:42",
+        "before": 53,
+        "after": 53,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "late": {
+        "playId": "4018729983594",
+        "period": 4,
+        "clock": "15:00",
+        "before": 49,
+        "after": 49,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakBefore": {
+        "playId": "4018729982248",
+        "period": 2,
+        "clock": "2:42",
+        "before": 53,
+        "after": 53,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakAfter": {
+        "playId": "4018729982248",
+        "period": 2,
+        "clock": "2:42",
+        "before": 53,
+        "after": 53,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "final": [
+        40,
+        40
+      ],
+      "checkpoints": 35,
+      "changed": 0
+    },
+    {
+      "sport": "NFL",
+      "eventId": "401872999",
+      "name": "Chicago Bears at Atlanta Falcons",
+      "opening": [
+        42,
+        42
+      ],
+      "first": {
+        "playId": "40187299940",
+        "period": 1,
+        "clock": "15:00",
+        "before": 44,
+        "after": 44,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "half": {
+        "playId": "4018729992225",
+        "period": 2,
+        "clock": "0:33",
+        "before": 34,
+        "after": 34,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "late": {
+        "playId": "4018729993259",
+        "period": 4,
+        "clock": "14:56",
+        "before": 20,
+        "after": 20,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakBefore": {
+        "playId": "4018729991749",
+        "period": 2,
+        "clock": "2:00",
+        "before": 48,
+        "after": 48,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakAfter": {
+        "playId": "4018729991749",
+        "period": 2,
+        "clock": "2:00",
+        "before": 48,
+        "after": 48,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "final": [
+        30,
+        30
+      ],
+      "checkpoints": 37,
+      "changed": 0
+    },
+    {
+      "sport": "NFL",
+      "eventId": "401873000",
+      "name": "New Orleans Saints at New York Giants",
+      "opening": [
+        42,
+        42
+      ],
+      "first": {
+        "playId": "40187300040",
+        "period": 1,
+        "clock": "15:00",
+        "before": 43,
+        "after": 43,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "half": {
+        "playId": "4018730002186",
+        "period": 2,
+        "clock": "0:01",
+        "before": 69,
+        "after": 69,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "late": {
+        "playId": "4018730003535",
+        "period": 4,
+        "clock": "12:48",
+        "before": 41,
+        "after": 41,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakBefore": {
+        "playId": "4018730005010",
+        "period": 4,
+        "clock": "0:24",
+        "before": 90,
+        "after": 90,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakAfter": {
+        "playId": "4018730005010",
+        "period": 4,
+        "clock": "0:24",
+        "before": 90,
+        "after": 90,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "final": [
+        63,
+        63
+      ],
+      "checkpoints": 38,
+      "changed": 0
+    },
+    {
+      "sport": "NFL",
+      "eventId": "401873001",
+      "name": "New York Jets at New England Patriots",
+      "opening": [
+        46,
+        46
+      ],
+      "first": {
+        "playId": "40187300141",
+        "period": 1,
+        "clock": "15:00",
+        "before": 48,
+        "after": 48,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "half": {
+        "playId": "4018730012109",
+        "period": 2,
+        "clock": "0:00",
+        "before": 40,
+        "after": 40,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "late": {
+        "playId": "4018730013140",
+        "period": 4,
+        "clock": "14:10",
+        "before": 39,
+        "after": 39,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakBefore": {
+        "playId": "401873001661",
+        "period": 1,
+        "clock": "4:10",
+        "before": 57,
+        "after": 57,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakAfter": {
+        "playId": "401873001661",
+        "period": 1,
+        "clock": "4:10",
+        "before": 57,
+        "after": 57,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "final": [
+        42,
+        42
+      ],
+      "checkpoints": 37,
+      "changed": 0
+    },
+    {
+      "sport": "NFL",
+      "eventId": "401873002",
+      "name": "Pittsburgh Steelers at Tampa Bay Buccaneers",
+      "opening": [
+        42,
+        42
+      ],
+      "first": {
+        "playId": "40187300240",
+        "period": 1,
+        "clock": "15:00",
+        "before": 44,
+        "after": 44,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "half": {
+        "playId": "4018730022127",
+        "period": 2,
+        "clock": "0:00",
+        "before": 43,
+        "after": 43,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "late": {
+        "playId": "4018730023185",
+        "period": 4,
+        "clock": "13:48",
+        "before": 51,
+        "after": 51,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakBefore": {
+        "playId": "4018730024774",
+        "period": 5,
+        "clock": "2:26",
+        "before": 93,
+        "after": 93,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakAfter": {
+        "playId": "4018730024774",
+        "period": 5,
+        "clock": "2:26",
+        "before": 93,
+        "after": 93,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "final": [
+        79,
+        79
+      ],
+      "checkpoints": 41,
+      "changed": 0
+    },
+    {
+      "sport": "NFL",
+      "eventId": "401873003",
+      "name": "Tennessee Titans at Indianapolis Colts",
+      "opening": [
+        39,
+        39
+      ],
+      "first": {
+        "playId": "40187300340",
+        "period": 1,
+        "clock": "15:00",
+        "before": 42,
+        "after": 42,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "half": {
+        "playId": "4018730031831",
+        "period": 2,
+        "clock": "0:11",
+        "before": 39,
+        "after": 39,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "late": {
+        "playId": "4018730033284",
+        "period": 4,
+        "clock": "10:17",
+        "before": 75,
+        "after": 75,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakBefore": {
+        "playId": "4018730033897",
+        "period": 4,
+        "clock": "1:52",
+        "before": 89,
+        "after": 89,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakAfter": {
+        "playId": "4018730033897",
+        "period": 4,
+        "clock": "1:52",
+        "before": 89,
+        "after": 89,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "final": [
+        68,
+        68
+      ],
+      "checkpoints": 36,
+      "changed": 0
+    },
+    {
+      "sport": "NFL",
+      "eventId": "401873004",
+      "name": "Arizona Cardinals at Los Angeles Rams",
+      "opening": [
+        39,
+        39
+      ],
+      "first": {
+        "playId": "40187300439",
+        "period": 1,
+        "clock": "15:00",
+        "before": 44,
+        "after": 44,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "half": {
+        "playId": "4018730041934",
+        "period": 2,
+        "clock": "0:00",
+        "before": 48,
+        "after": 48,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "late": {
+        "playId": "4018730042872",
+        "period": 4,
+        "clock": "13:03",
+        "before": 65,
+        "after": 65,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakBefore": {
+        "playId": "4018730044086",
+        "period": 4,
+        "clock": "0:31",
+        "before": 94,
+        "after": 94,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakAfter": {
+        "playId": "4018730044086",
+        "period": 4,
+        "clock": "0:31",
+        "before": 94,
+        "after": 94,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "final": [
+        99,
+        99
+      ],
+      "checkpoints": 32,
+      "changed": 0
+    },
+    {
+      "sport": "NFL",
+      "eventId": "401873005",
+      "name": "Buffalo Bills at Las Vegas Raiders",
+      "opening": [
+        47,
+        47
+      ],
+      "first": {
+        "playId": "40187300539",
+        "period": 1,
+        "clock": "15:00",
+        "before": 44,
+        "after": 44,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "half": {
+        "playId": "4018730051999",
+        "period": 2,
+        "clock": "0:00",
+        "before": 55,
+        "after": 55,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "late": {
+        "playId": "4018730053172",
+        "period": 4,
+        "clock": "15:00",
+        "before": 46,
+        "after": 46,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakBefore": {
+        "playId": "4018730053777",
+        "period": 4,
+        "clock": "6:16",
+        "before": 71,
+        "after": 71,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakAfter": {
+        "playId": "4018730053777",
+        "period": 4,
+        "clock": "6:16",
+        "before": 71,
+        "after": 71,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "final": [
+        63,
+        63
+      ],
+      "checkpoints": 39,
+      "changed": 0
+    },
+    {
+      "sport": "NFL",
+      "eventId": "401873006",
+      "name": "Los Angeles Chargers at Kansas City Chiefs",
+      "opening": [
+        48,
+        48
+      ],
+      "first": {
+        "playId": "40187300639",
+        "period": 1,
+        "clock": "15:00",
+        "before": 50,
+        "after": 50,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "half": {
+        "playId": "4018730062345",
+        "period": 2,
+        "clock": "0:02",
+        "before": 38,
+        "after": 38,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "late": {
+        "playId": "4018730063492",
+        "period": 4,
+        "clock": "14:22",
+        "before": 31,
+        "after": 31,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakBefore": {
+        "playId": "401873006553",
+        "period": 1,
+        "clock": "7:21",
+        "before": 54,
+        "after": 54,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakAfter": {
+        "playId": "401873006553",
+        "period": 1,
+        "clock": "7:21",
+        "before": 54,
+        "after": 54,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "final": [
+        5,
+        5
+      ],
+      "checkpoints": 36,
+      "changed": 0
+    },
+    {
+      "sport": "NFL",
+      "eventId": "401873007",
+      "name": "Dallas Cowboys at Green Bay Packers",
+      "opening": [
+        42,
+        42
+      ],
+      "first": {
+        "playId": "40187300739",
+        "period": 1,
+        "clock": "15:00",
+        "before": 44,
+        "after": 44,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "half": {
+        "playId": "4018730072321",
+        "period": 2,
+        "clock": "0:00",
+        "before": 37,
+        "after": 37,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "late": {
+        "playId": "4018730073534",
+        "period": 4,
+        "clock": "13:37",
+        "before": 36,
+        "after": 36,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakBefore": {
+        "playId": "4018730071104",
+        "period": 2,
+        "clock": "14:28",
+        "before": 52,
+        "after": 52,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakAfter": {
+        "playId": "4018730071104",
+        "period": 2,
+        "clock": "14:28",
+        "before": 52,
+        "after": 52,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "final": [
+        27,
+        27
+      ],
+      "checkpoints": 36,
+      "changed": 0
+    },
+    {
+      "sport": "NFL",
+      "eventId": "401873026",
+      "name": "Baltimore Ravens at Buffalo Bills",
+      "opening": [
+        55,
+        55
+      ],
+      "first": {
+        "playId": "40187302640",
+        "period": 1,
+        "clock": "15:00",
+        "before": 55,
+        "after": 55,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "half": {
+        "playId": "4018730261888",
+        "period": 2,
+        "clock": "6:37",
+        "before": 52,
+        "after": 52,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakBefore": {
+        "playId": "401873026923",
+        "period": 1,
+        "clock": "3:38",
+        "before": 64,
+        "after": 64,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "peakAfter": {
+        "playId": "401873026923",
+        "period": 1,
+        "clock": "3:38",
+        "before": 64,
+        "after": 64,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "final": [
+        52,
+        53
+      ],
+      "checkpoints": 31,
+      "changed": 0
+    },
+    {
+      "sport": "NFL",
+      "eventId": "401873031",
+      "name": "Tennessee Titans at Cincinnati Bengals",
+      "opening": [
+        36,
+        36
+      ],
+      "first": {
+        "playId": "40187303141",
+        "period": 1,
+        "clock": "15:00",
+        "before": 36,
+        "after": 36,
+        "delta": 0,
+        "upsetBefore": 0,
+        "upsetAfter": 0,
+        "explained": true
+      },
+      "half": {
+        "playId": "4018730311945",
+        "period": 2,
+        "clock": "2:00",
+        "before": 63,
+        "after": 59,
+        "delta": -4,
+        "upsetBefore": 14,
+        "upsetAfter": 10,
+        "explained": true
+      },
+      "peakBefore": {
+        "playId": "4018730311788",
+        "period": 2,
+        "clock": "3:52",
+        "before": 67,
+        "after": 62,
+        "delta": -5,
+        "upsetBefore": 14,
+        "upsetAfter": 9,
+        "explained": true
+      },
+      "peakAfter": {
+        "playId": "4018730311788",
+        "period": 2,
+        "clock": "3:52",
+        "before": 67,
+        "after": 62,
+        "delta": -5,
+        "upsetBefore": 14,
+        "upsetAfter": 9,
+        "explained": true
+      },
+      "final": [
+        63,
+        59
+      ],
+      "checkpoints": 30,
+      "changed": 27
+    }
+  ],
+  "checkpointCount": 2774,
+  "flags": [
+    {
+      "sport": "CFB",
+      "eventId": "401856719",
+      "playId": "401856719471",
+      "period": 3,
+      "clock": "11:28",
+      "before": 69,
+      "after": 76,
+      "delta": 7,
+      "upsetBefore": 0,
+      "upsetAfter": 7,
+      "explained": true,
+      "reason": "Modest rank-based CFB upset threat where no historical line is available"
+    },
+    {
+      "sport": "CFB",
+      "eventId": "401856719",
+      "playId": "401856719498",
+      "period": 3,
+      "clock": "9:23",
+      "before": 68,
+      "after": 76,
+      "delta": 8,
+      "upsetBefore": 0,
+      "upsetAfter": 8,
+      "explained": true,
+      "reason": "Modest rank-based CFB upset threat where no historical line is available"
+    },
+    {
+      "sport": "CFB",
+      "eventId": "401856719",
+      "playId": "401856719542",
+      "period": 3,
+      "clock": "5:38",
+      "before": 69,
+      "after": 78,
+      "delta": 9,
+      "upsetBefore": 0,
+      "upsetAfter": 9,
+      "explained": true,
+      "reason": "Modest rank-based CFB upset threat where no historical line is available"
+    },
+    {
+      "sport": "CFB",
+      "eventId": "401856719",
+      "playId": "401856719580",
+      "period": 3,
+      "clock": "0:30",
+      "before": 66,
+      "after": 76,
+      "delta": 10,
+      "upsetBefore": 0,
+      "upsetAfter": 10,
+      "explained": true,
+      "reason": "Modest rank-based CFB upset threat where no historical line is available"
+    },
+    {
+      "sport": "CFB",
+      "eventId": "401856719",
+      "playId": "401856719605",
+      "period": 4,
+      "clock": "14:15",
+      "before": 72,
+      "after": 81,
+      "delta": 9,
+      "upsetBefore": 0,
+      "upsetAfter": 9,
+      "explained": true,
+      "reason": "Modest rank-based CFB upset threat where no historical line is available"
+    },
+    {
+      "sport": "CFB",
+      "eventId": "401856719",
+      "playId": "401856719623",
+      "period": 4,
+      "clock": "12:10",
+      "before": 74,
+      "after": 83,
+      "delta": 9,
+      "upsetBefore": 0,
+      "upsetAfter": 9,
+      "explained": true,
+      "reason": "Modest rank-based CFB upset threat where no historical line is available"
+    },
+    {
+      "sport": "CFB",
+      "eventId": "401856719",
+      "playId": "401856719664",
+      "period": 4,
+      "clock": "8:59",
+      "before": 73,
+      "after": 82,
+      "delta": 9,
+      "upsetBefore": 0,
+      "upsetAfter": 9,
+      "explained": true,
+      "reason": "Modest rank-based CFB upset threat where no historical line is available"
+    },
+    {
+      "sport": "CFB",
+      "eventId": "401856719",
+      "playId": "401856719701",
+      "period": 4,
+      "clock": "6:01",
+      "before": 87,
+      "after": 93,
+      "delta": 6,
+      "upsetBefore": 0,
+      "upsetAfter": 9,
+      "explained": true,
+      "reason": "Modest rank-based CFB upset threat where no historical line is available"
+    },
+    {
+      "sport": "CFB",
+      "eventId": "401856724",
+      "playId": "401856724665",
+      "period": 4,
+      "clock": "6:22",
+      "before": 57,
+      "after": 63,
+      "delta": 6,
+      "upsetBefore": 0,
+      "upsetAfter": 6,
+      "explained": true,
+      "reason": "Modest rank-based CFB upset threat where no historical line is available"
+    },
+    {
+      "sport": "CFB",
+      "eventId": "401856724",
+      "playId": "401856724687",
+      "period": 4,
+      "clock": "5:06",
+      "before": 63,
+      "after": 69,
+      "delta": 6,
+      "upsetBefore": 0,
+      "upsetAfter": 6,
+      "explained": true,
+      "reason": "Modest rank-based CFB upset threat where no historical line is available"
+    },
+    {
+      "sport": "CFB",
+      "eventId": "401858263",
+      "playId": "401858263531",
+      "period": 3,
+      "clock": "4:09",
+      "before": 73,
+      "after": 79,
+      "delta": 6,
+      "upsetBefore": 0,
+      "upsetAfter": 6,
+      "explained": true,
+      "reason": "Modest rank-based CFB upset threat where no historical line is available"
+    },
+    {
+      "sport": "CFB",
+      "eventId": "401858263",
+      "playId": "401858263551",
+      "period": 3,
+      "clock": "2:54",
+      "before": 69,
+      "after": 76,
+      "delta": 7,
+      "upsetBefore": 0,
+      "upsetAfter": 7,
+      "explained": true,
+      "reason": "Modest rank-based CFB upset threat where no historical line is available"
+    },
+    {
+      "sport": "CFB",
+      "eventId": "401858263",
+      "playId": "401858263595",
+      "period": 4,
+      "clock": "13:37",
+      "before": 75,
+      "after": 82,
+      "delta": 7,
+      "upsetBefore": 0,
+      "upsetAfter": 7,
+      "explained": true,
+      "reason": "Modest rank-based CFB upset threat where no historical line is available"
+    },
+    {
+      "sport": "NFL",
+      "eventId": "401873031",
+      "playId": "4018730311094",
+      "period": 1,
+      "clock": "0:28",
+      "before": 43,
+      "after": 49,
+      "delta": 6,
+      "upsetBefore": 0,
+      "upsetAfter": 6,
+      "explained": true,
+      "reason": "Continuous market-based surprise replaces elapsed-time gate / magnitude curve"
+    },
+    {
+      "sport": "NFL",
+      "eventId": "401873031",
+      "playId": "4018730311186",
+      "period": 2,
+      "clock": "13:34",
+      "before": 43,
+      "after": 50,
+      "delta": 7,
+      "upsetBefore": 0,
+      "upsetAfter": 7,
+      "explained": true,
+      "reason": "Continuous market-based surprise replaces elapsed-time gate / magnitude curve"
+    },
+    {
+      "sport": "NFL",
+      "eventId": "401873031",
+      "playId": "4018730311223",
+      "period": 2,
+      "clock": "13:20",
+      "before": 44,
+      "after": 50,
+      "delta": 6,
+      "upsetBefore": 0,
+      "upsetAfter": 6,
+      "explained": true,
+      "reason": "Continuous market-based surprise replaces elapsed-time gate / magnitude curve"
+    },
+    {
+      "sport": "NFL",
+      "eventId": "401873031",
+      "playId": "4018730311271",
+      "period": 2,
+      "clock": "13:20",
+      "before": 44,
+      "after": 50,
+      "delta": 6,
+      "upsetBefore": 0,
+      "upsetAfter": 6,
+      "explained": true,
+      "reason": "Continuous market-based surprise replaces elapsed-time gate / magnitude curve"
+    },
+    {
+      "sport": "NFL",
+      "eventId": "401873031",
+      "playId": "4018730311402",
+      "period": 2,
+      "clock": "11:43",
+      "before": 45,
+      "after": 51,
+      "delta": 6,
+      "upsetBefore": 0,
+      "upsetAfter": 6,
+      "explained": true,
+      "reason": "Continuous market-based surprise replaces elapsed-time gate / magnitude curve"
+    },
+    {
+      "sport": "NFL",
+      "eventId": "401873031",
+      "playId": "4018730311534",
+      "period": 2,
+      "clock": "8:50",
+      "before": 59,
+      "after": 53,
+      "delta": -6,
+      "upsetBefore": 13,
+      "upsetAfter": 7,
+      "explained": true,
+      "reason": "Continuous market-based surprise replaces elapsed-time gate / magnitude curve"
+    },
+    {
+      "sport": "NFL",
+      "eventId": "401873031",
+      "playId": "4018730311639",
+      "period": 2,
+      "clock": "7:36",
+      "before": 62,
+      "after": 56,
+      "delta": -6,
+      "upsetBefore": 14,
+      "upsetAfter": 8,
+      "explained": true,
+      "reason": "Continuous market-based surprise replaces elapsed-time gate / magnitude curve"
+    },
+    {
+      "sport": "NFL",
+      "eventId": "401873031",
+      "playId": "4018730311709",
+      "period": 2,
+      "clock": "5:33",
+      "before": 64,
+      "after": 58,
+      "delta": -6,
+      "upsetBefore": 14,
+      "upsetAfter": 8,
+      "explained": true,
+      "reason": "Continuous market-based surprise replaces elapsed-time gate / magnitude curve"
+    }
+  ],
+  "unexplained": []
+}

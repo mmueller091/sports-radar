@@ -10,8 +10,9 @@ const basketball=require('./basketball-state.cjs');
 const {analyzeTrajectory}=require('./models.js');
 const basketballCalibration=require('./basketball-calibration.cjs');
 const {canonicalDetailSummary}=require('./detail-state.cjs');
+const footballLive=require('./football-live.cjs');
 const PRODUCTION_POLICY = Object.freeze({...LIVE_POLICY,id:LIVE_POLICY.id+'-opening-transition',footballTransition:true,openingTransition:true});
-const MODEL_VERSION = '2026-11-01.basketball-state.1';
+const MODEL_VERSION = '2026-11-01.football-live.1';
 
 function retainSettledCfbPath(game,current,summary) {
   if (game.sport!=='CFB' || !summary || Number(current.status?.period)!==4) return;
@@ -61,7 +62,39 @@ function applyLiveSnapshot(game, competition, summary) {
     if (upset.points) game.factors.push({label:'Underdog threatens upset',points:upset.points});
     game.upsetPoints=upset.points;game.upsetText=upset.text;
   }
-  const result = candidateGameRating(legacy,history?{...game,_historicalEvidence:history}:game,current,currentSummary,basketballCalibration.tensionPolicy(game,current),{...PRODUCTION_POLICY,collegeFinish:true});
+  let scoringGame=game;
+  if (['NFL','CFB'].includes(game.sport)) {
+    game.livePregameMarket ||= footballLive.pregameMarket(game,current) ||
+      footballLive.pregameMarket(game,{...current,odds:game.pregameBaseline?.odds}) ||
+      footballLive.pregameMarket(game,{...current,odds:game.recoveredUnderdog?.odds});
+    if (accepted) game.verifiedDevelopments=footballLive.mergeDevelopments(game,accepted);
+    // Retained scoring facts may establish sustained leadership and overlap;
+    // current win probability is always taken from this update alone.
+    const surpriseSummary=history ? {...currentSummary,header:{competitions:[current]},
+      scoringPlays:history.summary?.scoringPlays,plays:history.summary?.plays,
+      winprobability:currentSummary?.winprobability || []} : currentSummary;
+    const surprise=footballLive.liveSurprise(legacy,game,current,surpriseSummary,history?.summary || surpriseSummary);
+    const gap=Math.abs(Number(game.teams[0][2])-Number(game.teams[1][2]));
+    const developments=footballLive.developmentImpact(game,legacy.gameProgress(game.sport,current),gap);
+    Object.assign(game,{liveSurprise:surprise,upsetPoints:surprise.points,upsetText:surprise.text});
+    const factors=game.factors.filter(f=>!['Underdog threatens upset','Verified live development'].includes(f.label));
+    // The new signal already has its own CFB calibration; the old discretionary
+    // context multiplier must not scale it a second time.
+    if (surprise.points) factors.push({label:'Underdog threatens upset',points:surprise.points,liveSurprise:true});
+    if (developments.points) factors.push({label:'Verified live development',points:developments.points});
+    const contradictedContexts=(game.qualitativeContexts||[]).filter(c=>
+      developments.active.some(d=>(c.text||'').toLowerCase().includes(d.subject.toLowerCase()) &&
+        (d.status==='returned' ? /absence/.test(c.type) : /return|first_game_back|confirmed_key_starters/.test(c.type))));
+    const contradicted=f=>contradictedContexts.some(c=>c.type===f.contextType);
+    const removed=(game.openingFactors||[]).filter(contradicted);
+    game.suppressedContextTypes=contradictedContexts.map(c=>c.type);
+    // The observed opening score/history is immutable. Only its current live
+    // carry is reconciled; preserve non-enumerable source metadata in the clone.
+    scoringGame={...game,sourceEvent:game.sourceEvent,sourceCompetition:game.sourceCompetition,factors,
+      openingFactors:(game.openingFactors||[]).filter(f=>!contradicted(f)),
+      openingScore:game.openingScore-removed.reduce((sum,f)=>sum+f.points,0)};
+  }
+  const result = candidateGameRating(legacy,history?{...scoringGame,_historicalEvidence:history}:scoringGame,current,currentSummary,basketballCalibration.tensionPolicy(game,current),{...PRODUCTION_POLICY,collegeFinish:true});
   Object.assign(game,{
     score:result.score,baseScore:result.baseScore,live:result.live,
     momentumPoints:result.momentumPoints,trajectoryScoring:result.trajectoryScoring,
@@ -84,4 +117,4 @@ function applyLiveSnapshot(game, competition, summary) {
 }
 
 function preserveEvidence(game,previous){preserveLiveEvidence(game,previous);basketball.preserveBasketballState(game,previous);}
-module.exports = {...legacy,isHalftimeStatus,canonicalDetailSummary,applyLiveSnapshot,preservePregameBaseline,preserveLiveEvidence:preserveEvidence,MODEL_VERSION,POLICY_ID:PRODUCTION_POLICY.id,PRODUCTION_POLICY};
+module.exports = {...legacy,isHalftimeStatus,canonicalDetailSummary,applyLiveSnapshot,preservePregameBaseline,preserveLiveEvidence:preserveEvidence,footballLiveExplanation:footballLive.footballLiveExplanation,MODEL_VERSION,POLICY_ID:PRODUCTION_POLICY.id,PRODUCTION_POLICY};

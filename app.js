@@ -2569,6 +2569,8 @@ function teamMarkup(game, team, cardTeamIndex = null) {
 }
 
 function explainRating(game) {
+  const footballExplanation=globalThis.SportsRadarScore?.footballLiveExplanation?.(game);
+  if (footballExplanation) return footballExplanation;
   const teams=game.teams || [],names=teams.map(t=>t[0]),a=teams[0] || [],b=teams[1] || [];
   const factors=game.factors || [],labels=factors.map(f=>f.label || ''),has=re=>labels.some(x=>re.test(x));
   const sport=game.sport,basketball=['NBA','NCAAB'].includes(sport),football=['NFL','CFB'].includes(sport);
@@ -2716,7 +2718,7 @@ function trendFor(game) {
     delta >= 0
       ? 'Up'
       : 'Down'
-  } ${Math.abs(delta)} points from the opening rating">${arrow}&#xfe0e; ${
+  } ${Math.abs(delta)} ${Math.abs(delta)===1?'point':'points'} from the opening rating">${arrow}&#xfe0e; ${
     delta > 0
       ? '+'
       : ''
@@ -5466,7 +5468,7 @@ function excitementTimeline(game,summary) {
     const movement =
       delta === 0
         ? `The rating stayed at ${score}.`
-        : `The rating moved ${delta > 0 ? 'up' : 'down'} ${Math.abs(delta)} points, from ${prior} to ${score}.`;
+        : `The rating moved ${delta > 0 ? 'up' : 'down'} ${Math.abs(delta)} ${Math.abs(delta)===1?'point':'points'}, from ${prior} to ${score}.`;
 
     const detail =
       point.text && point.text !== 'Current rating'
@@ -5641,7 +5643,8 @@ function safeStoryUrl(value) {
 }
 
 function storylineDetails(game) {
-  const factors = Array.isArray(game.qualitativeContexts) ? game.qualitativeContexts : [];
+  const factors = [...(game.verifiedDevelopments||[]).filter(d=>d.verified),
+    ...(Array.isArray(game.qualitativeContexts) ? game.qualitativeContexts : []).filter(f=>!game.suppressedContextTypes?.includes(f.type))];
   if (!factors.length) return '';
   const seen=new Set();
   const rows = factors.map(factor => {
@@ -5662,7 +5665,7 @@ function storylineDetails(game) {
       ? `<a href="${safeText(proofUrl)}" target="_blank" rel="noopener noreferrer" title="${safeText(significance.fact)}">Player honors source ↗</a>` : '';
     return `<li><span>${safeText(text+credit)}</span>${source}${proof}</li>`;
   }).join('');
-  return `<section class="detail-section storyline-section"><h3>Pregame storylines</h3><ul>${rows}</ul><p class="detail-empty">Only recent, source-backed context is included. It fades from the rating as the game unfolds.</p></section>`;
+  return `<section class="detail-section storyline-section"><h3>${game.verifiedDevelopments?.length?'Verified game context':'Pregame storylines'}</h3><ul>${rows}</ul><p class="detail-empty">Only source-backed context is included. Its rating contribution fades as the game unfolds.</p></section>`;
 }
 
 const DETAIL_TAB_CONFIG = {

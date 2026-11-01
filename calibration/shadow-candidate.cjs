@@ -281,7 +281,7 @@ function prepareCandidateGameRating(core,game,competition,summary,productionOpen
       summary
     },
     extraFactors:(game.factors || [])
-      .filter(factor => factor.label === 'Underdog threatens upset')
+      .filter(factor => ['Underdog threatens upset','Verified live development'].includes(factor.label))
       .map(factor => ({...factor})),
     trajectory:analyzeTrajectory(game.sport,summary,progress,'live')
   };
@@ -310,7 +310,7 @@ function finishCandidateGameRating(core,game,prepared,base,live,trajectoryPolicy
       base=candidateBaseForPolicy(core,game,prepared,{...(currentTensionPolicy || DEFAULT_CURRENT_TENSION_POLICY),currentTensionCeiling,cfbImmediateTension:trajectoryPolicy.cfbImmediateTension});
       // Rebalance the same discretionary context pool: supported matchup
       // reputation and the existing upset factor, never history or stakes.
-      base.factors=base.factors.map(f=>f.label==='Underdog threatens upset'
+      base.factors=base.factors.map(f=>f.label==='Underdog threatens upset' && !f.liveSurprise
         ? {...f,points:Math.round(f.points*scale.contextScale)} : f);
     }
     const retention=cfbContextRetention(core,game,base.state,scale?.contextScale ?? 1);

@@ -87,7 +87,8 @@ test('non-CFB live and CFB pregame/completed scoring stay identical',()=>{
 
 test('halftime removes stale possession/down/spot and resumes from current Q3 state',()=>{
  const input=structuredClone(fixture),g=active.normalizeEvent(input.event,'CFB');active.enrichGame(g,input.summary);
- assert.equal(g.score,69);assert.equal(g.modelVersion,runtime.MODEL_VERSION);
+ // Existing halftime state plus the separately verified live upset context.
+ assert.equal(g.score,74);assert.equal(g.upsetPoints,7);assert.equal(g.modelVersion,runtime.MODEL_VERSION);
  assert.equal(g.footballSituation,null);assert.equal(g.live.note,'');
  const code=fs.readFileSync('app.js','utf8').replace(/\r\n/g,'\n');
  const context=vm.createContext({SportsRadarScore:runtime,safeText:String});

@@ -41,10 +41,12 @@ test('reviewed NFL NHL CFB checkpoints: candidate, browser and active Worker ada
     if(!cp)continue;
     const prepared=prepareCheckpointEvaluation(legacy,fixture,cp,0);
     prepareOpening(legacy,prepared.game,cp.competition,cp.summary);
-    const expected=candidateGameRating(legacy,prepared.game,cp.competition,cp.summary,null,policy);
     const event={...cp.event,competitions:[cp.competition]};
     const worker=active.normalizeEvent(structuredClone(event),fixture.modelSport);
     active.enrichGame(worker,structuredClone(cp.summary));
+    // Production football context supplies the replacement upset factor before
+    // the existing independent candidate/floor/transition aggregation.
+    const expected=candidateGameRating(legacy,worker,cp.competition,cp.summary,null,policy);
     const bg=legacyAdapter.normalizeEvent(structuredClone(event),fixture.modelSport);
     legacyAdapter.enrichGame(bg,structuredClone(cp.summary));
     const br=browser.applyLiveSnapshot(bg,cp.competition,cp.summary);

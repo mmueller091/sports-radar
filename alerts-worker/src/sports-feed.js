@@ -1,7 +1,7 @@
 import {nhlGameCenterStats} from './providers/nhl.js';
 import {basketballBoxScore} from './display-model.js';
 import {createCollector,summaryUrl,teamResourceUrls,coreTeamProfileUrl,teamLeadersUrl,standingsUrl} from './providers/espn.js';
-import {normalizeEvent,preservePregameRecords,applyContextsToGame,enrichGame} from './live-game-model.js';
+import {normalizeEvent,preservePregameRecords,preserveFootballContext,applyContextsToGame,enrichGame} from './live-game-model.js';
 import runtime from '../../scoring/live-runtime.cjs';
 import {contextsForGames} from './storylines.js';
 import {cachedNflPregame} from './nfl-pregame.js';
@@ -2051,6 +2051,7 @@ export async function refreshSportsData(env,now=Date.now(),options={}) {
     if (errors.length) return null;
     const priorGames = new Map((previous?.games || []).map(game=>[`${game.sport}:${game.id}`,game]));
     games.forEach(game=>preservePregameRecords(game,priorGames.get(`${game.sport}:${game.id}`)));
+    games.forEach(game=>preserveFootballContext(game,priorGames.get(`${game.sport}:${game.id}`)));
     await stage('recordRecovery',()=>recoverPregameRecords(env,games,now,previous));
     const contextGames = games.filter(game=>['NFL','MLB','NHL','CFB','NBA','NCAAB'].includes(game.sport));
     const nfl=await stage('contexts',()=>cachedNflPregame(env,contextGames,now));
