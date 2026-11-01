@@ -3,6 +3,7 @@
 const {footballPregameSpread,numberFromLine}=require('./shared/market.js');
 const {rankFor}=require('./shared/records.js');
 const {eventPosition}=require('./shared/time.js');
+const {eligibility}=require('./football-market.cjs');
 const unit=x=>Math.max(0,Math.min(1,Number(x)||0));
 const smooth=x=>{x=unit(x);return x*x*(3-2*x);};
 const id=t=>String(t?.team?.id || t?.id || '');
@@ -17,7 +18,9 @@ function pregameMarket(game,competition,raw=competition?.odds?.[0]) {
   if (raw.live===true || raw.isLive===true || /live|in.?play/i.test(String(raw.type || odds.type || ''))) return null;
   const start=Date.parse(game.startTime || game.sourceEvent?.date || '');
   const at=Date.parse(odds.lastUpdated || odds.lastModified || raw.lastUpdated || '');
-  if (Number.isFinite(start) && Number.isFinite(at) && (at>start || start-at>48*3600000)) return null;
+  if (game.state==='upcoming') {
+    if(!eligibility(raw,game,game.marketAsOf).eligible)return null;
+  } else if (Number.isFinite(start) && Number.isFinite(at) && (at>start || start-at>48*3600000)) return null;
   const spread=footballPregameSpread({odds:[raw]});
   const sides=teams.map(t=>{
     const side=t.homeAway, data=odds[`${side}TeamOdds`] || {};

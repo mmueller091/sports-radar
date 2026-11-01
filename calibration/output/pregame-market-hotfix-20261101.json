@@ -1,0 +1,751 @@
+{
+  "baseline": "6de87bd12d52dec20226c4d02c2b04206371382b",
+  "model": "2026-11-01.football-market.2",
+  "capturedAt": "2026-11-01T19:45:46.534Z",
+  "cases": [
+    {
+      "sport": "NFL",
+      "id": "401873036",
+      "teams": [
+        "Chicago Bears",
+        "Seattle Seahawks"
+      ],
+      "start": "2026-11-03T01:15Z",
+      "line": {
+        "spread": "SEA -3",
+        "moneyline": "",
+        "total": 46.5,
+        "provider": "DraftKings",
+        "verifiedClose": false
+      },
+      "before": 62,
+      "after": 62,
+      "delta": 0,
+      "beforeFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 10
+        },
+        {
+          "label": "Both winning records",
+          "points": 11.62
+        },
+        {
+          "label": "Tight projected spread",
+          "points": 6,
+          "detail": "Listed 3-point spread; projected competitiveness raises excitement"
+        },
+        {
+          "label": "Season point differential",
+          "points": 1.43,
+          "detail": "Season scoring margins provide a small quality adjustment",
+          "sourceUrl": "https://www.espn.com/nfl/preview?gameId=401873036"
+        },
+        {
+          "label": "Recent performance",
+          "points": 0.11,
+          "detail": "Scoring margins over each team’s last three games; individual margins capped at 21",
+          "sourceUrl": "https://www.espn.com/nfl/preview?gameId=401873036"
+        },
+        {
+          "label": "Recent win over winning opposition",
+          "points": 0.75,
+          "detail": "Latest result includes a win over an opponent currently winning at least 60% of its games",
+          "sourceUrl": "https://www.espn.com/nfl/game/_/gameId/401873022/chiefs-seahawks"
+        },
+        {
+          "label": "Expected scoring potential",
+          "points": 0.25,
+          "detail": "Listed total 46.5; capped at five points"
+        },
+        {
+          "label": "Close-game scoring upside",
+          "points": 0.03,
+          "detail": "A 3-point spread and 46.5 total jointly add entertainment upside; capped at three points"
+        }
+      ],
+      "afterFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 10
+        },
+        {
+          "label": "Both winning records",
+          "points": 11.62
+        },
+        {
+          "label": "Tight projected spread",
+          "points": 6,
+          "detail": "Listed 3-point spread; projected competitiveness raises excitement"
+        },
+        {
+          "label": "Season point differential",
+          "points": 1.43,
+          "detail": "Season scoring margins provide a small quality adjustment",
+          "sourceUrl": "https://www.espn.com/nfl/preview?gameId=401873036"
+        },
+        {
+          "label": "Recent performance",
+          "points": 0.11,
+          "detail": "Scoring margins over each team’s last three games; individual margins capped at 21",
+          "sourceUrl": "https://www.espn.com/nfl/preview?gameId=401873036"
+        },
+        {
+          "label": "Recent win over winning opposition",
+          "points": 0.75,
+          "detail": "Latest result includes a win over an opponent currently winning at least 60% of its games",
+          "sourceUrl": "https://www.espn.com/nfl/game/_/gameId/401873022/chiefs-seahawks"
+        },
+        {
+          "label": "Expected scoring potential",
+          "points": 0.25,
+          "detail": "Listed total 46.5; capped at five points"
+        },
+        {
+          "label": "Close-game scoring upside",
+          "points": 0.03,
+          "detail": "A 3-point spread and 46.5 total jointly add entertainment upside; capped at three points"
+        }
+      ],
+      "oddsSource": "provider",
+      "baselineConsistent": true,
+      "source": "https://sports-radar-alerts.mmueller918.workers.dev/game/NFL/401873036"
+    },
+    {
+      "sport": "NFL",
+      "id": "401873037",
+      "teams": [
+        "Jacksonville Jaguars",
+        "Baltimore Ravens"
+      ],
+      "start": "2026-11-06T01:15Z",
+      "line": {
+        "spread": "BAL -3",
+        "moneyline": "",
+        "total": 48.5,
+        "provider": "DraftKings",
+        "verifiedClose": false
+      },
+      "before": 52,
+      "after": 60,
+      "delta": 8,
+      "beforeFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 10
+        },
+        {
+          "label": "Both winning records",
+          "points": 9.69
+        }
+      ],
+      "afterFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 10
+        },
+        {
+          "label": "Both winning records",
+          "points": 9.69
+        },
+        {
+          "label": "Tight projected spread",
+          "points": 6,
+          "detail": "Listed 3-point spread; projected competitiveness raises excitement"
+        },
+        {
+          "label": "Expected scoring potential",
+          "points": 1.25,
+          "detail": "Listed total 48.5; capped at five points"
+        },
+        {
+          "label": "Close-game scoring upside",
+          "points": 0.7,
+          "detail": "A 3-point spread and 48.5 total jointly add entertainment upside; capped at three points"
+        }
+      ],
+      "oddsSource": "retained displayed market",
+      "baselineConsistent": true,
+      "source": "https://sports-radar-alerts.mmueller918.workers.dev/game/NFL/401873037"
+    },
+    {
+      "sport": "NFL",
+      "id": "401873038",
+      "teams": [
+        "Cincinnati Bengals",
+        "Atlanta Falcons"
+      ],
+      "start": "2026-11-08T14:30Z",
+      "line": {
+        "spread": "CIN -3",
+        "moneyline": "",
+        "total": 49.5,
+        "provider": "DraftKings",
+        "verifiedClose": false
+      },
+      "before": 44,
+      "after": 53,
+      "delta": 9,
+      "beforeFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 10
+        },
+        {
+          "label": "Winning team quality",
+          "points": 2,
+          "detail": "Single winning-team interest; capped at two before market scaling"
+        }
+      ],
+      "afterFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 10
+        },
+        {
+          "label": "Winning team quality",
+          "points": 2,
+          "detail": "Single winning-team interest; capped at two before market scaling"
+        },
+        {
+          "label": "Tight projected spread",
+          "points": 6,
+          "detail": "Listed 3-point spread; projected competitiveness raises excitement"
+        },
+        {
+          "label": "Expected scoring potential",
+          "points": 1.75,
+          "detail": "Listed total 49.5; capped at five points"
+        },
+        {
+          "label": "Close-game scoring upside",
+          "points": 1.22,
+          "detail": "A 3-point spread and 49.5 total jointly add entertainment upside; capped at three points"
+        }
+      ],
+      "oddsSource": "retained displayed market",
+      "baselineConsistent": true,
+      "source": "https://sports-radar-alerts.mmueller918.workers.dev/game/NFL/401873038"
+    },
+    {
+      "sport": "NFL",
+      "id": "401873045",
+      "teams": [
+        "New York Jets",
+        "Kansas City Chiefs"
+      ],
+      "start": "2026-11-08T18:00Z",
+      "line": {
+        "spread": "KC -9.5",
+        "moneyline": "",
+        "total": 43.5,
+        "provider": "DraftKings",
+        "verifiedClose": false
+      },
+      "before": 44,
+      "after": 40,
+      "delta": -4,
+      "beforeFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 10
+        },
+        {
+          "label": "Winning team quality",
+          "points": 2,
+          "detail": "Single winning-team interest; capped at two before market scaling"
+        }
+      ],
+      "afterFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 10
+        },
+        {
+          "label": "Winning team quality",
+          "points": 1.82,
+          "detail": "Single winning-team interest; capped at two before market scaling"
+        },
+        {
+          "label": "Projected spread mismatch",
+          "points": -3.62,
+          "detail": "Listed 9.5-point spread; projected mismatch lowers excitement"
+        }
+      ],
+      "oddsSource": "retained displayed market",
+      "baselineConsistent": true,
+      "source": "https://sports-radar-alerts.mmueller918.workers.dev/game/NFL/401873045"
+    }
+  ],
+  "controlled": [
+    {
+      "sport": "NFL",
+      "days": 1,
+      "spread": 3,
+      "before": 55,
+      "after": 67,
+      "delta": 12,
+      "marketFactors": [
+        {
+          "label": "Tight projected spread",
+          "points": 6,
+          "detail": "Listed 3-point spread; projected competitiveness raises excitement"
+        },
+        {
+          "label": "Expected scoring potential",
+          "points": 3,
+          "detail": "Listed total 52; capped at five points"
+        },
+        {
+          "label": "Close-game scoring upside",
+          "points": 2.53,
+          "detail": "A 3-point spread and 52 total jointly add entertainment upside; capped at three points"
+        }
+      ]
+    },
+    {
+      "sport": "NFL",
+      "days": 1,
+      "spread": 9.5,
+      "before": 55,
+      "after": 53,
+      "delta": -2,
+      "marketFactors": [
+        {
+          "label": "Projected spread mismatch",
+          "points": -3.62,
+          "detail": "Listed 9.5-point spread; projected mismatch lowers excitement"
+        },
+        {
+          "label": "Expected scoring potential",
+          "points": 3,
+          "detail": "Listed total 52; capped at five points"
+        }
+      ]
+    },
+    {
+      "sport": "NFL",
+      "days": 4,
+      "spread": 3,
+      "before": 55,
+      "after": 67,
+      "delta": 12,
+      "marketFactors": [
+        {
+          "label": "Tight projected spread",
+          "points": 6,
+          "detail": "Listed 3-point spread; projected competitiveness raises excitement"
+        },
+        {
+          "label": "Expected scoring potential",
+          "points": 3,
+          "detail": "Listed total 52; capped at five points"
+        },
+        {
+          "label": "Close-game scoring upside",
+          "points": 2.53,
+          "detail": "A 3-point spread and 52 total jointly add entertainment upside; capped at three points"
+        }
+      ]
+    },
+    {
+      "sport": "NFL",
+      "days": 4,
+      "spread": 9.5,
+      "before": 55,
+      "after": 53,
+      "delta": -2,
+      "marketFactors": [
+        {
+          "label": "Projected spread mismatch",
+          "points": -3.62,
+          "detail": "Listed 9.5-point spread; projected mismatch lowers excitement"
+        },
+        {
+          "label": "Expected scoring potential",
+          "points": 3,
+          "detail": "Listed total 52; capped at five points"
+        }
+      ]
+    },
+    {
+      "sport": "NFL",
+      "days": 7,
+      "spread": 3,
+      "before": 55,
+      "after": 67,
+      "delta": 12,
+      "marketFactors": [
+        {
+          "label": "Tight projected spread",
+          "points": 6,
+          "detail": "Listed 3-point spread; projected competitiveness raises excitement"
+        },
+        {
+          "label": "Expected scoring potential",
+          "points": 3,
+          "detail": "Listed total 52; capped at five points"
+        },
+        {
+          "label": "Close-game scoring upside",
+          "points": 2.53,
+          "detail": "A 3-point spread and 52 total jointly add entertainment upside; capped at three points"
+        }
+      ]
+    },
+    {
+      "sport": "NFL",
+      "days": 7,
+      "spread": 9.5,
+      "before": 55,
+      "after": 53,
+      "delta": -2,
+      "marketFactors": [
+        {
+          "label": "Projected spread mismatch",
+          "points": -3.62,
+          "detail": "Listed 9.5-point spread; projected mismatch lowers excitement"
+        },
+        {
+          "label": "Expected scoring potential",
+          "points": 3,
+          "detail": "Listed total 52; capped at five points"
+        }
+      ]
+    },
+    {
+      "sport": "NFL",
+      "days": 14,
+      "spread": 3,
+      "before": 55,
+      "after": 67,
+      "delta": 12,
+      "marketFactors": [
+        {
+          "label": "Tight projected spread",
+          "points": 6,
+          "detail": "Listed 3-point spread; projected competitiveness raises excitement"
+        },
+        {
+          "label": "Expected scoring potential",
+          "points": 3,
+          "detail": "Listed total 52; capped at five points"
+        },
+        {
+          "label": "Close-game scoring upside",
+          "points": 2.53,
+          "detail": "A 3-point spread and 52 total jointly add entertainment upside; capped at three points"
+        }
+      ]
+    },
+    {
+      "sport": "NFL",
+      "days": 14,
+      "spread": 9.5,
+      "before": 55,
+      "after": 53,
+      "delta": -2,
+      "marketFactors": [
+        {
+          "label": "Projected spread mismatch",
+          "points": -3.62,
+          "detail": "Listed 9.5-point spread; projected mismatch lowers excitement"
+        },
+        {
+          "label": "Expected scoring potential",
+          "points": 3,
+          "detail": "Listed total 52; capped at five points"
+        }
+      ]
+    },
+    {
+      "sport": "CFB",
+      "days": 1,
+      "spread": 3,
+      "before": 40,
+      "after": 44,
+      "delta": 4,
+      "marketFactors": [
+        {
+          "label": "Very close projected spread",
+          "points": 4
+        }
+      ]
+    },
+    {
+      "sport": "CFB",
+      "days": 1,
+      "spread": 35,
+      "before": 40,
+      "after": 30,
+      "delta": -10,
+      "marketFactors": [
+        {
+          "label": "Projected spread mismatch",
+          "points": -10
+        }
+      ]
+    },
+    {
+      "sport": "CFB",
+      "days": 4,
+      "spread": 3,
+      "before": 40,
+      "after": 44,
+      "delta": 4,
+      "marketFactors": [
+        {
+          "label": "Very close projected spread",
+          "points": 4
+        }
+      ]
+    },
+    {
+      "sport": "CFB",
+      "days": 4,
+      "spread": 35,
+      "before": 40,
+      "after": 30,
+      "delta": -10,
+      "marketFactors": [
+        {
+          "label": "Projected spread mismatch",
+          "points": -10
+        }
+      ]
+    },
+    {
+      "sport": "CFB",
+      "days": 7,
+      "spread": 3,
+      "before": 40,
+      "after": 44,
+      "delta": 4,
+      "marketFactors": [
+        {
+          "label": "Very close projected spread",
+          "points": 4
+        }
+      ]
+    },
+    {
+      "sport": "CFB",
+      "days": 7,
+      "spread": 35,
+      "before": 40,
+      "after": 30,
+      "delta": -10,
+      "marketFactors": [
+        {
+          "label": "Projected spread mismatch",
+          "points": -10
+        }
+      ]
+    },
+    {
+      "sport": "CFB",
+      "days": 14,
+      "spread": 3,
+      "before": 40,
+      "after": 44,
+      "delta": 4,
+      "marketFactors": [
+        {
+          "label": "Very close projected spread",
+          "points": 4
+        }
+      ]
+    },
+    {
+      "sport": "CFB",
+      "days": 14,
+      "spread": 35,
+      "before": 40,
+      "after": 30,
+      "delta": -10,
+      "marketFactors": [
+        {
+          "label": "Projected spread mismatch",
+          "points": -10
+        }
+      ]
+    }
+  ],
+  "preReleaseEvidence": {
+    "modelVersion": "2026-11-01.basketball-state.1",
+    "updatedAt": "2026-11-01T19:12:43.645Z",
+    "games": [
+      {
+        "id": "401873036",
+        "score": 62,
+        "line": {
+          "spread": "SEA -3",
+          "moneyline": "",
+          "total": 46.5,
+          "provider": "DraftKings",
+          "verifiedClose": false
+        },
+        "rawOddsCount": 1,
+        "factors": [
+          {
+            "label": "Sport baseline",
+            "points": 32
+          },
+          {
+            "label": "Schedule scarcity",
+            "points": 10
+          },
+          {
+            "label": "Both winning records",
+            "points": 11.62
+          },
+          {
+            "label": "Tight projected spread",
+            "points": 6,
+            "detail": "Listed 3-point spread; projected competitiveness raises excitement"
+          },
+          {
+            "label": "Season point differential",
+            "points": 1.43,
+            "detail": "Season scoring margins provide a small quality adjustment",
+            "sourceUrl": "https://www.espn.com/nfl/preview?gameId=401873036"
+          },
+          {
+            "label": "Recent performance",
+            "points": 0.11,
+            "detail": "Scoring margins over each team’s last three games; individual margins capped at 21",
+            "sourceUrl": "https://www.espn.com/nfl/preview?gameId=401873036"
+          },
+          {
+            "label": "Recent win over winning opposition",
+            "points": 0.75,
+            "detail": "Latest result includes a win over an opponent currently winning at least 60% of its games",
+            "sourceUrl": "https://www.espn.com/nfl/game/_/gameId/401873022/chiefs-seahawks"
+          },
+          {
+            "label": "Expected scoring potential",
+            "points": 0.25,
+            "detail": "Listed total 46.5; capped at five points"
+          },
+          {
+            "label": "Close-game scoring upside",
+            "points": 0.03,
+            "detail": "A 3-point spread and 46.5 total jointly add entertainment upside; capped at three points"
+          }
+        ]
+      },
+      {
+        "id": "401873037",
+        "score": 52,
+        "line": {
+          "spread": "BAL -3",
+          "moneyline": "",
+          "total": 48.5,
+          "provider": "DraftKings",
+          "verifiedClose": false
+        },
+        "rawOddsCount": 0,
+        "factors": [
+          {
+            "label": "Sport baseline",
+            "points": 32
+          },
+          {
+            "label": "Schedule scarcity",
+            "points": 10
+          },
+          {
+            "label": "Both winning records",
+            "points": 9.69
+          }
+        ]
+      },
+      {
+        "id": "401873038",
+        "score": 44,
+        "line": {
+          "spread": "CIN -3",
+          "moneyline": "",
+          "total": 49.5,
+          "provider": "DraftKings",
+          "verifiedClose": false
+        },
+        "rawOddsCount": 0,
+        "factors": [
+          {
+            "label": "Sport baseline",
+            "points": 32
+          },
+          {
+            "label": "Schedule scarcity",
+            "points": 10
+          },
+          {
+            "label": "Winning team quality",
+            "points": 2,
+            "detail": "Single winning-team interest; capped at two before market scaling"
+          }
+        ]
+      },
+      {
+        "id": "401873045",
+        "score": 44,
+        "line": {
+          "spread": "KC -9.5",
+          "moneyline": "",
+          "total": 43.5,
+          "provider": "DraftKings",
+          "verifiedClose": false
+        },
+        "rawOddsCount": 0,
+        "factors": [
+          {
+            "label": "Sport baseline",
+            "points": 32
+          },
+          {
+            "label": "Schedule scarcity",
+            "points": 10
+          },
+          {
+            "label": "Winning team quality",
+            "points": 2,
+            "detail": "Single winning-team interest; capped at two before market scaling"
+          }
+        ]
+      }
+    ]
+  }
+}

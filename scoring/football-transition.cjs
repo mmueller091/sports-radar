@@ -44,7 +44,8 @@ function prepareFootballOpening(core,game,competition,summary) {
   if (!recorded) {
     const prior=game.pregameBaseline;
     const summaryOdds=summary?.pickcenter || summary?.header?.competitions?.[0]?.odds;
-    const odds=competition?.odds?.length ? competition.odds : summaryOdds?.length ? summaryOdds : prior?.odds;
+    const odds=game.state==='upcoming' && competition?.sportsRadarPregameMarketManaged
+      ? competition.odds : competition?.odds?.length ? competition.odds : summaryOdds?.length ? summaryOdds : prior?.odds;
     const basis={...competition,season:{...game.sourceEvent?.season,...competition?.season},odds};
     const opening=core.pregameRating(game.sport,game.sourceEvent,basis,game.context,'upcoming');
     game.pregameBaseline={calibration:CALIBRATION,source:game.state==='upcoming'?'observed':'reconstructed',
@@ -59,6 +60,10 @@ function prepareFootballOpening(core,game,competition,summary) {
   game.openingScore=baseline.score;
   game.openingFactors=baseline.factors.map(f=>({...f}));
   game.rawPregameScore=baseline.rawPregameScore;
+  if(game.state==='upcoming' && competition?.sportsRadarPregameMarketManaged) {
+    game.score=baseline.score;game.baseScore=baseline.score;
+    game.factors=baseline.factors.map(f=>({...f}));
+  }
   if (game.state==='live') game.underdog=baseline.underdog || game.recoveredUnderdog?.candidate || null;
 }
 

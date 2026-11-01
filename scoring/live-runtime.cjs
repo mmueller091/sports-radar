@@ -11,8 +11,9 @@ const {analyzeTrajectory}=require('./models.js');
 const basketballCalibration=require('./basketball-calibration.cjs');
 const {canonicalDetailSummary}=require('./detail-state.cjs');
 const footballLive=require('./football-live.cjs');
+const footballMarket=require('./football-market.cjs');
 const PRODUCTION_POLICY = Object.freeze({...LIVE_POLICY,id:LIVE_POLICY.id+'-opening-transition',footballTransition:true,openingTransition:true});
-const MODEL_VERSION = '2026-11-01.football-live.1';
+const MODEL_VERSION = '2026-11-01.football-market.2';
 
 function retainSettledCfbPath(game,current,summary) {
   if (game.sport!=='CFB' || !summary || Number(current.status?.period)!==4) return;
@@ -37,6 +38,7 @@ function retainSettledCfbPath(game,current,summary) {
 }
 
 function applyLiveSnapshot(game, competition, summary) {
+  if(footballMarket.supports(game))competition=footballMarket.prepareUpcomingMarket(game,competition || game.sourceCompetition,summary);
   const reconciled=basketball.reconcileBasketball(game,competition || game.sourceCompetition,summary);
   competition=reconciled.competition;summary=reconciled.summary;
   prepareOpening(legacy,game,competition || game.sourceCompetition,null);

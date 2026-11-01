@@ -39,6 +39,23 @@ function fixture(t,events) {
   return {events,calls,set hook(value){summaryHook=value;},summaryCalls:()=>calls.filter(url=>url.includes('/summary'))};
 }
 const silent={log:()=>{}};
+test('upcoming football retained display market also owns score, breakdown and expiry through publication',async t=>{
+  const env=database(t),now=Date.now(),e=event('market-hotfix','pre',false);
+  e.date=new Date(now+7*86400000).toISOString();
+  fixture(t,[e]);
+  const cold=await refreshSportsData(env,now,silent),old=structuredClone(cold);
+  old.updatedAt=new Date(now-60000).toISOString();delete old.revision;delete old.parts;
+  old.games[0].line={spread:'HME -35',moneyline:'',total:52,provider:'test',verifiedClose:false};
+  env.db.prepare('UPDATE sports_feed SET payload=? WHERE id=1').run(JSON.stringify(old));
+  const repaired=await refreshSportsData(env,now+60000,silent),game=repaired.games[0];
+  assert.equal(game.line.spread,'HME -35');assert.equal(game.pregameBaseline.spread,35);
+  assert.equal(game.factors.find(f=>f.label==='Projected spread mismatch').points,-10);
+  assert.equal(game.score,game.pregameBaseline.score);
+  const again=await refreshSportsData(env,now+120000,silent);
+  assert.equal(again.games[0].score,game.score);assert.equal(again.games[0].pregameMarketQuote.observedAt,game.pregameMarketQuote.observedAt);
+  const expired=await refreshSportsData(env,now+49*3600000,silent);
+  assert.equal(expired.games[0].line,null);assert.equal(expired.games[0].pregameBaseline.odds.length,0);
+});
 const gate=()=>{let resolve;const promise=new Promise(r=>{resolve=r;});return {promise,resolve};};
 const tick=()=>new Promise(r=>setImmediate(r));
 
