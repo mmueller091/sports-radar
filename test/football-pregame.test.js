@@ -53,7 +53,10 @@ test('missing odds stay neutral; numeric zero, signed, nested and textual pickâ€
     assert.equal(footballPregameSpread({odds:[odds]}),['0','PK',"Pick'em",'PIT PK'].includes(String(odds.spread??odds.details))?0:14);
   }
   for(const odds of [null,{}, {spread:''},{spread:false},{spread:Infinity},{details:'PIT -110'},{details:'Total 48.5'},{spread:'not listed'}]) assert.equal(footballPregameSpread({odds:odds?[odds]:[]}),null);
-  for(const sport of ['NFL','CFB'])assert.deepEqual(plain(rating(fixture(sport,null))),plain(rating(fixture(sport,null),before.legacy)));
+  for(const sport of ['NFL','CFB']) {
+    const {reason:a,...actual}=plain(rating(fixture(sport,null))),{reason:b,...prior}=plain(rating(fixture(sport,null),before.legacy));
+    assert.deepEqual(actual,prior,'missing odds add no market evidence; NFL explanation is now factor-derived');
+  }
   assert.notEqual(footballSpreadAdjustment('NFL',14),footballSpreadAdjustment('CFB',14));
 });
 
@@ -131,7 +134,7 @@ test('new significant-injury evidence survives storage and revalidation with pla
     return {async run(){},async all(){return {results:[row]};}};
   }};},async batch(){}}};
   await saveFactors(env,[game],factors,now);
-  assert.equal(JSON.parse(row.context_text).version,2);
+  assert.equal(JSON.parse(row.context_text).version,4);
   const result=await contextsForGames(env,[key]);
   assert.equal(result[key][0].text,factors[0].text);
   assert.equal(result[key][0].injuryEvidence.importance,'starting-quarterback');

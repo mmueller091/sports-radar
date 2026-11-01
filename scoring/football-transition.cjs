@@ -45,7 +45,7 @@ function prepareFootballOpening(core,game,competition,summary) {
     const prior=game.pregameBaseline;
     const summaryOdds=summary?.pickcenter || summary?.header?.competitions?.[0]?.odds;
     const odds=competition?.odds?.length ? competition.odds : summaryOdds?.length ? summaryOdds : prior?.odds;
-    const basis={...competition,odds};
+    const basis={...competition,season:{...game.sourceEvent?.season,...competition?.season},odds};
     const opening=core.pregameRating(game.sport,game.sourceEvent,basis,game.context,'upcoming');
     game.pregameBaseline={calibration:CALIBRATION,source:game.state==='upcoming'?'observed':'reconstructed',
       score:opening.score,rawPregameScore:opening.rawPregameScore,factors:opening.factors,odds:odds || [],

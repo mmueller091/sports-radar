@@ -258,7 +258,8 @@
         options
       ).filter(factor => !options.calibratedPregame || !(
         factor.contextType === 'rivalry' && factors.some(existing=>existing.label === 'Rivalry' || sport === 'NFL' && existing.label.endsWith('matchup')) ||
-        factor.contextType === 'playoff_race' && postseason
+        factor.contextType === 'playoff_race' && postseason ||
+        sport==='NFL' && factor.contextType==='team_win_streak' && factors.some(f=>['Sustained recent form','Unbeaten team'].includes(f.label))
       ));
 
     if (contextFactors.length) {
@@ -268,6 +269,19 @@
 
       reason +=
         ' · verified matchup context';
+    }
+
+    if (options.calibratedPregame && sport==='NFL') {
+      // Rivalry, rematch, and division positioning share one twelve-point budget.
+      let remaining=12;
+      for (const factor of factors) {
+        if (factor.points>0 && (/^(?:AFC|NFC) .* matchup$|^Division (?:lead|race)|^Season-series|^Rivalry$/.test(factor.label) ||
+            ['rivalry','meaningful_rematch','rivalry_development','championship_rematch','playoff_rematch','playoff_race'].includes(factor.contextType))) {
+          factor.points=Number(Math.min(factor.points,remaining).toFixed(2));remaining-=factor.points;
+        }
+      }
+      for(let i=factors.length-1;i>=0;i--)if(!factors[i].points)factors.splice(i,1);
+      reason=factors.filter(f=>!['Sport baseline','Schedule scarcity'].includes(f.label)).map(f=>f.detail || f.contextText || f.label).join(' · ') || 'Regular-season matchup';
     }
 
     const rawPregameScore = factors.reduce((sum,item) => sum + item.points,0);

@@ -29,7 +29,7 @@ const rankingPoints = rating => rating.factors
 const nflMarketPoints=spread=>{
   const input=matchup('NFL');
   if (spread !== null) input.competition.odds=[{details:`Home -${spread}`,spread:-spread}];
-  const market=pregame(input).factors.filter(item=>/projected spread/i.test(item.label));
+  const market=pregame(input).factors.filter(item=>/projected (?:spread|favorite)/i.test(item.label));
   assert.ok(market.length<=1);
   return market[0]?.points || 0;
 };

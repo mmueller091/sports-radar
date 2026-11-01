@@ -2603,95 +2603,11 @@ function explainRating(game) {
     }
 
     if (game.sport === 'NFL') {
-      const division =
-        [...labels]
-          .find(label =>
-            /^(AFC|NFC) (East|North|South|West) matchup$/
-              .test(label)
-          )
-          ?.replace(
-            ' matchup',
-            ''
-          );
-
-      const signals = [];
-
-      if (
-        labels.has('Both winning records')
-      ) {
-        signals.push(
-          `both have winning records (${game.teams[0][5]} and ${game.teams[1][5]})`
-        );
-      }
-
-      if (
-        labels.has('Evenly matched winning records')
-      ) {
-        signals.push(
-          'their records are closely matched'
-        );
-      }
-
-      if (
-        labels.has('Both teams below .500')
-      ) {
-        signals.push(
-          `both teams are below .500 (${game.teams[0][5]} and ${game.teams[1][5]}), which tempers the anticipation`
-        );
-      } else if (
-        labels.has('Both teams at least .500')
-      ) {
-        signals.push(
-          `both teams are at least .500 (${game.teams[0][5]} and ${game.teams[1][5]})`
-        );
-      }
-
-      if (
-        labels.has('Unbeaten team')
-      ) {
-        signals.push(
-          'one team is unbeaten'
-        );
-      }
-
-      if (
-        labels.has('Winless team')
-      ) {
-        signals.push(
-          'one team is still winless, which lowers the expectation'
-        );
-      }
-
-      if (division) {
-        signals.push(
-          `${game.teams[0][0]} and ${game.teams[1][0]} are ${division} rivals, but that is only a small boost`
-        );
-      }
-
-      if (
-        labels.has('Tight projected spread') ||
-        labels.has('Competitive projected spread')
-      ) {
-        signals.push(
-          `the listed spread (${game.line?.spread || 'close'}) suggests a competitive game`
-        );
-      }
-
-      const possibleQuarterbackDuel =
-        Number(
-          new Date(game.startTime)
-            .getFullYear()
-        ) === 2026 &&
-        game.teams
-          .map(team => team[1])
-          .sort()
-          .join('-') === 'BAL-CIN'
-          ? ' It could also be Lamar Jackson vs. Joe Burrow if both start.'
-          : '';
-
+      const signals = game.factors.filter(factor => factor.points &&
+        !['Sport baseline','Schedule scarcity'].includes(factor.label));
       return signals.length
-        ? `${signals.join('; ').replace(/^[a-z]/,character => character.toUpperCase())}. That puts this at ${game.score} before kickoff.${possibleQuarterbackDuel}`
-        : `No special matchup stakes or close-line signal are listed yet, so this starts at ${game.score} before kickoff.${possibleQuarterbackDuel}`;
+        ? `${signals.map(factor => `${factor.detail || factor.contextText || factor.label} (${factor.points > 0 ? '+' : ''}${factor.points})`).join('; ')}. Pregame rating: ${game.score}.`
+        : `This regular-season matchup starts at ${game.score} before kickoff.`;
     }
 
     if (
@@ -5854,7 +5770,11 @@ function storylineDetails(game) {
     const source = url
       ? `<a href="${safeText(url)}" target="_blank" rel="noopener noreferrer">${safeText(factor.sourceTitle || 'Read source')} ↗</a>`
       : '';
-    return `<li><span>${safeText(factor.text)}</span>${source}</li>`;
+    const contribution=game.state==='upcoming' && game.sport==='NFL'
+      ? game.factors?.find(item=>item.contextType===factor.type)?.points : null;
+    const credit=game.state==='upcoming' && game.sport==='NFL'
+      ? contribution ? ` (+${contribution})` : ' (background context)' : '';
+    return `<li><span>${safeText(factor.text+credit)}</span>${source}</li>`;
   }).join('');
   return `<section class="detail-section storyline-section"><h3>Pregame storylines</h3><ul>${rows}</ul><p class="detail-empty">Only recent, source-backed context is included. It fades from the rating as the game unfolds.</p></section>`;
 }

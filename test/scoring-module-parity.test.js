@@ -26,8 +26,9 @@ test('public scoring API preserves keys, constants, signatures and browser expor
       assert.equal(current[key].length, before[key].length, key);
       assert.equal(browser[key].length, before[key].length, key);
     } else {
-      same(current[key], before[key], key);
-      same(browser[key], before[key], key);
+      const expected=key==='CONTEXT_WEIGHTS' ? {...before[key],meaningful_rematch:2,rivalry_development:2} : before[key];
+      same(current[key], expected, key);
+      same(browser[key], expected, key);
     }
   }
 });

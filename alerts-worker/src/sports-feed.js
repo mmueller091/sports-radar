@@ -4,6 +4,7 @@ import {createCollector,summaryUrl,teamResourceUrls,coreTeamProfileUrl,teamLeade
 import {normalizeEvent,preservePregameRecords,applyContextsToGame,enrichGame} from './live-game-model.js';
 import runtime from '../../scoring/live-runtime.cjs';
 import {contextsForGames} from './storylines.js';
+import {cachedNflPregame} from './nfl-pregame.js';
 import {fingerprint,summaryCandidate,reusable,refreshBudget,boundedFeedRefresh,REFRESH_LEASE_MS} from './refresh-policy.js';
 import {RETENTION_MS,recoverPregameRecords,recoverPregameBaselines,snapshotHistory,shouldSnapshot} from './snapshot-history.js';
 
@@ -2044,8 +2045,11 @@ export async function refreshSportsData(env,now=Date.now(),options={}) {
     games.forEach(game=>preservePregameRecords(game,priorGames.get(`${game.sport}:${game.id}`)));
     await stage('recordRecovery',()=>recoverPregameRecords(env,games,now,previous));
     const contextGames = games.filter(game=>['NFL','MLB','NHL','CFB','NBA','NCAAB'].includes(game.sport));
+    const nfl=await stage('contexts',()=>cachedNflPregame(env,contextGames,now));
     const contexts = await stage('contexts',()=>contextsForGames(env,contextGames.map(game=>`${game.sport}:${game.id}`),contextGames));
-    contextGames.forEach(game=>applyContextsToGame(game,contexts[`${game.sport}:${game.id}`]));
+    contextGames.forEach(game=>applyContextsToGame(game,game.sport==='NFL' && game.state==='upcoming'
+      ? [...(nfl.contexts[game.id] || []),...(contexts[`${game.sport}:${game.id}`] || [])]
+      : contexts[`${game.sport}:${game.id}`]));
     await stage('recordRecovery',()=>recoverPregameBaselines(env,games,now,previous));
     games.filter(game=>game.state==='live')
       .forEach(game=>runtime.applyLiveSnapshot(game,game.sourceCompetition,null));
@@ -2055,6 +2059,7 @@ export async function refreshSportsData(env,now=Date.now(),options={}) {
     metrics.liveCandidates=candidates.filter(game=>game.state==='live').length;
     const scoreboardStates = new Map(candidates.map(game=>[game,JSON.parse(JSON.stringify(game))]));
     const reusedGames = new Set(), enrichment={}, deferred=[],critical=[];
+    deferred.push(...nfl.deferred);
     const copyPrior = (game,prior) => {
       // Input fingerprint includes all source and normalized/context fields. This
       // is never used for live games or a transition; no ID-only reuse.
@@ -2180,10 +2185,10 @@ export async function refreshSportsData(env,now=Date.now(),options={}) {
         deferred.sort((a,b)=>a.version-b.version || a.url.localeCompare(b.url));
         for(let start=0;start<deferred.length;start+=6){
           budget.check();
-          await Promise.all(deferred.slice(start,start+6).map(async ({url})=>{
+          await Promise.all(deferred.slice(start,start+6).map(async ({url,ttl=55000})=>{
             const failures=[];
             try {
-              await providerJson(env,url,55000,budget.time(),failures,budget);
+              await providerJson(env,url,ttl,budget.time(),failures,budget);
               if (!failures.length) metrics.revalidated++;
             } catch {failures.push(url);}
             errors.push(...failures);

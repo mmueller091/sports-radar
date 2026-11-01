@@ -118,25 +118,42 @@ function strongStoryText(text) {
   return /(return|former|traded|trade|debut|injur|ruled out|sidelined|activated|milestone|record|streak|rematch|rival|playoff|wild.card|elimination|captain|coach|suspension|efficiency|net rating|strength of schedule|toughest schedule|confirmed starter|will start|starting quarterback|starting goalie|pitching matchup|\bace\b)/i.test(text);
 }
 
-function articleMatchesGame(article,game) {
-  if (!article.headline || !Number.isFinite(article.published) || Date.now() - article.published > ARTICLE_MAX_AGE_MS) return false;
-  if (article.eventIds.has(game.eventId)) return true;
-  const matchingTeams = [...article.teamIds].filter(id => game.teamIds.has(id)).length;
+function articleMatchesGame(article,game,now=Date.now()) {
+  if (!article.headline || !Number.isFinite(article.published) || now - article.published > ARTICLE_MAX_AGE_MS || article.published>now+300000) return false;
+  const text=`${article.headline} ${article.description || ''}`;
+  if (/uniform|jerseys?|cleats?|costumes?|fantasy|betting tips|prop plays|power rankings|mock draft|trade rumors?/i.test(text)) return false;
+  const teams=game.teams || [];
+  const teamIds=game.teamIds || new Set(teams.map(t=>String(t.id || t[8])));
+  const eventId=String(game.eventId || game.id);
+  const direct=teams.some(t=>{
+    const name=String(t.name || t[0] || ''),abbr=String(t.abbr || t[1] || '');
+    return [name,name.split(' ').at(-1),abbr.length>=3?abbr:''].filter(n=>n.length>=3)
+      .some(n=>new RegExp(`\\b${n.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')}\\b`,'i').test(text));
+  });
+  // League roundups carry many team tags; tags alone cannot establish relevance.
+  if ((article.teamIds?.size || 0)>4 && !article.eventIds?.has(eventId)) return false;
+  if (article.eventIds?.has(eventId)) return true;
+  const matchingTeams = [...(article.teamIds || [])].filter(id => teamIds.has(String(id))).length;
   if (matchingTeams >= 2) return true;
-  return matchingTeams === 1 && strongStoryText(`${article.headline} ${article.description}`);
+  return (direct || matchingTeams===1) && strongStoryText(text);
 }
 
 function meaningfulInjuryEvidence(article,type) {
   const text = `${article.headline || ''}. ${article.description || ''}`.replace(/\s+/g,' ').trim();
+  if(type==='star_injury_return' && /\bQB\s+[A-Z][a-z]+.{0,35}\b(?:to|will|set to) return\b/i.test(article.headline || '') &&
+      /ankle|knee|injur|hamstring/i.test(article.headline || '') && !/could|may|might|questionable/i.test(article.headline)) return {importance:'starting-quarterback'};
   const clauses = text.split(/[.!?;,]|\b(?:but|while|whereas|and)\b/i);
   for (const clause of clauses) {
     if (/\b(?:could|may|might|questionable|doubtful|uncertain|not ruled out|not sidelined|miss (?:a |the )?(?:practice|training))\b/i.test(clause)) continue;
-    const importance = /\bstarting quarterback\b|\bstarting QB\b/i.test(clause) ? 'starting-quarterback' :
+    if (/\b(?:backup|reserve)\b/i.test(clause)) continue;
+    const importance = /\bstarting quarterback\b|\bstarting QB\b|\bQB\s+[A-Z][a-z]+/i.test(clause) ? 'starting-quarterback' :
       /\b(?:star|superstar|all[- ]american|all[- ]pro|pro bowler|pro bowl|heisman|reigning MVP|first[- ]team all[- ](?:conference|sec|big ten)|leading (?:scorer|receiver|rusher|passer))\b/i.test(clause) ? 'star' : '';
-    if (!importance) continue;
+    const keyReturn=type!=='star_absence' && /\b(?:RB|running back|WR|wide receiver)\b/i.test(text) &&
+      /miss(?:ing|ed).{0,15}(?:two|three|[2-9]) (?:games|weeks)/i.test(text);
+    if (!importance && !keyReturn) continue;
     const absence = /\b(?:ruled out|will miss|sidelined|placed on injured|out with|out for|out vs|out against)\b/i.test(clause);
-    const returning = /(?:return|activated|back in).{0,55}(?:injur|sidelined)|first game back/i.test(clause);
-    if (type === 'star_absence' ? absence && !returning : returning) return {importance};
+    const returning = /(?:return|activated|back in).{0,75}(?:injur|sidelined|ankle|knee|hamstring)|first game back|(?:injur|absence|ankle|knee|hamstring).{0,55}(?:return|back in)/i.test(clause);
+    if (type === 'star_absence' ? absence && !returning : returning) return {importance:importance || 'key-player'};
   }
   return null;
 }
@@ -159,14 +176,16 @@ function deterministicFactor(article) {
   else if (/(former team|against (his|her|their) former|traded from)/i.test(text)) type = 'former_star_return';
   else if (/championship rematch|finals rematch|super bowl rematch|world series rematch/i.test(text)) type = 'championship_rematch';
   else if (/playoff rematch/i.test(text)) type = 'playoff_rematch';
-  else if (/rivalry|archrival|rival/i.test(text)) type = 'rivalry';
+  else if (/\b(?:confrontation|altercation|scuffle|brawl)\b/i.test(text) && /player|rival|rematch|teammate/i.test(text)) type = 'rivalry_development';
+  else if (/\b(?:revenge|rematch|avenge)\b/i.test(text)) type = 'meaningful_rematch';
+  else if (/\b(?:rivalry|archrivals?|rivals?)\b/i.test(text) && !/not a rivalry|no rivalry|uniform|rivalries look/i.test(text)) type = 'rivalry';
   else if (/(milestone|career record|record chase|within .* of)/i.test(text)) type = 'milestone_chase';
   else if (/(season debut|make(s|ing)? (his|her|their) debut)/i.test(text)) type = 'season_debut';
   else if (/(playoff race|wild.card race|elimination|clinching)/i.test(text)) type = 'playoff_race';
   else if (/(coach|manager).{0,70}(return|former|faces old team)/i.test(text)) type = 'coach_return';
   else if (/(hot streak|in (?:his|her|their )?(?:last|past|previous) \d+ games|(?:\d+|several|multiple) straight games|(?:goals?|homers?|points?) in .* games|scored in .* games)/i.test(text)) type = 'star_hot_streak';
   else if (/(hat trick|three goals|scored three|career[- ]high|record[- ]breaking|no[- ]hitter|perfect game|four home runs|50[- ]point)/i.test(text)) type = 'notable_recent_performance';
-  else if (/(winning streak|win streak|unbeaten in)/i.test(text)) type = 'team_win_streak';
+  else if (/(winning streak|win streak|unbeaten in)/i.test(text) && !/look(?:s|ing)? (?:for|to)|try(?:ing)? to|hop(?:e|es|ing) to|can .*extend/i.test(text)) type = 'team_win_streak';
   else if (/(?:top[- ]?\d+|best|leads? (?:the )?(?:league|nation)).{0,60}(?:offense|defense|efficiency|net rating)|(?:offensive|defensive|net) efficiency.{0,45}(?:top[- ]?\d+|best|first|1st)/i.test(text)) type = 'elite_efficiency_profile';
   else if (/(strength of schedule|toughest schedule|battle-tested|ranked schedule)/i.test(text)) type = 'strength_of_schedule';
   else if (/(?:confirmed|named|announced).{0,45}(?:starter|starting quarterback|starting goalie)|(?:quarterback|goalie).{0,35}(?:will start|gets the start)|starting lineups? confirmed/i.test(text)) type = 'confirmed_key_starters';
@@ -179,6 +198,12 @@ function deterministicFactor(article) {
 function evidenceSupportsType(article,type) {
   const grounded = deterministicFactor(article);
   return grounded?.type === type;
+}
+
+function nflMaterialFactor(article,type) {
+  const text=`${article.headline || ''} ${article.description || ''}`;
+  return type!=='major_trade_storyline' && (type!=='milestone_chase' ||
+    /\b(?:needs?|within|away from|one shy|on the verge)\b/i.test(text));
 }
 
 // A team tag or an opponent mention establishes article relevance, not ownership
@@ -278,6 +303,7 @@ function mergeFactors(items,classified) {
     const fallback = deterministicFactor(item.article);
     const chosen = ai && evidenceSupportsType(item.article,ai.type) ? ai : fallback;
     if (!chosen || (item.game && !achievementMatchesGame(item.article,item.game,chosen.type))) continue;
+    if(item.sport==='NFL' && !nflMaterialFactor(item.article,chosen.type)) continue;
     const confidence = Math.min(.99,Math.max(.7,Number(chosen.confidence) || .7));
     const chosenText = String(chosen.text || '').replace(/\s+/g,' ').trim();
     const groundedText = chosenText && evidenceSupportsType({headline:chosenText,description:''},chosen.type)
@@ -300,6 +326,10 @@ function mergeFactors(items,classified) {
       factor.sourceDescription = String(item.article.description || '').slice(0,1000);
     }
     if (ACHIEVEMENTS.has(factor.type)) {factor.sourceDescription=String(item.article.description || '').slice(0,1000);factor.sourceTeamIds=[...(item.article.teamIds || [])];}
+    if (factor.sport==='NFL') {
+      factor.sourceDescription=String(item.article.description || '').slice(0,1000);
+      factor.sourceTeamIds=[...(item.article.teamIds || [])];factor.sourceEventIds=[...(item.article.eventIds || [])];
+    }
     const key = `${factor.sport}:${factor.eventId}:${factor.type}`;
     const prior = deduped.get(key);
     if (!prior || factor.confidence > prior.confidence || factor.sourcePublished > prior.sourcePublished) deduped.set(key,factor);
@@ -324,7 +354,7 @@ async function saveFactors(env,games,factors,now) {
         expires_at=excluded.expires_at,
         updated_at=excluded.updated_at`)
       .bind(factor.eventId,factor.sport,factor.type,
-        ACHIEVEMENTS.has(factor.type) ? JSON.stringify({version:3,text:factor.text,description:factor.sourceDescription || '',teamIds:factor.sourceTeamIds || []}) : factor.injuryEvidence ? JSON.stringify({version:2,text:factor.text,description:factor.sourceDescription || '',affectedTeamId:factor.injuryEvidence.affectedTeamId}) : factor.text,
+        factor.sport==='NFL' ? JSON.stringify({version:4,text:factor.text,description:factor.sourceDescription || '',teamIds:factor.sourceTeamIds || [],eventIds:factor.sourceEventIds || [],affectedTeamId:factor.injuryEvidence?.affectedTeamId}) : ACHIEVEMENTS.has(factor.type) ? JSON.stringify({version:3,text:factor.text,description:factor.sourceDescription || '',teamIds:factor.sourceTeamIds || []}) : factor.injuryEvidence ? JSON.stringify({version:2,text:factor.text,description:factor.sourceDescription || '',affectedTeamId:factor.injuryEvidence.affectedTeamId}) : factor.text,
         factor.confidence,factor.sourceTitle,factor.sourceUrl,factor.sourcePublished,expires,Math.floor(now / 1000));
   });
   for (let start=0;start<writes.length;start+=50) await env.DB.batch(writes.slice(start,start+50));
@@ -342,7 +372,8 @@ export async function refreshStorylines(env,now=Date.now()) {
     } catch { return [feed.sport,[]]; }
   }));
   const items = buildResearchItems(games,new Map(newsEntries));
-  const classified = await aiFactors(env,items);
+  // NFL research is deterministic; do not spend inference calls on this model.
+  const classified = await aiFactors(env,items.filter(item=>item.sport!=='NFL'));
   const factors = mergeFactors(items,classified);
   await saveFactors(env,games,factors,now);
   await env.DB.prepare(`INSERT INTO research_status (id,last_run,candidates,articles,factors,ai_used,last_error)
@@ -373,11 +404,18 @@ export async function contextsForGames(env,keys,games=[]) {
   for (const row of rows) {
     const key = `${row.sport}:${row.event_id}`;
     if (!allowed.has(key)) continue;
+    if(row.sport==='NFL' && /uniform|jerseys?|costumes?|fantasy/i.test(row.source_title || '')) continue;
     let text = row.context_text;
     let saved;
     try {saved=JSON.parse(text);} catch {}
-    if (saved?.version===3) text=saved.text;
+    if ([3,4].includes(saved?.version)) text=saved.text;
     const game=games.find(g=>g.sport===row.sport && String(g.id)===String(row.event_id));
+    if (row.sport==='NFL' && (!game || game.state==='upcoming')) {
+      const article={headline:row.source_title,description:saved?.description || '',published:Number(row.source_published)*1000,
+        teamIds:new Set(saved?.teamIds || []),eventIds:new Set(saved?.eventIds || [])};
+      if (/uniform|jerseys?|costume|fantasy/i.test(article.headline) ||
+          !evidenceSupportsType(article,row.factor_type) || !nflMaterialFactor(article,row.factor_type) || (game && !articleMatchesGame(article,game))) continue;
+    }
     if (ACHIEVEMENTS.has(row.factor_type)) {
       const article={headline:row.source_title,description:saved?.description || '',teamIds:new Set(saved?.teamIds || [])};
       if (!evidenceSupportsType(article,row.factor_type) || (game && !achievementMatchesGame(article,game,row.factor_type))) continue;
@@ -386,7 +424,7 @@ export async function contextsForGames(env,keys,games=[]) {
     if (['star_absence','star_injury_return'].includes(row.factor_type)) {
       let stored;
       try { stored = JSON.parse(row.context_text); } catch {}
-      const versioned = stored?.version === 2 && typeof stored.text === 'string';
+      const versioned = [2,4].includes(stored?.version) && typeof stored.text === 'string';
       const article = {headline:row.source_title,description:versioned ? String(stored.description || '') : ''};
       const evidence = meaningfulInjuryEvidence(article,row.factor_type);
       // Revalidate legacy injury rows on every read. Unrelated cached storylines
@@ -409,4 +447,4 @@ export async function contextsForGames(env,keys,games=[]) {
   return output;
 }
 
-export {achievementMatchesGame,researchGame,deterministicFactor,evidenceSupportsType,articleMatchesGame,mergeFactors,saveFactors,meaningfulInjuryEvidence,affectedInjuryTeam};
+export {articleMetadata,buildResearchItems,achievementMatchesGame,researchGame,deterministicFactor,evidenceSupportsType,articleMatchesGame,mergeFactors,saveFactors,meaningfulInjuryEvidence,affectedInjuryTeam};

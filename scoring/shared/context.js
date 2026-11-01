@@ -101,9 +101,10 @@
           item?.type
         );
 
-      const points = options.calibratedPregame && type === 'star_absence'
+      let points = options.calibratedPregame && type === 'star_absence'
         ? footballAbsencePoints(item,competition)
         : CONTEXT_WEIGHTS[type];
+      if (options.calibratedPregame && options.sport==='NFL' && points>0) points=Math.min(type==='rivalry'?2:4,points);
 
       if (
         !Number.isFinite(points)
@@ -116,7 +117,7 @@
 
         label:
           String(
-            item?.label ||
+            (options.calibratedPregame && options.sport==='NFL' && type==='star_injury_return' ? 'Key player returns from injury' : '') || item?.label ||
             CONTEXT_LABELS[type] ||
             type
           ).trim(),
@@ -131,9 +132,12 @@
           ).trim(),
 
         points,
+        sourceUrl:item.sourceUrl,
 
         dedupeKey:
-          String(
+          options.calibratedPregame && options.sport==='NFL' &&
+            ['former_captain_return','first_game_back','former_star_return','star_injury_return','season_debut'].includes(type)
+            ? 'player-return' : String(
             item?.dedupeKey ||
             (
               [
@@ -162,7 +166,7 @@
     const factors = [];
     const seen = new Set();
 
-    let positiveRemaining = 22;
+    let positiveRemaining = options.calibratedPregame && options.sport==='NFL' ? 6 : 22;
     let negativeRemaining = 10;
 
     for (const item of candidates) {
@@ -206,7 +210,8 @@
         label:item.label,
         points,
         contextType:item.type,
-        contextText:item.text
+        contextText:item.text,
+        ...(item.sourceUrl ? {sourceUrl:item.sourceUrl} : {})
       });
     }
 

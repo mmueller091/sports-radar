@@ -6,6 +6,10 @@
   const {recordStats} = typeof module !== 'undefined' && module.exports
     ? require('../shared/records.js')
     : root.SportsRadarScoring.shared_records;
+  const {nflEvidenceFactors} = typeof module !== 'undefined' && module.exports
+    ? require('../shared/nfl-pregame.js') : root.SportsRadarScoring.shared_nfl_pregame;
+  const {parseLine} = typeof module !== 'undefined' && module.exports
+    ? require('../shared/market.js') : root.SportsRadarScoring.shared_market;
   const {listedSpread,footballPregameSpread,footballSpreadAdjustment} = typeof module !== 'undefined' && module.exports
     ? require('../shared/market.js')
     : root.SportsRadarScoring.shared_market;
@@ -233,7 +237,7 @@
           points:4
         });
 
-        if (bothWinning && !marketKnown) {
+        if (bothWinning && !marketKnown && !(options.calibratedPregame && competition.sportsRadarNflPregame)) {
           factors.push({
             label:'Division race between winning teams',
             points:3
@@ -331,17 +335,31 @@
         }
       }
       if (spreadPoints) {
-        const tight = spreadPoints >= 5;
+        const tight = options.calibratedPregame ? spread <= 3.5 : spreadPoints >= 5;
         factors.push({
           label:spreadPoints < 0 ? 'Projected spread mismatch' : tight
             ? 'Tight projected spread'
-            : 'Competitive projected spread',
+            : options.calibratedPregame ? (spread>7?'Substantial projected favorite':'Moderate projected favorite') : 'Competitive projected spread',
           points:Number(spreadPoints.toFixed(2))
         });
 
         reason += spreadPoints < 0 ? ' · projected mismatch' : tight
           ? ' · close line'
-          : ' · competitive line';
+          : options.calibratedPregame ? (spread>7?' · substantial favorite':' · moderate favorite') : ' · competitive line';
+      }
+      if (options.calibratedPregame && !postseason) {
+        const evidence=nflEvidenceFactors(competition,records,division);
+        factors.push(...evidence);
+        if (evidence.some(f=>/Division lead|Division race/.test(f.label))) reason+=' · verified division positioning';
+        if (knownRecords && !bothWinning && records.filter(r=>r.pct>.5).length===1) {
+          const contender=records.find(r=>r.pct>.5);
+          const points=Math.min(2,Math.max(0,(contender.pct-.5)*12))*Math.min(1,contender.games/4);
+          if(points) factors.push({label:'Winning team quality',points:Number(points.toFixed(2))});
+        }
+        const total=parseLine(competition?.odds?.[0],competition,'NFL')?.total;
+        // Entertainment upside only: defensive matchups receive no low-total penalty.
+        if (total>46 && total<=100) factors.push({label:'Expected scoring potential',
+          points:Number(Math.min(5,(total-46)/2).toFixed(2)),detail:`Listed total ${total}; capped at five points`});
       }
     }
 
