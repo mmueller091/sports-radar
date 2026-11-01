@@ -42,10 +42,10 @@ test('NFL spread bonus declines smoothly from pick’em to a wide line',()=>{
   }
   assert.equal(awards[0],7);
   assert.ok(awards[1]>=5 && awards[1]<=6);
-  assert.ok(awards[2]>=3 && awards[2]<=4);
-  assert.ok(awards[3]>=1 && awards[3]<=2);
-  assert.ok(awards[4]<=1);
-  assert.equal(awards[5],-4);
+  assert.equal(awards[2],2);
+  assert.ok(awards[3]<-2 && awards[3]>-4);
+  assert.ok(awards[4]<-4);
+  assert.equal(awards[5],-6);
   assert.equal(nflMarketPoints(null),0);
 });
 

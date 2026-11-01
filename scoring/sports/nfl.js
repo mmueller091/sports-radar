@@ -231,8 +231,6 @@
             record.pct > .5
         );
       const recordAssessment=options.calibratedPregame && knownRecords ? nflRecordAssessment(competition,records) : null;
-      const winningRunway=recordAssessment ? Math.max(0,Math.min(1,(Math.min(...records.map(r=>r.pct))-.5)/.1)) : 1;
-      const winningWeight=winningRunway*winningRunway*(3-2*winningRunway);
 
       if (division) {
         factors.push({
@@ -240,10 +238,10 @@
           points:4
         });
 
-        if (bothWinning && !marketKnown && !(options.calibratedPregame && competition.sportsRadarNflPregame)) {
+        if (bothWinning && !marketKnown && !options.calibratedPregame) {
           factors.push({
             label:'Division race between winning teams',
-            points:recordAssessment ? Number((3*recordAssessment.positive/14*winningWeight).toFixed(2)) : 3
+            points:3
           });
         }
 
@@ -252,14 +250,13 @@
       }
 
       if(recordAssessment) {
-        if(recordAssessment.positive) factors.push({label:bothWinning?'Both winning records':'Winning team quality',points:recordAssessment.positive});
+        if(recordAssessment.positive) factors.push({label:bothWinning?'Both winning records':'Winning team quality',points:recordAssessment.positive,
+          ...(!bothWinning ? {detail:'Single winning-team interest; capped at two before market scaling'} : {})});
         if(recordAssessment.penalty) factors.push({label:'Graduated losing-record penalty',points:recordAssessment.penalty,
           recordSeverity:recordAssessment.severity,performanceRelief:recordAssessment.relief,
           detail:`Records ${records.map(r=>`${r.wins}-${r.losses} (${Math.round(r.pct*100)}%)`).join(' and ')} set the deduction${recordAssessment.relief>0?'; season scoring margins soften it':''}`});
-        if(bothWinning && !marketKnown && Math.abs(records[0].pct-records[1].pct)<=.1) {
-          const points=Number((4*recordAssessment.positive/14*winningWeight).toFixed(2));
-          if(points)factors.push({label:'Evenly matched winning records',points});
-        }
+        // Missing odds do not make matching records a second quality award,
+        // and winning division records alone do not establish race stakes.
       } else if (bothWinning) {
         factors.push({
           label:'Both winning records',
@@ -352,7 +349,8 @@
           label:spreadPoints < 0 ? 'Projected spread mismatch' : tight
             ? 'Tight projected spread'
             : options.calibratedPregame ? (spread>7?'Substantial projected favorite':'Moderate projected favorite') : 'Competitive projected spread',
-          points:Number(spreadPoints.toFixed(2))
+          points:Number(spreadPoints.toFixed(2)),
+          ...(options.calibratedPregame ? {detail:`Listed ${spread}-point spread; ${spreadPoints<0?'projected mismatch lowers':'projected competitiveness raises'} excitement`} : {})
         });
 
         reason += spreadPoints < 0 ? ' · projected mismatch' : tight

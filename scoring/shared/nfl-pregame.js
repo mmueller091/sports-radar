@@ -53,9 +53,11 @@
       ? e.teams.reduce((sum,t)=>sum+2*unit((t.differential/t.games+3)/6),0)*maturity : 0;
     const relief=severity*recovery/7;
     const single=Math.min(2,Math.max(0,(Math.max(...pct)-.5)*12))*Math.min(1,Math.max(...records.map(r=>r.games))/4);
-    // Blend into the existing fourteen-point two-team quality ceiling without
-    // switching awards when one record crosses .500.
-    const positive=single+(14-single)*smooth(((pct[0]+pct[1])/2-.5)/.2);
+    // A combined average alone lets one elite record impersonate two strong
+    // teams. Require the weaker record to establish winning quality as well.
+    // Smooth gates preserve continuity at .500; one winning team earns <=2.
+    const mutual=smooth((Math.min(...pct)-.5)/.07);
+    const positive=single+(14-single)*mutual*smooth(((pct[0]+pct[1])/2-.5)/.2);
     const severeTeam=5*(1-smooth(Math.min(...pct)/.125));
     const appliedSeverity=Math.max(severity,severeTeam),appliedRelief=appliedSeverity-Math.max(severity-relief,severeTeam);
     return {positive:round(positive),penalty:round(-appliedSeverity+appliedRelief),losingWeight,

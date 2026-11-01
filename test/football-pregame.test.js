@@ -10,7 +10,7 @@ import {deterministicFactor,meaningfulInjuryEvidence,contextsForGames,mergeFacto
 import watch from '../watch-links.js';
 const require=createRequire(import.meta.url),core=require('../rating-core.js'),before=require('./helpers/pregame-before.cjs');
 const {footballPregameSpread,footballSpreadAdjustment,FOOTBALL_SPREAD_ANCHORS}=require('../scoring/shared/market.js');
-const targets={NFL:[[0,7],[3,6],[7,3],[10,0],[14,-4],[17,-7],[21,-10]],CFB:[[0,5],[3,4],[7,2],[10,1],[14,0],[20,-4],[27,-7],[35,-10]]};
+const targets={NFL:[[0,7],[3,6],[3.5,5.625],[6,2],[7,0],[8,-2],[10,-4],[14,-6],[17,-8],[21,-10]],CFB:[[0,5],[3,4],[7,2],[10,1],[14,0],[20,-4],[27,-7],[35,-10]]};
 const captured=JSON.parse(fs.readFileSync(new URL('./fixtures/football-pregame-20261031.json',import.meta.url)));
 const plain=value=>JSON.parse(JSON.stringify(value));
 function fixture(sport,spread,options={}) {
@@ -31,7 +31,7 @@ for(const sport of ['NFL','CFB']) {
     for(const [spread,points] of targets[sport]) {
       assert.equal(footballSpreadAdjustment(sport,spread),points);
       assert.equal(footballSpreadAdjustment(sport,-spread),points);
-      assert.ok(Math.abs(footballSpreadAdjustment(sport,spread+.0001)-footballSpreadAdjustment(sport,Math.max(0,spread-.0001)))<.0003);
+      assert.ok(Math.abs(footballSpreadAdjustment(sport,spread+.0001)-footballSpreadAdjustment(sport,Math.max(0,spread-.0001)))<.0005);
     }
     let prior=Infinity;
     for(let spread=0;spread<=100;spread+=.05){const points=footballSpreadAdjustment(sport,spread);assert.ok(points<=prior+1e-10);assert.ok(points>=-10);prior=points;}
@@ -55,7 +55,12 @@ test('missing odds stay neutral; numeric zero, signed, nested and textual pickâ€
   for(const odds of [null,{}, {spread:''},{spread:false},{spread:Infinity},{details:'PIT -110'},{details:'Total 48.5'},{spread:'not listed'}]) assert.equal(footballPregameSpread({odds:odds?[odds]:[]}),null);
   for(const sport of ['NFL','CFB']) {
     const {reason:a,...actual}=plain(rating(fixture(sport,null))),{reason:b,...prior}=plain(rating(fixture(sport,null),before.legacy));
-    assert.deepEqual(actual,prior,'missing odds add no market evidence; NFL explanation is now factor-derived');
+    if(sport==='NFL'){
+      // Missing markets no longer turn the same records into both quality,
+      // inferred competitiveness, and an unverified division-race award.
+      assert.equal(actual.score,prior.score-7);
+      assert.deepEqual(actual.factors,prior.factors.filter(f=>!['Evenly matched winning records','Division race between winning teams'].includes(f.label)));
+    }else assert.deepEqual(actual,prior,'missing odds add no market evidence');
   }
   assert.notEqual(footballSpreadAdjustment('NFL',14),footballSpreadAdjustment('CFB',14));
 });

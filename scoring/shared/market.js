@@ -235,7 +235,7 @@
   }
 
   const FOOTBALL_SPREAD_ANCHORS = {
-    NFL:[[0,7],[3,6],[7,3],[10,0],[14,-4],[17,-7],[21,-10]],
+    NFL:[[0,7],[3,6],[3.5,5.625],[6,2],[7,0],[8,-2],[10,-4],[14,-6],[17,-8],[21,-10]],
     CFB:[[0,5],[3,4],[7,2],[10,1],[14,0],[20,-4],[27,-7],[35,-10]]
   };
   function footballSpreadAdjustment(sport,spread) {
@@ -245,7 +245,23 @@
     const value = Math.abs(spread);
     for (let i=1;i<anchors.length;i++) {
       const [x,y]=anchors[i-1],[nextX,nextY]=anchors[i];
-      if (value <= nextX) return y+(nextY-y)*(value-x)/(nextX-x);
+      if (value <= nextX) {
+        if(sport!=='NFL')return y+(nextY-y)*(value-x)/(nextX-x);
+        // Monotone cubic Hermite interpolation: continuous values AND slopes,
+        // no threshold jumps or overshoot. The final slope meets the flat tail.
+        const tangent=index=>{
+          if(index===0)return (anchors[1][1]-anchors[0][1])/(anchors[1][0]-anchors[0][0]);
+          if(index===anchors.length-1)return 0;
+          const [px,py]=anchors[index-1],[cx,cy]=anchors[index],[nx,ny]=anchors[index+1];
+          const left=(cy-py)/(cx-px),right=(ny-cy)/(nx-cx);
+          if(left*right<=0)return 0;
+          const a=2*(nx-cx)+(cx-px),b=(nx-cx)+2*(cx-px);
+          return (a+b)/(a/left+b/right);
+        };
+        const width=nextX-x,t=(value-x)/width;
+        return (2*t**3-3*t**2+1)*y+(t**3-2*t**2+t)*width*tangent(i-1)
+          +(-2*t**3+3*t**2)*nextY+(t**3-t**2)*width*tangent(i);
+      }
     }
     return anchors.at(-1)[1];
   }

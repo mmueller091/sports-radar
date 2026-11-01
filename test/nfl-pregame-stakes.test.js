@@ -18,7 +18,8 @@ const rows=data.events.map(score);
 test('captured November 1 baseline and all five abnormalities improve without per-game rules',()=>{
   assert.equal(rows.length,12);
   assert.deepEqual(data.events.map(e=>data.games.find(g=>g.id===e.id).score),[77,47,45,73,49,66,45,46,45,67,49,48]);
-  const ranges={'401873025':[54,59],'401873027':[71,76],'401873033':[72,78],'401873031':[39,44],'401873024':[46,52]};
+  // Updated market downside: CIN -13.5 and DAL -7 are less competitive.
+  const ranges={'401873025':[54,59],'401873027':[71,76],'401873033':[72,78],'401873031':[37,42],'401873024':[43,49]};
   for(const [id,[min,max]] of Object.entries(ranges)){const g=rows.find(g=>g.id===id);assert.ok(g.score>=min && g.score<=max,`${id}: ${g.score}`);}
   for(const id of ['401873026','401873030'])assert.ok(rows.find(g=>g.id===id).score>=70);
   for(const g of rows){assert.equal(g.score,core.clampScore(g.factors.reduce((n,f)=>n+f.points,0)));assert.ok(g.score<85);assert.ok(!g.qualitativeContexts.some(f=>/uniform/i.test(f.text)));}
@@ -53,13 +54,14 @@ test('point differential, recent margins and opponent strength distinguish ident
   assert.ok(weak.score<g.score);
 });
 
-test('spread effects stay continuous; 6.5/7 are moderate favorites and totals contribute at most five',()=>{
+test('spread effects stay continuous; seven points is neutral and wider lines negative; total capped at five',()=>{
   const e=source('401873024'),teams=e.competitions[0].competitors.map(c=>({name:c.team.displayName,abbr:c.team.abbreviation,score:'0'}));
   const rating=spread=>{const c={...e.competitions[0],odds:[{spread,overUnder:54.5}]};return core.rateGame('NFL','upcoming',teams,e,c,'');};
   let previous=Infinity;
   for(let spread=0;spread<=30;spread+=.05){const g=rating(spread);assert.ok(g.score<=previous);previous=g.score;}
-  for(const spread of [6.5,7])assert.ok(rating(spread).factors.some(f=>f.label==='Moderate projected favorite'));
-  assert.ok(rating(7.5).factors.some(f=>f.label==='Substantial projected favorite'));
+  assert.ok(rating(6.5).factors.some(f=>f.label==='Moderate projected favorite'));
+  assert.ok(!rating(7).factors.some(f=>/projected (spread|favorite)/i.test(f.label)));
+  assert.ok(rating(7.5).factors.some(f=>f.label==='Projected spread mismatch' && f.points<0));
   const c=e.competitions[0];c.odds=[{spread:7,overUnder:35}];const low=core.pregameRating('NFL',e,c,'');
   c.odds[0].overUnder=46;assert.equal(core.pregameRating('NFL',e,c,'').score,low.score,'no low-total deduction');
   c.odds[0].overUnder=90;assert.equal(core.pregameRating('NFL',e,c,'').factors.find(f=>f.label==='Expected scoring potential').points,5);

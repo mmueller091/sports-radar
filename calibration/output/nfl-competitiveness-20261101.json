@@ -1,0 +1,1421 @@
+{
+  "model": "2026-11-01.nfl-pregame.3",
+  "baselineModel": "2026-11-01.nfl-pregame.2",
+  "capturedAt": "2026-11-01T15:59:09.369Z",
+  "basis": "Frozen production feed and identical scoreboard/context inputs; November 1 and November 8 in America/New_York. Future records are the current known records, not projected results.",
+  "rows": [
+    {
+      "id": "401873026",
+      "date": "2026-11-01",
+      "matchup": "BAL @ BUF",
+      "spread": "BUF -3",
+      "before": 75,
+      "after": 75,
+      "change": 0,
+      "reason": "Preserved (rounding only or unchanged)",
+      "flagged": false,
+      "rawBefore": 75.44,
+      "rawAfter": 75.44,
+      "components": [],
+      "factors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 10
+        },
+        {
+          "label": "Both winning records",
+          "points": 14
+        },
+        {
+          "label": "Tight projected spread",
+          "points": 6,
+          "detail": "Listed 3-point spread; projected competitiveness raises excitement"
+        },
+        {
+          "label": "Season point differential",
+          "points": 0.58,
+          "detail": "Season scoring margins provide a small quality adjustment",
+          "sourceUrl": "https://www.espn.com/nfl/preview?gameId=401873026"
+        },
+        {
+          "label": "Recent performance",
+          "points": -0.39,
+          "detail": "Scoring margins over each team’s last three games; individual margins capped at 21",
+          "sourceUrl": "https://www.espn.com/nfl/preview?gameId=401873026"
+        },
+        {
+          "label": "Expected scoring potential",
+          "points": 4.25,
+          "detail": "Listed total 54.5; capped at five points"
+        },
+        {
+          "label": "Close-game scoring upside",
+          "points": 3,
+          "detail": "A 3-point spread and 54.5 total jointly add entertainment upside; capped at three points"
+        },
+        {
+          "label": "Decorated starting quarterback returns",
+          "points": 5,
+          "contextType": "star_injury_return",
+          "contextText": "Ravens QB Jackson to return for Bills clash, calls ankle pain 'bearable'. Ravens quarterback Lamar Jackson will return to play Sunday at Buffalo, saying the pain in his injured left ankle is \"bearable.\"",
+          "sourceUrl": "https://www.espn.com/nfl/story/_/id/50329330/ravens-qb-lamar-jackson-expected-return-vs-bills",
+          "returnSignificance": {
+            "verified": true,
+            "playerId": "3916387",
+            "tier": "major-quarterback",
+            "fact": "Jackson, meantime, has the edge in being a two-time NFL MVP",
+            "sourceUrl": "http://www.espn.com/nfl/preview?gameId=401873026"
+          }
+        },
+        {
+          "label": "Rivalry context",
+          "points": 1,
+          "contextType": "rivalry",
+          "contextText": "Josh Allen looks to renew rivalry with Lamar Jackson as Bills host Ravens",
+          "sourceUrl": "http://www.espn.com/nfl/preview?gameId=401873026"
+        }
+      ]
+    },
+    {
+      "id": "401873031",
+      "date": "2026-11-01",
+      "matchup": "TEN @ CIN",
+      "spread": "CIN -13.5",
+      "before": 40,
+      "after": 38,
+      "change": -2,
+      "reason": "Stronger spread downside",
+      "flagged": false,
+      "rawBefore": 40.43,
+      "rawAfter": 38.2,
+      "components": [
+        {
+          "label": "Projected spread mismatch",
+          "before": -3.5,
+          "after": -5.73,
+          "delta": -2.23
+        }
+      ],
+      "factors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 10
+        },
+        {
+          "label": "Winning team quality",
+          "points": 1.54,
+          "detail": "Single winning-team interest; capped at two before market scaling"
+        },
+        {
+          "label": "Projected spread mismatch",
+          "points": -5.73,
+          "detail": "Listed 13.5-point spread; projected mismatch lowers excitement"
+        },
+        {
+          "label": "Recent performance",
+          "points": 0.14,
+          "detail": "Scoring margins over each team’s last three games; individual margins capped at 21",
+          "sourceUrl": "https://www.espn.com/nfl/preview?gameId=401873031"
+        },
+        {
+          "label": "Expected scoring potential",
+          "points": 0.25,
+          "detail": "Listed total 46.5; capped at five points"
+        }
+      ]
+    },
+    {
+      "id": "401873024",
+      "date": "2026-11-01",
+      "matchup": "ARI @ DAL",
+      "spread": "DAL -7",
+      "before": 48,
+      "after": 45,
+      "change": -3,
+      "reason": "Stronger spread downside",
+      "flagged": false,
+      "rawBefore": 48.42,
+      "rawAfter": 45.42,
+      "components": [
+        {
+          "label": "Moderate projected favorite",
+          "before": 3,
+          "after": 0,
+          "delta": -3
+        }
+      ],
+      "factors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 10
+        },
+        {
+          "label": "Graduated losing-record penalty",
+          "points": -1.69,
+          "recordSeverity": 2.12,
+          "performanceRelief": 0.43,
+          "detail": "Records 3-4 (43%) and 2-5 (29%) set the deduction; season scoring margins soften it"
+        },
+        {
+          "label": "Season point differential",
+          "points": -0.2,
+          "detail": "Season scoring margins provide a small quality adjustment",
+          "sourceUrl": "https://www.espn.com/nfl/preview?gameId=401873024"
+        },
+        {
+          "label": "Recent performance",
+          "points": -0.94,
+          "detail": "Scoring margins over each team’s last three games; individual margins capped at 21",
+          "sourceUrl": "https://www.espn.com/nfl/preview?gameId=401873024"
+        },
+        {
+          "label": "Expected scoring potential",
+          "points": 4.25,
+          "detail": "Listed total 54.5; capped at five points"
+        },
+        {
+          "label": "Regular player returns",
+          "points": 2,
+          "contextType": "star_injury_return",
+          "contextText": "Cardinals rookie RB Jeremiyah Love (ankle) set to return. Jeremiyah Love is expected to return to the field for the Cardinals on Sunday after missing the past two weeks with an ankle injury.",
+          "sourceUrl": "https://www.espn.com/nfl/story/_/id/50329508/cardinals-rookie-rb-jeremiyah-love-ankle-set-return"
+        }
+      ]
+    },
+    {
+      "id": "401873030",
+      "date": "2026-11-01",
+      "matchup": "MIN @ DET",
+      "spread": "DET -3",
+      "before": 79,
+      "after": 79,
+      "change": 0,
+      "reason": "Preserved (rounding only or unchanged)",
+      "flagged": false,
+      "rawBefore": 79.32,
+      "rawAfter": 79.32,
+      "components": [],
+      "factors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 10
+        },
+        {
+          "label": "NFC North matchup",
+          "points": 4
+        },
+        {
+          "label": "Both winning records",
+          "points": 14
+        },
+        {
+          "label": "Unbeaten team",
+          "points": 7
+        },
+        {
+          "label": "Tight projected spread",
+          "points": 6,
+          "detail": "Listed 3-point spread; projected competitiveness raises excitement"
+        },
+        {
+          "label": "Division race positioning",
+          "points": 2,
+          "detail": "Both teams are within two games of the NFC North lead",
+          "sourceUrl": "https://www.espn.com/nfl/standings/_/group/10"
+        },
+        {
+          "label": "Season point differential",
+          "points": 1.46,
+          "detail": "Season scoring margins provide a small quality adjustment",
+          "sourceUrl": "https://www.espn.com/nfl/preview?gameId=401873030"
+        },
+        {
+          "label": "Recent performance",
+          "points": 1.08,
+          "detail": "Scoring margins over each team’s last three games; individual margins capped at 21",
+          "sourceUrl": "https://www.espn.com/nfl/preview?gameId=401873030"
+        },
+        {
+          "label": "Recent win over winning opposition",
+          "points": 0.75,
+          "detail": "Latest result includes a win over an opponent currently winning at least 60% of its games",
+          "sourceUrl": "https://www.espn.com/nfl/game/_/gameId/401873020/packers-lions"
+        },
+        {
+          "label": "Sustained recent form",
+          "points": 0.75,
+          "detail": "Verified consecutive wins or losses, limited to the available five-game history",
+          "sourceUrl": "https://www.espn.com/nfl/preview?gameId=401873030"
+        },
+        {
+          "label": "Expected scoring potential",
+          "points": 0.25,
+          "detail": "Listed total 46.5; capped at five points"
+        },
+        {
+          "label": "Close-game scoring upside",
+          "points": 0.03,
+          "detail": "A 3-point spread and 46.5 total jointly add entertainment upside; capped at three points"
+        }
+      ]
+    },
+    {
+      "id": "401873029",
+      "date": "2026-11-01",
+      "matchup": "LV @ NYJ",
+      "spread": "NYJ -1.5",
+      "before": 45,
+      "after": 45,
+      "change": 0,
+      "reason": "Preserved (rounding only or unchanged)",
+      "flagged": false,
+      "rawBefore": 45.27,
+      "rawAfter": 45.34,
+      "components": [
+        {
+          "label": "Tight projected spread",
+          "before": 6.5,
+          "after": 6.57,
+          "delta": 0.07
+        }
+      ],
+      "factors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 10
+        },
+        {
+          "label": "Graduated losing-record penalty",
+          "points": -1.91,
+          "recordSeverity": 2.12,
+          "performanceRelief": 0.22,
+          "detail": "Records 2-5 (29%) and 3-4 (43%) set the deduction; season scoring margins soften it"
+        },
+        {
+          "label": "Tight projected spread",
+          "points": 6.57,
+          "detail": "Listed 1.5-point spread; projected competitiveness raises excitement"
+        },
+        {
+          "label": "Season point differential",
+          "points": -0.1,
+          "detail": "Season scoring margins provide a small quality adjustment",
+          "sourceUrl": "https://www.espn.com/nfl/preview?gameId=401873029"
+        },
+        {
+          "label": "Recent performance",
+          "points": -1,
+          "detail": "Scoring margins over each team’s last three games; individual margins capped at 21",
+          "sourceUrl": "https://www.espn.com/nfl/preview?gameId=401873029"
+        },
+        {
+          "label": "Sustained recent form",
+          "points": -0.5,
+          "detail": "Verified consecutive wins or losses, limited to the available five-game history",
+          "sourceUrl": "https://www.espn.com/nfl/preview?gameId=401873029"
+        },
+        {
+          "label": "Expected scoring potential",
+          "points": 0.25,
+          "detail": "Listed total 46.5; capped at five points"
+        },
+        {
+          "label": "Close-game scoring upside",
+          "points": 0.03,
+          "detail": "A 1.5-point spread and 46.5 total jointly add entertainment upside; capped at three points"
+        }
+      ]
+    },
+    {
+      "id": "401873027",
+      "date": "2026-11-01",
+      "matchup": "CLE @ PIT",
+      "spread": "PIT -3.5",
+      "before": 75,
+      "after": 75,
+      "change": 0,
+      "reason": "Preserved (rounding only or unchanged)",
+      "flagged": false,
+      "rawBefore": 74.64,
+      "rawAfter": 74.64,
+      "components": [],
+      "factors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 10
+        },
+        {
+          "label": "AFC North matchup",
+          "points": 4
+        },
+        {
+          "label": "Both winning records",
+          "points": 14
+        },
+        {
+          "label": "Tight projected spread",
+          "points": 5.63,
+          "detail": "Listed 3.5-point spread; projected competitiveness raises excitement"
+        },
+        {
+          "label": "Division lead at stake",
+          "points": 7,
+          "detail": "Either winner can take at least a share of the AFC North lead",
+          "sourceUrl": "https://www.espn.com/nfl/standings/_/group/12"
+        },
+        {
+          "label": "Season-series tiebreaker",
+          "points": 1,
+          "detail": "A verified earlier meeting makes the division season series relevant",
+          "sourceUrl": "https://www.espn.com/nfl/game/_/gameId/401872964/steelers-browns"
+        },
+        {
+          "label": "Season point differential",
+          "points": 0.04,
+          "detail": "Season scoring margins provide a small quality adjustment",
+          "sourceUrl": "https://www.espn.com/nfl/preview?gameId=401873027"
+        },
+        {
+          "label": "Recent performance",
+          "points": 0.72,
+          "detail": "Scoring margins over each team’s last three games; individual margins capped at 21",
+          "sourceUrl": "https://www.espn.com/nfl/preview?gameId=401873027"
+        },
+        {
+          "label": "Sustained recent form",
+          "points": 0.25,
+          "detail": "Verified consecutive wins or losses, limited to the available five-game history",
+          "sourceUrl": "https://www.espn.com/nfl/preview?gameId=401873027"
+        }
+      ]
+    },
+    {
+      "id": "401873025",
+      "date": "2026-11-01",
+      "matchup": "ATL @ TB",
+      "spread": "TB -2.5",
+      "before": 57,
+      "after": 57,
+      "change": 0,
+      "reason": "Preserved (rounding only or unchanged)",
+      "flagged": false,
+      "rawBefore": 57,
+      "rawAfter": 57.06,
+      "components": [
+        {
+          "label": "Tight projected spread",
+          "before": 6.17,
+          "after": 6.23,
+          "delta": 0.06
+        }
+      ],
+      "factors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 10
+        },
+        {
+          "label": "NFC South matchup",
+          "points": 4
+        },
+        {
+          "label": "Graduated losing-record penalty",
+          "points": -1.39,
+          "recordSeverity": 2.12,
+          "performanceRelief": 0.74,
+          "detail": "Records 2-5 (29%) and 3-4 (43%) set the deduction; season scoring margins soften it"
+        },
+        {
+          "label": "Tight projected spread",
+          "points": 6.23,
+          "detail": "Listed 2.5-point spread; projected competitiveness raises excitement"
+        },
+        {
+          "label": "Division race positioning",
+          "points": 5,
+          "detail": "Both teams are within one game of the NFC South lead",
+          "sourceUrl": "https://www.espn.com/nfl/standings/_/group/11"
+        },
+        {
+          "label": "Season point differential",
+          "points": 0.03,
+          "detail": "Season scoring margins provide a small quality adjustment",
+          "sourceUrl": "https://www.espn.com/nfl/preview?gameId=401873025"
+        },
+        {
+          "label": "Recent performance",
+          "points": 0.44,
+          "detail": "Scoring margins over each team’s last three games; individual margins capped at 21",
+          "sourceUrl": "https://www.espn.com/nfl/preview?gameId=401873025"
+        },
+        {
+          "label": "Recent win over winning opposition",
+          "points": 0.75,
+          "detail": "Latest result includes a win over an opponent currently winning at least 60% of its games",
+          "sourceUrl": "https://www.espn.com/nfl/game/_/gameId/401873017/49ers-falcons"
+        }
+      ]
+    },
+    {
+      "id": "401873028",
+      "date": "2026-11-01",
+      "matchup": "IND @ JAX",
+      "spread": "JAX -10",
+      "before": 48,
+      "after": 44,
+      "change": -4,
+      "reason": "Stronger spread downside",
+      "flagged": false,
+      "rawBefore": 47.809999999999995,
+      "rawAfter": 43.809999999999995,
+      "components": [
+        {
+          "label": "Projected spread mismatch",
+          "before": 0,
+          "after": -4,
+          "delta": -4
+        }
+      ],
+      "factors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 10
+        },
+        {
+          "label": "AFC South matchup",
+          "points": 4
+        },
+        {
+          "label": "Winning team quality",
+          "points": 1.79,
+          "detail": "Single winning-team interest; capped at two before market scaling"
+        },
+        {
+          "label": "Projected spread mismatch",
+          "points": -4,
+          "detail": "Listed 10-point spread; projected mismatch lowers excitement"
+        },
+        {
+          "label": "Season point differential",
+          "points": 0.58,
+          "detail": "Season scoring margins provide a small quality adjustment",
+          "sourceUrl": "https://www.espn.com/nfl/preview?gameId=401873028"
+        },
+        {
+          "label": "Recent performance",
+          "points": -0.56,
+          "detail": "Scoring margins over each team’s last three games; individual margins capped at 21",
+          "sourceUrl": "https://www.espn.com/nfl/preview?gameId=401873028"
+        },
+        {
+          "label": "Sustained recent form",
+          "points": -0.25,
+          "detail": "Verified consecutive wins or losses, limited to the available five-game history",
+          "sourceUrl": "https://www.espn.com/nfl/preview?gameId=401873028"
+        },
+        {
+          "label": "Expected scoring potential",
+          "points": 0.25,
+          "detail": "Listed total 46.5; capped at five points"
+        }
+      ]
+    },
+    {
+      "id": "401873032",
+      "date": "2026-11-01",
+      "matchup": "LAC @ LAR",
+      "spread": "LAR -6.5",
+      "before": 39,
+      "after": 37,
+      "change": -2,
+      "reason": "Stronger spread downside",
+      "flagged": false,
+      "rawBefore": 38.86,
+      "rawAfter": 36.51,
+      "components": [
+        {
+          "label": "Moderate projected favorite",
+          "before": 3.38,
+          "after": 1.03,
+          "delta": -2.35
+        }
+      ],
+      "factors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 10
+        },
+        {
+          "label": "Graduated losing-record penalty",
+          "points": -5,
+          "recordSeverity": 5,
+          "performanceRelief": 0,
+          "detail": "Records 3-4 (43%) and 0-6 (0%) set the deduction"
+        },
+        {
+          "label": "Moderate projected favorite",
+          "points": 1.03,
+          "detail": "Listed 6.5-point spread; projected competitiveness raises excitement"
+        },
+        {
+          "label": "Season point differential",
+          "points": -0.21,
+          "detail": "Season scoring margins provide a small quality adjustment",
+          "sourceUrl": "https://www.espn.com/nfl/preview?gameId=401873032"
+        },
+        {
+          "label": "Recent performance",
+          "points": -0.56,
+          "detail": "Scoring margins over each team’s last three games; individual margins capped at 21",
+          "sourceUrl": "https://www.espn.com/nfl/preview?gameId=401873032"
+        },
+        {
+          "label": "Sustained recent form",
+          "points": -0.75,
+          "detail": "Verified consecutive wins or losses, limited to the available five-game history",
+          "sourceUrl": "https://www.espn.com/nfl/preview?gameId=401873032"
+        }
+      ]
+    },
+    {
+      "id": "401873033",
+      "date": "2026-11-01",
+      "matchup": "KC @ DEN",
+      "spread": "KC -1.5",
+      "before": 76,
+      "after": 76,
+      "change": 0,
+      "reason": "Preserved (rounding only or unchanged)",
+      "flagged": false,
+      "rawBefore": 76.33,
+      "rawAfter": 76.39999999999999,
+      "components": [
+        {
+          "label": "Tight projected spread",
+          "before": 6.5,
+          "after": 6.57,
+          "delta": 0.07
+        }
+      ],
+      "factors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 10
+        },
+        {
+          "label": "AFC West matchup",
+          "points": 4
+        },
+        {
+          "label": "Both winning records",
+          "points": 14
+        },
+        {
+          "label": "Tight projected spread",
+          "points": 6.57,
+          "detail": "Listed 1.5-point spread; projected competitiveness raises excitement"
+        },
+        {
+          "label": "Division lead at stake",
+          "points": 7,
+          "detail": "Either winner can take at least a share of the AFC West lead",
+          "sourceUrl": "https://www.espn.com/nfl/standings/_/group/6"
+        },
+        {
+          "label": "Season point differential",
+          "points": 0.89,
+          "detail": "Season scoring margins provide a small quality adjustment",
+          "sourceUrl": "https://www.espn.com/nfl/preview?gameId=401873033"
+        },
+        {
+          "label": "Recent performance",
+          "points": 0.69,
+          "detail": "Scoring margins over each team’s last three games; individual margins capped at 21",
+          "sourceUrl": "https://www.espn.com/nfl/preview?gameId=401873033"
+        },
+        {
+          "label": "Sustained recent form",
+          "points": 0.25,
+          "detail": "Verified consecutive wins or losses, limited to the available five-game history",
+          "sourceUrl": "https://www.espn.com/nfl/preview?gameId=401873033"
+        },
+        {
+          "label": "Verified rematch context",
+          "points": 1,
+          "contextType": "meaningful_rematch",
+          "contextText": "Season rematch: Chiefs beat Broncos 31-10 on Sept. 14",
+          "sourceUrl": "http://www.espn.com/nfl/preview?gameId=401873033"
+        }
+      ]
+    },
+    {
+      "id": "401873034",
+      "date": "2026-11-01",
+      "matchup": "NE @ MIA",
+      "spread": "NE -7",
+      "before": 49,
+      "after": 46,
+      "change": -3,
+      "reason": "Stronger spread downside",
+      "flagged": false,
+      "rawBefore": 49.29,
+      "rawAfter": 46.29,
+      "components": [
+        {
+          "label": "Moderate projected favorite",
+          "before": 3,
+          "after": 0,
+          "delta": -3
+        }
+      ],
+      "factors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 10
+        },
+        {
+          "label": "AFC East matchup",
+          "points": 4
+        },
+        {
+          "label": "Winning team quality",
+          "points": 0.86,
+          "detail": "Single winning-team interest; capped at two before market scaling"
+        },
+        {
+          "label": "Season point differential",
+          "points": -0.93,
+          "detail": "Season scoring margins provide a small quality adjustment",
+          "sourceUrl": "https://www.espn.com/nfl/preview?gameId=401873034"
+        },
+        {
+          "label": "Recent performance",
+          "points": 0.36,
+          "detail": "Scoring margins over each team’s last three games; individual margins capped at 21",
+          "sourceUrl": "https://www.espn.com/nfl/preview?gameId=401873034"
+        }
+      ]
+    },
+    {
+      "id": "401873035",
+      "date": "2026-11-01",
+      "matchup": "PHI @ WSH",
+      "spread": "WSH -6",
+      "before": 47,
+      "after": 45,
+      "change": -2,
+      "reason": "Stronger spread downside",
+      "flagged": false,
+      "rawBefore": 46.59,
+      "rawAfter": 44.84,
+      "components": [
+        {
+          "label": "Moderate projected favorite",
+          "before": 3.75,
+          "after": 2,
+          "delta": -1.75
+        }
+      ],
+      "factors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 10
+        },
+        {
+          "label": "NFC East matchup",
+          "points": 4
+        },
+        {
+          "label": "Graduated losing-record penalty",
+          "points": -3.41,
+          "recordSeverity": 3.41,
+          "performanceRelief": 0,
+          "detail": "Records 1-4 (25%) and 2-5 (29%) set the deduction"
+        },
+        {
+          "label": "Moderate projected favorite",
+          "points": 2,
+          "detail": "Listed 6-point spread; projected competitiveness raises excitement"
+        },
+        {
+          "label": "Recent performance",
+          "points": -1,
+          "detail": "Scoring margins over each team’s last three games; individual margins capped at 21",
+          "sourceUrl": "https://www.espn.com/nfl/preview?gameId=401873035"
+        },
+        {
+          "label": "Sustained recent form",
+          "points": -0.75,
+          "detail": "Verified consecutive wins or losses, limited to the available five-game history",
+          "sourceUrl": "https://www.espn.com/nfl/preview?gameId=401873035"
+        },
+        {
+          "label": "Verified rematch context",
+          "points": 2,
+          "contextType": "meaningful_rematch",
+          "contextText": "Season rematch: Eagles beat the Commanders 24-22 on Sept. 13, 2026",
+          "sourceUrl": "http://www.espn.com/nfl/preview?gameId=401873035"
+        }
+      ]
+    },
+    {
+      "id": "401873038",
+      "date": "2026-11-08",
+      "matchup": "CIN VS ATL",
+      "spread": "CIN -3",
+      "before": 55,
+      "after": 53,
+      "change": -2,
+      "reason": "Bounded single-team quality",
+      "flagged": false,
+      "rawBefore": 54.69,
+      "rawAfter": 52.97,
+      "components": [
+        {
+          "label": "Winning team quality",
+          "before": 3.72,
+          "after": 2,
+          "delta": -1.72
+        }
+      ],
+      "factors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 10
+        },
+        {
+          "label": "Winning team quality",
+          "points": 2,
+          "detail": "Single winning-team interest; capped at two before market scaling"
+        },
+        {
+          "label": "Tight projected spread",
+          "points": 6,
+          "detail": "Listed 3-point spread; projected competitiveness raises excitement"
+        },
+        {
+          "label": "Expected scoring potential",
+          "points": 1.75,
+          "detail": "Listed total 49.5; capped at five points"
+        },
+        {
+          "label": "Close-game scoring upside",
+          "points": 1.22,
+          "detail": "A 3-point spread and 49.5 total jointly add entertainment upside; capped at three points"
+        }
+      ]
+    },
+    {
+      "id": "401873040",
+      "date": "2026-11-08",
+      "matchup": "DAL @ IND",
+      "spread": "DAL -4.5",
+      "before": 49,
+      "after": 49,
+      "change": 0,
+      "reason": "Stronger spread downside",
+      "flagged": false,
+      "rawBefore": 49.09,
+      "rawAfter": 48.64,
+      "components": [
+        {
+          "label": "Moderate projected favorite",
+          "before": 4.88,
+          "after": 4.43,
+          "delta": -0.45
+        }
+      ],
+      "factors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 10
+        },
+        {
+          "label": "Graduated losing-record penalty",
+          "points": -2.12,
+          "recordSeverity": 2.12,
+          "performanceRelief": 0,
+          "detail": "Records 2-5 (29%) and 3-4 (43%) set the deduction"
+        },
+        {
+          "label": "Moderate projected favorite",
+          "points": 4.43,
+          "detail": "Listed 4.5-point spread; projected competitiveness raises excitement"
+        },
+        {
+          "label": "Expected scoring potential",
+          "points": 2.75,
+          "detail": "Listed total 51.5; capped at five points"
+        },
+        {
+          "label": "Close-game scoring upside",
+          "points": 1.58,
+          "detail": "A 4.5-point spread and 51.5 total jointly add entertainment upside; capped at three points"
+        }
+      ]
+    },
+    {
+      "id": "401873045",
+      "date": "2026-11-08",
+      "matchup": "NYJ @ KC",
+      "spread": "KC -9.5",
+      "before": 47,
+      "after": 40,
+      "change": -7,
+      "reason": "Bounded single-team quality; Stronger spread downside",
+      "flagged": true,
+      "rawBefore": 46.65,
+      "rawAfter": 40.2,
+      "components": [
+        {
+          "label": "Winning team quality",
+          "before": 4.15,
+          "after": 1.82,
+          "delta": -2.33
+        },
+        {
+          "label": "Substantial projected favorite",
+          "before": 0.5,
+          "after": 0,
+          "delta": -0.5
+        },
+        {
+          "label": "Projected spread mismatch",
+          "before": 0,
+          "after": -3.62,
+          "delta": -3.62
+        }
+      ],
+      "factors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 10
+        },
+        {
+          "label": "Winning team quality",
+          "points": 1.82,
+          "detail": "Single winning-team interest; capped at two before market scaling"
+        },
+        {
+          "label": "Projected spread mismatch",
+          "points": -3.62,
+          "detail": "Listed 9.5-point spread; projected mismatch lowers excitement"
+        }
+      ]
+    },
+    {
+      "id": "401873042",
+      "date": "2026-11-08",
+      "matchup": "DET @ MIA",
+      "spread": "DET -7",
+      "before": 48,
+      "after": 45,
+      "change": -3,
+      "reason": "Stronger spread downside",
+      "flagged": false,
+      "rawBefore": 48.25,
+      "rawAfter": 45.25,
+      "components": [
+        {
+          "label": "Moderate projected favorite",
+          "before": 3,
+          "after": 0,
+          "delta": -3
+        }
+      ],
+      "factors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 10
+        },
+        {
+          "label": "Winning team quality",
+          "points": 2,
+          "detail": "Single winning-team interest; capped at two before market scaling"
+        },
+        {
+          "label": "Expected scoring potential",
+          "points": 1.25,
+          "detail": "Listed total 48.5; capped at five points"
+        }
+      ]
+    },
+    {
+      "id": "401873039",
+      "date": "2026-11-08",
+      "matchup": "CLE @ NO",
+      "spread": "NO -2.5",
+      "before": 50,
+      "after": 50,
+      "change": 0,
+      "reason": "Preserved (rounding only or unchanged)",
+      "flagged": false,
+      "rawBefore": 50.17,
+      "rawAfter": 50.230000000000004,
+      "components": [
+        {
+          "label": "Tight projected spread",
+          "before": 6.17,
+          "after": 6.23,
+          "delta": 0.06
+        }
+      ],
+      "factors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 10
+        },
+        {
+          "label": "Winning team quality",
+          "points": 2,
+          "detail": "Single winning-team interest; capped at two before market scaling"
+        },
+        {
+          "label": "Tight projected spread",
+          "points": 6.23,
+          "detail": "Listed 2.5-point spread; projected competitiveness raises excitement"
+        }
+      ]
+    },
+    {
+      "id": "401873044",
+      "date": "2026-11-08",
+      "matchup": "NYG @ PHI",
+      "spread": "NYG -1.5",
+      "before": 54,
+      "after": 54,
+      "change": 0,
+      "reason": "Preserved (rounding only or unchanged)",
+      "flagged": false,
+      "rawBefore": 54.21,
+      "rawAfter": 54.28,
+      "components": [
+        {
+          "label": "Tight projected spread",
+          "before": 6.5,
+          "after": 6.57,
+          "delta": 0.07
+        }
+      ],
+      "factors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 10
+        },
+        {
+          "label": "NFC East matchup",
+          "points": 4
+        },
+        {
+          "label": "Winning team quality",
+          "points": 1.71,
+          "detail": "Single winning-team interest; capped at two before market scaling"
+        },
+        {
+          "label": "Tight projected spread",
+          "points": 6.57,
+          "detail": "Listed 1.5-point spread; projected competitiveness raises excitement"
+        }
+      ]
+    },
+    {
+      "id": "401873043",
+      "date": "2026-11-08",
+      "matchup": "LAR @ WSH",
+      "spread": "LAR -5.5",
+      "before": 45,
+      "after": 44,
+      "change": -1,
+      "reason": "Stronger spread downside",
+      "flagged": false,
+      "rawBefore": 45.14,
+      "rawAfter": 43.86,
+      "components": [
+        {
+          "label": "Moderate projected favorite",
+          "before": 4.13,
+          "after": 2.85,
+          "delta": -1.28
+        }
+      ],
+      "factors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 10
+        },
+        {
+          "label": "Graduated losing-record penalty",
+          "points": -2.46,
+          "recordSeverity": 2.46,
+          "performanceRelief": 0,
+          "detail": "Records 1-4 (25%) and 3-4 (43%) set the deduction"
+        },
+        {
+          "label": "Moderate projected favorite",
+          "points": 2.85,
+          "detail": "Listed 5.5-point spread; projected competitiveness raises excitement"
+        },
+        {
+          "label": "Expected scoring potential",
+          "points": 1.25,
+          "detail": "Listed total 48.5; capped at five points"
+        },
+        {
+          "label": "Close-game scoring upside",
+          "points": 0.22,
+          "detail": "A 5.5-point spread and 48.5 total jointly add entertainment upside; capped at three points"
+        }
+      ]
+    },
+    {
+      "id": "401873041",
+      "date": "2026-11-08",
+      "matchup": "DEN @ CAR",
+      "spread": "DEN -2.5",
+      "before": 54,
+      "after": 50,
+      "change": -4,
+      "reason": "Bounded single-team quality",
+      "flagged": false,
+      "rawBefore": 53.67,
+      "rawAfter": 50.230000000000004,
+      "components": [
+        {
+          "label": "Winning team quality",
+          "before": 5.5,
+          "after": 2,
+          "delta": -3.5
+        },
+        {
+          "label": "Tight projected spread",
+          "before": 6.17,
+          "after": 6.23,
+          "delta": 0.06
+        }
+      ],
+      "factors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 10
+        },
+        {
+          "label": "Winning team quality",
+          "points": 2,
+          "detail": "Single winning-team interest; capped at two before market scaling"
+        },
+        {
+          "label": "Tight projected spread",
+          "points": 6.23,
+          "detail": "Listed 2.5-point spread; projected competitiveness raises excitement"
+        }
+      ]
+    },
+    {
+      "id": "401873046",
+      "date": "2026-11-08",
+      "matchup": "HOU @ LAC",
+      "spread": "HOU -3.5",
+      "before": 41,
+      "after": 41,
+      "change": 0,
+      "reason": "Preserved (rounding only or unchanged)",
+      "flagged": false,
+      "rawBefore": 41.330000000000005,
+      "rawAfter": 41.330000000000005,
+      "components": [],
+      "factors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 10
+        },
+        {
+          "label": "Graduated losing-record penalty",
+          "points": -6.3,
+          "recordSeverity": 6.3,
+          "performanceRelief": 0,
+          "detail": "Records 0-6 (0%) and 2-5 (29%) set the deduction"
+        },
+        {
+          "label": "Tight projected spread",
+          "points": 5.63,
+          "detail": "Listed 3.5-point spread; projected competitiveness raises excitement"
+        }
+      ]
+    },
+    {
+      "id": "401873049",
+      "date": "2026-11-08",
+      "matchup": "GB @ NE",
+      "spread": "NE -3",
+      "before": 57,
+      "after": 57,
+      "change": 0,
+      "reason": "Preserved (rounding only or unchanged)",
+      "flagged": false,
+      "rawBefore": 56.61,
+      "rawAfter": 56.61,
+      "components": [],
+      "factors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 10
+        },
+        {
+          "label": "Both winning records",
+          "points": 7.58
+        },
+        {
+          "label": "Tight projected spread",
+          "points": 6,
+          "detail": "Listed 3-point spread; projected competitiveness raises excitement"
+        },
+        {
+          "label": "Expected scoring potential",
+          "points": 0.75,
+          "detail": "Listed total 47.5; capped at five points"
+        },
+        {
+          "label": "Close-game scoring upside",
+          "points": 0.28,
+          "detail": "A 3-point spread and 47.5 total jointly add entertainment upside; capped at three points"
+        }
+      ]
+    },
+    {
+      "id": "401873047",
+      "date": "2026-11-08",
+      "matchup": "LV @ SF",
+      "spread": "SF -10",
+      "before": 54,
+      "after": 41,
+      "change": -13,
+      "reason": "Bounded single-team quality; Stronger spread downside",
+      "flagged": true,
+      "rawBefore": 53.62,
+      "rawAfter": 41.04,
+      "components": [
+        {
+          "label": "Winning team quality",
+          "before": 10.37,
+          "after": 1.79,
+          "delta": -8.58
+        },
+        {
+          "label": "Projected spread mismatch",
+          "before": 0,
+          "after": -4,
+          "delta": -4
+        }
+      ],
+      "factors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 10
+        },
+        {
+          "label": "Winning team quality",
+          "points": 1.79,
+          "detail": "Single winning-team interest; capped at two before market scaling"
+        },
+        {
+          "label": "Projected spread mismatch",
+          "points": -4,
+          "detail": "Listed 10-point spread; projected mismatch lowers excitement"
+        },
+        {
+          "label": "Expected scoring potential",
+          "points": 1.25,
+          "detail": "Listed total 48.5; capped at five points"
+        }
+      ]
+    },
+    {
+      "id": "401873048",
+      "date": "2026-11-08",
+      "matchup": "ARI @ SEA",
+      "spread": "SEA -10.5",
+      "before": 46,
+      "after": 42,
+      "change": -4,
+      "reason": "Stronger spread downside",
+      "flagged": false,
+      "rawBefore": 46.25,
+      "rawAfter": 42.43,
+      "components": [
+        {
+          "label": "Projected spread mismatch",
+          "before": -0.5,
+          "after": -4.32,
+          "delta": -3.82
+        }
+      ],
+      "factors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 10
+        },
+        {
+          "label": "NFC West matchup",
+          "points": 4
+        },
+        {
+          "label": "Winning team quality",
+          "points": 0.75,
+          "detail": "Single winning-team interest; capped at two before market scaling"
+        },
+        {
+          "label": "Projected spread mismatch",
+          "points": -4.32,
+          "detail": "Listed 10.5-point spread; projected mismatch lowers excitement"
+        }
+      ]
+    },
+    {
+      "id": "401873050",
+      "date": "2026-11-08",
+      "matchup": "TB @ CHI",
+      "spread": "CHI -6",
+      "before": 49,
+      "after": 47,
+      "change": -2,
+      "reason": "Stronger spread downside",
+      "flagged": false,
+      "rawBefore": 48.54,
+      "rawAfter": 46.79,
+      "components": [
+        {
+          "label": "Moderate projected favorite",
+          "before": 3.75,
+          "after": 2,
+          "delta": -1.75
+        }
+      ],
+      "factors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 10
+        },
+        {
+          "label": "Winning team quality",
+          "points": 2,
+          "detail": "Single winning-team interest; capped at two before market scaling"
+        },
+        {
+          "label": "Moderate projected favorite",
+          "points": 2,
+          "detail": "Listed 6-point spread; projected competitiveness raises excitement"
+        },
+        {
+          "label": "Expected scoring potential",
+          "points": 0.75,
+          "detail": "Listed total 47.5; capped at five points"
+        },
+        {
+          "label": "Close-game scoring upside",
+          "points": 0.04,
+          "detail": "A 6-point spread and 47.5 total jointly add entertainment upside; capped at three points"
+        }
+      ]
+    }
+  ]
+}

@@ -15,7 +15,7 @@ export function refinementReport() {
     basis:'Captured production ratings and current November 1 markets; cached source summaries/team news reused without additional requests.',
     methodology:{interaction:'3 × smoothstep((7 − |spread|)/4) × smoothstep((total − 46)/8), with clamped inputs. Spread and total contributions remain separate and occur once.',
       losingRecords:'Smooth percentage-based severity, capped at seven, includes bounded point-differential relief. Complementary point-differential weights prevent reuse; recent form remains separate. Extremely low win percentages retain a smooth severe-team floor.',
-      winningContinuity:'The existing fourteen-point two-team quality ceiling is smoothly approached using combined percentages. Missing-market record-evenness/division fallback awards also taper at .500.',
+      winningContinuity:'Superseded by the competitiveness correction: the fourteen-point ceiling requires both records to contribute through a smooth weaker-record gate. Single-winning-team interest is capped at two before market scaling; missing-market duplicate record/race awards are omitted.',
       returns:'Identified, source-linked NFL MVP/All-Pro starting QB: five; verified established star or starting QB: three; regular player: two; unknown significance: one; unverified/irrelevant news: zero. Total positive story budget remains six.'},
     rows:games.map(g=>{const old=data.baselineGames.find(b=>b.id===g.id);
       return {id:g.id,matchup:data.events.find(e=>e.id===g.id).shortName,before:old.score,after:g.score,delta:g.score-old.score,line:g.line,

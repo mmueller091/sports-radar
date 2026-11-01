@@ -23,7 +23,8 @@ const rating=f=>core.rateGame('NFL','upcoming',[],f.event,f.competition,'');
 test('fresh production baseline is captured and all twelve recalculations meet independent sanity ranges',()=>{
   assert.equal(data.baselineModel,'2026-11-01.nfl-pregame.1');assert.equal(data.baselineGames.length,12);
   assert.deepEqual(data.baselineGames.map(g=>g.score),[72,42,47,79,41,75,54,48,39,76,49,43]);
-  const ranges={'401873026':[75,77],'401873029':[44,45],'401873025':[55,58],'401873024':[48,50]};
+  // Seven-point favorites now lose the former +3 market award.
+  const ranges={'401873026':[75,77],'401873029':[44,45],'401873025':[55,58],'401873024':[45,47]};
   for(const [id,[min,max]]of Object.entries(ranges)){const g=games.find(g=>g.id===id);assert.ok(g.score>=min&&g.score<=max,`${id}: ${g.score}`);}
   for(const id of ['401873030','401873033','401873027'])assert.equal(games.find(g=>g.id===id).score,data.baselineGames.find(g=>g.id===id).score);
   assert.ok(games.find(g=>g.id==='401873031').score<=43);
