@@ -238,7 +238,17 @@
     return Number(status?.period)===2 && /^(?:0+:)?0+(?:\.0+)?$/.test(String(status?.displayClock || ''));
   }
 
-  const api = {isHalftimeStatus,normalizedTime,gameProgress,eventPosition,ordinal,livePhase,clockSeconds};
+  function isLateGameStatus(sport,status,competition={}){
+    const period=Number(status?.period),seconds=clockSeconds(status);
+    if(['NFL','CFB'].includes(sport))return period>4 || period===4&&seconds!==null;
+    if(sport==='NBA')return period>4 || period===4&&seconds!==null&&seconds<=360;
+    if(sport==='NCAAB')return period>2 || period===2&&seconds!==null&&seconds<=300;
+    if(sport==='NHL')return period>3 || period===3&&seconds!==null&&seconds<=600;
+    if(sport==='MLB')return period>=7;
+    if(sport==='Soccer')return (normalizedTime(sport,{status}).elapsedSeconds||0)>=4500;
+    return sport==='Tennis' && normalizedTime(sport,{...competition,status}).progress>.65;
+  }
+  const api = {isHalftimeStatus,isLateGameStatus,normalizedTime,gameProgress,eventPosition,ordinal,livePhase,clockSeconds};
   if (typeof module !== 'undefined' && module.exports) {
     module.exports = api;
   } else {

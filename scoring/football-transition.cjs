@@ -5,6 +5,24 @@ const unit = x => Math.max(0,Math.min(1,x));
 const smooth = x => {x=unit(x);return x*x*(3-2*x);};
 const football = game => ['NFL','CFB'].includes(game.sport);
 
+function recoveredMarket(game,competition,summary){
+  if(!summary)return null;
+  const source=summary.header?.competitions?.[0]||competition;
+  const markets=[...(summary.pickcenter||[]),...(source?.odds||[])];
+  for(const raw of markets){
+    if(raw.isLive || /live|in[ -]?play/i.test([raw.type?.name||raw.type,raw.description,raw.marketType,raw.name].filter(Boolean).join(' ')))continue;
+    // Only explicitly pregame/closing fields, never a live line or its flags.
+    let market=raw.close||raw.closing;
+    const home=Number(raw.pointSpread?.home?.close?.line),away=Number(raw.pointSpread?.away?.close?.line);
+    if(!market && Number.isFinite(home)&&Number.isFinite(away)&&home===-away&&home!==0 && ['home','away'].every(side=>raw.pointSpread?.[side]?.close?.line!=null))
+      market={pointSpread:Object.fromEntries(['home','away'].map(side=>[side,{close:raw.pointSpread[side].close}]))};
+    if(!market)continue;
+    const candidate=underdogCandidate(game.sport,source,market);
+    if(candidate && game.teams.some(t=>String(t[8])===candidate.teamId))return {candidate,spread:footballPregameSpread({odds:[market]}),odds:[market],source:'verified closing odds'};
+  }
+  return null;
+}
+
 function preservePregameBaseline(game,previous) {
   if (!football(game) || game.state==='upcoming' || !previous ||
       game.sport!==previous.sport || String(game.id)!==String(previous.id)) return false;
@@ -34,20 +52,24 @@ function prepareFootballOpening(core,game,competition,summary) {
       spread:footballPregameSpread(basis),underdog:underdogCandidate(game.sport,basis,odds?.[0])};
   }
   const baseline=game.pregameBaseline;
+  if(!baseline.underdog){
+    const recovered=recoveredMarket(game,competition,summary);
+    if(recovered)game.recoveredUnderdog={...recovered,gameId:String(game.id),teamIds:game.teams.map(t=>String(t[8])).sort()};
+  }
   game.openingScore=baseline.score;
   game.openingFactors=baseline.factors.map(f=>({...f}));
   game.rawPregameScore=baseline.rawPregameScore;
-  if (game.state==='live') game.underdog=baseline.underdog;
+  if (game.state==='live') game.underdog=baseline.underdog || game.recoveredUnderdog?.candidate || null;
 }
 
 function footballCompetitionEvidence(game,competition,progress,probability) {
   const maturity=smooth(progress/.5);
   const baseline=game.pregameBaseline;
-  const spread=baseline?.spread;
+  const spread=baseline?.spread ?? game.recoveredUnderdog?.spread;
   const competitors=competition?.competitors || [];
   const home=competitors.find(t=>t.homeAway==='home'),away=competitors.find(t=>t.homeAway==='away');
-  const dog=baseline?.underdog;
-  const odds=baseline?.odds?.[0] || {};
+  const dog=baseline?.underdog || game.recoveredUnderdog?.candidate;
+  const odds=baseline?.odds?.[0] || game.recoveredUnderdog?.odds?.[0] || {};
   const homeDog=dog ? String(dog.teamId)===String(home?.team?.id) : odds.homeTeamOdds?.underdog===true || odds.awayTeamOdds?.favorite===true;
   const knownDirection=dog || odds.homeTeamOdds?.favorite || odds.awayTeamOdds?.favorite || odds.homeTeamOdds?.underdog || odds.awayTeamOdds?.underdog;
   const margin=home?.score!=null && away?.score!=null ? Number(home.score)-Number(away.score) : 0;

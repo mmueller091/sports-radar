@@ -474,11 +474,18 @@ function pinnedFavorite(game) {
   );
 }
 
+function halftimePriorityAdjustment(game) {
+  if(game.state!=='live' || !['NFL','CFB','NBA','NCAAB','Soccer'].includes(game.sport))return 0;
+  const status=game.liveRawStatus || {type:{detail:game.live?.phase || game.status}},type=status.type||{};
+  const marked=/half[ -]?time/i.test([type.name,type.description,type.detail,type.shortDetail,status.displayPeriod].filter(Boolean).join(' '));
+  return marked || ['NFL','CFB','NBA'].includes(game.sport)&&globalThis.SportsRadarScore?.isHalftimeStatus?.(status) ? 6 : 0;
+}
+function viewingPriority(game) { return game.score-halftimePriorityAdjustment(game); }
 function compareGames(a,b) {
   return Number(pinnedFavorite(b)) -
     Number(pinnedFavorite(a)) ||
-    b.score -
-    a.score;
+    viewingPriority(b) -
+    viewingPriority(a);
 }
 
 function visibleInState(game, selectedState) {
@@ -511,7 +518,7 @@ function compareAllGames(a,b) {
     return dayDifference;
   }
 
-  return b.score - a.score;
+  return viewingPriority(b) - viewingPriority(a);
 }
 
 function compareDatedGames(a,b,selectedState) {
@@ -3025,7 +3032,7 @@ function gameCard(game) {
 
   const stateLabel =
     game.state === 'live'
-      ? `<span class="status-live">● LIVE</span>${
+      ? `<span class="status-live"${halftimePriorityAdjustment(game) ? ' title="Halftime: ranked 6 points lower for viewing priority; excitement rating unchanged."' : ''}>${halftimePriorityAdjustment(game) ? 'HALFTIME · lower viewing priority' : '● LIVE'}</span>${
           game.live?.phase &&
           game.live.phase !== 'Live'
             ? `<span class="live-phase">${safeText(game.live.phase)}</span>`

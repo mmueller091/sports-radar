@@ -1,0 +1,42 @@
+{
+  "baselineCommit": "c6f123046322706ff0d23d9d60225b1dc9d668f7",
+  "baselineBundleSha256": "cf927841a41832969756c94942349680435985f8b041d8000954908a645aab2e",
+  "fixtures": [
+    {
+      "path": "CFB-401856847.json.gz",
+      "sha256": "138cbbc7c3da3803d729af8ecec890937d60bc2f7e7c721ca4cbf29775b92730",
+      "capturedAt": "2026-11-01T01:37:25.305Z",
+      "sport": "CFB",
+      "eventId": "401856847",
+      "summarySource": "https://site.api.espn.com/apis/site/v2/sports/football/college-football/summary?event=401856847",
+      "historySource": "https://sports-radar-alerts.mmueller918.workers.dev/game/CFB/401856847"
+    },
+    {
+      "path": "CFB-401868147.json.gz",
+      "sha256": "4f70c7b4b0b3fd2545fa044149a525fb2649d45028501528478d0eea8c57d6a3",
+      "capturedAt": "2026-11-01T01:37:25.618Z",
+      "sport": "CFB",
+      "eventId": "401868147",
+      "summarySource": "https://site.api.espn.com/apis/site/v2/sports/football/college-football/summary?event=401868147",
+      "historySource": "https://sports-radar-alerts.mmueller918.workers.dev/game/CFB/401868147"
+    },
+    {
+      "path": "NBA-401909901.json.gz",
+      "sha256": "5a76d802fb8b8b334d7b65acaa93b3de63bcf7cc58637699d752f2e73f41bcbe",
+      "capturedAt": "2026-11-01T01:37:26.636Z",
+      "sport": "NBA",
+      "eventId": "401909901",
+      "summarySource": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909901",
+      "historySource": "https://sports-radar-alerts.mmueller918.workers.dev/game/NBA/401909901"
+    },
+    {
+      "path": "NHL-401892621.json.gz",
+      "sha256": "98f121a47533a0a5f106adfe7144449f9d108b2b8bfe969d23b33767c3ea8035",
+      "capturedAt": "2026-11-01T01:37:26.284Z",
+      "sport": "NHL",
+      "eventId": "401892621",
+      "summarySource": "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892621",
+      "historySource": "https://sports-radar-alerts.mmueller918.workers.dev/game/NHL/401892621"
+    }
+  ]
+}

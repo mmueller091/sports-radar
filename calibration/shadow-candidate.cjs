@@ -187,28 +187,31 @@ function candidateLiveSnapshot(core,game,competition,summary,floorBudget=null,nh
   }) || {points:0,note:'',reasons:[],bases:null};
   if (floorBudget) sportImpact.competitiveFloor=Math.min(floorBudget.originalFloor,sportImpact.competitiveFloor);
   const legacy = core.liveSnapshot(game,competition,summary);
+  const eventSummary=game._historicalEvidence?.summary || summary;
   const probabilityTelemetry = validateCurrentWinProbability(core,summary,core.gameProgress(game.sport,{...competition,status}),'live',game.sport);
   const components = {
     ...legacy.components,
     probability:0,
     situation:Math.min(12,Math.max(0,Number(sportImpact.candidatePoints ?? sportImpact.points) || 0))
   };
+  if(game._historicalEvidence)components.eventShock=Math.max(components.eventShock,core.eventShockImpact(game.sport,eventSummary,status).points);
   if (nhlAllocation && game.sport==='NHL') {
     components.pressure=SPORT_MODELS.NHL.pressure.impact(summary,progress,scoreGap,competition,nhlAllocation).points;
-    const clockMode=hockeyPlayClockMode(summary || {});
-    components.eventShock=eventShockFor('NHL',summary,status,SPORT_MODELS.NHL,value=>{
+    const clockMode=hockeyPlayClockMode(eventSummary || {});
+    const retainedShock=eventShockFor('NHL',eventSummary,status,SPORT_MODELS.NHL,value=>{
       const elapsed=hockeyLiveTiming(game.sourceEvent,{...competition,status:value===status ? value : {...value,clockMode}},summary).elapsed;
       return elapsed===null ? null : elapsed/3600;
     }).points;
+    components.eventShock=game._historicalEvidence ? Math.max(components.eventShock,retainedShock) : retainedShock;
   }
   if (openingEvidence && openingEvidence.maturity<1) {
     const model=openingTransition.openingEventModel(game.sport,SPORT_MODELS[game.sport] || {});
-    const clockMode=game.sport==='NHL' ? hockeyPlayClockMode(summary || {}) : null;
+    const clockMode=game.sport==='NHL' ? hockeyPlayClockMode(eventSummary || {}) : null;
     const position=game.sport==='NHL' ? value=>{
       const elapsed=hockeyLiveTiming(game.sourceEvent,{...competition,status:value===status?value:{...value,clockMode}},summary).elapsed;
       return elapsed===null ? null : elapsed/3600;
     } : null;
-    const shock=eventShockFor(game.sport,summary,status,model,position);
+    const shock=eventShockFor(game.sport,eventSummary,status,model,position);
     // Actual scoring events own their immediate credit while the opening basis
     // owns the uneventful state. Fade this supplemental credit into existing
     // live/history ownership; mature allocations remain exactly as reviewed.
@@ -389,6 +392,7 @@ function candidateGameRating(core,game,competition,summary,policy=null,trajector
     return nonLiveCandidateRating(game,summary);
   }
   const prepared = prepareCandidateGameRating(core,game,competition,summary,trajectoryPolicy?.openingTransition);
+  if(game._historicalEvidence){prepared.historySummary=game._historicalEvidence.summary;prepared.trajectory=game._historicalEvidence.trajectory;}
   if (trajectoryPolicy?.footballTransition && ['NFL','CFB'].includes(game.sport)) policy={...(policy || DEFAULT_CURRENT_TENSION_POLICY),footballEvidence:{game}};
   if (trajectoryPolicy?.openingTransition && openingTransition.supports(game)) policy={...(policy || DEFAULT_CURRENT_TENSION_POLICY),openingEvidence:{game}};
   const base = candidateBaseForPolicy(core,game,prepared,policy);

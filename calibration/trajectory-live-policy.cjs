@@ -93,7 +93,7 @@ function historyRelevance(game,prepared,base,decisiveStrength) {
     ? Math.max(ramp(margin),hasRunway ? ramp(viability) : 0,decisiveStrength) : 1;
   const currentPosition=eventPosition(game.sport,prepared.context.competition);
   const end=Number.isFinite(currentPosition) ? currentPosition : prepared.progress;
-  const moments=scoringMoments(game.sport,prepared.context.summary)
+  const moments=scoringMoments(game.sport,prepared.historySummary || prepared.context.summary)
     .filter(m=>m.position<=end+1e-9 && m.play.homeScore!=null && m.play.awayScore!=null);
   const scores=Object.fromEntries((prepared.context.competition?.competitors||[])
     .map(t=>[t.homeAway,t.score == null ? NaN : Number(t.score)]));
@@ -140,9 +140,9 @@ function liveTrajectory(core,game,prepared,base,live,policy) {
   const effectivePositiveGate = Math.max(raw.positiveCurrentStateGate,.5*decisiveStrength);
   const requestedPositive = Math.max(0,raw.boundedTrajectory)*raw.evidenceWeight*effectivePositiveGate;
   const nhlAllocation=policy.nhlAllocation && game.sport==='NHL' ? impact.allocation : null;
-  const eventHistory = ownedHistory(game.sport,prepared.context.summary,prepared.progress,0,relevance?.eventRetention??null,nhlAllocation,game.sport==='CFB' && policy.cfbCompetitionHistory);
+  const eventHistory = ownedHistory(game.sport,prepared.historySummary || prepared.context.summary,prepared.progress,0,relevance?.eventRetention??null,nhlAllocation,game.sport==='CFB' && policy.cfbCompetitionHistory);
   const combinedHistory = requestedPositive > 0
-    ? ownedHistory(game.sport,prepared.context.summary,prepared.progress,requestedPositive,relevance?.eventRetention??null,nhlAllocation,game.sport==='CFB' && policy.cfbCompetitionHistory) : eventHistory;
+    ? ownedHistory(game.sport,prepared.historySummary || prepared.context.summary,prepared.progress,requestedPositive,relevance?.eventRetention??null,nhlAllocation,game.sport==='CFB' && policy.cfbCompetitionHistory) : eventHistory;
   const positiveAfterHistoryCaps = combinedHistory.points-eventHistory.points;
   // Competing explanations for the same discount use the stronger protection,
   // never multiplied gates. Recovery retains at least 43.75% of the discount.

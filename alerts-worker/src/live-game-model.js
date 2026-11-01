@@ -18,6 +18,7 @@ export function applyContextsToGame(game,factors) {
 }
 export function enrichGame(game,summary,previousGame=null) {
   runtime.preservePregameBaseline(game,previousGame);
-  legacy.enrichGame(game,summary,previousGame?.modelVersion===runtime.MODEL_VERSION ? previousGame : null);
+  runtime.preserveLiveEvidence(game,previousGame);
+  legacy.enrichGame(game,summary,game.liveEvidenceReset==='score-correction' ? null : previousGame?.modelVersion===runtime.MODEL_VERSION ? previousGame : null);
   finish(game,summary);
 }

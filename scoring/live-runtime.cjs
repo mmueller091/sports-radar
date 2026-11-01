@@ -5,8 +5,9 @@ const legacy = require('../rating-core.js');
 const {candidateGameRating} = require('../calibration/shadow-candidate.cjs');
 const {LIVE_CFB_COMPETITION_POLICY:LIVE_POLICY} = require('../calibration/trajectory-live-policy.cjs');
 const {prepareOpening,preservePregameBaseline} = require('./opening-transition.cjs');
+const {preserveLiveEvidence,historyFor,rememberHistory,currentManpower,validLedger}=require('./live-evidence.cjs');
 const PRODUCTION_POLICY = Object.freeze({...LIVE_POLICY,id:LIVE_POLICY.id+'-opening-transition',footballTransition:true,openingTransition:true});
-const MODEL_VERSION = '2026-10-31.finish-feasibility.1';
+const MODEL_VERSION = '2026-11-01.live-evidence.1';
 
 function retainSettledCfbPath(game,current,summary) {
   if (game.sport!=='CFB' || !summary || Number(current.status?.period)!==4) return;
@@ -38,6 +39,15 @@ function applyLiveSnapshot(game, competition, summary) {
     ...(game.sport==='NFL' ? {season:{...game.sourceEvent?.season,...game.sourceCompetition?.season,...competition?.season}} : {}),
     status:game.liveRawStatus, situation:game.liveRawSituation};
   const accepted = game.lastSummaryAccepted && summary?.header?.competitions?.[0]?.status ? summary : null;
+  const validHistory=!accepted || validLedger(accepted,current,game.sport);
+  if(!validHistory){delete game.verifiedLiveEvidence;delete game.manpowerEvidence;}
+  const ratingSummary=validHistory ? accepted : {...accepted,scoringPlays:[],plays:[],drives:undefined,winprobability:[]};
+  delete game.manpowerRetained;
+  const effective=currentManpower(game,current,ratingSummary);
+  const history=historyFor(game,current,accepted);
+  const latestProbability=effective?.winprobability?.at(-1);
+  const unanchoredProbability=history && latestProbability && (latestProbability.playId==null || !(effective.plays||[]).some(p=>String(p.id)===String(latestProbability.playId)));
+  const currentSummary=unanchoredProbability ? {...effective,winprobability:[]} : effective;
   prepareOpening(legacy,game,competition || game.sourceCompetition,accepted);
   if (['NFL','CFB'].includes(game.sport)) {
     const upset=legacy.upsetImpact(game.underdog,game.teams,'live',legacy.gameProgress(game.sport,current),game.sport,current);
@@ -45,7 +55,7 @@ function applyLiveSnapshot(game, competition, summary) {
     if (upset.points) game.factors.push({label:'Underdog threatens upset',points:upset.points});
     game.upsetPoints=upset.points;game.upsetText=upset.text;
   }
-  const result = candidateGameRating(legacy,game,current,accepted,null,PRODUCTION_POLICY);
+  const result = candidateGameRating(legacy,history?{...game,_historicalEvidence:history}:game,current,currentSummary,null,PRODUCTION_POLICY);
   Object.assign(game,{
     score:result.score,baseScore:result.baseScore,live:result.live,
     momentumPoints:result.momentumPoints,trajectoryScoring:result.trajectoryScoring,
@@ -53,14 +63,16 @@ function applyLiveSnapshot(game, competition, summary) {
     factors:[...result.factors,...(result.historyOwnership?.eventFactors || []),
       ...(result.trajectoryScoring.adjustment ? [{label:'History relevance and trajectory',points:result.trajectoryScoring.adjustment}] : [])],
     modelVersion:MODEL_VERSION,scoringPolicy:PRODUCTION_POLICY.id,
-    scoringPartial:!accepted
+    scoringPartial:!accepted || !validHistory
   });
   if (game.sport==='CFB' && isHalftimeStatus(game.liveRawStatus)) game.live.note='';
   game.momentumText = (result.historyOwnership?.eventFactors || []).map(f=>f.label).join(', ');
   if (game.sport==='CFB') game.upsetPoints=result.factors.find(f=>f.label==='Underdog threatens upset')?.points || 0;
   retainSettledCfbPath(game,current,accepted);
+  if(accepted && validHistory && !history)rememberHistory(game,current,accepted,result);
+  game.historicalEvidenceRetained=Boolean(history);
   delete game.staleEnrichment;
   return result;
 }
 
-module.exports = {...legacy,isHalftimeStatus,applyLiveSnapshot,preservePregameBaseline,MODEL_VERSION,POLICY_ID:PRODUCTION_POLICY.id,PRODUCTION_POLICY};
+module.exports = {...legacy,isHalftimeStatus,applyLiveSnapshot,preservePregameBaseline,preserveLiveEvidence,MODEL_VERSION,POLICY_ID:PRODUCTION_POLICY.id,PRODUCTION_POLICY};

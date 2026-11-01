@@ -12,7 +12,7 @@
   const {normalizeWinProbability,winProbabilityImpact,winProbabilitySeries} = typeof module !== 'undefined' && module.exports
     ? require('./scoring/shared/probability.js')
     : root.SportsRadarScoring.shared_probability;
-  const {gameProgress,livePhase,normalizedTime,eventPosition,ordinal,clockSeconds} = typeof module !== 'undefined' && module.exports
+  const {gameProgress,livePhase,normalizedTime,eventPosition,ordinal,clockSeconds,isLateGameStatus} = typeof module !== 'undefined' && module.exports
     ? require('./scoring/shared/time.js')
     : root.SportsRadarScoring.shared_time;
   const {underdogCandidate,parseLine,lineFromSummary,listedSpread,moneylinePrices,pregameMarketFactor} = typeof module !== 'undefined' && module.exports
@@ -631,10 +631,10 @@
     ) {
       reason =
         gap === 0
-          ? `Tied ${teams[0].score}–${teams[1].score}${progress > .65 ? ' late' : ''}`
+          ? `Tied ${teams[0].score}–${teams[1].score}${isLateGameStatus(sport,competition?.status,competition) ? ' late' : ''}`
           : gap !== null &&
             stateValue.closePoints > 0
-            ? `${gap}-${unit} game${progress > .65 ? ' late' : ''}`
+            ? `${gap}-${unit} game${isLateGameStatus(sport,competition?.status,competition) ? ' late' : ''}`
             : `Game in progress · ${Math.round(progress * 100)}% elapsed`;
     }
 
@@ -970,18 +970,18 @@
     const older =
       previous.status?.period &&
       validationCandidate.status?.period &&
-      gameProgress(
+      eventPosition(
         game.sport,
         validationCandidate
       ) <
-      gameProgress(
+      eventPosition(
         game.sport,
         previous
       );
 
     const lastAccepted = game.summaryState;
     const summaryRegressed = Boolean(summaryCandidate && lastAccepted?.status) &&
-      gameProgress(game.sport,summaryCandidate) < gameProgress(game.sport,lastAccepted);
+      eventPosition(game.sport,summaryCandidate) < eventPosition(game.sport,lastAccepted);
 
     const rejected =
       wrongTeams ||
@@ -1008,8 +1008,15 @@
       };
     }
 
+    const scoreboardCompetitors=candidate.competitors || [];
+    const scoreboardMatched=game.teams.map(team=>{const id=String(team[8]||team.id||'');
+      if(id)return scoreboardCompetitors.find(item=>String(item.team?.id||item.athlete?.id||item.id||'')===id);
+      const names=scoreboardCompetitors.filter(item=>(item.team?.displayName||item.athlete?.displayName)===team[0]);return names.length===1?names[0]:undefined;});
+    const scoreboardValid=!candidate.status?.type?.completed && !['post','pre'].includes(candidate.status?.type?.state) &&
+      (!scoreboardCompetitors.length || scoreboardMatched.every(t=>t&&t.score!=null&&t.score!==''&&Number.isFinite(Number(t.score))));
+    const scoreboardOlder=previous.status?.period && candidate.status?.period && eventPosition(game.sport,candidate)<eventPosition(game.sport,previous);
     const current =
-      rejected
+      !scoreboardValid || scoreboardOlder
         ? previous
         : {
             ...previous,
@@ -1027,9 +1034,9 @@
           };
 
     if (
-      !rejected &&
-      matched.length === 2 &&
-      matched.every(team =>
+      scoreboardValid && !scoreboardOlder &&
+      scoreboardMatched.length === 2 &&
+      scoreboardMatched.every(team =>
         team &&
         team.score != null &&
         team.score !== '' &&
@@ -1039,15 +1046,6 @@
       )
     ) {
       // Scores always come from the scoreboard candidate, never the summary.
-      const scoreboardCompetitors = candidate.competitors || [];
-      const scoreboardMatched = candidate === validationCandidate
-        ? matched
-        : game.teams.map(team => {
-            const id = String(team[8] || team.id || '');
-            if (id) return scoreboardCompetitors.find(item => String(item.team?.id || item.athlete?.id || item.id || '') === id);
-            const names = scoreboardCompetitors.filter(item => (item.team?.displayName || item.athlete?.displayName) === team[0]);
-            return names.length === 1 ? names[0] : undefined;
-          });
       if (scoreboardMatched.some(team => !team)) return {competition:current,summary:rejected ? null : summary};
       scoreboardMatched.forEach(
         (team,index) => {
@@ -1175,9 +1173,9 @@
 
       game.why =
         gap === 0
-          ? `Tied ${game.teams[0][2]}–${game.teams[1][2]}${progress > .65 ? ' late' : ''}`
+          ? `Tied ${game.teams[0][2]}–${game.teams[1][2]}${isLateGameStatus(game.sport,current.status,current) ? ' late' : ''}`
           : state.closePoints > 0
-            ? `${gap}-${unit} game${progress > .65 ? ' late' : ''}`
+            ? `${gap}-${unit} game${isLateGameStatus(game.sport,current.status,current) ? ' late' : ''}`
             : `Game in progress · ${Math.round(progress * 100)}% elapsed`;
 
       if (

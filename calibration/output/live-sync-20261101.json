@@ -1,0 +1,1685 @@
+{
+  "baselineCommit": "c6f123046322706ff0d23d9d60225b1dc9d668f7",
+  "model": "2026-11-01.live-evidence.1",
+  "caveats": [
+    "Recorded ratings are retained as observations, including the overturned touchdown. Reconstructed prefixes do not reproduce every contemporaneous field.",
+    "NHL historical on-ice lineups were not archived. The controlled 5-on-4 replay uses real teams, scores and the verified two-minute tripping event."
+  ],
+  "rows": [
+    {
+      "name": "Oklahoma State–Iowa State Q3 5:29",
+      "recorded": [
+        {
+          "rating": 53,
+          "scoreA": "21",
+          "scoreB": "31",
+          "clock": "5:29"
+        },
+        {
+          "rating": 75,
+          "scoreA": "27",
+          "scoreB": "31",
+          "clock": "5:29"
+        },
+        {
+          "rating": 90,
+          "scoreA": "27",
+          "scoreB": "31",
+          "clock": "5:29"
+        },
+        {
+          "rating": 64,
+          "scoreA": "28",
+          "scoreB": "31",
+          "clock": "5:29"
+        },
+        {
+          "rating": 91,
+          "scoreA": "28",
+          "scoreB": "31",
+          "clock": "5:29"
+        },
+        {
+          "rating": 91,
+          "scoreA": "28",
+          "scoreB": "31",
+          "clock": "5:29"
+        },
+        {
+          "rating": 91,
+          "scoreA": "28",
+          "scoreB": "31",
+          "clock": "5:29"
+        },
+        {
+          "rating": 91,
+          "scoreA": "28",
+          "scoreB": "31",
+          "clock": "5:29"
+        },
+        {
+          "rating": 91,
+          "scoreA": "28",
+          "scoreB": "31",
+          "clock": "5:29"
+        },
+        {
+          "rating": 91,
+          "scoreA": "28",
+          "scoreB": "31",
+          "clock": "5:29"
+        },
+        {
+          "rating": 91,
+          "scoreA": "28",
+          "scoreB": "31",
+          "clock": "5:29"
+        },
+        {
+          "rating": 91,
+          "scoreA": "28",
+          "scoreB": "31",
+          "clock": "5:29"
+        },
+        {
+          "rating": 91,
+          "scoreA": "28",
+          "scoreB": "31",
+          "clock": "5:29"
+        },
+        {
+          "rating": 91,
+          "scoreA": "28",
+          "scoreB": "31",
+          "clock": "5:29"
+        },
+        {
+          "rating": 91,
+          "scoreA": "28",
+          "scoreB": "31",
+          "clock": "5:29"
+        },
+        {
+          "rating": 91,
+          "scoreA": "28",
+          "scoreB": "31",
+          "clock": "5:29"
+        },
+        {
+          "rating": 91,
+          "scoreA": "28",
+          "scoreB": "31",
+          "clock": "5:29"
+        }
+      ],
+      "teams": [
+        {
+          "id": "66",
+          "name": "Iowa State Cyclones",
+          "score": "31"
+        },
+        {
+          "id": "197",
+          "name": "Oklahoma State Cowboys",
+          "score": "28"
+        }
+      ],
+      "before": {
+        "accepted": 86,
+        "missingDetail": 64,
+        "missingSummary": 64,
+        "upsetPoints": 0,
+        "underdog": null,
+        "openingScore": 44,
+        "openingFactors": [
+          {
+            "label": "Sport baseline",
+            "points": 32
+          },
+          {
+            "label": "Schedule scarcity",
+            "points": 8
+          },
+          {
+            "label": "Ranked team",
+            "points": 4
+          }
+        ],
+        "pregameBaseline": {
+          "calibration": "2026-10-31.football-pregame.1",
+          "source": "observed",
+          "score": 44,
+          "rawPregameScore": 44,
+          "factors": [
+            {
+              "label": "Sport baseline",
+              "points": 32
+            },
+            {
+              "label": "Schedule scarcity",
+              "points": 8
+            },
+            {
+              "label": "Ranked team",
+              "points": 4
+            }
+          ],
+          "odds": [],
+          "spread": null,
+          "underdog": null
+        },
+        "factors": [
+          {
+            "label": "Generic Leverage",
+            "points": 1
+          },
+          {
+            "label": "Game-state baseline",
+            "points": 12
+          },
+          {
+            "label": "Pregame context carried into play",
+            "points": 7
+          },
+          {
+            "label": "Current Tension",
+            "points": 47
+          },
+          {
+            "label": "Big win-chance swing",
+            "points": 6
+          },
+          {
+            "label": "History relevance and trajectory",
+            "points": 7.63942987574389
+          }
+        ],
+        "acceptedComponents": {
+          "probability": 0,
+          "situation": 0,
+          "pressure": 0,
+          "milestone": 0,
+          "eventShock": 5
+        },
+        "missingComponents": {
+          "probability": 0,
+          "situation": 0,
+          "pressure": 0,
+          "milestone": 0,
+          "eventShock": 0
+        },
+        "acceptedCurrentProbability": 0.5163,
+        "currentProbabilityWhenMissing": null,
+        "retainedHistory": false,
+        "retainedManpower": false
+      },
+      "after": {
+        "accepted": 91,
+        "missingDetail": 91,
+        "missingSummary": 91,
+        "upsetPoints": 5,
+        "underdog": {
+          "side": "home",
+          "teamId": "66",
+          "teamIndex": 0,
+          "teamName": "Iowa State Cyclones",
+          "type": "spread",
+          "value": 10,
+          "strength": 0.42857142857142855,
+          "activation": 1,
+          "description": "10-point underdog"
+        },
+        "openingScore": 44,
+        "openingFactors": [
+          {
+            "label": "Sport baseline",
+            "points": 32
+          },
+          {
+            "label": "Schedule scarcity",
+            "points": 8
+          },
+          {
+            "label": "Ranked team",
+            "points": 4
+          }
+        ],
+        "pregameBaseline": {
+          "calibration": "2026-10-31.football-pregame.1",
+          "source": "observed",
+          "score": 44,
+          "rawPregameScore": 44,
+          "factors": [
+            {
+              "label": "Sport baseline",
+              "points": 32
+            },
+            {
+              "label": "Schedule scarcity",
+              "points": 8
+            },
+            {
+              "label": "Ranked team",
+              "points": 4
+            }
+          ],
+          "odds": [],
+          "spread": null,
+          "underdog": null
+        },
+        "factors": [
+          {
+            "label": "Generic Leverage",
+            "points": 1
+          },
+          {
+            "label": "Underdog threatens upset",
+            "points": 5
+          },
+          {
+            "label": "Game-state baseline",
+            "points": 12
+          },
+          {
+            "label": "Pregame context carried into play",
+            "points": 7
+          },
+          {
+            "label": "Current Tension",
+            "points": 47
+          },
+          {
+            "label": "Big win-chance swing",
+            "points": 6
+          },
+          {
+            "label": "History relevance and trajectory",
+            "points": 7.63942987574389
+          }
+        ],
+        "acceptedComponents": {
+          "probability": 0,
+          "situation": 0,
+          "pressure": 0,
+          "milestone": 0,
+          "eventShock": 5
+        },
+        "missingComponents": {
+          "probability": 0,
+          "situation": 0,
+          "pressure": 0,
+          "milestone": 0,
+          "eventShock": 5
+        },
+        "acceptedCurrentProbability": 0.5163,
+        "currentProbabilityWhenMissing": null,
+        "retainedHistory": true,
+        "retainedManpower": false
+      }
+    },
+    {
+      "name": "CFB history retention without recovered-market credit",
+      "recorded": [
+        {
+          "rating": 53,
+          "scoreA": "21",
+          "scoreB": "31",
+          "clock": "5:29"
+        },
+        {
+          "rating": 75,
+          "scoreA": "27",
+          "scoreB": "31",
+          "clock": "5:29"
+        },
+        {
+          "rating": 90,
+          "scoreA": "27",
+          "scoreB": "31",
+          "clock": "5:29"
+        },
+        {
+          "rating": 64,
+          "scoreA": "28",
+          "scoreB": "31",
+          "clock": "5:29"
+        },
+        {
+          "rating": 91,
+          "scoreA": "28",
+          "scoreB": "31",
+          "clock": "5:29"
+        },
+        {
+          "rating": 91,
+          "scoreA": "28",
+          "scoreB": "31",
+          "clock": "5:29"
+        },
+        {
+          "rating": 91,
+          "scoreA": "28",
+          "scoreB": "31",
+          "clock": "5:29"
+        },
+        {
+          "rating": 91,
+          "scoreA": "28",
+          "scoreB": "31",
+          "clock": "5:29"
+        },
+        {
+          "rating": 91,
+          "scoreA": "28",
+          "scoreB": "31",
+          "clock": "5:29"
+        },
+        {
+          "rating": 91,
+          "scoreA": "28",
+          "scoreB": "31",
+          "clock": "5:29"
+        },
+        {
+          "rating": 91,
+          "scoreA": "28",
+          "scoreB": "31",
+          "clock": "5:29"
+        },
+        {
+          "rating": 91,
+          "scoreA": "28",
+          "scoreB": "31",
+          "clock": "5:29"
+        },
+        {
+          "rating": 91,
+          "scoreA": "28",
+          "scoreB": "31",
+          "clock": "5:29"
+        },
+        {
+          "rating": 91,
+          "scoreA": "28",
+          "scoreB": "31",
+          "clock": "5:29"
+        },
+        {
+          "rating": 91,
+          "scoreA": "28",
+          "scoreB": "31",
+          "clock": "5:29"
+        },
+        {
+          "rating": 91,
+          "scoreA": "28",
+          "scoreB": "31",
+          "clock": "5:29"
+        },
+        {
+          "rating": 91,
+          "scoreA": "28",
+          "scoreB": "31",
+          "clock": "5:29"
+        }
+      ],
+      "teams": [
+        {
+          "id": "66",
+          "name": "Iowa State Cyclones",
+          "score": "31"
+        },
+        {
+          "id": "197",
+          "name": "Oklahoma State Cowboys",
+          "score": "28"
+        }
+      ],
+      "before": {
+        "accepted": 86,
+        "missingDetail": 64,
+        "missingSummary": 64,
+        "upsetPoints": 0,
+        "underdog": null,
+        "openingScore": 44,
+        "openingFactors": [
+          {
+            "label": "Sport baseline",
+            "points": 32
+          },
+          {
+            "label": "Schedule scarcity",
+            "points": 8
+          },
+          {
+            "label": "Ranked team",
+            "points": 4
+          }
+        ],
+        "pregameBaseline": {
+          "calibration": "2026-10-31.football-pregame.1",
+          "source": "observed",
+          "score": 44,
+          "rawPregameScore": 44,
+          "factors": [
+            {
+              "label": "Sport baseline",
+              "points": 32
+            },
+            {
+              "label": "Schedule scarcity",
+              "points": 8
+            },
+            {
+              "label": "Ranked team",
+              "points": 4
+            }
+          ],
+          "odds": [],
+          "spread": null,
+          "underdog": null
+        },
+        "factors": [
+          {
+            "label": "Generic Leverage",
+            "points": 1
+          },
+          {
+            "label": "Game-state baseline",
+            "points": 12
+          },
+          {
+            "label": "Pregame context carried into play",
+            "points": 7
+          },
+          {
+            "label": "Current Tension",
+            "points": 47
+          },
+          {
+            "label": "Big win-chance swing",
+            "points": 6
+          },
+          {
+            "label": "History relevance and trajectory",
+            "points": 7.63942987574389
+          }
+        ],
+        "acceptedComponents": {
+          "probability": 0,
+          "situation": 0,
+          "pressure": 0,
+          "milestone": 0,
+          "eventShock": 5
+        },
+        "missingComponents": {
+          "probability": 0,
+          "situation": 0,
+          "pressure": 0,
+          "milestone": 0,
+          "eventShock": 0
+        },
+        "acceptedCurrentProbability": 0.5163,
+        "currentProbabilityWhenMissing": null,
+        "retainedHistory": false,
+        "retainedManpower": false
+      },
+      "after": {
+        "accepted": 86,
+        "missingDetail": 76,
+        "missingSummary": 76,
+        "upsetPoints": 0,
+        "underdog": null,
+        "openingScore": 44,
+        "openingFactors": [
+          {
+            "label": "Sport baseline",
+            "points": 32
+          },
+          {
+            "label": "Schedule scarcity",
+            "points": 8
+          },
+          {
+            "label": "Ranked team",
+            "points": 4
+          }
+        ],
+        "pregameBaseline": {
+          "calibration": "2026-10-31.football-pregame.1",
+          "source": "observed",
+          "score": 44,
+          "rawPregameScore": 44,
+          "factors": [
+            {
+              "label": "Sport baseline",
+              "points": 32
+            },
+            {
+              "label": "Schedule scarcity",
+              "points": 8
+            },
+            {
+              "label": "Ranked team",
+              "points": 4
+            }
+          ],
+          "odds": [],
+          "spread": null,
+          "underdog": null
+        },
+        "factors": [
+          {
+            "label": "Generic Leverage",
+            "points": 1
+          },
+          {
+            "label": "Game-state baseline",
+            "points": 12
+          },
+          {
+            "label": "Pregame context carried into play",
+            "points": 7
+          },
+          {
+            "label": "Current Tension",
+            "points": 47
+          },
+          {
+            "label": "Big win-chance swing",
+            "points": 6
+          },
+          {
+            "label": "History relevance and trajectory",
+            "points": 7.63942987574389
+          }
+        ],
+        "acceptedComponents": {
+          "probability": 0,
+          "situation": 0,
+          "pressure": 0,
+          "milestone": 0,
+          "eventShock": 5
+        },
+        "missingComponents": {
+          "probability": 0,
+          "situation": 0,
+          "pressure": 0,
+          "milestone": 0,
+          "eventShock": 5
+        },
+        "acceptedCurrentProbability": 0.5163,
+        "currentProbabilityWhenMissing": null,
+        "retainedHistory": true,
+        "retainedManpower": false
+      }
+    },
+    {
+      "name": "Eastern Kentucky–Tarleton closing market",
+      "recorded": [],
+      "teams": [
+        {
+          "id": "2627",
+          "name": "Tarleton State Texans",
+          "score": "21"
+        },
+        {
+          "id": "2198",
+          "name": "Eastern Kentucky Colonels",
+          "score": "17"
+        }
+      ],
+      "before": {
+        "accepted": 76,
+        "missingDetail": 65,
+        "missingSummary": 65,
+        "upsetPoints": 0,
+        "underdog": null,
+        "openingScore": 40,
+        "openingFactors": [
+          {
+            "label": "Sport baseline",
+            "points": 32
+          },
+          {
+            "label": "Schedule scarcity",
+            "points": 8
+          }
+        ],
+        "pregameBaseline": {
+          "calibration": "2026-10-31.football-pregame.1",
+          "source": "observed",
+          "score": 40,
+          "rawPregameScore": 40,
+          "factors": [
+            {
+              "label": "Sport baseline",
+              "points": 32
+            },
+            {
+              "label": "Schedule scarcity",
+              "points": 8
+            }
+          ],
+          "odds": [],
+          "spread": null,
+          "underdog": null
+        },
+        "factors": [
+          {
+            "label": "Generic Leverage",
+            "points": 4
+          },
+          {
+            "label": "Game-state baseline",
+            "points": 12
+          },
+          {
+            "label": "Pregame context carried into play",
+            "points": 5
+          },
+          {
+            "label": "Current Tension",
+            "points": 40
+          },
+          {
+            "label": "2 lead changes",
+            "points": 5
+          },
+          {
+            "label": "Recent late lead change",
+            "points": 5
+          },
+          {
+            "label": "Big win-chance swing",
+            "points": 5
+          }
+        ],
+        "acceptedComponents": {
+          "probability": 0,
+          "situation": 0,
+          "pressure": 0,
+          "milestone": 0,
+          "eventShock": 0
+        },
+        "missingComponents": {
+          "probability": 0,
+          "situation": 0,
+          "pressure": 0,
+          "milestone": 0,
+          "eventShock": 0
+        },
+        "acceptedCurrentProbability": 0.6948,
+        "currentProbabilityWhenMissing": null,
+        "retainedHistory": false,
+        "retainedManpower": false
+      },
+      "after": {
+        "accepted": 81,
+        "missingDetail": 77,
+        "missingSummary": 77,
+        "upsetPoints": 5,
+        "underdog": {
+          "side": "away",
+          "teamId": "2198",
+          "teamIndex": 1,
+          "teamName": "Eastern Kentucky Colonels",
+          "type": "spread",
+          "value": 24.5,
+          "strength": 1,
+          "activation": 1,
+          "description": "24.5-point underdog"
+        },
+        "openingScore": 40,
+        "openingFactors": [
+          {
+            "label": "Sport baseline",
+            "points": 32
+          },
+          {
+            "label": "Schedule scarcity",
+            "points": 8
+          }
+        ],
+        "pregameBaseline": {
+          "calibration": "2026-10-31.football-pregame.1",
+          "source": "observed",
+          "score": 40,
+          "rawPregameScore": 40,
+          "factors": [
+            {
+              "label": "Sport baseline",
+              "points": 32
+            },
+            {
+              "label": "Schedule scarcity",
+              "points": 8
+            }
+          ],
+          "odds": [],
+          "spread": null,
+          "underdog": null
+        },
+        "factors": [
+          {
+            "label": "Generic Leverage",
+            "points": 4
+          },
+          {
+            "label": "Underdog threatens upset",
+            "points": 5
+          },
+          {
+            "label": "Game-state baseline",
+            "points": 12
+          },
+          {
+            "label": "Pregame context carried into play",
+            "points": 5
+          },
+          {
+            "label": "Current Tension",
+            "points": 40
+          },
+          {
+            "label": "2 lead changes",
+            "points": 5
+          },
+          {
+            "label": "Recent late lead change",
+            "points": 5
+          },
+          {
+            "label": "Big win-chance swing",
+            "points": 5
+          }
+        ],
+        "acceptedComponents": {
+          "probability": 0,
+          "situation": 0,
+          "pressure": 0,
+          "milestone": 0,
+          "eventShock": 0
+        },
+        "missingComponents": {
+          "probability": 0,
+          "situation": 0,
+          "pressure": 0,
+          "milestone": 0,
+          "eventShock": 0
+        },
+        "acceptedCurrentProbability": 0.6948,
+        "currentProbabilityWhenMissing": null,
+        "retainedHistory": true,
+        "retainedManpower": false
+      }
+    },
+    {
+      "name": "Toronto–Vancouver Q3 9:59 controlled 5-on-4",
+      "recorded": [
+        {
+          "rating": 69,
+          "scoreA": "3",
+          "scoreB": "2",
+          "clock": "9:59"
+        },
+        {
+          "rating": 69,
+          "scoreA": "3",
+          "scoreB": "2",
+          "clock": "9:59"
+        },
+        {
+          "rating": 82,
+          "scoreA": "3",
+          "scoreB": "2",
+          "clock": "9:59"
+        },
+        {
+          "rating": 82,
+          "scoreA": "3",
+          "scoreB": "2",
+          "clock": "9:59"
+        },
+        {
+          "rating": 69,
+          "scoreA": "3",
+          "scoreB": "2",
+          "clock": "9:59"
+        },
+        {
+          "rating": 69,
+          "scoreA": "3",
+          "scoreB": "2",
+          "clock": "9:59"
+        },
+        {
+          "rating": 82,
+          "scoreA": "3",
+          "scoreB": "2",
+          "clock": "9:59"
+        }
+      ],
+      "teams": [
+        {
+          "id": "22",
+          "name": "Vancouver Canucks",
+          "score": "2"
+        },
+        {
+          "id": "21",
+          "name": "Toronto Maple Leafs",
+          "score": "3"
+        }
+      ],
+      "before": {
+        "accepted": 82,
+        "missingDetail": 69,
+        "missingSummary": 64,
+        "upsetPoints": 0,
+        "underdog": null,
+        "openingScore": 40,
+        "openingFactors": [
+          {
+            "label": "Sport baseline",
+            "points": 32
+          },
+          {
+            "label": "Schedule scarcity",
+            "points": 5
+          },
+          {
+            "label": "Competitive betting market",
+            "points": 3
+          }
+        ],
+        "pregameBaseline": {
+          "calibration": "2026-10-31.opening-transition.1",
+          "source": "observed",
+          "score": 40,
+          "rawPregameScore": 40,
+          "factors": [
+            {
+              "label": "Sport baseline",
+              "points": 32
+            },
+            {
+              "label": "Schedule scarcity",
+              "points": 5
+            },
+            {
+              "label": "Competitive betting market",
+              "points": 3
+            }
+          ],
+          "odds": [
+            {
+              "provider": {
+                "id": "100",
+                "name": "DraftKings",
+                "priority": 1,
+                "logos": [
+                  {
+                    "href": "https://a.espncdn.com/i/betting/Draftkings_Light.svg",
+                    "rel": [
+                      "light"
+                    ]
+                  },
+                  {
+                    "href": "https://a.espncdn.com/i/betting/Draftkings_Dark.svg",
+                    "rel": [
+                      "dark"
+                    ]
+                  }
+                ]
+              },
+              "details": "TOR -192",
+              "overUnder": 6.5,
+              "spread": 1.5,
+              "awayTeamOdds": {
+                "favorite": true,
+                "underdog": false,
+                "team": {
+                  "id": "21",
+                  "uid": "s:70~l:90~t:21",
+                  "abbreviation": "TOR",
+                  "name": "Maple Leafs",
+                  "displayName": "Toronto Maple Leafs",
+                  "logo": "https://a.espncdn.com/i/teamlogos/nhl/500/scoreboard/tor.png"
+                },
+                "favoriteAtOpen": true
+              },
+              "homeTeamOdds": {
+                "favorite": false,
+                "underdog": true,
+                "team": {
+                  "id": "22",
+                  "uid": "s:70~l:90~t:22",
+                  "abbreviation": "VAN",
+                  "name": "Canucks",
+                  "displayName": "Vancouver Canucks",
+                  "logo": "https://a.espncdn.com/i/teamlogos/nhl/500/scoreboard/van.png"
+                },
+                "favoriteAtOpen": false
+              },
+              "moneyline": {
+                "displayName": "Moneyline",
+                "shortDisplayName": "ML",
+                "home": {
+                  "close": {
+                    "odds": "+160",
+                    "link": {
+                      "language": "en-US",
+                      "rel": [
+                        "home",
+                        "desktop",
+                        "bets",
+                        "draftkings"
+                      ],
+                      "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F34906021%3Foutcomes%3D0ML86944673_1",
+                      "text": "Home Bet",
+                      "shortText": "Home Bet",
+                      "isExternal": true,
+                      "isPremium": false,
+                      "tracking": {
+                        "campaign": "betting-integrations",
+                        "tags": {
+                          "league": "nhl",
+                          "sport": "hockey",
+                          "gameId": 401892621,
+                          "betSide": "home",
+                          "betType": "straight"
+                        }
+                      }
+                    }
+                  },
+                  "open": {
+                    "odds": "+136"
+                  }
+                },
+                "away": {
+                  "close": {
+                    "odds": "-192",
+                    "link": {
+                      "language": "en-US",
+                      "rel": [
+                        "away",
+                        "desktop",
+                        "bets",
+                        "draftkings"
+                      ],
+                      "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F34906021%3Foutcomes%3D0ML86944673_3",
+                      "text": "Away Bet",
+                      "shortText": "Away Bet",
+                      "isExternal": true,
+                      "isPremium": false,
+                      "tracking": {
+                        "campaign": "betting-integrations",
+                        "tags": {
+                          "league": "nhl",
+                          "sport": "hockey",
+                          "gameId": 401892621,
+                          "betSide": "away",
+                          "betType": "straight"
+                        }
+                      }
+                    }
+                  },
+                  "open": {
+                    "odds": "-162"
+                  }
+                }
+              },
+              "pointSpread": {
+                "displayName": "Spread",
+                "shortDisplayName": "Spread",
+                "home": {
+                  "close": {
+                    "line": "+1.5",
+                    "odds": "-148",
+                    "link": {
+                      "language": "en-US",
+                      "rel": [
+                        "homeSpread",
+                        "desktop",
+                        "bets"
+                      ],
+                      "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F34906021%3Foutcomes%3D0HC86944673P150_1",
+                      "text": "Home Point Spread",
+                      "shortText": "Home Point Spread",
+                      "isExternal": true,
+                      "isPremium": false,
+                      "tracking": {
+                        "campaign": "betting-integrations",
+                        "tags": {
+                          "league": "nhl",
+                          "sport": "hockey",
+                          "gameId": 401892621,
+                          "betSide": "none",
+                          "betType": "straight",
+                          "betDetails": "Spread:VAN+1.5"
+                        }
+                      }
+                    }
+                  },
+                  "open": {
+                    "line": "+1.5",
+                    "odds": "-185"
+                  }
+                },
+                "away": {
+                  "close": {
+                    "line": "-1.5",
+                    "odds": "+124",
+                    "link": {
+                      "language": "en-US",
+                      "rel": [
+                        "awaySpread",
+                        "desktop",
+                        "bets"
+                      ],
+                      "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F34906021%3Foutcomes%3D0HC86944673N150_3",
+                      "text": "Away Point Spread",
+                      "shortText": "Away Point Spread",
+                      "isExternal": true,
+                      "isPremium": false,
+                      "tracking": {
+                        "campaign": "betting-integrations",
+                        "tags": {
+                          "league": "nhl",
+                          "sport": "hockey",
+                          "gameId": 401892621,
+                          "betSide": "none",
+                          "betType": "straight",
+                          "betDetails": "Spread:TOR-1.5"
+                        }
+                      }
+                    }
+                  },
+                  "open": {
+                    "line": "-1.5",
+                    "odds": "+154"
+                  }
+                }
+              },
+              "total": {
+                "displayName": "Total",
+                "shortDisplayName": "Total",
+                "over": {
+                  "close": {
+                    "line": "o6.5",
+                    "odds": "-125",
+                    "link": {
+                      "language": "en-US",
+                      "rel": [
+                        "over",
+                        "desktop",
+                        "bets"
+                      ],
+                      "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F34906021%3Foutcomes%3D0OU86944673O650_1",
+                      "text": "Over Odds",
+                      "shortText": "Over Odds",
+                      "isExternal": true,
+                      "isPremium": false,
+                      "tracking": {
+                        "campaign": "betting-integrations",
+                        "tags": {
+                          "league": "nhl",
+                          "sport": "hockey",
+                          "gameId": 401892621,
+                          "betSide": "over",
+                          "betType": "straight",
+                          "betDetails": "Over:6.5"
+                        }
+                      }
+                    }
+                  },
+                  "open": {
+                    "line": "o6.5",
+                    "odds": "-110"
+                  }
+                },
+                "under": {
+                  "close": {
+                    "line": "u6.5",
+                    "odds": "+105",
+                    "link": {
+                      "language": "en-US",
+                      "rel": [
+                        "under",
+                        "desktop",
+                        "bets"
+                      ],
+                      "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F34906021%3Foutcomes%3D0OU86944673U650_3",
+                      "text": "Under Odds",
+                      "shortText": "Under Odds",
+                      "isExternal": true,
+                      "isPremium": false,
+                      "tracking": {
+                        "campaign": "betting-integrations",
+                        "tags": {
+                          "league": "nhl",
+                          "sport": "hockey",
+                          "gameId": 401892621,
+                          "betSide": "under",
+                          "betType": "straight",
+                          "betDetails": "Under:6.5"
+                        }
+                      }
+                    }
+                  },
+                  "open": {
+                    "line": "u6.5",
+                    "odds": "-110"
+                  }
+                }
+              },
+              "link": {
+                "language": "en-US",
+                "rel": [
+                  "game",
+                  "desktop",
+                  "bets"
+                ],
+                "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F34906021",
+                "text": "See More Odds",
+                "shortText": "Game",
+                "isExternal": true,
+                "isPremium": false,
+                "tracking": {
+                  "campaign": "betting-integrations",
+                  "tags": {
+                    "league": "nhl",
+                    "sport": "hockey",
+                    "gameId": 401892621,
+                    "betSide": "none",
+                    "betType": "straight"
+                  }
+                }
+              },
+              "header": {
+                "logo": {
+                  "dark": "https://a.espncdn.com/i/espnbet/dark/espn-bet-square-off.svg",
+                  "light": "https://a.espncdn.com/i/espnbet/espn-bet-square-off.svg",
+                  "exclusivesLogoDark": "https://a.espncdn.com/i/espnbet/espn-bet-square-mint.svg",
+                  "exclusivesLogoLight": "https://a.espncdn.com/i/espnbet/espn-bet-square-mint.svg"
+                },
+                "text": "Game Odds"
+              },
+              "footer": {
+                "disclaimer": "GAMBLING PROBLEM? CALL 1-800-GAMBLER or 1-800-MY-RESET, (800) 327-5050 or visit gamblinghelplinema.org (MA). Call 877-8-HOPENY/text HOPENY (467369) (NY). Call 888-789-7777/visit ccpg.org (CT), or visit www.mdgamblinghelp.org (MD), 1-800-981-0023 (PR). 21+ and present in most states. (18+ DC/KY/NH/PR/WY). Void in ONT. Eligibility restrictions apply. Terms: draftkings.com/sportsbook. On behalf of Boot Hill Casino (KS). Pass-thru of per wager tax may apply in IL."
+              }
+            }
+          ],
+          "spread": 1.5,
+          "underdog": null
+        },
+        "factors": [
+          {
+            "label": "Generic Leverage",
+            "points": 6
+          },
+          {
+            "label": "Game-state baseline",
+            "points": 12
+          },
+          {
+            "label": "Pregame context carried into play",
+            "points": 5
+          },
+          {
+            "label": "Current Tension",
+            "points": 31
+          },
+          {
+            "label": "History relevance and trajectory",
+            "points": 4.068642214591778
+          }
+        ],
+        "acceptedComponents": {
+          "probability": 0,
+          "situation": 5,
+          "pressure": 1,
+          "milestone": 0,
+          "eventShock": 0
+        },
+        "missingComponents": {
+          "probability": 0,
+          "situation": 0,
+          "pressure": 1,
+          "milestone": 0,
+          "eventShock": 0
+        },
+        "acceptedCurrentProbability": null,
+        "currentProbabilityWhenMissing": null,
+        "retainedHistory": false,
+        "retainedManpower": false
+      },
+      "after": {
+        "accepted": 82,
+        "missingDetail": 82,
+        "missingSummary": 81,
+        "upsetPoints": 0,
+        "underdog": null,
+        "openingScore": 40,
+        "openingFactors": [
+          {
+            "label": "Sport baseline",
+            "points": 32
+          },
+          {
+            "label": "Schedule scarcity",
+            "points": 5
+          },
+          {
+            "label": "Competitive betting market",
+            "points": 3
+          }
+        ],
+        "pregameBaseline": {
+          "calibration": "2026-10-31.opening-transition.1",
+          "source": "observed",
+          "score": 40,
+          "rawPregameScore": 40,
+          "factors": [
+            {
+              "label": "Sport baseline",
+              "points": 32
+            },
+            {
+              "label": "Schedule scarcity",
+              "points": 5
+            },
+            {
+              "label": "Competitive betting market",
+              "points": 3
+            }
+          ],
+          "odds": [
+            {
+              "provider": {
+                "id": "100",
+                "name": "DraftKings",
+                "priority": 1,
+                "logos": [
+                  {
+                    "href": "https://a.espncdn.com/i/betting/Draftkings_Light.svg",
+                    "rel": [
+                      "light"
+                    ]
+                  },
+                  {
+                    "href": "https://a.espncdn.com/i/betting/Draftkings_Dark.svg",
+                    "rel": [
+                      "dark"
+                    ]
+                  }
+                ]
+              },
+              "details": "TOR -192",
+              "overUnder": 6.5,
+              "spread": 1.5,
+              "awayTeamOdds": {
+                "favorite": true,
+                "underdog": false,
+                "team": {
+                  "id": "21",
+                  "uid": "s:70~l:90~t:21",
+                  "abbreviation": "TOR",
+                  "name": "Maple Leafs",
+                  "displayName": "Toronto Maple Leafs",
+                  "logo": "https://a.espncdn.com/i/teamlogos/nhl/500/scoreboard/tor.png"
+                },
+                "favoriteAtOpen": true
+              },
+              "homeTeamOdds": {
+                "favorite": false,
+                "underdog": true,
+                "team": {
+                  "id": "22",
+                  "uid": "s:70~l:90~t:22",
+                  "abbreviation": "VAN",
+                  "name": "Canucks",
+                  "displayName": "Vancouver Canucks",
+                  "logo": "https://a.espncdn.com/i/teamlogos/nhl/500/scoreboard/van.png"
+                },
+                "favoriteAtOpen": false
+              },
+              "moneyline": {
+                "displayName": "Moneyline",
+                "shortDisplayName": "ML",
+                "home": {
+                  "close": {
+                    "odds": "+160",
+                    "link": {
+                      "language": "en-US",
+                      "rel": [
+                        "home",
+                        "desktop",
+                        "bets",
+                        "draftkings"
+                      ],
+                      "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F34906021%3Foutcomes%3D0ML86944673_1",
+                      "text": "Home Bet",
+                      "shortText": "Home Bet",
+                      "isExternal": true,
+                      "isPremium": false,
+                      "tracking": {
+                        "campaign": "betting-integrations",
+                        "tags": {
+                          "league": "nhl",
+                          "sport": "hockey",
+                          "gameId": 401892621,
+                          "betSide": "home",
+                          "betType": "straight"
+                        }
+                      }
+                    }
+                  },
+                  "open": {
+                    "odds": "+136"
+                  }
+                },
+                "away": {
+                  "close": {
+                    "odds": "-192",
+                    "link": {
+                      "language": "en-US",
+                      "rel": [
+                        "away",
+                        "desktop",
+                        "bets",
+                        "draftkings"
+                      ],
+                      "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F34906021%3Foutcomes%3D0ML86944673_3",
+                      "text": "Away Bet",
+                      "shortText": "Away Bet",
+                      "isExternal": true,
+                      "isPremium": false,
+                      "tracking": {
+                        "campaign": "betting-integrations",
+                        "tags": {
+                          "league": "nhl",
+                          "sport": "hockey",
+                          "gameId": 401892621,
+                          "betSide": "away",
+                          "betType": "straight"
+                        }
+                      }
+                    }
+                  },
+                  "open": {
+                    "odds": "-162"
+                  }
+                }
+              },
+              "pointSpread": {
+                "displayName": "Spread",
+                "shortDisplayName": "Spread",
+                "home": {
+                  "close": {
+                    "line": "+1.5",
+                    "odds": "-148",
+                    "link": {
+                      "language": "en-US",
+                      "rel": [
+                        "homeSpread",
+                        "desktop",
+                        "bets"
+                      ],
+                      "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F34906021%3Foutcomes%3D0HC86944673P150_1",
+                      "text": "Home Point Spread",
+                      "shortText": "Home Point Spread",
+                      "isExternal": true,
+                      "isPremium": false,
+                      "tracking": {
+                        "campaign": "betting-integrations",
+                        "tags": {
+                          "league": "nhl",
+                          "sport": "hockey",
+                          "gameId": 401892621,
+                          "betSide": "none",
+                          "betType": "straight",
+                          "betDetails": "Spread:VAN+1.5"
+                        }
+                      }
+                    }
+                  },
+                  "open": {
+                    "line": "+1.5",
+                    "odds": "-185"
+                  }
+                },
+                "away": {
+                  "close": {
+                    "line": "-1.5",
+                    "odds": "+124",
+                    "link": {
+                      "language": "en-US",
+                      "rel": [
+                        "awaySpread",
+                        "desktop",
+                        "bets"
+                      ],
+                      "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F34906021%3Foutcomes%3D0HC86944673N150_3",
+                      "text": "Away Point Spread",
+                      "shortText": "Away Point Spread",
+                      "isExternal": true,
+                      "isPremium": false,
+                      "tracking": {
+                        "campaign": "betting-integrations",
+                        "tags": {
+                          "league": "nhl",
+                          "sport": "hockey",
+                          "gameId": 401892621,
+                          "betSide": "none",
+                          "betType": "straight",
+                          "betDetails": "Spread:TOR-1.5"
+                        }
+                      }
+                    }
+                  },
+                  "open": {
+                    "line": "-1.5",
+                    "odds": "+154"
+                  }
+                }
+              },
+              "total": {
+                "displayName": "Total",
+                "shortDisplayName": "Total",
+                "over": {
+                  "close": {
+                    "line": "o6.5",
+                    "odds": "-125",
+                    "link": {
+                      "language": "en-US",
+                      "rel": [
+                        "over",
+                        "desktop",
+                        "bets"
+                      ],
+                      "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F34906021%3Foutcomes%3D0OU86944673O650_1",
+                      "text": "Over Odds",
+                      "shortText": "Over Odds",
+                      "isExternal": true,
+                      "isPremium": false,
+                      "tracking": {
+                        "campaign": "betting-integrations",
+                        "tags": {
+                          "league": "nhl",
+                          "sport": "hockey",
+                          "gameId": 401892621,
+                          "betSide": "over",
+                          "betType": "straight",
+                          "betDetails": "Over:6.5"
+                        }
+                      }
+                    }
+                  },
+                  "open": {
+                    "line": "o6.5",
+                    "odds": "-110"
+                  }
+                },
+                "under": {
+                  "close": {
+                    "line": "u6.5",
+                    "odds": "+105",
+                    "link": {
+                      "language": "en-US",
+                      "rel": [
+                        "under",
+                        "desktop",
+                        "bets"
+                      ],
+                      "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F34906021%3Foutcomes%3D0OU86944673U650_3",
+                      "text": "Under Odds",
+                      "shortText": "Under Odds",
+                      "isExternal": true,
+                      "isPremium": false,
+                      "tracking": {
+                        "campaign": "betting-integrations",
+                        "tags": {
+                          "league": "nhl",
+                          "sport": "hockey",
+                          "gameId": 401892621,
+                          "betSide": "under",
+                          "betType": "straight",
+                          "betDetails": "Under:6.5"
+                        }
+                      }
+                    }
+                  },
+                  "open": {
+                    "line": "u6.5",
+                    "odds": "-110"
+                  }
+                }
+              },
+              "link": {
+                "language": "en-US",
+                "rel": [
+                  "game",
+                  "desktop",
+                  "bets"
+                ],
+                "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F34906021",
+                "text": "See More Odds",
+                "shortText": "Game",
+                "isExternal": true,
+                "isPremium": false,
+                "tracking": {
+                  "campaign": "betting-integrations",
+                  "tags": {
+                    "league": "nhl",
+                    "sport": "hockey",
+                    "gameId": 401892621,
+                    "betSide": "none",
+                    "betType": "straight"
+                  }
+                }
+              },
+              "header": {
+                "logo": {
+                  "dark": "https://a.espncdn.com/i/espnbet/dark/espn-bet-square-off.svg",
+                  "light": "https://a.espncdn.com/i/espnbet/espn-bet-square-off.svg",
+                  "exclusivesLogoDark": "https://a.espncdn.com/i/espnbet/espn-bet-square-mint.svg",
+                  "exclusivesLogoLight": "https://a.espncdn.com/i/espnbet/espn-bet-square-mint.svg"
+                },
+                "text": "Game Odds"
+              },
+              "footer": {
+                "disclaimer": "GAMBLING PROBLEM? CALL 1-800-GAMBLER or 1-800-MY-RESET, (800) 327-5050 or visit gamblinghelplinema.org (MA). Call 877-8-HOPENY/text HOPENY (467369) (NY). Call 888-789-7777/visit ccpg.org (CT), or visit www.mdgamblinghelp.org (MD), 1-800-981-0023 (PR). 21+ and present in most states. (18+ DC/KY/NH/PR/WY). Void in ONT. Eligibility restrictions apply. Terms: draftkings.com/sportsbook. On behalf of Boot Hill Casino (KS). Pass-thru of per wager tax may apply in IL."
+              }
+            }
+          ],
+          "spread": 1.5,
+          "underdog": null
+        },
+        "factors": [
+          {
+            "label": "Generic Leverage",
+            "points": 6
+          },
+          {
+            "label": "Game-state baseline",
+            "points": 12
+          },
+          {
+            "label": "Pregame context carried into play",
+            "points": 5
+          },
+          {
+            "label": "Current Tension",
+            "points": 31
+          },
+          {
+            "label": "History relevance and trajectory",
+            "points": 4.068642214591778
+          }
+        ],
+        "acceptedComponents": {
+          "probability": 0,
+          "situation": 5,
+          "pressure": 1,
+          "milestone": 0,
+          "eventShock": 0
+        },
+        "missingComponents": {
+          "probability": 0,
+          "situation": 5,
+          "pressure": 1,
+          "milestone": 0,
+          "eventShock": 0
+        },
+        "acceptedCurrentProbability": null,
+        "currentProbabilityWhenMissing": null,
+        "retainedHistory": false,
+        "retainedManpower": true
+      }
+    },
+    {
+      "name": "Minnesota–San Antonio halftime viewing priority",
+      "rating": 77,
+      "beforePriority": 77,
+      "afterPriority": 71,
+      "resumedPriority": 77,
+      "recorded": [
+        {
+          "observedAt": 1793495400000,
+          "state": "live",
+          "rating": 77,
+          "scoreA": "61",
+          "scoreB": "60",
+          "period": 2,
+          "clock": "0.0",
+          "phaseLabel": "Halftime",
+          "modelVersion": "2026-10-31.finish-feasibility.1"
+        },
+        {
+          "observedAt": 1793495460000,
+          "state": "live",
+          "rating": 77,
+          "scoreA": "61",
+          "scoreB": "60",
+          "period": 2,
+          "clock": "0.0",
+          "phaseLabel": "Halftime",
+          "modelVersion": "2026-10-31.finish-feasibility.1"
+        },
+        {
+          "observedAt": 1793495475000,
+          "state": "live",
+          "rating": 77,
+          "scoreA": "61",
+          "scoreB": "60",
+          "period": 2,
+          "clock": "0.0",
+          "phaseLabel": "Halftime",
+          "modelVersion": "2026-10-31.finish-feasibility.1"
+        }
+      ]
+    }
+  ]
+}
