@@ -1957,9 +1957,9 @@ export async function gameDetails(env,sport,id,now=Date.now()) {
       });
     } finally {detailBudget.close();}
   }
-  return {...summary,...(nhlAdvanced ? {nhlAdvanced} : {}),...(['NBA','NCAAB'].includes(sport) ? {basketballBoxScore:basketballBoxScore(summary,sport)} : {}),
-    sportsRadarGame:{...game,scoreboard:undefined},sportsRadarArchived:archived,
-    sportsRadarFreshness:{updatedAt:new Date(resource.updatedAt).toISOString(),canonicalUpdatedAt:feed?.updatedAt || null,canonicalRevision:feed?.revision || Date.parse(feed?.updatedAt) || null,receivedAt:new Date(now).toISOString(),stale:errors.length>0 || now-resource.updatedAt>STALE_MS}};
+  return runtime.canonicalDetailSummary(game,{...summary,...(nhlAdvanced ? {nhlAdvanced} : {}),...(['NBA','NCAAB'].includes(sport) ? {basketballBoxScore:basketballBoxScore(summary,sport)} : {}),
+    sportsRadarGame:{...game,scoreboard:undefined,basketballEvidence:undefined},sportsRadarArchived:archived,
+    sportsRadarFreshness:{updatedAt:new Date(resource.updatedAt).toISOString(),canonicalUpdatedAt:feed?.updatedAt || null,canonicalRevision:feed?.revision || Date.parse(feed?.updatedAt) || null,receivedAt:new Date(now).toISOString(),stale:errors.length>0 || now-resource.updatedAt>STALE_MS}});
 }
 
 // Owner-qualified revisions keep a late producer's parts separate, even when
@@ -1969,9 +1969,17 @@ export async function publishFeed(env,feed,owner,at,stage=async(name,fn)=>fn()) 
   const revision = `${Date.parse(feed.updatedAt)}:${owner}`;
   const parts=[];
   await stage('feedWrites',async()=>{
-    for (let start=0;start<feed.games.length;start+=50) parts.push(env.DB.prepare(
+    // Verified basketball evidence is larger than a plain card. Bound rows by
+    // UTF-8 bytes as well as game count so a busy slate stays below D1 limits.
+    let chunk=[],bytes=2;
+    const flush=()=>{if(!chunk.length)return;parts.push(env.DB.prepare(
       'INSERT OR IGNORE INTO sports_feed_parts (revision,part,payload) VALUES (?,?,?)')
-      .bind(revision,parts.length,JSON.stringify(feed.games.slice(start,start+50))));
+      .bind(revision,parts.length,'['+chunk.join(',')+']'));chunk=[];bytes=2;};
+    for(const game of feed.games){const json=JSON.stringify(game),size=new TextEncoder().encode(json).length;
+      if(chunk.length&&(chunk.length>=50||bytes+size+1>1000000))flush();
+      chunk.push(json);bytes+=size+1;
+    }
+    flush();
     for (let start=0;start<parts.length;start+=50) await env.DB.batch(parts.slice(start,start+50));
   });
   const header = JSON.stringify({...feed,games:undefined,revision,parts:parts.length});
@@ -2052,7 +2060,7 @@ export async function refreshSportsData(env,now=Date.now(),options={}) {
       : contexts[`${game.sport}:${game.id}`]));
     await stage('recordRecovery',()=>recoverPregameBaselines(env,games,now,previous));
     games.filter(game=>game.state==='live')
-      .forEach(game=>runtime.applyLiveSnapshot(game,game.sourceCompetition,null));
+      .forEach(game=>{runtime.preserveLiveEvidence(game,priorGames.get(`${game.sport}:${game.id}`));runtime.applyLiveSnapshot(game,game.sourceCompetition,null);});
 
     const candidates = games.filter(summaryCandidate);
     metrics.candidates=candidates.length;
@@ -2079,7 +2087,7 @@ export async function refreshSportsData(env,now=Date.now(),options={}) {
             // Failed acquisitions are retried, not certified as reusable inputs.
             if (!detailErrors.length) enrichment[key]={input,model:MODEL_VERSION,
               summaryHash:await fingerprint(resource.payload),summaryVersion:resource.updatedAt};
-          } catch { game.detailStale=true;detailErrors.push(url); }
+          } catch { runtime.applyLiveSnapshot(game,game.sourceCompetition,null);game.detailStale=true;detailErrors.push(url); }
           errors.push(...detailErrors);
         }));
       }
@@ -2160,7 +2168,7 @@ export async function refreshSportsData(env,now=Date.now(),options={}) {
         SELECT ?,?,?,?,?,?,?,?,?,?,? WHERE EXISTS (SELECT 1 FROM sports_leases WHERE key='refresh' AND owner=? AND expires_at>?
       AND expires_at>CAST((julianday('now')-2440587.5)*86400000 AS INTEGER))`)
         .bind(`${game.sport}:${game.id}`,game.state==='completed'?now:Math.floor(now/(game.state==='live'?15000:60000))*(game.state==='live'?15000:60000),
-          game.sport,game.state,game.score,String(game.teams[0][2]),String(game.teams[1][2]),String(game.liveRawStatus?.period ?? ''),String(game.liveRawStatus?.displayClock || ''),JSON.stringify({...game,scoreboard:undefined,verifiedLiveEvidence:undefined,manpowerEvidence:undefined}),MODEL_VERSION,owner,budget.time()));
+          game.sport,game.state,game.score,String(game.teams[0][2]),String(game.teams[1][2]),String(game.liveRawStatus?.period ?? ''),String(game.liveRawStatus?.displayClock || ''),JSON.stringify({...game,scoreboard:undefined,verifiedLiveEvidence:undefined,manpowerEvidence:undefined,basketballEvidence:undefined}),MODEL_VERSION,owner,budget.time()));
       for(let start=0;start<writes.length;start+=50){budget.check();await env.DB.batch(writes.slice(start,start+50));}
     });
     committed=await publishFeed(env,feed,owner,()=>{budget.check();return budget.time();},stage);

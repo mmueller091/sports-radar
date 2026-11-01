@@ -1,0 +1,1379 @@
+{
+  "model": "2026-11-01.basketball-state.1",
+  "baselineCommit": "56761353fdd0b49059cf3a1fb89f3c315218ee91",
+  "evidenceLimits": [
+    "Original per-poll provider bodies were not archived. Recorded ratings are observations; prefix replay and omission variants are reconstructions.",
+    "Recorded scoreboard maximum Villanova lead was 11. The later play ledger and team stats both say 10; public prose follows those corrected details.",
+    "Observed opening baselines are preserved. The new pregame rating is a counterfactual using verified schedule fields, not an edit to the original 37."
+  ],
+  "pregame": {
+    "before": 37,
+    "after": 44,
+    "explanation": "Notre Dame Fighting Irish and Villanova Wildcats open their seasons in Rome for the Eternal City Tip-Off. Villanova Wildcats is favored by 7.5 points, leaving the other side with something to prove.",
+    "factors": [
+      {
+        "label": "Sport baseline",
+        "points": 32
+      },
+      {
+        "label": "Schedule scarcity",
+        "points": 3
+      },
+      {
+        "label": "Competitive projected spread",
+        "points": 2
+      },
+      {
+        "label": "Season opener",
+        "contextType": "season_opener",
+        "contextText": "Both teams are opening their seasons",
+        "points": 3
+      },
+      {
+        "label": "International showcase",
+        "contextType": "international_showcase",
+        "contextText": "The Eternal City Tip-Off takes place in Rome",
+        "points": 4
+      }
+    ]
+  },
+  "observed": [
+    {
+      "observedAt": 1793551710000,
+      "state": "live",
+      "rating": 58,
+      "scoreA": "70",
+      "scoreB": "68",
+      "period": 2,
+      "clock": "0:47",
+      "phaseLabel": "0:47 · 2nd half",
+      "modelVersion": "2026-11-01.nfl-pregame.3"
+    },
+    {
+      "observedAt": 1793551725000,
+      "state": "live",
+      "rating": 70,
+      "scoreA": "70",
+      "scoreB": "68",
+      "period": 2,
+      "clock": "0:47",
+      "phaseLabel": "0:47 · 2nd half",
+      "modelVersion": "2026-11-01.nfl-pregame.3"
+    },
+    {
+      "observedAt": 1793551740000,
+      "state": "live",
+      "rating": 68,
+      "scoreA": "70",
+      "scoreB": "68",
+      "period": 2,
+      "clock": "0:47",
+      "phaseLabel": "0:47 · 2nd half",
+      "modelVersion": "2026-11-01.nfl-pregame.3"
+    },
+    {
+      "observedAt": 1793551755000,
+      "state": "live",
+      "rating": 58,
+      "scoreA": "70",
+      "scoreB": "68",
+      "period": 2,
+      "clock": "0:48",
+      "phaseLabel": "0:48 · 2nd half",
+      "modelVersion": "2026-11-01.nfl-pregame.3"
+    },
+    {
+      "observedAt": 1793551770000,
+      "state": "live",
+      "rating": 58,
+      "scoreA": "70",
+      "scoreB": "68",
+      "period": 2,
+      "clock": "0:48",
+      "phaseLabel": "0:48 · 2nd half",
+      "modelVersion": "2026-11-01.nfl-pregame.3"
+    },
+    {
+      "observedAt": 1793551785000,
+      "state": "live",
+      "rating": 58,
+      "scoreA": "70",
+      "scoreB": "68",
+      "period": 2,
+      "clock": "0:48",
+      "phaseLabel": "0:48 · 2nd half",
+      "modelVersion": "2026-11-01.nfl-pregame.3"
+    },
+    {
+      "observedAt": 1793551800000,
+      "state": "live",
+      "rating": 58,
+      "scoreA": "70",
+      "scoreB": "68",
+      "period": 2,
+      "clock": "0:48",
+      "phaseLabel": "0:48 · 2nd half",
+      "modelVersion": "2026-11-01.nfl-pregame.3"
+    },
+    {
+      "observedAt": 1793551830000,
+      "state": "live",
+      "rating": 58,
+      "scoreA": "70",
+      "scoreB": "68",
+      "period": 2,
+      "clock": "0:48",
+      "phaseLabel": "0:48 · 2nd half",
+      "modelVersion": "2026-11-01.nfl-pregame.3"
+    },
+    {
+      "observedAt": 1793551845000,
+      "state": "live",
+      "rating": 58,
+      "scoreA": "70",
+      "scoreB": "68",
+      "period": 2,
+      "clock": "0:48",
+      "phaseLabel": "0:48 · 2nd half",
+      "modelVersion": "2026-11-01.nfl-pregame.3"
+    },
+    {
+      "observedAt": 1793551860000,
+      "state": "live",
+      "rating": 57,
+      "scoreA": "70",
+      "scoreB": "68",
+      "period": 2,
+      "clock": "0:24",
+      "phaseLabel": "0:24 · 2nd half",
+      "modelVersion": "2026-11-01.nfl-pregame.3"
+    },
+    {
+      "observedAt": 1793551875000,
+      "state": "live",
+      "rating": 67,
+      "scoreA": "70",
+      "scoreB": "68",
+      "period": 2,
+      "clock": "0:24",
+      "phaseLabel": "0:24 · 2nd half",
+      "modelVersion": "2026-11-01.nfl-pregame.3"
+    },
+    {
+      "observedAt": 1793551890000,
+      "state": "live",
+      "rating": 67,
+      "scoreA": "70",
+      "scoreB": "68",
+      "period": 2,
+      "clock": "0:24",
+      "phaseLabel": "0:24 · 2nd half",
+      "modelVersion": "2026-11-01.nfl-pregame.3"
+    }
+  ],
+  "rows": [
+    {
+      "clock": "0:47",
+      "score": [
+        70,
+        68
+      ],
+      "kind": "reconstructed prefix at the reported scoreboard state",
+      "before": {
+        "accepted": 68,
+        "missing": 58,
+        "shortened": 58,
+        "opening": 37,
+        "factors": [
+          {
+            "label": "Generic Leverage",
+            "points": 7
+          },
+          {
+            "label": "Game-state baseline",
+            "points": 12
+          },
+          {
+            "label": "Pregame context carried into play",
+            "points": 2
+          },
+          {
+            "label": "Current Tension",
+            "points": 31
+          },
+          {
+            "label": "1 late lead change",
+            "points": 4
+          },
+          {
+            "label": "Erased a large deficit",
+            "points": 6
+          },
+          {
+            "label": "Big win-chance swing",
+            "points": 5
+          }
+        ],
+        "history": 15,
+        "explanation": null
+      },
+      "after": {
+        "accepted": 85,
+        "missing": 85,
+        "shortened": 85,
+        "opening": 44,
+        "factors": [
+          {
+            "label": "Generic Leverage",
+            "points": 6
+          },
+          {
+            "label": "Underdog threatens upset",
+            "points": 9
+          },
+          {
+            "label": "Game-state baseline",
+            "points": 12
+          },
+          {
+            "label": "Pregame context carried into play",
+            "points": 3
+          },
+          {
+            "label": "Current Tension",
+            "points": 34
+          },
+          {
+            "label": "1 late lead change",
+            "points": 4
+          },
+          {
+            "label": "Erased a large deficit",
+            "points": 6
+          },
+          {
+            "label": "Big win-chance swing",
+            "points": 5
+          }
+        ],
+        "history": 15,
+        "explanation": "Notre Dame Fighting Irish has erased a 10-point deficit and taken the lead. Notre Dame Fighting Irish leads Villanova Wildcats 70–68 late in the game. With less than a minute remaining, every possession could decide the game."
+      }
+    },
+    {
+      "clock": "0:48",
+      "score": [
+        70,
+        68
+      ],
+      "kind": "reconstructed prefix at the reported scoreboard state",
+      "before": {
+        "accepted": 68,
+        "missing": 58,
+        "shortened": 58,
+        "opening": 37,
+        "factors": [
+          {
+            "label": "Generic Leverage",
+            "points": 7
+          },
+          {
+            "label": "Game-state baseline",
+            "points": 12
+          },
+          {
+            "label": "Pregame context carried into play",
+            "points": 2
+          },
+          {
+            "label": "Current Tension",
+            "points": 31
+          },
+          {
+            "label": "1 late lead change",
+            "points": 4
+          },
+          {
+            "label": "Erased a large deficit",
+            "points": 6
+          },
+          {
+            "label": "Big win-chance swing",
+            "points": 5
+          }
+        ],
+        "history": 15,
+        "explanation": null
+      },
+      "after": {
+        "accepted": 85,
+        "missing": 85,
+        "shortened": 85,
+        "opening": 44,
+        "factors": [
+          {
+            "label": "Generic Leverage",
+            "points": 6
+          },
+          {
+            "label": "Underdog threatens upset",
+            "points": 9
+          },
+          {
+            "label": "Game-state baseline",
+            "points": 12
+          },
+          {
+            "label": "Pregame context carried into play",
+            "points": 3
+          },
+          {
+            "label": "Current Tension",
+            "points": 34
+          },
+          {
+            "label": "1 late lead change",
+            "points": 4
+          },
+          {
+            "label": "Erased a large deficit",
+            "points": 6
+          },
+          {
+            "label": "Big win-chance swing",
+            "points": 5
+          }
+        ],
+        "history": 15,
+        "explanation": "Notre Dame Fighting Irish has erased a 10-point deficit and taken the lead. Notre Dame Fighting Irish leads Villanova Wildcats 70–68 late in the game. With less than a minute remaining, every possession could decide the game."
+      }
+    },
+    {
+      "clock": "0:24",
+      "score": [
+        70,
+        68
+      ],
+      "kind": "reconstructed prefix at the reported scoreboard state",
+      "before": {
+        "accepted": 67,
+        "missing": 57,
+        "shortened": 57,
+        "opening": 37,
+        "factors": [
+          {
+            "label": "Generic Leverage",
+            "points": 7
+          },
+          {
+            "label": "Game-state baseline",
+            "points": 12
+          },
+          {
+            "label": "Pregame context carried into play",
+            "points": 2
+          },
+          {
+            "label": "Current Tension",
+            "points": 28
+          },
+          {
+            "label": "1 late lead change",
+            "points": 4
+          },
+          {
+            "label": "Erased a large deficit",
+            "points": 6
+          },
+          {
+            "label": "Big win-chance swing",
+            "points": 5
+          }
+        ],
+        "history": 15,
+        "explanation": null
+      },
+      "after": {
+        "accepted": 82,
+        "missing": 82,
+        "shortened": 82,
+        "opening": 44,
+        "factors": [
+          {
+            "label": "Generic Leverage",
+            "points": 5
+          },
+          {
+            "label": "Underdog threatens upset",
+            "points": 9
+          },
+          {
+            "label": "Game-state baseline",
+            "points": 12
+          },
+          {
+            "label": "Pregame context carried into play",
+            "points": 3
+          },
+          {
+            "label": "Current Tension",
+            "points": 30
+          },
+          {
+            "label": "1 late lead change",
+            "points": 4
+          },
+          {
+            "label": "Erased a large deficit",
+            "points": 6
+          },
+          {
+            "label": "Big win-chance swing",
+            "points": 5
+          }
+        ],
+        "history": 15,
+        "explanation": "Notre Dame Fighting Irish has erased a 10-point deficit and taken the lead. Notre Dame Fighting Irish leads Villanova Wildcats 70–68 late in the game. With less than a minute remaining, every possession could decide the game."
+      }
+    }
+  ],
+  "clockCorrection": {
+    "before": 85,
+    "after": 85,
+    "clock": "0:48"
+  },
+  "replay": [
+    {
+      "id": "401920982",
+      "sport": "NCAAB",
+      "teams": "Notre Dame Fighting Irish at Villanova Wildcats",
+      "sourceStates": 45,
+      "exclusions": 5,
+      "states": [
+        {
+          "clock": "2:58",
+          "scores": [
+            "65",
+            "66"
+          ],
+          "before": 64,
+          "after": 74,
+          "missing": 74,
+          "stable": true
+        },
+        {
+          "clock": "2:33",
+          "scores": [
+            "65",
+            "66"
+          ],
+          "before": 62,
+          "after": 75,
+          "missing": 75,
+          "stable": true
+        },
+        {
+          "clock": "2:33",
+          "scores": [
+            "65",
+            "67"
+          ],
+          "before": 58,
+          "after": 71,
+          "missing": 71,
+          "stable": true
+        },
+        {
+          "clock": "2:33",
+          "scores": [
+            "65",
+            "67"
+          ],
+          "before": 57,
+          "after": 69,
+          "missing": 69,
+          "stable": true
+        },
+        {
+          "clock": "2:33",
+          "scores": [
+            "65",
+            "68"
+          ],
+          "before": 53,
+          "after": 64,
+          "missing": 64,
+          "stable": true
+        },
+        {
+          "clock": "2:17",
+          "scores": [
+            "65",
+            "68"
+          ],
+          "before": 53,
+          "after": 66,
+          "missing": 66,
+          "stable": true
+        },
+        {
+          "clock": "2:13",
+          "scores": [
+            "65",
+            "68"
+          ],
+          "before": 54,
+          "after": 67,
+          "missing": 67,
+          "stable": true
+        },
+        {
+          "clock": "2:06",
+          "scores": [
+            "65",
+            "68"
+          ],
+          "before": 56,
+          "after": 69,
+          "missing": 69,
+          "stable": true
+        },
+        {
+          "clock": "2:06",
+          "scores": [
+            "65",
+            "68"
+          ],
+          "before": 55,
+          "after": 68,
+          "missing": 68,
+          "stable": true
+        },
+        {
+          "clock": "1:51",
+          "scores": [
+            "65",
+            "68"
+          ],
+          "before": 55,
+          "after": 69,
+          "missing": 69,
+          "stable": true
+        },
+        {
+          "clock": "1:46",
+          "scores": [
+            "65",
+            "68"
+          ],
+          "before": 55,
+          "after": 68,
+          "missing": 68,
+          "stable": true
+        },
+        {
+          "clock": "1:44",
+          "scores": [
+            "67",
+            "68"
+          ],
+          "before": 60,
+          "after": 75,
+          "missing": 75,
+          "stable": true
+        },
+        {
+          "clock": "1:36",
+          "scores": [
+            "67",
+            "68"
+          ],
+          "before": 59,
+          "after": 74,
+          "missing": 74,
+          "stable": true
+        },
+        {
+          "clock": "1:29",
+          "scores": [
+            "67",
+            "68"
+          ],
+          "before": 64,
+          "after": 79,
+          "missing": 79,
+          "stable": true
+        },
+        {
+          "clock": "1:29",
+          "scores": [
+            "67",
+            "68"
+          ],
+          "before": 62,
+          "after": 77,
+          "missing": 77,
+          "stable": true
+        },
+        {
+          "clock": "1:08",
+          "scores": [
+            "70",
+            "68"
+          ],
+          "before": 69,
+          "after": 83,
+          "missing": 83,
+          "stable": true
+        },
+        {
+          "clock": "0:49",
+          "scores": [
+            "70",
+            "68"
+          ],
+          "before": 64,
+          "after": 78,
+          "missing": 78,
+          "stable": true
+        },
+        {
+          "clock": "0:49",
+          "scores": [
+            "70",
+            "68"
+          ],
+          "before": 64,
+          "after": 78,
+          "missing": 78,
+          "stable": true
+        },
+        {
+          "clock": "0:48",
+          "scores": [
+            "70",
+            "68"
+          ],
+          "before": 61,
+          "after": 75,
+          "missing": 75,
+          "stable": true
+        },
+        {
+          "clock": "0:48",
+          "scores": [
+            "70",
+            "68"
+          ],
+          "before": 63,
+          "after": 75,
+          "missing": 75,
+          "stable": true
+        },
+        {
+          "clock": "0:24",
+          "scores": [
+            "70",
+            "68"
+          ],
+          "before": 60,
+          "after": 73,
+          "missing": 73,
+          "stable": true
+        },
+        {
+          "clock": "0:24",
+          "scores": [
+            "71",
+            "68"
+          ],
+          "before": 58,
+          "after": 70,
+          "missing": 70,
+          "stable": true
+        },
+        {
+          "clock": "0:24",
+          "scores": [
+            "71",
+            "68"
+          ],
+          "before": 59,
+          "after": 71,
+          "missing": 71,
+          "stable": true
+        },
+        {
+          "clock": "0:24",
+          "scores": [
+            "71",
+            "68"
+          ],
+          "before": 56,
+          "after": 68,
+          "missing": 68,
+          "stable": true
+        },
+        {
+          "clock": "0:24",
+          "scores": [
+            "72",
+            "68"
+          ],
+          "before": 44,
+          "after": 51,
+          "missing": 51,
+          "stable": true
+        },
+        {
+          "clock": "0:19",
+          "scores": [
+            "72",
+            "68"
+          ],
+          "before": 40,
+          "after": 48,
+          "missing": 48,
+          "stable": true
+        },
+        {
+          "clock": "0:19",
+          "scores": [
+            "72",
+            "69"
+          ],
+          "before": 57,
+          "after": 69,
+          "missing": 69,
+          "stable": true
+        },
+        {
+          "clock": "0:19",
+          "scores": [
+            "72",
+            "69"
+          ],
+          "before": 54,
+          "after": 66,
+          "missing": 66,
+          "stable": true
+        },
+        {
+          "clock": "0:19",
+          "scores": [
+            "72",
+            "70"
+          ],
+          "before": 62,
+          "after": 75,
+          "missing": 75,
+          "stable": true
+        },
+        {
+          "clock": "0:19",
+          "scores": [
+            "72",
+            "70"
+          ],
+          "before": 62,
+          "after": 75,
+          "missing": 75,
+          "stable": true
+        },
+        {
+          "clock": "0:16",
+          "scores": [
+            "72",
+            "70"
+          ],
+          "before": 57,
+          "after": 68,
+          "missing": 68,
+          "stable": true
+        },
+        {
+          "clock": "0:16",
+          "scores": [
+            "72",
+            "70"
+          ],
+          "before": 59,
+          "after": 71,
+          "missing": 71,
+          "stable": true
+        },
+        {
+          "clock": "0:16",
+          "scores": [
+            "72",
+            "70"
+          ],
+          "before": 57,
+          "after": 69,
+          "missing": 69,
+          "stable": true
+        },
+        {
+          "clock": "0:16",
+          "scores": [
+            "72",
+            "70"
+          ],
+          "before": 57,
+          "after": 69,
+          "missing": 69,
+          "stable": true
+        },
+        {
+          "clock": "0:16",
+          "scores": [
+            "72",
+            "70"
+          ],
+          "before": 77,
+          "after": 85,
+          "missing": 85,
+          "stable": true
+        },
+        {
+          "clock": "0:10",
+          "scores": [
+            "72",
+            "70"
+          ],
+          "before": 53,
+          "after": 64,
+          "missing": 64,
+          "stable": true
+        },
+        {
+          "clock": "0:06",
+          "scores": [
+            "72",
+            "70"
+          ],
+          "before": 44,
+          "after": 53,
+          "missing": 53,
+          "stable": true
+        },
+        {
+          "clock": "0:04",
+          "scores": [
+            "72",
+            "70"
+          ],
+          "before": 49,
+          "after": 52,
+          "missing": 52,
+          "stable": true
+        },
+        {
+          "clock": "0:04",
+          "scores": [
+            "72",
+            "70"
+          ],
+          "before": 49,
+          "after": 52,
+          "missing": 52,
+          "stable": true
+        },
+        {
+          "clock": "0:04",
+          "scores": [
+            "73",
+            "70"
+          ],
+          "before": 48,
+          "after": 58,
+          "missing": 58,
+          "stable": true
+        },
+        {
+          "clock": "0:04",
+          "scores": [
+            "73",
+            "70"
+          ],
+          "before": 48,
+          "after": 58,
+          "missing": 58,
+          "stable": true
+        },
+        {
+          "clock": "0:04",
+          "scores": [
+            "73",
+            "70"
+          ],
+          "before": 48,
+          "after": 58,
+          "missing": 58,
+          "stable": true
+        },
+        {
+          "clock": "0:04",
+          "scores": [
+            "74",
+            "70"
+          ],
+          "before": 21,
+          "after": 27,
+          "missing": 27,
+          "stable": true
+        },
+        {
+          "clock": "0:00",
+          "scores": [
+            "74",
+            "72"
+          ],
+          "before": 47,
+          "after": 56,
+          "missing": 56,
+          "stable": true
+        },
+        {
+          "clock": "0:00",
+          "scores": [
+            "74",
+            "72"
+          ],
+          "before": 47,
+          "after": 56,
+          "missing": 56,
+          "stable": true
+        }
+      ]
+    },
+    {
+      "id": "401856574",
+      "sport": "NCAAB",
+      "teams": "Iowa Hawkeyes at Illinois Fighting Illini",
+      "sourceStates": 17,
+      "exclusions": 4,
+      "states": [
+        {
+          "clock": "2:53",
+          "scores": [
+            "57",
+            "63"
+          ],
+          "before": 73,
+          "after": 75,
+          "missing": 75,
+          "stable": true
+        },
+        {
+          "clock": "2:33",
+          "scores": [
+            "57",
+            "63"
+          ],
+          "before": 73,
+          "after": 75,
+          "missing": 75,
+          "stable": true
+        },
+        {
+          "clock": "2:33",
+          "scores": [
+            "57",
+            "63"
+          ],
+          "before": 72,
+          "after": 74,
+          "missing": 74,
+          "stable": true
+        },
+        {
+          "clock": "2:22",
+          "scores": [
+            "57",
+            "63"
+          ],
+          "before": 73,
+          "after": 75,
+          "missing": 75,
+          "stable": true
+        },
+        {
+          "clock": "2:21",
+          "scores": [
+            "57",
+            "63"
+          ],
+          "before": 73,
+          "after": 75,
+          "missing": 75,
+          "stable": true
+        },
+        {
+          "clock": "2:03",
+          "scores": [
+            "57",
+            "63"
+          ],
+          "before": 72,
+          "after": 75,
+          "missing": 75,
+          "stable": true
+        },
+        {
+          "clock": "2:02",
+          "scores": [
+            "57",
+            "63"
+          ],
+          "before": 73,
+          "after": 75,
+          "missing": 75,
+          "stable": true
+        },
+        {
+          "clock": "2:00",
+          "scores": [
+            "57",
+            "63"
+          ],
+          "before": 74,
+          "after": 77,
+          "missing": 77,
+          "stable": true
+        },
+        {
+          "clock": "2:00",
+          "scores": [
+            "57",
+            "63"
+          ],
+          "before": 72,
+          "after": 74,
+          "missing": 74,
+          "stable": true
+        },
+        {
+          "clock": "2:00",
+          "scores": [
+            "58",
+            "63"
+          ],
+          "before": 76,
+          "after": 82,
+          "missing": 82,
+          "stable": true
+        },
+        {
+          "clock": "2:00",
+          "scores": [
+            "59",
+            "63"
+          ],
+          "before": 77,
+          "after": 86,
+          "missing": 86,
+          "stable": true
+        },
+        {
+          "clock": "1:40",
+          "scores": [
+            "59",
+            "65"
+          ],
+          "before": 73,
+          "after": 75,
+          "missing": 75,
+          "stable": true
+        },
+        {
+          "clock": "1:28",
+          "scores": [
+            "59",
+            "65"
+          ],
+          "before": 72,
+          "after": 74,
+          "missing": 74,
+          "stable": true
+        },
+        {
+          "clock": "1:24",
+          "scores": [
+            "59",
+            "65"
+          ],
+          "before": 72,
+          "after": 75,
+          "missing": 75,
+          "stable": true
+        },
+        {
+          "clock": "1:22",
+          "scores": [
+            "59",
+            "65"
+          ],
+          "before": 72,
+          "after": 74,
+          "missing": 74,
+          "stable": true
+        },
+        {
+          "clock": "1:19",
+          "scores": [
+            "59",
+            "65"
+          ],
+          "before": 71,
+          "after": 73,
+          "missing": 73,
+          "stable": true
+        },
+        {
+          "clock": "1:12",
+          "scores": [
+            "59",
+            "65"
+          ],
+          "before": 71,
+          "after": 73,
+          "missing": 73,
+          "stable": true
+        }
+      ]
+    },
+    {
+      "id": "401856575",
+      "sport": "NCAAB",
+      "teams": "Purdue Boilermakers at Arizona Wildcats",
+      "sourceStates": 0,
+      "exclusions": 17,
+      "states": []
+    },
+    {
+      "id": "401909088",
+      "sport": "NBA",
+      "teams": "Boston Celtics at Detroit Pistons",
+      "sourceStates": 1,
+      "exclusions": 4,
+      "states": [
+        {
+          "clock": "1:06",
+          "scores": [
+            "110",
+            "114"
+          ],
+          "before": 54,
+          "after": 54,
+          "missing": 54,
+          "stable": true
+        }
+      ]
+    },
+    {
+      "id": "401909089",
+      "sport": "NBA",
+      "teams": "Philadelphia 76ers at New York Knicks",
+      "sourceStates": 15,
+      "exclusions": 0,
+      "states": [
+        {
+          "clock": "2:57",
+          "scores": [
+            "99",
+            "95"
+          ],
+          "before": 55,
+          "after": 55,
+          "missing": 55,
+          "stable": true
+        },
+        {
+          "clock": "2:57",
+          "scores": [
+            "100",
+            "95"
+          ],
+          "before": 53,
+          "after": 53,
+          "missing": 53,
+          "stable": true
+        },
+        {
+          "clock": "2:57",
+          "scores": [
+            "100",
+            "95"
+          ],
+          "before": 55,
+          "after": 55,
+          "missing": 55,
+          "stable": true
+        },
+        {
+          "clock": "2:57",
+          "scores": [
+            "100",
+            "95"
+          ],
+          "before": 55,
+          "after": 55,
+          "missing": 55,
+          "stable": true
+        },
+        {
+          "clock": "2:40",
+          "scores": [
+            "100",
+            "98"
+          ],
+          "before": 62,
+          "after": 62,
+          "missing": 62,
+          "stable": true
+        },
+        {
+          "clock": "2:15",
+          "scores": [
+            "102",
+            "98"
+          ],
+          "before": 57,
+          "after": 57,
+          "missing": 57,
+          "stable": true
+        },
+        {
+          "clock": "1:55",
+          "scores": [
+            "102",
+            "98"
+          ],
+          "before": 60,
+          "after": 60,
+          "missing": 60,
+          "stable": true
+        },
+        {
+          "clock": "1:52",
+          "scores": [
+            "104",
+            "98"
+          ],
+          "before": 54,
+          "after": 54,
+          "missing": 54,
+          "stable": true
+        },
+        {
+          "clock": "1:52",
+          "scores": [
+            "104",
+            "98"
+          ],
+          "before": 54,
+          "after": 54,
+          "missing": 54,
+          "stable": true
+        },
+        {
+          "clock": "1:32",
+          "scores": [
+            "104",
+            "98"
+          ],
+          "before": 52,
+          "after": 52,
+          "missing": 52,
+          "stable": true
+        },
+        {
+          "clock": "1:32",
+          "scores": [
+            "104",
+            "98"
+          ],
+          "before": 51,
+          "after": 51,
+          "missing": 51,
+          "stable": true
+        },
+        {
+          "clock": "1:14",
+          "scores": [
+            "104",
+            "98"
+          ],
+          "before": 50,
+          "after": 50,
+          "missing": 50,
+          "stable": true
+        },
+        {
+          "clock": "1:14",
+          "scores": [
+            "104",
+            "98"
+          ],
+          "before": 49,
+          "after": 49,
+          "missing": 49,
+          "stable": true
+        },
+        {
+          "clock": "1:13",
+          "scores": [
+            "104",
+            "98"
+          ],
+          "before": 49,
+          "after": 49,
+          "missing": 49,
+          "stable": true
+        },
+        {
+          "clock": "1:13",
+          "scores": [
+            "104",
+            "98"
+          ],
+          "before": 48,
+          "after": 48,
+          "missing": 48,
+          "stable": true
+        }
+      ]
+    },
+    {
+      "id": "401909090",
+      "sport": "NBA",
+      "teams": "Oklahoma City Thunder at San Antonio Spurs",
+      "sourceStates": 0,
+      "exclusions": 32,
+      "states": []
+    }
+  ],
+  "controls": [
+    {
+      "label": "ordinary early close game",
+      "before": 43,
+      "after": 43
+    },
+    {
+      "label": "ordinary final-minute close game",
+      "before": 58,
+      "after": 72
+    },
+    {
+      "label": "late blowout",
+      "before": 1,
+      "after": 1
+    },
+    {
+      "label": "NBA close game",
+      "before": 59,
+      "after": 59
+    }
+  ]
+}

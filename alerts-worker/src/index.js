@@ -114,7 +114,8 @@ export default {
         if (refreshDue(feed)) {
           feed = await requestFeedRefresh(env,feed,ctx);
         }
-        return reply(request,feed || {error:'Feed is warming up'},feed ? 200 : 503);
+        return reply(request,feed ? {...feed,games:feed.games.map(game=>({...game,basketballEvidence:undefined,
+          ...(game.scoreboard?.basketballEvidence?{scoreboard:{...game.scoreboard,basketballEvidence:undefined}}:{})}))} : {error:'Feed is warming up'},feed ? 200 : 503);
       } catch { return reply(request,{error:'Feed temporarily unavailable'},503); }
     }
     const detail = /^\/game\/([A-Za-z]+)\/([A-Za-z0-9_-]{1,100})$/.exec(url.pathname);

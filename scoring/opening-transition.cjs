@@ -4,6 +4,8 @@ const {footballPregameSpread,moneylinePrices,underdogCandidate} = require('./sha
 const {normalizedTime} = require('./shared/time.js');
 const {hockeyLiveTiming} = require('./sports/nhl.js');
 const {CONTEXT_LABELS} = require('./shared/config.js');
+const occasion=require('./event-occasion.cjs');
+const college=require('./basketball-calibration.cjs');
 const SPORTS = Object.freeze(['NHL','NBA','NCAAB','MLB','Soccer','Tennis']);
 const CALIBRATION = '2026-10-31.opening-transition.1';
 const unit = n => Math.max(0,Math.min(1,n));
@@ -36,11 +38,17 @@ function prepareOpening(core,game,competition,summary) {
   if (game.state==='completed') return;
   const prior=game.pregameBaseline;
   const observed=game.state!=='upcoming' && validBaseline(prior) && prior.source==='observed';
+  const occasionFactors=occasion.factorsFor(game,competition);
+  const withOccasion=opening=>{
+    const factors=[...opening.factors,...occasionFactors.filter(f=>!opening.factors.some(o=>o.contextType===f.contextType))];
+    const rawPregameScore=factors.reduce((sum,f)=>sum+f.points,0);
+    return {...opening,factors,rawPregameScore,score:Math.min(90,core.clampScore(rawPregameScore))};
+  };
   if (!observed) {
     const summaryOdds=summary?.pickcenter || summary?.header?.competitions?.[0]?.odds;
     const odds=competition?.odds?.length ? competition.odds : summaryOdds?.length ? summaryOdds : prior?.odds || [];
     const basis={...competition,odds};
-    const opening=core.pregameRating(game.sport,game.sourceEvent,basis,game.context,'upcoming');
+    const opening=withOccasion(core.pregameRating(game.sport,game.sourceEvent,basis,game.context,'upcoming'));
     game.pregameBaseline={calibration:CALIBRATION,source:game.state==='upcoming'?'observed':'reconstructed',
       score:opening.score,rawPregameScore:opening.rawPregameScore,factors:opening.factors,odds,
       spread:footballPregameSpread(basis),underdog:underdogCandidate(game.sport,basis,odds[0])};
@@ -50,11 +58,18 @@ function prepareOpening(core,game,competition,summary) {
   game.openingFactors=baseline.factors.map(f=>({...f}));
   // Late research is live context, not an observation of a past pregame score.
   // Compare only verified qualitative factors so disappearing odds cannot erase the baseline.
-  const labels=new Set(Object.values(CONTEXT_LABELS));
-  const enriched=core.pregameRating(game.sport,game.sourceEvent,{...competition,odds:baseline.odds},game.context,'upcoming');
+  const labels=new Set([...Object.values(CONTEXT_LABELS),'Season opener','International showcase']);
+  const enriched=withOccasion(core.pregameRating(game.sport,game.sourceEvent,{...competition,odds:baseline.odds},game.context,'upcoming'));
   game.liveOpeningContext=observed ? enriched.factors.filter(f=>labels.has(f.label))
     .reduce((sum,f)=>sum+f.points-(baseline.factors.find(b=>b.label===f.label)?.points || 0),0) : 0;
-  if (game.state==='live') game.underdog=baseline.underdog;
+  if (game.state==='live') game.underdog=baseline.underdog || college.underdog(game,competition,baseline.odds?.[0]) || game.recoveredCollegeUnderdog || null;
+  if(game.sport==='NCAAB'&&summary&&!game.underdog){
+    // Recover only explicit closing lines when an observed opening lacked odds.
+    const raw=(summary.pickcenter||[]).find(o=>o.close||o.closing||o.pointSpread?.home?.close?.line!=null);
+    const recovered=college.underdog(game,competition,raw);
+    if(recovered){game.recoveredCollegeUnderdog=recovered;game.underdog=recovered;}
+  }
+  if(game.state==='upcoming'){game.score=baseline.score;game.baseScore=baseline.score;game.factors=baseline.factors.map(f=>({...f}));}
 }
 
 function gameplayProgress(game,competition,summary) {

@@ -15,6 +15,7 @@ const {trajectoryAdjustment} = require('./trajectory-policy.cjs');
 const {liveTrajectory,endgameFloorBudget,cfbContextRetention} = require('./trajectory-live-policy.cjs');
 const openingTransition = require('../scoring/opening-transition.cjs');
 const {footballCompetitionEvidence,transitionFootballBase} = require('../scoring/football-transition.cjs');
+const collegeFinish=require('../scoring/basketball-calibration.cjs');
 
 const DEFAULT_CURRENT_TENSION_POLICY = Object.freeze({
   kind:'margin-modifier',
@@ -176,15 +177,16 @@ function candidateStateRating(
   };
 }
 
-function candidateLiveSnapshot(core,game,competition,summary,floorBudget=null,nhlAllocation=null,progressOverride=null,openingEvidence=null) {
+function candidateLiveSnapshot(core,game,competition,summary,floorBudget=null,nhlAllocation=null,progressOverride=null,openingEvidence=null,collegeFinishEnabled=false) {
   const status = competition?.status || game.liveRawStatus;
   const situation = competition?.situation || game.liveRawSituation || {};
   const progress = progressOverride ?? core.gameProgress(game.sport,{...competition,status});
   const scoreGap = Math.abs(Number(game.teams?.[0]?.[2])-Number(game.teams?.[1]?.[2]));
-  const sportImpact = SPORT_MODELS[game.sport]?.situation?.({
+  let sportImpact = SPORT_MODELS[game.sport]?.situation?.({
     game:floorBudget===null ? game : {...game,baseScore:floorBudget.floorBaseScore},
     competition,summary,status,situation,progress,scoreGap,nhlAllocation
   }) || {points:0,note:'',reasons:[],bases:null};
+  if(collegeFinishEnabled)sportImpact=collegeFinish.situation(game,competition,sportImpact);
   if (floorBudget) sportImpact.competitiveFloor=Math.min(floorBudget.originalFloor,sportImpact.competitiveFloor);
   const legacy = core.liveSnapshot(game,competition,summary);
   const eventSummary=game._historicalEvidence?.summary || summary;
@@ -341,7 +343,7 @@ function finishCandidateGameRating(core,game,prepared,base,live,trajectoryPolicy
     // Reuse the existing NHL allocation and its context budget. Only the base ownership changes.
     live=candidateLiveSnapshot(core,{...game,sourceEvent:game.sourceEvent,baseScore:base.baseScore,factors:base.factors},
       prepared.context.competition,prepared.context.summary,null,
-      game.sport==='NHL' ? live.sportImpact.allocation : null,prepared.progress,base.state.openingEvidence);
+      game.sport==='NHL' ? live.sportImpact.allocation : null,prepared.progress,base.state.openingEvidence,trajectoryPolicy.collegeFinish);
   }
   if (trajectoryPolicy?.footballTransition && ['NFL','CFB'].includes(game.sport)) {
     base=transitionFootballBase(core,game,prepared,base);

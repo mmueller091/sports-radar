@@ -1,0 +1,24 @@
+{
+  "capturedAt": "2026-11-01T16:58:45.020Z",
+  "sources": {
+    "scoreboard": {
+      "url": "https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/scoreboard?dates=20261101&limit=100",
+      "sha256": "96b6cf73f774a6ab3b719addd80cd3d57678819d8226e2f10a49f76a97bfa27f"
+    },
+    "summary": {
+      "url": "https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/summary?event=401920982",
+      "sha256": "7570dbd329fd11432f3cbad5a83467225532400262359d17ea5260b9d51a4519"
+    },
+    "history": {
+      "url": "https://sports-radar-alerts.mmueller918.workers.dev/game/NCAAB/401920982",
+      "sha256": "73f1bb8e4ebee0d62019a281ad527f4dac39b83e68f3a6119ed669cba42d3c3c"
+    },
+    "feed": {
+      "url": "https://sports-radar-alerts.mmueller918.workers.dev/feed",
+      "sha256": "9db020d194022b6aad676098b70bcb466dea52dabfe1c1e5b2c5ef834389cfea"
+    },
+    "scorer-before.cjs": {
+      "sha256": "73684e6f463765c90be0246f1f87f428f3f494914beaf1c4e92791a1e23037b0"
+    }
+  }
+}

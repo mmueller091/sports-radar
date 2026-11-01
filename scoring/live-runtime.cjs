@@ -6,8 +6,12 @@ const {candidateGameRating} = require('../calibration/shadow-candidate.cjs');
 const {LIVE_CFB_COMPETITION_POLICY:LIVE_POLICY} = require('../calibration/trajectory-live-policy.cjs');
 const {prepareOpening,preservePregameBaseline} = require('./opening-transition.cjs');
 const {preserveLiveEvidence,historyFor,rememberHistory,currentManpower,validLedger}=require('./live-evidence.cjs');
+const basketball=require('./basketball-state.cjs');
+const {analyzeTrajectory}=require('./models.js');
+const basketballCalibration=require('./basketball-calibration.cjs');
+const {canonicalDetailSummary}=require('./detail-state.cjs');
 const PRODUCTION_POLICY = Object.freeze({...LIVE_POLICY,id:LIVE_POLICY.id+'-opening-transition',footballTransition:true,openingTransition:true});
-const MODEL_VERSION = '2026-11-01.nfl-pregame.3';
+const MODEL_VERSION = '2026-11-01.basketball-state.1';
 
 function retainSettledCfbPath(game,current,summary) {
   if (game.sport!=='CFB' || !summary || Number(current.status?.period)!==4) return;
@@ -32,6 +36,8 @@ function retainSettledCfbPath(game,current,summary) {
 }
 
 function applyLiveSnapshot(game, competition, summary) {
+  const reconciled=basketball.reconcileBasketball(game,competition || game.sourceCompetition,summary);
+  competition=reconciled.competition;summary=reconciled.summary;
   prepareOpening(legacy,game,competition || game.sourceCompetition,null);
   if (game.state !== 'live') return;
   legacy.applyLiveSnapshot(game, competition, summary);
@@ -44,18 +50,18 @@ function applyLiveSnapshot(game, competition, summary) {
   const ratingSummary=validHistory ? accepted : {...accepted,scoringPlays:[],plays:[],drives:undefined,winprobability:[]};
   delete game.manpowerRetained;
   const effective=currentManpower(game,current,ratingSummary);
-  const history=historyFor(game,current,accepted);
+  const history=basketball.supports(game) ? {summary:reconciled.history,trajectory:analyzeTrajectory(game.sport,reconciled.history,legacy.gameProgress(game.sport,current),'live')} : historyFor(game,current,accepted);
   const latestProbability=effective?.winprobability?.at(-1);
   const unanchoredProbability=history && latestProbability && (latestProbability.playId==null || !(effective.plays||[]).some(p=>String(p.id)===String(latestProbability.playId)));
   const currentSummary=unanchoredProbability ? {...effective,winprobability:[]} : effective;
   prepareOpening(legacy,game,competition || game.sourceCompetition,accepted);
-  if (['NFL','CFB'].includes(game.sport)) {
+  if (['NFL','CFB','NCAAB'].includes(game.sport)) {
     const upset=legacy.upsetImpact(game.underdog,game.teams,'live',legacy.gameProgress(game.sport,current),game.sport,current);
     game.factors=game.factors.filter(f=>f.label!=='Underdog threatens upset');
     if (upset.points) game.factors.push({label:'Underdog threatens upset',points:upset.points});
     game.upsetPoints=upset.points;game.upsetText=upset.text;
   }
-  const result = candidateGameRating(legacy,history?{...game,_historicalEvidence:history}:game,current,currentSummary,null,PRODUCTION_POLICY);
+  const result = candidateGameRating(legacy,history?{...game,_historicalEvidence:history}:game,current,currentSummary,basketballCalibration.tensionPolicy(game,current),{...PRODUCTION_POLICY,collegeFinish:true});
   Object.assign(game,{
     score:result.score,baseScore:result.baseScore,live:result.live,
     momentumPoints:result.momentumPoints,trajectoryScoring:result.trajectoryScoring,
@@ -63,16 +69,19 @@ function applyLiveSnapshot(game, competition, summary) {
     factors:[...result.factors,...(result.historyOwnership?.eventFactors || []),
       ...(result.trajectoryScoring.adjustment ? [{label:'History relevance and trajectory',points:result.trajectoryScoring.adjustment}] : [])],
     modelVersion:MODEL_VERSION,scoringPolicy:PRODUCTION_POLICY.id,
-    scoringPartial:!accepted || !validHistory
+    scoringPartial:basketball.supports(game)?!reconciled.rawCurrent:!accepted || !validHistory
   });
   if (game.sport==='CFB' && isHalftimeStatus(game.liveRawStatus)) game.live.note='';
   game.momentumText = (result.historyOwnership?.eventFactors || []).map(f=>f.label).join(', ');
   if (game.sport==='CFB') game.upsetPoints=result.factors.find(f=>f.label==='Underdog threatens upset')?.points || 0;
   retainSettledCfbPath(game,current,accepted);
   if(accepted && validHistory && !history)rememberHistory(game,current,accepted,result);
-  game.historicalEvidenceRetained=Boolean(history);
+  if(!basketball.supports(game))game.historicalEvidenceRetained=Boolean(history);
+  delete game.basketballHistory;
+  if(basketball.supports(game))game.lastSummaryAccepted=reconciled.rawCurrent;
   delete game.staleEnrichment;
   return result;
 }
 
-module.exports = {...legacy,isHalftimeStatus,applyLiveSnapshot,preservePregameBaseline,preserveLiveEvidence,MODEL_VERSION,POLICY_ID:PRODUCTION_POLICY.id,PRODUCTION_POLICY};
+function preserveEvidence(game,previous){preserveLiveEvidence(game,previous);basketball.preserveBasketballState(game,previous);}
+module.exports = {...legacy,isHalftimeStatus,canonicalDetailSummary,applyLiveSnapshot,preservePregameBaseline,preserveLiveEvidence:preserveEvidence,MODEL_VERSION,POLICY_ID:PRODUCTION_POLICY.id,PRODUCTION_POLICY};
