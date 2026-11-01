@@ -2,6 +2,7 @@
 (function(root) {
   const unit=x=>Math.max(0,Math.min(1,x));
   const round=x=>Number(x.toFixed(2));
+  const smooth=x=>{x=unit(x);return x*x*(3-2*x);};
   const stat=(row,name)=>row?.stats?.find(s=>s.name===name)?.value;
   function standing(row) {
     const wins=stat(row,'wins'),losses=stat(row,'losses'),ties=stat(row,'ties') ?? 0;
@@ -34,12 +35,50 @@
       division:groups.find(g=>ids.every(id=>g.entries.some(r=>r.id===id))) || null,
       sourceUrl:`https://www.espn.com/nfl/preview?gameId=${event.id}`};
   }
-  function nflEvidenceFactors(competition,records,division) {
+  function validatedEvidence(competition,records) {
     const e=competition?.sportsRadarNflPregame;
     if (!e || records.length!==2 || !records.every(Boolean) || e.teams?.length!==2 ||
         e.teams.some((row,i)=>String(row.id)!==String(competition.competitors[i]?.team?.id) ||
           row.wins!==records[i].wins || row.losses!==records[i].losses || row.games!==records[i].games) ||
-        Number(competition.season?.year)!==e.season) return [];
+        Number(competition.season?.year)!==e.season) return null;
+    return e;
+  }
+  function nflRecordAssessment(competition,records) {
+    if(records.length!==2 || !records.every(Boolean)) return {positive:0,penalty:0,losingWeight:0};
+    const pct=records.map(r=>r.pct),deficits=pct.map(p=>unit(1-2*p));
+    const losingWeight=smooth(Math.min(...deficits)/.2);
+    const severity=7*losingWeight*(.65*Math.max(...deficits)+.35*(deficits[0]+deficits[1])/2);
+    const e=validatedEvidence(competition,records),maturity=unit((Math.min(...records.map(r=>r.games))-2)/4);
+    const recovery=e?.teams.every(t=>Number.isFinite(t.differential))
+      ? e.teams.reduce((sum,t)=>sum+2*unit((t.differential/t.games+3)/6),0)*maturity : 0;
+    const relief=severity*recovery/7;
+    const single=Math.min(2,Math.max(0,(Math.max(...pct)-.5)*12))*Math.min(1,Math.max(...records.map(r=>r.games))/4);
+    // Blend into the existing fourteen-point two-team quality ceiling without
+    // switching awards when one record crosses .500.
+    const positive=single+(14-single)*smooth(((pct[0]+pct[1])/2-.5)/.2);
+    const severeTeam=5*(1-smooth(Math.min(...pct)/.125));
+    const appliedSeverity=Math.max(severity,severeTeam),appliedRelief=appliedSeverity-Math.max(severity-relief,severeTeam);
+    return {positive:round(positive),penalty:round(-appliedSeverity+appliedRelief),losingWeight,
+      severity:round(appliedSeverity),relief:round(appliedRelief)};
+  }
+  function nflMarketInteraction(spread,total) {
+    if(typeof spread!=='number' || !Number.isFinite(spread) || typeof total!=='number' || !Number.isFinite(total) || total>100) return 0;
+    return round(3*smooth((7-Math.abs(spread))/4)*smooth((total-46)/8));
+  }
+  function nflReturnPoints(item,competition) {
+    const e=item.injuryEvidence;
+    if(!e || !(competition?.competitors || []).some(t=>String(t.team?.id || t.id)===String(e.affectedTeamId))) return 0;
+    const proof=e.playerSignificance;
+    // Accomplishment-based promotion requires identified, linked source proof.
+    if(proof?.verified===true && proof.playerId && /^https?:\/\//.test(proof.sourceUrl || '') && proof.fact) {
+      if(proof.tier==='major-quarterback') return 5;
+      if(proof.tier==='established-star') return 3;
+    }
+    return e.importance==='starting-quarterback' ? 3 : e.importance==='key-player' ? 2 : 1;
+  }
+  function nflEvidenceFactors(competition,records,division) {
+    const e=validatedEvidence(competition,records);
+    if(!e)return [];
     const factors=[],maturity=unit((Math.min(...records.map(r=>r.games))-2)/4);
     const add=(label,points,detail,sourceUrl=e.sourceUrl)=>{points=round(points);if(points)factors.push({label,points,detail,sourceUrl});};
     const group=e.division;
@@ -56,19 +95,17 @@
         e.teams.every(row=>row.pct>=.5 && behind(row)<=2)?2:0;
       add(canLead.every(Boolean)&&bothNear?'Division lead at stake':'Division race positioning',stakes*maturity,
         canLead.every(Boolean)&&bothNear?`Either winner can take at least a share of the ${division} lead`:
-          `Both teams are within ${bothNear?'one':'two'} games of the ${division} lead`,group.sourceUrl);
+          `Both teams are within ${bothNear?'one game':'two games'} of the ${division} lead`,group.sourceUrl);
       const meeting=e.recent.flatMap(t=>t.events).find(g=>e.teams.some(t=>t.id===g.opponentId));
       if (meeting && stakes) add('Season-series tiebreaker',Math.min(1,8-stakes)*maturity,
         'A verified earlier meeting makes the division season series relevant',meeting.sourceUrl);
     }
-    if (records.every(r=>r.pct<.5) && e.teams.every(t=>Number.isFinite(t.differential))) {
-      // Restore part of the blunt losing-record deduction when actual play is stronger.
-      const recovery=e.teams.reduce((sum,t)=>sum+2*unit((t.differential/t.games+3)/6),0);
-      add('Performance beyond losing records',recovery*maturity,
-        e.teams.map((t,i)=>`${competition.competitors[i].team.abbreviation}: ${t.differential>0?'+':''}${t.differential} point differential`).join('; '));
-    } else if (e.teams.every(t=>Number.isFinite(t.differential))) {
+    if (e.teams.every(t=>Number.isFinite(t.differential))) {
       const strength=e.teams.reduce((sum,t)=>sum+t.differential/t.games,0)/2;
-      add('Season point differential',Math.max(-2,Math.min(2,strength/4))*maturity,
+      const {losingWeight}=nflRecordAssessment(competition,records);
+      // The complementary share belongs to the losing-record deduction. The
+      // same scoring margins never receive a second full-quality contribution.
+      add('Season point differential',Math.max(-2,Math.min(2,strength/4))*maturity*(1-losingWeight),
         'Season scoring margins provide a small quality adjustment');
     }
     const form=e.recent.map(t=>t.events.slice(0,3));
@@ -87,7 +124,7 @@
     add('Sustained recent form',streak*maturity,'Verified consecutive wins or losses, limited to the available five-game history');
     return factors;
   }
-  const api={evidenceFromSummary,nflEvidenceFactors};
+  const api={evidenceFromSummary,nflEvidenceFactors,nflRecordAssessment,nflMarketInteraction,nflReturnPoints};
   if(typeof module!=='undefined'&&module.exports)module.exports=api;
   else (root.SportsRadarScoring ||= {}).shared_nfl_pregame=api;
 })(globalThis);

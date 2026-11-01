@@ -1,0 +1,1491 @@
+{
+  "model": "2026-11-01.nfl-pregame.2",
+  "baselineModel": "2026-11-01.nfl-pregame.1",
+  "baselineCommit": "12589a40410d2f2462188274976f77cf01eed919",
+  "capturedAt": "2026-11-01T15:10:45.908Z",
+  "basis": "Captured production ratings and current November 1 markets; cached source summaries/team news reused without additional requests.",
+  "methodology": {
+    "interaction": "3 × smoothstep((7 − |spread|)/4) × smoothstep((total − 46)/8), with clamped inputs. Spread and total contributions remain separate and occur once.",
+    "losingRecords": "Smooth percentage-based severity, capped at seven, includes bounded point-differential relief. Complementary point-differential weights prevent reuse; recent form remains separate. Extremely low win percentages retain a smooth severe-team floor.",
+    "winningContinuity": "The existing fourteen-point two-team quality ceiling is smoothly approached using combined percentages. Missing-market record-evenness/division fallback awards also taper at .500.",
+    "returns": "Identified, source-linked NFL MVP/All-Pro starting QB: five; verified established star or starting QB: three; regular player: two; unknown significance: one; unverified/irrelevant news: zero. Total positive story budget remains six."
+  },
+  "rows": [
+    {
+      "id": "401873026",
+      "matchup": "BAL @ BUF",
+      "before": 72,
+      "after": 75,
+      "delta": 3,
+      "line": {
+        "spread": "BUF -3",
+        "moneyline": "",
+        "total": 54.5,
+        "provider": "DraftKings",
+        "verifiedClose": false
+      },
+      "components": {
+        "Sport baseline": {
+          "before": 32,
+          "after": 32,
+          "delta": 0
+        },
+        "Schedule scarcity": {
+          "before": 10,
+          "after": 10,
+          "delta": 0
+        },
+        "Both winning records": {
+          "before": 14,
+          "after": 14,
+          "delta": 0
+        },
+        "Tight projected spread": {
+          "before": 6,
+          "after": 6,
+          "delta": 0
+        },
+        "Season point differential": {
+          "before": 0.58,
+          "after": 0.58,
+          "delta": 0
+        },
+        "Recent performance": {
+          "before": -0.39,
+          "after": -0.39,
+          "delta": 0
+        },
+        "Expected scoring potential": {
+          "before": 4.25,
+          "after": 4.25,
+          "delta": 0
+        },
+        "Key player returns from injury": {
+          "before": 4,
+          "after": 0,
+          "delta": -4
+        },
+        "Rivalry context": {
+          "before": 2,
+          "after": 1,
+          "delta": -1
+        },
+        "Close-game scoring upside": {
+          "before": 0,
+          "after": 3,
+          "delta": 3
+        },
+        "Decorated starting quarterback returns": {
+          "before": 0,
+          "after": 5,
+          "delta": 5
+        }
+      },
+      "factors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 10
+        },
+        {
+          "label": "Both winning records",
+          "points": 14
+        },
+        {
+          "label": "Tight projected spread",
+          "points": 6
+        },
+        {
+          "label": "Season point differential",
+          "points": 0.58,
+          "detail": "Season scoring margins provide a small quality adjustment",
+          "sourceUrl": "https://www.espn.com/nfl/preview?gameId=401873026"
+        },
+        {
+          "label": "Recent performance",
+          "points": -0.39,
+          "detail": "Scoring margins over each team’s last three games; individual margins capped at 21",
+          "sourceUrl": "https://www.espn.com/nfl/preview?gameId=401873026"
+        },
+        {
+          "label": "Expected scoring potential",
+          "points": 4.25,
+          "detail": "Listed total 54.5; capped at five points"
+        },
+        {
+          "label": "Close-game scoring upside",
+          "points": 3,
+          "detail": "A 3-point spread and 54.5 total jointly add entertainment upside; capped at three points"
+        },
+        {
+          "label": "Decorated starting quarterback returns",
+          "points": 5,
+          "contextType": "star_injury_return",
+          "contextText": "Ravens QB Jackson to return for Bills clash, calls ankle pain 'bearable'. Ravens quarterback Lamar Jackson will return to play Sunday at Buffalo, saying the pain in his injured left ankle is \"bearable.\"",
+          "sourceUrl": "https://www.espn.com/nfl/story/_/id/50329330/ravens-qb-lamar-jackson-expected-return-vs-bills",
+          "returnSignificance": {
+            "verified": true,
+            "playerId": "3916387",
+            "tier": "major-quarterback",
+            "fact": "Jackson, meantime, has the edge in being a two-time NFL MVP",
+            "sourceUrl": "http://www.espn.com/nfl/preview?gameId=401873026"
+          }
+        },
+        {
+          "label": "Rivalry context",
+          "points": 1,
+          "contextType": "rivalry",
+          "contextText": "Josh Allen looks to renew rivalry with Lamar Jackson as Bills host Ravens",
+          "sourceUrl": "http://www.espn.com/nfl/preview?gameId=401873026"
+        }
+      ],
+      "stories": [
+        {
+          "eventId": "401873026",
+          "sport": "NFL",
+          "type": "star_injury_return",
+          "text": "Ravens QB Jackson to return for Bills clash, calls ankle pain 'bearable'. Ravens quarterback Lamar Jackson will return to play Sunday at Buffalo, saying the pain in his injured left ankle is \"bearable.\"",
+          "confidence": 0.78,
+          "sourceTitle": "Ravens QB Jackson to return for Bills clash, calls ankle pain 'bearable'",
+          "sourceUrl": "https://www.espn.com/nfl/story/_/id/50329330/ravens-qb-lamar-jackson-expected-return-vs-bills",
+          "sourcePublished": 1793444757,
+          "injuryEvidence": {
+            "importance": "starting-quarterback",
+            "affectedTeamId": "33",
+            "reportedAt": "2026-10-31T11:05:57.000Z",
+            "playerSignificance": {
+              "verified": true,
+              "playerId": "3916387",
+              "tier": "major-quarterback",
+              "fact": "Jackson, meantime, has the edge in being a two-time NFL MVP",
+              "sourceUrl": "http://www.espn.com/nfl/preview?gameId=401873026"
+            }
+          },
+          "sourceDescription": "Ravens quarterback Lamar Jackson will return to play Sunday at Buffalo, saying the pain in his injured left ankle is \"bearable.\"",
+          "sourceTeamIds": [
+            "33"
+          ],
+          "sourceEventIds": [],
+          "verified": true
+        },
+        {
+          "eventId": "401873026",
+          "sport": "NFL",
+          "type": "rivalry",
+          "text": "Josh Allen looks to renew rivalry with Lamar Jackson as Bills host Ravens",
+          "confidence": 0.78,
+          "sourceTitle": "Josh Allen looks to renew rivalry with Lamar Jackson as Bills host Ravens",
+          "sourceUrl": "http://www.espn.com/nfl/preview?gameId=401873026",
+          "sourcePublished": 1793404366,
+          "sourceDescription": "— Josh Allen can appreciate how heated discussions can get at bar stools, on talk radio and social media over whether he or Lamar Jackson is the better quarterback.",
+          "sourceTeamIds": [
+            "2",
+            "33"
+          ],
+          "sourceEventIds": [
+            "401873026"
+          ],
+          "verified": true
+        }
+      ]
+    },
+    {
+      "id": "401873031",
+      "matchup": "TEN @ CIN",
+      "before": 42,
+      "after": 42,
+      "delta": 0,
+      "line": {
+        "spread": "CIN -12.5",
+        "moneyline": "",
+        "total": 46.5,
+        "provider": "DraftKings",
+        "verifiedClose": false
+      },
+      "components": {
+        "Sport baseline": {
+          "before": 32,
+          "after": 32,
+          "delta": 0
+        },
+        "Schedule scarcity": {
+          "before": 10,
+          "after": 10,
+          "delta": 0
+        },
+        "Projected spread mismatch": {
+          "before": -2.5,
+          "after": -2.5,
+          "delta": 0
+        },
+        "Recent performance": {
+          "before": 0.14,
+          "after": 0.14,
+          "delta": 0
+        },
+        "Winning team quality": {
+          "before": 2,
+          "after": 1.61,
+          "delta": -0.39
+        },
+        "Expected scoring potential": {
+          "before": 0.25,
+          "after": 0.25,
+          "delta": 0
+        }
+      },
+      "factors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 10
+        },
+        {
+          "label": "Winning team quality",
+          "points": 1.61
+        },
+        {
+          "label": "Projected spread mismatch",
+          "points": -2.5
+        },
+        {
+          "label": "Recent performance",
+          "points": 0.14,
+          "detail": "Scoring margins over each team’s last three games; individual margins capped at 21",
+          "sourceUrl": "https://www.espn.com/nfl/preview?gameId=401873031"
+        },
+        {
+          "label": "Expected scoring potential",
+          "points": 0.25,
+          "detail": "Listed total 46.5; capped at five points"
+        }
+      ],
+      "stories": []
+    },
+    {
+      "id": "401873024",
+      "matchup": "ARI @ DAL",
+      "before": 47,
+      "after": 48,
+      "delta": 1,
+      "line": {
+        "spread": "DAL -7",
+        "moneyline": "",
+        "total": 54.5,
+        "provider": "DraftKings",
+        "verifiedClose": false
+      },
+      "components": {
+        "Sport baseline": {
+          "before": 32,
+          "after": 32,
+          "delta": 0
+        },
+        "Schedule scarcity": {
+          "before": 10,
+          "after": 10,
+          "delta": 0
+        },
+        "Both teams below .500": {
+          "before": -7,
+          "after": 0,
+          "delta": 7
+        },
+        "Moderate projected favorite": {
+          "before": 3,
+          "after": 3,
+          "delta": 0
+        },
+        "Performance beyond losing records": {
+          "before": 1.43,
+          "after": 0,
+          "delta": -1.43
+        },
+        "Recent performance": {
+          "before": -0.94,
+          "after": -0.94,
+          "delta": 0
+        },
+        "Expected scoring potential": {
+          "before": 4.25,
+          "after": 4.25,
+          "delta": 0
+        },
+        "Key player returns from injury": {
+          "before": 4,
+          "after": 0,
+          "delta": -4
+        },
+        "Graduated losing-record penalty": {
+          "before": 0,
+          "after": -1.69,
+          "delta": -1.69
+        },
+        "Season point differential": {
+          "before": 0,
+          "after": -0.2,
+          "delta": -0.2
+        },
+        "Regular player returns": {
+          "before": 0,
+          "after": 2,
+          "delta": 2
+        }
+      },
+      "factors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 10
+        },
+        {
+          "label": "Graduated losing-record penalty",
+          "points": -1.69,
+          "recordSeverity": 2.12,
+          "performanceRelief": 0.43,
+          "detail": "Records 3-4 (43%) and 2-5 (29%) set the deduction; season scoring margins soften it"
+        },
+        {
+          "label": "Moderate projected favorite",
+          "points": 3
+        },
+        {
+          "label": "Season point differential",
+          "points": -0.2,
+          "detail": "Season scoring margins provide a small quality adjustment",
+          "sourceUrl": "https://www.espn.com/nfl/preview?gameId=401873024"
+        },
+        {
+          "label": "Recent performance",
+          "points": -0.94,
+          "detail": "Scoring margins over each team’s last three games; individual margins capped at 21",
+          "sourceUrl": "https://www.espn.com/nfl/preview?gameId=401873024"
+        },
+        {
+          "label": "Expected scoring potential",
+          "points": 4.25,
+          "detail": "Listed total 54.5; capped at five points"
+        },
+        {
+          "label": "Regular player returns",
+          "points": 2,
+          "contextType": "star_injury_return",
+          "contextText": "Cardinals rookie RB Jeremiyah Love (ankle) set to return. Jeremiyah Love is expected to return to the field for the Cardinals on Sunday after missing the past two weeks with an ankle injury.",
+          "sourceUrl": "https://www.espn.com/nfl/story/_/id/50329508/cardinals-rookie-rb-jeremiyah-love-ankle-set-return"
+        }
+      ],
+      "stories": [
+        {
+          "eventId": "401873024",
+          "sport": "NFL",
+          "type": "star_injury_return",
+          "text": "Cardinals rookie RB Jeremiyah Love (ankle) set to return. Jeremiyah Love is expected to return to the field for the Cardinals on Sunday after missing the past two weeks with an ankle injury.",
+          "confidence": 0.78,
+          "sourceTitle": "Cardinals rookie RB Jeremiyah Love (ankle) set to return",
+          "sourceUrl": "https://www.espn.com/nfl/story/_/id/50329508/cardinals-rookie-rb-jeremiyah-love-ankle-set-return",
+          "sourcePublished": 1793396805,
+          "injuryEvidence": {
+            "importance": "key-player",
+            "affectedTeamId": "22",
+            "reportedAt": "2026-10-30T21:46:45.000Z"
+          },
+          "sourceDescription": "Jeremiyah Love is expected to return to the field for the Cardinals on Sunday after missing the past two weeks with an ankle injury.",
+          "sourceTeamIds": [
+            "22"
+          ],
+          "sourceEventIds": [],
+          "verified": true
+        }
+      ]
+    },
+    {
+      "id": "401873030",
+      "matchup": "MIN @ DET",
+      "before": 79,
+      "after": 79,
+      "delta": 0,
+      "line": {
+        "spread": "DET -3",
+        "moneyline": "",
+        "total": 46.5,
+        "provider": "DraftKings",
+        "verifiedClose": false
+      },
+      "components": {
+        "Sport baseline": {
+          "before": 32,
+          "after": 32,
+          "delta": 0
+        },
+        "Schedule scarcity": {
+          "before": 10,
+          "after": 10,
+          "delta": 0
+        },
+        "NFC North matchup": {
+          "before": 4,
+          "after": 4,
+          "delta": 0
+        },
+        "Both winning records": {
+          "before": 14,
+          "after": 14,
+          "delta": 0
+        },
+        "Unbeaten team": {
+          "before": 7,
+          "after": 7,
+          "delta": 0
+        },
+        "Tight projected spread": {
+          "before": 6,
+          "after": 6,
+          "delta": 0
+        },
+        "Division race positioning": {
+          "before": 2,
+          "after": 2,
+          "delta": 0
+        },
+        "Season point differential": {
+          "before": 1.46,
+          "after": 1.46,
+          "delta": 0
+        },
+        "Recent performance": {
+          "before": 1.08,
+          "after": 1.08,
+          "delta": 0
+        },
+        "Recent win over winning opposition": {
+          "before": 0.75,
+          "after": 0.75,
+          "delta": 0
+        },
+        "Sustained recent form": {
+          "before": 0.75,
+          "after": 0.75,
+          "delta": 0
+        },
+        "Expected scoring potential": {
+          "before": 0.25,
+          "after": 0.25,
+          "delta": 0
+        },
+        "Close-game scoring upside": {
+          "before": 0,
+          "after": 0.03,
+          "delta": 0.03
+        }
+      },
+      "factors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 10
+        },
+        {
+          "label": "NFC North matchup",
+          "points": 4
+        },
+        {
+          "label": "Both winning records",
+          "points": 14
+        },
+        {
+          "label": "Unbeaten team",
+          "points": 7
+        },
+        {
+          "label": "Tight projected spread",
+          "points": 6
+        },
+        {
+          "label": "Division race positioning",
+          "points": 2,
+          "detail": "Both teams are within two games of the NFC North lead",
+          "sourceUrl": "https://www.espn.com/nfl/standings/_/group/10"
+        },
+        {
+          "label": "Season point differential",
+          "points": 1.46,
+          "detail": "Season scoring margins provide a small quality adjustment",
+          "sourceUrl": "https://www.espn.com/nfl/preview?gameId=401873030"
+        },
+        {
+          "label": "Recent performance",
+          "points": 1.08,
+          "detail": "Scoring margins over each team’s last three games; individual margins capped at 21",
+          "sourceUrl": "https://www.espn.com/nfl/preview?gameId=401873030"
+        },
+        {
+          "label": "Recent win over winning opposition",
+          "points": 0.75,
+          "detail": "Latest result includes a win over an opponent currently winning at least 60% of its games",
+          "sourceUrl": "https://www.espn.com/nfl/game/_/gameId/401873020/packers-lions"
+        },
+        {
+          "label": "Sustained recent form",
+          "points": 0.75,
+          "detail": "Verified consecutive wins or losses, limited to the available five-game history",
+          "sourceUrl": "https://www.espn.com/nfl/preview?gameId=401873030"
+        },
+        {
+          "label": "Expected scoring potential",
+          "points": 0.25,
+          "detail": "Listed total 46.5; capped at five points"
+        },
+        {
+          "label": "Close-game scoring upside",
+          "points": 0.03,
+          "detail": "A 3-point spread and 46.5 total jointly add entertainment upside; capped at three points"
+        }
+      ],
+      "stories": []
+    },
+    {
+      "id": "401873029",
+      "matchup": "LV @ NYJ",
+      "before": 41,
+      "after": 45,
+      "delta": 4,
+      "line": {
+        "spread": "NYJ -1.5",
+        "moneyline": "",
+        "total": 46.5,
+        "provider": "DraftKings",
+        "verifiedClose": false
+      },
+      "components": {
+        "Sport baseline": {
+          "before": 32,
+          "after": 32,
+          "delta": 0
+        },
+        "Schedule scarcity": {
+          "before": 10,
+          "after": 10,
+          "delta": 0
+        },
+        "Both teams below .500": {
+          "before": -7,
+          "after": 0,
+          "delta": 7
+        },
+        "Tight projected spread": {
+          "before": 6.5,
+          "after": 6.5,
+          "delta": 0
+        },
+        "Performance beyond losing records": {
+          "before": 0.71,
+          "after": 0,
+          "delta": -0.71
+        },
+        "Recent performance": {
+          "before": -1,
+          "after": -1,
+          "delta": 0
+        },
+        "Sustained recent form": {
+          "before": -0.5,
+          "after": -0.5,
+          "delta": 0
+        },
+        "Expected scoring potential": {
+          "before": 0.25,
+          "after": 0.25,
+          "delta": 0
+        },
+        "Graduated losing-record penalty": {
+          "before": 0,
+          "after": -1.91,
+          "delta": -1.91
+        },
+        "Season point differential": {
+          "before": 0,
+          "after": -0.1,
+          "delta": -0.1
+        },
+        "Close-game scoring upside": {
+          "before": 0,
+          "after": 0.03,
+          "delta": 0.03
+        }
+      },
+      "factors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 10
+        },
+        {
+          "label": "Graduated losing-record penalty",
+          "points": -1.91,
+          "recordSeverity": 2.12,
+          "performanceRelief": 0.22,
+          "detail": "Records 2-5 (29%) and 3-4 (43%) set the deduction; season scoring margins soften it"
+        },
+        {
+          "label": "Tight projected spread",
+          "points": 6.5
+        },
+        {
+          "label": "Season point differential",
+          "points": -0.1,
+          "detail": "Season scoring margins provide a small quality adjustment",
+          "sourceUrl": "https://www.espn.com/nfl/preview?gameId=401873029"
+        },
+        {
+          "label": "Recent performance",
+          "points": -1,
+          "detail": "Scoring margins over each team’s last three games; individual margins capped at 21",
+          "sourceUrl": "https://www.espn.com/nfl/preview?gameId=401873029"
+        },
+        {
+          "label": "Sustained recent form",
+          "points": -0.5,
+          "detail": "Verified consecutive wins or losses, limited to the available five-game history",
+          "sourceUrl": "https://www.espn.com/nfl/preview?gameId=401873029"
+        },
+        {
+          "label": "Expected scoring potential",
+          "points": 0.25,
+          "detail": "Listed total 46.5; capped at five points"
+        },
+        {
+          "label": "Close-game scoring upside",
+          "points": 0.03,
+          "detail": "A 1.5-point spread and 46.5 total jointly add entertainment upside; capped at three points"
+        }
+      ],
+      "stories": []
+    },
+    {
+      "id": "401873027",
+      "matchup": "CLE @ PIT",
+      "before": 75,
+      "after": 75,
+      "delta": 0,
+      "line": {
+        "spread": "PIT -3.5",
+        "moneyline": "",
+        "total": 38.5,
+        "provider": "DraftKings",
+        "verifiedClose": false
+      },
+      "components": {
+        "Sport baseline": {
+          "before": 32,
+          "after": 32,
+          "delta": 0
+        },
+        "Schedule scarcity": {
+          "before": 10,
+          "after": 10,
+          "delta": 0
+        },
+        "AFC North matchup": {
+          "before": 4,
+          "after": 4,
+          "delta": 0
+        },
+        "Both winning records": {
+          "before": 14,
+          "after": 14,
+          "delta": 0
+        },
+        "Tight projected spread": {
+          "before": 5.63,
+          "after": 5.63,
+          "delta": 0
+        },
+        "Division lead at stake": {
+          "before": 7,
+          "after": 7,
+          "delta": 0
+        },
+        "Season-series tiebreaker": {
+          "before": 1,
+          "after": 1,
+          "delta": 0
+        },
+        "Season point differential": {
+          "before": 0.04,
+          "after": 0.04,
+          "delta": 0
+        },
+        "Recent performance": {
+          "before": 0.72,
+          "after": 0.72,
+          "delta": 0
+        },
+        "Sustained recent form": {
+          "before": 0.25,
+          "after": 0.25,
+          "delta": 0
+        }
+      },
+      "factors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 10
+        },
+        {
+          "label": "AFC North matchup",
+          "points": 4
+        },
+        {
+          "label": "Both winning records",
+          "points": 14
+        },
+        {
+          "label": "Tight projected spread",
+          "points": 5.63
+        },
+        {
+          "label": "Division lead at stake",
+          "points": 7,
+          "detail": "Either winner can take at least a share of the AFC North lead",
+          "sourceUrl": "https://www.espn.com/nfl/standings/_/group/12"
+        },
+        {
+          "label": "Season-series tiebreaker",
+          "points": 1,
+          "detail": "A verified earlier meeting makes the division season series relevant",
+          "sourceUrl": "https://www.espn.com/nfl/game/_/gameId/401872964/steelers-browns"
+        },
+        {
+          "label": "Season point differential",
+          "points": 0.04,
+          "detail": "Season scoring margins provide a small quality adjustment",
+          "sourceUrl": "https://www.espn.com/nfl/preview?gameId=401873027"
+        },
+        {
+          "label": "Recent performance",
+          "points": 0.72,
+          "detail": "Scoring margins over each team’s last three games; individual margins capped at 21",
+          "sourceUrl": "https://www.espn.com/nfl/preview?gameId=401873027"
+        },
+        {
+          "label": "Sustained recent form",
+          "points": 0.25,
+          "detail": "Verified consecutive wins or losses, limited to the available five-game history",
+          "sourceUrl": "https://www.espn.com/nfl/preview?gameId=401873027"
+        }
+      ],
+      "stories": [
+        {
+          "eventId": "401873027",
+          "sport": "NFL",
+          "type": "meaningful_rematch",
+          "text": "Season rematch: Browns beat the Steelers 27-24 on Oct. 1, 2026",
+          "confidence": 0.78,
+          "sourceTitle": "Season rematch: Browns beat the Steelers 27-24 on Oct. 1, 2026",
+          "sourceUrl": "http://www.espn.com/nfl/preview?gameId=401873027",
+          "sourcePublished": 1793295947,
+          "sourceDescription": "",
+          "sourceTeamIds": [
+            "23",
+            "5"
+          ],
+          "sourceEventIds": [
+            "401873027"
+          ],
+          "verified": true
+        }
+      ]
+    },
+    {
+      "id": "401873025",
+      "matchup": "ATL @ TB",
+      "before": 54,
+      "after": 57,
+      "delta": 3,
+      "line": {
+        "spread": "TB -2.5",
+        "moneyline": "",
+        "total": 43.5,
+        "provider": "DraftKings",
+        "verifiedClose": false
+      },
+      "components": {
+        "Sport baseline": {
+          "before": 32,
+          "after": 32,
+          "delta": 0
+        },
+        "Schedule scarcity": {
+          "before": 10,
+          "after": 10,
+          "delta": 0
+        },
+        "NFC South matchup": {
+          "before": 4,
+          "after": 4,
+          "delta": 0
+        },
+        "Both teams below .500": {
+          "before": -7,
+          "after": 0,
+          "delta": 7
+        },
+        "Tight projected spread": {
+          "before": 6.17,
+          "after": 6.17,
+          "delta": 0
+        },
+        "Division race positioning": {
+          "before": 5,
+          "after": 5,
+          "delta": 0
+        },
+        "Performance beyond losing records": {
+          "before": 2.43,
+          "after": 0,
+          "delta": -2.43
+        },
+        "Recent performance": {
+          "before": 0.44,
+          "after": 0.44,
+          "delta": 0
+        },
+        "Recent win over winning opposition": {
+          "before": 0.75,
+          "after": 0.75,
+          "delta": 0
+        },
+        "Graduated losing-record penalty": {
+          "before": 0,
+          "after": -1.39,
+          "delta": -1.39
+        },
+        "Season point differential": {
+          "before": 0,
+          "after": 0.03,
+          "delta": 0.03
+        }
+      },
+      "factors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 10
+        },
+        {
+          "label": "NFC South matchup",
+          "points": 4
+        },
+        {
+          "label": "Graduated losing-record penalty",
+          "points": -1.39,
+          "recordSeverity": 2.12,
+          "performanceRelief": 0.74,
+          "detail": "Records 2-5 (29%) and 3-4 (43%) set the deduction; season scoring margins soften it"
+        },
+        {
+          "label": "Tight projected spread",
+          "points": 6.17
+        },
+        {
+          "label": "Division race positioning",
+          "points": 5,
+          "detail": "Both teams are within one game of the NFC South lead",
+          "sourceUrl": "https://www.espn.com/nfl/standings/_/group/11"
+        },
+        {
+          "label": "Season point differential",
+          "points": 0.03,
+          "detail": "Season scoring margins provide a small quality adjustment",
+          "sourceUrl": "https://www.espn.com/nfl/preview?gameId=401873025"
+        },
+        {
+          "label": "Recent performance",
+          "points": 0.44,
+          "detail": "Scoring margins over each team’s last three games; individual margins capped at 21",
+          "sourceUrl": "https://www.espn.com/nfl/preview?gameId=401873025"
+        },
+        {
+          "label": "Recent win over winning opposition",
+          "points": 0.75,
+          "detail": "Latest result includes a win over an opponent currently winning at least 60% of its games",
+          "sourceUrl": "https://www.espn.com/nfl/game/_/gameId/401873017/49ers-falcons"
+        }
+      ],
+      "stories": []
+    },
+    {
+      "id": "401873028",
+      "matchup": "IND @ JAX",
+      "before": 48,
+      "after": 48,
+      "delta": 0,
+      "line": {
+        "spread": "JAX -10",
+        "moneyline": "",
+        "total": 46.5,
+        "provider": "DraftKings",
+        "verifiedClose": false
+      },
+      "components": {
+        "Sport baseline": {
+          "before": 32,
+          "after": 32,
+          "delta": 0
+        },
+        "Schedule scarcity": {
+          "before": 10,
+          "after": 10,
+          "delta": 0
+        },
+        "AFC South matchup": {
+          "before": 4,
+          "after": 4,
+          "delta": 0
+        },
+        "Season point differential": {
+          "before": 0.58,
+          "after": 0.58,
+          "delta": 0
+        },
+        "Recent performance": {
+          "before": -0.56,
+          "after": -0.56,
+          "delta": 0
+        },
+        "Sustained recent form": {
+          "before": -0.25,
+          "after": -0.25,
+          "delta": 0
+        },
+        "Winning team quality": {
+          "before": 2,
+          "after": 1.79,
+          "delta": -0.21
+        },
+        "Expected scoring potential": {
+          "before": 0.25,
+          "after": 0.25,
+          "delta": 0
+        }
+      },
+      "factors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 10
+        },
+        {
+          "label": "AFC South matchup",
+          "points": 4
+        },
+        {
+          "label": "Winning team quality",
+          "points": 1.79
+        },
+        {
+          "label": "Season point differential",
+          "points": 0.58,
+          "detail": "Season scoring margins provide a small quality adjustment",
+          "sourceUrl": "https://www.espn.com/nfl/preview?gameId=401873028"
+        },
+        {
+          "label": "Recent performance",
+          "points": -0.56,
+          "detail": "Scoring margins over each team’s last three games; individual margins capped at 21",
+          "sourceUrl": "https://www.espn.com/nfl/preview?gameId=401873028"
+        },
+        {
+          "label": "Sustained recent form",
+          "points": -0.25,
+          "detail": "Verified consecutive wins or losses, limited to the available five-game history",
+          "sourceUrl": "https://www.espn.com/nfl/preview?gameId=401873028"
+        },
+        {
+          "label": "Expected scoring potential",
+          "points": 0.25,
+          "detail": "Listed total 46.5; capped at five points"
+        }
+      ],
+      "stories": []
+    },
+    {
+      "id": "401873032",
+      "matchup": "LAC @ LAR",
+      "before": 39,
+      "after": 39,
+      "delta": 0,
+      "line": {
+        "spread": "LAR -6.5",
+        "moneyline": "",
+        "total": 45.5,
+        "provider": "DraftKings",
+        "verifiedClose": false
+      },
+      "components": {
+        "Sport baseline": {
+          "before": 32,
+          "after": 32,
+          "delta": 0
+        },
+        "Schedule scarcity": {
+          "before": 10,
+          "after": 10,
+          "delta": 0
+        },
+        "Both teams below .500": {
+          "before": -7,
+          "after": 0,
+          "delta": 7
+        },
+        "Moderate projected favorite": {
+          "before": 3.38,
+          "after": 3.38,
+          "delta": 0
+        },
+        "Performance beyond losing records": {
+          "before": 1.52,
+          "after": 0,
+          "delta": -1.52
+        },
+        "Recent performance": {
+          "before": -0.56,
+          "after": -0.56,
+          "delta": 0
+        },
+        "Sustained recent form": {
+          "before": -0.75,
+          "after": -0.75,
+          "delta": 0
+        },
+        "Graduated losing-record penalty": {
+          "before": 0,
+          "after": -5,
+          "delta": -5
+        },
+        "Season point differential": {
+          "before": 0,
+          "after": -0.21,
+          "delta": -0.21
+        }
+      },
+      "factors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 10
+        },
+        {
+          "label": "Graduated losing-record penalty",
+          "points": -5,
+          "recordSeverity": 5,
+          "performanceRelief": 0,
+          "detail": "Records 3-4 (43%) and 0-6 (0%) set the deduction"
+        },
+        {
+          "label": "Moderate projected favorite",
+          "points": 3.38
+        },
+        {
+          "label": "Season point differential",
+          "points": -0.21,
+          "detail": "Season scoring margins provide a small quality adjustment",
+          "sourceUrl": "https://www.espn.com/nfl/preview?gameId=401873032"
+        },
+        {
+          "label": "Recent performance",
+          "points": -0.56,
+          "detail": "Scoring margins over each team’s last three games; individual margins capped at 21",
+          "sourceUrl": "https://www.espn.com/nfl/preview?gameId=401873032"
+        },
+        {
+          "label": "Sustained recent form",
+          "points": -0.75,
+          "detail": "Verified consecutive wins or losses, limited to the available five-game history",
+          "sourceUrl": "https://www.espn.com/nfl/preview?gameId=401873032"
+        }
+      ],
+      "stories": []
+    },
+    {
+      "id": "401873033",
+      "matchup": "KC @ DEN",
+      "before": 76,
+      "after": 76,
+      "delta": 0,
+      "line": {
+        "spread": "KC -1.5",
+        "moneyline": "",
+        "total": 41.5,
+        "provider": "DraftKings",
+        "verifiedClose": false
+      },
+      "components": {
+        "Sport baseline": {
+          "before": 32,
+          "after": 32,
+          "delta": 0
+        },
+        "Schedule scarcity": {
+          "before": 10,
+          "after": 10,
+          "delta": 0
+        },
+        "AFC West matchup": {
+          "before": 4,
+          "after": 4,
+          "delta": 0
+        },
+        "Both winning records": {
+          "before": 14,
+          "after": 14,
+          "delta": 0
+        },
+        "Tight projected spread": {
+          "before": 6.5,
+          "after": 6.5,
+          "delta": 0
+        },
+        "Division lead at stake": {
+          "before": 7,
+          "after": 7,
+          "delta": 0
+        },
+        "Season point differential": {
+          "before": 0.89,
+          "after": 0.89,
+          "delta": 0
+        },
+        "Recent performance": {
+          "before": 0.69,
+          "after": 0.69,
+          "delta": 0
+        },
+        "Sustained recent form": {
+          "before": 0.25,
+          "after": 0.25,
+          "delta": 0
+        },
+        "Verified rematch context": {
+          "before": 1,
+          "after": 1,
+          "delta": 0
+        }
+      },
+      "factors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 10
+        },
+        {
+          "label": "AFC West matchup",
+          "points": 4
+        },
+        {
+          "label": "Both winning records",
+          "points": 14
+        },
+        {
+          "label": "Tight projected spread",
+          "points": 6.5
+        },
+        {
+          "label": "Division lead at stake",
+          "points": 7,
+          "detail": "Either winner can take at least a share of the AFC West lead",
+          "sourceUrl": "https://www.espn.com/nfl/standings/_/group/6"
+        },
+        {
+          "label": "Season point differential",
+          "points": 0.89,
+          "detail": "Season scoring margins provide a small quality adjustment",
+          "sourceUrl": "https://www.espn.com/nfl/preview?gameId=401873033"
+        },
+        {
+          "label": "Recent performance",
+          "points": 0.69,
+          "detail": "Scoring margins over each team’s last three games; individual margins capped at 21",
+          "sourceUrl": "https://www.espn.com/nfl/preview?gameId=401873033"
+        },
+        {
+          "label": "Sustained recent form",
+          "points": 0.25,
+          "detail": "Verified consecutive wins or losses, limited to the available five-game history",
+          "sourceUrl": "https://www.espn.com/nfl/preview?gameId=401873033"
+        },
+        {
+          "label": "Verified rematch context",
+          "points": 1,
+          "contextType": "meaningful_rematch",
+          "contextText": "Season rematch: Chiefs beat Broncos 31-10 on Sept. 14",
+          "sourceUrl": "http://www.espn.com/nfl/preview?gameId=401873033"
+        }
+      ],
+      "stories": [
+        {
+          "eventId": "401873033",
+          "sport": "NFL",
+          "type": "meaningful_rematch",
+          "text": "Season rematch: Chiefs beat Broncos 31-10 on Sept. 14",
+          "confidence": 0.78,
+          "sourceTitle": "Season rematch: Chiefs beat Broncos 31-10 on Sept. 14",
+          "sourceUrl": "http://www.espn.com/nfl/preview?gameId=401873033",
+          "sourcePublished": 1793310286,
+          "sourceDescription": "",
+          "sourceTeamIds": [
+            "7",
+            "12"
+          ],
+          "sourceEventIds": [
+            "401873033"
+          ],
+          "verified": true
+        }
+      ]
+    },
+    {
+      "id": "401873034",
+      "matchup": "NE @ MIA",
+      "before": 49,
+      "after": 49,
+      "delta": 0,
+      "line": {
+        "spread": "NE -7",
+        "moneyline": "",
+        "total": 41.5,
+        "provider": "DraftKings",
+        "verifiedClose": false
+      },
+      "components": {
+        "Sport baseline": {
+          "before": 32,
+          "after": 32,
+          "delta": 0
+        },
+        "Schedule scarcity": {
+          "before": 10,
+          "after": 10,
+          "delta": 0
+        },
+        "AFC East matchup": {
+          "before": 4,
+          "after": 4,
+          "delta": 0
+        },
+        "Moderate projected favorite": {
+          "before": 3,
+          "after": 3,
+          "delta": 0
+        },
+        "Season point differential": {
+          "before": -0.93,
+          "after": -0.93,
+          "delta": 0
+        },
+        "Recent performance": {
+          "before": 0.36,
+          "after": 0.36,
+          "delta": 0
+        },
+        "Winning team quality": {
+          "before": 0.86,
+          "after": 0.86,
+          "delta": 0
+        }
+      },
+      "factors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 10
+        },
+        {
+          "label": "AFC East matchup",
+          "points": 4
+        },
+        {
+          "label": "Winning team quality",
+          "points": 0.86
+        },
+        {
+          "label": "Moderate projected favorite",
+          "points": 3
+        },
+        {
+          "label": "Season point differential",
+          "points": -0.93,
+          "detail": "Season scoring margins provide a small quality adjustment",
+          "sourceUrl": "https://www.espn.com/nfl/preview?gameId=401873034"
+        },
+        {
+          "label": "Recent performance",
+          "points": 0.36,
+          "detail": "Scoring margins over each team’s last three games; individual margins capped at 21",
+          "sourceUrl": "https://www.espn.com/nfl/preview?gameId=401873034"
+        }
+      ],
+      "stories": []
+    },
+    {
+      "id": "401873035",
+      "matchup": "PHI @ WSH",
+      "before": 43,
+      "after": 46,
+      "delta": 3,
+      "line": {
+        "spread": "WSH -6.5",
+        "moneyline": "",
+        "total": 40.5,
+        "provider": "DraftKings",
+        "verifiedClose": false
+      },
+      "components": {
+        "Sport baseline": {
+          "before": 32,
+          "after": 32,
+          "delta": 0
+        },
+        "Schedule scarcity": {
+          "before": 10,
+          "after": 10,
+          "delta": 0
+        },
+        "NFC East matchup": {
+          "before": 4,
+          "after": 4,
+          "delta": 0
+        },
+        "Both teams below .500": {
+          "before": -7,
+          "after": 0,
+          "delta": 7
+        },
+        "Moderate projected favorite": {
+          "before": 3.38,
+          "after": 3.38,
+          "delta": 0
+        },
+        "Recent performance": {
+          "before": -1,
+          "after": -1,
+          "delta": 0
+        },
+        "Sustained recent form": {
+          "before": -0.75,
+          "after": -0.75,
+          "delta": 0
+        },
+        "Verified rematch context": {
+          "before": 2,
+          "after": 2,
+          "delta": 0
+        },
+        "Graduated losing-record penalty": {
+          "before": 0,
+          "after": -3.41,
+          "delta": -3.41
+        }
+      },
+      "factors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 10
+        },
+        {
+          "label": "NFC East matchup",
+          "points": 4
+        },
+        {
+          "label": "Graduated losing-record penalty",
+          "points": -3.41,
+          "recordSeverity": 3.41,
+          "performanceRelief": 0,
+          "detail": "Records 1-4 (25%) and 2-5 (29%) set the deduction"
+        },
+        {
+          "label": "Moderate projected favorite",
+          "points": 3.38
+        },
+        {
+          "label": "Recent performance",
+          "points": -1,
+          "detail": "Scoring margins over each team’s last three games; individual margins capped at 21",
+          "sourceUrl": "https://www.espn.com/nfl/preview?gameId=401873035"
+        },
+        {
+          "label": "Sustained recent form",
+          "points": -0.75,
+          "detail": "Verified consecutive wins or losses, limited to the available five-game history",
+          "sourceUrl": "https://www.espn.com/nfl/preview?gameId=401873035"
+        },
+        {
+          "label": "Verified rematch context",
+          "points": 2,
+          "contextType": "meaningful_rematch",
+          "contextText": "Season rematch: Eagles beat the Commanders 24-22 on Sept. 13, 2026",
+          "sourceUrl": "http://www.espn.com/nfl/preview?gameId=401873035"
+        }
+      ],
+      "stories": [
+        {
+          "eventId": "401873035",
+          "sport": "NFL",
+          "type": "meaningful_rematch",
+          "text": "Season rematch: Eagles beat the Commanders 24-22 on Sept. 13, 2026",
+          "confidence": 0.78,
+          "sourceTitle": "Season rematch: Eagles beat the Commanders 24-22 on Sept. 13, 2026",
+          "sourceUrl": "http://www.espn.com/nfl/preview?gameId=401873035",
+          "sourcePublished": 1793313172,
+          "sourceDescription": "",
+          "sourceTeamIds": [
+            "28",
+            "21"
+          ],
+          "sourceEventIds": [
+            "401873035"
+          ],
+          "verified": true
+        }
+      ]
+    }
+  ]
+}

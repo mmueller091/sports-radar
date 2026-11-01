@@ -5774,7 +5774,11 @@ function storylineDetails(game) {
       ? game.factors?.find(item=>item.contextType===factor.type)?.points : null;
     const credit=game.state==='upcoming' && game.sport==='NFL'
       ? contribution ? ` (+${contribution})` : ' (background context)' : '';
-    return `<li><span>${safeText(factor.text+credit)}</span>${source}</li>`;
+    const significance=factor.injuryEvidence?.playerSignificance;
+    const proofUrl=safeStoryUrl(significance?.sourceUrl);
+    const proof=game.sport==='NFL' && proofUrl && significance.verified
+      ? `<a href="${safeText(proofUrl)}" target="_blank" rel="noopener noreferrer" title="${safeText(significance.fact)}">Player honors source ↗</a>` : '';
+    return `<li><span>${safeText(factor.text+credit)}</span>${source}${proof}</li>`;
   }).join('');
   return `<section class="detail-section storyline-section"><h3>Pregame storylines</h3><ul>${rows}</ul><p class="detail-empty">Only recent, source-backed context is included. It fades from the rating as the game unfolds.</p></section>`;
 }

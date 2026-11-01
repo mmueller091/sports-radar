@@ -68,7 +68,7 @@ test('spread effects stay continuous; 6.5/7 are moderate favorites and totals co
 test('returns are directly relevant, source-linked and deduplicated; uniform roundups never match',()=>{
   for(const id of ['401873024','401873026']){
     const g=rows.find(g=>g.id===id),f=g.factors.find(f=>f.contextType==='star_injury_return');
-    assert.equal(f.points,4);assert.match(f.sourceUrl,/espn.com/);
+    assert.equal(f.points,id==='401873026'?5:2);assert.match(f.sourceUrl,/espn.com/);
     assert.equal(g.factors.filter(f=>f.contextType==='star_injury_return').length,1);
   }
   const game={eventId:'test',teams:[{id:'33',name:'Baltimore Ravens',abbr:'BAL'},{id:'2',name:'Buffalo Bills',abbr:'BUF'}],teamIds:new Set(['33','2'])};

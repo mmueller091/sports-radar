@@ -110,7 +110,8 @@ function articleMetadata(article) {
     published:Date.parse(article?.published || article?.lastModified || ''),
     url:String(article?.links?.web?.href || article?.links?.mobile?.href || ''),
     teamIds:new Set(categories.filter(item => item.type === 'team').map(item => String(item.teamId || item.team?.id || '')).filter(Boolean)),
-    eventIds:new Set(categories.filter(item => item.type === 'event').map(item => String(item.eventId || item.event?.id || '')).filter(Boolean))
+    eventIds:new Set(categories.filter(item => item.type === 'event').map(item => String(item.eventId || item.event?.id || '')).filter(Boolean)),
+    players:categories.filter(item=>item.type==='athlete').map(item=>({id:String(item.athleteId || item.athlete?.id || ''),name:String(item.athlete?.description || item.description || '')})).filter(p=>p.id && p.name)
   };
 }
 

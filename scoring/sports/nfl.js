@@ -6,7 +6,7 @@
   const {recordStats} = typeof module !== 'undefined' && module.exports
     ? require('../shared/records.js')
     : root.SportsRadarScoring.shared_records;
-  const {nflEvidenceFactors} = typeof module !== 'undefined' && module.exports
+  const {nflEvidenceFactors,nflRecordAssessment,nflMarketInteraction} = typeof module !== 'undefined' && module.exports
     ? require('../shared/nfl-pregame.js') : root.SportsRadarScoring.shared_nfl_pregame;
   const {parseLine} = typeof module !== 'undefined' && module.exports
     ? require('../shared/market.js') : root.SportsRadarScoring.shared_market;
@@ -230,6 +230,9 @@
           record =>
             record.pct > .5
         );
+      const recordAssessment=options.calibratedPregame && knownRecords ? nflRecordAssessment(competition,records) : null;
+      const winningRunway=recordAssessment ? Math.max(0,Math.min(1,(Math.min(...records.map(r=>r.pct))-.5)/.1)) : 1;
+      const winningWeight=winningRunway*winningRunway*(3-2*winningRunway);
 
       if (division) {
         factors.push({
@@ -240,7 +243,7 @@
         if (bothWinning && !marketKnown && !(options.calibratedPregame && competition.sportsRadarNflPregame)) {
           factors.push({
             label:'Division race between winning teams',
-            points:3
+            points:recordAssessment ? Number((3*recordAssessment.positive/14*winningWeight).toFixed(2)) : 3
           });
         }
 
@@ -248,7 +251,16 @@
           ` · ${division} rivals`;
       }
 
-      if (bothWinning) {
+      if(recordAssessment) {
+        if(recordAssessment.positive) factors.push({label:bothWinning?'Both winning records':'Winning team quality',points:recordAssessment.positive});
+        if(recordAssessment.penalty) factors.push({label:'Graduated losing-record penalty',points:recordAssessment.penalty,
+          recordSeverity:recordAssessment.severity,performanceRelief:recordAssessment.relief,
+          detail:`Records ${records.map(r=>`${r.wins}-${r.losses} (${Math.round(r.pct*100)}%)`).join(' and ')} set the deduction${recordAssessment.relief>0?'; season scoring margins soften it':''}`});
+        if(bothWinning && !marketKnown && Math.abs(records[0].pct-records[1].pct)<=.1) {
+          const points=Number((4*recordAssessment.positive/14*winningWeight).toFixed(2));
+          if(points)factors.push({label:'Evenly matched winning records',points});
+        }
+      } else if (bothWinning) {
         factors.push({
           label:'Both winning records',
           points:14
@@ -298,7 +310,7 @@
           record =>
             record.wins === 0 &&
             record.games >= 3
-        )
+        ) && !recordAssessment
       ) {
         factors.push({
           label:'Winless team',
@@ -327,7 +339,7 @@
         // Records retain prestige, but cannot override a wide market assessment.
         const retention = .5+.5*Math.max(0,Math.min(1,(21-spread)/14));
         for (const factor of factors.slice(factorStart)) {
-          if (['Both winning records','Both teams at least .500','Unbeaten team'].includes(factor.label)) factor.points=Number((factor.points*retention).toFixed(2));
+          if (['Both winning records','Both teams at least .500','Unbeaten team','Winning team quality'].includes(factor.label)) factor.points=Number((factor.points*retention).toFixed(2));
         }
         if (factors.slice(factorStart).some(factor=>factor.label==='Both teams below .500')) {
           const index=factors.findIndex((factor,i)=>i>=factorStart && factor.label==='Winless team');
@@ -351,15 +363,13 @@
         const evidence=nflEvidenceFactors(competition,records,division);
         factors.push(...evidence);
         if (evidence.some(f=>/Division lead|Division race/.test(f.label))) reason+=' · verified division positioning';
-        if (knownRecords && !bothWinning && records.filter(r=>r.pct>.5).length===1) {
-          const contender=records.find(r=>r.pct>.5);
-          const points=Math.min(2,Math.max(0,(contender.pct-.5)*12))*Math.min(1,contender.games/4);
-          if(points) factors.push({label:'Winning team quality',points:Number(points.toFixed(2))});
-        }
         const total=parseLine(competition?.odds?.[0],competition,'NFL')?.total;
         // Entertainment upside only: defensive matchups receive no low-total penalty.
         if (total>46 && total<=100) factors.push({label:'Expected scoring potential',
           points:Number(Math.min(5,(total-46)/2).toFixed(2)),detail:`Listed total ${total}; capped at five points`});
+        const interaction=nflMarketInteraction(spread,total);
+        if(interaction)factors.push({label:'Close-game scoring upside',points:interaction,
+          detail:`A ${spread}-point spread and ${total} total jointly add entertainment upside; capped at three points`});
       }
     }
 

@@ -7,7 +7,7 @@ const {LIVE_CFB_COMPETITION_POLICY:LIVE_POLICY} = require('../calibration/trajec
 const {prepareOpening,preservePregameBaseline} = require('./opening-transition.cjs');
 const {preserveLiveEvidence,historyFor,rememberHistory,currentManpower,validLedger}=require('./live-evidence.cjs');
 const PRODUCTION_POLICY = Object.freeze({...LIVE_POLICY,id:LIVE_POLICY.id+'-opening-transition',footballTransition:true,openingTransition:true});
-const MODEL_VERSION = '2026-11-01.nfl-pregame.1';
+const MODEL_VERSION = '2026-11-01.nfl-pregame.2';
 
 function retainSettledCfbPath(game,current,summary) {
   if (game.sport!=='CFB' || !summary || Number(current.status?.period)!==4) return;

@@ -10,12 +10,14 @@ import {normalizeEvent,applyContextsToGame} from '../alerts-worker/src/live-game
 import {nflPregameContext} from '../alerts-worker/src/nfl-pregame.js';
 import helper from '../test/helpers/nfl-pregame.cjs';
 import runtime from '../scoring/live-runtime.cjs';
+import {refinementData,refinementGames} from './nfl-refinement-report.mjs';
 const require=createRequire(import.meta.url);
 const {chromium}=require(path.join(os.homedir(),'.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright'));
-const deployed=process.argv.includes('--production'),dir='work/nfl-pregame';
+const refinement=process.argv.includes('--refinement');
+const deployed=process.argv.includes('--production'),dir=refinement?'work/nfl-refinement':'work/nfl-pregame';
 const worker='https://sports-radar-alerts.mmueller918.workers.dev',site='https://mmueller091.github.io/sports-radar/';
-const data=helper.fixture(),opposition=Object.values(data.summaries).flatMap(s=>s.standings?.groups || []).flatMap(g=>g.standings?.entries || []);
-const games=data.events.map(event=>{const g=normalizeEvent(structuredClone(event),'NFL');applyContextsToGame(g,nflPregameContext(g,data.summaries[g.id],g.teams.flatMap(t=>data.teamNews[t[8]]?.articles || []),opposition,Date.parse(data.capturedAt)));return g;});
+const data=refinement?refinementData():helper.fixture(),opposition=Object.values(data.summaries).flatMap(s=>s.standings?.groups || []).flatMap(g=>g.standings?.entries || []);
+const games=refinement?refinementGames(data):data.events.map(event=>{const g=normalizeEvent(structuredClone(event),'NFL');applyContextsToGame(g,nflPregameContext(g,data.summaries[g.id],g.teams.flatMap(t=>data.teamNews[t[8]]?.articles || []),opposition,Date.parse(data.capturedAt)));return g;});
 const revision=execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim();
 async function get(url){const r=await fetch(url,{cache:'no-store'});assert.ok(r.ok,`${r.status}: ${url}`);return r;}
 let feed;
@@ -57,6 +59,8 @@ try{for(const [label,width,height]of [['desktop',1440,1100],['mobile',390,844]])
     if(id==='401873025')assert.match(explanation,/NFC South lead/);
     if(id==='401873027')assert.match(explanation,/AFC North lead/);
     if(id==='401873024')assert.match(explanation,/Love/);
+    if(refinement && id==='401873026')assert.match(explanation,/jointly add/);
+    if(refinement && id==='401873025')assert.match(explanation,/Records .*%/);
     assert.doesNotMatch(await page.locator('#game-detail-content').textContent(),/uniforms: Jaguars/i);
     assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);
     await page.screenshot({path:`${dir}/${deployed?'production':'local'}-${label}-${id}.png`,fullPage:true,animations:'disabled'});

@@ -1,6 +1,7 @@
 import evidence from '../../scoring/shared/nfl-pregame.js';
 import {articleMetadata,articleMatchesGame,mergeFactors,affectedInjuryTeam} from './storylines.js';
 import {summaryUrl} from './providers/espn.js';
+import {nflReturnSignificance} from './nfl-return.js';
 
 export const NFL_CONTEXT_TTL=6*60*60*1000;
 export const nflTeamNewsUrl=id=>`https://site.api.espn.com/apis/site/v2/sports/football/nfl/news?team=${encodeURIComponent(id)}&limit=20`;
@@ -22,8 +23,15 @@ export function nflPregameContext(game,summary,news=[],opposition=[],now=Date.no
     if(currentSeason) articles.push({...preview,headline:`Season rematch: ${meeting[1]}`,description:'',story:undefined});
   }
   const metadata=articles.map(articleMetadata).filter(a=>articleMatchesGame(a,identity,now));
-  return mergeFactors(metadata.map((article,i)=>({id:String(i),eventId:String(game.id),sport:'NFL',article,game:identity,
-    affectedTeamId:affectedInjuryTeam(article,identity)})),[]).map(f=>({...f,verified:true}));
+  const factors=mergeFactors(metadata.map((article,i)=>({id:String(i),eventId:String(game.id),sport:'NFL',article,game:identity,
+    affectedTeamId:affectedInjuryTeam(article,identity)})),[]);
+  return factors.map(f=>{
+    if(f.type==='star_injury_return') {
+      const article=metadata.find(a=>a.url===f.sourceUrl),proof=article && nflReturnSignificance(article,preview,f.injuryEvidence?.importance);
+      if(proof)f.injuryEvidence={...f.injuryEvidence,playerSignificance:proof};
+    }
+    return {...f,verified:true};
+  });
 }
 
 // Consume existing resource rows in one read. Refreshes use the normal per-URL

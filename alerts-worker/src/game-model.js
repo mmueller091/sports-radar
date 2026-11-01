@@ -257,7 +257,9 @@ function preservePregameRecords(game,previousGame) {
 function applyContextsToGame(game,factors) {
   if (!game.sourceEvent || !game.sourceCompetition || !Array.isArray(factors)) return false;
   const valid = factors.filter(factor => factor?.verified !== false && Number(factor?.confidence) >= .7 && factor?.type && factor?.text);
-  const accepted = (game.sport==='NFL' ? [...new Map(valid.map(factor=>[factor.type,factor])).values()] : valid).slice(0,6);
+  const accepted = (game.sport==='NFL' ? [...valid.reduce((byType,factor)=>{
+    if(!byType.has(factor.type))byType.set(factor.type,factor);return byType;
+  },new Map()).values()] : valid).slice(0,6);
   game.sourceEvent.sportsRadarContextFactors = accepted.map(factor => ({
     type:factor.type,
     text:factor.text,

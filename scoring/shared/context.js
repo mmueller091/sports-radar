@@ -6,6 +6,8 @@
   const {footballPregameSpread} = typeof module !== 'undefined' && module.exports
     ? require('./market.js')
     : root.SportsRadarScoring.shared_market;
+  const {nflReturnPoints} = typeof module !== 'undefined' && module.exports
+    ? require('./nfl-pregame.js') : root.SportsRadarScoring.shared_nfl_pregame;
 
   function footballAbsencePoints(item,competition) {
     const evidence = item.injuryEvidence;
@@ -105,6 +107,7 @@
         ? footballAbsencePoints(item,competition)
         : CONTEXT_WEIGHTS[type];
       if (options.calibratedPregame && options.sport==='NFL' && points>0) points=Math.min(type==='rivalry'?2:4,points);
+      if(options.calibratedPregame && options.sport==='NFL' && type==='star_injury_return') points=nflReturnPoints(item,competition);
 
       if (
         !Number.isFinite(points)
@@ -117,7 +120,8 @@
 
         label:
           String(
-            (options.calibratedPregame && options.sport==='NFL' && type==='star_injury_return' ? 'Key player returns from injury' : '') || item?.label ||
+            (options.calibratedPregame && options.sport==='NFL' && type==='star_injury_return'
+              ? points===5?'Decorated starting quarterback returns':points===3?(item.injuryEvidence?.importance==='starting-quarterback'?'Starting quarterback returns':'Established star returns'):points===2?'Regular player returns':'Confirmed player return' : '') || item?.label ||
             CONTEXT_LABELS[type] ||
             type
           ).trim(),
@@ -133,6 +137,7 @@
 
         points,
         sourceUrl:item.sourceUrl,
+        returnSignificance:type==='star_injury_return' ? item.injuryEvidence?.playerSignificance : undefined,
 
         dedupeKey:
           options.calibratedPregame && options.sport==='NFL' &&
@@ -211,7 +216,8 @@
         points,
         contextType:item.type,
         contextText:item.text,
-        ...(item.sourceUrl ? {sourceUrl:item.sourceUrl} : {})
+        ...(item.sourceUrl ? {sourceUrl:item.sourceUrl} : {}),
+        ...(item.returnSignificance ? {returnSignificance:item.returnSignificance} : {})
       });
     }
 

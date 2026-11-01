@@ -67,7 +67,7 @@ test('NFL market competitiveness replaces duplicate record-evenness/race awards;
   assert.ok(game.factors.some(f=>f.label==='Both winning records'));
   assert.ok(game.factors.some(f=>f.label==='AFC North matchup'));
   const losing=rating(fixture('NFL',21,{records:['0-8','2-6']}));
-  assert.ok(losing.factors.some(f=>f.label==='Both teams below .500'));
+  assert.ok(losing.factors.some(f=>f.label==='Graduated losing-record penalty' && f.points>=-7 && f.points<0));
   assert.ok(!losing.factors.some(f=>f.label==='Winless team'));
   assert.ok(rating(fixture('NFL',21,{records:['8-0','6-2']})).score<rating(fixture('NFL',3,{records:['8-0','6-2']})).score-15);
 });
