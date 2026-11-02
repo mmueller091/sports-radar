@@ -44,6 +44,9 @@ export function applyContextsToGame(game,factors) {
   return changed;
 }
 export function enrichGame(game,summary,previousGame=null) {
+  if(game.state==='completed' && summary?.header?.competitions?.[0]?.status?.type?.state==='pre'){
+    game.scoringPartial=true;game.summaryLifecycleRejected=true;return;
+  }
   // Completed ratings read provider progression, never recorded rating history.
   // An impossible ledger must not earn retrospective competitiveness bonuses.
   const scoring=summary?.scoringPlays?.length?summary.scoringPlays:(summary?.plays||[]).filter(p=>p.scoringPlay);

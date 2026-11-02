@@ -12,6 +12,13 @@ The provider identifier for men's college basketball is NCAAB.
 reported clocks, including their original model versions and normalized state.
 Evidence caches were already excluded by production persistence.
 
+The additional `NFL-401873033-final.json.gz` and
+`NFL-401873033-prematch.json.gz` resources capture the production-verified
+completed-to-prematch provider reversion found during deployment checks.
+The final resource came from Game Center (whose header is canonicalized);
+the prematch resource is the exact cached provider payload read from D1.
+Neither includes private subscription data.
+
 `before-runtime.cjs.gz` is the esbuild CommonJS bundle of
 `scripts/finish-audit-entry.mjs` at production commit
 `359d2b8b65dd03e812a7ee8295eb69b5364c3e77`.

@@ -1,7 +1,7 @@
 # Production integrity audit — November 1, 2026
 
 Baseline: production commit `359d2b8b65dd03e812a7ee8295eb69b5364c3e77`.
-Release model: `2026-11-01.production-integrity.1`.
+Release model: `2026-11-01.production-integrity.2`.
 The implementation was isolated from the original workspace's pre-existing edits.
 
 ## Findings and focused changes
@@ -29,6 +29,17 @@ The implementation was isolated from the original workspace's pre-existing edits
   from final history bonuses. Existing live history is not deleted or
   re-rated: incomplete observations and clock/model boundaries are marked,
   and incomparable segments are not drawn as measured excitement changes.
+- **Additional production finding:** Release verification captured Chiefs
+  final ratings alternating 75/38 both before and after the initial fix.
+  The cached ESPN resource intermittently reverted to explicit prematch
+  status, omitting scores and scoring plays. The old ingestion path treated
+  that response as current and lost the completed-game history bonuses.
+  The follow-up rejects prematch summaries after a game has started before
+  replacing a valid resource. It preserves the old resource's acquisition
+  time and marks degraded freshness. Already-poisoned cache entries are
+  ineligible against the current scoreboard, and incomplete final ratings
+  are excluded from snapshot persistence. Real final score corrections and
+  final-to-live overtime corrections remain permitted.
 - **Live to final:** Celtics +58 and Notre Dame +47 were changes from live
   watchability to retrospective whole-game scoring. Final ratings keep the
   intended methodology and appear as separate assessments, without spike
@@ -77,7 +88,8 @@ two-possession game remains a subjective calibration question.
 
 ## Validation
 
-- Full Node suite: **931 passed, zero failed/cancelled**.
+- Final full Node suite: **934 passed, zero failed/cancelled**, including
+  three integration regressions for the provider lifecycle reversion.
 - `node test-score.js`, calibration report, production site build and Worker
   dry run passed. No scoring weights or experimental-feature switches changed.
 - NFL, CFB, NHL, NBA and NCAAM coverage includes score corrections, possession

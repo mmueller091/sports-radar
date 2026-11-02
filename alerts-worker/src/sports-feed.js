@@ -122,25 +122,38 @@ async function refreshReader(env,now,budget) {
   };
 }
 
-async function providerJson(env,url,ttl,now,errors,budget) {
+// A played game's summary can temporarily revert to its prematch resource.
+// Keep the last played resource; final-to-live corrections remain admissible.
+function prematchRegression(payload,competition) {
+  const incoming=payload?.header?.competitions?.[0]?.status?.type?.state;
+  const prior=competition?.status?.type?.state;
+  return incoming==='pre' && (prior==='in' || prior==='post');
+}
+
+async function providerJson(env,url,ttl,now,errors,budget,expectedCompetition=null) {
   budget?.check();
   const read = () => env.DB.prepare('SELECT payload,updated_at FROM sports_resources WHERE key=?').bind(url).first();
   const unpack = row => ({payload:JSON.parse(row.payload),updatedAt:row.updated_at});
   let row = await read();
-  if (row && now-row.updated_at < ttl) return unpack(row);
+  const usable=row=>row && !prematchRegression(JSON.parse(row.payload),expectedCompetition);
+  if (usable(row) && now-row.updated_at < ttl) return unpack(row);
   const owner = await acquire(env,url,now,15000);
   if (!owner) {
     errors.push(url);
     row = await read();
-    if (row) return unpack(row);
+    if (usable(row)) return unpack(row);
     throw new Error('Source refresh in progress');
   }
   try {
     // Another owner may have committed between our first read and acquisition.
     row = await read();
-    if (row && now-row.updated_at < ttl) return unpack(row);
+    if (usable(row) && now-row.updated_at < ttl) return unpack(row);
     const payload = await fetchSourceJson(url,ttl,budget);
     budget?.check();
+    if (prematchRegression(payload,expectedCompetition) ||
+        row && prematchRegression(payload,JSON.parse(row.payload)?.header?.competitions?.[0])) {
+      throw new Error('Summary reverted to prematch state');
+    }
     // Atomic owner fencing plus monotonic versions: an expired owner cannot write
     // after a successor, even if its provider request eventually completes.
     await env.DB.prepare(`INSERT INTO sports_resources (key,payload,updated_at)
@@ -156,7 +169,7 @@ async function providerJson(env,url,ttl,now,errors,budget) {
     errors.push(url);
     budget?.check();
     row = await read();
-    if (row) return unpack(row);
+    if (usable(row)) return unpack(row);
     throw error;
   } finally { await release(env,url,owner); }
 }
@@ -1926,7 +1939,7 @@ export async function gameDetails(env,sport,id,now=Date.now()) {
   const errors = [];
   const url = summaryUrl(game);
   let resource;
-  try { resource=await providerJson(env,url,game.state==='live' ? LIVE_REFRESH_MS : 55000,now,errors); }
+  try { resource=await providerJson(env,url,game.state==='live' ? LIVE_REFRESH_MS : 55000,now,errors,null,{status:game.liveRawStatus}); }
   catch (error) {
     if (!archived) throw error;
     return {sportsRadarGame:game,sportsRadarArchived:true,sportsRadarFreshness:{stale:true,updatedAt:null,receivedAt:new Date(now).toISOString()}};
@@ -2082,14 +2095,14 @@ export async function refreshSportsData(env,now=Date.now(),options={}) {
         await Promise.all(entries.slice(start,start+6).map(async ({game,key,input,url,prior})=>{
           const detailErrors=[];
           try {
-            const resource=await providerJson(env,url,game.state==='live'?LIVE_REFRESH_MS:55000,now,detailErrors,budget);
+            const resource=await providerJson(env,url,game.state==='live'?LIVE_REFRESH_MS:55000,now,detailErrors,budget,game.sourceCompetition);
             budget.check();
             enrichGame(game,resource.payload,prior);
             game.detailStale=detailErrors.length>0;
             // Failed acquisitions are retried, not certified as reusable inputs.
             if (!detailErrors.length) enrichment[key]={input,model:MODEL_VERSION,
               summaryHash:await fingerprint(resource.payload),summaryVersion:resource.updatedAt};
-          } catch { runtime.applyLiveSnapshot(game,game.sourceCompetition,null);game.detailStale=true;detailErrors.push(url); }
+          } catch { runtime.applyLiveSnapshot(game,game.sourceCompetition,null);game.detailStale=true;if(game.state==='completed')game.scoringPartial=true;detailErrors.push(url); }
           errors.push(...detailErrors);
         }));
       }
@@ -2121,6 +2134,7 @@ export async function refreshSportsData(env,now=Date.now(),options={}) {
             metrics.cachedSummaryReads++;
             const cached=await resources.cached(url);
             if (!cached) {critical.push({game,key,input,url,prior});return;}
+            if (prematchRegression(cached.payload,game.sourceCompetition)) {critical.push({game,key,input,url,prior});return;}
             const summaryHash=await fingerprint(cached.payload);
             if (summaryHash===meta.summaryHash) copyPrior(game,prior);
             else {enrichGame(game,cached.payload,prior);metrics.cachedEnrichments++;}

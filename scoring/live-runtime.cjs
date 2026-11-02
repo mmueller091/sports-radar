@@ -15,7 +15,7 @@ const footballMarket=require('./football-market.cjs');
 const integrity=require('./snapshot-integrity.cjs');
 const gameFacts=require('./game-facts.cjs');
 const PRODUCTION_POLICY = Object.freeze({...LIVE_POLICY,id:LIVE_POLICY.id+'-opening-transition',footballTransition:true,openingTransition:true});
-const MODEL_VERSION = '2026-11-01.production-integrity.1';
+const MODEL_VERSION = '2026-11-01.production-integrity.2';
 
 function retainSettledCfbPath(game,current,summary) {
   if (game.sport!=='CFB' || !summary || Number(current.status?.period)!==4) return;

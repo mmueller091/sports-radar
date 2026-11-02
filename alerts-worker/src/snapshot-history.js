@@ -170,6 +170,7 @@ export function shouldSnapshot(game,history,now,modelVersion) {
   if (game.state==='live') return !game.liveUpdateRejected && !game.basketballUpdateRejected;
   if (game.state==='upcoming') return !history.upcoming.has(key);
   if (game.state!=='completed') return false;
+  if (game.scoringPartial || game.summaryLifecycleRejected) return false;
   const prior = history.completed.get(key);
   if (!prior) return true;
   // Corrections remain eligible throughout retention; at most one final per minute.
