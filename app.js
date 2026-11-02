@@ -356,6 +356,11 @@ function teamLogoUrl(sport, abbreviation) {
   return `https://a.espncdn.com/i/teamlogos/${league}/500/${String(abbreviation).toLowerCase()}.png`;
 }
 
+function teamLogoWithFallback(logo, abbreviation, imageClass = '', loading = 'lazy') {
+  const label = String(abbreviation || '?').replace(/[^A-Za-z0-9]/g,'').slice(0,3).toUpperCase() || '?';
+  return `${logo ? `<img${imageClass ? ` class="${imageClass}"` : ''} src="${safeText(logo)}" alt="" loading="${loading}" onload="this.nextElementSibling.hidden=true" onerror="this.hidden=true;this.nextElementSibling.hidden=false">` : ''}<span class="team-logo-fallback" aria-hidden="true"${logo ? ' hidden' : ''}>${safeText(label)}</span>`;
+}
+
 function summaryUrlFor(sport,eventId) {
   return `${String(globalThis.SPORTS_RADAR_ALERTS_URL || '').replace(/\/$/,'')}/game/${encodeURIComponent(sport)}/${encodeURIComponent(eventId)}`;
 }
@@ -655,6 +660,7 @@ function liveRefreshDelay(hasLiveGames,isHidden) {
 let liveRefreshTimer = null;
 let liveRefreshInFlight = false;
 let feedHasLiveGames = false;
+let recentLiveChanges = new Map();
 
 function scheduleLiveRefresh() {
   clearTimeout(liveRefreshTimer);
@@ -679,7 +685,17 @@ async function loadLiveGames() {
     if (!Array.isArray(feed.games) || !Number.isFinite(Date.parse(feed.updatedAt))) throw new Error('Invalid feed');
     if (globalThis.SportsRadarScore.MODEL_VERSION && (feed.modelVersion !== globalThis.SportsRadarScore.MODEL_VERSION || feed.games.some(game => game.state === 'live' && game.modelVersion !== feed.modelVersion))) throw new Error('Scoring model update pending');
     if (state.updatedAt && Date.parse(feed.updatedAt) < Date.parse(state.updatedAt)) return;
+    const previous = new Map(games.map(game => [`${game.sport}:${game.id}`,game]));
     games = canonicalFeedGames(feed.games);
+    recentLiveChanges = new Map();
+    for (const game of games) {
+      if (game.state !== 'live') continue;
+      const before = previous.get(`${game.sport}:${game.id}`);
+      if (!before || before.state !== 'live') continue;
+      const scoreChanged = game.teams?.some((team,index) => String(team?.[2]) !== String(before.teams?.[index]?.[2]));
+      const ratingChanged = Number(game.score) !== Number(before.score);
+      if (scoreChanged || ratingChanged) recentLiveChanges.set(`${game.sport}:${game.id}`,{scoreChanged,ratingChanged,previousScore:before.score});
+    }
     feedHasLiveGames = games.some(game => game.state === 'live');
     state.source = 'live';
     games.forEach(recordRatingSnapshot);
@@ -700,17 +716,26 @@ async function loadLiveGames() {
 }
 
 function updateDataStatus() {
+  const updated = $('#data-last-updated');
   if (state.source !== 'live') {
     $('#data-status-label').textContent = state.source === 'loading'
       ? 'Connecting to live scoreboards…'
       : 'Live scores unavailable. Retry to reconnect.';
     $('#footer-status').textContent = state.source === 'loading' ? 'Loading feed' : 'Feed unavailable';
+    if (updated) updated.hidden = true;
     return;
   }
   const stale = state.feedStale || Date.now() - Date.parse(state.updatedAt) > 120000;
   $('#data-status-label').textContent =
     stale ? 'Stale scores' : 'Live scores';
   $('#footer-status').textContent = stale ? 'Stale feed' : 'Live feed';
+  if (updated) {
+    const at = new Date(state.updatedAt);
+    updated.hidden = false;
+    updated.dateTime = at.toISOString();
+    updated.textContent = `${stale ? 'Last update' : 'Updated'} ${at.toLocaleTimeString([],{hour:'numeric',minute:'2-digit'})}`;
+    updated.title = at.toLocaleString();
+  }
 }
 setInterval(updateDataStatus,15000);
 
@@ -760,9 +785,7 @@ function renderFavoriteTags() {
       ? state.favoriteTeams.map(
           (team,index) =>
             `<span class="favorite-tag">${
-              team.logo
-                ? `<img src="${safeText(team.logo)}" alt="" loading="lazy" onerror="this.style.display='none'">`
-                : `<span aria-hidden="true">${safeText(iconFor(team.sport))}</span>`
+              teamLogoWithFallback(team.logo,team.abbreviation || team.name)
             }<span class="favorite-tag-name">${safeText(team.name)}</span><button type="button" data-remove-favorite="${index}" aria-label="Remove ${safeText(team.name)} from favorites">×</button></span>`
         ).join('')
       : '<p class="favorite-empty">No favorites selected. Add a team below.</p>';
@@ -1463,6 +1486,27 @@ function teamScheduleView(row,team) {
   };
 }
 
+// The upper range follows the original 215 - score * 2.15 interpolation.
+// The low range bends toward blue/cyan so sub-50 ratings remain cool.
+function scoreHueFor(score) {
+  const value = Number(score);
+  const normalized = Number.isFinite(value) ? Math.min(100,Math.max(0,value)) : 50;
+  if (normalized >= 70) return Math.round(215 - normalized * 2.15);
+  const anchors = [[0,215],[35,190],[49,150],[60,110],[69,68],[70,65]];
+  for (let index=1; index<anchors.length; index++) {
+    const [endScore,endHue] = anchors[index];
+    const [startScore,startHue] = anchors[index-1];
+    if (normalized <= endScore) {
+      return Math.round(startHue + (endHue-startHue) * (normalized-startScore) / (endScore-startScore));
+    }
+  }
+  return 65;
+}
+
+function scoreHeatClass(score) {
+  return score >= 95 ? 'extreme' : score >= 90 ? 'very-hot' : score >= 85 ? 'hot' : score >= 70 ? 'warm' : '';
+}
+
 function teamSignalStyle(score) {
   const value = Number(score);
 
@@ -1473,30 +1517,13 @@ function teamSignalStyle(score) {
     };
   }
 
-  const normalized =
-    Math.min(
-      100,
-      Math.max(0,value)
-    );
-
-  const hue =
-    Math.round(
-      215 -
-      normalized * 2.15
-    );
-
   return {
-    className:
-      value >= 85
-        ? 'hot'
-        : value >= 70
-          ? 'warm'
-          : '',
-    style:`--score-hue:${hue};`
+    className:scoreHeatClass(value),
+    style:`--score-hue:${scoreHueFor(value)};`
   };
 }
 
-function teamSignalMarkup(score,label='Signal') {
+function teamSignalMarkup(score,label='Excitement') {
   const value = Number(score);
 
   if (!Number.isFinite(value)) {
@@ -1772,7 +1799,7 @@ function teamSpotlightMarkup(title,entry,team) {
     ? ` type="button" data-opponent-id="${safeText(opponent.id)}" data-opponent-name="${safeText(opponent.name || '')}" data-opponent-abbreviation="${safeText(opponent.abbreviation || '')}" data-opponent-logo="${safeText(opponentLogo)}" aria-label="Open ${safeText(opponent.name || 'opponent')} team page"` : '';
   const gameTarget = canonical
     ? `<button type="button" class="spotlight-open-target" data-team-game="${safeText(canonical.id)}" data-team-sport="${safeText(canonical.sport)}" aria-label="Open game details"></button>` : '';
-  return `<div class="team-spotlight-card ${canonical ? 'is-clickable' : ''}">${gameTarget}<span class="team-spotlight-label">${safeText(live ? 'Live Now' : title)}</span><${opponentTag} class="team-spotlight-matchup"${opponentAttrs}>${opponentLogo ? `<img src="${safeText(opponentLogo)}" alt="" loading="lazy" onerror="this.style.display='none'">` : ''}<span><small>${safeText(matchupPrefix)}</small><strong>${safeText(opponent.name || opponent.abbreviation || 'Opponent')}</strong></span></${opponentTag}><span class="team-spotlight-result"><strong>${safeText(scoreLine || 'TBD')}</strong>${meta ? `<small>${safeText(meta)}</small>` : ''}</span>${teamSignalMarkup(entry.signal,live ? 'Live Signal' : 'Signal')}</div>`;
+  return `<div class="team-spotlight-card ${canonical ? 'is-clickable' : ''}">${gameTarget}<span class="team-spotlight-label">${safeText(live ? 'Live Now' : title)}</span><${opponentTag} class="team-spotlight-matchup"${opponentAttrs}>${teamLogoWithFallback(opponentLogo,opponent.abbreviation || opponent.name)}<span><small>${safeText(matchupPrefix)}</small><strong>${safeText(opponent.name || opponent.abbreviation || 'Opponent')}</strong></span></${opponentTag}><span class="team-spotlight-result"><strong>${safeText(scoreLine || 'TBD')}</strong>${meta ? `<small>${safeText(meta)}</small>` : ''}</span>${teamSignalMarkup(entry.signal,live ? 'Live Excitement' : 'Excitement')}</div>`;
 }
 
 function teamLeaderMarkup(leaders) {
@@ -1851,7 +1878,7 @@ function teamScheduleRowMarkup(row,team) {
   const opponentTag = opponent.id ? 'button' : 'span';
   const opponentAttrs = opponent.id
     ? ` type="button" data-opponent-id="${safeText(opponent.id)}" data-opponent-name="${safeText(opponent.name || '')}" data-opponent-abbreviation="${safeText(opponent.abbreviation || '')}" data-opponent-logo="${safeText(logo)}" aria-label="Open ${safeText(opponent.name || 'opponent')} team page"` : '';
-  return `<div class="team-schedule-row"><span class="team-schedule-date"><b>${safeText(date ? date.toLocaleDateString([],{month:'short',day:'numeric'}) : 'TBD')}</b><small>${safeText(date ? date.toLocaleDateString([],{weekday:'short'}) : '')}</small></span><${opponentTag} class="team-schedule-opponent"${opponentAttrs}>${logo ? `<img src="${safeText(logo)}" alt="" loading="lazy" onerror="this.style.display='none'">` : ''}<span><small>${safeText(prefix)}</small><strong>${safeText(opponent.name || opponent.abbreviation || 'Opponent')}</strong>${details ? `<span>${safeText(details)}</span>` : ''}</span></${opponentTag}>${teamScheduleResultMarkup(view)}</div>`;
+  return `<div class="team-schedule-row"><span class="team-schedule-date"><b>${safeText(date ? date.toLocaleDateString([],{month:'short',day:'numeric'}) : 'TBD')}</b><small>${safeText(date ? date.toLocaleDateString([],{weekday:'short'}) : '')}</small></span><${opponentTag} class="team-schedule-opponent"${opponentAttrs}>${teamLogoWithFallback(logo,opponent.abbreviation || opponent.name)}<span><small>${safeText(prefix)}</small><strong>${safeText(opponent.name || opponent.abbreviation || 'Opponent')}</strong>${details ? `<span>${safeText(details)}</span>` : ''}</span></${opponentTag}>${teamScheduleResultMarkup(view)}</div>`;
 }
 
 function teamScheduleMarkup(schedule,team) {
@@ -1919,7 +1946,7 @@ function teamStandingRowMarkup(row,team) {
     ? ` type="button" data-standing-team="${safeText(row.id)}" data-standing-name="${safeText(row.name || '')}" data-standing-abbreviation="${safeText(row.abbreviation || '')}" data-standing-logo="${safeText(row.logo || '')}"`
     : '';
 
-  return `<${tag} class="team-standing-row ${current ? 'current' : ''} ${clickable ? 'is-clickable' : ''} ${divisionQualifier ? 'division-qualifier' : ''} ${divisionCutoff ? 'division-cutoff' : ''}"${attrs}><span class="team-standing-rank">${safeText(row.rank || '—')}</span><span class="team-standing-team">${row.logo ? `<img src="${safeText(row.logo)}" alt="" loading="lazy" onerror="this.style.display='none'">` : ''}<span><strong>${safeText(row.name || row.abbreviation || 'Team')}</strong>${row.streak ? `<small>${safeText(row.streak)}</small>` : ''}</span></span><span class="team-standing-record"><strong>${safeText(row.record || '—')}</strong><small>Record</small></span><span class="team-standing-extra"><strong>${safeText(extra.value)}</strong><small>${safeText(extra.label)}</small></span></${tag}>`;
+  return `<${tag} class="team-standing-row ${current ? 'current' : ''} ${clickable ? 'is-clickable' : ''} ${divisionQualifier ? 'division-qualifier' : ''} ${divisionCutoff ? 'division-cutoff' : ''}"${attrs}><span class="team-standing-rank">${safeText(row.rank || '—')}</span><span class="team-standing-team">${teamLogoWithFallback(row.logo,row.abbreviation || row.name)}<span><strong>${safeText(row.name || row.abbreviation || 'Team')}</strong>${row.streak ? `<small>${safeText(row.streak)}</small>` : ''}</span></span><span class="team-standing-record"><strong>${safeText(row.record || '—')}</strong><small>Record</small></span><span class="team-standing-extra"><strong>${safeText(extra.value)}</strong><small>${safeText(extra.label)}</small></span></${tag}>`;
 }
 
 function teamPlayoffStatus(row,cutoff) {
@@ -1941,7 +1968,7 @@ function teamPlayoffRowMarkup(row,team,field) {
     ? ` type="button" data-standing-team="${safeText(row.id)}" data-standing-name="${safeText(row.name || '')}" data-standing-abbreviation="${safeText(row.abbreviation || '')}" data-standing-logo="${safeText(row.logo || '')}"`
     : '';
 
-  return `<${tag} class="team-playoff-row ${current ? 'current' : ''} ${inField ? 'in-field' : 'out-field'} ${clickable ? 'is-clickable' : ''}"${attrs}><span class="team-playoff-seed">${safeText(Number.isFinite(seed) ? seed : '—')}</span><span class="team-standing-team">${row.logo ? `<img src="${safeText(row.logo)}" alt="" loading="lazy" onerror="this.style.display='none'">` : ''}<span><strong>${safeText(row.name || row.abbreviation || 'Team')}</strong><small>${safeText(row.divisionName || '')}</small></span></span><span class="team-standing-record"><strong>${safeText(row.record || '—')}</strong><small>Record</small></span><span class="team-playoff-status">${safeText(teamPlayoffStatus(row,field.cutoff || 7))}</span></${tag}>`;
+  return `<${tag} class="team-playoff-row ${current ? 'current' : ''} ${inField ? 'in-field' : 'out-field'} ${clickable ? 'is-clickable' : ''}"${attrs}><span class="team-playoff-seed">${safeText(Number.isFinite(seed) ? seed : '—')}</span><span class="team-standing-team">${teamLogoWithFallback(row.logo,row.abbreviation || row.name)}<span><strong>${safeText(row.name || row.abbreviation || 'Team')}</strong><small>${safeText(row.divisionName || '')}</small></span></span><span class="team-standing-record"><strong>${safeText(row.record || '—')}</strong><small>Record</small></span><span class="team-playoff-status">${safeText(teamPlayoffStatus(row,field.cutoff || 7))}</span></${tag}>`;
 }
 
 function teamPlayoffFieldMarkup(standings,team) {
@@ -1984,7 +2011,7 @@ function teamNhlWildCardRowMarkup(row,team) {
     ? ` type="button" data-standing-team="${safeText(row.id)}" data-standing-name="${safeText(row.name || '')}" data-standing-abbreviation="${safeText(row.abbreviation || '')}" data-standing-logo="${safeText(row.logo || '')}"`
     : '';
 
-  return `<${tag} class="team-playoff-row nhl-wild-card ${current ? 'current' : ''} ${row.wildCardSlot ? 'in-field' : 'out-field'} ${clickable ? 'is-clickable' : ''}"${attrs}><span class="team-playoff-seed">${safeText(slot)}</span><span class="team-standing-team">${row.logo ? `<img src="${safeText(row.logo)}" alt="" loading="lazy" onerror="this.style.display='none'">` : ''}<span><strong>${safeText(row.name || row.abbreviation || 'Team')}</strong><small>${safeText(String(row.divisionName || '').replace(/ Division$/i,''))}</small></span></span><span class="team-standing-record"><strong>${safeText(row.points || '—')}</strong><small>PTS</small></span><span class="team-playoff-status">${safeText(status)}</span></${tag}>`;
+  return `<${tag} class="team-playoff-row nhl-wild-card ${current ? 'current' : ''} ${row.wildCardSlot ? 'in-field' : 'out-field'} ${clickable ? 'is-clickable' : ''}"${attrs}><span class="team-playoff-seed">${safeText(slot)}</span><span class="team-standing-team">${teamLogoWithFallback(row.logo,row.abbreviation || row.name)}<span><strong>${safeText(row.name || row.abbreviation || 'Team')}</strong><small>${safeText(String(row.divisionName || '').replace(/ Division$/i,''))}</small></span></span><span class="team-standing-record"><strong>${safeText(row.points || '—')}</strong><small>PTS</small></span><span class="team-playoff-status">${safeText(status)}</span></${tag}>`;
 }
 
 function teamNhlPlayoffMarkup(standings,team) {
@@ -2057,7 +2084,7 @@ function teamOverviewMarkup(team,data) {
       data
     );
 
-  return `<div class="team-overview"><section class="team-spotlights"><div class="team-section-heading"><div><span class="eyebrow">SPORTS RADAR</span><h2>Last & Next</h2></div></div><div class="team-spotlight-grid">${teamSpotlightMarkup('Last Game',spotlights.last,team)}${teamSpotlightMarkup('Next Game',spotlights.next,team)}</div></section>${teamLeaderMarkup(data?.leaders || [])}</div>`;
+  return `<div class="team-overview"><section class="team-spotlights"><div class="team-section-heading"><div><span class="eyebrow">SLATEMETER</span><h2>Last & Next</h2></div></div><div class="team-spotlight-grid">${teamSpotlightMarkup('Last Game',spotlights.last,team)}${teamSpotlightMarkup('Next Game',spotlights.next,team)}</div></section>${teamLeaderMarkup(data?.leaders || [])}</div>`;
 }
 
 function renderTeamPage() {
@@ -2092,7 +2119,7 @@ function renderTeamPage() {
       teamPageErrors.has(key);
 
     panel.innerHTML =
-      `<button type="button" class="team-back-button" data-team-back>← Back</button><div class="team-page-state"><span class="eyebrow">${safeText(labelForSport(route.sport))}</span><h1>${failed ? 'Team data unavailable' : catalogReady ? 'Loading team…' : 'Loading team…'}</h1><p>${failed ? 'The team page could not be loaded. Return to Radar and try again.' : 'Loading the team profile, season leaders, and full schedule.'}</p></div>`;
+      `<button type="button" class="team-back-button" data-team-back>← Back</button><div class="team-page-state"><span class="eyebrow">${safeText(labelForSport(route.sport))}</span><h1>${failed ? 'Team data unavailable' : catalogReady ? 'Loading team…' : 'Loading team…'}</h1><p>${failed ? 'The team page could not be loaded. Return to Slate and try again.' : 'Loading the team profile, season leaders, and full schedule.'}</p></div>`;
 
     document.title =
       'Team | SlateMeter';
@@ -2153,7 +2180,7 @@ function renderTeamPage() {
     data
       ? ''
       : teamPageErrors.has(key)
-        ? `<div class="team-data-warning">Team profile data is temporarily unavailable. Live Radar data is still available.</div>`
+        ? `<div class="team-data-warning">Team profile data is temporarily unavailable. Live scores are still available.</div>`
         : `<div class="team-data-loading">Loading season leaders and full schedule…</div>`;
 
   const content =
@@ -2170,7 +2197,7 @@ function renderTeamPage() {
           );
 
   panel.innerHTML =
-    `<button type="button" class="team-back-button" data-team-back>← Back</button><section class="team-hero"><div class="team-hero-logo">${logo ? `<img src="${safeText(logo)}" alt="" loading="eager" onerror="this.style.display='none'">` : `<span aria-hidden="true">${safeText(iconFor(team.sport))}</span>`}</div><div class="team-hero-copy"><span class="eyebrow">${safeText(labelForSport(team.sport))}${abbreviation ? ` · ${safeText(abbreviation)}` : ''}</span><h1>${safeText(identity.name || team.name)}</h1><div class="team-hero-meta">${record ? `<span><strong>${safeText(record)}</strong><small>Record</small></span>` : ''}${heroStandings}</div>${secondaryMeta ? `<p>${safeText(secondaryMeta)}</p>` : ''}</div><button type="button" class="team-favorite-button ${favorite ? 'active' : ''}" data-team-favorite aria-pressed="${favorite}">${favorite ? '★ Favorite' : '☆ Add favorite'}</button></section>${teamTabsMarkup()}${dataState}<div class="team-tab-content">${content}</div>`;
+    `<button type="button" class="team-back-button" data-team-back>← Back</button><section class="team-hero"><div class="team-hero-logo">${teamLogoWithFallback(logo,abbreviation || team.name,'','eager')}</div><div class="team-hero-copy"><span class="eyebrow">${safeText(labelForSport(team.sport))}${abbreviation ? ` · ${safeText(abbreviation)}` : ''}</span><h1>${safeText(identity.name || team.name)}</h1><div class="team-hero-meta">${record ? `<span><strong>${safeText(record)}</strong><small>Record</small></span>` : ''}${heroStandings}</div>${secondaryMeta ? `<p>${safeText(secondaryMeta)}</p>` : ''}</div><button type="button" class="team-favorite-button ${favorite ? 'active' : ''}" data-team-favorite aria-pressed="${favorite}">${favorite ? '★ Favorite' : '☆ Add favorite'}</button></section>${teamTabsMarkup()}${dataState}<div class="team-tab-content">${content}</div>`;
 
   document.title =
     `${identity.name || team.name} | SlateMeter`;
@@ -2327,7 +2354,7 @@ function renderGlobalSearch() {
         .slice(0,6);
 
     meta.textContent =
-      'Search every game in the current feed, regardless of your active Radar filters.';
+      'Search every game in the current feed, regardless of your active filters.';
 
     results.innerHTML =
       topGames.length
@@ -2380,7 +2407,7 @@ function renderGlobalSearch() {
             normalizeGlobalSearch(item?.[0]) === normalizeGlobalSearch(team.name)
           )?.[4] || '';
 
-          return `<button type="button" class="search-result search-team-result" data-search-team="${index}"><span class="search-result-leading search-team-logo">${logo ? `<img src="${safeText(logo)}" alt="" loading="lazy" onerror="this.style.display='none'">` : `<span aria-hidden="true">${safeText(iconFor(team.sport))}</span>`}</span><span class="search-result-copy"><strong>${safeText(team.name)}</strong><span>${safeText(labelForSport(team.sport))} · ${currentGames.length ? `${currentGames.length} game${currentGames.length === 1 ? '' : 's'} in current feed` : 'No game in current feed'}</span></span><span class="search-result-arrow" aria-hidden="true">›</span></button>`;
+          return `<button type="button" class="search-result search-team-result" data-search-team="${index}"><span class="search-result-leading search-team-logo">${teamLogoWithFallback(logo,team.abbreviation || team.name)}</span><span class="search-result-copy"><strong>${safeText(team.name)}</strong><span>${safeText(labelForSport(team.sport))} · ${currentGames.length ? `${currentGames.length} game${currentGames.length === 1 ? '' : 's'} in current feed` : 'No game in current feed'}</span></span><span class="search-result-arrow" aria-hidden="true">›</span></button>`;
         }).join('')}</div></section>`
       : '';
 
@@ -2388,10 +2415,7 @@ function renderGlobalSearch() {
     gameMatches.length +
     visibleGlobalSearchTeams.length;
 
-  meta.textContent =
-    total
-      ? `${total} result${total === 1 ? '' : 's'} for “${raw.trim()}”`
-      : `No results for “${raw.trim()}”`;
+  meta.textContent = total ? `${total} result${total === 1 ? '' : 's'} for “${raw.trim()}”` : '';
 
   results.innerHTML =
     gameSection || teamSection
@@ -2457,9 +2481,7 @@ function renderFavoriteResults() {
             ? 'disabled'
             : ''
         }>${
-          team.logo
-            ? `<img src="${safeText(team.logo)}" alt="" loading="lazy" onerror="this.style.display='none'">`
-            : `<span aria-hidden="true">${safeText(iconFor(sport))}</span>`
+          teamLogoWithFallback(team.logo,team.abbreviation || team.name)
         }<span>${safeText(team.name)}${
           state.favoriteTeams.some(
             item =>
@@ -2555,11 +2577,11 @@ function teamMarkup(game, team, cardTeamIndex = null) {
       team[1]
     );
 
-  const image = `<img class="team-logo" src="${safeText(logo)}" alt="" loading="lazy" onerror="this.style.display='none'">`;
+  const image = teamLogoWithFallback(logo,team[1] || team[0],'team-logo');
   const canOpen = cardTeamIndex !== null && ['NFL','MLB','NHL','CFB','NBA','NCAAB','Soccer'].includes(game.sport) && team[8];
   const logoMarkup = canOpen
     ? `<button type="button" class="card-team-link" data-card-team-index="${cardTeamIndex}" aria-label="Open ${safeText(team[0])} team page">${image}</button>`
-    : image;
+    : `<span class="team-logo-shell">${image}</span>`;
   return `<span class="team-name">${logoMarkup}${
     team[6]
       ? `<b class="team-rank">#${safeText(team[6])}</b>`
@@ -2572,12 +2594,8 @@ function teamMarkup(game, team, cardTeamIndex = null) {
 }
 
 function explainRating(game,summary=null) {
-  const evidenceNote=game.enrichmentPending || game.summaryValidationPending
-    ? 'Additional game details are still loading; this rating is provisional.'
-    : game.state!=='live' ? '' : game.manpowerQuality?.state==='conflict'
-    ? 'Provider manpower reports conflict; the advantage is unconfirmed.'
-    : game.tennisCoverage?.reason || (game.scoringPartial
-      ? 'Some game history is still catching up; this rating uses the available evidence.' : '');
+  // Keep feed and evidence diagnostics out of the public game explanation.
+  const evidenceNote='';
   const scoresKnown=game.teams?.length===2&&game.teams.every(t=>t[2]!=null&&String(t[2]).trim()!==''&&Number.isFinite(Number(t[2])));
   const footballExplanation=scoresKnown?globalThis.SportsRadarScore?.footballLiveExplanation?.(game):'';
   if (footballExplanation) return [footballExplanation,evidenceNote].filter(Boolean).join(' ');
@@ -2740,16 +2758,13 @@ function trendFor(game) {
   if (game.pregameBaseline?.source !== 'observed') return '';
   if (
     game.state === 'upcoming' ||
-    !Number.isFinite(
-      game.pregameBaseline?.score ?? game.openingScore
-    )
+    !Number.isFinite(game.pregameBaseline.score) ||
+    !Number.isFinite(game.score)
   ) {
     return '';
   }
 
-  const delta =
-    game.score -
-    (game.pregameBaseline?.score ?? game.openingScore);
+  const delta = game.score - game.pregameBaseline.score;
 
   const arrow =
     delta > 2
@@ -2759,14 +2774,12 @@ function trendFor(game) {
         : '→';
 
   return `<small class="score-trend" aria-label="${
-    delta >= 0
-      ? 'Up'
-      : 'Down'
+    delta > 2 ? 'Rising' : delta < -2 ? 'Falling' : 'Steady, change of'
   } ${Math.abs(delta)} ${Math.abs(delta)===1?'point':'points'} from the opening rating">${arrow}&#xfe0e; ${
     delta > 0
       ? '+'
       : ''
-  }${delta} vs start</small>`;
+  }${delta} from opening</small>`;
 }
 
 function isWinningTeam(game, team) {
@@ -2847,8 +2860,7 @@ function broadcastWatchMarkup(game,summary=null,inline=false) {
 }
 
 function gameCard(game) {
-  const detailsPending=game.enrichmentPending || game.summaryValidationPending;
-  const liveNote=game.manpowerQuality?.state==='conflict' ? 'Manpower reports conflict' : game.live?.note;
+  const liveNote=game.manpowerQuality?.state==='conflict' ? '' : game.live?.note;
   const phase = String(game.live?.phase || game.status || '');
   const clock = String(game.liveRawStatus?.displayClock || phase.match(/\b\d{1,2}:\d{2}\b/)?.[0] || '');
   const period = compactClockPeriod(game);
@@ -2856,21 +2868,8 @@ function gameCard(game) {
     ? `<span class="card-clock"><span>${safeText(period || 'Live')}</span>${period === 'Shootout' ? '' : `<strong>${safeText(clock)}</strong>`}</span>`
     : '';
   const cardTeam = (team,index) => teamMarkup(game,team,index);
-  const scoreColorStyle = (() => {
-    const value = Number(game.score);
-    const normalized = Number.isFinite(value)
-      ? Math.min(100, Math.max(0, value))
-      : 50;
-    const hue = Math.round(215 - (normalized * 2.15));
-    return `--score-hue:${hue};`;
-  })();
-
-  const scoreClass =
-    game.score >= 85
-      ? 'hot'
-      : game.score >= 70
-        ? 'warm'
-        : '';
+  const scoreClass = scoreHeatClass(game.score);
+  const scoreColorStyle = `--score-hue:${scoreHueFor(game.score)};`;
 
   const stateLabel =
     game.state === 'live'
@@ -2910,17 +2909,17 @@ function gameCard(game) {
       : '';
 
   const momentMarkup =
-    detailsPending
-      ? '<span class="card-moment"><strong>Provisional rating</strong><span>Details are still loading</span></span>'
+    game.enrichmentPending || game.summaryValidationPending
+      ? ''
       : game.moment
       ? `<span class="card-moment"><strong>${safeText(game.momentLabel || 'Latest play')}</strong><span>${safeText(displayMoment(game))}</span></span>`
       : '';
 
   const accessibility = [
     game.teams[0][0],
-    game.teams[0][2],
+    game.state === 'upcoming' ? 'versus' : game.teams[0][2],
     game.teams[1][0],
-    game.teams[1][2],
+    game.state === 'upcoming' ? '' : game.teams[1][2],
     game.live?.phase,
     ...(['NFL','CFB'].includes(game.sport) ? footballAccessibleSituation(game) : [liveNote]),
     ...(game.sport === 'MLB' ? [game.baseballSituation?.outs != null ? `${game.baseballSituation.outs} outs` : '',game.baseballSituation?.count ? `count ${game.baseballSituation.count}` : ''] : []),
@@ -2931,7 +2930,6 @@ function gameCard(game) {
           .join(' and ')
       : '',
     `${game.state==='live'?'watch now rating':game.state==='completed'?'game quality':'pregame rating'} ${game.score}`,
-    detailsPending ? 'Details are still loading; rating is provisional' : '',
     'Open game details'
   ]
     .filter(Boolean)
@@ -2942,6 +2940,7 @@ function gameCard(game) {
       ? 'completed-card'
       : '';
 
+  const pregame = game.state === 'upcoming';
   return `<article class="game-card ${
     game.favorite
       ? 'favorite'
@@ -2950,7 +2949,7 @@ function gameCard(game) {
     isWatched(game)
       ? 'watched'
       : ''
-  } ${completionClass}" data-id="${safeText(game.id)}" data-sport="${safeText(game.sport)}" data-division="${safeText(game.division || '')}"><button type="button" class="card-open-target" data-open-game aria-label="${safeText(accessibility)}"></button><span class="sport-icon"><img class="league-logo" src="${safeText(leagueLogo)}" alt="" loading="lazy" onerror="this.style.display='none'"></span><span class="team-column"><span class="match-meta">${stateLabel}<span class="mobile-card-league">${safeText(game.sport)}</span>${
+  } ${completionClass}" data-id="${safeText(game.id)}" data-sport="${safeText(game.sport)}" data-division="${safeText(game.division || '')}"><button type="button" class="card-open-target" data-open-game aria-label="${safeText(accessibility)}"></button><span class="sport-icon"><img class="league-logo" src="${safeText(leagueLogo)}" alt="" loading="lazy" onerror="this.style.display='none'"></span><span class="team-column${pregame ? ' pregame' : ''}"><span class="match-meta">${stateLabel}<span class="mobile-card-league">${safeText(game.sport)}</span>${
     isWatched(game)
       ? '<span class="watch-indicator" aria-hidden="true">★ Watching</span>'
       : ''
@@ -2958,7 +2957,7 @@ function gameCard(game) {
     game.division
       ? `<span>•</span><span>${safeText(game.division)}</span>`
       : ''
-  }<span>•</span><span>${safeText(game.sub)}</span><span class="card-rating-change">${trendFor(game)}</span>${clockMarkup}</span><span class="team-row ${isWinningTeam(game,game.teams[0]) ? 'winner-row' : ''}">${cardTeam(game.teams[0],0)}<b class="team-score">${possessionMarkup(game,game.teams[0])}${safeText(game.teams[0][2])}</b></span><span class="team-row ${isWinningTeam(game,game.teams[1]) ? 'winner-row' : ''}">${cardTeam(game.teams[1],1)}<b class="team-score">${possessionMarkup(game,game.teams[1])}${safeText(game.teams[1][2])}</b></span>${situation}</span>${momentMarkup}<span class="game-context channel-context"><span class="detail-inline"><strong>Broadcast</strong><span class="broadcast-labels" title="${safeText(game.channel || 'Channel not listed')}">${broadcastWatchMarkup(game,null,true)}</span></span><span class="stats-cue">Stats ›</span><span class="detail-inline line-inline"><strong>${safeText(compactLineLabel)}</strong><span>${safeText(line.text)}</span></span></span><span class="excitement"><span class="score-circle ${scoreClass}" style="${scoreColorStyle}">${game.score}</span>${trendFor(game)}</span></article>`;
+  }<span>•</span><span>${safeText(game.sub)}</span><span class="card-rating-change">${trendFor(game)}</span>${clockMarkup}</span><span class="team-row ${isWinningTeam(game,game.teams[0]) ? 'winner-row' : ''}">${cardTeam(game.teams[0],0)}<b class="team-score">${possessionMarkup(game,game.teams[0])}${pregame ? '' : safeText(game.teams[0][2])}</b></span><span class="team-row ${isWinningTeam(game,game.teams[1]) ? 'winner-row' : ''}">${cardTeam(game.teams[1],1)}<b class="team-score">${possessionMarkup(game,game.teams[1])}${pregame ? '' : safeText(game.teams[1][2])}</b></span>${pregame ? '<span class="pregame-versus">VS</span>' : ''}${situation}</span>${momentMarkup}<span class="game-context channel-context"><span class="detail-inline"><strong>Broadcast</strong><span class="broadcast-labels" title="${safeText(game.channel || 'Channel not listed')}">${broadcastWatchMarkup(game,null,true)}</span></span><span class="stats-cue">Stats ›</span><span class="detail-inline line-inline"><strong>${safeText(compactLineLabel)}</strong><span>${safeText(line.text)}</span></span></span><span class="excitement" style="${scoreColorStyle}"><span class="score-circle ${scoreClass}">${game.score}</span>${trendFor(game)}</span></article>`;
 }
 
 function footballAccessibleSituation(game) {
@@ -2970,7 +2969,7 @@ function footballAccessibleSituation(game) {
 
 function possessionMarkup(game,team) {
   if (game.state !== 'live' || globalThis.SportsRadarScore?.isHalftimeStatus?.(game.liveRawStatus) || !['NFL','CFB'].includes(game.sport) || !team[8] || String(team[8]) !== game.footballSituation?.possessionTeamId || game.teams.filter(item => String(item[8]) === String(team[8])).length !== 1) return '';
-  return '<svg class="possession-marker" viewBox="0 0 24 16" aria-hidden="true"><path d="M2 8Q6-2 22 8Q18 18 2 8Z" fill="currentColor"/><path d="M8 8h8m-6-2v4m4-4v4" stroke="var(--surface, #17252d)" stroke-width="1.4"/></svg>';
+  return '<svg class="possession-marker" viewBox="0 0 24 16" aria-hidden="true"><path d="M2 8Q6-2 22 8Q18 18 2 8Z" fill="currentColor"/><path d="M8 8h8m-6-2v4m4-4v4" stroke="var(--surface, #222629)" stroke-width="1.4"/></svg>';
 }
 
 function footballSituationMarkup(game) {
@@ -3708,7 +3707,7 @@ function detailTintHex(value,amount=.28) {
 
 function detailTeamColorCandidates(competitor,index) {
   const team = competitor?.team || {};
-  const fallback = index ? '#f3bd32' : '#368cf5';
+  const fallback = index ? '#C8AF78' : '#BD343E';
 
   return [
     detailNormalizeHex(team.color),
@@ -3726,7 +3725,7 @@ function detailTeamColorCandidates(competitor,index) {
 function detailTeamComparisonColors(competitors) {
   const palettes = competitors.map(detailTeamColorCandidates);
   const primary = [palettes[0][0],palettes[1][0]];
-  const darkSurface = '#122129';
+  const darkSurface = '#191C1F';
 
   const visibleEnough = color =>
     detailColorContrast(color,darkSurface) >= 1.35;
@@ -5476,8 +5475,7 @@ function timelineHistoryDetails(groups) {
 }
 
 function renderExcitementTimeline(game,summary) {
-  return globalThis.SportsRadarGameCenter.timeline(game,summary,ratingHistory[watchKey(game)] || [],
-    data=>timelineHistoryDetails(timelinePresentation(game,data).history));
+  return globalThis.SportsRadarGameCenter.timeline(game,summary,ratingHistory[watchKey(game)] || []);
 }
 
 function excitementTimeline(game,summary) {
@@ -5862,9 +5860,7 @@ function detailTabSections(game,summary) {
   const sections = new Map([
     [
       'overview',
-      overviewParts.length
-        ? overviewParts.join('')
-        : '<section class="detail-section"><p class="detail-empty">No additional summary sections are available for this game yet.</p></section>'
+      overviewParts.join('')
     ],
     ['drives',detailDrives(summary,game.sport,game.liveRawStatus)],
     ['batting',withPlayerBrowser(detailMlbPlayerStats(summary,'batting'))],
@@ -5885,16 +5881,15 @@ function detailTabSections(game,summary) {
       label,
       content:sections.get(id) || ''
     }))
-    .filter(tab =>
-      tab.id === 'overview' ||
-      Boolean(tab.content)
-    );
+    .filter(tab => Boolean(tab.content));
 }
 
 function detailTabsMarkup(game,summary) {
   const tabs = detailTabSections(game,summary);
 
   if (!tabs.length) return '';
+
+  if (tabs.length === 1) return tabs[0].content;
 
   if (!tabs.some(tab => tab.id === activeDetailTab)) {
     activeDetailTab = tabs[0].id;
@@ -6018,8 +6013,9 @@ function renderDetailContent(
       ? ` type="button" data-detail-team-id="${safeText(teamPageId)}" data-detail-team-sport="${safeText(game.sport)}" aria-label="Open ${safeText(team[0])} team page"`
       : '';
 
-    return `<${tag} class="detail-team ${teamPageId ? 'detail-team-link' : ''}"${attrs}><img src="${safeText(team[4] || teamLogoUrl(game.sport,team[1]))}" alt="" onerror="this.style.display='none'"><span class="detail-team-copy"><strong>${safeText(team[0])}</strong>${teamMeta.length ? `<small>${safeText(teamMeta.join(' · '))}</small>` : ''}</span><b>${safeText(team[2])}</b></${tag}>`;
-  }).join('');
+    const logo = team[4] || teamLogoUrl(game.sport,team[1]);
+    return `<${tag} class="detail-team ${teamPageId ? 'detail-team-link' : ''}"${attrs}>${teamLogoWithFallback(logo,team[1] || team[0],'','eager')}<span class="detail-team-copy"><strong>${safeText(team[0])}</strong>${teamMeta.length ? `<small>${safeText(teamMeta.join(' · '))}</small>` : ''}</span><b>${game.state === 'upcoming' ? '' : safeText(team[2])}</b></${tag}>`;
+  }).join('') + (game.state === 'upcoming' ? '<span class="pregame-versus">VS</span>' : '');
 
   const status =
     (game.state === 'live' ? game.live?.phase : '') ||
@@ -6043,51 +6039,22 @@ function renderDetailContent(
       ? `<span><strong>${safeText(line.label)}</strong> ${safeText(line.text)}${line.provider ? ` · ${safeText(line.provider)}` : ''}</span>`
       : '';
 
-  const freshness =
-    summary?.sportsRadarFreshness?.statsPending
-      ? '<p class="detail-freshness">Player statistics are catching up with the scoreboard. Team totals show the current score.</p>'
-      :
-    summary?.sportsRadarArchived && !summary.header
-      ? '<p class="detail-freshness">Saved game information. Additional statistics are temporarily unavailable.</p>'
-      : !summary
-      ? `<p class="detail-freshness">The live summary feed did not return additional stats for this game yet. The score, rating explanation, and broadcast are still current.</p>`
-      : summary.sportsRadarFreshness?.stale
-        ? `<p class="detail-freshness">Cached game details · last updated ${safeText(new Date(summary.sportsRadarFreshness.updatedAt).toLocaleTimeString())}. Rich details may be behind or ahead of the canonical scoreboard; score and rating follow the main feed.</p>`
-        : '';
-
-  const rating =
-    Number(game.score);
-
-  const normalizedRating =
-    Number.isFinite(rating)
-      ? Math.min(100,Math.max(0,rating))
-      : 50;
-
-  const scoreHue =
-    Math.round(
-      215 -
-      normalizedRating * 2.15
-    );
-
-  const opening =
-    Number(game.openingScore);
-
-  const qualitySoFar=game.state==='live' && game.gameQualitySoFar?.provisional && Number.isFinite(game.gameQualitySoFar.score)
-    ? `<p class="detail-freshness">Game quality so far: ${safeText(game.gameQualitySoFar.score)} (provisional). Based on the current result and observed play.</p>` : '';
-  const coverageNote=game.tennisCoverage?.reason
-    ? `<p class="detail-freshness">${safeText(game.tennisCoverage.reason)}</p>` : '';
-
-
+  const opening = game.pregameBaseline?.source === 'observed' &&
+    Number.isFinite(game.pregameBaseline.score)
+      ? game.pregameBaseline.score
+      : null;
 
   const ratingContext =
     game.state === 'upcoming'
       ? `Pregame rating ${safeText(game.score)}`
-      : Number.isFinite(opening)
-        ? `${game.pregameBaseline?.source === 'reconstructed' ? 'Estimated opening' : 'Opening'} ${safeText(opening)} · Current ${safeText(game.score)}`
+      : opening !== null
+        ? `Opening ${safeText(opening)} · Current ${safeText(game.score)}`
         : `Current rating ${safeText(game.score)}`;
+  const scoreClass = scoreHeatClass(game.score);
+  const scoreColorStyle = `--score-hue:${scoreHueFor(game.score)};`;
 
   $('#game-detail-content').innerHTML =
-    `<header class="detail-header"><div class="detail-kicker">${safeText(labelForSport(game.sport))} · ${safeText(status)}${detailClock}</div><h2>${safeText(title)}</h2><button type="button" class="detail-watch ${isWatched(game) ? 'active' : ''}" data-watch-id="${safeText(watchKey(game))}" aria-pressed="${isWatched(game)}">${isWatched(game) ? '★ Watching this game' : '☆ Add to watchlist'}</button><div class="detail-scoreboard">${scores}</div><div class="detail-meta"><span><strong>Venue</strong> ${safeText(venue)}</span><span><strong>Broadcast</strong> ${safeText(game.channel || 'Channel not listed')}</span>${lineMeta}</div>${broadcastWatchMarkup(game,summary)}${freshness}${game.moment ? `<section class="detail-moment"><strong>${safeText(game.momentLabel || 'Notable play')}</strong><span>${safeText(displayMoment(game))}</span></section>` : ''}</header><section class="detail-radar"><div class="detail-excitement-head"><span class="detail-excitement-score" style="--score-hue:${scoreHue}">${safeText(game.score)}</span><span class="detail-excitement-copy"><small>${game.state==='live'?'Watch now':game.state==='completed'?'Game quality':'Pregame rating'}</small><strong>${safeText(ratingContext)}</strong></span></div><div class="detail-radar-why"><h3>Why ${safeText(game.score)}?</h3><p class="detail-explanation detail-why-text">${safeText(explainRating(game,summary))}</p></div>${qualitySoFar}${coverageNote}${renderExcitementTimeline(game,summary)}</section>${detailTabsMarkup(game,summary)}`;
+    `<header class="detail-header"><div class="detail-kicker">${safeText(labelForSport(game.sport))} · ${safeText(status)}${detailClock}</div><h2>${safeText(title)}</h2><button type="button" class="detail-watch ${isWatched(game) ? 'active' : ''}" data-watch-id="${safeText(watchKey(game))}" aria-pressed="${isWatched(game)}">${isWatched(game) ? '★ Watching this game' : '☆ Add to watchlist'}</button><div class="detail-scoreboard${game.state === 'upcoming' ? ' pregame' : ''}">${scores}</div><div class="detail-meta"><span><strong>Venue</strong> ${safeText(venue)}</span><span><strong>Broadcast</strong> ${safeText(game.channel || 'Channel not listed')}</span>${lineMeta}</div>${broadcastWatchMarkup(game,summary)}${game.moment ? `<section class="detail-moment"><strong>${safeText(game.momentLabel || 'Notable play')}</strong><span>${safeText(displayMoment(game))}</span></section>` : ''}</header><section class="detail-radar" style="${scoreColorStyle}"><div class="detail-excitement-head"><span class="detail-excitement-score ${scoreClass}" style="${scoreColorStyle}">${safeText(game.score)}</span><span class="detail-excitement-copy"><small>${game.state==='live'?'Watch now':game.state==='completed'?'Game quality':'Pregame rating'}</small><strong>${safeText(ratingContext)}</strong>${trendFor(game)}</span></div><div class="detail-radar-why"><h3>Why ${safeText(game.score)}?</h3><p class="detail-explanation detail-why-text">${safeText(explainRating(game,summary))}</p></div></section>${renderExcitementTimeline(game,summary)}${detailTabsMarkup(game,summary)}`;
 }
 
 async function fetchGameSummary(game,controller=new AbortController()) {
@@ -6309,7 +6276,7 @@ async function openLinkedGame(id,sport,restore=null) {
     if(game.state==='live')detailTimer=setTimeout(refreshActiveDetail,10000);
   } catch(error) {
     if(generation!==detailGeneration || controller.signal.aborted)return;
-    $('#game-detail-content').innerHTML=`<section class="detail-section"><h2>Game unavailable</h2><p>The game could not be loaded. It may be outside the available archive, or the data service may be temporarily unavailable.</p><button type="button" class="primary-button" data-game-retry="${safeText(id)}" data-game-retry-sport="${safeText(sport)}">Try again</button><button type="button" class="close-dialog">Return to Radar</button></section>`;
+    $('#game-detail-content').innerHTML=`<section class="detail-section"><h2>Game unavailable</h2><p>The game could not be loaded. It may be outside the available archive, or the data service may be temporarily unavailable.</p><button type="button" class="primary-button" data-game-retry="${safeText(id)}" data-game-retry-sport="${safeText(sport)}">Try again</button><button type="button" class="close-dialog">Return to Slate</button></section>`;
   } finally {if(linkedGameRequest===controller)linkedGameRequest=null;}
 }
 
@@ -6492,8 +6459,8 @@ function render() {
 
   $('#section-title').textContent =
     isSoccer
-      ? 'Soccer radar'
-      : 'Your radar';
+      ? 'Soccer Slate'
+      : 'Your Slate';
 
   $$('.nav-link').forEach(link =>
     link.classList.toggle(
@@ -6586,6 +6553,17 @@ function render() {
       visible,
       state.gameState
     );
+  if (typeof recentLiveChanges !== 'undefined' && recentLiveChanges.size) {
+    for (const card of $$('#game-list .game-card')) {
+      const change = recentLiveChanges.get(`${card.dataset.sport}:${card.dataset.id}`);
+      if (change?.scoreChanged) card.classList.add('score-just-changed');
+      if (change?.ratingChanged) {
+        card.style.setProperty('--previous-score-hue',scoreHueFor(change.previousScore));
+        card.classList.add('rating-just-changed');
+      }
+    }
+    recentLiveChanges.clear();
+  }
 
 
   $('#empty-state').classList.toggle(
@@ -6599,6 +6577,9 @@ function render() {
     cfbFiltersActive() ? 'No games match these filters' : 'No games in this view';
 
   $('#empty-clear-filters').classList.toggle('hidden',!cfbFiltersActive());
+  const hasUpcoming = scopeGames.some(game => game.state === 'upcoming');
+  const suggestUpcoming = state.source === 'live' && state.gameState === 'live' && visible.length === 0 && hasUpcoming && !cfbFiltersActive();
+  $('#empty-upcoming').classList.toggle('hidden',!suggestUpcoming);
 
   $('#empty-message').textContent =
     state.source === 'loading'
@@ -6611,7 +6592,7 @@ function render() {
           ? 'Open a game and tap “Add to watchlist.” Saved games appear here while they are in the current scoreboard feed.'
           : state.sport === 'Tennis'
             ? 'Tennis covers Australian Open, Roland-Garros, Wimbledon and US Open main draws only. No Grand Slam matches are available in this view.'
-            : 'Try a different sport or game state.';
+            : suggestUpcoming ? 'No games are live right now. See what starts next.' : 'Try a different sport or game state.';
 
   $('#live-count').textContent =
     `${scopeGames.filter(game => game.state === 'live').length} LIVE`;
@@ -6814,6 +6795,7 @@ $('#cfb-top25').addEventListener('click',()=>{
 });
 $('#cfb-clear').addEventListener('click',clearCfbFilters);
 $('#empty-clear-filters').addEventListener('click',clearCfbFilters);
+$('#empty-upcoming').addEventListener('click',()=>$('.seg[data-state="upcoming"]').click());
 function retryCfbMetadata() {
   if (state.page!=='home' || state.sport!=='CFB') return;
   for (const [season,entry] of cfbMetadata) {entry.retryAt=0;entry.expires=0;void loadCfbMetadata(season);}

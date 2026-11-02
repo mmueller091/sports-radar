@@ -170,11 +170,11 @@ test('achievement ownership rejects the Wild streak, routine overtime recaps, AI
   assert.deepEqual(await contextsForGames(env,[`NHL:${game.id}`],[game]),{});
 });
 
-test('browser vs start requires an observed compatible baseline for all sports',()=>{
+test('browser from opening requires an observed compatible baseline for all sports',()=>{
   const source=fs.readFileSync('app.js','utf8').replaceAll('\r\n','\n'),start=source.indexOf('function trendFor(');
   const trend=vm.runInNewContext(source.slice(start,source.indexOf('\n}',start)+2)+';trendFor');
   for(const sport of transition.SPORTS) {
     assert.equal(trend({sport,state:'live',score:66,openingScore:53}),'');
-    assert.match(trend({sport,state:'live',score:56,pregameBaseline:{source:'observed',score:53}}),/\+3 vs start/);
+    assert.match(trend({sport,state:'live',score:56,pregameBaseline:{source:'observed',score:53}}),/\+3 from opening/);
   }
 });

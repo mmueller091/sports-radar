@@ -120,9 +120,9 @@ test('browser bundle and Worker production graph agree across the full football 
     for(const key of ['score','baseScore','openingScore','factors','live','trajectoryScoring','momentumPoints','pregameBaseline']) assert.deepEqual(plain(a[key]),plain(b[key]),key);
   }
 });
-test('vs start uses the observed serialized baseline and hides unobserved estimates',()=>{
+test('from opening uses the observed serialized baseline and hides unobserved estimates',()=>{
   const source=fs.readFileSync('app.js','utf8').replaceAll('\r\n','\n'),start=source.indexOf('function trendFor(');
   const trend=vm.runInNewContext(source.slice(start,source.indexOf('\n}',start)+2)+';trendFor');
-  assert.match(trend({sport:'CFB',state:'live',score:45,openingScore:61,pregameBaseline:{score:40,source:'observed'}}),/\+5 vs start/);
+  assert.match(trend({sport:'CFB',state:'live',score:45,openingScore:61,pregameBaseline:{score:40,source:'observed'}}),/\+5 from opening/);
   assert.equal(trend({sport:'CFB',state:'live',score:45,openingScore:40,pregameBaseline:{score:40,source:'reconstructed'}}),'');
 });

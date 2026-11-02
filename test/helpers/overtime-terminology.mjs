@@ -7,8 +7,8 @@ export function browser(source=fs.readFileSync(new URL('../../app.js',import.met
  Object.assign(context,{SportsRadarScore:runtime,state:{source:'live'},HISTORY_KEY:'history',localStorage:{setItem:()=>{}},
   LEAGUE_LOGOS:{},displayLine:()=>({label:'Line',text:''}),isWatched:()=>false,teamMarkup:()=>'',possessionMarkup:()=>'',
   $:()=>detail,labelForSport:s=>s,teamLogoUrl:()=>'',detailTabsMarkup:()=>'',detail});
- for(const name of ['halftimePriorityAdjustment','explainRating','publicStorySentence','compactClockPeriod','broadcastWatchMarkup',
-  'gameCard','basesMarkup','trendFor','isWinningTeam','footballSituationMarkup','footballAccessibleSituation','detailPlays','detailCompetitors','detailScoring','playPosition','summarySpecificWhy','renderDetailContent']){
+ for(const name of ['teamLogoWithFallback','halftimePriorityAdjustment','explainRating','publicStorySentence','compactClockPeriod','broadcastWatchMarkup',
+  'scoreHueFor','scoreHeatClass','gameCard','basesMarkup','trendFor','isWinningTeam','footballSituationMarkup','footballAccessibleSituation','detailPlays','detailCompetitors','detailScoring','playPosition','summarySpecificWhy','renderDetailContent']){
   const start=source.indexOf('function '+name+'(');if(start<0)throw Error(name);
   vm.runInContext(source.slice(start,source.indexOf('\n}',start)+2),context);
  }

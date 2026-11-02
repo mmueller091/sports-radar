@@ -7,9 +7,13 @@ const source=fs.readFileSync(new URL('../app.js',import.meta.url),'utf8').replac
 const team=['New Jersey Devils','NJD','3','','logo.png','8-5',1,'Devils','11'];
 test('only the logo is inside the team-page button',()=>{
   const context=vm.createContext({safeText:String,teamLogoUrl:()=>''});
+  vm.runInContext(source.slice(source.indexOf('function teamLogoWithFallback('),source.indexOf('function summaryUrlFor(')),context);
   vm.runInContext(source.slice(source.indexOf('function teamMarkup('),source.indexOf('function explainRating(')),context);
   const html=context.teamMarkup({sport:'NHL'},team,0);
-  assert.match(html,/<button[^>]*class="card-team-link"[^>]*><img[^>]*><\/button>/);
+  assert.match(html,/<button[^>]*class="card-team-link"[^>]*><img[^>]*><span class="team-logo-fallback"[^>]*>NJD<\/span><\/button>/);
+  assert.match(html,/class="team-logo-fallback"[^>]* hidden/);
+  assert.match(html,/onerror="this.hidden=true;this.nextElementSibling.hidden=false"/);
+  assert.match(context.teamMarkup({sport:'NHL'},[...team.slice(0,4),'',...team.slice(5)],0),/class="team-logo-fallback"[^>]*>NJD<\/span>/);
   assert.ok(html.indexOf('</button>')<html.indexOf('class="team-name-text"'));
   assert.doesNotMatch(context.teamMarkup({sport:'NHL'},team),/card-team-link/);
 });

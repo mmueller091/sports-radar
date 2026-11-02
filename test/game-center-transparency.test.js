@@ -67,7 +67,7 @@ test('actual overtime history preserves every rating, timestamp, model, evidence
   const html=center.timeline(g,detail);
   assert.match(html,/OT 2:53: Chad Ryland 42 Yd Field Goal/);
   assert.match(html,/data-timeline-range="late"/);assert.match(html,/data-timeline-range="ot"/);
-  assert.match(html,/timeline-event-strip/);assert.match(html,/Original observation history/);
+  assert.match(html,/timeline-event-strip/);assert.doesNotMatch(html,/Original observation history|reliable|evidenceQuality/);
   assert.doesNotMatch(html,/Final assessment|Opening estimate/);
   assert.equal(JSON.stringify(detail),before);
 });
@@ -100,11 +100,15 @@ test('multiple overtimes map verified clocks without ordinal spacing; untimed CF
   }
   assert.equal(center.observations({...game,sport:'CFB'},summary([p(1000,80,'0:00',{period:5})])).axis,'observed');
 });
-test('no recorded history produces an honest empty state even with scoring plays; isolated observations are visible',()=>{
+test('games without chart history show natural empty states without exposing observations',()=>{
   const s={scoringPlays:[{period:{number:4},clock:{displayValue:'0:00'},homeScore:33,awayScore:30,text:'Game-winning field goal'}]};
-  assert.doesNotMatch(center.timeline(game,s),/<svg/);assert.match(center.timeline(game,s),/cannot reconstruct/);
-  const html=center.timeline(game,summary([p(1000,80)]));assert.match(html,/Recorded rating: 80/);
-  assert.doesNotMatch(html,/timeline-line" d="[^"]*L /);
+  const completed=center.timeline(game,s);
+  assert.doesNotMatch(completed,/<svg|Recorded|observation/);
+  assert.match(completed,/history was not recorded for this game/);
+  const isolated=center.timeline(game,summary([p(1000,80)]));
+  assert.doesNotMatch(isolated,/<svg|Recorded rating: 80|observation/);
+  assert.match(center.timeline({...game,state:'live'},s),/history will appear as the game unfolds/);
+  assert.match(center.timeline({...game,state:'upcoming'},s),/history begins when the game starts/);
 });
 
 for(const sport of ['NFL','CFB','MLB','NHL','NBA','NCAAB','Soccer','Tennis'])for(const state of ['upcoming','live','completed'])test(`${sport} ${state}: rendered engine calculations across margins, phases and evidence`,()=>{
@@ -132,6 +136,7 @@ test('calculation metadata is tied to the canonical game, survives cache reuse, 
 test('unclassified browser observations cannot become a reliable curve or replace the last verified record',()=>{
  const g={...game,state:'live'},s=summary([p(1000,80)]),local=[{at:16000,score:99,state:'live',period:4,clock:'1:55',modelVersion:'same'}];
  const html=center.timeline(g,s,local);
- assert.match(html,/Original observation history \(2\)/);assert.match(html,/<td>99<\/td>/);
- assert.doesNotMatch(html,/Recorded rating: 99/);assert.match(html,/Last reliable live rating<\/span><strong>80/);
+ assert.equal(center.observations(g,s,local).points.length,2);
+ assert.doesNotMatch(html,/Original observation history|<td>99<\/td>|Recorded rating: 99|reliable|<svg/);
+ assert.match(html,/history will appear as the game unfolds/);
 });

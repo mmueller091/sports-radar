@@ -72,6 +72,11 @@ test('detail markup always uses canonical score and phase even for behind/ahead/
     displayLine:()=>({text:''}),detailTabsMarkup:()=>'',
     storylineDetails:()=>'',excitementTimeline:()=>'',detailScoring:()=>'',detailStats:()=>'',detailLeaders:()=>'',basketballBoxScoreMarkup:()=>'',detailPlayerStats:()=>'',detailPlays:()=>''});
   vm.runInContext(source.slice(source.indexOf('function compactClockPeriod('),source.indexOf('function gameCard(')),context);
+  for(const name of ['scoreHueFor','scoreHeatClass','trendFor']) {
+    const start=source.indexOf(`function ${name}(`);
+    vm.runInContext(source.slice(start,source.indexOf('\n}',start)+2),context);
+  }
+  vm.runInContext(source.slice(source.indexOf('function teamLogoWithFallback('),source.indexOf('function summaryUrlFor(')),context);
   vm.runInContext(render,context);
   for(const phase of ['Q4 1:00','OT','Intermission'])for(const score of [7,40]){
     context.game={...game(),live:{phase}};context.summary={header:{competitions:[{status:{type:{detail:'Final'}},competitors:[{score},{score}]}]}};

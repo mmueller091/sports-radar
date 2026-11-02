@@ -115,16 +115,19 @@
     }));
     return {points,axis,format:f,source:records.length?'recorded snapshots':'unavailable'};
   }
-  function timeline(game,summary,local=[],historyRenderer=()=> ''){
-    if(game.state==='upcoming')return '<section class="detail-section timeline-section"><h3>Excitement timeline</h3><p class="detail-empty">The chart starts when the game begins.</p></section>';
+  function timeline(game,summary,local=[]){
+    if(game.state==='upcoming')return '<section class="detail-section timeline-section"><h3>Excitement history</h3><p class="detail-empty">Excitement history begins when the game starts.</p></section>';
     const data=observations(game,summary,local),f=data.format;
     const points=data.points.filter(reliable),last=points.at(-1);
     const pending=game.scoringPartial||game.summaryLifecycleRejected||game.scoringHistoryRejected;
     const heading=`<div class="timeline-heading"><h3>Excitement timeline</h3><span class="timeline-key"><i></i> Recorded live ratings</span></div>`;
-    const ratings=`<div class="timeline-ratings"><div class="timeline-rating-current"><span>${game.state==='completed'?'Final rating':'Current live rating'}</span><strong>${pending?'Pending':escape(game.score)}</strong><small>${game.state==='completed'?'Whole-game quality':'Watchability now'}</small></div><div class="timeline-rating-last"><span>Last reliable live rating</span><strong>${last?last.score:'—'}</strong><small>${last?escape(last.label):'No reliable live record'}</small></div></div>`;
-    const rawHistory=`<details class="timeline-observations"><summary>Original observation history (${data.points.length})</summary><div class="timeline-table-scroll"><table><thead><tr><th>Observed</th><th>Game time</th><th>Rating</th><th>Evidence</th></tr></thead><tbody>${data.points.map(p=>`<tr><td>${Number.isFinite(p.observedAt)?escape(timestamp(p.observedAt)):'Time unavailable'}</td><td>${escape(p.label)}</td><td>${escape(p.score)}</td><td>${escape(p.ratingKind)} · ${escape(p.evidenceQuality||'Legacy, unclassified')}<br><small>${escape(p.modelVersion)}</small></td></tr>`).join('')}</tbody></table></div></details>`;
-    const history=historyRenderer(data)+rawHistory;
-    if(!points.length)return `<section class="detail-section timeline-section">${heading}${ratings}<p class="detail-empty">Not enough reliable live history to draw the chart. Scoring plays cannot reconstruct recorded ratings.</p>${history}</section>`;
+    const ratings=`<div class="timeline-ratings"><div class="timeline-rating-current"><span>${game.state==='completed'?'Final rating':'Current live rating'}</span><strong>${pending?'Pending':escape(game.score)}</strong><small>${game.state==='completed'?'Whole-game quality':'Watchability now'}</small></div><div class="timeline-rating-last"><span>Latest live rating</span><strong>${last?last.score:'—'}</strong><small>${last?escape(last.label):'No live rating yet'}</small></div></div>`;
+    if(points.length<2){
+      const message=game.state==='completed'
+        ? 'Excitement history was not recorded for this game.'
+        : 'Excitement history will appear as the game unfolds.';
+      return `<section class="detail-section timeline-section"><h3>Excitement history</h3><p class="detail-empty">${message}</p></section>`;
+    }
     const events=(summary?.scoringPlays?.length?summary.scoringPlays:(summary?.plays||[]).filter(p=>p.scoringPlay)).map(p=>({
       x:data.axis==='game'?position(p.period?.number??p.period,p.clock?.displayValue,f):Date.parse(p.wallclock||p.occurredAt||''),
       label:phase(p.period?.number??p.period,p.clock?.displayValue,f,p.period?.displayValue),text:p.text||p.shortText||p.type?.text||'Scoring play'
@@ -167,7 +170,7 @@
           priorPeriod=p.period;
           if(!Number(p.period)||px(p)-lastLabel<(mobile?55:80))continue;
           const label=phase(p.period,'',f,p.original.phaseLabel).replace(/\s*\d+:\d+.*$/,'');
-          periodLabels.push(`<text x="${px(p)}" y="${top+12}" text-anchor="start"><title>First recorded observation in this period</title>${escape(label)}</text>`);lastLabel=px(p);
+          periodLabels.push(`<text x="${px(p)}" y="${top+12}" text-anchor="start"><title>First rating in this period</title>${escape(label)}</text>`);lastLabel=px(p);
         }
       }
       const groups=new Map();
@@ -178,8 +181,8 @@
       const dots=[...groups.values()].map(group=>{
         const {p,i}=group.at(-1),prior=visible[i-1],next=visible[i+1];
         const important=p===last||!comparable(p,prior)||!comparable(next||{},p)||Math.abs(p.score-(prior?.score??p.score))>=5;
-        if(!important)return ''; // The curve passes through every anchor; the original-history table retains each observation.
-        const description=`${p.label}. Recorded rating: ${p.score}. ${group.map(({p})=>`${timestamp(p.observedAt)} (${p.evidenceQuality||'legacy evidence unclassified'})`).join('; ')}. ${p===last?'Last reliable live rating.':''}`;
+        if(!important)return ''; // The curve passes through every anchor; reduce visual markers only.
+        const description=`${p.label}. Recorded rating: ${p.score}. ${timestamp(p.observedAt)}.`;
         return marker(p,px(p),py(p),description);
       }).join('');
       const eventGroups=new Map();
@@ -187,7 +190,7 @@
       const eventDots=[...eventGroups.values()].map((group,i)=>marker(group[0],px(group[0]),230+(i%2)*14,group.map(p=>`${p.label}: ${p.text}`).join(' • '),true)).join('');
       return `<svg class="timeline-chart ${mobile?'timeline-mobile':'timeline-desktop'}" viewBox="0 0 ${width} 260" role="group" aria-label="Recorded live ratings, ${escape(v.label)}"><g>${guides}<path class="timeline-line" d="${path}"/>${dots}${axis}${periodLabels.join('')}</g><g class="timeline-event-strip"><rect x="${left}" y="207" width="${width-left-right}" height="51" rx="5"/><text x="${left+8}" y="220">SCORING PLAYS</text>${eventDots}</g></svg>`;
     };
-    return `<section class="detail-section timeline-section">${heading}${ratings}<div class="timeline-controls" role="group" aria-label="Timeline range">${views.map(v=>`<button type="button" data-timeline-range="${v.key}" aria-pressed="${v.key==='full'}">${v.label}</button>`).join('')}</div>${views.map(v=>`<div class="timeline-view" data-timeline-view="${v.key}"${v.key!=='full'?' hidden':''}>${chart(v)}${chart(v,true)}</div>`).join('')}<p class="timeline-note">The line connects recorded ratings. Scores between observations were not individually recorded.</p><div class="timeline-point-help" id="${helpId}" role="status" aria-live="polite" aria-hidden="true"></div>${history}</section>`;
+    return `<section class="detail-section timeline-section">${heading}${ratings}<div class="timeline-controls" role="group" aria-label="Timeline range">${views.map(v=>`<button type="button" data-timeline-range="${v.key}" aria-pressed="${v.key==='full'}">${v.label}</button>`).join('')}</div>${views.map(v=>`<div class="timeline-view" data-timeline-view="${v.key}"${v.key!=='full'?' hidden':''}>${chart(v)}${chart(v,true)}</div>`).join('')}<div class="timeline-point-help" id="${helpId}" role="status" aria-live="polite" aria-hidden="true"></div></section>`;
   }
   const api={calculation,scoringMarkup,decimalSum,format,position,phase,reliable,curve,comparable,observations,timeline};
   if(typeof module!=='undefined'&&module.exports)module.exports=api;

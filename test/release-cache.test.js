@@ -32,7 +32,9 @@ test(`${origin}: cached shell upgrade installs a complete revision, preserves us
   const request=async url=>{let promise;listeners.fetch({request:new Request(new URL(url,origin)),respondWith:p=>promise=p});return promise;};
   assert.match(await (await request('scoring-runtime.js?rev=release-123')).text(),/release-123/);
   assert.match(await (await request('tennis-coverage.js?rev=release-123')).text(),/release-123/);
-  assert.match(await (await request('slatemeter-theme.css?rev=release-123')).text(),/release-123/);
+  assert.match(await (await request('styles.css?rev=release-123')).text(),/release-123/);
+  assert.match(await (await request('mobile-readability.css?rev=release-123')).text(),/release-123/);
+  await assert.rejects(request('slatemeter-theme.css?rev=release-123'),/offline/);
   assert.match(await (await request('slatemeter-pennant-s-icon.svg?rev=release-123')).text(),/release-123/);
   let intercepted=false;listeners.fetch({request:new Request('https://sports-radar-alerts.mmueller918.workers.dev/feed'),respondWith:()=>{intercepted=true;}});
   assert.equal(intercepted,false,'live Worker feeds never enter the shell cache');
