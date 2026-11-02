@@ -114,7 +114,7 @@ export default {
         if (refreshDue(feed)) {
           feed = await requestFeedRefresh(env,feed,ctx);
         }
-        return reply(request,feed ? {...feed,games:feed.games.map(game=>({...game,basketballEvidence:undefined,
+        return reply(request,feed ? {...feed,games:feed.games.map(game=>({...game,...(game.moment?{moment:runtime.displayMoment(game)}:{}),basketballEvidence:undefined,
           ...(game.scoreboard?.basketballEvidence?{scoreboard:{...game.scoreboard,basketballEvidence:undefined}}:{})}))} : {error:'Feed is warming up'},feed ? 200 : 503);
       } catch { return reply(request,{error:'Feed temporarily unavailable'},503); }
     }
@@ -130,7 +130,7 @@ export default {
         ]);
         return reply(
           request,
-          summary ? {...summary,sportsRadarHistory:history} : {error:'Game not found'},
+          summary ? {...summary,...(summary.sportsRadarGame?.moment?{sportsRadarGame:{...summary.sportsRadarGame,moment:runtime.displayMoment(summary.sportsRadarGame)}}:{}),sportsRadarHistory:history} : {error:'Game not found'},
           summary ? 200 : 404
         );
       } catch { return reply(request,{error:'Game details temporarily unavailable'},503); }

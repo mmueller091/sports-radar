@@ -1,0 +1,129 @@
+{
+  "baseline": "39059fa99d066f06474af23d7ffb149568cc2fc8",
+  "results": [
+    {
+      "sport": "CFB",
+      "id": "401856847",
+      "state": "completed",
+      "before": 89,
+      "after": 89,
+      "beforeMoment": "Period 4 · 0:00 · Kyle Konrardy 34 Yd Field Goal ",
+      "afterMoment": "Period 4 · 0:00 · Kyle Konrardy 34 Yd Field Goal ",
+      "allOtherFieldsUnchanged": true
+    },
+    {
+      "sport": "CFB",
+      "id": "401858282",
+      "state": "completed",
+      "before": 80,
+      "after": 80,
+      "beforeMoment": "1:38 · Trech Kekahuna 15 Yd pass from Billy Edwards Jr. (Rece Verhoff Kick)",
+      "afterMoment": "1:38 · Trech Kekahuna 15 Yd pass from Billy Edwards Jr. (Rece Verhoff Kick)",
+      "allOtherFieldsUnchanged": true
+    },
+    {
+      "sport": "NFL",
+      "id": "401873033",
+      "state": "live",
+      "before": 65,
+      "after": 65,
+      "beforeMoment": "1:56 · Jonah Coleman 5 Yd Rush",
+      "afterMoment": "1:56 · Jonah Coleman 5 Yd Rush",
+      "allOtherFieldsUnchanged": true
+    },
+    {
+      "sport": "NCAAB",
+      "id": "401920982",
+      "state": "completed",
+      "before": 65,
+      "after": 65,
+      "beforeMoment": "2nd Half · 1:08 · Logan Duncomb makes 25-foot three point jumper (Braeden Smith assists)",
+      "afterMoment": "2nd Half · 1:08 · Logan Duncomb makes 25-foot three point jumper (Braeden Smith assists)",
+      "allOtherFieldsUnchanged": true
+    },
+    {
+      "sport": "NFL",
+      "id": "401873028",
+      "state": "completed",
+      "before": 1,
+      "after": 1,
+      "beforeMoment": "0:00 · Bhayshul Tuten 25 Yd pass from Trevor Lawrence (Cam Little Kick)",
+      "afterMoment": "0:00 · Bhayshul Tuten 25 Yd pass from Trevor Lawrence (Cam Little Kick)",
+      "allOtherFieldsUnchanged": true
+    },
+    {
+      "sport": "NBA",
+      "id": "401909903",
+      "state": "completed",
+      "before": 67,
+      "after": 67,
+      "beforeMoment": "4th Quarter 47.6 · Derrick White makes free throw 2 of 2",
+      "afterMoment": "4th Quarter 47.6 · Derrick White makes free throw 2 of 2",
+      "allOtherFieldsUnchanged": true
+    },
+    {
+      "sport": "NFL",
+      "id": "401873034",
+      "state": "live",
+      "before": 55,
+      "after": 55,
+      "beforeMoment": "2:04 · Kevin Coleman Jr. 35 Yd pass from Malik Willis (Two-Point Pass Conversion Failed)",
+      "afterMoment": "2:04 · Kevin Coleman Jr. 35 Yd pass from Malik Willis (Two-Point Pass Conversion Failed)",
+      "allOtherFieldsUnchanged": true
+    },
+    {
+      "sport": "NHL",
+      "id": "401892627",
+      "state": "live",
+      "before": 21,
+      "after": 21,
+      "beforeMoment": "2nd 9:49 · Evan Bouchard Goal (8) Slap Shot, assists: Leon Draisaitl (15), Connor McDavid (30)",
+      "afterMoment": "2nd 9:49 · Evan Bouchard Goal (8) Slap Shot, assists: Leon Draisaitl (15), Connor McDavid (30)",
+      "allOtherFieldsUnchanged": true
+    },
+    {
+      "sport": "NFL",
+      "id": "401873024",
+      "state": "completed",
+      "before": 95,
+      "after": 95,
+      "beforeMoment": "Period 5 · 2:53 · Chad Ryland 42 Yd Field Goal ",
+      "afterMoment": "OT · 2:53 · Chad Ryland 42 Yd Field Goal ",
+      "allOtherFieldsUnchanged": true
+    },
+    {
+      "sport": "NFL",
+      "id": "401873024",
+      "state": "completed",
+      "before": 95,
+      "after": 95,
+      "beforeMoment": "Period 5 · 2:53 · Chad Ryland 42 Yd Field Goal ",
+      "afterMoment": "OT · 2:53 · Chad Ryland 42 Yd Field Goal ",
+      "allOtherFieldsUnchanged": true
+    },
+    {
+      "sport": "NFL",
+      "id": "401873031",
+      "state": "completed",
+      "before": 79,
+      "after": 79,
+      "beforeMoment": "Period 5 · 7:00 · Joe Burrow 9 Yd Rush (Evan McPherson Kick)",
+      "afterMoment": "OT · 7:00 · Joe Burrow 9 Yd Rush (Evan McPherson Kick)",
+      "allOtherFieldsUnchanged": true
+    }
+  ],
+  "timelines": [
+    {
+      "id": "401873024",
+      "points": 722,
+      "ratingsAndChronologyUnchanged": true,
+      "storedSnapshots": 722
+    },
+    {
+      "id": "401873031",
+      "points": 731,
+      "ratingsAndChronologyUnchanged": true,
+      "storedSnapshots": 731
+    }
+  ]
+}

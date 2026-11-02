@@ -467,7 +467,7 @@ function compactPlay(play) {
     : text;
 }
 
-function summarySpecificWhy(game,summary) {
+function summarySpecificWhy(game,summary,periodLabel=null) {
   const scoring =
     scoringEvents(summary)
       .map(play => ({
@@ -504,7 +504,7 @@ function summarySpecificWhy(game,summary) {
   }
 
   const time =
-    `${last.play.period?.displayValue || ''} ${last.play.clock?.displayValue || ''}`
+    `${periodLabel ? periodLabel(game,last.play,summary) : last.play.period?.displayValue || ''} ${last.play.clock?.displayValue || ''}`
       .trim();
 
   if (
@@ -579,7 +579,7 @@ function summarySpecificWhy(game,summary) {
   };
 }
 
-function enrichGame(game,summary,previousGame=null) {
+function enrichGame(game,summary,previousGame=null,periodLabel=null) {
   const watchLinks = globalThis.SportsRadarWatch.resolve(game,summary).filter(link=>link.direct);
   if (watchLinks.length) game.watchLinks = watchLinks;
             let completedFinishHandled = false;
@@ -766,7 +766,8 @@ function enrichGame(game,summary,previousGame=null) {
             const moment =
               summarySpecificWhy(
                 game,
-                summary
+                summary,
+                periodLabel
               );
 
             if (moment) {

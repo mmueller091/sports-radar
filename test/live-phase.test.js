@@ -4,6 +4,7 @@ import fs from 'node:fs';
 import vm from 'node:vm';
 import {createRequire} from 'node:module';
 import {normalizeEvent} from '../alerts-worker/src/game-model.js';
+import time from '../scoring/shared/time.js';
 const core = createRequire(import.meta.url)('../rating-core.js');
 
 const cases = [
@@ -60,7 +61,7 @@ function renderedGame(game,summary) {
   const source = fs.readFileSync(new URL('../app.js',import.meta.url),'utf8').replace(/\r\n/g,'\n');
   const detail = {};
   const history = {};
-  const context = vm.createContext({...core,ratingHistory:history,state:{source:'live'},HISTORY_KEY:'history',
+  const context = vm.createContext({...core,...time,ratingHistory:history,state:{source:'live'},HISTORY_KEY:'history',
     localStorage:{setItem:()=>{}},watchKey:g=>g.id,safeText:String,LEAGUE_LOGOS:{},
     displayLine:()=>({label:'Line',text:''}),isWatched:()=>false,teamMarkup:()=>'',possessionMarkup:()=>'',
     compactPlay:p=>p.text || '',$:()=>detail,labelForSport:s=>s,teamLogoUrl:()=>'',

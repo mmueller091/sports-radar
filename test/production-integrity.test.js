@@ -95,7 +95,7 @@ test('Chiefs conversion reconciles period totals from verified scoring progressi
 });
 
 const source=fs.readFileSync(new URL('../app.js',import.meta.url),'utf8');
-function browser(){const context=vm.createContext({console,Date,Intl,SportsRadarScore:runtime,ratingHistory:{},SPORT_BASE:runtime.SPORT_BASE,watchKey:g=>`${g.sport}:${g.id}`,legacyPlayPosition:()=>null,scoringEvents:s=>s.scoringPlays||s.plays?.filter(p=>p.scoringPlay)||[],estimatedEventRating:()=>30,compactPlay:p=>p.text||'',safeText:s=>String(s??'')});
+function browser(){const context=vm.createContext({console,Date,Intl,SportsRadarScore:runtime,playPeriodLabel:runtime.playPeriodLabel,ratingHistory:{},SPORT_BASE:runtime.SPORT_BASE,watchKey:g=>`${g.sport}:${g.id}`,legacyPlayPosition:()=>null,scoringEvents:s=>s.scoringPlays||s.plays?.filter(p=>p.scoringPlay)||[],estimatedEventRating:()=>30,compactPlay:p=>p.text||'',safeText:s=>String(s??'')});
  vm.runInContext(source.slice(source.indexOf('function timelineFormat('),source.indexOf('function safeStoryUrl(')),context);
  vm.runInContext(source.slice(source.indexOf('function explainRating('),source.indexOf('function trendFor(')),context);return context;
 }

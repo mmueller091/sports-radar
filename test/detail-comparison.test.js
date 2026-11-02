@@ -2,11 +2,12 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import vm from 'node:vm';
+import time from '../scoring/shared/time.js';
 
 const source = fs.readFileSync(new URL('../app.js',import.meta.url),'utf8').replace(/\r\n/g,'\n');
 const start = source.indexOf('function basketballPeriodLabel(');
 const end = source.indexOf('function readRatingHistory(',start);
-const context = vm.createContext({safeText:value => String(value).replaceAll('<','&lt;').replaceAll('"','&quot;')});
+const context = vm.createContext({...time,safeText:value => String(value).replaceAll('<','&lt;').replaceAll('"','&quot;')});
 vm.runInContext(source.slice(start,end),context);
 
 function summary(sport,names,periods=4) {

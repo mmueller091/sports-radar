@@ -226,6 +226,28 @@
     );
   }
 
+  // Presentation only: reuse livePhase's sport/format/season rules, keeping
+  // provider regulation labels and the underlying play completely unchanged.
+  function playPeriodLabel(game,play,summary=null,fallback='') {
+    const period=Number(play?.period?.number ?? play?.period?.value ?? play?.period ?? 0);
+    const format=summary?.header?.competitions?.[0]?.format || game?.sourceCompetition?.format ||
+      game?.sourceEvent?.competitions?.[0]?.format || game?.format || {};
+    const season=summary?.header?.season || game?.sourceEvent?.season || game?.sourceCompetition?.season || game?.season || {};
+    const original=play?.period?.displayValue || '';
+    const label=livePhase(game?.sport,{period,type:{detail:original}},format,season);
+    return /^(?:\d+)?OT$/.test(label) || label==='Shootout' ? label : original || fallback;
+  }
+
+  // Older cached moments contain a generated period/clock prefix. Match only
+  // that prefix, never words inside the actual play description or raw history.
+  function displayMoment(game) {
+    const text=game?.moment || '';
+    const prefix=String(text).match(/^((?:Period\s+(\d+)|(\d+)(?:st|nd|rd|th)\s+(?:quarter|half|period)))\s+(?:·\s*)?(\d+:\d+(?:\.\d+)?|\d+\.\d+)(\s*·\s*)/i);
+    if(!prefix)return text;
+    const label=playPeriodLabel(game,{period:{number:Number(prefix[2] || prefix[3]),displayValue:prefix[1]}});
+    return label===prefix[1] ? text : `${label} · ${prefix[4]}${prefix[5]}${text.slice(prefix[0].length)}`;
+  }
+
   function clockSeconds(status) {
     return normalizedTime('NBA',{status:{...status,period:status?.period || 1}}).remainingSeconds;
   }
@@ -248,7 +270,7 @@
     if(sport==='Soccer')return (normalizedTime(sport,{status}).elapsedSeconds||0)>=4500;
     return sport==='Tennis' && normalizedTime(sport,{...competition,status}).progress>.65;
   }
-  const api = {isHalftimeStatus,isLateGameStatus,normalizedTime,gameProgress,eventPosition,ordinal,livePhase,clockSeconds};
+  const api = {isHalftimeStatus,isLateGameStatus,normalizedTime,gameProgress,eventPosition,ordinal,livePhase,playPeriodLabel,displayMoment,clockSeconds};
   if (typeof module !== 'undefined' && module.exports) {
     module.exports = api;
   } else {

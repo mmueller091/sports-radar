@@ -3,11 +3,12 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import vm from 'node:vm';
 import {createRequire} from 'node:module';
+import time from '../scoring/shared/time.js';
 const require = createRequire(import.meta.url);
 const core = require('../rating-core.js');
 const source = fs.readFileSync(new URL('../app.js',import.meta.url),'utf8').replace(/\r\n/g,'\n');
 const progresses = [];
-const context = vm.createContext({...core,ratingHistory:{},watchKey:game=>game.id,
+const context = vm.createContext({...core,...time,ratingHistory:{},watchKey:game=>game.id,
   safeText:value=>String(value),compactPlay:play=>play.text || '',
   stateRating:(...args)=>{progresses.push(args[4]);return core.stateRating(...args);}
 });

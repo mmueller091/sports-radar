@@ -386,6 +386,8 @@ const {
   lineFromSummary,
   gameProgress,
   eventPosition,
+  playPeriodLabel,
+  displayMoment,
   momentumImpact,
   underdogCandidate,
   upsetImpact,
@@ -2871,7 +2873,7 @@ function gameCard(game) {
 
   const momentMarkup =
     game.moment
-      ? `<span class="card-moment"><strong>${safeText(game.momentLabel || 'Latest play')}</strong><span>${safeText(game.moment)}</span></span>`
+      ? `<span class="card-moment"><strong>${safeText(game.momentLabel || 'Latest play')}</strong><span>${safeText(displayMoment(game))}</span></span>`
       : '';
 
   const accessibility = [
@@ -3442,9 +3444,10 @@ function detailScoring(summary,sport) {
     if (sport === 'MLB') return String(index + 1);
     if (sport === 'Tennis') return `S${index + 1}`;
     if (sport === 'Soccer') return ['1H','2H','ET','Pens'][index] || `ET${index - 1}`;
-    if (sport === 'NCAAB') return index < 2 ? `${index + 1}H` : index === 2 ? 'OT' : `OT${index - 1}`;
-    if (sport === 'NHL') return index < 3 ? `P${index + 1}` : index === 3 && /shootout/i.test(status) ? 'SO' : index === 3 ? 'OT' : 'SO';
-    return index < 4 ? `Q${index + 1}` : index === 4 ? 'OT' : `OT${index - 3}`;
+    const shootout=sport==='NHL' && index===count-1 && index>=3 && /shootout|\bSO\b/i.test(status);
+    const overtime=playPeriodLabel({sport},{period:{number:index+1,displayValue:shootout?'Shootout':''}},summary);
+    if(overtime)return overtime==='Shootout'?'SO':overtime;
+    return sport==='NCAAB' ? `${index+1}H` : sport==='NHL' ? `P${index+1}` : `Q${index+1}`;
   });
   const totals = sport === 'MLB' ? ['R','H','E'] : sport === 'Tennis' ? [] : ['Total'];
   const value = entry => entry?.displayValue ?? entry?.value ?? '—';
@@ -4039,7 +4042,7 @@ function detailLeaders(summary) {
     : '';
 }
 
-function detailPlays(summary) {
+function detailPlays(summary,game={}) {
   const plays =
     (
       summary?.scoringPlays?.length
@@ -4054,9 +4057,12 @@ function detailPlays(summary) {
         summary?.scoringPlays?.length
           ? 'Scoring plays'
           : 'Recent play-by-play'
-      }</h3><ul class="detail-plays">${plays.map(play =>
-        `<li><span>${safeText(play.clock?.displayValue || play.period?.displayValue || '')}</span>${safeText(play.text || play.shortText || play.type?.text || 'Play recorded')}</li>`
-      ).join('')}</ul></section>`
+      }</h3><ul class="detail-plays">${plays.map(play => {
+        const period=playPeriodLabel(game,play,summary);
+        const clock=play.clock?.displayValue || '';
+        const label=/^(?:\d+)?OT$/.test(period) || period==='Shootout' ? [period,clock].filter(Boolean).join(' · ') : clock || period;
+        return `<li><span>${safeText(label)}</span>${safeText(play.text || play.shortText || play.type?.text || 'Play recorded')}</li>`;
+      }).join('')}</ul></section>`
     : '';
 }
 
@@ -4864,7 +4870,7 @@ function timelineFormat(game,summary) {
   // Visualization fallbacks: NHL 5m/20m postseason; NFL 10m/15m postseason.
   const overtime = supplied > 0 ? supplied : sport === 'NHL' ? (postseason ? 1200 : 300)
     : sport === 'NFL' ? (postseason ? 900 : 600) : 300;
-  return {regulation,periods,periodLength:regulation/periods,
+  return {sport,season:summary?.header?.season || game.sourceEvent?.season || game.season,regulation,periods,periodLength:regulation/periods,
     overtime:sport === 'CFB' ? regulation/periods : overtime,untimed:sport === 'CFB'};
 }
 
@@ -4906,9 +4912,7 @@ function timelineEventPosition(game,play,format,ordinal=.5) {
 
 function timelinePeriodLabel(play,format) {
   const period = Number(play?.period?.number || play?.period?.value || play?.period || 0);
-  const ot = period-format.periods;
-  return format.periods && ot > 0 ? (ot === 1 ? 'OT' : `${ot}OT`)
-    : play.period?.displayValue || `Period ${period}`;
+  return playPeriodLabel({sport:format.sport,format:{regulation:{periods:format.periods}},season:format.season},play,null,`Period ${period}`);
 }
 
 function timelineFinalScores(game,summary) {
@@ -5227,10 +5231,7 @@ function recordedTimelinePoints(game,summary,format) {
     ) {
       dividers.push({
         x,
-        label:
-          ot === 1
-            ? 'OT'
-            : `${ot}OT`
+        label:timelinePeriodLabel({period:format.periods+ot},format)
       });
     }
   }
@@ -5306,7 +5307,7 @@ function timelinePoints(game,summary) {
     const dividers = [];
     if (format.periods && domainEnd > format.regulation) {
       for (let x=format.regulation,ot=1; x<domainEnd; x+=format.overtime,ot++) {
-        dividers.push({x,label:ot === 1 ? 'OT' : `${ot}OT`});
+        dividers.push({x,label:timelinePeriodLabel({period:format.periods+ot},format)});
       }
     }
     return {points,source:'scoring plays',domainEnd,dividers};
@@ -5830,7 +5831,7 @@ function detailTabSections(game,summary) {
     ['players',withPlayerBrowser(detailPlayerStats(summary,game.sport))],
     ['goalies',withPlayerBrowser(detailNhlGoalies(summary))],
     ['box-score',withPlayerBrowser(basketballBoxScoreMarkup(summary,game.sport))],
-    ['plays',detailPlays(summary)]
+    ['plays',detailPlays(summary,game)]
   ]);
 
   const configured = DETAIL_TAB_CONFIG[game.sport] || DETAIL_TAB_CONFIG.Tennis;
@@ -6039,7 +6040,7 @@ function renderDetailContent(
         : `Current rating ${safeText(game.score)}`;
 
   $('#game-detail-content').innerHTML =
-    `<header class="detail-header"><div class="detail-kicker">${safeText(labelForSport(game.sport))} · ${safeText(status)}${detailClock}</div><h2>${safeText(title)}</h2><button type="button" class="detail-watch ${isWatched(game) ? 'active' : ''}" data-watch-id="${safeText(watchKey(game))}" aria-pressed="${isWatched(game)}">${isWatched(game) ? '★ Watching this game' : '☆ Add to watchlist'}</button><div class="detail-scoreboard">${scores}</div><div class="detail-meta"><span><strong>Venue</strong> ${safeText(venue)}</span><span><strong>Broadcast</strong> ${safeText(game.channel || 'Channel not listed')}</span>${lineMeta}</div>${broadcastWatchMarkup(game,summary)}${freshness}${game.moment ? `<section class="detail-moment"><strong>${safeText(game.momentLabel || 'Notable play')}</strong><span>${safeText(game.moment)}</span></section>` : ''}</header><section class="detail-radar"><div class="detail-excitement-head"><span class="detail-excitement-score" style="--score-hue:${scoreHue}">${safeText(game.score)}</span><span class="detail-excitement-copy"><small>Sports Radar excitement</small><strong>${safeText(ratingContext)}</strong></span></div><div class="detail-radar-why"><h3>Why ${safeText(game.score)}?</h3><p class="detail-explanation detail-why-text">${safeText(explainRating(game))}</p><button type="button" class="detail-why-toggle" aria-expanded="false">More</button></div>${scoringDetails}${excitementTimeline(game,summary)}</section>${detailTabsMarkup(game,summary)}`;
+    `<header class="detail-header"><div class="detail-kicker">${safeText(labelForSport(game.sport))} · ${safeText(status)}${detailClock}</div><h2>${safeText(title)}</h2><button type="button" class="detail-watch ${isWatched(game) ? 'active' : ''}" data-watch-id="${safeText(watchKey(game))}" aria-pressed="${isWatched(game)}">${isWatched(game) ? '★ Watching this game' : '☆ Add to watchlist'}</button><div class="detail-scoreboard">${scores}</div><div class="detail-meta"><span><strong>Venue</strong> ${safeText(venue)}</span><span><strong>Broadcast</strong> ${safeText(game.channel || 'Channel not listed')}</span>${lineMeta}</div>${broadcastWatchMarkup(game,summary)}${freshness}${game.moment ? `<section class="detail-moment"><strong>${safeText(game.momentLabel || 'Notable play')}</strong><span>${safeText(displayMoment(game))}</span></section>` : ''}</header><section class="detail-radar"><div class="detail-excitement-head"><span class="detail-excitement-score" style="--score-hue:${scoreHue}">${safeText(game.score)}</span><span class="detail-excitement-copy"><small>Sports Radar excitement</small><strong>${safeText(ratingContext)}</strong></span></div><div class="detail-radar-why"><h3>Why ${safeText(game.score)}?</h3><p class="detail-explanation detail-why-text">${safeText(explainRating(game))}</p><button type="button" class="detail-why-toggle" aria-expanded="false">More</button></div>${scoringDetails}${excitementTimeline(game,summary)}</section>${detailTabsMarkup(game,summary)}`;
 }
 
 async function fetchGameSummary(game,controller=new AbortController()) {
@@ -6336,7 +6337,7 @@ function summarySpecificWhy(game,summary) {
   }
 
   const time =
-    `${last.play.period?.displayValue || ''} ${last.play.clock?.displayValue || ''}`
+    `${playPeriodLabel(game,last.play,summary)} ${last.play.clock?.displayValue || ''}`
       .trim();
 
   if (
@@ -6347,7 +6348,7 @@ function summarySpecificWhy(game,summary) {
       ? globalThis.SportsRadarScore.decisiveScoringPlay(game,summary)
       : /(0:00|last second|game[- ]winning|walk.off)/i.test(`${time} ${text}`) ||
         (Number(last.play.period?.number)>({NHL:3,NFL:4,CFB:4,NBA:4,NCAAB:2})[game.sport] && /goal|field goal|touchdown|basket/i.test(text));
-    if (decisive && typeof decisive === 'object') return {label:'Decisive play',text:[decisive.period?.displayValue || `Period ${decisive.period?.number}`,decisive.clock?.displayValue,compactPlay(decisive)].filter(Boolean).join(' \u00b7 ')};
+    if (decisive && typeof decisive === 'object') return {label:'Decisive play',text:[playPeriodLabel(game,decisive,summary,`Period ${decisive.period?.number}`),decisive.clock?.displayValue,compactPlay(decisive)].filter(Boolean).join(' \u00b7 ')};
 
     return {
       label:

@@ -60,13 +60,13 @@ export function enrichGame(game,summary,previousGame=null) {
   preserveFootballContext(game,previousGame,false);
   runtime.preservePregameBaseline(game,previousGame);
   runtime.preserveLiveEvidence(game,previousGame);
-  legacy.enrichGame(game,summary,game.liveEvidenceReset==='score-correction' ? null : previousGame?.modelVersion===runtime.MODEL_VERSION ? previousGame : null);
+  legacy.enrichGame(game,summary,game.liveEvidenceReset==='score-correction' ? null : previousGame?.modelVersion===runtime.MODEL_VERSION ? previousGame : null,runtime.playPeriodLabel);
   finish(game,summary);
   if(game.state==='completed' && ['NFL','CFB','NBA','NCAAB','NHL'].includes(game.sport)){
     const facts=runtime.completedGameFacts(game,summary);
     if(facts&&(facts.comeback||facts.quarterbackChange||facts.redemption))game.completedFacts=facts;
     const play=runtime.decisiveScoringPlay(game,summary);
-    if(play){game.momentLabel='Decisive play';game.moment=[play.period?.displayValue||`Period ${play.period?.number}`,play.clock?.displayValue,play.text||play.shortText].filter(Boolean).join(' · ');}
+    if(play){game.momentLabel='Decisive play';game.moment=[runtime.playPeriodLabel(game,play,summary,`Period ${play.period?.number}`),play.clock?.displayValue,play.text||play.shortText].filter(Boolean).join(' · ');}
     else if(game.moment)game.momentLabel='Last score';
   }
 }

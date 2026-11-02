@@ -13,7 +13,7 @@ assert.ok(teamDirectory.NBA.some(team => team.name === 'Los Angeles Lakers'));
 assert.ok(teamDirectory.CFB.length > 500);
 const scoreLogic = require('./test/helpers/scoring-source.cjs').scoringSource();
 const lineLogic = app.slice(app.indexOf('function displayLine'),app.indexOf('async function loadLiveGames'));
-const coreBindings = 'const {SPORT_FLOOR,SCHEDULE_SCARCITY,SPORT_BASE,CLOSE_MARGIN,clampScore,factorText,recordFor,rankFor,parseLine,lineFromSummary,gameProgress,momentumImpact,underdogCandidate,upsetImpact,stateRating,rateGame,applyLiveSnapshot} = globalThis.SportsRadarScore;';
+const coreBindings = 'const {SPORT_FLOOR,SCHEDULE_SCARCITY,SPORT_BASE,CLOSE_MARGIN,clampScore,factorText,recordFor,rankFor,parseLine,lineFromSummary,gameProgress,momentumImpact,underdogCandidate,upsetImpact,stateRating,rateGame,applyLiveSnapshot} = globalThis.SportsRadarScore; const {playPeriodLabel,displayMoment} = globalThis.SportsRadarScoring.shared_time;';
 const preferenceLogic = app.slice(app.indexOf('function readFavoriteSelections'),app.indexOf('const savedFavorites'));
 const explanationLogic = app.slice(app.indexOf('function explainRating'),app.indexOf('function trendFor'));
 const nflLogic = provider.slice(provider.indexOf('function nflWeekMeta'),provider.indexOf('function dedupeGames'));

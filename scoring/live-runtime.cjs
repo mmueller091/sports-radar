@@ -1,4 +1,4 @@
-const {isHalftimeStatus} = require('./shared/time.js');
+const {isHalftimeStatus,playPeriodLabel,displayMoment} = require('./shared/time.js');
 // Production entry: reuse the reviewed candidate verbatim and the legacy core's
 // chronology validator. rating-core.js remains the explicit capture baseline.
 const legacy = require('../rating-core.js');
@@ -125,4 +125,4 @@ function applyLiveSnapshot(game, competition, summary) {
 }
 
 function preserveEvidence(game,previous){preserveLiveEvidence(game,previous);basketball.preserveBasketballState(game,previous);integrity.preserveObservation(game,previous);}
-module.exports = {...legacy,...gameFacts,isHalftimeStatus,canonicalDetailSummary,applyLiveSnapshot,preservePregameBaseline,preserveLiveEvidence:preserveEvidence,footballLiveExplanation:footballLive.footballLiveExplanation,MODEL_VERSION,POLICY_ID:PRODUCTION_POLICY.id,PRODUCTION_POLICY};
+module.exports = {...legacy,...gameFacts,isHalftimeStatus,playPeriodLabel,displayMoment,canonicalDetailSummary,applyLiveSnapshot,preservePregameBaseline,preserveLiveEvidence:preserveEvidence,footballLiveExplanation:footballLive.footballLiveExplanation,MODEL_VERSION,POLICY_ID:PRODUCTION_POLICY.id,PRODUCTION_POLICY};
