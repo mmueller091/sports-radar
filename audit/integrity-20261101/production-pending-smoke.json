@@ -1,0 +1,390 @@
+{
+  "executedAt": "2026-11-02T04:34:57.113Z",
+  "feed": {
+    "updatedAt": "2026-11-02T04:34:37.880Z",
+    "modelVersion": "2026-11-01.audit-integrity.3",
+    "freshness": {
+      "ageMs": 19609,
+      "stale": false,
+      "degraded": true,
+      "maxAgeMs": 120000
+    },
+    "enrichmentProgress": {
+      "pending": 89,
+      "validationPending": 0,
+      "modelVersion": "2026-11-01.audit-integrity.3"
+    }
+  },
+  "pendingCount": 89,
+  "groups": {
+    "NHL:upcoming": {
+      "count": 47,
+      "enrichmentPending": 47,
+      "summaryValidationPending": 0,
+      "reasons": {
+        "summary-enrichment-pending": 47
+      }
+    },
+    "NBA:completed": {
+      "count": 1,
+      "enrichmentPending": 1,
+      "summaryValidationPending": 0,
+      "reasons": {
+        "summary-enrichment-pending": 1
+      }
+    },
+    "NBA:upcoming": {
+      "count": 41,
+      "enrichmentPending": 41,
+      "summaryValidationPending": 0,
+      "reasons": {
+        "summary-enrichment-pending": 41
+      }
+    }
+  },
+  "samples": [
+    {
+      "sport": "NHL",
+      "id": "401892633",
+      "state": "upcoming",
+      "startTime": "2026-11-04T00:00Z",
+      "status": "11/3 - 7:00 PM EST",
+      "teams": [
+        {
+          "id": "129764",
+          "name": "Utah Mammoth",
+          "displayScore": "0"
+        },
+        {
+          "id": "21",
+          "name": "Toronto Maple Leafs",
+          "displayScore": "0"
+        }
+      ],
+      "enrichmentPending": true,
+      "evidenceReasons": [
+        "summary-enrichment-pending"
+      ],
+      "detailFreshness": {
+        "updatedAt": "2026-11-02T04:34:37.880Z",
+        "canonicalUpdatedAt": "2026-11-02T04:34:37.880Z",
+        "canonicalRevision": "1793594077880:86f84749-79d2-48b4-8b00-1379f056198a",
+        "receivedAt": "2026-11-02T04:34:57.760Z",
+        "stale": false,
+        "statsPending": true
+      },
+      "detailPending": true,
+      "providerSummary": {
+        "state": "pre",
+        "competitors": [
+          {
+            "id": "21",
+            "scorePresent": false,
+            "score": null,
+            "scoreType": "undefined"
+          },
+          {
+            "id": "129764",
+            "scorePresent": false,
+            "score": null,
+            "scoreType": "undefined"
+          }
+        ],
+        "headerPresent": true
+      },
+      "providerScoreboard": {
+        "state": "pre",
+        "competitors": [
+          {
+            "id": "21",
+            "scorePresent": true,
+            "score": "0",
+            "scoreType": "string"
+          },
+          {
+            "id": "129764",
+            "scorePresent": true,
+            "score": "0",
+            "scoreType": "string"
+          }
+        ],
+        "eventPresent": true
+      },
+      "exactGuardWouldMatch": false
+    },
+    {
+      "sport": "NHL",
+      "id": "401892679",
+      "state": "upcoming",
+      "startTime": "2026-11-09T01:00Z",
+      "status": "11/8 - 8:00 PM EST",
+      "teams": [
+        {
+          "id": "16",
+          "name": "Pittsburgh Penguins",
+          "displayScore": "0"
+        },
+        {
+          "id": "25",
+          "name": "Anaheim Ducks",
+          "displayScore": "0"
+        }
+      ],
+      "enrichmentPending": true,
+      "evidenceReasons": [
+        "summary-enrichment-pending"
+      ],
+      "detailFreshness": {
+        "updatedAt": "2026-11-02T04:34:37.880Z",
+        "canonicalUpdatedAt": "2026-11-02T04:34:37.880Z",
+        "canonicalRevision": "1793594077880:86f84749-79d2-48b4-8b00-1379f056198a",
+        "receivedAt": "2026-11-02T04:34:58.093Z",
+        "stale": false,
+        "statsPending": true
+      },
+      "detailPending": true,
+      "providerSummary": {
+        "state": "pre",
+        "competitors": [
+          {
+            "id": "25",
+            "scorePresent": false,
+            "score": null,
+            "scoreType": "undefined"
+          },
+          {
+            "id": "16",
+            "scorePresent": false,
+            "score": null,
+            "scoreType": "undefined"
+          }
+        ],
+        "headerPresent": true
+      },
+      "providerScoreboard": {
+        "state": "pre",
+        "competitors": [
+          {
+            "id": "25",
+            "scorePresent": true,
+            "score": "0",
+            "scoreType": "string"
+          },
+          {
+            "id": "16",
+            "scorePresent": true,
+            "score": "0",
+            "scoreType": "string"
+          }
+        ],
+        "eventPresent": true
+      },
+      "exactGuardWouldMatch": false
+    },
+    {
+      "sport": "NBA",
+      "id": "401909906",
+      "state": "completed",
+      "startTime": "2026-11-02T02:00Z",
+      "status": "Final",
+      "teams": [
+        {
+          "id": "28",
+          "name": "Toronto Raptors",
+          "displayScore": "125"
+        },
+        {
+          "id": "13",
+          "name": "Los Angeles Lakers",
+          "displayScore": "131"
+        }
+      ],
+      "enrichmentPending": true,
+      "evidenceReasons": [
+        "summary-enrichment-pending"
+      ],
+      "detailFreshness": {
+        "updatedAt": "2026-11-02T04:34:37.880Z",
+        "canonicalUpdatedAt": "2026-11-02T04:34:37.880Z",
+        "canonicalRevision": "1793594077880:86f84749-79d2-48b4-8b00-1379f056198a",
+        "receivedAt": "2026-11-02T04:34:58.346Z",
+        "stale": false,
+        "statsPending": false
+      },
+      "detailPending": true,
+      "providerSummary": {
+        "state": "post",
+        "competitors": [
+          {
+            "id": "13",
+            "scorePresent": true,
+            "score": "131",
+            "scoreType": "string"
+          },
+          {
+            "id": "28",
+            "scorePresent": true,
+            "score": "125",
+            "scoreType": "string"
+          }
+        ],
+        "headerPresent": true
+      },
+      "providerScoreboard": {
+        "state": "post",
+        "competitors": [
+          {
+            "id": "13",
+            "scorePresent": true,
+            "score": "131",
+            "scoreType": "string"
+          },
+          {
+            "id": "28",
+            "scorePresent": true,
+            "score": "125",
+            "scoreType": "string"
+          }
+        ],
+        "eventPresent": true
+      },
+      "exactGuardWouldMatch": true
+    },
+    {
+      "sport": "NBA",
+      "id": "401909951",
+      "state": "upcoming",
+      "startTime": "2026-11-09T02:00Z",
+      "status": "11/8 - 9:00 PM EST",
+      "teams": [
+        {
+          "id": "14",
+          "name": "Miami Heat",
+          "displayScore": "0"
+        },
+        {
+          "id": "23",
+          "name": "Sacramento Kings",
+          "displayScore": "0"
+        }
+      ],
+      "enrichmentPending": true,
+      "evidenceReasons": [
+        "summary-enrichment-pending"
+      ],
+      "detailFreshness": {
+        "updatedAt": "2026-11-02T04:34:37.880Z",
+        "canonicalUpdatedAt": "2026-11-02T04:34:37.880Z",
+        "canonicalRevision": "1793594077880:86f84749-79d2-48b4-8b00-1379f056198a",
+        "receivedAt": "2026-11-02T04:34:58.749Z",
+        "stale": false,
+        "statsPending": true
+      },
+      "detailPending": true,
+      "providerSummary": {
+        "state": "pre",
+        "competitors": [
+          {
+            "id": "23",
+            "scorePresent": false,
+            "score": null,
+            "scoreType": "undefined"
+          },
+          {
+            "id": "14",
+            "scorePresent": false,
+            "score": null,
+            "scoreType": "undefined"
+          }
+        ],
+        "headerPresent": true
+      },
+      "providerScoreboard": {
+        "state": "pre",
+        "competitors": [
+          {
+            "id": "23",
+            "scorePresent": true,
+            "score": "0",
+            "scoreType": "string"
+          },
+          {
+            "id": "14",
+            "scorePresent": true,
+            "score": "0",
+            "scoreType": "string"
+          }
+        ],
+        "eventPresent": true
+      },
+      "exactGuardWouldMatch": false
+    }
+  ],
+  "requests": [
+    {
+      "url": "https://sports-radar-alerts.mmueller918.workers.dev/feed",
+      "status": 200,
+      "at": "2026-11-02T04:34:57.017Z"
+    },
+    {
+      "url": "https://sports-radar-alerts.mmueller918.workers.dev/game/NHL/401892633",
+      "status": 200,
+      "at": "2026-11-02T04:34:57.259Z"
+    },
+    {
+      "url": "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892633",
+      "status": 200,
+      "at": "2026-11-02T04:34:57.365Z"
+    },
+    {
+      "url": "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/scoreboard?dates=20261103",
+      "status": 200,
+      "at": "2026-11-02T04:34:57.429Z"
+    },
+    {
+      "url": "https://sports-radar-alerts.mmueller918.workers.dev/game/NHL/401892679",
+      "status": 200,
+      "at": "2026-11-02T04:34:57.597Z"
+    },
+    {
+      "url": "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892679",
+      "status": 200,
+      "at": "2026-11-02T04:34:57.637Z"
+    },
+    {
+      "url": "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/scoreboard?dates=20261108",
+      "status": 200,
+      "at": "2026-11-02T04:34:57.685Z"
+    },
+    {
+      "url": "https://sports-radar-alerts.mmueller918.workers.dev/game/NBA/401909906",
+      "status": 200,
+      "at": "2026-11-02T04:34:58.002Z"
+    },
+    {
+      "url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909906",
+      "status": 200,
+      "at": "2026-11-02T04:34:58.074Z"
+    },
+    {
+      "url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard?dates=20261101",
+      "status": 200,
+      "at": "2026-11-02T04:34:58.102Z"
+    },
+    {
+      "url": "https://sports-radar-alerts.mmueller918.workers.dev/game/NBA/401909951",
+      "status": 200,
+      "at": "2026-11-02T04:34:58.237Z"
+    },
+    {
+      "url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909951",
+      "status": 200,
+      "at": "2026-11-02T04:34:58.278Z"
+    },
+    {
+      "url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard?dates=20261108",
+      "status": 200,
+      "at": "2026-11-02T04:34:58.316Z"
+    }
+  ]
+}

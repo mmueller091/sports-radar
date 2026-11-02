@@ -1,0 +1,14 @@
+﻿{
+    "checkedAt":  "2026-11-02T04:34:00.5632375Z",
+    "model":  "2026-11-01.audit-integrity.3",
+    "updatedAt":  "2026-11-02T04:33:26.700Z",
+    "freshness":  {
+                      "ageMs":  33468,
+                      "stale":  false,
+                      "degraded":  true,
+                      "maxAgeMs":  120000
+                  },
+    "count":  527,
+    "pending":  88,
+    "validationPending":  0
+}

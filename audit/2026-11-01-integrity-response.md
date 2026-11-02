@@ -2,7 +2,7 @@
 
 This response addresses the authoritative audit at `C:/Users/mmuel/Documents/Codex/audit-20261101-sports-radar/audit.md`. The changes repair evidence handling and distinguish a live recommendation from a retrospective assessment. They do not smooth ratings or enable experiments.
 
-**Release status: first release rolled back; the repaired candidate passed 1,082 tests and awaits renewed production verification.** The initial 1,074-test candidate and asset verification passed, but normal refresh attempts repeatedly exceeded the publication deadline. The bounded transition repair preserves the deadline and exposes unfinished work honestly. The final release record below is authoritative.
+**Release status: first release rolled back; the repaired candidate passed 1,097 tests; final pregame compatibility activation and production verification are pending.** The initial 1,074-test candidate and asset verification passed, but normal refresh attempts repeatedly exceeded the publication deadline. The bounded transition repair preserves the deadline and exposes unfinished work honestly. The final release record below is authoritative.
 
 ## Source, preservation and rollback
 
@@ -73,13 +73,13 @@ Final automated validation:
 
 | Gate | Result | Evidence |
 |---|---|---|
-| Complete root and Worker suite | **1,082 passed; 0 failed, skipped, cancelled or todo** | [Final test log](integrity-20261101/second-final-tests.log.gz); includes browser/Worker bundle parity, all new tests, bounded migration and replay-comparator controls |
+| Complete root and Worker suite | **1,097 passed; 0 failed, skipped, cancelled or todo** | [Final test log](integrity-20261101/release-final-tests.log.gz); includes browser/Worker bundle parity, all new tests, bounded migration and replay-comparator controls |
 | Audited clean baseline suite | **972 passed; 0 failed or skipped** | [Baseline log](integrity-20261101/baseline-clean-tests.log.gz) |
 | Score, watchlist and timeline fixtures | Passed | [Fixture log](integrity-20261101/final-fixtures.log.gz) |
 | Completed-game calibration | **107 fixtures; all CSV values unchanged** | [Baseline](integrity-20261101/baseline-calibration.csv), [candidate](integrity-20261101/final-calibration.csv) |
 | Historical causal-prefix replay | **1,997 checkpoints; 79 attributed changes; 0 unexplained; 0 repeated-poll changes** | [Per-checkpoint JSON](integrity-20261101/replay-differences.json), [CSV](integrity-20261101/replay-differences.csv) |
 | Candidate endpoint smoke | **8 expected outcomes passed**; zero network, notification, background or production-write activity | [Route checks](integrity-20261101/endpoint-smoke-notes.md), [results](integrity-20261101/endpoint-smoke-results.json) |
-| Production build and Worker dry run | Passed; existing DB/AI bindings; refreshed after the bounded migration repair | [Build](integrity-20261101/second-final-build.log.gz), [dry run](integrity-20261101/second-worker-dry-run.log.gz) |
+| Production build and Worker dry run | Passed; existing DB/AI bindings; refreshed after the bounded migration repair | [Build](integrity-20261101/release-final-build.log.gz), [dry run](integrity-20261101/release-final-dry-run.log.gz) |
 | Source/whitespace review | Passed with CRLF-aware Git whitespace check; no original-worktree changes | Source and artifact manifests accompany the evidence |
 | Desktop/mobile visual inspection | Not completed; user stopped Computer Use | Explicit limitation below; responsive checks were requested where tooling permits |
 
@@ -127,3 +127,7 @@ The [bounded migration repair](integrity-20261101/migration-notes.md) reserves s
 The heavy 485-game regression fails before this correction and now progresses from 187 to 115 to 43 to zero pending enrichment rows, with simulated publication at 18.55–18.75 seconds; deferred cache validation also converges. Six migration tests plus the existing refresh and Tennis tests pass 41/41, and the complete final suite passes 1,082/1,082. Independent review reproduced and verified corrections for cache-validation starvation and stale live summaries incorrectly certifying finals. Cards, accessible descriptions and Game Center visibly label pending details/provisional ratings; that UI regression fails before its correction and passes afterward. These are deterministic offline controls, not a claim about worst-case Cloudflare latency.
 
 A second release still requires the actual canonical-publication check. [Sanitized remote observations](integrity-20261101/failed-release-observation.json) omit request headers, IP/location and account identifiers; [rollback record](integrity-20261101/rollback-record.json) and [restored asset hashes](integrity-20261101/rollback-assets.json) preserve exact identities. Raw tail logs are local-only and will not be published.
+
+The second Worker release (`07b15395-b632-4db0-82e0-368f8ac635e2`, source `c02fa1901be905a9c0d9bf738571c7564bbb7872`) successfully published current-model data within the deadline. Public checks passed 13 requests, including 10 matching representative details and 225 Tennis matches. Review then found 88 upcoming NBA/NHL games unnecessarily held partial because their summaries omitted scores while scoreboards supplied zero placeholders. The final ingestion predicate accepts this equivalence only for explicitly pregame resources with matching participants, without writing scores into either resource. Started/completed resources require present finite numeric scores. The 15 focused score-guard tests and the final 1,097-test suite pass.
+
+The [final source comparison](integrity-20261101/final-guard-source-verification.json) proves that the compatibility predicate is the sole production delta from the last fingerprinted replay: all 58 other recorded source files, including every scoring module and the active replay adapter, are byte-identical. The full older Worker fingerprint is not claimed to match this final guard revision. Complete-input scoring replay results therefore remain supported by the unchanged scoring graph; the ingestion change has its own provider-shaped end-to-end and full-suite checks.

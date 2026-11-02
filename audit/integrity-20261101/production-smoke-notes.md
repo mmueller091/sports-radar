@@ -1,4 +1,43 @@
-# Production smoke: first release attempt
+# Production smoke and follow-up validation
+
+## Second Worker release: public routes pass; pregame compatibility issue found
+
+Worker `07b15395-b632-4db0-82e0-368f8ac635e2` served the expected model and notification version. The public smoke executed at approximately 04:33:55 UTC: **13 requests passed**, covering health, feed, configuration, and ten representative game details. Feed `updatedAt=2026-11-02T04:33:26.700Z` was current-model and fresh at age 28,764 ms. All 527 games and sampled details had model `2026-11-01.audit-integrity.3`; sampled ratings/teams matched their canonical publication. No internal provider revision/fingerprint caches leaked. Health retained the expected four alert-delivery safeguards and `notificationVersion=2026-11-01.canonical-revalidation.1`.
+
+| Sport | Live | Upcoming | Completed | Total |
+| --- | ---: | ---: | ---: | ---: |
+| NFL | 0 | 16 | 27 | 43 |
+| MLB | 0 | 0 | 1 | 1 |
+| NHL | 0 | 51 | 15 | 66 |
+| CFB | 0 | 0 | 115 | 115 |
+| NBA | 1 | 54 | 10 | 65 |
+| NCAAB | 0 | 1 | 1 | 2 |
+| Soccer | 0 | 9 | 1 | 10 |
+| Tennis | 0 | 82 | 143 | 225 |
+
+Every Tennis game reported scoreboard coverage with unverified point-by-point/history fields. All 143 completed Tennis matches had `scoringPartial=true`; their sample detail had no fabricated historical observations. The sole live NBA game was provider-reported "End of 4th", 125–131, rating 11, with complete evidence. It met the data-quality eligibility predicate; this says nothing about crossing a subscriber's threshold or actual delivery. All ratings were within 0–100, and no partial/invalid game was alert-eligible.
+
+The feed was degraded because 88 upcoming rows remained pending: 47 NHL and 41 NBA. Follow-up GET diagnosis at 04:34:57 UTC confirmed an overly strict pregame comparison. Three representative future games (`NHL:401892633`, `NHL:401892679`, `NBA:401909951`) had matching `pre` lifecycle and team IDs, but provider summaries omitted scores while provider scoreboards supplied string zero placeholders. The exact-string score comparison rejected this harmless pregame difference. The follow-up feed had 89 pending rows because the NBA game had just become final; its sampled provider summary and scoreboard now agreed at 125–131, unlike the persistent future-game mismatch.
+
+The initial first-release artifact is preserved as `first-release-production-smoke.json`. Current route results are in `production-smoke.json`; the pending classification and raw-field-presence samples are in `production-pending-smoke.json`. Exact follow-up command:
+
+```powershell
+node audit/integrity-20261101/production-pending-smoke.mjs
+```
+
+The pending diagnosis used public Worker GET detail/feed and ESPN GET summary/scoreboard routes. `/feed` and detail routes can perform their ordinary background/cache work. No explicit refresh/check-games or notification route was called.
+
+The implementation agent made a narrow compatibility change: only when both resources are pregame and team identities match, missing/null/blank scores can agree with zero placeholders. Played-game comparisons remain strict. Independently added regressions in `audit-migration-pregame.test.js` failed **4/8 before** the change and passed **8/8 afterward**. They verify NHL/NBA omitted and null scores, reject pregame nonzero/boolean contradictions and missing completed scores, and assert that persisted provider evidence and published zero placeholders are unchanged. Logs: `migration-pregame-before.log` and `migration-pregame-after.log`.
+
+The coordinator's final review additionally required played scores to be present, finite numeric values on both resources; equal missing/null/blank/boolean/nonnumeric fields must not certify a completed result. The implementation agent added seven regressions for that boundary (five failed before the adjustment; numeric-zero controls already passed). This reviewer independently reran both guard suites against the final predicate: **15/15 passed**, recorded in `migration-score-guard-independent.log`.
+
+```powershell
+node --no-warnings --test alerts-worker/test/audit-migration-pregame.test.js
+```
+
+These targeted results cover the new compatibility guard and its callers. They do not substitute an older Worker fingerprint for the updated source; the coordinator owns full-suite validation, release provenance, deployment, and follow-up production verification of this final adjustment. The route smoke alone does not certify that the persistent pending-row issue was already resolved in production.
+
+## First release attempt and rollback
 
 **Failed release gate after repeated deadlines; later publication confirmed.** The public Worker health changed to `2026-11-01.audit-integrity.3`, while each captured public feed response through approximately 04:10:08 UTC still contained `2026-11-01.production-integrity.2` with `updatedAt=2026-11-02T04:05:39.012Z`. The final such response had an age of 269,782 ms and correctly reported `freshness.stale=true`. Rollback was initiated after repeated 25-second refresh deadlines, rather than because publication was proven permanently impossible.
 

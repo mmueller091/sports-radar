@@ -134,10 +134,20 @@ function prematchRegression(payload,competition) {
 function migrationSummaryMatches(payload,competition) {
   const header=payload?.header?.competitions?.[0];
   if(!header||header.status?.type?.state!==competition?.status?.type?.state)return false;
+  // Scheduled resources may omit scores while the scoreboard supplies zero
+  // placeholders. This equivalence never applies once play has started, and
+  // does not fill or change either provider resource's raw score fields.
+  const pregame=header.status.type.state==='pre';
+  const missingOrZero=value=>value==null||typeof value==='string'&&value.trim()===''||
+    (typeof value==='number'||typeof value==='string')&&Number(value)===0;
+  const knownScore=value=>(typeof value==='number'||typeof value==='string')&&
+    String(value).trim()!==''&&Number.isFinite(Number(value));
   const incoming=header.competitors||[],current=competition.competitors||[];
   return incoming.length===2&&current.length===2&&current.every(team=>{
     const other=incoming.find(item=>String(item.team?.id||item.id)===String(team.team?.id||team.id));
-    return other&&String(other.score)===String(team.score);
+    if(!other)return false;
+    if(pregame)return String(other.score)===String(team.score)||missingOrZero(other.score)&&missingOrZero(team.score);
+    return knownScore(other.score)&&knownScore(team.score)&&String(other.score)===String(team.score);
   });
 }
 

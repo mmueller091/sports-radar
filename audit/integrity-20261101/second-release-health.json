@@ -1,0 +1,22 @@
+﻿{
+    "ok":  true,
+    "notificationVersion":  "2026-11-01.canonical-revalidation.1",
+    "alertDelivery":  {
+                          "canonicalRevalidation":  true,
+                          "atomicClaim":  true,
+                          "maxQueueAgeMs":  120000,
+                          "ambiguousRetry":  false
+                      },
+    "modelVersion":  "2026-11-01.audit-integrity.3",
+    "scoringPolicy":  "live-owned-45-95-relevant-history-cfb-competition-opening-transition",
+    "storylines":  {
+                       "enabled":  true,
+                       "source":  "league news + Workers AI free allocation",
+                       "lastRun":  1793593062,
+                       "candidates":  25,
+                       "articles":  16,
+                       "factors":  1,
+                       "aiUsed":  true,
+                       "lastError":  null
+                   }
+}

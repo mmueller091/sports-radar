@@ -1,5 +1,5 @@
 {
-  "note": "Retained audit artifacts; replay/log outputs are gzip. Worker CLI account email omitted. Raw request-bearing tail logs are excluded; sanitized observations retained.",
+  "note": "Retained artifacts; raw request-bearing tail logs excluded, sanitized observations retained; account email omitted from Worker CLI archives.",
   "artifacts": {
     "adversarial-review-after.json": {
       "bytes": 1122,
@@ -201,6 +201,10 @@
       "bytes": 99,
       "sha256": "91d8c70b355515de75e1fcd5c7d3335957221018fee48706c1af72cc6ef903a1"
     },
+    "final-guard-source-verification.json": {
+      "bytes": 755,
+      "sha256": "3f2b67a21f8379c3f6b0f88efd50a8628e9325d9cd9bf4659269be800b05faaf"
+    },
     "final-replay.json.gz": {
       "bytes": 387994,
       "sha256": "936bf06b255423335479cb09eb85e511b5be045fd7eb7f6d0a2ea7010dfbfde1"
@@ -230,8 +234,24 @@
       "sha256": "e4e53041a00f33ec094b253ea32cfbe156c7c85a9be363cc539e7689ca80f9dc"
     },
     "migration-notes.md": {
-      "bytes": 6905,
-      "sha256": "4363a3cc263e3ce09440849f0de8c53d7524dd61f867034c4d43ddbc57816301"
+      "bytes": 8551,
+      "sha256": "a545623cb257e351b16e4219db581ffa9b880b6199a9210785497d18d326a644"
+    },
+    "migration-played-score-after.log.gz": {
+      "bytes": 4214,
+      "sha256": "6ec53e26a154e324bc3d7db542bbaf9f69bd23ffdb50a1e5843de7a6f86a96aa"
+    },
+    "migration-played-score-before.log.gz": {
+      "bytes": 1114,
+      "sha256": "87237bf1992ba266c71287495d77e20f2581f0e935e1ecba4708c446832c8bbe"
+    },
+    "migration-pregame-after.log.gz": {
+      "bytes": 502,
+      "sha256": "4fb306548fef7cfa2fd08ed7cbf5d1b5c9ecbaf2bb94372897aec7f748a0d293"
+    },
+    "migration-pregame-before.log.gz": {
+      "bytes": 1013,
+      "sha256": "b3497b64ef29894a3dad36c51292731a51e6199c21d3a3358ffb348191b41a53"
     },
     "migration-review-after.log.gz": {
       "bytes": 620,
@@ -268,6 +288,10 @@
     "migration-review-stale-final.json": {
       "bytes": 1532,
       "sha256": "5ddfc01310d51b9cfaaccaf1dd74414441634ed45bea290b29d4e49c47c4616c"
+    },
+    "migration-score-guard-independent.log.gz": {
+      "bytes": 722,
+      "sha256": "935bc698317f6b9f826a730603baea7969ae92b7112433d6bb2d7b4f1fcd1c84"
     },
     "migration-ui-after.log.gz": {
       "bytes": 1987,
@@ -317,13 +341,21 @@
       "bytes": 324,
       "sha256": "61eb12199b3985001d92ec633ab67e51a76799dacef45e11bc280d576eb68cfe"
     },
+    "production-pending-smoke.json": {
+      "bytes": 10199,
+      "sha256": "dba8bd07479794848edbff01cb3ddc5b6bf84a4c750b99f8302dc939b77892ff"
+    },
+    "production-pending-smoke.mjs": {
+      "bytes": 3637,
+      "sha256": "fce3fbc095637859d10a48b80b189d7c3de3b450a147276ca0cb0eabe3aeecac"
+    },
     "production-smoke-notes.md": {
-      "bytes": 5023,
-      "sha256": "4eb00a597369ccd2b4f98aad18c7f110dcc85c697e367b98029f8ab04ed774d2"
+      "bytes": 9581,
+      "sha256": "e556f86ee0332f6b291aac97ac61e5f037c5790d233a3409a99b2372c532e21a"
     },
     "production-smoke.json": {
-      "bytes": 3783,
-      "sha256": "d7f97e4f5ff0a20dd20263d59f28b6d7ace2d53f2654933a55a4ffe7911599b8"
+      "bytes": 23893,
+      "sha256": "cce7bb18db494f99cfa46835fdcff4a2c98fcbc742711f478bec55381397c965"
     },
     "production-smoke.mjs": {
       "bytes": 7920,
@@ -344,6 +376,18 @@
     "release-build.log.gz": {
       "bytes": 153,
       "sha256": "f4d7d8c884105d7afd797f9dc1f61af26e05a47e799081421bb73bcac410daea"
+    },
+    "release-final-build.log.gz": {
+      "bytes": 135,
+      "sha256": "1c6086b12776890d1f649002f9be31792c1f41cb3d78c9eb6ed0688eaeeab87d"
+    },
+    "release-final-dry-run.log.gz": {
+      "bytes": 310,
+      "sha256": "2f1809b83330563f4808eeeff5ae812197fef0565a79b4b1c8f7aa2736cdbe16"
+    },
+    "release-final-tests.log.gz": {
+      "bytes": 65648,
+      "sha256": "bdcf52ef5200cf91645baea2725bf24451474a67d3f5ca1cdcf864fdc20d48b8"
     },
     "release-health.json": {
       "bytes": 929,
@@ -405,6 +449,10 @@
       "bytes": 65210,
       "sha256": "ed8142c493919dde3dcc55932f3be549cfd8b7a0315348a79d0b4d072d71d273"
     },
+    "second-publication-gate.json": {
+      "bytes": 432,
+      "sha256": "2a3f12b363567d13d50fc8058c697c77df08f83066406a1d702f8fda6e0898b6"
+    },
     "second-release-all-frozen-replay.log.gz": {
       "bytes": 107,
       "sha256": "523e5eb38950a69a8e2c5bb54a38ad7eb9ccf658f9067f93dee5b484f8261fe5"
@@ -412,6 +460,10 @@
     "second-release-all-replay.log.gz": {
       "bytes": 107,
       "sha256": "523e5eb38950a69a8e2c5bb54a38ad7eb9ccf658f9067f93dee5b484f8261fe5"
+    },
+    "second-release-build.log.gz": {
+      "bytes": 151,
+      "sha256": "65c3397c89950c2a49e864ec737c5ab949cf14f4f9b68c9f4f35ab23958abea0"
     },
     "second-release-candidate-frozen-replay.log.gz": {
       "bytes": 164,
@@ -433,6 +485,10 @@
       "bytes": 598,
       "sha256": "3c5c6ce18b4b6f17451ddc14c3ed3fa18631711f89f499df9e55acf1a4a746f7"
     },
+    "second-release-health.json": {
+      "bytes": 928,
+      "sha256": "41717cc09b3c6ff73195e15d05e260e10c0129d8c914d475767d82b61423095e"
+    },
     "second-release-mlb-frozen-replay.log.gz": {
       "bytes": 94,
       "sha256": "a21535702cc7730e4206b91d5025f2650ad17f7d8cf3b07ec014f7542d387531"
@@ -453,9 +509,17 @@
       "bytes": 578,
       "sha256": "bf21968250d5522e57b9fa5325c6f334994ba1c43d8321318a96208e958d44e6"
     },
+    "second-worker-active.log.gz": {
+      "bytes": 326,
+      "sha256": "a4dc1e91b2f6ada4d6b4d680fff735f5bbb342e7f388e9e7b2480a24103eb822"
+    },
     "second-worker-dry-run.log.gz": {
       "bytes": 284,
       "sha256": "4d8acc3b49fe38a776fb16bf60d91739904bf2d166532061d3edcc0663d55416"
+    },
+    "second-worker-release.log.gz": {
+      "bytes": 466,
+      "sha256": "0ecafc74ec27907390c5d6742e0132d5858cc8cc8b1e48d3d731791af0a24aa4"
     },
     "tennis-boundary-before.log.gz": {
       "bytes": 900,

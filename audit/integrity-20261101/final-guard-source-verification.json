@@ -1,0 +1,11 @@
+{
+  "replaySourceCommit": "c02fa1901be905a9c0d9bf738571c7564bbb7872",
+  "replaySourceFingerprint": "553534784f3a1dca4416e8be21928a703b2ec1d142a295670cf855798e190931",
+  "verifiedUnchangedFiles": 58,
+  "changedFiles": [
+    "alerts-worker/src/sports-feed.js"
+  ],
+  "onlyChangedFunction": "migrationSummaryMatches",
+  "newFileSha256": "b58dbacefd0e2e31a546313a391f797931dc662c0664bb8c62fc19b2a3e6046d",
+  "scope": "All actual scoring modules and the active replay adapter remain byte-identical to the validated 1997-checkpoint run. The only source delta is an ingestion cache compatibility predicate, covered by end-to-end provider fixtures and full regression suite. The old full Worker manifest is not claimed to match this guard revision."
+}

@@ -1,7 +1,7 @@
 {
-  "executedAt": "2026-11-02T04:09:59.811Z",
+  "executedAt": "2026-11-02T04:33:54.514Z",
   "base": "https://sports-radar-alerts.mmueller918.workers.dev",
-  "mode": "Public GET routes only; /feed may schedule normal background refresh; no explicit refresh/check-games or notification calls",
+  "mode": "public GET routes only; /feed may schedule its normal background refresh; no explicit refresh/check-games or notification calls",
   "rolloutObservations": [
     {
       "executedAt": "2026-11-02T04:08:30.146Z",
@@ -28,30 +28,128 @@
         "degraded": false,
         "maxAgeMs": 120000
       }
+    },
+    {
+      "executedAt": "2026-11-02T04:09:59.811Z",
+      "outcome": "awaiting-normal-cron",
+      "healthModel": "2026-11-01.audit-integrity.3",
+      "feedModel": "2026-11-01.production-integrity.2",
+      "feedUpdatedAt": "2026-11-02T04:05:39.012Z",
+      "freshness": {
+        "ageMs": 269782,
+        "stale": true,
+        "degraded": false,
+        "maxAgeMs": 120000
+      }
     }
   ],
   "requests": [
     {
       "path": "/health",
       "status": 200,
-      "startedAt": "2026-11-02T04:09:59.812Z",
-      "receivedAt": "2026-11-02T04:10:00.068Z",
+      "startedAt": "2026-11-02T04:33:54.515Z",
+      "receivedAt": "2026-11-02T04:33:54.708Z",
       "cacheControl": "no-store",
       "allowOrigin": "https://mmueller091.github.io"
     },
     {
       "path": "/feed",
       "status": 200,
-      "startedAt": "2026-11-02T04:10:00.074Z",
-      "receivedAt": "2026-11-02T04:10:09.932Z",
+      "startedAt": "2026-11-02T04:33:54.713Z",
+      "receivedAt": "2026-11-02T04:33:54.932Z",
+      "cacheControl": "no-store",
+      "allowOrigin": "https://mmueller091.github.io"
+    },
+    {
+      "path": "/game/NBA/401909906",
+      "status": 200,
+      "startedAt": "2026-11-02T04:33:55.053Z",
+      "receivedAt": "2026-11-02T04:33:55.427Z",
+      "cacheControl": "no-store",
+      "allowOrigin": "https://mmueller091.github.io"
+    },
+    {
+      "path": "/game/NFL/401873026",
+      "status": 200,
+      "startedAt": "2026-11-02T04:33:55.435Z",
+      "receivedAt": "2026-11-02T04:33:56.245Z",
+      "cacheControl": "no-store",
+      "allowOrigin": "https://mmueller091.github.io"
+    },
+    {
+      "path": "/game/MLB/401908046",
+      "status": 200,
+      "startedAt": "2026-11-02T04:33:56.262Z",
+      "receivedAt": "2026-11-02T04:33:56.555Z",
+      "cacheControl": "no-store",
+      "allowOrigin": "https://mmueller091.github.io"
+    },
+    {
+      "path": "/game/NHL/401892614",
+      "status": 200,
+      "startedAt": "2026-11-02T04:33:56.567Z",
+      "receivedAt": "2026-11-02T04:33:57.370Z",
+      "cacheControl": "no-store",
+      "allowOrigin": "https://mmueller091.github.io"
+    },
+    {
+      "path": "/game/CFB/401871071",
+      "status": 200,
+      "startedAt": "2026-11-02T04:33:57.385Z",
+      "receivedAt": "2026-11-02T04:33:57.875Z",
+      "cacheControl": "no-store",
+      "allowOrigin": "https://mmueller091.github.io"
+    },
+    {
+      "path": "/game/NBA/401909896",
+      "status": 200,
+      "startedAt": "2026-11-02T04:33:57.884Z",
+      "receivedAt": "2026-11-02T04:33:58.307Z",
+      "cacheControl": "no-store",
+      "allowOrigin": "https://mmueller091.github.io"
+    },
+    {
+      "path": "/game/NCAAB/401920982",
+      "status": 200,
+      "startedAt": "2026-11-02T04:33:58.314Z",
+      "receivedAt": "2026-11-02T04:33:58.868Z",
+      "cacheControl": "no-store",
+      "allowOrigin": "https://mmueller091.github.io"
+    },
+    {
+      "path": "/game/Soccer/401879246",
+      "status": 200,
+      "startedAt": "2026-11-02T04:33:58.879Z",
+      "receivedAt": "2026-11-02T04:33:59.176Z",
+      "cacheControl": "no-store",
+      "allowOrigin": "https://mmueller091.github.io"
+    },
+    {
+      "path": "/game/Tennis/187149",
+      "status": 200,
+      "startedAt": "2026-11-02T04:33:59.190Z",
+      "receivedAt": "2026-11-02T04:33:59.346Z",
+      "cacheControl": "no-store",
+      "allowOrigin": "https://mmueller091.github.io"
+    },
+    {
+      "path": "/game/Tennis/186456",
+      "status": 200,
+      "startedAt": "2026-11-02T04:33:59.347Z",
+      "receivedAt": "2026-11-02T04:33:59.481Z",
+      "cacheControl": "no-store",
+      "allowOrigin": "https://mmueller091.github.io"
+    },
+    {
+      "path": "/config",
+      "status": 200,
+      "startedAt": "2026-11-02T04:33:59.482Z",
+      "receivedAt": "2026-11-02T04:33:59.504Z",
       "cacheControl": "no-store",
       "allowOrigin": "https://mmueller091.github.io"
     }
   ],
-  "failures": [
-    "Feed model awaiting canonical publication",
-    "Feed marked stale"
-  ],
+  "failures": [],
   "health": {
     "ok": true,
     "notificationVersion": "2026-11-01.canonical-revalidation.1",
@@ -66,60 +164,472 @@
     "storylines": {
       "enabled": true,
       "source": "league news + Workers AI free allocation",
-      "lastRun": 1793585863,
+      "lastRun": 1793593062,
       "candidates": 25,
       "articles": 16,
       "factors": 1,
-      "aiUsed": false,
+      "aiUsed": true,
       "lastError": null
     }
   },
   "feed": {
-    "updatedAt": "2026-11-02T04:05:39.012Z",
-    "modelVersion": "2026-11-01.production-integrity.2",
+    "updatedAt": "2026-11-02T04:33:26.700Z",
+    "modelVersion": "2026-11-01.audit-integrity.3",
     "scoringPolicy": "live-owned-45-95-relevant-history-cfb-competition-opening-transition",
     "freshness": {
-      "ageMs": 269782,
-      "stale": true,
-      "degraded": false,
+      "ageMs": 28764,
+      "stale": false,
+      "degraded": true,
       "maxAgeMs": 120000
     },
-    "sourceErrors": [],
-    "gameCount": 302
-  },
-  "outcome": "awaiting-normal-cron",
-  "laterEvidence": {
-    "source": "failed-release-observation.json",
-    "publicDetailValidated": false,
-    "publishedRefreshes": [
-      {
-        "startedAt": "2026-11-02T04:10:00.794Z",
-        "approximatePublishedAt": "2026-11-02T04:10:23.611Z",
-        "trigger": "feed",
-        "publicationMs": 22817,
-        "totalMs": 24323,
-        "criticalCandidates": 259,
-        "reusedGames": 0,
-        "providerRequests": 162
-      },
-      {
-        "startedAt": "2026-11-02T04:10:28.017Z",
-        "approximatePublishedAt": "2026-11-02T04:10:32.352Z",
-        "trigger": "feed",
-        "publicationMs": 4335,
-        "totalMs": 20014,
-        "criticalCandidates": 2,
-        "reusedGames": 257,
-        "providerRequests": 114
-      }
+    "sourceErrors": [
+      "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892634",
+      "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892638",
+      "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892633",
+      "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892639",
+      "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892637",
+      "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892635",
+      "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892643",
+      "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892636",
+      "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892642",
+      "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892640",
+      "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892641",
+      "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892644",
+      "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892648",
+      "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892646",
+      "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892649",
+      "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892645",
+      "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892647",
+      "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892650",
+      "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892653",
+      "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892652",
+      "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892655",
+      "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892654",
+      "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892651",
+      "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892656",
+      "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892660",
+      "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892662",
+      "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892657",
+      "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892661",
+      "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892658",
+      "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892659",
+      "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892668",
+      "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892663",
+      "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892665",
+      "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892666",
+      "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892667",
+      "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892664",
+      "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892673",
+      "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892671",
+      "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892670",
+      "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892669",
+      "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892672",
+      "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892674",
+      "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909920",
+      "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892676",
+      "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892679",
+      "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892677",
+      "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892678",
+      "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892675",
+      "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909923",
+      "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909926",
+      "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909922",
+      "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909924",
+      "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909925",
+      "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909921",
+      "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909931",
+      "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909927",
+      "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909930",
+      "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909929",
+      "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909932",
+      "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909928",
+      "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909287",
+      "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909936",
+      "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909935",
+      "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909933",
+      "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909937",
+      "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909934",
+      "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909288",
+      "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909290",
+      "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909289",
+      "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909291",
+      "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909293",
+      "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909292",
+      "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909940",
+      "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909938",
+      "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909941",
+      "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909295",
+      "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909939",
+      "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909294",
+      "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909946",
+      "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909943",
+      "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909947",
+      "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909945",
+      "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909942",
+      "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909944",
+      "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909948",
+      "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909951",
+      "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909949",
+      "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909950"
     ],
-    "rollback": {
-      "verificationSource": "release coordinator",
-      "verifiedAtApprox": "2026-11-02T04:13:00Z",
-      "healthAndFeedModel": "2026-11-01.production-integrity.2",
-      "feedFresh": true,
-      "pagesRollbackWorkflow": "41387018806",
-      "pagesWorkflowOutcome": "success"
+    "gameCount": 527,
+    "counts": {
+      "NFL": {
+        "total": 43,
+        "live": 0,
+        "upcoming": 16,
+        "completed": 27,
+        "partial": 0,
+        "invalid": 0,
+        "complete": 0,
+        "unclassified": 43,
+        "alertEligible": 0
+      },
+      "MLB": {
+        "total": 1,
+        "live": 0,
+        "upcoming": 0,
+        "completed": 1,
+        "partial": 0,
+        "invalid": 0,
+        "complete": 0,
+        "unclassified": 1,
+        "alertEligible": 0
+      },
+      "NHL": {
+        "total": 66,
+        "live": 0,
+        "upcoming": 51,
+        "completed": 15,
+        "partial": 47,
+        "invalid": 0,
+        "complete": 0,
+        "unclassified": 19,
+        "alertEligible": 0
+      },
+      "CFB": {
+        "total": 115,
+        "live": 0,
+        "upcoming": 0,
+        "completed": 115,
+        "partial": 0,
+        "invalid": 0,
+        "complete": 0,
+        "unclassified": 115,
+        "alertEligible": 0
+      },
+      "NBA": {
+        "total": 65,
+        "live": 1,
+        "upcoming": 54,
+        "completed": 10,
+        "partial": 41,
+        "invalid": 0,
+        "complete": 1,
+        "unclassified": 23,
+        "alertEligible": 1
+      },
+      "NCAAB": {
+        "total": 2,
+        "live": 0,
+        "upcoming": 1,
+        "completed": 1,
+        "partial": 0,
+        "invalid": 0,
+        "complete": 0,
+        "unclassified": 2,
+        "alertEligible": 0
+      },
+      "Soccer": {
+        "total": 10,
+        "live": 0,
+        "upcoming": 9,
+        "completed": 1,
+        "partial": 0,
+        "invalid": 0,
+        "complete": 0,
+        "unclassified": 10,
+        "alertEligible": 0
+      },
+      "Tennis": {
+        "total": 225,
+        "live": 0,
+        "upcoming": 82,
+        "completed": 143,
+        "partial": 0,
+        "invalid": 0,
+        "complete": 0,
+        "unclassified": 225,
+        "alertEligible": 0
+      }
+    },
+    "internalCacheLeaks": [],
+    "liveGames": [
+      {
+        "sport": "NBA",
+        "id": "401909906",
+        "status": "End of 4th",
+        "teams": [
+          {
+            "name": "Toronto Raptors",
+            "score": "125"
+          },
+          {
+            "name": "Los Angeles Lakers",
+            "score": "131"
+          }
+        ],
+        "rating": 11,
+        "evidenceQuality": "complete",
+        "evidenceReasons": [],
+        "scoringPartial": false,
+        "alertEligible": true
+      }
+    ]
+  },
+  "tennis": {
+    "count": 225,
+    "states": {
+      "total": 225,
+      "live": 0,
+      "upcoming": 82,
+      "completed": 143,
+      "partial": 0,
+      "invalid": 0,
+      "complete": 0,
+      "unclassified": 225,
+      "alertEligible": 0
+    },
+    "scoreboardCoverageCount": 225,
+    "unverifiedHistoryCount": 225,
+    "startedPartialCount": 143
+  },
+  "details": [
+    {
+      "sport": "NBA",
+      "id": "401909906",
+      "state": "live",
+      "status": "End of 4th",
+      "rating": 11,
+      "modelVersion": "2026-11-01.audit-integrity.3",
+      "freshness": {
+        "updatedAt": "2026-11-02T04:33:50.559Z",
+        "canonicalUpdatedAt": "2026-11-02T04:33:26.700Z",
+        "canonicalRevision": "1793594006700:610543df-d97a-4122-928f-c41f558beb70",
+        "receivedAt": "2026-11-02T04:33:55.709Z",
+        "stale": false,
+        "statsPending": false
+      },
+      "evidenceQuality": "complete",
+      "scoringPartial": false,
+      "historySnapshots": 365,
+      "samePublication": true,
+      "canonicalRatingMatches": true,
+      "canonicalTeamsMatch": true,
+      "headerPresent": true
+    },
+    {
+      "sport": "NFL",
+      "id": "401873026",
+      "state": "completed",
+      "status": "Final",
+      "rating": 1,
+      "modelVersion": "2026-11-01.audit-integrity.3",
+      "freshness": {
+        "updatedAt": "2026-11-02T04:33:56.094Z",
+        "canonicalUpdatedAt": "2026-11-02T04:33:26.700Z",
+        "canonicalRevision": "1793594006700:610543df-d97a-4122-928f-c41f558beb70",
+        "receivedAt": "2026-11-02T04:33:56.094Z",
+        "stale": false,
+        "statsPending": false
+      },
+      "historySnapshots": 667,
+      "samePublication": true,
+      "canonicalRatingMatches": true,
+      "canonicalTeamsMatch": true,
+      "headerPresent": true
+    },
+    {
+      "sport": "MLB",
+      "id": "401908046",
+      "state": "completed",
+      "status": "Final",
+      "rating": 35,
+      "modelVersion": "2026-11-01.audit-integrity.3",
+      "freshness": {
+        "updatedAt": "2026-11-02T04:33:17.413Z",
+        "canonicalUpdatedAt": "2026-11-02T04:33:26.700Z",
+        "canonicalRevision": "1793594006700:610543df-d97a-4122-928f-c41f558beb70",
+        "receivedAt": "2026-11-02T04:33:56.917Z",
+        "stale": false
+      },
+      "historySnapshots": 369,
+      "samePublication": true,
+      "canonicalRatingMatches": true,
+      "canonicalTeamsMatch": true,
+      "headerPresent": true
+    },
+    {
+      "sport": "NHL",
+      "id": "401892614",
+      "state": "completed",
+      "status": "Final/OT",
+      "rating": 74,
+      "modelVersion": "2026-11-01.audit-integrity.3",
+      "freshness": {
+        "updatedAt": "2026-11-02T04:33:57.211Z",
+        "canonicalUpdatedAt": "2026-11-02T04:33:26.700Z",
+        "canonicalRevision": "1793594006700:610543df-d97a-4122-928f-c41f558beb70",
+        "receivedAt": "2026-11-02T04:33:57.211Z",
+        "stale": false,
+        "statsPending": false
+      },
+      "historySnapshots": 234,
+      "samePublication": true,
+      "canonicalRatingMatches": true,
+      "canonicalTeamsMatch": true,
+      "headerPresent": true
+    },
+    {
+      "sport": "CFB",
+      "id": "401871071",
+      "state": "completed",
+      "status": "Final",
+      "rating": 20,
+      "modelVersion": "2026-11-01.audit-integrity.3",
+      "freshness": {
+        "updatedAt": "2026-11-02T04:33:58.040Z",
+        "canonicalUpdatedAt": "2026-11-02T04:33:26.700Z",
+        "canonicalRevision": "1793594006700:610543df-d97a-4122-928f-c41f558beb70",
+        "receivedAt": "2026-11-02T04:33:58.040Z",
+        "stale": false,
+        "statsPending": false
+      },
+      "historySnapshots": 758,
+      "samePublication": true,
+      "canonicalRatingMatches": true,
+      "canonicalTeamsMatch": true,
+      "headerPresent": true
+    },
+    {
+      "sport": "NBA",
+      "id": "401909896",
+      "state": "completed",
+      "status": "Final",
+      "rating": 24,
+      "modelVersion": "2026-11-01.audit-integrity.3",
+      "freshness": {
+        "updatedAt": "2026-11-02T04:33:58.529Z",
+        "canonicalUpdatedAt": "2026-11-02T04:33:26.700Z",
+        "canonicalRevision": "1793594006700:610543df-d97a-4122-928f-c41f558beb70",
+        "receivedAt": "2026-11-02T04:33:58.529Z",
+        "stale": false,
+        "statsPending": false
+      },
+      "historySnapshots": 187,
+      "samePublication": true,
+      "canonicalRatingMatches": true,
+      "canonicalTeamsMatch": true,
+      "headerPresent": true
+    },
+    {
+      "sport": "NCAAB",
+      "id": "401920982",
+      "state": "completed",
+      "status": "Final",
+      "rating": 65,
+      "modelVersion": "2026-11-01.audit-integrity.3",
+      "freshness": {
+        "updatedAt": "2026-11-02T04:33:58.971Z",
+        "canonicalUpdatedAt": "2026-11-02T04:33:26.700Z",
+        "canonicalRevision": "1793594006700:610543df-d97a-4122-928f-c41f558beb70",
+        "receivedAt": "2026-11-02T04:33:58.971Z",
+        "stale": false,
+        "statsPending": false
+      },
+      "historySnapshots": 499,
+      "samePublication": true,
+      "canonicalRatingMatches": true,
+      "canonicalTeamsMatch": true,
+      "headerPresent": true
+    },
+    {
+      "sport": "Soccer",
+      "id": "401879246",
+      "state": "completed",
+      "status": "FT",
+      "rating": 36,
+      "modelVersion": "2026-11-01.audit-integrity.3",
+      "freshness": {
+        "updatedAt": "2026-11-02T04:33:22.042Z",
+        "canonicalUpdatedAt": "2026-11-02T04:33:26.700Z",
+        "canonicalRevision": "1793594006700:610543df-d97a-4122-928f-c41f558beb70",
+        "receivedAt": "2026-11-02T04:33:59.534Z",
+        "stale": false
+      },
+      "historySnapshots": 392,
+      "samePublication": true,
+      "canonicalRatingMatches": true,
+      "canonicalTeamsMatch": true,
+      "headerPresent": true
+    },
+    {
+      "sport": "Tennis",
+      "id": "187149",
+      "state": "completed",
+      "status": "Final",
+      "rating": 36,
+      "modelVersion": "2026-11-01.audit-integrity.3",
+      "freshness": {
+        "updatedAt": "2026-11-02T04:33:26.700Z",
+        "canonicalUpdatedAt": "2026-11-02T04:33:26.700Z",
+        "receivedAt": "2026-11-02T04:33:59.831Z",
+        "stale": false
+      },
+      "coverage": {
+        "source": "scoreboard",
+        "sets": true,
+        "pointByPoint": false,
+        "history": false,
+        "reason": "Scoreboard coverage: set scores are available; point-by-point history and detailed point state are not verified."
+      },
+      "scoringPartial": true,
+      "historySnapshots": 0,
+      "samePublication": true,
+      "canonicalRatingMatches": true,
+      "canonicalTeamsMatch": true,
+      "headerPresent": true
+    },
+    {
+      "sport": "Tennis",
+      "id": "186456",
+      "state": "upcoming",
+      "status": "11/2 - 5:00 AM EST",
+      "rating": 34,
+      "modelVersion": "2026-11-01.audit-integrity.3",
+      "freshness": {
+        "updatedAt": "2026-11-02T04:33:26.700Z",
+        "canonicalUpdatedAt": "2026-11-02T04:33:26.700Z",
+        "receivedAt": "2026-11-02T04:33:59.988Z",
+        "stale": false
+      },
+      "coverage": {
+        "source": "scoreboard",
+        "sets": false,
+        "pointByPoint": false,
+        "history": false,
+        "reason": "Scoreboard coverage: match schedule and participants are available; point-by-point history and detailed point state are not verified."
+      },
+      "historySnapshots": 1,
+      "samePublication": true,
+      "canonicalRatingMatches": true,
+      "canonicalTeamsMatch": true,
+      "headerPresent": true
     }
-  }
+  ],
+  "config": {
+    "hasPublicKey": true,
+    "pollSeconds": 60
+  },
+  "outcome": "passed"
 }
