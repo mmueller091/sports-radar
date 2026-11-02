@@ -1,0 +1,64 @@
+{
+  "executedAt": "2026-11-02T03:59:10.647Z",
+  "mode": "actual candidate fetch handler; local in-memory SQLite; fixture resources; all network blocked",
+  "modelVersion": "2026-11-01.audit-integrity.3",
+  "scoringPolicy": "live-owned-45-95-relevant-history-cfb-competition-opening-transition",
+  "notificationVersion": "2026-11-01.canonical-revalidation.1",
+  "alertDelivery": {
+    "canonicalRevalidation": true,
+    "atomicClaim": true,
+    "maxQueueAgeMs": 120000,
+    "ambiguousRetry": false
+  },
+  "routes": [
+    {
+      "path": "/health",
+      "status": 200,
+      "modelVersion": "2026-11-01.audit-integrity.3"
+    },
+    {
+      "path": "/feed",
+      "status": 200,
+      "modelVersion": "2026-11-01.audit-integrity.3"
+    },
+    {
+      "path": "/game/NFL/401873035",
+      "status": 200,
+      "modelVersion": "2026-11-01.audit-integrity.3"
+    },
+    {
+      "path": "/game/NFL/401872988",
+      "status": 200,
+      "modelVersion": "2026-11-01.audit-integrity.3"
+    },
+    {
+      "path": "/game/Tennis/185198",
+      "status": 200,
+      "modelVersion": "2026-11-01.audit-integrity.3"
+    },
+    {
+      "path": "/config",
+      "status": 200,
+      "modelVersion": null
+    },
+    {
+      "path": "/game/NFL/unknown",
+      "status": 404,
+      "modelVersion": null
+    },
+    {
+      "path": "/feed",
+      "status": 403,
+      "modelVersion": null
+    }
+  ],
+  "networkAttempts": 0,
+  "backgroundTasks": 0,
+  "notificationsSent": 0,
+  "productionDatabaseWrites": 0,
+  "sourceSha256": {
+    "alerts-worker/src/index.js": "efc8a2e2188c8a9ed147fb82fadea371dd489ff9969bf4fac8d14cb844774cad",
+    "alerts-worker/src/alert-delivery.js": "b59992c8338c7681bee2228bde300e20f1c512aa0a0fd7ee6d0432cb8239042c",
+    "scoring/live-runtime.cjs": "1576c454c533c0c05af26c72d63c9359521f8dda0e5876aa8625ed98529133fc"
+  }
+}

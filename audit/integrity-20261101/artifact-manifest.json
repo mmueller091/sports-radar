@@ -1,0 +1,393 @@
+{
+  "note": "SHA-256 of retained audit artifacts. Large replay and log outputs are gzip. Worker CLI account email omitted from archived logs; local originals retained. Raw provider evidence has provenance within fixtures.",
+  "artifacts": {
+    "adversarial-review-after.json": {
+      "bytes": 1122,
+      "sha256": "2936c48de72cec56887d0a1af6ba0e38a502d0224b53480bef13c8d234d35a48"
+    },
+    "adversarial-review-notes.md": {
+      "bytes": 6788,
+      "sha256": "d95f3e234380fb8541e523d8718178e816240df6846ad94141baa0e95b58ffd5"
+    },
+    "alerts-tennis-after.log.gz": {
+      "bytes": 2796,
+      "sha256": "8e54ac672afba47ae4eab72eb1126990f485aad226f1412271c037e79b4127d5"
+    },
+    "alerts-tennis-before.log.gz": {
+      "bytes": 2533,
+      "sha256": "0d965fa38026824e9e83155b9b8be13446c13ef78785909e7957d8ba6f53bd68"
+    },
+    "alerts-tennis-notes.md": {
+      "bytes": 9610,
+      "sha256": "455970522236ee1e5df803c99e0beed51159eccadeb2604352412733e68e52af"
+    },
+    "alerts-tennis-recross-before.log.gz": {
+      "bytes": 1222,
+      "sha256": "220e81fe50d41e96f9da85b545ea33cdd49adf7b5422a7174885a2dbc66270f4"
+    },
+    "baseline-build.log.gz": {
+      "bytes": 150,
+      "sha256": "5ab5dca4a91777531060e5f0f072471b890626065a5b4b67434d2d3df9a8e75a"
+    },
+    "baseline-calibration.csv": {
+      "bytes": 9315,
+      "sha256": "828811122c9847f6af6e6bd3215a3eff5b97c288fac9294760f86b89553a3562"
+    },
+    "baseline-calibration.log.gz": {
+      "bytes": 4433,
+      "sha256": "56df91950fc70ceb607c84fae0334415fed25f6bf7556afa17254408e1116322"
+    },
+    "baseline-clean-tests.log.gz": {
+      "bytes": 58292,
+      "sha256": "7e74b65cd5ca28cfd2a6ed9441abd737216c825fc171accf957b87e4dc334dee"
+    },
+    "baseline-fixtures.log.gz": {
+      "bytes": 99,
+      "sha256": "91d8c70b355515de75e1fcd5c7d3335957221018fee48706c1af72cc6ef903a1"
+    },
+    "baseline-health.json": {
+      "bytes": 381,
+      "sha256": "8b4f6420330d55a95e42b29a68cd9fd52ff52cc0e4567e3a94cfabdc3229d660"
+    },
+    "baseline-production-index.html": {
+      "bytes": 21027,
+      "sha256": "a837cd593b60282f9c7d6023a596bc8cc60cd57495e24aba5437090953c3a677"
+    },
+    "baseline-replay.json.gz": {
+      "bytes": 382525,
+      "sha256": "7f3e3ab167253b6dcae60feb1bd1dc5086e1afbd788c4532e00b4277dfe3ea35"
+    },
+    "baseline-replay.log.gz": {
+      "bytes": 164,
+      "sha256": "1a1d0154376b40f6fe75244a53eb3685ca5f5129b33621ecd4c411c23ca94dd2"
+    },
+    "baseline-tests.log.gz": {
+      "bytes": 77583,
+      "sha256": "676263f8bd78c8dffea47f29541d51fb02649aaeeeea9a09f281b2d76b1067fb"
+    },
+    "baseline-worker-deployment.log.gz": {
+      "bytes": 324,
+      "sha256": "61eb12199b3985001d92ec633ab67e51a76799dacef45e11bc280d576eb68cfe"
+    },
+    "candidate-build.log.gz": {
+      "bytes": 131,
+      "sha256": "6eb278b02e8a210d22d8d385b9ba380d4bfd09f46dccff05a096fbbf29bbca97"
+    },
+    "candidate-replay.log.gz": {
+      "bytes": 164,
+      "sha256": "1a1d0154376b40f6fe75244a53eb3685ca5f5129b33621ecd4c411c23ca94dd2"
+    },
+    "candidate-tests.log.gz": {
+      "bytes": 68027,
+      "sha256": "f202c8103ea942a302dfb5b9e5cccb00284deae24e42d06e9306d6684009651f"
+    },
+    "checkout-line-ending-repair.json": {
+      "bytes": 22544,
+      "sha256": "b7a4e5b698b909684f4dac1724c5dce470ab2c1b2fd7c7a6400bee42e5e55eff"
+    },
+    "endpoint-smoke-notes.md": {
+      "bytes": 3359,
+      "sha256": "aa934606581140d7578df7994a65c93a2e4abc7fd7e302c218695d8d72258135"
+    },
+    "endpoint-smoke-results.json": {
+      "bytes": 1825,
+      "sha256": "5de3d9e29cc41586a6749506e00903b1d1cae26fec0dd9c2168b5e8bb76b14fe"
+    },
+    "endpoint-smoke.log.gz": {
+      "bytes": 920,
+      "sha256": "cd185a81c24ee889f9b8c2cbef89c3e46a4df3d7d6399b0261b72817a811d535"
+    },
+    "endpoint-smoke.mjs": {
+      "bytes": 6880,
+      "sha256": "0a054a9d81804670015aa50d7b985f2c5b24cdc79c51d3a11ab33c53d8803ad2"
+    },
+    "event-ordering-after.log.gz": {
+      "bytes": 2422,
+      "sha256": "dc9cbfee9630047d283e4cac4e6b7d2ed9d65661ddc08c6624f0e2ec70419b06"
+    },
+    "event-ordering-before.log.gz": {
+      "bytes": 1268,
+      "sha256": "2b43ec5a56f708cdeb1e16d240d4de7caa0931ae6454926a71c5e88da028be67"
+    },
+    "event-time-regressions-after.log.gz": {
+      "bytes": 4872,
+      "sha256": "4d9d32ac76c6fe0c1da9161fab07197c40796cf035e4f601756c770dcd3f2b6a"
+    },
+    "evidence-after.log.gz": {
+      "bytes": 6847,
+      "sha256": "830c45429711b072a1b4ab2d83862d5e019879cbda32cdf64dc5636df951ee97"
+    },
+    "evidence-baseline-expanded.log.gz": {
+      "bytes": 3627,
+      "sha256": "e91528d7b0d288918827e2bca23a0cbc2dcafbc786121f522514a17dbb0ca4e3"
+    },
+    "evidence-before.log.gz": {
+      "bytes": 2137,
+      "sha256": "baf606cdbfe3aa2289d9226635fe52f107d62a1aa7fa5d5e670909d4c9eb8fc3"
+    },
+    "evidence-broad.log.gz": {
+      "bytes": 7592,
+      "sha256": "797f3fc167c68028960f8f387a9868b9e851d57478ef7b64306bc82a28d3df70"
+    },
+    "evidence-complete-parity.log.gz": {
+      "bytes": 816,
+      "sha256": "8d5b1fb7cccf31165514788568448c569b135ef94034cc89f65a882acf04649e"
+    },
+    "evidence-drive-before.log.gz": {
+      "bytes": 1046,
+      "sha256": "004da6548c212f7dffd06d4d4f9bc44d501f1979e7171865a90aa941127c6598"
+    },
+    "evidence-notes.md": {
+      "bytes": 14000,
+      "sha256": "8c99b36e979bc341399495bcdef22da556b40dd6395045f8db2322a79a7acc1c"
+    },
+    "evidence-recency-before.log.gz": {
+      "bytes": 1024,
+      "sha256": "52e74a816ecb1b0a535d2f21214200acef1b708d312b846d7bbb9d1bf8eac74e"
+    },
+    "evidence-rejected-cache-before.log.gz": {
+      "bytes": 1044,
+      "sha256": "871b97ed1da8520bffd85b543375fb04ff84d7925fb6c2a1ec4a9ce3ffa8434f"
+    },
+    "evidence-release-parity.log.gz": {
+      "bytes": 1017,
+      "sha256": "3ee227b6308e1a002c52ed36ef808dc52ebc990f7a0f9b071ee2b567177d24d8"
+    },
+    "evidence-replay-after.json": {
+      "bytes": 6052,
+      "sha256": "412d2d4ae56060aec2bbccf6f6f3e04b3444d44e55b538a4761f3ce39d08ec51"
+    },
+    "evidence-replay-before.json": {
+      "bytes": 3790,
+      "sha256": "bb6996086b970c58b0e1c5ec0c8b8777a24a141a7073e02b7d9d9bddde93711f"
+    },
+    "evidence-review-additional-before.log.gz": {
+      "bytes": 1261,
+      "sha256": "37032d8c8cc338ea350a3e7b91385d4cd20c89e5e2e0142aec6d31161015457d"
+    },
+    "evidence-review-after.log.gz": {
+      "bytes": 8173,
+      "sha256": "077db830e9e7abc0cf4244fcee2bf2753a0ab1f45672cbf2ccb3a2fb72dd6376"
+    },
+    "evidence-review-before.log.gz": {
+      "bytes": 2429,
+      "sha256": "36cd177a8c0700b1eea910f614c6a8ff5b20c1c4fee56f33bfa473931265b1b4"
+    },
+    "evidence-targeted.log.gz": {
+      "bytes": 2267,
+      "sha256": "2a00f7535528e71738ac15e4445bd567f719d78f73fa7a4378942cc9d430ecc4"
+    },
+    "final-basketball-replay.log.gz": {
+      "bytes": 117,
+      "sha256": "575ea09fb43350f5118c413acaa6a60dbad725c0c529fd585440aef368cdb316"
+    },
+    "final-build.log.gz": {
+      "bytes": 131,
+      "sha256": "6eb278b02e8a210d22d8d385b9ba380d4bfd09f46dccff05a096fbbf29bbca97"
+    },
+    "final-calibration.csv": {
+      "bytes": 9315,
+      "sha256": "828811122c9847f6af6e6bd3215a3eff5b97c288fac9294760f86b89553a3562"
+    },
+    "final-calibration.log.gz": {
+      "bytes": 4433,
+      "sha256": "56df91950fc70ceb607c84fae0334415fed25f6bf7556afa17254408e1116322"
+    },
+    "final-fixtures.log.gz": {
+      "bytes": 99,
+      "sha256": "91d8c70b355515de75e1fcd5c7d3335957221018fee48706c1af72cc6ef903a1"
+    },
+    "final-replay.json.gz": {
+      "bytes": 387997,
+      "sha256": "384aa96fa5b1dc32981f5cef6126921a78bd96e563daa276c374591144e501db"
+    },
+    "final-tests.log.gz": {
+      "bytes": 64359,
+      "sha256": "0b21591dc7964eeafaca9ee8e28f37a524b5c71a219cda990425c33eba9b5336"
+    },
+    "final-worker-dry-run.log.gz": {
+      "bytes": 309,
+      "sha256": "73640ed7865e6b45b700f353a058b24a96876c0b0a4ab6f0f8b967e8640b2d9d"
+    },
+    "implementation-plan.md": {
+      "bytes": 3790,
+      "sha256": "e4e53041a00f33ec094b253ea32cfbe156c7c85a9be363cc539e7689ca80f9dc"
+    },
+    "nhl-after.log.gz": {
+      "bytes": 990,
+      "sha256": "3e633085218147debb74878955e5dd604a2e80064340214272fb971b0b03a283"
+    },
+    "nhl-basketball-notes.md": {
+      "bytes": 3454,
+      "sha256": "e27b1fe3e257350e70a434a3f4209551d27ea7e50c5c846fbf4018fec77d5e46"
+    },
+    "nhl-before.log.gz": {
+      "bytes": 1587,
+      "sha256": "b03a143f1da1d5f872976bf3591c62223809d8d9fbd0abe3bf9c85f3f393126a"
+    },
+    "nhl-ui-final.log.gz": {
+      "bytes": 1321,
+      "sha256": "77e34182560cc5b7cb8d2fdb2ecde022bf3026564cdb3779029be057bbdab379"
+    },
+    "observation-time-after.log.gz": {
+      "bytes": 4283,
+      "sha256": "c5a6121e6bcf726ef165a63e8ec63136e84876130a01c22421e8d1ec9c30b615"
+    },
+    "observation-time-before.log.gz": {
+      "bytes": 1397,
+      "sha256": "a331c4752baa9e7dc82b74c7d1483fec0013e6c40c88e3f970b4c279a3b861a5"
+    },
+    "pre-final-boundary-tests.log.gz": {
+      "bytes": 66729,
+      "sha256": "09e93c747ac01f0a7264c53e9580e9b99efd0f4661c48e030231ff388425a916"
+    },
+    "pre-release-health.json": {
+      "bytes": 665,
+      "sha256": "acd1d8622c97e2e0edd3528dbcaf4e09b75a032de3bf074a949d6ad7f704f132"
+    },
+    "pre-release-worker.log.gz": {
+      "bytes": 324,
+      "sha256": "61eb12199b3985001d92ec633ab67e51a76799dacef45e11bc280d576eb68cfe"
+    },
+    "replay-comparator-tests.log.gz": {
+      "bytes": 1059,
+      "sha256": "7976ac50a6a8d87e15ca4e461f0d4889b36a853fcaf9034f9df0215a51b06465"
+    },
+    "replay-comparator.log.gz": {
+      "bytes": 598,
+      "sha256": "3c5c6ce18b4b6f17451ddc14c3ed3fa18631711f89f499df9e55acf1a4a746f7"
+    },
+    "replay-differences.csv": {
+      "bytes": 5195,
+      "sha256": "e287958097c10de203bdc4326abd025f31c667b41ef6bccb40a149b54bc989ec"
+    },
+    "replay-differences.json": {
+      "bytes": 111902,
+      "sha256": "318f1ec8f8700b45f82a1c4dc96c30f82992f131da735298aeb8922009642fb5"
+    },
+    "replay-review-notes.md": {
+      "bytes": 7143,
+      "sha256": "9cc80b0232f5dc59b69024009015e7b562b75df1159f4d21d61121db68a2fbe5"
+    },
+    "restore-all-replay.json.gz": {
+      "bytes": 92774,
+      "sha256": "722339c20e119d40dca311a45533ea242de495f4b0240475401a30145d1d08ca"
+    },
+    "restore-cfb-retention-replay.json.gz": {
+      "bytes": 58343,
+      "sha256": "fc468c2c3581f5512517688f8dde3e026800749e9dac937c4f04e23aa37e7edb"
+    },
+    "restore-mlb-replay.json.gz": {
+      "bytes": 28164,
+      "sha256": "15ec20cb23a7da952c6a662a8dcd9c259d8a39f88838808342c420f64d950ecd"
+    },
+    "restore-trajectory-replay.json.gz": {
+      "bytes": 384496,
+      "sha256": "a46703286d462ffd30ac6db0ca25dfe85c81af66529ea442fd379b16e7abb028"
+    },
+    "tennis-boundary-before.log.gz": {
+      "bytes": 900,
+      "sha256": "6e60d4cd5b9afb54ffe2d0b1cacc803d0c6d17eaaa4db7b9394416716490b6ee"
+    },
+    "trajectory-after-final.log.gz": {
+      "bytes": 1734,
+      "sha256": "6b16475b10185a38828a74d454bbc1cabe89c56772286408661bb6ff7b4d9c05"
+    },
+    "trajectory-after.log.gz": {
+      "bytes": 1607,
+      "sha256": "f219eaa0927780a62ec31bf2debf2d59df973c8d70a2c0fe059187c2ba9b7f25"
+    },
+    "trajectory-baseline.json": {
+      "bytes": 141646,
+      "sha256": "4921695b705a8bfda8345cbf00b06dde23e4579b220f670ac100435fa37bd73d"
+    },
+    "trajectory-before-final.log.gz": {
+      "bytes": 1960,
+      "sha256": "f0952089fb1e0f8264b8bc11ad87fff1859ffce68efd95437d5a79a41e9c350e"
+    },
+    "trajectory-before.log.gz": {
+      "bytes": 2642,
+      "sha256": "b5f6508285c41a5a8a590b00a4b20b311cab51089a1b35f81f6f9087b4394bd9"
+    },
+    "trajectory-causal-controls.log.gz": {
+      "bytes": 2848,
+      "sha256": "70bc3bcae481f55dcd5a84873f05d84025de27b929ae22a7a3c966bd60f6e875"
+    },
+    "trajectory-corrected.json": {
+      "bytes": 146068,
+      "sha256": "1299a43e61d9f14e5ac101be0f12f61eeeddb6831e06f4acdbd53f0d718f3a8d"
+    },
+    "trajectory-cross-regression.log.gz": {
+      "bytes": 9808,
+      "sha256": "0b2398d8dc28615d400bd17397573516f424920527e26929af687db6a6397162"
+    },
+    "trajectory-endgame-final.log.gz": {
+      "bytes": 1287,
+      "sha256": "9ba5b05388fd05c20397a62797ebbb4920d69a4fc3ae18e576655fe8b8d1ce8a"
+    },
+    "trajectory-existing.log.gz": {
+      "bytes": 1726,
+      "sha256": "b612edfc397061f520b5c2b3897d1ce2f552f739d4a5a3018ac1fd3e1d7ddc75"
+    },
+    "trajectory-final-controls.json": {
+      "bytes": 146068,
+      "sha256": "1299a43e61d9f14e5ac101be0f12f61eeeddb6831e06f4acdbd53f0d718f3a8d"
+    },
+    "trajectory-followup-tests.log.gz": {
+      "bytes": 7156,
+      "sha256": "b9fd526961c317a20f532787237cd7f4acca57dbe45444e5f01016eb9877c171"
+    },
+    "trajectory-football-transition.log.gz": {
+      "bytes": 1436,
+      "sha256": "1cf2f0832884be818dcab26054c5e7d30f6c11daee93c410272651dfef6f92b3"
+    },
+    "trajectory-historical.log.gz": {
+      "bytes": 975,
+      "sha256": "bbc973180598e640b04049e40f7e85214638df9608fb0988e21aa0bd738e2c87"
+    },
+    "trajectory-notes.md": {
+      "bytes": 15570,
+      "sha256": "8cedf26f9dd4cfeda766e19078511cc4860887765073fa95c72021a6ebd9292c"
+    },
+    "trajectory-owned-final.log.gz": {
+      "bytes": 4521,
+      "sha256": "4fecc6922e886a37809c8493be5c9cf49e702a170890c0c0d02ed66e65268ca3"
+    },
+    "trajectory-phase1.log.gz": {
+      "bytes": 1432,
+      "sha256": "26a144cda97ee3f4746211906129007557ab454ea0aef3668a91986397465699"
+    },
+    "trajectory-reproduce.mjs": {
+      "bytes": 3688,
+      "sha256": "29dcdb38103bfa9d9d74228c31f452682999fc4d49dcf986f69a9dc1d6121645"
+    },
+    "trajectory-reviewed-differences.log.gz": {
+      "bytes": 2540,
+      "sha256": "128fc414661af83fe74d80fad22e7028f1a0970c71e9d32db45c95587459b69b"
+    },
+    "ui-after.log.gz": {
+      "bytes": 872,
+      "sha256": "f6d20383f30f4a1c3cfb81e51a801167548b69724212c6ed00fad46833b45c1b"
+    },
+    "ui-before.log.gz": {
+      "bytes": 5729,
+      "sha256": "f5f97e6a5f9886393ef385698ba60b6e67c1262709eab4bd7115b8a11a052fae"
+    },
+    "ui-nhl-overtime-after.log.gz": {
+      "bytes": 2297,
+      "sha256": "db63fd1834220e582bfaaeac0c70a3a8e0540fb792cc1078b485d89c17f11bfa"
+    },
+    "unchanged-replay-dependencies.json": {
+      "bytes": 1361,
+      "sha256": "cf24a1162276ce2405643cd77102d18374e3dce45264a9b0986b6b7342f2d03b"
+    },
+    "worker-after.log.gz": {
+      "bytes": 14118,
+      "sha256": "04c0340233e2d5a69d7e3781a00a5dd7b55ef3ff576f6f5cec844946f55d6f95"
+    },
+    "worker-dry-run.log.gz": {
+      "bytes": 307,
+      "sha256": "6ba0ebf10235c2985831f21ccdb7878eb4235a730f33394115ca91bbf1a11268"
+    }
+  }
+}

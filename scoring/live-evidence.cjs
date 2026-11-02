@@ -8,9 +8,12 @@ const elapsed=(g,c)=>normalizedTime(g.sport,c).elapsedSeconds;
 const lower=(a,b)=>Object.keys(b||{}).some(id=>!Number.isFinite(a[id])||a[id]<b[id]);
 function preserveLiveEvidence(game,previous){
  if(game.state!=='live'||!previous||identity(game)!==identity(previous))return;
- for(const key of ['verifiedLiveEvidence','manpowerEvidence','recoveredUnderdog'])if(previous[key])game[key]=clone(previous[key]);
+ for(const key of ['verifiedLiveEvidence','manpowerEvidence','recoveredUnderdog','providerEventRevisions'])if(previous[key])game[key]=clone(previous[key]);
  const prior=Object.fromEntries(previous.teams.map(t=>[String(t[8]),Number(t[2])])),current=Object.fromEntries(game.teams.map(t=>[String(t[8]),Number(t[2])]));
- if(lower(current,prior)){delete game.verifiedLiveEvidence;delete game.manpowerEvidence;game.liveEvidenceReset='score-correction';}
+ // Mark a possible correction, but defer cache invalidation until observation
+ // reconciliation accepts its lower totals. A rejected stale scoreboard must
+ // not erase evidence belonging to the still-canonical state.
+ if(lower(current,prior))game.liveEvidenceReset='score-correction';
 }
 function compatible(game,c,e,now){
  const t=elapsed(game,c),period=Number(c?.status?.period),regulation=({NFL:4,CFB:4,NBA:4,NCAAB:2,NHL:3,Soccer:2})[game.sport]||99;
@@ -18,21 +21,47 @@ function compatible(game,c,e,now){
   t!==null&&t>=e.elapsed&&t-e.elapsed<=120&&period>=e.period&&period<=e.period+1&&
   (period===e.period||period<=regulation)&&!lower(scores(c),e.scores);
 }
-function compactPlay(p){return {...Object.fromEntries(['id','sequenceNumber','period','clock','homeScore','awayScore','text','type','scoringPlay','extraAttacker'].filter(k=>p[k]!==undefined).map(k=>[k,p[k]])),...(p.team?{team:{id:p.team.id}}:{})};}
+function compactPlay(p){return {...Object.fromEntries(['id','sequenceNumber','period','clock','homeScore','awayScore','text','type','scoringPlay','extraAttacker','modified','lastModified','updatedAt','wallclock'].filter(k=>p[k]!==undefined).map(k=>[k,p[k]])),...(p.team?{team:{id:p.team.id}}:{})};}
 function historicalSummary(summary){
  const scoring=summary.scoringPlays?.length?summary.scoringPlays:(summary.plays||[]).filter(p=>p.scoringPlay);
  if(scoring.length>100||(summary.winprobability||[]).length>1024)return null;
  const plays=[...new Map([...scoring,...(summary.plays||[]).slice(-16)].map(p=>[String(p.id||JSON.stringify(p)),compactPlay(p)])).values()];
- return {scoringPlays:scoring.map(compactPlay),plays,winprobability:(summary.winprobability||[]).map(p=>({homeWinPercentage:p.homeWinPercentage??p.homeWinProbability??p.homeWinPct??p.value}))};
+ return {scoringPlays:scoring.map(compactPlay),plays,winprobability:(summary.winprobability||[]).map(p=>({playId:p.playId,homeWinPercentage:p.homeWinPercentage??p.homeWinProbability??p.homeWinPct??p.value})),sportsRadarEvidence:summary.sportsRadarEvidence,
+  ...Object.fromEntries(['playsComplete','scoringPlaysComplete','hasMore','pagination'].filter(k=>summary[k]!==undefined).map(k=>[k,summary[k]]))};
 }
-function validLedger(summary,c,sport=''){
+function ledgerQuality(summary,c,sport=''){
+ if(!summary)return {state:'partial',reasons:['summary-unavailable'],ledgerMatches:false,coverage:{scope:'unknown',eventStream:'not-established'}};
  const totals=Object.fromEntries((c.competitors||[]).map(t=>[t.homeAway,Number(t.score)]));let home=0,away=0;
  const scoring=summary.scoringPlays?.length?summary.scoringPlays:(summary.plays||[]).filter(p=>p.scoringPlay);
+ const reasons=[];let invalid=false;
+ if(!Number.isFinite(totals.home)||!Number.isFinite(totals.away)){invalid=true;reasons.push('invalid-canonical-score');}
  const shootout=sport==='NHL'&&hockeyOvertime(null,c,summary).shootout;
- for(const p of scoring){if(shootout&&Number(p.period?.number)>4)continue;if(p.homeScore==null||p.awayScore==null)continue;
-  const h=Number(p.homeScore),a=Number(p.awayScore);if(!Number.isFinite(h)||!Number.isFinite(a)||h<home||a<away||h>totals.home||a>totals.away)return false;home=h;away=a;}
- return true;
+ const maxIncrement=({NFL:8,CFB:8,NHL:1,NBA:4,NCAAB:4,Soccer:1,MLB:4,Tennis:1})[sport]||Infinity;
+ for(const p of scoring){if(shootout&&Number(p.period?.number)>4)continue;
+  if(p.homeScore==null||p.awayScore==null||p.homeScore===''||p.awayScore===''){reasons.push('scoring-record-missing-score');continue;}
+  const h=Number(p.homeScore),a=Number(p.awayScore);
+  if(!Number.isFinite(h)||!Number.isFinite(a)||h<home||a<away||h>totals.home||a>totals.away){invalid=true;reasons.push('inconsistent-scoring-ledger');continue;}
+  if(h-home>maxIncrement||a-away>maxIncrement||h>home&&a>away)reasons.push('scoring-ledger-coverage-gap');
+  home=h;away=a;
+ }
+ const ledgerMatches=home===totals.home&&away===totals.away;
+ if(!ledgerMatches)reasons.push('ledger-behind-scoreboard');
+ if(!scoring.length){
+  const observations=(summary.plays||[]).filter(p=>p.homeScore!=null&&p.awayScore!=null&&Number(p.homeScore)===0&&Number(p.awayScore)===0);
+  const positions=observations.map(p=>normalizedTime(sport,{status:{period:p.period?.number,displayClock:p.clock?.displayValue,clock:p.clock?.value}}).elapsedSeconds).filter(t=>t!==null);
+  if(positions.length<2||Math.max(...positions)<=Math.min(...positions))reasons.push('historical-coverage-unavailable');
+  else if(Math.min(...positions)>0&&summary.playsComplete!==true)reasons.push('scoreless-history-start-unobserved');
+ }
+ if(summary.scoringPlaysComplete===false||summary.playsComplete===false||summary.hasMore===true||summary.pagination?.next)reasons.push('provider-history-incomplete');
+ if(summary.sportsRadarEvidence?.conflictingEvents){invalid=true;reasons.push('conflicting-event-revisions');}
+ if(summary.sportsRadarEvidence?.aggregateEvidenceDeferred)reasons.push('ahead-summary-aggregates-deferred');
+ if(summary.sportsRadarEvidence?.revisionCoveragePartial)reasons.push('event-revision-coverage-bounded');
+ return {state:invalid?'invalid':reasons.length?'partial':'complete',reasons:[...new Set(reasons)],ledgerMatches,scoringObservationCount:scoring.length,
+  coverage:{scope:'score-progression',ledgerMatches,scoringObservationCount:scoring.length,
+   eventStream:summary.playsComplete===true?'provider-declared-complete':'not-established',
+   continuousDuration:'see-observed-trajectory-coverage'}};
 }
+function validLedger(summary,c,sport=''){return ledgerQuality(summary,c,sport).state!=='invalid';}
 function historyFor(game,c,accepted,now=Date.now()){
  const e=game.verifiedLiveEvidence;
  const incomplete=e?.summary?.scoringPlays?.length && !accepted?.scoringPlays?.length &&
@@ -45,13 +74,16 @@ function rememberHistory(game,c,summary,result,now=Date.now()){
  if(!summary || !(summary.scoringPlays?.length||summary.plays?.length||summary.winprobability?.length))return;
  if(!validLedger(summary,c,game.sport)){delete game.verifiedLiveEvidence;return;}
  const compact=historicalSummary(summary),t=elapsed(game,c);if(!compact||t===null)return;
- const evidence={identity:identity(game),observedAt:now,elapsed:t,period:Number(c.status?.period),scores:scores(c),summary:compact,trajectory:result.trajectory};
+ const evidence={identity:identity(game),observedAt:now,elapsed:t,period:Number(c.status?.period),scores:scores(c),summary:compact,trajectory:result.trajectory,quality:ledgerQuality(summary,c,game.sport)};
  // Do not grow snapshots without a hard bound or silently truncate a ledger.
- if(JSON.stringify(evidence).length<=24000)game.verifiedLiveEvidence=evidence;
+ // Explicit play-linked probabilities and revision/quality provenance add a
+ // bounded amount to the former 24 KB payload; retain that proof, not less history.
+ if(JSON.stringify(evidence).length<=32000)game.verifiedLiveEvidence=evidence;
  else delete game.verifiedLiveEvidence;
 }
 function currentManpower(game,c,accepted,now=Date.now()){
  if(game.sport!=='NHL')return accepted;
+ delete game.manpowerQuality;
  const previous=game.manpowerEvidence,t=elapsed(game,c),period=Number(c.status?.period),current=scores(c);
  const sameScores=previous&&Object.keys(current).length===Object.keys(previous.scores).length&&Object.keys(current).every(id=>current[id]===previous.scores[id]);
  const goalieBlocks=accepted?.boxscore?.players?.filter(b=>(b.statistics||[]).some(s=>/goalie/i.test(s.name||s.displayName||'')));
@@ -59,6 +91,7 @@ function currentManpower(game,c,accepted,now=Date.now()){
  if(accepted?.onIce?.length===2&&!goalieBlocks?.length&&previous&&sameScores&&period===previous.period&&now-previous.observedAt<=120000)
   effective={...accepted,boxscore:{...accepted.boxscore,players:previous.goalies}};
  const state=effective&&hockeyOnIceState(effective,game.teams);
+ game.manpowerQuality=require('./nhl-manpower-evidence.cjs').inspectManpower(effective,c,state);
  const known=state?.sides?.length===2&&new Set(state.sides.map(s=>s.id)).size===2&&state.sides.every(s=>s.goalieKnown&&s.count>=4&&s.count<=7&&game.teams.some(t=>String(t[8])===s.id));
  if(known){
   const mode=hockeyPlayClockMode(effective),penalties=(effective.plays||[]).filter(p=>Number(p.type?.penaltyMinutes)>0);
@@ -78,4 +111,4 @@ function currentManpower(game,c,accepted,now=Date.now()){
  game.manpowerRetained=true;
  return {...accepted,header:accepted?.header||{competitions:[c]},onIce:clone(previous.onIce),boxscore:{...accepted?.boxscore,players:clone(previous.goalies)}};
 }
-module.exports={preserveLiveEvidence,historyFor,rememberHistory,currentManpower,validLedger};
+module.exports={preserveLiveEvidence,historyFor,rememberHistory,currentManpower,validLedger,ledgerQuality};

@@ -1,0 +1,985 @@
+{
+  "provenance": "Exact reviewed synthetic legal sequence from audit review-cfb-kneels.mjs; production ratings 58,77,80. Not a historical provider capture.",
+  "inputs": [
+    {
+      "sport": "CFB",
+      "event": {
+        "id": "audit-synthetic",
+        "name": "Away at Home",
+        "season": {
+          "year": 2026,
+          "type": 2
+        },
+        "competitions": [
+          {
+            "season": {
+              "year": 2026,
+              "type": 2
+            },
+            "status": {
+              "period": 4,
+              "displayClock": "0:59",
+              "type": {
+                "state": "in",
+                "completed": false
+              }
+            },
+            "competitors": [
+              {
+                "homeAway": "home",
+                "score": "42",
+                "team": {
+                  "id": "h",
+                  "displayName": "Home",
+                  "abbreviation": "HME"
+                }
+              },
+              {
+                "homeAway": "away",
+                "score": "38",
+                "team": {
+                  "id": "a",
+                  "displayName": "Away",
+                  "abbreviation": "AWY"
+                }
+              }
+            ],
+            "situation": {
+              "possession": "h",
+              "down": 2,
+              "distance": 11,
+              "possessionText": "HME 41",
+              "homeTimeouts": 0,
+              "awayTimeouts": 0,
+              "lastPlay": {
+                "id": "kneel1",
+                "period": {
+                  "number": 4
+                },
+                "clock": {
+                  "displayValue": "0:59"
+                },
+                "homeScore": 42,
+                "awayScore": 38,
+                "text": "Home kneels for 1 yard loss",
+                "scoringPlay": false
+              }
+            }
+          }
+        ]
+      },
+      "summary": {
+        "header": {
+          "season": {
+            "year": 2026,
+            "type": 2
+          },
+          "competitions": [
+            {
+              "season": {
+                "year": 2026,
+                "type": 2
+              },
+              "status": {
+                "period": 4,
+                "displayClock": "0:59",
+                "type": {
+                  "state": "in",
+                  "completed": false
+                }
+              },
+              "competitors": [
+                {
+                  "homeAway": "home",
+                  "score": "42",
+                  "team": {
+                    "id": "h",
+                    "displayName": "Home",
+                    "abbreviation": "HME"
+                  }
+                },
+                {
+                  "homeAway": "away",
+                  "score": "38",
+                  "team": {
+                    "id": "a",
+                    "displayName": "Away",
+                    "abbreviation": "AWY"
+                  }
+                }
+              ],
+              "situation": {
+                "possession": "h",
+                "down": 2,
+                "distance": 11,
+                "possessionText": "HME 41",
+                "homeTimeouts": 0,
+                "awayTimeouts": 0,
+                "lastPlay": {
+                  "id": "kneel1",
+                  "period": {
+                    "number": 4
+                  },
+                  "clock": {
+                    "displayValue": "0:59"
+                  },
+                  "homeScore": 42,
+                  "awayScore": 38,
+                  "text": "Home kneels for 1 yard loss",
+                  "scoringPlay": false
+                }
+              }
+            }
+          ]
+        },
+        "plays": [
+          {
+            "id": "score0",
+            "period": {
+              "number": 1
+            },
+            "clock": {
+              "displayValue": "12:00"
+            },
+            "homeScore": 7,
+            "awayScore": 0,
+            "text": "Home scores",
+            "scoringPlay": true
+          },
+          {
+            "id": "score1",
+            "period": {
+              "number": 1
+            },
+            "clock": {
+              "displayValue": "6:00"
+            },
+            "homeScore": 7,
+            "awayScore": 7,
+            "text": "Away scores",
+            "scoringPlay": true
+          },
+          {
+            "id": "score2",
+            "period": {
+              "number": 1
+            },
+            "clock": {
+              "displayValue": "1:00"
+            },
+            "homeScore": 7,
+            "awayScore": 10,
+            "text": "Away scores",
+            "scoringPlay": true
+          },
+          {
+            "id": "score3",
+            "period": {
+              "number": 2
+            },
+            "clock": {
+              "displayValue": "12:00"
+            },
+            "homeScore": 14,
+            "awayScore": 10,
+            "text": "Home scores",
+            "scoringPlay": true
+          },
+          {
+            "id": "score4",
+            "period": {
+              "number": 2
+            },
+            "clock": {
+              "displayValue": "6:00"
+            },
+            "homeScore": 14,
+            "awayScore": 17,
+            "text": "Away scores",
+            "scoringPlay": true
+          },
+          {
+            "id": "score5",
+            "period": {
+              "number": 2
+            },
+            "clock": {
+              "displayValue": "1:00"
+            },
+            "homeScore": 21,
+            "awayScore": 17,
+            "text": "Home scores",
+            "scoringPlay": true
+          },
+          {
+            "id": "score6",
+            "period": {
+              "number": 3
+            },
+            "clock": {
+              "displayValue": "12:00"
+            },
+            "homeScore": 21,
+            "awayScore": 24,
+            "text": "Away scores",
+            "scoringPlay": true
+          },
+          {
+            "id": "score7",
+            "period": {
+              "number": 3
+            },
+            "clock": {
+              "displayValue": "6:00"
+            },
+            "homeScore": 28,
+            "awayScore": 24,
+            "text": "Home scores",
+            "scoringPlay": true
+          },
+          {
+            "id": "score8",
+            "period": {
+              "number": 3
+            },
+            "clock": {
+              "displayValue": "1:00"
+            },
+            "homeScore": 28,
+            "awayScore": 31,
+            "text": "Away scores",
+            "scoringPlay": true
+          },
+          {
+            "id": "score9",
+            "period": {
+              "number": 4
+            },
+            "clock": {
+              "displayValue": "12:00"
+            },
+            "homeScore": 35,
+            "awayScore": 31,
+            "text": "Home scores",
+            "scoringPlay": true
+          },
+          {
+            "id": "score10",
+            "period": {
+              "number": 4
+            },
+            "clock": {
+              "displayValue": "6:00"
+            },
+            "homeScore": 35,
+            "awayScore": 38,
+            "text": "Away scores",
+            "scoringPlay": true
+          },
+          {
+            "id": "score11",
+            "period": {
+              "number": 4
+            },
+            "clock": {
+              "displayValue": "2:00"
+            },
+            "homeScore": 42,
+            "awayScore": 38,
+            "text": "Home scores",
+            "scoringPlay": true
+          },
+          {
+            "id": "turnover",
+            "period": {
+              "number": 4
+            },
+            "clock": {
+              "displayValue": "1:00"
+            },
+            "homeScore": 42,
+            "awayScore": 38,
+            "text": "Away pass intercepted by Home",
+            "scoringPlay": false
+          },
+          {
+            "id": "kneel1",
+            "period": {
+              "number": 4
+            },
+            "clock": {
+              "displayValue": "0:59"
+            },
+            "homeScore": 42,
+            "awayScore": 38,
+            "text": "Home kneels for 1 yard loss",
+            "scoringPlay": false
+          }
+        ],
+        "winprobability": []
+      }
+    },
+    {
+      "sport": "CFB",
+      "event": {
+        "id": "audit-synthetic",
+        "name": "Away at Home",
+        "season": {
+          "year": 2026,
+          "type": 2
+        },
+        "competitions": [
+          {
+            "season": {
+              "year": 2026,
+              "type": 2
+            },
+            "status": {
+              "period": 4,
+              "displayClock": "0:19",
+              "type": {
+                "state": "in",
+                "completed": false
+              }
+            },
+            "competitors": [
+              {
+                "homeAway": "home",
+                "score": "42",
+                "team": {
+                  "id": "h",
+                  "displayName": "Home",
+                  "abbreviation": "HME"
+                }
+              },
+              {
+                "homeAway": "away",
+                "score": "38",
+                "team": {
+                  "id": "a",
+                  "displayName": "Away",
+                  "abbreviation": "AWY"
+                }
+              }
+            ],
+            "situation": {
+              "possession": "h",
+              "down": 3,
+              "distance": 12,
+              "possessionText": "HME 40",
+              "homeTimeouts": 0,
+              "awayTimeouts": 0,
+              "lastPlay": {
+                "id": "kneel2",
+                "period": {
+                  "number": 4
+                },
+                "clock": {
+                  "displayValue": "0:19"
+                },
+                "homeScore": 42,
+                "awayScore": 38,
+                "text": "Home kneels for 1 yard loss",
+                "scoringPlay": false
+              }
+            }
+          }
+        ]
+      },
+      "summary": {
+        "header": {
+          "season": {
+            "year": 2026,
+            "type": 2
+          },
+          "competitions": [
+            {
+              "season": {
+                "year": 2026,
+                "type": 2
+              },
+              "status": {
+                "period": 4,
+                "displayClock": "0:19",
+                "type": {
+                  "state": "in",
+                  "completed": false
+                }
+              },
+              "competitors": [
+                {
+                  "homeAway": "home",
+                  "score": "42",
+                  "team": {
+                    "id": "h",
+                    "displayName": "Home",
+                    "abbreviation": "HME"
+                  }
+                },
+                {
+                  "homeAway": "away",
+                  "score": "38",
+                  "team": {
+                    "id": "a",
+                    "displayName": "Away",
+                    "abbreviation": "AWY"
+                  }
+                }
+              ],
+              "situation": {
+                "possession": "h",
+                "down": 3,
+                "distance": 12,
+                "possessionText": "HME 40",
+                "homeTimeouts": 0,
+                "awayTimeouts": 0,
+                "lastPlay": {
+                  "id": "kneel2",
+                  "period": {
+                    "number": 4
+                  },
+                  "clock": {
+                    "displayValue": "0:19"
+                  },
+                  "homeScore": 42,
+                  "awayScore": 38,
+                  "text": "Home kneels for 1 yard loss",
+                  "scoringPlay": false
+                }
+              }
+            }
+          ]
+        },
+        "plays": [
+          {
+            "id": "score0",
+            "period": {
+              "number": 1
+            },
+            "clock": {
+              "displayValue": "12:00"
+            },
+            "homeScore": 7,
+            "awayScore": 0,
+            "text": "Home scores",
+            "scoringPlay": true
+          },
+          {
+            "id": "score1",
+            "period": {
+              "number": 1
+            },
+            "clock": {
+              "displayValue": "6:00"
+            },
+            "homeScore": 7,
+            "awayScore": 7,
+            "text": "Away scores",
+            "scoringPlay": true
+          },
+          {
+            "id": "score2",
+            "period": {
+              "number": 1
+            },
+            "clock": {
+              "displayValue": "1:00"
+            },
+            "homeScore": 7,
+            "awayScore": 10,
+            "text": "Away scores",
+            "scoringPlay": true
+          },
+          {
+            "id": "score3",
+            "period": {
+              "number": 2
+            },
+            "clock": {
+              "displayValue": "12:00"
+            },
+            "homeScore": 14,
+            "awayScore": 10,
+            "text": "Home scores",
+            "scoringPlay": true
+          },
+          {
+            "id": "score4",
+            "period": {
+              "number": 2
+            },
+            "clock": {
+              "displayValue": "6:00"
+            },
+            "homeScore": 14,
+            "awayScore": 17,
+            "text": "Away scores",
+            "scoringPlay": true
+          },
+          {
+            "id": "score5",
+            "period": {
+              "number": 2
+            },
+            "clock": {
+              "displayValue": "1:00"
+            },
+            "homeScore": 21,
+            "awayScore": 17,
+            "text": "Home scores",
+            "scoringPlay": true
+          },
+          {
+            "id": "score6",
+            "period": {
+              "number": 3
+            },
+            "clock": {
+              "displayValue": "12:00"
+            },
+            "homeScore": 21,
+            "awayScore": 24,
+            "text": "Away scores",
+            "scoringPlay": true
+          },
+          {
+            "id": "score7",
+            "period": {
+              "number": 3
+            },
+            "clock": {
+              "displayValue": "6:00"
+            },
+            "homeScore": 28,
+            "awayScore": 24,
+            "text": "Home scores",
+            "scoringPlay": true
+          },
+          {
+            "id": "score8",
+            "period": {
+              "number": 3
+            },
+            "clock": {
+              "displayValue": "1:00"
+            },
+            "homeScore": 28,
+            "awayScore": 31,
+            "text": "Away scores",
+            "scoringPlay": true
+          },
+          {
+            "id": "score9",
+            "period": {
+              "number": 4
+            },
+            "clock": {
+              "displayValue": "12:00"
+            },
+            "homeScore": 35,
+            "awayScore": 31,
+            "text": "Home scores",
+            "scoringPlay": true
+          },
+          {
+            "id": "score10",
+            "period": {
+              "number": 4
+            },
+            "clock": {
+              "displayValue": "6:00"
+            },
+            "homeScore": 35,
+            "awayScore": 38,
+            "text": "Away scores",
+            "scoringPlay": true
+          },
+          {
+            "id": "score11",
+            "period": {
+              "number": 4
+            },
+            "clock": {
+              "displayValue": "2:00"
+            },
+            "homeScore": 42,
+            "awayScore": 38,
+            "text": "Home scores",
+            "scoringPlay": true
+          },
+          {
+            "id": "turnover",
+            "period": {
+              "number": 4
+            },
+            "clock": {
+              "displayValue": "1:00"
+            },
+            "homeScore": 42,
+            "awayScore": 38,
+            "text": "Away pass intercepted by Home",
+            "scoringPlay": false
+          },
+          {
+            "id": "kneel1",
+            "period": {
+              "number": 4
+            },
+            "clock": {
+              "displayValue": "0:59"
+            },
+            "homeScore": 42,
+            "awayScore": 38,
+            "text": "Home kneels for 1 yard loss",
+            "scoringPlay": false
+          },
+          {
+            "id": "kneel2",
+            "period": {
+              "number": 4
+            },
+            "clock": {
+              "displayValue": "0:19"
+            },
+            "homeScore": 42,
+            "awayScore": 38,
+            "text": "Home kneels for 1 yard loss",
+            "scoringPlay": false
+          }
+        ],
+        "winprobability": []
+      }
+    },
+    {
+      "sport": "CFB",
+      "event": {
+        "id": "audit-synthetic",
+        "name": "Away at Home",
+        "season": {
+          "year": 2026,
+          "type": 2
+        },
+        "competitions": [
+          {
+            "season": {
+              "year": 2026,
+              "type": 2
+            },
+            "status": {
+              "period": 4,
+              "displayClock": "0:01",
+              "type": {
+                "state": "in",
+                "completed": false
+              }
+            },
+            "competitors": [
+              {
+                "homeAway": "home",
+                "score": "42",
+                "team": {
+                  "id": "h",
+                  "displayName": "Home",
+                  "abbreviation": "HME"
+                }
+              },
+              {
+                "homeAway": "away",
+                "score": "38",
+                "team": {
+                  "id": "a",
+                  "displayName": "Away",
+                  "abbreviation": "AWY"
+                }
+              }
+            ],
+            "situation": {
+              "possession": "h",
+              "down": 3,
+              "distance": 12,
+              "possessionText": "HME 40",
+              "homeTimeouts": 0,
+              "awayTimeouts": 0,
+              "lastPlay": {
+                "id": "kneel2",
+                "period": {
+                  "number": 4
+                },
+                "clock": {
+                  "displayValue": "0:19"
+                },
+                "homeScore": 42,
+                "awayScore": 38,
+                "text": "Home kneels for 1 yard loss",
+                "scoringPlay": false
+              }
+            }
+          }
+        ]
+      },
+      "summary": {
+        "header": {
+          "season": {
+            "year": 2026,
+            "type": 2
+          },
+          "competitions": [
+            {
+              "season": {
+                "year": 2026,
+                "type": 2
+              },
+              "status": {
+                "period": 4,
+                "displayClock": "0:01",
+                "type": {
+                  "state": "in",
+                  "completed": false
+                }
+              },
+              "competitors": [
+                {
+                  "homeAway": "home",
+                  "score": "42",
+                  "team": {
+                    "id": "h",
+                    "displayName": "Home",
+                    "abbreviation": "HME"
+                  }
+                },
+                {
+                  "homeAway": "away",
+                  "score": "38",
+                  "team": {
+                    "id": "a",
+                    "displayName": "Away",
+                    "abbreviation": "AWY"
+                  }
+                }
+              ],
+              "situation": {
+                "possession": "h",
+                "down": 3,
+                "distance": 12,
+                "possessionText": "HME 40",
+                "homeTimeouts": 0,
+                "awayTimeouts": 0,
+                "lastPlay": {
+                  "id": "kneel2",
+                  "period": {
+                    "number": 4
+                  },
+                  "clock": {
+                    "displayValue": "0:19"
+                  },
+                  "homeScore": 42,
+                  "awayScore": 38,
+                  "text": "Home kneels for 1 yard loss",
+                  "scoringPlay": false
+                }
+              }
+            }
+          ]
+        },
+        "plays": [
+          {
+            "id": "score0",
+            "period": {
+              "number": 1
+            },
+            "clock": {
+              "displayValue": "12:00"
+            },
+            "homeScore": 7,
+            "awayScore": 0,
+            "text": "Home scores",
+            "scoringPlay": true
+          },
+          {
+            "id": "score1",
+            "period": {
+              "number": 1
+            },
+            "clock": {
+              "displayValue": "6:00"
+            },
+            "homeScore": 7,
+            "awayScore": 7,
+            "text": "Away scores",
+            "scoringPlay": true
+          },
+          {
+            "id": "score2",
+            "period": {
+              "number": 1
+            },
+            "clock": {
+              "displayValue": "1:00"
+            },
+            "homeScore": 7,
+            "awayScore": 10,
+            "text": "Away scores",
+            "scoringPlay": true
+          },
+          {
+            "id": "score3",
+            "period": {
+              "number": 2
+            },
+            "clock": {
+              "displayValue": "12:00"
+            },
+            "homeScore": 14,
+            "awayScore": 10,
+            "text": "Home scores",
+            "scoringPlay": true
+          },
+          {
+            "id": "score4",
+            "period": {
+              "number": 2
+            },
+            "clock": {
+              "displayValue": "6:00"
+            },
+            "homeScore": 14,
+            "awayScore": 17,
+            "text": "Away scores",
+            "scoringPlay": true
+          },
+          {
+            "id": "score5",
+            "period": {
+              "number": 2
+            },
+            "clock": {
+              "displayValue": "1:00"
+            },
+            "homeScore": 21,
+            "awayScore": 17,
+            "text": "Home scores",
+            "scoringPlay": true
+          },
+          {
+            "id": "score6",
+            "period": {
+              "number": 3
+            },
+            "clock": {
+              "displayValue": "12:00"
+            },
+            "homeScore": 21,
+            "awayScore": 24,
+            "text": "Away scores",
+            "scoringPlay": true
+          },
+          {
+            "id": "score7",
+            "period": {
+              "number": 3
+            },
+            "clock": {
+              "displayValue": "6:00"
+            },
+            "homeScore": 28,
+            "awayScore": 24,
+            "text": "Home scores",
+            "scoringPlay": true
+          },
+          {
+            "id": "score8",
+            "period": {
+              "number": 3
+            },
+            "clock": {
+              "displayValue": "1:00"
+            },
+            "homeScore": 28,
+            "awayScore": 31,
+            "text": "Away scores",
+            "scoringPlay": true
+          },
+          {
+            "id": "score9",
+            "period": {
+              "number": 4
+            },
+            "clock": {
+              "displayValue": "12:00"
+            },
+            "homeScore": 35,
+            "awayScore": 31,
+            "text": "Home scores",
+            "scoringPlay": true
+          },
+          {
+            "id": "score10",
+            "period": {
+              "number": 4
+            },
+            "clock": {
+              "displayValue": "6:00"
+            },
+            "homeScore": 35,
+            "awayScore": 38,
+            "text": "Away scores",
+            "scoringPlay": true
+          },
+          {
+            "id": "score11",
+            "period": {
+              "number": 4
+            },
+            "clock": {
+              "displayValue": "2:00"
+            },
+            "homeScore": 42,
+            "awayScore": 38,
+            "text": "Home scores",
+            "scoringPlay": true
+          },
+          {
+            "id": "turnover",
+            "period": {
+              "number": 4
+            },
+            "clock": {
+              "displayValue": "1:00"
+            },
+            "homeScore": 42,
+            "awayScore": 38,
+            "text": "Away pass intercepted by Home",
+            "scoringPlay": false
+          },
+          {
+            "id": "kneel1",
+            "period": {
+              "number": 4
+            },
+            "clock": {
+              "displayValue": "0:59"
+            },
+            "homeScore": 42,
+            "awayScore": 38,
+            "text": "Home kneels for 1 yard loss",
+            "scoringPlay": false
+          },
+          {
+            "id": "kneel2",
+            "period": {
+              "number": 4
+            },
+            "clock": {
+              "displayValue": "0:19"
+            },
+            "homeScore": 42,
+            "awayScore": 38,
+            "text": "Home kneels for 1 yard loss",
+            "scoringPlay": false
+          }
+        ],
+        "winprobability": []
+      }
+    }
+  ]
+}

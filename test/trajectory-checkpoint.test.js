@@ -5,12 +5,11 @@ import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import {loadCore,loadFixtures} from '../calibration/helpers.mjs';
 import {focusedHistories,historicalWpThinning} from '../calibration/trajectory-checkpoint-fixtures.mjs';
-import {evaluateInput,POLICIES,buildReviewPack,renderReviewerPack} from '../scripts/trajectory-review-pack.mjs';
+import {evaluateHistoricalInput as evaluateInput,POLICIES,buildReviewPack,renderReviewerPack} from '../scripts/trajectory-review-pack.mjs';
 import {prepareCheckpointEvaluation} from '../scripts/shadow-candidate-report.mjs';
 import {createRequire} from 'node:module';
-const require=createRequire(import.meta.url),core=await loadCore();
-const shadow=require('../calibration/shadow-candidate.cjs');
-const oracle=require('./helpers/phase31-oracle.cjs');
+const require=createRequire(import.meta.url),historical=require('./helpers/audited-scoring.cjs');
+const {core,shadow,phase31:oracle}=historical;
 const key=JSON.parse(readFileSync(new URL('../calibration/trajectory-diagnostic-key.json',import.meta.url)));
 
 test('new paired histories are unsaturated under every frozen comparison policy and preserve current inputs',()=>{
@@ -99,7 +98,7 @@ test('archived review outputs use only their reconstructed checkpoint and retain
     const cp=cps[p.index];
     assert.equal(String(cp.play.id),p.playId);
     assert.deepEqual(cp.summary.plays.map(p=>String(p.id)),p.acceptedPlayIds);
-    const prepared=prepareCheckpointEvaluation(core,f,cp,p.index);
+    const prepared={game:historical.prepare({sport:f.modelSport,event:cp.event,summary:cp.summary})};
     const off=shadow.candidateGameRating(core,prepared.game,cp.competition,cp.summary);
     assert.deepEqual(off,oracle.candidateGameRating(core,prepared.game,cp.competition,cp.summary));
     for(const {label,policy} of POLICIES) {

@@ -13,7 +13,8 @@ const require=createRequire(import.meta.url);
 const shadow=require('../calibration/shadow-candidate.cjs');
 const {TRAJECTORY_POLICIES}=require('../calibration/trajectory-policy.cjs');
 const {LIVE_TRAJECTORY_POLICIES}=require('../calibration/trajectory-live-policy.cjs');
-const {winProbabilityObservations}=require('../scoring/shared/probability.js');
+const historical=require('../test/helpers/audited-scoring.cjs');
+const {winProbabilityObservations}=historical.probability;
 export const POLICIES=[{label:'Phase 2',policy:null},
   {label:'original slow-evidence / gate-10-65-wp-100',policy:TRAJECTORY_POLICIES.find(p=>p.id==='gate-10-65-wp-100')},
   {label:'intermediate gate-45-95-wp-65',policy:TRAJECTORY_POLICIES.find(p=>p.id==='gate-45-95-wp-65')},
@@ -41,9 +42,9 @@ export const SELECTION=[
 ];
 const hash=value=>createHash('sha256').update(JSON.stringify(value)).digest('hex');
 const round=n=>n==null?null:Number(n.toFixed(4));
-export function evaluateInput(core,input,game=prepareSynthetic(input)) {
+export function evaluateInput(core,input,game=prepareSynthetic(input),scorer=shadow) {
   return Object.fromEntries(POLICIES.map(({label,policy})=>{
-    const result=shadow.candidateGameRating(core,game,input.competition,input.summary,null,policy);
+    const result=scorer.candidateGameRating(core,game,input.competition,input.summary,null,policy);
     const d=result.trajectoryScoring,h=result.historyOwnership;
     const originalHistory=core.momentumImpact(input.sport,input.summary,result.progress,'live');
     return [label,{...result,preClampTotal:result.baseScore+result.liveBonus+result.momentumPoints+d.adjustment,
@@ -56,6 +57,9 @@ export function evaluateInput(core,input,game=prepareSynthetic(input)) {
         taper:d.negativeMultiplier??1,negativeAfterTaper:d.negativeAfterTaper??Math.min(0,d.adjustment),
         negativeAfterFloor:d.negativeAfterFloor??Math.min(0,d.adjustment),floor:d.protectedRating??null}}];
   }));
+}
+export function evaluateHistoricalInput(core,input,game=historical.prepare(input)) {
+  return evaluateInput(historical.core,input,game,historical.shadow);
 }
 export function publicInput(input,currentWp,missing=[]) {
   const c=input.competition;
@@ -80,7 +84,7 @@ export function publicInput(input,currentWp,missing=[]) {
     answers:{switchNow:'',urgencyTier:'',matchedPreference:'',evidence:''}};
 }
 export async function buildReviewPack() {
-  const core=await loadCore(),fixtures=loadFixtures(),cache=new Map(),cases=[];
+  const core=historical.core,fixtures=loadFixtures(),cache=new Map(),cases=[];
   for(const [eventId,playId,criterion] of SELECTION) {
     const fixture=fixtures.find(f=>String(f.eventId)===eventId);
     assert.ok(fixture,`Missing archived fixture ${eventId}`);
@@ -88,10 +92,11 @@ export async function buildReviewPack() {
     if(!cps) {cps=highFidelityCheckpoints(fixture);cache.set(eventId,cps);}
     const index=cps.findIndex(c=>String(c.play.id)===playId);
     assert.ok(index>=0,`Missing causal checkpoint ${eventId}:${playId}`);
-    const cp=cps[index],prepared=prepareCheckpointEvaluation(core,fixture,cp,index);
+    const cp=cps[index];
     const input={sport:fixture.modelSport,event:cp.event,competition:cp.competition,summary:cp.summary};
-    const results=evaluateInput(core,input,prepared.game);
-    assertPreparedCheckpointUnchanged(prepared);
+    const before=JSON.stringify(input);
+    const results=evaluateHistoricalInput(core,input);
+    assert.equal(JSON.stringify(input),before,'Historical evaluation mutated replay inputs');
     const safe=publicInput(input,results['Phase 2'].currentWinProbability,cp.missingSituationFields);
     // Whitelisted review projection excludes nextPlayScoring, event outcomes,
     // drive results, postgame records, provider prose and later plays.
@@ -103,7 +108,7 @@ export async function buildReviewPack() {
   }
   const focused=focusedHistories();
   for(const [group,inputs] of Object.entries(focused).filter(([k])=>k!=='capacity')) for(const [i,input] of inputs.entries()) {
-    const results=evaluateInput(core,input);
+    const results=evaluateHistoricalInput(core,input);
     cases.push({sortKey:hash([group,i]),kind:'synthetic matched example',matchGroup:group==='decisive'?'M1':'M2',
       provenance:{syntheticId:input.id,samplingIsGroundTruth:false},
       public:publicInput({...input,synthetic:true},results['Phase 2'].currentWinProbability),results});
@@ -112,11 +117,11 @@ export async function buildReviewPack() {
   cases.forEach((c,i)=>{c.id=`R${String(i+1).padStart(2,'0')}`;delete c.sortKey;});
   const count=Map.groupBy(cases.filter(c=>c.provenance.eventId),c=>c.provenance.eventId);
   assert.ok([...count.values()].every(g=>g.length<=2));
-  const evaluateSet=items=>Object.fromEntries(Object.entries(items).map(([k,input])=>[k,evaluateInput(core,input)]));
+  const evaluateSet=items=>Object.fromEntries(Object.entries(items).map(([k,input])=>[k,evaluateHistoricalInput(core,input)]));
   return {version:1,purpose:'Human review examples from the existing calibration archive; NOT an unseen validation set.',
     policyProvenance:POLICIES.map(({label,policy})=>({label,policy})),selectedPolicy:null,
     cases,counts:{total:cases.length,archived:SELECTION.length,distinctArchivedGames:count.size,synthetic:cases.length-SELECTION.length},
-    focused:Object.fromEntries(Object.entries(focused).map(([name,pair])=>[name,pair.map(input=>({id:input.id,present:input.competition,results:evaluateInput(core,input)}))])),
+    focused:Object.fromEntries(Object.entries(focused).map(([name,pair])=>[name,pair.map(input=>({id:input.id,present:input.competition,results:evaluateHistoricalInput(core,input)}))])),
     historicalWpThinning:{currentObservation:historicalWpThinning().full.summary.winprobability.at(-1),results:evaluateSet(historicalWpThinning()),
       limitation:'Internal sample removal still spans endpoint coverage; it does not establish observed coverage inside a gap. Current WP stays identical; retained earlier WP-event awards may legitimately change.'},
     missingCurrentWpComparison:{results:evaluateSet(evidenceHistories()),

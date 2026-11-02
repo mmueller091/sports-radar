@@ -1,0 +1,462 @@
+{
+  "source": "November 1 2026 audit: direct ESPN scoreboard captures; request receipt is not provider revision time",
+  "observations": [
+    {
+      "round": 12,
+      "capturedAt": "2026-11-02T02:45:15.918Z",
+      "event": {
+        "id": "401873035",
+        "name": "Philadelphia Eagles at Washington Commanders",
+        "season": {
+          "year": 2026,
+          "type": 2,
+          "slug": "regular-season"
+        },
+        "competitions": [
+          {
+            "id": "401873035",
+            "status": {
+              "clock": 83,
+              "displayClock": "1:23",
+              "period": 2,
+              "type": {
+                "id": "2",
+                "name": "STATUS_IN_PROGRESS",
+                "state": "in",
+                "completed": false,
+                "description": "In Progress",
+                "detail": "1:23 - 2nd Quarter",
+                "shortDetail": "1:23 - 2nd"
+              },
+              "isTBDFlex": false
+            },
+            "situation": {
+              "lastPlay": {
+                "id": "4018730352076",
+                "type": {
+                  "id": "74",
+                  "text": "Official Timeout",
+                  "abbreviation": "Off TO"
+                },
+                "text": "Official Timeout at 01:23.",
+                "scoreValue": 0,
+                "team": {
+                  "id": "28"
+                },
+                "probability": {
+                  "tiePercentage": 0,
+                  "homeWinPercentage": 0.6255,
+                  "awayWinPercentage": 0.37450000000000006,
+                  "secondsLeft": 0
+                },
+                "statYardage": 0,
+                "drive": {
+                  "description": "3 plays, 9 yards, 1:08",
+                  "start": {
+                    "yardLine": 10,
+                    "text": "WSH 10"
+                  },
+                  "timeElapsed": {
+                    "displayValue": "1:08"
+                  }
+                },
+                "start": {
+                  "yardLine": 20,
+                  "team": {
+                    "id": "28"
+                  }
+                },
+                "end": {
+                  "yardLine": 20,
+                  "team": {
+                    "id": "28"
+                  }
+                }
+              },
+              "down": 1,
+              "yardLine": 20,
+              "distance": 10,
+              "downDistanceText": "1st & 10 at WSH 20",
+              "shortDownDistanceText": "1st & 10",
+              "possessionText": "WSH 20",
+              "isRedZone": false,
+              "homeTimeouts": 3,
+              "awayTimeouts": 3,
+              "possession": "28"
+            },
+            "competitors": [
+              {
+                "homeAway": "home",
+                "score": "10",
+                "team": {
+                  "id": "28",
+                  "displayName": "Washington Commanders",
+                  "abbreviation": "WSH"
+                }
+              },
+              {
+                "homeAway": "away",
+                "score": "10",
+                "team": {
+                  "id": "21",
+                  "displayName": "Philadelphia Eagles",
+                  "abbreviation": "PHI"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "round": 13,
+      "capturedAt": "2026-11-02T02:45:36.423Z",
+      "event": {
+        "id": "401873035",
+        "name": "Philadelphia Eagles at Washington Commanders",
+        "season": {
+          "year": 2026,
+          "type": 2,
+          "slug": "regular-season"
+        },
+        "competitions": [
+          {
+            "id": "401873035",
+            "status": {
+              "clock": 98,
+              "displayClock": "1:38",
+              "period": 2,
+              "type": {
+                "id": "2",
+                "name": "STATUS_IN_PROGRESS",
+                "state": "in",
+                "completed": false,
+                "description": "In Progress",
+                "detail": "1:38 - 2nd Quarter",
+                "shortDetail": "1:38 - 2nd"
+              },
+              "isTBDFlex": false
+            },
+            "situation": {
+              "lastPlay": {
+                "id": "4018730352076",
+                "type": {
+                  "id": "74",
+                  "text": "Official Timeout",
+                  "abbreviation": "Off TO"
+                },
+                "text": "Official Timeout at 01:38.",
+                "scoreValue": 0,
+                "team": {
+                  "id": "28"
+                },
+                "probability": {
+                  "tiePercentage": 0,
+                  "homeWinPercentage": 0.6255,
+                  "awayWinPercentage": 0.37450000000000006,
+                  "secondsLeft": 0
+                },
+                "statYardage": 0,
+                "drive": {
+                  "description": "3 plays, 9 yards, 0:53",
+                  "start": {
+                    "yardLine": 10,
+                    "text": "WSH 10"
+                  },
+                  "timeElapsed": {
+                    "displayValue": "0:53"
+                  }
+                },
+                "start": {
+                  "yardLine": 19,
+                  "team": {
+                    "id": "28"
+                  }
+                },
+                "end": {
+                  "yardLine": 19,
+                  "team": {
+                    "id": "28"
+                  }
+                }
+              },
+              "down": 4,
+              "yardLine": 19,
+              "distance": 1,
+              "downDistanceText": "4th & 1 at WSH 19",
+              "shortDownDistanceText": "4th & 1",
+              "possessionText": "WSH 19",
+              "isRedZone": false,
+              "homeTimeouts": 3,
+              "awayTimeouts": 3,
+              "possession": "28"
+            },
+            "competitors": [
+              {
+                "homeAway": "home",
+                "score": "10",
+                "team": {
+                  "id": "28",
+                  "displayName": "Washington Commanders",
+                  "abbreviation": "WSH"
+                }
+              },
+              {
+                "homeAway": "away",
+                "score": "10",
+                "team": {
+                  "id": "21",
+                  "displayName": "Philadelphia Eagles",
+                  "abbreviation": "PHI"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "round": 16,
+      "capturedAt": "2026-11-02T02:46:38.323Z",
+      "event": {
+        "id": "401873035",
+        "name": "Philadelphia Eagles at Washington Commanders",
+        "season": {
+          "year": 2026,
+          "type": 2,
+          "slug": "regular-season"
+        },
+        "competitions": [
+          {
+            "id": "401873035",
+            "status": {
+              "clock": 98,
+              "displayClock": "1:38",
+              "period": 2,
+              "type": {
+                "id": "2",
+                "name": "STATUS_IN_PROGRESS",
+                "state": "in",
+                "completed": false,
+                "description": "In Progress",
+                "detail": "1:38 - 2nd Quarter",
+                "shortDetail": "1:38 - 2nd"
+              },
+              "isTBDFlex": false
+            },
+            "situation": {
+              "lastPlay": {
+                "id": "4018730352076",
+                "type": {
+                  "id": "21",
+                  "text": "Timeout",
+                  "abbreviation": "TO"
+                },
+                "text": "Timeout #1 by PHI at 01:38.  10-second runoff avoided.",
+                "scoreValue": 0,
+                "team": {
+                  "id": "28"
+                },
+                "probability": {
+                  "tiePercentage": 0,
+                  "homeWinPercentage": 0.6255,
+                  "awayWinPercentage": 0.37450000000000006,
+                  "secondsLeft": 0
+                },
+                "statYardage": 0,
+                "drive": {
+                  "description": "3 plays, 9 yards, 0:53",
+                  "start": {
+                    "yardLine": 10,
+                    "text": "WSH 10"
+                  },
+                  "timeElapsed": {
+                    "displayValue": "0:53"
+                  }
+                },
+                "start": {
+                  "yardLine": 19,
+                  "team": {
+                    "id": "28"
+                  }
+                },
+                "end": {
+                  "yardLine": 19,
+                  "team": {
+                    "id": "28"
+                  }
+                }
+              },
+              "down": 4,
+              "yardLine": 19,
+              "distance": 1,
+              "downDistanceText": "4th & 1 at WSH 19",
+              "shortDownDistanceText": "4th & 1",
+              "possessionText": "WSH 19",
+              "isRedZone": false,
+              "homeTimeouts": 3,
+              "awayTimeouts": 2,
+              "possession": "28"
+            },
+            "competitors": [
+              {
+                "homeAway": "home",
+                "score": "10",
+                "team": {
+                  "id": "28",
+                  "displayName": "Washington Commanders",
+                  "abbreviation": "WSH"
+                }
+              },
+              {
+                "homeAway": "away",
+                "score": "10",
+                "team": {
+                  "id": "21",
+                  "displayName": "Philadelphia Eagles",
+                  "abbreviation": "PHI"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "round": 18,
+      "capturedAt": "2026-11-02T02:47:19.519Z",
+      "event": {
+        "id": "401873035",
+        "name": "Philadelphia Eagles at Washington Commanders",
+        "season": {
+          "year": 2026,
+          "type": 2,
+          "slug": "regular-season"
+        },
+        "competitions": [
+          {
+            "id": "401873035",
+            "status": {
+              "clock": 92,
+              "displayClock": "1:32",
+              "period": 2,
+              "type": {
+                "id": "2",
+                "name": "STATUS_IN_PROGRESS",
+                "state": "in",
+                "completed": false,
+                "description": "In Progress",
+                "detail": "1:32 - 2nd Quarter",
+                "shortDetail": "1:32 - 2nd"
+              },
+              "isTBDFlex": false
+            },
+            "situation": {
+              "lastPlay": {
+                "id": "4018730352087",
+                "type": {
+                  "id": "52",
+                  "text": "Punt",
+                  "abbreviation": "PUNT"
+                },
+                "text": " T.Way punts 54 yards to PHI 27, Center-T.Ott, fair catch by C.DeJean.",
+                "scoreValue": 0,
+                "team": {
+                  "id": "21"
+                },
+                "probability": {
+                  "tiePercentage": 0,
+                  "homeWinPercentage": 0.5926,
+                  "awayWinPercentage": 0.4074,
+                  "secondsLeft": 0
+                },
+                "statYardage": 0,
+                "drive": {
+                  "description": "3 plays, 9 yards, 0:59",
+                  "start": {
+                    "yardLine": 10,
+                    "text": "WSH 10"
+                  },
+                  "end": {
+                    "yardLine": 19,
+                    "text": "WSH 19"
+                  },
+                  "timeElapsed": {
+                    "displayValue": "0:59"
+                  },
+                  "result": "PUNT"
+                },
+                "start": {
+                  "yardLine": 19,
+                  "team": {
+                    "id": "28"
+                  }
+                },
+                "end": {
+                  "yardLine": 73,
+                  "team": {
+                    "id": "21"
+                  }
+                },
+                "athletesInvolved": [
+                  {
+                    "id": "4682618",
+                    "fullName": "Cooper DeJean",
+                    "displayName": "Cooper DeJean",
+                    "shortName": "C. DeJean",
+                    "links": [
+                      {
+                        "rel": [
+                          "playercard",
+                          "desktop",
+                          "athlete"
+                        ],
+                        "href": "https://www.espn.com/nfl/player/_/id/4682618/cooper-dejean"
+                      }
+                    ],
+                    "headshot": "https://a.espncdn.com/i/headshots/nfl/players/full/4682618.png",
+                    "jersey": "33",
+                    "position": "CB",
+                    "team": {
+                      "id": "21"
+                    }
+                  }
+                ]
+              },
+              "down": 1,
+              "yardLine": 73,
+              "distance": 10,
+              "downDistanceText": "1st & 10 at PHI 27",
+              "shortDownDistanceText": "1st & 10",
+              "possessionText": "PHI 27",
+              "isRedZone": false,
+              "homeTimeouts": 3,
+              "awayTimeouts": 2,
+              "possession": "21"
+            },
+            "competitors": [
+              {
+                "homeAway": "home",
+                "score": "10",
+                "team": {
+                  "id": "28",
+                  "displayName": "Washington Commanders",
+                  "abbreviation": "WSH"
+                }
+              },
+              {
+                "homeAway": "away",
+                "score": "10",
+                "team": {
+                  "id": "21",
+                  "displayName": "Philadelphia Eagles",
+                  "abbreviation": "PHI"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

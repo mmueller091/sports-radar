@@ -1,0 +1,30 @@
+{
+  "auditedCommit": "8ad7a0096307e0ab9038dbcba60f0e965e9bcfaa",
+  "note": "Supplement to replay sourceFingerprint. These unchanged core and reconstruction dependencies match both clean audited checkout and original Git blob. The replay sourceFingerprint covers all modified production modules.",
+  "files": {
+    "rating-core.js": {
+      "sha256": "9b1d4b868a46a958abf3d7aa0ac62f3c2f7274c003b4e368c4a9560931c75907",
+      "unchangedFromAuditedCommit": true
+    },
+    "calibration/shadow-candidate.cjs": {
+      "sha256": "7e4045f9a239382ad3488358aab0aaed972c83823d0d8f7d649b391f6b62fe53",
+      "unchangedFromAuditedCommit": true
+    },
+    "calibration/helpers.mjs": {
+      "sha256": "d306895efccd9cdca409cac4d6bc1db2f26c11267348dd4bfdf6b7c01be6bef7",
+      "unchangedFromAuditedCommit": true
+    },
+    "calibration/context-overrides.json": {
+      "sha256": "12f27eb128c401b4099d2bf574f6fb9228f535e2bad53798493701f784372d7c",
+      "unchangedFromAuditedCommit": true
+    },
+    "scripts/replay-inputs.mjs": {
+      "sha256": "1962fb464b42a744783d4789f63e6130b3d59fdf6432010a706535032dbdfcf5",
+      "unchangedFromAuditedCommit": true
+    },
+    "scripts/replay-inputs.historical.mjs": {
+      "sha256": "089b106eaff61a71863874efcb21f657d1074b951b2d7b7417efa34de2258201",
+      "unchangedFromAuditedCommit": true
+    }
+  }
+}

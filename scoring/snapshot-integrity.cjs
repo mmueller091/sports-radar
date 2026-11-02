@@ -1,7 +1,9 @@
 // Reconcile observations, never average ratings or limit legitimate score swings.
 const {normalizedTime}=require('./shared/time.js');
+const {revisionTime}=require('./provider-evidence.cjs');
 const clone=x=>JSON.parse(JSON.stringify(x));
 const supported=g=>['NFL','CFB'].includes(g.sport);
+const reconciles=g=>supported(g)||g.sport==='NHL';
 const identity=g=>`${g.sport}:${g.id}:${g.teams.map(t=>String(t[8])).sort().join(',')}`;
 function competitionFor(g){return {status:g.liveRawStatus,situation:g.liveRawSituation,
  competitors:g.teams.map((t,i)=>({team:{id:String(t[8])},homeAway:i?'home':'away',score:t[2]}))};}
@@ -10,16 +12,40 @@ function stateKey(c){
  return JSON.stringify({period:c?.status?.period,clock:c?.status?.displayClock,state:c?.status?.type?.state,
   scores:(c?.competitors||[]).map(t=>[String(t.team?.id),String(t.score)]).sort(),
   situation:Object.fromEntries(['possession','down','distance','yardLine','isRedZone','homeTimeouts','awayTimeouts','outs','onFirst','onSecond','onThird'].map(k=>[k,s[k]??null])),
-  play:p?{id:p.id,text:p.text,type:p.type?.text,scoreValue:p.scoreValue,team:p.team?.id}:null});
+  play:p?{id:p.id,text:p.text,type:p.type?.text,scoreValue:p.scoreValue,team:p.team?.id,start:p.start,end:p.end,revision:revisionTime(p)}:null});
 }
 function sequence(p,event){const id=String(p?.id||'');return /^\d+$/.test(id)&&id.startsWith(String(event))?Number(id.slice(String(event).length)):null;}
 function preserveObservation(game,previous){
- if(!supported(game)||game.state!=='live'||previous?.state!=='live'||identity(game)!==identity(previous))return;
+ if(!reconciles(game)||game.state!=='live'||previous?.state!=='live'||identity(game)!==identity(previous))return;
  game.priorObservation={identity:identity(game),competition:competitionFor(previous)};
+ if(previous.observationEvidence)game.observationEvidence=clone(previous.observationEvidence);
  if(previous.liveInputEvidence)game.liveInputEvidence=clone(previous.liveInputEvidence);
 }
+function corroboratedRevision(c,prior,header,at,before){
+ const p=c.situation?.lastPlay,old=prior.situation?.lastPlay;
+ if(p?.id==null||String(p.id)!==String(old?.id)||stateKey(c)===stateKey(prior))return null;
+ const revisedPlay=JSON.stringify(p)!==JSON.stringify(old);
+ if(!revisedPlay)return null;
+ const nextRevision=revisionTime(p),oldRevision=revisionTime(old);
+ if(nextRevision!==null&&oldRevision!==null&&nextRevision>oldRevision)return 'provider-revision-time';
+ const sameScores=header&&(c.competitors||[]).every(t=>String(header.competitors?.find(x=>String(x.team?.id)===String(t.team?.id))?.score)===String(t.score));
+ const sameClock=header&&Number(header.status?.period)===Number(c.status?.period)&&
+  String(header.status?.displayClock)===String(c.status?.displayClock)&&header.status?.type?.state==='in';
+ const fields=['possession','down','distance','yardLine','homeTimeouts','awayTimeouts'];
+ if(sameScores&&sameClock&&fields.every(k=>header.situation?.[k]==null||String(header.situation[k])===String(c.situation?.[k])))return 'matching-summary-revision';
+ // ESPN may revise a timeout in the scoreboard before summary catches up.
+ // A bare changed ID/text or clock is insufficient: the revised event must
+ // explicitly name the current clock and corroborate a changed field/timeout.
+ const text=String(p.text||''),named=text.match(/\bat\s+(\d+):(\d{2})/i),clock=String(c.status?.displayClock||'').match(/^(\d+):(\d{2})$/);
+ const namedClock=named&&clock&&Number(named[1])*60+Number(named[2])===Number(clock[1])*60+Number(clock[2]);
+ const spot=c.situation?.yardLine,changedSpot=spot!=null&&Number(spot)!==Number(prior.situation?.yardLine)&&Number(p.end?.yardLine)===Number(spot);
+ const timeoutChanged=['homeTimeouts','awayTimeouts'].some(k=>c.situation?.[k]!=null&&prior.situation?.[k]!=null&&Number(c.situation[k])<Number(prior.situation[k]));
+ if(at!==null&&before!==null&&Number(c.status?.period)===Number(prior.status?.period)&&namedClock&&
+  /timeout|runoff|clock.*(?:correct|reset)|after review/i.test(`${p.type?.text||''} ${text}`)&&(changedSpot||timeoutChanged))return 'scoreboard-event-corroboration';
+ return null;
+}
 function reconcileObservation(game,c,summary){
- if(!supported(game)||game.state!=='live'||!c)return c;
+ if(!reconciles(game)||game.state!=='live'||!c)return c;
  const prior=game.priorObservation?.identity===identity(game)?game.priorObservation.competition:null;
  if(!prior)return c;
  const at=normalizedTime(game.sport,c).elapsedSeconds,before=normalizedTime(game.sport,prior).elapsedSeconds;
@@ -28,26 +54,40 @@ function reconcileObservation(game,c,summary){
  const header=summary?.header?.competitions?.[0];
  const agrees=header&&(c.competitors||[]).every(t=>String(header.competitors?.find(x=>String(x.team?.id)===String(t.team?.id))?.score)===String(t.score));
  const lower=(c.competitors||[]).some(t=>Number(t.score)<Number(prior.competitors.find(x=>String(x.team?.id)===String(t.team?.id))?.score));
- const correction=lower&&agrees&&at!==null&&before!==null;
+ const revision=corroboratedRevision(c,prior,header,at,before);
+ const samePlay=c.situation?.lastPlay?.id!=null&&String(c.situation.lastPlay.id)===String(prior.situation?.lastPlay?.id);
+ const matchingClock=header&&String(header.status?.displayClock)===String(c.status?.displayClock)&&Number(header.status?.period)===Number(c.status?.period);
+ const correction=lower&&agrees&&!older&&at!==null&&before!==null&&
+  Number(c.status?.period)===Number(prior.status?.period)&&(Math.abs(at-before)<=2||samePlay&&matchingClock);
+ const priorKey=stateKey(prior),nextKey=stateKey(c),e=game.observationEvidence;
+ const superseded=e?.identity===identity(game)?e.superseded||[]:[];
+ const replay=superseded.includes(nextKey)&&nextKey!==priorKey;
+ const nextRevision=revisionTime(c.situation?.lastPlay),oldRevision=revisionTime(prior.situation?.lastPlay);
+ const olderRevision=String(c.situation?.lastPlay?.id)===String(prior.situation?.lastPlay?.id)&&nextRevision!==null&&oldRevision!==null&&nextRevision<oldRevision;
  // Without ordered provider IDs, a small clock correction remains legitimate.
  // A score correction corroborated by the independent summary also wins.
- const rejected=!correction&&((older&&at!==null&&before!==null&&at<=before)||
+ const rejected=replay||olderRevision||!correction&&!revision&&((older&&at!==null&&before!==null&&at<=before)||
   (at!==null&&before!==null&&before-at>2&&!newer));
  game.liveUpdateRejected=rejected;
+ if(nextKey!==priorKey||rejected||!game.observationIntegrity)
+  game.observationIntegrity={status:rejected?'rejected':revision?'revised':'accepted',reason:rejected?(replay?'superseded-observation':olderRevision?'older-provider-revision':'out-of-order-observation'):revision||null};
  if(rejected)c={...c,...clone(prior)};
+ else if(nextKey!==priorKey)game.observationEvidence={identity:identity(game),superseded:[...new Set([...superseded,priorKey])].slice(-16)};
  // The legacy validator's local WeakMap must see this same accepted clock.
  game.liveRawStatus=c.status;game.liveRawSituation=c.situation;
  for(const t of game.teams){const score=c.competitors?.find(x=>String(x.team?.id)===String(t[8]))?.score;if(score!=null)t[2]=String(score);}
  if(!rejected&&at!==null&&before!==null&&at<before)delete game.summaryState;
+ game.priorObservation={identity:identity(game),competition:clone(c)};
  return c;
 }
 function compactSummary(summary,c){
  const spot=s=>s&&({...s,team:s.team&&{id:s.team.id}});
- const play=p=>({...Object.fromEntries(['id','sequenceNumber','period','clock','homeScore','awayScore','text','shortText','type','scoringPlay','scoreValue','statYardage'].filter(k=>p[k]!==undefined).map(k=>[k,p[k]])),
+ const play=p=>({...Object.fromEntries(['id','sequenceNumber','period','clock','homeScore','awayScore','text','shortText','type','scoringPlay','scoreValue','statYardage','modified','lastModified','updatedAt'].filter(k=>p[k]!==undefined).map(k=>[k,p[k]])),
   ...(p.team?{team:{id:p.team.id}}:{}),...(p.start?{start:spot(p.start)}:{}),...(p.end?{end:spot(p.end)}:{})});
  const drive=d=>d&&({id:d.id,result:d.result,description:d.description,start:spot(d.start),end:spot(d.end),plays:(d.plays||[]).map(play)});
  const header={season:summary.header?.season,competitions:[{...c,competitors:(c.competitors||[]).map(t=>({...t,team:{id:t.team?.id,displayName:t.team?.displayName,abbreviation:t.team?.abbreviation}}))}]};
  return {header,scoringPlays:summary.scoringPlays?.map(play),plays:summary.plays?.map(play),
+  ...Object.fromEntries(['playsComplete','scoringPlaysComplete','hasMore','pagination','sportsRadarEvidence'].filter(k=>summary[k]!==undefined).map(k=>[k,summary[k]])),
   winprobability:summary.winprobability,boxscore:summary.boxscore,onIce:summary.onIce,
   drives:summary.drives&&{previous:summary.drives.previous?.map(drive),current:drive(summary.drives.current)}};
 }
@@ -73,7 +113,7 @@ function sameStateSummary(game,c,summary,now=Date.now()){
 function rememberInputs(game,c,summary,now=Date.now()){
  if(!supported(game)||!summary||game.sameStateEvidenceRetained||game.liveUpdateRejected)return;
  const compact=compactSummary(summary,c);
- if(JSON.stringify(compact).length<=180000)game.liveInputEvidence={identity:identity(game),key:stateKey(c),observedAt:now,summary:compact};
+ if(JSON.stringify(compact).length<=200000)game.liveInputEvidence={identity:identity(game),key:stateKey(c),observedAt:now,summary:compact};
  else delete game.liveInputEvidence;
 }
 module.exports={preserveObservation,reconcileObservation,stateKey,competitionFor,sameStateSummary,rememberInputs};

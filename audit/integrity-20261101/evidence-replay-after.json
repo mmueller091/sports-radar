@@ -1,0 +1,225 @@
+﻿{
+  "modelVersion": "2026-11-01.audit-integrity.3",
+  "provenance": "Canonical feed observations November 1 2026 audit rounds17/18. Scoring summary reconstructed exclusively from persisted verifiedLiveEvidence and manpowerEvidence. No full raw summary capture available; no absent event or player statistics invented.",
+  "scenarios": [
+    {
+      "finding": "F2/F3",
+      "game": "NHL:401892628",
+      "round": 17,
+      "observedRating": 63,
+      "rating": 61,
+      "evidenceQuality": "partial",
+      "scoringPartial": true,
+      "reasons": [
+        "ledger-behind-scoreboard"
+      ],
+      "currentTension": 34,
+      "history": 1.150891286509015,
+      "historyEvents": [],
+      "liveReasons": [
+        "Anaheim Ducks power play",
+        ""
+      ],
+      "momentumText": "",
+      "inputEvidence": {
+        "duplicatesRemoved": 0,
+        "conflictingEvents": 0,
+        "futureEventsExcluded": 0,
+        "clockMode": "elapsed",
+        "canonicalBoundary": {
+          "period": 2,
+          "clock": "0:41",
+          "playId": "401892628000005540"
+        }
+      }
+    },
+    {
+      "finding": "F2/F3",
+      "game": "NHL:401892628",
+      "round": 18,
+      "observedRating": 71,
+      "rating": 69,
+      "evidenceQuality": "complete",
+      "scoringPartial": false,
+      "reasons": [],
+      "currentTension": 34,
+      "history": 1.419204298653888,
+      "historyEvents": [
+        {
+          "label": "Erased a multi-goal deficit",
+          "points": 8
+        }
+      ],
+      "liveReasons": [
+        "Anaheim Ducks power play",
+        ""
+      ],
+      "momentumText": "Erased a multi-goal deficit",
+      "inputEvidence": {
+        "duplicatesRemoved": 0,
+        "conflictingEvents": 0,
+        "futureEventsExcluded": 0,
+        "clockMode": "elapsed",
+        "canonicalBoundary": {
+          "period": 2,
+          "clock": "0:41",
+          "playId": "401892628000008410"
+        }
+      }
+    },
+    {
+      "finding": "F4",
+      "scenario": "1 identical interception copies",
+      "rating": 53,
+      "evidenceQuality": "partial",
+      "scoringPartial": true,
+      "reasons": [
+        "ledger-behind-scoreboard",
+        "historical-coverage-unavailable"
+      ],
+      "currentTension": 25.9259,
+      "history": 0,
+      "historyEvents": [],
+      "liveReasons": [
+        "Turnover"
+      ],
+      "momentumText": "",
+      "inputEvidence": {
+        "duplicatesRemoved": 0,
+        "conflictingEvents": 0,
+        "futureEventsExcluded": 0,
+        "canonicalBoundary": {
+          "period": 2,
+          "clock": "5:00",
+          "playId": null
+        }
+      },
+      "eventShock": 4
+    },
+    {
+      "finding": "F4",
+      "scenario": "2 identical interception copies",
+      "rating": 53,
+      "evidenceQuality": "partial",
+      "scoringPartial": true,
+      "reasons": [
+        "ledger-behind-scoreboard",
+        "historical-coverage-unavailable"
+      ],
+      "currentTension": 25.9259,
+      "history": 0,
+      "historyEvents": [],
+      "liveReasons": [
+        "Turnover"
+      ],
+      "momentumText": "",
+      "inputEvidence": {
+        "duplicatesRemoved": 1,
+        "conflictingEvents": 0,
+        "futureEventsExcluded": 0,
+        "canonicalBoundary": {
+          "period": 2,
+          "clock": "5:00",
+          "playId": null
+        }
+      },
+      "eventShock": 4
+    },
+    {
+      "finding": "F4",
+      "scenario": "3 identical interception copies",
+      "rating": 53,
+      "evidenceQuality": "partial",
+      "scoringPartial": true,
+      "reasons": [
+        "ledger-behind-scoreboard",
+        "historical-coverage-unavailable"
+      ],
+      "currentTension": 25.9259,
+      "history": 0,
+      "historyEvents": [],
+      "liveReasons": [
+        "Turnover"
+      ],
+      "momentumText": "",
+      "inputEvidence": {
+        "duplicatesRemoved": 2,
+        "conflictingEvents": 0,
+        "futureEventsExcluded": 0,
+        "canonicalBoundary": {
+          "period": 2,
+          "clock": "5:00",
+          "playId": null
+        }
+      },
+      "eventShock": 4
+    },
+    {
+      "finding": "F5",
+      "scenario": "canonical checkpoint",
+      "rating": 58,
+      "evidenceQuality": "partial",
+      "scoringPartial": true,
+      "reasons": [
+        "ledger-behind-scoreboard",
+        "historical-coverage-unavailable"
+      ],
+      "currentTension": 34,
+      "history": 0,
+      "historyEvents": [],
+      "liveReasons": [
+        "Win probability is nearly even (50% / 50%)",
+        "A late one-possession game"
+      ],
+      "momentumText": "",
+      "inputEvidence": {
+        "duplicatesRemoved": 0,
+        "conflictingEvents": 0,
+        "futureEventsExcluded": 0,
+        "canonicalBoundary": {
+          "period": 4,
+          "clock": "1:00",
+          "playId": null
+        }
+      },
+      "probability": 0.5
+    },
+    {
+      "finding": "F5",
+      "scenario": "future summary play appended",
+      "rating": 58,
+      "evidenceQuality": "partial",
+      "scoringPartial": true,
+      "reasons": [
+        "ledger-behind-scoreboard",
+        "historical-coverage-unavailable",
+        "ahead-summary-aggregates-deferred"
+      ],
+      "currentTension": 34,
+      "history": 0,
+      "historyEvents": [],
+      "liveReasons": [
+        "Win probability is nearly even (50% / 50%)",
+        "A late one-possession game"
+      ],
+      "momentumText": "",
+      "inputEvidence": {
+        "duplicatesRemoved": 0,
+        "conflictingEvents": 0,
+        "futureEventsExcluded": 2,
+        "summaryAhead": false,
+        "aggregateEvidenceDeferred": true,
+        "providerBoundary": {
+          "period": 4,
+          "clock": "0:50"
+        },
+        "canonicalBoundary": {
+          "period": 4,
+          "clock": "1:00",
+          "playId": null
+        }
+      },
+      "probability": 0.5
+    }
+  ]
+}

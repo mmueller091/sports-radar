@@ -432,7 +432,8 @@ test('live event shock rewards major plays briefly and expires after seven plays
   const play={period:{number:4,displayValue:'4th Quarter'},clock:{displayValue:'5:00'},text:'Interception returned 45 yards for a touchdown'};
   assert.equal(core.eventShockImpact('NFL',{plays:[play]},status).points,10);
   const stale={plays:[play,...Array.from({length:7},(_,i)=>({period:{number:4,displayValue:'4th Quarter'},clock:{displayValue:`4:${59-i}`},text:'Run for no gain'}))]};
-  assert.equal(core.eventShockImpact('NFL',stale,status).points,0);
+  assert.equal(core.eventShockImpact('NFL',stale,status).points,10,'future plays cannot age an observed current event');
+  assert.equal(core.eventShockImpact('NFL',stale,{...status,displayClock:'4:53'}).points,0,'seven observed subsequent plays expire event shock');
   const blocked={plays:[{...play,text:'Blocked punt returned for a touchdown'}]};
   assert.equal(core.eventShockImpact('CFB',blocked,status).points,0,'unknown scoring direction is conservative');
   blocked.plays=[{...play,text:'Previous play',homeScore:21,awayScore:14},
@@ -469,8 +470,11 @@ test('live event shock rewards major plays briefly and expires after seven plays
 test('NHL event shock ages by remaining-clock chronology',()=>{
   const play={period:{number:1},clock:{displayValue:'19:00'},text:'Shorthanded goal'};
   const summary={plays:[play]};
-  const recent=core.eventShockImpact('NHL',summary,{period:1,displayClock:'19:30'}).points;
+  const future=core.eventShockImpact('NHL',summary,{period:1,displayClock:'19:30'}).points;
+  const recent=core.eventShockImpact('NHL',summary,{period:1,displayClock:'19:00'}).points;
   const older=core.eventShockImpact('NHL',summary,{period:1,displayClock:'18:30'}).points;
+  assert.equal(future,0,'a goal after the canonical observation cannot earn current shock');
+  assert.equal(recent,6);
   assert.ok(recent > older);
 });
 

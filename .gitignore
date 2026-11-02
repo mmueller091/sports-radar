@@ -3,3 +3,13 @@ alerts-worker/.wrangler/
 alerts-worker/.wrangler-config/
 work/
 dist/
+/audit/integrity-20261101/tools/
+/audit/integrity-20261101/worker-dry-run/
+/audit/integrity-20261101/*.pdf
+/audit/integrity-20261101/nhl-rules-*.txt
+/audit/integrity-20261101/*.log
+/audit/integrity-20261101/*replay.json
+/audit/integrity-20261101/baseline-app.js
+/audit/integrity-20261101/baseline-scoring-runtime.js
+/audit/integrity-20261101/baseline-feed.json
+/alerts-worker/audit/integrity-20261101/worker-dry-run/

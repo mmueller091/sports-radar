@@ -4,6 +4,7 @@ import * as legacy from './game-model.js';
 import runtime from '../../scoring/live-runtime.cjs';
 import football from '../../scoring/football-live.cjs';
 import footballMarket from '../../scoring/football-market.cjs';
+import {footballSituation,baseballSituation} from './display-model.js';
 export {preservePregameRecords} from './game-model.js';
 
 export function preserveFootballPregameMarket(game,previous=null,now=game.marketAsOf ?? Date.now(),previousObservedAt=null) {
@@ -60,8 +61,11 @@ export function enrichGame(game,summary,previousGame=null) {
   preserveFootballContext(game,previousGame,false);
   runtime.preservePregameBaseline(game,previousGame);
   runtime.preserveLiveEvidence(game,previousGame);
+  summary=runtime.prepareProviderSummary(game,summary);
   legacy.enrichGame(game,summary,game.liveEvidenceReset==='score-correction' ? null : previousGame?.modelVersion===runtime.MODEL_VERSION ? previousGame : null,runtime.playPeriodLabel);
   finish(game,summary);
+  if(['NFL','CFB'].includes(game.sport))game.footballSituation=footballSituation(game,summary);
+  if(game.sport==='MLB')game.baseballSituation=baseballSituation(game);
   if(game.state==='completed' && ['NFL','CFB','NBA','NCAAB','NHL'].includes(game.sport)){
     const facts=runtime.completedGameFacts(game,summary);
     if(facts&&(facts.comeback||facts.quarterbackChange||facts.redemption))game.completedFacts=facts;

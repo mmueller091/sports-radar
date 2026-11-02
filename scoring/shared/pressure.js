@@ -1,5 +1,7 @@
 /* Shared scoring module; supports classic browser scripts and Worker/Node bundling. */
 (function (root) {
+  const {normalizedTime} = typeof module !== 'undefined' && module.exports
+    ? require('./time.js') : root.SportsRadarScoring.shared_time;
   function aggregateLiveBonus({
     probabilityPoints=0,
     situationPoints=0,
@@ -46,8 +48,25 @@
       return {points:0,reasons:[]};
     }
 
-    const recent = (summary.plays || [])
-      .slice(-18)
+    const records = [...new Map((summary.plays || []).map(play=>[
+      play?.id != null ? `id:${play.id}` : JSON.stringify(play),play
+    ])).values()];
+    const currentTime = policy.sport ? normalizedTime(policy.sport,competition).elapsedSeconds : null;
+    const currentWallclock = Date.parse(competition?.status?.wallclock || competition?.wallclock || '');
+    const isRecent = play => {
+      if (!policy.recentSeconds) return true;
+      if (Number(play?.period?.number || play?.period)>0 && Number(competition?.status?.period)>0 &&
+          Number(play?.period?.number || play?.period)!==Number(competition.status.period)) return false;
+      const eventTime=normalizedTime(policy.sport,{status:{period:play?.period?.number || play?.period,
+        displayClock:play?.clock?.displayValue || play?.displayClock || '',clock:play?.clock?.value ?? play?.clockValue}}).elapsedSeconds;
+      const occurred=Date.parse(play?.wallclock || play?.occurredAt || '');
+      const age=currentTime !== null && eventTime !== null ? currentTime-eventTime
+        : Number.isFinite(currentWallclock) && Number.isFinite(occurred) ? (currentWallclock-occurred)/1000 : null;
+      // Publication/receipt timestamps are deliberately not event times. An
+      // unpositioned or future event cannot be called recent pressure.
+      return age !== null && age>=0 && age<=policy.recentSeconds;
+    };
+    const recent = (policy.recentSeconds ? records.filter(isRecent) : records.slice(-18))
       .filter(play => !play?.scoringPlay)
       .map(play => ({
         text:String(play?.text || play?.shortText || play?.type?.text || '').toLowerCase(),

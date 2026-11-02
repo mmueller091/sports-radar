@@ -105,7 +105,11 @@ test('sustained surprise requires a consistent ledger and does not count polls',
   const s=scenario({period:2,clock:'3:00',away:7});
   s.summary.scoringPlays=[{id:'td',period:{number:1},clock:{displayValue:'8:00'},homeScore:0,awayScore:7}];
   const a=run(s);assert.ok(a.liveSurprise.sustained>0);assert.equal(run(s,a).score,a.score);
-  s.summary.scoringPlays.push(s.summary.scoringPlays[0]);assert.equal(run(s).liveSurprise.sustained,0);
+  s.summary.scoringPlays.push(s.summary.scoringPlays[0]);assert.equal(run(s).liveSurprise.sustained,a.liveSurprise.sustained);
+  // An exact retransmission is one fact; a contradictory same-ID record with
+  // no ordered revision remains invalid and cannot establish sustained surprise.
+  s.summary.scoringPlays.push({...s.summary.scoringPlays[0],awayScore:14});
+  assert.equal(run(s).liveSurprise.sustained,0);
 });
 test('vig-free moneyline expectations and current WP are optional independent evidence',()=>{
   const s=scenario();delete s.competition.odds[0].spread;delete s.competition.odds[0].details;

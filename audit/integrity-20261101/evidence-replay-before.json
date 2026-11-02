@@ -1,0 +1,141 @@
+﻿{
+  "modelVersion": "2026-11-01.production-integrity.2",
+  "provenance": "Canonical feed observations November 1 2026 audit rounds17/18. Scoring summary reconstructed exclusively from persisted verifiedLiveEvidence and manpowerEvidence. No full raw summary capture available; no absent event or player statistics invented.",
+  "scenarios": [
+    {
+      "finding": "F2/F3",
+      "game": "NHL:401892628",
+      "round": 17,
+      "observedRating": 63,
+      "rating": 63,
+      "evidenceQuality": null,
+      "scoringPartial": false,
+      "reasons": [],
+      "currentTension": 34,
+      "history": 2.888985725197374,
+      "historyEvents": [],
+      "liveReasons": [
+        "Anaheim Ducks power play",
+        ""
+      ],
+      "momentumText": "",
+      "inputEvidence": null
+    },
+    {
+      "finding": "F2/F3",
+      "game": "NHL:401892628",
+      "round": 18,
+      "observedRating": 71,
+      "rating": 71,
+      "evidenceQuality": null,
+      "scoringPartial": false,
+      "reasons": [],
+      "currentTension": 34,
+      "history": 2.888985725197374,
+      "historyEvents": [
+        {
+          "label": "Erased a multi-goal deficit",
+          "points": 8
+        }
+      ],
+      "liveReasons": [
+        "Anaheim Ducks power play",
+        ""
+      ],
+      "momentumText": "Erased a multi-goal deficit",
+      "inputEvidence": null
+    },
+    {
+      "finding": "F4",
+      "scenario": "1 identical interception copies",
+      "rating": 54,
+      "evidenceQuality": null,
+      "scoringPartial": false,
+      "reasons": [],
+      "currentTension": 25.9259,
+      "history": 1.421875,
+      "historyEvents": [],
+      "liveReasons": [
+        "Turnover"
+      ],
+      "momentumText": "",
+      "inputEvidence": null,
+      "eventShock": 4
+    },
+    {
+      "finding": "F4",
+      "scenario": "2 identical interception copies",
+      "rating": 57,
+      "evidenceQuality": null,
+      "scoringPartial": false,
+      "reasons": [],
+      "currentTension": 25.9259,
+      "history": 1.421875,
+      "historyEvents": [],
+      "liveReasons": [
+        "Turnover"
+      ],
+      "momentumText": "",
+      "inputEvidence": null,
+      "eventShock": 7
+    },
+    {
+      "finding": "F4",
+      "scenario": "3 identical interception copies",
+      "rating": 60,
+      "evidenceQuality": null,
+      "scoringPartial": false,
+      "reasons": [],
+      "currentTension": 25.9259,
+      "history": 1.421875,
+      "historyEvents": [],
+      "liveReasons": [
+        "Turnover"
+      ],
+      "momentumText": "",
+      "inputEvidence": null,
+      "eventShock": 10
+    },
+    {
+      "finding": "F5",
+      "scenario": "canonical checkpoint",
+      "rating": 65,
+      "evidenceQuality": null,
+      "scoringPartial": false,
+      "reasons": [],
+      "currentTension": 34,
+      "history": 6.5,
+      "historyEvents": [],
+      "liveReasons": [
+        "Win probability is nearly even (50% / 50%)",
+        "A late one-possession game"
+      ],
+      "momentumText": "",
+      "inputEvidence": null,
+      "probability": 0.5
+    },
+    {
+      "finding": "F5",
+      "scenario": "future summary play appended",
+      "rating": 52,
+      "evidenceQuality": null,
+      "scoringPartial": false,
+      "reasons": [],
+      "currentTension": 22,
+      "history": 2.41847291567829,
+      "historyEvents": [
+        {
+          "label": "Big win-chance swing",
+          "points": 7
+        }
+      ],
+      "liveReasons": [
+        "The feed estimates a one-sided outcome (99% / 1%)",
+        "A late one-possession game"
+      ],
+      "momentumText": "Big win-chance swing",
+      "inputEvidence": null,
+      "probability": 0.99
+    }
+  ]
+}

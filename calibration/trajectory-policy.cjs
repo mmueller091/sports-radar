@@ -1,4 +1,4 @@
-/* Experimental scoring of authoritative Phase 1 telemetry; never a production import. */
+/* Shared trajectory policy used by the production live runtime and explicit research comparisons. */
 const unit = value => Math.max(0,Math.min(1,Number(value) || 0));
 const smoothstep = (start,end,value) => {
   const x = unit((value-start)/(end-start));
@@ -33,8 +33,9 @@ function validatePolicy(p) {
 function trajectoryAdjustment(telemetry,currentCloseness,policy=null) {
   if (policy) validatePolicy(policy);
   const t = telemetry || {};
-  const hasHistory = Number.isFinite(t.trajectoryEndPosition) && t.trajectoryEndPosition > 0 &&
-    [t.genuineContinuity,t.marginContinuity,t.competitiveShare,t.dominantShare].every(Number.isFinite);
+  const hasHistory = t.hasObservedHistory === true && Number.isFinite(t.observedCoverageSpan) &&
+    t.observedCoverageSpan > 0 && Number.isFinite(t.trajectoryEndPosition) && t.trajectoryEndPosition > 0 &&
+    [t.genuineContinuity,t.competitiveShare,t.dominantShare].every(Number.isFinite);
   const source = t.genuineContinuitySource || 'unavailable';
   const diagnostic = {
     enabled:Boolean(policy),policyId:policy?.id ?? null,adjustment:0,
@@ -46,7 +47,10 @@ function trajectoryAdjustment(telemetry,currentCloseness,policy=null) {
     telemetrySource:source,fallback:source === 'margin-fallback',
     wpCoverageShare:unit(t.wpCoverageShare),wpObservationCount:t.wpObservationCount || 0,
     wpCoverageStart:t.wpCoverageStart ?? null,wpCoverageEnd:t.wpCoverageEnd ?? null,
-    trajectoryEndPosition:t.trajectoryEndPosition ?? null,hasHistory
+    trajectoryEndPosition:t.trajectoryEndPosition ?? null,
+    observedCoverageStart:t.observedCoverageStart ?? null,observedCoverageEnd:t.observedCoverageEnd ?? null,
+    observedCoverageSpan:t.observedCoverageSpan ?? 0,observedCoverageShare:t.observedCoverageShare ?? 0,
+    scoreObservationCount:t.scoreObservationCount ?? 0,hasHistory
   };
   if (!policy || !hasHistory) return diagnostic;
   const p = policy;
@@ -54,11 +58,12 @@ function trajectoryAdjustment(telemetry,currentCloseness,policy=null) {
   // toward the existing full-duration margin telemetry when coverage is limited;
   // do not invent probabilities or change any Phase 1 measurements.
   const wpConfidence = source === 'positioned-win-probability' ? unit(t.wpCoverageShare) : 0;
+  const margin = Number.isFinite(t.marginContinuity) ? unit(t.marginContinuity) : unit(t.genuineContinuity);
   const genuine = source === 'positioned-win-probability'
-    ? unit(t.marginContinuity)*(1-wpConfidence)+unit(t.genuineContinuity)*wpConfidence
+    ? margin*(1-wpConfidence)+unit(t.genuineContinuity)*wpConfidence
     : unit(t.genuineContinuity);
   const sustainedQuality = p.genuineWeight*genuine+(1-p.genuineWeight)*unit(t.competitiveShare);
-  const falseClose = Math.max(0,unit(t.marginContinuity)-unit(t.genuineContinuity))*wpConfidence;
+  const falseClose = Math.max(0,margin-unit(t.genuineContinuity))*wpConfidence;
   const dominance = unit(t.dominantShare)*(source === 'positioned-win-probability' ? wpConfidence : 1);
   const recentCompetition = Number.isFinite(t.lastCompetitivePosition)
     ? smoothstep(.8,1,t.lastCompetitivePosition/t.trajectoryEndPosition) : 0;
@@ -80,7 +85,8 @@ function trajectoryAdjustment(telemetry,currentCloseness,policy=null) {
   const rawTrajectory = adjustedSustainedQualityContribution+falseCloseContribution+
     dominanceContribution+lateRevivalContribution;
   const boundedTrajectory = Math.max(-p.negativeCap,Math.min(p.positiveCap,rawTrajectory));
-  const evidenceWeight = smoothstep(p.evidenceStart,p.evidenceEnd,t.trajectoryEndPosition);
+  const evidenceWeight = smoothstep(p.evidenceStart,p.evidenceEnd,
+    Math.min(t.trajectoryEndPosition,t.observedCoverageSpan));
   const positiveCurrentStateGate = smoothstep(p.gateStart,p.gateEnd,unit(currentCloseness));
   const adjustment = boundedTrajectory*evidenceWeight*(boundedTrajectory > 0 ? positiveCurrentStateGate : 1);
   return {...diagnostic,adjustment,evidenceWeight,sustainedQuality,falseClose,dominance,lateRevival,

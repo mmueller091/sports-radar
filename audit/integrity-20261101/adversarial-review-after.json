@@ -1,0 +1,73 @@
+{
+  "model": "2026-11-01.audit-integrity.3",
+  "executedAt": "2026-11-02T03:42:03.396Z",
+  "retainedPartial": {
+    "first": "partial",
+    "retained": "partial",
+    "reasons": [
+      "provider-history-incomplete"
+    ]
+  },
+  "revisionReplay": {
+    "ratings": [
+      52,
+      49,
+      49
+    ],
+    "shock": [
+      3,
+      0,
+      0
+    ]
+  },
+  "oldModelCaches": [
+    {
+      "count": 1,
+      "old": 54,
+      "current": 53,
+      "shock": 4,
+      "retained": true
+    },
+    {
+      "count": 3,
+      "old": 60,
+      "current": 53,
+      "shock": 4,
+      "retained": true
+    }
+  ],
+  "unpositioned": [
+    {
+      "count": 1,
+      "score": 54,
+      "shock": 4
+    },
+    {
+      "count": 2,
+      "score": 54,
+      "shock": 4
+    },
+    {
+      "count": 3,
+      "score": 54,
+      "shock": 4
+    }
+  ],
+  "lowerScoreReplay": {
+    "period": 4,
+    "score": [
+      "0",
+      "14"
+    ],
+    "rejected": true
+  },
+  "futureDrive": {
+    "before": 56,
+    "after": 56,
+    "futureExcluded": 1
+  },
+  "revisionProvenance": {
+    "status": "revised",
+    "reason": "scoreboard-event-corroboration"
+  }
+}

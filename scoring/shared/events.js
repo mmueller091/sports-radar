@@ -1,6 +1,6 @@
 /* Shared scoring module; supports classic browser scripts and Worker/Node bundling. */
 (function (root) {
-  const {gameProgress,eventPosition} = typeof module !== 'undefined' && module.exports
+  const {normalizedTime,eventPosition} = typeof module !== 'undefined' && module.exports
     ? require('./time.js')
     : root.SportsRadarScoring.shared_time;
 
@@ -8,12 +8,17 @@
     const positionFor=value=>positionOverride ? positionOverride(value) : eventPosition(sport,{status:value});
     const plays = summary?.plays?.length ? summary.plays : summary?.scoringPlays || [];
     const duration = model.duration || 60;
-    const currentProgress = gameProgress(sport,{status});
+    const clocked=['NFL','CFB','NBA','NCAAB','NHL','Soccer'].includes(sport);
+    // eventPosition has a period-midpoint fallback for coarse game state. It
+    // cannot establish that an untimed event happened recently or is not future.
+    if(clocked&&normalizedTime(sport,{status}).elapsedSeconds===null)return {points:0,reasons:[]};
     const positioned = plays.map((play,index) => {
       const period = Number(play.period?.number || play.period || 0);
-      const position = period ? positionFor({period,displayClock:play.clock?.displayValue || '',clock:play.clock?.value,type:{detail:play.period?.displayValue || ''}}) : null;
+      const playStatus={period,displayClock:play.clock?.displayValue || '',clock:play.clock?.value,type:{detail:play.period?.displayValue || ''}};
+      const known=period&&(!clocked||normalizedTime(sport,{status:playStatus}).elapsedSeconds!==null);
+      const position = known ? positionFor(playStatus) : null;
       return {play,index,position};
-    }).filter(item => item.position !== null && positionFor(status)!==null && item.position <= positionFor(status) + .01).sort((a,b) => a.position-b.position || a.index-b.index);
+    }).filter(item => item.position !== null && positionFor(status)!==null && item.position <= positionFor(status) + 1e-9).sort((a,b) => a.position-b.position || a.index-b.index);
     let points = 0;
     const reasons = [];
     for (let i=0;i<positioned.length;i++) {

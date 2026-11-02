@@ -2571,8 +2571,12 @@ function teamMarkup(game, team, cardTeamIndex = null) {
 }
 
 function explainRating(game) {
+  const evidenceNote=game.state!=='live' ? '' : game.manpowerQuality?.state==='conflict'
+    ? 'Provider manpower reports conflict; the advantage is unconfirmed.'
+    : game.tennisCoverage?.reason || (game.scoringPartial
+      ? 'Some game history is still catching up; this rating uses the available evidence.' : '');
   const footballExplanation=globalThis.SportsRadarScore?.footballLiveExplanation?.(game);
-  if (footballExplanation) return footballExplanation;
+  if (footballExplanation) return [footballExplanation,evidenceNote].filter(Boolean).join(' ');
   const teams=game.teams || [],names=teams.map(t=>t[0]),a=teams[0] || [],b=teams[1] || [];
   const factors=game.factors || [],labels=factors.map(f=>f.label || ''),has=re=>labels.some(x=>re.test(x));
   const sport=game.sport,basketball=['NBA','NCAAB'].includes(sport),football=['NFL','CFB'].includes(sport);
@@ -2646,6 +2650,7 @@ function explainRating(game) {
     return sentences.slice(0,3).join(' ');
   }
   if(facts?.comeback)add(`${facts.comeback.team} has erased a ${facts.comeback.deficit}-point deficit${facts.comeback.team===leader[0]&&gap>0?' and taken the lead':''}`);
+  else if(has(/Erased a multi-goal deficit/i))add('A verified comeback erased a multi-goal deficit');
   else if(has(/Erased a large deficit|comeback/i))add('A comeback has brought the game back to life');
   if(known) {
     const when=shootout?' in the Shootout':overtime?` in ${overtimeName}`:late?' late in the game':'';
@@ -2660,7 +2665,7 @@ function explainRating(game) {
     else if(holder&&holder===trailer)add(`${holder[0]} has the ball with a chance to ${gap===3?'tie the game':'tie it or take the lead'}`);
     else add(`${seconds!==null&&seconds<60?'With less than a minute remaining, e':'E'}very possession could decide the game`);
   } else {
-    const reason=(game.live?.reasons || []).find(r=>safe(r)&&/has .* (?:yards|points|goals)|power play|bases (?:are )?loaded|no.hit|match point|set point|break point|red zone|fourth down|extra attacker|goalie|potential tying|go-ahead/i.test(r));
+    const reason=(game.live?.reasons || []).find(r=>safe(r)&&!(game.manpowerQuality?.state==='conflict'&&/power play|extra attacker/i.test(r))&&/has .* (?:yards|points|goals)|power play|bases (?:are )?loaded|no.hit|match point|set point|break point|red zone|fourth down|extra attacker|goalie|potential tying|go-ahead/i.test(r));
     if(reason)add(clean(reason));
     else if(has(/Underdog threatens upset/)&&game.underdog?.teamName)add(`${game.underdog.teamName} is threatening an upset`);
     else if(sport==='NHL'&&gap===2)add(late?'The trailing team needs two goals to draw level':'A goal would cut the lead to one, with time remaining to get back into the game');
@@ -2668,7 +2673,7 @@ function explainRating(game) {
     else if(facts?.lateLeadChanges)add('The lead has changed hands in the closing stages');
     else add(sport==='Tennis'?'The next break of serve could change the match':sport==='MLB'?'The next rally could change the game':sport==='NHL'||sport==='Soccer'?'The next goal could change the game':football?'The next drive could change the game':'The next few possessions will shape the contest');
   }
-  return sentences.slice(0,3).join(' ');
+  return [...sentences.slice(0,3),evidenceNote].filter(Boolean).join(' ');
 }
 
 
@@ -2811,6 +2816,7 @@ function broadcastWatchMarkup(game,summary=null,inline=false) {
 }
 
 function gameCard(game) {
+  const liveNote=game.manpowerQuality?.state==='conflict' ? 'Manpower reports conflict' : game.live?.note;
   const phase = String(game.live?.phase || game.status || '');
   const clock = String(game.liveRawStatus?.displayClock || phase.match(/\b\d{1,2}:\d{2}\b/)?.[0] || '');
   const period = compactClockPeriod(game);
@@ -2861,12 +2867,12 @@ function gameCard(game) {
     game.sport === 'MLB' ? baseballSituationMarkup(game) :
     game.state === 'live' &&
     (
-      game.live?.note ||
+      liveNote ||
       game.live?.bases
     )
       ? `<span class="live-situation">${basesMarkup(game.live?.bases)}${
-          game.live?.note
-            ? `<span>${safeText(game.live.note)}</span>`
+          liveNote
+            ? `<span>${safeText(liveNote)}</span>`
             : ''
         }</span>`
       : '';
@@ -2882,7 +2888,7 @@ function gameCard(game) {
     game.teams[1][0],
     game.teams[1][2],
     game.live?.phase,
-    ...(['NFL','CFB'].includes(game.sport) ? footballAccessibleSituation(game) : [game.live?.note]),
+    ...(['NFL','CFB'].includes(game.sport) ? footballAccessibleSituation(game) : [liveNote]),
     ...(game.sport === 'MLB' ? [game.baseballSituation?.outs != null ? `${game.baseballSituation.outs} outs` : '',game.baseballSituation?.count ? `count ${game.baseballSituation.count}` : ''] : []),
     game.live?.bases
       ? Object.entries(game.live.bases)
@@ -2890,7 +2896,7 @@ function gameCard(game) {
           .map(([base]) => base)
           .join(' and ')
       : '',
-    `excitement ${game.score}`,
+    `${game.state==='live'?'watch now rating':game.state==='completed'?'game quality':'pregame rating'} ${game.score}`,
     'Open game details'
   ]
     .filter(Boolean)
@@ -6030,6 +6036,11 @@ function renderDetailContent(
   const opening =
     Number(game.openingScore);
 
+  const qualitySoFar=game.state==='live' && game.gameQualitySoFar?.provisional && Number.isFinite(game.gameQualitySoFar.score)
+    ? `<p class="detail-freshness">Game quality so far: ${safeText(game.gameQualitySoFar.score)} (provisional). Based on the current result and observed play.</p>` : '';
+  const coverageNote=game.tennisCoverage?.reason
+    ? `<p class="detail-freshness">${safeText(game.tennisCoverage.reason)}</p>` : '';
+
   const scoringDetails = `<details class="detail-scoring-details"><summary>Scoring details</summary><p>Exact scoring factors</p><ul>${(game.factors || []).map(f=>`<li>${safeText(f.label)}: ${safeText(String(f.points))}</li>`).join('')}</ul><p>Live bonus: ${safeText(String(game.live?.bonus || 0))}</p></details>`;
 
   const ratingContext =
@@ -6040,7 +6051,7 @@ function renderDetailContent(
         : `Current rating ${safeText(game.score)}`;
 
   $('#game-detail-content').innerHTML =
-    `<header class="detail-header"><div class="detail-kicker">${safeText(labelForSport(game.sport))} · ${safeText(status)}${detailClock}</div><h2>${safeText(title)}</h2><button type="button" class="detail-watch ${isWatched(game) ? 'active' : ''}" data-watch-id="${safeText(watchKey(game))}" aria-pressed="${isWatched(game)}">${isWatched(game) ? '★ Watching this game' : '☆ Add to watchlist'}</button><div class="detail-scoreboard">${scores}</div><div class="detail-meta"><span><strong>Venue</strong> ${safeText(venue)}</span><span><strong>Broadcast</strong> ${safeText(game.channel || 'Channel not listed')}</span>${lineMeta}</div>${broadcastWatchMarkup(game,summary)}${freshness}${game.moment ? `<section class="detail-moment"><strong>${safeText(game.momentLabel || 'Notable play')}</strong><span>${safeText(displayMoment(game))}</span></section>` : ''}</header><section class="detail-radar"><div class="detail-excitement-head"><span class="detail-excitement-score" style="--score-hue:${scoreHue}">${safeText(game.score)}</span><span class="detail-excitement-copy"><small>Sports Radar excitement</small><strong>${safeText(ratingContext)}</strong></span></div><div class="detail-radar-why"><h3>Why ${safeText(game.score)}?</h3><p class="detail-explanation detail-why-text">${safeText(explainRating(game))}</p><button type="button" class="detail-why-toggle" aria-expanded="false">More</button></div>${scoringDetails}${excitementTimeline(game,summary)}</section>${detailTabsMarkup(game,summary)}`;
+    `<header class="detail-header"><div class="detail-kicker">${safeText(labelForSport(game.sport))} · ${safeText(status)}${detailClock}</div><h2>${safeText(title)}</h2><button type="button" class="detail-watch ${isWatched(game) ? 'active' : ''}" data-watch-id="${safeText(watchKey(game))}" aria-pressed="${isWatched(game)}">${isWatched(game) ? '★ Watching this game' : '☆ Add to watchlist'}</button><div class="detail-scoreboard">${scores}</div><div class="detail-meta"><span><strong>Venue</strong> ${safeText(venue)}</span><span><strong>Broadcast</strong> ${safeText(game.channel || 'Channel not listed')}</span>${lineMeta}</div>${broadcastWatchMarkup(game,summary)}${freshness}${game.moment ? `<section class="detail-moment"><strong>${safeText(game.momentLabel || 'Notable play')}</strong><span>${safeText(displayMoment(game))}</span></section>` : ''}</header><section class="detail-radar"><div class="detail-excitement-head"><span class="detail-excitement-score" style="--score-hue:${scoreHue}">${safeText(game.score)}</span><span class="detail-excitement-copy"><small>${game.state==='live'?'Watch now':game.state==='completed'?'Game quality':'Pregame rating'}</small><strong>${safeText(ratingContext)}</strong></span></div><div class="detail-radar-why"><h3>Why ${safeText(game.score)}?</h3><p class="detail-explanation detail-why-text">${safeText(explainRating(game))}</p><button type="button" class="detail-why-toggle" aria-expanded="false">More</button></div>${qualitySoFar}${coverageNote}${scoringDetails}${excitementTimeline(game,summary)}</section>${detailTabsMarkup(game,summary)}`;
 }
 
 async function fetchGameSummary(game,controller=new AbortController()) {

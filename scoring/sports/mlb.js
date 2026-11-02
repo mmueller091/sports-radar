@@ -80,6 +80,28 @@
     return result;
   }
 
+  function baseballPlateAppearance(game,competition,status,situation) {
+    const bases=['First','Second','Third'].map(base=>runnerOn(situation,base));
+    const occupied=bases.filter(Boolean).length;
+    const outs=situation?.outs == null ? null : Number(situation.outs);
+    const inning=Number(status?.period || 0);
+    const text=String(status?.type?.detail || status?.type?.shortDetail || '').toLowerCase();
+    const half=/bottom|bot\b/.test(text) ? 'bottom' : /top\b/.test(text) ? 'top' : '';
+    const battingSide=half==='bottom' ? 'home' : half==='top' ? 'away' : '';
+    const scores=sideScores(game,competition);
+    const deficit=battingSide && Number.isFinite(scores.home) && Number.isFinite(scores.away)
+      ? scores[battingSide==='home'?'away':'home']-scores[battingSide] : null;
+    const known=bases.every(value=>value !== null) && Number.isInteger(outs) && outs>=0 && outs<3 && deficit !== null;
+    const location=runs=>runs<=0 ? null : runs<=occupied ? 'base' : runs===occupied+1 ? 'plate' : 'beyond-plate';
+    return {known,inning,half,battingSide,outs,occupied,deficit,
+      tyingRun:known ? location(deficit) : null,winningRun:known ? location(deficit+1) : null,
+      reachable:known && deficit>=0 && deficit<=occupied+1,
+      // This describes the current plate appearance, not runs already scored.
+      // Every run represented by a confirmed runner reduces what this batter
+      // must supply to tie. The raw score and wide-margin penalty stay intact.
+      plateDeficit:known ? Math.max(0,deficit-occupied) : null};
+  }
+
   function baseballSituationImpact(
     game,
     competition,
@@ -187,6 +209,7 @@
         : null;
     const countText = String(situation.count || `${situation.balls ?? ''}-${situation.strikes ?? ''}`);
     const fullCount = /^3-2$/.test(countText.trim());
+    const plateAppearance=baseballPlateAppearance(game,competition,status,situation);
 
     if (Number.isFinite(outs) && outs >= 3) {
       return {points:0,note:'3 outs',reasons:[],bases,competitiveFloor:0};
@@ -293,7 +316,7 @@
       reasons.push('A full count with two outs raises the plate appearance leverage');
     }
 
-    if (inning >= 7 && scoreGap <= 2 && differential !== null && differential <= 0) {
+    if (inning >= 7 && (game.state==='live' ? plateAppearance.known : scoreGap<=2) && differential !== null && differential <= 0) {
       if (differential === 0) {
         points += occupied.length ? 3 : 4;
         reasons.push(occupied.length ? 'The go-ahead run is on base' : 'The go-ahead run is at the plate');
@@ -310,12 +333,14 @@
           reasons.push('The tying run is on deck');
         }
       }
+      if (game.state==='live' && differential<0 && plateAppearance.winningRun==='plate')
+        reasons.push(half==='bottom' && inning>=9 ? 'The winning run is at the plate' : 'The go-ahead run is at the plate');
     }
 
     const decisivePlateAppearance = inning >= 9 &&
       (half === 'bottom' || half === 'top' && differential < 0) &&
-      differential !== null && differential <= 0 &&
-      -differential <= occupied.length + 1 && scoreGap <= 3;
+      differential !== null && differential <= 0 && (game.state==='live' ? plateAppearance.reachable :
+        -differential <= occupied.length + 1 && scoreGap <= 3);
     const competitiveFloor = decisivePlateAppearance
       ? Math.min(20,15 + (hasOuts && outs === 2 ? 2 : 0) +
           (fullCount ? 2 : 0) + (occupied.length ? 1 : 0) +
@@ -336,7 +361,8 @@
 
       reasons,
       bases,
-      competitiveFloor
+      competitiveFloor,
+      plateAppearance
     };
   }
 
@@ -533,9 +559,16 @@
       Number(footballContext.teams[0][2]) < Number(footballContext.teams[1][2]);
     const guaranteedMlbAtBat = sport === 'MLB' && inning >= 8 &&
       (homeTrailing && /bottom|middle|home/.test(inningHalf) || !homeTrailing && /top|away/.test(inningHalf));
+    const plateAppearance=baseballPlateAppearance({teams:footballContext?.teams || []},
+      footballContext?.competition,liveStatus,liveSituation);
+    const marginClose=mlbLiveMarginCloseness(gap,progress);
+    const currentPlateClose=plateAppearance.known && plateAppearance.inning>=7 &&
+      plateAppearance.deficit>0 && plateAppearance.reachable
+      ? mlbLiveMarginCloseness(plateAppearance.plateDeficit,progress) : marginClose;
     return {
-      marginClose:gameState === 'live' ? mlbLiveMarginCloseness(gap,progress) : undefined,
-      minimumComebackViability:guaranteedMlbAtBat ? .9 : 0
+      marginClose:gameState === 'live' ? Math.max(marginClose,currentPlateClose) : undefined,
+      minimumComebackViability:guaranteedMlbAtBat ? .9 : 0,
+      plateAppearance
     };
   }
 
@@ -559,7 +592,7 @@
     history:{threshold:3,units:'runs'}
   };
 
-  const api = {mlbLiveMarginCloseness,runnerOn,sideScores,baseballSituationImpact,noHitBid,baseballPerformanceMilestone,baseballGameState,baseballEventShock,mlbModel};
+  const api = {mlbLiveMarginCloseness,runnerOn,sideScores,baseballPlateAppearance,baseballSituationImpact,noHitBid,baseballPerformanceMilestone,baseballGameState,baseballEventShock,mlbModel};
   if (typeof module !== 'undefined' && module.exports) {
     module.exports = api;
   } else {
