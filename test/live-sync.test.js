@@ -2,9 +2,9 @@ import test from 'node:test';import assert from 'node:assert/strict';import fs f
 import * as active from '../alerts-worker/src/live-game-model.js';import helper from './helpers/live-sync.cjs';import {osu,eku,toronto,evaluate,fixture} from './helpers/live-sync-scenarios.mjs';
 const require=createRequire(import.meta.url),runtime=require('../scoring/live-runtime.cjs'),time=require('../scoring/shared/time.js'),before=helper.baseline();
 const copy=x=>structuredClone(x);
-test('real CFB accepted, missing, stale and empty summaries retain verified history without current WP',()=>{
+test('real CFB summaries retain history and the identical verified current observation',()=>{
  const input=osu(),a=evaluate(active,input),missing=evaluate(active,input,null,a);
- assert.equal(a.lastSummaryAccepted,true);assert.equal(missing.historicalEvidenceRetained,true);assert.equal(missing.live.probabilityTelemetry.probability,null);
+ assert.equal(a.lastSummaryAccepted,true);assert.equal(missing.historicalEvidenceRetained,true);assert.equal(missing.live.probabilityTelemetry.probability,a.live.probabilityTelemetry.probability);
  assert.equal(missing.score,a.score);assert.equal(missing.momentumPoints,a.momentumPoints);assert.equal(missing.trajectoryScoring.adjustment,a.trajectoryScoring.adjustment);
  assert.deepEqual(missing.pregameBaseline,input.baseline);
  const stale=copy(input.summary);stale.header.competitions[0].competitors.find(t=>t.homeAway==='away').score='21';
@@ -23,7 +23,7 @@ test('touchdown/PAT advances recompute current scoreboard state and expire/inval
  for(const score of ['27','28']){const next=copy(input);next.event.competitions[0].competitors.find(t=>t.homeAway==='away').score=score;
   const g=evaluate(active,next,null,previous);assert.equal(g.teams.find(t=>t[1]==='OKST')[2],score);assert.equal(g.historicalEvidenceRetained,true);assert.ok(g.score>previous.score);assert.equal(g.live.probabilityTelemetry.probability,null);
  }
- const accepted=evaluate(active,input),expired=copy(accepted);expired.verifiedLiveEvidence.observedAt-=120001;
+ const accepted=evaluate(active,input),expired=copy(accepted);expired.verifiedLiveEvidence.observedAt-=120001;if(expired.liveInputEvidence)expired.liveInputEvidence.observedAt-=120001;
  assert.equal(evaluate(active,input,null,expired).historicalEvidenceRetained,false);
  const rollback=copy(input);rollback.event.competitions[0].competitors.find(t=>t.homeAway==='away').score='21';
  const corrected=evaluate(active,rollback,null,accepted);assert.equal(corrected.historicalEvidenceRetained,false);assert.equal(corrected.verifiedLiveEvidence,undefined);
@@ -79,9 +79,10 @@ test('late descriptions follow sport clock boundaries and do not affect numeric 
  for(const [sport,period,clock,want]of [['CFB',3,'5:29',false],['CFB',4,'14:00',true],['NBA',3,'1:00',false],['NBA',4,'6:01',false],['NBA',4,'6:00',true],['NHL',3,'10:01',false],['NHL',3,'10:00',true],['NCAAB',2,'5:00',true]])assert.equal(time.isLateGameStatus(sport,{period,displayClock:clock}),want);
 });
 
-test('current WP is never recovered from historical evidence, and a normal quarter boundary keeps past facts',()=>{
+test('current WP survives only an identical verified observation; a new clock uses historical facts alone',()=>{
  const input=osu(),current=copy(input);current.summary.winprobability=[{playId:current.summary.plays.at(-1).id,homeWinPercentage:.2}];
- const a=evaluate(active,current),b=evaluate(active,current,null,a);assert.equal(a.live.probabilityTelemetry.probability,.2);assert.equal(b.live.probabilityTelemetry.probability,null);
+ const a=evaluate(active,current),b=evaluate(active,current,null,a);assert.equal(a.live.probabilityTelemetry.probability,.2);assert.equal(b.live.probabilityTelemetry.probability,.2);
+ const changed=copy(current);changed.event.competitions[0].status.displayClock='5:28';const moved=evaluate(active,changed,null,a);assert.equal(moved.sameStateEvidenceRetained,false);assert.equal(moved.live.probabilityTelemetry.probability,null);
  const late=copy(input);late.event.competitions[0].status.displayClock='0:10';late.summary.header.competitions[0]=copy(late.event.competitions[0]);
  const end=evaluate(active,late),start=copy(input);start.event.competitions[0].status.period=4;start.event.competitions[0].status.displayClock='15:00';
  const resumed=evaluate(active,start,null,end);assert.equal(resumed.historicalEvidenceRetained,true);assert.equal(resumed.liveRawStatus.period,4);assert.equal(resumed.liveRawStatus.displayClock,'15:00');

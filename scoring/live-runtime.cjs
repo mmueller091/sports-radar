@@ -12,8 +12,10 @@ const basketballCalibration=require('./basketball-calibration.cjs');
 const {canonicalDetailSummary}=require('./detail-state.cjs');
 const footballLive=require('./football-live.cjs');
 const footballMarket=require('./football-market.cjs');
+const integrity=require('./snapshot-integrity.cjs');
+const gameFacts=require('./game-facts.cjs');
 const PRODUCTION_POLICY = Object.freeze({...LIVE_POLICY,id:LIVE_POLICY.id+'-opening-transition',footballTransition:true,openingTransition:true});
-const MODEL_VERSION = '2026-11-01.football-market.2';
+const MODEL_VERSION = '2026-11-01.production-integrity.1';
 
 function retainSettledCfbPath(game,current,summary) {
   if (game.sport!=='CFB' || !summary || Number(current.status?.period)!==4) return;
@@ -38,6 +40,7 @@ function retainSettledCfbPath(game,current,summary) {
 }
 
 function applyLiveSnapshot(game, competition, summary) {
+  competition=integrity.reconcileObservation(game,competition || game.sourceCompetition,summary);
   if(footballMarket.supports(game))competition=footballMarket.prepareUpcomingMarket(game,competition || game.sourceCompetition,summary);
   const reconciled=basketball.reconcileBasketball(game,competition || game.sourceCompetition,summary);
   competition=reconciled.competition;summary=reconciled.summary;
@@ -47,15 +50,17 @@ function applyLiveSnapshot(game, competition, summary) {
   const current = {...(competition || game.sourceCompetition),
     ...(game.sport==='NFL' ? {season:{...game.sourceEvent?.season,...game.sourceCompetition?.season,...competition?.season}} : {}),
     status:game.liveRawStatus, situation:game.liveRawSituation};
-  const accepted = game.lastSummaryAccepted && summary?.header?.competitions?.[0]?.status ? summary : null;
+  const rawAccepted = game.lastSummaryAccepted && summary?.header?.competitions?.[0]?.status ? summary : null;
+  const accepted = integrity.sameStateSummary(game,current,rawAccepted);
   const validHistory=!accepted || validLedger(accepted,current,game.sport);
-  if(!validHistory){delete game.verifiedLiveEvidence;delete game.manpowerEvidence;}
+  if(!validHistory){delete game.verifiedLiveEvidence;delete game.manpowerEvidence;delete game.liveInputEvidence;}
   const ratingSummary=validHistory ? accepted : {...accepted,scoringPlays:[],plays:[],drives:undefined,winprobability:[]};
   delete game.manpowerRetained;
   const effective=currentManpower(game,current,ratingSummary);
   const history=basketball.supports(game) ? {summary:reconciled.history,trajectory:analyzeTrajectory(game.sport,reconciled.history,legacy.gameProgress(game.sport,current),'live')} : historyFor(game,current,accepted);
   const latestProbability=effective?.winprobability?.at(-1);
-  const unanchoredProbability=history && latestProbability && (latestProbability.playId==null || !(effective.plays||[]).some(p=>String(p.id)===String(latestProbability.playId)));
+  const probabilityPlays=[...(effective?.plays||[]),...(effective?.drives?.previous||[]).flatMap(d=>d.plays||[]),...(effective?.drives?.current?.plays||[])];
+  const unanchoredProbability=(history || game.sameStateEvidenceRetained) && latestProbability && (latestProbability.playId==null || !probabilityPlays.some(p=>String(p.id)===String(latestProbability.playId)));
   const currentSummary=unanchoredProbability ? {...effective,winprobability:[]} : effective;
   prepareOpening(legacy,game,competition || game.sourceCompetition,accepted);
   if (['NFL','CFB','NCAAB'].includes(game.sport)) {
@@ -109,14 +114,15 @@ function applyLiveSnapshot(game, competition, summary) {
   if (game.sport==='CFB' && isHalftimeStatus(game.liveRawStatus)) game.live.note='';
   game.momentumText = (result.historyOwnership?.eventFactors || []).map(f=>f.label).join(', ');
   if (game.sport==='CFB') game.upsetPoints=result.factors.find(f=>f.label==='Underdog threatens upset')?.points || 0;
-  retainSettledCfbPath(game,current,accepted);
-  if(accepted && validHistory && !history)rememberHistory(game,current,accepted,result);
-  if(!basketball.supports(game))game.historicalEvidenceRetained=Boolean(history);
+  retainSettledCfbPath(game,current,validHistory ? accepted || history?.summary : null);
+  if(accepted && validHistory && !history && !game.sameStateEvidenceRetained)rememberHistory(game,current,accepted,result);
+  if(rawAccepted && validHistory)integrity.rememberInputs(game,current,accepted);
+  if(!basketball.supports(game))game.historicalEvidenceRetained=Boolean(history || game.sameStateEvidenceRetained);
   delete game.basketballHistory;
   if(basketball.supports(game))game.lastSummaryAccepted=reconciled.rawCurrent;
   delete game.staleEnrichment;
   return result;
 }
 
-function preserveEvidence(game,previous){preserveLiveEvidence(game,previous);basketball.preserveBasketballState(game,previous);}
-module.exports = {...legacy,isHalftimeStatus,canonicalDetailSummary,applyLiveSnapshot,preservePregameBaseline,preserveLiveEvidence:preserveEvidence,footballLiveExplanation:footballLive.footballLiveExplanation,MODEL_VERSION,POLICY_ID:PRODUCTION_POLICY.id,PRODUCTION_POLICY};
+function preserveEvidence(game,previous){preserveLiveEvidence(game,previous);basketball.preserveBasketballState(game,previous);integrity.preserveObservation(game,previous);}
+module.exports = {...legacy,...gameFacts,isHalftimeStatus,canonicalDetailSummary,applyLiveSnapshot,preservePregameBaseline,preserveLiveEvidence:preserveEvidence,footballLiveExplanation:footballLive.footballLiveExplanation,MODEL_VERSION,POLICY_ID:PRODUCTION_POLICY.id,PRODUCTION_POLICY};

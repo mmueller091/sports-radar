@@ -134,7 +134,9 @@ export async function gameHistory(env,sport,id,now=Date.now()) {
       period:Number.isFinite(period) && period > 0 ? period : null,
       clock:String(row.clock || ''),
       phaseLabel:String(normalized?.live?.phase || normalized?.status || ''),
-      modelVersion:String(row.model_version || 'legacy')
+      modelVersion:String(row.model_version || 'legacy'),
+      ...(normalized.scoringPartial && !normalized.sameStateEvidenceRetained ? {evidenceQuality:'partial'} : {}),
+      ...(normalized.liveUpdateRejected || normalized.basketballUpdateRejected ? {integrityIssue:true} : {})
     };
   }).filter(point =>
     Number.isFinite(point.observedAt) &&
@@ -165,7 +167,7 @@ export function finalContent(game) {
 
 export function shouldSnapshot(game,history,now,modelVersion) {
   const key = `${game.sport}:${game.id}`;
-  if (game.state==='live') return true; // Existing 15-second buckets are unchanged.
+  if (game.state==='live') return !game.liveUpdateRejected && !game.basketballUpdateRejected;
   if (game.state==='upcoming') return !history.upcoming.has(key);
   if (game.state!=='completed') return false;
   const prior = history.completed.get(key);

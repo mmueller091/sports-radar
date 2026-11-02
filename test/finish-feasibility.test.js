@@ -83,7 +83,8 @@ test('all archived NFL, NBA, MLB and other-sport outputs preserve the immediate 
  for(const file of fs.readdirSync('test/fixtures/real-games').filter(n=>n.endsWith('.json'))){
   const f=JSON.parse(fs.readFileSync('test/fixtures/real-games/'+file));if(['CFB','NHL'].includes(f.modelSport))continue;
   const a=helper.score(active,f.event,f.summary,f.modelSport),b=helper.score(before,f.event,f.summary,f.modelSport);
-  delete a.modelVersion;delete b.modelVersion;
+  // Presentation facts and evidence metadata now have their own regressions.
+  for(const g of [a,b])for(const k of ['modelVersion','completedFacts','moment','momentLabel','sameStateEvidenceRetained','liveInputEvidence','priorObservation','liveUpdateRejected'])delete g[k];
   assert.deepEqual(JSON.parse(JSON.stringify(a)),JSON.parse(JSON.stringify(b)),file);
  }
 });

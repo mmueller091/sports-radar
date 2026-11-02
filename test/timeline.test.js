@@ -11,7 +11,7 @@ const context = vm.createContext({...core,ratingHistory:{},watchKey:game=>game.i
   safeText:value=>String(value),compactPlay:play=>play.text || '',
   stateRating:(...args)=>{progresses.push(args[4]);return core.stateRating(...args);}
 });
-for (const name of ['legacyPlayPosition','scoringEvents','estimatedEventRating','timelineFormat','timelineEventPosition','timelinePeriodLabel','timelineFinalScores','recordedTimelinePoints','timelinePoints','excitementTimeline']) {
+for (const name of ['legacyPlayPosition','scoringEvents','estimatedEventRating','timelineFormat','timelineEventPosition','timelinePeriodLabel','timelineFinalScores','recordedTimelinePoints','timelinePoints','timelineComparable','excitementTimeline']) {
   const start=source.indexOf(`function ${name}(`);
   vm.runInContext(source.slice(start,source.indexOf('\n}',start)+2),context);
 }
@@ -27,7 +27,7 @@ test('historical models stay internal and chart lines still break at the model b
   const result=context.timelinePoints(game,summary);
   assert.deepEqual(Array.from(result.points,point=>point.modelVersion),['old-model','2026-10-30.cfb-context.1']);
   assert.deepEqual(Array.from(result.points,point=>point.score),[60,85]);
-  assert.doesNotMatch(html,/old-model|2026-10-30.cfb-context.1|Models?:|Worker|model changes|timeline-note/);
+  assert.doesNotMatch(html,/old-model|2026-10-30.cfb-context.1|Models?:|Worker|model changes/);
   assert.match(html,/The rating stayed at 85/);
   const line=html.match(/class="timeline-line" d="([^"]+)"/)[1];
   assert.equal((line.match(/M /g)||[]).length,2);

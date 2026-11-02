@@ -1958,7 +1958,7 @@ export async function gameDetails(env,sport,id,now=Date.now()) {
     } finally {detailBudget.close();}
   }
   return runtime.canonicalDetailSummary(game,{...summary,...(nhlAdvanced ? {nhlAdvanced} : {}),...(['NBA','NCAAB'].includes(sport) ? {basketballBoxScore:basketballBoxScore(summary,sport)} : {}),
-    sportsRadarGame:{...game,scoreboard:undefined,basketballEvidence:undefined},sportsRadarArchived:archived,
+    sportsRadarGame:{...game,scoreboard:undefined,basketballEvidence:undefined,liveInputEvidence:undefined,priorObservation:undefined},sportsRadarArchived:archived,
     sportsRadarFreshness:{updatedAt:new Date(resource.updatedAt).toISOString(),canonicalUpdatedAt:feed?.updatedAt || null,canonicalRevision:feed?.revision || Date.parse(feed?.updatedAt) || null,receivedAt:new Date(now).toISOString(),stale:errors.length>0 || now-resource.updatedAt>STALE_MS}});
 }
 
@@ -2067,7 +2067,7 @@ export async function refreshSportsData(env,now=Date.now(),options={}) {
     const candidates = games.filter(summaryCandidate);
     metrics.candidates=candidates.length;
     metrics.liveCandidates=candidates.filter(game=>game.state==='live').length;
-    const scoreboardStates = new Map(candidates.map(game=>[game,JSON.parse(JSON.stringify(game))]));
+    const scoreboardStates = new Map(candidates.map(game=>[game,JSON.parse(JSON.stringify({...game,liveInputEvidence:undefined,priorObservation:undefined}))]));
     const reusedGames = new Set(), enrichment={}, deferred=[],critical=[];
     deferred.push(...nfl.deferred);
     const copyPrior = (game,prior) => {
@@ -2170,7 +2170,7 @@ export async function refreshSportsData(env,now=Date.now(),options={}) {
         SELECT ?,?,?,?,?,?,?,?,?,?,? WHERE EXISTS (SELECT 1 FROM sports_leases WHERE key='refresh' AND owner=? AND expires_at>?
       AND expires_at>CAST((julianday('now')-2440587.5)*86400000 AS INTEGER))`)
         .bind(`${game.sport}:${game.id}`,game.state==='completed'?now:Math.floor(now/(game.state==='live'?15000:60000))*(game.state==='live'?15000:60000),
-          game.sport,game.state,game.score,String(game.teams[0][2]),String(game.teams[1][2]),String(game.liveRawStatus?.period ?? ''),String(game.liveRawStatus?.displayClock || ''),JSON.stringify({...game,scoreboard:undefined,verifiedLiveEvidence:undefined,manpowerEvidence:undefined,basketballEvidence:undefined}),MODEL_VERSION,owner,budget.time()));
+          game.sport,game.state,game.score,String(game.teams[0][2]),String(game.teams[1][2]),String(game.liveRawStatus?.period ?? ''),String(game.liveRawStatus?.displayClock || ''),JSON.stringify({...game,scoreboard:undefined,verifiedLiveEvidence:undefined,manpowerEvidence:undefined,basketballEvidence:undefined,liveInputEvidence:undefined,priorObservation:undefined}),MODEL_VERSION,owner,budget.time()));
       for(let start=0;start<writes.length;start+=50){budget.check();await env.DB.batch(writes.slice(start,start+50));}
     });
     committed=await publishFeed(env,feed,owner,()=>{budget.check();return budget.time();},stage);

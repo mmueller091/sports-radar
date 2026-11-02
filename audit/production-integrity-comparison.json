@@ -1,0 +1,185 @@
+{
+  "baseline": "359d2b8b65dd03e812a7ee8295eb69b5364c3e77",
+  "model": "2026-11-01.production-integrity.1",
+  "games": [
+    {
+      "sport": "CFB",
+      "id": "401856847",
+      "teams": "OKST-ISU",
+      "state": "completed",
+      "before": 89,
+      "after": 89,
+      "beforeMoment": "Decisive play",
+      "afterMoment": "Decisive play",
+      "moment": "Period 4 · 0:00 · Kyle Konrardy 34 Yd Field Goal ",
+      "facts": {
+        "comeback": {
+          "team": "Iowa State Cyclones",
+          "deficit": 7
+        }
+      }
+    },
+    {
+      "sport": "CFB",
+      "id": "401858282",
+      "teams": "MIA-UNC",
+      "state": "completed",
+      "before": 80,
+      "after": 80,
+      "beforeMoment": "Last score",
+      "afterMoment": "Last score",
+      "moment": "1:38 · Trech Kekahuna 15 Yd pass from Billy Edwards Jr. (Rece Verhoff Kick)"
+    },
+    {
+      "sport": "NFL",
+      "id": "401873033",
+      "teams": "KC-DEN",
+      "state": "live",
+      "before": 65,
+      "after": 65,
+      "beforeMoment": "Latest score",
+      "afterMoment": "Latest score",
+      "moment": "1:56 · Jonah Coleman 5 Yd Rush"
+    },
+    {
+      "sport": "NCAAB",
+      "id": "401920982",
+      "teams": "ND-VILL",
+      "state": "completed",
+      "before": 65,
+      "after": 65,
+      "beforeMoment": "Decisive play",
+      "afterMoment": "Decisive play",
+      "moment": "2nd Half · 1:08 · Logan Duncomb makes 25-foot three point jumper (Braeden Smith assists)"
+    },
+    {
+      "sport": "NFL",
+      "id": "401873028",
+      "teams": "IND-JAX",
+      "state": "completed",
+      "before": 1,
+      "after": 1,
+      "beforeMoment": "Decisive play",
+      "afterMoment": "Last score",
+      "moment": "0:00 · Bhayshul Tuten 25 Yd pass from Trevor Lawrence (Cam Little Kick)"
+    },
+    {
+      "sport": "NBA",
+      "id": "401909903",
+      "teams": "BOS-ORL",
+      "state": "completed",
+      "before": 67,
+      "after": 67,
+      "beforeMoment": "Last score",
+      "afterMoment": "Last score",
+      "moment": "4th Quarter 47.6 · Derrick White makes free throw 2 of 2"
+    },
+    {
+      "sport": "NFL",
+      "id": "401873034",
+      "teams": "NE-MIA",
+      "state": "live",
+      "before": 55,
+      "after": 55,
+      "beforeMoment": "Latest score",
+      "afterMoment": "Latest score",
+      "moment": "2:04 · Kevin Coleman Jr. 35 Yd pass from Malik Willis (Two-Point Pass Conversion Failed)"
+    },
+    {
+      "sport": "NHL",
+      "id": "401892627",
+      "teams": "EDM-NYR",
+      "state": "live",
+      "before": 21,
+      "after": 21,
+      "beforeMoment": "Latest score",
+      "afterMoment": "Latest score",
+      "moment": "2nd 9:49 · Evan Bouchard Goal (8) Slap Shot, assists: Leon Draisaitl (15), Connor McDavid (30)"
+    },
+    {
+      "sport": "NFL",
+      "id": "401873024",
+      "teams": "ARI-DAL",
+      "state": "completed",
+      "before": 95,
+      "after": 95,
+      "beforeMoment": "Decisive play",
+      "afterMoment": "Decisive play",
+      "moment": "Period 5 · 2:53 · Chad Ryland 42 Yd Field Goal ",
+      "facts": {
+        "comeback": {
+          "team": "Arizona Cardinals",
+          "deficit": 14
+        },
+        "quarterbackChange": {
+          "incoming": "Gardner Minshew II",
+          "outgoing": "Jacoby Brissett",
+          "sourceUrl": "http://www.espn.com/nfl/recap?gameId=401873024"
+        },
+        "redemption": {
+          "kicker": "Chad Ryland",
+          "clock": "0:06"
+        }
+      }
+    }
+  ],
+  "reconstructed": [
+    {
+      "id": "CFB:401856847",
+      "recordedRating": 82,
+      "clock": "0:02",
+      "before": [
+        82,
+        20
+      ],
+      "after": [
+        82,
+        82
+      ],
+      "evidenceBytes": 168693
+    },
+    {
+      "id": "CFB:401858282",
+      "recordedRating": 72,
+      "clock": "0:44",
+      "before": [
+        70,
+        37
+      ],
+      "after": [
+        70,
+        70
+      ],
+      "evidenceBytes": 140321
+    },
+    {
+      "id": "NFL:401873033",
+      "recordedRating": 73,
+      "clock": "8:55",
+      "before": [
+        66,
+        64
+      ],
+      "after": [
+        66,
+        66
+      ],
+      "evidenceBytes": 126659
+    },
+    {
+      "id": "NFL:401873034",
+      "recordedRating": 44,
+      "clock": "2:49",
+      "before": [
+        42,
+        44
+      ],
+      "after": [
+        42,
+        42
+      ],
+      "evidenceBytes": 130947
+    }
+  ],
+  "replayLimitation": "Reconstructed live inputs use captured provider plays trimmed to recorded clocks/scores. Original raw summaries are not retained; reconstructed ratings need not equal historical recorded ratings."
+}

@@ -228,7 +228,8 @@ test('central refresh, API, shared alerts, history, failures and CORS',async t=>
   const stale=await readFeed(env,now+180000);
   assert.equal(stale.updatedAt,demandFeed.updatedAt);
   assert.equal(stale.freshness.stale,true);
-  assert.deepEqual(stale.games,JSON.parse(JSON.stringify(feed.games)));
+  assert.deepEqual(stale.games,demandFeed.games,'failed refresh preserves the latest publication, including its evidence timestamps');
+  assert.equal(stale.games[0].score,feed.games[0].score);
 });
 
 test('overlapping refreshes acquire one ingestion lease and retention removes old snapshots',async t=>{

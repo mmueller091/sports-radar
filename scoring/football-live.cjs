@@ -241,7 +241,9 @@ function footballLiveExplanation(game) {
     const leadChanges=factors.find(f=>/lead change/i.test(f.label) && f.points>0);
     const situation=game.footballSituation;
     const holder=game.teams.find(t=>String(t[8])===situation?.possessionTeamId);
-    if (comeback) {
+    if (gap>8 && period>=4) {
+      sentences.push(`${game.teams.find(t=>t!==leader)[0]} needs more than one scoring possession to draw level${holder?`; ${holder[0]} has the ball${situation.downAndDistance?', '+situation.downAndDistance:''}`:''}.`);
+    } else if (comeback) {
       const detail=String(game.momentumText||'').split(', ').find(t=>/erased a deficit/i.test(t));
       sentences.push(detail ? detail.replace(/^./,c=>c.toUpperCase()).replace(/[.!?]+$/,'')+'.' : 'A large deficit has been erased to bring the game back within reach.');
     } else if (leadChanges) {

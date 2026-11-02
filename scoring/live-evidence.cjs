@@ -18,7 +18,7 @@ function compatible(game,c,e,now){
   t!==null&&t>=e.elapsed&&t-e.elapsed<=120&&period>=e.period&&period<=e.period+1&&
   (period===e.period||period<=regulation)&&!lower(scores(c),e.scores);
 }
-function compactPlay(p){return Object.fromEntries(['id','sequenceNumber','period','clock','homeScore','awayScore','text','type','scoringPlay','team','extraAttacker'].filter(k=>p[k]!==undefined).map(k=>[k,p[k]]));}
+function compactPlay(p){return {...Object.fromEntries(['id','sequenceNumber','period','clock','homeScore','awayScore','text','type','scoringPlay','extraAttacker'].filter(k=>p[k]!==undefined).map(k=>[k,p[k]])),...(p.team?{team:{id:p.team.id}}:{})};}
 function historicalSummary(summary){
  const scoring=summary.scoringPlays?.length?summary.scoringPlays:(summary.plays||[]).filter(p=>p.scoringPlay);
  if(scoring.length>100||(summary.winprobability||[]).length>1024)return null;
@@ -30,7 +30,7 @@ function validLedger(summary,c,sport=''){
  const scoring=summary.scoringPlays?.length?summary.scoringPlays:(summary.plays||[]).filter(p=>p.scoringPlay);
  const shootout=sport==='NHL'&&hockeyOvertime(null,c,summary).shootout;
  for(const p of scoring){if(shootout&&Number(p.period?.number)>4)continue;if(p.homeScore==null||p.awayScore==null)continue;
-  const h=Number(p.homeScore),a=Number(p.awayScore);if(h<home||a<away||h>totals.home||a>totals.away)return false;home=h;away=a;}
+  const h=Number(p.homeScore),a=Number(p.awayScore);if(!Number.isFinite(h)||!Number.isFinite(a)||h<home||a<away||h>totals.home||a>totals.away)return false;home=h;away=a;}
  return true;
 }
 function historyFor(game,c,accepted,now=Date.now()){

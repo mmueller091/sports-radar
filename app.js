@@ -2632,6 +2632,11 @@ function explainRating(game) {
     if(known&&gap>0)add(`${leader[0]} beat ${trailer[0]} ${Math.max(x,y)}–${Math.min(x,y)}${overtime?' in overtime':''}`);
     else if(known)add(`${names.join(' and ')} finished level at ${x}–${y}`);
     else add(`${names.join(' and ')} have finished play`);
+    const completedFacts=game.completedFacts;
+    if(completedFacts?.comeback)add(`${completedFacts.comeback.team} rallied from ${completedFacts.comeback.deficit} points down`);
+    if(completedFacts?.quarterbackChange)add(`${completedFacts.quarterbackChange.incoming} replaced ${completedFacts.quarterbackChange.outgoing} at quarterback`);
+    if(completedFacts?.redemption)add(`${completedFacts.redemption.kicker} missed the go-ahead extra point with ${completedFacts.redemption.clock} left in regulation, then won it with an overtime field goal`);
+    if(completedFacts?.comeback || completedFacts?.redemption)return sentences.join(' ');
     if(game.upsetPoints>0&&game.underdog?.teamId&&String(game.underdog.teamId)===String(leader[8]))add(`${leader[0]} won as the underdog`);
     else if(facts?.comeback)add(`${facts.comeback.team} erased a ${facts.comeback.deficit}-point deficit along the way`);
     else if(has(/Erased a large deficit|comeback/i))add('A comeback gave the game a dramatic turn');
@@ -2656,7 +2661,8 @@ function explainRating(game) {
     const reason=(game.live?.reasons || []).find(r=>safe(r)&&/has .* (?:yards|points|goals)|power play|bases (?:are )?loaded|no.hit|match point|set point|break point|red zone|fourth down|extra attacker|goalie|potential tying|go-ahead/i.test(r));
     if(reason)add(clean(reason));
     else if(has(/Underdog threatens upset/)&&game.underdog?.teamName)add(`${game.underdog.teamName} is threatening an upset`);
-    else if(gap!==null&&has(/Wide margin/))add('The trailing side needs a major turnaround to bring back the suspense');
+    else if(sport==='NHL'&&gap===2)add(late?'The trailing team needs two goals to draw level':'A goal would cut the lead to one, with time remaining to get back into the game');
+    else if(gap!==null&&has(/Wide margin/))add(`${trailer[0]} needs to close the ${gap}-${unit} gap${late?' with limited time remaining':''}`);
     else if(facts?.lateLeadChanges)add('The lead has changed hands in the closing stages');
     else add(sport==='Tennis'?'The next break of serve could change the match':sport==='MLB'?'The next rally could change the game':sport==='NHL'||sport==='Soccer'?'The next goal could change the game':football?'The next drive could change the game':'The next few possessions will shape the contest');
   }
@@ -4946,7 +4952,7 @@ function recordedTimelinePoints(game,summary,format) {
     );
 
   const periodTotals = new Map();
-  for (const point of live) {
+  for (let point of live) {
     const period = Number(point.period);
     if (Number.isFinite(period) && period > 0) {
       periodTotals.set(
@@ -4979,7 +4985,7 @@ function recordedTimelinePoints(game,summary,format) {
       ? 0
       : -Infinity;
 
-  for (const point of live) {
+  for (let point of live) {
     const period = Number(point.period);
     const seen = (periodSeen.get(period) || 0) + 1;
     periodSeen.set(period,seen);
@@ -5017,7 +5023,8 @@ function recordedTimelinePoints(game,summary,format) {
     }
 
     if (Number.isFinite(lastX)) {
-      x = Math.max(lastX,x);
+      // Keep corrected provider clocks; start a new segment instead of moving them to a later clock.
+      if (x < lastX) point = {...point,clockRevision:true};
     }
 
     lastX = x;
@@ -5074,7 +5081,10 @@ function recordedTimelinePoints(game,summary,format) {
     points.push({
       x,
       score:Number(point.rating),
-      label,
+      ratingKind:point.state==='completed'?'final':point.state,
+      incomplete:point.evidenceQuality==='partial',
+      breakBefore:point.clockRevision===true || point.integrityIssue===true,
+      label:point.state==='completed'?'Final assessment':label,
       text:
         scoreText
           ? `${scoreText} \u00b7 Recorded by Sports Radar`
@@ -5108,6 +5118,7 @@ function recordedTimelinePoints(game,summary,format) {
       .filter(point =>
         Number.isFinite(Number(point?.at)) &&
         Number.isFinite(Number(point?.score)) &&
+        game.state === 'live' && point.state !== 'completed' &&
         Number(point.at) >
           latestCanonicalAt + 5000
       )
@@ -5181,6 +5192,7 @@ function recordedTimelinePoints(game,summary,format) {
         period > format.periods,
       observedAt:Number(point.at),
       modelVersion:point.modelVersion || 'legacy',
+      ratingKind:'live',
       local:true
     });
 
@@ -5276,7 +5288,7 @@ function timelinePoints(game,summary) {
       : /game[- ]winning|walk.off|last.second/i.test(finalEvent.text)
         || (game.sport === 'NHL' && finalEvent.home !== finalEvent.away && /overtime goal/i.test(finalEvent.text));
     const terminal = game.state === 'completed' && finalEvent.overtime && matchesFinal;
-    if (terminal) { finalEvent.score = game.score; finalEvent.modelVersion = game.modelVersion || 'legacy'; }
+    if (terminal) { finalEvent.score = game.score; finalEvent.modelVersion = game.modelVersion || 'legacy'; finalEvent.ratingKind='final'; }
     const status = game.liveRawStatus || summary?.header?.competitions?.[0]?.status || {};
     const currentPosition = timelineEventPosition(game,{
       period:status.period,clock:{displayValue:status.displayClock,value:status.clock}
@@ -5286,7 +5298,7 @@ function timelinePoints(game,summary) {
     const points = [{x:0,score:game.openingScore || SPORT_BASE[game.sport] || 35,
       label:'Start',text:'Opening estimate'},...events];
     if (!terminal && (endX > finalEvent.x || game.score !== finalEvent.score)) {
-      points.push({x:endX,score:game.score,modelVersion:game.modelVersion || 'legacy',
+      points.push({x:endX,score:game.score,modelVersion:game.modelVersion || 'legacy',ratingKind:game.state==='completed'?'final':'live',
         label:game.state === 'completed' ? 'Final'
           : format.periods && Number(status.period)>format.periods
             ? `${timelinePeriodLabel({period:status.period},format)} ${format.untimed ? '' : status.displayClock || ''}`.trim()
@@ -5366,6 +5378,12 @@ function timelinePoints(game,summary) {
   };
 }
 
+function timelineComparable(point,previous) {
+  return Boolean(previous) && point.ratingKind!=='final' && previous.ratingKind!=='final' &&
+    !point.incomplete && !previous.incomplete && !point.breakBefore &&
+    (point.modelVersion || 'legacy') === (previous.modelVersion || 'legacy');
+}
+
 function excitementTimeline(game,summary) {
   if (
     game.state === 'upcoming'
@@ -5431,7 +5449,7 @@ function excitementTimeline(game,summary) {
     points
       .map(
         (point,index) =>
-          `${index && (point.modelVersion || 'legacy') === (points[index-1].modelVersion || 'legacy') ? 'L' : 'M'} ${px(point).toFixed(1)} ${py(point).toFixed(1)}`
+          `${index && timelineComparable(point,points[index-1]) ? 'L' : 'M'} ${px(point).toFixed(1)} ${py(point).toFixed(1)}`
       )
       .join(' ');
 
@@ -5442,7 +5460,7 @@ function excitementTimeline(game,summary) {
         (point,index) => ({
           ...point,
           delta:
-            (point.modelVersion || 'legacy') === (points[index].modelVersion || 'legacy') ? point.score - points[index].score : 0
+            timelineComparable(point,points[index]) ? point.score - points[index].score : 0
         })
       )
       .filter(point =>
@@ -5461,10 +5479,12 @@ function excitementTimeline(game,summary) {
     const score = Number(point.score);
     const prior = Number(previous?.score);
     const delta =
-      (point.modelVersion || 'legacy') === (previous?.modelVersion || 'legacy') && Number.isFinite(score) && Number.isFinite(prior)
+      timelineComparable(point,previous) && Number.isFinite(score) && Number.isFinite(prior)
         ? score - prior
         : 0;
 
+    if(point.ratingKind==='final')return `Final assessment: ${score}. This retrospective rating evaluates the whole game; it is not an in-game excitement change.`;
+    if(point.incomplete)return `${point.label}: ${score}. Incomplete source data; this observation is kept for transparency and is not shown as a measured excitement change.`;
     const movement =
       delta === 0
         ? `The rating stayed at ${score}.`
@@ -5630,7 +5650,7 @@ function excitementTimeline(game,summary) {
         ).join('')}</ol>`
       : '';
 
-  return `<section class="detail-section timeline-section"><h3>Excitement timeline</h3><svg class="timeline-chart" viewBox="0 0 ${width} ${height}" role="img" aria-label="Excitement rating over game time, from ${points[0].score} to ${points[points.length - 1].score}"><line x1="${left}" y1="${top}" x2="${left}" y2="${height - bottom}"/><line x1="${left}" y1="${height - bottom}" x2="${width - right}" y2="${height - bottom}"/><line class="timeline-midline" x1="${left}" y1="${py({score:50})}" x2="${width - right}" y2="${py({score:50})}"/><text x="3" y="${top + 4}">100</text><text x="10" y="${py({score:50}) - 4}">50</text><text x="16" y="${height - bottom + 4}">0</text>${overtimeGuides}<path class="timeline-line" d="${path}"/>${eventMarkers}${markers}<text x="${left}" y="${height - 5}">Start</text><text x="${width - right}" y="${height - 5}" text-anchor="end">${game.state === 'completed' ? 'Final' : 'Now'}</text></svg><div class="timeline-point-help" id="${timelineHelpId}" role="status" aria-live="polite" aria-hidden="true"></div>${moments}</section>`;
+  return `<section class="detail-section timeline-section"><h3>Excitement timeline</h3><p class="timeline-note">${source.startsWith('recorded')?'Recorded live ratings.':'Estimated from scoring plays; not a recorded live curve.'} Gaps mark changes in model, clock, or data completeness.${game.state==='completed'?' The final assessment evaluates the whole game separately.':''}</p><svg class="timeline-chart" viewBox="0 0 ${width} ${height}" role="img" aria-label="Excitement rating over game time, from ${points[0].score} to ${points[points.length - 1].score}"><line x1="${left}" y1="${top}" x2="${left}" y2="${height - bottom}"/><line x1="${left}" y1="${height - bottom}" x2="${width - right}" y2="${height - bottom}"/><line class="timeline-midline" x1="${left}" y1="${py({score:50})}" x2="${width - right}" y2="${py({score:50})}"/><text x="3" y="${top + 4}">100</text><text x="10" y="${py({score:50}) - 4}">50</text><text x="16" y="${height - bottom + 4}">0</text>${overtimeGuides}<path class="timeline-line" d="${path}"/>${eventMarkers}${markers}<text x="${left}" y="${height - 5}">Start</text><text x="${width - right}" y="${height - 5}" text-anchor="end">${game.state === 'completed' ? 'Final' : 'Now'}</text></svg><div class="timeline-point-help" id="${timelineHelpId}" role="status" aria-live="polite" aria-hidden="true"></div>${moments}</section>`;
 }
 
 function safeStoryUrl(value) {
@@ -6270,25 +6290,12 @@ function summarySpecificWhy(game,summary) {
   if (
     game.state === 'completed'
   ) {
-    const decisive =
-      /(0:00|last second|game[- ]winning|walk.off)/i
-        .test(
-          `${time} ${text}`
-        ) ||
-      (
-        Number(
-          last.play.period?.number
-        ) >
-        ({
-          NHL:3,
-          NFL:4,
-          CFB:4,
-          NBA:4,
-          NCAAB:2
-        })[game.sport] &&
-        /goal|field goal|touchdown|basket/i
-          .test(text)
-      );
+    // The fallback belongs only to the explicit legacy capture harness.
+    const decisive = typeof globalThis.SportsRadarScore?.decisiveScoringPlay === 'function'
+      ? globalThis.SportsRadarScore.decisiveScoringPlay(game,summary)
+      : /(0:00|last second|game[- ]winning|walk.off)/i.test(`${time} ${text}`) ||
+        (Number(last.play.period?.number)>({NHL:3,NFL:4,CFB:4,NBA:4,NCAAB:2})[game.sport] && /goal|field goal|touchdown|basket/i.test(text));
+    if (decisive && typeof decisive === 'object') return {label:'Decisive play',text:[decisive.period?.displayValue || `Period ${decisive.period?.number}`,decisive.clock?.displayValue,compactPlay(decisive)].filter(Boolean).join(' \u00b7 ')};
 
     return {
       label:

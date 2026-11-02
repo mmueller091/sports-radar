@@ -44,10 +44,26 @@ export function applyContextsToGame(game,factors) {
   return changed;
 }
 export function enrichGame(game,summary,previousGame=null) {
+  // Completed ratings read provider progression, never recorded rating history.
+  // An impossible ledger must not earn retrospective competitiveness bonuses.
+  const scoring=summary?.scoringPlays?.length?summary.scoringPlays:(summary?.plays||[]).filter(p=>p.scoringPlay);
+  if(game.state==='completed' && ['NFL','CFB','NBA','NCAAB'].includes(game.sport) && scoring?.some(p=>
+     p.homeScore!=null&&p.awayScore!=null&&(!Number.isFinite(Number(p.homeScore))||!Number.isFinite(Number(p.awayScore))||
+     Number(p.homeScore)>Number(game.teams[1][2])||Number(p.awayScore)>Number(game.teams[0][2])))){
+    summary={...summary,scoringPlays:[],plays:[],drives:undefined,winprobability:[]};
+    game.scoringHistoryRejected=true;
+  }
   if(footballMarket.supports(game))footballMarket.prepareUpcomingMarket(game,game.sourceCompetition,summary,previousGame);
   preserveFootballContext(game,previousGame,false);
   runtime.preservePregameBaseline(game,previousGame);
   runtime.preserveLiveEvidence(game,previousGame);
   legacy.enrichGame(game,summary,game.liveEvidenceReset==='score-correction' ? null : previousGame?.modelVersion===runtime.MODEL_VERSION ? previousGame : null);
   finish(game,summary);
+  if(game.state==='completed' && ['NFL','CFB','NBA','NCAAB','NHL'].includes(game.sport)){
+    const facts=runtime.completedGameFacts(game,summary);
+    if(facts&&(facts.comeback||facts.quarterbackChange||facts.redemption))game.completedFacts=facts;
+    const play=runtime.decisiveScoringPlay(game,summary);
+    if(play){game.momentLabel='Decisive play';game.moment=[play.period?.displayValue||`Period ${play.period?.number}`,play.clock?.displayValue,play.text||play.shortText].filter(Boolean).join(' · ');}
+    else if(game.moment)game.momentLabel='Last score';
+  }
 }
