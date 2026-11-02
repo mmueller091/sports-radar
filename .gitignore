@@ -13,3 +13,4 @@ dist/
 /audit/integrity-20261101/baseline-scoring-runtime.js
 /audit/integrity-20261101/baseline-feed.json
 /alerts-worker/audit/integrity-20261101/worker-dry-run/
+/audit/integrity-20261101/*tail.log.gz

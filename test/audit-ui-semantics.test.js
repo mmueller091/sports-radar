@@ -21,3 +21,13 @@ test('Tennis and unresolved manpower limitations are visible without inventing e
  g.sport='NHL';delete g.tennisCoverage;g.manpowerQuality={state:'conflict'};g.live={reasons:['Home power play'],note:'Home power play'};
  assert.match(ui.explainRating(g),/manpower.*conflict/i);assert.doesNotMatch(ui.explainRating(g),/Home power play/);
 });
+test('unfinished non-live enrichment is visibly provisional on cards and Game Center',()=>{
+ for(const state of ['upcoming','completed'])for(const pending of ['enrichmentPending','summaryValidationPending']){
+  const {g,d}=liveGame();g.state=state;g[pending]=true;g.scoringPartial=true;delete g.gameQualitySoFar;
+  assert.match(ui.explainRating(g),/details are still loading.*provisional/i);
+  assert.match(ui.gameCard(g),/details are still loading.*provisional/i);
+  assert.match(ui.gameCard(g),/<strong>Provisional rating<\/strong><span>Details are still loading/);
+  ui.renderDetailContent(g,d);assert.match(ui.detail.innerHTML,/details are still loading.*provisional/i);
+  assert.doesNotMatch(ui.explainRating(g),/migration|summary-enrichment/i);
+ }
+});

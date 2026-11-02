@@ -6,7 +6,7 @@ import {normalizeEvent,preservePregameRecords,preserveFootballContext,preserveFo
 import runtime from '../../scoring/live-runtime.cjs';
 import {contextsForGames} from './storylines.js';
 import {cachedNflPregame} from './nfl-pregame.js';
-import {fingerprint,summaryCandidate,reusable,refreshBudget,boundedFeedRefresh,REFRESH_LEASE_MS} from './refresh-policy.js';
+import {fingerprint,summaryCandidate,reusable,refreshBudget,boundedFeedRefresh,REFRESH_LEASE_MS,MIGRATION_PUBLICATION_RESERVE_MS} from './refresh-policy.js';
 import {RETENTION_MS,recoverPregameRecords,recoverPregameBaselines,snapshotHistory,shouldSnapshot} from './snapshot-history.js';
 
 const STALE_MS = 120000;
@@ -129,6 +129,16 @@ function prematchRegression(payload,competition) {
   const incoming=payload?.header?.competitions?.[0]?.status?.type?.state;
   const prior=competition?.status?.type?.state;
   return incoming==='pre' && (prior==='in' || prior==='post');
+}
+
+function migrationSummaryMatches(payload,competition) {
+  const header=payload?.header?.competitions?.[0];
+  if(!header||header.status?.type?.state!==competition?.status?.type?.state)return false;
+  const incoming=header.competitors||[],current=competition.competitors||[];
+  return incoming.length===2&&current.length===2&&current.every(team=>{
+    const other=incoming.find(item=>String(item.team?.id||item.id)===String(team.team?.id||team.id));
+    return other&&String(other.score)===String(team.score);
+  });
 }
 
 async function providerJson(env,url,ttl,now,errors,budget,expectedCompetition=null) {
@@ -2031,7 +2041,7 @@ export async function refreshSportsData(env,now=Date.now(),options={}) {
   const metrics = {event:'canonical_refresh',trigger:options.trigger || 'direct',startedAt:new Date(now).toISOString(),
     outcome:'failed',lease:'pending',published:false,reusedPublication:false,
     candidates:0,liveCandidates:0,criticalCandidates:0,reusedGames:0,cachedEnrichments:0,cachedSummaryReads:0,
-    deferredCandidates:0,revalidated:0,providerFailures:0,
+    deferredCandidates:0,deferredEnrichments:0,deferredValidations:0,migrationActive:false,revalidated:0,providerFailures:0,
     stages:{collection:0,recordRecovery:0,contexts:0,summary:0,snapshots:0,feedWrites:0,publication:0,cleanup:0,maintenance:0}};
   const stage = async (name,fn) => {
     budget.check();
@@ -2048,6 +2058,8 @@ export async function refreshSportsData(env,now=Date.now(),options={}) {
     metrics.lease='acquired';metrics.owner=owner;
     const previous = await readFeed(env,now);
     if (previous && !refreshDue(previous,now)) {metrics.outcome='not_due';metrics.reusedPublication=true;return previous;}
+    const migration = !previous || previous.modelVersion!==MODEL_VERSION || previous.games?.some(game=>game.enrichmentPending||game.summaryValidationPending);
+    metrics.migrationActive=Boolean(migration);
     resources = await stage('collection',()=>refreshReader(env,now,budget));
     const liveSports = new Set((previous?.games || []).filter(game=>game.state==='live').map(game=>game.sport));
     const readJson = (url,{purpose}={}) => {
@@ -2092,7 +2104,7 @@ export async function refreshSportsData(env,now=Date.now(),options={}) {
     metrics.candidates=candidates.length;
     metrics.liveCandidates=candidates.filter(game=>game.state==='live').length;
     const scoreboardStates = new Map(candidates.map(game=>[game,JSON.parse(JSON.stringify({...game,liveInputEvidence:undefined,priorObservation:undefined,providerEventRevisions:undefined,observationEvidence:undefined}))]));
-    const reusedGames = new Set(), enrichment={}, deferred=[],critical=[];
+    const reusedGames = new Set(), enrichment={}, deferred=[],critical=[],validations=[];
     deferred.push(...nfl.deferred);
     const copyPrior = (game,prior) => {
       // Input fingerprint includes all source and normalized/context fields. This
@@ -2100,20 +2112,58 @@ export async function refreshSportsData(env,now=Date.now(),options={}) {
       Object.assign(game,JSON.parse(JSON.stringify(prior)));
       reusedGames.add(game);metrics.reusedGames++;
     };
-    const acquireCritical=async entries=>{
+    const deferEnrichment=({game})=>{
+      // These are freshly normalized current-model rows. Never relabel a prior
+      // model's rich rating, or store an approximate completed rating as final.
+      for(const target of [game,scoreboardStates.get(game)].filter(Boolean)){
+        target.enrichmentPending=true;target.detailStale=true;target.scoringPartial=true;
+        target.evidenceQuality='partial';
+        target.evidenceReasons=[...new Set([...(target.evidenceReasons||[]),'summary-enrichment-pending'])];
+      }
+      metrics.deferredEnrichments++;
+    };
+    const acquireCritical=async (entries,bounded=false)=>{
       for (let start=0;start<entries.length;start+=6) {
         budget.check();
+        if(bounded&&budget.remaining()<=MIGRATION_PUBLICATION_RESERVE_MS){
+          entries.slice(start).forEach(deferEnrichment);break;
+        }
         await Promise.all(entries.slice(start,start+6).map(async ({game,key,input,url,prior})=>{
           const detailErrors=[];
           try {
-            const resource=await providerJson(env,url,game.state==='live'?LIVE_REFRESH_MS:55000,now,detailErrors,budget,game.sourceCompetition);
+            let resource,usedCached=false,forceRevalidation=false;
+            if(bounded){
+              // A model change invalidates computed ratings, not provider facts.
+              // Recompute from a compatible cached summary, retaining its age;
+              // revalidation can follow publication under the ordinary policy.
+              const cached=resources.dates.has(url)?await resources.cached(url):null;
+              if(cached&&migrationSummaryMatches(cached.payload,game.sourceCompetition)){
+                resource=cached;usedCached=true;metrics.cachedSummaryReads++;
+                if(now-cached.updatedAt>=55000)deferred.push({url,version:cached.updatedAt});
+                if(now-cached.updatedAt>STALE_MS)detailErrors.push(url);
+              } else {
+                forceRevalidation=Boolean(cached);
+                if(budget.remaining()<=MIGRATION_PUBLICATION_RESERVE_MS+7000){deferEnrichment({game});return;}
+              }
+            }
+            resource ||= await providerJson(env,url,forceRevalidation?0:game.state==='live'?LIVE_REFRESH_MS:55000,now,detailErrors,budget,game.sourceCompetition);
             budget.check();
+            if(bounded&&!migrationSummaryMatches(resource.payload,game.sourceCompetition)){
+              deferEnrichment({game});errors.push(url);return;
+            }
             enrichGame(game,resource.payload,prior);
             game.detailStale=detailErrors.length>0;
             // Failed acquisitions are retried, not certified as reusable inputs.
-            if (!detailErrors.length) enrichment[key]={input,model:MODEL_VERSION,
+            // A stale cached resource still establishes which facts were used;
+            // its age remains visible and ordinary maintenance refreshes it.
+            if (!detailErrors.length||usedCached) enrichment[key]={input,model:MODEL_VERSION,
               summaryHash:await fingerprint(resource.payload),summaryVersion:resource.updatedAt};
-          } catch { runtime.applyLiveSnapshot(game,game.sourceCompetition,null);game.detailStale=true;if(game.state==='completed')game.scoringPartial=true;detailErrors.push(url); }
+          } catch {
+            runtime.applyLiveSnapshot(game,game.sourceCompetition,null);
+            if(bounded)deferEnrichment({game});
+            else {game.detailStale=true;if(game.state==='completed')game.scoringPartial=true;}
+            detailErrors.push(url);
+          }
           errors.push(...detailErrors);
         }));
       }
@@ -2139,18 +2189,10 @@ export async function refreshSportsData(env,now=Date.now(),options={}) {
             critical.push({game,key,input,url,prior});return;
           }
           const version=resources.dates.get(url);
-          if (version===meta.summaryVersion) {
+          if (version===meta.summaryVersion&&!prior.summaryValidationPending) {
             copyPrior(game,prior);enrichment[key]=meta;
           } else {
-            metrics.cachedSummaryReads++;
-            const cached=await resources.cached(url);
-            if (!cached) {critical.push({game,key,input,url,prior});return;}
-            if (prematchRegression(cached.payload,game.sourceCompetition)) {critical.push({game,key,input,url,prior});return;}
-            const summaryHash=await fingerprint(cached.payload);
-            if (summaryHash===meta.summaryHash) copyPrior(game,prior);
-            else {enrichGame(game,cached.payload,prior);metrics.cachedEnrichments++;}
-            game.detailStale=false;
-            enrichment[key]={input,model:MODEL_VERSION,summaryHash,summaryVersion:cached.updatedAt};
+            validations.push({game,key,input,url,prior,meta,version});return;
           }
           // Keep the existing nonlive 55s resource eligibility. Revalidation does
           // not gate publication when all currently known rating inputs match.
@@ -2163,9 +2205,44 @@ export async function refreshSportsData(env,now=Date.now(),options={}) {
         const failure=results.find(result=>result.status==='rejected');
         if (failure) throw failure.reason;
       }
-      critical.sort((a,b)=>(a.game.state==='completed'?0:1)-(b.game.state==='completed'?0:1));
+      critical.sort((a,b)=>Number(Boolean(b.prior?.enrichmentPending))-Number(Boolean(a.prior?.enrichmentPending))||
+        (a.game.state==='completed'?0:1)-(b.game.state==='completed'?0:1));
       metrics.criticalCandidates+=critical.length;
-      await acquireCritical(critical);
+      await acquireCritical(critical,Boolean(migration));
+      // Already-computed current-model rows must not consume the migration
+      // budget before untouched rows. A newer cache timestamp can be checked
+      // later without pretending the prior computation used that newer input.
+      const retainUnvalidated=({game,key,prior,meta,url})=>{
+        copyPrior(game,prior);enrichment[key]=meta;
+        for(const target of [game,game.scoreboard].filter(Boolean)){
+          target.summaryValidationPending=true;target.detailStale=true;target.staleEnrichment=true;
+          target.scoringPartial=true;target.evidenceQuality='partial';
+          target.evidenceReasons=[...new Set([...(target.evidenceReasons||[]),'summary-validation-pending'])];
+        }
+        metrics.deferredValidations++;errors.push(url);
+      };
+      validations.sort((a,b)=>Number(Boolean(b.prior.summaryValidationPending))-Number(Boolean(a.prior.summaryValidationPending)));
+      for(let start=0;start<validations.length;start+=6){
+        if(budget.remaining()<=MIGRATION_PUBLICATION_RESERVE_MS){validations.slice(start).forEach(retainUnvalidated);break;}
+        await Promise.all(validations.slice(start,start+6).map(async entry=>{
+          const {game,key,input,url,prior,meta,version}=entry;
+          metrics.cachedSummaryReads++;
+          const cached=await resources.cached(url);
+          if(!cached||!migrationSummaryMatches(cached.payload,game.sourceCompetition)){
+            await acquireCritical([entry],true);return;
+          }
+          const summaryHash=await fingerprint(cached.payload);
+          if(summaryHash===meta.summaryHash&&!prior.summaryValidationPending)copyPrior(game,prior);
+          else {enrichGame(game,cached.payload,prior);metrics.cachedEnrichments++;}
+          delete game.staleEnrichment;
+          delete game.summaryValidationPending;
+          if(game.scoreboard)delete game.scoreboard.staleEnrichment;
+          enrichment[key]={input,model:MODEL_VERSION,summaryHash,summaryVersion:cached.updatedAt};
+          if(!version||now-version>=55000)deferred.push({url,version:version||0});
+          game.detailStale=!version||now-version>STALE_MS;
+          if(game.detailStale)errors.push(url);
+        }));
+      }
     });
     games.forEach(game=>{
       qualifyTennisCoverage(game);
@@ -2185,7 +2262,9 @@ export async function refreshSportsData(env,now=Date.now(),options={}) {
     });
 
     metrics.deferredCandidates=deferred.length;
-    const feed = {version:1,modelVersion:MODEL_VERSION,scoringPolicy:runtime.POLICY_ID,updatedAt:new Date(now).toISOString(),source:'ESPN',sourceErrors:[...errors],games,enrichment};
+    const feed = {version:1,modelVersion:MODEL_VERSION,scoringPolicy:runtime.POLICY_ID,updatedAt:new Date(now).toISOString(),source:'ESPN',sourceErrors:[...errors],games,enrichment,
+      ...(metrics.deferredEnrichments||metrics.deferredValidations?{enrichmentProgress:{pending:metrics.deferredEnrichments,
+        validationPending:metrics.deferredValidations,modelVersion:MODEL_VERSION}}:{})};
     // History remains before publication: future NFL record recovery and audit
     // ordering depend on it. Do not let concurrent maintenance reorder snapshots.
     await stage('snapshots',async()=>{

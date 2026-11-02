@@ -2,7 +2,7 @@
 
 This response addresses the authoritative audit at `C:/Users/mmuel/Documents/Codex/audit-20261101-sports-radar/audit.md`. The changes repair evidence handling and distinguish a live recommendation from a retrospective assessment. They do not smooth ratings or enable experiments.
 
-**Release status: all applicable automated acceptance gates passed; publication pending.** The final release record below is authoritative. Intermediate logs are retained as evidence of failures and corrections, not represented as final passing gates.
+**Release status: first release rolled back; the repaired candidate passed 1,082 tests and awaits renewed production verification.** The initial 1,074-test candidate and asset verification passed, but normal refresh attempts repeatedly exceeded the publication deadline. The bounded transition repair preserves the deadline and exposes unfinished work honestly. The final release record below is authoritative.
 
 ## Source, preservation and rollback
 
@@ -73,13 +73,13 @@ Final automated validation:
 
 | Gate | Result | Evidence |
 |---|---|---|
-| Complete root and Worker suite | **1,074 passed; 0 failed, skipped, cancelled or todo** | [Final test log](integrity-20261101/final-tests.log.gz); includes browser/Worker bundle parity, all new tests and replay-comparator controls |
+| Complete root and Worker suite | **1,082 passed; 0 failed, skipped, cancelled or todo** | [Final test log](integrity-20261101/second-final-tests.log.gz); includes browser/Worker bundle parity, all new tests, bounded migration and replay-comparator controls |
 | Audited clean baseline suite | **972 passed; 0 failed or skipped** | [Baseline log](integrity-20261101/baseline-clean-tests.log.gz) |
 | Score, watchlist and timeline fixtures | Passed | [Fixture log](integrity-20261101/final-fixtures.log.gz) |
 | Completed-game calibration | **107 fixtures; all CSV values unchanged** | [Baseline](integrity-20261101/baseline-calibration.csv), [candidate](integrity-20261101/final-calibration.csv) |
 | Historical causal-prefix replay | **1,997 checkpoints; 79 attributed changes; 0 unexplained; 0 repeated-poll changes** | [Per-checkpoint JSON](integrity-20261101/replay-differences.json), [CSV](integrity-20261101/replay-differences.csv) |
 | Candidate endpoint smoke | **8 expected outcomes passed**; zero network, notification, background or production-write activity | [Route checks](integrity-20261101/endpoint-smoke-notes.md), [results](integrity-20261101/endpoint-smoke-results.json) |
-| Production build and Worker dry run | Passed; Worker 735.06 KiB, gzip 169.30 KiB; existing DB/AI bindings | [Build](integrity-20261101/final-build.log.gz), [dry run](integrity-20261101/final-worker-dry-run.log.gz) |
+| Production build and Worker dry run | Passed; existing DB/AI bindings; refreshed after the bounded migration repair | [Build](integrity-20261101/second-final-build.log.gz), [dry run](integrity-20261101/second-worker-dry-run.log.gz) |
 | Source/whitespace review | Passed with CRLF-aware Git whitespace check; no original-worktree changes | Source and artifact manifests accompany the evidence |
 | Desktop/mobile visual inspection | Not completed; user stopped Computer Use | Explicit limitation below; responsive checks were requested where tooling permits |
 
@@ -116,4 +116,14 @@ Full [baseline](integrity-20261101/baseline-replay.json.gz), [candidate](integri
 
 ## Release record
 
-Not deployed. Final commit, gate results, published asset hashes and Worker identity are pending validation. If any required gate fails, publication will remain stopped and the precise failure will be recorded here.
+The initial implementation commit was `c138f5f0e6761d3169ea54f2bcc8a15dccefaa4c`. Worker version `48fff039-4d06-4dfe-9f33-5220c1f32bd6` reached 100% traffic. Pages [workflow 41386622106](https://github.com/mmueller091/sports-radar/actions/runs/41386622106) succeeded, and all 15 published assets matched the committed build byte for byte; downloaded JavaScript syntax checks passed. The new health model and alert safeguards were correct.
+
+Production consistency nevertheless failed: normal refresh attempts repeatedly reached the existing 25-second deadline while attempting to enrich 259 non-Tennis games whose metadata was invalidated by the model change. The previous publication remained stale. The new Tennis matches were excluded from summary candidates and were not the cause of those 259 requests. A later trace showed publication finally succeeding at approximately 04:10:23 UTC and another update afterward, but rollback had already been initiated because the repeated failures were unacceptable. No candidate detail verification was claimed. GET `/feed` has an existing automatic background refresh path; these normal read checks did not invoke an explicit refresh or notification endpoint.
+
+The Worker was restored to exact version `8bb6ab4e-ff5b-43ca-bae4-493371b20d9e`. Main advanced to rollback commit `30cd7c437a5f94404fa5cffa8179882a8b96efba`, whose entire tree equals the audited `8ad7a00` tree. Pages [rollback workflow 41387018806](https://github.com/mmueller091/sports-radar/actions/runs/41387018806) succeeded. At 04:13 UTC, health and feed both reported the original model, with an approximately 11-second-old, non-stale, non-degraded feed. The isolated audit branch and all verified changes remain preserved.
+
+The [bounded migration repair](integrity-20261101/migration-notes.md) reserves seven seconds inside the unchanged 25-second deadline for publication. Live games retain priority. Compatible cached provider facts are recalculated under the new model; missing, failed or incompatible nonlive inputs publish explicit provisional/partial records rather than relabeled old-model scores. Completed work is persisted and pending work prioritized on the next poll. Deferred validation of a previously calculated current-model row preserves its original input metadata and explicit partial/stale flags. Reuse requires both row and metadata model identity. Partial finals never enter completed history.
+
+The heavy 485-game regression fails before this correction and now progresses from 187 to 115 to 43 to zero pending enrichment rows, with simulated publication at 18.55–18.75 seconds; deferred cache validation also converges. Six migration tests plus the existing refresh and Tennis tests pass 41/41, and the complete final suite passes 1,082/1,082. Independent review reproduced and verified corrections for cache-validation starvation and stale live summaries incorrectly certifying finals. Cards, accessible descriptions and Game Center visibly label pending details/provisional ratings; that UI regression fails before its correction and passes afterward. These are deterministic offline controls, not a claim about worst-case Cloudflare latency.
+
+A second release still requires the actual canonical-publication check. [Sanitized remote observations](integrity-20261101/failed-release-observation.json) omit request headers, IP/location and account identifiers; [rollback record](integrity-20261101/rollback-record.json) and [restored asset hashes](integrity-20261101/rollback-assets.json) preserve exact identities. Raw tail logs are local-only and will not be published.

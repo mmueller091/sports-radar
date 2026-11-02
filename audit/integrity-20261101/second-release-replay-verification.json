@@ -1,0 +1,30 @@
+{
+  "firstReleaseCommit": "c138f5f0e6761d3169ea54f2bcc8a15dccefaa4c",
+  "firstReleaseArtifact": "audit/integrity-20261101/final-replay.json.gz at firstReleaseCommit",
+  "firstReleaseSourceFingerprint": "1bc01a60f661d120184314336eb9e74071d64d225cea920055f47adc63bfaff3",
+  "finalSourceVerification": {
+    "baseline": "2567456c5626dde76b6c3d5fd84b36c5218851a86ebd645537c43a00ed8afa3f",
+    "candidate": "553534784f3a1dca4416e8be21928a703b2ec1d142a295670cf855798e190931",
+    "runner": "cdc6f1478c343c48e006da2f1f4cda00bbc81ec4eb48a6c85d27143cf2df7242",
+    "verified": {
+      "trajectory": true,
+      "mlb": true,
+      "cfbRetention": true,
+      "all": true
+    }
+  },
+  "fieldsCompared": [
+    "sport",
+    "game",
+    "playId",
+    "rating",
+    "sequential",
+    "repeat"
+  ],
+  "checkpoints": 1997,
+  "changesSinceFirstRelease": 0,
+  "ratingSequenceSha256": "decf96b742839df436f4747ab1ab41462d03d622376bf43ef49d6d45113e6cfc",
+  "changesSinceOriginalBaseline": 79,
+  "unattributedChanges": 0,
+  "zeroRepeatDifferences": true
+}

@@ -69,6 +69,36 @@ test('F8 ingestion persists live Tennis coverage without any unsupported summary
   assert.equal(response.status,200);assert.equal((await response.json()).sportsRadarGame.state,'live');
 });
 
+test('F8 first model-transition publication ingests all 225 captured matches without summary work',async t=>{
+  const env=database(t,[]),now=Date.now(),urls=[],statements=[],batches=[];
+  env.db.prepare('UPDATE sports_feed SET payload=?').run(JSON.stringify({modelVersion:'previous-model',updatedAt:new Date(now-60000).toISOString(),games:[]}));
+  // Deterministic, conservative latency control: each mocked D1 round trip and
+  // provider request consumes 100 ms, even when requests run concurrently.
+  let elapsed=0,inBatch=false;
+  const originalPrepare=env.DB.prepare.bind(env.DB),originalBatch=env.DB.batch.bind(env.DB);
+  env.DB.prepare=sql=>{const statement=originalPrepare(sql);
+    for(const operation of ['first','all','run']){const original=statement[operation].bind(statement);statement[operation]=async()=>{statements.push(sql);if(!inBatch)elapsed+=100;return original();};}
+    return statement;
+  };
+  env.DB.batch=async statements=>{elapsed+=100;batches.push(statements.length);inBatch=true;try{return await originalBatch(statements);}finally{inBatch=false;}};
+  const originalFetch=globalThis.fetch;t.after(()=>globalThis.fetch=originalFetch);
+  globalThis.fetch=async url=>{elapsed+=100;urls.push(String(url));assert.doesNotMatch(String(url),/\/summary/);
+    return Response.json(String(url).includes('/tennis/atp/scoreboard')?capture.payload:{events:[]});};
+  let metrics;const feed=await refreshSportsData(env,now,{clock:()=>elapsed,log:entry=>metrics=entry});
+  assert.ok(feed,JSON.stringify(metrics));assert.equal(feed.modelVersion,runtime.MODEL_VERSION);
+  assert.equal(feed.games.length,225);assert.ok(feed.games.every(g=>g.modelVersion===runtime.MODEL_VERSION));
+  assert.equal(metrics.candidates,0);assert.equal(metrics.criticalCandidates,0);assert.equal(metrics.cachedSummaryReads,0);
+  assert.equal(metrics.published,true);assert.ok(metrics.publicationMs<25000);
+  assert.equal(feed.games.filter(g=>g.state==='completed'&&g.scoringPartial).length,143);
+  assert.equal(feed.games.filter(g=>g.state==='upcoming').length,82);
+  assert.equal(env.db.prepare('SELECT COUNT(*) n FROM sports_snapshots').get().n,82,'only schedules are stored; partial finals are not promoted to complete history');
+  assert.equal(env.db.prepare("SELECT COUNT(*) n FROM sports_resources WHERE key LIKE '%/summary%'").get().n,0);
+  console.log('TENNIS_MODEL_TRANSITION '+JSON.stringify({games:feed.games.length,completedPartial:143,upcoming:82,
+    providerRequests:urls.length,summaryRequests:0,criticalCandidates:metrics.criticalCandidates,
+    snapshotStatements:statements.filter(sql=>sql.includes('INSERT OR IGNORE INTO sports_snapshots')).length,
+    batches,simulatedPublicationMs:metrics.publicationMs,feedParts:feed.parts}));
+});
+
 test('F8 missing set evidence remains missing and tournament status never creates a live match',async()=>{
   const payload=structuredClone(contract.scoreboard),tournament=payload.events[0];
   tournament.status={type:{state:'in',completed:false}};

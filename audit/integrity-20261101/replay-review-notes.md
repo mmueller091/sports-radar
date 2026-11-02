@@ -13,7 +13,7 @@ Reviewed by the evidence-integrity agent against pinned audited source `8ad7a009
 
 The existing basketball numeric sequence rejection guard was not changed. These finalized provider streams contain revised, nonmonotonic identities; the fresh/sequential differences already existed in the audited model. They are not evidence that the new implementation recovered the original live arrival order.
 
-This intermediate artifact began before the replay runner gained its full-source fingerprint guard. The release owner is rerunning all six sports and the baseline with that guard; those final artifacts supersede this intermediate artifact for release provenance.
+This intermediate artifact began before the replay runner gained its full-source fingerprint guard. The later full-source-verified `replay-differences.json` confirms the same basketball results and supersedes this intermediate artifact for release provenance. Following the deployment refresh correction, the release owner is regenerating matching fingerprints again; the final comparator artifact is authoritative.
 
 ## Introduced ordering defects found and corrected
 
@@ -39,18 +39,18 @@ The two tests in `test/audit-event-ordering.test.js` failed against the first ca
 
 ## Other sports and offline restoration evidence
 
-The pre-final all-sport `final-replay.json` was independently compared with the baseline and the offline mechanism-restoration artifacts:
+The final all-sport comparison contains 1,997 checkpoints, of which 79 change and 1,918 do not. All four offline restorations have matching baseline, candidate and runner fingerprints; none of the 79 differences is unattributed. This supersedes the earlier intermediate MLB count of 90, which preceded the final observation-time corrections.
 
 | Sport | Checkpoints | Fresh rating changes | Verified attribution |
 |---|---:|---:|---|
 | NFL | 220 | 0 | No integer rating changes in this fixture |
 | CFB | 177 | 12 | Restoring CFB completed-quality retention removes all 12; restoring trajectory leaves all 12 |
-| MLB | 385 | 90 | Restoring trajectory leaves 8; restoring MLB WP handling leaves 59; restoring both removes all 90 |
+| MLB | 385 | 67 | 59 F3, 5 C2, and 3 requiring both F3 and C2; zero unexplained changes |
 | NHL | 312 | 0 | No integer rating changes in this fixture |
 
 All 12 CFB changes occur at indices 165-176, Q4 1:44 through 0:11. The largest is 22 to 3 at the final live checkpoint. They follow removal of completed-quality retention from live watchability, not a hidden weight adjustment.
 
-For MLB, 82 of the 90 changed integer ratings return to baseline when trajectory is restored, and 8 remain. Those are restoration counts, not additive independent effect sizes: restoring only MLB probability handling leaves 59 changes because the mechanisms interact before rounding. Restoring both mechanisms returns every checkpoint to baseline. The release owner's comparator supplies row-specific mechanisms; any checkpoint not explained by those restorations must remain explicitly unknown.
+For MLB, the final verified comparator attributes 59 changes to observed-history coverage (F3), five to probability handling (C2), and three to their combination. The earlier 90-change/82-plus-eight restoration partition is superseded and must not be used as a release total. The comparator supplies row-specific mechanisms and retains an explicit unknown category; that category is zero in the verified final result.
 
 The unchanged NHL fixture does not contradict the separate captured OTT-ANA reconstruction. That observed 63/71 pair uses retained canonical evidence from audit rounds 17/18; the corrected 61/69 pair removes unsupported opening duration while preserving the earned +8 comeback increase. The captured first row also becomes partial because its ledger is behind the 3-3 scoreboard. The archived chronological NHL fixture supplies different observed history and has no integer rating changes. Neither experiment should be substituted for the other.
 
@@ -58,4 +58,4 @@ The unchanged NHL fixture does not contradict the separate captured OTT-ANA reco
 
 The runner uses only identity, season/format, the accepted event prefix, reconstructed current scores/clock and probabilities linked to that prefix. It excludes final boxscores, future results, rankings, odds and final records. These are causal reconstructions from finalized provider fixtures, not original response-arrival captures. Same-clock revisions and historical provider rewrites cannot recover an original polling sequence. Fresh, sequential and repeated results are reported separately, and an unchanged rounded rating does not mean all telemetry is byte-identical.
 
-The final source for the ordering correction was frozen at `2026-11-02T03:51:09.159Z` (`scoring/provider-evidence.cjs` modification time). No production edits were made during this review after that freeze.
+The ordering correction was frozen at `2026-11-02T03:51:09.159Z` (`scoring/provider-evidence.cjs` modification time). Subsequent refresh-pipeline changes are documented separately in `migration-notes.md`; the release's regenerated full-source manifests identify the complete final source.

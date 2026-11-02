@@ -1,0 +1,112 @@
+﻿{
+    "checkedAt":  "2026-11-02T04:08:15.6643226Z",
+    "revision":  "c138f5f0e6761d3169ea54f2bcc8a15dccefaa4c",
+    "assets":  [
+                   {
+                       "asset":  "alert-config.js",
+                       "status":  200,
+                       "expected":  "8e13b1a6b66b56c1dfc6d9c61b28c9fa108249258736b0a8f4e00d86d92902ed",
+                       "actual":  "8e13b1a6b66b56c1dfc6d9c61b28c9fa108249258736b0a8f4e00d86d92902ed",
+                       "matches":  true
+                   },
+                   {
+                       "asset":  "app-icon-192.png",
+                       "status":  200,
+                       "expected":  "3c22642b830f9d365298b6b9db0c2f867eafc870df95ca283a764a8336406785",
+                       "actual":  "3c22642b830f9d365298b6b9db0c2f867eafc870df95ca283a764a8336406785",
+                       "matches":  true
+                   },
+                   {
+                       "asset":  "app-icon-512.png",
+                       "status":  200,
+                       "expected":  "1e8a20b7a05f6b96cdbfd21c3f89686d3fee1d278a139bd6a28e75386ce1d6b5",
+                       "actual":  "1e8a20b7a05f6b96cdbfd21c3f89686d3fee1d278a139bd6a28e75386ce1d6b5",
+                       "matches":  true
+                   },
+                   {
+                       "asset":  "app.js",
+                       "status":  200,
+                       "expected":  "7acb88d1684ba5e0afdd8874d075056d150e5938fb41687a1faab9043ef391f1",
+                       "actual":  "7acb88d1684ba5e0afdd8874d075056d150e5938fb41687a1faab9043ef391f1",
+                       "matches":  true
+                   },
+                   {
+                       "asset":  "icon.svg",
+                       "status":  200,
+                       "expected":  "d38dbe8df1c958b30a011665d09ed95f8a4c01cf9fe1dcc1df595577c279097e",
+                       "actual":  "d38dbe8df1c958b30a011665d09ed95f8a4c01cf9fe1dcc1df595577c279097e",
+                       "matches":  true
+                   },
+                   {
+                       "asset":  "index.html",
+                       "status":  200,
+                       "expected":  "365fd9a7b6b3c65a7ceb1dd0e5ba11292481e87aa505795f554969b80036a3dd",
+                       "actual":  "365fd9a7b6b3c65a7ceb1dd0e5ba11292481e87aa505795f554969b80036a3dd",
+                       "matches":  true
+                   },
+                   {
+                       "asset":  "manifest.webmanifest",
+                       "status":  200,
+                       "expected":  "2c34629dfdef5f01edd91a80232a6051b4631ee07ec63a7dc6887e3cd7e41130",
+                       "actual":  "2c34629dfdef5f01edd91a80232a6051b4631ee07ec63a7dc6887e3cd7e41130",
+                       "matches":  true
+                   },
+                   {
+                       "asset":  "mobile-readability.css",
+                       "status":  200,
+                       "expected":  "b0589e30041239cf5b03d8cd5efaadd6bfa0e13eb9c7b96f26d41fa543d81b4a",
+                       "actual":  "b0589e30041239cf5b03d8cd5efaadd6bfa0e13eb9c7b96f26d41fa543d81b4a",
+                       "matches":  true
+                   },
+                   {
+                       "asset":  "notifications.js",
+                       "status":  200,
+                       "expected":  "884e06d51b3f93fd680f14ff9f1b0bb7c0bc16a1ff5ee0dc2698d23d98bf71e1",
+                       "actual":  "884e06d51b3f93fd680f14ff9f1b0bb7c0bc16a1ff5ee0dc2698d23d98bf71e1",
+                       "matches":  true
+                   },
+                   {
+                       "asset":  "scoring-runtime.js",
+                       "status":  200,
+                       "expected":  "0a835503b02a662bfecd852534eaa41318267a2ae7e465bd6bcb94a3a66c09f2",
+                       "actual":  "0a835503b02a662bfecd852534eaa41318267a2ae7e465bd6bcb94a3a66c09f2",
+                       "matches":  true
+                   },
+                   {
+                       "asset":  "sports-radar-logo.png",
+                       "status":  200,
+                       "expected":  "0673fbf37c4990163b6f2cdf0594f1a9f9be3a0c3f7572953206c0d69fe85997",
+                       "actual":  "0673fbf37c4990163b6f2cdf0594f1a9f9be3a0c3f7572953206c0d69fe85997",
+                       "matches":  true
+                   },
+                   {
+                       "asset":  "styles.css",
+                       "status":  200,
+                       "expected":  "1cd3332be3658d1e9563e7135cc102f0f9a00ffaa5b428a2ff45a0897df85048",
+                       "actual":  "1cd3332be3658d1e9563e7135cc102f0f9a00ffaa5b428a2ff45a0897df85048",
+                       "matches":  true
+                   },
+                   {
+                       "asset":  "sw.js",
+                       "status":  200,
+                       "expected":  "54fcbd7be5a1f6e3ddadc7edeee10482d8964343a90d6cee0ccf9142a72e5f08",
+                       "actual":  "54fcbd7be5a1f6e3ddadc7edeee10482d8964343a90d6cee0ccf9142a72e5f08",
+                       "matches":  true
+                   },
+                   {
+                       "asset":  "teams.json",
+                       "status":  200,
+                       "expected":  "cc504b5c74537e298b03d00aa224a0e7da5dcbd2f1060a67e1ef6c4e1f2b3cd5",
+                       "actual":  "cc504b5c74537e298b03d00aa224a0e7da5dcbd2f1060a67e1ef6c4e1f2b3cd5",
+                       "matches":  true
+                   },
+                   {
+                       "asset":  "watch-links.js",
+                       "status":  200,
+                       "expected":  "b916e8b34328f93f4ba59ae14d18e7c178510a24b23a29d37126bb8b4ae8a2e8",
+                       "actual":  "b916e8b34328f93f4ba59ae14d18e7c178510a24b23a29d37126bb8b4ae8a2e8",
+                       "matches":  true
+                   }
+               ],
+    "allMatch":  true
+}

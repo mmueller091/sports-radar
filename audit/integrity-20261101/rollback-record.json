@@ -1,0 +1,8 @@
+﻿{
+    "rollbackCommit":  "30cd7c437a5f94404fa5cffa8179882a8b96efba",
+    "restoredSource":  "8ad7a0096307e0ab9038dbcba60f0e965e9bcfaa",
+    "tree":  "c140b4630ad8a7bf316297cf8f1eed9352dec359",
+    "failedRelease":  "c138f5f0e6761d3169ea54f2bcc8a15dccefaa4c",
+    "reason":  "Canonical model transition exceeded refresh deadline",
+    "workerVersion":  "8bb6ab4e-ff5b-43ca-bae4-493371b20d9e"
+}

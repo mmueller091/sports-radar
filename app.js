@@ -2571,7 +2571,9 @@ function teamMarkup(game, team, cardTeamIndex = null) {
 }
 
 function explainRating(game) {
-  const evidenceNote=game.state!=='live' ? '' : game.manpowerQuality?.state==='conflict'
+  const evidenceNote=game.enrichmentPending || game.summaryValidationPending
+    ? 'Additional game details are still loading; this rating is provisional.'
+    : game.state!=='live' ? '' : game.manpowerQuality?.state==='conflict'
     ? 'Provider manpower reports conflict; the advantage is unconfirmed.'
     : game.tennisCoverage?.reason || (game.scoringPartial
       ? 'Some game history is still catching up; this rating uses the available evidence.' : '');
@@ -2623,7 +2625,7 @@ function explainRating(game) {
     if(sentences.length<2&&verified.length)add(verified.find(f=>!['international_showcase','season_opener'].includes(f.contextType)&&!sentences.some(s=>sentenceKey(s)===sentenceKey(f.publicText)))?.publicText);
     if(!sentences.length)add(`${names.join(' and ')} ${sport==='Tennis'?'meet on court':sport==='MLB'?'meet on the diamond':sport==='NHL'?'face off':football?'meet on the football field':basketball?'meet on the basketball court':'meet on the pitch'}`);
     if(sentences.length<2)add(({MLB:'The pitching matchup and early innings will help set the tone',NHL:'The early shifts will show who can create the better chances',Soccer:'The opening exchanges will show who can take control',Tennis:'The early service games will show who can take control'})[sport] || 'The opening minutes will give a clearer picture of how the teams match up');
-    return sentences.slice(0,3).join(' ');
+    return [...sentences.slice(0,3),evidenceNote].filter(Boolean).join(' ');
   }
   const x=Number(a[2]),y=Number(b[2]),known=a[2]!=null&&b[2]!=null&&Number.isFinite(x)&&Number.isFinite(y),gap=known?Math.abs(x-y):null;
   const leader=x>y?a:b,trailer=x>y?b:a;
@@ -2642,12 +2644,12 @@ function explainRating(game) {
     if(completedFacts?.comeback)add(`${completedFacts.comeback.team} rallied from ${completedFacts.comeback.deficit} points down`);
     if(completedFacts?.quarterbackChange)add(`${completedFacts.quarterbackChange.incoming} replaced ${completedFacts.quarterbackChange.outgoing} at quarterback`);
     if(completedFacts?.redemption)add(`${completedFacts.redemption.kicker} missed the go-ahead extra point with ${completedFacts.redemption.clock} left in regulation, then won it with an overtime field goal`);
-    if(completedFacts?.comeback || completedFacts?.redemption)return sentences.join(' ');
+    if(completedFacts?.comeback || completedFacts?.redemption)return [...sentences,evidenceNote].filter(Boolean).join(' ');
     if(game.upsetPoints>0&&game.underdog?.teamId&&String(game.underdog.teamId)===String(leader[8]))add(`${leader[0]} won as the underdog`);
     else if(facts?.comeback)add(`${facts.comeback.team} erased a ${facts.comeback.deficit}-point deficit along the way`);
     else if(has(/Erased a large deficit|comeback/i))add('A comeback gave the game a dramatic turn');
     if(gap!==null)add(gap<=({MLB:1,NHL:1,Soccer:1,Tennis:1,NFL:8,CFB:8,NBA:5,NCAAB:5}[sport] || 3)?'The narrow final margin made for a close result':has(/Wide margin/)?'The lopsided final margin limits the appeal of a replay':`The teams finished ${gap} ${unit}${gap===1?'':'s'} apart`);
-    return sentences.slice(0,3).join(' ');
+    return [...sentences.slice(0,3),evidenceNote].filter(Boolean).join(' ');
   }
   if(facts?.comeback)add(`${facts.comeback.team} has erased a ${facts.comeback.deficit}-point deficit${facts.comeback.team===leader[0]&&gap>0?' and taken the lead':''}`);
   else if(has(/Erased a multi-goal deficit/i))add('A verified comeback erased a multi-goal deficit');
@@ -2816,6 +2818,7 @@ function broadcastWatchMarkup(game,summary=null,inline=false) {
 }
 
 function gameCard(game) {
+  const detailsPending=game.enrichmentPending || game.summaryValidationPending;
   const liveNote=game.manpowerQuality?.state==='conflict' ? 'Manpower reports conflict' : game.live?.note;
   const phase = String(game.live?.phase || game.status || '');
   const clock = String(game.liveRawStatus?.displayClock || phase.match(/\b\d{1,2}:\d{2}\b/)?.[0] || '');
@@ -2878,7 +2881,9 @@ function gameCard(game) {
       : '';
 
   const momentMarkup =
-    game.moment
+    detailsPending
+      ? '<span class="card-moment"><strong>Provisional rating</strong><span>Details are still loading</span></span>'
+      : game.moment
       ? `<span class="card-moment"><strong>${safeText(game.momentLabel || 'Latest play')}</strong><span>${safeText(displayMoment(game))}</span></span>`
       : '';
 
@@ -2897,6 +2902,7 @@ function gameCard(game) {
           .join(' and ')
       : '',
     `${game.state==='live'?'watch now rating':game.state==='completed'?'game quality':'pregame rating'} ${game.score}`,
+    detailsPending ? 'Details are still loading; rating is provisional' : '',
     'Open game details'
   ]
     .filter(Boolean)

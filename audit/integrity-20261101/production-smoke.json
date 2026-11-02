@@ -1,0 +1,125 @@
+{
+  "executedAt": "2026-11-02T04:09:59.811Z",
+  "base": "https://sports-radar-alerts.mmueller918.workers.dev",
+  "mode": "Public GET routes only; /feed may schedule normal background refresh; no explicit refresh/check-games or notification calls",
+  "rolloutObservations": [
+    {
+      "executedAt": "2026-11-02T04:08:30.146Z",
+      "outcome": "awaiting-normal-cron",
+      "healthModel": "2026-11-01.audit-integrity.3",
+      "feedModel": "2026-11-01.production-integrity.2",
+      "feedUpdatedAt": "2026-11-02T04:05:39.012Z",
+      "freshness": {
+        "ageMs": 172138,
+        "stale": true,
+        "degraded": false,
+        "maxAgeMs": 120000
+      }
+    },
+    {
+      "executedAt": "2026-11-02T04:09:17.287Z",
+      "outcome": "awaiting-normal-cron",
+      "healthModel": "2026-11-01.audit-integrity.3",
+      "feedModel": "2026-11-01.production-integrity.2",
+      "feedUpdatedAt": "2026-11-02T04:05:39.012Z",
+      "freshness": {
+        "ageMs": 219207,
+        "stale": true,
+        "degraded": false,
+        "maxAgeMs": 120000
+      }
+    }
+  ],
+  "requests": [
+    {
+      "path": "/health",
+      "status": 200,
+      "startedAt": "2026-11-02T04:09:59.812Z",
+      "receivedAt": "2026-11-02T04:10:00.068Z",
+      "cacheControl": "no-store",
+      "allowOrigin": "https://mmueller091.github.io"
+    },
+    {
+      "path": "/feed",
+      "status": 200,
+      "startedAt": "2026-11-02T04:10:00.074Z",
+      "receivedAt": "2026-11-02T04:10:09.932Z",
+      "cacheControl": "no-store",
+      "allowOrigin": "https://mmueller091.github.io"
+    }
+  ],
+  "failures": [
+    "Feed model awaiting canonical publication",
+    "Feed marked stale"
+  ],
+  "health": {
+    "ok": true,
+    "notificationVersion": "2026-11-01.canonical-revalidation.1",
+    "alertDelivery": {
+      "canonicalRevalidation": true,
+      "atomicClaim": true,
+      "maxQueueAgeMs": 120000,
+      "ambiguousRetry": false
+    },
+    "modelVersion": "2026-11-01.audit-integrity.3",
+    "scoringPolicy": "live-owned-45-95-relevant-history-cfb-competition-opening-transition",
+    "storylines": {
+      "enabled": true,
+      "source": "league news + Workers AI free allocation",
+      "lastRun": 1793585863,
+      "candidates": 25,
+      "articles": 16,
+      "factors": 1,
+      "aiUsed": false,
+      "lastError": null
+    }
+  },
+  "feed": {
+    "updatedAt": "2026-11-02T04:05:39.012Z",
+    "modelVersion": "2026-11-01.production-integrity.2",
+    "scoringPolicy": "live-owned-45-95-relevant-history-cfb-competition-opening-transition",
+    "freshness": {
+      "ageMs": 269782,
+      "stale": true,
+      "degraded": false,
+      "maxAgeMs": 120000
+    },
+    "sourceErrors": [],
+    "gameCount": 302
+  },
+  "outcome": "awaiting-normal-cron",
+  "laterEvidence": {
+    "source": "failed-release-observation.json",
+    "publicDetailValidated": false,
+    "publishedRefreshes": [
+      {
+        "startedAt": "2026-11-02T04:10:00.794Z",
+        "approximatePublishedAt": "2026-11-02T04:10:23.611Z",
+        "trigger": "feed",
+        "publicationMs": 22817,
+        "totalMs": 24323,
+        "criticalCandidates": 259,
+        "reusedGames": 0,
+        "providerRequests": 162
+      },
+      {
+        "startedAt": "2026-11-02T04:10:28.017Z",
+        "approximatePublishedAt": "2026-11-02T04:10:32.352Z",
+        "trigger": "feed",
+        "publicationMs": 4335,
+        "totalMs": 20014,
+        "criticalCandidates": 2,
+        "reusedGames": 257,
+        "providerRequests": 114
+      }
+    ],
+    "rollback": {
+      "verificationSource": "release coordinator",
+      "verifiedAtApprox": "2026-11-02T04:13:00Z",
+      "healthAndFeedModel": "2026-11-01.production-integrity.2",
+      "feedFresh": true,
+      "pagesRollbackWorkflow": "41387018806",
+      "pagesWorkflowOutcome": "success"
+    }
+  }
+}

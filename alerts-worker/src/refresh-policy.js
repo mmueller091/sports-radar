@@ -2,6 +2,9 @@
 export const REFRESH_DEADLINE_MS = 25000;
 export const REFRESH_LEASE_MS = 30000;
 export const FEED_WAIT_MS = 8000;
+// Migration must leave time for history and atomic publication. This is a
+// scheduling reserve inside the existing deadline, not extra provider time.
+export const MIGRATION_PUBLICATION_RESERVE_MS = 7000;
 
 export function ordered(value) {
   if (Array.isArray(value)) return value.map(ordered);
@@ -21,7 +24,7 @@ export function summaryCandidate(game) {
 }
 
 export function reusable(game,prior,metadata,input,model) {
-  return game.state!=='live' && prior?.state===game.state && metadata?.model===model &&
+  return game.state!=='live' && prior?.state===game.state && prior.modelVersion===model && metadata?.model===model &&
     metadata.input===input && Boolean(metadata.summaryHash);
 }
 
@@ -36,6 +39,7 @@ export function refreshBudget(now,options={}) {
   const elapsed = () => Math.max(0,clock()-started);
   return {
     signal:controller.signal, elapsed, time:()=>now+Math.floor(elapsed()),
+    remaining:()=>controller.signal.aborted ? 0 : Math.max(0,limit-elapsed()),
     stats:{providerRequests:0,providerTimeouts:0,providerFailures:0},
     check() {
       if (controller.signal.aborted || elapsed()>=limit) throw new Error('Refresh deadline');
