@@ -10,6 +10,7 @@ import {ALERT_DELIVERY_VERSION,ALERT_MAX_AGE_MS,currentAlertGame,notificationCop
 
 const {rateGame,applyLiveSnapshot,recordFor,rankFor,clampScore,underdogCandidate,upsetImpact,gameProgress,momentumImpact} = globalThis.SportsRadarScore;
 const ORIGIN = 'https://mmueller091.github.io';
+const ALLOWED_ORIGINS = new Set([ORIGIN, 'https://slatemeter.app']);
 const PUSH_HOSTS = ['web.push.apple.com','fcm.googleapis.com','updates.push.services.mozilla.com','push.services.mozilla.com'];
 const JSON_HEADERS = {'Content-Type':'application/json','Cache-Control':'no-store'};
 const AUDIT_LABELS = new Set(['right','high','low']);
@@ -21,7 +22,8 @@ function newYorkMidnight(date) {
 }
 
 function cors(request) {
-  return request.headers.get('Origin') === ORIGIN ? {'Access-Control-Allow-Origin':ORIGIN,'Access-Control-Allow-Headers':'Content-Type, Authorization','Access-Control-Allow-Methods':'GET, PUT, DELETE, POST, OPTIONS','Vary':'Origin'} : {};
+  const origin = request.headers.get('Origin');
+  return ALLOWED_ORIGINS.has(origin) ? {'Access-Control-Allow-Origin':origin,'Access-Control-Allow-Headers':'Content-Type, Authorization','Access-Control-Allow-Methods':'GET, PUT, DELETE, POST, OPTIONS','Vary':'Origin'} : {'Vary':'Origin'};
 }
 function reply(request,body,status=200) { return new Response(JSON.stringify(body),{status,headers:{...JSON_HEADERS,...cors(request)}}); }
 function token(request) { const match = /^Bearer ([A-Za-z0-9_-]{32,128})$/.exec(request.headers.get('Authorization') || ''); return match?.[1] || null; }
@@ -82,8 +84,8 @@ export {gameFromEvent,validSubscription,checkGames};
 export default {
   async fetch(request,env,ctx) {
     const url = new URL(request.url);
+    if (request.headers.has('Origin') && !ALLOWED_ORIGINS.has(request.headers.get('Origin'))) return reply(request,{error:'Origin not allowed'},403);
     if (request.method === 'OPTIONS') return new Response(null,{status:204,headers:cors(request)});
-    if (request.headers.get('Origin') && request.headers.get('Origin') !== ORIGIN) return reply(request,{error:'Origin not allowed'},403);
     if (url.pathname === '/metadata/CFB' && request.method === 'GET') {
       const season=Number(url.searchParams.get('season') || cfbSeason());
       if (!Number.isInteger(season) || season<cfbSeason()-1 || season>cfbSeason()+1) return reply(request,{error:'Invalid season'},400);
