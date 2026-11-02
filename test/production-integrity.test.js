@@ -124,5 +124,8 @@ test('Patriots current two-score situation and early Oilers two-goal gap receive
  assert.match(context.explainRating(ne),/more than one scoring possession/);assert.doesNotMatch(context.explainRating(ne),/brought.*back|back within reach/);
  const edm=copy(fixture('NHL','401892627').game);edm.teams[0][2]='2';edm.teams[1][2]='0';edm.liveRawStatus={period:2,displayClock:'18:00'};edm.live={reasons:[]};edm.factors=[{label:'Wide margin',points:-5}];
  const text=context.explainRating(edm);assert.match(text,/cut the lead to one/);assert.doesNotMatch(text,/major turnaround/);
- const cards=evaluate(active,fixture('NFL','401873024'));assert.match(context.explainRating(cards),/14 points down.*Minshew.*Brissett.*missed.*overtime field goal/);
+ const cardsFixture=fixture('NFL','401873024'),cards=evaluate(active,cardsFixture);
+ assert.ok(cards.completedFacts.quarterbackChange,'Internal diagnostic facts remain available');
+ assert.match(context.explainRating(cards,cardsFixture.summary),/14-point deficit.*in overtime.*missed.*overtime field goal/);
+ assert.doesNotMatch(context.explainRating(cards),/missed.*overtime field goal/,'No decisive event narrative without event evidence');
 });

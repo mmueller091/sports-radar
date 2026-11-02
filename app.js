@@ -2571,18 +2571,20 @@ function teamMarkup(game, team, cardTeamIndex = null) {
   }</span>`;
 }
 
-function explainRating(game) {
+function explainRating(game,summary=null) {
   const evidenceNote=game.enrichmentPending || game.summaryValidationPending
     ? 'Additional game details are still loading; this rating is provisional.'
     : game.state!=='live' ? '' : game.manpowerQuality?.state==='conflict'
     ? 'Provider manpower reports conflict; the advantage is unconfirmed.'
     : game.tennisCoverage?.reason || (game.scoringPartial
       ? 'Some game history is still catching up; this rating uses the available evidence.' : '');
-  const footballExplanation=globalThis.SportsRadarScore?.footballLiveExplanation?.(game);
+  const scoresKnown=game.teams?.length===2&&game.teams.every(t=>t[2]!=null&&String(t[2]).trim()!==''&&Number.isFinite(Number(t[2])));
+  const footballExplanation=scoresKnown?globalThis.SportsRadarScore?.footballLiveExplanation?.(game):'';
   if (footballExplanation) return [footballExplanation,evidenceNote].filter(Boolean).join(' ');
-  const teams=game.teams || [],names=teams.map(t=>t[0]),a=teams[0] || [],b=teams[1] || [];
+  const teams=game.teams || [],names=teams.map(t=>t[0]).filter(Boolean),a=teams[0] || [],b=teams[1] || [];
+  if(names.length!==2)return [game.state==='upcoming'?'Confirmed matchup details are not yet available.':game.state==='completed'?'The game has finished; detailed result evidence is unavailable.':'Live game details are still being confirmed.',evidenceNote].filter(Boolean).join(' ');
   const factors=game.factors || [],labels=factors.map(f=>f.label || ''),has=re=>labels.some(x=>re.test(x));
-  const sport=game.sport,basketball=['NBA','NCAAB'].includes(sport),football=['NFL','CFB'].includes(sport);
+  const sport=game.sport==='NCAAM'?'NCAAB':game.sport,basketball=['NBA','NCAAB'].includes(sport),football=['NFL','CFB'].includes(sport);
   const unit=({MLB:'run',NHL:'goal',Soccer:'goal',Tennis:'set'})[sport] || 'point';
   const clean=s=>String(s || '').trim().replace(/\s+/g,' ');
   const sentenceKey=s=>clean(s).toLocaleLowerCase().replace(/[^\p{L}\p{N}]+/gu,' ').trim();
@@ -2619,16 +2621,15 @@ function explainRating(game) {
       else if(spread>=10)add(`${favorite?favorite[0]+' is favored':'The favorite has the edge'} by ${spread} points, so a one-sided game is a real possibility`);
       else add(`${favorite?favorite[0]+' is favored':'The betting line favors one side'} by ${spread} points, leaving the other side with something to prove`);
     } else if(has(/pick.em|Competitive betting market|Very close projected spread/i))add('The betting market has the two sides closely matched');
-    if(sentences.length<3&&has(/Unbeaten team/)){
+    if(sentences.length<2&&has(/Unbeaten team/)){
       const unbeaten=teams.find(t=>/^[1-9]\d*-0(?:-0)?$/.test(String(t[5]||'')));
       if(unbeaten)add(`${unbeaten[0]} is unbeaten at ${unbeaten[5]}`);
     }
     if(sentences.length<2&&verified.length)add(verified.find(f=>!['international_showcase','season_opener'].includes(f.contextType)&&!sentences.some(s=>sentenceKey(s)===sentenceKey(f.publicText)))?.publicText);
     if(!sentences.length)add(`${names.join(' and ')} ${sport==='Tennis'?'meet on court':sport==='MLB'?'meet on the diamond':sport==='NHL'?'face off':football?'meet on the football field':basketball?'meet on the basketball court':'meet on the pitch'}`);
-    if(sentences.length<2)add(({MLB:'The pitching matchup and early innings will help set the tone',NHL:'The early shifts will show who can create the better chances',Soccer:'The opening exchanges will show who can take control',Tennis:'The early service games will show who can take control'})[sport] || 'The opening minutes will give a clearer picture of how the teams match up');
-    return [...sentences.slice(0,3),evidenceNote].filter(Boolean).join(' ');
+    return [...sentences.slice(0,2),evidenceNote].filter(Boolean).join(' ');
   }
-  const x=Number(a[2]),y=Number(b[2]),known=a[2]!=null&&b[2]!=null&&Number.isFinite(x)&&Number.isFinite(y),gap=known?Math.abs(x-y):null;
+  const x=Number(a[2]),y=Number(b[2]),known=a[2]!=null&&b[2]!=null&&String(a[2]).trim()!==''&&String(b[2]).trim()!==''&&Number.isFinite(x)&&Number.isFinite(y),gap=known?Math.abs(x-y):null;
   const leader=x>y?a:b,trailer=x>y?b:a;
   const period=Number(game.liveRawStatus?.period),clock=String(game.liveRawStatus?.displayClock || ''),parts=clock.split(':').map(Number),seconds=parts.length===2?parts[0]*60+parts[1]:null;
   const late=basketball?period>=(sport==='NCAAB'?2:4)&&seconds!==null&&seconds<=120:football?period>=4:game.sport==='MLB'?period>=7:game.sport==='NHL'?period>=3:sport==='Soccer'?Number(clock.split(':')[0])>=75:false;
@@ -2638,19 +2639,46 @@ function explainRating(game) {
   const overtimeName=period-regulation>1?`${period-regulation}OT`:'overtime';
   const facts=game.basketballFacts;
   if(game.state==='completed') {
-    if(known&&gap>0)add(`${leader[0]} beat ${trailer[0]} ${Math.max(x,y)}–${Math.min(x,y)}${overtime?' in overtime':''}`);
-    else if(known)add(`${names.join(' and ')} finished level at ${x}–${y}`);
+    // Re-evaluate event-derived facts against the supplied canonical result. A
+    // missing or contradictory ledger must not reuse a stale player narrative.
+    const trusted=!game.scoringPartial&&!game.summaryLifecycleRejected&&!game.scoringHistoryRejected&&!game.staleEnrichment;
+    const api=globalThis.SportsRadarScore;
+    const completed=trusted?(summary?api?.completedGameFacts?.(game,summary):game.completedFacts):null;
+    const decisive=trusted&&summary?api?.decisiveScoringPlay?.(game,summary):null;
+    const ledger=trusted&&summary?api?.scoringLedger?.(game,summary):null;
+    const winnerSide=leader===a?'away':'home',otherSide=winnerSide==='away'?'home':'away';
+    const deficit=known&&gap>0&&ledger?.complete?Math.max(0,...ledger.plays.map(p=>Number(p[otherSide+'Score'])-Number(p[winnerSide+'Score']))):0;
+    const observedComeback=deficit>=({NFL:7,CFB:7,NBA:8,NCAAB:8,MLB:3,NHL:2,Soccer:2,Tennis:1}[sport]||1)?{team:leader[0],deficit}:null;
+    const comeback=completed?.comeback || observedComeback || (trusted&&!summary?facts?.comeback:null);
+    const lateChanges=trusted?factors.find(f=>f.points>0&&/^\d+ late lead changes?$/.test(f.label)):null;
+    const leadChanges=trusted?factors.find(f=>f.points>0&&/^\d+ lead changes?$/.test(f.label)):null;
+    const positive=re=>trusted&&factors.some(f=>f.points>0&&re.test(f.label));
+    const comebackTeam=comeback&&teams.find(t=>t[0]===comeback.team);
+    const validComeback=comebackTeam&&Number.isFinite(Number(comeback.deficit))&&Number(comeback.deficit)>0;
+    const upset=trusted&&game.upsetPoints>0&&game.underdog?.teamId&&String(game.underdog.teamId)===String(leader[8]);
+    const finish=shootout?' after a shootout':overtime?(sport==='Soccer'?' after extra time':' in overtime'):'';
+    if(known&&gap>0){
+      const recovery=validComeback&&comebackTeam===leader?` erased a ${comeback.deficit}-${unit} deficit and`:'';
+      add(`${leader[0]}${upset?', the underdog,':''}${recovery} beat ${trailer[0]} ${Math.max(x,y)}–${Math.min(x,y)}${finish}`);
+    }else if(known)add(`${names.join(' and ')} finished level at ${x}–${y}${finish}`);
     else add(`${names.join(' and ')} have finished play`);
-    const completedFacts=game.completedFacts;
-    if(completedFacts?.comeback)add(`${completedFacts.comeback.team} rallied from ${completedFacts.comeback.deficit} points down`);
-    if(completedFacts?.quarterbackChange)add(`${completedFacts.quarterbackChange.incoming} replaced ${completedFacts.quarterbackChange.outgoing} at quarterback`);
-    if(completedFacts?.redemption)add(`${completedFacts.redemption.kicker} missed the go-ahead extra point with ${completedFacts.redemption.clock} left in regulation, then won it with an overtime field goal`);
-    if(completedFacts?.comeback || completedFacts?.redemption)return [...sentences,evidenceNote].filter(Boolean).join(' ');
-    if(game.upsetPoints>0&&game.underdog?.teamId&&String(game.underdog.teamId)===String(leader[8]))add(`${leader[0]} won as the underdog`);
-    else if(facts?.comeback)add(`${facts.comeback.team} erased a ${facts.comeback.deficit}-point deficit along the way`);
-    else if(has(/Erased a large deficit|comeback/i))add('A comeback gave the game a dramatic turn');
-    if(gap!==null)add(gap<=({MLB:1,NHL:1,Soccer:1,Tennis:1,NFL:8,CFB:8,NBA:5,NCAAB:5}[sport] || 3)?'The narrow final margin made for a close result':has(/Wide margin/)?'The lopsided final margin limits the appeal of a replay':`The teams finished ${gap} ${unit}${gap===1?'':'s'} apart`);
-    return [...sentences.slice(0,3),evidenceNote].filter(Boolean).join(' ');
+    const redemption=completed?.redemption;
+    const decidingText=clean(decisive?.text || decisive?.shortText);
+    if(redemption&&overtime&&decisive&&Number(decisive.period?.number)>regulation&&decidingText.includes(redemption.kicker))
+      add(`${redemption.kicker} missed the go-ahead extra point with ${redemption.clock} left in regulation, then won it with an overtime field goal`);
+    else if(decidingText&&safe(decidingText)){
+      const eventPeriod=Number(decisive.period?.number),eventClock=clean(decisive.clock?.displayValue);
+      const when=eventPeriod>regulation?'in overtime':eventClock?`with ${eventClock} ${sport==='NHL'?'elapsed in the final period':'remaining'}`:'late in the game';
+      add(`The decisive score came ${when}: ${decidingText}`);
+    }else if(validComeback&&comebackTeam!==leader)add(`${comeback.team} erased a ${comeback.deficit}-${unit} deficit along the way`);
+    else if(lateChanges){const count=Number(lateChanges.label.match(/^\d+/)[0]);add(`The lead changed ${count===1?'once':count+' times'} in the closing stages`);}
+    else if(trusted&&facts?.lateLeadChanges)add('The lead changed hands in the closing stages');
+    else if(positive(/Sustained competitive game|Competitive for much of game/) && positive(/Postseason stakes|Advancement or elimination/))add('Postseason stakes added weight to a contest that stayed competitive for much of the game');
+    else if(positive(/Repeated swings in control|Big win-chance swing/))add('The chances of winning swung sharply during the game');
+    else if(leadChanges){const count=Number(leadChanges.label.match(/^\d+/)[0]);add(`The lead changed ${count===1?'once':count+' times'} during the game`);}
+    else if(positive(/Sustained competitive game|Competitive for much of game/))add('The contest stayed close for much of the game');
+    else if(gap!==null)add(gap<=({MLB:1,NHL:1,Soccer:1,Tennis:1,NFL:8,CFB:8,NBA:5,NCAAB:5}[sport] || 3)?'The narrow final margin made for a close result':has(/Wide margin/)?'The lopsided final margin limits the appeal of a replay':`The teams finished ${gap} ${unit}${gap===1?'':'s'} apart`);
+    return [...sentences.slice(0,2),evidenceNote].filter(Boolean).join(' ');
   }
   if(facts?.comeback)add(`${facts.comeback.team} has erased a ${facts.comeback.deficit}-point deficit${facts.comeback.team===leader[0]&&gap>0?' and taken the lead':''}`);
   else if(has(/Erased a multi-goal deficit/i))add('A verified comeback erased a multi-goal deficit');
@@ -2662,19 +2690,19 @@ function explainRating(game) {
   }
   const possession=String(game.liveRawSituation?.possession?.id || game.liveRawSituation?.possession || '');
   const holder=teams.find(t=>String(t[8])===possession);
-  if(basketball&&late&&gap<=3) {
+  if(basketball&&late&&known&&gap<=3) {
     const freeThrow=/free throw/i.test(game.liveRawSituation?.lastPlay?.text || '');
     if(freeThrow)add('Free throws could decide this one, with a single possession separating the teams');
     else if(holder&&holder===trailer)add(`${holder[0]} has the ball with a chance to ${gap===3?'tie the game':'tie it or take the lead'}`);
     else add(`${seconds!==null&&seconds<60?'With less than a minute remaining, e':'E'}very possession could decide the game`);
   } else {
-    const reason=(game.live?.reasons || []).find(r=>safe(r)&&!(game.manpowerQuality?.state==='conflict'&&/power play|extra attacker/i.test(r))&&/has .* (?:yards|points|goals)|power play|bases (?:are )?loaded|no.hit|match point|set point|break point|red zone|fourth down|extra attacker|goalie|potential tying|go-ahead/i.test(r));
+    const reason=(game.live?.reasons || []).find(r=>safe(r)&&!(game.manpowerQuality?.state==='conflict'&&/power play|extra attacker/i.test(r))&&/has .* (?:yards|points|goals)|power play|bases (?:are )?loaded|no.hit|match point|set point|break point|red zone|fourth down|extra attacker|goalie|potential tying|go-ahead|red card|equaliz|stoppage.time|scoring run/i.test(r));
     if(reason)add(clean(reason));
     else if(has(/Underdog threatens upset/)&&game.underdog?.teamName)add(`${game.underdog.teamName} is threatening an upset`);
     else if(sport==='NHL'&&gap===2)add(late?'The trailing team needs two goals to draw level':'A goal would cut the lead to one, with time remaining to get back into the game');
     else if(gap!==null&&has(/Wide margin/))add(`${trailer[0]} needs to close the ${gap}-${unit} gap${late?' with limited time remaining':''}`);
     else if(facts?.lateLeadChanges)add('The lead has changed hands in the closing stages');
-    else add(sport==='Tennis'?'The next break of serve could change the match':sport==='MLB'?'The next rally could change the game':sport==='NHL'||sport==='Soccer'?'The next goal could change the game':football?'The next drive could change the game':'The next few possessions will shape the contest');
+
   }
   return [...sentences.slice(0,3),evidenceNote].filter(Boolean).join(' ');
 }
@@ -5452,23 +5480,6 @@ function renderExcitementTimeline(game,summary) {
     data=>timelineHistoryDetails(timelinePresentation(game,data).history));
 }
 
-function explainGameCenter(game) {
-  const f=game.completedFacts;
-  if(game.state==='completed' && f?.comeback && !game.scoringPartial && !game.summaryLifecycleRejected && !game.scoringHistoryRejected){
-    const winner=game.teams.find(t=>t[0]===f.comeback.team);
-    const won=winner && game.teams.every(t=>t===winner||Number(winner[2])>Number(t[2]));
-    const underdog=won && game.upsetPoints>0 && String(game.underdog?.teamId)===String(winner[8]);
-    const overtime=game.factors?.some(f=>f.label==='Overtime');
-    const unit=({NHL:'goal',Soccer:'goal',MLB:'run'})[game.sport] || 'point';
-    const sentence=`${f.comeback.team}${underdog?', the underdog,':''} erased a ${f.comeback.deficit}-${unit} deficit${won?` and won${overtime?' in overtime':''}`:''}.`;
-    const qualification=f.redemption?`${f.redemption.kicker} missed the go-ahead extra point with ${f.redemption.clock} left in regulation, then won it with an overtime field goal.`:
-      f.quarterbackChange?`${f.quarterbackChange.incoming} replaced ${f.quarterbackChange.outgoing} at quarterback.`:'';
-    return [sentence,qualification].filter(Boolean).join(' ');
-  }
-  // Retain source qualifications, including provisional evidence and conditional availability.
-  return explainRating(game);
-}
-
 function excitementTimeline(game,summary) {
   if (
     game.state === 'upcoming'
@@ -5763,17 +5774,13 @@ function storylineDetails(game) {
     const source = url
       ? `<a href="${safeText(url)}" target="_blank" rel="noopener noreferrer" title="${safeText(factor.sourceTitle || 'Read source')}">Read source ↗</a>`
       : '';
-    const contribution=game.state==='upcoming' && game.sport==='NFL'
-      ? game.factors?.find(item=>item.contextType===factor.type)?.points : null;
-    const credit=game.state==='upcoming' && game.sport==='NFL'
-      ? contribution ? ` (+${contribution})` : ' (background context)' : '';
     const significance=factor.injuryEvidence?.playerSignificance;
     const proofUrl=safeStoryUrl(significance?.sourceUrl);
     const proof=game.sport==='NFL' && proofUrl && significance.verified
       ? `<a href="${safeText(proofUrl)}" target="_blank" rel="noopener noreferrer" title="${safeText(significance.fact)}">Player honors source ↗</a>` : '';
-    return `<li><span>${safeText(text+credit)}</span>${source}${proof}</li>`;
+    return `<li><span>${safeText(text)}</span>${source}${proof}</li>`;
   }).join('');
-  return `<section class="detail-section storyline-section"><h3>${game.verifiedDevelopments?.length?'Verified game context':'Pregame storylines'}</h3><ul>${rows}</ul><p class="detail-empty">Only source-backed context is included. Its rating contribution fades as the game unfolds.</p></section>`;
+  return `<section class="detail-section storyline-section"><h3>${game.verifiedDevelopments?.length?'Verified game context':'Pregame storylines'}</h3><ul>${rows}</ul><p class="detail-empty">Only source-backed game context is included.</p></section>`;
 }
 
 const DETAIL_TAB_CONFIG = {
@@ -6070,7 +6077,7 @@ function renderDetailContent(
   const coverageNote=game.tennisCoverage?.reason
     ? `<p class="detail-freshness">${safeText(game.tennisCoverage.reason)}</p>` : '';
 
-  const scoringDetails = globalThis.SportsRadarGameCenter.scoringMarkup(game,summary?.sportsRadarGame?.scoreCalculation);
+
 
   const ratingContext =
     game.state === 'upcoming'
@@ -6080,7 +6087,7 @@ function renderDetailContent(
         : `Current rating ${safeText(game.score)}`;
 
   $('#game-detail-content').innerHTML =
-    `<header class="detail-header"><div class="detail-kicker">${safeText(labelForSport(game.sport))} · ${safeText(status)}${detailClock}</div><h2>${safeText(title)}</h2><button type="button" class="detail-watch ${isWatched(game) ? 'active' : ''}" data-watch-id="${safeText(watchKey(game))}" aria-pressed="${isWatched(game)}">${isWatched(game) ? '★ Watching this game' : '☆ Add to watchlist'}</button><div class="detail-scoreboard">${scores}</div><div class="detail-meta"><span><strong>Venue</strong> ${safeText(venue)}</span><span><strong>Broadcast</strong> ${safeText(game.channel || 'Channel not listed')}</span>${lineMeta}</div>${broadcastWatchMarkup(game,summary)}${freshness}${game.moment ? `<section class="detail-moment"><strong>${safeText(game.momentLabel || 'Notable play')}</strong><span>${safeText(displayMoment(game))}</span></section>` : ''}</header><section class="detail-radar"><div class="detail-excitement-head"><span class="detail-excitement-score" style="--score-hue:${scoreHue}">${safeText(game.score)}</span><span class="detail-excitement-copy"><small>${game.state==='live'?'Watch now':game.state==='completed'?'Game quality':'Pregame rating'}</small><strong>${safeText(ratingContext)}</strong></span></div><div class="detail-radar-why"><h3>Why ${safeText(game.score)}?</h3><p class="detail-explanation detail-why-text">${safeText(explainGameCenter(game))}</p>${scoringDetails}</div>${qualitySoFar}${coverageNote}${renderExcitementTimeline(game,summary)}</section>${detailTabsMarkup(game,summary)}`;
+    `<header class="detail-header"><div class="detail-kicker">${safeText(labelForSport(game.sport))} · ${safeText(status)}${detailClock}</div><h2>${safeText(title)}</h2><button type="button" class="detail-watch ${isWatched(game) ? 'active' : ''}" data-watch-id="${safeText(watchKey(game))}" aria-pressed="${isWatched(game)}">${isWatched(game) ? '★ Watching this game' : '☆ Add to watchlist'}</button><div class="detail-scoreboard">${scores}</div><div class="detail-meta"><span><strong>Venue</strong> ${safeText(venue)}</span><span><strong>Broadcast</strong> ${safeText(game.channel || 'Channel not listed')}</span>${lineMeta}</div>${broadcastWatchMarkup(game,summary)}${freshness}${game.moment ? `<section class="detail-moment"><strong>${safeText(game.momentLabel || 'Notable play')}</strong><span>${safeText(displayMoment(game))}</span></section>` : ''}</header><section class="detail-radar"><div class="detail-excitement-head"><span class="detail-excitement-score" style="--score-hue:${scoreHue}">${safeText(game.score)}</span><span class="detail-excitement-copy"><small>${game.state==='live'?'Watch now':game.state==='completed'?'Game quality':'Pregame rating'}</small><strong>${safeText(ratingContext)}</strong></span></div><div class="detail-radar-why"><h3>Why ${safeText(game.score)}?</h3><p class="detail-explanation detail-why-text">${safeText(explainRating(game,summary))}</p></div>${qualitySoFar}${coverageNote}${renderExcitementTimeline(game,summary)}</section>${detailTabsMarkup(game,summary)}`;
 }
 
 async function fetchGameSummary(game,controller=new AbortController()) {

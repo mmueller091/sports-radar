@@ -58,7 +58,7 @@ test('the source-story list uses the same renderer and suppresses repeated entri
  const g={...base(),qualitativeContexts:[story,{...story}],factors:[{contextType:'star_injury_return',points:5}]},original=JSON.stringify(g);
  const html=context.storylineDetails(g),text=html.match(/<span>(.*?)<\/span>/)?.[1];
  assert.equal((text.match(/\breturn\b/gi)||[]).length,1);assert.doesNotMatch(text,/bearable/);assert.equal((html.match(/<li>/g)||[]).length,1);
- assert.match(html,/Read source/);assert.match(html,/https:\/\/example.com\/story/);assert.equal(JSON.stringify(g),original);
+ assert.doesNotMatch(html,/\(\+5\)|rating contribution|background context/);assert.match(html,/Read source/);assert.match(html,/https:\/\/example.com\/story/);assert.equal(JSON.stringify(g),original);
 });
 test('missing or partial source metadata still produces one safe statement',()=>{
  for(const metadata of [undefined,null,{},[null]]){

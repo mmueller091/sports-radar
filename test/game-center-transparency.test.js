@@ -23,9 +23,9 @@ test('Cardinals–Cowboys: actual rendered factors reconcile to 95 and concise e
   const before=JSON.stringify(detail),g=detail.sportsRadarGame,html=rendered(g),ui=browser();
   assert.equal(g.score,95);assert.equal((html.match(/<dd>/g)||[]).length,10);
   ui.renderDetailContent(g,detail);
-  assert.match(ui.detail.innerHTML,/Why 95/);assert.doesNotMatch(ui.detail.innerHTML,/Scoring details|Exact scoring factors|detail-why-toggle/);
-  assert.match(ui.explainGameCenter(g),/underdog.*14-point deficit.*won in overtime/);
-  assert.match(ui.explainGameCenter(g),/missed the go-ahead extra point.*overtime field goal/);
+  assert.match(ui.detail.innerHTML,/Why 95/);assert.doesNotMatch(ui.detail.innerHTML,/score-calculation|Pregame rounding|Game-state baseline|<dd>/);assert.doesNotMatch(ui.detail.innerHTML,/Scoring details|Exact scoring factors|detail-why-toggle/);
+  assert.match(ui.explainRating(g,detail),/underdog.*14-point deficit.*beat.*in overtime/);
+  assert.match(ui.explainRating(g,detail),/missed the go-ahead extra point.*overtime field goal/);
   assert.equal(JSON.stringify(detail),before);
 });
 test('authoritative normalization renders signed/fractional factors and each actual rounding, cap and floor',()=>{
@@ -74,11 +74,11 @@ test('actual overtime history preserves every rating, timestamp, model, evidence
 const game={id:'test',sport:'NFL',state:'completed',score:95,teams:[['A','A','33'],['B','B','30']]};
 const p=(at,rating,clock='2:00',extra={})=>({observedAt:at,rating,state:'live',period:4,clock,modelVersion:'same',evidenceQuality:'verified',...extra});
 const summary=snapshots=>({sportsRadarHistory:{snapshots}});
-test('only adjacent verified observations connect; gaps, corrections, duplicates, finals and model boundaries break',()=>{
+test('reliable observations connect across gaps, excluded points, corrections, duplicates and model boundaries; finals stay separate',()=>{
   const ps=[p(1000,20),p(16000,90),p(31000,10,'1:59',{evidenceQuality:'partial'}),p(46000,80,'1:59'),p(61000,70,'2:01'),p(61000,71,'2:01'),p(200000,75,'1:50'),p(215000,85,'1:49',{modelVersion:'new'}),p(230000,95,'0:00',{state:'completed'})];
   const data=center.observations(game,summary(ps)),live=data.points.filter(p=>p.ratingKind==='live'&&!p.incomplete);
   assert.equal(center.comparable(live[1],live[0]),true,'sharp same-clock rise retained');
-  for(let i=2;i<live.length;i++)assert.equal(center.comparable(live[i],live[i-1]),false);
+  for(let i=2;i<live.length;i++)assert.equal(center.comparable(live[i],live[i-1]),true);
   assert.equal(center.comparable(data.points.at(-1),live.at(-1)),false);
   assert.equal(live[0].x,live[1].x,'same-clock observations are never shifted');
   assert.ok(live[3].x<live[2].x,'clock corrections are never moved forward');

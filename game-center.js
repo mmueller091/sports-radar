@@ -64,17 +64,44 @@
     return p?[p,clock].filter(Boolean).join(' '):fallback||[f.sport==='MLB'?'Inning':f.sport==='Tennis'?'Set':'Period',period,clock].filter(Boolean).join(' ');
   }
   const timestamp=at=>new Date(at).toLocaleString([],{month:'short',day:'numeric',hour:'numeric',minute:'2-digit',second:'2-digit'});
+  function reliable(p){
+    return Boolean(p)&&p.ratingKind==='live'&&p.evidenceQuality==='verified'&&!p.invalid&&!p.incomplete&&
+      Number.isFinite(p.score)&&p.score>=0&&p.score<=100&&Number.isFinite(p.x)&&Number.isFinite(p.observedAt);
+  }
   function comparable(p,previous){
-    return Boolean(previous)&&p.ratingKind==='live'&&previous.ratingKind==='live'&&!p.breakBefore&&!p.invalid&&!previous.invalid&&!p.incomplete&&!previous.incomplete&&
-      p.evidenceQuality==='verified'&&previous.evidenceQuality==='verified'&&p.modelVersion===previous.modelVersion&&p.axis===previous.axis&&
-      p.observedAt>previous.observedAt&&p.observedAt-previous.observedAt<=30000&&p.x>=previous.x;
+    return reliable(p)&&reliable(previous)&&p.axis===previous.axis;
+  }
+  // Monotone cubic Hermite geometry: bounded control values cannot overshoot
+  // either recorded endpoint. These controls are drawing coordinates, never
+  // observations, tooltips, or stored ratings. Equal/reversed clocks stay exact.
+  function curve(points,px,py){
+    if(!points.length)return '';
+    let path=`M ${px(points[0])} ${py(points[0])}`,start=0;
+    while(start<points.length-1){
+      let end=start;
+      while(end+1<points.length&&px(points[end+1])>px(points[end]))end++;
+      if(end===start){path+=` L ${px(points[start+1])} ${py(points[start+1])}`;start++;continue;}
+      const run=points.slice(start,end+1),xs=run.map(px),ys=run.map(py),h=[],d=[],m=[];
+      for(let i=0;i<run.length-1;i++){h[i]=xs[i+1]-xs[i];d[i]=(ys[i+1]-ys[i])/h[i];}
+      m[0]=d[0];m[run.length-1]=d.at(-1);
+      for(let i=1;i<run.length-1;i++){
+        const a=d[i-1],b=d[i],w1=2*h[i]+h[i-1],w2=h[i]+2*h[i-1];
+        m[i]=a*b<=0?0:(w1+w2)/(w1/a+w2/b);
+      }
+      for(let i=0;i<run.length-1;i++){
+        const low=Math.min(ys[i],ys[i+1]),high=Math.max(ys[i],ys[i+1]),bound=y=>Math.max(low,Math.min(high,y));
+        path+=` C ${xs[i]+h[i]/3} ${bound(ys[i]+m[i]*h[i]/3)} ${xs[i+1]-h[i]/3} ${bound(ys[i+1]-m[i+1]*h[i]/3)} ${xs[i+1]} ${ys[i+1]}`;
+      }
+      start=end;
+    }
+    return path;
   }
   function observations(game,summary,local=[]){
     const f=format(game,summary),records=(summary?.sportsRadarHistory?.snapshots||[]).map((p,i)=>({...p,recordIndex:i,recorded:true}));
     const last=Math.max(-Infinity,...records.map(p=>Number(p.observedAt)));
     if(game.state==='live')for(const [i,p]of local.entries())if(p.state!=='completed'&&p.at>last+5000)records.push({...p,observedAt:p.at,rating:p.score,phaseLabel:p.phase,recordIndex:records.length,local:true});
-    records.sort((a,b)=>Number(a.observedAt)-Number(b.observedAt)||a.recordIndex-b.recordIndex);
-    const timed=records.filter(p=>p.state==='live'&&Number.isFinite(Number(p.rating)));
+    // Preserve the provider's observation order, including corrections and duplicates.
+    const timed=records.filter(p=>p.state==='live'&&p.evidenceQuality==='verified'&&!p.integrityIssue&&p.rating!=null&&Number.isFinite(Number(p.rating))&&Number(p.rating)>=0&&Number(p.rating)<=100);
     const useGameTime=Boolean(timed.length)&&timed.every(p=>position(p.period,p.clock,f)!==null);
     const axis=useGameTime?'game':'observed';
     const points=records.map(p=>({
@@ -86,18 +113,12 @@
       incomplete:p.evidenceQuality==='partial',invalid:p.evidenceQuality==='invalid'||p.integrityIssue===true,
       recorded:p.recorded,local:p.local,original:p,
     }));
-    let gap=false,previous=null;
-    for(const p of points){
-      if(p.ratingKind!=='live'||p.incomplete||p.invalid||!Number.isFinite(p.score)||!Number.isFinite(p.x)||!Number.isFinite(p.observedAt)){gap=true;continue;}
-      p.breakBefore=gap||Boolean(previous&&p.x<previous.x);gap=false;previous=p;
-    }
     return {points,axis,format:f,source:records.length?'recorded snapshots':'unavailable'};
   }
   function timeline(game,summary,local=[],historyRenderer=()=> ''){
     if(game.state==='upcoming')return '<section class="detail-section timeline-section"><h3>Excitement timeline</h3><p class="detail-empty">The chart starts when the game begins.</p></section>';
     const data=observations(game,summary,local),f=data.format;
-    const eligible=p=>p.ratingKind==='live'&&!p.incomplete&&!p.invalid&&(!p.local||p.evidenceQuality==='verified')&&Number.isFinite(p.x)&&Number.isFinite(p.observedAt)&&Number.isFinite(p.score);
-    const points=data.points.filter(eligible),last=points.filter(p=>p.evidenceQuality==='verified').at(-1);
+    const points=data.points.filter(reliable),last=points.at(-1);
     const pending=game.scoringPartial||game.summaryLifecycleRejected||game.scoringHistoryRejected;
     const heading=`<div class="timeline-heading"><h3>Excitement timeline</h3><span class="timeline-key"><i></i> Recorded live ratings</span></div>`;
     const ratings=`<div class="timeline-ratings"><div class="timeline-rating-current"><span>${game.state==='completed'?'Final rating':'Current live rating'}</span><strong>${pending?'Pending':escape(game.score)}</strong><small>${game.state==='completed'?'Whole-game quality':'Watchability now'}</small></div><div class="timeline-rating-last"><span>Last reliable live rating</span><strong>${last?last.score:'—'}</strong><small>${last?escape(last.label):'No reliable live record'}</small></div></div>`;
@@ -121,7 +142,7 @@
       const width=mobile?360:940,left=34,right=12,top=14,bottom=170;
       const px=p=>left+(p.x-v.start)/(v.end-v.start)*(width-left-right),py=p=>top+(100-p.score)*(bottom-top)/100;
       const visible=points.filter(p=>p.x>=v.start&&p.x<=v.end),shownEvents=events.filter(p=>p.x>=v.start&&p.x<=v.end);
-      const path=visible.map((p,i)=>`${i&&comparable(p,visible[i-1])?'L':'M'} ${px(p)} ${py(p)}`).join(' ');
+      const path=curve(visible,px,py);
       const guides=[0,25,50,75,100].map(score=>`<line class="timeline-reference" x1="${left}" x2="${width-right}" y1="${py({score})}" y2="${py({score})}"/>${score%50===0?`<text x="25" y="${py({score})+4}" text-anchor="end">${score}</text>`:''}`).join('');
       const ticks=[];
       if(data.axis==='game'&&f.periods){
@@ -157,7 +178,7 @@
       const dots=[...groups.values()].map(group=>{
         const {p,i}=group.at(-1),prior=visible[i-1],next=visible[i+1];
         const important=p===last||!comparable(p,prior)||!comparable(next||{},p)||Math.abs(p.score-(prior?.score??p.score))>=5;
-        if(!important)return ''; // The exact polyline and original-history table retain these observations.
+        if(!important)return ''; // The curve passes through every anchor; the original-history table retains each observation.
         const description=`${p.label}. Recorded rating: ${p.score}. ${group.map(({p})=>`${timestamp(p.observedAt)} (${p.evidenceQuality||'legacy evidence unclassified'})`).join('; ')}. ${p===last?'Last reliable live rating.':''}`;
         return marker(p,px(p),py(p),description);
       }).join('');
@@ -166,9 +187,9 @@
       const eventDots=[...eventGroups.values()].map((group,i)=>marker(group[0],px(group[0]),230+(i%2)*14,group.map(p=>`${p.label}: ${p.text}`).join(' • '),true)).join('');
       return `<svg class="timeline-chart ${mobile?'timeline-mobile':'timeline-desktop'}" viewBox="0 0 ${width} 260" role="group" aria-label="Recorded live ratings, ${escape(v.label)}"><g>${guides}<path class="timeline-line" d="${path}"/>${dots}${axis}${periodLabels.join('')}</g><g class="timeline-event-strip"><rect x="${left}" y="207" width="${width-left-right}" height="51" rx="5"/><text x="${left+8}" y="220">SCORING PLAYS</text>${eventDots}</g></svg>`;
     };
-    return `<section class="detail-section timeline-section">${heading}${ratings}<div class="timeline-controls" role="group" aria-label="Timeline range">${views.map(v=>`<button type="button" data-timeline-range="${v.key}" aria-pressed="${v.key==='full'}">${v.label}</button>`).join('')}</div>${views.map(v=>`<div class="timeline-view" data-timeline-view="${v.key}"${v.key!=='full'?' hidden':''}>${chart(v)}${chart(v,true)}</div>`).join('')}<p class="timeline-note">${data.axis==='game'?'Game time':'Observation time · game-clock mapping unavailable'}. Straight segments join adjacent verified updates only; gaps remain unobserved.${game.state==='completed'?' Final quality is separate from live watchability.':''} Untimed plays remain in the play list.</p><div class="timeline-point-help" id="${helpId}" role="status" aria-live="polite" aria-hidden="true"></div>${history}</section>`;
+    return `<section class="detail-section timeline-section">${heading}${ratings}<div class="timeline-controls" role="group" aria-label="Timeline range">${views.map(v=>`<button type="button" data-timeline-range="${v.key}" aria-pressed="${v.key==='full'}">${v.label}</button>`).join('')}</div>${views.map(v=>`<div class="timeline-view" data-timeline-view="${v.key}"${v.key!=='full'?' hidden':''}>${chart(v)}${chart(v,true)}</div>`).join('')}<p class="timeline-note">The line connects recorded ratings. Scores between observations were not individually recorded.</p><div class="timeline-point-help" id="${helpId}" role="status" aria-live="polite" aria-hidden="true"></div>${history}</section>`;
   }
-  const api={calculation,scoringMarkup,decimalSum,format,position,phase,comparable,observations,timeline};
+  const api={calculation,scoringMarkup,decimalSum,format,position,phase,reliable,curve,comparable,observations,timeline};
   if(typeof module!=='undefined'&&module.exports)module.exports=api;
   root.SportsRadarGameCenter=api;
 })(globalThis);
