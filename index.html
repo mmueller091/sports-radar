@@ -3,27 +3,33 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#0b141b" />
-    <meta name="description" content="Live sports scores, clear excitement ratings, and game lines." />
+    <meta name="theme-color" content="#191C1F" />
+    <meta name="description" content="Live sports, ranked by excitement. Live scores, clear ratings, and a Game Center for every matchup." />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-    <meta name="apple-mobile-web-app-title" content="Sports Radar" />
-    <title>Sports Radar — know what to watch</title>
+    <meta name="apple-mobile-web-app-title" content="SlateMeter" />
+    <title>SlateMeter — Live sports, ranked by excitement.</title>
     <link rel="manifest" href="manifest.webmanifest?rev=20261031-install" />
-    <link rel="icon" href="sports-radar-logo.png" type="image/png" />
+    <link rel="icon" href="slatemeter-pennant-s-favicon-32.png" type="image/png" />
     <link rel="apple-touch-icon" href="app-icon-192.png" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="styles.css?rev=20261029-ui-regressions1" />
     <link rel="stylesheet" href="mobile-readability.css?rev=20261029-mobile-type1" />
+    <link rel="canonical" href="https://slatemeter.app/" />
+    <meta property="og:site_name" content="SlateMeter" />
+    <meta property="og:title" content="SlateMeter — Live sports, ranked by excitement." />
+    <meta property="og:description" content="Find the games worth watching, with live scores and evidence-driven excitement ratings." />
+    <meta property="og:url" content="https://slatemeter.app/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="https://slatemeter.app/slatemeter-pennant-s-wordmark.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="stylesheet" href="slatemeter-theme.css?rev=slatemeter" />
   </head>
   <body>
     <div class="app-shell">
       <header class="topbar">
-        <a class="brand" href="#home" aria-label="Sports Radar home">
-          <img class="brand-logo" src="sports-radar-logo.png" alt="" width="50" height="50" />
-          <span class="brand-wordmark">SPORTS <em>RADAR</em></span>
+        <a class="brand" href="#home" aria-label="SlateMeter home">
+          <img class="brand-logo" src="slatemeter-pennant-s-icon.svg" alt="" width="50" height="50" />
+          <span class="brand-wordmark">Slate<strong>Meter</strong></span>
         </a>
         <nav class="main-nav" aria-label="Primary navigation">
           <a class="nav-link active" href="#home" data-page="home">Radar</a>
@@ -93,7 +99,7 @@
         <div class="empty-state hidden" id="empty-state"><div>⌁</div><h3>No games in this view</h3><p id="empty-message">Try a different sport or game state.</p><button id="empty-clear-filters" type="button" class="clear-sport-filters hidden">Clear CFB filters</button></div>
       </main>
 
-      <footer class="footer"><div><span class="brand-mini">SPORTS RADAR</span><span>What's worth watching?</span></div><div><span class="status-dot"></span> <span id="footer-status">Loading feed</span> <span class="footer-sep">•</span> <button id="data-info">Data sources &amp; scoring</button></div></footer>
+      <footer class="footer"><div><span class="brand-mini">SlateMeter</span><span>Live sports, ranked by excitement.</span></div><div><span class="status-dot"></span> <span id="footer-status">Loading feed</span> <span class="footer-sep">•</span> <button id="data-info">Data sources &amp; scoring</button></div></footer>
     </div>
 
     <dialog id="search-dialog" class="search-dialog">
@@ -110,7 +116,16 @@
     </dialog>
 
     <dialog id="preferences-dialog">
-      <div class="dialog-header"><div><div class="eyebrow">SETTINGS</div><h2>Make the signal yours.</h2></div><button class="close-dialog" aria-label="Close">×</button></div>
+      <div class="dialog-header"><div><div class="eyebrow">SETTINGS</div><h2>Your SlateMeter.</h2></div><button class="close-dialog" aria-label="Close">×</button></div>
+      <section class="preference-block migration-note" aria-labelledby="migration-heading">
+        <h3 id="migration-heading">Moving from Sports Radar?</h3>
+        <p class="subtle">Welcome to <a href="https://slatemeter.app/">slatemeter.app</a>. Your previous browser data stays on the old address. Favorites, Watching selections, sport filters, and notification choices need to be set up here once per browser.</p>
+        <details><summary>Set up your new installation</summary><ol>
+          <li>Choose your favorite teams and home page sports below. Add individual games to Watching again.</li>
+          <li>Install SlateMeter from this address, then choose notification sports, teams, and threshold. Tap Enable notifications to grant this site its own permission.</li>
+          <li>Your old subscription is kept. To avoid duplicate alerts, turn notifications off in your old installed app when you are ready, or use your browser’s notification settings for mmueller091.github.io. Keep the old installation until you have checked your choices.</li>
+        </ol><p class="subtle">Browser-local rating history and saved pregame lines stay on the old address; they are not transferred. Available recorded Game Center history still comes from the same service. No account or sign-in is needed.</p></details>
+      </section>
       <div class="preference-block">
         <label>Favorite teams</label>
         <p class="subtle">Game-day favorites appear first. Choose your own teams; future games still rank by excitement.</p>
@@ -128,7 +143,7 @@
       <div class="preference-block"><label>Home page sports</label><p class="subtle">Choose which sports appear in the main radar. Soccer stays on its separate page.</p><div class="sport-toggles"><label class="toggle-option"><input type="checkbox" data-visible-sport="NFL" /><span>NFL</span></label><label class="toggle-option"><input type="checkbox" data-visible-sport="MLB" /><span>MLB</span></label><label class="toggle-option"><input type="checkbox" data-visible-sport="NHL" /><span>NHL</span></label><label class="toggle-option"><input type="checkbox" data-visible-sport="CFB" /><span>College Football</span></label><label class="toggle-option"><input type="checkbox" data-visible-sport="NBA" /><span>NBA</span></label><label class="toggle-option"><input type="checkbox" data-visible-sport="NCAAB" /><span>NCAAM</span></label><label class="toggle-option"><input type="checkbox" data-visible-sport="Tennis" /><span>Major tennis</span></label></div><p class="preference-note">Favorites and sport choices are saved in this browser on this device.</p></div>
       <section class="preference-block notification-settings" id="alert-preferences" aria-labelledby="notification-heading">
         <h3 id="notification-heading">Notifications</h3>
-        <p class="subtle">Get an alert when a game crosses your excitement threshold, even while Sports Radar is closed. Choose sports, individual teams, or both.</p>
+        <p class="subtle">Get an alert when a game crosses your excitement threshold, even while SlateMeter is closed. Choose sports, individual teams, or both.</p>
         <button id="alert-toggle" class="notification-master" type="button" role="switch" aria-checked="false" disabled>Enable notifications</button>
         <fieldset><legend>Sports</legend><div id="notification-sports" class="notification-sports"></div></fieldset>
         <fieldset><legend>Teams</legend><p class="subtle">Selected teams can trigger alerts even when their sport is off. The excitement threshold still applies.</p>
@@ -141,13 +156,13 @@
         <p class="preference-note" id="alert-status" role="status">Checking notification availability…</p>
       </section>
       <section class="preference-block install-settings" aria-labelledby="install-heading">
-        <h3 id="install-heading">Install Sports Radar</h3><p class="subtle">Add Sports Radar to your Home Screen for its own icon and app window. On iPhone, installation is required for notifications. Once enabled, background pushes can arrive while the app is closed.</p>
-        <p id="install-status" class="preference-note" role="status"></p><button id="settings-install-button" class="primary-button" type="button" hidden>Install Sports Radar</button>
+        <h3 id="install-heading">Install SlateMeter</h3><p class="subtle">Add SlateMeter to your Home Screen for its own icon and app window. On iPhone, installation is required for notifications. Once enabled, background pushes can arrive while the app is closed.</p>
+        <p id="install-status" class="preference-note" role="status"></p><button id="settings-install-button" class="primary-button" type="button" hidden>Install SlateMeter</button>
         <details id="install-iphone"><summary>iPhone · Safari <svg class="install-share-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 9H4v12h16V9h-3M12 16V2m-5 5 5-5 5 5" /></svg></summary><ol>
-          <li>Open Sports Radar in <strong>Safari</strong>.</li><li>Tap <strong>Share</strong> — the square with an upward arrow <svg class="install-share-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 9H4v12h16V9h-3M12 16V2m-5 5 5-5 5 5" /></svg>.</li><li>Select <strong>Add to Home Screen</strong>.</li><li>Enable <strong>Open as Web App</strong>.</li><li>Tap <strong>Add</strong>.</li><li>Open Sports Radar using its new <strong>Home Screen icon</strong>.</li><li>Open <strong>Settings &gt; Notifications</strong> in Sports Radar.</li><li>Enable notifications and grant permission.</li><li>Select preferred sports and teams.</li>
+          <li>Open SlateMeter in <strong>Safari</strong>.</li><li>Tap <strong>Share</strong> — the square with an upward arrow <svg class="install-share-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 9H4v12h16V9h-3M12 16V2m-5 5 5-5 5 5" /></svg>.</li><li>Select <strong>Add to Home Screen</strong>.</li><li>Enable <strong>Open as Web App</strong>.</li><li>Tap <strong>Add</strong>.</li><li>Open SlateMeter using its new <strong>Home Screen icon</strong>.</li><li>Open <strong>Settings &gt; Notifications</strong> in SlateMeter.</li><li>Enable notifications and grant permission.</li><li>Select preferred sports and teams.</li>
         </ol></details>
         <details id="install-android"><summary>Android · Chrome <span class="install-menu-icon" aria-hidden="true">⋮</span></summary><ol>
-          <li>Open Sports Radar in <strong>Chrome</strong>.</li><li>Tap the <strong>three-dot menu</strong> <span class="install-menu-icon" aria-hidden="true">⋮</span>.</li><li>Select <strong>Install app</strong>, <strong>Install and create shortcut</strong>, or <strong>Add to Home screen</strong>, depending on Chrome.</li><li>Confirm installation.</li><li>Open Sports Radar from its icon.</li><li>Open <strong>Settings &gt; Notifications</strong> in Sports Radar.</li><li>Enable notifications and choose sports and teams.</li>
+          <li>Open SlateMeter in <strong>Chrome</strong>.</li><li>Tap the <strong>three-dot menu</strong> <span class="install-menu-icon" aria-hidden="true">⋮</span>.</li><li>Select <strong>Install app</strong>, <strong>Install and create shortcut</strong>, or <strong>Add to Home screen</strong>, depending on Chrome.</li><li>Confirm installation.</li><li>Open SlateMeter from its icon.</li><li>Open <strong>Settings &gt; Notifications</strong> in SlateMeter.</li><li>Enable notifications and choose sports and teams.</li>
         </ol></details>
       </section>
       <div class="preference-block"><label>How ratings work</label><p class="subtle">Before play: verified stakes, team quality and form, the listed spread and total, and relevant player or matchup stories. Ordinary division games receive a small boost. During play: closeness, game time, and verified momentum swings. After play: the finish and big swings across the whole game.</p></div><button class="primary-button close-dialog">Done</button>

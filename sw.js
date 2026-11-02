@@ -1,7 +1,7 @@
-const CACHE_NAME = 'sports-radar-shell-__BUILD_REV__';
+const CACHE_NAME = 'slatemeter-shell-__BUILD_REV__';
 const REV = '__BUILD_REV__';
-const SHELL = ['./', './index.html', './styles.css', './mobile-readability.css', './scoring-runtime.js', './alert-config.js', './notifications.js', './watch-links.js', './tennis-coverage.js', './app.js',
-  './game-center.js', './teams.json', './manifest.webmanifest', './sports-radar-logo.png', './app-icon-192.png', './app-icon-512.png', './icon.svg'];
+const SHELL = ['./', './index.html', './styles.css', './mobile-readability.css', './slatemeter-theme.css', './scoring-runtime.js', './alert-config.js', './notifications.js', './watch-links.js', './tennis-coverage.js', './app.js',
+  './game-center.js', './teams.json', './manifest.webmanifest', './slatemeter-pennant-s-icon.svg', './slatemeter-pennant-s-icon.png', './slatemeter-pennant-s-favicon-32.png', './app-icon-192.png', './app-icon-512.png', './icon.svg'];
 self.addEventListener('install', event => {
   event.waitUntil(caches.open(CACHE_NAME).then(async cache => {
     // Fetch every dependency from the same published build before activation.
@@ -10,7 +10,7 @@ self.addEventListener('install', event => {
   }));
 });
 self.addEventListener('activate', event => {
-  event.waitUntil(caches.keys().then(keys => Promise.all(keys.filter(key => key.startsWith('sports-radar-shell-') && key !== CACHE_NAME).map(key => caches.delete(key)))).then(() => self.clients.claim()));
+  event.waitUntil(caches.keys().then(keys => Promise.all(keys.filter(key => (key.startsWith('sports-radar-shell-') || key.startsWith('slatemeter-shell-')) && key !== CACHE_NAME).map(key => caches.delete(key)))).then(() => self.clients.claim()));
 });
 self.addEventListener('fetch', event => {
   if (event.request.method !== 'GET') return;
@@ -29,10 +29,10 @@ self.addEventListener('fetch', event => {
 self.addEventListener('push',event => {
   let message = {};
   try { message = event.data?.json() || {}; } catch { message = {body:event.data?.text() || ''}; }
-  event.waitUntil(self.registration.showNotification(String(message.title || 'Sports Radar'),{
+  event.waitUntil(self.registration.showNotification(String(message.title || 'SlateMeter'),{
     body:String(message.body || 'A live game just reached your alert threshold.'),
     tag:String(message.tag || 'sports-radar-alert'),
-    icon:'./sports-radar-logo.png',badge:'./sports-radar-logo.png',
+    icon:'./app-icon-192.png',badge:'./slatemeter-pennant-s-favicon-32.png',
     data:{url:String(message.url || './#home'),gameId:String(message.gameId || ''),sport:String(message.sport || ''),gameKey:String(message.gameKey || '')}
   }));
 });

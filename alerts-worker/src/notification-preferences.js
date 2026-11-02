@@ -33,5 +33,5 @@ export function notificationGame(key,modelVersion) {
 }
 
 export function gameNotificationUrl(sport,id) {
-  return `https://mmueller091.github.io/sports-radar/#game/${encodeURIComponent(sport)}/${encodeURIComponent(id)}`;
+  return `https://slatemeter.app/#game/${encodeURIComponent(sport)}/${encodeURIComponent(id)}`;
 }

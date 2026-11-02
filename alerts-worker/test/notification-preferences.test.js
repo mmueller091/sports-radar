@@ -61,7 +61,7 @@ test('closed-app delivery keeps crossing, first-observation and duplicate rules 
   await checkGames(env,feed(game(90)),deliver);assert.equal(sent.length,0,'first observation is a baseline');
   await checkGames(env,feed(game(84)),deliver);await checkGames(env,feed(game(85)),deliver);
   assert.deepEqual(sent.map(x=>x.device).sort(),['legacy','sport','team']);
-  for(const push of sent){assert.equal(push.gameId,'stable-game');assert.equal(push.sport,'NFL');assert.equal(push.gameKey,'NFL:stable-game');assert.equal(push.url,'https://mmueller091.github.io/sports-radar/#game/NFL/stable-game');}
+  for(const push of sent){assert.equal(push.gameId,'stable-game');assert.equal(push.sport,'NFL');assert.equal(push.gameKey,'NFL:stable-game');assert.equal(push.url,'https://slatemeter.app/#game/NFL/stable-game');}
   await checkGames(env,feed(game(70)),deliver);await checkGames(env,feed(game(99)),deliver);assert.equal(sent.length,3,'one alert per subscription/game remains enforced');
 });
 

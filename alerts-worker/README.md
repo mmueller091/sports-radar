@@ -1,5 +1,7 @@
-# Sports Radar alert Worker
+# SlateMeter alert Worker
 Cloudflare Worker source for the one-minute Web Push service. See the repository's root README for deployment and iPhone setup.
+
+For the SlateMeter domain release, follow [the coordinated migration guide](../SLATEMETER-MIGRATION.md). No schema migration is required for that release. CORS explicitly permits `https://slatemeter.app` and the legacy `https://mmueller091.github.io` origin; the Worker URL and device authorization workflow remain unchanged.
 
 ## Central sports feed
 

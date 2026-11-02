@@ -118,7 +118,7 @@
       if(preferences.enabled && available && !subscription){preferences.enabled=false;pending=true;}
       if(pending)await queueSave();else persist();
       update();
-      note(!available?(ios?'Install Sports Radar using Safari below, then open its Home Screen icon to enable notifications.':'This browser cannot receive Web Push. Your choices are saved; use a supported installed browser app to enable notifications.'):preferences.enabled?`Notifications on at ${threshold.value}+. The server checks about once a minute, even while the app is closed.`:'Notifications off. Choose your sports and teams, then enable notifications.');
+      note(!available?(ios?'Install SlateMeter using Safari below, then open its Home Screen icon to enable notifications.':'This browser cannot receive Web Push. Your choices are saved; use a supported installed browser app to enable notifications.'):preferences.enabled?`Notifications on at ${threshold.value}+. The server checks about once a minute, even while the app is closed.`:'Notifications off. Choose your sports and teams, then enable notifications.');
     } catch(error){note(`Notification preferences need to sync: ${error.message}`);}
     finally {loading=false;update();}
   }
