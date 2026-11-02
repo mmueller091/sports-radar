@@ -1,5 +1,5 @@
 {
-  "note": "Retained artifacts; raw request-bearing tail logs excluded, sanitized observations retained; account email omitted from Worker CLI archives.",
+  "note": "Retained audit artifacts; raw request-bearing tail logs excluded. Sanitized production observations retained; account email omitted from Worker CLI archives.",
   "artifacts": {
     "adversarial-review-after.json": {
       "bytes": 1122,
@@ -205,6 +205,10 @@
       "bytes": 755,
       "sha256": "3f2b67a21f8379c3f6b0f88efd50a8628e9325d9cd9bf4659269be800b05faaf"
     },
+    "final-pages-workflow.json": {
+      "bytes": 245,
+      "sha256": "e2e06552a2ddad0f6414060cdc53056e8ed6b8a12fc8a4db8aa5de50a6a8227b"
+    },
     "final-replay.json.gz": {
       "bytes": 387994,
       "sha256": "936bf06b255423335479cb09eb85e511b5be045fd7eb7f6d0a2ea7010dfbfde1"
@@ -228,6 +232,18 @@
     "first-release-published-assets.json": {
       "bytes": 5968,
       "sha256": "e8fde56110770eae4f27bf9f9f43705ad4369c225736f8e7358715d95b2ebb6d"
+    },
+    "guard-release-build.log.gz": {
+      "bytes": 153,
+      "sha256": "e70ea62250fdafe822b21d4111bcecc4aab08fb3673e1e79abf621ac98fac103"
+    },
+    "guard-worker-active.log.gz": {
+      "bytes": 321,
+      "sha256": "254173b0d01e8352cf3b93e92ecbf732a0dffd8038df682aadd1762bf20e0052"
+    },
+    "guard-worker-release.log.gz": {
+      "bytes": 463,
+      "sha256": "c9a47e75c45d504787fc385c55ed86d9afac5d777412dd03c966a988c3a02975"
     },
     "implementation-plan.md": {
       "bytes": 3790,
@@ -341,21 +357,29 @@
       "bytes": 324,
       "sha256": "61eb12199b3985001d92ec633ab67e51a76799dacef45e11bc280d576eb68cfe"
     },
+    "production-convergence-details.json": {
+      "bytes": 3386,
+      "sha256": "f5cd4d5808f62151184483c99077f20e14fcc0470ebb9daec764f60ebdd5f4c9"
+    },
+    "production-observation.json": {
+      "bytes": 61287,
+      "sha256": "87bbf4d2214b91f83726b1ac7f4b86c9440d00c81a1099c415f2c0f0ee938c67"
+    },
     "production-pending-smoke.json": {
-      "bytes": 10199,
-      "sha256": "dba8bd07479794848edbff01cb3ddc5b6bf84a4c750b99f8302dc939b77892ff"
+      "bytes": 499,
+      "sha256": "5d5dd9b18863e869e3a5044a5126404acae9a8c1098511da72a88e5742cdf999"
     },
     "production-pending-smoke.mjs": {
       "bytes": 3637,
       "sha256": "fce3fbc095637859d10a48b80b189d7c3de3b450a147276ca0cb0eabe3aeecac"
     },
     "production-smoke-notes.md": {
-      "bytes": 9581,
-      "sha256": "e556f86ee0332f6b291aac97ac61e5f037c5790d233a3409a99b2372c532e21a"
+      "bytes": 12196,
+      "sha256": "3634b505f22625e38a1ed751428d204823609bf00fd365d366db73dc5c8eb77a"
     },
     "production-smoke.json": {
-      "bytes": 23893,
-      "sha256": "cce7bb18db494f99cfa46835fdcff4a2c98fcbc742711f478bec55381397c965"
+      "bytes": 14709,
+      "sha256": "7cf0a180e061b17eb97cb9a3399e785317be8ddc2247910aae41753333066ba2"
     },
     "production-smoke.mjs": {
       "bytes": 7920,
@@ -363,7 +387,7 @@
     },
     "published-assets.json": {
       "bytes": 5968,
-      "sha256": "e8fde56110770eae4f27bf9f9f43705ad4369c225736f8e7358715d95b2ebb6d"
+      "sha256": "af7467b7409a39945c3bf70753aa71f63cdcee1eb07c2e300636495e3859c412"
     },
     "refresh-migration-after.log.gz": {
       "bytes": 3748,
@@ -496,6 +520,14 @@
     "second-release-mlb-replay.log.gz": {
       "bytes": 94,
       "sha256": "a21535702cc7730e4206b91d5025f2650ad17f7d8cf3b07ec014f7542d387531"
+    },
+    "second-release-production-pending-smoke.json": {
+      "bytes": 10199,
+      "sha256": "dba8bd07479794848edbff01cb3ddc5b6bf84a4c750b99f8302dc939b77892ff"
+    },
+    "second-release-production-smoke.json": {
+      "bytes": 23893,
+      "sha256": "cce7bb18db494f99cfa46835fdcff4a2c98fcbc742711f478bec55381397c965"
     },
     "second-release-replay-verification.json": {
       "bytes": 1033,

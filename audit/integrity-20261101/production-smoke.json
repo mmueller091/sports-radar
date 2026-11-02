@@ -1,5 +1,5 @@
 {
-  "executedAt": "2026-11-02T04:33:54.514Z",
+  "executedAt": "2026-11-02T04:43:55.198Z",
   "base": "https://sports-radar-alerts.mmueller918.workers.dev",
   "mode": "public GET routes only; /feed may schedule its normal background refresh; no explicit refresh/check-games or notification calls",
   "rolloutObservations": [
@@ -41,110 +41,115 @@
         "degraded": false,
         "maxAgeMs": 120000
       }
+    },
+    {
+      "executedAt": "2026-11-02T04:33:54.514Z",
+      "outcome": "passed",
+      "healthModel": "2026-11-01.audit-integrity.3",
+      "feedModel": "2026-11-01.audit-integrity.3",
+      "feedUpdatedAt": "2026-11-02T04:33:26.700Z",
+      "freshness": {
+        "ageMs": 28764,
+        "stale": false,
+        "degraded": true,
+        "maxAgeMs": 120000
+      }
     }
   ],
   "requests": [
     {
       "path": "/health",
       "status": 200,
-      "startedAt": "2026-11-02T04:33:54.515Z",
-      "receivedAt": "2026-11-02T04:33:54.708Z",
+      "startedAt": "2026-11-02T04:43:55.199Z",
+      "receivedAt": "2026-11-02T04:43:55.399Z",
       "cacheControl": "no-store",
       "allowOrigin": "https://mmueller091.github.io"
     },
     {
       "path": "/feed",
       "status": 200,
-      "startedAt": "2026-11-02T04:33:54.713Z",
-      "receivedAt": "2026-11-02T04:33:54.932Z",
-      "cacheControl": "no-store",
-      "allowOrigin": "https://mmueller091.github.io"
-    },
-    {
-      "path": "/game/NBA/401909906",
-      "status": 200,
-      "startedAt": "2026-11-02T04:33:55.053Z",
-      "receivedAt": "2026-11-02T04:33:55.427Z",
+      "startedAt": "2026-11-02T04:43:55.403Z",
+      "receivedAt": "2026-11-02T04:43:55.621Z",
       "cacheControl": "no-store",
       "allowOrigin": "https://mmueller091.github.io"
     },
     {
       "path": "/game/NFL/401873026",
       "status": 200,
-      "startedAt": "2026-11-02T04:33:55.435Z",
-      "receivedAt": "2026-11-02T04:33:56.245Z",
+      "startedAt": "2026-11-02T04:43:55.757Z",
+      "receivedAt": "2026-11-02T04:43:56.457Z",
       "cacheControl": "no-store",
       "allowOrigin": "https://mmueller091.github.io"
     },
     {
       "path": "/game/MLB/401908046",
       "status": 200,
-      "startedAt": "2026-11-02T04:33:56.262Z",
-      "receivedAt": "2026-11-02T04:33:56.555Z",
+      "startedAt": "2026-11-02T04:43:56.472Z",
+      "receivedAt": "2026-11-02T04:43:57.337Z",
       "cacheControl": "no-store",
       "allowOrigin": "https://mmueller091.github.io"
     },
     {
       "path": "/game/NHL/401892614",
       "status": 200,
-      "startedAt": "2026-11-02T04:33:56.567Z",
-      "receivedAt": "2026-11-02T04:33:57.370Z",
+      "startedAt": "2026-11-02T04:43:57.364Z",
+      "receivedAt": "2026-11-02T04:43:57.828Z",
       "cacheControl": "no-store",
       "allowOrigin": "https://mmueller091.github.io"
     },
     {
       "path": "/game/CFB/401871071",
       "status": 200,
-      "startedAt": "2026-11-02T04:33:57.385Z",
-      "receivedAt": "2026-11-02T04:33:57.875Z",
+      "startedAt": "2026-11-02T04:43:57.843Z",
+      "receivedAt": "2026-11-02T04:43:58.147Z",
       "cacheControl": "no-store",
       "allowOrigin": "https://mmueller091.github.io"
     },
     {
       "path": "/game/NBA/401909896",
       "status": 200,
-      "startedAt": "2026-11-02T04:33:57.884Z",
-      "receivedAt": "2026-11-02T04:33:58.307Z",
+      "startedAt": "2026-11-02T04:43:58.153Z",
+      "receivedAt": "2026-11-02T04:43:58.501Z",
       "cacheControl": "no-store",
       "allowOrigin": "https://mmueller091.github.io"
     },
     {
       "path": "/game/NCAAB/401920982",
       "status": 200,
-      "startedAt": "2026-11-02T04:33:58.314Z",
-      "receivedAt": "2026-11-02T04:33:58.868Z",
+      "startedAt": "2026-11-02T04:43:58.511Z",
+      "receivedAt": "2026-11-02T04:43:58.859Z",
       "cacheControl": "no-store",
       "allowOrigin": "https://mmueller091.github.io"
     },
     {
       "path": "/game/Soccer/401879246",
       "status": 200,
-      "startedAt": "2026-11-02T04:33:58.879Z",
-      "receivedAt": "2026-11-02T04:33:59.176Z",
+      "startedAt": "2026-11-02T04:43:58.876Z",
+      "receivedAt": "2026-11-02T04:43:59.387Z",
       "cacheControl": "no-store",
       "allowOrigin": "https://mmueller091.github.io"
     },
     {
       "path": "/game/Tennis/187149",
       "status": 200,
-      "startedAt": "2026-11-02T04:33:59.190Z",
-      "receivedAt": "2026-11-02T04:33:59.346Z",
+      "startedAt": "2026-11-02T04:43:59.400Z",
+      "receivedAt": "2026-11-02T04:43:59.587Z",
       "cacheControl": "no-store",
       "allowOrigin": "https://mmueller091.github.io"
     },
     {
       "path": "/game/Tennis/186456",
       "status": 200,
-      "startedAt": "2026-11-02T04:33:59.347Z",
-      "receivedAt": "2026-11-02T04:33:59.481Z",
+      "startedAt": "2026-11-02T04:43:59.588Z",
+      "receivedAt": "2026-11-02T04:43:59.757Z",
       "cacheControl": "no-store",
       "allowOrigin": "https://mmueller091.github.io"
     },
     {
       "path": "/config",
       "status": 200,
-      "startedAt": "2026-11-02T04:33:59.482Z",
-      "receivedAt": "2026-11-02T04:33:59.504Z",
+      "startedAt": "2026-11-02T04:43:59.758Z",
+      "receivedAt": "2026-11-02T04:43:59.789Z",
       "cacheControl": "no-store",
       "allowOrigin": "https://mmueller091.github.io"
     }
@@ -173,105 +178,16 @@
     }
   },
   "feed": {
-    "updatedAt": "2026-11-02T04:33:26.700Z",
+    "updatedAt": "2026-11-02T04:43:40.523Z",
     "modelVersion": "2026-11-01.audit-integrity.3",
     "scoringPolicy": "live-owned-45-95-relevant-history-cfb-competition-opening-transition",
     "freshness": {
-      "ageMs": 28764,
+      "ageMs": 15523,
       "stale": false,
-      "degraded": true,
+      "degraded": false,
       "maxAgeMs": 120000
     },
-    "sourceErrors": [
-      "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892634",
-      "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892638",
-      "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892633",
-      "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892639",
-      "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892637",
-      "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892635",
-      "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892643",
-      "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892636",
-      "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892642",
-      "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892640",
-      "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892641",
-      "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892644",
-      "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892648",
-      "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892646",
-      "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892649",
-      "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892645",
-      "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892647",
-      "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892650",
-      "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892653",
-      "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892652",
-      "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892655",
-      "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892654",
-      "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892651",
-      "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892656",
-      "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892660",
-      "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892662",
-      "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892657",
-      "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892661",
-      "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892658",
-      "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892659",
-      "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892668",
-      "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892663",
-      "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892665",
-      "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892666",
-      "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892667",
-      "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892664",
-      "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892673",
-      "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892671",
-      "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892670",
-      "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892669",
-      "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892672",
-      "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892674",
-      "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909920",
-      "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892676",
-      "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892679",
-      "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892677",
-      "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892678",
-      "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892675",
-      "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909923",
-      "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909926",
-      "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909922",
-      "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909924",
-      "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909925",
-      "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909921",
-      "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909931",
-      "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909927",
-      "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909930",
-      "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909929",
-      "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909932",
-      "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909928",
-      "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909287",
-      "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909936",
-      "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909935",
-      "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909933",
-      "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909937",
-      "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909934",
-      "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909288",
-      "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909290",
-      "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909289",
-      "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909291",
-      "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909293",
-      "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909292",
-      "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909940",
-      "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909938",
-      "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909941",
-      "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909295",
-      "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909939",
-      "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909294",
-      "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909946",
-      "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909943",
-      "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909947",
-      "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909945",
-      "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909942",
-      "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909944",
-      "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909948",
-      "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909951",
-      "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909949",
-      "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909950"
-    ],
+    "sourceErrors": [],
     "gameCount": 527,
     "counts": {
       "NFL": {
@@ -301,10 +217,10 @@
         "live": 0,
         "upcoming": 51,
         "completed": 15,
-        "partial": 47,
+        "partial": 0,
         "invalid": 0,
         "complete": 0,
-        "unclassified": 19,
+        "unclassified": 66,
         "alertEligible": 0
       },
       "CFB": {
@@ -320,14 +236,14 @@
       },
       "NBA": {
         "total": 65,
-        "live": 1,
+        "live": 0,
         "upcoming": 54,
-        "completed": 10,
-        "partial": 41,
+        "completed": 11,
+        "partial": 0,
         "invalid": 0,
-        "complete": 1,
-        "unclassified": 23,
-        "alertEligible": 1
+        "complete": 0,
+        "unclassified": 65,
+        "alertEligible": 0
       },
       "NCAAB": {
         "total": 2,
@@ -364,28 +280,7 @@
       }
     },
     "internalCacheLeaks": [],
-    "liveGames": [
-      {
-        "sport": "NBA",
-        "id": "401909906",
-        "status": "End of 4th",
-        "teams": [
-          {
-            "name": "Toronto Raptors",
-            "score": "125"
-          },
-          {
-            "name": "Los Angeles Lakers",
-            "score": "131"
-          }
-        ],
-        "rating": 11,
-        "evidenceQuality": "complete",
-        "evidenceReasons": [],
-        "scoringPartial": false,
-        "alertEligible": true
-      }
-    ]
+    "liveGames": []
   },
   "tennis": {
     "count": 225,
@@ -406,29 +301,6 @@
   },
   "details": [
     {
-      "sport": "NBA",
-      "id": "401909906",
-      "state": "live",
-      "status": "End of 4th",
-      "rating": 11,
-      "modelVersion": "2026-11-01.audit-integrity.3",
-      "freshness": {
-        "updatedAt": "2026-11-02T04:33:50.559Z",
-        "canonicalUpdatedAt": "2026-11-02T04:33:26.700Z",
-        "canonicalRevision": "1793594006700:610543df-d97a-4122-928f-c41f558beb70",
-        "receivedAt": "2026-11-02T04:33:55.709Z",
-        "stale": false,
-        "statsPending": false
-      },
-      "evidenceQuality": "complete",
-      "scoringPartial": false,
-      "historySnapshots": 365,
-      "samePublication": true,
-      "canonicalRatingMatches": true,
-      "canonicalTeamsMatch": true,
-      "headerPresent": true
-    },
-    {
       "sport": "NFL",
       "id": "401873026",
       "state": "completed",
@@ -436,10 +308,10 @@
       "rating": 1,
       "modelVersion": "2026-11-01.audit-integrity.3",
       "freshness": {
-        "updatedAt": "2026-11-02T04:33:56.094Z",
-        "canonicalUpdatedAt": "2026-11-02T04:33:26.700Z",
-        "canonicalRevision": "1793594006700:610543df-d97a-4122-928f-c41f558beb70",
-        "receivedAt": "2026-11-02T04:33:56.094Z",
+        "updatedAt": "2026-11-02T04:43:45.656Z",
+        "canonicalUpdatedAt": "2026-11-02T04:43:40.523Z",
+        "canonicalRevision": "1793594620523:16dad2db-9121-48e7-aaf2-8b82eb742301",
+        "receivedAt": "2026-11-02T04:43:56.413Z",
         "stale": false,
         "statsPending": false
       },
@@ -457,10 +329,10 @@
       "rating": 35,
       "modelVersion": "2026-11-01.audit-integrity.3",
       "freshness": {
-        "updatedAt": "2026-11-02T04:33:17.413Z",
-        "canonicalUpdatedAt": "2026-11-02T04:33:26.700Z",
-        "canonicalRevision": "1793594006700:610543df-d97a-4122-928f-c41f558beb70",
-        "receivedAt": "2026-11-02T04:33:56.917Z",
+        "updatedAt": "2026-11-02T04:43:57.142Z",
+        "canonicalUpdatedAt": "2026-11-02T04:43:40.523Z",
+        "canonicalRevision": "1793594620523:16dad2db-9121-48e7-aaf2-8b82eb742301",
+        "receivedAt": "2026-11-02T04:43:57.142Z",
         "stale": false
       },
       "historySnapshots": 369,
@@ -477,10 +349,10 @@
       "rating": 74,
       "modelVersion": "2026-11-01.audit-integrity.3",
       "freshness": {
-        "updatedAt": "2026-11-02T04:33:57.211Z",
-        "canonicalUpdatedAt": "2026-11-02T04:33:26.700Z",
-        "canonicalRevision": "1793594006700:610543df-d97a-4122-928f-c41f558beb70",
-        "receivedAt": "2026-11-02T04:33:57.211Z",
+        "updatedAt": "2026-11-02T04:43:45.656Z",
+        "canonicalUpdatedAt": "2026-11-02T04:43:40.523Z",
+        "canonicalRevision": "1793594620523:16dad2db-9121-48e7-aaf2-8b82eb742301",
+        "receivedAt": "2026-11-02T04:43:58.007Z",
         "stale": false,
         "statsPending": false
       },
@@ -498,10 +370,10 @@
       "rating": 20,
       "modelVersion": "2026-11-01.audit-integrity.3",
       "freshness": {
-        "updatedAt": "2026-11-02T04:33:58.040Z",
-        "canonicalUpdatedAt": "2026-11-02T04:33:26.700Z",
-        "canonicalRevision": "1793594006700:610543df-d97a-4122-928f-c41f558beb70",
-        "receivedAt": "2026-11-02T04:33:58.040Z",
+        "updatedAt": "2026-11-02T04:43:45.297Z",
+        "canonicalUpdatedAt": "2026-11-02T04:43:40.523Z",
+        "canonicalRevision": "1793594620523:16dad2db-9121-48e7-aaf2-8b82eb742301",
+        "receivedAt": "2026-11-02T04:43:58.511Z",
         "stale": false,
         "statsPending": false
       },
@@ -519,10 +391,10 @@
       "rating": 24,
       "modelVersion": "2026-11-01.audit-integrity.3",
       "freshness": {
-        "updatedAt": "2026-11-02T04:33:58.529Z",
-        "canonicalUpdatedAt": "2026-11-02T04:33:26.700Z",
-        "canonicalRevision": "1793594006700:610543df-d97a-4122-928f-c41f558beb70",
-        "receivedAt": "2026-11-02T04:33:58.529Z",
+        "updatedAt": "2026-11-02T04:43:04.316Z",
+        "canonicalUpdatedAt": "2026-11-02T04:43:40.523Z",
+        "canonicalRevision": "1793594620523:16dad2db-9121-48e7-aaf2-8b82eb742301",
+        "receivedAt": "2026-11-02T04:43:58.813Z",
         "stale": false,
         "statsPending": false
       },
@@ -540,10 +412,10 @@
       "rating": 65,
       "modelVersion": "2026-11-01.audit-integrity.3",
       "freshness": {
-        "updatedAt": "2026-11-02T04:33:58.971Z",
-        "canonicalUpdatedAt": "2026-11-02T04:33:26.700Z",
-        "canonicalRevision": "1793594006700:610543df-d97a-4122-928f-c41f558beb70",
-        "receivedAt": "2026-11-02T04:33:58.971Z",
+        "updatedAt": "2026-11-02T04:43:04.316Z",
+        "canonicalUpdatedAt": "2026-11-02T04:43:40.523Z",
+        "canonicalRevision": "1793594620523:16dad2db-9121-48e7-aaf2-8b82eb742301",
+        "receivedAt": "2026-11-02T04:43:59.155Z",
         "stale": false,
         "statsPending": false
       },
@@ -561,10 +433,10 @@
       "rating": 36,
       "modelVersion": "2026-11-01.audit-integrity.3",
       "freshness": {
-        "updatedAt": "2026-11-02T04:33:22.042Z",
-        "canonicalUpdatedAt": "2026-11-02T04:33:26.700Z",
-        "canonicalRevision": "1793594006700:610543df-d97a-4122-928f-c41f558beb70",
-        "receivedAt": "2026-11-02T04:33:59.534Z",
+        "updatedAt": "2026-11-02T04:43:59.522Z",
+        "canonicalUpdatedAt": "2026-11-02T04:43:40.523Z",
+        "canonicalRevision": "1793594620523:16dad2db-9121-48e7-aaf2-8b82eb742301",
+        "receivedAt": "2026-11-02T04:43:59.522Z",
         "stale": false
       },
       "historySnapshots": 392,
@@ -581,9 +453,9 @@
       "rating": 36,
       "modelVersion": "2026-11-01.audit-integrity.3",
       "freshness": {
-        "updatedAt": "2026-11-02T04:33:26.700Z",
-        "canonicalUpdatedAt": "2026-11-02T04:33:26.700Z",
-        "receivedAt": "2026-11-02T04:33:59.831Z",
+        "updatedAt": "2026-11-02T04:43:40.523Z",
+        "canonicalUpdatedAt": "2026-11-02T04:43:40.523Z",
+        "receivedAt": "2026-11-02T04:44:00.048Z",
         "stale": false
       },
       "coverage": {
@@ -608,9 +480,9 @@
       "rating": 34,
       "modelVersion": "2026-11-01.audit-integrity.3",
       "freshness": {
-        "updatedAt": "2026-11-02T04:33:26.700Z",
-        "canonicalUpdatedAt": "2026-11-02T04:33:26.700Z",
-        "receivedAt": "2026-11-02T04:33:59.988Z",
+        "updatedAt": "2026-11-02T04:43:40.523Z",
+        "canonicalUpdatedAt": "2026-11-02T04:43:40.523Z",
+        "receivedAt": "2026-11-02T04:44:00.232Z",
         "stale": false
       },
       "coverage": {

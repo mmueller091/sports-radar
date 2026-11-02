@@ -1,0 +1,78 @@
+﻿[
+    {
+        "route":  "/game/NHL/401892633",
+        "checkedAt":  "2026-11-02T04:44:32.0534096Z",
+        "modelVersion":  "2026-11-01.audit-integrity.3",
+        "state":  "upcoming",
+        "rating":  49,
+        "enrichmentPending":  false,
+        "summaryValidationPending":  false,
+        "scoringPartial":  false,
+        "scoreboardPending":  false,
+        "freshness":  {
+                          "updatedAt":  "2026-11-02T04:43:52.102Z",
+                          "canonicalUpdatedAt":  "2026-11-02T04:43:40.523Z",
+                          "canonicalRevision":  "1793594620523:16dad2db-9121-48e7-aaf2-8b82eb742301",
+                          "receivedAt":  "2026-11-02T04:44:32.369Z",
+                          "stale":  false,
+                          "statsPending":  true
+                      }
+    },
+    {
+        "route":  "/game/NHL/401892679",
+        "checkedAt":  "2026-11-02T04:44:32.4571875Z",
+        "modelVersion":  "2026-11-01.audit-integrity.3",
+        "state":  "upcoming",
+        "rating":  33,
+        "enrichmentPending":  false,
+        "summaryValidationPending":  false,
+        "scoringPartial":  false,
+        "scoreboardPending":  false,
+        "freshness":  {
+                          "updatedAt":  "2026-11-02T04:43:54.604Z",
+                          "canonicalUpdatedAt":  "2026-11-02T04:43:40.523Z",
+                          "canonicalRevision":  "1793594620523:16dad2db-9121-48e7-aaf2-8b82eb742301",
+                          "receivedAt":  "2026-11-02T04:44:32.733Z",
+                          "stale":  false,
+                          "statsPending":  true
+                      }
+    },
+    {
+        "route":  "/game/NBA/401909951",
+        "checkedAt":  "2026-11-02T04:44:32.6508129Z",
+        "modelVersion":  "2026-11-01.audit-integrity.3",
+        "state":  "upcoming",
+        "rating":  30,
+        "enrichmentPending":  false,
+        "summaryValidationPending":  false,
+        "scoringPartial":  false,
+        "scoreboardPending":  false,
+        "freshness":  {
+                          "updatedAt":  "2026-11-02T04:43:52.102Z",
+                          "canonicalUpdatedAt":  "2026-11-02T04:43:40.523Z",
+                          "canonicalRevision":  "1793594620523:16dad2db-9121-48e7-aaf2-8b82eb742301",
+                          "receivedAt":  "2026-11-02T04:44:33.100Z",
+                          "stale":  false,
+                          "statsPending":  true
+                      }
+    },
+    {
+        "route":  "/game/NBA/401909906",
+        "checkedAt":  "2026-11-02T04:44:33.0795911Z",
+        "modelVersion":  "2026-11-01.audit-integrity.3",
+        "state":  "completed",
+        "rating":  51,
+        "enrichmentPending":  false,
+        "summaryValidationPending":  false,
+        "scoringPartial":  false,
+        "scoreboardPending":  false,
+        "freshness":  {
+                          "updatedAt":  "2026-11-02T04:43:45.047Z",
+                          "canonicalUpdatedAt":  "2026-11-02T04:43:40.523Z",
+                          "canonicalRevision":  "1793594620523:16dad2db-9121-48e7-aaf2-8b82eb742301",
+                          "receivedAt":  "2026-11-02T04:44:33.314Z",
+                          "stale":  false,
+                          "statsPending":  false
+                      }
+    }
+]

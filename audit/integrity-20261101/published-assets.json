@@ -1,6 +1,6 @@
 ﻿{
-    "checkedAt":  "2026-11-02T04:08:15.6643226Z",
-    "revision":  "c138f5f0e6761d3169ea54f2bcc8a15dccefaa4c",
+    "checkedAt":  "2026-11-02T04:45:20.2069572Z",
+    "revision":  "7efaea1399a99b8a310b086f3eb75f70f1a5c4a2",
     "assets":  [
                    {
                        "asset":  "alert-config.js",
@@ -26,8 +26,8 @@
                    {
                        "asset":  "app.js",
                        "status":  200,
-                       "expected":  "7acb88d1684ba5e0afdd8874d075056d150e5938fb41687a1faab9043ef391f1",
-                       "actual":  "7acb88d1684ba5e0afdd8874d075056d150e5938fb41687a1faab9043ef391f1",
+                       "expected":  "f37b686c2eecd438aa1aeb67271b6df12531d0e2a01c6b91f2da23c0482116cc",
+                       "actual":  "f37b686c2eecd438aa1aeb67271b6df12531d0e2a01c6b91f2da23c0482116cc",
                        "matches":  true
                    },
                    {
@@ -40,8 +40,8 @@
                    {
                        "asset":  "index.html",
                        "status":  200,
-                       "expected":  "365fd9a7b6b3c65a7ceb1dd0e5ba11292481e87aa505795f554969b80036a3dd",
-                       "actual":  "365fd9a7b6b3c65a7ceb1dd0e5ba11292481e87aa505795f554969b80036a3dd",
+                       "expected":  "f544f66ebd56d4b3d16c9bf06c338d6b4143d6ac09338660d8ba38ac822284d2",
+                       "actual":  "f544f66ebd56d4b3d16c9bf06c338d6b4143d6ac09338660d8ba38ac822284d2",
                        "matches":  true
                    },
                    {
@@ -89,8 +89,8 @@
                    {
                        "asset":  "sw.js",
                        "status":  200,
-                       "expected":  "54fcbd7be5a1f6e3ddadc7edeee10482d8964343a90d6cee0ccf9142a72e5f08",
-                       "actual":  "54fcbd7be5a1f6e3ddadc7edeee10482d8964343a90d6cee0ccf9142a72e5f08",
+                       "expected":  "3f04bd5a2693d0a31d6d56bbe5e4b65287a648d9128bbc140087fd2521b5c887",
+                       "actual":  "3f04bd5a2693d0a31d6d56bbe5e4b65287a648d9128bbc140087fd2521b5c887",
                        "matches":  true
                    },
                    {

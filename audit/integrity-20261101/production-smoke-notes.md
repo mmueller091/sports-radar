@@ -1,5 +1,24 @@
 # Production smoke and follow-up validation
 
+## Final guard deployment: convergence and endpoint verification passed
+
+The coordinator deployed Worker `19039379-a2f7-4639-bb09-f1306f174b15` from source commit `7efaea1399a99b8a310b086f3eb75f70f1a5c4a2` after its reported **1,097/1,097** full-suite gate. This reviewer independently verified public behavior after that deployment; Worker identity/commit and full-suite results come from the coordinator's release records.
+
+At 04:43:44 UTC, canonical feed `updatedAt=2026-11-02T04:43:40.523Z` was current-model and fresh at age 4,127 ms, with **zero enrichment-pending rows, zero validation-pending rows, and `degraded=false`**. The following full endpoint smoke passed **12 requests**, including nine representative details, health, feed, and configuration. It observed the same current publication at age 15,523 ms with **no source errors**, all 527 games on model `2026-11-01.audit-integrity.3`, matching canonical detail ratings/teams, correct notification metadata, and no leaked internal provider caches.
+
+The provider had now marked the last NBA game final, so the final count was zero live games, 213 upcoming, and 314 completed. Other sport totals are unchanged from the table below; NBA moved from one live/ten completed to zero live/eleven completed. Tennis retained all 225 matches, including **143 completed matches with legitimate partial scoreboard coverage** and 82 upcoming matches. No Tennis point-by-point history was invented. The final feed has no alert-eligible live games.
+
+Four additional public detail checks verified that the three previously mismatching future examples (`NHL:401892633`, `NHL:401892679`, `NBA:401909951`) and newly completed `NBA:401909906` cleared both migration-pending flags and temporary partial labels on their canonical games/scoreboards. The NBA final's current rating was 51. Those extra checks are stored in `production-convergence-details.json`.
+
+Exact reusable commands:
+
+```powershell
+node audit/integrity-20261101/production-pending-smoke.mjs
+node audit/integrity-20261101/production-smoke.mjs
+```
+
+Final observations are in `production-pending-smoke.json` and `production-smoke.json`. Historical observations were preserved as `first-release-production-smoke.json`, `second-release-production-smoke.json`, and `second-release-production-pending-smoke.json`; they were not rewritten to imply the earlier attempts passed. These are public GET observations, with ordinary application background/cache behavior possible. No explicit refresh/check-games or notification route was invoked, and this reviewer made no production source edits.
+
 ## Second Worker release: public routes pass; pregame compatibility issue found
 
 Worker `07b15395-b632-4db0-82e0-368f8ac635e2` served the expected model and notification version. The public smoke executed at approximately 04:33:55 UTC: **13 requests passed**, covering health, feed, configuration, and ten representative game details. Feed `updatedAt=2026-11-02T04:33:26.700Z` was current-model and fresh at age 28,764 ms. All 527 games and sampled details had model `2026-11-01.audit-integrity.3`; sampled ratings/teams matched their canonical publication. No internal provider revision/fingerprint caches leaked. Health retained the expected four alert-delivery safeguards and `notificationVersion=2026-11-01.canonical-revalidation.1`.
