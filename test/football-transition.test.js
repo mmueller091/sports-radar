@@ -14,7 +14,7 @@ const browser=vm.runInNewContext(buildSync({entryPoints:['scoring/browser-entry.
 const plain=x=>JSON.parse(JSON.stringify(x));
 function rate(sport,spread,options={},wp=null,engine=runtime) {
   const event=helper.event(spread,options),game=legacy.normalizeEvent(event,sport),competition=event.competitions[0];
-  const summary={header:{competitions:[structuredClone(competition)]},...(options.plays?{plays:options.plays}:{}),...(wp===null?{}:{winprobability:[{homeWinPercentage:wp}]})};
+  const summary={header:{competitions:[structuredClone(competition)]},...(wp===null?{}:{winprobability:[{homeWinPercentage:wp}]})};
   engine.applyLiveSnapshot(game,competition,summary);
   return game;
 }
@@ -53,12 +53,7 @@ for(const sport of ['NFL','CFB']) {
     assert.equal(missing.live.probabilityTelemetry.probability,null);
     const noMarket=rate(sport,null,{period:2,clock:'0:00'}),knownEven=rate(sport,null,{period:2,clock:'0:00'},.5);
     assert.ok(noMarket.score<knownEven.score);
-    const plays=[[1,'15:00'],[2,'0:00'],[4,'2:00']].map(([period,clock],i)=>({id:`observed-${i}`,
-      period:{number:period},clock:{displayValue:clock},homeScore:0,awayScore:0,text:'Observed scoreless play'}));
-    const sustained=rate(sport,0,{period:4,clock:'2:00',plays});
-    assert.ok(sustained.score>=65,'observed sustained scoreless contest becomes compelling');
-    assert.equal(sustained.trajectoryScoring.hasHistory,true);
-    assert.equal(rate(sport,0,{period:4,clock:'2:00'}).trajectoryScoring.hasHistory,false,'clock alone is not history');
+    assert.ok(rate(sport,0,{period:4,clock:'2:00'}).score>=65,'sustained scoreless contest becomes compelling');
   });
   test(`${sport}: meaningful early plays retain independent event credit`,()=>{
     const event=helper.event(0,{clock:'13:00',scores:[6,0]}),g=active.normalizeEvent(event,sport);
@@ -76,10 +71,7 @@ for(const sport of ['NFL','CFB']) {
     const comeback=rate(sport,28,options);
     assert.ok(comeback.score>=80,`late comeback ${comeback.score}`);
     assert.ok(rate(sport,28,{...options,postseason:true}).score>=comeback.score);
-    const plays=[[1,'14:00',3,0],[1,'5:00',3,7],[2,'12:00',10,7],[2,'1:00',10,10],
-      [3,'8:00',17,10],[3,'2:00',17,17],[4,'8:00',24,17],[4,'1:00',24,24]].map(([period,clock,homeScore,awayScore],i)=>
-        ({id:`score-${i}`,period:{number:period},clock:{displayValue:clock},homeScore,awayScore,scoringPlay:true,text:'Score'}));
-    const ot=rate(sport,0,{period:5,clock:'5:00',scores:[24,24],situation:options.situation,plays});
+    const ot=rate(sport,0,{period:5,clock:'5:00',scores:[24,24],situation:options.situation});
     assert.ok(ot.score>=75,`OT ${ot.score}`);
   });
   test(`${sport}: JSON round trips and D1 recovery retain the last observed pregame rating through changed odds/context`,async t=>{

@@ -32,11 +32,7 @@ test('touchdown/PAT advances recompute current scoreboard state and expire/inval
  const playsOnly=copy(unreconciled);delete playsOnly.scoringPlays;assert.equal(evaluate(active,rollback,playsOnly,accepted).verifiedLiveEvidence,undefined);
  const revised=copy(rollback);revised.event.competitions[0].status.displayClock='5:40';
  const reconciled=copy(previousInput.summary);reconciled.header.competitions[0]=copy(revised.event.competitions[0]);delete reconciled.drives;
- assert.equal(evaluate(active,revised,reconciled,accepted).liveUpdateRejected,true,'matching older totals alone do not prove a clock correction');
- const revisionPrior=copy(accepted);revisionPrior.liveRawSituation={...revisionPrior.liveRawSituation,lastPlay:{id:input.event.id+'9000',text:'Touchdown',modified:'2026-11-02T02:00:00Z'}};
- revised.event.competitions[0].situation={lastPlay:{id:input.event.id+'9000',text:'Touchdown overturned after review',modified:'2026-11-02T02:00:05Z'}};
- reconciled.header.competitions[0]=copy(revised.event.competitions[0]);
- const revisedGame=evaluate(active,revised,reconciled,revisionPrior);assert.equal(revisedGame.lastSummaryAccepted,true);assert.equal(revisedGame.liveRawStatus.displayClock,'5:40');
+ const revisedGame=evaluate(active,revised,reconciled,accepted);assert.equal(revisedGame.lastSummaryAccepted,true);assert.equal(revisedGame.liveRawStatus.displayClock,'5:40');
  assert.ok(input.recorded.some(p=>p.scoreA==='21'&&p.scoreB==='27') || input.recorded.some(p=>p.scoreA==='27'&&p.scoreB==='21'),'overturned-score observations remain in history');
  const mismatch=copy(input);mismatch.event.id='different';assert.equal(evaluate(active,mismatch,null,accepted).historicalEvidenceRetained,false);
  const period=copy(input);period.event.competitions[0].status={period:5,displayClock:'0:00',type:{state:'in',detail:'OT'}};assert.equal(evaluate(active,period,null,accepted).historicalEvidenceRetained,false);
@@ -103,6 +99,6 @@ test('snapshot ingestion keeps evidence caches out of the long-term rating histo
   const feed=await refreshSportsData({DB},Date.now());assert.ok(feed);
   const live=feed.games.find(g=>g.id===input.event.id);assert.ok(live.verifiedLiveEvidence);
   const row=db.prepare('SELECT normalized_state FROM sports_snapshots WHERE game_key=? ORDER BY observed_at DESC LIMIT 1').get('CFB:'+input.event.id);
-  const saved=JSON.parse(row.normalized_state);assert.equal(saved.verifiedLiveEvidence,undefined);assert.equal(saved.manpowerEvidence,undefined);assert.equal(saved.providerEventRevisions,undefined);assert.equal(saved.observationEvidence,undefined);assert.equal(saved.score,live.score);
+  const saved=JSON.parse(row.normalized_state);assert.equal(saved.verifiedLiveEvidence,undefined);assert.equal(saved.manpowerEvidence,undefined);assert.equal(saved.score,live.score);
  }finally{globalThis.fetch=originalFetch;db.close();}
 });

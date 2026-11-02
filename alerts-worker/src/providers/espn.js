@@ -1,5 +1,4 @@
 import {normalizeEvent} from '../live-game-model.js';
-import {tennisEvents,attachTennisMatch} from './tennis.js';
 const ESPN_BASE = 'https://site.api.espn.com/apis/site/v2/sports';
 const SPORT_PATHS = {NFL:'football/nfl',MLB:'baseball/mlb',NHL:'hockey/nhl',CFB:'football/college-football',NBA:'basketball/nba',NCAAB:'basketball/mens-college-basketball',Tennis:'tennis/atp',Soccer:'soccer/eng.1'};
 export const LIVE_FEEDS = [
@@ -22,7 +21,7 @@ function gamesFromScoreboard(feed,payload) {
   const leagueLogo =
     payload.leagues?.[0]?.logos?.[0]?.href;
 
-  const events = (feed.sport==='Tennis' ? tennisEvents(payload) : payload.events || [])
+  const events = (payload.events || [])
     .map(event =>
       normalizeEvent(
         event,
@@ -35,7 +34,7 @@ function gamesFromScoreboard(feed,payload) {
 
 
 
-  events.forEach(game => { game.providerPath = new URL(feed.url).pathname.split("/sports/")[1].split("/scoreboard")[0];if(feed.sport==='Tennis')attachTennisMatch(game); });
+  events.forEach(game => { game.providerPath = new URL(feed.url).pathname.split("/sports/")[1].split("/scoreboard")[0]; });
   return events;
 }
 async function fetchFeed(feed) {

@@ -75,8 +75,7 @@ for(const [id,clock,rating] of [['401873024','2:53',95],['401873031','7:00',79]]
  const event={id,season:detail.header.season,competitions:detail.header.competitions};
  const enriched=normalizeEvent(event,'NFL');enrichGame(enriched,detail,game);
  assert.match(enriched.moment,new RegExp(`^OT · ${clock}`));assert.equal(enriched.momentLabel,'Decisive play');
- assert.equal(enriched.score,rating);assert.equal(enriched.modelVersion,runtime.MODEL_VERSION);
- assert.equal(game.modelVersion,'2026-11-01.production-integrity.2','the captured observation retains its original model');
+ assert.equal(enriched.score,rating);assert.equal(enriched.modelVersion,game.modelVersion);
  assert.equal(JSON.stringify(detail),original,'history, provider periods, clocks and all input statistics remain untouched');
 });
 
@@ -101,7 +100,7 @@ test('public feed and details normalize old cached moments without writing over 
  for(const path of ['/feed','/game/NFL/401873024']){
   const response=await worker.fetch(new Request('https://example.test'+path),{DB},{});assert.equal(response.status,200);
   const body=await response.json(),actual=body.games?.[0]||body.sportsRadarGame;
-  assert.equal(actual.moment,runtime.displayMoment(game));assert.equal(actual.score,95);assert.equal(actual.modelVersion,game.modelVersion,'read-time display normalization does not relabel historical ratings');
+  assert.equal(actual.moment,runtime.displayMoment(game));assert.equal(actual.score,95);assert.equal(actual.modelVersion,runtime.MODEL_VERSION);
  }
  assert.equal(stored(),before);
  assert.equal(db.prepare('SELECT COUNT(*) AS count FROM sports_snapshots').get().count,0);

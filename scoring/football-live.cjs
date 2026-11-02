@@ -2,7 +2,7 @@
 // The legacy scorer stays frozen for historical captures and comparisons.
 const {footballPregameSpread,numberFromLine}=require('./shared/market.js');
 const {rankFor}=require('./shared/records.js');
-const {eventPosition,normalizedTime}=require('./shared/time.js');
+const {eventPosition}=require('./shared/time.js');
 const {eligibility}=require('./football-market.cjs');
 const unit=x=>Math.max(0,Math.min(1,Number(x)||0));
 const smooth=x=>{x=unit(x);return x*x*(3-2*x);};
@@ -76,11 +76,8 @@ function liveSurprise(core,game,competition,summary,historySummary=summary) {
   // Deterministic sustained evidence comes from a validated ledger, never the
   // number of polls. Reject future, duplicate, regressing or mismatched scores.
   let sustained=0;
-  const moments=(summary?.scoringPlays || []).map(play=>{
-    const observed={status:{period:play.period?.number || play.period,displayClock:play.clock?.displayValue,clock:play.clock?.value}};
-    return {play,pos:normalizedTime(game.sport,observed).elapsedSeconds===null ? null : eventPosition(game.sport,observed)};
-  });
-  let valid=moments.length>0 && normalizedTime(game.sport,competition).elapsedSeconds!==null,prior={home:0,away:0,pos:0},leadSince=null;
+  const moments=(summary?.scoringPlays || []).map(play=>({play,pos:eventPosition(game.sport,{status:{period:play.period?.number,displayClock:play.clock?.displayValue}})}));
+  let valid=moments.length>0,prior={home:0,away:0,pos:0},leadSince=null;
   for (const {play,pos} of moments) {
     const home=numeric(play.homeScore),away=numeric(play.awayScore);
     if (home===null || away===null || pos===null || pos>p+1e-8 || pos<prior.pos || home<prior.home || away<prior.away || (home>prior.home && away>prior.away) || (home===prior.home && away===prior.away)) {valid=false;break;}

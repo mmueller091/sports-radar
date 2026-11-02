@@ -1,6 +1,6 @@
 /* Shared scoring module; supports classic browser scripts and Worker/Node bundling. */
 (function (root) {
-  const {gameProgress,eventPosition,normalizedTime} = typeof module !== 'undefined' && module.exports
+  const {gameProgress,eventPosition} = typeof module !== 'undefined' && module.exports
     ? require('./time.js')
     : root.SportsRadarScoring.shared_time;
 
@@ -65,19 +65,13 @@
       const play = item?.playId == null ? null : playsById.get(String(item.playId));
       const timed = play || item;
       const period = Number(timed?.period?.number || timed?.period || 0);
-      const status={
+      const rawPosition = period ? eventPosition(sport,{status:{
         period,
         displayClock:timed?.clock?.displayValue || timed?.displayClock || '',
         clock:timed?.clock?.value ?? timed?.clockValue,
         ...(sport === 'NHL' ? {clockMode:'elapsed'} : {}),
         type:{detail:timed?.period?.displayValue || timed?.periodText || ''}
-      };
-      const positioned=period>0 && (sport==='MLB' ? /top|bottom|bot\b/i.test(status.type.detail)
-        : sport!=='Tennis' && normalizedTime(sport,{status}).elapsedSeconds!==null);
-      const explicit=item?.position ?? item?.gameProgress;
-      // A period's midpoint is a display fallback, never observed WP time.
-      const rawPosition=positioned ? eventPosition(sport,{status})
-        : explicit!=null && explicit!=='' ? Number(explicit) : null;
+      }}) : Number(item?.position ?? item?.gameProgress);
       const position = Number.isFinite(rawPosition)
         ? Math.max(0,rawPosition)
         : null;

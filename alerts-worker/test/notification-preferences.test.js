@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import {DatabaseSync} from 'node:sqlite';
 import fs from 'node:fs';
 import {generateKeyPairSync,randomBytes} from 'node:crypto';
-import worker,{checkGames as evaluateGames} from '../src/index.js';
+import worker,{checkGames} from '../src/index.js';
 import runtime from '../../scoring/live-runtime.cjs';
 import {gameDetails} from '../src/sports-feed.js';
 import {normalizeEvent,enrichGame} from '../src/live-game-model.js';
@@ -13,13 +13,8 @@ function database(t) {
   const db=new DatabaseSync(':memory:');db.exec(fs.readFileSync(new URL('../schema.sql',import.meta.url),'utf8'));t.after(()=>db.close());
   return {db,DB:{prepare(sql){let values=[];return {bind(...args){values=args;return this;},async first(){return db.prepare(sql).get(...values)||null;},async all(){return {results:db.prepare(sql).all(...values)};},async run(){return {meta:{changes:db.prepare(sql).run(...values).changes}};}};},async batch(statements){return Promise.all(statements.map(s=>s.run()));}}};
 }
-const game=(score=84)=>({id:'stable-game',sport:'NFL',state:'live',score,modelVersion:runtime.MODEL_VERSION,teams:[['Away','AWY',21,'','','','','','1'],['Home','HME',20,'','','','','','2']]});
-const feed=game=>({modelVersion:runtime.MODEL_VERSION,updatedAt:new Date().toISOString(),games:[game]});
-async function checkGames(env,value,deliver){
-  // Delivery revalidates the published canonical feed, not the caller's object.
-  env.db.prepare('INSERT OR REPLACE INTO sports_feed VALUES (1,?)').run(JSON.stringify(value));
-  return evaluateGames(env,value,deliver);
-}
+const game=(score=84)=>({id:'stable-game',sport:'NFL',state:'live',score,teams:[['Away','AWY',21,'','','','','','1'],['Home','HME',20,'','','','','','2']]});
+const feed=game=>({modelVersion:runtime.MODEL_VERSION,games:[game]});
 function subscriber(env,id,preferences,threshold=85) {
   env.db.prepare('INSERT INTO subscriptions VALUES (?,?,?,?,?,?)').run(id,'https://web.push.apple.com/'+id,'key','auth',threshold,Math.floor(Date.now()/1000));
   if(preferences)env.db.prepare('INSERT INTO notification_preferences VALUES (?,?,?,?,?,?)').run(id,Number(preferences.enabled),JSON.stringify(preferences.sports),JSON.stringify(preferences.teams),threshold,0);
@@ -78,11 +73,11 @@ test('the actual background sender encrypts and delivers through the existing We
   assert.equal(env.db.prepare('SELECT status FROM alerts').get().status,'sent');
 });
 
-test('queued delivery rechecks current preferences and threshold and cancels after final',async t=>{
+test('queued delivery rechecks current preferences and threshold, including after final',async t=>{
   const env=database(t),sent=[];subscriber(env,'disabled',prefs([],[],false));subscriber(env,'changed-sport',prefs(['NHL']));subscriber(env,'raised-threshold',prefs(['NFL']),95);subscriber(env,'eligible-final',prefs([],[team]));
   for(const id of ['disabled','changed-sport','raised-threshold','eligible-final'])env.db.prepare('INSERT INTO alerts (token_hash,game_key,score,title,body,created_at) VALUES (?,?,?,?,?,?)').run(id,runtime.MODEL_VERSION+':NFL:stable-game',90,'Reached 90','Real threshold crossing',Math.floor(Date.now()/1000));
   await checkGames(env,feed({...game(),state:'completed'}),async(env,row,message)=>{sent.push(row.token_hash);return 201;});
-  assert.deepEqual(sent,[]);assert.equal(env.db.prepare("SELECT COUNT(*) n FROM alerts WHERE status='cancelled'").get().n,4);
+  assert.deepEqual(sent,['eligible-final']);assert.equal(env.db.prepare("SELECT COUNT(*) n FROM alerts WHERE status='cancelled'").get().n,3);
 });
 
 test('master off cancels pending work and also blocks manual test pushes',async t=>{

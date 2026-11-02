@@ -1,5 +1,4 @@
 import {nhlGameCenterStats} from './providers/nhl.js';
-import {qualifyTennisCoverage,tennisDetailSummary} from './providers/tennis.js';
 import {basketballBoxScore} from './display-model.js';
 import {createCollector,summaryUrl,teamResourceUrls,coreTeamProfileUrl,teamLeadersUrl,standingsUrl} from './providers/espn.js';
 import {normalizeEvent,preservePregameRecords,preserveFootballContext,preserveFootballPregameMarket,applyContextsToGame,enrichGame} from './live-game-model.js';
@@ -1937,13 +1936,6 @@ export async function gameDetails(env,sport,id,now=Date.now()) {
     }
   }
   if (!game) return null;
-  if(sport==='Tennis'){
-    const summary=tennisDetailSummary(game);
-    if(!summary)return null;
-    return {...summary,sportsRadarGame:game,sportsRadarArchived:archived,
-      sportsRadarFreshness:{updatedAt:archived?null:feed?.updatedAt || null,canonicalUpdatedAt:feed?.updatedAt || null,
-        receivedAt:new Date(now).toISOString(),stale:archived || !feed || feed.freshness?.stale}};
-  }
   const errors = [];
   const url = summaryUrl(game);
   let resource;
@@ -1979,7 +1971,7 @@ export async function gameDetails(env,sport,id,now=Date.now()) {
     } finally {detailBudget.close();}
   }
   return runtime.canonicalDetailSummary(game,{...summary,...(nhlAdvanced ? {nhlAdvanced} : {}),...(['NBA','NCAAB'].includes(sport) ? {basketballBoxScore:basketballBoxScore(summary,sport)} : {}),
-    sportsRadarGame:{...game,scoreboard:undefined,basketballEvidence:undefined,liveInputEvidence:undefined,priorObservation:undefined,providerEventRevisions:undefined,observationEvidence:undefined},sportsRadarArchived:archived,
+    sportsRadarGame:{...game,scoreboard:undefined,basketballEvidence:undefined,liveInputEvidence:undefined,priorObservation:undefined},sportsRadarArchived:archived,
     sportsRadarFreshness:{updatedAt:new Date(resource.updatedAt).toISOString(),canonicalUpdatedAt:feed?.updatedAt || null,canonicalRevision:feed?.revision || Date.parse(feed?.updatedAt) || null,receivedAt:new Date(now).toISOString(),stale:errors.length>0 || now-resource.updatedAt>STALE_MS}});
 }
 
@@ -2085,13 +2077,10 @@ export async function refreshSportsData(env,now=Date.now(),options={}) {
     games.filter(game=>game.state==='live')
       .forEach(game=>{runtime.preserveLiveEvidence(game,priorGames.get(`${game.sport}:${game.id}`));runtime.applyLiveSnapshot(game,game.sourceCompetition,null);});
 
-    // The captured Tennis generic summary route returns HTTP 400. Its match
-    // scoreboard already contains supported sets/status; do not manufacture
-    // summary coverage or make one failing request per nested match.
-    const candidates = games.filter(game=>game.sport!=='Tennis' && summaryCandidate(game));
+    const candidates = games.filter(summaryCandidate);
     metrics.candidates=candidates.length;
     metrics.liveCandidates=candidates.filter(game=>game.state==='live').length;
-    const scoreboardStates = new Map(candidates.map(game=>[game,JSON.parse(JSON.stringify({...game,liveInputEvidence:undefined,priorObservation:undefined,providerEventRevisions:undefined,observationEvidence:undefined}))]));
+    const scoreboardStates = new Map(candidates.map(game=>[game,JSON.parse(JSON.stringify({...game,liveInputEvidence:undefined,priorObservation:undefined}))]));
     const reusedGames = new Set(), enrichment={}, deferred=[],critical=[];
     deferred.push(...nfl.deferred);
     const copyPrior = (game,prior) => {
@@ -2168,7 +2157,6 @@ export async function refreshSportsData(env,now=Date.now(),options={}) {
       await acquireCritical(critical);
     });
     games.forEach(game=>{
-      qualifyTennisCoverage(game);
       const prior = priorGames.get(`${game.sport}:${game.id}`);
       if (!game.line && prior?.line && !(game.state==='upcoming'&&['NFL','CFB'].includes(game.sport))) game.line = prior.line;
       if (scoreboardStates.has(game) && !reusedGames.has(game)) {
@@ -2196,7 +2184,7 @@ export async function refreshSportsData(env,now=Date.now(),options={}) {
         SELECT ?,?,?,?,?,?,?,?,?,?,? WHERE EXISTS (SELECT 1 FROM sports_leases WHERE key='refresh' AND owner=? AND expires_at>?
       AND expires_at>CAST((julianday('now')-2440587.5)*86400000 AS INTEGER))`)
         .bind(`${game.sport}:${game.id}`,game.state==='completed'?now:Math.floor(now/(game.state==='live'?15000:60000))*(game.state==='live'?15000:60000),
-          game.sport,game.state,game.score,String(game.teams[0][2]),String(game.teams[1][2]),String(game.liveRawStatus?.period ?? ''),String(game.liveRawStatus?.displayClock || ''),JSON.stringify({...game,scoreboard:undefined,verifiedLiveEvidence:undefined,manpowerEvidence:undefined,basketballEvidence:undefined,liveInputEvidence:undefined,priorObservation:undefined,providerEventRevisions:undefined,observationEvidence:undefined}),MODEL_VERSION,owner,budget.time()));
+          game.sport,game.state,game.score,String(game.teams[0][2]),String(game.teams[1][2]),String(game.liveRawStatus?.period ?? ''),String(game.liveRawStatus?.displayClock || ''),JSON.stringify({...game,scoreboard:undefined,verifiedLiveEvidence:undefined,manpowerEvidence:undefined,basketballEvidence:undefined,liveInputEvidence:undefined,priorObservation:undefined}),MODEL_VERSION,owner,budget.time()));
       for(let start=0;start<writes.length;start+=50){budget.check();await env.DB.batch(writes.slice(start,start+50));}
     });
     committed=await publishFeed(env,feed,owner,()=>{budget.check();return budget.time();},stage);

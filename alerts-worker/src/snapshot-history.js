@@ -114,10 +114,6 @@ export function snapshotEvidence(normalized,state) {
   if(normalized.liveUpdateRejected || normalized.basketballUpdateRejected ||
      normalized.summaryLifecycleRejected || normalized.scoringHistoryRejected)
     return {evidenceQuality:'invalid'};
-  if(normalized.evidenceQuality==='invalid')return {evidenceQuality:'invalid'};
-  if(normalized.evidenceQuality==='partial')return {evidenceQuality:'partial'};
-  if(normalized.evidenceQuality==='complete')return {evidenceQuality:'verified'};
-  if(normalized.historyOwnership?.relevance?.ledgerMatches===false)return {evidenceQuality:'partial'};
   if(normalized.scoringPartial && !normalized.sameStateEvidenceRetained)
     return {evidenceQuality:'partial'};
   if(state==='completed'){

@@ -78,7 +78,7 @@ function soccerDetails(cardTeam,shotTeam) {
   }]}))},plays:shotTeam ? [
     'Breakaway saved by goalkeeper','Shot hit the post',
     'Close range shot on goal','Shot hit the crossbar'
-  ].map((text,index) => ({id:`chance-${index}`,period:{number:2},clock:{displayValue:'90+1'},text,team:{id:shotTeam}})) : []};
+  ].map(text => ({text,team:{id:shotTeam}})) : []};
 }
 
 test('Soccer leader red card and trailing pressure outrank leader pressure',() => {
@@ -98,8 +98,8 @@ test('Soccer leader red card and trailing pressure outrank leader pressure',() =
   unattributed.plays.forEach(play => { delete play.team; });
   assert.equal(
     core.dangerousChanceImpact('Soccer',unattributed,.99,1,comp).points,
-    core.dangerousChanceImpact('Soccer',unattributed,.99,1,{status}).points,
-    'timed unattributed chances retain generic scoring'
+    core.dangerousChanceImpact('Soccer',unattributed,.99,1).points,
+    'unattributed chances retain generic scoring'
   );
 });
 
@@ -125,7 +125,7 @@ test('MLB decisive plate appearance includes the road team in the ninth and extr
   const bottom = {period:9,type:{state:'in',detail:'Bottom 9th'}};
   const atPlate = {outs:2,count:'3-2',onFirst:false,onSecond:false,onThird:false};
   const impact = (home,away,status,situation) => core.baseballSituationImpact(
-    {sport:'MLB',state:'live',teams:[['Home','HME',String(home),'','','','','','h'],
+    {sport:'MLB',teams:[['Home','HME',String(home),'','','','','','h'],
       ['Away','AWY',String(away),'','','','','','a']]},
     competition(home,away,status,situation),status,situation,.98,Math.abs(home-away));
   const road = impact(5,4,top(9),atPlate);
@@ -144,8 +144,8 @@ test('MLB decisive plate appearance includes the road team in the ninth and extr
   assert.ok(roadRated.bonus >= 19);
   assert.ok(roadRated.score >= outRated.score + 8);
   assert.ok(roadRated.score >= leaderRated.score + 5);
-  const first = impact(5,4,top(9),{outs:1,count:'1-1',onFirst:true,onSecond:false,onThird:false});
-  const second = impact(5,4,top(9),{outs:1,count:'1-1',onFirst:false,onSecond:true,onThird:false});
+  const first = impact(5,4,top(9),{outs:1,count:'1-1',onFirst:true});
+  const second = impact(5,4,top(9),{outs:1,count:'1-1',onSecond:true});
   assert.ok(second.competitiveFloor > first.competitiveFloor);
 });
 

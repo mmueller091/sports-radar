@@ -51,22 +51,8 @@ const sustained = game({
   scores:[[.08,2,0],[.18,2,3],[.32,5,3],[.48,5,6],[.64,8,6],[.78,8,9],[.94,11,9],[.99,11,12]],
   wp:[[.03,.50],[.18,.43],[.32,.56],[.48,.46],[.64,.57],[.78,.45],[.94,.62],[.99,.48]]
 });
-// Explicit legal single-point scoring events between the chosen synthetic
-// score checkpoints; a seven-point NBA jump is an incomplete ledger, not a play.
-function basketballScores(checkpoints) {
-  let home=0,away=0,start=0;const scores=[];
-  for(const [end,targetHome,targetAway] of checkpoints) {
-    const count=targetHome-home+targetAway-away;let index=0;
-    while(home<targetHome || away<targetAway) {
-      if(home<targetHome)home++;else away++;
-      scores.push([start+(end-start)*(++index/count),home,away]);
-    }
-    start=end;
-  }
-  return scores;
-}
 const lateChaos = game({
-  scores:basketballScores([[.08,7,0],[.25,14,0],[.48,21,3],[.72,28,6],[.84,28,14],[.91,28,21],[.97,28,27],[.995,30,31]]),
+  scores:[[.08,7,0],[.25,14,0],[.48,21,3],[.72,28,6],[.84,28,14],[.91,28,21],[.97,28,27],[.995,30,31]],
   wp:[[.03,.72],[.25,.91],[.48,.96],[.72,.97],[.84,.90],[.91,.75],[.97,.58],[.995,.47]]
 });
 
@@ -83,9 +69,7 @@ test('sustained classic is distinct from late concentrated chaos', () => {
 });
 
 test('win probability distinguishes false-close from genuinely uncertain score margins', () => {
-  // Every scoring record advances only one side; aggregate score checkpoints
-  // cannot assert the missing path between simultaneous changes to both sides.
-  const scores = [[.1,2,0],[.34,2,2],[.35,4,2],[.59,4,4],[.6,6,4],[.84,6,6],[.85,8,6],[.98,8,8],[.99,10,8]];
+  const scores = [[.1,2,0],[.35,4,2],[.6,6,4],[.85,8,6],[.99,10,8]];
   const falseClose = analyzeTrajectory('NBA',game({scores,wp:[[.05,.88],[.3,.91],[.55,.93],[.8,.90],[.99,.89]]}));
   const uncertain = analyzeTrajectory('NBA',game({scores,wp:[[.05,.52],[.3,.48],[.55,.55],[.8,.46],[.99,.51]]}));
   assert.ok(falseClose.dominantShare > uncertain.dominantShare,{falseClose,uncertain});

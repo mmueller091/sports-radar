@@ -206,7 +206,7 @@
     situation:({competition,summary,status,progress,scoreGap}) =>
       soccerSituationImpact(competition,summary,status,progress,scoreGap),
     milestone:soccerScoringMilestone,
-    pressure:{sport:'Soccer',maxGap:1,recentSeconds:300,weight:soccerPressureWeight},
+    pressure:{maxGap:1,weight:soccerPressureWeight},
     history:{threshold:2,units:'goals'}
   };
 

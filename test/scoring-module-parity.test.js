@@ -51,9 +51,7 @@ for (const sport of sports) {
           };
           const event = {name:late ? 'Championship - Game 7 - winner advances' : 'Rivalry matchup',season:{type:late ? 3 : 2}};
           const teams = competition.competitors.map(item => ({...item,id:item.team.id,pregameRecord:item.homeAway === 'home' ? '6-0' : '5-1'}));
-          // Basketball parity uses an event observed at the displayed clock.
-          // Future event exclusion is tested separately below.
-          const plays = Array.from({length:12}, (_, i) => ({homeScore:i % 2 ? i*2 : i*2+3,awayScore:i*2+1,period:{number:Math.max(1,Math.round((i+1)/12*regulation))},clock:{displayValue:i > 8 ? (['NBA','NCAAB'].includes(sport) ? '0:12' : '0:10') : '5:00'},scoringPlay:true,text:i === 11 ? 'Game-winning touchdown at the buzzer' : 'Score'}));
+          const plays = Array.from({length:12}, (_, i) => ({homeScore:i % 2 ? i*2 : i*2+3,awayScore:i*2+1,period:{number:Math.max(1,Math.round((i+1)/12*regulation))},clock:{displayValue:i > 8 ? '0:10' : '5:00'},scoringPlay:true,text:i === 11 ? 'Game-winning touchdown at the buzzer' : 'Score'}));
           const summary = {header:{competitions:[competition]},plays,scoringPlays:plays,winprobability:[.1,.7,.2,.8,.3,.6,.4,.5].map(homeWinPercentage => ({homeWinPercentage}))};
           const evaluate = core => {
             const comp = structuredClone(competition);
@@ -80,14 +78,6 @@ for (const sport of sports) {
             if (state === 'completed' || state === 'live' && !late) same(actual.rating,expected.rating,`NFL ${state} rating`);
             same(actual.history,expected.history,`NFL ${state} history`);
             same(inBrowser,actual,`NFL ${state} gap=${gap} late=${late} browser/Node`);
-          } else if (sport === 'MLB' && state==='live' && late && gap>0 && gap<=4) {
-            // C2: these loaded-base plate appearances intentionally differ
-            // from the extraction oracle. All historical components remain
-            // pinned, and both current runtimes must match the corrected state.
-            same(actual.history,expected.history,`MLB ${state} history`);
-            assert.ok(actual.rating.score>expected.rating.score,`MLB reachable deficit ${gap}`);
-            assert.ok(actual.snapshot.reasons.some(r=>/tying run|winning run/i.test(r)));
-            same(inBrowser,actual,`MLB ${state} gap=${gap} late=${late} browser/Node`);
           } else if (sport === 'CFB') {
             // Live and completed calibrations are independently tested against
             // their immediate baselines; pregame and shared history stay pinned.
@@ -109,20 +99,6 @@ for (const sport of sports) {
     }
   });
 }
-
-test('basketball current event shock excludes a future play in Node and browser', () => {
-  for (const [sport,period] of [['NBA',4],['NCAAB',2]]) {
-    const status={period,displayClock:'0:12'};
-    const play={period:{number:period},clock:{displayValue:'0:12'},text:'Buzzer-beater three ties the game'};
-    const observed={plays:[play]},future={plays:[{...play,clock:{displayValue:'0:10'}}]};
-    assert.equal(before.eventShockImpact(sport,observed,status).points,10);
-    assert.ok(before.eventShockImpact(sport,future,status).points>0,'archived code admitted the future event');
-    for (const core of [current,browser]) {
-      assert.equal(core.eventShockImpact(sport,observed,status).points,10,`${sport} observed event remains credited`);
-      assert.equal(core.eventShockImpact(sport,future,status).points,0,`${sport} future event cannot earn current shock`);
-    }
-  }
-});
 
 test('state-model boundary parity includes missing margins, clocks, probabilities and unknown sports', () => {
   for (const sport of [...sports, 'Unknown']) {

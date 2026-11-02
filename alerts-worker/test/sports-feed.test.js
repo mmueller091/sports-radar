@@ -221,8 +221,7 @@ test('central refresh, API, shared alerts, history, failures and CORS',async t=>
   assert.deepEqual(await (await worker.fetch(new Request('https://test/contexts?games=NFL:42'),env)).json(),{contexts:{}});
   env.db.prepare('INSERT INTO subscriptions VALUES (?,?,?,?,?,?)').run('device','https://example.test','key','auth',99,now);
   await checkGames(env,feed);
-  assert.equal(feed.games[0].scoringPartial,true,'the header-only summary cannot certify a 24–23 scoring history');
-  assert.equal(env.db.prepare('SELECT score FROM game_state WHERE game_key=?').get(`${MODEL_VERSION}:NFL:42`),undefined,'partial evidence cannot establish an alert crossing baseline');
+  assert.equal(env.db.prepare('SELECT score FROM game_state WHERE game_key=?').get(`${MODEL_VERSION}:NFL:42`).score,feed.games[0].score);
   assert.equal(calls.length,afterDemandRefresh,'alert evaluation does not acquire sports data');
   globalThis.fetch=async()=>{throw new Error('ESPN unavailable');};
   assert.equal(await refreshSportsData(env,now+180000),null);

@@ -23,20 +23,16 @@ test('reported CFB finals retain competitive paths consistently with margin and 
  assert.ok(s(cfb.cases.I)>=80);assert.ok(s(cfb.cases.T)>s(cfb.cases.U)+20);
 });
 
-test('settled CFB live urgency stays separate from the provisional and final game-quality assessment',()=>{
+test('settled CFB live-to-final boundary preserves the verified path without a final-whistle spike',()=>{
  for(const id of ['401868342','401867861','401856842']){
-  const f=helper.read(`CFB-${id}`),final=helper.score(active,f.event,f.summary,'CFB');
+  const f=helper.read(`CFB-${id}`),final=helper.score(active,f.event,f.summary,'CFB');let previous=null;
   for(const seconds of [120,90,60,30,10,1,0]){
    const e=structuredClone(f.event),s=structuredClone(f.summary),c=e.competitions[0];
    c.status={period:4,displayClock:`${Math.floor(seconds/60)}:${String(seconds%60).padStart(2,'0')}`,type:{state:'in',completed:false,detail:'4th Quarter'}};
    c.situation={};s.header.competitions[0]=structuredClone(c);
    const g=helper.score(active,e,s,'CFB');
-   assert.equal(g.factors.some(f=>f.label==='Competitive path retained as clock expires'),false);
-   if(seconds<=1) {
-    assert.equal(g.gameQualitySoFar.provisional,true);
-    assert.equal(g.gameQualitySoFar.score,final.score,`${id} observed game-quality assessment`);
-    assert.ok(g.score<g.gameQualitySoFar.score,`${id} live urgency is distinct from retrospective quality`);
-   }
+   assert.ok(g.score<=final.score+2);if(previous!==null)assert.ok(Math.abs(g.score-previous)<=20);previous=g.score;
+   if(seconds<=1)assert.ok(Math.abs(g.score-final.score)<=2,`${id} ${g.score} -> ${final.score}`);
   }
  }
 });

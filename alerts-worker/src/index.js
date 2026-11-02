@@ -5,8 +5,7 @@ import {readFeed,withFreshness,gameDetails,teamDetails,teamStandings,refreshDue,
 import {gameHistory} from './snapshot-history.js';
 import {cfbConferenceMetadata,cfbSeason} from './cfb-metadata.js';
 import runtime from '../../scoring/live-runtime.cjs';
-import {normalizeNotificationPreferences,preferencesForRow,notificationEligible} from './notification-preferences.js';
-import {ALERT_DELIVERY_VERSION,ALERT_MAX_AGE_MS,currentAlertGame,notificationCopy,drainAlerts} from './alert-delivery.js';
+import {normalizeNotificationPreferences,preferencesForRow,notificationEligible,notificationGame,gameNotificationUrl} from './notification-preferences.js';
 
 const {rateGame,applyLiveSnapshot,recordFor,rankFor,clampScore,underdogCandidate,upsetImpact,gameProgress,momentumImpact} = globalThis.SportsRadarScore;
 const ORIGIN = 'https://mmueller091.github.io';
@@ -52,8 +51,8 @@ async function checkGames(env,feed,deliver=sendPush) {
   if (feed?.modelVersion !== runtime.MODEL_VERSION) return;
   const now = Math.floor(Date.now()/1000);
   const subscribers = (await env.DB.prepare('SELECT s.*,p.enabled,p.sports_json,p.teams_json FROM subscriptions s LEFT JOIN notification_preferences p ON p.token_hash=s.token_hash LIMIT 200').all()).results || [];
-  if (!subscribers.length) { await drainAlerts(env,()=>readFeed(env),deliver);return; }
-  const items = (feed?.games || []).filter(game=>currentAlertGame(feed,game)).map(game=>({key:`${game.sport}:${game.id}`,game}));
+  if (!subscribers.length) return;
+  const items = (feed?.games || []).filter(game=>game.state==='live' && !game.detailStale).map(game=>({key:`${game.sport}:${game.id}`,game,rating:{reason:game.why,momentumText:game.momentumText,upsetText:game.upsetText}}));
   const stateKey = item => `${runtime.MODEL_VERSION}:${item.key}`;
   const previous = new Map(((await env.DB.prepare('SELECT game_key, score FROM game_state WHERE seen_at > ?').bind(now-172800).all()).results || []).map(row => [row.game_key,row.score]));
   const writes = items.map(item => env.DB.prepare('INSERT INTO game_state (game_key, score, seen_at) VALUES (?, ?, ?) ON CONFLICT(game_key) DO UPDATE SET score=excluded.score, seen_at=excluded.seen_at').bind(stateKey(item),item.game.score,now));
@@ -65,15 +64,32 @@ async function checkGames(env,feed,deliver=sendPush) {
     const score = clampScore(item.game.score);
     for (const sub of subscribers) {
       if (notificationEligible(item.game,preferencesForRow(sub)) && prior < sub.threshold && score >= sub.threshold) {
-        const {title,body}=notificationCopy(item.game);
-        pending.push(env.DB.prepare(`INSERT INTO alerts (token_hash, game_key, score, title, body, created_at) VALUES (?, ?, ?, ?, ?, ?)
-          ON CONFLICT(token_hash,game_key) DO UPDATE SET score=excluded.score,title=excluded.title,body=excluded.body,created_at=excluded.created_at,status='pending'
-          WHERE alerts.status='cancelled'`).bind(sub.token_hash,stateKey(item),score,title,body,now));
+        const names = item.game.teams.map(team => team[0]).join(' vs ');
+        const reason = [item.rating.momentumText,item.rating.upsetText].filter(Boolean).join('. ') || item.rating.reason || 'The game has become more exciting.';
+        pending.push(env.DB.prepare('INSERT OR IGNORE INTO alerts (token_hash, game_key, score, title, body, created_at) VALUES (?, ?, ?, ?, ?, ?)').bind(sub.token_hash,stateKey(item),score,`${names} · ${score}`,reason.slice(0,230),now));
       }
     }
   }
   for (let start=0;start<pending.length;start+=50) await env.DB.batch(pending.slice(start,start+50));
-  await drainAlerts(env,()=>readFeed(env),deliver);
+  const queued = (await env.DB.prepare("SELECT a.token_hash,a.game_key,a.score,a.title,a.body,s.endpoint,s.p256dh,s.auth,s.threshold,p.enabled,p.sports_json,p.teams_json FROM alerts a JOIN subscriptions s ON s.token_hash=a.token_hash LEFT JOIN notification_preferences p ON p.token_hash=s.token_hash WHERE a.status='pending' AND a.game_key LIKE ? ORDER BY a.created_at LIMIT 10").bind(`${runtime.MODEL_VERSION}:%`).all()).results || [];
+  for (const row of queued) {
+    try {
+      const identity=notificationGame(row.game_key,runtime.MODEL_VERSION);
+      let game=identity && feed.games.find(game=>game.sport===identity.sport && String(game.id)===identity.gameId);
+      if (identity && !game) {
+        const snapshot=await env.DB.prepare('SELECT normalized_state FROM sports_snapshots WHERE game_key=? ORDER BY observed_at DESC LIMIT 1').bind(identity.gameKey).first();
+        if (snapshot) game=JSON.parse(snapshot.normalized_state);
+      }
+      if (!game || row.score<row.threshold || !notificationEligible(game,preferencesForRow(row))) {
+        await env.DB.prepare("UPDATE alerts SET status='cancelled' WHERE token_hash=? AND game_key=?").bind(row.token_hash,row.game_key).run();
+        continue;
+      }
+      const status = await deliver(env,row,{title:row.title,body:row.body,tag:identity.gameKey,...identity,url:gameNotificationUrl(identity.sport,identity.gameId)});
+      if (status >= 200 && status < 300) await env.DB.prepare("UPDATE alerts SET status='sent' WHERE token_hash=? AND game_key=?").bind(row.token_hash,row.game_key).run();
+      else if (status === 404 || status === 410) { await env.DB.prepare('DELETE FROM subscriptions WHERE token_hash=?').bind(row.token_hash).run(); await env.DB.prepare('DELETE FROM alerts WHERE token_hash=?').bind(row.token_hash).run(); }
+      else console.error('Push rejected',status,row.game_key);
+    } catch (error) { console.error('Push failed',row.game_key,String(error)); }
+  }
   await env.DB.prepare('DELETE FROM game_state WHERE seen_at < ?').bind(now-604800).run();
   await env.DB.prepare('DELETE FROM alerts WHERE created_at < ?').bind(now-604800).run();
 }
@@ -98,8 +114,8 @@ export default {
         if (refreshDue(feed)) {
           feed = await requestFeedRefresh(env,feed,ctx);
         }
-        return reply(request,feed ? {...feed,games:feed.games.map(game=>({...game,...(game.moment?{moment:runtime.displayMoment(game)}:{}),basketballEvidence:undefined,providerEventRevisions:undefined,observationEvidence:undefined,
-          ...(game.scoreboard?{scoreboard:{...game.scoreboard,basketballEvidence:undefined,providerEventRevisions:undefined,observationEvidence:undefined}}:{})}))} : {error:'Feed is warming up'},feed ? 200 : 503);
+        return reply(request,feed ? {...feed,games:feed.games.map(game=>({...game,...(game.moment?{moment:runtime.displayMoment(game)}:{}),basketballEvidence:undefined,
+          ...(game.scoreboard?.basketballEvidence?{scoreboard:{...game.scoreboard,basketballEvidence:undefined}}:{})}))} : {error:'Feed is warming up'},feed ? 200 : 503);
       } catch { return reply(request,{error:'Feed temporarily unavailable'},503); }
     }
     const detail = /^\/game\/([A-Za-z]+)\/([A-Za-z0-9_-]{1,100})$/.exec(url.pathname);
@@ -140,7 +156,7 @@ export default {
     if (url.pathname === '/config' && request.method === 'GET') return reply(request,{publicKey:env.VAPID_SERVER_PUBLIC_KEY || '',pollSeconds:60});
     if (url.pathname === '/health' && request.method === 'GET') {
       const research = await env.DB.prepare('SELECT last_run,candidates,articles,factors,ai_used,last_error FROM research_status WHERE id=1').first().catch(() => null);
-      return reply(request,{ok:true,notificationVersion:ALERT_DELIVERY_VERSION,alertDelivery:{canonicalRevalidation:true,atomicClaim:true,maxQueueAgeMs:ALERT_MAX_AGE_MS,ambiguousRetry:false},modelVersion:runtime.MODEL_VERSION,scoringPolicy:runtime.POLICY_ID,storylines:{enabled:true,source:'league news + Workers AI free allocation',lastRun:research?.last_run || null,candidates:research?.candidates || 0,articles:research?.articles || 0,factors:research?.factors || 0,aiUsed:Boolean(research?.ai_used),lastError:research?.last_error || null}});
+      return reply(request,{ok:true,notificationVersion:'2026-10-30.preferences-links.1',modelVersion:runtime.MODEL_VERSION,scoringPolicy:runtime.POLICY_ID,storylines:{enabled:true,source:'league news + Workers AI free allocation',lastRun:research?.last_run || null,candidates:research?.candidates || 0,articles:research?.articles || 0,factors:research?.factors || 0,aiUsed:Boolean(research?.ai_used),lastError:research?.last_error || null}});
     }
     if (url.pathname === '/contexts' && request.method === 'GET') {
       const games = String(url.searchParams.get('games') || '').split(',').map(value => value.trim()).filter(Boolean);
