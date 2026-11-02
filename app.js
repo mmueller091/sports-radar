@@ -4577,6 +4577,7 @@ function recordRatingSnapshot(game) {
     {
       at:now,
       score:game.score,
+      state:game.state,
       modelVersion:game.modelVersion || 'legacy',
       phase:
         game.live?.phase ||
@@ -4951,8 +4952,9 @@ function recordedTimelinePoints(game,summary,format) {
       point.state === 'upcoming'
     );
 
+  const geometryPoints = live.filter(point=>point.state==='live');
   const periodTotals = new Map();
-  for (let point of live) {
+  for (const point of geometryPoints) {
     const period = Number(point.period);
     if (Number.isFinite(period) && period > 0) {
       periodTotals.set(
@@ -4963,8 +4965,8 @@ function recordedTimelinePoints(game,summary,format) {
   }
 
   const periodSeen = new Map();
-  const firstAt = Number(live[0].observedAt);
-  const lastAt = Number(live[live.length - 1].observedAt);
+  const firstAt = Number((geometryPoints[0] || live[0]).observedAt);
+  const lastAt = Number((geometryPoints.at(-1) || live.at(-1)).observedAt);
   const observedSpan = Math.max(1,lastAt - firstAt);
   const points = [];
 
@@ -4988,7 +4990,7 @@ function recordedTimelinePoints(game,summary,format) {
   for (let point of live) {
     const period = Number(point.period);
     const seen = (periodSeen.get(period) || 0) + 1;
-    periodSeen.set(period,seen);
+    if(point.state==='live')periodSeen.set(period,seen);
 
     const ordinal =
       seen /
@@ -5027,7 +5029,7 @@ function recordedTimelinePoints(game,summary,format) {
       if (x < lastX) point = {...point,clockRevision:true};
     }
 
-    lastX = x;
+    if(point.state==='live')lastX = x;
 
     const phase =
       String(point.phaseLabel || '')
@@ -5083,8 +5085,11 @@ function recordedTimelinePoints(game,summary,format) {
       score:Number(point.rating),
       ratingKind:point.state==='completed'?'final':point.state,
       incomplete:point.evidenceQuality==='partial',
+      invalid:point.evidenceQuality==='invalid' || point.integrityIssue===true,
+      evidenceQuality:point.evidenceQuality,
+      scoreA:point.scoreA,scoreB:point.scoreB,
       breakBefore:point.clockRevision===true || point.integrityIssue===true,
-      label:point.state==='completed'?'Final assessment':label,
+      label:point.state==='completed'?'Earlier final rating':label,
       text:
         scoreText
           ? `${scoreText} \u00b7 Recorded by Sports Radar`
@@ -5199,7 +5204,7 @@ function recordedTimelinePoints(game,summary,format) {
     localAdded++;
   }
 
-  if (points.length < 2) return null;
+  if (!points.length) return null;
 
   const domainEnd =
     Math.max(
@@ -5282,13 +5287,6 @@ function timelinePoints(game,summary) {
 
   if (events.length) {
     const finalEvent = events[events.length-1];
-    const scores = timelineFinalScores(game,summary);
-    const structured = scores.home !== null && scores.away !== null;
-    const matchesFinal = structured ? finalEvent.home === scores.home && finalEvent.away === scores.away
-      : /game[- ]winning|walk.off|last.second/i.test(finalEvent.text)
-        || (game.sport === 'NHL' && finalEvent.home !== finalEvent.away && /overtime goal/i.test(finalEvent.text));
-    const terminal = game.state === 'completed' && finalEvent.overtime && matchesFinal;
-    if (terminal) { finalEvent.score = game.score; finalEvent.modelVersion = game.modelVersion || 'legacy'; finalEvent.ratingKind='final'; }
     const status = game.liveRawStatus || summary?.header?.competitions?.[0]?.status || {};
     const currentPosition = timelineEventPosition(game,{
       period:status.period,clock:{displayValue:status.displayClock,value:status.clock}
@@ -5297,7 +5295,7 @@ function timelinePoints(game,summary) {
       game.state === 'completed' ? format.regulation : 0);
     const points = [{x:0,score:game.openingScore || SPORT_BASE[game.sport] || 35,
       label:'Start',text:'Opening estimate'},...events];
-    if (!terminal && (endX > finalEvent.x || game.score !== finalEvent.score)) {
+    if (game.state==='live' && (endX > finalEvent.x || game.score !== finalEvent.score)) {
       points.push({x:endX,score:game.score,modelVersion:game.modelVersion || 'legacy',ratingKind:game.state==='completed'?'final':'live',
         label:game.state === 'completed' ? 'Final'
           : format.periods && Number(status.period)>format.periods
@@ -5323,7 +5321,8 @@ function timelinePoints(game,summary) {
     )
       .filter(point =>
         Number.isFinite(point.at) &&
-        Number.isFinite(point.score)
+        Number.isFinite(point.score) &&
+        point.state !== 'completed' && !/\bfinal\b/i.test(point.phase || '')
       );
 
   if (
@@ -5370,6 +5369,7 @@ function timelinePoints(game,summary) {
 
         text:
           'Observed rating',
+        ratingKind:'live',local:true,observedAt:point.at,
         modelVersion:point.modelVersion || 'legacy'
       })),
 
@@ -5380,8 +5380,57 @@ function timelinePoints(game,summary) {
 
 function timelineComparable(point,previous) {
   return Boolean(previous) && point.ratingKind!=='final' && previous.ratingKind!=='final' &&
-    !point.incomplete && !previous.incomplete && !point.breakBefore &&
+    !point.incomplete && !previous.incomplete && !point.invalid && !previous.invalid && !point.breakBefore &&
     (point.modelVersion || 'legacy') === (previous.modelVersion || 'legacy');
+}
+
+function timelinePresentation(game,timeline) {
+  const points=[],groups=new Map();
+  const completed=game.state==='completed';
+  const pending=Boolean(game.scoringPartial || game.summaryLifecycleRejected || game.scoringHistoryRejected);
+  const current=game.score!=null && Number.isFinite(Number(game.score)) && !pending ? Number(game.score) : null;
+  const scores=game.teams?.map(team=>String(team[2]));
+  let gap=false;
+  for(const point of timeline.points){
+    const unreliable=point.invalid || point.incomplete;
+    if(point.ratingKind!=='final' && !unreliable){
+      points.push({...point,breakBefore:point.breakBefore || gap});
+      gap=false;continue;
+    }
+    gap=true;
+    const sameScores=scores?.length===2 && point.scoreA!=null && point.scoreB!=null &&
+      String(point.scoreA)===scores[0] && String(point.scoreB)===scores[1];
+    const kind=point.invalid?'invalid':point.incomplete?'partial':completed && current===null?'previous':
+      completed && current===point.score && sameScores ? 'matching':'superseded';
+    const scoreText=point.scoreA!=null && point.scoreB!=null ? `${point.scoreA}–${point.scoreB}` : '';
+    const reason=kind==='invalid'?'Conflicting game data; not used.':
+      kind==='partial'?'Missing game data; not used.':
+      kind==='matching'?'Matches the current final rating.':
+      kind==='previous'?'Final rating is awaiting complete data.':
+      !completed?'Play resumed after this update.':
+      !sameScores && scoreText && scores?.length===2?`Score later corrected from ${scoreText} to ${scores.join('–')}.`:
+      'Replaced by the current final rating.';
+    // Group only the display. Every original observation remains in records.
+    const key=JSON.stringify([kind,point.ratingKind,point.score,scoreText,
+      point.ratingKind==='final'?'':point.label]);
+    if(!groups.has(key))groups.set(key,{kind,score:point.score,scoreText,reason,records:[]});
+    groups.get(key).records.push(point);
+  }
+  const lastLive=points.filter(p=>p.ratingKind==='live' || p.local).at(-1) || null;
+  return {...timeline,points,history:[...groups.values()],current,completed,pending,lastLive};
+}
+
+function timelineRatingSummary(view) {
+  const label=view.completed?'Final rating':'Current rating';
+  const last=view.lastLive;
+  return `<div class="timeline-ratings"><div class="timeline-rating-current"><span>${label}</span><strong>${view.current??'Pending'}</strong><small>${view.completed?'Whole game':'Right now'}</small></div><div class="timeline-rating-last"><span>Last reliable live rating</span><strong>${last?last.score:'—'}</strong><small>${last?safeText(last.label):'No reliable live record'}</small></div></div>`;
+}
+
+function timelineHistoryDetails(groups) {
+  if(!groups.length)return '';
+  const count=groups.reduce((sum,g)=>sum+g.records.length,0);
+  const labels={invalid:'Discarded update',partial:'Incomplete update',superseded:'Earlier final rating',previous:'Earlier final rating',matching:'Same final rating'};
+  return `<details class="timeline-history"><summary>Rating history <span>(${count} saved updates)</span></summary><p>Earlier and incomplete updates are kept here, separate from the chart. Repeats are grouped.</p><ul>${groups.map(group=>`<li class="timeline-history-group" data-kind="${group.kind}"><strong>${labels[group.kind]} · ${group.score}</strong><p>${safeText(group.reason)}</p><details><summary>${group.records.length===1?'View saved update':`View ${group.records.length} saved updates`}</summary><ol>${group.records.map(point=>`<li><time datetime="${new Date(point.observedAt).toISOString()}">${safeText(new Date(point.observedAt).toLocaleString([],{month:'short',day:'numeric',hour:'numeric',minute:'2-digit',second:'2-digit'}))}</time>${group.scoreText?` · Score ${safeText(group.scoreText)}`:''}${point.ratingKind!=='final'?` · ${safeText(point.label)}`:''}</li>`).join('')}</ol></details></li>`).join('')}</ul></details>`;
 }
 
 function excitementTimeline(game,summary) {
@@ -5391,20 +5440,20 @@ function excitementTimeline(game,summary) {
     return '<section class="detail-section"><h3>Excitement timeline</h3><p class="detail-empty">The chart starts when the game begins.</p></section>';
   }
 
+  const view = timelinePresentation(game,timelinePoints(game,summary));
   const {
     points,
     source,
     domainEnd = 1,
     dividers = []
-  } = timelinePoints(
-    game,
-    summary
-  );
+  } = view;
+  const ratingSummary=timelineRatingSummary(view);
+  const historyDetails=timelineHistoryDetails(view.history);
 
   if (
     points.length < 2
   ) {
-    return '<section class="detail-section"><h3>Excitement timeline</h3><p class="detail-empty">Not enough play-by-play or observed ratings to draw a trustworthy timeline yet.</p></section>';
+    return `<section class="detail-section timeline-section"><h3>Excitement timeline</h3>${ratingSummary}<p class="detail-empty">Not enough reliable live history to draw the chart.</p>${historyDetails}</section>`;
   }
 
   const width = 600;
@@ -5483,10 +5532,11 @@ function excitementTimeline(game,summary) {
         ? score - prior
         : 0;
 
-    if(point.ratingKind==='final')return `Final assessment: ${score}. This retrospective rating evaluates the whole game; it is not an in-game excitement change.`;
-    if(point.incomplete)return `${point.label}: ${score}. Incomplete source data; this observation is kept for transparency and is not shown as a measured excitement change.`;
+    const lastRecorded=point===view.lastLive ? 'Last reliable live rating. ' : '';
     const movement =
-      delta === 0
+      !timelineComparable(point,previous)
+        ? `Recorded rating: ${score}.`
+        : delta === 0
         ? `The rating stayed at ${score}.`
         : `The rating moved ${delta > 0 ? 'up' : 'down'} ${Math.abs(delta)} ${Math.abs(delta)===1?'point':'points'}, from ${prior} to ${score}.`;
 
@@ -5495,7 +5545,7 @@ function excitementTimeline(game,summary) {
         ? `${String(point.text).replace(/[.]+$/,'')}.`
         : 'This is the current rating at that point in the game.';
 
-    return `${point.label || 'Timeline point'}: ${movement} ${detail}`;
+    return `${lastRecorded}${point.label || 'Timeline point'}: ${movement} ${detail}`;
   };
 
   const timelineHelpId =
@@ -5519,6 +5569,7 @@ function excitementTimeline(game,summary) {
           Number(previous?.score);
 
         const majorMove =
+          timelineComparable(point,previous) &&
           Number.isFinite(delta) &&
           Math.abs(delta) >= 5;
 
@@ -5546,7 +5597,7 @@ function excitementTimeline(game,summary) {
           index ===
           points.length - 1;
 
-        return `<g class="timeline-point${current ? ' timeline-point-current' : ''}" data-timeline-explanation="${safeText(explanation)}" role="button" tabindex="0" aria-expanded="false" aria-controls="${timelineHelpId}" aria-label="${safeText(explanation)}"><circle class="${current ? 'timeline-end' : ''}" cx="${px(point).toFixed(1)}" cy="${py(point).toFixed(1)}" r="${current ? '5' : '3'}"/><title>${safeText(explanation)}</title></g>`;
+        return `<g class="timeline-point${current ? ' timeline-point-last' : ''}" data-timeline-explanation="${safeText(explanation)}" role="button" tabindex="0" aria-expanded="false" aria-controls="${timelineHelpId}" aria-label="${safeText(explanation)}"><circle class="${current ? 'timeline-end' : ''}" cx="${px(point).toFixed(1)}" cy="${py(point).toFixed(1)}" r="${current ? '5' : '3'}"/><title>${safeText(explanation)}</title></g>`;
       })
       .join('');
 
@@ -5638,7 +5689,7 @@ function excitementTimeline(game,summary) {
             const explanation =
               `${label || 'Scoring play'}: ${text}`;
 
-            return `<g class="timeline-point timeline-event-marker" data-timeline-explanation="${safeText(explanation)}" role="button" tabindex="0" aria-expanded="false" aria-controls="${timelineHelpId}" aria-label="${safeText(explanation)}"><circle cx="${px({x}).toFixed(1)}" cy="${py(nearest).toFixed(1)}" r="2.25"/><title>${safeText(explanation)}</title></g>`;
+            return `<g class="timeline-point timeline-event-marker" data-timeline-explanation="${safeText(explanation)}" role="button" tabindex="0" aria-expanded="false" aria-controls="${timelineHelpId}" aria-label="${safeText(explanation)}"><circle cx="${px({x}).toFixed(1)}" cy="${height-bottom}" r="2.25"/><title>${safeText(explanation)}</title></g>`;
           })
           .join('')
       : '';
@@ -5650,7 +5701,8 @@ function excitementTimeline(game,summary) {
         ).join('')}</ol>`
       : '';
 
-  return `<section class="detail-section timeline-section"><h3>Excitement timeline</h3><p class="timeline-note">${source.startsWith('recorded')?'Recorded live ratings.':'Estimated from scoring plays; not a recorded live curve.'} Gaps mark changes in model, clock, or data completeness.${game.state==='completed'?' The final assessment evaluates the whole game separately.':''}</p><svg class="timeline-chart" viewBox="0 0 ${width} ${height}" role="img" aria-label="Excitement rating over game time, from ${points[0].score} to ${points[points.length - 1].score}"><line x1="${left}" y1="${top}" x2="${left}" y2="${height - bottom}"/><line x1="${left}" y1="${height - bottom}" x2="${width - right}" y2="${height - bottom}"/><line class="timeline-midline" x1="${left}" y1="${py({score:50})}" x2="${width - right}" y2="${py({score:50})}"/><text x="3" y="${top + 4}">100</text><text x="10" y="${py({score:50}) - 4}">50</text><text x="16" y="${height - bottom + 4}">0</text>${overtimeGuides}<path class="timeline-line" d="${path}"/>${eventMarkers}${markers}<text x="${left}" y="${height - 5}">Start</text><text x="${width - right}" y="${height - 5}" text-anchor="end">${game.state === 'completed' ? 'Final' : 'Now'}</text></svg><div class="timeline-point-help" id="${timelineHelpId}" role="status" aria-live="polite" aria-hidden="true"></div>${moments}</section>`;
+  const note=source.startsWith('recorded') || source==='browser observations' ? 'Live ratings recorded during the game.' : 'Estimated from scoring plays; no recorded live curve is available.';
+  return `<section class="detail-section timeline-section"><h3>Excitement timeline</h3>${ratingSummary}<p class="timeline-note">${note} Gaps mark unavailable or revised updates.${view.completed?' The final rating reflects the whole game.':''}</p><svg class="timeline-chart" viewBox="0 0 ${width} ${height}" role="img" aria-label="Live excitement ratings during the game"><line x1="${left}" y1="${top}" x2="${left}" y2="${height - bottom}"/><line x1="${left}" y1="${height - bottom}" x2="${width - right}" y2="${height - bottom}"/><line class="timeline-midline" x1="${left}" y1="${py({score:50})}" x2="${width - right}" y2="${py({score:50})}"/><text x="3" y="${top + 4}">100</text><text x="10" y="${py({score:50}) - 4}">50</text><text x="16" y="${height - bottom + 4}">0</text>${overtimeGuides}<path class="timeline-line" d="${path}"/>${eventMarkers}${markers}<text x="${left}" y="${height - 5}">Start</text><text x="${width - right}" y="${height - 5}" text-anchor="end">${game.state === 'completed' ? 'End of game' : 'Game time'}</text></svg><div class="timeline-point-help" id="${timelineHelpId}" role="status" aria-live="polite" aria-hidden="true"></div>${moments}${historyDetails}</section>`;
 }
 
 function safeStoryUrl(value) {

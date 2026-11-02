@@ -318,10 +318,12 @@ vm.runInNewContext(`${scoreLogic}\n${coreBindings}\n${timelineLogic}\n${momentLo
   ]};
   const chart = timelinePoints(hockey,summary);
   assert.equal(chart.source,'scoring plays');
-  assert.equal(chart.points.length,4); // Terminal OT score already carries the final rating.
+  assert.equal(chart.points.length,4); // Keep the scoring-play estimate separate from the final assessment.
   assert.ok(chart.points[1].x < chart.points[2].x && chart.points[2].x < chart.points[3].x);
-  assert.equal(chart.points[3].score,86);
-  assert.equal(chart.points.at(-1).score,86);
+  assert.equal(chart.points[3].score,50);
+  assert.equal(chart.points.at(-1).score,50);
+  assert.equal(timelinePresentation(hockey,chart).current,86);
+  assert.equal(timelinePresentation(hockey,chart).lastLive,null);
   const chartMarkup = excitementTimeline(hockey,summary);
   assert.match(chartMarkup,/timeline-chart/);
   assert.match(chartMarkup,/timeline-point/);
@@ -329,7 +331,7 @@ vm.runInNewContext(`${scoreLogic}\n${coreBindings}\n${timelineLogic}\n${momentLo
   assert.match(chartMarkup,/timeline-point-help/);
   assert.match(summarySpecificWhy(hockey,summary).label,/Decisive/);
   assert.equal(timelinePoints({...hockey,state:'upcoming'},summary).points.length,0);
-  assert.match(excitementTimeline({...hockey,state:'live'},null),/Not enough play-by-play/);
+  assert.match(excitementTimeline({...hockey,state:'live'},null),/Not enough reliable live history/);
   console.log('Watchlist and timeline fixtures passed');
 `,{
   assert,console,

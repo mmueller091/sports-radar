@@ -109,8 +109,25 @@ export async function snapshotHistory(env,games,now) {
   return {upcoming,completed};
 }
 
-// Canonical content, not acquisition health or JSON property insertion order.
-// The full original payload is still stored whenever a snapshot is warranted.
+// Read-time provenance only: never rewrite or re-rate a stored observation.
+export function snapshotEvidence(normalized,state) {
+  if(normalized.liveUpdateRejected || normalized.basketballUpdateRejected ||
+     normalized.summaryLifecycleRejected || normalized.scoringHistoryRejected)
+    return {evidenceQuality:'invalid'};
+  if(normalized.scoringPartial && !normalized.sameStateEvidenceRetained)
+    return {evidenceQuality:'partial'};
+  if(state==='completed'){
+    // Older failed/prematch enrichments stored only the baseline and margin.
+    // Missing summary evidence means unverified, not a valid alternative final.
+    const supported=Boolean(normalized.moment || normalized.completedFacts ||
+      Number.isFinite(normalized.momentumPoints));
+    return {evidenceQuality:supported?'verified':'partial'};
+  }
+  if(normalized.lastSummaryAccepted || normalized.sameStateEvidenceRetained)
+    return {evidenceQuality:'verified'};
+  return {};
+}
+
 export async function gameHistory(env,sport,id,now=Date.now()) {
   const gameKey = `${sport}:${id}`;
   const rows = (await env.DB.prepare(`SELECT observed_at,state,rating,score_a,score_b,phase,clock,normalized_state,model_version
@@ -135,7 +152,7 @@ export async function gameHistory(env,sport,id,now=Date.now()) {
       clock:String(row.clock || ''),
       phaseLabel:String(normalized?.live?.phase || normalized?.status || ''),
       modelVersion:String(row.model_version || 'legacy'),
-      ...(normalized.scoringPartial && !normalized.sameStateEvidenceRetained ? {evidenceQuality:'partial'} : {}),
+      ...snapshotEvidence(normalized,row.state),
       ...(normalized.liveUpdateRejected || normalized.basketballUpdateRejected ? {integrityIssue:true} : {})
     };
   }).filter(point =>

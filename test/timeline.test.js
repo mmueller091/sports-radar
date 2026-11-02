@@ -11,7 +11,7 @@ const context = vm.createContext({...core,ratingHistory:{},watchKey:game=>game.i
   safeText:value=>String(value),compactPlay:play=>play.text || '',
   stateRating:(...args)=>{progresses.push(args[4]);return core.stateRating(...args);}
 });
-for (const name of ['legacyPlayPosition','scoringEvents','estimatedEventRating','timelineFormat','timelineEventPosition','timelinePeriodLabel','timelineFinalScores','recordedTimelinePoints','timelinePoints','timelineComparable','excitementTimeline']) {
+for (const name of ['legacyPlayPosition','scoringEvents','estimatedEventRating','timelineFormat','timelineEventPosition','timelinePeriodLabel','timelineFinalScores','recordedTimelinePoints','timelinePoints','timelineComparable','timelinePresentation','timelineRatingSummary','timelineHistoryDetails','excitementTimeline']) {
   const start=source.indexOf(`function ${name}(`);
   vm.runInContext(source.slice(start,source.indexOf('\n}',start)+2),context);
 }
@@ -28,7 +28,7 @@ test('historical models stay internal and chart lines still break at the model b
   assert.deepEqual(Array.from(result.points,point=>point.modelVersion),['old-model','2026-10-30.cfb-context.1']);
   assert.deepEqual(Array.from(result.points,point=>point.score),[60,85]);
   assert.doesNotMatch(html,/old-model|2026-10-30.cfb-context.1|Models?:|Worker|model changes/);
-  assert.match(html,/The rating stayed at 85/);
+  assert.match(html,/Recorded rating: 85/);
   const line=html.match(/class="timeline-line" d="([^"]+)"/)[1];
   assert.equal((line.match(/M /g)||[]).length,2);
   assert.doesNotMatch(html,/\+25<\/b>/,'model switch is not a sporting swing');
@@ -59,13 +59,14 @@ test('NBA regulation keeps regulation spacing, endpoint and no divider',()=>{
   assert.equal(result.dividers.length,0);
   assert.doesNotMatch(result.html,/timeline-overtime/);
 });
-test('NBA 1OT: 127–125 three pointer at 0.0 receives 95 without duplicate or backward Final',()=>{
+test('NBA 1OT keeps the winning-play estimate separate from the authoritative 95',()=>{
   const {game,summary}=fixture();
   summary.scoringPlays=[play(4,'0:00',115,115),play(5,'4:00',117,115),play(5,'0.0',127,125,'Anthony Edwards makes 28-foot three pointer')];
   const result=verify(game,summary);
   assert.equal(result.domainEnd,3180);
   assert.equal(result.points.length,4);
-  assert.equal(result.points.at(-1).score,95);
+  assert.equal(result.points.at(-1).score,54,'keep the play estimate; do not inject the whole-game score');
+  assert.match(result.html,/<span>Final rating<\/span><strong>95<\/strong>/);
   assert.equal(result.points.at(-1).x,3180);
   assert.equal(result.points.at(-1).scoringProgress,1);
   assert.equal(result.dividers[0].x,2880);
@@ -80,7 +81,8 @@ test('NBA 2OT extends to 58 minutes, with ordered OT and 2OT segments',()=>{
   assert.equal(result.domainEnd,3480);
   assert.deepEqual(Array.from(result.dividers,d=>d.label),['OT','2OT']);
   assert.equal(result.points.at(-1).x,3480);
-  assert.equal(result.points.at(-1).score,95);
+  assert.equal(result.points.at(-1).score,54);
+  assert.match(result.html,/<span>Final rating<\/span><strong>95<\/strong>/);
 });
 for (const periods of [2,4]) test(`NCAAB provider ${periods}-period regulation and five-minute OT`,()=>{
   const {game,summary}=fixture('NCAAB',periods+1,'0:00',{regulation:{periods}});
@@ -114,13 +116,14 @@ test('CFB multi-OT uses ordered segments ignoring clocks, including within each 
   assert.deepEqual(Array.from(result.points.slice(1),p=>p.label),['OT','OT','2OT']);
   assert.equal(context.timelineFormat(game,summary).untimed,true);
 });
-test('structured score mismatch cannot be overridden by winning-play wording; Final stays at OT endpoint',()=>{
+test('winning-play wording cannot insert the final assessment into an estimated OT curve',()=>{
   const {game,summary}=fixture();
   summary.scoringPlays=[play(5,'0.0',126,125,'Game-winning basket')];
   const result=verify(game,summary);
-  assert.equal(result.points.at(-1).label,'Final');
+  assert.match(result.points.at(-1).label,/^OT/);
   assert.equal(result.points.at(-1).x,3180);
-  assert.equal(result.points.at(-2).x,3180);
+  assert.equal(result.points.length,2);
+  assert.notEqual(result.points.at(-1).score,95);
 });
 test('live OT never receives completion score and progress remains bounded',()=>{
   const {game,summary}=fixture('NBA',5,'2:00'); game.state='live';
@@ -130,12 +133,13 @@ test('live OT never receives completion score and progress remains bounded',()=>
   assert.equal(result.points.at(-1).x,3060);
   assert.notEqual(result.points[1].score,95);
 });
-test('missing scoreboard uses only explicit winning wording and null play scores are excluded',()=>{
+test('missing scoreboard never promotes a winning-play estimate to final; null scores are excluded',()=>{
   const {game,summary}=fixture(); delete game.teams; delete summary.header.competitions[0].competitors;
   summary.scoringPlays=[play(5,'0:00',127,125,'Game-winning jumper'),play(5,'0:00',null,null)];
   const result=verify(game,summary);
   assert.equal(result.points.length,2);
-  assert.equal(result.points.at(-1).score,95);
+  assert.notEqual(result.points.at(-1).score,95);
+  assert.match(result.html,/<span>Final rating<\/span><strong>95<\/strong>/);
 });
 
 test('regulation positions match existing geometry across supported sports',()=>{

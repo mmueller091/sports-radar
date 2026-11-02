@@ -1,0 +1,214 @@
+{
+  "baseline": "a0ebd2fb27931e4b3bd0303fd2d0222913d9b107",
+  "scoringFilesUnchanged": true,
+  "examples": [
+    {
+      "sport": "NFL",
+      "id": "401873033",
+      "teams": "Kansas City Chiefs vs Denver Broncos",
+      "capturedAt": "2026-11-02T01:26:54.695Z",
+      "before": {
+        "current": 75,
+        "finalObservations": [
+          38,
+          75,
+          38,
+          75,
+          38,
+          75,
+          38,
+          75,
+          38,
+          75,
+          38,
+          75
+        ]
+      },
+      "after": {
+        "current": 75,
+        "lastReliableLive": 96,
+        "chartPoints": 101,
+        "finalChartPoints": 0,
+        "finalGroups": [
+          {
+            "kind": "partial",
+            "rating": 38,
+            "count": 6,
+            "reason": "Missing game data; not used."
+          },
+          {
+            "kind": "matching",
+            "rating": 75,
+            "count": 6,
+            "reason": "Matches the current final rating."
+          }
+        ]
+      }
+    },
+    {
+      "sport": "NCAAB",
+      "id": "401920982",
+      "teams": "Notre Dame Fighting Irish vs Villanova Wildcats",
+      "capturedAt": "2026-11-02T01:26:55.106Z",
+      "before": {
+        "current": 65,
+        "finalObservations": [
+          61,
+          65,
+          65,
+          65,
+          65,
+          65,
+          65
+        ]
+      },
+      "after": {
+        "current": 65,
+        "lastReliableLive": 47,
+        "chartPoints": 356,
+        "finalChartPoints": 0,
+        "finalGroups": [
+          {
+            "kind": "superseded",
+            "rating": 61,
+            "count": 1,
+            "reason": "Score later corrected from 74–70 to 74–72."
+          },
+          {
+            "kind": "matching",
+            "rating": 65,
+            "count": 6,
+            "reason": "Matches the current final rating."
+          }
+        ]
+      }
+    },
+    {
+      "sport": "NBA",
+      "id": "401909903",
+      "teams": "Boston Celtics vs Orlando Magic",
+      "capturedAt": "2026-11-02T01:26:55.482Z",
+      "before": {
+        "current": 67,
+        "finalObservations": [
+          67,
+          67,
+          67,
+          67,
+          67
+        ]
+      },
+      "after": {
+        "current": 67,
+        "lastReliableLive": 7,
+        "chartPoints": 402,
+        "finalChartPoints": 0,
+        "finalGroups": [
+          {
+            "kind": "matching",
+            "rating": 67,
+            "count": 5,
+            "reason": "Matches the current final rating."
+          }
+        ]
+      }
+    }
+  ],
+  "completeInputRatings": [
+    {
+      "sport": "CFB",
+      "id": "401856847",
+      "teams": "OKST-ISU",
+      "state": "completed",
+      "phase": "Final",
+      "before": 89,
+      "after": 89,
+      "fullResultUnchanged": true
+    },
+    {
+      "sport": "CFB",
+      "id": "401858282",
+      "teams": "MIA-UNC",
+      "state": "completed",
+      "phase": "Final",
+      "before": 80,
+      "after": 80,
+      "fullResultUnchanged": true
+    },
+    {
+      "sport": "NFL",
+      "id": "401873033",
+      "teams": "KC-DEN",
+      "state": "live",
+      "phase": "1:56 · 4th quarter",
+      "before": 65,
+      "after": 65,
+      "fullResultUnchanged": true
+    },
+    {
+      "sport": "NCAAB",
+      "id": "401920982",
+      "teams": "ND-VILL",
+      "state": "completed",
+      "phase": "Final",
+      "before": 65,
+      "after": 65,
+      "fullResultUnchanged": true
+    },
+    {
+      "sport": "NFL",
+      "id": "401873028",
+      "teams": "IND-JAX",
+      "state": "completed",
+      "phase": "Final",
+      "before": 1,
+      "after": 1,
+      "fullResultUnchanged": true
+    },
+    {
+      "sport": "NBA",
+      "id": "401909903",
+      "teams": "BOS-ORL",
+      "state": "completed",
+      "phase": "Final",
+      "before": 67,
+      "after": 67,
+      "fullResultUnchanged": true
+    },
+    {
+      "sport": "NFL",
+      "id": "401873034",
+      "teams": "NE-MIA",
+      "state": "live",
+      "phase": "1:51 · 4th quarter",
+      "before": 55,
+      "after": 55,
+      "fullResultUnchanged": true
+    },
+    {
+      "sport": "NHL",
+      "id": "401892627",
+      "teams": "EDM-NYR",
+      "state": "live",
+      "phase": "6:58 · 2nd period",
+      "before": 21,
+      "after": 21,
+      "fullResultUnchanged": true
+    },
+    {
+      "sport": "NFL",
+      "id": "401873024",
+      "teams": "ARI-DAL",
+      "state": "completed",
+      "phase": "Final/OT",
+      "before": 95,
+      "after": 95,
+      "fullResultUnchanged": true
+    }
+  ],
+  "limitations": [
+    "Visual inspection blocked by Computer Use URL verification; no desktop or mobile visual pass claimed.",
+    "Older snapshots without enough evidence are marked incomplete. Original provider responses are not available for every observation.",
+    "History remains subject to the existing 30-day retention period."
+  ]
+}

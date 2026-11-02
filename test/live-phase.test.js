@@ -68,7 +68,7 @@ function renderedGame(game,summary) {
     basketballBoxScoreMarkup:()=>'',detailPlayerStats:()=>'',detailPlays:()=>''});
   for (const name of ['halftimePriorityAdjustment','explainRating','publicStorySentence','compactClockPeriod','broadcastWatchMarkup','gameCard','basesMarkup','trendFor','isWinningTeam','recordRatingSnapshot',
     'legacyPlayPosition','scoringEvents','estimatedEventRating','timelineFormat','timelineEventPosition',
-    'timelinePeriodLabel','timelineFinalScores','recordedTimelinePoints','timelinePoints','timelineComparable','excitementTimeline','renderDetailContent']) {
+    'timelinePeriodLabel','timelineFinalScores','recordedTimelinePoints','timelinePoints','timelineComparable','timelinePresentation','timelineRatingSummary','timelineHistoryDetails','excitementTimeline','renderDetailContent']) {
     const start=source.indexOf(`function ${name}(`);
     assert.ok(start>=0,name);
     vm.runInContext(source.slice(start,source.indexOf('\n}',start)+2),context);

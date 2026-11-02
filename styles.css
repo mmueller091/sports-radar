@@ -3431,6 +3431,33 @@ dialog::backdrop,
   color: var(--md-text-2);
 }
 
+.timeline-ratings { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px; margin: 12px 0; }
+.timeline-ratings > div { display: grid; align-content: start; gap: 4px; padding: 12px; border: 1px solid var(--md-outline-soft); border-radius: 10px; }
+.timeline-rating-current { background: #183331; border-color: #447d74 !important; }
+.timeline-rating-last { background: var(--md-surface-2); }
+.timeline-ratings span { font-size: 13px; line-height: 1.4; color: var(--md-text-2); }
+.timeline-ratings strong { font-size: 28px; line-height: 1.2; color: var(--md-text); }
+.timeline-ratings small { color: var(--md-text-2); font-size: 12px; line-height: 1.4; overflow-wrap: anywhere; }
+.timeline-rating-current strong { color: #b8f3e4; }
+.timeline-history { margin-top: 12px; border-top: 1px solid var(--md-outline-soft); font-size: 13px; line-height: 1.5; color: var(--md-text-2); }
+.timeline-history summary { cursor: pointer; padding: 12px 4px; min-height: 44px; box-sizing: border-box; }
+.timeline-history summary:focus-visible { outline: 2px solid #b8f3e4; outline-offset: 2px; border-radius: 4px; }
+.timeline-history summary span { color: var(--md-text-3); }
+.timeline-history > ul { list-style: none; padding: 0; }
+.timeline-history-group { border-left: 3px solid #647f8b; padding: 4px 12px; margin: 12px 0; overflow-wrap: anywhere; }
+.timeline-history-group[data-kind="partial"], .timeline-history-group[data-kind="invalid"] { border-color: #c99b56; }
+.timeline-history-group[data-kind="matching"] { border-color: #447d74; }
+.timeline-history-group > strong { color: var(--md-text); }
+.timeline-history-group p { margin: 4px 0; }
+.timeline-history-group ol { padding-left: 20px; }
+.timeline-history-group li { padding: 4px 0; }
+.timeline-chart .timeline-event-marker circle { fill: #0d1519; stroke: #98acb7; }
+@media (max-width: 480px) {
+  .timeline-ratings { gap: 8px; }
+  .timeline-ratings > div { padding: 10px; }
+  .timeline-history { font-size: 14px; }
+}
+
 /* --------------------------------------------------------------------------
    Data tables
    -------------------------------------------------------------------------- */

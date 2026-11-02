@@ -106,7 +106,7 @@ test('Celtics +58 and Notre Dame +47 finals are isolated retrospective assessmen
   const result=context.timelinePoints(f.game,f.detail),final=result.points.find(p=>p.ratingKind==='final');assert.ok(final);
   assert.equal(context.timelineComparable(final,result.points[result.points.indexOf(final)-1]),false);
   const live=result.points.filter(p=>p.ratingKind==='live');assert.deepEqual(Array.from(live,p=>p.score),ps.filter(p=>p.state==='live').map(p=>p.rating));
-  const html=context.excitementTimeline(f.game,f.detail);assert.match(html,/retrospective rating evaluates the whole game/);assert.doesNotMatch(html,new RegExp(`<b>\\+${delta}</b>`));
+  const html=context.excitementTimeline(f.game,f.detail);assert.match(html,/The final rating reflects the whole game/);assert.doesNotMatch(html,new RegExp(`<b>\\+${delta}</b>`));
  }
 });
 
