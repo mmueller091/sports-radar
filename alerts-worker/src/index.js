@@ -1,4 +1,5 @@
 import {buildPushPayload} from '@block65/webcrypto-web-push';
+import '../../sport-visibility.js';
 import '../../rating-core.js';
 import {contextsForGames,refreshStorylines} from './storylines.js';
 import {readFeed,withFreshness,gameDetails,teamDetails,teamStandings,refreshDue,refreshSportsData,requestFeedRefresh} from './sports-feed.js';
@@ -55,7 +56,7 @@ async function checkGames(env,feed,deliver=sendPush) {
   const now = Math.floor(Date.now()/1000);
   const subscribers = (await env.DB.prepare('SELECT s.*,p.enabled,p.sports_json,p.teams_json FROM subscriptions s LEFT JOIN notification_preferences p ON p.token_hash=s.token_hash LIMIT 200').all()).results || [];
   if (!subscribers.length) { await drainAlerts(env,()=>readFeed(env),deliver);return; }
-  const items = (feed?.games || []).filter(game=>currentAlertGame(feed,game)).map(game=>({key:`${game.sport}:${game.id}`,game}));
+  const items = (feed?.games || []).filter(game=>globalThis.SlateMeterSports.visible.includes(game.sport) && currentAlertGame(feed,game)).map(game=>({key:`${game.sport}:${game.id}`,game}));
   const stateKey = item => `${runtime.MODEL_VERSION}:${item.key}`;
   const previous = new Map(((await env.DB.prepare('SELECT game_key, score FROM game_state WHERE seen_at > ?').bind(now-172800).all()).results || []).map(row => [row.game_key,row.score]));
   const writes = items.map(item => env.DB.prepare('INSERT INTO game_state (game_key, score, seen_at) VALUES (?, ?, ?) ON CONFLICT(game_key) DO UPDATE SET score=excluded.score, seen_at=excluded.seen_at').bind(stateKey(item),item.game.score,now));

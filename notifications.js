@@ -4,6 +4,7 @@
   const status=$('#alert-status'),toggle=$('#alert-toggle'),test=$('#alert-test'),threshold=$('#alert-threshold');
   const TOKEN_KEY='sports-radar-alert-device-token-v1',THRESHOLD_KEY='sports-radar-alert-threshold-v1',PREFS_KEY='sports-radar-notification-preferences-v1';
   const sports={NFL:'NFL',MLB:'MLB',NHL:'NHL',CFB:'College Football',NBA:'NBA',NCAAB:'NCAAM',Tennis:'Tennis',Soccer:'Soccer'};
+  const publicSport=sport=>(globalThis.SlateMeterSports?.visible || ['NFL','CFB','NCAAB','NHL','MLB','NBA']).includes(sport);
   const read=(key,fallback)=>{try{return JSON.parse(localStorage.getItem(key)) ?? fallback;}catch{return fallback;}};
   const saved=read(PREFS_KEY,null);
   let preferences={enabled:saved?.preferences?.enabled===true,sports:saved?.preferences?.sports || Object.keys(sports),teams:saved?.preferences?.teams || []};
@@ -30,8 +31,8 @@
     toggle.setAttribute('aria-checked',String(preferences.enabled));toggle.classList.toggle('alert-enabled',preferences.enabled);toggle.disabled=loading || busy || (!available && !preferences.enabled);
     test.hidden=loading || !preferences.enabled;threshold.disabled=loading;
     for(const fieldset of $('#alert-preferences').querySelectorAll?.('fieldset') || [])fieldset.disabled=loading;
-    $('#notification-sports').innerHTML=Object.entries(sports).map(([id,label])=>`<label class="toggle-option"><input type="checkbox" data-notification-sport="${id}"${preferences.sports.includes(id)?' checked':''}><span>${label}</span></label>`).join('');
-    $('#notification-selected-teams').innerHTML=preferences.teams.map((team,index)=>`<button type="button" data-remove-notification-team="${index}" aria-label="Remove ${escape(team.name || team.id)} notifications">${escape(team.name || team.id)} · ${escape(sports[team.sport])} ×</button>`).join('') || '<span class="preference-note">No individual teams selected.</span>';
+    $('#notification-sports').innerHTML=Object.entries(sports).filter(([id])=>publicSport(id)).map(([id,label])=>`<label class="toggle-option"><input type="checkbox" data-notification-sport="${id}"${preferences.sports.includes(id)?' checked':''}><span>${label}</span></label>`).join('');
+    $('#notification-selected-teams').innerHTML=preferences.teams.map((team,index)=>publicSport(team.sport)?`<button type="button" data-remove-notification-team="${index}" aria-label="Remove ${escape(team.name || team.id)} notifications">${escape(team.name || team.id)} · ${escape(sports[team.sport])} ×</button>`:'').join('') || '<span class="preference-note">No individual teams selected.</span>';
     renderTeams();
   }
   function queueSave() {
@@ -59,7 +60,7 @@
     $('#notification-add-favorites').disabled=!favoriteResults.length;
   }
   function addTeam(team) {
-    if(!team?.id)return;
+    if(!team?.id || !publicSport(team.sport))return;
     const index=preferences.teams.findIndex(item=>teamKey(item)===teamKey(team));
     if(index>=0)preferences.teams.splice(index,1);
     else if(preferences.teams.length<200)preferences.teams.push({sport:team.sport,id:String(team.id),name:team.name});
@@ -105,7 +106,7 @@
   async function init() {
     update();
     const directory=globalThis.SportsRadarTeams;
-    if(directory){$('#notification-team-sport').innerHTML='<option value="all">All sports</option>'+Object.entries(sports).filter(([id])=>id!=='Tennis').map(([id,label])=>`<option value="${id}">${label}</option>`).join('');directory.load().then(renderTeams).catch(()=>{});renderTeams();}
+    if(directory){$('#notification-team-sport').innerHTML='<option value="all">All sports</option>'+Object.entries(sports).filter(([id])=>publicSport(id)).map(([id,label])=>`<option value="${id}">${label}</option>`).join('');directory.load().then(renderTeams).catch(()=>{});renderTeams();}
     if(!base){loading=false;update();note('Background notifications are not connected.');return;}
     const ios=/iPhone|iPad|iPod/.test(navigator.userAgent || '') || (navigator.platform==='MacIntel' && navigator.maxTouchPoints>1);
     const installed=Boolean(navigator.standalone || globalThis.matchMedia?.('(display-mode: standalone)').matches);

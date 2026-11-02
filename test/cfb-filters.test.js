@@ -88,6 +88,31 @@ test('preferences survive visits; clear restores defaults without losing favorit
   await next.click('#cfb-clear');const prefs=JSON.parse(store.get('sports-radar-preferences-v2'));
   assert.deepEqual(prefs.sportFilters.CFB,{conference:'',top25:false});assert.equal(prefs.showFCS,false);assert.equal(prefs.favoriteTeams[0].id,'1');
 });
+
+test('six public sports keep recent finals in All and preserve dormant selections',async()=>{
+  const selected=['NFL','CFB','NCAAB','NHL','MLB','NBA','Tennis'];
+  const store=new Map([['sports-radar-preferences-v2',JSON.stringify({visibleSports:selected,favoriteTeams:[{sport:'Soccer',id:'1',name:'Saved club'}]})]]);
+  const sports=['NFL','CFB','NCAAB','NHL','MLB','NBA'];
+  const feed=[...sports.map(sport=>game(sport,undefined,[],{sport,state:'upcoming'})),
+    game('current',undefined,[],{sport:'NHL',state:'completed',startTime:'2026-10-31T16:00:00Z'}),
+    game('recent',undefined,[],{sport:'NHL',state:'completed',startTime:'2026-10-30T18:00:00Z'}),
+    game('older',undefined,[],{sport:'NHL',state:'completed',startTime:'2026-10-27T18:00:00Z'}),
+    game('soccer',undefined,[],{sport:'Soccer'}),game('tennis',undefined,[],{sport:'Tennis'})];
+  const app=start(store,feed);await app.settle();
+  assert.equal(app.element('#all-count').textContent,8);
+  assert.deepEqual(new Set(app.ids()),new Set([...sports,'current','recent']));
+  assert.ok(app.ids().indexOf('current')<app.ids().indexOf('recent'));
+  app.set({gameState:'completed'});assert.deepEqual(new Set(app.ids()),new Set(['current','recent','older']));
+  app.set({gameState:'all'});
+  assert.equal(app.run("hiddenSportFromHash('#game/Tennis/123')"),'Tennis');
+  assert.equal(app.run("hiddenSportFromHash('#team/Soccer/123')"),'Soccer');
+  app.element('#search-query').value='Soccer';app.run('renderGlobalSearch()');
+  assert.doesNotMatch(app.element('#search-results').innerHTML,/data-search-game="Soccer"/);
+  app.run('persistPreferences()');
+  const saved=JSON.parse(store.get('sports-radar-preferences-v2'));
+  assert.ok(saved.visibleSports.includes('Tennis'));
+  assert.equal(saved.favoriteTeams[0].sport,'Soccer');
+});
 test('missing metadata excludes unverified conferences while Top 25 and clear still work',async()=>{
   const app=start(new Map(),[game('ranked',undefined,[4]),game('other')]);await app.settle();
   app.run("cfbMetadata.set(2026,{error:true,retryAt:Date.now()+60000})");app.set({sport:'CFB'});

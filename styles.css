@@ -6121,3 +6121,10 @@ body { background-image: none; }
 .team-standing-team img,
 .game-card .team-logo,
 .detail-team img { object-fit: contain; background-image: none !important; filter: none !important; }
+
+.hidden-sport-notice { margin: 12px 4% 0; padding: 10px 14px; border: 1px solid var(--line); border-radius: 6px; color: var(--brand-cream); background: var(--surface); font-size: 13px; line-height: 1.4; }
+#preferences-dialog .sport-toggles { gap: 10px; margin-top: 10px; }
+#preferences-dialog .favorite-picker { margin-top: 10px; }
+@media (min-width: 601px) {
+  .game-card .excitement .score-trend { width: 100%; min-height: 22px; margin-top: 3px; padding-inline: 2px; box-sizing: border-box; font-size: 10px; line-height: 1.25; text-align: center; text-wrap: balance; white-space: normal; }
+}

@@ -1,6 +1,8 @@
 const LEGACY_DEFAULT_FAVORITES = [{sport:'NFL',name:'Baltimore Ravens'},{sport:'MLB',name:'Baltimore Orioles'},{sport:'NHL',name:'Washington Capitals'}];
 const FAVORITE_SPORTS = ['NFL','MLB','NHL','CFB','NBA','NCAAB','Soccer'];
 const HOME_SPORTS = ['NFL','MLB','NHL','CFB','NBA','NCAAB','Tennis'];
+const PUBLIC_SPORTS = new Set(globalThis.SlateMeterSports?.visible || ['NFL','CFB','NCAAB','NHL','MLB','NBA']);
+const publicSport = sport => PUBLIC_SPORTS.has(sport);
 const SPORT_LABELS = {NFL:'NFL',MLB:'MLB',NHL:'NHL',CFB:'College Football',NBA:'NBA',NCAAB:'NCAAM',Tennis:'Tennis',Soccer:'Soccer'};
 const PREFERENCES_KEY = 'sports-radar-preferences-v2';
 const FAVORITES_KEY = 'sports-radar-selected-favorites-v1';
@@ -119,7 +121,7 @@ function teamRouteFromHash(hash=location.hash) {
   const id =
     decodeURIComponent(match[2]);
 
-  return sport && id
+  return sport && publicSport(sport) && id
     ? {sport,id}
     : null;
 }
@@ -138,9 +140,15 @@ function gameRouteFromHash(hash=location.hash) {
   } catch {return null;}
 }
 function gameHash(game) {return `#game/${encodeURIComponent(game.sport)}/${encodeURIComponent(game.id)}`;}
+function hiddenSportFromHash(hash=location.hash) {
+  if (hash === '#soccer' && !publicSport('Soccer')) return 'Soccer';
+  const match=String(hash).match(/^#(?:team|game)\/([^/]+)\//);
+  const sport=match && [...HOME_SPORTS,'Soccer'].find(item=>item.toLowerCase()===match[1].toLowerCase());
+  return sport && !publicSport(sport) ? sport : null;
+}
 
 const state = {
-  page:teamRouteFromHash(location.hash) ? 'team' : location.hash === '#soccer' ? 'soccer' : 'home',
+  page:teamRouteFromHash(location.hash) ? 'team' : location.hash === '#soccer' && publicSport('Soccer') ? 'soccer' : 'home',
   teamRoute:teamRouteFromHash(location.hash),
   sport:'all',
   gameState:'all',
@@ -321,7 +329,11 @@ function clearCfbFilters() {
 function syncSportToggles() {
   $$('[data-visible-sport]').forEach(input => {
     input.checked = state.visibleSports.has(input.dataset.visibleSport);
+    input.closest?.('label')?.classList.toggle('hidden',!publicSport(input.dataset.visibleSport));
   });
+  $$('.sport-chip[data-sport]').forEach(chip => chip.classList.toggle('hidden',chip.dataset.sport!=='all' && !publicSport(chip.dataset.sport)));
+  $$('.nav-link[data-page="soccer"]').forEach(link => link.classList.toggle('hidden',!publicSport('Soccer')));
+  $$('#favorite-sport option').forEach(option => {option.hidden=!publicSport(option.value);option.disabled=!publicSport(option.value);});
 }
 
 function labelForSport(sport) {
@@ -497,7 +509,7 @@ function compareGames(a,b) {
 
 function visibleInState(game, selectedState) {
   return selectedState === 'all'
-    ? game.state !== 'completed' || sameLocalDay(game.startTime)
+    ? game.state !== 'completed' || sameLocalDay(game.startTime) || (Date.now()-Date.parse(game.startTime) >= 0 && Date.now()-Date.parse(game.startTime) <= 48*60*60*1000)
     : game.state === selectedState;
 }
 
@@ -522,7 +534,7 @@ function compareAllGames(a,b) {
     gameDayStart(b.startTime);
 
   if (dayDifference) {
-    return dayDifference;
+    return allGroup(a)===3 ? -dayDifference : dayDifference;
   }
 
   return viewingPriority(b) - viewingPriority(a);
@@ -781,12 +793,12 @@ function syncFavoriteGames() {
 
 function renderFavoriteTags() {
   $('#favorite-tags').innerHTML =
-    state.favoriteTeams.length
+    state.favoriteTeams.some(team=>publicSport(team.sport))
       ? state.favoriteTeams.map(
           (team,index) =>
-            `<span class="favorite-tag">${
+            publicSport(team.sport) ? `<span class="favorite-tag">${
               teamLogoWithFallback(team.logo,team.abbreviation || team.name)
-            }<span class="favorite-tag-name">${safeText(team.name)}</span><button type="button" data-remove-favorite="${index}" aria-label="Remove ${safeText(team.name)} from favorites">×</button></span>`
+            }<span class="favorite-tag-name">${safeText(team.name)}</span><button type="button" data-remove-favorite="${index}" aria-label="Remove ${safeText(team.name)} from favorites">×</button></span>` : ''
         ).join('')
       : '<p class="favorite-empty">No favorites selected. Add a team below.</p>';
 }
@@ -882,7 +894,7 @@ globalThis.SportsRadarTeams = {
   load:loadFavoriteCatalog,
   search(query='',sport='all') {
     const unique=new Map();
-    for(const category of FAVORITE_SPORTS)for(const team of knownFavoriteTeams(category)) {
+    for(const category of FAVORITE_SPORTS.filter(publicSport))for(const team of knownFavoriteTeams(category)) {
       if(team.id && (sport==='all' || team.sport===sport) && (!query.trim() || globalSearchTeamScore(team,normalizeGlobalSearch(query))>0)) unique.set(`${team.sport}:${team.id}`,team);
     }
     return [...unique.values()].sort((a,b)=>a.name.localeCompare(b.name));
@@ -966,7 +978,7 @@ function globalSearchGameScore(game,query) {
 function globalSearchTeams() {
   const unique = new Map();
 
-  for (const game of games) {
+  for (const game of games.filter(game=>publicSport(game.sport))) {
     for (const team of game.teams || []) {
       const item = {
         sport:game.sport,
@@ -987,7 +999,7 @@ function globalSearchTeams() {
     }
   }
 
-  for (const sport of FAVORITE_SPORTS) {
+  for (const sport of FAVORITE_SPORTS.filter(publicSport)) {
     for (const team of favoriteCatalog.get(sport) || []) {
       const item = {
         sport,
@@ -2346,7 +2358,7 @@ function renderGlobalSearch() {
 
   if (query.length < 2) {
     const topGames =
-      [...games]
+      games.filter(game=>publicSport(game.sport))
         .sort((a,b) =>
           Number(b.state === 'live') - Number(a.state === 'live') ||
           Number(b.score || 0) - Number(a.score || 0)
@@ -2358,7 +2370,7 @@ function renderGlobalSearch() {
 
     results.innerHTML =
       topGames.length
-        ? `<section class="search-section"><h3>Top games right now</h3><div class="search-result-list">${topGames.map(globalSearchGameMarkup).join('')}</div></section>`
+        ? `<section class="search-section"><h3>Featured Games</h3><div class="search-result-list">${topGames.map(globalSearchGameMarkup).join('')}</div></section>`
         : '<div class="search-empty"><strong>No games loaded yet.</strong><span>Search will be available as soon as the live feed loads.</span></div>';
 
     visibleGlobalSearchTeams = [];
@@ -2366,7 +2378,7 @@ function renderGlobalSearch() {
   }
 
   const gameMatches =
-    games
+    games.filter(game=>publicSport(game.sport))
       .map(game => ({
         game,
         score:globalSearchGameScore(game,query)
@@ -2637,7 +2649,7 @@ function explainRating(game,summary=null) {
     if(spread!==null&&(basketball||football)) {
       if(spread<=3)add(`Oddsmakers expect a close contest${spread?` with a ${spread}-point spread`:''}`);
       else if(spread>=10)add(`${favorite?favorite[0]+' is favored':'The favorite has the edge'} by ${spread} points, so a one-sided game is a real possibility`);
-      else add(`${favorite?favorite[0]+' is favored':'The betting line favors one side'} by ${spread} points, leaving the other side with something to prove`);
+      else add(`${favorite?favorite[0]+' is the listed favorite':'The listed spread gives one side an edge'} by ${spread} points`);
     } else if(has(/pick.em|Competitive betting market|Very close projected spread/i))add('The betting market has the two sides closely matched');
     if(sentences.length<2&&has(/Unbeaten team/)){
       const unbeaten=teams.find(t=>/^[1-9]\d*-0(?:-0)?$/.test(String(t[5]||'')));
@@ -5865,10 +5877,10 @@ function detailTabSections(game,summary) {
     ['drives',detailDrives(summary,game.sport,game.liveRawStatus)],
     ['batting',withPlayerBrowser(detailMlbPlayerStats(summary,'batting'))],
     ['pitching',withPlayerBrowser(detailMlbPlayerStats(summary,'pitching'))],
-    ['team-stats',detailStats(summary,game.sport)+(game.sport==='NHL' ? detailNhlAdvanced(summary) : '')],
+    ['team-stats',game.state==='upcoming' ? '' : detailStats(summary,game.sport)+(game.sport==='NHL' ? detailNhlAdvanced(summary) : '')],
     ['players',withPlayerBrowser(detailPlayerStats(summary,game.sport))],
     ['goalies',withPlayerBrowser(detailNhlGoalies(summary))],
-    ['box-score',withPlayerBrowser(basketballBoxScoreMarkup(summary,game.sport))],
+    ['box-score',game.state==='upcoming' ? '' : withPlayerBrowser(basketballBoxScoreMarkup(summary,game.sport))],
     ['plays',detailPlays(summary,game)]
   ]);
 
@@ -6281,6 +6293,12 @@ async function openLinkedGame(id,sport,restore=null) {
 }
 
 async function openGameDetails(id,sport=null,restore=null) {
+  if (sport && !publicSport(sport)) {
+    stopDetailRequest();activeDetailGame=null;activeDetailSummary=null;
+    $('#game-detail-title').textContent='Sport unavailable';
+    $('#game-detail-content').innerHTML=`<section class="detail-section"><h2>${safeText(labelForSport(sport))} is temporarily unavailable</h2><p>SlateMeter currently covers NFL, College Football, NCAAM, NHL, MLB, and NBA.</p><button type="button" class="close-dialog">Return to Slate</button></section>`;
+    showGameDetails();return;
+  }
   const game = games.find(item => String(item.id) === String(id) && (!sport || item.sport === sport));
   if (!game) {if(sport)return openLinkedGame(id,sport,restore);return;}
   stopDetailRequest();
@@ -6416,6 +6434,9 @@ function summarySpecificWhy(game,summary) {
 
 function render() {
   syncActiveDetail();
+  const hiddenRoute=hiddenSportFromHash();
+  $('#hidden-sport-notice').classList.toggle('hidden',!hiddenRoute);
+  if (hiddenRoute) $('#hidden-sport-notice').textContent=`${labelForSport(hiddenRoute)} is temporarily unavailable. SlateMeter currently covers NFL, College Football, NCAAM, NHL, MLB, and NBA.`;
 
   $('#cfb-filters').classList.toggle('hidden',state.page!=='home' || state.sport!=='CFB');
 
@@ -6507,7 +6528,7 @@ function render() {
       (
         isSoccer
           ? game.sport === 'Soccer'
-          : game.sport !== 'Soccer' &&
+          : publicSport(game.sport) &&
             state.visibleSports.has(
               game.sport
             ) &&
@@ -6701,7 +6722,7 @@ function handleLocationChange() {
     state.page =
       route
         ? 'team'
-        : location.hash === '#soccer'
+        : location.hash === '#soccer' && publicSport('Soccer')
           ? 'soccer'
           : 'home';
 

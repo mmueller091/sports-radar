@@ -79,3 +79,18 @@ test('a sole Overview section renders without tab controls',()=>{
   tabs.detailTabSections=()=>[{id:'overview',label:'Overview',content:'<section>Summary</section>'},{id:'plays',label:'Plays',content:'<section>Plays</section>'}];
   assert.match(tabs.detailTabsMarkup({sport:'NFL',id:'two'},null),/role="tablist"/);
 });
+
+test('pregame Game Center omits empty current-game statistics without losing live statistics',()=>{
+  const start=source.indexOf('function detailTabSections(');
+  const end=source.indexOf('\n}',start)+2;
+  const context=vm.createContext({
+    storylineDetails:()=>'',detailScoring:()=>'',detailLeaders:()=>'',detailPlayerBrowser:()=>'',
+    detailDrives:()=>'',detailMlbPlayerStats:()=>'',detailStats:()=>'<section>Team statistics</section>',
+    detailNhlAdvanced:()=>'',detailPlayerStats:()=>'',detailNhlGoalies:()=>'',
+    basketballBoxScoreMarkup:()=>'<section>Box score</section>',detailPlays:()=>'',
+    DETAIL_TAB_CONFIG:{NFL:[['team-stats','Team Stats'],['box-score','Box Score']],Tennis:[]}
+  });
+  vm.runInContext(source.slice(start,end),context);
+  assert.equal(context.detailTabSections({sport:'NFL',state:'upcoming'},null).length,0);
+  assert.deepEqual(Array.from(context.detailTabSections({sport:'NFL',state:'live'},null),tab=>tab.id),['team-stats','box-score']);
+});

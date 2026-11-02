@@ -7,7 +7,7 @@ import worker,{checkGames as evaluateGames} from '../src/index.js';
 import runtime from '../../scoring/live-runtime.cjs';
 import {gameDetails} from '../src/sports-feed.js';
 import {normalizeEvent,enrichGame} from '../src/live-game-model.js';
-import {NOTIFICATION_SPORTS,normalizeNotificationPreferences,notificationEligible} from '../src/notification-preferences.js';
+import {NOTIFICATION_SPORTS,normalizeNotificationPreferences,notificationEligible,preferencesForRow} from '../src/notification-preferences.js';
 
 function database(t) {
   const db=new DatabaseSync(':memory:');db.exec(fs.readFileSync(new URL('../schema.sql',import.meta.url),'utf8'));t.after(()=>db.close());
@@ -41,6 +41,22 @@ test('eligibility is enabled sport OR stable selected team, always gated by mast
   assert.equal(normalizeNotificationPreferences(prefs(['invalid'])),null);
   assert.equal(normalizeNotificationPreferences(prefs([],[{sport:'NFL',id:'bad/id'}])),null);
   assert.deepEqual(normalizeNotificationPreferences(prefs(['NFL','NFL'],[team,team])),prefs(['NFL'],[team]));
+});
+
+test('hidden sports retain saved choices but cannot queue or deliver public alerts',async t=>{
+  const env=database(t),sent=[];
+  subscriber(env,'hidden',prefs(['Soccer'],[{sport:'Soccer',id:'1',name:'Saved team'}]));
+  const hidden={...game(84),sport:'Soccer'};
+  const deliver=async(...args)=>{sent.push(args);return 201;};
+  await checkGames(env,feed(hidden),deliver);
+  await checkGames(env,feed({...hidden,score:90}),deliver);
+  assert.equal(sent.length,0);
+  assert.deepEqual(preferencesForRow(await env.DB.prepare('SELECT * FROM notification_preferences WHERE token_hash=?').bind('hidden').first()).sports,['Soccer']);
+  env.db.prepare('INSERT INTO alerts (token_hash,game_key,score,title,body,created_at) VALUES (?,?,?,?,?,?)')
+    .run('hidden',`${runtime.MODEL_VERSION}:Soccer:stable-game`,90,'Saved alert','Saved alert',Math.floor(Date.now()/1000));
+  await checkGames(env,feed({...hidden,score:90}),deliver);
+  assert.equal(sent.length,0);
+  assert.equal(env.db.prepare('SELECT status FROM alerts WHERE token_hash=?').get('hidden').status,'cancelled');
 });
 
 test('preferences and threshold round-trip by device without requiring push enrollment',async t=>{

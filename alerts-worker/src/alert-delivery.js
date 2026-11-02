@@ -1,4 +1,5 @@
 import runtime from '../../scoring/live-runtime.cjs';
+import '../../sport-visibility.js';
 import {currentGameAllowed} from './providers/tennis.js';
 import {preferencesForRow,notificationEligible,notificationGame,gameNotificationUrl} from './notification-preferences.js';
 
@@ -49,7 +50,7 @@ export async function drainAlerts(env,readCurrentFeed,deliver) {
       const now=Date.now(),createdAt=Number(queuedRow.created_at)*1000;
       const identity=notificationGame(queuedRow.game_key,runtime.MODEL_VERSION);
       const game=identity && feed?.games?.find(g=>g.sport===identity.sport && String(g.id)===identity.gameId);
-      if(!row || !Number.isFinite(createdAt) || createdAt>now || now-createdAt>ALERT_MAX_AGE_MS ||
+      if(!row || !globalThis.SlateMeterSports.visible.includes(identity?.sport) || !Number.isFinite(createdAt) || createdAt>now || now-createdAt>ALERT_MAX_AGE_MS ||
         !currentAlertGame(feed,game,now) || !Number.isFinite(Number(row.threshold)) ||
         Number(game.score)<Number(row.threshold) || !notificationEligible(game,preferencesForRow(row))){
         await settle('cancelled');continue;
