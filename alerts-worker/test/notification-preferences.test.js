@@ -33,7 +33,7 @@ async function request(env,method,body,token=bearer,path='/subscription') {
 }
 
 test('eligibility is enabled sport OR stable selected team, always gated by master',()=>{
-  for(const sport of NOTIFICATION_SPORTS)assert.equal(notificationEligible({...game(),sport},prefs([sport])),true);
+  for(const sport of NOTIFICATION_SPORTS)assert.equal(notificationEligible({...game(),sport},prefs([sport])),sport!=='Tennis','Tennis requires verified Grand Slam match metadata');
   assert.equal(notificationEligible(game(),prefs([], [team])),true,'team/favorite works with NFL disabled');
   assert.equal(notificationEligible(game(),prefs(['NHL'],[{sport:'NHL',id:'1'}])),false,'team IDs are scoped by sport');
   assert.equal(notificationEligible(game(),prefs(['NFL'],[team],false)),false);

@@ -1,5 +1,7 @@
 // ESPN Tennis scoreboards contain tournaments, then groups, then matches.
 // Normalize matches only; tournament state is never a match's live status.
+import '../../../tennis-coverage.js';
+export const {tournamentIdentity,mainDrawMatch,tournamentWindow,currentGameAllowed}=globalThis.SportsRadarTennisCoverage;
 function setScore(competitor,status) {
   if(competitor.score!=null && typeof competitor.score!=='boolean' && String(competitor.score).trim()!=='' && Number.isFinite(Number(competitor.score)))return String(Number(competitor.score));
   const lines=competitor.linescores,period=Number(status?.period);
@@ -26,18 +28,23 @@ function competitorForMatch(competitor,status) {
 }
 
 function matchEvent(tournament,raw,grouping) {
+  if(!mainDrawMatch(tournament,raw,grouping))return null;
   if(!raw?.id || !raw.status?.type || !['pre','in','post'].includes(raw.status.type.state))return null;
   const competitors=(raw.competitors || []).map(c=>competitorForMatch(c,raw.status));
   if(competitors.length!==2 || competitors.some(c=>!c))return null;
   const competition={...raw,competitors};
   return {id:String(raw.id),date:raw.date || raw.startDate,name:tournament.name || competitors.map(c=>c.team.displayName).join(' vs '),
     season:tournament.season,league:tournament.league,competitions:[competition],
-    tennisTournament:{id:String(tournament.id || ''),name:tournament.name || '',group:grouping?.displayName || raw.type?.text || '',round:raw.round?.displayName || ''}};
+    tennisTournament:{id:String(tournament.id),name:tournament.name,shortName:tournament.shortName,major:tournament.major,
+      season:tournament.season,date:tournament.date,endDate:tournament.endDate,grouping,
+      group:grouping?.displayName || raw.type?.text || '',round:raw.round?.displayName || ''}};
 }
 
-export function tennisEvents(payload) {
+export function tennisEvents(payload,now=null) {
   const events=[];
   for(const tournament of payload?.events || []){
+    // Reject before normalizing competitors or invoking the scoring adapter.
+    if(!tournamentIdentity(tournament) || (now!==null && !tournamentWindow(tournament,now)))continue;
     for(const group of tournament.groupings || [])for(const match of group.competitions || []){
       const event=matchEvent(tournament,match,group.grouping);if(event)events.push(event);
     }
@@ -67,7 +74,8 @@ export function attachTennisMatch(game) {
   // property is non-enumerable and is intentionally absent from stored feeds.
   game.tennisMatch={id:String(competition.id),date:competition.date,status:competition.status,
     venue:competition.venue,format:competition.format,situation:competition.situation,
-    competitors:competition.competitors.map(compactCompetitor),type:competition.type,round:competition.round};
+    competitors:competition.competitors.map(compactCompetitor),tournamentId:competition.tournamentId,
+    type:competition.type,round:competition.round};
   game.tennisTournament=event.tennisTournament;
   return qualifyTennisCoverage(game);
 }

@@ -662,7 +662,8 @@ function scheduleLiveRefresh() {
 }
 
 function canonicalFeedGames(items) {
-  return items.map(game => ({...game,scoreboard:undefined,favorite:favoriteFor(game.teams,game.sport)}));
+  return items.filter(game=>game.sport!=='Tennis' || globalThis.SportsRadarTennisCoverage?.currentGameAllowed(game))
+    .map(game => ({...game,scoreboard:undefined,favorite:favoriteFor(game.teams,game.sport)}));
 }
 
 async function loadLiveGames() {
@@ -6579,7 +6580,9 @@ function render() {
           ? 'Try another conference, turn off Top 25 Only, or clear CFB filters. You can also change the game-state tab.'
         : state.gameState === 'watching'
           ? 'Open a game and tap “Add to watchlist.” Saved games appear here while they are in the current scoreboard feed.'
-          : 'Try a different sport or game state.';
+          : state.sport === 'Tennis'
+            ? 'Tennis covers Australian Open, Roland-Garros, Wimbledon and US Open main draws only. No Grand Slam matches are available in this view.'
+            : 'Try a different sport or game state.';
 
   $('#live-count').textContent =
     `${scopeGames.filter(game => game.state === 'live').length} LIVE`;

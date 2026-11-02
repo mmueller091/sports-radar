@@ -4,6 +4,8 @@ A static, mobile-friendly, installable sports radar: visitors start with no favo
 
 ## Run locally
 
+Tennis coverage is limited to men's and women's adult main draws at the Australian Open, Roland-Garros / French Open, Wimbledon and US Open, including supported singles, doubles and mixed doubles. Qualifying, juniors, wheelchair, exhibitions and all other tournaments are excluded before collection/publication. Outside the provider's Grand Slam windows the current Tennis slate is empty. ESPN ATP and WTA results share stable match IDs and are deduplicated. Existing completed history and preferences are preserved. Scoreboard-only evidence limitations and scoring are unchanged. See [coverage rules and verification](audit/tennis-grand-slams-20261102/README.md).
+
 Run `npm ci --prefix alerts-worker`, then `node scripts/build-site.mjs`, and serve `dist/` with a static file server. The existing locked esbuild dependency bundles the shared scoring runtime; only allowlisted public assets enter `dist/`. Live scores and service-worker installation require HTTPS (GitHub Pages provides this automatically).
 
 On a phone, open the deployed HTTPS URL in Safari or Chrome and use **Add to Home Screen** / **Install app**. The included manifest and service worker make the site open as a standalone app and keep the UI shell available when connectivity is briefly unavailable.

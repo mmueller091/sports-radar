@@ -1,0 +1,22 @@
+{
+  "tests": {
+    "focused": {
+      "passed": 100,
+      "failed": 0
+    },
+    "full": {
+      "passed": 1141,
+      "failed": 0
+    }
+  },
+  "scoreFixtures": "passed",
+  "calibrationReport": "passed",
+  "syntax": "passed",
+  "siteBuild": "passed",
+  "workerDryRun": "passed",
+  "modelVersion": "2026-11-01.audit-integrity.3",
+  "scoringSourceChanges": 0,
+  "baselineSource": "6c87aab89017343e144b726c2349f350606425b2",
+  "baselineWorker": "19039379-a2f7-4639-bb09-f1306f174b15",
+  "checkoutRepair": "Exact HEAD blob bytes restored for 514 unchanged files; frozen local historical commit 1bf1c66703a097c97fcde55b4c7af13055c3c593 fetched read-only from original checkout. No test expectations weakened."
+}

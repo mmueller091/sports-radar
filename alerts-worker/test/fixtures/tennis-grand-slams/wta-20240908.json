@@ -1,0 +1,2196 @@
+{
+  "source": "https://site.api.espn.com/apis/site/v2/sports/tennis/wta/scoreboard?dates=20240908",
+  "capturedAt": "2026-11-02T14:18:44.806Z",
+  "leagues": [
+    {
+      "id": "900",
+      "uid": "s:850~l:900",
+      "name": "WTA",
+      "abbreviation": "WTA",
+      "midsizeName": "WTA",
+      "slug": "wta",
+      "season": {
+        "year": 2024,
+        "startDate": "2024-01-01T08:00Z",
+        "endDate": "2025-01-01T07:59Z",
+        "displayName": "2024",
+        "type": {
+          "id": "2",
+          "type": 2,
+          "name": "Regular Season",
+          "abbreviation": "reg"
+        }
+      },
+      "logos": [
+        {
+          "href": "https://a.espncdn.com/combiner/i?img=/redesign/assets/img/icons/ESPN-icon-tennis.png",
+          "width": 500,
+          "height": 500,
+          "alt": "",
+          "rel": [
+            "full",
+            "default"
+          ],
+          "lastUpdated": "2026-11-01T16:06Z"
+        },
+        {
+          "href": "https://a.espncdn.com/combiner/i?img=/redesign/assets/img/icons/ESPN-icon-tennis.png",
+          "width": 500,
+          "height": 500,
+          "alt": "",
+          "rel": [
+            "full",
+            "dark"
+          ],
+          "lastUpdated": "2026-11-01T16:06Z"
+        }
+      ],
+      "calendarType": "day",
+      "calendarIsWhitelist": true,
+      "calendarStartDate": "2024-01-01T08:00Z",
+      "calendarEndDate": "2025-01-01T07:59Z",
+      "calendar": [
+        "2023-12-28T08:00Z",
+        "2023-12-29T08:00Z",
+        "2023-12-30T08:00Z",
+        "2023-12-31T08:00Z",
+        "2024-01-01T08:00Z",
+        "2024-01-02T08:00Z",
+        "2024-01-03T08:00Z",
+        "2024-01-04T08:00Z",
+        "2024-01-05T08:00Z",
+        "2024-01-06T08:00Z",
+        "2024-01-07T08:00Z",
+        "2024-01-08T08:00Z",
+        "2024-01-09T08:00Z",
+        "2024-01-10T08:00Z",
+        "2024-01-11T08:00Z",
+        "2024-01-12T08:00Z",
+        "2024-01-13T08:00Z",
+        "2024-01-14T08:00Z",
+        "2024-01-15T08:00Z",
+        "2024-01-16T08:00Z",
+        "2024-01-17T08:00Z",
+        "2024-01-18T08:00Z",
+        "2024-01-19T08:00Z",
+        "2024-01-20T08:00Z",
+        "2024-01-21T08:00Z",
+        "2024-01-22T08:00Z",
+        "2024-01-23T08:00Z",
+        "2024-01-24T08:00Z",
+        "2024-01-25T08:00Z",
+        "2024-01-26T08:00Z",
+        "2024-01-27T08:00Z",
+        "2024-01-28T08:00Z",
+        "2024-01-29T08:00Z",
+        "2024-01-30T08:00Z",
+        "2024-01-31T08:00Z",
+        "2024-02-01T08:00Z",
+        "2024-02-02T08:00Z",
+        "2024-02-03T08:00Z",
+        "2024-02-04T08:00Z",
+        "2024-02-05T08:00Z",
+        "2024-02-06T08:00Z",
+        "2024-02-07T08:00Z",
+        "2024-02-08T08:00Z",
+        "2024-02-09T08:00Z",
+        "2024-02-10T08:00Z",
+        "2024-02-11T08:00Z",
+        "2024-02-12T08:00Z",
+        "2024-02-13T08:00Z",
+        "2024-02-14T08:00Z",
+        "2024-02-15T08:00Z",
+        "2024-02-16T08:00Z",
+        "2024-02-17T08:00Z",
+        "2024-02-18T08:00Z",
+        "2024-02-19T08:00Z",
+        "2024-02-20T08:00Z",
+        "2024-02-21T08:00Z",
+        "2024-02-22T08:00Z",
+        "2024-02-23T08:00Z",
+        "2024-02-24T08:00Z",
+        "2024-02-25T08:00Z",
+        "2024-02-26T08:00Z",
+        "2024-02-27T08:00Z",
+        "2024-02-28T08:00Z",
+        "2024-02-29T08:00Z",
+        "2024-03-01T08:00Z",
+        "2024-03-02T08:00Z",
+        "2024-03-03T08:00Z",
+        "2024-03-04T08:00Z",
+        "2024-03-05T08:00Z",
+        "2024-03-06T08:00Z",
+        "2024-03-07T08:00Z",
+        "2024-03-08T08:00Z",
+        "2024-03-09T08:00Z",
+        "2024-03-10T08:00Z",
+        "2024-03-11T07:00Z",
+        "2024-03-12T07:00Z",
+        "2024-03-13T07:00Z",
+        "2024-03-14T07:00Z",
+        "2024-03-15T07:00Z",
+        "2024-03-16T07:00Z",
+        "2024-03-17T07:00Z",
+        "2024-03-18T07:00Z",
+        "2024-03-19T07:00Z",
+        "2024-03-20T07:00Z",
+        "2024-03-21T07:00Z",
+        "2024-03-22T07:00Z",
+        "2024-03-23T07:00Z",
+        "2024-03-24T07:00Z",
+        "2024-03-25T07:00Z",
+        "2024-03-26T07:00Z",
+        "2024-03-27T07:00Z",
+        "2024-03-28T07:00Z",
+        "2024-03-29T07:00Z",
+        "2024-03-30T07:00Z",
+        "2024-03-31T07:00Z",
+        "2024-04-01T07:00Z",
+        "2024-04-02T07:00Z",
+        "2024-04-03T07:00Z",
+        "2024-04-04T07:00Z",
+        "2024-04-05T07:00Z",
+        "2024-04-06T07:00Z",
+        "2024-04-07T07:00Z",
+        "2024-04-11T07:00Z",
+        "2024-04-12T07:00Z",
+        "2024-04-13T07:00Z",
+        "2024-04-14T07:00Z",
+        "2024-04-15T07:00Z",
+        "2024-04-16T07:00Z",
+        "2024-04-17T07:00Z",
+        "2024-04-18T07:00Z",
+        "2024-04-19T07:00Z",
+        "2024-04-20T07:00Z",
+        "2024-04-21T07:00Z",
+        "2024-04-22T07:00Z",
+        "2024-04-23T07:00Z",
+        "2024-04-24T07:00Z",
+        "2024-04-25T07:00Z",
+        "2024-04-26T07:00Z",
+        "2024-04-27T07:00Z",
+        "2024-04-28T07:00Z",
+        "2024-04-29T07:00Z",
+        "2024-04-30T07:00Z",
+        "2024-05-01T07:00Z",
+        "2024-05-02T07:00Z",
+        "2024-05-03T07:00Z",
+        "2024-05-04T07:00Z",
+        "2024-05-05T07:00Z",
+        "2024-05-06T07:00Z",
+        "2024-05-07T07:00Z",
+        "2024-05-08T07:00Z",
+        "2024-05-09T07:00Z",
+        "2024-05-10T07:00Z",
+        "2024-05-11T07:00Z",
+        "2024-05-12T07:00Z",
+        "2024-05-13T07:00Z",
+        "2024-05-14T07:00Z",
+        "2024-05-15T07:00Z",
+        "2024-05-16T07:00Z",
+        "2024-05-17T07:00Z",
+        "2024-05-18T07:00Z",
+        "2024-05-19T07:00Z",
+        "2024-05-20T07:00Z",
+        "2024-05-21T07:00Z",
+        "2024-05-22T07:00Z",
+        "2024-05-23T07:00Z",
+        "2024-05-24T07:00Z",
+        "2024-05-25T07:00Z",
+        "2024-05-26T07:00Z",
+        "2024-05-27T07:00Z",
+        "2024-05-28T07:00Z",
+        "2024-05-29T07:00Z",
+        "2024-05-30T07:00Z",
+        "2024-05-31T07:00Z",
+        "2024-06-01T07:00Z",
+        "2024-06-02T07:00Z",
+        "2024-06-03T07:00Z",
+        "2024-06-04T07:00Z",
+        "2024-06-05T07:00Z",
+        "2024-06-06T07:00Z",
+        "2024-06-07T07:00Z",
+        "2024-06-08T07:00Z",
+        "2024-06-09T07:00Z",
+        "2024-06-10T07:00Z",
+        "2024-06-11T07:00Z",
+        "2024-06-12T07:00Z",
+        "2024-06-13T07:00Z",
+        "2024-06-14T07:00Z",
+        "2024-06-15T07:00Z",
+        "2024-06-16T07:00Z",
+        "2024-06-17T07:00Z",
+        "2024-06-18T07:00Z",
+        "2024-06-19T07:00Z",
+        "2024-06-20T07:00Z",
+        "2024-06-21T07:00Z",
+        "2024-06-22T07:00Z",
+        "2024-06-23T07:00Z",
+        "2024-06-24T07:00Z",
+        "2024-06-25T07:00Z",
+        "2024-06-26T07:00Z",
+        "2024-06-27T07:00Z",
+        "2024-06-28T07:00Z",
+        "2024-06-29T07:00Z",
+        "2024-07-01T07:00Z",
+        "2024-07-02T07:00Z",
+        "2024-07-03T07:00Z",
+        "2024-07-04T07:00Z",
+        "2024-07-05T07:00Z",
+        "2024-07-06T07:00Z",
+        "2024-07-07T07:00Z",
+        "2024-07-08T07:00Z",
+        "2024-07-09T07:00Z",
+        "2024-07-10T07:00Z",
+        "2024-07-11T07:00Z",
+        "2024-07-12T07:00Z",
+        "2024-07-13T07:00Z",
+        "2024-07-14T07:00Z",
+        "2024-07-15T07:00Z",
+        "2024-07-16T07:00Z",
+        "2024-07-17T07:00Z",
+        "2024-07-18T07:00Z",
+        "2024-07-19T07:00Z",
+        "2024-07-20T07:00Z",
+        "2024-07-21T07:00Z",
+        "2024-07-22T07:00Z",
+        "2024-07-23T07:00Z",
+        "2024-07-24T07:00Z",
+        "2024-07-25T07:00Z",
+        "2024-07-26T07:00Z",
+        "2024-07-27T07:00Z",
+        "2024-07-28T07:00Z",
+        "2024-07-29T07:00Z",
+        "2024-07-30T07:00Z",
+        "2024-07-31T07:00Z",
+        "2024-08-01T07:00Z",
+        "2024-08-02T07:00Z",
+        "2024-08-03T07:00Z",
+        "2024-08-04T07:00Z",
+        "2024-08-05T07:00Z",
+        "2024-08-06T07:00Z",
+        "2024-08-07T07:00Z",
+        "2024-08-08T07:00Z",
+        "2024-08-09T07:00Z",
+        "2024-08-10T07:00Z",
+        "2024-08-11T07:00Z",
+        "2024-08-12T07:00Z",
+        "2024-08-13T07:00Z",
+        "2024-08-14T07:00Z",
+        "2024-08-15T07:00Z",
+        "2024-08-16T07:00Z",
+        "2024-08-17T07:00Z",
+        "2024-08-18T07:00Z",
+        "2024-08-19T07:00Z",
+        "2024-08-20T07:00Z",
+        "2024-08-21T07:00Z",
+        "2024-08-22T07:00Z",
+        "2024-08-23T07:00Z",
+        "2024-08-24T07:00Z",
+        "2024-08-26T07:00Z",
+        "2024-08-27T07:00Z",
+        "2024-08-28T07:00Z",
+        "2024-08-29T07:00Z",
+        "2024-08-30T07:00Z",
+        "2024-08-31T07:00Z",
+        "2024-09-01T07:00Z",
+        "2024-09-02T07:00Z",
+        "2024-09-03T07:00Z",
+        "2024-09-04T07:00Z",
+        "2024-09-05T07:00Z",
+        "2024-09-06T07:00Z",
+        "2024-09-07T07:00Z",
+        "2024-09-08T07:00Z",
+        "2024-09-09T07:00Z",
+        "2024-09-10T07:00Z",
+        "2024-09-11T07:00Z",
+        "2024-09-12T07:00Z",
+        "2024-09-13T07:00Z",
+        "2024-09-14T07:00Z",
+        "2024-09-15T07:00Z",
+        "2024-09-16T07:00Z",
+        "2024-09-17T07:00Z",
+        "2024-09-18T07:00Z",
+        "2024-09-19T07:00Z",
+        "2024-09-20T07:00Z",
+        "2024-09-21T07:00Z",
+        "2024-09-22T07:00Z",
+        "2024-09-23T07:00Z",
+        "2024-09-24T07:00Z",
+        "2024-09-25T07:00Z",
+        "2024-09-26T07:00Z",
+        "2024-09-27T07:00Z",
+        "2024-09-28T07:00Z",
+        "2024-09-29T07:00Z",
+        "2024-09-30T07:00Z",
+        "2024-10-01T07:00Z",
+        "2024-10-02T07:00Z",
+        "2024-10-03T07:00Z",
+        "2024-10-04T07:00Z",
+        "2024-10-05T07:00Z",
+        "2024-10-06T07:00Z",
+        "2024-10-07T07:00Z",
+        "2024-10-08T07:00Z",
+        "2024-10-09T07:00Z",
+        "2024-10-10T07:00Z",
+        "2024-10-11T07:00Z",
+        "2024-10-12T07:00Z",
+        "2024-10-13T07:00Z",
+        "2024-10-14T07:00Z",
+        "2024-10-15T07:00Z",
+        "2024-10-16T07:00Z",
+        "2024-10-17T07:00Z",
+        "2024-10-18T07:00Z",
+        "2024-10-19T07:00Z",
+        "2024-10-20T07:00Z",
+        "2024-10-21T07:00Z",
+        "2024-10-22T07:00Z",
+        "2024-10-23T07:00Z",
+        "2024-10-24T07:00Z",
+        "2024-10-25T07:00Z",
+        "2024-10-26T07:00Z",
+        "2024-10-27T07:00Z",
+        "2024-10-28T07:00Z",
+        "2024-10-29T07:00Z",
+        "2024-10-30T07:00Z",
+        "2024-10-31T07:00Z",
+        "2024-11-01T07:00Z",
+        "2024-11-02T07:00Z",
+        "2024-11-03T07:00Z",
+        "2024-11-04T08:00Z",
+        "2024-11-05T08:00Z",
+        "2024-11-06T08:00Z",
+        "2024-11-07T08:00Z",
+        "2024-11-08T08:00Z",
+        "2024-11-09T08:00Z",
+        "2024-11-10T08:00Z",
+        "2024-11-14T08:00Z",
+        "2024-11-15T08:00Z",
+        "2024-11-16T08:00Z",
+        "2024-11-17T08:00Z",
+        "2024-11-18T08:00Z",
+        "2024-11-19T08:00Z",
+        "2024-11-20T08:00Z",
+        "2024-11-21T08:00Z",
+        "2024-11-22T08:00Z",
+        "2024-11-23T08:00Z",
+        "2024-11-24T08:00Z",
+        "2024-11-25T08:00Z",
+        "2024-11-26T08:00Z",
+        "2024-11-27T08:00Z",
+        "2024-11-28T08:00Z",
+        "2024-11-29T08:00Z",
+        "2024-11-30T08:00Z",
+        "2024-12-01T08:00Z",
+        "2024-12-02T08:00Z",
+        "2024-12-03T08:00Z",
+        "2024-12-04T08:00Z",
+        "2024-12-05T08:00Z",
+        "2024-12-06T08:00Z",
+        "2024-12-07T08:00Z",
+        "2024-12-08T08:00Z",
+        "2024-12-09T08:00Z",
+        "2024-12-10T08:00Z",
+        "2024-12-11T08:00Z",
+        "2024-12-12T08:00Z",
+        "2024-12-13T08:00Z",
+        "2024-12-14T08:00Z",
+        "2024-12-15T08:00Z"
+      ]
+    }
+  ],
+  "events": [
+    {
+      "id": "189-2024",
+      "uid": "s:850~l:900~e:189-2024",
+      "date": "2024-08-19T04:00Z",
+      "endDate": "2024-09-09T03:59Z",
+      "major": true,
+      "name": "US Open",
+      "shortName": "US Open",
+      "season": {
+        "year": 2024,
+        "type": 2
+      },
+      "groupings": [
+        {
+          "grouping": {
+            "id": "1",
+            "slug": "mens-singles",
+            "displayName": "Men's Singles"
+          },
+          "competitions": [
+            {
+              "id": "150320",
+              "uid": "s:850~l:900~e:189-2024~c:150320",
+              "date": "2024-08-19T15:10Z",
+              "startDate": "2024-08-19T15:10Z",
+              "timeValid": true,
+              "recent": false,
+              "status": {
+                "period": 2,
+                "type": {
+                  "id": "3",
+                  "name": "STATUS_FINAL",
+                  "state": "post",
+                  "completed": true,
+                  "description": "Final",
+                  "detail": "Final",
+                  "shortDetail": "Final"
+                }
+              },
+              "venue": {
+                "fullName": "New York, USA",
+                "court": "Court 9"
+              },
+              "format": {
+                "regulation": {
+                  "periods": 3
+                }
+              },
+              "notes": [
+                {
+                  "text": "Luca Van Assche (FRA) bt Pablo Cuevas (URU) 6-2 6-1",
+                  "type": "event"
+                }
+              ],
+              "geoBroadcasts": [
+                {
+                  "type": {
+                    "id": "1",
+                    "shortName": "TV"
+                  },
+                  "market": {
+                    "id": "1",
+                    "type": "National"
+                  },
+                  "media": {
+                    "shortName": "ESPN+",
+                    "logo": "https://a.espncdn.com/guid/322a7e47-3cdb-3b5c-ab1b-678e1f2c27e5/logos/default.png",
+                    "darkLogo": "https://a.espncdn.com/guid/322a7e47-3cdb-3b5c-ab1b-678e1f2c27e5/logos/default-dark.png"
+                  },
+                  "lang": "en",
+                  "region": "us"
+                }
+              ],
+              "broadcasts": [
+                {
+                  "market": "national",
+                  "names": [
+                    "ESPN+"
+                  ]
+                }
+              ],
+              "broadcast": "ESPN+",
+              "competitors": [
+                {
+                  "id": "795",
+                  "uid": "s:850~l:900~a:795",
+                  "type": "athlete",
+                  "order": 2,
+                  "homeAway": "away",
+                  "winner": false,
+                  "linescores": [
+                    {
+                      "value": 2,
+                      "winner": false
+                    },
+                    {
+                      "value": 1,
+                      "winner": false
+                    }
+                  ],
+                  "athlete": {
+                    "guid": "6895f3f4-a4dd-b930-3f82-c655c74c7bff",
+                    "displayName": "Pablo Cuevas",
+                    "shortName": "P. Cuevas",
+                    "fullName": "Pablo Cuevas",
+                    "flag": {
+                      "href": "https://a.espncdn.com/i/teamlogos/countries/500/uru.png",
+                      "alt": "Uruguay",
+                      "rel": [
+                        "country-flag"
+                      ]
+                    },
+                    "links": [
+                      {
+                        "language": "en-US",
+                        "rel": [
+                          "playercard",
+                          "desktop",
+                          "athlete"
+                        ],
+                        "href": "https://www.espn.com/tennis/player/_/id/795/pablo-cuevas",
+                        "text": "Player Card",
+                        "shortText": "Player Card",
+                        "isExternal": false,
+                        "isPremium": false,
+                        "isHidden": false
+                      }
+                    ]
+                  },
+                  "statistics": []
+                },
+                {
+                  "id": "8814",
+                  "uid": "s:850~l:900~a:8814",
+                  "type": "athlete",
+                  "order": 1,
+                  "homeAway": "home",
+                  "winner": true,
+                  "linescores": [
+                    {
+                      "value": 6,
+                      "winner": true
+                    },
+                    {
+                      "value": 6,
+                      "winner": true
+                    }
+                  ],
+                  "athlete": {
+                    "guid": "835af718-cb8c-3abe-a70d-b5c0ebed4e87",
+                    "displayName": "Luca Van Assche",
+                    "shortName": "L. Van Assche",
+                    "fullName": "Luca Van Assche",
+                    "flag": {
+                      "href": "https://a.espncdn.com/i/teamlogos/countries/500/fra.png",
+                      "alt": "France",
+                      "rel": [
+                        "country-flag"
+                      ]
+                    },
+                    "links": [
+                      {
+                        "language": "en-US",
+                        "rel": [
+                          "playercard",
+                          "desktop",
+                          "athlete"
+                        ],
+                        "href": "https://www.espn.com/tennis/player/_/id/8814/luca-van-assche",
+                        "text": "Player Card",
+                        "shortText": "Player Card",
+                        "isExternal": false,
+                        "isPremium": false,
+                        "isHidden": false
+                      }
+                    ]
+                  },
+                  "statistics": []
+                }
+              ],
+              "tournamentId": 189,
+              "type": {
+                "id": "1",
+                "text": "Men's Singles",
+                "slug": "mens-singles"
+              },
+              "round": {
+                "id": "11",
+                "displayName": "Qualifying 1st Round"
+              },
+              "wasSuspended": false
+            },
+            {
+              "id": "149207",
+              "uid": "s:850~l:900~e:189-2024~c:149207",
+              "date": "2024-08-26T15:10Z",
+              "startDate": "2024-08-26T15:10Z",
+              "timeValid": true,
+              "recent": false,
+              "status": {
+                "period": 4,
+                "type": {
+                  "id": "3",
+                  "name": "STATUS_FINAL",
+                  "state": "post",
+                  "completed": true,
+                  "description": "Final",
+                  "detail": "Final",
+                  "shortDetail": "Final"
+                }
+              },
+              "venue": {
+                "fullName": "New York, USA",
+                "court": "Court 4"
+              },
+              "format": {
+                "regulation": {
+                  "periods": 3
+                }
+              },
+              "notes": [
+                {
+                  "text": "Francisco Comesana (ARG) bt Dominic Stricker (SUI) 4-6 6-3 7-6 (7-4) 6-3",
+                  "type": "event"
+                }
+              ],
+              "geoBroadcasts": [
+                {
+                  "type": {
+                    "id": "1",
+                    "shortName": "TV"
+                  },
+                  "market": {
+                    "id": "1",
+                    "type": "National"
+                  },
+                  "media": {
+                    "shortName": "ESPN+",
+                    "logo": "https://a.espncdn.com/guid/322a7e47-3cdb-3b5c-ab1b-678e1f2c27e5/logos/default.png",
+                    "darkLogo": "https://a.espncdn.com/guid/322a7e47-3cdb-3b5c-ab1b-678e1f2c27e5/logos/default-dark.png"
+                  },
+                  "lang": "en",
+                  "region": "us"
+                }
+              ],
+              "broadcasts": [
+                {
+                  "market": "national",
+                  "names": [
+                    "ESPN+"
+                  ]
+                }
+              ],
+              "broadcast": "ESPN+",
+              "competitors": [
+                {
+                  "id": "10044",
+                  "uid": "s:850~l:900~a:10044",
+                  "type": "athlete",
+                  "order": 2,
+                  "homeAway": "away",
+                  "winner": true,
+                  "linescores": [
+                    {
+                      "value": 4,
+                      "winner": false
+                    },
+                    {
+                      "value": 6,
+                      "winner": true
+                    },
+                    {
+                      "value": 7,
+                      "tiebreak": 7,
+                      "winner": true
+                    },
+                    {
+                      "value": 6,
+                      "winner": true
+                    }
+                  ],
+                  "athlete": {
+                    "guid": "fcb62d41-ba33-3863-bbc3-f03c4446f916",
+                    "displayName": "Francisco Comesana",
+                    "shortName": "F. Comesana",
+                    "fullName": "Francisco Comesana",
+                    "flag": {
+                      "href": "https://a.espncdn.com/i/teamlogos/countries/500/arg.png",
+                      "alt": "Argentina",
+                      "rel": [
+                        "country-flag"
+                      ]
+                    },
+                    "links": [
+                      {
+                        "language": "en-US",
+                        "rel": [
+                          "playercard",
+                          "desktop",
+                          "athlete"
+                        ],
+                        "href": "https://www.espn.com/tennis/player/_/id/10044/francisco-comesana",
+                        "text": "Player Card",
+                        "shortText": "Player Card",
+                        "isExternal": false,
+                        "isPremium": false,
+                        "isHidden": false
+                      }
+                    ]
+                  },
+                  "statistics": []
+                },
+                {
+                  "id": "9962",
+                  "uid": "s:850~l:900~a:9962",
+                  "type": "athlete",
+                  "order": 1,
+                  "homeAway": "home",
+                  "winner": false,
+                  "linescores": [
+                    {
+                      "value": 6,
+                      "winner": true
+                    },
+                    {
+                      "value": 3,
+                      "winner": false
+                    },
+                    {
+                      "value": 6,
+                      "tiebreak": 4,
+                      "winner": false
+                    },
+                    {
+                      "value": 3,
+                      "winner": false
+                    }
+                  ],
+                  "athlete": {
+                    "guid": "e01647eb-9911-3dd6-bcf8-75d57c80b368",
+                    "displayName": "Dominic Stricker",
+                    "shortName": "D. Stricker",
+                    "fullName": "Dominic Stricker",
+                    "flag": {
+                      "href": "https://a.espncdn.com/i/teamlogos/countries/500/sui.png",
+                      "alt": "Switzerland",
+                      "rel": [
+                        "country-flag"
+                      ]
+                    },
+                    "links": [
+                      {
+                        "language": "en-US",
+                        "rel": [
+                          "playercard",
+                          "desktop",
+                          "athlete"
+                        ],
+                        "href": "https://www.espn.com/tennis/player/_/id/9962/dominic-stricker",
+                        "text": "Player Card",
+                        "shortText": "Player Card",
+                        "isExternal": false,
+                        "isPremium": false,
+                        "isHidden": false
+                      }
+                    ]
+                  },
+                  "statistics": []
+                }
+              ],
+              "tournamentId": 189,
+              "type": {
+                "id": "1",
+                "text": "Men's Singles",
+                "slug": "mens-singles"
+              },
+              "round": {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              "wasSuspended": false
+            }
+          ]
+        },
+        {
+          "grouping": {
+            "id": "2",
+            "slug": "womens-singles",
+            "displayName": "Women's Singles"
+          },
+          "competitions": [
+            {
+              "id": "150411",
+              "uid": "s:850~l:900~e:189-2024~c:150411",
+              "date": "2024-08-19T15:10Z",
+              "startDate": "2024-08-19T15:10Z",
+              "timeValid": true,
+              "recent": false,
+              "status": {
+                "period": 2,
+                "type": {
+                  "id": "3",
+                  "name": "STATUS_FINAL",
+                  "state": "post",
+                  "completed": true,
+                  "description": "Final",
+                  "detail": "Final",
+                  "shortDetail": "Final"
+                }
+              },
+              "venue": {
+                "fullName": "New York, USA",
+                "court": "Court 13"
+              },
+              "format": {
+                "regulation": {
+                  "periods": 3
+                }
+              },
+              "notes": [
+                {
+                  "text": "Varvara Lepchenko (USA) bt Tamara Zidansek (SLO) 6-2 6-3",
+                  "type": "event"
+                }
+              ],
+              "geoBroadcasts": [
+                {
+                  "type": {
+                    "id": "1",
+                    "shortName": "TV"
+                  },
+                  "market": {
+                    "id": "1",
+                    "type": "National"
+                  },
+                  "media": {
+                    "shortName": "ESPN+",
+                    "logo": "https://a.espncdn.com/guid/322a7e47-3cdb-3b5c-ab1b-678e1f2c27e5/logos/default.png",
+                    "darkLogo": "https://a.espncdn.com/guid/322a7e47-3cdb-3b5c-ab1b-678e1f2c27e5/logos/default-dark.png"
+                  },
+                  "lang": "en",
+                  "region": "us"
+                }
+              ],
+              "broadcasts": [
+                {
+                  "market": "national",
+                  "names": [
+                    "ESPN+"
+                  ]
+                }
+              ],
+              "broadcast": "ESPN+",
+              "competitors": [
+                {
+                  "id": "3034",
+                  "uid": "s:850~l:900~a:3034",
+                  "type": "athlete",
+                  "order": 2,
+                  "homeAway": "away",
+                  "winner": false,
+                  "linescores": [
+                    {
+                      "value": 2,
+                      "winner": false
+                    },
+                    {
+                      "value": 3,
+                      "winner": false
+                    }
+                  ],
+                  "athlete": {
+                    "guid": "cbd35839-14e1-f838-21f6-d94a2b1c8e38",
+                    "displayName": "Tamara Zidansek",
+                    "shortName": "T. Zidansek",
+                    "fullName": "Tamara Zidansek",
+                    "flag": {
+                      "href": "https://a.espncdn.com/i/teamlogos/countries/500/slo.png",
+                      "alt": "Slovenia",
+                      "rel": [
+                        "country-flag"
+                      ]
+                    },
+                    "links": [
+                      {
+                        "language": "en-US",
+                        "rel": [
+                          "playercard",
+                          "desktop",
+                          "athlete"
+                        ],
+                        "href": "https://www.espn.com/tennis/player/_/id/3034/tamara-zidansek",
+                        "text": "Player Card",
+                        "shortText": "Player Card",
+                        "isExternal": false,
+                        "isPremium": false,
+                        "isHidden": false
+                      }
+                    ]
+                  },
+                  "statistics": []
+                },
+                {
+                  "id": "423",
+                  "uid": "s:850~l:900~a:423",
+                  "type": "athlete",
+                  "order": 1,
+                  "homeAway": "home",
+                  "winner": true,
+                  "linescores": [
+                    {
+                      "value": 6,
+                      "winner": true
+                    },
+                    {
+                      "value": 6,
+                      "winner": true
+                    }
+                  ],
+                  "athlete": {
+                    "guid": "abb46dba-4c61-b31d-df08-cfa4a24403d1",
+                    "displayName": "Varvara Lepchenko",
+                    "shortName": "V. Lepchenko",
+                    "fullName": "Varvara Lepchenko",
+                    "flag": {
+                      "href": "https://a.espncdn.com/i/teamlogos/countries/500/usa.png",
+                      "alt": "USA",
+                      "rel": [
+                        "country-flag"
+                      ]
+                    },
+                    "links": [
+                      {
+                        "language": "en-US",
+                        "rel": [
+                          "playercard",
+                          "desktop",
+                          "athlete"
+                        ],
+                        "href": "https://www.espn.com/tennis/player/_/id/423/varvara-lepchenko",
+                        "text": "Player Card",
+                        "shortText": "Player Card",
+                        "isExternal": false,
+                        "isPremium": false,
+                        "isHidden": false
+                      }
+                    ]
+                  },
+                  "statistics": []
+                }
+              ],
+              "tournamentId": 189,
+              "type": {
+                "id": "2",
+                "text": "Women's Singles",
+                "slug": "womens-singles"
+              },
+              "round": {
+                "id": "11",
+                "displayName": "Qualifying 1st Round"
+              },
+              "wasSuspended": false
+            },
+            {
+              "id": "148989",
+              "uid": "s:850~l:900~e:189-2024~c:148989",
+              "date": "2024-08-26T15:05Z",
+              "startDate": "2024-08-26T15:05Z",
+              "timeValid": true,
+              "recent": false,
+              "status": {
+                "period": 2,
+                "type": {
+                  "id": "3",
+                  "name": "STATUS_FINAL",
+                  "state": "post",
+                  "completed": true,
+                  "description": "Final",
+                  "detail": "Final",
+                  "shortDetail": "Final"
+                }
+              },
+              "venue": {
+                "fullName": "New York, USA",
+                "court": "Court 7"
+              },
+              "format": {
+                "regulation": {
+                  "periods": 3
+                }
+              },
+              "notes": [
+                {
+                  "text": "(12) Daria Kasatkina (RUS) bt Jaqueline Cristian (ROM) 6-2 6-4",
+                  "type": "event"
+                }
+              ],
+              "geoBroadcasts": [
+                {
+                  "type": {
+                    "id": "1",
+                    "shortName": "TV"
+                  },
+                  "market": {
+                    "id": "1",
+                    "type": "National"
+                  },
+                  "media": {
+                    "shortName": "ESPN+",
+                    "logo": "https://a.espncdn.com/guid/322a7e47-3cdb-3b5c-ab1b-678e1f2c27e5/logos/default.png",
+                    "darkLogo": "https://a.espncdn.com/guid/322a7e47-3cdb-3b5c-ab1b-678e1f2c27e5/logos/default-dark.png"
+                  },
+                  "lang": "en",
+                  "region": "us"
+                }
+              ],
+              "broadcasts": [
+                {
+                  "market": "national",
+                  "names": [
+                    "ESPN+"
+                  ]
+                }
+              ],
+              "broadcast": "ESPN+",
+              "competitors": [
+                {
+                  "id": "2191",
+                  "uid": "s:850~l:900~a:2191",
+                  "type": "athlete",
+                  "order": 2,
+                  "homeAway": "away",
+                  "winner": true,
+                  "curatedRank": {
+                    "current": 12
+                  },
+                  "linescores": [
+                    {
+                      "value": 6,
+                      "winner": true
+                    },
+                    {
+                      "value": 6,
+                      "winner": true
+                    }
+                  ],
+                  "athlete": {
+                    "guid": "dc08ff13-644e-fa3a-32ee-fc27a300b90a",
+                    "displayName": "Daria Kasatkina",
+                    "shortName": "D. Kasatkina",
+                    "fullName": "Daria Kasatkina",
+                    "flag": {
+                      "href": "https://a.espncdn.com/i/teamlogos/countries/500/aus.png",
+                      "alt": "Australia",
+                      "rel": [
+                        "country-flag"
+                      ]
+                    },
+                    "links": [
+                      {
+                        "language": "en-US",
+                        "rel": [
+                          "playercard",
+                          "desktop",
+                          "athlete"
+                        ],
+                        "href": "https://www.espn.com/tennis/player/_/id/2191/daria-kasatkina",
+                        "text": "Player Card",
+                        "shortText": "Player Card",
+                        "isExternal": false,
+                        "isPremium": false,
+                        "isHidden": false
+                      }
+                    ]
+                  },
+                  "statistics": []
+                },
+                {
+                  "id": "2737",
+                  "uid": "s:850~l:900~a:2737",
+                  "type": "athlete",
+                  "order": 1,
+                  "homeAway": "home",
+                  "winner": false,
+                  "linescores": [
+                    {
+                      "value": 2,
+                      "winner": false
+                    },
+                    {
+                      "value": 4,
+                      "winner": false
+                    }
+                  ],
+                  "athlete": {
+                    "guid": "c6698549-e40a-4541-b09c-81d154a6b088",
+                    "displayName": "Jaqueline Cristian",
+                    "shortName": "J. Cristian",
+                    "fullName": "Jaqueline Cristian",
+                    "flag": {
+                      "href": "https://a.espncdn.com/i/teamlogos/countries/500/rom.png",
+                      "alt": "Romania",
+                      "rel": [
+                        "country-flag"
+                      ]
+                    },
+                    "links": [
+                      {
+                        "language": "en-US",
+                        "rel": [
+                          "playercard",
+                          "desktop",
+                          "athlete"
+                        ],
+                        "href": "https://www.espn.com/tennis/player/_/id/2737/jaqueline-cristian",
+                        "text": "Player Card",
+                        "shortText": "Player Card",
+                        "isExternal": false,
+                        "isPremium": false,
+                        "isHidden": false
+                      }
+                    ]
+                  },
+                  "statistics": []
+                }
+              ],
+              "tournamentId": 189,
+              "type": {
+                "id": "2",
+                "text": "Women's Singles",
+                "slug": "womens-singles"
+              },
+              "round": {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              "wasSuspended": false
+            }
+          ]
+        },
+        {
+          "grouping": {
+            "id": "4",
+            "slug": "womens-doubles",
+            "displayName": "Women's Doubles"
+          },
+          "competitions": [
+            {
+              "id": "149097",
+              "uid": "s:850~l:900~e:189-2024~c:149097",
+              "date": "2024-08-28T15:05Z",
+              "startDate": "2024-08-28T15:05Z",
+              "timeValid": true,
+              "recent": false,
+              "status": {
+                "period": 2,
+                "type": {
+                  "id": "3",
+                  "name": "STATUS_FINAL",
+                  "state": "post",
+                  "completed": true,
+                  "description": "Final",
+                  "detail": "Final",
+                  "shortDetail": "Final"
+                }
+              },
+              "venue": {
+                "fullName": "New York, USA",
+                "court": "Court 13"
+              },
+              "format": {
+                "regulation": {
+                  "periods": 3
+                }
+              },
+              "notes": [
+                {
+                  "text": "Jaqueline Cristian (ROM) & Angelica Moratelli (ITA) bt (15) Ulrikke Eikeri (NOR) & Ingrid Neel (EST) 6-3 6-4",
+                  "type": "event"
+                }
+              ],
+              "geoBroadcasts": [
+                {
+                  "type": {
+                    "id": "1",
+                    "shortName": "TV"
+                  },
+                  "market": {
+                    "id": "1",
+                    "type": "National"
+                  },
+                  "media": {
+                    "shortName": "ESPN+",
+                    "logo": "https://a.espncdn.com/guid/322a7e47-3cdb-3b5c-ab1b-678e1f2c27e5/logos/default.png",
+                    "darkLogo": "https://a.espncdn.com/guid/322a7e47-3cdb-3b5c-ab1b-678e1f2c27e5/logos/default-dark.png"
+                  },
+                  "lang": "en",
+                  "region": "us"
+                }
+              ],
+              "broadcasts": [
+                {
+                  "market": "national",
+                  "names": [
+                    "ESPN+"
+                  ]
+                }
+              ],
+              "broadcast": "ESPN+",
+              "competitors": [
+                {
+                  "id": "1652-2982",
+                  "uid": "s:850~l:900~t:1652-2982",
+                  "type": "team",
+                  "order": 2,
+                  "homeAway": "away",
+                  "winner": false,
+                  "curatedRank": {
+                    "current": 15
+                  },
+                  "linescores": [
+                    {
+                      "value": 3,
+                      "winner": false
+                    },
+                    {
+                      "value": 4,
+                      "winner": false
+                    }
+                  ],
+                  "roster": {
+                    "displayName": "Ulrikke Eikeri / Ingrid Neel",
+                    "shortDisplayName": "U. Eikeri / I. Neel",
+                    "athletes": [
+                      {
+                        "guid": "75751634-795c-b9c2-6815-9a340106d9a5",
+                        "displayName": "Ulrikke Eikeri",
+                        "shortName": "U. Eikeri",
+                        "fullName": "Ulrikke Eikeri",
+                        "flag": {
+                          "href": "https://a.espncdn.com/i/teamlogos/countries/500/nor.png",
+                          "alt": "Norway",
+                          "rel": [
+                            "country-flag"
+                          ]
+                        },
+                        "links": [
+                          {
+                            "language": "en-US",
+                            "rel": [
+                              "playercard",
+                              "desktop",
+                              "athlete"
+                            ],
+                            "href": "https://www.espn.com/tennis/player/_/id/1652/ulrikke-eikeri",
+                            "text": "Player Card",
+                            "shortText": "Player Card",
+                            "isExternal": false,
+                            "isPremium": false,
+                            "isHidden": false
+                          }
+                        ]
+                      },
+                      {
+                        "guid": "eec287e3-5213-ed00-43e8-61420ab3ecd1",
+                        "displayName": "Ingrid Neel",
+                        "shortName": "I. Neel",
+                        "fullName": "Ingrid Neel",
+                        "flag": {
+                          "href": "https://a.espncdn.com/i/teamlogos/countries/500/est.png",
+                          "alt": "Estonia",
+                          "rel": [
+                            "country-flag"
+                          ]
+                        },
+                        "links": [
+                          {
+                            "language": "en-US",
+                            "rel": [
+                              "playercard",
+                              "desktop",
+                              "athlete"
+                            ],
+                            "href": "https://www.espn.com/tennis/player/_/id/2982/ingrid-neel",
+                            "text": "Player Card",
+                            "shortText": "Player Card",
+                            "isExternal": false,
+                            "isPremium": false,
+                            "isHidden": false
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "statistics": []
+                },
+                {
+                  "id": "2737-4295",
+                  "uid": "s:850~l:900~t:2737-4295",
+                  "type": "team",
+                  "order": 1,
+                  "homeAway": "home",
+                  "winner": true,
+                  "linescores": [
+                    {
+                      "value": 6,
+                      "winner": true
+                    },
+                    {
+                      "value": 6,
+                      "winner": true
+                    }
+                  ],
+                  "roster": {
+                    "displayName": "Jaqueline Cristian / Angelica Moratelli",
+                    "shortDisplayName": "J. Cristian / A. Moratelli",
+                    "athletes": [
+                      {
+                        "guid": "c6698549-e40a-4541-b09c-81d154a6b088",
+                        "displayName": "Jaqueline Cristian",
+                        "shortName": "J. Cristian",
+                        "fullName": "Jaqueline Cristian",
+                        "flag": {
+                          "href": "https://a.espncdn.com/i/teamlogos/countries/500/rom.png",
+                          "alt": "Romania",
+                          "rel": [
+                            "country-flag"
+                          ]
+                        },
+                        "links": [
+                          {
+                            "language": "en-US",
+                            "rel": [
+                              "playercard",
+                              "desktop",
+                              "athlete"
+                            ],
+                            "href": "https://www.espn.com/tennis/player/_/id/2737/jaqueline-cristian",
+                            "text": "Player Card",
+                            "shortText": "Player Card",
+                            "isExternal": false,
+                            "isPremium": false,
+                            "isHidden": false
+                          }
+                        ]
+                      },
+                      {
+                        "guid": "936fbdba-0b41-33bd-a34a-8a7a39a94204",
+                        "displayName": "Angelica Moratelli",
+                        "shortName": "A. Moratelli",
+                        "fullName": "Angelica Moratelli",
+                        "flag": {
+                          "href": "https://a.espncdn.com/i/teamlogos/countries/500/ita.png",
+                          "alt": "Italy",
+                          "rel": [
+                            "country-flag"
+                          ]
+                        },
+                        "links": [
+                          {
+                            "language": "en-US",
+                            "rel": [
+                              "playercard",
+                              "desktop",
+                              "athlete"
+                            ],
+                            "href": "https://www.espn.com/tennis/player/_/id/4295/angelica-moratelli",
+                            "text": "Player Card",
+                            "shortText": "Player Card",
+                            "isExternal": false,
+                            "isPremium": false,
+                            "isHidden": false
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "statistics": []
+                }
+              ],
+              "tournamentId": 189,
+              "type": {
+                "id": "4",
+                "text": "Women's Doubles",
+                "slug": "womens-doubles"
+              },
+              "round": {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              "wasSuspended": false
+            }
+          ]
+        },
+        {
+          "grouping": {
+            "id": "3",
+            "slug": "mens-doubles",
+            "displayName": "Men's Doubles"
+          },
+          "competitions": [
+            {
+              "id": "149122",
+              "uid": "s:850~l:900~e:189-2024~c:149122",
+              "date": "2024-08-28T15:10Z",
+              "startDate": "2024-08-28T15:10Z",
+              "timeValid": true,
+              "recent": false,
+              "status": {
+                "period": 3,
+                "type": {
+                  "id": "3",
+                  "name": "STATUS_FINAL",
+                  "state": "post",
+                  "completed": true,
+                  "description": "Final",
+                  "detail": "Final",
+                  "shortDetail": "Final"
+                }
+              },
+              "venue": {
+                "fullName": "New York, USA",
+                "court": "Court 14"
+              },
+              "format": {
+                "regulation": {
+                  "periods": 3
+                }
+              },
+              "notes": [
+                {
+                  "text": "(15) Austin Krajicek (USA) & Jean-Julien Rojer (NED) bt Constantin Frantzén (GER) & Hendrik Jebens (GER) 6-7 (3-7) 7-5 6-4",
+                  "type": "event"
+                }
+              ],
+              "geoBroadcasts": [
+                {
+                  "type": {
+                    "id": "1",
+                    "shortName": "TV"
+                  },
+                  "market": {
+                    "id": "1",
+                    "type": "National"
+                  },
+                  "media": {
+                    "shortName": "ESPN+",
+                    "logo": "https://a.espncdn.com/guid/322a7e47-3cdb-3b5c-ab1b-678e1f2c27e5/logos/default.png",
+                    "darkLogo": "https://a.espncdn.com/guid/322a7e47-3cdb-3b5c-ab1b-678e1f2c27e5/logos/default-dark.png"
+                  },
+                  "lang": "en",
+                  "region": "us"
+                }
+              ],
+              "broadcasts": [
+                {
+                  "market": "national",
+                  "names": [
+                    "ESPN+"
+                  ]
+                }
+              ],
+              "broadcast": "ESPN+",
+              "competitors": [
+                {
+                  "id": "878-1573",
+                  "uid": "s:850~l:900~t:878-1573",
+                  "type": "team",
+                  "order": 2,
+                  "homeAway": "away",
+                  "winner": true,
+                  "curatedRank": {
+                    "current": 15
+                  },
+                  "linescores": [
+                    {
+                      "value": 6,
+                      "tiebreak": 3,
+                      "winner": false
+                    },
+                    {
+                      "value": 7,
+                      "winner": true
+                    },
+                    {
+                      "value": 6,
+                      "winner": true
+                    }
+                  ],
+                  "roster": {
+                    "displayName": "Austin Krajicek / Jean-Julien Rojer",
+                    "shortDisplayName": "A. Krajicek / J. Rojer",
+                    "athletes": [
+                      {
+                        "guid": "0e2f2c59-fb91-75d0-b7e4-6029af206301",
+                        "displayName": "Austin Krajicek",
+                        "shortName": "A. Krajicek",
+                        "fullName": "Austin Krajicek",
+                        "flag": {
+                          "href": "https://a.espncdn.com/i/teamlogos/countries/500/usa.png",
+                          "alt": "USA",
+                          "rel": [
+                            "country-flag"
+                          ]
+                        },
+                        "links": [
+                          {
+                            "language": "en-US",
+                            "rel": [
+                              "playercard",
+                              "desktop",
+                              "athlete"
+                            ],
+                            "href": "https://www.espn.com/tennis/player/_/id/878/austin-krajicek",
+                            "text": "Player Card",
+                            "shortText": "Player Card",
+                            "isExternal": false,
+                            "isPremium": false,
+                            "isHidden": false
+                          }
+                        ]
+                      },
+                      {
+                        "guid": "52cd6d44-419d-dc35-1bb3-0067f1dab92a",
+                        "displayName": "Jean-Julien Rojer",
+                        "shortName": "J. Rojer",
+                        "fullName": "Jean-Julien Rojer",
+                        "flag": {
+                          "href": "https://a.espncdn.com/i/teamlogos/countries/500/ned.png",
+                          "alt": "Netherlands",
+                          "rel": [
+                            "country-flag"
+                          ]
+                        },
+                        "links": [
+                          {
+                            "language": "en-US",
+                            "rel": [
+                              "playercard",
+                              "desktop",
+                              "athlete"
+                            ],
+                            "href": "https://www.espn.com/tennis/player/_/id/1573/jean-julien-rojer",
+                            "text": "Player Card",
+                            "shortText": "Player Card",
+                            "isExternal": false,
+                            "isPremium": false,
+                            "isHidden": false
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "statistics": []
+                },
+                {
+                  "id": "11568-10294",
+                  "uid": "s:850~l:900~t:11568-10294",
+                  "type": "team",
+                  "order": 1,
+                  "homeAway": "home",
+                  "winner": false,
+                  "linescores": [
+                    {
+                      "value": 7,
+                      "tiebreak": 7,
+                      "winner": true
+                    },
+                    {
+                      "value": 5,
+                      "winner": false
+                    },
+                    {
+                      "value": 4,
+                      "winner": false
+                    }
+                  ],
+                  "roster": {
+                    "displayName": "Constantin Frantzén / Hendrik Jebens",
+                    "shortDisplayName": "C. Frantzén / H. Jebens",
+                    "athletes": [
+                      {
+                        "guid": "bd458045-04a6-3216-b265-59ed63ec3dd5",
+                        "displayName": "Constantin Frantzén",
+                        "shortName": "C. Frantzén",
+                        "fullName": "Constantin Frantzén",
+                        "flag": {
+                          "href": "https://a.espncdn.com/i/teamlogos/countries/500/ger.png",
+                          "alt": "Germany",
+                          "rel": [
+                            "country-flag"
+                          ]
+                        },
+                        "links": [
+                          {
+                            "language": "en-US",
+                            "rel": [
+                              "playercard",
+                              "desktop",
+                              "athlete"
+                            ],
+                            "href": "https://www.espn.com/tennis/player/_/id/11568/constantin-frantzen",
+                            "text": "Player Card",
+                            "shortText": "Player Card",
+                            "isExternal": false,
+                            "isPremium": false,
+                            "isHidden": false
+                          }
+                        ]
+                      },
+                      {
+                        "guid": "6097f63f-5691-3d86-b41b-347b80132813",
+                        "displayName": "Hendrik Jebens",
+                        "shortName": "H. Jebens",
+                        "fullName": "Hendrik Jebens",
+                        "flag": {
+                          "href": "https://a.espncdn.com/i/teamlogos/countries/500/ger.png",
+                          "alt": "Germany",
+                          "rel": [
+                            "country-flag"
+                          ]
+                        },
+                        "links": [
+                          {
+                            "language": "en-US",
+                            "rel": [
+                              "playercard",
+                              "desktop",
+                              "athlete"
+                            ],
+                            "href": "https://www.espn.com/tennis/player/_/id/10294/hendrik-jebens",
+                            "text": "Player Card",
+                            "shortText": "Player Card",
+                            "isExternal": false,
+                            "isPremium": false,
+                            "isHidden": false
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "statistics": []
+                }
+              ],
+              "tournamentId": 189,
+              "type": {
+                "id": "3",
+                "text": "Men's Doubles",
+                "slug": "mens-doubles"
+              },
+              "round": {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              "wasSuspended": false
+            }
+          ]
+        },
+        {
+          "grouping": {
+            "id": "6",
+            "slug": "mixed-doubles",
+            "displayName": "Mixed Doubles"
+          },
+          "competitions": [
+            {
+              "id": "149355",
+              "uid": "s:850~l:900~e:189-2024~c:149355",
+              "date": "2024-08-28T20:20Z",
+              "startDate": "2024-08-28T20:20Z",
+              "timeValid": true,
+              "recent": false,
+              "status": {
+                "period": 2,
+                "type": {
+                  "id": "3",
+                  "name": "STATUS_FINAL",
+                  "state": "post",
+                  "completed": true,
+                  "description": "Final",
+                  "detail": "Final",
+                  "shortDetail": "Final"
+                }
+              },
+              "venue": {
+                "fullName": "New York, USA",
+                "court": "Court 15"
+              },
+              "format": {
+                "regulation": {
+                  "periods": 3
+                }
+              },
+              "notes": [
+                {
+                  "text": "Katerina Siniakova (CZE) & John Peers (AUS) bt Luisa Stefani (BRA) & Rafael Matos (BRA) 6-2 6-1",
+                  "type": "event"
+                }
+              ],
+              "geoBroadcasts": [
+                {
+                  "type": {
+                    "id": "1",
+                    "shortName": "TV"
+                  },
+                  "market": {
+                    "id": "1",
+                    "type": "National"
+                  },
+                  "media": {
+                    "shortName": "ESPN+",
+                    "logo": "https://a.espncdn.com/guid/322a7e47-3cdb-3b5c-ab1b-678e1f2c27e5/logos/default.png",
+                    "darkLogo": "https://a.espncdn.com/guid/322a7e47-3cdb-3b5c-ab1b-678e1f2c27e5/logos/default-dark.png"
+                  },
+                  "lang": "en",
+                  "region": "us"
+                }
+              ],
+              "broadcasts": [
+                {
+                  "market": "national",
+                  "names": [
+                    "ESPN+"
+                  ]
+                }
+              ],
+              "broadcast": "ESPN+",
+              "competitors": [
+                {
+                  "id": "2248-2319",
+                  "uid": "s:850~l:900~t:2248-2319",
+                  "type": "team",
+                  "order": 2,
+                  "homeAway": "away",
+                  "winner": true,
+                  "linescores": [
+                    {
+                      "value": 6,
+                      "winner": true
+                    },
+                    {
+                      "value": 6,
+                      "winner": true
+                    }
+                  ],
+                  "roster": {
+                    "displayName": "Katerina Siniakova / John Peers",
+                    "shortDisplayName": "K. Siniakova / J. Peers",
+                    "athletes": [
+                      {
+                        "guid": "fe013c03-6a8a-a745-4e09-e2bc7adc74bc",
+                        "displayName": "Katerina Siniakova",
+                        "shortName": "K. Siniakova",
+                        "fullName": "Katerina Siniakova",
+                        "flag": {
+                          "href": "https://a.espncdn.com/i/teamlogos/countries/500/cze.png",
+                          "alt": "Czechia",
+                          "rel": [
+                            "country-flag"
+                          ]
+                        },
+                        "links": [
+                          {
+                            "language": "en-US",
+                            "rel": [
+                              "playercard",
+                              "desktop",
+                              "athlete"
+                            ],
+                            "href": "https://www.espn.com/tennis/player/_/id/2248/katerina-siniakova",
+                            "text": "Player Card",
+                            "shortText": "Player Card",
+                            "isExternal": false,
+                            "isPremium": false,
+                            "isHidden": false
+                          }
+                        ]
+                      },
+                      {
+                        "guid": "2943144a-5f7a-23fc-7c3c-20f22e7f9158",
+                        "displayName": "John Peers",
+                        "shortName": "J. Peers",
+                        "fullName": "John Peers",
+                        "flag": {
+                          "href": "https://a.espncdn.com/i/teamlogos/countries/500/aus.png",
+                          "alt": "Australia",
+                          "rel": [
+                            "country-flag"
+                          ]
+                        },
+                        "links": [
+                          {
+                            "language": "en-US",
+                            "rel": [
+                              "playercard",
+                              "desktop",
+                              "athlete"
+                            ],
+                            "href": "https://www.espn.com/tennis/player/_/id/2319/john-peers",
+                            "text": "Player Card",
+                            "shortText": "Player Card",
+                            "isExternal": false,
+                            "isPremium": false,
+                            "isHidden": false
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "statistics": []
+                },
+                {
+                  "id": "2732-2434",
+                  "uid": "s:850~l:900~t:2732-2434",
+                  "type": "team",
+                  "order": 1,
+                  "homeAway": "home",
+                  "winner": false,
+                  "linescores": [
+                    {
+                      "value": 2,
+                      "winner": false
+                    },
+                    {
+                      "value": 1,
+                      "winner": false
+                    }
+                  ],
+                  "roster": {
+                    "displayName": "Luisa Stefani / Rafael Matos",
+                    "shortDisplayName": "L. Stefani / R. Matos",
+                    "athletes": [
+                      {
+                        "guid": "ff5b69f2-a873-06e6-639b-c014ab3ebac8",
+                        "displayName": "Luisa Stefani",
+                        "shortName": "L. Stefani",
+                        "fullName": "Luisa Stefani",
+                        "flag": {
+                          "href": "https://a.espncdn.com/i/teamlogos/countries/500/bra.png",
+                          "alt": "Brazil",
+                          "rel": [
+                            "country-flag"
+                          ]
+                        },
+                        "links": [
+                          {
+                            "language": "en-US",
+                            "rel": [
+                              "playercard",
+                              "desktop",
+                              "athlete"
+                            ],
+                            "href": "https://www.espn.com/tennis/player/_/id/2732/luisa-stefani",
+                            "text": "Player Card",
+                            "shortText": "Player Card",
+                            "isExternal": false,
+                            "isPremium": false,
+                            "isHidden": false
+                          }
+                        ]
+                      },
+                      {
+                        "guid": "eca9d622-ad76-da99-9941-2f9a60234be8",
+                        "displayName": "Rafael Matos",
+                        "shortName": "R. Matos",
+                        "fullName": "Rafael Matos",
+                        "flag": {
+                          "href": "https://a.espncdn.com/i/teamlogos/countries/500/bra.png",
+                          "alt": "Brazil",
+                          "rel": [
+                            "country-flag"
+                          ]
+                        },
+                        "links": [
+                          {
+                            "language": "en-US",
+                            "rel": [
+                              "playercard",
+                              "desktop",
+                              "athlete"
+                            ],
+                            "href": "https://www.espn.com/tennis/player/_/id/2434/rafael-matos",
+                            "text": "Player Card",
+                            "shortText": "Player Card",
+                            "isExternal": false,
+                            "isPremium": false,
+                            "isHidden": false
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "statistics": []
+                }
+              ],
+              "tournamentId": 189,
+              "type": {
+                "id": "6",
+                "text": "Mixed Doubles",
+                "slug": "mixed-doubles"
+              },
+              "round": {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              "wasSuspended": false
+            }
+          ]
+        }
+      ],
+      "status": {
+        "period": 2,
+        "type": {
+          "id": "3",
+          "name": "STATUS_FINAL",
+          "state": "post",
+          "completed": true,
+          "description": "Final",
+          "detail": "Final",
+          "shortDetail": "Final"
+        }
+      },
+      "venue": {
+        "displayName": "New York, USA"
+      },
+      "links": [
+        {
+          "language": "en-US",
+          "rel": [
+            "summary",
+            "desktop",
+            "event"
+          ],
+          "href": "https://www.espn.com/tennis/scoreboard/tournament/_/eventId/189-2024/competitionType/1",
+          "text": "Summary",
+          "shortText": "Summary",
+          "isExternal": false,
+          "isPremium": false,
+          "isHidden": false
+        },
+        {
+          "language": "en-US",
+          "rel": [
+            "bracket",
+            "desktop",
+            "event"
+          ],
+          "href": "https://www.espn.com/tennis/bracket/_/year/2024/tournamentId/189/type/1",
+          "text": "Bracket",
+          "shortText": "Bracket",
+          "isExternal": false,
+          "isPremium": false,
+          "isHidden": false
+        }
+      ],
+      "previousWinners": [
+        {
+          "displayName": "Novak Djokovic",
+          "shortDisplayName": "N. Djokovic",
+          "type": {
+            "id": "1",
+            "text": "Men's Singles",
+            "slug": "mens-singles"
+          },
+          "headshot": "https://a.espncdn.com/i/headshots/tennis/players/full/296.png",
+          "links": [
+            {
+              "language": "en-US",
+              "rel": [
+                "playercard",
+                "desktop",
+                "athlete"
+              ],
+              "href": "https://www.espn.com/tennis/player/_/id/296/novak-djokovic",
+              "text": "Player Card",
+              "shortText": "Player Card",
+              "isExternal": false,
+              "isPremium": false,
+              "isHidden": false
+            }
+          ]
+        },
+        {
+          "displayName": "Coco Gauff",
+          "shortDisplayName": "C. Gauff",
+          "type": {
+            "id": "2",
+            "text": "Women's Singles",
+            "slug": "womens-singles"
+          },
+          "headshot": "https://a.espncdn.com/i/headshots/tennis/players/full/3626.png",
+          "links": [
+            {
+              "language": "en-US",
+              "rel": [
+                "playercard",
+                "desktop",
+                "athlete"
+              ],
+              "href": "https://www.espn.com/tennis/player/_/id/3626/coco-gauff",
+              "text": "Player Card",
+              "shortText": "Player Card",
+              "isExternal": false,
+              "isPremium": false,
+              "isHidden": false
+            }
+          ]
+        },
+        {
+          "displayName": "Rajeev Ram / Joe Salisbury",
+          "shortDisplayName": "R. Ram / J. Salisbury",
+          "type": {
+            "id": "3",
+            "text": "Men's Doubles",
+            "slug": "mens-doubles"
+          },
+          "athletes": [
+            {
+              "displayName": "Rajeev Ram",
+              "shortDisplayName": "R. Ram",
+              "headshot": "https://a.espncdn.com/i/headshots/tennis/players/full/841.png",
+              "links": [
+                {
+                  "language": "en-US",
+                  "rel": [
+                    "playercard",
+                    "desktop",
+                    "athlete"
+                  ],
+                  "href": "https://www.espn.com/tennis/player/_/id/841/rajeev-ram",
+                  "text": "Player Card",
+                  "shortText": "Player Card",
+                  "isExternal": false,
+                  "isPremium": false,
+                  "isHidden": false
+                }
+              ]
+            },
+            {
+              "displayName": "Joe Salisbury",
+              "shortDisplayName": "J. Salisbury",
+              "headshot": "https://a.espncdn.com/i/headshots/tennis/players/full/3335.png",
+              "links": [
+                {
+                  "language": "en-US",
+                  "rel": [
+                    "playercard",
+                    "desktop",
+                    "athlete"
+                  ],
+                  "href": "https://www.espn.com/tennis/player/_/id/3335/joe-salisbury",
+                  "text": "Player Card",
+                  "shortText": "Player Card",
+                  "isExternal": false,
+                  "isPremium": false,
+                  "isHidden": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "displayName": "Gabriela Dabrowski / Erin Routliffe",
+          "shortDisplayName": "G. Dabrowski / E. Routliffe",
+          "type": {
+            "id": "4",
+            "text": "Women's Doubles",
+            "slug": "womens-doubles"
+          },
+          "athletes": [
+            {
+              "displayName": "Gabriela Dabrowski",
+              "shortDisplayName": "G. Dabrowski",
+              "headshot": "https://a.espncdn.com/i/headshots/tennis/players/full/1375.png",
+              "links": [
+                {
+                  "language": "en-US",
+                  "rel": [
+                    "playercard",
+                    "desktop",
+                    "athlete"
+                  ],
+                  "href": "https://www.espn.com/tennis/player/_/id/1375/gabriela-dabrowski",
+                  "text": "Player Card",
+                  "shortText": "Player Card",
+                  "isExternal": false,
+                  "isPremium": false,
+                  "isHidden": false
+                }
+              ]
+            },
+            {
+              "displayName": "Erin Routliffe",
+              "shortDisplayName": "E. Routliffe",
+              "links": [
+                {
+                  "language": "en-US",
+                  "rel": [
+                    "playercard",
+                    "desktop",
+                    "athlete"
+                  ],
+                  "href": "https://www.espn.com/tennis/player/_/id/2204/erin-routliffe",
+                  "text": "Player Card",
+                  "shortText": "Player Card",
+                  "isExternal": false,
+                  "isPremium": false,
+                  "isHidden": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "displayName": "Anna Danilina / Harri Heliovaara",
+          "shortDisplayName": "A. Danilina / H. Heliovaara",
+          "type": {
+            "id": "6",
+            "text": "Mixed Doubles",
+            "slug": "mixed-doubles"
+          },
+          "athletes": [
+            {
+              "displayName": "Anna Danilina",
+              "shortDisplayName": "A. Danilina",
+              "links": [
+                {
+                  "language": "en-US",
+                  "rel": [
+                    "playercard",
+                    "desktop",
+                    "athlete"
+                  ],
+                  "href": "https://www.espn.com/tennis/player/_/id/3744/anna-danilina",
+                  "text": "Player Card",
+                  "shortText": "Player Card",
+                  "isExternal": false,
+                  "isPremium": false,
+                  "isHidden": false
+                }
+              ]
+            },
+            {
+              "displayName": "Harri Heliovaara",
+              "shortDisplayName": "H. Heliovaara",
+              "links": [
+                {
+                  "language": "en-US",
+                  "rel": [
+                    "playercard",
+                    "desktop",
+                    "athlete"
+                  ],
+                  "href": "https://www.espn.com/tennis/player/_/id/3540/harri-heliovaara",
+                  "text": "Player Card",
+                  "shortText": "Player Card",
+                  "isExternal": false,
+                  "isPremium": false,
+                  "isHidden": false
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "calendar": {
+        "type": "day",
+        "timeZone": "America/New_York",
+        "startDate": "2024-08-19T04:00Z",
+        "endDate": "2024-09-08T04:00Z",
+        "calendar": [
+          "2024-08-19T04:00Z",
+          "2024-08-20T04:00Z",
+          "2024-08-21T04:00Z",
+          "2024-08-22T04:00Z",
+          "2024-08-26T04:00Z",
+          "2024-08-27T04:00Z",
+          "2024-08-28T04:00Z",
+          "2024-08-29T04:00Z",
+          "2024-08-30T04:00Z",
+          "2024-08-31T04:00Z",
+          "2024-09-01T04:00Z",
+          "2024-09-02T04:00Z",
+          "2024-09-03T04:00Z",
+          "2024-09-04T04:00Z",
+          "2024-09-05T04:00Z",
+          "2024-09-06T04:00Z",
+          "2024-09-07T04:00Z",
+          "2024-09-08T04:00Z"
+        ]
+      }
+    }
+  ]
+}

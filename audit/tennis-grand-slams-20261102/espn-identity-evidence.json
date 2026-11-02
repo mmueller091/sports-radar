@@ -1,0 +1,7364 @@
+[
+  {
+    "url": "https://site.api.espn.com/apis/site/v2/sports/tennis/atp/scoreboard?dates=20240128",
+    "capturedAt": "2026-11-02T14:18:44.314Z",
+    "events": [
+      {
+        "id": "154-2024",
+        "name": "Australian Open",
+        "major": true,
+        "date": "2024-01-08T05:00Z",
+        "endDate": "2024-01-29T04:59Z",
+        "season": {
+          "year": 2024,
+          "type": 2
+        },
+        "groups": [
+          {
+            "grouping": {
+              "id": "2",
+              "slug": "womens-singles",
+              "displayName": "Women's Singles"
+            },
+            "count": 239,
+            "rounds": [
+              {
+                "id": "11",
+                "displayName": "Qualifying 1st Round"
+              },
+              {
+                "id": "12",
+                "displayName": "Qualifying 2nd Round"
+              },
+              {
+                "id": "14",
+                "displayName": "Qualifying Final"
+              },
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "3",
+                "displayName": "Round 3"
+              },
+              {
+                "id": "4",
+                "displayName": "Round 4"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          },
+          {
+            "grouping": {
+              "id": "1",
+              "slug": "mens-singles",
+              "displayName": "Men's Singles"
+            },
+            "count": 239,
+            "rounds": [
+              {
+                "id": "15",
+                "displayName": "Group Stage"
+              },
+              {
+                "id": "12",
+                "displayName": "Qualifying 2nd Round"
+              },
+              {
+                "id": "14",
+                "displayName": "Qualifying Final"
+              },
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "3",
+                "displayName": "Round 3"
+              },
+              {
+                "id": "4",
+                "displayName": "Round 4"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          },
+          {
+            "grouping": {
+              "id": "3",
+              "slug": "mens-doubles",
+              "displayName": "Men's Doubles"
+            },
+            "count": 63,
+            "rounds": [
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "3",
+                "displayName": "Round 3"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          },
+          {
+            "grouping": {
+              "id": "4",
+              "slug": "womens-doubles",
+              "displayName": "Women's Doubles"
+            },
+            "count": 63,
+            "rounds": [
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "3",
+                "displayName": "Round 3"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          },
+          {
+            "grouping": {
+              "id": "6",
+              "slug": "mixed-doubles",
+              "displayName": "Mixed Doubles"
+            },
+            "count": 31,
+            "rounds": [
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "29-2024",
+        "name": "Open Occitanie",
+        "major": false,
+        "date": "2024-01-28T05:00Z",
+        "endDate": "2024-02-05T04:59Z",
+        "season": {
+          "year": 2024,
+          "type": 2
+        },
+        "groups": [
+          {
+            "grouping": {
+              "id": "1",
+              "slug": "mens-singles",
+              "displayName": "Men's Singles"
+            },
+            "count": 39,
+            "rounds": [
+              {
+                "id": "11",
+                "displayName": "Qualifying 1st Round"
+              },
+              {
+                "id": "14",
+                "displayName": "Qualifying Final"
+              },
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          },
+          {
+            "grouping": {
+              "id": "3",
+              "slug": "mens-doubles",
+              "displayName": "Men's Doubles"
+            },
+            "count": 2,
+            "rounds": [
+              null
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "url": "https://site.api.espn.com/apis/site/v2/sports/tennis/wta/scoreboard?dates=20240128",
+    "capturedAt": "2026-11-02T14:18:44.401Z",
+    "events": [
+      {
+        "id": "154-2024",
+        "name": "Australian Open",
+        "major": true,
+        "date": "2024-01-08T05:00Z",
+        "endDate": "2024-01-29T04:59Z",
+        "season": {
+          "year": 2024,
+          "type": 2
+        },
+        "groups": [
+          {
+            "grouping": {
+              "id": "2",
+              "slug": "womens-singles",
+              "displayName": "Women's Singles"
+            },
+            "count": 239,
+            "rounds": [
+              {
+                "id": "11",
+                "displayName": "Qualifying 1st Round"
+              },
+              {
+                "id": "12",
+                "displayName": "Qualifying 2nd Round"
+              },
+              {
+                "id": "14",
+                "displayName": "Qualifying Final"
+              },
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "3",
+                "displayName": "Round 3"
+              },
+              {
+                "id": "4",
+                "displayName": "Round 4"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          },
+          {
+            "grouping": {
+              "id": "1",
+              "slug": "mens-singles",
+              "displayName": "Men's Singles"
+            },
+            "count": 239,
+            "rounds": [
+              {
+                "id": "15",
+                "displayName": "Group Stage"
+              },
+              {
+                "id": "12",
+                "displayName": "Qualifying 2nd Round"
+              },
+              {
+                "id": "14",
+                "displayName": "Qualifying Final"
+              },
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "3",
+                "displayName": "Round 3"
+              },
+              {
+                "id": "4",
+                "displayName": "Round 4"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          },
+          {
+            "grouping": {
+              "id": "3",
+              "slug": "mens-doubles",
+              "displayName": "Men's Doubles"
+            },
+            "count": 63,
+            "rounds": [
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "3",
+                "displayName": "Round 3"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          },
+          {
+            "grouping": {
+              "id": "4",
+              "slug": "womens-doubles",
+              "displayName": "Women's Doubles"
+            },
+            "count": 63,
+            "rounds": [
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "3",
+                "displayName": "Round 3"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          },
+          {
+            "grouping": {
+              "id": "6",
+              "slug": "mixed-doubles",
+              "displayName": "Mixed Doubles"
+            },
+            "count": 31,
+            "rounds": [
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "408-2024",
+        "name": "Thailand Open",
+        "major": false,
+        "date": "2024-01-26T05:00Z",
+        "endDate": "2024-02-05T04:59Z",
+        "season": {
+          "year": 2024,
+          "type": 2
+        },
+        "groups": [
+          {
+            "grouping": {
+              "id": "2",
+              "slug": "womens-singles",
+              "displayName": "Women's Singles"
+            },
+            "count": 49,
+            "rounds": [
+              {
+                "id": "11",
+                "displayName": "Qualifying 1st Round"
+              },
+              {
+                "id": "14",
+                "displayName": "Qualifying Final"
+              },
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          },
+          {
+            "grouping": {
+              "id": "4",
+              "slug": "womens-doubles",
+              "displayName": "Women's Doubles"
+            },
+            "count": 2,
+            "rounds": [
+              null
+            ]
+          }
+        ]
+      },
+      {
+        "id": "199-2024",
+        "name": "Upper Austria Ladies Linz",
+        "major": false,
+        "date": "2024-01-28T05:00Z",
+        "endDate": "2024-02-05T04:59Z",
+        "season": {
+          "year": 2024,
+          "type": 2
+        },
+        "groups": [
+          {
+            "grouping": {
+              "id": "2",
+              "slug": "womens-singles",
+              "displayName": "Women's Singles"
+            },
+            "count": 45,
+            "rounds": [
+              {
+                "id": "11",
+                "displayName": "Qualifying 1st Round"
+              },
+              {
+                "id": "14",
+                "displayName": "Qualifying Final"
+              },
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          },
+          {
+            "grouping": {
+              "id": "4",
+              "slug": "womens-doubles",
+              "displayName": "Women's Doubles"
+            },
+            "count": 15,
+            "rounds": [
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "url": "https://site.api.espn.com/apis/site/v2/sports/tennis/atp/scoreboard?dates=20240609",
+    "capturedAt": "2026-11-02T14:18:44.461Z",
+    "events": [
+      {
+        "id": "172-2024",
+        "name": "Roland Garros",
+        "major": true,
+        "date": "2024-05-20T04:00Z",
+        "endDate": "2024-06-10T03:59Z",
+        "season": {
+          "year": 2024,
+          "type": 2
+        },
+        "groups": [
+          {
+            "grouping": {
+              "id": "2",
+              "slug": "womens-singles",
+              "displayName": "Women's Singles"
+            },
+            "count": 239,
+            "rounds": [
+              {
+                "id": "11",
+                "displayName": "Qualifying 1st Round"
+              },
+              {
+                "id": "12",
+                "displayName": "Qualifying 2nd Round"
+              },
+              {
+                "id": "14",
+                "displayName": "Qualifying Final"
+              },
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "3",
+                "displayName": "Round 3"
+              },
+              {
+                "id": "4",
+                "displayName": "Round 4"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          },
+          {
+            "grouping": {
+              "id": "1",
+              "slug": "mens-singles",
+              "displayName": "Men's Singles"
+            },
+            "count": 239,
+            "rounds": [
+              {
+                "id": "11",
+                "displayName": "Qualifying 1st Round"
+              },
+              {
+                "id": "12",
+                "displayName": "Qualifying 2nd Round"
+              },
+              {
+                "id": "14",
+                "displayName": "Qualifying Final"
+              },
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "3",
+                "displayName": "Round 3"
+              },
+              {
+                "id": "4",
+                "displayName": "Round 4"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          },
+          {
+            "grouping": {
+              "id": "4",
+              "slug": "womens-doubles",
+              "displayName": "Women's Doubles"
+            },
+            "count": 63,
+            "rounds": [
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "3",
+                "displayName": "Round 3"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          },
+          {
+            "grouping": {
+              "id": "3",
+              "slug": "mens-doubles",
+              "displayName": "Men's Doubles"
+            },
+            "count": 63,
+            "rounds": [
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "3",
+                "displayName": "Round 3"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          },
+          {
+            "grouping": {
+              "id": "6",
+              "slug": "mixed-doubles",
+              "displayName": "Mixed Doubles"
+            },
+            "count": 31,
+            "rounds": [
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "49-2024",
+        "name": "Boss Open",
+        "major": false,
+        "date": "2024-06-08T04:00Z",
+        "endDate": "2024-06-17T03:59Z",
+        "season": {
+          "year": 2024,
+          "type": 2
+        },
+        "groups": [
+          {
+            "grouping": {
+              "id": "1",
+              "slug": "mens-singles",
+              "displayName": "Men's Singles"
+            },
+            "count": 39,
+            "rounds": [
+              {
+                "id": "11",
+                "displayName": "Qualifying 1st Round"
+              },
+              {
+                "id": "14",
+                "displayName": "Qualifying Final"
+              },
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "415-2024",
+        "name": "Libéma Open",
+        "major": false,
+        "date": "2024-06-08T04:00Z",
+        "endDate": "2024-06-17T03:59Z",
+        "season": {
+          "year": 2024,
+          "type": 2
+        },
+        "groups": [
+          {
+            "grouping": {
+              "id": "1",
+              "slug": "mens-singles",
+              "displayName": "Men's Singles"
+            },
+            "count": 39,
+            "rounds": [
+              {
+                "id": "11",
+                "displayName": "Qualifying 1st Round"
+              },
+              {
+                "id": "14",
+                "displayName": "Qualifying Final"
+              },
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          },
+          {
+            "grouping": {
+              "id": "2",
+              "slug": "womens-singles",
+              "displayName": "Women's Singles"
+            },
+            "count": 49,
+            "rounds": [
+              {
+                "id": "11",
+                "displayName": "Qualifying 1st Round"
+              },
+              {
+                "id": "14",
+                "displayName": "Qualifying Final"
+              },
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          },
+          {
+            "grouping": {
+              "id": "4",
+              "slug": "womens-doubles",
+              "displayName": "Women's Doubles"
+            },
+            "count": 1,
+            "rounds": [
+              null
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "url": "https://site.api.espn.com/apis/site/v2/sports/tennis/wta/scoreboard?dates=20240609",
+    "capturedAt": "2026-11-02T14:18:44.525Z",
+    "events": [
+      {
+        "id": "172-2024",
+        "name": "Roland Garros",
+        "major": true,
+        "date": "2024-05-20T04:00Z",
+        "endDate": "2024-06-10T03:59Z",
+        "season": {
+          "year": 2024,
+          "type": 2
+        },
+        "groups": [
+          {
+            "grouping": {
+              "id": "2",
+              "slug": "womens-singles",
+              "displayName": "Women's Singles"
+            },
+            "count": 239,
+            "rounds": [
+              {
+                "id": "11",
+                "displayName": "Qualifying 1st Round"
+              },
+              {
+                "id": "12",
+                "displayName": "Qualifying 2nd Round"
+              },
+              {
+                "id": "14",
+                "displayName": "Qualifying Final"
+              },
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "3",
+                "displayName": "Round 3"
+              },
+              {
+                "id": "4",
+                "displayName": "Round 4"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          },
+          {
+            "grouping": {
+              "id": "1",
+              "slug": "mens-singles",
+              "displayName": "Men's Singles"
+            },
+            "count": 239,
+            "rounds": [
+              {
+                "id": "11",
+                "displayName": "Qualifying 1st Round"
+              },
+              {
+                "id": "12",
+                "displayName": "Qualifying 2nd Round"
+              },
+              {
+                "id": "14",
+                "displayName": "Qualifying Final"
+              },
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "3",
+                "displayName": "Round 3"
+              },
+              {
+                "id": "4",
+                "displayName": "Round 4"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          },
+          {
+            "grouping": {
+              "id": "4",
+              "slug": "womens-doubles",
+              "displayName": "Women's Doubles"
+            },
+            "count": 63,
+            "rounds": [
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "3",
+                "displayName": "Round 3"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          },
+          {
+            "grouping": {
+              "id": "3",
+              "slug": "mens-doubles",
+              "displayName": "Men's Doubles"
+            },
+            "count": 63,
+            "rounds": [
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "3",
+                "displayName": "Round 3"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          },
+          {
+            "grouping": {
+              "id": "6",
+              "slug": "mixed-doubles",
+              "displayName": "Mixed Doubles"
+            },
+            "count": 31,
+            "rounds": [
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "897-2024",
+        "name": "Open delle Puglie Trofeo",
+        "major": false,
+        "date": "2024-06-03T04:00Z",
+        "endDate": "2024-06-10T03:59Z",
+        "season": {
+          "year": 2024,
+          "type": 2
+        },
+        "groups": [
+          {
+            "grouping": {
+              "id": "2",
+              "slug": "womens-singles",
+              "displayName": "Women's Singles"
+            },
+            "count": 35,
+            "rounds": [
+              {
+                "id": "14",
+                "displayName": "Qualifying Final"
+              },
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          },
+          {
+            "grouping": {
+              "id": "4",
+              "slug": "womens-doubles",
+              "displayName": "Women's Doubles"
+            },
+            "count": 7,
+            "rounds": [
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "864-2024",
+        "name": "Makarska Open",
+        "major": false,
+        "date": "2024-06-04T04:00Z",
+        "endDate": "2024-06-10T03:59Z",
+        "season": {
+          "year": 2024,
+          "type": 2
+        },
+        "groups": [
+          {
+            "grouping": {
+              "id": "2",
+              "slug": "womens-singles",
+              "displayName": "Women's Singles"
+            },
+            "count": 35,
+            "rounds": [
+              {
+                "id": "14",
+                "displayName": "Qualifying Final"
+              },
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "415-2024",
+        "name": "Libéma Open",
+        "major": false,
+        "date": "2024-06-08T04:00Z",
+        "endDate": "2024-06-17T03:59Z",
+        "season": {
+          "year": 2024,
+          "type": 2
+        },
+        "groups": [
+          {
+            "grouping": {
+              "id": "1",
+              "slug": "mens-singles",
+              "displayName": "Men's Singles"
+            },
+            "count": 39,
+            "rounds": [
+              {
+                "id": "11",
+                "displayName": "Qualifying 1st Round"
+              },
+              {
+                "id": "14",
+                "displayName": "Qualifying Final"
+              },
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          },
+          {
+            "grouping": {
+              "id": "2",
+              "slug": "womens-singles",
+              "displayName": "Women's Singles"
+            },
+            "count": 49,
+            "rounds": [
+              {
+                "id": "11",
+                "displayName": "Qualifying 1st Round"
+              },
+              {
+                "id": "14",
+                "displayName": "Qualifying Final"
+              },
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          },
+          {
+            "grouping": {
+              "id": "4",
+              "slug": "womens-doubles",
+              "displayName": "Women's Doubles"
+            },
+            "count": 1,
+            "rounds": [
+              null
+            ]
+          }
+        ]
+      },
+      {
+        "id": "866-2024",
+        "name": "Lexus Nottingham Open",
+        "major": false,
+        "date": "2024-06-08T04:00Z",
+        "endDate": "2024-06-17T03:59Z",
+        "season": {
+          "year": 2024,
+          "type": 2
+        },
+        "groups": [
+          {
+            "grouping": {
+              "id": "2",
+              "slug": "womens-singles",
+              "displayName": "Women's Singles"
+            },
+            "count": 49,
+            "rounds": [
+              {
+                "id": "11",
+                "displayName": "Qualifying 1st Round"
+              },
+              {
+                "id": "14",
+                "displayName": "Qualifying Final"
+              },
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          },
+          {
+            "grouping": {
+              "id": "4",
+              "slug": "womens-doubles",
+              "displayName": "Women's Doubles"
+            },
+            "count": 3,
+            "rounds": [
+              null
+            ]
+          }
+        ]
+      },
+      {
+        "id": "871-2024",
+        "name": "BBVA Open Internacional De Valencia",
+        "major": false,
+        "date": "2024-06-08T04:00Z",
+        "endDate": "2024-06-17T03:59Z",
+        "season": {
+          "year": 2024,
+          "type": 2
+        },
+        "groups": [
+          {
+            "grouping": {
+              "id": "2",
+              "slug": "womens-singles",
+              "displayName": "Women's Singles"
+            },
+            "count": 43,
+            "rounds": [
+              {
+                "id": "11",
+                "displayName": "Qualifying 1st Round"
+              },
+              {
+                "id": "14",
+                "displayName": "Qualifying Final"
+              },
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "url": "https://site.api.espn.com/apis/site/v2/sports/tennis/atp/scoreboard?dates=20240714",
+    "capturedAt": "2026-11-02T14:18:44.601Z",
+    "events": [
+      {
+        "id": "188-2024",
+        "name": "Wimbledon",
+        "major": true,
+        "date": "2024-06-24T04:00Z",
+        "endDate": "2024-07-15T03:59Z",
+        "season": {
+          "year": 2024,
+          "type": 2
+        },
+        "groups": [
+          {
+            "grouping": {
+              "id": "1",
+              "slug": "mens-singles",
+              "displayName": "Men's Singles"
+            },
+            "count": 239,
+            "rounds": [
+              {
+                "id": "11",
+                "displayName": "Qualifying 1st Round"
+              },
+              {
+                "id": "12",
+                "displayName": "Qualifying 2nd Round"
+              },
+              {
+                "id": "14",
+                "displayName": "Qualifying Final"
+              },
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "3",
+                "displayName": "Round 3"
+              },
+              {
+                "id": "4",
+                "displayName": "Round 4"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          },
+          {
+            "grouping": {
+              "id": "2",
+              "slug": "womens-singles",
+              "displayName": "Women's Singles"
+            },
+            "count": 239,
+            "rounds": [
+              {
+                "id": "11",
+                "displayName": "Qualifying 1st Round"
+              },
+              {
+                "id": "12",
+                "displayName": "Qualifying 2nd Round"
+              },
+              {
+                "id": "14",
+                "displayName": "Qualifying Final"
+              },
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "3",
+                "displayName": "Round 3"
+              },
+              {
+                "id": "4",
+                "displayName": "Round 4"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          },
+          {
+            "grouping": {
+              "id": "3",
+              "slug": "mens-doubles",
+              "displayName": "Men's Doubles"
+            },
+            "count": 63,
+            "rounds": [
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "3",
+                "displayName": "Round 3"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          },
+          {
+            "grouping": {
+              "id": "4",
+              "slug": "womens-doubles",
+              "displayName": "Women's Doubles"
+            },
+            "count": 63,
+            "rounds": [
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "3",
+                "displayName": "Round 3"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          },
+          {
+            "grouping": {
+              "id": "6",
+              "slug": "mixed-doubles",
+              "displayName": "Mixed Doubles"
+            },
+            "count": 31,
+            "rounds": [
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "306-2024",
+        "name": "Nordea Open",
+        "major": false,
+        "date": "2024-07-08T04:00Z",
+        "endDate": "2024-07-22T03:59Z",
+        "season": {
+          "year": 2024,
+          "type": 2
+        },
+        "groups": [
+          {
+            "grouping": {
+              "id": "2",
+              "slug": "womens-singles",
+              "displayName": "Women's Singles"
+            },
+            "count": 31,
+            "rounds": [
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          },
+          {
+            "grouping": {
+              "id": "4",
+              "slug": "womens-doubles",
+              "displayName": "Women's Doubles"
+            },
+            "count": 2,
+            "rounds": [
+              null
+            ]
+          },
+          {
+            "grouping": {
+              "id": "1",
+              "slug": "mens-singles",
+              "displayName": "Men's Singles"
+            },
+            "count": 39,
+            "rounds": [
+              {
+                "id": "11",
+                "displayName": "Qualifying 1st Round"
+              },
+              {
+                "id": "14",
+                "displayName": "Qualifying Final"
+              },
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "7-2024",
+        "name": "EFG Swiss Open Gstaad",
+        "major": false,
+        "date": "2024-07-13T04:00Z",
+        "endDate": "2024-07-22T03:59Z",
+        "season": {
+          "year": 2024,
+          "type": 2
+        },
+        "groups": [
+          {
+            "grouping": {
+              "id": "1",
+              "slug": "mens-singles",
+              "displayName": "Men's Singles"
+            },
+            "count": 39,
+            "rounds": [
+              {
+                "id": "11",
+                "displayName": "Qualifying 1st Round"
+              },
+              {
+                "id": "14",
+                "displayName": "Qualifying Final"
+              },
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          },
+          {
+            "grouping": {
+              "id": "3",
+              "slug": "mens-doubles",
+              "displayName": "Men's Doubles"
+            },
+            "count": 1,
+            "rounds": [
+              null
+            ]
+          }
+        ]
+      },
+      {
+        "id": "942-2024",
+        "name": "Bitpanda Hamburg Open",
+        "major": false,
+        "date": "2024-07-13T04:00Z",
+        "endDate": "2024-07-22T03:59Z",
+        "season": {
+          "year": 2024,
+          "type": 2
+        },
+        "groups": [
+          {
+            "grouping": {
+              "id": "1",
+              "slug": "mens-singles",
+              "displayName": "Men's Singles"
+            },
+            "count": 43,
+            "rounds": [
+              {
+                "id": "11",
+                "displayName": "Qualifying 1st Round"
+              },
+              {
+                "id": "14",
+                "displayName": "Qualifying Final"
+              },
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          },
+          {
+            "grouping": {
+              "id": "3",
+              "slug": "mens-doubles",
+              "displayName": "Men's Doubles"
+            },
+            "count": 18,
+            "rounds": [
+              {
+                "id": "11",
+                "displayName": "Qualifying 1st Round"
+              },
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "14",
+                "displayName": "Qualifying Final"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "18-2024",
+        "name": "Cerity Partners Hall of Fame Open for the Van Alen Cup Presented by the Margaret Fund",
+        "major": false,
+        "date": "2024-07-14T04:00Z",
+        "endDate": "2024-07-22T03:59Z",
+        "season": {
+          "year": 2024,
+          "type": 2
+        },
+        "groups": [
+          {
+            "grouping": {
+              "id": "1",
+              "slug": "mens-singles",
+              "displayName": "Men's Singles"
+            },
+            "count": 39,
+            "rounds": [
+              {
+                "id": "11",
+                "displayName": "Qualifying 1st Round"
+              },
+              {
+                "id": "14",
+                "displayName": "Qualifying Final"
+              },
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          },
+          {
+            "grouping": {
+              "id": "3",
+              "slug": "mens-doubles",
+              "displayName": "Men's Doubles"
+            },
+            "count": 15,
+            "rounds": [
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "url": "https://site.api.espn.com/apis/site/v2/sports/tennis/wta/scoreboard?dates=20240714",
+    "capturedAt": "2026-11-02T14:18:44.679Z",
+    "events": [
+      {
+        "id": "188-2024",
+        "name": "Wimbledon",
+        "major": true,
+        "date": "2024-06-24T04:00Z",
+        "endDate": "2024-07-15T03:59Z",
+        "season": {
+          "year": 2024,
+          "type": 2
+        },
+        "groups": [
+          {
+            "grouping": {
+              "id": "1",
+              "slug": "mens-singles",
+              "displayName": "Men's Singles"
+            },
+            "count": 239,
+            "rounds": [
+              {
+                "id": "11",
+                "displayName": "Qualifying 1st Round"
+              },
+              {
+                "id": "12",
+                "displayName": "Qualifying 2nd Round"
+              },
+              {
+                "id": "14",
+                "displayName": "Qualifying Final"
+              },
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "3",
+                "displayName": "Round 3"
+              },
+              {
+                "id": "4",
+                "displayName": "Round 4"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          },
+          {
+            "grouping": {
+              "id": "2",
+              "slug": "womens-singles",
+              "displayName": "Women's Singles"
+            },
+            "count": 239,
+            "rounds": [
+              {
+                "id": "11",
+                "displayName": "Qualifying 1st Round"
+              },
+              {
+                "id": "12",
+                "displayName": "Qualifying 2nd Round"
+              },
+              {
+                "id": "14",
+                "displayName": "Qualifying Final"
+              },
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "3",
+                "displayName": "Round 3"
+              },
+              {
+                "id": "4",
+                "displayName": "Round 4"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          },
+          {
+            "grouping": {
+              "id": "3",
+              "slug": "mens-doubles",
+              "displayName": "Men's Doubles"
+            },
+            "count": 63,
+            "rounds": [
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "3",
+                "displayName": "Round 3"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          },
+          {
+            "grouping": {
+              "id": "4",
+              "slug": "womens-doubles",
+              "displayName": "Women's Doubles"
+            },
+            "count": 63,
+            "rounds": [
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "3",
+                "displayName": "Round 3"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          },
+          {
+            "grouping": {
+              "id": "6",
+              "slug": "mixed-doubles",
+              "displayName": "Mixed Doubles"
+            },
+            "count": 31,
+            "rounds": [
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "873-2024",
+        "name": "Grand Est Open 88",
+        "major": false,
+        "date": "2024-07-07T04:00Z",
+        "endDate": "2024-07-15T03:59Z",
+        "season": {
+          "year": 2024,
+          "type": 2
+        },
+        "groups": [
+          {
+            "grouping": {
+              "id": "2",
+              "slug": "womens-singles",
+              "displayName": "Women's Singles"
+            },
+            "count": 39,
+            "rounds": [
+              {
+                "id": "11",
+                "displayName": "Qualifying 1st Round"
+              },
+              {
+                "id": "14",
+                "displayName": "Qualifying Final"
+              },
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          },
+          {
+            "grouping": {
+              "id": "4",
+              "slug": "womens-doubles",
+              "displayName": "Women's Doubles"
+            },
+            "count": 7,
+            "rounds": [
+              null
+            ]
+          }
+        ]
+      },
+      {
+        "id": "306-2024",
+        "name": "Nordea Open",
+        "major": false,
+        "date": "2024-07-08T04:00Z",
+        "endDate": "2024-07-22T03:59Z",
+        "season": {
+          "year": 2024,
+          "type": 2
+        },
+        "groups": [
+          {
+            "grouping": {
+              "id": "2",
+              "slug": "womens-singles",
+              "displayName": "Women's Singles"
+            },
+            "count": 31,
+            "rounds": [
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          },
+          {
+            "grouping": {
+              "id": "4",
+              "slug": "womens-doubles",
+              "displayName": "Women's Doubles"
+            },
+            "count": 2,
+            "rounds": [
+              null
+            ]
+          },
+          {
+            "grouping": {
+              "id": "1",
+              "slug": "mens-singles",
+              "displayName": "Men's Singles"
+            },
+            "count": 39,
+            "rounds": [
+              {
+                "id": "11",
+                "displayName": "Qualifying 1st Round"
+              },
+              {
+                "id": "14",
+                "displayName": "Qualifying Final"
+              },
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "192-2024",
+        "name": "Hungarian Grand Prix",
+        "major": false,
+        "date": "2024-07-13T04:00Z",
+        "endDate": "2024-07-22T03:59Z",
+        "season": {
+          "year": 2024,
+          "type": 2
+        },
+        "groups": [
+          {
+            "grouping": {
+              "id": "2",
+              "slug": "womens-singles",
+              "displayName": "Women's Singles"
+            },
+            "count": 49,
+            "rounds": [
+              {
+                "id": "11",
+                "displayName": "Qualifying 1st Round"
+              },
+              {
+                "id": "14",
+                "displayName": "Qualifying Final"
+              },
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          },
+          {
+            "grouping": {
+              "id": "4",
+              "slug": "womens-doubles",
+              "displayName": "Women's Doubles"
+            },
+            "count": 1,
+            "rounds": [
+              null
+            ]
+          }
+        ]
+      },
+      {
+        "id": "525-2024",
+        "name": "Palermo Ladies Open",
+        "major": false,
+        "date": "2024-07-13T04:00Z",
+        "endDate": "2024-07-22T03:59Z",
+        "season": {
+          "year": 2024,
+          "type": 2
+        },
+        "groups": [
+          {
+            "grouping": {
+              "id": "2",
+              "slug": "womens-singles",
+              "displayName": "Women's Singles"
+            },
+            "count": 49,
+            "rounds": [
+              {
+                "id": "11",
+                "displayName": "Qualifying 1st Round"
+              },
+              {
+                "id": "14",
+                "displayName": "Qualifying Final"
+              },
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          },
+          {
+            "grouping": {
+              "id": "4",
+              "slug": "womens-doubles",
+              "displayName": "Women's Doubles"
+            },
+            "count": 15,
+            "rounds": [
+              null
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "url": "https://site.api.espn.com/apis/site/v2/sports/tennis/atp/scoreboard?dates=20240908",
+    "capturedAt": "2026-11-02T14:18:44.736Z",
+    "events": [
+      {
+        "id": "189-2024",
+        "name": "US Open",
+        "major": true,
+        "date": "2024-08-19T04:00Z",
+        "endDate": "2024-09-09T03:59Z",
+        "season": {
+          "year": 2024,
+          "type": 2
+        },
+        "groups": [
+          {
+            "grouping": {
+              "id": "1",
+              "slug": "mens-singles",
+              "displayName": "Men's Singles"
+            },
+            "count": 239,
+            "rounds": [
+              {
+                "id": "11",
+                "displayName": "Qualifying 1st Round"
+              },
+              {
+                "id": "12",
+                "displayName": "Qualifying 2nd Round"
+              },
+              {
+                "id": "14",
+                "displayName": "Qualifying Final"
+              },
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "3",
+                "displayName": "Round 3"
+              },
+              {
+                "id": "4",
+                "displayName": "Round 4"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          },
+          {
+            "grouping": {
+              "id": "2",
+              "slug": "womens-singles",
+              "displayName": "Women's Singles"
+            },
+            "count": 239,
+            "rounds": [
+              {
+                "id": "11",
+                "displayName": "Qualifying 1st Round"
+              },
+              {
+                "id": "12",
+                "displayName": "Qualifying 2nd Round"
+              },
+              {
+                "id": "14",
+                "displayName": "Qualifying Final"
+              },
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "3",
+                "displayName": "Round 3"
+              },
+              {
+                "id": "4",
+                "displayName": "Round 4"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          },
+          {
+            "grouping": {
+              "id": "4",
+              "slug": "womens-doubles",
+              "displayName": "Women's Doubles"
+            },
+            "count": 63,
+            "rounds": [
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "3",
+                "displayName": "Round 3"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          },
+          {
+            "grouping": {
+              "id": "3",
+              "slug": "mens-doubles",
+              "displayName": "Men's Doubles"
+            },
+            "count": 63,
+            "rounds": [
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "3",
+                "displayName": "Round 3"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          },
+          {
+            "grouping": {
+              "id": "6",
+              "slug": "mixed-doubles",
+              "displayName": "Mixed Doubles"
+            },
+            "count": 31,
+            "rounds": [
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "url": "https://site.api.espn.com/apis/site/v2/sports/tennis/wta/scoreboard?dates=20240908",
+    "capturedAt": "2026-11-02T14:18:44.805Z",
+    "events": [
+      {
+        "id": "189-2024",
+        "name": "US Open",
+        "major": true,
+        "date": "2024-08-19T04:00Z",
+        "endDate": "2024-09-09T03:59Z",
+        "season": {
+          "year": 2024,
+          "type": 2
+        },
+        "groups": [
+          {
+            "grouping": {
+              "id": "1",
+              "slug": "mens-singles",
+              "displayName": "Men's Singles"
+            },
+            "count": 239,
+            "rounds": [
+              {
+                "id": "11",
+                "displayName": "Qualifying 1st Round"
+              },
+              {
+                "id": "12",
+                "displayName": "Qualifying 2nd Round"
+              },
+              {
+                "id": "14",
+                "displayName": "Qualifying Final"
+              },
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "3",
+                "displayName": "Round 3"
+              },
+              {
+                "id": "4",
+                "displayName": "Round 4"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          },
+          {
+            "grouping": {
+              "id": "2",
+              "slug": "womens-singles",
+              "displayName": "Women's Singles"
+            },
+            "count": 239,
+            "rounds": [
+              {
+                "id": "11",
+                "displayName": "Qualifying 1st Round"
+              },
+              {
+                "id": "12",
+                "displayName": "Qualifying 2nd Round"
+              },
+              {
+                "id": "14",
+                "displayName": "Qualifying Final"
+              },
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "3",
+                "displayName": "Round 3"
+              },
+              {
+                "id": "4",
+                "displayName": "Round 4"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          },
+          {
+            "grouping": {
+              "id": "4",
+              "slug": "womens-doubles",
+              "displayName": "Women's Doubles"
+            },
+            "count": 63,
+            "rounds": [
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "3",
+                "displayName": "Round 3"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          },
+          {
+            "grouping": {
+              "id": "3",
+              "slug": "mens-doubles",
+              "displayName": "Men's Doubles"
+            },
+            "count": 63,
+            "rounds": [
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "3",
+                "displayName": "Round 3"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          },
+          {
+            "grouping": {
+              "id": "6",
+              "slug": "mixed-doubles",
+              "displayName": "Mixed Doubles"
+            },
+            "count": 31,
+            "rounds": [
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "998-2024",
+        "name": "Montreux Nestlé Open",
+        "major": false,
+        "date": "2024-09-01T04:00Z",
+        "endDate": "2024-09-09T03:59Z",
+        "season": {
+          "year": 2024,
+          "type": 2
+        },
+        "groups": [
+          {
+            "grouping": {
+              "id": "2",
+              "slug": "womens-singles",
+              "displayName": "Women's Singles"
+            },
+            "count": 43,
+            "rounds": [
+              {
+                "id": "11",
+                "displayName": "Qualifying 1st Round"
+              },
+              {
+                "id": "14",
+                "displayName": "Qualifying Final"
+              },
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "885-2024",
+        "name": "Jasmin Open Tunisia",
+        "major": false,
+        "date": "2024-09-07T04:00Z",
+        "endDate": "2024-09-16T03:59Z",
+        "season": {
+          "year": 2024,
+          "type": 2
+        },
+        "groups": [
+          {
+            "grouping": {
+              "id": "2",
+              "slug": "womens-singles",
+              "displayName": "Women's Singles"
+            },
+            "count": 49,
+            "rounds": [
+              {
+                "id": "11",
+                "displayName": "Qualifying 1st Round"
+              },
+              {
+                "id": "14",
+                "displayName": "Qualifying Final"
+              },
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          },
+          {
+            "grouping": {
+              "id": "4",
+              "slug": "womens-doubles",
+              "displayName": "Women's Doubles"
+            },
+            "count": 15,
+            "rounds": [
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "887-2024",
+        "name": "Guadalajara Open presentado por Santander",
+        "major": false,
+        "date": "2024-09-07T04:00Z",
+        "endDate": "2024-09-16T03:59Z",
+        "season": {
+          "year": 2024,
+          "type": 2
+        },
+        "groups": [
+          {
+            "grouping": {
+              "id": "2",
+              "slug": "womens-singles",
+              "displayName": "Women's Singles"
+            },
+            "count": 45,
+            "rounds": [
+              {
+                "id": "11",
+                "displayName": "Qualifying 1st Round"
+              },
+              {
+                "id": "14",
+                "displayName": "Qualifying Final"
+              },
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          },
+          {
+            "grouping": {
+              "id": "4",
+              "slug": "womens-doubles",
+              "displayName": "Women's Doubles"
+            },
+            "count": 15,
+            "rounds": [
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "899-2024",
+        "name": "Tiriac Foundation Trophy",
+        "major": false,
+        "date": "2024-09-08T04:00Z",
+        "endDate": "2024-09-16T03:59Z",
+        "season": {
+          "year": 2024,
+          "type": 2
+        },
+        "groups": [
+          {
+            "grouping": {
+              "id": "2",
+              "slug": "womens-singles",
+              "displayName": "Women's Singles"
+            },
+            "count": 43,
+            "rounds": [
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "14",
+                "displayName": "Qualifying Final"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "url": "https://site.api.espn.com/apis/site/v2/sports/tennis/atp/scoreboard?dates=20250126",
+    "capturedAt": "2026-11-02T14:18:44.869Z",
+    "events": [
+      {
+        "id": "154-2025",
+        "name": "Australian Open",
+        "major": true,
+        "date": "2025-01-06T05:00Z",
+        "endDate": "2025-01-27T04:59Z",
+        "season": {
+          "year": 2025,
+          "type": 2
+        },
+        "groups": [
+          {
+            "grouping": {
+              "id": "1",
+              "slug": "mens-singles",
+              "displayName": "Men's Singles"
+            },
+            "count": 239,
+            "rounds": [
+              {
+                "id": "11",
+                "displayName": "Qualifying 1st Round"
+              },
+              {
+                "id": "12",
+                "displayName": "Qualifying 2nd Round"
+              },
+              {
+                "id": "14",
+                "displayName": "Qualifying Final"
+              },
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "3",
+                "displayName": "Round 3"
+              },
+              {
+                "id": "4",
+                "displayName": "Round 4"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          },
+          {
+            "grouping": {
+              "id": "2",
+              "slug": "womens-singles",
+              "displayName": "Women's Singles"
+            },
+            "count": 239,
+            "rounds": [
+              {
+                "id": "11",
+                "displayName": "Qualifying 1st Round"
+              },
+              {
+                "id": "12",
+                "displayName": "Qualifying 2nd Round"
+              },
+              {
+                "id": "14",
+                "displayName": "Qualifying Final"
+              },
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "3",
+                "displayName": "Round 3"
+              },
+              {
+                "id": "4",
+                "displayName": "Round 4"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          },
+          {
+            "grouping": {
+              "id": "4",
+              "slug": "womens-doubles",
+              "displayName": "Women's Doubles"
+            },
+            "count": 63,
+            "rounds": [
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "3",
+                "displayName": "Round 3"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          },
+          {
+            "grouping": {
+              "id": "3",
+              "slug": "mens-doubles",
+              "displayName": "Men's Doubles"
+            },
+            "count": 63,
+            "rounds": [
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "3",
+                "displayName": "Round 3"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          },
+          {
+            "grouping": {
+              "id": "6",
+              "slug": "mixed-doubles",
+              "displayName": "Mixed Doubles"
+            },
+            "count": 31,
+            "rounds": [
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "29-2025",
+        "name": "Open Occitanie",
+        "major": false,
+        "date": "2025-01-26T05:00Z",
+        "endDate": "2025-02-03T04:59Z",
+        "season": {
+          "year": 2025,
+          "type": 2
+        },
+        "groups": [
+          {
+            "grouping": {
+              "id": "1",
+              "slug": "mens-singles",
+              "displayName": "Men's Singles"
+            },
+            "count": 39,
+            "rounds": [
+              {
+                "id": "11",
+                "displayName": "Qualifying 1st Round"
+              },
+              {
+                "id": "14",
+                "displayName": "Qualifying Final"
+              },
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "url": "https://site.api.espn.com/apis/site/v2/sports/tennis/wta/scoreboard?dates=20250126",
+    "capturedAt": "2026-11-02T14:18:44.959Z",
+    "events": [
+      {
+        "id": "154-2025",
+        "name": "Australian Open",
+        "major": true,
+        "date": "2025-01-06T05:00Z",
+        "endDate": "2025-01-27T04:59Z",
+        "season": {
+          "year": 2025,
+          "type": 2
+        },
+        "groups": [
+          {
+            "grouping": {
+              "id": "1",
+              "slug": "mens-singles",
+              "displayName": "Men's Singles"
+            },
+            "count": 239,
+            "rounds": [
+              {
+                "id": "11",
+                "displayName": "Qualifying 1st Round"
+              },
+              {
+                "id": "12",
+                "displayName": "Qualifying 2nd Round"
+              },
+              {
+                "id": "14",
+                "displayName": "Qualifying Final"
+              },
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "3",
+                "displayName": "Round 3"
+              },
+              {
+                "id": "4",
+                "displayName": "Round 4"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          },
+          {
+            "grouping": {
+              "id": "2",
+              "slug": "womens-singles",
+              "displayName": "Women's Singles"
+            },
+            "count": 239,
+            "rounds": [
+              {
+                "id": "11",
+                "displayName": "Qualifying 1st Round"
+              },
+              {
+                "id": "12",
+                "displayName": "Qualifying 2nd Round"
+              },
+              {
+                "id": "14",
+                "displayName": "Qualifying Final"
+              },
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "3",
+                "displayName": "Round 3"
+              },
+              {
+                "id": "4",
+                "displayName": "Round 4"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          },
+          {
+            "grouping": {
+              "id": "4",
+              "slug": "womens-doubles",
+              "displayName": "Women's Doubles"
+            },
+            "count": 63,
+            "rounds": [
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "3",
+                "displayName": "Round 3"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          },
+          {
+            "grouping": {
+              "id": "3",
+              "slug": "mens-doubles",
+              "displayName": "Men's Doubles"
+            },
+            "count": 63,
+            "rounds": [
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "3",
+                "displayName": "Round 3"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          },
+          {
+            "grouping": {
+              "id": "6",
+              "slug": "mixed-doubles",
+              "displayName": "Mixed Doubles"
+            },
+            "count": 31,
+            "rounds": [
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "1009-2025",
+        "name": "Singapore Tennis Open presented by BNP Paribas",
+        "major": false,
+        "date": "2025-01-24T05:00Z",
+        "endDate": "2025-02-03T04:59Z",
+        "season": {
+          "year": 2025,
+          "type": 2
+        },
+        "groups": [
+          {
+            "grouping": {
+              "id": "2",
+              "slug": "womens-singles",
+              "displayName": "Women's Singles"
+            },
+            "count": 49,
+            "rounds": [
+              {
+                "id": "11",
+                "displayName": "Qualifying 1st Round"
+              },
+              {
+                "id": "14",
+                "displayName": "Qualifying Final"
+              },
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          },
+          {
+            "grouping": {
+              "id": "4",
+              "slug": "womens-doubles",
+              "displayName": "Women's Doubles"
+            },
+            "count": 15,
+            "rounds": [
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "199-2025",
+        "name": "Upper Austria Ladies Linz",
+        "major": false,
+        "date": "2025-01-26T05:00Z",
+        "endDate": "2025-02-03T04:59Z",
+        "season": {
+          "year": 2025,
+          "type": 2
+        },
+        "groups": [
+          {
+            "grouping": {
+              "id": "2",
+              "slug": "womens-singles",
+              "displayName": "Women's Singles"
+            },
+            "count": 45,
+            "rounds": [
+              {
+                "id": "11",
+                "displayName": "Qualifying 1st Round"
+              },
+              {
+                "id": "14",
+                "displayName": "Qualifying Final"
+              },
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          },
+          {
+            "grouping": {
+              "id": "4",
+              "slug": "womens-doubles",
+              "displayName": "Women's Doubles"
+            },
+            "count": 15,
+            "rounds": [
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "url": "https://site.api.espn.com/apis/site/v2/sports/tennis/atp/scoreboard?dates=20250608",
+    "capturedAt": "2026-11-02T14:18:45.042Z",
+    "events": [
+      {
+        "id": "172-2025",
+        "name": "Roland Garros",
+        "major": true,
+        "date": "2025-05-19T04:00Z",
+        "endDate": "2025-06-09T03:59Z",
+        "season": {
+          "year": 2025,
+          "type": 2
+        },
+        "groups": [
+          {
+            "grouping": {
+              "id": "1",
+              "slug": "mens-singles",
+              "displayName": "Men's Singles"
+            },
+            "count": 239,
+            "rounds": [
+              {
+                "id": "11",
+                "displayName": "Qualifying 1st Round"
+              },
+              {
+                "id": "12",
+                "displayName": "Qualifying 2nd Round"
+              },
+              {
+                "id": "14",
+                "displayName": "Qualifying Final"
+              },
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "3",
+                "displayName": "Round 3"
+              },
+              {
+                "id": "4",
+                "displayName": "Round 4"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          },
+          {
+            "grouping": {
+              "id": "2",
+              "slug": "womens-singles",
+              "displayName": "Women's Singles"
+            },
+            "count": 239,
+            "rounds": [
+              {
+                "id": "11",
+                "displayName": "Qualifying 1st Round"
+              },
+              {
+                "id": "12",
+                "displayName": "Qualifying 2nd Round"
+              },
+              {
+                "id": "14",
+                "displayName": "Qualifying Final"
+              },
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "3",
+                "displayName": "Round 3"
+              },
+              {
+                "id": "4",
+                "displayName": "Round 4"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          },
+          {
+            "grouping": {
+              "id": "3",
+              "slug": "mens-doubles",
+              "displayName": "Men's Doubles"
+            },
+            "count": 63,
+            "rounds": [
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "3",
+                "displayName": "Round 3"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          },
+          {
+            "grouping": {
+              "id": "4",
+              "slug": "womens-doubles",
+              "displayName": "Women's Doubles"
+            },
+            "count": 63,
+            "rounds": [
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "3",
+                "displayName": "Round 3"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          },
+          {
+            "grouping": {
+              "id": "6",
+              "slug": "mixed-doubles",
+              "displayName": "Mixed Doubles"
+            },
+            "count": 31,
+            "rounds": [
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "49-2025",
+        "name": "Boss Open",
+        "major": false,
+        "date": "2025-06-07T04:00Z",
+        "endDate": "2025-06-16T03:59Z",
+        "season": {
+          "year": 2025,
+          "type": 2
+        },
+        "groups": [
+          {
+            "grouping": {
+              "id": "1",
+              "slug": "mens-singles",
+              "displayName": "Men's Singles"
+            },
+            "count": 39,
+            "rounds": [
+              {
+                "id": "11",
+                "displayName": "Qualifying 1st Round"
+              },
+              {
+                "id": "14",
+                "displayName": "Qualifying Final"
+              },
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          },
+          {
+            "grouping": {
+              "id": "3",
+              "slug": "mens-doubles",
+              "displayName": "Men's Doubles"
+            },
+            "count": 15,
+            "rounds": [
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "415-2025",
+        "name": "Libéma Open",
+        "major": false,
+        "date": "2025-06-07T04:00Z",
+        "endDate": "2025-06-16T03:59Z",
+        "season": {
+          "year": 2025,
+          "type": 2
+        },
+        "groups": [
+          {
+            "grouping": {
+              "id": "2",
+              "slug": "womens-singles",
+              "displayName": "Women's Singles"
+            },
+            "count": 49,
+            "rounds": [
+              {
+                "id": "11",
+                "displayName": "Qualifying 1st Round"
+              },
+              {
+                "id": "14",
+                "displayName": "Qualifying Final"
+              },
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          },
+          {
+            "grouping": {
+              "id": "1",
+              "slug": "mens-singles",
+              "displayName": "Men's Singles"
+            },
+            "count": 39,
+            "rounds": [
+              {
+                "id": "11",
+                "displayName": "Qualifying 1st Round"
+              },
+              {
+                "id": "14",
+                "displayName": "Qualifying Final"
+              },
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          },
+          {
+            "grouping": {
+              "id": "4",
+              "slug": "womens-doubles",
+              "displayName": "Women's Doubles"
+            },
+            "count": 15,
+            "rounds": [
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          },
+          {
+            "grouping": {
+              "id": "3",
+              "slug": "mens-doubles",
+              "displayName": "Men's Doubles"
+            },
+            "count": 15,
+            "rounds": [
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "url": "https://site.api.espn.com/apis/site/v2/sports/tennis/wta/scoreboard?dates=20250608",
+    "capturedAt": "2026-11-02T14:18:45.112Z",
+    "events": [
+      {
+        "id": "172-2025",
+        "name": "Roland Garros",
+        "major": true,
+        "date": "2025-05-19T04:00Z",
+        "endDate": "2025-06-09T03:59Z",
+        "season": {
+          "year": 2025,
+          "type": 2
+        },
+        "groups": [
+          {
+            "grouping": {
+              "id": "1",
+              "slug": "mens-singles",
+              "displayName": "Men's Singles"
+            },
+            "count": 239,
+            "rounds": [
+              {
+                "id": "11",
+                "displayName": "Qualifying 1st Round"
+              },
+              {
+                "id": "12",
+                "displayName": "Qualifying 2nd Round"
+              },
+              {
+                "id": "14",
+                "displayName": "Qualifying Final"
+              },
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "3",
+                "displayName": "Round 3"
+              },
+              {
+                "id": "4",
+                "displayName": "Round 4"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          },
+          {
+            "grouping": {
+              "id": "2",
+              "slug": "womens-singles",
+              "displayName": "Women's Singles"
+            },
+            "count": 239,
+            "rounds": [
+              {
+                "id": "11",
+                "displayName": "Qualifying 1st Round"
+              },
+              {
+                "id": "12",
+                "displayName": "Qualifying 2nd Round"
+              },
+              {
+                "id": "14",
+                "displayName": "Qualifying Final"
+              },
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "3",
+                "displayName": "Round 3"
+              },
+              {
+                "id": "4",
+                "displayName": "Round 4"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          },
+          {
+            "grouping": {
+              "id": "3",
+              "slug": "mens-doubles",
+              "displayName": "Men's Doubles"
+            },
+            "count": 63,
+            "rounds": [
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "3",
+                "displayName": "Round 3"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          },
+          {
+            "grouping": {
+              "id": "4",
+              "slug": "womens-doubles",
+              "displayName": "Women's Doubles"
+            },
+            "count": 63,
+            "rounds": [
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "3",
+                "displayName": "Round 3"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          },
+          {
+            "grouping": {
+              "id": "6",
+              "slug": "mixed-doubles",
+              "displayName": "Mixed Doubles"
+            },
+            "count": 31,
+            "rounds": [
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "227-2025",
+        "name": "Lexus Birmingham Open",
+        "major": false,
+        "date": "2025-05-31T04:00Z",
+        "endDate": "2025-06-09T03:59Z",
+        "season": {
+          "year": 2025,
+          "type": 2
+        },
+        "groups": [
+          {
+            "grouping": {
+              "id": "2",
+              "slug": "womens-singles",
+              "displayName": "Women's Singles"
+            },
+            "count": 49,
+            "rounds": [
+              {
+                "id": "11",
+                "displayName": "Qualifying 1st Round"
+              },
+              {
+                "id": "14",
+                "displayName": "Qualifying Final"
+              },
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "897-2025",
+        "name": "Open delle Puglie Trofeo",
+        "major": false,
+        "date": "2025-06-02T04:00Z",
+        "endDate": "2025-06-09T03:59Z",
+        "season": {
+          "year": 2025,
+          "type": 2
+        },
+        "groups": [
+          {
+            "grouping": {
+              "id": "2",
+              "slug": "womens-singles",
+              "displayName": "Women's Singles"
+            },
+            "count": 35,
+            "rounds": [
+              {
+                "id": "14",
+                "displayName": "Qualifying Final"
+              },
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          },
+          {
+            "grouping": {
+              "id": "4",
+              "slug": "womens-doubles",
+              "displayName": "Women's Doubles"
+            },
+            "count": 7,
+            "rounds": [
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "864-2025",
+        "name": "Makarska Open",
+        "major": false,
+        "date": "2025-06-03T04:00Z",
+        "endDate": "2025-06-09T03:59Z",
+        "season": {
+          "year": 2025,
+          "type": 2
+        },
+        "groups": [
+          {
+            "grouping": {
+              "id": "2",
+              "slug": "womens-singles",
+              "displayName": "Women's Singles"
+            },
+            "count": 35,
+            "rounds": [
+              {
+                "id": "14",
+                "displayName": "Qualifying Final"
+              },
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "415-2025",
+        "name": "Libéma Open",
+        "major": false,
+        "date": "2025-06-07T04:00Z",
+        "endDate": "2025-06-16T03:59Z",
+        "season": {
+          "year": 2025,
+          "type": 2
+        },
+        "groups": [
+          {
+            "grouping": {
+              "id": "2",
+              "slug": "womens-singles",
+              "displayName": "Women's Singles"
+            },
+            "count": 49,
+            "rounds": [
+              {
+                "id": "11",
+                "displayName": "Qualifying 1st Round"
+              },
+              {
+                "id": "14",
+                "displayName": "Qualifying Final"
+              },
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          },
+          {
+            "grouping": {
+              "id": "1",
+              "slug": "mens-singles",
+              "displayName": "Men's Singles"
+            },
+            "count": 39,
+            "rounds": [
+              {
+                "id": "11",
+                "displayName": "Qualifying 1st Round"
+              },
+              {
+                "id": "14",
+                "displayName": "Qualifying Final"
+              },
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          },
+          {
+            "grouping": {
+              "id": "4",
+              "slug": "womens-doubles",
+              "displayName": "Women's Doubles"
+            },
+            "count": 15,
+            "rounds": [
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          },
+          {
+            "grouping": {
+              "id": "3",
+              "slug": "mens-doubles",
+              "displayName": "Men's Doubles"
+            },
+            "count": 15,
+            "rounds": [
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "997-2025",
+        "name": "The HSBC Championships",
+        "major": false,
+        "date": "2025-06-07T04:00Z",
+        "endDate": "2025-06-16T03:59Z",
+        "season": {
+          "year": 2025,
+          "type": 2
+        },
+        "groups": [
+          {
+            "grouping": {
+              "id": "2",
+              "slug": "womens-singles",
+              "displayName": "Women's Singles"
+            },
+            "count": 45,
+            "rounds": [
+              {
+                "id": "11",
+                "displayName": "Qualifying 1st Round"
+              },
+              {
+                "id": "14",
+                "displayName": "Qualifying Final"
+              },
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          },
+          {
+            "grouping": {
+              "id": "4",
+              "slug": "womens-doubles",
+              "displayName": "Women's Doubles"
+            },
+            "count": 15,
+            "rounds": [
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "871-2025",
+        "name": "BBVA Open Internacional De Valencia",
+        "major": false,
+        "date": "2025-06-08T04:00Z",
+        "endDate": "2025-06-16T03:59Z",
+        "season": {
+          "year": 2025,
+          "type": 2
+        },
+        "groups": [
+          {
+            "grouping": {
+              "id": "2",
+              "slug": "womens-singles",
+              "displayName": "Women's Singles"
+            },
+            "count": 43,
+            "rounds": [
+              {
+                "id": "11",
+                "displayName": "Qualifying 1st Round"
+              },
+              {
+                "id": "14",
+                "displayName": "Qualifying Final"
+              },
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          },
+          {
+            "grouping": {
+              "id": "4",
+              "slug": "womens-doubles",
+              "displayName": "Women's Doubles"
+            },
+            "count": 7,
+            "rounds": [
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "1015-2025",
+        "name": "Lexus Ilkley Open",
+        "major": false,
+        "date": "2025-06-08T04:00Z",
+        "endDate": "2025-06-16T03:59Z",
+        "season": {
+          "year": 2025,
+          "type": 2
+        },
+        "groups": [
+          {
+            "grouping": {
+              "id": "2",
+              "slug": "womens-singles",
+              "displayName": "Women's Singles"
+            },
+            "count": 49,
+            "rounds": [
+              {
+                "id": "11",
+                "displayName": "Qualifying 1st Round"
+              },
+              {
+                "id": "14",
+                "displayName": "Qualifying Final"
+              },
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          },
+          {
+            "grouping": {
+              "id": "4",
+              "slug": "womens-doubles",
+              "displayName": "Women's Doubles"
+            },
+            "count": 15,
+            "rounds": [
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "1016-2025",
+        "name": "Citta di Grado Tennis Cup",
+        "major": false,
+        "date": "2025-06-08T04:00Z",
+        "endDate": "2025-06-16T03:59Z",
+        "season": {
+          "year": 2025,
+          "type": 2
+        },
+        "groups": [
+          {
+            "grouping": {
+              "id": "2",
+              "slug": "womens-singles",
+              "displayName": "Women's Singles"
+            },
+            "count": 40,
+            "rounds": [
+              {
+                "id": "11",
+                "displayName": "Qualifying 1st Round"
+              },
+              {
+                "id": "14",
+                "displayName": "Qualifying Final"
+              },
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          },
+          {
+            "grouping": {
+              "id": "4",
+              "slug": "womens-doubles",
+              "displayName": "Women's Doubles"
+            },
+            "count": 15,
+            "rounds": [
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "url": "https://site.api.espn.com/apis/site/v2/sports/tennis/atp/scoreboard?dates=20250713",
+    "capturedAt": "2026-11-02T14:18:45.212Z",
+    "events": [
+      {
+        "id": "188-2025",
+        "name": "Wimbledon",
+        "major": true,
+        "date": "2025-06-23T04:00Z",
+        "endDate": "2025-07-14T03:59Z",
+        "season": {
+          "year": 2025,
+          "type": 2
+        },
+        "groups": [
+          {
+            "grouping": {
+              "id": "1",
+              "slug": "mens-singles",
+              "displayName": "Men's Singles"
+            },
+            "count": 239,
+            "rounds": [
+              {
+                "id": "11",
+                "displayName": "Qualifying 1st Round"
+              },
+              {
+                "id": "12",
+                "displayName": "Qualifying 2nd Round"
+              },
+              {
+                "id": "14",
+                "displayName": "Qualifying Final"
+              },
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "3",
+                "displayName": "Round 3"
+              },
+              {
+                "id": "4",
+                "displayName": "Round 4"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          },
+          {
+            "grouping": {
+              "id": "2",
+              "slug": "womens-singles",
+              "displayName": "Women's Singles"
+            },
+            "count": 239,
+            "rounds": [
+              {
+                "id": "11",
+                "displayName": "Qualifying 1st Round"
+              },
+              {
+                "id": "12",
+                "displayName": "Qualifying 2nd Round"
+              },
+              {
+                "id": "14",
+                "displayName": "Qualifying Final"
+              },
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "3",
+                "displayName": "Round 3"
+              },
+              {
+                "id": "4",
+                "displayName": "Round 4"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          },
+          {
+            "grouping": {
+              "id": "3",
+              "slug": "mens-doubles",
+              "displayName": "Men's Doubles"
+            },
+            "count": 63,
+            "rounds": [
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "3",
+                "displayName": "Round 3"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          },
+          {
+            "grouping": {
+              "id": "4",
+              "slug": "womens-doubles",
+              "displayName": "Women's Doubles"
+            },
+            "count": 63,
+            "rounds": [
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "3",
+                "displayName": "Round 3"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          },
+          {
+            "grouping": {
+              "id": "6",
+              "slug": "mixed-doubles",
+              "displayName": "Mixed Doubles"
+            },
+            "count": 31,
+            "rounds": [
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "306-2025",
+        "name": "Nordea Open",
+        "major": false,
+        "date": "2025-07-07T04:00Z",
+        "endDate": "2025-07-21T03:59Z",
+        "season": {
+          "year": 2025,
+          "type": 2
+        },
+        "groups": [
+          {
+            "grouping": {
+              "id": "2",
+              "slug": "womens-singles",
+              "displayName": "Women's Singles"
+            },
+            "count": 31,
+            "rounds": [
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          },
+          {
+            "grouping": {
+              "id": "4",
+              "slug": "womens-doubles",
+              "displayName": "Women's Doubles"
+            },
+            "count": 15,
+            "rounds": [
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          },
+          {
+            "grouping": {
+              "id": "1",
+              "slug": "mens-singles",
+              "displayName": "Men's Singles"
+            },
+            "count": 39,
+            "rounds": [
+              {
+                "id": "11",
+                "displayName": "Qualifying 1st Round"
+              },
+              {
+                "id": "14",
+                "displayName": "Qualifying Final"
+              },
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          },
+          {
+            "grouping": {
+              "id": "3",
+              "slug": "mens-doubles",
+              "displayName": "Men's Doubles"
+            },
+            "count": 15,
+            "rounds": [
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "7-2025",
+        "name": "EFG Swiss Open Gstaad",
+        "major": false,
+        "date": "2025-07-12T04:00Z",
+        "endDate": "2025-07-21T03:59Z",
+        "season": {
+          "year": 2025,
+          "type": 2
+        },
+        "groups": [
+          {
+            "grouping": {
+              "id": "1",
+              "slug": "mens-singles",
+              "displayName": "Men's Singles"
+            },
+            "count": 39,
+            "rounds": [
+              {
+                "id": "11",
+                "displayName": "Qualifying 1st Round"
+              },
+              {
+                "id": "14",
+                "displayName": "Qualifying Final"
+              },
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          },
+          {
+            "grouping": {
+              "id": "3",
+              "slug": "mens-doubles",
+              "displayName": "Men's Doubles"
+            },
+            "count": 15,
+            "rounds": [
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "424-2025",
+        "name": "Mifel Tennis Open by Telcel Oppo",
+        "major": false,
+        "date": "2025-07-12T04:00Z",
+        "endDate": "2025-07-20T03:59Z",
+        "season": {
+          "year": 2025,
+          "type": 2
+        },
+        "groups": [
+          {
+            "grouping": {
+              "id": "1",
+              "slug": "mens-singles",
+              "displayName": "Men's Singles"
+            },
+            "count": 39,
+            "rounds": [
+              {
+                "id": "11",
+                "displayName": "Qualifying 1st Round"
+              },
+              {
+                "id": "14",
+                "displayName": "Qualifying Final"
+              },
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          },
+          {
+            "grouping": {
+              "id": "3",
+              "slug": "mens-doubles",
+              "displayName": "Men's Doubles"
+            },
+            "count": 15,
+            "rounds": [
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "url": "https://site.api.espn.com/apis/site/v2/sports/tennis/wta/scoreboard?dates=20250713",
+    "capturedAt": "2026-11-02T14:18:45.285Z",
+    "events": [
+      {
+        "id": "188-2025",
+        "name": "Wimbledon",
+        "major": true,
+        "date": "2025-06-23T04:00Z",
+        "endDate": "2025-07-14T03:59Z",
+        "season": {
+          "year": 2025,
+          "type": 2
+        },
+        "groups": [
+          {
+            "grouping": {
+              "id": "1",
+              "slug": "mens-singles",
+              "displayName": "Men's Singles"
+            },
+            "count": 239,
+            "rounds": [
+              {
+                "id": "11",
+                "displayName": "Qualifying 1st Round"
+              },
+              {
+                "id": "12",
+                "displayName": "Qualifying 2nd Round"
+              },
+              {
+                "id": "14",
+                "displayName": "Qualifying Final"
+              },
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "3",
+                "displayName": "Round 3"
+              },
+              {
+                "id": "4",
+                "displayName": "Round 4"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          },
+          {
+            "grouping": {
+              "id": "2",
+              "slug": "womens-singles",
+              "displayName": "Women's Singles"
+            },
+            "count": 239,
+            "rounds": [
+              {
+                "id": "11",
+                "displayName": "Qualifying 1st Round"
+              },
+              {
+                "id": "12",
+                "displayName": "Qualifying 2nd Round"
+              },
+              {
+                "id": "14",
+                "displayName": "Qualifying Final"
+              },
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "3",
+                "displayName": "Round 3"
+              },
+              {
+                "id": "4",
+                "displayName": "Round 4"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          },
+          {
+            "grouping": {
+              "id": "3",
+              "slug": "mens-doubles",
+              "displayName": "Men's Doubles"
+            },
+            "count": 63,
+            "rounds": [
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "3",
+                "displayName": "Round 3"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          },
+          {
+            "grouping": {
+              "id": "4",
+              "slug": "womens-doubles",
+              "displayName": "Women's Doubles"
+            },
+            "count": 63,
+            "rounds": [
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "3",
+                "displayName": "Round 3"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          },
+          {
+            "grouping": {
+              "id": "6",
+              "slug": "mixed-doubles",
+              "displayName": "Mixed Doubles"
+            },
+            "count": 31,
+            "rounds": [
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "873-2025",
+        "name": "Grand Est Open 88",
+        "major": false,
+        "date": "2025-07-06T04:00Z",
+        "endDate": "2025-07-14T03:59Z",
+        "season": {
+          "year": 2025,
+          "type": 2
+        },
+        "groups": [
+          {
+            "grouping": {
+              "id": "2",
+              "slug": "womens-singles",
+              "displayName": "Women's Singles"
+            },
+            "count": 43,
+            "rounds": [
+              {
+                "id": "11",
+                "displayName": "Qualifying 1st Round"
+              },
+              {
+                "id": "14",
+                "displayName": "Qualifying Final"
+              },
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          },
+          {
+            "grouping": {
+              "id": "4",
+              "slug": "womens-doubles",
+              "displayName": "Women's Doubles"
+            },
+            "count": 7,
+            "rounds": [
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "1018-2025",
+        "name": "Cerity Partners Hall of Fame Open for the Van Alen Cup Presented by the Margaret Fund",
+        "major": false,
+        "date": "2025-07-06T04:00Z",
+        "endDate": "2025-07-14T03:59Z",
+        "season": {
+          "year": 2025,
+          "type": 2
+        },
+        "groups": [
+          {
+            "grouping": {
+              "id": "2",
+              "slug": "womens-singles",
+              "displayName": "Women's Singles"
+            },
+            "count": 35,
+            "rounds": [
+              {
+                "id": "14",
+                "displayName": "Qualifying Final"
+              },
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          },
+          {
+            "grouping": {
+              "id": "4",
+              "slug": "womens-doubles",
+              "displayName": "Women's Doubles"
+            },
+            "count": 15,
+            "rounds": [
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "306-2025",
+        "name": "Nordea Open",
+        "major": false,
+        "date": "2025-07-07T04:00Z",
+        "endDate": "2025-07-21T03:59Z",
+        "season": {
+          "year": 2025,
+          "type": 2
+        },
+        "groups": [
+          {
+            "grouping": {
+              "id": "2",
+              "slug": "womens-singles",
+              "displayName": "Women's Singles"
+            },
+            "count": 31,
+            "rounds": [
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          },
+          {
+            "grouping": {
+              "id": "4",
+              "slug": "womens-doubles",
+              "displayName": "Women's Doubles"
+            },
+            "count": 15,
+            "rounds": [
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          },
+          {
+            "grouping": {
+              "id": "1",
+              "slug": "mens-singles",
+              "displayName": "Men's Singles"
+            },
+            "count": 39,
+            "rounds": [
+              {
+                "id": "11",
+                "displayName": "Qualifying 1st Round"
+              },
+              {
+                "id": "14",
+                "displayName": "Qualifying Final"
+              },
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          },
+          {
+            "grouping": {
+              "id": "3",
+              "slug": "mens-doubles",
+              "displayName": "Men's Doubles"
+            },
+            "count": 15,
+            "rounds": [
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "874-2025",
+        "name": "Unicredit Iasi Open",
+        "major": false,
+        "date": "2025-07-13T04:00Z",
+        "endDate": "2025-07-21T03:59Z",
+        "season": {
+          "year": 2025,
+          "type": 2
+        },
+        "groups": [
+          {
+            "grouping": {
+              "id": "2",
+              "slug": "womens-singles",
+              "displayName": "Women's Singles"
+            },
+            "count": 49,
+            "rounds": [
+              {
+                "id": "11",
+                "displayName": "Qualifying 1st Round"
+              },
+              {
+                "id": "14",
+                "displayName": "Qualifying Final"
+              },
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          },
+          {
+            "grouping": {
+              "id": "4",
+              "slug": "womens-doubles",
+              "displayName": "Women's Doubles"
+            },
+            "count": 15,
+            "rounds": [
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "1002-2025",
+        "name": "MSC Hamburg Ladies Open",
+        "major": false,
+        "date": "2025-07-13T04:00Z",
+        "endDate": "2025-07-21T03:59Z",
+        "season": {
+          "year": 2025,
+          "type": 2
+        },
+        "groups": [
+          {
+            "grouping": {
+              "id": "2",
+              "slug": "womens-singles",
+              "displayName": "Women's Singles"
+            },
+            "count": 49,
+            "rounds": [
+              {
+                "id": "11",
+                "displayName": "Qualifying 1st Round"
+              },
+              {
+                "id": "14",
+                "displayName": "Qualifying Final"
+              },
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          },
+          {
+            "grouping": {
+              "id": "4",
+              "slug": "womens-doubles",
+              "displayName": "Women's Doubles"
+            },
+            "count": 15,
+            "rounds": [
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "1017-2025",
+        "name": "ATV Bancomat Tennis Open",
+        "major": false,
+        "date": "2025-07-13T04:00Z",
+        "endDate": "2025-07-21T03:59Z",
+        "season": {
+          "year": 2025,
+          "type": 2
+        },
+        "groups": [
+          {
+            "grouping": {
+              "id": "2",
+              "slug": "womens-singles",
+              "displayName": "Women's Singles"
+            },
+            "count": 35,
+            "rounds": [
+              {
+                "id": "14",
+                "displayName": "Qualifying Final"
+              },
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          },
+          {
+            "grouping": {
+              "id": "4",
+              "slug": "womens-doubles",
+              "displayName": "Women's Doubles"
+            },
+            "count": 7,
+            "rounds": [
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "1022-2025",
+        "name": "Eupago Porto Open",
+        "major": false,
+        "date": "2025-07-13T04:00Z",
+        "endDate": "2025-07-21T03:59Z",
+        "season": {
+          "year": 2025,
+          "type": 2
+        },
+        "groups": [
+          {
+            "grouping": {
+              "id": "2",
+              "slug": "womens-singles",
+              "displayName": "Women's Singles"
+            },
+            "count": 43,
+            "rounds": [
+              {
+                "id": "11",
+                "displayName": "Qualifying 1st Round"
+              },
+              {
+                "id": "14",
+                "displayName": "Qualifying Final"
+              },
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          },
+          {
+            "grouping": {
+              "id": "4",
+              "slug": "womens-doubles",
+              "displayName": "Women's Doubles"
+            },
+            "count": 14,
+            "rounds": [
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "url": "https://site.api.espn.com/apis/site/v2/sports/tennis/atp/scoreboard?dates=20250907",
+    "capturedAt": "2026-11-02T14:18:45.344Z",
+    "events": [
+      {
+        "id": "189-2025",
+        "name": "US Open",
+        "major": true,
+        "date": "2025-08-18T04:00Z",
+        "endDate": "2025-09-08T03:59Z",
+        "season": {
+          "year": 2025,
+          "type": 2
+        },
+        "groups": [
+          {
+            "grouping": {
+              "id": "1",
+              "slug": "mens-singles",
+              "displayName": "Men's Singles"
+            },
+            "count": 239,
+            "rounds": [
+              {
+                "id": "11",
+                "displayName": "Qualifying 1st Round"
+              },
+              {
+                "id": "12",
+                "displayName": "Qualifying 2nd Round"
+              },
+              {
+                "id": "14",
+                "displayName": "Qualifying Final"
+              },
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "3",
+                "displayName": "Round 3"
+              },
+              {
+                "id": "4",
+                "displayName": "Round 4"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          },
+          {
+            "grouping": {
+              "id": "2",
+              "slug": "womens-singles",
+              "displayName": "Women's Singles"
+            },
+            "count": 239,
+            "rounds": [
+              {
+                "id": "11",
+                "displayName": "Qualifying 1st Round"
+              },
+              {
+                "id": "12",
+                "displayName": "Qualifying 2nd Round"
+              },
+              {
+                "id": "14",
+                "displayName": "Qualifying Final"
+              },
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "3",
+                "displayName": "Round 3"
+              },
+              {
+                "id": "4",
+                "displayName": "Round 4"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          },
+          {
+            "grouping": {
+              "id": "6",
+              "slug": "mixed-doubles",
+              "displayName": "Mixed Doubles"
+            },
+            "count": 15,
+            "rounds": [
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          },
+          {
+            "grouping": {
+              "id": "4",
+              "slug": "womens-doubles",
+              "displayName": "Women's Doubles"
+            },
+            "count": 63,
+            "rounds": [
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "3",
+                "displayName": "Round 3"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          },
+          {
+            "grouping": {
+              "id": "3",
+              "slug": "mens-doubles",
+              "displayName": "Men's Doubles"
+            },
+            "count": 63,
+            "rounds": [
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "3",
+                "displayName": "Round 3"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "315-2025",
+        "name": "Rolex Shanghai Masters",
+        "major": false,
+        "date": "2025-09-01T04:00Z",
+        "endDate": "2025-10-13T03:59Z",
+        "season": {
+          "year": 2025,
+          "type": 2
+        },
+        "groups": [
+          {
+            "grouping": {
+              "id": "1",
+              "slug": "mens-singles",
+              "displayName": "Men's Singles"
+            },
+            "count": 131,
+            "rounds": [
+              {
+                "id": "11",
+                "displayName": "Qualifying 1st Round"
+              },
+              {
+                "id": "14",
+                "displayName": "Qualifying Final"
+              },
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "3",
+                "displayName": "Round 3"
+              },
+              {
+                "id": "4",
+                "displayName": "Round 4"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          },
+          {
+            "grouping": {
+              "id": "3",
+              "slug": "mens-doubles",
+              "displayName": "Men's Doubles"
+            },
+            "count": 31,
+            "rounds": [
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "url": "https://site.api.espn.com/apis/site/v2/sports/tennis/wta/scoreboard?dates=20250907",
+    "capturedAt": "2026-11-02T14:18:45.416Z",
+    "events": [
+      {
+        "id": "189-2025",
+        "name": "US Open",
+        "major": true,
+        "date": "2025-08-18T04:00Z",
+        "endDate": "2025-09-08T03:59Z",
+        "season": {
+          "year": 2025,
+          "type": 2
+        },
+        "groups": [
+          {
+            "grouping": {
+              "id": "1",
+              "slug": "mens-singles",
+              "displayName": "Men's Singles"
+            },
+            "count": 239,
+            "rounds": [
+              {
+                "id": "11",
+                "displayName": "Qualifying 1st Round"
+              },
+              {
+                "id": "12",
+                "displayName": "Qualifying 2nd Round"
+              },
+              {
+                "id": "14",
+                "displayName": "Qualifying Final"
+              },
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "3",
+                "displayName": "Round 3"
+              },
+              {
+                "id": "4",
+                "displayName": "Round 4"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          },
+          {
+            "grouping": {
+              "id": "2",
+              "slug": "womens-singles",
+              "displayName": "Women's Singles"
+            },
+            "count": 239,
+            "rounds": [
+              {
+                "id": "11",
+                "displayName": "Qualifying 1st Round"
+              },
+              {
+                "id": "12",
+                "displayName": "Qualifying 2nd Round"
+              },
+              {
+                "id": "14",
+                "displayName": "Qualifying Final"
+              },
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "3",
+                "displayName": "Round 3"
+              },
+              {
+                "id": "4",
+                "displayName": "Round 4"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          },
+          {
+            "grouping": {
+              "id": "6",
+              "slug": "mixed-doubles",
+              "displayName": "Mixed Doubles"
+            },
+            "count": 15,
+            "rounds": [
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          },
+          {
+            "grouping": {
+              "id": "4",
+              "slug": "womens-doubles",
+              "displayName": "Women's Doubles"
+            },
+            "count": 63,
+            "rounds": [
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "3",
+                "displayName": "Round 3"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          },
+          {
+            "grouping": {
+              "id": "3",
+              "slug": "mens-doubles",
+              "displayName": "Men's Doubles"
+            },
+            "count": 63,
+            "rounds": [
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "3",
+                "displayName": "Round 3"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "998-2025",
+        "name": "Montreux Nestlé Open",
+        "major": false,
+        "date": "2025-08-31T04:00Z",
+        "endDate": "2025-09-08T03:59Z",
+        "season": {
+          "year": 2025,
+          "type": 2
+        },
+        "groups": [
+          {
+            "grouping": {
+              "id": "2",
+              "slug": "womens-singles",
+              "displayName": "Women's Singles"
+            },
+            "count": 38,
+            "rounds": [
+              {
+                "id": "11",
+                "displayName": "Qualifying 1st Round"
+              },
+              {
+                "id": "14",
+                "displayName": "Qualifying Final"
+              },
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          },
+          {
+            "grouping": {
+              "id": "4",
+              "slug": "womens-doubles",
+              "displayName": "Women's Doubles"
+            },
+            "count": 7,
+            "rounds": [
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "887-2025",
+        "name": "Guadalajara Open presentado por Santander",
+        "major": false,
+        "date": "2025-09-06T04:00Z",
+        "endDate": "2025-09-15T03:59Z",
+        "season": {
+          "year": 2025,
+          "type": 2
+        },
+        "groups": [
+          {
+            "grouping": {
+              "id": "2",
+              "slug": "womens-singles",
+              "displayName": "Women's Singles"
+            },
+            "count": 45,
+            "rounds": [
+              {
+                "id": "11",
+                "displayName": "Qualifying 1st Round"
+              },
+              {
+                "id": "14",
+                "displayName": "Qualifying Final"
+              },
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          },
+          {
+            "grouping": {
+              "id": "4",
+              "slug": "womens-doubles",
+              "displayName": "Women's Doubles"
+            },
+            "count": 15,
+            "rounds": [
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "1005-2025",
+        "name": "SP Open",
+        "major": false,
+        "date": "2025-09-06T04:00Z",
+        "endDate": "2025-09-15T03:59Z",
+        "season": {
+          "year": 2025,
+          "type": 2
+        },
+        "groups": [
+          {
+            "grouping": {
+              "id": "2",
+              "slug": "womens-singles",
+              "displayName": "Women's Singles"
+            },
+            "count": 43,
+            "rounds": [
+              {
+                "id": "11",
+                "displayName": "Qualifying 1st Round"
+              },
+              {
+                "id": "14",
+                "displayName": "Qualifying Final"
+              },
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          },
+          {
+            "grouping": {
+              "id": "4",
+              "slug": "womens-doubles",
+              "displayName": "Women's Doubles"
+            },
+            "count": 15,
+            "rounds": [
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "1023-2025",
+        "name": "Open Internacional de San Sebastian",
+        "major": false,
+        "date": "2025-09-06T04:00Z",
+        "endDate": "2025-09-14T03:59Z",
+        "season": {
+          "year": 2025,
+          "type": 2
+        },
+        "groups": [
+          {
+            "grouping": {
+              "id": "2",
+              "slug": "womens-singles",
+              "displayName": "Women's Singles"
+            },
+            "count": 43,
+            "rounds": [
+              {
+                "id": "11",
+                "displayName": "Qualifying 1st Round"
+              },
+              {
+                "id": "14",
+                "displayName": "Qualifying Final"
+              },
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          },
+          {
+            "grouping": {
+              "id": "4",
+              "slug": "womens-doubles",
+              "displayName": "Women's Doubles"
+            },
+            "count": 15,
+            "rounds": [
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "1027-2025",
+        "name": "Huzhou Open",
+        "major": false,
+        "date": "2025-09-06T04:00Z",
+        "endDate": "2025-09-15T03:59Z",
+        "season": {
+          "year": 2025,
+          "type": 2
+        },
+        "groups": [
+          {
+            "grouping": {
+              "id": "2",
+              "slug": "womens-singles",
+              "displayName": "Women's Singles"
+            },
+            "count": 43,
+            "rounds": [
+              {
+                "id": "11",
+                "displayName": "Qualifying 1st Round"
+              },
+              {
+                "id": "14",
+                "displayName": "Qualifying Final"
+              },
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          },
+          {
+            "grouping": {
+              "id": "4",
+              "slug": "womens-doubles",
+              "displayName": "Women's Doubles"
+            },
+            "count": 15,
+            "rounds": [
+              {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              {
+                "id": "7",
+                "displayName": "Final"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]

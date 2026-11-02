@@ -12,17 +12,18 @@ export const LIVE_FEEDS = [
   {sport:'NCAAB', url:`${ESPN_BASE}/basketball/mens-college-basketball/scoreboard`},
   {sport:'Soccer', url:`${ESPN_BASE}/soccer/eng.1/scoreboard`},
   {sport:'Soccer', url:`${ESPN_BASE}/soccer/uefa.champions/scoreboard`},
-  {sport:'Tennis', url:`${ESPN_BASE}/tennis/atp/scoreboard`}
+  {sport:'Tennis', url:`${ESPN_BASE}/tennis/atp/scoreboard`},
+  {sport:'Tennis', url:`${ESPN_BASE}/tennis/wta/scoreboard`}
 ];
 
-export function createCollector(readJson) {
+export function createCollector(readJson,now=Date.now()) {
 const scheduleWindowCache = new Map();
 async function fetchScoreboard(feed) { const url=new URL(feed.url); url.searchParams.set("limit",String(feed.limit || 100)); return readJson(url.href,{purpose:feed.purpose}); }
 function gamesFromScoreboard(feed,payload) {
   const leagueLogo =
     payload.leagues?.[0]?.logos?.[0]?.href;
 
-  const events = (feed.sport==='Tennis' ? tennisEvents(payload) : payload.events || [])
+  const events = (feed.sport==='Tennis' ? tennisEvents(payload,now) : payload.events || [])
     .map(event =>
       normalizeEvent(
         event,

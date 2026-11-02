@@ -1,3 +1,4 @@
+import {currentGameAllowed} from './providers/tennis.js';
 export const NOTIFICATION_SPORTS = ['NFL','MLB','NHL','CFB','NBA','NCAAB','Tennis','Soccer'];
 export const DEFAULT_NOTIFICATION_PREFERENCES = {enabled:true,sports:NOTIFICATION_SPORTS,teams:[]};
 
@@ -20,7 +21,7 @@ export function preferencesForRow(row) {
 }
 
 export function notificationEligible(game,preferences) {
-  return preferences.enabled && (preferences.sports.includes(game.sport) || preferences.teams.some(team=>
+  return currentGameAllowed(game) && preferences.enabled && (preferences.sports.includes(game.sport) || preferences.teams.some(team=>
     team.sport===game.sport && game.teams?.some(item=>String(item[8] || '')===team.id)));
 }
 

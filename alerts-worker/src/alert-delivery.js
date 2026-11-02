@@ -1,4 +1,5 @@
 import runtime from '../../scoring/live-runtime.cjs';
+import {currentGameAllowed} from './providers/tennis.js';
 import {preferencesForRow,notificationEligible,notificationGame,gameNotificationUrl} from './notification-preferences.js';
 
 export const ALERT_DELIVERY_VERSION='2026-11-01.canonical-revalidation.1';
@@ -8,7 +9,7 @@ export function currentAlertGame(feed,game,now=Date.now()) {
   const updatedAt=Date.parse(feed?.updatedAt || '');
   return feed?.modelVersion===runtime.MODEL_VERSION && Number.isFinite(updatedAt) &&
     updatedAt<=now && now-updatedAt<=ALERT_MAX_AGE_MS && !feed.freshness?.stale &&
-    game?.state==='live' && game.modelVersion===runtime.MODEL_VERSION &&
+    game?.state==='live' && currentGameAllowed(game,now) && game.modelVersion===runtime.MODEL_VERSION &&
     game.score!=null && Number.isFinite(Number(game.score)) &&
     !game.detailStale && !game.scoringPartial && !game.liveUpdateRejected && !game.basketballUpdateRejected &&
     !game.summaryLifecycleRejected && !game.scoringHistoryRejected &&

@@ -30,6 +30,7 @@ test('cached shell upgrade installs a complete revision, preserves user storage 
   offline=true;
   const request=async url=>{let promise;listeners.fetch({request:new Request(new URL(url,origin)),respondWith:p=>promise=p});return promise;};
   assert.match(await (await request('scoring-runtime.js?rev=release-123')).text(),/release-123/);
+  assert.match(await (await request('tennis-coverage.js?rev=release-123')).text(),/release-123/);
   await assert.rejects(request('scoring-runtime.js?rev=old-build'),/offline/);
   assert.match(await (await request('./')).text(),/release-123/);
 });

@@ -50,7 +50,7 @@ test('a cached heavy model transition publishes bounded honest progress and conv
   for(const meta of Object.values(old.enrichment))meta.model='previous-model';
   env.db.prepare('UPDATE sports_feed SET payload=? WHERE id=1').run(JSON.stringify(old));
   env.db.prepare("UPDATE sports_snapshots SET model_version='previous-model'").run();
-  // The new Tennis collector adds the captured 225 matches at the same release.
+  // Grand Slam coverage excludes the captured 225 non-major Tennis matches.
   includeTennis=true;env.db.prepare("DELETE FROM sports_resources WHERE key LIKE '%/tennis/%'").run();
   let elapsed=0,summaryReads=[];
   env.hooks.before=(sql,args)=>{
@@ -68,7 +68,7 @@ test('a cached heavy model transition publishes bounded honest progress and conv
     env.db.prepare('UPDATE sports_resources SET updated_at=?').run(now);
     const feed=await refreshSportsData(env,now,{clock:()=>elapsed,log:m=>metrics=m});
     assert.ok(feed,`poll ${poll}: ${JSON.stringify(metrics)}`);
-    assert.equal(feed.modelVersion,MODEL_VERSION);assert.equal(feed.games.length,485);
+    assert.equal(feed.modelVersion,MODEL_VERSION);assert.equal(feed.games.length,260);
     assert.ok(feed.games.every(g=>g.modelVersion===MODEL_VERSION));
     assert.ok(feed.games.every(g=>g.score!==99),'previous-model score sentinel is never relabeled');
     assert.ok(summaryReads[0].endsWith('event=live'),'live acquisition precedes nonlive migration');
@@ -102,7 +102,7 @@ test('a cached heavy model transition publishes bounded honest progress and conv
     if(!pending.length)break;
   }
   assert.equal(validationCounts.at(-1),0,`deferred validation must converge: ${validationCounts}`);
-  console.log('MODEL_MIGRATION_PROGRESS '+JSON.stringify({games:485,nonlive:259,live:1,tennis:225,pendingByPoll:counts,publicationMs,validationPendingByPoll:validationCounts}));
+  console.log('MODEL_MIGRATION_PROGRESS '+JSON.stringify({games:260,nonlive:259,live:1,tennis:0,pendingByPoll:counts,publicationMs,validationPendingByPoll:validationCounts}));
 });
 
 for(const mismatch of ['lifecycle','score','identity'])test(`model migration cannot certify a cached final with mismatching ${mismatch}`,async t=>{

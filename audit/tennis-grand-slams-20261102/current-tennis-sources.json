@@ -1,0 +1,58 @@
+[
+  {
+    "tour": "atp",
+    "url": "https://site.api.espn.com/apis/site/v2/sports/tennis/atp/scoreboard",
+    "status": 200,
+    "events": [
+      {
+        "id": "13-2026",
+        "name": "Rolex Paris Masters",
+        "major": false,
+        "date": "2026-10-31T04:00Z",
+        "endDate": "2026-11-09T04:59Z"
+      }
+    ]
+  },
+  {
+    "tour": "wta",
+    "url": "https://site.api.espn.com/apis/site/v2/sports/tennis/wta/scoreboard",
+    "status": 200,
+    "events": [
+      {
+        "id": "380-2026",
+        "name": "Prudential Hong Kong Tennis Open",
+        "major": false,
+        "date": "2026-10-30T04:00Z",
+        "endDate": "2026-11-09T04:59Z"
+      },
+      {
+        "id": "889-2026",
+        "name": "Chennai Open",
+        "major": false,
+        "date": "2026-10-31T04:00Z",
+        "endDate": "2026-11-09T04:59Z"
+      },
+      {
+        "id": "1083-2026",
+        "name": "American Tennis Open Miami",
+        "major": false,
+        "date": "2026-10-31T04:00Z",
+        "endDate": "2026-11-09T04:59Z"
+      },
+      {
+        "id": "1007-2026",
+        "name": "Reto Win Tennis Cali Open",
+        "major": false,
+        "date": "2026-11-01T04:00Z",
+        "endDate": "2026-11-08T04:59Z"
+      },
+      {
+        "id": "1082-2026",
+        "name": "Angola Ladies Open",
+        "major": false,
+        "date": "2026-11-01T04:00Z",
+        "endDate": "2026-11-09T04:59Z"
+      }
+    ]
+  }
+]

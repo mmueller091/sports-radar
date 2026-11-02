@@ -40,6 +40,7 @@ function startApp(production=false) {
     AbortSignal,setTimeout:() => 1,clearTimeout(){},setInterval(){}
   });
   vm.runInContext(ratingCore,context);
+  vm.runInContext(fs.readFileSync(new URL('../tennis-coverage.js',import.meta.url),'utf8'),context);
   if (production) vm.runInContext(fs.readFileSync(new URL('../dist/scoring-runtime.js',import.meta.url),'utf8'),context);
   vm.runInContext(source,context);
   return {
@@ -112,4 +113,19 @@ test('older feed revision cannot rewind the current canonical games',async()=>{
   await new Promise(resolve=>setImmediate(resolve));
   await app.refreshWith({ok:true,json:async()=>({updatedAt:'2026-10-26T20:00:00Z',games:[]})});
   assert.match(app.element('#game-list').innerHTML,/Seattle Seahawks/);
+});
+
+test('Tennis cached non-major records disappear on refresh across every current-game consumer',async()=>{
+  const app=startApp(true),version=app.context.SportsRadarScore.MODEL_VERSION;
+  const excluded={...realGame,id:'paris',sport:'Tennis',context:'Rolex Paris Masters',score:99,
+    tennisTournament:{id:'13-2026',name:'Rolex Paris Masters'},modelVersion:version};
+  app.resolveFeed({ok:true,json:async()=>({modelVersion:version,updatedAt:new Date().toISOString(),games:[realGame,excluded]})});
+  await new Promise(resolve=>setImmediate(resolve));
+  assert.equal(vm.runInContext('games.some(g=>g.sport==="Tennis")',app.context),false);
+  assert.doesNotMatch(app.element('#game-list').innerHTML,/Paris|data-sport="Tennis"/);
+  vm.runInContext('state.sport="Tennis"; render()',app.context);
+  assert.match(app.element('#empty-message').textContent,/Grand Slam/);
+  assert.doesNotMatch(app.element('#game-list').innerHTML,/game-card/);
+  await app.refreshWith({ok:true,json:async()=>({modelVersion:version,updatedAt:new Date(Date.now()+1000).toISOString(),games:[excluded]})});
+  assert.equal(vm.runInContext('games.length',app.context),0);
 });

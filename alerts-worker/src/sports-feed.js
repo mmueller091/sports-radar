@@ -1,5 +1,5 @@
 import {nhlGameCenterStats} from './providers/nhl.js';
-import {qualifyTennisCoverage,tennisDetailSummary} from './providers/tennis.js';
+import {qualifyTennisCoverage,tennisDetailSummary,currentGameAllowed} from './providers/tennis.js';
 import {basketballBoxScore} from './display-model.js';
 import {createCollector,summaryUrl,teamResourceUrls,coreTeamProfileUrl,teamLeadersUrl,standingsUrl} from './providers/espn.js';
 import {normalizeEvent,preservePregameRecords,preserveFootballContext,preserveFootballPregameMarket,applyContextsToGame,enrichGame} from './live-game-model.js';
@@ -25,7 +25,9 @@ export function refreshDue(feed,now=Date.now()) {
 export function withFreshness(feed,now=Date.now()) {
   if (!feed) return null;
   const ageMs = Math.max(0,now-Date.parse(feed.updatedAt));
-  return {...feed,freshness:{ageMs,stale:ageMs > STALE_MS || feed.modelVersion !== MODEL_VERSION,degraded:Boolean(feed.sourceErrors?.length),maxAgeMs:STALE_MS}};
+  // Enforce coverage even on a pre-deployment stored feed or a failed refresh.
+  // Historical snapshots and stored user preferences are intentionally untouched.
+  return {...feed,games:(feed.games || []).filter(game=>currentGameAllowed(game,now)),freshness:{ageMs,stale:ageMs > STALE_MS || feed.modelVersion !== MODEL_VERSION,degraded:Boolean(feed.sourceErrors?.length),maxAgeMs:STALE_MS}};
 }
 
 export async function readFeed(env,now=Date.now()) {
@@ -1958,6 +1960,9 @@ export async function gameDetails(env,sport,id,now=Date.now()) {
   }
   if (!game) return null;
   if(sport==='Tennis'){
+    // Retain completed historical details for existing bookmarks. An excluded
+    // cached live/scheduled match must not become a current-game API result.
+    if(archived && game.state!=='completed')return null;
     const summary=tennisDetailSummary(game);
     if(!summary)return null;
     return {...summary,sportsRadarGame:game,sportsRadarArchived:archived,
@@ -2007,6 +2012,7 @@ export async function gameDetails(env,sport,id,now=Date.now()) {
 // two attempts have the same millisecond start. SQLite's existing non-STRICT
 // INTEGER-affinity revision column also accepts these text keys (no migration).
 export async function publishFeed(env,feed,owner,at,stage=async(name,fn)=>fn()) {
+  feed={...feed,games:feed.games.filter(game=>currentGameAllowed(game,Date.parse(feed.updatedAt)))};
   const revision = `${Date.parse(feed.updatedAt)}:${owner}`;
   const parts=[];
   await stage('feedWrites',async()=>{
@@ -2086,7 +2092,7 @@ export async function refreshSportsData(env,now=Date.now(),options={}) {
       return resources.read(url,ttl,errors);
     };
     const games = await stage('collection',async()=>{
-      const collected=await createCollector(readJson)();
+      const collected=await createCollector(readJson,now)();
       await resources.flush();
       return collected;
     });
