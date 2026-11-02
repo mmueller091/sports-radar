@@ -5946,18 +5946,18 @@ body { background-image: none; }
 .game-card .score-circle, .game-card .score-circle.warm, .game-card .score-circle.hot,
 .game-card .score-circle.very-hot, .game-card .score-circle.extreme {
   color: hsl(var(--score-hue, 190) 92% 64%); -webkit-text-fill-color: hsl(var(--score-hue, 190) 92% 64%);
-  -webkit-text-stroke: .8px #080d12;
+  -webkit-text-stroke: 0;
   background: hsl(var(--score-hue, 190) 75% 44% / .08); background-image: none;
   border: 0; border-radius: 4px; box-shadow: none; text-shadow: none;
-  font: 800 36px/1 var(--font-sans); font-variant-numeric: tabular-nums;
+  font: 700 36px/1 'Barlow Condensed', var(--font-sans); font-variant-numeric: tabular-nums;
 }
 .score-circle.very-hot, .game-card .score-circle.very-hot { font-size: 39px; background: hsl(var(--score-hue, 190) 78% 46% / .13); }
-.score-circle.extreme, .game-card .score-circle.extreme { font-size: 39px; background: hsl(var(--score-hue, 190) 82% 45% / .16); text-shadow: 0 0 10px hsl(var(--score-hue, 190) 98% 53% / .6); box-shadow: 0 0 14px hsl(var(--score-hue, 190) 98% 53% / .25); }
+.score-circle.extreme, .game-card .score-circle.extreme { font-size: 39px; background: hsl(var(--score-hue, 190) 82% 45% / .16); text-shadow: none; box-shadow: 0 0 14px hsl(var(--score-hue, 190) 98% 53% / .25); }
 .score-circle::before, .score-circle::after { display: none; }
 .score-trend, .game-card .excitement .score-trend { color: var(--ink-secondary); font: 600 10px/1.25 var(--font-sans); white-space: nowrap; }
-.detail-excitement-score { color: hsl(var(--score-hue, 190) 92% 64%); -webkit-text-fill-color: hsl(var(--score-hue, 190) 92% 64%); -webkit-text-stroke: .8px #080d12; background: hsl(var(--score-hue, 190) 75% 44% / .1); border: 1px solid hsl(var(--score-hue, 190) 58% 55% / .28); border-left: 4px solid hsl(var(--score-hue, 190) 88% 60%); border-radius: 6px; box-shadow: none; font-variant-numeric: tabular-nums; }
+.detail-excitement-score { color: hsl(var(--score-hue, 190) 92% 64%); -webkit-text-fill-color: hsl(var(--score-hue, 190) 92% 64%); -webkit-text-stroke: 0; background: hsl(var(--score-hue, 190) 75% 44% / .1); border: 1px solid hsl(var(--score-hue, 190) 58% 55% / .28); border-left: 4px solid hsl(var(--score-hue, 190) 88% 60%); border-radius: 6px; box-shadow: none; font-family: 'Barlow Condensed', var(--font-sans); font-weight: 700; font-variant-numeric: tabular-nums; }
 .detail-excitement-score.very-hot { font-size: 38px; background: hsl(var(--score-hue, 190) 78% 46% / .14); }
-.detail-excitement-score.extreme { font-size: 38px; background: hsl(var(--score-hue, 190) 82% 45% / .17); text-shadow: 0 0 10px hsl(var(--score-hue, 190) 98% 53% / .6); box-shadow: 0 0 14px hsl(var(--score-hue, 190) 98% 53% / .25); }
+.detail-excitement-score.extreme { font-size: 38px; background: hsl(var(--score-hue, 190) 82% 45% / .17); text-shadow: none; box-shadow: 0 0 14px hsl(var(--score-hue, 190) 98% 53% / .25); }
 .detail-excitement-copy .score-trend { margin-top: 2px; font: 600 12px/1.3 var(--font-sans); }
 .detail-radar, .detail-section, .detail-scoreboard, .detail-drive, .detail-hero, .detail-summary,
 .team-hero, .team-page-card, .team-section, .search-dialog, dialog, .detail-panel {
@@ -5973,7 +5973,7 @@ body { background-image: none; }
   background: var(--red-surface); border-color: var(--red-text); color: var(--brand-cream);
 }
 .timeline-rating-current { background: hsl(var(--score-hue, 190) 70% 42% / .08); border-color: hsl(var(--score-hue, 190) 58% 55% / .24) !important; }
-.timeline-rating-current strong { color: hsl(var(--score-hue, 190) 92% 64%); -webkit-text-stroke: .5px #080d12; }
+.timeline-rating-current strong { color: hsl(var(--score-hue, 190) 92% 64%); -webkit-text-stroke: 0; font-family: 'Barlow Condensed', var(--font-sans); font-weight: 700; }
 .score-calculation-total strong { color: var(--brand-cream); }
 .search-result:hover, .search-result:focus-visible, .notification-team-results button:hover { background: var(--surface-3); }
 .search-field, .search-result, .notification-team-results button, .favorite-result, .favorite-tag { background: var(--surface-2); border-color: var(--line); color: var(--brand-cream); }

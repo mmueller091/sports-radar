@@ -437,11 +437,11 @@ button.team-spotlight-matchup, button.team-schedule-opponent { position:relative
   .game-card .excitement::before { content:'Excitement'; color:var(--muted); font:600 10px/1.25 var(--font-sans); }
   .game-card .score-circle, .game-card .score-circle.hot, .game-card .score-circle.warm, .game-card .score-circle.very-hot, .game-card .score-circle.extreme {
     width:auto; min-width:0; height:auto; min-height:0; padding:0; border:0; background:transparent; box-shadow:none;
-    color:hsl(var(--score-hue,190) 92% 64%); -webkit-text-fill-color:hsl(var(--score-hue,190) 92% 64%); -webkit-text-stroke:.8px #080d12;
-    font:800 38px/1 var(--font-sans); letter-spacing:-1px; font-variant-numeric:tabular-nums;
+    color:hsl(var(--score-hue,190) 92% 64%); -webkit-text-fill-color:hsl(var(--score-hue,190) 92% 64%); -webkit-text-stroke:0;
+    font:700 38px/1 'Barlow Condensed', var(--font-sans); letter-spacing:0; font-variant-numeric:tabular-nums;
   }
   .game-card .score-circle.very-hot, .game-card .score-circle.extreme { font-size:41px; }
-  .game-card .score-circle.extreme { text-shadow:0 0 10px hsl(var(--score-hue,190) 98% 53% / .6); }
+  .game-card .score-circle.extreme { text-shadow:none; }
   .game-card .score-circle::before, .game-card .score-circle::after { display:none; }
   .game-card .score-trend { color:var(--ink-secondary); font:11px Arial,Helvetica,sans-serif; }
   .game-card .football-situation, .game-card .live-situation { grid-column:1 / -1; grid-row:4; min-height:0; margin:4px 0 0; color:var(--brand-cream); font:12px/1.4 Arial,Helvetica,sans-serif; }
@@ -485,9 +485,9 @@ button.team-spotlight-matchup, button.team-schedule-opponent { position:relative
   .detail-tabs { display:grid; grid-auto-flow:column; grid-auto-columns:minmax(0,1fr); border-radius:0; border-bottom:1px solid var(--surface-2); background:transparent; }
   .detail-tab { min-width:0; min-height:44px; padding:0 2px; border-radius:0; white-space:nowrap; font:600 11px Arial,Helvetica,sans-serif; letter-spacing:-.15px; }
   .detail-tab.active { color:var(--brand-cream); border-bottom:2px solid var(--ink-secondary); background:transparent; }
-  .detail-excitement-score { display:grid; place-items:center; min-width:84px; min-height:84px; padding:4px; border:1px solid hsl(var(--score-hue,190) 58% 55% / .28); border-left:4px solid hsl(var(--score-hue,190) 88% 60%); border-radius:7px; background:hsl(var(--score-hue,190) 75% 44% / .1); color:hsl(var(--score-hue,190) 92% 64%); -webkit-text-fill-color:hsl(var(--score-hue,190) 92% 64%); -webkit-text-stroke:.8px #080d12; font:800 46px/1 var(--font-sans); }
+  .detail-excitement-score { display:grid; place-items:center; min-width:84px; min-height:84px; padding:4px; border:1px solid hsl(var(--score-hue,190) 58% 55% / .28); border-left:4px solid hsl(var(--score-hue,190) 88% 60%); border-radius:7px; background:hsl(var(--score-hue,190) 75% 44% / .1); color:hsl(var(--score-hue,190) 92% 64%); -webkit-text-fill-color:hsl(var(--score-hue,190) 92% 64%); -webkit-text-stroke:0; font:700 46px/1 'Barlow Condensed', var(--font-sans); }
   .detail-excitement-score.very-hot, .detail-excitement-score.extreme { font-size:48px; }
-  .detail-excitement-score.extreme { text-shadow:0 0 10px hsl(var(--score-hue,190) 98% 53% / .6); box-shadow:0 0 14px hsl(var(--score-hue,190) 98% 53% / .25); }
+  .detail-excitement-score.extreme { text-shadow:none; box-shadow:0 0 14px hsl(var(--score-hue,190) 98% 53% / .25); }
   .mobile-player-browser { display:block; }
   .desktop-player-stats { display:none; }
   .player-team-switch { display:grid; grid-template-columns:1fr 1fr; gap:6px; margin:12px 0; }
@@ -599,7 +599,7 @@ button.team-spotlight-matchup, button.team-schedule-opponent { position:relative
   .game-card .excitement { width:100%; min-height:55px; padding:3px 2px; }
   .game-card .excitement::before { font-size:9px; line-height:1.1; }
   .game-card .score-circle, .game-card .score-circle.hot, .game-card .score-circle.warm, .game-card .score-circle.very-hot, .game-card .score-circle.extreme {
-    font-size:30px; line-height:1; letter-spacing:0; -webkit-text-stroke:.8px #080d12;
+    font-size:30px; line-height:1; letter-spacing:0; -webkit-text-stroke:0;
   }
   .game-card .score-circle.very-hot, .game-card .score-circle.extreme { font-size:32px; }
   .game-card .excitement .score-trend { display:none; }
