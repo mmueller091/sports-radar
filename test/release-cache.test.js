@@ -3,9 +3,9 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import vm from 'node:vm';
 
-test('cached shell upgrade installs a complete revision, preserves user storage and refuses mixed assets',async()=>{
-  const origin='https://mmueller091.github.io/sports-radar/';
-  const stores=new Map([['sports-radar-shell-trajectory-v1',new Map()],['unrelated-cache',new Map()]]);
+for(const origin of ['https://mmueller091.github.io/sports-radar/','https://slatemeter.app/'])
+test(`${origin}: cached shell upgrade installs a complete revision, preserves user storage and refuses mixed assets`,async()=>{
+  const stores=new Map([['sports-radar-shell-trajectory-v1',new Map()],['slatemeter-shell-prior',new Map()],['unrelated-cache',new Map()]]);
   const localStorage=new Map([['sports-radar-selected-favorites-v1','favorites'],['sports-radar-preferences-v2','preferences'],['sports-radar-watched-games-v1','watchlist']]);
   const original=[...localStorage];const listeners={};let offline=false,claimed=false;
   const href=request=>new URL(typeof request==='string'?request:request.url,origin).href;
@@ -26,11 +26,16 @@ test('cached shell upgrade installs a complete revision, preserves user storage 
   const dispatch=async name=>{let promise;listeners[name]({waitUntil:p=>promise=p});await promise;};
   await dispatch('install');await dispatch('activate');
   assert.equal(claimed,true);assert.equal(stores.has('sports-radar-shell-trajectory-v1'),false);
+  assert.equal(stores.has('slatemeter-shell-prior'),false);assert.equal(stores.has('slatemeter-shell-release-123'),true);
   assert.equal(stores.has('unrelated-cache'),true);assert.deepEqual([...localStorage],original);
   offline=true;
   const request=async url=>{let promise;listeners.fetch({request:new Request(new URL(url,origin)),respondWith:p=>promise=p});return promise;};
   assert.match(await (await request('scoring-runtime.js?rev=release-123')).text(),/release-123/);
   assert.match(await (await request('tennis-coverage.js?rev=release-123')).text(),/release-123/);
+  assert.match(await (await request('slatemeter-theme.css?rev=release-123')).text(),/release-123/);
+  assert.match(await (await request('slatemeter-pennant-s-icon.svg?rev=release-123')).text(),/release-123/);
+  let intercepted=false;listeners.fetch({request:new Request('https://sports-radar-alerts.mmueller918.workers.dev/feed'),respondWith:()=>{intercepted=true;}});
+  assert.equal(intercepted,false,'live Worker feeds never enter the shell cache');
   await assert.rejects(request('scoring-runtime.js?rev=old-build'),/offline/);
   assert.match(await (await request('./')).text(),/release-123/);
 });

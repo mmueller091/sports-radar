@@ -3,7 +3,8 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import vm from 'node:vm';
 const scope='https://mmueller091.github.io/sports-radar/';
-function harness(windows=[]) {
+function harness(windows=[],appScope=scope) {
+  const scope=appScope;
   const events={},shown=[],opened=[];
   vm.runInNewContext(fs.readFileSync('sw.js','utf8'),{URL,self:{location:{href:scope+'sw.js',origin:new URL(scope).origin},registration:{scope,showNotification:async(title,options)=>shown.push({title,...options})},clients:{matchAll:async()=>windows,openWindow:async url=>opened.push(url)},addEventListener:(name,fn)=>events[name]=fn}});
   return {shown,opened,async push(payload){let task;events.push({data:{json:()=>payload},waitUntil:p=>task=p});await task;},async click(data){let task,closed=false;events.notificationclick({notification:{data,close:()=>closed=true},waitUntil:p=>task=p});await task;assert.equal(closed,true);}};
@@ -27,4 +28,21 @@ test('notification URLs remain inside the GitHub Pages base path',async()=>{
 test('a window closed during notification navigation falls back to a new app window',async()=>{
   const h=harness([{url:scope,async navigate(){throw new Error('window closed');}}]);
   await h.click({sport:'NHL',gameId:'123'});assert.deepEqual(h.opened,[scope+'#game/NHL/123']);
+});
+test('old and new installations preserve game identity across canonical URL changes',async()=>{
+  for(const installedScope of [scope,'https://slatemeter.app/']) {
+    for(const payloadScope of [scope,'https://slatemeter.app/']) {
+      const h=harness([],installedScope);
+      await h.push({sport:'NFL',gameId:'401123',gameKey:'NFL:401123',url:payloadScope+'#game/NFL/401123'});
+      assert.equal(h.shown[0].title,'SlateMeter');
+      await h.click(h.shown[0].data);
+      assert.deepEqual(h.opened,[installedScope+'#game/NFL/401123']);
+      const home=harness([],installedScope);await home.click({url:payloadScope+'#home'});assert.deepEqual(home.opened,[installedScope+'#home']);
+    }
+  }
+});
+test('canonical installation rejects off-origin and out-of-scope notification destinations',async()=>{
+  for(const url of ['https://evil.example/','https://slatemeter.app/other','javascript:alert(1)']) {
+    const h=harness([],'https://slatemeter.app/');await h.click({url});assert.deepEqual(h.opened,['https://slatemeter.app/#home']);
+  }
 });

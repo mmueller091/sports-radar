@@ -228,7 +228,7 @@ export default {
       if (!preferencesForRow(saved).enabled) return reply(request,{error:'Enable notifications before sending a test'},409);
       const row = await env.DB.prepare('SELECT * FROM subscriptions WHERE token_hash=?').bind(id).first();
       if (!row) return reply(request,{error:'No saved subscription'},404);
-      const status = await sendPush(env,row,{title:'Sports Radar alerts are ready',body:'This is a test notification.',tag:'sports-radar-test',url:`${ORIGIN}/sports-radar/#home`});
+      const status = await sendPush(env,row,{title:'SlateMeter alerts are ready',body:'This is a test notification.',tag:'sports-radar-test',url:'https://slatemeter.app/#home'});
       return reply(request,{ok:status >= 200 && status < 300,status},status >= 200 && status < 300 ? 200 : 502);
     }
     return reply(request,{error:'Method not allowed'},405);

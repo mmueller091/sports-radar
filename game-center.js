@@ -108,7 +108,7 @@
       x:useGameTime?position(p.period,p.clock,f):p.observedAt==null?null:Number(p.observedAt),axis,
       score:p.rating==null||p.rating===''?NaN:Number(p.rating),scoreA:p.scoreA,scoreB:p.scoreB,period:p.period,clock:p.clock,
       ratingKind:p.state==='completed'?'final':p.state,observedAt:p.observedAt==null?null:Number(p.observedAt),
-      label:phase(p.period,p.clock,f,p.phaseLabel),text:p.local?'Browser observation':'Recorded by Sports Radar',
+      label:phase(p.period,p.clock,f,p.phaseLabel),text:p.local?'Browser observation':'Recorded by SlateMeter',
       modelVersion:p.modelVersion||'legacy',evidenceQuality:p.evidenceQuality,
       incomplete:p.evidenceQuality==='partial',invalid:p.evidenceQuality==='invalid'||p.integrityIssue===true,
       recorded:p.recorded,local:p.local,original:p,

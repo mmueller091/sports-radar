@@ -1,15 +1,25 @@
 {
-  "name": "Sports Radar — know what to watch",
-  "short_name": "Sports Radar",
-  "description": "Live sports scores ranked by excitement.",
+  "name": "SlateMeter",
+  "short_name": "SlateMeter",
+  "description": "Live sports, ranked by excitement.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
-  "background_color": "#0b141b",
-  "theme_color": "#0b141b",
+  "background_color": "#191C1F",
+  "theme_color": "#191C1F",
   "orientation": "portrait-primary",
   "icons": [
-    {"src":"app-icon-192.png","sizes":"192x192","type":"image/png","purpose":"any"},
-    {"src":"app-icon-512.png","sizes":"512x512","type":"image/png","purpose":"any"}
+    {
+      "src": "app-icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "app-icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
   ]
 }

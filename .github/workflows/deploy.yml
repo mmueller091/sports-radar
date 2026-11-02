@@ -1,4 +1,4 @@
-name: Deploy Sports Radar to GitHub Pages
+name: Deploy SlateMeter to GitHub Pages
 
 on:
   push:

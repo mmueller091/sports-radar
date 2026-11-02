@@ -2095,7 +2095,7 @@ function renderTeamPage() {
       `<button type="button" class="team-back-button" data-team-back>← Back</button><div class="team-page-state"><span class="eyebrow">${safeText(labelForSport(route.sport))}</span><h1>${failed ? 'Team data unavailable' : catalogReady ? 'Loading team…' : 'Loading team…'}</h1><p>${failed ? 'The team page could not be loaded. Return to Radar and try again.' : 'Loading the team profile, season leaders, and full schedule.'}</p></div>`;
 
     document.title =
-      'Team | Sports Radar';
+      'Team | SlateMeter';
 
     return;
   }
@@ -2173,7 +2173,7 @@ function renderTeamPage() {
     `<button type="button" class="team-back-button" data-team-back>← Back</button><section class="team-hero"><div class="team-hero-logo">${logo ? `<img src="${safeText(logo)}" alt="" loading="eager" onerror="this.style.display='none'">` : `<span aria-hidden="true">${safeText(iconFor(team.sport))}</span>`}</div><div class="team-hero-copy"><span class="eyebrow">${safeText(labelForSport(team.sport))}${abbreviation ? ` · ${safeText(abbreviation)}` : ''}</span><h1>${safeText(identity.name || team.name)}</h1><div class="team-hero-meta">${record ? `<span><strong>${safeText(record)}</strong><small>Record</small></span>` : ''}${heroStandings}</div>${secondaryMeta ? `<p>${safeText(secondaryMeta)}</p>` : ''}</div><button type="button" class="team-favorite-button ${favorite ? 'active' : ''}" data-team-favorite aria-pressed="${favorite}">${favorite ? '★ Favorite' : '☆ Add favorite'}</button></section>${teamTabsMarkup()}${dataState}<div class="team-tab-content">${content}</div>`;
 
   document.title =
-    `${identity.name || team.name} | Sports Radar`;
+    `${identity.name || team.name} | SlateMeter`;
 }
 
 function openTeamPage(team) {
@@ -5137,8 +5137,8 @@ function recordedTimelinePoints(game,summary,format) {
       label:point.state==='completed'?'Earlier final rating':label,
       text:
         scoreText
-          ? `${scoreText} \u00b7 Recorded by Sports Radar`
-          : 'Recorded by Sports Radar',
+          ? `${scoreText} \u00b7 Recorded by SlateMeter`
+          : 'Recorded by SlateMeter',
       overtime:
         format.periods > 0 &&
         Number.isFinite(period) &&
@@ -6486,7 +6486,7 @@ function render() {
   }
 
   document.title =
-    'Sports Radar — know what to watch';
+    'SlateMeter — Live sports, ranked by excitement.';
   const isSoccer =
     state.page === 'soccer';
 
