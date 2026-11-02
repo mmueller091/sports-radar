@@ -1,3 +1,4 @@
+const calculation=require('./shared/calculation.js');
 const {isHalftimeStatus,playPeriodLabel,displayMoment} = require('./shared/time.js');
 // Production entry: reuse the reviewed candidate verbatim and the legacy core's
 // chronology validator. rating-core.js remains the explicit capture baseline.
@@ -43,7 +44,10 @@ function applyLiveSnapshot(game, competition, summary) {
   const reconciled=basketball.reconcileBasketball(game,competition || game.sourceCompetition,summary);
   competition=reconciled.competition;summary=reconciled.summary;
   prepareOpening(legacy,game,competition || game.sourceCompetition,null);
-  if (game.state !== 'live') return;
+  if (game.state !== 'live') {
+    if(game.state==='upcoming')calculation.set(game,calculation.fromFactors(game.factors,game.score,'Pregame',90));
+    return;
+  }
   legacy.applyLiveSnapshot(game, competition, summary);
   const current = {...(competition || game.sourceCompetition),
     ...(game.sport==='NFL' ? {season:{...game.sourceEvent?.season,...game.sourceCompetition?.season,...competition?.season}} : {}),
@@ -120,6 +124,7 @@ function applyLiveSnapshot(game, competition, summary) {
     inputEvidence:accepted?.sportsRadarEvidence||summary?.sportsRadarEvidence||null,
     scoringPartial:evidence.state!=='complete'||basketball.supports(game)&&!reconciled.rawCurrent
   });
+  calculation.set(game,calculation.liveResult(result));
   if (game.sport==='CFB' && isHalftimeStatus(game.liveRawStatus)) game.live.note='';
   game.momentumText = (result.historyOwnership?.eventFactors || []).map(f=>f.label).join(', ');
   if (game.sport==='CFB') game.upsetPoints=result.factors.find(f=>f.label==='Underdog threatens upset')?.points || 0;

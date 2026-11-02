@@ -1,5 +1,6 @@
 /* Shared scoring module; supports classic browser scripts and Worker/Node bundling. */
 (function (root) {
+  const calculation=typeof module!=='undefined'&&module.exports?require('./calculation.js'):null;
   const {normalizedTime} = typeof module !== 'undefined' && module.exports
     ? require('./time.js') : root.SportsRadarScoring.shared_time;
   function aggregateLiveBonus({
@@ -38,8 +39,30 @@
       ? Math.max(decisiveFloor,positiveBonus + negativeBonus)
       : positiveBonus + negativeBonus;
 
-    return {bonus,probabilityPositive,probabilityNegative,driveFloor,decisiveFloor,
+    const result={bonus,probabilityPositive,probabilityNegative,driveFloor,decisiveFloor,
       competitiveSituation,positiveBonus,negativeBonus};
+    if(calculation){
+      const rows=[];
+      const row=(label,points,kind)=>calculation.append(rows,label,points,kind);
+      row('Positive win-probability contribution',probabilityPositive);
+      row('Live situation',situationPoints);row('Recent scoring pressure',pressurePoints);
+      const rawSituation=probabilityPositive+situationPoints+pressurePoints;
+      // These are the exact competing floor/cap operands of the calculation above.
+      const support=Math.max(driveFloor,Number(sportImpact.competitiveFloor)||0,rawSituation);
+      if(decisiveFloorEnabled&&decisiveFloor>0&&!preserveCompetitiveSupport){
+        row('Decisive situation replaces ordinary live support',calculation.difference(competitiveSituation,rawSituation),'floor');
+      }else{
+        row('Competitive situation floor',calculation.difference(support,rawSituation),'floor');
+        row('Competitive situation ceiling',calculation.difference(competitiveSituation,support),'cap');
+      }
+      row('Player milestone',milestonePoints);row('Immediate event impact',eventShockPoints);
+      row('Positive live bonus ceiling',calculation.difference(positiveBonus,competitiveSituation+milestonePoints+eventShockPoints),'cap');
+      row('Negative win-probability contribution',probabilityNegative);
+      row('Negative live bonus floor',calculation.difference(negativeBonus,probabilityNegative),'floor');
+      row('Decisive live bonus floor',calculation.difference(bonus,positiveBonus+negativeBonus),'floor');
+      if(calculation.reconcileArithmetic(rows,bonus))calculation.set(result,{rows,total:bonus});
+    }
+    return result;
   }
 
   function pressureImpact(summary,progress,scoreGap,competition,policy) {

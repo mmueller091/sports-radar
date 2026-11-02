@@ -3439,6 +3439,61 @@ dialog::backdrop,
 .timeline-ratings strong { font-size: 28px; line-height: 1.2; color: var(--md-text); }
 .timeline-ratings small { color: var(--md-text-2); font-size: 12px; line-height: 1.4; overflow-wrap: anywhere; }
 .timeline-rating-current strong { color: #b8f3e4; }
+
+/* Game Center: explanation first, exact arithmetic second. */
+.detail-radar-why .detail-why-text { display:block; overflow:visible; -webkit-line-clamp:unset; max-height:none; font-size:15px; line-height:1.6; }
+.score-calculation { margin-top:16px; padding-top:12px; border-top:1px solid var(--md-outline-soft); color:var(--md-text-2); font-size:12px; font-variant-numeric:tabular-nums; }
+.score-calculation dl { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:0 26px; margin:0; }
+.score-calculation-row { display:flex; justify-content:space-between; align-items:baseline; gap:14px; padding:5px 0; }
+.score-calculation dt { min-width:0; line-height:1.45; }
+.score-calculation dd { margin:0; color:var(--md-text); text-align:right; overflow-wrap:anywhere; max-width:54%; }
+.score-calculation-row[data-kind="rounding"], .score-calculation-row[data-kind="cap"], .score-calculation-row[data-kind="floor"] { color:#abc4d5; }
+.score-calculation-total { display:flex; justify-content:space-between; margin-top:9px; padding-top:9px; border-top:1px solid var(--md-outline-soft); font-size:13px; }
+.score-calculation-total strong { color:#b8f3e4; font-size:16px; }
+.score-calculation-unavailable { color:var(--md-text-3); font-size:12px; line-height:1.5; }
+.timeline-heading { display:flex; align-items:baseline; justify-content:space-between; gap:8px; flex-wrap:wrap; }
+.timeline-heading h3 { margin-bottom:0; }
+.timeline-key { display:flex; align-items:center; gap:6px; font-size:11px; color:var(--md-text-2); }
+.timeline-key i { width:18px; height:2px; background:#82bdff; }
+.timeline-section .timeline-ratings { display:flex; flex-wrap:wrap; gap:12px 28px; margin:14px 0 8px; }
+.timeline-section .timeline-ratings > div { display:grid; grid-template-columns:auto auto; align-items:baseline; gap:1px 10px; padding:0; border:0!important; border-radius:0; background:none; }
+.timeline-section .timeline-ratings strong { font-size:23px; grid-column:2; grid-row:1 / span 2; }
+.timeline-section .timeline-ratings span { font-size:11px; }
+.timeline-section .timeline-ratings small { font-size:11px; grid-column:1; }
+.timeline-controls { display:flex; gap:4px; margin:10px 0 0; }
+.timeline-controls button { min-height:36px; padding:7px 12px; background:transparent; color:var(--md-text-2); border:1px solid transparent; border-radius:7px; font:inherit; font-size:12px; cursor:pointer; }
+.timeline-controls button[aria-pressed="true"] { background:#213744; color:#cce6ff; border-color:#36596e; }
+.timeline-controls button:focus-visible { outline:2px solid #82bdff; outline-offset:2px; }
+.timeline-section .timeline-chart { display:block; width:100%; height:auto; min-height:0; margin:4px 0 0; overflow:visible; }
+.timeline-section .timeline-chart .timeline-line { fill:none; stroke:#82bdff; stroke-width:1.6; stroke-linejoin:miter; vector-effect:non-scaling-stroke; }
+.timeline-section .timeline-chart .timeline-reference { stroke:#31414d; stroke-width:.6; }
+.timeline-section .timeline-chart text { fill:#a9bac9; font-size:11px; }
+.timeline-section .timeline-chart circle { fill:#b5d7ff; stroke:none; }
+.timeline-section .timeline-chart .timeline-hit-target { fill:transparent; stroke:none; }
+.timeline-section .timeline-chart .timeline-point:focus-visible { outline:none; }
+.timeline-section .timeline-chart .timeline-point:focus-visible circle:not(.timeline-hit-target),
+.timeline-section .timeline-chart .timeline-point:hover circle:not(.timeline-hit-target) { stroke:#fff; stroke-width:2; }
+.timeline-event-strip rect { fill:#15232e; stroke:none; }
+.timeline-section .timeline-event-strip text { fill:#93a9b9; font-size:9px; letter-spacing:1px; }
+.timeline-event-marker path { fill:#d2b880; stroke:#15232e; stroke-width:1; }
+.timeline-event-marker:focus-visible path { stroke:white; stroke-width:2; }
+.timeline-section .timeline-note { margin:5px 0 10px; font-size:11px; line-height:1.5; }
+.timeline-observations { margin-top:8px; color:var(--md-text-2); font-size:12px; }
+.timeline-observations summary { cursor:pointer; min-height:44px; padding:12px 0; }
+.timeline-observations summary:focus-visible { outline:2px solid #82bdff; }
+.timeline-table-scroll { max-height:300px; overflow:auto; }
+.timeline-observations table { width:100%; border-collapse:collapse; text-align:left; font-variant-numeric:tabular-nums; }
+.timeline-observations th,.timeline-observations td { padding:7px; border-bottom:1px solid var(--md-outline-soft); vertical-align:top; }
+.timeline-observations small { font-size:10px; overflow-wrap:anywhere; }
+@media (max-width:480px) {
+  .score-calculation dl { grid-template-columns:minmax(0,1fr); }
+  .score-calculation { font-size:12px; }
+  .score-calculation-row { padding:4px 0; }
+  .timeline-section .timeline-ratings { gap:10px 22px; }
+  .timeline-section .timeline-chart text { font-size:13px; }
+  .timeline-section .timeline-event-strip text { font-size:11px; }
+  .timeline-controls button { min-height:44px; padding:8px 10px; }
+}
 .timeline-history { margin-top: 12px; border-top: 1px solid var(--md-outline-soft); font-size: 13px; line-height: 1.5; color: var(--md-text-2); }
 .timeline-history summary { cursor: pointer; padding: 12px 4px; min-height: 44px; box-sizing: border-box; }
 .timeline-history summary:focus-visible { outline: 2px solid #b8f3e4; outline-offset: 2px; border-radius: 4px; }
@@ -5843,4 +5898,16 @@ body.team-page-open .sport-specific-filters { display:none; }
   .compact-filter-toggle { min-height:42px; align-self:flex-end; font-size:11px; padding:0 8px; }
   .clear-sport-filters { min-height:32px; font-size:11px; }
   .sport-filter-status { flex:1 1 200px; }
+}
+
+/* Keep chart labels readable at the physical viewport size. */
+.timeline-section .timeline-chart { max-height:none; }
+.timeline-section .timeline-mobile { display:none; }
+.timeline-section .timeline-point-help[aria-hidden="true"] { display:none; }
+.timeline-section .timeline-point-help { min-height:0; height:auto; margin:8px 0; }
+@media (max-width:600px) {
+  .timeline-section .timeline-desktop { display:none; }
+  .timeline-section .timeline-mobile { display:block; }
+  .timeline-section .timeline-chart text { font-size:11px; }
+  .timeline-section .timeline-event-strip text { font-size:9px; letter-spacing:.5px; }
 }

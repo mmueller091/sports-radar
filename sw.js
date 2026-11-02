@@ -1,6 +1,7 @@
 const CACHE_NAME = 'sports-radar-shell-__BUILD_REV__';
 const REV = '__BUILD_REV__';
-const SHELL = ['./', './index.html', './styles.css', './mobile-readability.css', './scoring-runtime.js', './alert-config.js', './notifications.js', './watch-links.js', './tennis-coverage.js', './app.js', './teams.json', './manifest.webmanifest', './sports-radar-logo.png', './app-icon-192.png', './app-icon-512.png', './icon.svg'];
+const SHELL = ['./', './index.html', './styles.css', './mobile-readability.css', './scoring-runtime.js', './alert-config.js', './notifications.js', './watch-links.js', './tennis-coverage.js', './app.js',
+  './game-center.js', './teams.json', './manifest.webmanifest', './sports-radar-logo.png', './app-icon-192.png', './app-icon-512.png', './icon.svg'];
 self.addEventListener('install', event => {
   event.waitUntil(caches.open(CACHE_NAME).then(async cache => {
     // Fetch every dependency from the same published build before activation.

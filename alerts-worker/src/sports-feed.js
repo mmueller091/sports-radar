@@ -1,3 +1,4 @@
+import calculation from '../../scoring/shared/calculation.js';
 import {nhlGameCenterStats} from './providers/nhl.js';
 import {qualifyTennisCoverage,tennisDetailSummary,currentGameAllowed} from './providers/tennis.js';
 import {basketballBoxScore} from './display-model.js';
@@ -1965,7 +1966,7 @@ export async function gameDetails(env,sport,id,now=Date.now()) {
     if(archived && game.state!=='completed')return null;
     const summary=tennisDetailSummary(game);
     if(!summary)return null;
-    return {...summary,sportsRadarGame:game,sportsRadarArchived:archived,
+    return {...summary,sportsRadarGame:{...game,scoreCalculation:feed?.scoreCalculations?.[`${sport}:${id}`] || calculation.publicCalculation(game)},sportsRadarArchived:archived,
       sportsRadarFreshness:{updatedAt:archived?null:feed?.updatedAt || null,canonicalUpdatedAt:feed?.updatedAt || null,
         receivedAt:new Date(now).toISOString(),stale:archived || !feed || feed.freshness?.stale}};
   }
@@ -2004,7 +2005,7 @@ export async function gameDetails(env,sport,id,now=Date.now()) {
     } finally {detailBudget.close();}
   }
   return runtime.canonicalDetailSummary(game,{...summary,...(nhlAdvanced ? {nhlAdvanced} : {}),...(['NBA','NCAAB'].includes(sport) ? {basketballBoxScore:basketballBoxScore(summary,sport)} : {}),
-    sportsRadarGame:{...game,scoreboard:undefined,basketballEvidence:undefined,liveInputEvidence:undefined,priorObservation:undefined,providerEventRevisions:undefined,observationEvidence:undefined},sportsRadarArchived:archived,
+    sportsRadarGame:{...game,scoreCalculation:feed?.scoreCalculations?.[`${sport}:${id}`] || calculation.publicCalculation(game),scoreboard:undefined,basketballEvidence:undefined,liveInputEvidence:undefined,priorObservation:undefined,providerEventRevisions:undefined,observationEvidence:undefined},sportsRadarArchived:archived,
     sportsRadarFreshness:{updatedAt:new Date(resource.updatedAt).toISOString(),canonicalUpdatedAt:feed?.updatedAt || null,canonicalRevision:feed?.revision || Date.parse(feed?.updatedAt) || null,receivedAt:new Date(now).toISOString(),stale:errors.length>0 || now-resource.updatedAt>STALE_MS}});
 }
 
@@ -2013,6 +2014,7 @@ export async function gameDetails(env,sport,id,now=Date.now()) {
 // INTEGER-affinity revision column also accepts these text keys (no migration).
 export async function publishFeed(env,feed,owner,at,stage=async(name,fn)=>fn()) {
   feed={...feed,games:feed.games.filter(game=>currentGameAllowed(game,Date.parse(feed.updatedAt)))};
+  feed.scoreCalculations=Object.fromEntries(feed.games.map(game=>[`${game.sport}:${game.id}`,calculation.publicCalculation(game,feed.scoreCalculations?.[`${game.sport}:${game.id}`])]).filter(([,value])=>value));
   const revision = `${Date.parse(feed.updatedAt)}:${owner}`;
   const parts=[];
   await stage('feedWrites',async()=>{
@@ -2278,7 +2280,7 @@ export async function refreshSportsData(env,now=Date.now(),options={}) {
     });
 
     metrics.deferredCandidates=deferred.length;
-    const feed = {version:1,modelVersion:MODEL_VERSION,scoringPolicy:runtime.POLICY_ID,updatedAt:new Date(now).toISOString(),source:'ESPN',sourceErrors:[...errors],games,enrichment,
+    const feed = {version:1,modelVersion:MODEL_VERSION,scoringPolicy:runtime.POLICY_ID,updatedAt:new Date(now).toISOString(),source:'ESPN',sourceErrors:[...errors],games,enrichment,scoreCalculations:previous?.scoreCalculations,
       ...(metrics.deferredEnrichments||metrics.deferredValidations?{enrichmentProgress:{pending:metrics.deferredEnrichments,
         validationPending:metrics.deferredValidations,modelVersion:MODEL_VERSION}}:{})};
     // History remains before publication: future NFL record recovery and audit

@@ -24,5 +24,5 @@ test('only verified occasion fields can add an overseas season opener',()=>{
 });
 test('irrelevant tiny factors and raw implementation strings never appear in public copy',()=>{
  const g={sport:'NBA',state:'upcoming',score:45,teams:[team('One','A','0'),team('Two','B','0')],factors:[{label:'Baseline',points:35},{label:'Tiny adjustment',contextType:'performance',contextText:'individual margins capped at 21',points:.03}]};
- assert.doesNotMatch(explain(g),jargon);assert.ok(source.includes('<summary>Scoring details</summary>'));assert.ok(source.includes('String(f.points)'));
+ assert.doesNotMatch(explain(g),jargon);assert.ok(!source.includes('<summary>Scoring details</summary>'));assert.ok(source.includes('SportsRadarGameCenter.scoringMarkup(game,'));assert.ok(fs.readFileSync('game-center.js','utf8').includes('String(f.points)'));
 });

@@ -87,7 +87,7 @@ test('Game Center shell keeps excitement first-class and moves detail into sport
   const detailSource = source.slice(detailStart,detailEnd);
 
   assert.match(detailSource,/detail-excitement-score/);
-  assert.match(detailSource,/\$\{excitementTimeline\(game,summary\)\}/);
+  assert.match(detailSource,/\$\{renderExcitementTimeline\(game,summary\)\}/);
   assert.match(detailSource,/\$\{detailTabsMarkup\(game,summary\)\}/);
   assert.ok(
     detailSource.indexOf('${excitementTimeline(game,summary)}') <

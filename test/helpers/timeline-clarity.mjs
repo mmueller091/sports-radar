@@ -1,3 +1,4 @@
+import gameCenter from '../../game-center.js';
 import fs from 'node:fs';
 import {gunzipSync} from 'node:zlib';
 import vm from 'node:vm';
@@ -14,7 +15,7 @@ export function fixture(sport,id){
  return detail;
 }
 export function browser(source=fs.readFileSync(new URL('../../app.js',import.meta.url),'utf8')){
- const context=vm.createContext({...runtime,console,Date,Intl,ratingHistory:{},watchKey:g=>g.sport+':'+g.id,
+ const context=vm.createContext({SportsRadarGameCenter:gameCenter,...runtime,console,Date,Intl,ratingHistory:{},watchKey:g=>g.sport+':'+g.id,
   safeText:s=>String(s??'').replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('"','&quot;'),compactPlay:p=>p.text||''});
  for(const name of ['legacyPlayPosition','scoringEvents','estimatedEventRating']){
   const start=source.indexOf('function '+name+'(');

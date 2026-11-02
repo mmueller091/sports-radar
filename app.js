@@ -5447,6 +5447,28 @@ function timelineHistoryDetails(groups) {
   return `<details class="timeline-history"><summary>Rating history <span>(${count} saved updates)</span></summary><p>Earlier and incomplete updates are kept here, separate from the chart. Repeats are grouped.</p><ul>${groups.map(group=>`<li class="timeline-history-group" data-kind="${group.kind}"><strong>${labels[group.kind]} · ${group.score}</strong><p>${safeText(group.reason)}</p><details><summary>${group.records.length===1?'View saved update':`View ${group.records.length} saved updates`}</summary><ol>${group.records.map(point=>`<li><time datetime="${new Date(point.observedAt).toISOString()}">${safeText(new Date(point.observedAt).toLocaleString([],{month:'short',day:'numeric',hour:'numeric',minute:'2-digit',second:'2-digit'}))}</time>${group.scoreText?` · Score ${safeText(group.scoreText)}`:''}${point.ratingKind!=='final'?` · ${safeText(point.label)}`:''}</li>`).join('')}</ol></details></li>`).join('')}</ul></details>`;
 }
 
+function renderExcitementTimeline(game,summary) {
+  return globalThis.SportsRadarGameCenter.timeline(game,summary,ratingHistory[watchKey(game)] || [],
+    data=>timelineHistoryDetails(timelinePresentation(game,data).history));
+}
+
+function explainGameCenter(game) {
+  const f=game.completedFacts;
+  if(game.state==='completed' && f?.comeback && !game.scoringPartial && !game.summaryLifecycleRejected && !game.scoringHistoryRejected){
+    const winner=game.teams.find(t=>t[0]===f.comeback.team);
+    const won=winner && game.teams.every(t=>t===winner||Number(winner[2])>Number(t[2]));
+    const underdog=won && game.upsetPoints>0 && String(game.underdog?.teamId)===String(winner[8]);
+    const overtime=game.factors?.some(f=>f.label==='Overtime');
+    const unit=({NHL:'goal',Soccer:'goal',MLB:'run'})[game.sport] || 'point';
+    const sentence=`${f.comeback.team}${underdog?', the underdog,':''} erased a ${f.comeback.deficit}-${unit} deficit${won?` and won${overtime?' in overtime':''}`:''}.`;
+    const qualification=f.redemption?`${f.redemption.kicker} missed the go-ahead extra point with ${f.redemption.clock} left in regulation, then won it with an overtime field goal.`:
+      f.quarterbackChange?`${f.quarterbackChange.incoming} replaced ${f.quarterbackChange.outgoing} at quarterback.`:'';
+    return [sentence,qualification].filter(Boolean).join(' ');
+  }
+  // Retain source qualifications, including provisional evidence and conditional availability.
+  return explainRating(game);
+}
+
 function excitementTimeline(game,summary) {
   if (
     game.state === 'upcoming'
@@ -6048,7 +6070,7 @@ function renderDetailContent(
   const coverageNote=game.tennisCoverage?.reason
     ? `<p class="detail-freshness">${safeText(game.tennisCoverage.reason)}</p>` : '';
 
-  const scoringDetails = `<details class="detail-scoring-details"><summary>Scoring details</summary><p>Exact scoring factors</p><ul>${(game.factors || []).map(f=>`<li>${safeText(f.label)}: ${safeText(String(f.points))}</li>`).join('')}</ul><p>Live bonus: ${safeText(String(game.live?.bonus || 0))}</p></details>`;
+  const scoringDetails = globalThis.SportsRadarGameCenter.scoringMarkup(game,summary?.sportsRadarGame?.scoreCalculation);
 
   const ratingContext =
     game.state === 'upcoming'
@@ -6058,7 +6080,7 @@ function renderDetailContent(
         : `Current rating ${safeText(game.score)}`;
 
   $('#game-detail-content').innerHTML =
-    `<header class="detail-header"><div class="detail-kicker">${safeText(labelForSport(game.sport))} · ${safeText(status)}${detailClock}</div><h2>${safeText(title)}</h2><button type="button" class="detail-watch ${isWatched(game) ? 'active' : ''}" data-watch-id="${safeText(watchKey(game))}" aria-pressed="${isWatched(game)}">${isWatched(game) ? '★ Watching this game' : '☆ Add to watchlist'}</button><div class="detail-scoreboard">${scores}</div><div class="detail-meta"><span><strong>Venue</strong> ${safeText(venue)}</span><span><strong>Broadcast</strong> ${safeText(game.channel || 'Channel not listed')}</span>${lineMeta}</div>${broadcastWatchMarkup(game,summary)}${freshness}${game.moment ? `<section class="detail-moment"><strong>${safeText(game.momentLabel || 'Notable play')}</strong><span>${safeText(displayMoment(game))}</span></section>` : ''}</header><section class="detail-radar"><div class="detail-excitement-head"><span class="detail-excitement-score" style="--score-hue:${scoreHue}">${safeText(game.score)}</span><span class="detail-excitement-copy"><small>${game.state==='live'?'Watch now':game.state==='completed'?'Game quality':'Pregame rating'}</small><strong>${safeText(ratingContext)}</strong></span></div><div class="detail-radar-why"><h3>Why ${safeText(game.score)}?</h3><p class="detail-explanation detail-why-text">${safeText(explainRating(game))}</p><button type="button" class="detail-why-toggle" aria-expanded="false">More</button></div>${qualitySoFar}${coverageNote}${scoringDetails}${excitementTimeline(game,summary)}</section>${detailTabsMarkup(game,summary)}`;
+    `<header class="detail-header"><div class="detail-kicker">${safeText(labelForSport(game.sport))} · ${safeText(status)}${detailClock}</div><h2>${safeText(title)}</h2><button type="button" class="detail-watch ${isWatched(game) ? 'active' : ''}" data-watch-id="${safeText(watchKey(game))}" aria-pressed="${isWatched(game)}">${isWatched(game) ? '★ Watching this game' : '☆ Add to watchlist'}</button><div class="detail-scoreboard">${scores}</div><div class="detail-meta"><span><strong>Venue</strong> ${safeText(venue)}</span><span><strong>Broadcast</strong> ${safeText(game.channel || 'Channel not listed')}</span>${lineMeta}</div>${broadcastWatchMarkup(game,summary)}${freshness}${game.moment ? `<section class="detail-moment"><strong>${safeText(game.momentLabel || 'Notable play')}</strong><span>${safeText(displayMoment(game))}</span></section>` : ''}</header><section class="detail-radar"><div class="detail-excitement-head"><span class="detail-excitement-score" style="--score-hue:${scoreHue}">${safeText(game.score)}</span><span class="detail-excitement-copy"><small>${game.state==='live'?'Watch now':game.state==='completed'?'Game quality':'Pregame rating'}</small><strong>${safeText(ratingContext)}</strong></span></div><div class="detail-radar-why"><h3>Why ${safeText(game.score)}?</h3><p class="detail-explanation detail-why-text">${safeText(explainGameCenter(game))}</p>${scoringDetails}</div>${qualitySoFar}${coverageNote}${renderExcitementTimeline(game,summary)}</section>${detailTabsMarkup(game,summary)}`;
 }
 
 async function fetchGameSummary(game,controller=new AbortController()) {
@@ -7307,6 +7329,15 @@ $('#game-detail-content')
   .addEventListener(
     'click',
     event => {
+      const range=event.target.closest('[data-timeline-range]');
+      if(range){
+        const section=range.closest('.timeline-section');
+        section.querySelectorAll('[data-timeline-range]').forEach(button=>button.setAttribute('aria-pressed',String(button===range)));
+        section.querySelectorAll('[data-timeline-view]').forEach(view=>view.hidden=view.dataset.timelineView!==range.dataset.timelineRange);
+        const help=section.querySelector('.timeline-point-help');
+        if(help){help.textContent='';help.setAttribute('aria-hidden','true');}
+        return;
+      }
       const retry=event.target.closest('[data-game-retry]');
       if(retry){openLinkedGame(retry.dataset.gameRetry,retry.dataset.gameRetrySport);return;}
       const playerTeam = event.target.closest('[data-player-team]');

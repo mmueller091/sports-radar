@@ -25,7 +25,7 @@ function harness(hash,{available=true,inFeed=false,initialState='completed'}={})
       if(String(url).includes('/game/'))return available?Response.json({...fixture.summary,sportsRadarGame:serverGame,sportsRadarArchived:true,sportsRadarFreshness:{updatedAt:new Date().toISOString()}}):Response.json({error:'Game not found'},{status:404});
       return Response.json({});
     }});
-  vm.runInContext(sourceHelper.scoringSource(),context);vm.runInContext(fs.readFileSync('dist/scoring-runtime.js','utf8'),context);vm.runInContext(source,context);
+  vm.runInContext(sourceHelper.scoringSource(),context);vm.runInContext(fs.readFileSync('dist/scoring-runtime.js','utf8'),context);vm.runInContext(fs.readFileSync('game-center.js','utf8'),context);vm.runInContext(source,context);
   const settle=async()=>{for(let i=0;i<6;i++)await new Promise(resolve=>setImmediate(resolve));};
   return {context,element,calls,location,settle,run:s=>vm.runInContext(s,context),setGame:game=>serverGame=game,async route(hash){location.hash=hash;events.hashchange();await settle();}};
 }

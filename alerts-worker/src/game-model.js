@@ -1,3 +1,5 @@
+import calculationRuntime from '../../scoring/shared/calculation.js';
+const calculation=typeof calculationRuntime==='undefined'?{get(){},set(){},add(){}}:calculationRuntime;
 import {baseballSituation,footballSituation} from './display-model.js';
 // Normalization and enrichment moved from app.js; scoring uses the shared core.
 import '../../rating-core.js';
@@ -198,6 +200,7 @@ function normalizeEvent(event, sport, leagueLogo, division) {
     liveRawSituation:competition?.situation
   };
 
+  calculation.set(game,calculation.get(rating));
   Object.defineProperties(game,{
     sourceEvent:{value:event,enumerable:false},
     sourceCompetition:{value:competition,enumerable:false}
@@ -251,7 +254,9 @@ function preservePregameRecords(game,previousGame) {
   if (!bonus) return;
   game.factors.push({label:'Ended unbeaten start',points:bonus});
   game.baseScore = clampScore(game.baseScore + bonus);
-  game.score = clampScore(game.score + bonus);
+  const nextScore=clampScore(game.score + bonus);
+  const ledger=calculation.add(game,[{label:'Ended unbeaten start',points:bonus}],bonus,nextScore);
+  game.score=nextScore;calculation.set(game,ledger);
 }
 
 function applyContextsToGame(game,factors) {
@@ -278,6 +283,7 @@ function applyContextsToGame(game,factors) {
     game.context
   );
   game.score = rating.score;
+  calculation.set(game,calculation.get(rating));
   game.baseScore = rating.score;
   game.openingScore = rating.openingScore;
   game.rawPregameScore = rating.rawPregameScore;
@@ -617,7 +623,9 @@ function enrichGame(game,summary,previousGame=null,periodLabel=null) {
               if (priorLive && sameScores && priorProgress !== null && currentProgress >= priorProgress && currentProgress - priorProgress <= .04) {
                 const historic = Number(previousGame.score) - Number(previousGame.baseScore) - Number(priorLive.components?.situation || 0);
                 if (Number.isFinite(historic) && historic > 0) {
-                  game.score = clampScore(game.score + Math.floor(historic * .9));
+                  const retained=Math.floor(historic * .9),nextScore=clampScore(game.score + retained);
+                  const ledger=calculation.add(game,[{label:'Retained recent evidence (90%, rounded down)',points:retained}],retained,nextScore);
+                  game.score=nextScore;calculation.set(game,ledger);
                   game.staleEnrichment = true;
                 }
               }
@@ -698,6 +706,7 @@ function enrichGame(game,summary,previousGame=null,periodLabel=null) {
                       impact.points
                   });
 
+                  const priorScore=game.score,priorBase=game.baseScore,priorLedger=calculation.get(game);
                   game.baseScore =
                     clampScore(
                       game.baseScore +
@@ -712,7 +721,10 @@ function enrichGame(game,summary,previousGame=null,periodLabel=null) {
                         0
                       )
                     );
-
+                  const before={score:priorScore};calculation.set(before,priorLedger);
+                  const ledger=priorScore===priorBase && !game.live?.bonus
+                    ? calculation.add(before,[game.factors.at(-1)],impact.points,game.score):null;
+                  calculation.set(game,ledger);
 
                 }
               }
@@ -753,11 +765,9 @@ function enrichGame(game,summary,previousGame=null,periodLabel=null) {
                   ...momentum.factors
                 );
 
-                game.score =
-                  clampScore(
-                    game.score +
-                    momentum.points
-                  );
+                const nextScore=clampScore(game.score + momentum.points);
+                const ledger=calculation.add(game,momentum.factors,momentum.points,nextScore);
+                game.score=nextScore;calculation.set(game,ledger);
 
 
               }
@@ -808,11 +818,9 @@ function enrichGame(game,summary,previousGame=null,periodLabel=null) {
                 points:14
               });
 
-              game.score =
-                clampScore(
-                  game.score +
-                  14
-                );
+              const nextScore=clampScore(game.score + 14);
+              const ledger=calculation.add(game,[{label:'Decisive last play',points:14}],14,nextScore);
+              game.score=nextScore;calculation.set(game,ledger);
 
 
             } else {
@@ -821,7 +829,9 @@ function enrichGame(game,summary,previousGame=null,periodLabel=null) {
               const finish = globalThis.SportsRadarScore.defensiveFinishFactor?.(game.sport,summary);
               if (finish) {
                 game.factors.push(finish);
-                game.score = clampScore(game.score + finish.points);
+                const nextScore=clampScore(game.score + finish.points);
+                const ledger=calculation.add(game,[finish],finish.points,nextScore);
+                game.score=nextScore;calculation.set(game,ledger);
               }
             }
 

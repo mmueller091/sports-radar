@@ -1,3 +1,4 @@
+import gameCenter from '../game-center.js';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
@@ -61,7 +62,7 @@ function renderedGame(game,summary) {
   const source = fs.readFileSync(new URL('../app.js',import.meta.url),'utf8').replace(/\r\n/g,'\n');
   const detail = {};
   const history = {};
-  const context = vm.createContext({...core,...time,ratingHistory:history,state:{source:'live'},HISTORY_KEY:'history',
+  const context = vm.createContext({SportsRadarGameCenter:gameCenter,...core,...time,ratingHistory:history,state:{source:'live'},HISTORY_KEY:'history',
     localStorage:{setItem:()=>{}},watchKey:g=>g.id,safeText:String,LEAGUE_LOGOS:{},
     displayLine:()=>({label:'Line',text:''}),isWatched:()=>false,teamMarkup:()=>'',possessionMarkup:()=>'',
     compactPlay:p=>p.text || '',$:()=>detail,labelForSport:s=>s,teamLogoUrl:()=>'',
@@ -69,7 +70,7 @@ function renderedGame(game,summary) {
     basketballBoxScoreMarkup:()=>'',detailPlayerStats:()=>'',detailPlays:()=>''});
   for (const name of ['halftimePriorityAdjustment','explainRating','publicStorySentence','compactClockPeriod','broadcastWatchMarkup','gameCard','basesMarkup','trendFor','isWinningTeam','recordRatingSnapshot',
     'legacyPlayPosition','scoringEvents','estimatedEventRating','timelineFormat','timelineEventPosition',
-    'timelinePeriodLabel','timelineFinalScores','recordedTimelinePoints','timelinePoints','timelineComparable','timelinePresentation','timelineRatingSummary','timelineHistoryDetails','excitementTimeline','renderDetailContent']) {
+    'timelinePeriodLabel','timelineFinalScores','recordedTimelinePoints','timelinePoints','timelineComparable','timelinePresentation','timelineRatingSummary','timelineHistoryDetails','excitementTimeline','explainGameCenter','renderExcitementTimeline','renderDetailContent']) {
     const start=source.indexOf(`function ${name}(`);
     assert.ok(start>=0,name);
     vm.runInContext(source.slice(start,source.indexOf('\n}',start)+2),context);

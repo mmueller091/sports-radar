@@ -1,3 +1,4 @@
+const calculation=require('../scoring/shared/calculation.js');
 const {cfbImmediateTension} = require('../scoring/sports/cfb.js');
 /*
  * Authoritative candidate scoring, explicitly selected by scoring/live-runtime.
@@ -240,7 +241,7 @@ function candidateLiveSnapshot(core,game,competition,summary,floorBudget=null,nh
   if (Number.isFinite(liveFloor) && liveFloor > 0) {
     bonus = Math.max(bonus,Math.round(liveFloor)-game.baseScore);
   }
-  return {
+  const result = {
     ...legacy,
     bonus,
     components,
@@ -249,6 +250,13 @@ function candidateLiveSnapshot(core,game,competition,summary,floorBudget=null,nh
     aggregation,
     sportImpact
   };
+  const ledger=calculation.get(aggregation);
+  if(ledger){
+    const rows=[...ledger.rows];
+    calculation.append(rows,'Sport live floor',calculation.difference(bonus,aggregation.bonus),'floor');
+    calculation.set(result,{rows,total:bonus});
+  }
+  return result;
 }
 
 function nonLiveCandidateRating(game,summary) {
@@ -361,8 +369,10 @@ function finishCandidateGameRating(core,game,prepared,base,live,trajectoryPolicy
     // Preserve the baseline's entire signed history/trajectory allocation.
     // Its floor/taper diagnostics describe the original allocation, while the
     // live diagnostic below describes the subsequent floor headroom correction.
+    const liveLedger=calculation.get(live);
     live={...live,endgameAllocation:{...budget,originalFloor:originalLive.sportImpact.competitiveFloor,
       allocatedFloor:live.sportImpact.competitiveFloor,originalBonus:originalLive.bonus}};
+    calculation.set(live,liveLedger);
   }
   const momentumPoints = owned?.momentumPoints ?? (Number(game.momentumPoints) || 0);
   const trajectoryScoring = owned?.trajectoryScoring ?? trajectoryAdjustment(prepared.trajectory,base.state.currentCloseness,trajectoryPolicy);

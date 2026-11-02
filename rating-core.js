@@ -70,8 +70,13 @@
       sharedUpsetImpact(candidate,teams,gameState,progress,sport,competition);
   }
 
-  const clampScore = value =>
-    Math.max(1,Math.min(99,Math.round(value)));
+  const calculation = typeof module !== 'undefined' && module.exports
+    ? require('./scoring/shared/calculation.js') : null;
+  const clampScore = value => {
+    const rounded=Math.round(value),capped=Math.min(99,rounded),score=Math.max(1,capped);
+    calculation?.recordClamp(value,rounded,capped,score);
+    return score;
+  };
 
   function factorText(factors,score) {
     const parts = factors.map(
@@ -285,13 +290,16 @@
     }
 
     const rawPregameScore = factors.reduce((sum,item) => sum + item.points,0);
-    return {
-      score:Math.min(90,clampScore(rawPregameScore)),
+    const score=Math.min(90,clampScore(rawPregameScore));
+    const result = {
+      score,
       rawPregameScore,
       factors,
       reason,
       contextFactors
     };
+    calculation?.set(result,calculation.fromFactors(factors,score,'Pregame',90));
+    return result;
   }
 
   function stateRating(
@@ -500,7 +508,7 @@
     if (
       gameState === 'upcoming'
     ) {
-      return {
+      const result = {
         ...opening,
         openingScore:
           opening.score,
@@ -508,6 +516,8 @@
         upsetText:'',
         upsetPoints:0
       };
+      calculation?.set(result,calculation.get(opening));
+      return result;
     }
 
     const values =
@@ -635,6 +645,7 @@
         )
       );
 
+    const scoreCalculation=calculation?.fromFactors(factors,score);
     let reason =
       opening.reason;
 
@@ -677,7 +688,7 @@
       });
     }
 
-    return {
+    const result = {
       score,
       factors,
       reason,
@@ -694,6 +705,8 @@
       contextFactors:
         opening.contextFactors || []
     };
+    calculation?.set(result,scoreCalculation);
+    return result;
   }
 
   function liveMilestone(sport,summary) {
