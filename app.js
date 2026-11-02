@@ -333,7 +333,7 @@ function syncSportToggles() {
   });
   $$('.sport-chip[data-sport]').forEach(chip => chip.classList.toggle('hidden',chip.dataset.sport!=='all' && !publicSport(chip.dataset.sport)));
   $$('.nav-link[data-page="soccer"]').forEach(link => link.classList.toggle('hidden',!publicSport('Soccer')));
-  $$('#favorite-sport option').forEach(option => {option.hidden=!publicSport(option.value);option.disabled=!publicSport(option.value);});
+  $$('#favorite-sport option').forEach(option => {if(!publicSport(option.value)) option.remove();});
 }
 
 function labelForSport(sport) {

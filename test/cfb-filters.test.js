@@ -113,6 +113,18 @@ test('six public sports keep recent finals in All and preserve dormant selection
   assert.ok(saved.visibleSports.includes('Tennis'));
   assert.equal(saved.favoriteTeams[0].sport,'Soccer');
 });
+test('favorite sport selector omits dormant Soccer and restores it when enabled',()=>{
+  const start=source.indexOf('function syncSportToggles()');
+  const end=source.indexOf('\n}',start)+2;
+  const sports=['NFL','MLB','NHL','CFB','NBA','NCAAB'];
+  for(const soccerEnabled of [false,true]){
+    const visible=new Set(soccerEnabled?[...sports,'Soccer']:sports);
+    const options=[...sports,'Soccer'].map(value=>({value,removed:false,remove(){this.removed=true;}}));
+    const context=vm.createContext({state:{visibleSports:visible},publicSport:sport=>visible.has(sport),$$:selector=>selector==='#favorite-sport option'?options:[]});
+    vm.runInContext(source.slice(start,end)+';syncSportToggles()',context);
+    assert.deepEqual(options.filter(option=>option.removed).map(option=>option.value),soccerEnabled?[]:['Soccer']);
+  }
+});
 test('missing metadata excludes unverified conferences while Top 25 and clear still work',async()=>{
   const app=start(new Map(),[game('ranked',undefined,[4]),game('other')]);await app.settle();
   app.run("cfbMetadata.set(2026,{error:true,retryAt:Date.now()+60000})");app.set({sport:'CFB'});
