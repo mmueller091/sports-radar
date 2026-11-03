@@ -1,0 +1,79 @@
+import fs from 'node:fs';
+import vm from 'node:vm';
+import assert from 'node:assert/strict';
+import {execFileSync} from 'node:child_process';
+import {createHash} from 'node:crypto';
+import {gunzipSync} from 'node:zlib';
+import center from '../game-center.js';
+const baseline='ce8200e74c2346b7678a8956e4469f746e147358',dir=process.env.HISTORY_AUDIT_DIR||'audit/history-interpolation-20261103';
+fs.mkdirSync(dir,{recursive:true});
+const hash=b=>createHash('sha256').update(b).digest('hex');
+const old=vm.createContext({module:{exports:{}}});
+vm.runInContext(execFileSync('git',['show',`${baseline}:game-center.js`],{encoding:'utf8'}),old);
+const read=p=>JSON.parse(gunzipSync(fs.readFileSync(p)));
+const file='test/fixtures/market-timeline/pelicans-grizzlies.json.gz',detail=read(file),game=detail.sportsRadarGame;
+const original=JSON.stringify(detail),data=center.observations(game,detail),previous=old.module.exports.observations(game,detail);
+assert.equal(JSON.stringify(data),JSON.stringify(previous),'canonical observation mapping identical');
+const points=data.points.filter(center.reliable),edges=center.connections(game,detail,data);
+const before=old.module.exports.timeline(game,detail).match(/class="timeline-line" d="([^"]+)"/)[1];
+const after=center.timeline(game,detail).match(/<svg[\s\S]*?<\/svg>/)[0];
+assert.equal(JSON.stringify(detail),original,'all inputs unchanged by rendering');
+const rejected=edges.filter(e=>!e.allowed).map(e=>({from:{rating:e.from.score,time:e.from.label,observedAt:e.from.observedAt},to:{rating:e.to.score,time:e.to.label,observedAt:e.to.observedAt},reason:e.reason}));
+const metrics={snapshots:data.points.length,verifiedLive:points.length,partialLive:data.points.filter(p=>p.ratingKind==='live'&&p.incomplete).length,invalid:data.points.filter(p=>p.invalid).length,
+  before:{disconnectedSections:(before.match(/M /g)||[]).length,isolatedDots:before.split('M ').filter(s=>s.trim()&&!s.includes('L ')).length,visibleConnections:(before.match(/L /g)||[]).length},
+  after:{connectedSections:rejected.length+1,gaps:rejected.length,allowedAnchorPairs:edges.filter(e=>e.allowed).length,coincidentPairs:edges.filter(e=>e.allowed&&e.coincident).length,visibleConnections:(after.match(/class="timeline-line /g)||[]).length,bridgedIncompletePairs:edges.filter(e=>e.allowed&&e.bridged).length,additionalVisibleConnections:edges.filter(e=>e.allowed&&e.bridged&&!e.coincident).length},
+  lastLive:{rating:points.at(-1).score,time:points.at(-1).label},finalQuality:game.score,recordedExtrema:{min:Math.min(...points.map(p=>p.score)),max:Math.max(...points.map(p=>p.score))},
+  rejectionCounts:rejected.reduce((o,e)=>(o[e.reason]=(o[e.reason]||0)+1,o),{}),rejected};
+const protectedFiles=execFileSync('git',['ls-tree','-r','--name-only',baseline,'scoring','calibration','alerts-worker','rating-core.js','notifications.js','app.js','scripts/build-site.mjs','.github/workflows/deploy.yml','index.html','sw.js'],{encoding:'utf8',maxBuffer:8e6}).trim().split(/\r?\n/);
+const parity=protectedFiles.map(p=>{
+  const previous=execFileSync('git',['show',`${baseline}:${p}`],{maxBuffer:128e6}),current=fs.readFileSync(p);
+  assert.ok(previous.equals(current),'exact protected source bytes: '+p);return {path:p,sha256:hash(current)};
+});
+const fixtureBytes=fs.readFileSync(file);assert.ok(fixtureBytes.equals(execFileSync('git',['show',`${baseline}:${file}`],{maxBuffer:8e6})));
+const snapshotHashes=detail.sportsRadarHistory.snapshots.map((p,index)=>({index,observedAt:p.observedAt,sha256:hash(JSON.stringify(p))}));
+const beforePath='work/pelicans-before.json',afterPath='work/pelicans-after.json';let publicComparison=null;
+if(fs.existsSync(beforePath)){
+  const a=JSON.parse(fs.readFileSync(beforePath)).sportsRadarHistory.snapshots;
+  assert.equal(JSON.stringify(a),JSON.stringify(detail.sportsRadarHistory.snapshots));
+  publicComparison={beforeEqualsFrozen475:true,beforeSnapshotsSha256:hash(JSON.stringify(a))};
+  if(fs.existsSync(afterPath)){
+    const b=JSON.parse(fs.readFileSync(afterPath)).sportsRadarHistory.snapshots;
+    assert.equal(JSON.stringify(a),JSON.stringify(b));publicComparison.afterEqualsBefore=true;publicComparison.afterSnapshotsSha256=hash(JSON.stringify(b));
+  }
+}
+const checks={};
+for(const name of ['root-tests','worker-tests'])if(fs.existsSync(`${dir}/${name}.txt`)){
+  const bytes=fs.readFileSync(`${dir}/${name}.txt`),log=bytes.toString(bytes[0]===255&&bytes[1]===254?'utf16le':'utf8');
+  checks[name]=Object.fromEntries(['tests','pass','fail','skipped','cancelled'].map(k=>[k,Number(log.match(new RegExp(`# ${k} (\\d+)`))?.[1])]));
+}
+const browser=fs.existsSync(`${dir}/browser-checks.json`)?JSON.parse(fs.readFileSync(`${dir}/browser-checks.json`)):[];
+assert.ok(browser.every(p=>!p.overflow&&!p.dialogOverflow&&!p.errors.length),'no observed browser overflow or errors');
+for(const id of ['401909914','401873024','401856847','401892629','401909903','401909907','401873033']){
+  for(const width of [1440,390,320])assert.ok(browser.some(p=>p.url.endsWith('/'+id)&&!p.url.includes('/before/')&&p.width===width),'browser coverage '+id+' '+width);
+}
+for(const kind of ['Estimated connection','Recorded rating:','scoring plays.'])assert.ok(browser.some(p=>p.text?.includes(kind)),'browser interaction '+kind);
+assert.ok(browser.some(p=>p.selectedRange==='ot'),'overtime range exercised');
+const report={baseline,metrics,fixtureSha256:hash(fixtureBytes),snapshotArraySha256:hash(JSON.stringify(detail.sportsRadarHistory.snapshots)),snapshotHashes,publicComparison,protectedSourceFiles:parity.length,parity,checks,browser};
+fs.writeFileSync(`${dir}/audit.json`,JSON.stringify(report,null,2));
+const esc=s=>String(s??'').replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('"','&quot;');
+const images=fs.readdirSync(dir).filter(n=>n.endsWith('.png')).sort();
+const screenshot=(name,label)=>fs.existsSync(`${dir}/${name}.png`)?`<figure><a href="${name}.png"><img src="${name}.png" loading="lazy" alt="${esc(label)}"></a><figcaption>${esc(label)}</figcaption></figure>`:'';
+const deployment=fs.existsSync(`${dir}/deployment.json`)?JSON.parse(fs.readFileSync(`${dir}/deployment.json`)):null;
+fs.writeFileSync(`${dir}/report.html`,`<!doctype html><html lang="en"><meta charset="utf-8"><title>SlateMeter excitement history release audit</title><style>body{font:16px/1.55 system-ui;max-width:1120px;margin:36px auto;padding:0 20px;color:#202527;background:#f0e8d4}h1,h2{line-height:1.2}table{border-collapse:collapse;width:100%}td,th{border-bottom:1px solid #c7bcaa;padding:8px;text-align:left}img{width:100%;height:auto}figure{margin:18px 0}code{overflow-wrap:anywhere}details{margin:16px 0}a{color:#94333e}.pair{display:grid;grid-template-columns:1fr 1fr;gap:14px}@media(max-width:700px){.pair{display:block}}</style>
+<h1>Recorded ratings, connected safely</h1><p>Display-only release based on production <code>${baseline}</code>. ${deployment?`Deployed commit <code>${esc(deployment.commit)}</code>. <a href="${esc(deployment.workflowUrl)}">GitHub Pages workflow</a>.`:'Release verification in progress; deployment receipt is added after production verification.'}</p>
+<h2>What caused the disconnected dots</h2><p>The previous renderer incremented its segment after every incomplete or invalid observation, required identical segments and strictly increasing game-clock position, and used straight line commands. Its existing monotone curve helper was unused. Identical same-clock repeats were collapsed visually, while changed ratings at the same clock created breaks. Pelicans–Grizzlies therefore had 97 disconnected sections (72 isolated dots) and only 39 visible connections, despite 296 verified live observations.</p>
+<h2>Connection policy</h2><p>The new display layer references existing verified anchors. It never creates intermediate snapshot objects or modifies the canonical observation mapping. Every interval checks real timestamps, game/team identity when supplied, exact model-version equality, nondecreasing cumulative team scores, sport-specific phases, supplied intermediate evidence, and integrity flags. Incomplete observations may be bridged; contradictions, unresolved corrections, non-live transitions and incompatible models remain breaks. Sparse coverage stays disconnected beyond five minutes without an observed break or three minutes of unseen game time. A zero clock alone cannot establish an end. Period transitions need a verified end record or a second verified forward observation in the new phase.</p>
+<p>Monotone cubic geometry passes through the anchors exactly. Ordered, bounded control points prevent overshoot and additional turning points; a segment falls back to a straight line if its controls would reverse. Small dots identify real ratings; lighter lines are estimates and dashed portions bridge partial observations. Point interactions show recorded ratings, times and actual scores. Segment interactions name both anchors and do not report an inferred rating or game event. Opening and retrospective final quality remain separate from the live curve.</p>
+<table><tr><th>Sport</th><th>Chronological rule</th></tr><tr><td>NFL / NBA / NCAAM</td><td>Canonical quarters or halves and numbered overtime, each with its established duration. Countdown must not increase. NFL regular season and postseason formats remain distinct.</td></tr><tr><td>CFB</td><td>Four timed quarters; overtime is untimed and plotted at real observation timestamps, with ordered overtime numbers.</td></tr><tr><td>NHL</td><td>Three periods; regular/postseason overtime duration preserved; shootout follows overtime and cannot return to play. Unknown extended-overtime format fails closed.</td></tr><tr><td>MLB</td><td>Actual top/bottom half-inning order, including extras, at observed timestamps. Missing half-inning evidence does not establish a connection.</td></tr><tr><td>Tennis</td><td>Verified consecutive sets must agree with cumulative sets won. The current history contract lacks ordered game/point evidence, so within-set connections remain disconnected; no synthetic clock or tennis event is added.</td></tr></table>
+<h2>Pelicans–Grizzlies comparison</h2><table><tr><th>Measure</th><th>Before</th><th>After</th></tr><tr><td>Disconnected/connected sections</td><td>97</td><td>${metrics.after.connectedSections}</td></tr><tr><td>Visible connections</td><td>39</td><td>${metrics.after.visibleConnections}</td></tr><tr><td>Verified live observations</td><td>296</td><td>296</td></tr><tr><td>Historical snapshots</td><td>475</td><td>475, identical</td></tr><tr><td>Last live / final quality</td><td>71 / 97</td><td>71 / 97, separate</td></tr></table>
+<p>${metrics.after.allowedAnchorPairs} adjacent verified pairs pass the policy: ${metrics.after.visibleConnections} produce a visible line segment and ${metrics.after.coincidentPairs} share identical coordinates. ${metrics.after.bridgedIncompletePairs} safe pairs span incomplete observations, including ${metrics.after.additionalVisibleConnections} additional visible connections. ${metrics.after.gaps} breaks remain: ${Object.entries(metrics.rejectionCounts).map(([k,v])=>`${v} ${esc(k)}`).join('; ')}. Recorded extrema remain ${metrics.recordedExtrema.min}–${metrics.recordedExtrema.max}. No live rating of 97 exists in this history.</p>
+<details><summary>Every rejected connection and reason</summary><table><tr><th>From</th><th>To</th><th>Reason</th></tr>${rejected.map(e=>`<tr><td>${e.from.rating} at ${esc(e.from.time)}</td><td>${e.to.rating} at ${esc(e.to.time)}</td><td>${esc(e.reason)}</td></tr>`).join('')}</table></details>
+<h2>Before and after in the browser</h2><p>Unedited browser screenshots. The replay runs the actual built Game Center in an iframe at the labeled CSS viewport width (1440, 390 or 320 pixels). Desktop is scaled to fit the physical capture. Identical archived public responses feed both baseline and candidate. The complete game controls, scoring markers and outcome annotation remain present.</p>${[1440,390,320].map(w=>`<h3>${w}px</h3><div class="pair">${screenshot(`pelicans-before-${w}`,'Before: Pelicans–Grizzlies, '+w+'px')}${screenshot(`pelicans-after-${w}`,'After: Pelicans–Grizzlies, '+w+'px')}</div>`).join('')}
+<h2>Data and scoring preservation</h2><p>All 475 Pelicans snapshots, timestamps, ratings, model identifiers and evidence flags are identical. The compressed fixture is byte-identical to production baseline; SHA-256 <code>${hash(fixtureBytes)}</code>. Each snapshot hash is recorded in <a href="audit.json">the machine-readable audit</a>. ${publicComparison?.afterEqualsBefore?'The before/after public production snapshot arrays also match exactly.':'The pre-deployment public snapshot array matches the frozen 475-record fixture.'} No database write, historical reclassification, Worker deployment or persisted-data operation was performed.</p>
+<p>${parity.length} protected scoring, calibration, Worker, notification, app, build and deployment files are byte-identical to the baseline. Score weights, final-quality calculation, alert behavior, watchlists, branding, providers and recurring costs are unchanged. Only <code>game-center.js</code> and <code>styles.css</code> change production runtime behavior.</p>
+<h2>Regression and browser results</h2><p>Root: ${checks['root-tests']?.pass}/${checks['root-tests']?.tests}; Worker: ${checks['worker-tests']?.pass}/${checks['worker-tests']?.tests}. Standalone score-model, watchlist and timeline checks pass. Coverage includes regulation, halftime, overtime, multiple overtime, shootouts, extra innings, tennis sets, missing/partial evidence, duplicate/reversed timestamps, model transitions, score/clock corrections, final/pregame separation, sparse coverage and malformed inputs. The existing clock and scoring-parity tests remain enabled. Randomized geometry checks sample 1,900 unevenly spaced segments for exact endpoints, bounded values and no invented turning points.</p>
+<p>All seven required game examples were inspected at 1440, 390 and 320 CSS pixels, with no captured uncaught errors or horizontal overflow. Real point details, estimated-connection details, scoring-play markers and the overtime selector were exercised through the actual browser UI. The clock-problem example uses the preserved compact production regression capture; the sparse example uses the original archived response containing final assessments without verified live anchors. Neither fixture was thinned or given invented observations for the screenshots.</p>
+<p>Fresh-checkout prerequisites were resolved without relaxing scoring assertions: restored exact committed LF bytes, built the browser bundle outside the filesystem sandbox, and fetched the unchanged frozen historical oracle object from the original local repository. Two existing SVG assertions were updated to inspect cubic controls and preserve the same impossible-clock checks. <a href="root-tests.txt">Root log</a> · <a href="worker-tests.txt">Worker log</a> · <a href="standalone.txt">Standalone log</a> · <a href="browser-checks.json">Browser telemetry</a>.</p>
+<details><summary>All cross-sport screenshots (${images.length})</summary>${images.filter(n=>!n.startsWith('pelicans-before-')&&!n.startsWith('pelicans-after-')).map(n=>screenshot(n.slice(0,-4),n.slice(0,-4).replaceAll('-',' '))).join('')}</details>
+<h2>Deployment</h2><p>${deployment?`Production commit <code>${esc(deployment.commit)}</code>, <a href="${esc(deployment.workflowUrl)}">successful Pages run</a>. ${esc(deployment.verification||'')}`:'Publication requires all checks, browser QA, source parity, clean worktree and a fresh origin/main check. Uses only the existing GitHub Pages workflow; no Worker change, force push, reset, revert or rollback.'}</p></html>`);
+console.log(JSON.stringify({metrics:{...metrics,rejected:undefined},protectedFiles:parity.length,publicComparison,checks},null,2));

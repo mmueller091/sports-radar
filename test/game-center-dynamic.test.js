@@ -71,13 +71,14 @@ test('production presentation has no individual-game narrative or public calcula
  assert.doesNotMatch(text,/401873024|Cardinals|Cowboys|Ryland|Minshew|Brissett|14-point|2:58|2:53|0:06/);
  assert.doesNotMatch(source,/function explainGameCenter|SportsRadarGameCenter\.scoringMarkup|\$\{scoringDetails\}/);
 });
-const p=(observedAt,rating,extra={})=>({observedAt,rating,state:'live',period:4,clock:'2:00',evidenceQuality:'verified',modelVersion:'m',...extra});
+const p=(observedAt,rating,extra={})=>({observedAt,rating,state:'live',period:4,clock:'2:00',scoreA:'10',scoreB:'10',evidenceQuality:'verified',modelVersion:'m',...extra});
 const game={id:'curve',sport:'NFL',state:'completed',score:95};
 test('excluded observations create a visible gap without changing reliable ratings',()=>{
  const snapshots=[p(1,20,{clock:'3:00'}),p(50000,100,{evidenceQuality:'partial'}),p(80000,NaN,{evidenceQuality:'invalid'}),p(900000,80),p(1200000,65,{clock:'1:00'}),p(1300000,95,{state:'completed',clock:'0:00'})];
  const detail={sportsRadarHistory:{snapshots}},before=JSON.stringify(detail),html=center.timeline(game,detail);
- const paths=[...html.matchAll(/class="timeline-line" d="([^"]+)"/g)].map(m=>m[1]);assert.ok(paths.length);for(const path of paths)assert.ok((path.match(/M /g)||[]).length>=2);
- assert.match(paths[0],/ L /);assert.doesNotMatch(html,/Recorded rating: (100|95|NaN)|observation history|evidenceQuality/);assert.equal(JSON.stringify(detail),before);
+ const edges=center.connections(game,detail);assert.equal(edges[0].allowed,false);assert.equal(edges[0].reason,'unresolved-integrity');assert.equal(edges[1].allowed,true);
+ const paths=[...html.matchAll(/class="timeline-line[^\"]*" d="([^\"]+)"/g)].map(m=>m[1]);assert.ok(paths.length);assert.match(paths[0],/ C /);
+ assert.doesNotMatch(html,/Recorded rating: (100|95|NaN)|observation history|evidenceQuality/);assert.equal(JSON.stringify(detail),before);
 });
 test('curve passes through every recorded anchor and never overshoots endpoint values',()=>{
  const points=[{x:0,score:10},{x:1,score:90},{x:2,score:20},{x:50,score:20},{x:51,score:99},{x:52,score:0}];

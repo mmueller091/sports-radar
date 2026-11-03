@@ -243,16 +243,22 @@ test('both captured production histories replay without a backward chart segment
   assert.equal(data.points[firstQ4].compatibilityIssue,true);
   assert.ok(data.points.some(p=>p.period===4&&p.clock==='0.0'&&!p.compatibilityIssue&&/End of 4th Quarter/.test(p.original.phaseLabel)));
   const html=center.timeline(sample.game,detail);
-  const paths=[...html.matchAll(/class="timeline-line" d="([^"]+)"/g)].map(m=>m[1]);
+  const paths=[...html.matchAll(/class="timeline-line[^\"]*" d="([^\"]+)"/g)].map(m=>m[1]);
   assert.ok(paths.length>=2);
   for(const path of paths){
     let previous=null;
-    for(const [,command,x] of path.matchAll(/([ML]) ([\d.]+) [\d.]+/g)){
-      if(command==='L')assert.ok(Number(x)>previous,`${sample.id} backward segment`);
-      previous=Number(x);
+    for(const [,command,args] of path.matchAll(/([MLC]) ([^MLC]+)/g)){
+      const coordinates=args.trim().split(/\s+/).map(Number);
+      for(let i=0;i<coordinates.length;i+=2){
+        if(command!=='M')assert.ok(coordinates[i]>previous,`${sample.id} backward segment or control`);
+        previous=coordinates[i];
+      }
     }
-    assert.ok((path.match(/M /g)||[]).length>=2,`${sample.id} unavailable interval`);
   }
+  const edges=center.connections(sample.game,detail,data);
+  assert.ok(edges.some(e=>!e.allowed),`${sample.id} unavailable interval`);
+  assert.ok(edges.filter(e=>e.allowed).every(e=>e.to.x>=e.from.x&&e.to.observedAt>e.from.observedAt));
+  assert.ok(edges.filter(e=>e.from.original.recordIndex<firstQ4&&e.to.original.recordIndex>firstQ4).every(e=>!e.allowed),'unconfirmed zero still breaks the path');
   const mobile=html.match(/<svg class="timeline-chart timeline-mobile"[\s\S]*?<\/svg>/)?.[0]||'';
   assert.ok((mobile.match(/timeline-event-marker/g)||[]).length<30);
   assert.equal(JSON.stringify(detail),before);

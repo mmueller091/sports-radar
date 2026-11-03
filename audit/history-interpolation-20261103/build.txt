@@ -1,0 +1,1 @@
+Built ce8200e74c2346b7678a8956e4469f746e147358: browser-safe scorer and allowlisted static assets only.

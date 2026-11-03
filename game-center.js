@@ -1,4 +1,5 @@
-/* Display recorded evidence. No scorer, interpolation, or persistence writes. */
+/* Display recorded evidence. Estimated connections are SVG geometry only.
+   No scorer, synthetic observations, or persistence writes. */
 (function(root){
   const escape=value=>String(value??'').replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;');
   function decimalSum(values){
@@ -72,6 +73,149 @@
     return reliable(p)&&reliable(previous)&&p.axis===previous.axis&&p.segment===previous.segment&&
       p.x>previous.x&&p.observedAt>previous.observedAt&&p.modelVersion===previous.modelVersion;
   }
+  const numeric=value=>value!==null&&value!==undefined&&String(value).trim()!==''&&
+    /^(?:\d+(?:\.\d+)?)$/.test(String(value))&&Number.isFinite(Number(value));
+  const ended=p=>/\b(end of|halftime|intermission)\b/i.test(p.original.phaseLabel||'');
+  const softReasons=new Set(['ledger-behind-scoreboard','historical-coverage-unavailable','ahead-summary-aggregates-deferred']);
+  function integrityFailure(p){
+    const r=p.original;
+    return p.invalid||p.compatibilityIssue||r.timingUncertain||r.timingIssue||r.liveUpdateRejected||
+      r.basketballUpdateRejected||r.summaryLifecycleRejected||r.scoringHistoryRejected||
+      ['rejected','revised'].includes(r.observationIntegrity?.status)||
+      (r.evidenceReasons!=null&&(!Array.isArray(r.evidenceReasons)||r.evidenceReasons.some(reason=>!softReasons.has(reason))));
+  }
+  // Canonical phase numbers stay sport-specific. Untimed sports use actual
+  // observation timestamps on the x axis, never invented elapsed game time.
+  function progression(p,f){
+    if(!numeric(p.period)||!Number.isInteger(Number(p.period))||Number(p.period)<1)return {error:'missing-period'};
+    const period=Number(p.period),label=String(p.original.phaseLabel||'');
+    if(/\b(final|pregame|scheduled)\b/i.test(label))return {error:'conflicting-phase'};
+    const named=label.match(/\b([QHP])(\d+)\b/i)||label.match(/\b(\d+)(?:st|nd|rd|th)?\s+(quarter|period|half|set)\b/i);
+    if(named){const n=Number(/^\d/.test(named[1])?named[1]:named[2]);if(n!==period)return {error:'conflicting-phase'};}
+    const word=label.match(/\b(first|second|third|fourth)\s+(half|quarter|period|set)\b/i);
+    if(word&&['first','second','third','fourth'].indexOf(word[1].toLowerCase())+1!==period)return {error:'conflicting-phase'};
+    const ot=label.match(/\b(?:(\d+)(?:st|nd|rd|th)?\s*)?(?:OT|overtime)\b/i);
+    if(ot&&f.periods&&period!==f.periods+Number(ot[1]||1))return {error:'conflicting-phase'};
+    if(/\bhalftime\b/i.test(label)&&period!==(f.periods===2?1:2))return {error:'conflicting-phase'};
+    if(f.sport==='MLB'){
+      const top=/\btop\b/i.test(label),bottom=/\bbottom\b|\bbot\b/i.test(label);
+      if(top===bottom)return {error:'missing-inning-half'};
+      const inning=label.match(/\b(?:top|bottom|bot)\s+(?:of\s+)?(?:the\s+)?(\d+)/i);
+      if(inning&&Number(inning[1])!==period)return {error:'conflicting-phase'};
+      return {order:(period-1)*2+Number(bottom),period,kind:'inning'};
+    }
+    if(f.sport==='Tennis')return {order:period,period,kind:'set'};
+    if(f.sport==='NHL'&&/\bSO\b|shootout/i.test(label)&&!(period===5&&(f.regularSeason||f.shootout)))return {error:'conflicting-phase'};
+    if(f.sport==='NHL'&&period>=5&&!f.postseason&&!f.regularSeason&&!f.shootout)return {error:'unknown-overtime-format'};
+    if(f.sport==='NHL'&&(f.regularSeason||f.shootout)&&period>5||f.sport==='NFL'&&f.regularSeason&&period>5)return {error:'unsupported-period'};
+    if(f.sport==='CFB'&&period>4||f.sport==='NHL'&&period===5&&(f.regularSeason||f.shootout))return {order:period,period,kind:'untimed'};
+    const elapsed=position(period,p.clock,f);
+    if(elapsed===null)return {error:String(p.clock??'').trim()?'invalid-clock':'missing-clock',order:period,period};
+    const zero=/^0+(?:(?::0+(?:\.0+)?)|(?:\.0+))?$/.test(String(p.clock));
+    if(zero&&!ended(p))return {error:'unconfirmed-zero-clock',order:period,period};
+    return {order:period,period,elapsed,kind:'clock'};
+  }
+  function identityFailure(game,summary,p){
+    const r=p.original,key=game.sport+':'+game.id;
+    for(const value of [summary?.sportsRadarHistory?.gameKey,r.gameKey,r.game_key])if(value!=null&&String(value)!==key)return true;
+    for(const value of [r.gameId,r.eventId])if(value!=null&&String(value)!==String(game.id))return true;
+    if(r.sport&&r.sport!==game.sport)return true;
+    const expected=game.teams?.map(t=>String(t[8]??t[1]));
+    for(const teams of [r.teams,summary?.sportsRadarGame?.teams])if(teams&&expected&&
+      JSON.stringify(teams.map(t=>String(t[8]??t[1])))!==JSON.stringify(expected))return true;
+    const context=summary?.sportsRadarGame;
+    return Boolean(context&&(context.id!=null&&String(context.id)!==String(game.id)||context.sport&&context.sport!==game.sport));
+  }
+  function establishedPhase(point,data,game,summary){
+    // A second verified, forward observation corroborates the active phase.
+    // A lone transitional zero never establishes a new period.
+    const index=data.points.indexOf(point),phase=progression(point,data.format);
+    for(const candidate of data.points.slice(index+1)){
+      if(candidate.observedAt-point.observedAt>180000||candidate.observedAt<=point.observedAt||!numeric(candidate.original.observedAt)||
+        integrityFailure(candidate)||identityFailure(game,summary,candidate)||candidate.ratingKind!=='live'||candidate.modelVersion!==point.modelVersion)return false;
+      const next=progression(candidate,data.format);
+      if(next.error||next.order!==phase.order)return false;
+      if(phase.elapsed!=null&&next.elapsed<phase.elapsed||['scoreA','scoreB'].some(k=>numeric(candidate[k])&&Number(candidate[k])<Number(point[k])))return false;
+      if(reliable(candidate)&&candidate.observedAt>point.observedAt&&candidate.modelVersion===point.modelVersion&&
+        (phase.elapsed==null||next.elapsed>=phase.elapsed)&&['scoreA','scoreB'].every(k=>numeric(candidate[k])&&Number(candidate[k])>=Number(point[k])))return true;
+    }
+    return false;
+  }
+  function connectionReason(game,summary,data,from,to,between){
+    const f=data.format,interval=[from,...between,to];
+    if(!reliable(from)||!reliable(to))return 'unverified-endpoint';
+    if(from.axis!==to.axis)return 'different-axis';
+    if(interval.some(p=>identityFailure(game,summary,p)))return 'conflicting-identity';
+    if(interval.some(integrityFailure))return 'unresolved-integrity';
+    if(interval.some(p=>p.ratingKind!=='live'))return 'non-live-transition';
+    if(interval.some(p=>!numeric(p.original.observedAt)))return 'invalid-timestamp';
+    if(interval.some((p,i)=>i&&p.observedAt<=interval[i-1].observedAt))return 'timestamp-order';
+    if(!from.original.modelVersion||from.modelVersion==='legacy'||interval.some(p=>!p.original.modelVersion||p.modelVersion!==from.modelVersion))return 'model-version';
+    if(['scoreA','scoreB'].some(k=>!numeric(from[k])||!numeric(to[k])))return 'missing-team-scores';
+    for(const k of ['scoreA','scoreB']){
+      let prior=null;
+      for(const p of interval){
+        if(p[k]==null||p[k]==='')continue;
+        if(!numeric(p[k])||!Number.isInteger(Number(p[k])))return 'invalid-team-score';
+        if(prior!==null&&Number(p[k])<prior)return 'score-decrease';
+        prior=Number(p[k]);
+      }
+    }
+    let previous=null,previousPoint=null,lastOrder=null;
+    for(const p of interval){
+      const next=progression(p,f);
+      if(next.order!=null){
+        if(lastOrder!==null&&next.order<lastOrder)return 'phase-reversal';
+        if(lastOrder!==null&&next.order>lastOrder+1)return 'unobserved-phase';
+        lastOrder=next.order;
+      }
+      // Absent intermediate metadata is not affirmative contradictory evidence.
+      // Both anchors still need a known position and all supplied evidence is checked.
+      if(next.error){
+        if(p!==from&&p!==to&&['missing-period','missing-clock','missing-inning-half'].includes(next.error)&&
+          !(next.error==='missing-period'&&p.original.phaseLabel)){
+          if(next.order!=null&&previous&&next.order<previous.order)return 'phase-reversal';
+          continue;
+        }
+        return next.error;
+      }
+      if(previous){
+        if(next.order<previous.order)return 'phase-reversal';
+        if(next.order>previous.order+1)return 'unobserved-phase';
+        if(next.order===previous.order&&next.elapsed!=null&&previous.elapsed!=null&&next.elapsed<previous.elapsed)return 'clock-reversal';
+        if(next.order>previous.order){
+          const setWon=f.sport==='Tennis'&&['scoreA','scoreB'].reduce((n,k)=>n+Number(p[k])-Number(previousPoint[k]),0)===1;
+          const confirmedEnd=reliable(previousPoint)&&ended(previousPoint)&&!next.error;
+          if(next.kind!=='inning'&&!setWon&&!confirmedEnd&&!(reliable(p)&&establishedPhase(p,data,game,summary)))return 'unconfirmed-phase-transition';
+        }
+      }
+      previous=next;previousPoint=p;
+    }
+    const a=progression(from,f),b=progression(to,f);
+    // The current snapshot contract has set counts but no ordered tennis
+    // games/points. Do not infer within-set events from a rating or wall clock.
+    if(f.sport==='Tennis'&&a.order===b.order)return 'missing-tennis-event-order';
+    if(f.sport==='Tennis'&&['scoreA','scoreB'].reduce((n,k)=>n+Number(to[k])-Number(from[k]),0)!==b.period-a.period)return 'conflicting-set-score';
+    if(to.x<from.x)return 'axis-reversal';
+    if(to.x===from.x&&to.score!==from.score)return 'same-clock-changed-rating';
+    // Sparse intervals cannot imply a known trajectory through long unseen play.
+    const breakObserved=interval.some(p=>ended(p));
+    if(to.observedAt-from.observedAt>300000&&!breakObserved)return 'sparse-coverage';
+    if(a.elapsed!=null&&b.elapsed!=null&&b.elapsed-a.elapsed>180)return 'sparse-game-time';
+    return null;
+  }
+  function connections(game,summary,data=observations(game,summary)){
+    const edges=[];let from=null,between=[];
+    for(const point of data.points){
+      if(!reliable(point)){if(from)between.push(point);continue;}
+      if(from){
+        const reason=connectionReason(game,summary,data,from,point,between);
+        edges.push({from,to:point,allowed:reason===null,reason,bridged:between.length,coincident:point.x===from.x&&point.score===from.score});
+      }
+      from=point;between=[];
+    }
+    return edges;
+  }
   // Monotone cubic Hermite geometry: bounded control values cannot overshoot
   // either recorded endpoint. These controls are drawing coordinates, never
   // observations, tooltips, or stored ratings. Equal/reversed clocks start a gap.
@@ -91,7 +235,10 @@
       }
       for(let i=0;i<run.length-1;i++){
         const low=Math.min(ys[i],ys[i+1]),high=Math.max(ys[i],ys[i+1]),bound=y=>Math.max(low,Math.min(high,y));
-        path+=` C ${xs[i]+h[i]/3} ${bound(ys[i]+m[i]*h[i]/3)} ${xs[i+1]-h[i]/3} ${bound(ys[i+1]-m[i+1]*h[i]/3)} ${xs[i+1]} ${ys[i+1]}`;
+        const c1=bound(ys[i]+m[i]*h[i]/3),c2=bound(ys[i+1]-m[i+1]*h[i]/3);
+        path+=(c2-c1)*(ys[i+1]-ys[i])<0
+          ?` L ${xs[i+1]} ${ys[i+1]}`
+          :` C ${xs[i]+h[i]/3} ${c1} ${xs[i+1]-h[i]/3} ${c2} ${xs[i+1]} ${ys[i+1]}`;
       }
       start=end;
     }
@@ -140,8 +287,9 @@
     if(game.state==='upcoming')return '<section class="detail-section timeline-section"><h3>Excitement history</h3><p class="detail-empty">Excitement history begins when the game starts.</p></section>';
     const data=observations(game,summary,local),f=data.format;
     const points=data.points.filter(reliable),last=points.at(-1);
+    const edges=connections(game,summary,data),edgeByEnd=new Map(edges.map(edge=>[edge.to,edge]));
     const pending=game.score==null||!Number.isFinite(Number(game.score));
-    const heading=`<div class="timeline-heading"><h3>Excitement timeline</h3><span class="timeline-key"><i></i> Recorded live ratings</span></div>`;
+    const heading=`<div class="timeline-heading"><h3>Excitement timeline</h3><span class="timeline-key"><i></i> Recorded ratings <span class="timeline-key-line"></span> Estimated line</span></div>`;
     const currentLabel=game.timingUncertain?'Last confirmed rating':game.scoringPartial?'Provisional live rating':game.state==='completed'?'Final rating':'Current live rating';
     const opening=game.pregameBaseline?.source==='observed'&&Number.isFinite(game.pregameBaseline.score)?game.pregameBaseline.score:null;
     const openingCard=opening===null?'':`<div class="timeline-rating-opening"><span>Opening rating</span><strong>${opening}</strong><small>Before play</small></div>`;
@@ -172,17 +320,30 @@
     if(data.axis==='game'&&f.periods&&end>f.regulation)views.push({key:'ot',label:'Overtime',start:f.regulation,end});
     const id=`timeline-${String(game.sport+game.id).replace(/[^\w-]/g,'')}`;
     const helpId=id+'-help';
-    const marker=(p,x,y,description,event=false,highlight=false)=>`<g class="timeline-point${event?' timeline-event-marker':''}${highlight?' timeline-event-highlight':''}" data-timeline-explanation="${escape(description)}" role="button" tabindex="0" aria-expanded="false" aria-controls="${helpId}" aria-label="${escape(description)}">${event?`<path d="M ${x} ${y-4} l 4 4 -4 4 -4 -4 Z"/>`:`<circle cx="${x}" cy="${y}" r="${p===last?3.5:2}"/>`}<circle class="timeline-hit-target" cx="${x}" cy="${y}" r="11"/><title>${escape(description)}</title></g>`;
+    const marker=(p,x,y,description,event=false,highlight=false)=>`<g class="timeline-point${event?' timeline-event-marker':''}${highlight?' timeline-event-highlight':''}" data-timeline-explanation="${escape(description)}" role="button" tabindex="0" aria-expanded="false" aria-controls="${helpId}" aria-label="${escape(description)}">${event?`<path d="M ${x} ${y-4} l 4 4 -4 4 -4 -4 Z"/>`:`<circle cx="${x}" cy="${y}" r="${p===last?3.5:1.4}"/>`}<circle class="timeline-hit-target" cx="${x}" cy="${y}" r="${event?11:6}"/><title>${escape(description)}</title></g>`;
     const chart=(v,mobile=false)=>{
       const width=mobile?360:940,left=34,right=12,top=14,bottom=170;
       const px=p=>left+(p.x-v.start)/(v.end-v.start)*(width-left-right),py=p=>top+(100-p.score)*(bottom-top)/100;
-      const visible=[],shownEvents=events.filter(p=>p.x>=v.start&&p.x<=v.end);
-      for(const point of points.filter(p=>p.x>=v.start&&p.x<=v.end)){
-        const previous=visible.at(-1);
-        if(previous&&point.x===previous.x&&point.score===previous.score&&point.segment===previous.segment)visible[visible.length-1]=point;
-        else visible.push(point);
+      const visible=points.filter(p=>p.x>=v.start&&p.x<=v.end),shownEvents=events.filter(p=>p.x>=v.start&&p.x<=v.end);
+      const runs=[];let run=[];
+      for(const point of visible){
+        const edge=edgeByEnd.get(point);
+        if(!run.length||!edge?.allowed||edge.from!==run.at(-1)){
+          run=[];runs.push(run);
+        }
+        if(run.length&&point.x===run.at(-1).x&&point.score===run.at(-1).score)run[run.length-1]=point;
+        else run.push(point);
       }
-      const path=visible.map((point,i)=>`${i&&comparable(point,visible[i-1])?'L':'M'} ${px(point)} ${py(point)}`).join(' ');
+      let lines='',connectionTargets='';
+      for(const anchors of runs){
+        const commands=curve(anchors,px,py).match(/[MLC] [^MLC]+/g)||[];
+        for(let i=1;i<anchors.length;i++){
+          const a=anchors[i-1],b=anchors[i],d=`M ${px(a)} ${py(a)} ${commands[i]}`;
+          const explanation=`Estimated connection between recorded ratings: ${a.score} (${a.label}; ${timestamp(a.observedAt)}) and ${b.score} (${b.label}; ${timestamp(b.observedAt)}). The line does not represent an additional recorded rating or game event.`;
+          lines+=`<path class="timeline-line timeline-estimated${edgeByEnd.get(b)?.bridged?' timeline-bridged':''}" d="${d}"/>`;
+          connectionTargets+=`<g class="timeline-point timeline-connection" data-timeline-explanation="${escape(explanation)}" role="button" tabindex="0" aria-expanded="false" aria-controls="${helpId}" aria-label="${escape(explanation)}"><path class="timeline-connection-target" d="${d}"/><title>${escape(explanation)}</title></g>`;
+        }
+      }
       const guides=[0,25,50,75,100].map(score=>`<line class="timeline-reference" x1="${left}" x2="${width-right}" y1="${py({score})}" y2="${py({score})}"/>${score%50===0?`<text x="25" y="${py({score})+4}" text-anchor="end">${score}</text>`:''}`).join('');
       const ticks=[];
       if(data.axis==='game'&&f.periods){
@@ -216,10 +377,8 @@
         const key=p.x+':'+p.score;if(!groups.has(key))groups.set(key,[]);groups.get(key).push({p,i});
       }
       const dots=[...groups.values()].map(group=>{
-        const {p,i}=group.at(-1),prior=visible[i-1],next=visible[i+1];
-        const important=p===last||!comparable(p,prior)||!comparable(next||{},p)||Math.abs(p.score-(prior?.score??p.score))>=5;
-        if(!important)return ''; // The curve passes through every anchor; reduce visual markers only.
-        const description=`${p.label}. Recorded rating: ${p.score}. ${timestamp(p.observedAt)}.`;
+        const {p}=group.at(-1);
+        const description=group.map(({p})=>`${p.label}. Recorded rating: ${p.score}. ${timestamp(p.observedAt)}.${numeric(p.scoreA)&&numeric(p.scoreB)?` Score: ${p.scoreA}–${p.scoreB}.`:''}`).join(' ');
         return marker(p,px(p),py(p),description);
       }).join('');
       const eventGroups=new Map(),spacing=mobile?26:24;
@@ -229,15 +388,14 @@
         const important=group.some(p=>p.important);
         return marker(group[0],x,230+(i%2)*14,`${group.length} scoring ${group.length===1?'play':'plays'}. ${description}`,true,important);
       }).join('');
-      return `<svg class="timeline-chart ${mobile?'timeline-mobile':'timeline-desktop'}" viewBox="0 0 ${width} 260" role="group" aria-label="Recorded live ratings, ${escape(v.label)}"><g>${guides}<path class="timeline-line" d="${path}"/>${dots}${axis}${periodLabels.join('')}</g><g class="timeline-event-strip"><rect x="${left}" y="207" width="${width-left-right}" height="51" rx="5"/><text x="${left+8}" y="220">SCORING PLAYS</text>${eventDots}</g></svg>`;
+      return `<svg class="timeline-chart ${mobile?'timeline-mobile':'timeline-desktop'}" viewBox="0 0 ${width} 260" role="group" aria-label="Recorded live ratings, ${escape(v.label)}"><g>${guides}${lines}${connectionTargets}${dots}${axis}${periodLabels.join('')}</g><g class="timeline-event-strip"><rect x="${left}" y="207" width="${width-left-right}" height="51" rx="5"/><text x="${left+8}" y="220">SCORING PLAYS</text>${eventDots}</g></svg>`;
     };
     const playList=scoringPlays.length?`<details class="timeline-play-details"><summary>Browse scoring plays (${scoringPlays.length})</summary><ol>${scoringPlays.map(p=>
       `<li>${escape(phase(p.period?.number??p.period,p.clock?.displayValue,f,p.period?.displayValue))}: ${escape(p.text||p.shortText||p.type?.text||'Scoring play')}</li>`).join('')}</ol></details>`:'';
-    const excluded=data.points.filter(p=>p.ratingKind==='live'&&!reliable(p)).length;
-    const coverage=excluded?'Some live updates could not be verified. Gaps are left open; missing ratings are not filled in.':'Lines join comparable recorded ratings. Breaks mark clock or model changes.';
+    const coverage='Lines between recorded ratings are estimated. Actual ratings and game events are never invented.'+(edges.some(edge=>!edge.allowed)?' Gaps are left open where the sequence is uncertain.':'');
     return `<section class="detail-section timeline-section">${heading}${ratings}<p class="timeline-note">${coverage}</p><div class="timeline-controls" role="group" aria-label="Timeline range">${views.map(v=>`<button type="button" data-timeline-range="${v.key}" aria-pressed="${v.key==='full'}">${v.label}</button>`).join('')}</div>${views.map(v=>`<div class="timeline-view" data-timeline-view="${v.key}"${v.key!=='full'?' hidden':''}>${chart(v)}${chart(v,true)}</div>`).join('')}<div class="timeline-point-help" id="${helpId}" role="status" aria-live="polite" aria-hidden="true"></div>${outcome}${playList}</section>`;
   }
-  const api={calculation,scoringMarkup,decimalSum,format,position,phase,reliable,curve,comparable,observations,timeline};
+  const api={calculation,scoringMarkup,decimalSum,format,position,phase,reliable,curve,comparable,observations,progression,connections,timeline};
   if(typeof module!=='undefined'&&module.exports)module.exports=api;
   root.SportsRadarGameCenter=api;
 })(globalThis);

@@ -1,0 +1,1666 @@
+TAP version 13
+# (node:42720) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: AI reservations enforce a daily allowance and reset only at UTC midnight
+ok 1 - AI reservations enforce a daily allowance and reset only at UTC midnight
+  ---
+  duration_ms: 27.1591
+  type: 'test'
+  ...
+# Subtest: AI fails closed on oversized input, missing database, or quota storage failure
+ok 2 - AI fails closed on oversized input, missing database, or quota storage failure
+  ---
+  duration_ms: 0.8229
+  type: 'test'
+  ...
+# (node:1096) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Push not confirmed 2026-11-02.clock-integrity.2:NFL:audit-game Error: Connection lost after send
+# Push not confirmed 2026-11-02.clock-integrity.2:NFL:audit-game Error: Canonical read unavailable
+# Push not confirmed 2026-11-02.clock-integrity.2:NFL:audit-game Error: Acknowledgement unavailable
+# Subtest: F9 cancels queued 90 after sharp decline
+ok 3 - F9 cancels queued 90 after sharp decline
+  ---
+  duration_ms: 34.369
+  type: 'test'
+  ...
+# Subtest: F9 cancels queued 90 after completion
+ok 4 - F9 cancels queued 90 after completion
+  ---
+  duration_ms: 6.0234
+  type: 'test'
+  ...
+# Subtest: F9 cancels queued 90 after missing current rating
+ok 5 - F9 cancels queued 90 after missing current rating
+  ---
+  duration_ms: 5.3928
+  type: 'test'
+  ...
+# Subtest: F9 cancels queued 90 after partial evidence
+ok 6 - F9 cancels queued 90 after partial evidence
+  ---
+  duration_ms: 12.9345
+  type: 'test'
+  ...
+# Subtest: F9 cancels queued 90 after stale detail
+ok 7 - F9 cancels queued 90 after stale detail
+  ---
+  duration_ms: 10.9718
+  type: 'test'
+  ...
+# Subtest: F9 cancels queued 90 after rejected current observation
+ok 8 - F9 cancels queued 90 after rejected current observation
+  ---
+  duration_ms: 5.2155
+  type: 'test'
+  ...
+# Subtest: F9 cancels queued 90 after partial quality
+ok 9 - F9 cancels queued 90 after partial quality
+  ---
+  duration_ms: 5.2244
+  type: 'test'
+  ...
+# Subtest: F9 cancels queued 90 after invalid quality
+ok 10 - F9 cancels queued 90 after invalid quality
+  ---
+  duration_ms: 8.1
+  type: 'test'
+  ...
+# Subtest: F9 cancels queued 90 after rejected basketball observation
+ok 11 - F9 cancels queued 90 after rejected basketball observation
+  ---
+  duration_ms: 6.6938
+  type: 'test'
+  ...
+# Subtest: F9 cancels when latest canonical data has stale feed
+ok 12 - F9 cancels when latest canonical data has stale feed
+  ---
+  duration_ms: 14.975
+  type: 'test'
+  ...
+# Subtest: F9 cancels when latest canonical data has missing timestamp
+ok 13 - F9 cancels when latest canonical data has missing timestamp
+  ---
+  duration_ms: 7.2942
+  type: 'test'
+  ...
+# Subtest: F9 cancels when latest canonical data has future timestamp
+ok 14 - F9 cancels when latest canonical data has future timestamp
+  ---
+  duration_ms: 6.8216
+  type: 'test'
+  ...
+# Subtest: F9 cancels when latest canonical data has removed game
+ok 15 - F9 cancels when latest canonical data has removed game
+  ---
+  duration_ms: 11.0122
+  type: 'test'
+  ...
+# Subtest: F9 re-reads canonical state immediately before delivery and uses current copy
+ok 16 - F9 re-reads canonical state immediately before delivery and uses current copy
+  ---
+  duration_ms: 10.1382
+  type: 'test'
+  ...
+# Subtest: F9 missing canonical storage and expired queued crossings do not send
+ok 17 - F9 missing canonical storage and expired queued crossings do not send
+  ---
+  duration_ms: 14.2994
+  type: 'test'
+  ...
+# Subtest: F9 concurrent queue drains claim a delivery once
+ok 18 - F9 concurrent queue drains claim a delivery once
+  ---
+  duration_ms: 10.9632
+  type: 'test'
+  ...
+# Subtest: F9 definitive rejection can retry only while current eligibility survives
+ok 19 - F9 definitive rejection can retry only while current eligibility survives
+  ---
+  duration_ms: 11.7464
+  type: 'test'
+  ...
+# Subtest: F9 ambiguous transport failures never retry a possibly accepted push
+ok 20 - F9 ambiguous transport failures never retry a possibly accepted push
+  ---
+  duration_ms: 9.3061
+  type: 'test'
+  ...
+# Subtest: F9 preference and threshold changes after queue selection are revalidated
+ok 21 - F9 preference and threshold changes after queue selection are revalidated
+  ---
+  duration_ms: 18.0044
+  type: 'test'
+  ...
+# Subtest: F9 unavailable canonical database read cancels a claim rather than leaving it pending
+ok 22 - F9 unavailable canonical database read cancels a claim rather than leaving it pending
+  ---
+  duration_ms: 6.9722
+  type: 'test'
+  ...
+# Subtest: F9 successful push followed by an acknowledgement write failure is not delivered twice
+ok 23 - F9 successful push followed by an acknowledgement write failure is not delivered twice
+  ---
+  duration_ms: 9.59
+  type: 'test'
+  ...
+# Subtest: F9 retry after a definite rejection preserves a legitimate current alert exactly once
+ok 24 - F9 retry after a definite rejection preserves a legitimate current alert exactly once
+  ---
+  duration_ms: 6.6871
+  type: 'test'
+  ...
+# Subtest: F9 abandoned subscription and old-model queues are cancelled without delivery
+ok 25 - F9 abandoned subscription and old-model queues are cancelled without delivery
+  ---
+  duration_ms: 13.6093
+  type: 'test'
+  ...
+# Subtest: F9 a cancelled unsent alert can be replaced only by a new genuine threshold crossing
+ok 26 - F9 a cancelled unsent alert can be replaced only by a new genuine threshold crossing
+  ---
+  duration_ms: 9.423
+  type: 'test'
+  ...
+# Subtest: F9 an invalid old endpoint cannot delete a replacement subscription
+ok 27 - F9 an invalid old endpoint cannot delete a replacement subscription
+  ---
+  duration_ms: 7.8805
+  type: 'test'
+  ...
+# Subtest: F9 claim-owner fencing prevents an old completion from finalizing a replacement row
+ok 28 - F9 claim-owner fencing prevents an old completion from finalizing a replacement row
+  ---
+  duration_ms: 7.2485
+  type: 'test'
+  ...
+# Subtest: public feed omits revision/fingerprint caches but canonical storage keeps them
+ok 29 - public feed omits revision/fingerprint caches but canonical storage keeps them
+  ---
+  duration_ms: 70.5612
+  type: 'test'
+  ...
+# (node:46260) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: matching completed omitted scores cannot establish known final evidence
+ok 30 - matching completed omitted scores cannot establish known final evidence
+  ---
+  duration_ms: 378.5155
+  type: 'test'
+  ...
+# Subtest: matching completed null scores cannot establish known final evidence
+ok 31 - matching completed null scores cannot establish known final evidence
+  ---
+  duration_ms: 184.6313
+  type: 'test'
+  ...
+# Subtest: matching completed blank scores cannot establish known final evidence
+ok 32 - matching completed blank scores cannot establish known final evidence
+  ---
+  duration_ms: 182.4857
+  type: 'test'
+  ...
+# Subtest: matching completed boolean scores cannot establish known final evidence
+ok 33 - matching completed boolean scores cannot establish known final evidence
+  ---
+  duration_ms: 144.6438
+  type: 'test'
+  ...
+# Subtest: matching completed nonnumeric scores cannot establish known final evidence
+ok 34 - matching completed nonnumeric scores cannot establish known final evidence
+  ---
+  duration_ms: 119.0368
+  type: 'test'
+  ...
+# Subtest: matching completed numeric zero scores establish known final evidence
+ok 35 - matching completed numeric zero scores establish known final evidence
+  ---
+  duration_ms: 65.4778
+  type: 'test'
+  ...
+# Subtest: matching completed string zero scores establish known final evidence
+ok 36 - matching completed string zero scores establish known final evidence
+  ---
+  duration_ms: 62.8168
+  type: 'test'
+  ...
+# (node:5544) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: migration accepts NHL pregame summary omitted scores with scoreboard zero placeholders
+ok 37 - migration accepts NHL pregame summary omitted scores with scoreboard zero placeholders
+  ---
+  duration_ms: 346.4895
+  type: 'test'
+  ...
+# Subtest: migration accepts NHL pregame summary null scores with scoreboard zero placeholders
+ok 38 - migration accepts NHL pregame summary null scores with scoreboard zero placeholders
+  ---
+  duration_ms: 106.876
+  type: 'test'
+  ...
+# Subtest: migration accepts NBA pregame summary omitted scores with scoreboard zero placeholders
+ok 39 - migration accepts NBA pregame summary omitted scores with scoreboard zero placeholders
+  ---
+  duration_ms: 111.7005
+  type: 'test'
+  ...
+# Subtest: migration accepts NBA pregame summary null scores with scoreboard zero placeholders
+ok 40 - migration accepts NBA pregame summary null scores with scoreboard zero placeholders
+  ---
+  duration_ms: 153.3186
+  type: 'test'
+  ...
+# Subtest: migration rejects pre summary score 1 against scoreboard zero
+ok 41 - migration rejects pre summary score 1 against scoreboard zero
+  ---
+  duration_ms: 57.1652
+  type: 'test'
+  ...
+# Subtest: migration rejects pre summary score false against scoreboard zero
+ok 42 - migration rejects pre summary score false against scoreboard zero
+  ---
+  duration_ms: 69.1779
+  type: 'test'
+  ...
+# Subtest: migration rejects post summary score undefined against scoreboard zero
+ok 43 - migration rejects post summary score undefined against scoreboard zero
+  ---
+  duration_ms: 56.6196
+  type: 'test'
+  ...
+# Subtest: migration rejects post summary score null against scoreboard zero
+ok 44 - migration rejects post summary score null against scoreboard zero
+  ---
+  duration_ms: 75.3279
+  type: 'test'
+  ...
+# (node:13132) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: current enrichment metadata cannot certify a prior rating from another model
+ok 45 - current enrichment metadata cannot certify a prior rating from another model
+  ---
+  duration_ms: 2.4016
+  type: 'test'
+  ...
+# MODEL_MIGRATION_PROGRESS {"games":260,"nonlive":259,"live":1,"tennis":0,"pendingByPoll":[187,115,43,0],"publicationMs":[18550,18550,18550,18700],"validationPendingByPoll":[114,48,0]}
+# Subtest: a cached heavy model transition publishes bounded honest progress and converges across cron polls
+ok 46 - a cached heavy model transition publishes bounded honest progress and converges across cron polls
+  ---
+  duration_ms: 3988.213
+  type: 'test'
+  ...
+# Subtest: model migration cannot certify a cached final with mismatching lifecycle
+ok 47 - model migration cannot certify a cached final with mismatching lifecycle
+  ---
+  duration_ms: 49.724
+  type: 'test'
+  ...
+# Subtest: model migration cannot certify a cached final with mismatching score
+ok 48 - model migration cannot certify a cached final with mismatching score
+  ---
+  duration_ms: 44.0164
+  type: 'test'
+  ...
+# Subtest: model migration cannot certify a cached final with mismatching identity
+ok 49 - model migration cannot certify a cached final with mismatching identity
+  ---
+  duration_ms: 35.387
+  type: 'test'
+  ...
+# Subtest: a failed last pending nonlive acquisition stays partial until a later successful refresh
+ok 50 - a failed last pending nonlive acquisition stays partial until a later successful refresh
+  ---
+  duration_ms: 43.0346
+  type: 'test'
+  ...
+# (node:42948) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# TENNIS_MODEL_TRANSITION {"games":0,"completedPartial":0,"upcoming":0,"providerRequests":27,"summaryRequests":0,"criticalCandidates":0,"snapshotStatements":0,"batches":[],"simulatedPublicationMs":3300,"feedParts":0}
+# Subtest: coverage restriction excludes all 225 non-major matches in the original F8 capture
+ok 51 - coverage restriction excludes all 225 non-major matches in the original F8 capture
+  ---
+  duration_ms: 84.5471
+  type: 'test'
+  ...
+# Subtest: F8 real live singles and doubles retain IDs, names and score detail without fake point state
+ok 52 - F8 real live singles and doubles retain IDs, names and score detail without fake point state
+  ---
+  duration_ms: 162.0982
+  type: 'test'
+  ...
+# Subtest: F8 duplicate nested competitions and flat matches appear once
+ok 53 - F8 duplicate nested competitions and flat matches appear once
+  ---
+  duration_ms: 116.3495
+  type: 'test'
+  ...
+# Subtest: F8 /feed and /game use the same canonical Tennis match and expose available sets/tiebreaks
+ok 54 - F8 /feed and /game use the same canonical Tennis match and expose available sets/tiebreaks
+  ---
+  duration_ms: 181.5525
+  type: 'test'
+  ...
+# Subtest: F8 ingestion persists live Tennis coverage without any unsupported summary requests
+ok 55 - F8 ingestion persists live Tennis coverage without any unsupported summary requests
+  ---
+  duration_ms: 146.1984
+  type: 'test'
+  ...
+# Subtest: coverage restriction publishes an empty Tennis slate on model transition without summary work
+ok 56 - coverage restriction publishes an empty Tennis slate on model transition without summary work
+  ---
+  duration_ms: 69.2321
+  type: 'test'
+  ...
+# Subtest: F8 missing set evidence remains missing and tournament status never creates a live match
+ok 57 - F8 missing set evidence remains missing and tournament status never creates a live match
+  ---
+  duration_ms: 65.7595
+  type: 'test'
+  ...
+# Subtest: F8 live set totals exclude future set records but preserve an explicit just-completed current set
+ok 58 - F8 live set totals exclude future set records but preserve an explicit just-completed current set
+  ---
+  duration_ms: 39.9205
+  type: 'test'
+  ...
+# Subtest: F8 null, empty and invalid explicit set scores stay unavailable; genuine zero remains zero
+ok 59 - F8 null, empty and invalid explicit set scores stay unavailable; genuine zero remains zero
+  ---
+  duration_ms: 197.9048
+  type: 'test'
+  ...
+# (node:26988) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: stable IDs, both subdivisions, independent groups and nested divisions normalize without names
+ok 60 - stable IDs, both subdivisions, independent groups and nested divisions normalize without names
+  ---
+  duration_ms: 8.9805
+  type: 'test'
+  ...
+# Subtest: realignment follows the requested season; reject mismatched seasons, conflicting and incomplete sources
+ok 61 - realignment follows the requested season; reject mismatched seasons, conflicting and incomplete sources
+  ---
+  duration_ms: 2.6342
+  type: 'test'
+  ...
+# Subtest: January games use prior football season and February begins the new season
+ok 62 - January games use prior football season and February begins the new season
+  ---
+  duration_ms: 0.3707
+  type: 'test'
+  ...
+# Subtest: two bulk requests per daily refresh; compact shared cache, no per-team or per-game requests
+ok 63 - two bulk requests per daily refresh; compact shared cache, no per-team or per-game requests
+  ---
+  duration_ms: 384.1713
+  type: 'test'
+  ...
+# Subtest: failure uses bounded same-season stale data with retry backoff and rejects expired or absent metadata
+ok 64 - failure uses bounded same-season stale data with retry backoff and rejects expired or absent metadata
+  ---
+  duration_ms: 18.212
+  type: 'test'
+  ...
+# Subtest: parallel cold callers share a global lease
+ok 65 - parallel cold callers share a global lease
+  ---
+  duration_ms: 15.8849
+  type: 'test'
+  ...
+# (node:42936) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: https://mmueller091.github.io: explicit preflight accepts all existing endpoint methods
+ok 66 - https://mmueller091.github.io: explicit preflight accepts all existing endpoint methods
+  ---
+  duration_ms: 111.209
+  type: 'test'
+  ...
+# Subtest: https://mmueller091.github.io: health and subscription preferences work without push delivery
+ok 67 - https://mmueller091.github.io: health and subscription preferences work without push delivery
+  ---
+  duration_ms: 63.1004
+  type: 'test'
+  ...
+# Subtest: https://slatemeter.app: explicit preflight accepts all existing endpoint methods
+ok 68 - https://slatemeter.app: explicit preflight accepts all existing endpoint methods
+  ---
+  duration_ms: 6.4399
+  type: 'test'
+  ...
+# Subtest: https://slatemeter.app: health and subscription preferences work without push delivery
+ok 69 - https://slatemeter.app: health and subscription preferences work without push delivery
+  ---
+  duration_ms: 81.3092
+  type: 'test'
+  ...
+# Subtest: untrusted origin "https://evil.example" is rejected before any storage access
+ok 70 - untrusted origin "https://evil.example" is rejected before any storage access
+  ---
+  duration_ms: 3.813
+  type: 'test'
+  ...
+# Subtest: untrusted origin "http://slatemeter.app" is rejected before any storage access
+ok 71 - untrusted origin "http://slatemeter.app" is rejected before any storage access
+  ---
+  duration_ms: 2.5316
+  type: 'test'
+  ...
+# Subtest: untrusted origin "https://slatemeter.app.evil.example" is rejected before any storage access
+ok 72 - untrusted origin "https://slatemeter.app.evil.example" is rejected before any storage access
+  ---
+  duration_ms: 2.7722
+  type: 'test'
+  ...
+# Subtest: untrusted origin "https://mmueller091.github.io.evil.example" is rejected before any storage access
+ok 73 - untrusted origin "https://mmueller091.github.io.evil.example" is rejected before any storage access
+  ---
+  duration_ms: 1.2707
+  type: 'test'
+  ...
+# Subtest: untrusted origin "null" is rejected before any storage access
+ok 74 - untrusted origin "null" is rejected before any storage access
+  ---
+  duration_ms: 1.0953
+  type: 'test'
+  ...
+# Subtest: untrusted origin "" is rejected before any storage access
+ok 75 - untrusted origin "" is rejected before any storage access
+  ---
+  duration_ms: 1.6266
+  type: 'test'
+  ...
+# Subtest: non-browser health checks remain available without wildcard CORS
+ok 76 - non-browser health checks remain available without wildcard CORS
+  ---
+  duration_ms: 4.3785
+  type: 'test'
+  ...
+# (node:43364) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: captured coordinator change lacks an old category but qualifies only after independent review
+ok 77 - captured coordinator change lacks an old category but qualifies only after independent review
+  ---
+  duration_ms: 16.925
+  type: 'test'
+  ...
+# Subtest: coaching: wording outside scoring keywords is reviewable without a numerical award
+ok 78 - coaching: wording outside scoring keywords is reviewable without a numerical award
+  ---
+  duration_ms: 32.4063
+  type: 'test'
+  ...
+# Subtest: player_return: wording outside scoring keywords is reviewable without a numerical award
+ok 79 - player_return: wording outside scoring keywords is reviewable without a numerical award
+  ---
+  duration_ms: 3.4664
+  type: 'test'
+  ...
+# Subtest: off_field: wording outside scoring keywords is reviewable without a numerical award
+ok 80 - off_field: wording outside scoring keywords is reviewable without a numerical award
+  ---
+  duration_ms: 1.538
+  type: 'test'
+  ...
+# Subtest: rivalry: wording outside scoring keywords is reviewable without a numerical award
+ok 81 - rivalry: wording outside scoring keywords is reviewable without a numerical award
+  ---
+  duration_ms: 19.0585
+  type: 'test'
+  ...
+# Subtest: source mutations, cherry-picked excerpts, wrong item, low confidence and invented facts fail
+ok 82 - source mutations, cherry-picked excerpts, wrong item, low confidence and invented facts fail
+  ---
+  duration_ms: 1.5629
+  type: 'test'
+  ...
+# Subtest: freshness, links, team/event identity and routine-content exclusions stay strict
+ok 83 - freshness, links, team/event identity and routine-content exclusions stay strict
+  ---
+  duration_ms: 1.1296
+  type: 'test'
+  ...
+# Subtest: ordinary recaps cannot be rescued by an AI label or an approving review
+ok 84 - ordinary recaps cannot be rescued by an AI label or an approving review
+  ---
+  duration_ms: 0.5955
+  type: 'test'
+  ...
+# Subtest: an expected or conditional return is rejected even if both model passes approve it
+ok 85 - an expected or conditional return is rejected even if both model passes approve it
+  ---
+  duration_ms: 1.7319
+  type: 'test'
+  ...
+# Subtest: recorded Workers AI responses accept unusual coaching/rivalry stories and reject the two negative controls
+ok 86 - recorded Workers AI responses accept unusual coaching/rivalry stories and reject the two negative controls
+  ---
+  duration_ms: 45.5615
+  type: 'test'
+  ...
+# Subtest: a busy first sport does not exclude other sports from the bounded discovery pass
+ok 87 - a busy first sport does not exclude other sports from the bounded discovery pass
+  ---
+  duration_ms: 2.1548
+  type: 'test'
+  ...
+# Subtest: disagreement, missing budget and model errors fail closed; both calls reserve budget
+ok 88 - disagreement, missing budget and model errors fail closed; both calls reserve budget
+  ---
+  duration_ms: 4.8953
+  type: 'test'
+  ...
+# Subtest: AI cannot invent player or coaching details even when its category is supported
+ok 89 - AI cannot invent player or coaching details even when its category is supported
+  ---
+  duration_ms: 1.8578
+  type: 'test'
+  ...
+# Subtest: saved description survives round trip; upcoming editorial evidence is revalidated and live games omit it
+ok 90 - saved description survives round trip; upcoming editorial evidence is revalidated and live games omit it
+  ---
+  duration_ms: 18.6597
+  type: 'test'
+  ...
+# Subtest: editorial stories never consume scoring slots or affect scores, factors, live output or team logos
+ok 91 - editorial stories never consume scoring slots or affect scores, factors, live output or team logos
+  ---
+  duration_ms: 499.9129
+  type: 'test'
+  ...
+# (node:43576) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: game history returns only the requested retained snapshots in chronological order without recalculating ratings
+ok 92 - game history returns only the requested retained snapshots in chronological order without recalculating ratings
+  ---
+  duration_ms: 11.468
+  type: 'test'
+  ...
+# Subtest: game detail route attaches stored history without requiring a second browser request
+ok 93 - game detail route attaches stored history without requiring a second browser request
+  ---
+  duration_ms: 26.4528
+  type: 'test'
+  ...
+# (node:8856) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: additive migration indexes existing history; query plans bound all lookups by game and team keys
+ok 94 - additive migration indexes existing history; query plans bound all lookups by game and team keys
+  ---
+  duration_ms: 1447.1258
+  type: 'test'
+  ...
+# Subtest: upcoming existence checks use millisecond retention and only requested game keys
+ok 95 - upcoming existence checks use millisecond retention and only requested game keys
+  ---
+  duration_ms: 18.0085
+  type: 'test'
+  ...
+# Subtest: partial record index accepts the same record syntax as recovery validation
+ok 96 - partial record index accepts the same record syntax as recovery validation
+  ---
+  duration_ms: 53.5847
+  type: 'test'
+  ...
+# Subtest: indexed NFL recovery respects retention, first final, team order and invalid newer records
+ok 97 - indexed NFL recovery respects retention, first final, team order and invalid newer records
+  ---
+  duration_ms: 20.5477
+  type: 'test'
+  ...
+# Subtest: final comparison ignores acquisition metadata and object order, retains canonical corrections
+ok 98 - final comparison ignores acquisition metadata and object order, retains canonical corrections
+  ---
+  duration_ms: 5.016
+  type: 'test'
+  ...
+# Subtest: final corrections are content-based, rate-bounded and eligible beyond a short post-final window
+ok 99 - final corrections are content-based, rate-bounded and eligible beyond a short post-final window
+  ---
+  duration_ms: 5.9933
+  type: 'test'
+  ...
+# {"event":"canonical_refresh","trigger":"direct","startedAt":"2026-11-03T22:48:10.722Z","outcome":"published","lease":"acquired","published":true,"reusedPublication":false,"candidates":1,"liveCandidates":1,"criticalCandidates":1,"reusedGames":0,"cachedEnrichments":0,"cachedSummaryReads":0,"deferredCandidates":0,"deferredEnrichments":0,"deferredValidations":0,"migrationActive":true,"revalidated":0,"providerFailures":0,"stages":{"collection":214.47929999999997,"recordRecovery":1.4034000000006017,"contexts":2.9383999999995467,"summary":49.628600000000006,"snapshots":1.965400000000045,"feedWrites":2.688000000000102,"publication":0.737800000000334,"cleanup":5.8013999999998305,"maintenance":0},"leaseAcquisitionMs":4.182999999999993,"owner":"6a7d2cf5-e802-4297-845c-3156fa814a98","publicationMs":305.7181999999998,"degradedResources":0,"providerRequests":28,"providerTimeouts":0,"totalMs":313.93179999999984}
+# {"event":"canonical_refresh","trigger":"direct","startedAt":"2026-11-03T22:48:25.722Z","outcome":"published","lease":"acquired","published":true,"reusedPublication":false,"candidates":1,"liveCandidates":1,"criticalCandidates":1,"reusedGames":0,"cachedEnrichments":0,"cachedSummaryReads":0,"deferredCandidates":0,"deferredEnrichments":0,"deferredValidations":0,"migrationActive":false,"revalidated":0,"providerFailures":0,"stages":{"collection":28.898599999999988,"recordRecovery":1.0488000000000284,"contexts":1.830699999999979,"summary":21.695799999999963,"snapshots":1.4623999999998887,"feedWrites":0.5864000000001397,"publication":0.49890000000004875,"cleanup":0.7696000000000822,"maintenance":0},"leaseAcquisitionMs":0.24850000000014916,"owner":"1048a0eb-46ad-4891-99db-e18b2f48f393","publicationMs":75.14640000000009,"degradedResources":0,"providerRequests":2,"providerTimeouts":0,"totalMs":76.66580000000022}
+# {"event":"canonical_refresh","trigger":"direct","startedAt":"2026-11-03T22:48:40.722Z","outcome":"published","lease":"acquired","published":true,"reusedPublication":false,"candidates":1,"liveCandidates":0,"criticalCandidates":1,"reusedGames":0,"cachedEnrichments":0,"cachedSummaryReads":0,"deferredCandidates":0,"deferredEnrichments":0,"deferredValidations":0,"migrationActive":false,"revalidated":0,"providerFailures":0,"stages":{"collection":23.64519999999993,"recordRecovery":0.882799999999861,"contexts":0.3217000000004191,"summary":8.629599999999755,"snapshots":1.0733000000000175,"feedWrites":0.4013999999997395,"publication":0.2220999999999549,"cleanup":0.7529999999997017,"maintenance":0},"leaseAcquisitionMs":0.15670000000000073,"owner":"e7569a3d-f9d5-4b82-9043-d35ce8b6bb7b","publicationMs":37.8125,"degradedResources":0,"providerRequests":1,"providerTimeouts":0,"totalMs":38.965000000000146}
+# {"event":"canonical_refresh","trigger":"direct","startedAt":"2026-11-03T22:49:40.722Z","outcome":"published","lease":"acquired","published":true,"reusedPublication":false,"candidates":1,"liveCandidates":0,"criticalCandidates":0,"reusedGames":1,"cachedEnrichments":0,"cachedSummaryReads":0,"deferredCandidates":1,"deferredEnrichments":0,"deferredValidations":0,"migrationActive":false,"revalidated":1,"providerFailures":0,"stages":{"collection":37.38220000000001,"recordRecovery":0.6588999999999032,"contexts":0.22060000000010405,"summary":1.4994000000001506,"snapshots":2.7678000000000793,"feedWrites":0.34280000000035216,"publication":0.2749999999996362,"cleanup":0.6246000000001004,"maintenance":2.539099999999962},"leaseAcquisitionMs":0.26670000000012806,"owner":"4bd0aa89-c2db-4cf0-8443-5b9a9bfa757c","publicationMs":45.546499999999924,"degradedResources":0,"providerRequests":14,"providerTimeouts":0,"totalMs":49.35629999999992}
+# {"event":"canonical_refresh","trigger":"direct","startedAt":"2026-11-03T22:50:40.722Z","outcome":"published","lease":"acquired","published":true,"reusedPublication":false,"candidates":1,"liveCandidates":0,"criticalCandidates":1,"reusedGames":0,"cachedEnrichments":0,"cachedSummaryReads":1,"deferredCandidates":1,"deferredEnrichments":0,"deferredValidations":0,"migrationActive":true,"revalidated":1,"providerFailures":0,"stages":{"collection":26.48129999999992,"recordRecovery":1.5722000000000662,"contexts":0.18720000000030268,"summary":3.192199999999957,"snapshots":1.037000000000262,"feedWrites":0.8483999999998559,"publication":0.2337999999999738,"cleanup":1.0760000000000218,"maintenance":2.584100000000035},"leaseAcquisitionMs":0.239100000000235,"owner":"4257af51-09ad-4076-b0bc-dcdfb4a74c6e","publicationMs":34.65339999999969,"degradedResources":0,"providerRequests":14,"providerTimeouts":0,"totalMs":38.85199999999986}
+# {"event":"canonical_refresh","trigger":"direct","startedAt":"2026-11-03T22:51:40.722Z","outcome":"published","lease":"acquired","published":true,"reusedPublication":false,"candidates":1,"liveCandidates":0,"criticalCandidates":1,"reusedGames":0,"cachedEnrichments":0,"cachedSummaryReads":0,"deferredCandidates":0,"deferredEnrichments":0,"deferredValidations":0,"migrationActive":false,"revalidated":0,"providerFailures":0,"stages":{"collection":27.754399999999805,"recordRecovery":0.7002999999999702,"contexts":0.2557000000001608,"summary":10.064600000000155,"snapshots":1.5539000000003398,"feedWrites":0.49260000000003856,"publication":0.22100000000000364,"cleanup":0.48880000000008295,"maintenance":0},"leaseAcquisitionMs":0.18650000000025102,"owner":"e2fa215d-0377-4c83-b81b-5989464e3214","publicationMs":42.877700000000004,"degradedResources":0,"providerRequests":14,"providerTimeouts":0,"totalMs":43.796100000000024}
+# Subtest: full refresh preserves live buckets, snapshots final transition once, then stores a correction
+ok 100 - full refresh preserves live buckets, snapshots final transition once, then stores a correction
+  ---
+  duration_ms: 574.4481
+  type: 'test'
+  ...
+# Subtest: nonempty NFL previous/next weeks are consumed and retain provider paths
+ok 101 - nonempty NFL previous/next weeks are consumed and retain provider paths
+  ---
+  duration_ms: 16.9052
+  type: 'test'
+  ...
+# {"event":"canonical_refresh","trigger":"direct","startedAt":"2026-11-03T22:48:11.316Z","outcome":"published","lease":"acquired","published":true,"reusedPublication":false,"candidates":2,"liveCandidates":1,"criticalCandidates":2,"reusedGames":0,"cachedEnrichments":0,"cachedSummaryReads":0,"deferredCandidates":3,"deferredEnrichments":1,"deferredValidations":0,"migrationActive":true,"revalidated":3,"providerFailures":0,"stages":{"collection":40.417399999999816,"recordRecovery":1.034400000000005,"contexts":3.5791999999996733,"summary":16.74180000000024,"snapshots":2.366899999999987,"feedWrites":0.8202000000001135,"publication":0.24420000000009168,"cleanup":0.6658000000002176,"maintenance":5.777000000000044},"leaseAcquisitionMs":0.2664999999997235,"owner":"536cd649-7a82-4365-8913-094fd61ed39f","publicationMs":77.17650000000003,"degradedResources":1,"providerRequests":34,"providerTimeouts":0,"totalMs":84.03629999999976}
+# {"event":"canonical_refresh","trigger":"direct","startedAt":"2026-11-03T22:49:11.316Z","outcome":"published","lease":"acquired","published":true,"reusedPublication":false,"candidates":2,"liveCandidates":1,"criticalCandidates":2,"reusedGames":0,"cachedEnrichments":0,"cachedSummaryReads":0,"deferredCandidates":0,"deferredEnrichments":1,"deferredValidations":0,"migrationActive":true,"revalidated":0,"providerFailures":0,"stages":{"collection":28.051199999999426,"recordRecovery":1.3373000000001412,"contexts":3.5855999999998858,"summary":14.594300000000203,"snapshots":1.8459000000002561,"feedWrites":0.7065999999999804,"publication":0.24970000000030268,"cleanup":0.5120999999999185,"maintenance":0},"leaseAcquisitionMs":0.21059999999988577,"owner":"eb9afced-eda2-4906-9981-670ae72c110f","publicationMs":64.84299999999985,"degradedResources":1,"providerRequests":15,"providerTimeouts":0,"totalMs":65.8806999999997}
+# {"event":"canonical_refresh","trigger":"direct","startedAt":"2026-11-03T22:49:26.316Z","outcome":"published","lease":"acquired","published":true,"reusedPublication":false,"candidates":2,"liveCandidates":1,"criticalCandidates":2,"reusedGames":0,"cachedEnrichments":0,"cachedSummaryReads":0,"deferredCandidates":0,"deferredEnrichments":1,"deferredValidations":0,"migrationActive":true,"revalidated":0,"providerFailures":0,"stages":{"collection":26.138099999999667,"recordRecovery":0.9953000000000429,"contexts":0.70049999999992,"summary":15.501199999999699,"snapshots":1.6233999999999469,"feedWrites":0.6761999999998807,"publication":0.2545000000000073,"cleanup":0.6644000000001142,"maintenance":0},"leaseAcquisitionMs":0.20200000000022555,"owner":"799b841e-44f1-4dbc-a49d-3278795bcfa2","publicationMs":55.99499999999989,"degradedResources":1,"providerRequests":3,"providerTimeouts":0,"totalMs":57.223799999999756}
+# {"event":"canonical_refresh","trigger":"direct","startedAt":"2026-11-03T23:03:11.316Z","outcome":"published","lease":"acquired","published":true,"reusedPublication":false,"candidates":2,"liveCandidates":1,"criticalCandidates":2,"reusedGames":0,"cachedEnrichments":0,"cachedSummaryReads":0,"deferredCandidates":0,"deferredEnrichments":1,"deferredValidations":0,"migrationActive":true,"revalidated":0,"providerFailures":0,"stages":{"collection":37.3738000000003,"recordRecovery":1.1778999999996813,"contexts":0.9713999999999032,"summary":13.088700000000244,"snapshots":1.090900000000147,"feedWrites":0.6576999999997497,"publication":0.42450000000008004,"cleanup":0.3184999999998581,"maintenance":0},"leaseAcquisitionMs":0.19000000000005457,"owner":"e2c97a12-ba06-46d5-b5c0-7c24799c099d","publicationMs":64.27509999999984,"degradedResources":1,"providerRequests":31,"providerTimeouts":0,"totalMs":64.94300000000021}
+# Subtest: NFL adjacent schedule TTL is 15 minutes while current live scoreboard stays 12 seconds
+ok 102 - NFL adjacent schedule TTL is 15 minutes while current live scoreboard stays 12 seconds
+  ---
+  duration_ms: 282.0153
+  type: 'test'
+  ...
+# {"event":"canonical_refresh","trigger":"direct","startedAt":"2026-11-03T22:48:11.597Z","outcome":"published","lease":"acquired","published":true,"reusedPublication":false,"candidates":2,"liveCandidates":2,"criticalCandidates":2,"reusedGames":0,"cachedEnrichments":0,"cachedSummaryReads":0,"deferredCandidates":0,"deferredEnrichments":0,"deferredValidations":0,"migrationActive":true,"revalidated":0,"providerFailures":0,"stages":{"collection":31.097000000000207,"recordRecovery":0.337800000000243,"contexts":0.20379999999977372,"summary":13.1257999999998,"snapshots":1.9283999999997832,"feedWrites":1.1743999999998778,"publication":0.2244999999998072,"cleanup":0.435399999999845,"maintenance":0},"leaseAcquisitionMs":0.6277999999997519,"owner":"b820eb8d-e8c7-470b-8884-6da4819f479c","publicationMs":58.55119999999988,"degradedResources":0,"providerRequests":31,"providerTimeouts":0,"totalMs":59.55809999999974}
+# {"event":"canonical_refresh","trigger":"direct","startedAt":"2026-11-03T22:49:11.597Z","outcome":"published","lease":"acquired","published":true,"reusedPublication":false,"candidates":2,"liveCandidates":2,"criticalCandidates":2,"reusedGames":0,"cachedEnrichments":0,"cachedSummaryReads":0,"deferredCandidates":0,"deferredEnrichments":0,"deferredValidations":0,"migrationActive":false,"revalidated":0,"providerFailures":0,"stages":{"collection":32.647500000000036,"recordRecovery":0.445100000000366,"contexts":0.23849999999993088,"summary":15.53710000000001,"snapshots":1.7489999999997963,"feedWrites":0.761199999999917,"publication":0.2944999999999709,"cleanup":0.35479999999961365,"maintenance":0},"leaseAcquisitionMs":0.14750000000003638,"owner":"f0edea06-0fb7-41ed-a7ac-259039e0e5b6","publicationMs":68.06050000000005,"degradedResources":0,"providerRequests":16,"providerTimeouts":0,"totalMs":68.76459999999997}
+# Subtest: a known live game in an adjacent NFL week retains live freshness
+ok 103 - a known live game in an adjacent NFL week retains live freshness
+  ---
+  duration_ms: 133.8779
+  type: 'test'
+  ...
+# (node:25496) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: NHL details map ESPN IDs by both teams/date, fetch public PBP and reuse caller caching
+ok 104 - NHL details map ESPN IDs by both teams/date, fetch public PBP and reuse caller caching
+  ---
+  duration_ms: 25.9551
+  type: 'test'
+  ...
+# Subtest: ambiguous identity, provider failure, and upstream mismatches fail closed without losing ESPN summary
+ok 105 - ambiguous identity, provider failure, and upstream mismatches fail closed without losing ESPN summary
+  ---
+  duration_ms: 0.8981
+  type: 'test'
+  ...
+# Subtest: stale and score-mismatched NHL details are visible but ineligible for experimental scoring
+ok 106 - stale and score-mismatched NHL details are visible but ineligible for experimental scoring
+  ---
+  duration_ms: 6.0786
+  type: 'test'
+  ...
+# Subtest: upcoming and other sports never request NHL data
+ok 107 - upcoming and other sports never request NHL data
+  ---
+  duration_ms: 0.4853
+  type: 'test'
+  ...
+# Subtest: completed shootout scores reconcile without adding deciding goals to shot attempts
+ok 108 - completed shootout scores reconcile without adding deciding goals to shot attempts
+  ---
+  duration_ms: 16.4033
+  type: 'test'
+  ...
+# Subtest: real Game Center route enriches serialized feed games, caches public resources, leaves feed ratings/history unchanged
+ok 109 - real Game Center route enriches serialized feed games, caches public resources, leaves feed ratings/history unchanged
+  ---
+  duration_ms: 145.8018
+  type: 'test'
+  ...
+# (node:22996) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: eligibility is enabled sport OR stable selected team, always gated by master
+ok 110 - eligibility is enabled sport OR stable selected team, always gated by master
+  ---
+  duration_ms: 4.7664
+  type: 'test'
+  ...
+# Subtest: hidden sports retain saved choices but cannot queue or deliver public alerts
+ok 111 - hidden sports retain saved choices but cannot queue or deliver public alerts
+  ---
+  duration_ms: 39.6622
+  type: 'test'
+  ...
+# Subtest: preferences and threshold round-trip by device without requiring push enrollment
+ok 112 - preferences and threshold round-trip by device without requiring push enrollment
+  ---
+  duration_ms: 231.2843
+  type: 'test'
+  ...
+# Subtest: closed-app delivery keeps crossing, first-observation and duplicate rules and includes deep links
+ok 113 - closed-app delivery keeps crossing, first-observation and duplicate rules and includes deep links
+  ---
+  duration_ms: 19.3315
+  type: 'test'
+  ...
+# Subtest: the actual background sender encrypts and delivers through the existing Web Push transport
+ok 114 - the actual background sender encrypts and delivers through the existing Web Push transport
+  ---
+  duration_ms: 69.6408
+  type: 'test'
+  ...
+# Subtest: queued delivery rechecks current preferences and threshold and cancels after final
+ok 115 - queued delivery rechecks current preferences and threshold and cancels after final
+  ---
+  duration_ms: 21.9751
+  type: 'test'
+  ...
+# Subtest: master off cancels pending work and also blocks manual test pushes
+ok 116 - master off cancels pending work and also blocks manual test pushes
+  ---
+  duration_ms: 31.0222
+  type: 'test'
+  ...
+# Subtest: additive migration is idempotent and preserves existing subscriptions
+ok 117 - additive migration is idempotent and preserves existing subscriptions
+  ---
+  duration_ms: 6.1337
+  type: 'test'
+  ...
+# Subtest: finished stored games remain reachable after leaving the feed; unknown games never proxy upstream
+ok 118 - finished stored games remain reachable after leaving the feed; unknown games never proxy upstream
+  ---
+  duration_ms: 312.1632
+  type: 'test'
+  ...
+# Subtest: generic previous-game recaps never qualify as pregame context
+ok 119 - generic previous-game recaps never qualify as pregame context
+  ---
+  duration_ms: 15.1819
+  type: 'test'
+  ...
+# Subtest: current, meaningful matchup stories keep their linked context
+ok 120 - current, meaningful matchup stories keep their linked context
+  ---
+  duration_ms: 1.2011
+  type: 'test'
+  ...
+# Subtest: stale, future, unlinked and mismatched story types are removed
+ok 121 - stale, future, unlinked and mismatched story types are removed
+  ---
+  duration_ms: 0.5847
+  type: 'test'
+  ...
+# Subtest: a prior-game reunion recap cannot become a reunion against the next opponent
+ok 122 - a prior-game reunion recap cannot become a reunion against the next opponent
+  ---
+  duration_ms: 1.4193
+  type: 'test'
+  ...
+# (node:42216) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: real MLB player groups use type, with aligned batting/pitching columns and decisions
+ok 123 - real MLB player groups use type, with aligned batting/pitching columns and decisions
+  ---
+  duration_ms: 19.2028
+  type: 'test'
+  ...
+# Subtest: NFL real non-offensive groups survive as distinct provider groups
+ok 124 - NFL real non-offensive groups survive as distinct provider groups
+  ---
+  duration_ms: 9.76
+  type: 'test'
+  ...
+# Subtest: CFB real non-offensive groups survive as distinct provider groups
+ok 125 - CFB real non-offensive groups survive as distinct provider groups
+  ---
+  duration_ms: 2.8751
+  type: 'test'
+  ...
+# Subtest: NHL goalie columns and scoring/penalty metadata are available
+ok 126 - NHL goalie columns and scoring/penalty metadata are available
+  ---
+  duration_ms: 4.3494
+  type: 'test'
+  ...
+# Subtest: NBA real columns map by label and raw extras remain outside normalized stats
+ok 127 - NBA real columns map by label and raw extras remain outside normalized stats
+  ---
+  duration_ms: 4.7607
+  type: 'test'
+  ...
+# Subtest: NCAAB real columns map by label and raw extras remain outside normalized stats
+ok 128 - NCAAB real columns map by label and raw extras remain outside normalized stats
+  ---
+  duration_ms: 3.1834
+  type: 'test'
+  ...
+# Subtest: NFL /game serializes every captured raw field unchanged without upstream fetch
+ok 129 - NFL /game serializes every captured raw field unchanged without upstream fetch
+  ---
+  duration_ms: 165.1403
+  type: 'test'
+  ...
+# Subtest: CFB /game serializes every captured raw field unchanged without upstream fetch
+ok 130 - CFB /game serializes every captured raw field unchanged without upstream fetch
+  ---
+  duration_ms: 40.8561
+  type: 'test'
+  ...
+# Subtest: MLB /game serializes every captured raw field unchanged without upstream fetch
+ok 131 - MLB /game serializes every captured raw field unchanged without upstream fetch
+  ---
+  duration_ms: 21.5994
+  type: 'test'
+  ...
+# Subtest: NHL /game serializes every captured raw field unchanged without upstream fetch
+ok 132 - NHL /game serializes every captured raw field unchanged without upstream fetch
+  ---
+  duration_ms: 27.1883
+  type: 'test'
+  ...
+# Subtest: NBA /game serializes every captured raw field unchanged without upstream fetch
+ok 133 - NBA /game serializes every captured raw field unchanged without upstream fetch
+  ---
+  duration_ms: 16.1999
+  type: 'test'
+  ...
+# Subtest: NCAAB /game serializes every captured raw field unchanged without upstream fetch
+ok 134 - NCAAB /game serializes every captured raw field unchanged without upstream fetch
+  ---
+  duration_ms: 24.5267
+  type: 'test'
+  ...
+# (node:47692) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: upcoming football retained display market also owns score, breakdown and expiry through publication
+ok 135 - upcoming football retained display market also owns score, breakdown and expiry through publication
+  ---
+  duration_ms: 431.6542
+  type: 'test'
+  ...
+# Subtest: final provider alias "Draft Kings" does not churn
+ok 136 - final provider alias "Draft Kings" does not churn
+  ---
+  duration_ms: 1.8547
+  type: 'test'
+  ...
+# Subtest: final provider alias "draftkings" does not churn
+ok 137 - final provider alias "draftkings" does not churn
+  ---
+  duration_ms: 0.445
+  type: 'test'
+  ...
+# Subtest: final provider alias "  DRAFT   KINGS  " does not churn
+ok 138 - final provider alias "  DRAFT   KINGS  " does not churn
+  ---
+  duration_ms: 0.3326
+  type: 'test'
+  ...
+# Subtest: final provider alias "Draft\\tKings" does not churn
+ok 139 - final provider alias "Draft\\tKings" does not churn
+  ---
+  duration_ms: 0.6394
+  type: 'test'
+  ...
+# Subtest: final semantic corrections and arbitrary provider punctuation remain significant
+ok 140 - final semantic corrections and arbitrary provider punctuation remain significant
+  ---
+  duration_ms: 1.6936
+  type: 'test'
+  ...
+# HEAVY_FIXTURE {"games":295,"upcoming":263,"completed":32,"before":{"candidates":132,"summaryWork":132,"groups":22},"after":{"candidates":132,"reused":132,"critical":0,"cachedEnrichments":0,"criticalSummaryCalls":0,"criticalGroups":0,"deferred":132,"totalSummaryRevalidations":132}}
+# Subtest: 295-game quiet fixture removes 132 summary acquisitions/enrichments from warm publication
+ok 141 - 295-game quiet fixture removes 132 summary acquisitions/enrichments from warm publication
+  ---
+  duration_ms: 2032.1558
+  type: 'test'
+  ...
+# LIVE_FIXTURE {"games":298,"live":3,"nonliveReused":132,"criticalSummaryCalls":3,"deferred":132}
+# Subtest: live games precede unrelated nonlive work and slow revalidation cannot block publication
+ok 142 - live games precede unrelated nonlive work and slow revalidation cannot block publication
+  ---
+  duration_ms: 925.428
+  type: 'test'
+  ...
+# Subtest: lower-priority provider failure leaves the already published canonical values coherent
+ok 143 - lower-priority provider failure leaves the already published canonical values coherent
+  ---
+  duration_ms: 77.382
+  type: 'test'
+  ...
+# Subtest: summary change invalidates nonlive reuse
+ok 144 - summary change invalidates nonlive reuse
+  ---
+  duration_ms: 53.8035
+  type: 'test'
+  ...
+# Subtest: context change invalidates nonlive reuse
+ok 145 - context change invalidates nonlive reuse
+  ---
+  duration_ms: 44.1501
+  type: 'test'
+  ...
+# Subtest: model change invalidates nonlive reuse
+ok 146 - model change invalidates nonlive reuse
+  ---
+  duration_ms: 43.3087
+  type: 'test'
+  ...
+# Subtest: scoreboard change invalidates nonlive reuse
+ok 147 - scoreboard change invalidates nonlive reuse
+  ---
+  duration_ms: 47.5003
+  type: 'test'
+  ...
+# Subtest: transition change invalidates nonlive reuse
+ok 148 - transition change invalidates nonlive reuse
+  ---
+  duration_ms: 39.5327
+  type: 'test'
+  ...
+# Subtest: fenced publication cannot overwrite successor; same-start owners have disjoint parts
+ok 149 - fenced publication cannot overwrite successor; same-start owners have disjoint parts
+  ---
+  duration_ms: 4.1955
+  type: 'test'
+  ...
+# Subtest: expired owner without successor is fenced and part-write failure preserves old header
+ok 150 - expired owner without successor is fenced and part-write failure preserves old header
+  ---
+  duration_ms: 3.1296
+  type: 'test'
+  ...
+# Subtest: readers retain a coherent old revision while a new multipart revision is prepared
+ok 151 - readers retain a coherent old revision while a new multipart revision is prepared
+  ---
+  duration_ms: 3.4628
+  type: 'test'
+  ...
+# Subtest: cron/feed lease contention creates one collector and release cannot delete a successor lease
+ok 152 - cron/feed lease contention creates one collector and release cannot delete a successor lease
+  ---
+  duration_ms: 35.2922
+  type: 'test'
+  ...
+# (node:47692) ExperimentalWarning: The MockTimers API is an experimental feature and might change at any time
+# {"event":"canonical_feed_response","reused":true,"stale":false,"ageMs":60053}
+# {"event":"canonical_refresh","trigger":"feed","startedAt":"2026-11-03T22:48:13.209Z","outcome":"published","lease":"acquired","published":true,"reusedPublication":false,"candidates":1,"liveCandidates":1,"criticalCandidates":1,"reusedGames":0,"cachedEnrichments":0,"cachedSummaryReads":0,"deferredCandidates":0,"deferredEnrichments":0,"deferredValidations":0,"migrationActive":false,"revalidated":0,"providerFailures":0,"stages":{"collection":14.99290000000019,"recordRecovery":0.2092000000002372,"contexts":0.14719999999942956,"summary":6.584399999999732,"snapshots":0.3636000000005879,"feedWrites":0.30280000000038854,"publication":0.12799999999970169,"cleanup":0.19549999999981083,"maintenance":0},"leaseAcquisitionMs":0.47559999999975844,"owner":"b75ff6a3-b322-4e18-add4-c68fe6cd86c2","publicationMs":27.481699999999364,"degradedResources":0,"providerRequests":14,"providerTimeouts":0,"totalMs":28.047299999999268}
+# Subtest: browser abort has a registered lifetime; bounded response preserves original freshness
+ok 153 - browser abort has a registered lifetime; bounded response preserves original freshness
+  ---
+  duration_ms: 62.6029
+  type: 'test'
+  ...
+# Subtest: deadline cancels provider work, releases ownership, and next request recovers
+ok 154 - deadline cancels provider work, releases ownership, and next request recovers
+  ---
+  duration_ms: 62.2497
+  type: 'test'
+  ...
+# Subtest: failed collection retains canonical revision and can recover without a 180-second wait
+ok 155 - failed collection retains canonical revision and can recover without a 180-second wait
+  ---
+  duration_ms: 58.7911
+  type: 'test'
+  ...
+# Subtest: structured timing includes stages and counters without a telemetry table/write
+ok 156 - structured timing includes stages and counters without a telemetry table/write
+  ---
+  duration_ms: 27.4768
+  type: 'test'
+  ...
+# Subtest: deadline aborts an outstanding provider request and releases the global lease
+ok 157 - deadline aborts an outstanding provider request and releases the global lease
+  ---
+  duration_ms: 58.655
+  type: 'test'
+  ...
+# Subtest: reused rich data retains stale/degraded indicators when revalidation keeps failing
+ok 158 - reused rich data retains stale/degraded indicators when revalidation keeps failing
+  ---
+  duration_ms: 48.6087
+  type: 'test'
+  ...
+# Subtest: deferred provider correction is applied next revision rather than mutating published games
+ok 159 - deferred provider correction is applied next revision rather than mutating published games
+  ---
+  duration_ms: 54.3085
+  type: 'test'
+  ...
+# Subtest: early collection failure cancels and drains sibling provider requests
+ok 160 - early collection failure cancels and drains sibling provider requests
+  ---
+  duration_ms: 13.4148
+  type: 'test'
+  ...
+# (node:47164) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: captured Saturday leaders receive attention four days ahead, at noon and in prime time
+ok 161 - captured Saturday leaders receive attention four days ahead, at noon and in prime time
+  ---
+  duration_ms: 59.3472
+  type: 'test'
+  ...
+# Subtest: quality slots, sport coverage and bounded rotation do not become time-first selection
+ok 162 - quality slots, sport coverage and bounded rotation do not become time-first selection
+  ---
+  duration_ms: 10.1075
+  type: 'test'
+  ...
+# Subtest: only upcoming identified games within seven days enter the pool
+ok 163 - only upcoming identified games within seven days enter the pool
+  ---
+  duration_ms: 1.0945
+  type: 'test'
+  ...
+# Subtest: a near-term return story is not carried into an unrelated game four days away
+ok 164 - a near-term return story is not carried into an unrelated game four days away
+  ---
+  duration_ms: 4.8472
+  type: 'test'
+  ...
+# Subtest: cached partitioned feed is reused; missing, stale and partial feeds fail closed
+ok 165 - cached partitioned feed is reused; missing, stale and partial feeds fail closed
+  ---
+  duration_ms: 7.4118
+  type: 'test'
+  ...
+# Subtest: older exact-match evidence outranks four new loosely related articles; every selected game gets articles
+ok 166 - older exact-match evidence outranks four new loosely related articles; every selected game gets articles
+  ---
+  duration_ms: 36.584
+  type: 'test'
+  ...
+# Subtest: a research run stays inside the existing request, item, AI and quota limits
+ok 167 - a research run stays inside the existing request, item, AI and quota limits
+  ---
+  duration_ms: 166.6868
+  type: 'test'
+  ...
+# Subtest: actual returned usage is recorded and missing or failed usage is never presented as zero
+ok 168 - actual returned usage is recorded and missing or failed usage is never presented as zero
+  ---
+  duration_ms: 2.8262
+  type: 'test'
+  ...
+# Subtest: a saturated six-sport pass respects every bound, and exhausted quota prevents all inference
+ok 169 - a saturated six-sport pass respects every bound, and exhausted quota prevents all inference
+  ---
+  duration_ms: 1372.1295
+  type: 'test'
+  ...
+# Subtest: diagnostic public eligibility retains recap, preview, freshness and suppression rules
+ok 170 - diagnostic public eligibility retains recap, preview, freshness and suppression rules
+  ---
+  duration_ms: 1.2446
+  type: 'test'
+  ...
+# Subtest: captured production rows reproduce the empty upcoming public story list without relaxing verification
+ok 171 - captured production rows reproduce the empty upcoming public story list without relaxing verification
+  ---
+  duration_ms: 3.4908
+  type: 'test'
+  ...
+# (node:47200) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: refresh cadence is 12 seconds for live feeds and 60 seconds otherwise
+ok 172 - refresh cadence is 12 seconds for live feeds and 60 seconds otherwise
+  ---
+  duration_ms: 10.1987
+  type: 'test'
+  ...
+# {"event":"canonical_refresh","trigger":"direct","startedAt":"2026-11-03T22:48:09.664Z","outcome":"published","lease":"acquired","published":true,"reusedPublication":false,"candidates":1,"liveCandidates":1,"criticalCandidates":1,"reusedGames":0,"cachedEnrichments":0,"cachedSummaryReads":0,"deferredCandidates":0,"deferredEnrichments":0,"deferredValidations":0,"migrationActive":true,"revalidated":0,"providerFailures":0,"stages":{"collection":320.93499999999995,"recordRecovery":1.5778999999999996,"contexts":2.105099999999993,"summary":96.13109999999983,"snapshots":5.61180000000013,"feedWrites":1.0634999999999764,"publication":0.35560000000009495,"cleanup":0.850099999999884,"maintenance":0},"leaseAcquisitionMs":8.694600000000037,"owner":"42d7e9ca-75c9-44bd-b090-175c58655f64","publicationMs":460.6742999999999,"degradedResources":0,"providerRequests":28,"providerTimeouts":0,"totalMs":463.4854}
+# {"event":"canonical_refresh","trigger":"direct","startedAt":"2026-11-03T22:48:24.664Z","outcome":"published","lease":"acquired","published":true,"reusedPublication":false,"candidates":1,"liveCandidates":0,"criticalCandidates":1,"reusedGames":0,"cachedEnrichments":0,"cachedSummaryReads":0,"deferredCandidates":0,"deferredEnrichments":0,"deferredValidations":0,"migrationActive":false,"revalidated":0,"providerFailures":0,"stages":{"collection":28.40339999999992,"recordRecovery":0.7080999999998312,"contexts":0.3342000000000098,"summary":11.095000000000027,"snapshots":1.058799999999792,"feedWrites":0.2647999999999229,"publication":0.27700000000004366,"cleanup":0.4512999999999465,"maintenance":0},"leaseAcquisitionMs":0.5471000000000004,"owner":"e8801794-b476-4f0b-a964-5607c3c9ab08","publicationMs":45.847499999999854,"degradedResources":0,"providerRequests":1,"providerTimeouts":0,"totalMs":46.71509999999989}
+# Subtest: feed carries an NFL entering record from live scoreboard to final result
+ok 173 - feed carries an NFL entering record from live scoreboard to final result
+  ---
+  duration_ms: 540.9916
+  type: 'test'
+  ...
+# {"event":"canonical_refresh","trigger":"direct","startedAt":"2026-11-03T22:48:10.198Z","outcome":"published","lease":"acquired","published":true,"reusedPublication":false,"candidates":1,"liveCandidates":0,"criticalCandidates":1,"reusedGames":0,"cachedEnrichments":0,"cachedSummaryReads":0,"deferredCandidates":0,"deferredEnrichments":0,"deferredValidations":0,"migrationActive":true,"revalidated":0,"providerFailures":0,"stages":{"collection":56.94489999999996,"recordRecovery":2.1550000000002,"contexts":0.7871000000000095,"summary":9.519700000000057,"snapshots":1.5811000000001059,"feedWrites":0.3371999999999389,"publication":0.28320000000007894,"cleanup":0.4836999999999989,"maintenance":0},"leaseAcquisitionMs":0.3283999999998741,"owner":"17f0959f-23e8-40eb-ad18-b5e761b81725","publicationMs":76.17529999999988,"degradedResources":0,"providerRequests":28,"providerTimeouts":0,"totalMs":77.26559999999995}
+# {"event":"canonical_refresh","trigger":"direct","startedAt":"2026-11-03T22:49:10.198Z","outcome":"published","lease":"acquired","published":true,"reusedPublication":false,"candidates":1,"liveCandidates":0,"criticalCandidates":0,"reusedGames":1,"cachedEnrichments":0,"cachedSummaryReads":0,"deferredCandidates":1,"deferredEnrichments":0,"deferredValidations":0,"migrationActive":false,"revalidated":1,"providerFailures":0,"stages":{"collection":26.169999999999845,"recordRecovery":0.8442999999999756,"contexts":0.7024999999998727,"summary":4.782799999999952,"snapshots":3.6617999999998574,"feedWrites":0.3501000000001113,"publication":0.3895999999999731,"cleanup":1.4128000000000611,"maintenance":3.187900000000127},"leaseAcquisitionMs":0.2723999999998341,"owner":"a88df03f-edd8-4749-b02b-95dba234ba39","publicationMs":40.3257000000001,"degradedResources":0,"providerRequests":14,"providerTimeouts":0,"totalMs":45.890499999999975}
+# {"event":"canonical_refresh","trigger":"direct","startedAt":"2026-11-03T22:48:10.198Z","outcome":"published","lease":"acquired","published":true,"reusedPublication":false,"candidates":1,"liveCandidates":0,"criticalCandidates":1,"reusedGames":0,"cachedEnrichments":0,"cachedSummaryReads":0,"deferredCandidates":0,"deferredEnrichments":0,"deferredValidations":0,"migrationActive":true,"revalidated":0,"providerFailures":0,"stages":{"collection":29.004000000000133,"recordRecovery":1.0873999999998887,"contexts":0.3096000000002732,"summary":11.190000000000055,"snapshots":1.2859000000000833,"feedWrites":0.3007000000000062,"publication":0.23959999999988213,"cleanup":0.4308000000000902,"maintenance":0},"leaseAcquisitionMs":0.3222000000000662,"owner":"6fda810c-544f-477d-af95-e0e3667a59f0","publicationMs":45.5942,"degradedResources":0,"providerRequests":28,"providerTimeouts":0,"totalMs":46.50369999999998}
+# {"event":"canonical_refresh","trigger":"direct","startedAt":"2026-11-03T22:48:10.198Z","outcome":"published","lease":"acquired","published":true,"reusedPublication":false,"candidates":1,"liveCandidates":0,"criticalCandidates":1,"reusedGames":0,"cachedEnrichments":0,"cachedSummaryReads":0,"deferredCandidates":0,"deferredEnrichments":0,"deferredValidations":0,"migrationActive":true,"revalidated":0,"providerFailures":0,"stages":{"collection":28.590400000000272,"recordRecovery":1.6275000000000546,"contexts":0.888700000000199,"summary":4.349899999999934,"snapshots":1.2486999999998716,"feedWrites":0.3201000000001386,"publication":0.24909999999999854,"cleanup":0.4885999999999058,"maintenance":0},"leaseAcquisitionMs":0.19400000000018736,"owner":"abf7d323-f2d1-4fef-b141-3346f71278ce","publicationMs":39.02149999999983,"degradedResources":0,"providerRequests":28,"providerTimeouts":0,"totalMs":40.436500000000024}
+# Subtest: completed NFL refresh recovers the latest valid pre-final records by team ID
+ok 174 - completed NFL refresh recovers the latest valid pre-final records by team ID
+  ---
+  duration_ms: 240.825
+  type: 'test'
+  ...
+# Subtest: basketball detail API adds normalized players using the existing cached summary
+ok 175 - basketball detail API adds normalized players using the existing cached summary
+  ---
+  duration_ms: 25.2844
+  type: 'test'
+  ...
+# {"event":"canonical_refresh","trigger":"direct","startedAt":"2026-11-03T22:48:10.466Z","outcome":"published","lease":"acquired","published":true,"reusedPublication":false,"candidates":1,"liveCandidates":1,"criticalCandidates":1,"reusedGames":0,"cachedEnrichments":0,"cachedSummaryReads":0,"deferredCandidates":0,"deferredEnrichments":0,"deferredValidations":0,"migrationActive":true,"revalidated":0,"providerFailures":0,"stages":{"collection":38.06309999999985,"recordRecovery":0.35740000000032524,"contexts":0.26470000000017535,"summary":15.949300000000221,"snapshots":1.1006999999999607,"feedWrites":0.5398000000000138,"publication":0.208400000000438,"cleanup":0.46339999999963766,"maintenance":0},"leaseAcquisitionMs":0.21709999999984575,"owner":"560358fe-eeba-4548-9310-c765d66542b4","publicationMs":75.80949999999984,"degradedResources":0,"providerRequests":28,"providerTimeouts":0,"totalMs":76.71179999999958}
+# {"event":"canonical_refresh","trigger":"direct","startedAt":"2026-11-03T22:48:10.467Z","outcome":"not_due","lease":"acquired","published":false,"reusedPublication":true,"candidates":0,"liveCandidates":0,"criticalCandidates":0,"reusedGames":0,"cachedEnrichments":0,"cachedSummaryReads":0,"deferredCandidates":0,"deferredEnrichments":0,"deferredValidations":0,"migrationActive":false,"revalidated":0,"providerFailures":0,"stages":{"collection":0,"recordRecovery":0,"contexts":0,"summary":0,"snapshots":0,"feedWrites":0,"publication":0,"cleanup":0,"maintenance":0},"leaseAcquisitionMs":0.19399999999995998,"owner":"9b295e9a-3b33-440f-9b1b-fd86efb73d9e","degradedResources":0,"providerRequests":0,"providerTimeouts":0,"totalMs":4.154700000000048}
+# {"event":"canonical_refresh","trigger":"direct","startedAt":"2026-11-03T22:48:25.466Z","outcome":"published","lease":"acquired","published":true,"reusedPublication":false,"candidates":1,"liveCandidates":1,"criticalCandidates":1,"reusedGames":0,"cachedEnrichments":0,"cachedSummaryReads":0,"deferredCandidates":0,"deferredEnrichments":0,"deferredValidations":0,"migrationActive":false,"revalidated":0,"providerFailures":0,"stages":{"collection":27.893299999999726,"recordRecovery":0.38400000000001455,"contexts":0.19760000000042055,"summary":8.932099999999991,"snapshots":1.0697000000000116,"feedWrites":0.3432999999999993,"publication":0.1586000000002059,"cleanup":0.2323999999998705,"maintenance":0},"leaseAcquisitionMs":0.171100000000024,"owner":"63422961-c5dd-42b6-b1c4-26d7d52b0bed","publicationMs":51.11100000000033,"degradedResources":0,"providerRequests":2,"providerTimeouts":0,"totalMs":51.5938000000001}
+# {"event":"canonical_feed_response","reused":false,"stale":false,"ageMs":52}
+# {"event":"canonical_refresh","trigger":"feed","startedAt":"2026-11-03T22:48:10.609Z","outcome":"published","lease":"acquired","published":true,"reusedPublication":false,"candidates":1,"liveCandidates":1,"criticalCandidates":1,"reusedGames":0,"cachedEnrichments":0,"cachedSummaryReads":0,"deferredCandidates":0,"deferredEnrichments":0,"deferredValidations":0,"migrationActive":false,"revalidated":0,"providerFailures":0,"stages":{"collection":26.230199999999968,"recordRecovery":0.4129000000002634,"contexts":0.2129000000004453,"summary":10.778999999999996,"snapshots":0.694999999999709,"feedWrites":0.4153000000001157,"publication":0.3105999999997948,"cleanup":3.119499999999789,"maintenance":0},"leaseAcquisitionMs":0.47640000000001237,"owner":"f909c34c-0453-4e8c-8530-4e097f1d46cb","publicationMs":51.07190000000037,"degradedResources":0,"providerRequests":14,"providerTimeouts":0,"totalMs":55.22550000000001}
+# {"event":"canonical_refresh","trigger":"direct","startedAt":"2026-11-03T22:51:10.466Z","outcome":"failed","lease":"acquired","published":false,"reusedPublication":true,"candidates":0,"liveCandidates":0,"criticalCandidates":0,"reusedGames":0,"cachedEnrichments":0,"cachedSummaryReads":0,"deferredCandidates":0,"deferredEnrichments":0,"deferredValidations":0,"migrationActive":false,"revalidated":0,"providerFailures":13,"stages":{"collection":24.638300000000072,"recordRecovery":0,"contexts":0,"summary":0,"snapshots":0,"feedWrites":0,"publication":0,"cleanup":0,"maintenance":0},"leaseAcquisitionMs":0.1347000000000662,"owner":"5fe8e2bd-a17d-478c-81ff-64ea0a033276","degradedResources":13,"providerRequests":13,"providerTimeouts":0,"totalMs":25.995300000000043}
+# Subtest: central refresh, API, shared alerts, history, failures and CORS
+ok 176 - central refresh, API, shared alerts, history, failures and CORS
+  ---
+  duration_ms: 281.6476
+  type: 'test'
+  ...
+# {"event":"canonical_refresh","trigger":"direct","startedAt":"2026-11-03T22:48:10.749Z","outcome":"contended","lease":"lost","published":false,"reusedPublication":true,"candidates":0,"liveCandidates":0,"criticalCandidates":0,"reusedGames":0,"cachedEnrichments":0,"cachedSummaryReads":0,"deferredCandidates":0,"deferredEnrichments":0,"deferredValidations":0,"migrationActive":false,"revalidated":0,"providerFailures":0,"stages":{"collection":0,"recordRecovery":0,"contexts":0,"summary":0,"snapshots":0,"feedWrites":0,"publication":0,"cleanup":0,"maintenance":0},"leaseAcquisitionMs":0.40459999999984575,"degradedResources":0,"providerRequests":0,"providerTimeouts":0,"totalMs":0.6660999999999149}
+# {"event":"canonical_refresh","trigger":"direct","startedAt":"2026-11-03T22:48:10.749Z","outcome":"published","lease":"acquired","published":true,"reusedPublication":false,"candidates":0,"liveCandidates":0,"criticalCandidates":0,"reusedGames":0,"cachedEnrichments":0,"cachedSummaryReads":0,"deferredCandidates":0,"deferredEnrichments":0,"deferredValidations":0,"migrationActive":true,"revalidated":0,"providerFailures":0,"stages":{"collection":20.77009999999973,"recordRecovery":0.05009999999992942,"contexts":0.27990000000045256,"summary":0.022199999999884312,"snapshots":0.02289999999993597,"feedWrites":0.014000000000123691,"publication":0.2438999999999396,"cleanup":0.48880000000008295,"maintenance":0},"leaseAcquisitionMs":0.3886999999999716,"owner":"c61f3b6c-38a9-4fb8-9e83-fe7aeec33655","publicationMs":22.48050000000012,"degradedResources":0,"providerRequests":27,"providerTimeouts":0,"totalMs":23.56150000000025}
+# {"event":"canonical_refresh","trigger":"direct","startedAt":"2026-11-03T22:49:10.749Z","outcome":"published","lease":"acquired","published":true,"reusedPublication":false,"candidates":0,"liveCandidates":0,"criticalCandidates":0,"reusedGames":0,"cachedEnrichments":0,"cachedSummaryReads":0,"deferredCandidates":0,"deferredEnrichments":0,"deferredValidations":0,"migrationActive":false,"revalidated":0,"providerFailures":0,"stages":{"collection":37.64930000000004,"recordRecovery":0.038399999999910506,"contexts":0.04870000000028085,"summary":0.024699999999938882,"snapshots":0.021299999999882857,"feedWrites":0.009799999999813735,"publication":0.2349000000003798,"cleanup":0.4252000000001317,"maintenance":0},"leaseAcquisitionMs":0.13160000000016225,"owner":"37449947-e6a1-4173-a859-eeca6888425a","publicationMs":38.61389999999983,"degradedResources":0,"providerRequests":13,"providerTimeouts":0,"totalMs":39.34659999999985}
+# Subtest: overlapping refreshes acquire one ingestion lease and retention removes old snapshots
+ok 177 - overlapping refreshes acquire one ingestion lease and retention removes old snapshots
+  ---
+  duration_ms: 70.1546
+  type: 'test'
+  ...
+# Subtest: browser source has no ESPN acquisition or secondary enrichment
+ok 178 - browser source has no ESPN acquisition or secondary enrichment
+  ---
+  duration_ms: 5.548
+  type: 'test'
+  ...
+# {"event":"canonical_refresh","trigger":"direct","startedAt":"2026-11-03T22:48:10.823Z","outcome":"published","lease":"acquired","published":true,"reusedPublication":false,"candidates":1,"liveCandidates":1,"criticalCandidates":1,"reusedGames":0,"cachedEnrichments":0,"cachedSummaryReads":0,"deferredCandidates":0,"deferredEnrichments":0,"deferredValidations":0,"migrationActive":true,"revalidated":0,"providerFailures":1,"stages":{"collection":35.40950000000021,"recordRecovery":0.617500000000291,"contexts":0.45249999999987267,"summary":9.317399999999907,"snapshots":1.0309000000002015,"feedWrites":0.4422999999997046,"publication":0.26539999999977226,"cleanup":0.5780999999997221,"maintenance":0},"leaseAcquisitionMs":0.1694999999999709,"owner":"65e2a493-5034-45af-b15c-2ad94ccb3d67","publicationMs":55.05939999999964,"degradedResources":1,"providerRequests":28,"providerTimeouts":0,"totalMs":56.223399999999856}
+# Subtest: detail failure is identified without discarding fresh scoreboards or evaluating incomplete alerts
+ok 179 - detail failure is identified without discarding fresh scoreboards or evaluating incomplete alerts
+  ---
+  duration_ms: 62.1688
+  type: 'test'
+  ...
+# Subtest: moved normalization and enrichment preserve pre-migration fixture ratings and factors
+ok 180 - moved normalization and enrichment preserve pre-migration fixture ratings and factors
+  ---
+  duration_ms: 1098.9204
+  type: 'test'
+  ...
+# Subtest: current shared core preserves all 107 games between the original browser adapter and Worker
+ok 181 - current shared core preserves all 107 games between the original browser adapter and Worker
+  ---
+  duration_ms: 2146.0515
+  type: 'test'
+  ...
+# Subtest: detail cache hit performs no D1 writes or provider requests
+ok 182 - detail cache hit performs no D1 writes or provider requests
+  ---
+  duration_ms: 3.3681
+  type: 'test'
+  ...
+# {"event":"canonical_refresh","trigger":"direct","startedAt":"2026-11-03T22:48:14.133Z","outcome":"published","lease":"acquired","published":true,"reusedPublication":false,"candidates":1,"liveCandidates":1,"criticalCandidates":1,"reusedGames":0,"cachedEnrichments":0,"cachedSummaryReads":0,"deferredCandidates":0,"deferredEnrichments":0,"deferredValidations":0,"migrationActive":true,"revalidated":0,"providerFailures":0,"stages":{"collection":10.081699999998818,"recordRecovery":0.3481000000001586,"contexts":0.21900000000005093,"summary":4.520000000000437,"snapshots":0.4669000000003507,"feedWrites":0.1665000000002692,"publication":0.08889999999973952,"cleanup":0.15079999999943539,"maintenance":0},"leaseAcquisitionMs":0.04529999999977008,"owner":"4d62f5c2-249f-410c-887b-131a217f63c4","publicationMs":21.3765999999996,"degradedResources":1,"providerRequests":27,"providerTimeouts":0,"totalMs":21.712499999999636}
+# Subtest: canonical summary contender reuses detail-owned resource and cannot duplicate fetch
+ok 183 - canonical summary contender reuses detail-owned resource and cannot duplicate fetch
+  ---
+  duration_ms: 24.9955
+  type: 'test'
+  ...
+# {"event":"canonical_refresh","trigger":"direct","startedAt":"2026-11-03T22:48:30.158Z","outcome":"published","lease":"acquired","published":true,"reusedPublication":false,"candidates":1,"liveCandidates":1,"criticalCandidates":1,"reusedGames":0,"cachedEnrichments":0,"cachedSummaryReads":0,"deferredCandidates":0,"deferredEnrichments":0,"deferredValidations":0,"migrationActive":true,"revalidated":0,"providerFailures":0,"stages":{"collection":10.995699999999488,"recordRecovery":0.13169999999990978,"contexts":0.09569999999985157,"summary":3.9854999999997744,"snapshots":0.37740000000030705,"feedWrites":0.1683999999995649,"publication":0.08290000000033615,"cleanup":0.13699999999971624,"maintenance":0},"leaseAcquisitionMs":0.044399999999768625,"owner":"c94fa44b-d05c-4fe6-a874-933b33902846","publicationMs":17.75960000000032,"degradedResources":0,"providerRequests":28,"providerTimeouts":0,"totalMs":18.052300000000287}
+# Subtest: expired detail owner cannot overwrite canonical successor summary or mislabel version
+ok 184 - expired detail owner cannot overwrite canonical successor summary or mislabel version
+  ---
+  duration_ms: 21.7982
+  type: 'test'
+  ...
+# Subtest: detail provider timeout returns last stored payload and its original timestamp
+ok 185 - detail provider timeout returns last stored payload and its original timestamp
+  ---
+  duration_ms: 3.9486
+  type: 'test'
+  ...
+# Subtest: team schedule and leader normalizers produce compact team-page data
+ok 186 - team schedule and leader normalizers produce compact team-page data
+  ---
+  duration_ms: 1.7275
+  type: 'test'
+  ...
+# Subtest: Core team leader refs hydrate into the four requested NFL tiles
+ok 187 - Core team leader refs hydrate into the four requested NFL tiles
+  ---
+  duration_ms: 0.3965
+  type: 'test'
+  ...
+# Subtest: Core team profile URL targets the requested ESPN season
+ok 188 - Core team profile URL targets the requested ESPN season
+  ---
+  duration_ms: 0.2275
+  type: 'test'
+  ...
+# Subtest: production Core 403 -> team-season fallback serves four NFL/33 leaders
+ok 189 - production Core 403 -> team-season fallback serves four NFL/33 leaders
+  ---
+  duration_ms: 7.525
+  type: 'test'
+  ...
+# Subtest: production Core 403 -> team-season fallback serves four MLB/1 leaders
+ok 190 - production Core 403 -> team-season fallback serves four MLB/1 leaders
+  ---
+  duration_ms: 4.5423
+  type: 'test'
+  ...
+# Subtest: production Core 403 -> team-season fallback serves four NHL/23 leaders
+ok 191 - production Core 403 -> team-season fallback serves four NHL/23 leaders
+  ---
+  duration_ms: 4.4464
+  type: 'test'
+  ...
+# Subtest: production Core 403 -> team-season fallback serves four NBA/13 leaders
+ok 192 - production Core 403 -> team-season fallback serves four NBA/13 leaders
+  ---
+  duration_ms: 4.653
+  type: 'test'
+  ...
+# Subtest: production Core 403 -> team-season fallback serves four CFB/120 leaders
+ok 193 - production Core 403 -> team-season fallback serves four CFB/120 leaders
+  ---
+  duration_ms: 5.2097
+  type: 'test'
+  ...
+# Subtest: production Core categories hydrate successfully without requesting the fallback
+ok 194 - production Core categories hydrate successfully without requesting the fallback
+  ---
+  duration_ms: 15.4476
+  type: 'test'
+  ...
+# Subtest: Core leaders failure uses expanded team-season fallback identities
+ok 195 - Core leaders failure uses expanded team-season fallback identities
+  ---
+  duration_ms: 5.616
+  type: 'test'
+  ...
+# Subtest: Core athletes failure uses expanded team-season fallback identities
+ok 196 - Core athletes failure uses expanded team-season fallback identities
+  ---
+  duration_ms: 4.7268
+  type: 'test'
+  ...
+# Subtest: athlete and fallback failures preserve valid Core stat tiles without invented names
+ok 197 - athlete and fallback failures preserve valid Core stat tiles without invented names
+  ---
+  duration_ms: 8.5855
+  type: 'test'
+  ...
+# Subtest: leader normalization preserves inline identity when hydration is incomplete
+ok 198 - leader normalization preserves inline identity when hydration is incomplete
+  ---
+  duration_ms: 1.4788
+  type: 'test'
+  ...
+# Subtest: NCAAB without current-season stats rejects the fallback previous season
+ok 199 - NCAAB without current-season stats rejects the fallback previous season
+  ---
+  duration_ms: 3.2603
+  type: 'test'
+  ...
+# Subtest: fallback rejects a mismatched team and leaves the team page available
+ok 200 - fallback rejects a mismatched team and leaves the team page available
+  ---
+  duration_ms: 3.7709
+  type: 'test'
+  ...
+# Subtest: fallback rejects a mismatched season and leaves the team page available
+ok 201 - fallback rejects a mismatched season and leaves the team page available
+  ---
+  duration_ms: 4.5061
+  type: 'test'
+  ...
+# Subtest: all leader sources failing remains nonfatal to team identity, schedule and spotlights
+ok 202 - all leader sources failing remains nonfatal to team identity, schedule and spotlights
+  ---
+  duration_ms: 3.3206
+  type: 'test'
+  ...
+# Subtest: partial provider categories never substitute unrelated stats for the requested four
+ok 203 - partial provider categories never substitute unrelated stats for the requested four
+  ---
+  duration_ms: 0.8657
+  type: 'test'
+  ...
+# Subtest: team standings normalize division rank and NFL wildcard position
+ok 204 - team standings normalize division rank and NFL wildcard position
+  ---
+  duration_ms: 1.6473
+  type: 'test'
+  ...
+# Subtest: NFL standings retain the full conference playoff picture around the selected division
+ok 205 - NFL standings retain the full conference playoff picture around the selected division
+  ---
+  duration_ms: 1.0691
+  type: 'test'
+  ...
+# Subtest: NHL standings model top three per division plus two conference wild cards
+ok 206 - NHL standings model top three per division plus two conference wild cards
+  ---
+  duration_ms: 1.3646
+  type: 'test'
+  ...
+# Subtest: standings endpoint is division-scoped, demand cached and non-scoring
+ok 207 - standings endpoint is division-scoped, demand cached and non-scoring
+  ---
+  duration_ms: 2.7443
+  type: 'test'
+  ...
+# (node:27172) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: real Chiefs final resource survives provider reversion to prematch without losing final bonuses
+ok 208 - real Chiefs final resource survives provider reversion to prematch without losing final bonuses
+  ---
+  duration_ms: 959.6138
+  type: 'test'
+  ...
+# Subtest: a prematch resource cannot seed completed bonuses or a completed snapshot
+ok 209 - a prematch resource cannot seed completed bonuses or a completed snapshot
+  ---
+  duration_ms: 35.3173
+  type: 'test'
+  ...
+# Subtest: real final score corrections and a final-to-live overtime correction still replace the resource
+ok 210 - real final score corrections and a final-to-live overtime correction still replace the resource
+  ---
+  duration_ms: 193.5337
+  type: 'test'
+  ...
+# (node:36716) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: verified ESPN atp-20240128.json: all adult main draws accepted, qualifying excluded
+ok 211 - verified ESPN atp-20240128.json: all adult main draws accepted, qualifying excluded
+  ---
+  duration_ms: 154.2907
+  type: 'test'
+  ...
+# Subtest: verified ESPN atp-20240609.json: all adult main draws accepted, qualifying excluded
+ok 212 - verified ESPN atp-20240609.json: all adult main draws accepted, qualifying excluded
+  ---
+  duration_ms: 10.9764
+  type: 'test'
+  ...
+# Subtest: verified ESPN atp-20240714.json: all adult main draws accepted, qualifying excluded
+ok 213 - verified ESPN atp-20240714.json: all adult main draws accepted, qualifying excluded
+  ---
+  duration_ms: 40.9006
+  type: 'test'
+  ...
+# Subtest: verified ESPN atp-20240908.json: all adult main draws accepted, qualifying excluded
+ok 214 - verified ESPN atp-20240908.json: all adult main draws accepted, qualifying excluded
+  ---
+  duration_ms: 7.6969
+  type: 'test'
+  ...
+# Subtest: verified ESPN atp-20250126.json: all adult main draws accepted, qualifying excluded
+ok 215 - verified ESPN atp-20250126.json: all adult main draws accepted, qualifying excluded
+  ---
+  duration_ms: 12.0019
+  type: 'test'
+  ...
+# Subtest: verified ESPN atp-20250608.json: all adult main draws accepted, qualifying excluded
+ok 216 - verified ESPN atp-20250608.json: all adult main draws accepted, qualifying excluded
+  ---
+  duration_ms: 9.5111
+  type: 'test'
+  ...
+# Subtest: verified ESPN atp-20250713.json: all adult main draws accepted, qualifying excluded
+ok 217 - verified ESPN atp-20250713.json: all adult main draws accepted, qualifying excluded
+  ---
+  duration_ms: 11.4862
+  type: 'test'
+  ...
+# Subtest: verified ESPN atp-20250907.json: all adult main draws accepted, qualifying excluded
+ok 218 - verified ESPN atp-20250907.json: all adult main draws accepted, qualifying excluded
+  ---
+  duration_ms: 14.1357
+  type: 'test'
+  ...
+# Subtest: verified ESPN wta-20240128.json: all adult main draws accepted, qualifying excluded
+ok 219 - verified ESPN wta-20240128.json: all adult main draws accepted, qualifying excluded
+  ---
+  duration_ms: 10.2202
+  type: 'test'
+  ...
+# Subtest: verified ESPN wta-20240609.json: all adult main draws accepted, qualifying excluded
+ok 220 - verified ESPN wta-20240609.json: all adult main draws accepted, qualifying excluded
+  ---
+  duration_ms: 12.2701
+  type: 'test'
+  ...
+# Subtest: verified ESPN wta-20240714.json: all adult main draws accepted, qualifying excluded
+ok 221 - verified ESPN wta-20240714.json: all adult main draws accepted, qualifying excluded
+  ---
+  duration_ms: 8.0446
+  type: 'test'
+  ...
+# Subtest: verified ESPN wta-20240908.json: all adult main draws accepted, qualifying excluded
+ok 222 - verified ESPN wta-20240908.json: all adult main draws accepted, qualifying excluded
+  ---
+  duration_ms: 11.6085
+  type: 'test'
+  ...
+# Subtest: verified ESPN wta-20250126.json: all adult main draws accepted, qualifying excluded
+ok 223 - verified ESPN wta-20250126.json: all adult main draws accepted, qualifying excluded
+  ---
+  duration_ms: 6.9117
+  type: 'test'
+  ...
+# Subtest: verified ESPN wta-20250608.json: all adult main draws accepted, qualifying excluded
+ok 224 - verified ESPN wta-20250608.json: all adult main draws accepted, qualifying excluded
+  ---
+  duration_ms: 12.4156
+  type: 'test'
+  ...
+# Subtest: verified ESPN wta-20250713.json: all adult main draws accepted, qualifying excluded
+ok 225 - verified ESPN wta-20250713.json: all adult main draws accepted, qualifying excluded
+  ---
+  duration_ms: 7.6226
+  type: 'test'
+  ...
+# Subtest: verified ESPN wta-20250907.json: all adult main draws accepted, qualifying excluded
+ok 226 - verified ESPN wta-20250907.json: all adult main draws accepted, qualifying excluded
+  ---
+  duration_ms: 7.2943
+  type: 'test'
+  ...
+# Subtest: both tours are collected once and overlapping matches deduplicate by stable match ID
+ok 227 - both tours are collected once and overlapping matches deduplicate by stable match ID
+  ---
+  duration_ms: 11.0661
+  type: 'test'
+  ...
+# Subtest: season identity uses base ID plus corroborating edition metadata and exact name aliases
+ok 228 - season identity uses base ID plus corroborating edition metadata and exact name aliases
+  ---
+  duration_ms: 33.886
+  type: 'test'
+  ...
+# Subtest: excluded tournament Rolex Paris Masters cannot pass even with major=true
+ok 229 - excluded tournament Rolex Paris Masters cannot pass even with major=true
+  ---
+  duration_ms: 2.1621
+  type: 'test'
+  ...
+# Subtest: excluded tournament Erste Bank Open cannot pass even with major=true
+ok 230 - excluded tournament Erste Bank Open cannot pass even with major=true
+  ---
+  duration_ms: 1.7492
+  type: 'test'
+  ...
+# Subtest: excluded tournament Rolex Shanghai Masters cannot pass even with major=true
+ok 231 - excluded tournament Rolex Shanghai Masters cannot pass even with major=true
+  ---
+  duration_ms: 0.9995
+  type: 'test'
+  ...
+# Subtest: excluded tournament BNP Paribas Open cannot pass even with major=true
+ok 232 - excluded tournament BNP Paribas Open cannot pass even with major=true
+  ---
+  duration_ms: 1.2738
+  type: 'test'
+  ...
+# Subtest: excluded tournament Miami Open cannot pass even with major=true
+ok 233 - excluded tournament Miami Open cannot pass even with major=true
+  ---
+  duration_ms: 1.989
+  type: 'test'
+  ...
+# Subtest: excluded tournament SP Open cannot pass even with major=true
+ok 234 - excluded tournament SP Open cannot pass even with major=true
+  ---
+  duration_ms: 1.3071
+  type: 'test'
+  ...
+# Subtest: excluded tournament Guadalajara Open presentado por Santander cannot pass even with major=true
+ok 235 - excluded tournament Guadalajara Open presentado por Santander cannot pass even with major=true
+  ---
+  duration_ms: 2.2779
+  type: 'test'
+  ...
+# Subtest: excluded tournament Montreux Nestlé Open cannot pass even with major=true
+ok 236 - excluded tournament Montreux Nestlé Open cannot pass even with major=true
+  ---
+  duration_ms: 1.7956
+  type: 'test'
+  ...
+# Subtest: excluded tournament Open Internacional de San Sebastian cannot pass even with major=true
+ok 237 - excluded tournament Open Internacional de San Sebastian cannot pass even with major=true
+  ---
+  duration_ms: 1.0671
+  type: 'test'
+  ...
+# Subtest: excluded tournament Huzhou Open cannot pass even with major=true
+ok 238 - excluded tournament Huzhou Open cannot pass even with major=true
+  ---
+  duration_ms: 3.9749
+  type: 'test'
+  ...
+# Subtest: excluded tournament ATP 250 cannot pass even with major=true
+ok 239 - excluded tournament ATP 250 cannot pass even with major=true
+  ---
+  duration_ms: 2.9511
+  type: 'test'
+  ...
+# Subtest: excluded tournament ATP 500 cannot pass even with major=true
+ok 240 - excluded tournament ATP 500 cannot pass even with major=true
+  ---
+  duration_ms: 1.4173
+  type: 'test'
+  ...
+# Subtest: excluded tournament ATP 1000 cannot pass even with major=true
+ok 241 - excluded tournament ATP 1000 cannot pass even with major=true
+  ---
+  duration_ms: 1.021
+  type: 'test'
+  ...
+# Subtest: excluded tournament WTA 1000 cannot pass even with major=true
+ok 242 - excluded tournament WTA 1000 cannot pass even with major=true
+  ---
+  duration_ms: 1.101
+  type: 'test'
+  ...
+# Subtest: excluded tournament Challenger cannot pass even with major=true
+ok 243 - excluded tournament Challenger cannot pass even with major=true
+  ---
+  duration_ms: 1.1017
+  type: 'test'
+  ...
+# Subtest: excluded tournament ITF cannot pass even with major=true
+ok 244 - excluded tournament ITF cannot pass even with major=true
+  ---
+  duration_ms: 1.0616
+  type: 'test'
+  ...
+# Subtest: excluded tournament Exhibition cannot pass even with major=true
+ok 245 - excluded tournament Exhibition cannot pass even with major=true
+  ---
+  duration_ms: 1.1477
+  type: 'test'
+  ...
+# Subtest: missing or contradictory identity and draw metadata fail closed
+ok 246 - missing or contradictory identity and draw metadata fail closed
+  ---
+  duration_ms: 17.1894
+  type: 'test'
+  ...
+# Subtest: flat and nested verified major structures deduplicate without requiring tournament status
+ok 247 - flat and nested verified major structures deduplicate without requiring tournament status
+  ---
+  duration_ms: 4.4749
+  type: 'test'
+  ...
+# Subtest: outside provider tournament window no matches leak from a stale major scoreboard
+ok 248 - outside provider tournament window no matches leak from a stale major scoreboard
+  ---
+  duration_ms: 10.9881
+  type: 'test'
+  ...
+# Subtest: inline and multipart old feeds filter on every read; publication filters; history and preferences remain intact
+ok 249 - inline and multipart old feeds filter on every read; publication filters; history and preferences remain intact
+  ---
+  duration_ms: 155.0304
+  type: 'test'
+  ...
+# Subtest: excluded cached live/scheduled matches cannot resolve as current Game Center API results; completed archives survive
+ok 250 - excluded cached live/scheduled matches cannot resolve as current Game Center API results; completed archives survive
+  ---
+  duration_ms: 21.4533
+  type: 'test'
+  ...
+# Subtest: non-major matches cannot create new notifications or pass queued delivery even with a high complete score
+ok 251 - non-major matches cannot create new notifications or pass queued delivery even with a high complete score
+  ---
+  duration_ms: 24.3634
+  type: 'test'
+  ...
+# Subtest: excluded tournaments do not trigger enrichment, history writes or AI calls during ingestion
+ok 252 - excluded tournaments do not trigger enrichment, history writes or AI calls during ingestion
+  ---
+  duration_ms: 60.0242
+  type: 'test'
+  ...
+# Subtest: browser uses the identical policy before games enter cards, filters, rankings, watch recommendations and search
+ok 253 - browser uses the identical policy before games enter cards, filters, rankings, watch recommendations and search
+  ---
+  duration_ms: 15.8016
+  type: 'test'
+  ...
+# Subtest: large live underdog receives the same explicit upset boost as the site
+ok 254 - large live underdog receives the same explicit upset boost as the site
+  ---
+  duration_ms: 23.5528
+  type: 'test'
+  ...
+# Subtest: pregame games are never queued and push endpoints are restricted
+ok 255 - pregame games are never queued and push endpoints are restricted
+  ---
+  duration_ms: 0.8989
+  type: 'test'
+  ...
+# Subtest: audit reads stored completed ratings and persists a manual label
+ok 256 - audit reads stored completed ratings and persists a manual label
+  ---
+  duration_ms: 248.5126
+  type: 'test'
+  ...
+# Subtest: audit rejects invalid dates and labels
+ok 257 - audit rejects invalid dates and labels
+  ---
+  duration_ms: 4.2721
+  type: 'test'
+  ...
+# Subtest: research gate includes ranked college games but skips ordinary unranked games
+ok 258 - research gate includes ranked college games but skips ordinary unranked games
+  ---
+  duration_ms: 10.5961
+  type: 'test'
+  ...
+# Subtest: source-tagged return story matches the game and creates a conservative factor
+ok 259 - source-tagged return story matches the game and creates a conservative factor
+  ---
+  duration_ms: 9.0646
+  type: 'test'
+  ...
+# Subtest: AI labels require explicit source evidence for the exact storyline type
+ok 260 - AI labels require explicit source evidence for the exact storyline type
+  ---
+  duration_ms: 13.2243
+  type: 'test'
+  ...
+# Subtest: advanced team quality and confirmed participant stories require explicit evidence
+ok 261 - advanced team quality and confirmed participant stories require explicit evidence
+  ---
+  duration_ms: 3.6118
+  type: 'test'
+  ...
+# Subtest: context lookup batches a full 100-game request within D1 parameter limits
+ok 262 - context lookup batches a full 100-game request within D1 parameter limits
+  ---
+  duration_ms: 4.3562
+  type: 'test'
+  ...
+# Subtest: storyline refresh preserves valid context when the current news pass finds nothing
+ok 263 - storyline refresh preserves valid context when the current news pass finds nothing
+  ---
+  duration_ms: 2.4936
+  type: 'test'
+  ...
+1..263
+# tests 263
+# suites 0
+# pass 263
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 6764.915

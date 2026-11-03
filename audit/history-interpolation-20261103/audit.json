@@ -1,0 +1,4432 @@
+{
+  "baseline": "ce8200e74c2346b7678a8956e4469f746e147358",
+  "metrics": {
+    "snapshots": 475,
+    "verifiedLive": 296,
+    "partialLive": 171,
+    "invalid": 2,
+    "before": {
+      "disconnectedSections": 97,
+      "isolatedDots": 72,
+      "visibleConnections": 39
+    },
+    "after": {
+      "connectedSections": 32,
+      "gaps": 31,
+      "allowedAnchorPairs": 264,
+      "coincidentPairs": 161,
+      "visibleConnections": 103,
+      "bridgedIncompletePairs": 65,
+      "additionalVisibleConnections": 64
+    },
+    "lastLive": {
+      "rating": 71,
+      "time": "OT 7.3"
+    },
+    "finalQuality": 97,
+    "recordedExtrema": {
+      "min": 47,
+      "max": 82
+    },
+    "rejectionCounts": {
+      "same-clock-changed-rating": 27,
+      "unconfirmed-zero-clock": 1,
+      "model-version": 1,
+      "unresolved-integrity": 1,
+      "unconfirmed-phase-transition": 1
+    },
+    "rejected": [
+      {
+        "from": {
+          "rating": 55,
+          "time": "Q1 11:10",
+          "observedAt": 1793668410000
+        },
+        "to": {
+          "rating": 58,
+          "time": "Q1 11:10",
+          "observedAt": 1793668425000
+        },
+        "reason": "same-clock-changed-rating"
+      },
+      {
+        "from": {
+          "rating": 54,
+          "time": "Q1 7:00",
+          "observedAt": 1793668875000
+        },
+        "to": {
+          "rating": 52,
+          "time": "Q1 7:00",
+          "observedAt": 1793668890000
+        },
+        "reason": "same-clock-changed-rating"
+      },
+      {
+        "from": {
+          "rating": 55,
+          "time": "Q1 4:03",
+          "observedAt": 1793669385000
+        },
+        "to": {
+          "rating": 54,
+          "time": "Q1 4:03",
+          "observedAt": 1793669415000
+        },
+        "reason": "same-clock-changed-rating"
+      },
+      {
+        "from": {
+          "rating": 53,
+          "time": "Q1 1:47",
+          "observedAt": 1793669595000
+        },
+        "to": {
+          "rating": 54,
+          "time": "Q1 0.0",
+          "observedAt": 1793669790000
+        },
+        "reason": "unconfirmed-zero-clock"
+      },
+      {
+        "from": {
+          "rating": 49,
+          "time": "Q2 7:37",
+          "observedAt": 1793670510000
+        },
+        "to": {
+          "rating": 50,
+          "time": "Q2 7:37",
+          "observedAt": 1793670525000
+        },
+        "reason": "same-clock-changed-rating"
+      },
+      {
+        "from": {
+          "rating": 50,
+          "time": "Q2 7:37",
+          "observedAt": 1793670525000
+        },
+        "to": {
+          "rating": 48,
+          "time": "Q2 7:37",
+          "observedAt": 1793670540000
+        },
+        "reason": "same-clock-changed-rating"
+      },
+      {
+        "from": {
+          "rating": 48,
+          "time": "Q2 4:13",
+          "observedAt": 1793670915000
+        },
+        "to": {
+          "rating": 49,
+          "time": "Q2 4:13",
+          "observedAt": 1793670930000
+        },
+        "reason": "same-clock-changed-rating"
+      },
+      {
+        "from": {
+          "rating": 55,
+          "time": "Q2 2:20",
+          "observedAt": 1793671305000
+        },
+        "to": {
+          "rating": 54,
+          "time": "Q2 2:20",
+          "observedAt": 1793671335000
+        },
+        "reason": "same-clock-changed-rating"
+      },
+      {
+        "from": {
+          "rating": 57,
+          "time": "Q2 41.0",
+          "observedAt": 1793671485000
+        },
+        "to": {
+          "rating": 60,
+          "time": "Q2 41.0",
+          "observedAt": 1793671500000
+        },
+        "reason": "same-clock-changed-rating"
+      },
+      {
+        "from": {
+          "rating": 60,
+          "time": "Q2 41.0",
+          "observedAt": 1793671500000
+        },
+        "to": {
+          "rating": 59,
+          "time": "Q2 41.0",
+          "observedAt": 1793671560000
+        },
+        "reason": "same-clock-changed-rating"
+      },
+      {
+        "from": {
+          "rating": 61,
+          "time": "Q2 0.0",
+          "observedAt": 1793671770000
+        },
+        "to": {
+          "rating": 60,
+          "time": "Q2 0.0",
+          "observedAt": 1793671800000
+        },
+        "reason": "same-clock-changed-rating"
+      },
+      {
+        "from": {
+          "rating": 60,
+          "time": "Q2 0.0",
+          "observedAt": 1793672280000
+        },
+        "to": {
+          "rating": 63,
+          "time": "Q2 0.0",
+          "observedAt": 1793672295000
+        },
+        "reason": "same-clock-changed-rating"
+      },
+      {
+        "from": {
+          "rating": 61,
+          "time": "Q3 7:28",
+          "observedAt": 1793673195000
+        },
+        "to": {
+          "rating": 62,
+          "time": "Q3 7:28",
+          "observedAt": 1793673210000
+        },
+        "reason": "same-clock-changed-rating"
+      },
+      {
+        "from": {
+          "rating": 65,
+          "time": "Q3 4:12",
+          "observedAt": 1793673765000
+        },
+        "to": {
+          "rating": 64,
+          "time": "Q3 4:12",
+          "observedAt": 1793673780000
+        },
+        "reason": "same-clock-changed-rating"
+      },
+      {
+        "from": {
+          "rating": 69,
+          "time": "Q3 1:30",
+          "observedAt": 1793674020000
+        },
+        "to": {
+          "rating": 67,
+          "time": "Q3 1:30",
+          "observedAt": 1793674035000
+        },
+        "reason": "same-clock-changed-rating"
+      },
+      {
+        "from": {
+          "rating": 57,
+          "time": "Q4 10:31",
+          "observedAt": 1793674500000
+        },
+        "to": {
+          "rating": 62,
+          "time": "Q4 10:31",
+          "observedAt": 1793674515000
+        },
+        "reason": "same-clock-changed-rating"
+      },
+      {
+        "from": {
+          "rating": 55,
+          "time": "Q4 8:25",
+          "observedAt": 1793674695000
+        },
+        "to": {
+          "rating": 58,
+          "time": "Q4 8:25",
+          "observedAt": 1793674725000
+        },
+        "reason": "same-clock-changed-rating"
+      },
+      {
+        "from": {
+          "rating": 58,
+          "time": "Q4 8:25",
+          "observedAt": 1793674725000
+        },
+        "to": {
+          "rating": 64,
+          "time": "Q4 8:25",
+          "observedAt": 1793674740000
+        },
+        "reason": "same-clock-changed-rating"
+      },
+      {
+        "from": {
+          "rating": 64,
+          "time": "Q4 7:58",
+          "observedAt": 1793674905000
+        },
+        "to": {
+          "rating": 68,
+          "time": "Q4 7:58",
+          "observedAt": 1793674920000
+        },
+        "reason": "same-clock-changed-rating"
+      },
+      {
+        "from": {
+          "rating": 68,
+          "time": "Q4 7:58",
+          "observedAt": 1793674920000
+        },
+        "to": {
+          "rating": 64,
+          "time": "Q4 7:58",
+          "observedAt": 1793674950000
+        },
+        "reason": "same-clock-changed-rating"
+      },
+      {
+        "from": {
+          "rating": 54,
+          "time": "Q4 5:25",
+          "observedAt": 1793675130000
+        },
+        "to": {
+          "rating": 61,
+          "time": "Q4 5:25",
+          "observedAt": 1793675145000
+        },
+        "reason": "same-clock-changed-rating"
+      },
+      {
+        "from": {
+          "rating": 61,
+          "time": "Q4 5:25",
+          "observedAt": 1793675145000
+        },
+        "to": {
+          "rating": 53,
+          "time": "Q4 5:25",
+          "observedAt": 1793675160000
+        },
+        "reason": "same-clock-changed-rating"
+      },
+      {
+        "from": {
+          "rating": 48,
+          "time": "Q4 4:48",
+          "observedAt": 1793675430000
+        },
+        "to": {
+          "rating": 53,
+          "time": "Q4 4:09",
+          "observedAt": 1793675475000
+        },
+        "reason": "model-version"
+      },
+      {
+        "from": {
+          "rating": 75,
+          "time": "Q4 4.2",
+          "observedAt": 1793675970000
+        },
+        "to": {
+          "rating": 75,
+          "time": "Q4 0.0",
+          "observedAt": 1793676000000
+        },
+        "reason": "unresolved-integrity"
+      },
+      {
+        "from": {
+          "rating": 75,
+          "time": "Q4 0.0",
+          "observedAt": 1793676120000
+        },
+        "to": {
+          "rating": 78,
+          "time": "OT 4:55",
+          "observedAt": 1793676180000
+        },
+        "reason": "unconfirmed-phase-transition"
+      },
+      {
+        "from": {
+          "rating": 74,
+          "time": "OT 1:50",
+          "observedAt": 1793676600000
+        },
+        "to": {
+          "rating": 68,
+          "time": "OT 1:50",
+          "observedAt": 1793676615000
+        },
+        "reason": "same-clock-changed-rating"
+      },
+      {
+        "from": {
+          "rating": 72,
+          "time": "OT 18.8",
+          "observedAt": 1793676750000
+        },
+        "to": {
+          "rating": 77,
+          "time": "OT 18.8",
+          "observedAt": 1793676780000
+        },
+        "reason": "same-clock-changed-rating"
+      },
+      {
+        "from": {
+          "rating": 77,
+          "time": "OT 18.8",
+          "observedAt": 1793676840000
+        },
+        "to": {
+          "rating": 80,
+          "time": "OT 18.8",
+          "observedAt": 1793676870000
+        },
+        "reason": "same-clock-changed-rating"
+      },
+      {
+        "from": {
+          "rating": 80,
+          "time": "OT 18.8",
+          "observedAt": 1793676870000
+        },
+        "to": {
+          "rating": 77,
+          "time": "OT 18.8",
+          "observedAt": 1793676885000
+        },
+        "reason": "same-clock-changed-rating"
+      },
+      {
+        "from": {
+          "rating": 71,
+          "time": "OT 7.3",
+          "observedAt": 1793676990000
+        },
+        "to": {
+          "rating": 74,
+          "time": "OT 7.3",
+          "observedAt": 1793677020000
+        },
+        "reason": "same-clock-changed-rating"
+      },
+      {
+        "from": {
+          "rating": 74,
+          "time": "OT 7.3",
+          "observedAt": 1793677020000
+        },
+        "to": {
+          "rating": 71,
+          "time": "OT 7.3",
+          "observedAt": 1793677035000
+        },
+        "reason": "same-clock-changed-rating"
+      }
+    ]
+  },
+  "fixtureSha256": "580ff7dc06944dbe231aaab2846973a7051b645ebce3cab05ecf073d39fd3e45",
+  "snapshotArraySha256": "4adfe2538b2a8fa77fa58af9e792b02ea231a7c725213047ed3a8e1b118d7527",
+  "snapshotHashes": [
+    {
+      "index": 0,
+      "observedAt": 1792987200000,
+      "sha256": "ba7508bcc45cd132ee6e91ffb289f2d5eaab93680946d88855d887d7646a534d"
+    },
+    {
+      "index": 1,
+      "observedAt": 1793668305000,
+      "sha256": "c5f08b9d1af71611ce37fdf2e2003b287bde05cb6872e26262b45356a082460c"
+    },
+    {
+      "index": 2,
+      "observedAt": 1793668335000,
+      "sha256": "0004442276d82b643c77284bbf1a43234a076d0a0627116842aa2f14aa33416d"
+    },
+    {
+      "index": 3,
+      "observedAt": 1793668350000,
+      "sha256": "c44c5b049c7df502fa8da7462859f9873a64c62bc259194dd7fa38bf96993f5b"
+    },
+    {
+      "index": 4,
+      "observedAt": 1793668380000,
+      "sha256": "941837dc46c2e74304ebbd5f615c46ce6274d2ad850d693153e8c7ef81ba0d88"
+    },
+    {
+      "index": 5,
+      "observedAt": 1793668395000,
+      "sha256": "ab26be359f252938e1968e8aaa78610b20ada8bea3bcaf20331f0bc4b79671f0"
+    },
+    {
+      "index": 6,
+      "observedAt": 1793668410000,
+      "sha256": "508443f5ab9a75a83615362d9036eb508ea2879d65d60d140d6418822494594a"
+    },
+    {
+      "index": 7,
+      "observedAt": 1793668425000,
+      "sha256": "7467d236b66a9ae6a0a133189c8ca26b7b171063661578488812cb736d999beb"
+    },
+    {
+      "index": 8,
+      "observedAt": 1793668440000,
+      "sha256": "a15264d02ab7934609bd20fe3141ee170e9edb9189311420e8221fe85090fcbb"
+    },
+    {
+      "index": 9,
+      "observedAt": 1793668455000,
+      "sha256": "22773fa5f92119dde31395346759271cc5d778ac2c6fe79ca6566a69f493493c"
+    },
+    {
+      "index": 10,
+      "observedAt": 1793668470000,
+      "sha256": "066a2c73707f4492adeeee0edd1f0f335ffaffc9286525fa7b3637485f1227c2"
+    },
+    {
+      "index": 11,
+      "observedAt": 1793668500000,
+      "sha256": "74a0d6845cbb4633adda90ee392b07d21ae59c553748452cc6ed7f5ee715f346"
+    },
+    {
+      "index": 12,
+      "observedAt": 1793668515000,
+      "sha256": "88e54198c1bf8093832539943fb9c52f3637f2cb0448ca8eabd5313185504955"
+    },
+    {
+      "index": 13,
+      "observedAt": 1793668530000,
+      "sha256": "68760b26ee498f4aeda065fe298300fc8fbc22264b050e830c323b22d912960f"
+    },
+    {
+      "index": 14,
+      "observedAt": 1793668545000,
+      "sha256": "8bebfdfa2317f2b4120a04a58e13c308bbe6a7ad3bfda1f76b6007d13265fab4"
+    },
+    {
+      "index": 15,
+      "observedAt": 1793668575000,
+      "sha256": "08d3eeb4d034bfe49d683a70b84605d00de72a2eff8c78bea8d6dce51a60871e"
+    },
+    {
+      "index": 16,
+      "observedAt": 1793668590000,
+      "sha256": "5cd18c92a9561b76ad4411b39346189322de0dfe03984caf9f79ae6bc8c172b7"
+    },
+    {
+      "index": 17,
+      "observedAt": 1793668605000,
+      "sha256": "8c0ab0fac3d2bc563c4cb486a7052b402d77ca5e1c9fc4ba8df03d511a0d4157"
+    },
+    {
+      "index": 18,
+      "observedAt": 1793668620000,
+      "sha256": "912b6eaa40a051f2ae3f4c8346a53aae99d0af3bb67239bdc1d8d9874a03bf87"
+    },
+    {
+      "index": 19,
+      "observedAt": 1793668635000,
+      "sha256": "612545ee345f0c6038167598d4351c7a15ec0c5b493f9e739bd3fb1b3b4df793"
+    },
+    {
+      "index": 20,
+      "observedAt": 1793668665000,
+      "sha256": "aba4c4194ed36a1e596cdee08f5b495f753718ceb00b6171c08189f282ddc9b9"
+    },
+    {
+      "index": 21,
+      "observedAt": 1793668680000,
+      "sha256": "3dd3a872a4a0f6cf99c3b7a29cecbd954813fa74d6fe6e55dd95796efafea3d7"
+    },
+    {
+      "index": 22,
+      "observedAt": 1793668695000,
+      "sha256": "ededb42f26679ebbbe7850fc07d20662903f3ffdb65ab866c448560290d78e88"
+    },
+    {
+      "index": 23,
+      "observedAt": 1793668725000,
+      "sha256": "6b0cec0d3ad563a0cb1a8ce2e8ff044071f427b930344f48f5a8d73cecad4e6b"
+    },
+    {
+      "index": 24,
+      "observedAt": 1793668740000,
+      "sha256": "e41909d793a43db00c2c79f6a86b716b2f68a75b0c7dfe8031ef5766b348f044"
+    },
+    {
+      "index": 25,
+      "observedAt": 1793668755000,
+      "sha256": "0243214afd5b9d7b282146dc9c2cc2ca36c5d3c8fde36c0f79ba84b1bc4655c2"
+    },
+    {
+      "index": 26,
+      "observedAt": 1793668785000,
+      "sha256": "8d56f0c4f508da3cf742ac2c7d9dfad48f52e60f29ee8ae4a3834b74c36dce21"
+    },
+    {
+      "index": 27,
+      "observedAt": 1793668800000,
+      "sha256": "ede3f9e5611951a83e9e202c42b751236b08790d7ddb3bba73ea2a9ebb23f63c"
+    },
+    {
+      "index": 28,
+      "observedAt": 1793668815000,
+      "sha256": "4f2c5c6e7eba96d6fa74da6dce6dac469b4491ee1a0b97afe5f43e0f83c8f46a"
+    },
+    {
+      "index": 29,
+      "observedAt": 1793668845000,
+      "sha256": "a30fbce20fb52fd67ad584cf541efb2fa7f5b0d57dc232fe3794c6c1e791c665"
+    },
+    {
+      "index": 30,
+      "observedAt": 1793668860000,
+      "sha256": "2b2cb502703dc074d0a29d58c5e7d929ac3a761106e98337281022c15a039094"
+    },
+    {
+      "index": 31,
+      "observedAt": 1793668875000,
+      "sha256": "c3355acf04cbb2cb70181094b8416435524f876d07ff95448503be4fee6c5e72"
+    },
+    {
+      "index": 32,
+      "observedAt": 1793668890000,
+      "sha256": "3f4c237bbaa5c3cd65adcffd75d9a2a6b0702c9191021975fdc040eea27c35bd"
+    },
+    {
+      "index": 33,
+      "observedAt": 1793668905000,
+      "sha256": "d0400c0e9205bd9637c6bc8edeedd4511de4657cf842846ee0a84ade75110ad5"
+    },
+    {
+      "index": 34,
+      "observedAt": 1793668935000,
+      "sha256": "45426688c4c8b5d48d0a929ec2becb3ae7a41a9046a3a4fec7c55a4656190bce"
+    },
+    {
+      "index": 35,
+      "observedAt": 1793668950000,
+      "sha256": "0354c73e26eeaac5245e162b1eaa029f124e1e6da190ecc3fe64a76d146023ab"
+    },
+    {
+      "index": 36,
+      "observedAt": 1793668965000,
+      "sha256": "1b9d41b6978643c8e42b094402e1aaaa93448d6d9d3c1e7c80765c0eb9b6311b"
+    },
+    {
+      "index": 37,
+      "observedAt": 1793668980000,
+      "sha256": "5e721e8ff603f2949bd0c27a40ac7b6291d36b0d12918eebf42222c39204c21a"
+    },
+    {
+      "index": 38,
+      "observedAt": 1793669010000,
+      "sha256": "2d87da09744b9b3f86fee69563d842fe263f83440822f990aecf0dd68f6f2f7d"
+    },
+    {
+      "index": 39,
+      "observedAt": 1793669025000,
+      "sha256": "f7d20819db71c0a64797d8ecaed79dac2e5fb1be18d10d86d96d6b76169271c3"
+    },
+    {
+      "index": 40,
+      "observedAt": 1793669040000,
+      "sha256": "1237a13350e95a3660f179ea95594cbc40a1ed263ce0193594579987d22c1b91"
+    },
+    {
+      "index": 41,
+      "observedAt": 1793669055000,
+      "sha256": "9e0e9fd45dd30291feb572ae6f9e9bcd35758e776ecbfc6ac2463107abb634ea"
+    },
+    {
+      "index": 42,
+      "observedAt": 1793669085000,
+      "sha256": "ef3fa927e107f353808d11a875a28b73eaef5a6a997f8f4b9fc958fd73f0afb2"
+    },
+    {
+      "index": 43,
+      "observedAt": 1793669100000,
+      "sha256": "fcbee34df6dc8410c44ec5317b09e8b7cb1b0022e8ba17da6a089f0899a99e20"
+    },
+    {
+      "index": 44,
+      "observedAt": 1793669115000,
+      "sha256": "6d61a743774ea009128dc34729e66bb4169ba70b003b7964ed78630a150b5708"
+    },
+    {
+      "index": 45,
+      "observedAt": 1793669130000,
+      "sha256": "de4fb27c341fbe6b039d2fc6d512be8d18b29d29adaa16aef45c5686783d1bdd"
+    },
+    {
+      "index": 46,
+      "observedAt": 1793669145000,
+      "sha256": "8c9b3fe349f7c0d74d244c90a53ebb458536e8a3fae29e6a97029620681b8e1d"
+    },
+    {
+      "index": 47,
+      "observedAt": 1793669160000,
+      "sha256": "957ccd80d850dc476238ef3d13d4b41a763c56af676386a69f84d63cb30cb704"
+    },
+    {
+      "index": 48,
+      "observedAt": 1793669190000,
+      "sha256": "31902fce3b98e51aa2b0a6f7e7351beee7c32b2a1c2f87fa8f3de4e44d8c2c91"
+    },
+    {
+      "index": 49,
+      "observedAt": 1793669205000,
+      "sha256": "c08fffa05d2f8d767a62256f7abe00f8adec81c2238ad20d6bdd91718ce3fc94"
+    },
+    {
+      "index": 50,
+      "observedAt": 1793669220000,
+      "sha256": "a5c9c4ef0b05242605a8a4e3dc9cfe22e06b4fe2bbaa47ef7b8e2290713dc647"
+    },
+    {
+      "index": 51,
+      "observedAt": 1793669235000,
+      "sha256": "115c707ad5e62ff1fd2ac3d6afce38fe7561d912f02f18f5d484a35939340b1c"
+    },
+    {
+      "index": 52,
+      "observedAt": 1793669265000,
+      "sha256": "701c27569f3990bcfaf83aacc7e78ebb9ae44d227225459a2835d04b9094bdfa"
+    },
+    {
+      "index": 53,
+      "observedAt": 1793669280000,
+      "sha256": "a2aba52b8f3c9e7a316afa654d5b738f8bbd06188eb871ca60fe802535c07b1d"
+    },
+    {
+      "index": 54,
+      "observedAt": 1793669295000,
+      "sha256": "31d87671a88163201b17997bd18a99e0488d15b497cb53f0b0b4c33c2ad77c65"
+    },
+    {
+      "index": 55,
+      "observedAt": 1793669310000,
+      "sha256": "f9ad3bd0e2b7468e2b884860e199185c4b15de61db77ac8174a0e3b17a217b0f"
+    },
+    {
+      "index": 56,
+      "observedAt": 1793669340000,
+      "sha256": "0c6e46800534492c391aebb9a548587447b30cea9b5d384039300e203a928ff9"
+    },
+    {
+      "index": 57,
+      "observedAt": 1793669355000,
+      "sha256": "abc43f5dd82e99942e1b79345713f5319f28d3e43560c7f236f902eebc1cd62b"
+    },
+    {
+      "index": 58,
+      "observedAt": 1793669370000,
+      "sha256": "9b4d3d7cc9f9ef71ac1cefb337867972cd655b1b5e095cc64b516c2bc9909ffb"
+    },
+    {
+      "index": 59,
+      "observedAt": 1793669385000,
+      "sha256": "b8e88775d441bad973954887e8626e11d367577df45829263f7a439a22f1384b"
+    },
+    {
+      "index": 60,
+      "observedAt": 1793669415000,
+      "sha256": "fa1292474a50cc3937d30bb59a15fa9a81da672c2bc013a7ae91a93b440cf0ae"
+    },
+    {
+      "index": 61,
+      "observedAt": 1793669430000,
+      "sha256": "69cf481e3184397ad01cd854f184ab20ae19e2efcbcdb841f4df5e5a37ac5ed9"
+    },
+    {
+      "index": 62,
+      "observedAt": 1793669445000,
+      "sha256": "b3b365da0d025114a811e1e7b27f517b53caf6e41a7895f8e681239cf3cc0607"
+    },
+    {
+      "index": 63,
+      "observedAt": 1793669460000,
+      "sha256": "3b36b45f5b73e081a02eb49363ca567d35c823ebc6cfb084b0fde9c0dc75d87f"
+    },
+    {
+      "index": 64,
+      "observedAt": 1793669490000,
+      "sha256": "bd37b4ae4c9da2f53ed0345b9a8dbdcceff1a8b3ee19c404d50f40c187d6bc93"
+    },
+    {
+      "index": 65,
+      "observedAt": 1793669505000,
+      "sha256": "f99c058f51c511c4c864faa7e146d7c5dc3b1de35c68a5d823aa7284973a4509"
+    },
+    {
+      "index": 66,
+      "observedAt": 1793669520000,
+      "sha256": "e5f75be4d6aec5c7c3d201c2ef6327ea5225b501649a2c48ba72024bb7a3740c"
+    },
+    {
+      "index": 67,
+      "observedAt": 1793669550000,
+      "sha256": "4223833bad1e888de8ec9b9d7adaf441c4117036ee453b6112c67d6866512cd3"
+    },
+    {
+      "index": 68,
+      "observedAt": 1793669565000,
+      "sha256": "0079b58766f39f164e05c4d0255926ef40f860bff52eb88ef0b466b605d15207"
+    },
+    {
+      "index": 69,
+      "observedAt": 1793669580000,
+      "sha256": "4d63459ed92db71776fe35d34668dedc19a0eeb0aa7a824a7f1264ab1e0c03b9"
+    },
+    {
+      "index": 70,
+      "observedAt": 1793669595000,
+      "sha256": "c83950a16b141bd88f9e79fd01b7e342cc0865d20fe388b3ddb8a33fa03cb7be"
+    },
+    {
+      "index": 71,
+      "observedAt": 1793669625000,
+      "sha256": "e6787605e1c77481df59b9daf423006296bb039d3ef642141df85c744b5d5927"
+    },
+    {
+      "index": 72,
+      "observedAt": 1793669640000,
+      "sha256": "3c67a03e49ad96bbfefd241cf3ad69edc2e5705bed047453692808a5f00026ca"
+    },
+    {
+      "index": 73,
+      "observedAt": 1793669655000,
+      "sha256": "f215ed3440db6520a40b9f48163673522adfd4f39a1a438d9e545e54f064db79"
+    },
+    {
+      "index": 74,
+      "observedAt": 1793669670000,
+      "sha256": "bfa73863dadef85371c992d00b6978608e855c20ea44a796621c732a951b5f3f"
+    },
+    {
+      "index": 75,
+      "observedAt": 1793669685000,
+      "sha256": "ebef9dddab3ff7665f43620dbeb57b114ca8883390b7457daaaae3894c1a35c4"
+    },
+    {
+      "index": 76,
+      "observedAt": 1793669700000,
+      "sha256": "298238d4c1367f16b1d8f7752452e96aaeeb66cce00c9cef9d321bc44d2cc677"
+    },
+    {
+      "index": 77,
+      "observedAt": 1793669715000,
+      "sha256": "cc266d84fe8fb9ab2e42a0a76b5d80093f20481932ce834bf6adb1db927cffa6"
+    },
+    {
+      "index": 78,
+      "observedAt": 1793669730000,
+      "sha256": "5327643e0cf0a2b27a12a00de590cae95632d1c0818890f78468cd8bf83b3995"
+    },
+    {
+      "index": 79,
+      "observedAt": 1793669745000,
+      "sha256": "b52121863f4b2cbdcd4739baac7cf6675b426f071da75eb41a52959d4746389d"
+    },
+    {
+      "index": 80,
+      "observedAt": 1793669775000,
+      "sha256": "c1393c58b990c2bae563eb10471c6f0d0ad344dbbf41af725b06154eee040cb5"
+    },
+    {
+      "index": 81,
+      "observedAt": 1793669790000,
+      "sha256": "8629014f8db941170d13a1a0a5b520bf227212bba0dc774fdbc568329e27b771"
+    },
+    {
+      "index": 82,
+      "observedAt": 1793669805000,
+      "sha256": "fd2f844ab4f6be3e3e92f4e987f904c63b937315290867418f09cadd13e9797b"
+    },
+    {
+      "index": 83,
+      "observedAt": 1793669820000,
+      "sha256": "b6766ee2dddba6cbb637940df4eeefec39d2b45979f2f01e5608638c2bbe5e35"
+    },
+    {
+      "index": 84,
+      "observedAt": 1793669850000,
+      "sha256": "86771a38d199aec3a637b5d33fe3c76518ab0c05bcc60899162f7a0be0181b73"
+    },
+    {
+      "index": 85,
+      "observedAt": 1793669865000,
+      "sha256": "debc38ae94244a12c3a8fc9a8d8587bdbd505513e21efda5619a3ae98a7c1acc"
+    },
+    {
+      "index": 86,
+      "observedAt": 1793669880000,
+      "sha256": "c355413715008dc33161533e105590f757bd6974d312b127bfe50bb695480840"
+    },
+    {
+      "index": 87,
+      "observedAt": 1793669895000,
+      "sha256": "207760f232bc66c1a9df3863554d030e3f0d8afdc7c50b628719ea83f0a3cf8f"
+    },
+    {
+      "index": 88,
+      "observedAt": 1793669925000,
+      "sha256": "10aef9fb5c5bc7b5b96645a604fb0ea0c33c1a203aaae0adfe6685f57f754dfb"
+    },
+    {
+      "index": 89,
+      "observedAt": 1793669940000,
+      "sha256": "f95608f9364cd0e882b5e495b986eae9fb6fb7122fbad0249574536c90be41de"
+    },
+    {
+      "index": 90,
+      "observedAt": 1793669970000,
+      "sha256": "c91ca674cec6114e67b3b624b950f28369b3e946ff6e8d61a4dd51c09fd7f5ee"
+    },
+    {
+      "index": 91,
+      "observedAt": 1793669985000,
+      "sha256": "4519626b3a701fad7e1b24969e204ea5eee02173862917d619479fd806e3b08f"
+    },
+    {
+      "index": 92,
+      "observedAt": 1793670000000,
+      "sha256": "07d63c0be55bcaffb08f1951080223d8d36daa607564b80559839ff98beb6140"
+    },
+    {
+      "index": 93,
+      "observedAt": 1793670030000,
+      "sha256": "c6dd81ace6a6849c00d53802397d94856a31bbb23860f1682ae67320a959d7bb"
+    },
+    {
+      "index": 94,
+      "observedAt": 1793670045000,
+      "sha256": "6509db4d690dc26760f01565170ac86921dfb4917972373c49a237703b076efa"
+    },
+    {
+      "index": 95,
+      "observedAt": 1793670060000,
+      "sha256": "7689eaaad96d2b5975c2ce5ecc9b965d7c6205ca4789a578105b8bd768d75cf6"
+    },
+    {
+      "index": 96,
+      "observedAt": 1793670075000,
+      "sha256": "83fed7076a03ef8a7ba2ab9e9e91ab9c9a4ae26cbe1521409cc02f2e1c76aaf9"
+    },
+    {
+      "index": 97,
+      "observedAt": 1793670090000,
+      "sha256": "98be6e495f4b8c4958fbb76d83f0f2415bd440a42d2f76c3a0d3f38b287ed543"
+    },
+    {
+      "index": 98,
+      "observedAt": 1793670105000,
+      "sha256": "6df5f4b1a32a6d8c73887b2322bcd03daa05858e78b3747dedb9f67753c50f01"
+    },
+    {
+      "index": 99,
+      "observedAt": 1793670120000,
+      "sha256": "ce4b01eae2d3c0f5055863955e4b5fb1a667911fab8b663b7c07c5dd7cc7a71a"
+    },
+    {
+      "index": 100,
+      "observedAt": 1793670135000,
+      "sha256": "770826e353f43e1d79dd260573a5b8bc2d00f92d19e358fbb97d51fdcdfe93a8"
+    },
+    {
+      "index": 101,
+      "observedAt": 1793670150000,
+      "sha256": "514b9e137e4a6ae2109cc7d5df08351938e9bfc31018c7cb5e1fa9a125822655"
+    },
+    {
+      "index": 102,
+      "observedAt": 1793670165000,
+      "sha256": "60691c3b41ea776974152ca613d989ae084f46385d762feee7e4ed54ad873a33"
+    },
+    {
+      "index": 103,
+      "observedAt": 1793670180000,
+      "sha256": "0b40a578d1aa3508283d3427130871a36abcd3300a264b61f5ae77eacf7a68b2"
+    },
+    {
+      "index": 104,
+      "observedAt": 1793670195000,
+      "sha256": "a8674cc3611257ec33eae05a7f2fc7788ba10087a37d695ef9de81f78969adea"
+    },
+    {
+      "index": 105,
+      "observedAt": 1793670210000,
+      "sha256": "f9d22c33a8d0c98af5d34538a66fe7d5fba3f89f42415c98249720949dce836c"
+    },
+    {
+      "index": 106,
+      "observedAt": 1793670225000,
+      "sha256": "18773dd80c6a5e740e675da4a7d4083e494f500de6e281565463902937401ebc"
+    },
+    {
+      "index": 107,
+      "observedAt": 1793670240000,
+      "sha256": "bdebae46910d557ccc9c856302bcfc4b4d73c4242d5a90b3175fe4b14e96b0fe"
+    },
+    {
+      "index": 108,
+      "observedAt": 1793670255000,
+      "sha256": "c54a904086aef5cd6555ac20062744d0c295cafe421936c10d60719389b32895"
+    },
+    {
+      "index": 109,
+      "observedAt": 1793670270000,
+      "sha256": "02f1f3886ff5fe9e703d42622c4812b63cc67c9adb9a72cc42e01228c1e42bb2"
+    },
+    {
+      "index": 110,
+      "observedAt": 1793670285000,
+      "sha256": "e17f5611040eab8c14e6dd082b19c94baec4b6656634c864b174a288a8b3e083"
+    },
+    {
+      "index": 111,
+      "observedAt": 1793670300000,
+      "sha256": "7228e1844d68c3418cfd0cd8f59961399ec6e9be4a3e260bde10a85dc2e5f30f"
+    },
+    {
+      "index": 112,
+      "observedAt": 1793670315000,
+      "sha256": "0a5fd74adf8cd3f964a5af3548f7831185e5dadec885f94a4bd99044afd4767d"
+    },
+    {
+      "index": 113,
+      "observedAt": 1793670330000,
+      "sha256": "eaa0dffca69e97fb6a784a3c638a1d83c1d072f779495872b16e1977be17559d"
+    },
+    {
+      "index": 114,
+      "observedAt": 1793670360000,
+      "sha256": "cf0484a0701cf871c4183c9ff708612a94e0cfe9282963baebbc4f843f8e6284"
+    },
+    {
+      "index": 115,
+      "observedAt": 1793670375000,
+      "sha256": "86d373334de883515b941f244935606186a52caaf9932cf4744b00c6062b9f89"
+    },
+    {
+      "index": 116,
+      "observedAt": 1793670405000,
+      "sha256": "477a6fe827e6bbc996bbb131fcb75eb188882032481f0094237295fe74dd13bc"
+    },
+    {
+      "index": 117,
+      "observedAt": 1793670420000,
+      "sha256": "d81655ee845ab01f26451d45506afc3535a34ab6648a25d97870de55919d85f3"
+    },
+    {
+      "index": 118,
+      "observedAt": 1793670435000,
+      "sha256": "43ab5deb50adfc60f21a7cc0f90b9bcb5769b4b791ebd8e55d3529799998d069"
+    },
+    {
+      "index": 119,
+      "observedAt": 1793670450000,
+      "sha256": "d76a1789de82339383ab2d17c6d411b3204ad7378f9348a2ecb9f87e932c3e8e"
+    },
+    {
+      "index": 120,
+      "observedAt": 1793670480000,
+      "sha256": "13ac4fd4ef9007885f86d913481a5b3949cf3c73d7476fca33da9a3d27ae0967"
+    },
+    {
+      "index": 121,
+      "observedAt": 1793670495000,
+      "sha256": "c72cc3545e2c811c39d4b4e75a5d60cb59f1551b42b66b3359d3f69e16bc44cd"
+    },
+    {
+      "index": 122,
+      "observedAt": 1793670510000,
+      "sha256": "d978e93b88f953d6e1a26620817e980b21a9270acae523e72cddae35f26c4835"
+    },
+    {
+      "index": 123,
+      "observedAt": 1793670525000,
+      "sha256": "a448415b90228ead013f331caf9874774a480f10af6fae120c12dda63d07e8f3"
+    },
+    {
+      "index": 124,
+      "observedAt": 1793670540000,
+      "sha256": "2e358212e8568d75d4401321ec4b98d7fcc0d36501e04ab04c3c0926c86b51f1"
+    },
+    {
+      "index": 125,
+      "observedAt": 1793670570000,
+      "sha256": "f06f86a87c946692cd15cccd1a5052b2353ef1fe19fc049ad61df95ca194d5ad"
+    },
+    {
+      "index": 126,
+      "observedAt": 1793670585000,
+      "sha256": "11678b8b2c4715bdf1d15419f6e9cd218bec49efac25f20ca046c2d07a923eee"
+    },
+    {
+      "index": 127,
+      "observedAt": 1793670600000,
+      "sha256": "5cd0acd81d2bae24e9b51f645a4081d46a063de226290807bf380a20c923cd54"
+    },
+    {
+      "index": 128,
+      "observedAt": 1793670615000,
+      "sha256": "f716b698bb1054248584a2ef625149d82e2c124d778d88f5011e9b4fffbd038f"
+    },
+    {
+      "index": 129,
+      "observedAt": 1793670645000,
+      "sha256": "ed66d60bee0f94ea4563fba2c9fcd41438ed7bcb202af0c995bbbb7ca47d4d34"
+    },
+    {
+      "index": 130,
+      "observedAt": 1793670660000,
+      "sha256": "817d843b2ed8443de9cb340189e33166bd23cb66e7f85295546ede7c6956213d"
+    },
+    {
+      "index": 131,
+      "observedAt": 1793670675000,
+      "sha256": "2b230e2d1e4c308183ff504cf4249c57c28b646746d9e132e9ee0d715747454b"
+    },
+    {
+      "index": 132,
+      "observedAt": 1793670690000,
+      "sha256": "19d9f46bf44ed16b165e6a5f2e8a0fd68641f859d12c8ec33be6d46874226cdf"
+    },
+    {
+      "index": 133,
+      "observedAt": 1793670720000,
+      "sha256": "290273c96f56e75bfc02f33c8fb19d832adc33fe4dbb1e5cc95ea67da21d0187"
+    },
+    {
+      "index": 134,
+      "observedAt": 1793670735000,
+      "sha256": "1acf61554c9dedcc38448170e1b047490547cfc39d924ed018d73037230f933d"
+    },
+    {
+      "index": 135,
+      "observedAt": 1793670750000,
+      "sha256": "4f9c4edea44ba5128c9bec319952371806bdb1e1d54b296808f50ee39382256b"
+    },
+    {
+      "index": 136,
+      "observedAt": 1793670765000,
+      "sha256": "3d4e9d469331047eacd9a6cb731902a3bfca2381c046e9d515c0c1a8cb793531"
+    },
+    {
+      "index": 137,
+      "observedAt": 1793670780000,
+      "sha256": "b0b31f9a56539e6d6c9ad754edc8ba30ba482a671cdf6f5b4973b18e255b3770"
+    },
+    {
+      "index": 138,
+      "observedAt": 1793670810000,
+      "sha256": "d53b011e2dc6a0d1aa7cacc7d86f8b3bfc34d044095cb2a41e5a1e0ebf485c82"
+    },
+    {
+      "index": 139,
+      "observedAt": 1793670840000,
+      "sha256": "a5c5232e646c3cb25e96b35ce72e746f3133abcdec58fff88770613a4951e379"
+    },
+    {
+      "index": 140,
+      "observedAt": 1793670855000,
+      "sha256": "178e690f0320ea7c1e08ec4cb1ce583dfb5805844c0f9b495fad8dab8a7f51cc"
+    },
+    {
+      "index": 141,
+      "observedAt": 1793670870000,
+      "sha256": "6e6b08ff2090e0d3b7118da9c6167893efddb647e0b7705b3c65d2f099f33db8"
+    },
+    {
+      "index": 142,
+      "observedAt": 1793670885000,
+      "sha256": "f54c74230dfba94e0d896bd29aecd0e217cc55ba0d3adb22ee8ab4b8436da228"
+    },
+    {
+      "index": 143,
+      "observedAt": 1793670900000,
+      "sha256": "3ad4df8914bfef541a265a4f94d35b1b1ca86fca0d852c49d75ef6fd09417d28"
+    },
+    {
+      "index": 144,
+      "observedAt": 1793670915000,
+      "sha256": "b078aea29afa5600933470e69ddcb1f66e3adc83062205a625baccac710310cf"
+    },
+    {
+      "index": 145,
+      "observedAt": 1793670930000,
+      "sha256": "7f1ceb160d6ecf8968d6c37e4396b93a07e073ee2842309d4bdffd0eedf66042"
+    },
+    {
+      "index": 146,
+      "observedAt": 1793670945000,
+      "sha256": "576748646526614b503088f92fa5a89d62b2021ba50241dcd45d8cd3c21930bc"
+    },
+    {
+      "index": 147,
+      "observedAt": 1793670960000,
+      "sha256": "5a4795d7e512104c456f8c3955058556b9d71644ead6d77ea4bd96ab64d341bc"
+    },
+    {
+      "index": 148,
+      "observedAt": 1793671005000,
+      "sha256": "a668d69bda57527053e5a91cdec9d6df6d1b69ae71a5069e5ce22e10b5a041af"
+    },
+    {
+      "index": 149,
+      "observedAt": 1793671020000,
+      "sha256": "27e560391b0cb808f0c36b91483ff1fd1d32a9c9177ec293b99a4c43ef66ca2d"
+    },
+    {
+      "index": 150,
+      "observedAt": 1793671035000,
+      "sha256": "07b8d8d04d6d3a75da1f2f8d8046e3fbddd720ecbbabc2dd741fc517777fe450"
+    },
+    {
+      "index": 151,
+      "observedAt": 1793671050000,
+      "sha256": "6d05334e5f5d09c326b2a4e2155441fbd4e88e78f918da281612d5560a499eb5"
+    },
+    {
+      "index": 152,
+      "observedAt": 1793671080000,
+      "sha256": "9aa99e21e84bf4aaea24474594dc619ebf1212cc70072794f3188f56adf80e05"
+    },
+    {
+      "index": 153,
+      "observedAt": 1793671095000,
+      "sha256": "02a5c5fb55fcfdd8db6a4b54e2a7021d0543ee24fca3e76e4ddb7a15537bc513"
+    },
+    {
+      "index": 154,
+      "observedAt": 1793671110000,
+      "sha256": "6a86dc1d26a12c23829ecb1b138f59077175f8a7bfda40cb088e7df06b4d8cb0"
+    },
+    {
+      "index": 155,
+      "observedAt": 1793671125000,
+      "sha256": "e97fc12baf29888e8f9e4f1c013c3d57e517e9216276c64e999b9dce07ea2b9b"
+    },
+    {
+      "index": 156,
+      "observedAt": 1793671140000,
+      "sha256": "5cab00fe6b6818a7c3b99055b732f81e55cb1028d4f047ceedd1af900b71f4f4"
+    },
+    {
+      "index": 157,
+      "observedAt": 1793671155000,
+      "sha256": "49f9f14a0684b0baa3904846b792e3c4f6a0bace3740a8f43b711b0bf9fb0420"
+    },
+    {
+      "index": 158,
+      "observedAt": 1793671185000,
+      "sha256": "05dc7e63169245438733120f321b2bc2483da250877325da6a35f98ec99c3dd1"
+    },
+    {
+      "index": 159,
+      "observedAt": 1793671200000,
+      "sha256": "a8a9a31166c7aa1458b4a8f3651924d50a2e67b5ac1f31f0245642b1e6fe13f2"
+    },
+    {
+      "index": 160,
+      "observedAt": 1793671215000,
+      "sha256": "d9552b8842cd6a0567337c45b941c40766ec35421460b3ad99ac132ad684c624"
+    },
+    {
+      "index": 161,
+      "observedAt": 1793671230000,
+      "sha256": "bc1ef31f94cdb88eb9dcda8006561f87efa4a06c2e3eab6ad2bc69cf7dbe9665"
+    },
+    {
+      "index": 162,
+      "observedAt": 1793671260000,
+      "sha256": "bc8f9f0b86d8b10f51bed0af4bb20049a47086ee1b3c98dc3c3bf77d606aaa0d"
+    },
+    {
+      "index": 163,
+      "observedAt": 1793671275000,
+      "sha256": "89e6297a1536efdc9e30a3b122466911dd110d5d9db50e4953dbf2cc5fe7c9ad"
+    },
+    {
+      "index": 164,
+      "observedAt": 1793671290000,
+      "sha256": "fcf70ac6ec7beb8aba63828098e3a7d0384796baefeed22f591d0e7757a63f8c"
+    },
+    {
+      "index": 165,
+      "observedAt": 1793671305000,
+      "sha256": "5ad1c2aa47a80d719857cbdc68c794510fcdad6bc2fc13ff34b6b980b05e6a05"
+    },
+    {
+      "index": 166,
+      "observedAt": 1793671320000,
+      "sha256": "56cf664a9568e1696dd06746778c0e648f5a77fa9f14fd82e308c7e92bbe588c"
+    },
+    {
+      "index": 167,
+      "observedAt": 1793671335000,
+      "sha256": "5b63a09f6267ec36d10a886e7f1f0a8f8c8bb6c9b42ccc56a1466325f56abd73"
+    },
+    {
+      "index": 168,
+      "observedAt": 1793671350000,
+      "sha256": "f9959a4f4ce0bd075925a398c98c77841959b803147bcfed33d2d3a41297deef"
+    },
+    {
+      "index": 169,
+      "observedAt": 1793671365000,
+      "sha256": "0cbe75b6e0ec4ca1978549e9094f4b1e6ae8dae0a02db26b36de837eb67b472b"
+    },
+    {
+      "index": 170,
+      "observedAt": 1793671380000,
+      "sha256": "ff1847ab63f2e0ab82ee6b7da87e13154a3ff836b59850582839a12d43616ba2"
+    },
+    {
+      "index": 171,
+      "observedAt": 1793671395000,
+      "sha256": "c19a5cbc6ef032ca546b8e52a7ea339972f2f901f16808443a72e733ddb9a4d8"
+    },
+    {
+      "index": 172,
+      "observedAt": 1793671410000,
+      "sha256": "441b0d5b5b53a067e2196f8debb577489bcedddc16b68e8cf5b9b7ac5f5f1f5d"
+    },
+    {
+      "index": 173,
+      "observedAt": 1793671425000,
+      "sha256": "ad8e38bd6ba04383d270b3024cdb607f11b5db421b36ba64dc0372a8ba6d21e0"
+    },
+    {
+      "index": 174,
+      "observedAt": 1793671440000,
+      "sha256": "518c4ef012066b8a3e5833486c25339e0e1579e0d66f2917c59f45c9169ed57b"
+    },
+    {
+      "index": 175,
+      "observedAt": 1793671455000,
+      "sha256": "c44e53ec89d4d37e67bd3b897bac531dc8cd448fff706d0e4c426b2109601e8f"
+    },
+    {
+      "index": 176,
+      "observedAt": 1793671470000,
+      "sha256": "bca3f66d413a271c04e555c7f884db4c7bf111a618df0569d50a70e5551db71a"
+    },
+    {
+      "index": 177,
+      "observedAt": 1793671485000,
+      "sha256": "325bd0444a642934c12c80dbad22be9b09037368a8b0b2d38ee86ba2638abfac"
+    },
+    {
+      "index": 178,
+      "observedAt": 1793671500000,
+      "sha256": "a512baca987fb7e08bc49d036692394b29b119db46a282723ece22cc829a051f"
+    },
+    {
+      "index": 179,
+      "observedAt": 1793671515000,
+      "sha256": "74ddba4176312baff3424ba03ddfc926e3f530b28fdd7eb84690d8938d5cc6f5"
+    },
+    {
+      "index": 180,
+      "observedAt": 1793671530000,
+      "sha256": "e19181e0cd3ebe6ee0e81e0d541179f7270f9b67125eb654d15a9cbdb1db932d"
+    },
+    {
+      "index": 181,
+      "observedAt": 1793671545000,
+      "sha256": "a39a2032cb681607a26a1a7ed5ce0d720d3eb7a530bef1c1f125f71bbc82dea1"
+    },
+    {
+      "index": 182,
+      "observedAt": 1793671560000,
+      "sha256": "68e127aa74dc181dbadb576ab542e0e3222d14e240c63fcfb1c96e7385ed0bfa"
+    },
+    {
+      "index": 183,
+      "observedAt": 1793671575000,
+      "sha256": "8d383e5dca3638f78c60cb73c592938af3847bd5f121b91d723faf49767892fa"
+    },
+    {
+      "index": 184,
+      "observedAt": 1793671590000,
+      "sha256": "0c7cc51e0951eb4bc8c68072106538f85b98bd0a9d31970d4438b7754c1972c1"
+    },
+    {
+      "index": 185,
+      "observedAt": 1793671620000,
+      "sha256": "395b103d55afda1b7511adbca232dda49825cf1545da1614b5d192945019287a"
+    },
+    {
+      "index": 186,
+      "observedAt": 1793671665000,
+      "sha256": "6471f6e27d3d3b36ac3602b8ecdff70f45634485087fd4b1311e9acc8c2cb53c"
+    },
+    {
+      "index": 187,
+      "observedAt": 1793671680000,
+      "sha256": "3757eb1b4f15718106261a5dd43edbf54426ebd2bd7d40cca48f18a54a2d6ee1"
+    },
+    {
+      "index": 188,
+      "observedAt": 1793671695000,
+      "sha256": "37a43cb0c9d7da1a07b35de3d44eed54de707927f5f9ed75eb206d73969decaf"
+    },
+    {
+      "index": 189,
+      "observedAt": 1793671725000,
+      "sha256": "508975085830f43bdb6bf09d6716b463dac91a003a2ee1fde770c55f6512302d"
+    },
+    {
+      "index": 190,
+      "observedAt": 1793671740000,
+      "sha256": "d1bc0bf586f0b4f1a942d617785b8c0c18b08c7b57936362a33b94a580168e47"
+    },
+    {
+      "index": 191,
+      "observedAt": 1793671755000,
+      "sha256": "c0356dd4199a0456fd0a667a6ee9f1eb32a2c75d49c1bc75d8c78f292ce37e98"
+    },
+    {
+      "index": 192,
+      "observedAt": 1793671770000,
+      "sha256": "4b937a3f6b4e57460a07e1364bd99c099b86a5dab8d5556b1046209fb4890ff2"
+    },
+    {
+      "index": 193,
+      "observedAt": 1793671800000,
+      "sha256": "2302eeb50ccce0055115d739f9b93e03a29a574faa149a59d7e4ef74905d1832"
+    },
+    {
+      "index": 194,
+      "observedAt": 1793671815000,
+      "sha256": "f8e873e46ecf483b4a07c85ccbb83c6ce0377112f1d8cc60ac8a2a2dc964c136"
+    },
+    {
+      "index": 195,
+      "observedAt": 1793671830000,
+      "sha256": "923998cf88458eda1ff857aa4f69d81635480eabad56974cb3a772d471e20f8a"
+    },
+    {
+      "index": 196,
+      "observedAt": 1793671845000,
+      "sha256": "1a1d937b84fd32080d676712ef2b91017667995546822f2c5f858c19ccc51308"
+    },
+    {
+      "index": 197,
+      "observedAt": 1793671860000,
+      "sha256": "038099b7f4ebe87ea47730efc2ac42819c627452515bbd8c94adad496547194b"
+    },
+    {
+      "index": 198,
+      "observedAt": 1793671890000,
+      "sha256": "dbd003d28cd301c005a36e7e1f07de12fad25597497250693736fa384cfd6cd1"
+    },
+    {
+      "index": 199,
+      "observedAt": 1793671905000,
+      "sha256": "a2ea3e2567514cf8dd133fc692f98111162d2ec9c736edbbf60c847d9177ef97"
+    },
+    {
+      "index": 200,
+      "observedAt": 1793671920000,
+      "sha256": "426edb2708bfd484ec8c50bbc1f11e700391d1e2d5344abefa1f5a378689fae2"
+    },
+    {
+      "index": 201,
+      "observedAt": 1793671950000,
+      "sha256": "bce62ae1ada00b4955dc3c46af1a9d70fd138ee58c0ba8881b9559708c6c28ca"
+    },
+    {
+      "index": 202,
+      "observedAt": 1793671965000,
+      "sha256": "087f0d2a81726784227243c13f8768cf19c14add66e54a53ed327fdd03fc4c8e"
+    },
+    {
+      "index": 203,
+      "observedAt": 1793671980000,
+      "sha256": "08c230531a78aee75a0342acdff94fb2fe3e174ead78173a84ba60531839d80e"
+    },
+    {
+      "index": 204,
+      "observedAt": 1793672010000,
+      "sha256": "616f5abfab336ddeef471797f5d2c6e19f91ddac368ddbc77c7d7e7af0091b5b"
+    },
+    {
+      "index": 205,
+      "observedAt": 1793672025000,
+      "sha256": "f48e2a924c14f27d6ff8da02a9356e0a5e4f65a836ef171f934a0e6aa5c4ee0c"
+    },
+    {
+      "index": 206,
+      "observedAt": 1793672040000,
+      "sha256": "f36c43b6a786c5deaabf03121836955533e3703ae7265667a3a8042fb42327d6"
+    },
+    {
+      "index": 207,
+      "observedAt": 1793672070000,
+      "sha256": "c66d11b72a158ef2c5b4a3a65b3cc8d29c06b82853cfccd38fef745241c9183f"
+    },
+    {
+      "index": 208,
+      "observedAt": 1793672085000,
+      "sha256": "976e96fcc58a1cf9f07160723029c8e1d92dad60874221b587e12ddc1e823ad7"
+    },
+    {
+      "index": 209,
+      "observedAt": 1793672100000,
+      "sha256": "f7525f6ab0b3d76172249afea17a28821456f89a79c935ff9908e54b8abcd420"
+    },
+    {
+      "index": 210,
+      "observedAt": 1793672115000,
+      "sha256": "19a4fd4b5e9180ed907b78efc505452f12959844eb9f78413783bd3b1d27f435"
+    },
+    {
+      "index": 211,
+      "observedAt": 1793672145000,
+      "sha256": "f6e5c3115e42d8ca87ecad289ba9a7bcb3bc49b387857d57a472cc5b69b94a35"
+    },
+    {
+      "index": 212,
+      "observedAt": 1793672160000,
+      "sha256": "2e969c9716413799ccdace2c01f63146609be49f3597586d9281a473830a0424"
+    },
+    {
+      "index": 213,
+      "observedAt": 1793672175000,
+      "sha256": "4d5d6267d1a026ccea0c657682e5cbf4832fe46f5f61ba0a3bb5b645e86fa194"
+    },
+    {
+      "index": 214,
+      "observedAt": 1793672205000,
+      "sha256": "56bb10c3ac61ae0b6d82b7bc0fc20061fa80421e2a5c07b4780a3ce472e6e090"
+    },
+    {
+      "index": 215,
+      "observedAt": 1793672220000,
+      "sha256": "3839dbc22352fed5507e93607acc59a1501ce85855e9bb8cb15d1df9c9ec5d34"
+    },
+    {
+      "index": 216,
+      "observedAt": 1793672235000,
+      "sha256": "64e9584946f911bdfc8702212e2d8c4af1b505ce27cb81256fdfaea2b1a8ef4e"
+    },
+    {
+      "index": 217,
+      "observedAt": 1793672265000,
+      "sha256": "5902181aedacf5097835fc4fb5c5a5efffaedaca390559e1b39105f611289343"
+    },
+    {
+      "index": 218,
+      "observedAt": 1793672280000,
+      "sha256": "7e81757e5520ddf6df87e988a5637272d8a3dfc89e83c8ed1450f6bea089f9c9"
+    },
+    {
+      "index": 219,
+      "observedAt": 1793672295000,
+      "sha256": "f3a97515a51b8f181be2c9b2221a5c1c8b110ca9c1c149d9b48f054e2e855474"
+    },
+    {
+      "index": 220,
+      "observedAt": 1793672310000,
+      "sha256": "ba9c9bec45c81525d7e40b897481d32f8b3358b6b72cfe76ef37d8d89f2683c3"
+    },
+    {
+      "index": 221,
+      "observedAt": 1793672340000,
+      "sha256": "0a998b42db18ca9d5292ab7e2319dc0674ee8f2dc273cf807b2cfadb2cccddc6"
+    },
+    {
+      "index": 222,
+      "observedAt": 1793672355000,
+      "sha256": "da4629895f48f315f5b560e2a82eb036a1ca77a86cadd5107c926f9b80eb1c31"
+    },
+    {
+      "index": 223,
+      "observedAt": 1793672370000,
+      "sha256": "ea333b4e7ab5a0f486b812cb4bd746530fefe3141ea78fd25a9ec26873ea3c9d"
+    },
+    {
+      "index": 224,
+      "observedAt": 1793672385000,
+      "sha256": "a50e0f376ea60c332d9cbded4dbe24b0303e640b9d1993531a33e17031a18521"
+    },
+    {
+      "index": 225,
+      "observedAt": 1793672400000,
+      "sha256": "1337302f69b43736b70b32a42d7e1a4dad076d4590c8ab58ff6d819b1c72fc35"
+    },
+    {
+      "index": 226,
+      "observedAt": 1793672430000,
+      "sha256": "a39086194f9a1854262d7721e6622c861beebd386595c62e6467ac13e9214737"
+    },
+    {
+      "index": 227,
+      "observedAt": 1793672445000,
+      "sha256": "06d870b14e526c6b0dffb39b12d71bd8b37a3eb390b38453fbe104b2fdc5772e"
+    },
+    {
+      "index": 228,
+      "observedAt": 1793672460000,
+      "sha256": "46b212182a66a323397820fb24a87033d2bc729dd24c0fc6b9cfe54500b87c51"
+    },
+    {
+      "index": 229,
+      "observedAt": 1793672490000,
+      "sha256": "636f308513faa3690db5716f664a427320e2c07089dc8e16ba4363aabda8548e"
+    },
+    {
+      "index": 230,
+      "observedAt": 1793672505000,
+      "sha256": "af69e5c878493f6a67c246147564ff5468e97b914577d550131dc592b8064b85"
+    },
+    {
+      "index": 231,
+      "observedAt": 1793672520000,
+      "sha256": "b6c59fcb56c0e4ee3a23c2638e17241d47dd8e536265afd93d14b5304d3b82f2"
+    },
+    {
+      "index": 232,
+      "observedAt": 1793672535000,
+      "sha256": "fe091ee07695c3001b81bba5f086964970ce34e0f6aed2223a0ef30faf5ab640"
+    },
+    {
+      "index": 233,
+      "observedAt": 1793672565000,
+      "sha256": "9d0e8e49079c6c3b97956f19a9091078d52f6a2c4920f52157c906c2aa444b24"
+    },
+    {
+      "index": 234,
+      "observedAt": 1793672580000,
+      "sha256": "d653f5c85d8c1926813c34b5767efedcc6a338427faa24d60f89c2ff83f9190c"
+    },
+    {
+      "index": 235,
+      "observedAt": 1793672595000,
+      "sha256": "ad824a5ee6b803a903695ad8f3436abfcb2499054a32809c3c9e7b968b6d40c1"
+    },
+    {
+      "index": 236,
+      "observedAt": 1793672625000,
+      "sha256": "3479b44d8f5149eca41ff6266bbea0f56b5830705d6b4f0e3d061fe8e22c2bf1"
+    },
+    {
+      "index": 237,
+      "observedAt": 1793672655000,
+      "sha256": "4b525f507956b7cc85374dcd628fa792b713babbeb84070a54aa2e0eabc4a637"
+    },
+    {
+      "index": 238,
+      "observedAt": 1793672685000,
+      "sha256": "7ac5b85189f23d78048792100a1c4261f50da80e4d8c758e625e502d6f791fa0"
+    },
+    {
+      "index": 239,
+      "observedAt": 1793672700000,
+      "sha256": "19450e2f34f6d10429eeaf8181cd1f88be7101aaabc2d64018380de09e1de76e"
+    },
+    {
+      "index": 240,
+      "observedAt": 1793672715000,
+      "sha256": "179acb3b9bafbd870d447441bf426bf21a8b7c98fc842ae0edaf58c3fd10f7d4"
+    },
+    {
+      "index": 241,
+      "observedAt": 1793672745000,
+      "sha256": "5ac231a2a7048d37f7be35b3099edc4b5465f6098320f4232da2170418ed219c"
+    },
+    {
+      "index": 242,
+      "observedAt": 1793672760000,
+      "sha256": "62a9f969e6196c01775cfe7ded7fb35a0a458c8788e554ae1fc253d64d78151f"
+    },
+    {
+      "index": 243,
+      "observedAt": 1793672775000,
+      "sha256": "05873a80dbff689f2b39dbc8ffd55194e41eef37da1f01ef5f5bc29cf56c3122"
+    },
+    {
+      "index": 244,
+      "observedAt": 1793672805000,
+      "sha256": "5b170436ab19807bb303e76e690e049a8a7a5106458531641628560e2ccf4b6b"
+    },
+    {
+      "index": 245,
+      "observedAt": 1793672820000,
+      "sha256": "4659872f19d16b0ebcaef0765b98eea52ed6783d0121f55c474db353fc639bb4"
+    },
+    {
+      "index": 246,
+      "observedAt": 1793672835000,
+      "sha256": "8f1dbbff8360dda5f208dd6a0f224c0a1153c0c48e41387d897a43b2234c424b"
+    },
+    {
+      "index": 247,
+      "observedAt": 1793672865000,
+      "sha256": "cd7aaca9e54f7f46f39c413bb48640b7138b9d426058d8e40154418afbdcd3c2"
+    },
+    {
+      "index": 248,
+      "observedAt": 1793672880000,
+      "sha256": "14f819d0259b23d88db7b2d070ec0de6babb3d50d5c06f9c1c83510e7e79c079"
+    },
+    {
+      "index": 249,
+      "observedAt": 1793672895000,
+      "sha256": "9b5aaea2752eab315d25505f12a587407f729d81bef708cfe62ff9f33f843c66"
+    },
+    {
+      "index": 250,
+      "observedAt": 1793672925000,
+      "sha256": "f5ee187e60d0f31e770efadf4156fff830dd9507fd71764fbefa2bd4cdfb62d8"
+    },
+    {
+      "index": 251,
+      "observedAt": 1793672940000,
+      "sha256": "7370536ffe01eac228620bf38b94bc0356bcec312cea913ea34011f649a23e1d"
+    },
+    {
+      "index": 252,
+      "observedAt": 1793672955000,
+      "sha256": "250b65f7061a20e123a3fafb40352326d754e76a4e4f2521fd5be96fe9840a76"
+    },
+    {
+      "index": 253,
+      "observedAt": 1793672970000,
+      "sha256": "f033c9400e6d2c59397f3ce81c63870c39af67f5b8d7417091bc5aea86c5b2e9"
+    },
+    {
+      "index": 254,
+      "observedAt": 1793673000000,
+      "sha256": "1cbcf4f708ffa0e63da0d4aed3c4d1c6648156a79cb5952fdd6e4f9bd3456fc4"
+    },
+    {
+      "index": 255,
+      "observedAt": 1793673030000,
+      "sha256": "5819bd10477a9405f645a71a4a9a415da6ecb7d429ea4c30c0fafe98369488e4"
+    },
+    {
+      "index": 256,
+      "observedAt": 1793673045000,
+      "sha256": "c0a17bcfe787ead9277a86840388860897abb57174c858e6cf7ae6701f095f73"
+    },
+    {
+      "index": 257,
+      "observedAt": 1793673060000,
+      "sha256": "f418fdc474cca7dd52f100abfcce68e97909b118989c7eeaa384eb1ed59ff50e"
+    },
+    {
+      "index": 258,
+      "observedAt": 1793673075000,
+      "sha256": "bc8cb0b13e1767879476548b25e965d0092aa6cf5d766769d6aface258759321"
+    },
+    {
+      "index": 259,
+      "observedAt": 1793673090000,
+      "sha256": "acd4faea7bb8351aab9ab9e8d90cd02fe761ed01296664ef0703bb0d4e526e58"
+    },
+    {
+      "index": 260,
+      "observedAt": 1793673105000,
+      "sha256": "96fb298e6636c5e3eb77754734f794affbccf34fb40629ac1622afda3b3831b5"
+    },
+    {
+      "index": 261,
+      "observedAt": 1793673135000,
+      "sha256": "dfd9a0a39cd46fba45f1dd80acfa56db5c152a1b23b70d8046eeb3a3ef025b64"
+    },
+    {
+      "index": 262,
+      "observedAt": 1793673150000,
+      "sha256": "b0da74b0feb72e3b0b704bdd2feb5940ccaeefa437326a259398b1b92b2acc36"
+    },
+    {
+      "index": 263,
+      "observedAt": 1793673165000,
+      "sha256": "0620609d0fd5ee4c3f9dfeb30423bff8ff155aa0c5c98bf12b50813ba682c101"
+    },
+    {
+      "index": 264,
+      "observedAt": 1793673180000,
+      "sha256": "6fd5191b1b18fbe630181744de9161b0bba2a8eb7df7ec2eea31d519615d828d"
+    },
+    {
+      "index": 265,
+      "observedAt": 1793673195000,
+      "sha256": "21050c27b0489f5a262b7b5e3b0ec5e0efa2adcdab0debcee20f37ec920e5be3"
+    },
+    {
+      "index": 266,
+      "observedAt": 1793673210000,
+      "sha256": "733535cb9081e45e788fb96564547a17448fe651d928afe72d937b83d363f341"
+    },
+    {
+      "index": 267,
+      "observedAt": 1793673225000,
+      "sha256": "405738223161f95940c81b5be3e9f62fe1a69cb7ddf8d53cc9b8942e4e042ab8"
+    },
+    {
+      "index": 268,
+      "observedAt": 1793673255000,
+      "sha256": "fc14a029f8d977352230c0d11bccd1a21201bde50e3ec73afa36d496e4a59b2d"
+    },
+    {
+      "index": 269,
+      "observedAt": 1793673270000,
+      "sha256": "b9535d98787b91f2b8f4505c58d606a8d52e41582c7c0e122e6845b1d2d5ee92"
+    },
+    {
+      "index": 270,
+      "observedAt": 1793673285000,
+      "sha256": "16033f6edb5939dc15626f5a5180cb450261d37ed54f95ae392e927579f2743e"
+    },
+    {
+      "index": 271,
+      "observedAt": 1793673315000,
+      "sha256": "db99a32185e265f5f3464a09cae12718309c9f763d4cbde5b3521da5c76fa9eb"
+    },
+    {
+      "index": 272,
+      "observedAt": 1793673330000,
+      "sha256": "f4d73f288a5ffc017de6dcabac667909255e872945abc9c5c3ca48e1b6dd98c0"
+    },
+    {
+      "index": 273,
+      "observedAt": 1793673345000,
+      "sha256": "e4d0ba7ad12e0a629c38491c7ca05c2d40d845d0a0daf82b8d364a587e04d01f"
+    },
+    {
+      "index": 274,
+      "observedAt": 1793673375000,
+      "sha256": "7f5333e7f85adb2409f27d35dad9d3c7d6852e1411be718e88146745e306fe48"
+    },
+    {
+      "index": 275,
+      "observedAt": 1793673390000,
+      "sha256": "b02a74ad1d8ef87465ff3a5d5673d8f8a8bedff75ef3b94b14c93945a6dc3f19"
+    },
+    {
+      "index": 276,
+      "observedAt": 1793673405000,
+      "sha256": "b1f7edce576db256be9f47e73b4c06e5be836b7c75448a24963e08e4dc7c2a77"
+    },
+    {
+      "index": 277,
+      "observedAt": 1793673420000,
+      "sha256": "8bd4243d8b07e9d2f7f35280d463a1f79f8209c029fa215c6f6a9b9f36d7720d"
+    },
+    {
+      "index": 278,
+      "observedAt": 1793673450000,
+      "sha256": "4c87006b080550249a55e10cd09c8d9290d568160ff9987a5bc99269a154b38d"
+    },
+    {
+      "index": 279,
+      "observedAt": 1793673465000,
+      "sha256": "ca3a02cf870ea5f13283d36fcd7a7a63524fbe06d66c124b8948578098e84c1b"
+    },
+    {
+      "index": 280,
+      "observedAt": 1793673480000,
+      "sha256": "32b7684a7d3f9fab310dd2ae5b5551e26904b707f1d7c61eb46862f6bf3b0df7"
+    },
+    {
+      "index": 281,
+      "observedAt": 1793673495000,
+      "sha256": "da6bd0d5a42efd689f6d2d5358640075f6054125ef753c01c7c96790508fbbfc"
+    },
+    {
+      "index": 282,
+      "observedAt": 1793673510000,
+      "sha256": "80bd41764b1e26b8f881692eec3b573626a29641fe14e48e3c55cf48d7cb5883"
+    },
+    {
+      "index": 283,
+      "observedAt": 1793673540000,
+      "sha256": "7662acf08bb978b3c46db5f98b85ec0f7c5f4b730597996fba08091c1439b434"
+    },
+    {
+      "index": 284,
+      "observedAt": 1793673555000,
+      "sha256": "bf2b42819fcaa5b431058f095c0b3f39f4c929872f1713d3f47f06170b976ec3"
+    },
+    {
+      "index": 285,
+      "observedAt": 1793673585000,
+      "sha256": "080aaa4c22f5cbfcd0e5b1b079fa4b45c7145e96031543155b1aa8fe2dea5a26"
+    },
+    {
+      "index": 286,
+      "observedAt": 1793673600000,
+      "sha256": "0dc15615b20e39734946c6ba03a20c439f278a4d6da75fed04c3761e97824b62"
+    },
+    {
+      "index": 287,
+      "observedAt": 1793673615000,
+      "sha256": "cea2d61f8ba15e4cfeb6109cb1c359eaac3b2b05402cee55ea53f46fa1a61d1d"
+    },
+    {
+      "index": 288,
+      "observedAt": 1793673645000,
+      "sha256": "6e613c6c084a36d91a7153dd9248455b9814ee7958b4d20cdd097cb093c63a5f"
+    },
+    {
+      "index": 289,
+      "observedAt": 1793673660000,
+      "sha256": "ac70819b2072fb23a79e0426816769e2d596294793f4a563ac0d5a2a8721a7b2"
+    },
+    {
+      "index": 290,
+      "observedAt": 1793673690000,
+      "sha256": "330969a535e2e3a1c469b6bc403992a7221f3d807a0832b23ba2a9bb02c9b01c"
+    },
+    {
+      "index": 291,
+      "observedAt": 1793673705000,
+      "sha256": "3057e20e325994c49e48024509d063cd5998f1f71062747a9555985fafad259e"
+    },
+    {
+      "index": 292,
+      "observedAt": 1793673720000,
+      "sha256": "50b1b077401fca73e3688eae4eb8f003b86c661e502ca0a3c3e8426bc68ea740"
+    },
+    {
+      "index": 293,
+      "observedAt": 1793673750000,
+      "sha256": "fbdeccaad98dbe31045d3b11d9290ae5e1454222e3af10b2fd528cc940230dc1"
+    },
+    {
+      "index": 294,
+      "observedAt": 1793673765000,
+      "sha256": "d6756ce47cb0c99b1390c222cc6ece00a8d596653a46c8bd934f12568cdc35a5"
+    },
+    {
+      "index": 295,
+      "observedAt": 1793673780000,
+      "sha256": "b1f4dd984c6e0e25aef6b9447dc05b2afd3d1568614afe5d22496f0c955e94ff"
+    },
+    {
+      "index": 296,
+      "observedAt": 1793673795000,
+      "sha256": "83496fc5af9908611cfc2ebac05769a215be76f46f716624ae859698aa38d2a9"
+    },
+    {
+      "index": 297,
+      "observedAt": 1793673825000,
+      "sha256": "e91050282853c7576ea813a83708441e12346930351723d61622b0994e3e1214"
+    },
+    {
+      "index": 298,
+      "observedAt": 1793673840000,
+      "sha256": "4faa4d6455fa0271bc14270d5c5db0b7425e257bf90e3c8edde8e23ef31b5c79"
+    },
+    {
+      "index": 299,
+      "observedAt": 1793673855000,
+      "sha256": "ed6e3eeeccc5a01ff5cc3c8fe0f19b1ecd5930372d29fdd1b9fe7d5c30028be2"
+    },
+    {
+      "index": 300,
+      "observedAt": 1793673885000,
+      "sha256": "36c24aee04965180506a5aeedecead0129621cb79fe6a0d5958180034a314f8a"
+    },
+    {
+      "index": 301,
+      "observedAt": 1793673900000,
+      "sha256": "2961d3c53b7a260395bb2cf822d63aba62eab7978a5c053e88cf53babcd4b19b"
+    },
+    {
+      "index": 302,
+      "observedAt": 1793673915000,
+      "sha256": "05effc954a865ad3f9fd0c4a43c61128069b156349689084d7bd6c9e6b862587"
+    },
+    {
+      "index": 303,
+      "observedAt": 1793673930000,
+      "sha256": "28df4138aaab4b6a5a174304b8d1f4988cfd65d89981bbe6c8952f7046a9af70"
+    },
+    {
+      "index": 304,
+      "observedAt": 1793673945000,
+      "sha256": "71aec650df9ecf6c62d65789f91aa4ef9deb03eedd1d62133812baded3de5c73"
+    },
+    {
+      "index": 305,
+      "observedAt": 1793673975000,
+      "sha256": "9b35cdf0383ea26ad33511a0fc613dc916aba11a39bcd988d8e1f607dbc13b74"
+    },
+    {
+      "index": 306,
+      "observedAt": 1793673990000,
+      "sha256": "9c89c626ff18257a55d67ca1cad925219070b74e64d38cc519b9ff3138b84663"
+    },
+    {
+      "index": 307,
+      "observedAt": 1793674020000,
+      "sha256": "0400d3d57358bbeb2488e30a11124063e5e37f74d0eba41122cdd004f6ece25e"
+    },
+    {
+      "index": 308,
+      "observedAt": 1793674035000,
+      "sha256": "247d3501bdaa3b0db4375b3806324f79411d96498e671116bfd5cbcfc75321de"
+    },
+    {
+      "index": 309,
+      "observedAt": 1793674065000,
+      "sha256": "a795b5e3316315369db260f903b1e981087e2a67f08cc9e6a21c832e119356de"
+    },
+    {
+      "index": 310,
+      "observedAt": 1793674080000,
+      "sha256": "9e389dd1c35dacf9a3fa68a768cfdf513d949bcc14f8f6a99cf7e1416757cd19"
+    },
+    {
+      "index": 311,
+      "observedAt": 1793674110000,
+      "sha256": "6c14cdcc3b5b66d74ab2c3a13c95f3ad68f1d01e017cc710a7bbaeae43938768"
+    },
+    {
+      "index": 312,
+      "observedAt": 1793674125000,
+      "sha256": "fbf0a203daaea0b24247b6ed97c1ee8cc516e71ff8fc5b62bab716dd6d36d653"
+    },
+    {
+      "index": 313,
+      "observedAt": 1793674140000,
+      "sha256": "046de3cd9dfab28c47e3261d62fbe0f4cd10ce3e851f1c1993022222dc9684b0"
+    },
+    {
+      "index": 314,
+      "observedAt": 1793674155000,
+      "sha256": "726a356e6b70e8b80b42a51167d32616afd09357a47a37c7c3a155648e772246"
+    },
+    {
+      "index": 315,
+      "observedAt": 1793674185000,
+      "sha256": "701fe7b15208ff55184d6e36159fe1c6ea930778cb313191ba804e4b211c3341"
+    },
+    {
+      "index": 316,
+      "observedAt": 1793674200000,
+      "sha256": "94c79217fbd8f78627c33dcedb8a65de9231cb11ea9cfcc196c112440b5e04f5"
+    },
+    {
+      "index": 317,
+      "observedAt": 1793674215000,
+      "sha256": "24d162d5a47617a596305cd8230cac0a2839b8bb2bde4234f379e580892027d4"
+    },
+    {
+      "index": 318,
+      "observedAt": 1793674245000,
+      "sha256": "5315c7ea193f864db6910f31b8572f50f109814c000fcc339ec69865a16f6cf7"
+    },
+    {
+      "index": 319,
+      "observedAt": 1793674260000,
+      "sha256": "57a270b86026ed617e60a8ba8009a7d88c6a9ed8f80fa94255d14c54ff31f6de"
+    },
+    {
+      "index": 320,
+      "observedAt": 1793674290000,
+      "sha256": "9a6201785f5ae6e802dbb8ff26db8a5db76ca7ec0a88efc3e7e8108147e0967f"
+    },
+    {
+      "index": 321,
+      "observedAt": 1793674305000,
+      "sha256": "0d4955294a53614f104ec6c7c7888253844a4b57ecef61a4f7750a76d5c6b5d3"
+    },
+    {
+      "index": 322,
+      "observedAt": 1793674320000,
+      "sha256": "baa9e061a7c33dde42d54eb81c1d6901ecef83dc368491b886b20a264c3b417f"
+    },
+    {
+      "index": 323,
+      "observedAt": 1793674350000,
+      "sha256": "f94eb78c47b4d96cbe91da0e0991fffb1bf517ef3ef32e0c74ce7028045f2660"
+    },
+    {
+      "index": 324,
+      "observedAt": 1793674365000,
+      "sha256": "1cd86a833d8b6607a7d4b7cae7447aa1f00620b18b00c5696ed84429d41b5451"
+    },
+    {
+      "index": 325,
+      "observedAt": 1793674380000,
+      "sha256": "cbb0cffd07889646a09a95324651bb89b83dc9b7d42d403a3a2aefa021d48d8f"
+    },
+    {
+      "index": 326,
+      "observedAt": 1793674395000,
+      "sha256": "c843b77bf0e6c697fc16f4e756528f37c41b866d3e44164cdd4a5c697e22db47"
+    },
+    {
+      "index": 327,
+      "observedAt": 1793674425000,
+      "sha256": "8156328c8986597ccff837fc4eba96a34716f8fc7dfa84fe000831d233bed8fa"
+    },
+    {
+      "index": 328,
+      "observedAt": 1793674440000,
+      "sha256": "9ea9482d38828460e2cc4b9a4b1f1728cba98ab642cabf946237e018c3a5548d"
+    },
+    {
+      "index": 329,
+      "observedAt": 1793674455000,
+      "sha256": "2ef10aeb7d1bd98e8cde2375b0083a323b598f7038c56c75b0dbce65719cf549"
+    },
+    {
+      "index": 330,
+      "observedAt": 1793674470000,
+      "sha256": "910043a423a03369c0301c5a3cb5b195867986a8c2516b496367dc477d3b4926"
+    },
+    {
+      "index": 331,
+      "observedAt": 1793674500000,
+      "sha256": "2c4a111483b45de44d7af19916d3adf459fcac34dc19b405b6a371358f0a7e96"
+    },
+    {
+      "index": 332,
+      "observedAt": 1793674515000,
+      "sha256": "346a816e632be219d000d5c168725c79d45631e6a72a1ce0c452b5a507172a60"
+    },
+    {
+      "index": 333,
+      "observedAt": 1793674530000,
+      "sha256": "2d05df5b26c62a5b3dd2c5e5e84821d61b679977a90a48275daebfd8ea4b6f8b"
+    },
+    {
+      "index": 334,
+      "observedAt": 1793674560000,
+      "sha256": "b4107f85418e1f0fe6f8b535b19449c5894eafe81e82cb9f2e87ba1788003391"
+    },
+    {
+      "index": 335,
+      "observedAt": 1793674575000,
+      "sha256": "c4449a4bcbda93353ec5b5e6873588680304c060d24e2161291803fe71b25ab0"
+    },
+    {
+      "index": 336,
+      "observedAt": 1793674590000,
+      "sha256": "81205fc8290c34e1eb8c59df23b65fbd5994887c3901209a84d125117e40bfd2"
+    },
+    {
+      "index": 337,
+      "observedAt": 1793674620000,
+      "sha256": "2ad4d7f978d232e16637bd53ad3f9b290ed471c4815cf213028b5c1d1ce46ee9"
+    },
+    {
+      "index": 338,
+      "observedAt": 1793674635000,
+      "sha256": "87abd939f13d9841779bb82138296b669d4c645f2d6bf69c7a12d07447375ab8"
+    },
+    {
+      "index": 339,
+      "observedAt": 1793674650000,
+      "sha256": "358cd755bee13a8fa96297c57dffb98ed8419bb78fb840069cf89ab159671e79"
+    },
+    {
+      "index": 340,
+      "observedAt": 1793674665000,
+      "sha256": "64b0b044c9d02d1b4433442a93d6c4744728256c28ccbee94783df87eb8279f9"
+    },
+    {
+      "index": 341,
+      "observedAt": 1793674695000,
+      "sha256": "53e2962aebf53bc9fd514a0d74447c43f483904adbe5147c00dcd69b9c0fb82c"
+    },
+    {
+      "index": 342,
+      "observedAt": 1793674710000,
+      "sha256": "d802296018f26493456f611178c5a6e4651d52d79eed1e47a426710f74d56946"
+    },
+    {
+      "index": 343,
+      "observedAt": 1793674725000,
+      "sha256": "579b35bd94ae4506f6ebda8d50586083541dc5c694b34edeb0953969f8528c95"
+    },
+    {
+      "index": 344,
+      "observedAt": 1793674740000,
+      "sha256": "f178e36f969ec1307f7c47b07cbb479a557459b9946c414469963d740622ee9d"
+    },
+    {
+      "index": 345,
+      "observedAt": 1793674770000,
+      "sha256": "fa7013f9b645bc37b969bc0730987952f87107efd122624c815c297f4958f313"
+    },
+    {
+      "index": 346,
+      "observedAt": 1793674785000,
+      "sha256": "36e3ae6895625a9e6a433dd51d4fb3c3ab66124fed8c1d75f4cdf28a3dc8ef39"
+    },
+    {
+      "index": 347,
+      "observedAt": 1793674800000,
+      "sha256": "0239e63906e5ed7bc984efa0cb9dcf793b296ece3caf2e40f80926c848527036"
+    },
+    {
+      "index": 348,
+      "observedAt": 1793674815000,
+      "sha256": "c5506ee17c27218278d2527bbff971935ce49349847de63f6d6dd39179a50588"
+    },
+    {
+      "index": 349,
+      "observedAt": 1793674830000,
+      "sha256": "d6fc4f332e9ad08fe679040b2652b6cd0f3f25f395e1371b2375e7fae062e66f"
+    },
+    {
+      "index": 350,
+      "observedAt": 1793674845000,
+      "sha256": "7406c156d56f0fe2a8a1399a6f9bc48bf69c833ca0ff7759aa960f7e54dd5109"
+    },
+    {
+      "index": 351,
+      "observedAt": 1793674875000,
+      "sha256": "9bc332874238669a7ebb8d8762d4a81e3c254098f1a4dc13e99c3d1c1ba0dd96"
+    },
+    {
+      "index": 352,
+      "observedAt": 1793674890000,
+      "sha256": "192a7a5fca53d73642699324b1bf336521e922916ac73a5c8e1232f1c743af52"
+    },
+    {
+      "index": 353,
+      "observedAt": 1793674905000,
+      "sha256": "a4a87155a485f708de6d44dae4b18597a0ee2c6bf7a04977d5414f9accf4d3cd"
+    },
+    {
+      "index": 354,
+      "observedAt": 1793674920000,
+      "sha256": "ff291a9e8ec48248b8f643e6f04b9049de331375327c888bf8c327ff483c27c2"
+    },
+    {
+      "index": 355,
+      "observedAt": 1793674950000,
+      "sha256": "e26423e337945806d6c0d38a07620c398e0900e66fdd861bda99e0359a129aee"
+    },
+    {
+      "index": 356,
+      "observedAt": 1793674965000,
+      "sha256": "eb0c4d558e93a1f54645c56559b10a6ebc5ef32e4be0f06e2f4a7d0f061ac077"
+    },
+    {
+      "index": 357,
+      "observedAt": 1793674980000,
+      "sha256": "9aa840de1cdd75a6b00ea66fd9f6d637bac62735c5d19f45367a5551c35273bd"
+    },
+    {
+      "index": 358,
+      "observedAt": 1793675010000,
+      "sha256": "680bb8aa9d0950235a008bd1a53729d7aa431030acf42cfee6e7d2090a7228d5"
+    },
+    {
+      "index": 359,
+      "observedAt": 1793675025000,
+      "sha256": "768d348d124adf81cf4e7cf3e8b0e32bcd585b2f83ec352604e7393fd19cd6bb"
+    },
+    {
+      "index": 360,
+      "observedAt": 1793675040000,
+      "sha256": "9d3b82881c0b88cafbcc79fb871d171fd1d2846329ef2bb67771429c727d98c3"
+    },
+    {
+      "index": 361,
+      "observedAt": 1793675070000,
+      "sha256": "407bd4e544784d9afb4105dfccc5fae959c19a3ce6bc72edfb5af53294c7eaea"
+    },
+    {
+      "index": 362,
+      "observedAt": 1793675085000,
+      "sha256": "a46cfbc7b8c6a29bccf5bada3473c97ab0519fb3a64cfb7e43c3ff9d6999f301"
+    },
+    {
+      "index": 363,
+      "observedAt": 1793675100000,
+      "sha256": "583039c1cbc57e91825d0ac117974b8773db1af2936aca9ccdfdcba57fd466e3"
+    },
+    {
+      "index": 364,
+      "observedAt": 1793675130000,
+      "sha256": "6edf731b68459d62567568b97bfd5a38939dfcaa61f947c8b82490bd901f3ed3"
+    },
+    {
+      "index": 365,
+      "observedAt": 1793675145000,
+      "sha256": "65a6ffd4451b4d1271139f9a41af124179e10149b4487335a83610729f0b714a"
+    },
+    {
+      "index": 366,
+      "observedAt": 1793675160000,
+      "sha256": "3e7d4a36020267e09e218bf3e4b4a9b98c261e40c41dd822bd2287022aed5740"
+    },
+    {
+      "index": 367,
+      "observedAt": 1793675190000,
+      "sha256": "d663598a88b5c6ee1d19c8dad833cdd70c7f6d3f08d8d4dd33df4c2f771e03d3"
+    },
+    {
+      "index": 368,
+      "observedAt": 1793675205000,
+      "sha256": "18190986a46cfe65d211ef77d41968aa7d996f382a12bf0948cc46b6ac95e18c"
+    },
+    {
+      "index": 369,
+      "observedAt": 1793675220000,
+      "sha256": "1a901d08976c0be7ac1b8309e657f87bb6682ea4db365f1044c320d8a8d269d6"
+    },
+    {
+      "index": 370,
+      "observedAt": 1793675235000,
+      "sha256": "2e3e32f799994fc34dc19e4a36dc6fa25fdd047d0c72243e2e9edd8e631c0517"
+    },
+    {
+      "index": 371,
+      "observedAt": 1793675265000,
+      "sha256": "f8097114b7f1823cbb3e18cb95b6301e15e6a6eed4dfac06fdcfe3329e5b1d32"
+    },
+    {
+      "index": 372,
+      "observedAt": 1793675280000,
+      "sha256": "7d743f2b9350e6c1a38fc6d5826bada035e6947ea1212d6826db498d2fec961c"
+    },
+    {
+      "index": 373,
+      "observedAt": 1793675295000,
+      "sha256": "2be0bfd920e3b4f276e5f28073db58b14a6f41d66f1f759e5f78830126f5855d"
+    },
+    {
+      "index": 374,
+      "observedAt": 1793675325000,
+      "sha256": "45180331748f4260f175f0fc0db12591f7a40389fcdb0cd04a6449d06375a9c1"
+    },
+    {
+      "index": 375,
+      "observedAt": 1793675340000,
+      "sha256": "7bcaae11cd95a3d474828cdf988a05e635ca059710fcc4f7f1e7e42e1f22adce"
+    },
+    {
+      "index": 376,
+      "observedAt": 1793675355000,
+      "sha256": "1fa31a4503cbe5792187e5d42f8a915964f818221b1a03ab6eb017c1d3e43df0"
+    },
+    {
+      "index": 377,
+      "observedAt": 1793675370000,
+      "sha256": "38eebc53fbc77878504d0436ecb250f4d9df36ee9ff43d093853784c408c9cdb"
+    },
+    {
+      "index": 378,
+      "observedAt": 1793675385000,
+      "sha256": "b3fe2a59638b21a1074996bda9f585184a4a573e8070f565b1a7314d6e8b73a8"
+    },
+    {
+      "index": 379,
+      "observedAt": 1793675400000,
+      "sha256": "1dbbdf2463bd8b0b0fd658bc748aea0273c3084c44ab399e80d30fa818a4f5c6"
+    },
+    {
+      "index": 380,
+      "observedAt": 1793675415000,
+      "sha256": "65ac58b5dfe76b519dd5dba2d95fb675b085fba0d6b8874aef36c33ff5b4fea7"
+    },
+    {
+      "index": 381,
+      "observedAt": 1793675430000,
+      "sha256": "2b6d5b8b104e48a81cf6e658ad3a6990c6e04768107777919f0aa0f312d88c7f"
+    },
+    {
+      "index": 382,
+      "observedAt": 1793675445000,
+      "sha256": "4247a93116bc76d44e9e659ba4df3acd2636edd70e50258501e4c916513635de"
+    },
+    {
+      "index": 383,
+      "observedAt": 1793675460000,
+      "sha256": "ab72162003507ee11c9ce2a3880e9d4e95aa00d37bd2a0afc7af3ee313ea2641"
+    },
+    {
+      "index": 384,
+      "observedAt": 1793675475000,
+      "sha256": "10847577c9d879c58e0f4e606641a813876bbc6c3ef5ed85086adb02f51b1c97"
+    },
+    {
+      "index": 385,
+      "observedAt": 1793675490000,
+      "sha256": "92e82bcf761340b3f93a87f27a66fca31f816c6ae57fcd857c6e01247f95fa95"
+    },
+    {
+      "index": 386,
+      "observedAt": 1793675505000,
+      "sha256": "f9636eb33061989f6b96e55066c7cbff87b0ce6d8b3a9afbb70a4a418e6d134b"
+    },
+    {
+      "index": 387,
+      "observedAt": 1793675535000,
+      "sha256": "5020fa11d1860d85a9e4309f2163bc7d5dd0b422023be386cb12bb6ce87151d2"
+    },
+    {
+      "index": 388,
+      "observedAt": 1793675550000,
+      "sha256": "89dea401865956150c08d4808b36655a9380ce46a143b0bef05290b4abe9ea7a"
+    },
+    {
+      "index": 389,
+      "observedAt": 1793675565000,
+      "sha256": "8e5739ee2358fb50472a1ac8d8310d22c75901b8e65a8ca151b173ee232013fe"
+    },
+    {
+      "index": 390,
+      "observedAt": 1793675580000,
+      "sha256": "6714edb6a267dc7925d7e22663661f1de3a263ad0b3eb97a5b70ec20590fb199"
+    },
+    {
+      "index": 391,
+      "observedAt": 1793675610000,
+      "sha256": "8969d9ee3f9bae003d9a67f6c4f7dd6f5a09436c4fbd04c194d514ccc11e39a6"
+    },
+    {
+      "index": 392,
+      "observedAt": 1793675625000,
+      "sha256": "30a714b374d201627fad93624ae545c709417fd01cf55ce88ab42834874c0ddb"
+    },
+    {
+      "index": 393,
+      "observedAt": 1793675640000,
+      "sha256": "47c2a3a73045e35d3b6ac12cb8c64b6205cad3dafa68945e5e72c449606067f8"
+    },
+    {
+      "index": 394,
+      "observedAt": 1793675670000,
+      "sha256": "41ed095fe26e84b1ea4e893f77c5c943601cb6f4e62e97ba20abd2cef23d6c2b"
+    },
+    {
+      "index": 395,
+      "observedAt": 1793675685000,
+      "sha256": "c554cccc87b5233ae86f2c6c984ae32939a27755951bc02d08c21657a60bbbd5"
+    },
+    {
+      "index": 396,
+      "observedAt": 1793675700000,
+      "sha256": "4e38751836fd506f525915e78bc513a8de846a1b889fb1c7cca260416e4564e8"
+    },
+    {
+      "index": 397,
+      "observedAt": 1793675715000,
+      "sha256": "1f963a4c78f68237ce3308424f4af267f8e43a8d6650025fe99bd6d1768bc78d"
+    },
+    {
+      "index": 398,
+      "observedAt": 1793675745000,
+      "sha256": "d5c4cc416acbb1076b320c322942588db7c9547712a507f235947295cac6ce26"
+    },
+    {
+      "index": 399,
+      "observedAt": 1793675760000,
+      "sha256": "fb3d4750fea0f520ad3ace23aec29893410c0f200d06997f76ab19ed6aa4da6b"
+    },
+    {
+      "index": 400,
+      "observedAt": 1793675775000,
+      "sha256": "013439fa79d1ff9bef119eeda457df57c78e106162c53ec3c8c6f544a0c290cf"
+    },
+    {
+      "index": 401,
+      "observedAt": 1793675790000,
+      "sha256": "94e26b73f320421f1401ac5595c6461461f89cc06878cf99fcf5bf0b2e2cfcfd"
+    },
+    {
+      "index": 402,
+      "observedAt": 1793675820000,
+      "sha256": "773485584e8379c763975cbb2b0a092752099bd56d2eb104f9b055c668e243c8"
+    },
+    {
+      "index": 403,
+      "observedAt": 1793675835000,
+      "sha256": "a7e827f17040c004ad761a330c4dcf24d541da01dea7f2c0e3d089da0a36c26c"
+    },
+    {
+      "index": 404,
+      "observedAt": 1793675850000,
+      "sha256": "b51d0cc0a8b69cd73118032ee6d4a9b5419ade9507eee9aeca3a1340138a3c6d"
+    },
+    {
+      "index": 405,
+      "observedAt": 1793675865000,
+      "sha256": "b41f1235a89db0becdf4213a86ab5dc58d0a12116827802fc543f550c7d1b965"
+    },
+    {
+      "index": 406,
+      "observedAt": 1793675880000,
+      "sha256": "3df6c9e7ac2063aa51d59d3e66b33391ce792f55b07011aca893de4a024e8473"
+    },
+    {
+      "index": 407,
+      "observedAt": 1793675910000,
+      "sha256": "4b40abae8df12d94ea57b37eef5b91ebc8d0aec637f46e6172a69f53c7753028"
+    },
+    {
+      "index": 408,
+      "observedAt": 1793675925000,
+      "sha256": "c60bf94bcf9b21bafa18b7156299d53f78b34a05caa6e4a9fe5840282c1c5fd7"
+    },
+    {
+      "index": 409,
+      "observedAt": 1793675940000,
+      "sha256": "3535f1453389fc882ec42feaa16907b0b86cf8d35a4df92b61bd2e51f2b42a8f"
+    },
+    {
+      "index": 410,
+      "observedAt": 1793675955000,
+      "sha256": "c38e0b7518370c3208f0b348b83682e50e7fe0e5e7a77a9e9f0fa07a45f49fd4"
+    },
+    {
+      "index": 411,
+      "observedAt": 1793675970000,
+      "sha256": "fd90ef178416cf48549451091dfef4aa94a4ffb0eaad570850e6c03e8c006853"
+    },
+    {
+      "index": 412,
+      "observedAt": 1793675985000,
+      "sha256": "7f7701f77574b9b9694db13f0161eaf7336ff54370ce050a886c369fd5148283"
+    },
+    {
+      "index": 413,
+      "observedAt": 1793676000000,
+      "sha256": "14217d0aa0e05bb0d8515832d54b351a4ea7179fc8072999ae8b165cf3ba60e4"
+    },
+    {
+      "index": 414,
+      "observedAt": 1793676030000,
+      "sha256": "d8314af3dffcef6f7aa07eaf08ad167c5786fc2d80600c803d57c0a1d4eed761"
+    },
+    {
+      "index": 415,
+      "observedAt": 1793676045000,
+      "sha256": "5878fb356ba938220719f2d3435fd09b427a17e0a9251e704308cf96a28bb81c"
+    },
+    {
+      "index": 416,
+      "observedAt": 1793676060000,
+      "sha256": "f355db721c515158feedbecf551b3767a4d6717c64a6b05795644be352867c06"
+    },
+    {
+      "index": 417,
+      "observedAt": 1793676075000,
+      "sha256": "8d03ac7e601abaaaeb18da5e1e5d5f42c89a64726aa07e4ff4237a31362c7d86"
+    },
+    {
+      "index": 418,
+      "observedAt": 1793676105000,
+      "sha256": "152e641b6d136bbe099a425b44695d4f27426f5784a1b7afc45038de5c5d56eb"
+    },
+    {
+      "index": 419,
+      "observedAt": 1793676120000,
+      "sha256": "30fcc799fe671a71824478c6aa8a5f107c0c0986f0666ff4d73a927cc5396d06"
+    },
+    {
+      "index": 420,
+      "observedAt": 1793676135000,
+      "sha256": "cf713a7260f7638832d2cf7349bd9c3bd7c7126f6e9e0e000b7ff5a7d7c91783"
+    },
+    {
+      "index": 421,
+      "observedAt": 1793676165000,
+      "sha256": "a94fa15abf373c4bb27d16248de6cac52b56b36359969c9d2afedba26291e089"
+    },
+    {
+      "index": 422,
+      "observedAt": 1793676180000,
+      "sha256": "e259c2a82e1adfbe78b2aa3b4accc93fed58ffd09442bd1f29076014485d6683"
+    },
+    {
+      "index": 423,
+      "observedAt": 1793676195000,
+      "sha256": "89916812eda2c9600a92a48573977196d1fc7e4e603a92b0f7657cbd4fe7f90d"
+    },
+    {
+      "index": 424,
+      "observedAt": 1793676210000,
+      "sha256": "83791458a96e695da8fbc0fa16e9c38e58ce9b54db94d8d00aa88518845c4764"
+    },
+    {
+      "index": 425,
+      "observedAt": 1793676225000,
+      "sha256": "271dbc8fc58faf1cab96062999dc8245779e6c2c5ae8dffd1a1a8dd6e949a57a"
+    },
+    {
+      "index": 426,
+      "observedAt": 1793676240000,
+      "sha256": "a697ad1f3739f023b2476643a6c9deade90870a3091113aaade5ce9fffbf1c83"
+    },
+    {
+      "index": 427,
+      "observedAt": 1793676270000,
+      "sha256": "04861977573633ce4d0ec7a48bb111f493fdd46a9f3672c269bb7bae6320d952"
+    },
+    {
+      "index": 428,
+      "observedAt": 1793676285000,
+      "sha256": "cd5f7c489e0842394a83a5e7e3f885dd624a110cd50445c622f48335ae06ef6b"
+    },
+    {
+      "index": 429,
+      "observedAt": 1793676300000,
+      "sha256": "7fddf1878304ba1471cd5d5042af1999a77b0cb38315cde7a8b082292503fcef"
+    },
+    {
+      "index": 430,
+      "observedAt": 1793676315000,
+      "sha256": "e25a5231bf08034257ee430cbfa2897050ea0c0dbfa3338e16d45409439f4687"
+    },
+    {
+      "index": 431,
+      "observedAt": 1793676345000,
+      "sha256": "f510a0dce1fefe3ea81e2bb59eabe2b3f5639228175d0a327180653829275906"
+    },
+    {
+      "index": 432,
+      "observedAt": 1793676375000,
+      "sha256": "e39ba2b44a38cf2c4430b4a1d47d431e0448ae3fab320e55b4f925fed7dd8140"
+    },
+    {
+      "index": 433,
+      "observedAt": 1793676390000,
+      "sha256": "f4689f4394f33c20cddfeffd138b2603ff958b1b1f1274332b315cce9b195e93"
+    },
+    {
+      "index": 434,
+      "observedAt": 1793676405000,
+      "sha256": "7a43ab37af5c0dac91d134ef50bdf1100a09d2914dc68c4b4374fb564cfe426c"
+    },
+    {
+      "index": 435,
+      "observedAt": 1793676420000,
+      "sha256": "ab9fe067016f17b699d7184560f258c884eb605b1f58df3d11548eccd34df584"
+    },
+    {
+      "index": 436,
+      "observedAt": 1793676450000,
+      "sha256": "b3759b37cb409d6e2c6f924ec3b5938aea08f9b1e5c713a58b99d84abd93adae"
+    },
+    {
+      "index": 437,
+      "observedAt": 1793676465000,
+      "sha256": "9f1d631bc4ab29dcc3d9182c3d8324671a835f8a63bcd3baea6487c16e601efe"
+    },
+    {
+      "index": 438,
+      "observedAt": 1793676480000,
+      "sha256": "a796a0d642eae670f7121c313030346ae85b6c84f50cb9219f58a70fbb98c4e9"
+    },
+    {
+      "index": 439,
+      "observedAt": 1793676495000,
+      "sha256": "9cb23d8ee2ba0b51250f2cd34d6d08439e63ed46e5faff90bf7c8cdbd7b17d49"
+    },
+    {
+      "index": 440,
+      "observedAt": 1793676510000,
+      "sha256": "c241055adb15785c35f6858794a09da705d8026fb4fc0065c19383b01079aaf0"
+    },
+    {
+      "index": 441,
+      "observedAt": 1793676525000,
+      "sha256": "565709aa6eebe07bfb9e8e4a37d39539bc7355d5c9c1d2f16d57f1f603252fa0"
+    },
+    {
+      "index": 442,
+      "observedAt": 1793676540000,
+      "sha256": "e826049ba3cbcbf1df918473d375064c200efe4451e0da866fde971bd6dedca0"
+    },
+    {
+      "index": 443,
+      "observedAt": 1793676570000,
+      "sha256": "f26dfc33b30a34f15a584c81d5e950587f28b6a3b15f2fb550789bd040e33ceb"
+    },
+    {
+      "index": 444,
+      "observedAt": 1793676585000,
+      "sha256": "6605d94c51b928f75910fb852c53b9674a8c0106c5536efed821810935ba80d3"
+    },
+    {
+      "index": 445,
+      "observedAt": 1793676600000,
+      "sha256": "61848f6ad6599a44024283b416e37d66399e77909dc2ce123eb6eda8ffd78e23"
+    },
+    {
+      "index": 446,
+      "observedAt": 1793676615000,
+      "sha256": "8e8ac6ad5a309e1b81ca56281d58babcf8976d250363a402761349a77d6d1e5a"
+    },
+    {
+      "index": 447,
+      "observedAt": 1793676645000,
+      "sha256": "f92b93a6eb26e90ff05e6bb92333b831825eab660b62aeb6d39bfd958a05d3e2"
+    },
+    {
+      "index": 448,
+      "observedAt": 1793676660000,
+      "sha256": "cb04c0153ab8b6aea18447c6cfd3a0851b1c8b8232aa2199e1b37cd5e58eaf86"
+    },
+    {
+      "index": 449,
+      "observedAt": 1793676675000,
+      "sha256": "f312a9e102c85f350196452ad75cba322ce4ead8e7c3dbefb22cf56d9cca285b"
+    },
+    {
+      "index": 450,
+      "observedAt": 1793676690000,
+      "sha256": "f1b0cd603db2d67d744197a3e9ebfc4bd1fe13a2629055a72f9b0def5703275b"
+    },
+    {
+      "index": 451,
+      "observedAt": 1793676720000,
+      "sha256": "dd2e208fae9af49690106cacb52fdcf4f9d93df188d8323cd670fe6d6523c877"
+    },
+    {
+      "index": 452,
+      "observedAt": 1793676735000,
+      "sha256": "083bc98f4d3f6aa7eeff78cfbf3ca503f8c56c61c3395a5a161d7ce9ed7b9c07"
+    },
+    {
+      "index": 453,
+      "observedAt": 1793676750000,
+      "sha256": "acdf5e338dfa43a001ce3c3bc5d795bba656b8ca0a272224a9411da58dc2f168"
+    },
+    {
+      "index": 454,
+      "observedAt": 1793676765000,
+      "sha256": "74bb9541c4b2a8c4c735db2c282d02bc43d150b4a3e1a6f1ba1c9606169fcd44"
+    },
+    {
+      "index": 455,
+      "observedAt": 1793676780000,
+      "sha256": "2a2b5ed12ffb15235ebb9ae47c21358f0570e575e24d034d742abcf14b590796"
+    },
+    {
+      "index": 456,
+      "observedAt": 1793676810000,
+      "sha256": "9e0cf689f06b8f8bf6fa0094fb252fdb919b9b5a0e08caec57fcc188d133ff8a"
+    },
+    {
+      "index": 457,
+      "observedAt": 1793676825000,
+      "sha256": "7867f02b243303e7b5e3e48b4073e31329aebe94f85c55ef02a634f659d5d7ff"
+    },
+    {
+      "index": 458,
+      "observedAt": 1793676840000,
+      "sha256": "415c9395777cf414a2c7cd7ade12ad66814fc0ee95e7a3cf2d53b45b91805a4e"
+    },
+    {
+      "index": 459,
+      "observedAt": 1793676870000,
+      "sha256": "aa33a21e01890ca81f00f0ef7810e86d5dedd0ab21e117d72f0e3d320c8b0a99"
+    },
+    {
+      "index": 460,
+      "observedAt": 1793676885000,
+      "sha256": "86dd3b8172f83e61e965b8213e20e3071186e4dc88a4c6b4f394aab046e3cf5b"
+    },
+    {
+      "index": 461,
+      "observedAt": 1793676900000,
+      "sha256": "5cb45792b2328548825163c1c322df03e08334960f9ca77baf087644bf579c7c"
+    },
+    {
+      "index": 462,
+      "observedAt": 1793676915000,
+      "sha256": "df0ffa791ddf46dbdd8aa757fce6f83c804cf6a60a98effc6615182142cdfc6f"
+    },
+    {
+      "index": 463,
+      "observedAt": 1793676945000,
+      "sha256": "7520dbc2633ec02fa9ac34bfcd048131ffda44c10e66988542814de060875df8"
+    },
+    {
+      "index": 464,
+      "observedAt": 1793676960000,
+      "sha256": "9ef8b3f36bca86a4262c7d75bad34f219f6d94edcdef576abe8ca65c7d0e1a52"
+    },
+    {
+      "index": 465,
+      "observedAt": 1793676975000,
+      "sha256": "4d2b9ad12383b761fae4779669caf7afacc67874163d63f56a7aa7cb00d8456d"
+    },
+    {
+      "index": 466,
+      "observedAt": 1793676990000,
+      "sha256": "9e500ebf827711207e9e63fa31a7dd21eb5ffa3b3dceae29dcc76a2cf19fd736"
+    },
+    {
+      "index": 467,
+      "observedAt": 1793677020000,
+      "sha256": "dc9e554dd07ef7f06474458c69a8d7a87210c82f1dca3efecfc10da9c050e125"
+    },
+    {
+      "index": 468,
+      "observedAt": 1793677035000,
+      "sha256": "87dcfa03a8c864af67d6cf926c35b2ac6bf7d2346cc8424ca679d02d3b0de9bc"
+    },
+    {
+      "index": 469,
+      "observedAt": 1793677050000,
+      "sha256": "ddfbe7f7c0512da42c109d48a9cb8315e838f6ec2b2f5f053907fdcfb7358b0e"
+    },
+    {
+      "index": 470,
+      "observedAt": 1793677075105,
+      "sha256": "a9f8b7e264451370f5040b6f640d51224b684f6b3b87ba0a4911876b4a5744d3"
+    },
+    {
+      "index": 471,
+      "observedAt": 1793677152432,
+      "sha256": "6f7a97c0b567d972b04126edacda0d0d2192fcdcde6fd4ccba8230e1863c078b"
+    },
+    {
+      "index": 472,
+      "observedAt": 1793677669461,
+      "sha256": "30ed2eb31257b67f7c738f9327a43c0d2f218c43b581332362c38df985322eee"
+    },
+    {
+      "index": 473,
+      "observedAt": 1793685787060,
+      "sha256": "2f1c74d62c9680e2c615aaed70f81e964ec6d234b179b8b32c6898262b964acd"
+    },
+    {
+      "index": 474,
+      "observedAt": 1793685975234,
+      "sha256": "a8529c0bcc219482495241a0990e4a979a75c90bafdde8864797df67fdefd120"
+    }
+  ],
+  "publicComparison": {
+    "beforeEqualsFrozen475": true,
+    "beforeSnapshotsSha256": "4adfe2538b2a8fa77fa58af9e792b02ea231a7c725213047ed3a8e1b118d7527"
+  },
+  "protectedSourceFiles": 237,
+  "parity": [
+    {
+      "path": ".github/workflows/deploy.yml",
+      "sha256": "9f7e47918794534583121f711a05191478ff33f1fa913cd9ee300ea404ef030d"
+    },
+    {
+      "path": "alerts-worker/README.md",
+      "sha256": "c8f6e90083d0435c370319ea9a4e51fa09d450ea8e86ea121baf92518c19ece4"
+    },
+    {
+      "path": "alerts-worker/migrations/0001_scoring_audit.sql",
+      "sha256": "4d293aa0d5578392a03c7f99fb35a6203349cb72b7421173ce8dfd951e0d8ce0"
+    },
+    {
+      "path": "alerts-worker/migrations/0002_history_lookup_indexes.sql",
+      "sha256": "11bbb27459f9cd574e838c24048799bbcf46c20b1f858061e1eded7b2e94ecfc"
+    },
+    {
+      "path": "alerts-worker/migrations/0003_notification_preferences.sql",
+      "sha256": "2c4a1d98326286572f399899d2a1dea5f02b05d48a130cb843980a4a9d8705cc"
+    },
+    {
+      "path": "alerts-worker/package-lock.json",
+      "sha256": "84b5bbd13c18b27d3a8f54ac2d3a495c008b62517fb153d4a6f223ae0f7e7dd3"
+    },
+    {
+      "path": "alerts-worker/package.json",
+      "sha256": "6a6940f48348a0eefc7a2e675a7b9acb019b1b5e4f6d81545431931d2f127604"
+    },
+    {
+      "path": "alerts-worker/schema.sql",
+      "sha256": "16caf708091e027b58d166fed25347f3b706c68d777f38352e5d955b0adaebd6"
+    },
+    {
+      "path": "alerts-worker/scripts/generate-vapid.js",
+      "sha256": "a9c1f0150ceb1724111c37f9c553f838bdd31f3a2669a213c6888a3a4dcce605"
+    },
+    {
+      "path": "alerts-worker/src/ai-budget.js",
+      "sha256": "f7a7e1f7fdd08c5283d3eda325145157d8179e828b44c750d6615d8cf3b3cb5c"
+    },
+    {
+      "path": "alerts-worker/src/alert-delivery.js",
+      "sha256": "4bebb2cd8fb901254de5926daf8de3c37ceb875d766711c5cb5bb33a3d633358"
+    },
+    {
+      "path": "alerts-worker/src/cfb-metadata.js",
+      "sha256": "51fafb622436e8c5bda981c094f9c7b996201c627c0d19cbdf676bc9e65e47f5"
+    },
+    {
+      "path": "alerts-worker/src/display-model.js",
+      "sha256": "5536a902bc1bf469a5ca982b21cc53167afbbe6328f1cb2ef8fcd6519e9416fd"
+    },
+    {
+      "path": "alerts-worker/src/editorial-context.js",
+      "sha256": "c7e37f75e7e7be93ad5938b2bce425a3a1d4f196e5cecb4da4e19e6c1bec7f1e"
+    },
+    {
+      "path": "alerts-worker/src/game-model.js",
+      "sha256": "415178a53fa20c348eb5695603c154da173a65e4135874005c6a0832777ae3ee"
+    },
+    {
+      "path": "alerts-worker/src/index.js",
+      "sha256": "97f60a307d0519f423df123b0d0d64d2dad97c38ce10368f0ede83a3ee9ca18a"
+    },
+    {
+      "path": "alerts-worker/src/live-game-model.js",
+      "sha256": "670e020eba725c01e7551f6c08c68c1bc345f3e159631e2cbcf4f6bb64838cc1"
+    },
+    {
+      "path": "alerts-worker/src/nfl-pregame.js",
+      "sha256": "c4803baec689142e8cb7f026083c78494cc6d86ba4b778fbfd8f9d9a19e88736"
+    },
+    {
+      "path": "alerts-worker/src/nfl-return.js",
+      "sha256": "fd81b9682ec5d7ff5b3b83a296c61671500ed891f41a276a24ac03ea6b62e46c"
+    },
+    {
+      "path": "alerts-worker/src/notification-preferences.js",
+      "sha256": "1233ffa1292caa894153d3aba8b9d36316fbf48795df9cc8fc761dfed3956b0e"
+    },
+    {
+      "path": "alerts-worker/src/providers/espn.js",
+      "sha256": "cb316d00cdbd0f72549c8dd25365188786a5e3f58981a9aef256c08a82318127"
+    },
+    {
+      "path": "alerts-worker/src/providers/nhl.js",
+      "sha256": "d5d4f1661e05973fef21796d5e1829d271b71a9729c9a866cb48dbbca0d5972a"
+    },
+    {
+      "path": "alerts-worker/src/providers/tennis.js",
+      "sha256": "fe01200bc88671642a495ddf78fdfe33bb9798f91d10f23a99a6e0a0d9296e0c"
+    },
+    {
+      "path": "alerts-worker/src/refresh-policy.js",
+      "sha256": "854c4a304117e000f57e586cc7334afd703830519b2d08b44bb78bbc786704a9"
+    },
+    {
+      "path": "alerts-worker/src/research-allocation.js",
+      "sha256": "ba3ef6233e58d4a000e09815fbeb7031550f05d3b63c06e3de80cbacb799873f"
+    },
+    {
+      "path": "alerts-worker/src/snapshot-history.js",
+      "sha256": "da9fdd57f6282a7f546707be1381f14cb5b6371f24b015720105b5a9e1cddf6d"
+    },
+    {
+      "path": "alerts-worker/src/sports-feed.js",
+      "sha256": "0a668a41278e0e39c85448576e65f11303d1bda2df016c1e0c85bb1d402b3623"
+    },
+    {
+      "path": "alerts-worker/src/storylines.js",
+      "sha256": "6d38f646b17f176acc225e0752d7433480249fb3f910796b4868bb304dbb9994"
+    },
+    {
+      "path": "alerts-worker/test/ai-budget.test.js",
+      "sha256": "e0bbb016e894a98215f254b354d1f46c3041fc1a453edfb31002182b300aa93d"
+    },
+    {
+      "path": "alerts-worker/test/audit-alert-delivery.test.js",
+      "sha256": "f6a12ccc8bdd12a136e45d6c370f2bbf036315489062083d48e7a8d46856ec90"
+    },
+    {
+      "path": "alerts-worker/test/audit-migration-played-score.test.js",
+      "sha256": "be05db31d945cbd76cc79829048a38c33cf1e5aad790379706c580db6cfe5b0e"
+    },
+    {
+      "path": "alerts-worker/test/audit-migration-pregame.test.js",
+      "sha256": "e0c324be5c5ec594bf913d127d8fed0c1deff26fc836efe503091c9144c2417a"
+    },
+    {
+      "path": "alerts-worker/test/audit-refresh-migration.test.js",
+      "sha256": "66991bd22b788468a41a658b914ccd23474c94bc83090ed9f854c858055301f1"
+    },
+    {
+      "path": "alerts-worker/test/audit-tennis-collection.test.js",
+      "sha256": "86442152ff4e7e169d55d811553358a327463baa30579b78644eb5ba0206d937"
+    },
+    {
+      "path": "alerts-worker/test/cfb-metadata.test.js",
+      "sha256": "b9913d1f474b7bf3ea0780a27e3a227438104ededee05339496fb792ee0a5a59"
+    },
+    {
+      "path": "alerts-worker/test/domain-compatibility.test.js",
+      "sha256": "af0c43bf90797d2b31227526d26ded29f413a62062034edd0eb29792371efc99"
+    },
+    {
+      "path": "alerts-worker/test/editorial-context.test.js",
+      "sha256": "06cff3434a4098b0eeb653800037e90135226cd80b0516a44c57e68bf82b18c3"
+    },
+    {
+      "path": "alerts-worker/test/fixtures/audit-integrity/tennis-20261101.json.gz",
+      "sha256": "e4ce708bbaf5084f8c7778cd44abb3f42e9e99d16349afd2ef51298047b4cb21"
+    },
+    {
+      "path": "alerts-worker/test/fixtures/audit-integrity/tennis-contract-20261028.json",
+      "sha256": "4bb78ed5b5d094e853c0f156a78693540771f9b8273da1a0db0c0415ec77a09c"
+    },
+    {
+      "path": "alerts-worker/test/fixtures/editorial-model-20261103.json",
+      "sha256": "0cd43f52cb6084d9f6c9e04244a3a52587ef273fa4aa5d06f3a8c123f1e39f7d"
+    },
+    {
+      "path": "alerts-worker/test/fixtures/migration-inputs.json.gz",
+      "sha256": "2f4318f63dbb0ddc0f2513d70c85604f9b1e42cfe3c438ebeef5b86e80a4a06c"
+    },
+    {
+      "path": "alerts-worker/test/fixtures/migration-parity.json",
+      "sha256": "1842a1c0065fdf0801ad5497960b1c3862bcf20d38cf85f69a9d35fd49173ea9"
+    },
+    {
+      "path": "alerts-worker/test/fixtures/pre-migration-browser.js.gz",
+      "sha256": "df7730c3746d7e9c453ffeebaeb4e05ae84bec7ab24b1804dbbbac868447c349"
+    },
+    {
+      "path": "alerts-worker/test/fixtures/pre-migration-core.js.gz",
+      "sha256": "992e9f69ba0eb8d5af369a38d0efed373b9170cdf34b7656e0f7de7477353516"
+    },
+    {
+      "path": "alerts-worker/test/fixtures/provider-contract/CFB.json",
+      "sha256": "b45e2ecc83cae99f29030bf354834e42668d37aa9b5d0634a7e7f4af72fd508b"
+    },
+    {
+      "path": "alerts-worker/test/fixtures/provider-contract/MLB.json",
+      "sha256": "f2a3ba50d55ac540a321fbd8d3a6d8a932e6ab51ef972f13ccf24fa9d1dced17"
+    },
+    {
+      "path": "alerts-worker/test/fixtures/provider-contract/NBA.json",
+      "sha256": "0a75410b2ff8d0cefe476606b75e0fa20cb2e91dc9efa125f1d2576603e9600b"
+    },
+    {
+      "path": "alerts-worker/test/fixtures/provider-contract/NCAAB.json",
+      "sha256": "4e4c292b099f982c7a1e8a93e03b0a0270b2a384155d0f771b2d296d0095c35c"
+    },
+    {
+      "path": "alerts-worker/test/fixtures/provider-contract/NFL.json",
+      "sha256": "d724d37ddebd5bf468c30abc6eef47a463853476780ff7a03ebf1105a99c608b"
+    },
+    {
+      "path": "alerts-worker/test/fixtures/provider-contract/NHL.json",
+      "sha256": "fc56e6b2b80e7cb8edc5ef9a6da6fc05d0548f34aec33f866ca096916f851976"
+    },
+    {
+      "path": "alerts-worker/test/fixtures/provider-contract/sources.json",
+      "sha256": "bd903692f53f35dc7d0dcf89ff846f711e569a759800188eff42e24d213850a4"
+    },
+    {
+      "path": "alerts-worker/test/fixtures/research-slate-20261103.json",
+      "sha256": "3046c75bdfd122e0015233877651a87cf8a600dafa28a0014914d5de6a30927a"
+    },
+    {
+      "path": "alerts-worker/test/fixtures/research-trace-20261103.json",
+      "sha256": "b4f18bce60b8c72cafdc300435f9d32dd525a4a3a017398617e5c7a5ab810679"
+    },
+    {
+      "path": "alerts-worker/test/fixtures/team-leaders/CFB-120.json",
+      "sha256": "fbffe6a0f695e28654968ac56c5d67bca4d56f70db5fa36791c1d5bfd6c10566"
+    },
+    {
+      "path": "alerts-worker/test/fixtures/team-leaders/MLB-1.json",
+      "sha256": "8ccc3480b5646189cfbed2088b7f009ff4fb6578c3ffc5ca7450e30bd3115da8"
+    },
+    {
+      "path": "alerts-worker/test/fixtures/team-leaders/NBA-13.json",
+      "sha256": "d1e4b8a9951af1a6442e8ab1ca5eb94095a9d10013a2864ea2ba9e8d9fac296d"
+    },
+    {
+      "path": "alerts-worker/test/fixtures/team-leaders/NCAAB-120.json",
+      "sha256": "981967c9bde53decfd02df9cd590420dad8852180bb39e930836c1f5a5688d2f"
+    },
+    {
+      "path": "alerts-worker/test/fixtures/team-leaders/NFL-33.json",
+      "sha256": "2990c96e902fa055ac0c5f9fdae25048e87b4c364bb70b99eae61f58142d46f8"
+    },
+    {
+      "path": "alerts-worker/test/fixtures/team-leaders/NHL-23.json",
+      "sha256": "cfce81e2acb42ff0aade6b28afc082bc1e7b79aff63f1b3bd7338b9f03dd7e1f"
+    },
+    {
+      "path": "alerts-worker/test/fixtures/team-leaders/README.md",
+      "sha256": "540cc11810cfd4557c4560bf3d4b113a338dd4dda2921538ac79b90fa651f8ea"
+    },
+    {
+      "path": "alerts-worker/test/fixtures/tennis-grand-slams/atp-20240128.json",
+      "sha256": "a69303e334a29e3e5be74be2928276ad87cecb4930ce98d5370677b6ca19451e"
+    },
+    {
+      "path": "alerts-worker/test/fixtures/tennis-grand-slams/atp-20240609.json",
+      "sha256": "7af3dcf5f01f88dad2c5917271b13c139ace6d71f10ac2e9012b27a96077aa82"
+    },
+    {
+      "path": "alerts-worker/test/fixtures/tennis-grand-slams/atp-20240714.json",
+      "sha256": "6f592cc3602351507da7f63270bec8f856eed67af5a2a6c969a1acb434de6e92"
+    },
+    {
+      "path": "alerts-worker/test/fixtures/tennis-grand-slams/atp-20240908.json",
+      "sha256": "00ddde0009fcc2db46f30084c10c69b5ef3a00d2b6e9d6429c32b4f972be176a"
+    },
+    {
+      "path": "alerts-worker/test/fixtures/tennis-grand-slams/atp-20250126.json",
+      "sha256": "c68b312217ba112fdd17649cd9a91bb598347910b8ee1b6f4e85aedefe77f524"
+    },
+    {
+      "path": "alerts-worker/test/fixtures/tennis-grand-slams/atp-20250608.json",
+      "sha256": "d939d0ee2053e77f67be4ff7fd783dcebf1f229828b75878d2025a52e79ecd3a"
+    },
+    {
+      "path": "alerts-worker/test/fixtures/tennis-grand-slams/atp-20250713.json",
+      "sha256": "50523f6b262ab0808f32d54a040aa50f51fd49581705dab3e115c4dbce73d3ff"
+    },
+    {
+      "path": "alerts-worker/test/fixtures/tennis-grand-slams/atp-20250907.json",
+      "sha256": "7c89ff0ce31798bc9f86b52d033827c4cb9a8735bb744bfe2282fe94af81e3ab"
+    },
+    {
+      "path": "alerts-worker/test/fixtures/tennis-grand-slams/wta-20240128.json",
+      "sha256": "9dd4c94b3d65eb069a88f98e47d80d2fc7c21cc5583455c069f101e26c1f3c7d"
+    },
+    {
+      "path": "alerts-worker/test/fixtures/tennis-grand-slams/wta-20240609.json",
+      "sha256": "7f11dfa1283a87e0258b942a4beeaf3e088515db327c0522abd35232bbd14cd7"
+    },
+    {
+      "path": "alerts-worker/test/fixtures/tennis-grand-slams/wta-20240714.json",
+      "sha256": "0cc3fb8c2c6f3e079bc7a44dae38958d318abc12758387d5e7236448a8c6bf26"
+    },
+    {
+      "path": "alerts-worker/test/fixtures/tennis-grand-slams/wta-20240908.json",
+      "sha256": "141f305b6660abaf99e93d201fe9092d336b1d1426499f9d297147cc69a1748c"
+    },
+    {
+      "path": "alerts-worker/test/fixtures/tennis-grand-slams/wta-20250126.json",
+      "sha256": "cca441a5d5f294020c6188a5f0a0a24803e8a76cf008edccff6e27ae5f13d2f0"
+    },
+    {
+      "path": "alerts-worker/test/fixtures/tennis-grand-slams/wta-20250608.json",
+      "sha256": "da55855d5728da475b006f350c9eef1bde575ac3ca169edf63955ba2575e820f"
+    },
+    {
+      "path": "alerts-worker/test/fixtures/tennis-grand-slams/wta-20250713.json",
+      "sha256": "efc2ebd0638b45752b71bec5c7ca6197ecb39cd16f1d092ae4d400a30cbae511"
+    },
+    {
+      "path": "alerts-worker/test/fixtures/tennis-grand-slams/wta-20250907.json",
+      "sha256": "1d614794544d5be7e284aa5080ac31dbc3c45efcf03df84957064259ba9a60ad"
+    },
+    {
+      "path": "alerts-worker/test/game-history.test.js",
+      "sha256": "44dad6121e3ff52892dd0f61b75ad137f9373972e67188d7072f181ded686a99"
+    },
+    {
+      "path": "alerts-worker/test/history-storage.test.js",
+      "sha256": "544c4aa59e6c347d2b9bc797b552b4abf95b3fec03807351e4928eb0a23fb42a"
+    },
+    {
+      "path": "alerts-worker/test/nhl-provider.test.js",
+      "sha256": "4e80a83a2ec768f1638e805358946b743c796f111b9b2b8b47cd92aa8781da8b"
+    },
+    {
+      "path": "alerts-worker/test/notification-preferences.test.js",
+      "sha256": "e6df2b07f9df7cbf28593be6df66ceb3e7e1f1267d510c0b379fc6e1fdd9b7cb"
+    },
+    {
+      "path": "alerts-worker/test/pregame-story-relevance.test.js",
+      "sha256": "b8378ed13471675b1077cd323996bfea102c1a35646d6a9ced7a4067176c750b"
+    },
+    {
+      "path": "alerts-worker/test/provider-contract.test.js",
+      "sha256": "12f8ab41385fdc9244d216ebcbf3e28045c1efab3a9721a895fe23bc4ef6ae4c"
+    },
+    {
+      "path": "alerts-worker/test/refresh-optimization.test.js",
+      "sha256": "398fc3e24286a6af28648121e28900384ef9a1c518c9bf637bb50bde32c3598b"
+    },
+    {
+      "path": "alerts-worker/test/research-allocation.test.js",
+      "sha256": "a222b04ac44f728a822594c9f6930ed9ff29e52dcccd684335ddd6fbb9f145f8"
+    },
+    {
+      "path": "alerts-worker/test/research-trace.test.js",
+      "sha256": "7e0946f5263bd21869cfa696c6ab8c1bc0995ab2a9e2b760c1f362b17501b1bb"
+    },
+    {
+      "path": "alerts-worker/test/sports-feed.test.js",
+      "sha256": "ac657aabb431481a5330e2a39576fbd61db0d61b7127a2386904e913856facf8"
+    },
+    {
+      "path": "alerts-worker/test/summary-integrity.test.js",
+      "sha256": "4e96de7203de10017110147a38ece54f4991067ec50e919c5542a7d5976b29df"
+    },
+    {
+      "path": "alerts-worker/test/tennis-grand-slams.test.js",
+      "sha256": "8e79c591279358d361590c881e1d08c46304f29913deb43f5a72762c0df973b9"
+    },
+    {
+      "path": "alerts-worker/test/worker.test.js",
+      "sha256": "b4f0798dde6f52d966303729a07a52b7c89c318e33b8fbd0496c22bc2f72d2d0"
+    },
+    {
+      "path": "alerts-worker/wrangler.toml",
+      "sha256": "dd45566ef6e0ff14a1e27260d44ed708250ee233adb6eda100cdfb5e842083b0"
+    },
+    {
+      "path": "app.js",
+      "sha256": "64f3a576ad9c71529eb75f811d18c1a84d9e5c2216446f5fee9b28cec1566816"
+    },
+    {
+      "path": "calibration/basketball-audit-20261101.md",
+      "sha256": "288b35a8d25b782b0d3793393c1be0f223a12d121655f4cb4497feeb89523d2e"
+    },
+    {
+      "path": "calibration/cfb-baseline.json",
+      "sha256": "b33988a70fe87b25e3be4881c043ddd90253823c841e45b9578fc0dc4372baf1"
+    },
+    {
+      "path": "calibration/cfb-calibration.md",
+      "sha256": "a9401d19f95a11945019b4c3bff5e04a3ae915353e0e55280b2deb9d298292d7"
+    },
+    {
+      "path": "calibration/cfb-completed-audit.md",
+      "sha256": "b31671bc41f7b4cc55bd0709481a193fc564ba7f5677fd8427aa20de38e504b5"
+    },
+    {
+      "path": "calibration/cfb-completed-baseline.json",
+      "sha256": "daa6dfc8adba9f2cda702ad1c31ec943fea86bad63e1dfacc295dbda22f2f065"
+    },
+    {
+      "path": "calibration/cfb-completed-calibration.md",
+      "sha256": "35c0dfdd5653529508c5c3399d47373348c10cc3c1d83016ab6950e41ea3f487"
+    },
+    {
+      "path": "calibration/cfb-completed-upset-audit.md",
+      "sha256": "b1055a1255b4050521c44749c683b7860bff16966d1160348f618443d72ae4d7"
+    },
+    {
+      "path": "calibration/cfb-completed-upset-calibration.md",
+      "sha256": "aae55e4a6799eee98b175555704da6bc2ad5c859ded5b88d3c0fdf065faa2e72"
+    },
+    {
+      "path": "calibration/cfb-context-fixtures.mjs",
+      "sha256": "26c11f89ef35775b79fe9d4dca351ddc8cc1616d02b0e31c47cf7b9c8d554e1a"
+    },
+    {
+      "path": "calibration/cfb-scoring-audit.md",
+      "sha256": "00f93514a57e6dff39021deeb5d6de3734280b3d01746e1d389a9ce9adafa7ff"
+    },
+    {
+      "path": "calibration/cfb-watchability-fixtures.mjs",
+      "sha256": "f5a4f3172a82a5677feff24bb508eee4694f252962a67fc42c7066b579cc4034"
+    },
+    {
+      "path": "calibration/context-overrides.json",
+      "sha256": "12f27eb128c401b4099d2bf574f6fb9228f535e2bad53798493701f784372d7c"
+    },
+    {
+      "path": "calibration/current-tension-calibration-report.md",
+      "sha256": "a8c7d64010c2d25a3ee1d7ad3c45e2405aed094f97a74a4f599b079c244a7593"
+    },
+    {
+      "path": "calibration/endgame-allocation-fixtures.mjs",
+      "sha256": "afd86e025792c2bf6f1d2cad5fa8b2a15678af89df717d68fa8bf1cb96221879"
+    },
+    {
+      "path": "calibration/expectations.json",
+      "sha256": "0e3d7a003569dff0bf393b36c5081b573698fba5ad990746855dc4bc3ac9fa0a"
+    },
+    {
+      "path": "calibration/finish-audit-20261031.md",
+      "sha256": "39fdf70f73ec6f8677cc007e8e4b397ca8dc007cec81ec705f75ad1b597831b3"
+    },
+    {
+      "path": "calibration/fixture-provenance.mjs",
+      "sha256": "6a936e6a7768f52ca2b00f099da15d5d3cb34ef08163db8c7b65b690da5b351a"
+    },
+    {
+      "path": "calibration/fixture-provenance.v1.json",
+      "sha256": "8948ee3d3a62719d63a7e6128548380d04879b1f3f4c4b955e2af927623d9691"
+    },
+    {
+      "path": "calibration/football-live-20261101.md",
+      "sha256": "576d874613999fb12b63ed29fdf579262eed12d4625dc20f7c5fb9484aa836e7"
+    },
+    {
+      "path": "calibration/football-pregame-20261031.md",
+      "sha256": "d94d43f587e7d974d7b026bcb58ed301bcf75bde6259c915ab311294e7777954"
+    },
+    {
+      "path": "calibration/football-transition-20261031.md",
+      "sha256": "450bca4f53c89f100467554fba53ff91c873b6a050ec6843e2056aa9d63595d2"
+    },
+    {
+      "path": "calibration/helpers.mjs",
+      "sha256": "d306895efccd9cdca409cac4d6bc1db2f26c11267348dd4bfdf6b7c01be6bef7"
+    },
+    {
+      "path": "calibration/live-cfb-competition.md",
+      "sha256": "43d32198dac0badbdf12b3c308b9b06b63be5829c44bcae36a91d91f8e110ab0"
+    },
+    {
+      "path": "calibration/live-cfb-context.md",
+      "sha256": "63e31b0866970f5afe33243478769b8604ffc988d7c147b7776caef1bb9c4186"
+    },
+    {
+      "path": "calibration/live-cfb-watchability.md",
+      "sha256": "9ec79277e682f69a3c2ac051aa06e6ad7faf6c1074d8c63039c85b9104f0a796"
+    },
+    {
+      "path": "calibration/live-endgame-allocation.md",
+      "sha256": "91d3a8361a162ca979c0d519df9c9504215b13be00cb3115a0aa7b32af6570b4"
+    },
+    {
+      "path": "calibration/live-nhl-allocation.md",
+      "sha256": "f5ddd8e492d30ea079c857646ac45b653e58d49791e17426d595705a261b58d9"
+    },
+    {
+      "path": "calibration/live-sync-20261101.md",
+      "sha256": "9e345a49fc2959783ee7e2ee18ce945eeb14e1ca8aa1bf0cbb8e19f5081eff34"
+    },
+    {
+      "path": "calibration/midgame-calibration.md",
+      "sha256": "38dcd30146a7976adc748f04e8ef738f716dc299a8cb6f8a98b1725167cba87e"
+    },
+    {
+      "path": "calibration/ncaam-first-half-20261102.md",
+      "sha256": "df9ce537b4463b958ded80dbea7d0b5617bc13501a0cf7fc918fd91f7a8a460f"
+    },
+    {
+      "path": "calibration/nfl-competitiveness-20261101.md",
+      "sha256": "58111aebb79e03494c76d5c8e7e7d4237441a2ec91cc7524f83a3293af2acc66"
+    },
+    {
+      "path": "calibration/nfl-decisive-baseline.json",
+      "sha256": "feb6c34ef31a9101cc5dada6c413e4f3534dba39f3393bf539cdc7eebc81e3bc"
+    },
+    {
+      "path": "calibration/nfl-decisive-calibration.md",
+      "sha256": "53ac0cd1c9603dc7903fbf4733edce9e7f5b234182c7094e9e90497c0f794c7b"
+    },
+    {
+      "path": "calibration/nfl-overtime-rules-20261031.md",
+      "sha256": "683a1d5c5df83a296243da46d6d174a8186584ce56f2b7a494fa88181df3afd8"
+    },
+    {
+      "path": "calibration/nfl-scoring-audit.md",
+      "sha256": "c4942e1846bc0f5ab22b52fbe0521550d6524a015e780458af2ba23feb90bd1e"
+    },
+    {
+      "path": "calibration/nhl-advanced-pressure-audit.md",
+      "sha256": "d5acaaad2f5603b509bfdcb9dd63a2a5a2feefe5e6a3e16f3c3af59a2e540489"
+    },
+    {
+      "path": "calibration/nhl-allocation-fixtures.mjs",
+      "sha256": "4912983665c14089706680b3df728dd1c41d16419679dce62360a5b306887089"
+    },
+    {
+      "path": "calibration/nhl-calibration.json",
+      "sha256": "13475ab8c234dfe3eebda9606c4bc2b68514860c6d4cec8ae663307aa111133b"
+    },
+    {
+      "path": "calibration/nhl-calibration.md",
+      "sha256": "0fe515c0c555c0fec4cf2b22e24e83dd9e4990ab5fdac48aeb749730806c9258"
+    },
+    {
+      "path": "calibration/nhl-pressure-experiment.cjs",
+      "sha256": "e88112229052b124af2c6bd74d89b07cd13098876d82e16023bad3a03c5ca29a"
+    },
+    {
+      "path": "calibration/nhl-pressure-results.md",
+      "sha256": "4431e8c772fd4496c027fd74ef55d5ee15d067fe1348c7a74d51f9157a1babca"
+    },
+    {
+      "path": "calibration/nhl-pressure-review.md",
+      "sha256": "f3680eec95e460fef4717d9dfd7803fc8b4cf1b03a59c29749f0ff6b1624e559"
+    },
+    {
+      "path": "calibration/nhl-public-replay.mjs",
+      "sha256": "4206e617fd532ba2c56d676c13003e8dd24d629a3766b98dafed061e7e8bac8e"
+    },
+    {
+      "path": "calibration/nhl-scoring-audit.md",
+      "sha256": "45ce3ba4c44be1f6c26b6e580abf3d73394675b805db58820aafaa2f3aab27ab"
+    },
+    {
+      "path": "calibration/nhl-statistics-release.md",
+      "sha256": "04e8df59473af2f9f6199eb753287a645e42146bfb3a88752637749c7ad20499"
+    },
+    {
+      "path": "calibration/opening-transition-20261031.md",
+      "sha256": "b1aeba0c76e80f8489579762933819e980053d36211dc9f8651635ffa63d5ea4"
+    },
+    {
+      "path": "calibration/output/basketball-audit-20261101.json",
+      "sha256": "9b4443c5b7fafca6c41b8ee8d67bccc04edd965e3d82f100462f2e34b9b4788c"
+    },
+    {
+      "path": "calibration/output/current-tension-calibration.json",
+      "sha256": "72ba816c4ec92b6f8fff7f09f72973e713c3846bf6d222bef10250f01a379ebb"
+    },
+    {
+      "path": "calibration/output/finish-audit-20261031.json",
+      "sha256": "ec00cba23a3f300d080886c4f067c3e8219a29be69a45ba7e5834390ba552a1c"
+    },
+    {
+      "path": "calibration/output/football-live-20261101.json",
+      "sha256": "3aa618e409f6e97f0f0a5270549718de02248ebe1ad77efb43d7382e548ca156"
+    },
+    {
+      "path": "calibration/output/football-pregame-20261031.json",
+      "sha256": "c9e900f20b1cd9738808f6779cd2ffc87dc336d0b163a1151c8fd787357ff126"
+    },
+    {
+      "path": "calibration/output/football-transition-20261031.json",
+      "sha256": "0cd1e775d7c3ef278599c91e2cb21ac6d013a0ca52c7652a4232866f371bf30f"
+    },
+    {
+      "path": "calibration/output/latest.csv",
+      "sha256": "9466a11a69429d66ed0f922cf19f51e44ad9b3138e418c31680d13498f80fd11"
+    },
+    {
+      "path": "calibration/output/live-sync-20261101.json",
+      "sha256": "63a8528a920ea84c0d5e81c8ea39c060b34c8e27c517bf501642a12baec29fd0"
+    },
+    {
+      "path": "calibration/output/ncaam-calibration-after-20261102.json",
+      "sha256": "baf6cdd3b5146002e47e01ceedb2fcb243180988edd402e860ccc86b41e4cfa1"
+    },
+    {
+      "path": "calibration/output/ncaam-calibration-before-20261102.json",
+      "sha256": "aab09f6dfdf8416ab758ea9b09fde7dc9c5a9935dfe13f8e5cb0b3bc1df89cbf"
+    },
+    {
+      "path": "calibration/output/ncaam-historical-replay-summary-20261102.json",
+      "sha256": "b26d31b56f7a5f0aa6bcd5052766882f71f24ddc2d2198ee175a90bdef7c70b0"
+    },
+    {
+      "path": "calibration/output/nfl-competitiveness-20261101.json",
+      "sha256": "c44c48a571d799f049a96dee6984569319e247e24e3aac3cda60dd5ef05d74b9"
+    },
+    {
+      "path": "calibration/output/nfl-pregame-20261101.json",
+      "sha256": "659b0d6a9790b442df4423dca5c8a3259f4c64e19565d6d3293d275240bb47bb"
+    },
+    {
+      "path": "calibration/output/nfl-refinement-20261101.json",
+      "sha256": "f02acbcf11a0620b19df4b704c9b4e8e72978f4e3d066091283255b5ef8b242b"
+    },
+    {
+      "path": "calibration/output/nhl-pressure-comparison.json",
+      "sha256": "eb6635f33d9e5095477f90d4e5232e202eb5945c5a786e9a8d93442934f73d53"
+    },
+    {
+      "path": "calibration/output/opening-transition-20261031.json",
+      "sha256": "7db5d3fcf0765ab78d3d938fd7dbfed3e63930ddfa6c7e3632b66869dfcbe001"
+    },
+    {
+      "path": "calibration/output/pregame-market-hotfix-20261101.json",
+      "sha256": "f15ec10f0a32349de73a4b929100dd13ba90659c38e1d92d384c1da1a880be57"
+    },
+    {
+      "path": "calibration/output/replay-input-comparison.v2.json",
+      "sha256": "99caa9a1cef49ffcdf74681f15cd2ed8d78340f41fa9b608c651f9984d505ddc"
+    },
+    {
+      "path": "calibration/output/replay-input-provenance.v2.json",
+      "sha256": "9558df8cbd44e63c3cb4868510e0670b363a0a82857efbc58b06b21564264186"
+    },
+    {
+      "path": "calibration/output/replay-input-scope.v2.json",
+      "sha256": "d20b2adf3a28026378c0df2f650ed4ea4f06c2203967d64804a43991e5d9112f"
+    },
+    {
+      "path": "calibration/output/replay-input-states.v2.json.gz",
+      "sha256": "f2346dd275102553e734879f87e551cdc0deafabf15fc6f02217d56bc345268d"
+    },
+    {
+      "path": "calibration/output/shadow-candidate-replay-summary.json",
+      "sha256": "21616fad1500f46048e64671a4c4278c0dd30b762420ff90498031defb7dec98"
+    },
+    {
+      "path": "calibration/output/trajectory-calibration.json",
+      "sha256": "63f7fcd076bb056e5ac623c833f833ae749ad17c9bc2fa8597d1eacece1007b1"
+    },
+    {
+      "path": "calibration/output/trajectory-live-calibration.json",
+      "sha256": "6581601b64d2a22a8e27e3e10387642a038a5fc5ae36fd1e1c584f489fe345c7"
+    },
+    {
+      "path": "calibration/overtime-response-20261031.md",
+      "sha256": "382b1f2c15cb7fe949eac6fe93a2eb52b77668ae565baf592ee2abaa3ff6924f"
+    },
+    {
+      "path": "calibration/pending-conversion-20261031.md",
+      "sha256": "585b00bfa435b8d95f4a8e85ebb2717b3ad1d6337ca0d30d5b9676904a00937a"
+    },
+    {
+      "path": "calibration/pregame-market-hotfix-20261101.md",
+      "sha256": "37185444efe08ecce9d3feb8bc0f7f69723cf5bb42d3a746b912b67c807ca4cc"
+    },
+    {
+      "path": "calibration/replay-input-comparison.v2.md",
+      "sha256": "2cf3f18a7623a558f05413d4e006cbcf2d0858241ffea9896d167d39590b56d9"
+    },
+    {
+      "path": "calibration/replay-input-rules.v2.md",
+      "sha256": "c1bada0e9c8f5f405263b62a6b2c242ffe8789c5a4ba169acd70438fe1232a95"
+    },
+    {
+      "path": "calibration/replay-input-validation.v2.md",
+      "sha256": "f391f4edd5f529c2bb2617d45eaccfcca54e934d777ef85b20fcf04f1d4747b2"
+    },
+    {
+      "path": "calibration/shadow-candidate-replay-report.md",
+      "sha256": "caed5fc3ecbec6991471c4553fa8aff6f171d78cddf25c579135a2062487db8c"
+    },
+    {
+      "path": "calibration/shadow-candidate-time-audit.md",
+      "sha256": "e12ca7c365e552a95282a15c84ee50297d8b7851d7b0b2c5866ff1dd9befd9c5"
+    },
+    {
+      "path": "calibration/shadow-candidate.cjs",
+      "sha256": "5473635499c905d7f40f5c41a22235b1dc07b42b71faa3d2c000f19ff67d178b"
+    },
+    {
+      "path": "calibration/slates.json",
+      "sha256": "b6bdc4b158860f3c3423113a7ed45bbc28912240ee002742da81bbce4bac9081"
+    },
+    {
+      "path": "calibration/trajectory-archetypes.mjs",
+      "sha256": "c59191a5f109c4f0a04eceeb1510fff0320f89a62eee119d46cbe0f091fd7200"
+    },
+    {
+      "path": "calibration/trajectory-calibration-report.md",
+      "sha256": "a40a9ed890c9f0457ebe32f955026c3e4602e64c34519b501661dddaedbf6078"
+    },
+    {
+      "path": "calibration/trajectory-checkpoint-fixtures.mjs",
+      "sha256": "bf5dd636ab952f92be67e9ca04a87c7fafc6779f495420cec9b64a76412bc914"
+    },
+    {
+      "path": "calibration/trajectory-checkpoint-manifest.json",
+      "sha256": "dcfbd04b3f02b48d56f7dd53289d7143a653d1d39da29ab481cd50a7883fa428"
+    },
+    {
+      "path": "calibration/trajectory-checkpoint-manifest.md",
+      "sha256": "f7afa1e65ce5703fd2d1945da730383cd868aa33ef516acc935f38cc3b75faf8"
+    },
+    {
+      "path": "calibration/trajectory-current-checkpoint-manifest.json",
+      "sha256": "8d59dce56fb6f63e66b0cdab6951facb97453051a034f1f1d697dd24eb347610"
+    },
+    {
+      "path": "calibration/trajectory-diagnostic-key.corrected.json",
+      "sha256": "6be8ea8649c76bfa4d2cb0f954a8db9a693e2d9dbf13931f829e95fc677f6dad"
+    },
+    {
+      "path": "calibration/trajectory-diagnostic-key.json",
+      "sha256": "83030772ff71aaa3b250bb48ff1345735afc95b7afb7da2f863c4aa61e54c186"
+    },
+    {
+      "path": "calibration/trajectory-diagnostic-key.replay-v2.json",
+      "sha256": "4f36e3678b1c41cdb088c581c733211250c61c0eae560edbd059ec8cb2f22a41"
+    },
+    {
+      "path": "calibration/trajectory-focused-validation.md",
+      "sha256": "7c30cf3ac124312dab0bc2e2a018d3dbafe365c494f0098d1c636b6d6adcf514"
+    },
+    {
+      "path": "calibration/trajectory-history-ownership.md",
+      "sha256": "a178e82a32ad6b81f6dc02dc965ef853b6582dc88f6c45a274f9019a3730a130"
+    },
+    {
+      "path": "calibration/trajectory-live-calibration-report.md",
+      "sha256": "573930e78e18ae2bde511f547c8db1fa52abddbc6558c8b771d22b7eb6487e1f"
+    },
+    {
+      "path": "calibration/trajectory-live-fixtures.mjs",
+      "sha256": "96250972d8e67ae645e5a02dc8750ae07c95b99083ccc7dfc615f420445997ec"
+    },
+    {
+      "path": "calibration/trajectory-live-policy.cjs",
+      "sha256": "3eb8830eafc8ec8ab64c92d9638d1c579def9876e8ca5edf52228332417b7609"
+    },
+    {
+      "path": "calibration/trajectory-policy.cjs",
+      "sha256": "84abbf0d1971612d3fee3372d7ef60eeec98be481ddea67af896e316b3f9b9ed"
+    },
+    {
+      "path": "calibration/trajectory-review-correction-findings.md",
+      "sha256": "79af6ef627817b209a5eebec38a40aa6a9955f9534cd6543b6fa05a024d7da91"
+    },
+    {
+      "path": "calibration/trajectory-reviewer-pack.corrected.md",
+      "sha256": "20a7390d013a177815ceae76293aaa473f3e9309305b2217e2af49c378a860a0"
+    },
+    {
+      "path": "calibration/trajectory-reviewer-pack.md",
+      "sha256": "243f4f3f9d9b58260819739305bb47c358bbf8ba41465f23f8593fd940a6c3d0"
+    },
+    {
+      "path": "calibration/trajectory-reviewer-pack.replay-v2.md",
+      "sha256": "60c69e1ffbd333ca00b9fbc58b0bc4df0b9323e2e334156d2e6d561bb0e2215d"
+    },
+    {
+      "path": "index.html",
+      "sha256": "e43eebfd7477cfddfdc8498146319b8fc092635e6300dfaf2e5dc53a2e66da33"
+    },
+    {
+      "path": "notifications.js",
+      "sha256": "c1afd53f559952507b2f63842f701cc62be76d7497df4d6efc9e36536838189c"
+    },
+    {
+      "path": "rating-core.js",
+      "sha256": "28734ce4e7a40c7974ae0eaa6ab3b542fec7bd91ca3c64ffcd3ee6cb1dce5243"
+    },
+    {
+      "path": "scoring/README.md",
+      "sha256": "0ee5e85b84dd0fd55e4b49f2c1731dbeb3f5de2cfdda07a2c6c97ae96a22d719"
+    },
+    {
+      "path": "scoring/basketball-calibration.cjs",
+      "sha256": "a0ab681f106a8e6047e973359a70797aa8182a963f621a7512efda175be8826d"
+    },
+    {
+      "path": "scoring/basketball-state.cjs",
+      "sha256": "e4b930858f1b6c5f5f82888c861a408ad9546568d5032801fbef66a0cde72da2"
+    },
+    {
+      "path": "scoring/browser-entry.cjs",
+      "sha256": "2c093b14095e7d02dc57fc11f4564712be28e04342f2108418fa328288376e62"
+    },
+    {
+      "path": "scoring/detail-state.cjs",
+      "sha256": "0f99a4369f14a78771ec766743104b8fe610a5576e42202d8674261d237b8f4a"
+    },
+    {
+      "path": "scoring/event-occasion.cjs",
+      "sha256": "2a560c63844497a56b2242777ad57769cf59634aad90891204404fbb2d5ffe58"
+    },
+    {
+      "path": "scoring/football-live.cjs",
+      "sha256": "ff94b034ef7e75e82891b279132896cc5d15f1520e66c4b9693103fc0aa40c66"
+    },
+    {
+      "path": "scoring/football-market.cjs",
+      "sha256": "de64629ad210c50a135e7c9752cec366e0ed6fdc9088ea1cbc96e87e08a1f4d1"
+    },
+    {
+      "path": "scoring/football-transition.cjs",
+      "sha256": "0d772e802bc1f16eae852cce97fbcdaf95fe11a96ff408abd63a3b286d4a4c13"
+    },
+    {
+      "path": "scoring/game-facts.cjs",
+      "sha256": "ebbda2d72dca446a9fe0deebdb5bce6cc71b164a270dac4cb23a41aac3c00083"
+    },
+    {
+      "path": "scoring/live-evidence.cjs",
+      "sha256": "9e109dab44cac72c83d1ffcfacfdc9a38d9e39b9f984798331fa6159942c575e"
+    },
+    {
+      "path": "scoring/live-runtime.cjs",
+      "sha256": "643d531bbb4dc6a9bb12ef769de4582025fd4ee3df1b54a052bd9822cf8fd8fe"
+    },
+    {
+      "path": "scoring/models.js",
+      "sha256": "9efc69e6ffe186423515dc476a7551031b13fc35d2580b3100fb86b15a60584d"
+    },
+    {
+      "path": "scoring/nhl-advanced.cjs",
+      "sha256": "89c7c8b31910d54bd50b798eaf97cc027c4143b3a43d1f655342cc7c380990d0"
+    },
+    {
+      "path": "scoring/nhl-manpower-evidence.cjs",
+      "sha256": "32098b7765e3c67971422c8ec6aa34f75ff4aaf7c82f2e7ce8b8f722a7f93ab3"
+    },
+    {
+      "path": "scoring/opening-transition.cjs",
+      "sha256": "5066aad6c56f6d107ae72caa5e29cad3027c608c30839aef45183dfd0224b62d"
+    },
+    {
+      "path": "scoring/provider-evidence.cjs",
+      "sha256": "ccefebc6d6cd703d20879fba3f3c479798e7f7b05723c5d0718dbcac99f1bd2e"
+    },
+    {
+      "path": "scoring/shared/basketball.js",
+      "sha256": "986710c0c9e83be41aac1fd49419ec6541a6ace81a7df0a4b88cd68293d0e3aa"
+    },
+    {
+      "path": "scoring/shared/calculation.js",
+      "sha256": "72217d3830f00c73345b9b062bf51833b12c25d08ccb60cc6ff0743a1d94a142"
+    },
+    {
+      "path": "scoring/shared/college.js",
+      "sha256": "ff117eb5fd806a005ed24c131d961fba6c0d45187bf8649b25f1fba8e6769fcc"
+    },
+    {
+      "path": "scoring/shared/config.js",
+      "sha256": "a1bee51d57d387e18ae8bc49dfd19800b096cca341f0ad8fa44c39a097ae9e69"
+    },
+    {
+      "path": "scoring/shared/context.js",
+      "sha256": "05c3827f105e8b018c6ccb3f12023c5d88275858d72e86ed30f38e2003091a29"
+    },
+    {
+      "path": "scoring/shared/events.js",
+      "sha256": "e0956eb8236b91cb9cff57018d0b794821dcc19a730c7a6f2dd94b441744647b"
+    },
+    {
+      "path": "scoring/shared/football.js",
+      "sha256": "529cba8c50f7270085470abc45de755e1b08ff633c307c9bb81a57c67cb5ec69"
+    },
+    {
+      "path": "scoring/shared/history.js",
+      "sha256": "d2ef22c345a9a1b394d5336781248e70927a4510225901d5273323a741984a0b"
+    },
+    {
+      "path": "scoring/shared/market.js",
+      "sha256": "4e0e65ffaf98a00127e1bbd3dfde5163d4e753a9215ca8439e665b6971f58477"
+    },
+    {
+      "path": "scoring/shared/nfl-pregame.js",
+      "sha256": "f9710d37e991c0457580a530cf9e8db6e96148cb5c0a264e5f568d33a4ff6a05"
+    },
+    {
+      "path": "scoring/shared/pregame.js",
+      "sha256": "bc54c64629c27616611b9fdae79bbb367e9450df379f07bd4036f477cb25cad4"
+    },
+    {
+      "path": "scoring/shared/pressure.js",
+      "sha256": "72104bd7a61c6a8bc12e47be64c12704dce7b4b389bcc7eaf27ba15cb2aeb1c5"
+    },
+    {
+      "path": "scoring/shared/probability.js",
+      "sha256": "cd77a581eff895cd26b3250ee309a08c6fc4c65de92b881b162a5e161b4917ce"
+    },
+    {
+      "path": "scoring/shared/records.js",
+      "sha256": "5fb463f91c3399749a1b41fbfc12101e1c53955f6d9eeac1b2d902a78c83b673"
+    },
+    {
+      "path": "scoring/shared/time.js",
+      "sha256": "14ea2a31e47e7c04843a1ce0ffd6cf7f41e03fb70cb903998417f82d2435071a"
+    },
+    {
+      "path": "scoring/shared/trajectory.js",
+      "sha256": "069733ef4bf563442024b32fa56f2467758b34a235d2a22dac72d7840bebd87f"
+    },
+    {
+      "path": "scoring/shared/upset.js",
+      "sha256": "b39e00f9f423fac4c75417e6b3ba9b4b91df12070af8cebe522baca1d24a83a6"
+    },
+    {
+      "path": "scoring/snapshot-integrity.cjs",
+      "sha256": "f2b7242e4210affc30005296df69d5140f9e3f9cd92ac5da0c3b8b289993161e"
+    },
+    {
+      "path": "scoring/sports/basketball.js",
+      "sha256": "ebdea5b3fb25dac4e4bbf50752152386b37a9696030755521218e1cb30e239a6"
+    },
+    {
+      "path": "scoring/sports/cfb.js",
+      "sha256": "3b9a10d5a58246375f4a6a6d08b28def6039850633f00f6774c448cf5384f0e7"
+    },
+    {
+      "path": "scoring/sports/mlb.js",
+      "sha256": "9ef1a496ad00eaf08452346ba5e5b1a9dde8e6c284bf97a8649a83c00c33a95f"
+    },
+    {
+      "path": "scoring/sports/nfl.js",
+      "sha256": "71b78d6ac0d40e89aae007ba902256f2a249a212a9f4561d1bbf242bc47ecafb"
+    },
+    {
+      "path": "scoring/sports/nhl.js",
+      "sha256": "de427202c899adf42ca9f142cde06a0edfd23de8cea5ca7bedb6c9cf66d5f501"
+    },
+    {
+      "path": "scoring/sports/soccer.js",
+      "sha256": "79de9a0ed13ee039c89db05b5b51fd833683a3c43886cac315f3f657227111e7"
+    },
+    {
+      "path": "scoring/sports/tennis.js",
+      "sha256": "c29c70198cab513219b50191508490026ebc8ba7ad07c1e3277395fd9231caf0"
+    },
+    {
+      "path": "scripts/build-site.mjs",
+      "sha256": "f3ad6d0877829ec6df0936123bcd93ef7ca12055fb634154c9dd8452aaede460"
+    },
+    {
+      "path": "sw.js",
+      "sha256": "ad068e28f17fd45b2ec1c48da67709290e6f50ed8a2e6a34c13bf41dc33fd9e9"
+    }
+  ],
+  "checks": {
+    "root-tests": {
+      "tests": 1494,
+      "pass": 1494,
+      "fail": 0,
+      "skipped": 0,
+      "cancelled": 0
+    },
+    "worker-tests": {
+      "tests": 263,
+      "pass": 263,
+      "fail": 0,
+      "skipped": 0,
+      "cancelled": 0
+    }
+  },
+  "browser": [
+    {
+      "url": "http://127.0.0.1:5541/before/?qa-chart=1#game/NBA/401909914",
+      "width": 1440,
+      "overflow": false,
+      "dialogOverflow": false,
+      "errors": [],
+      "svgWidths": [
+        912.48095703125
+      ],
+      "text": "",
+      "selectedRange": "full",
+      "final": "◇97Final game quality · After the gameThis rates the whole game and its finish. The live graph ends at 71 (OT 7.3). It is a separate assessment, not another live observation."
+    },
+    {
+      "url": "http://127.0.0.1:5541/?qa-chart=1#game/NBA/401909914",
+      "width": 1440,
+      "overflow": false,
+      "dialogOverflow": false,
+      "errors": [],
+      "svgWidths": [
+        912.48095703125
+      ],
+      "text": "",
+      "selectedRange": "full",
+      "final": "◇97Final game quality · After the gameThis rates the whole game and its finish. The live graph ends at 71 (OT 7.3). It is a separate assessment, not another live observation."
+    },
+    {
+      "url": "http://127.0.0.1:5541/before/?qa-chart=1#game/NBA/401909914",
+      "width": 390,
+      "overflow": false,
+      "dialogOverflow": false,
+      "errors": [],
+      "svgWidths": [
+        351
+      ],
+      "text": "",
+      "selectedRange": "full",
+      "final": "◇97Final game quality · After the gameThis rates the whole game and its finish. The live graph ends at 71 (OT 7.3). It is a separate assessment, not another live observation."
+    },
+    {
+      "url": "http://127.0.0.1:5541/before/?qa-chart=1#game/NBA/401909914",
+      "width": 390,
+      "overflow": false,
+      "dialogOverflow": false,
+      "errors": [],
+      "svgWidths": [
+        351
+      ],
+      "text": "",
+      "selectedRange": "full",
+      "final": "◇97Final game quality · After the gameThis rates the whole game and its finish. The live graph ends at 71 (OT 7.3). It is a separate assessment, not another live observation."
+    },
+    {
+      "url": "http://127.0.0.1:5541/?qa-chart=1#game/NBA/401909914",
+      "width": 390,
+      "overflow": false,
+      "dialogOverflow": false,
+      "errors": [],
+      "svgWidths": [
+        351
+      ],
+      "text": "",
+      "selectedRange": "full",
+      "final": "◇97Final game quality · After the gameThis rates the whole game and its finish. The live graph ends at 71 (OT 7.3). It is a separate assessment, not another live observation."
+    },
+    {
+      "url": "http://127.0.0.1:5541/?qa-chart=1#game/NBA/401909914",
+      "width": 320,
+      "overflow": false,
+      "dialogOverflow": false,
+      "errors": [],
+      "svgWidths": [
+        281
+      ],
+      "text": "",
+      "selectedRange": "full",
+      "final": "◇97Final game quality · After the gameThis rates the whole game and its finish. The live graph ends at 71 (OT 7.3). It is a separate assessment, not another live observation."
+    },
+    {
+      "url": "http://127.0.0.1:5541/?qa-chart=1#game/NBA/401909914",
+      "width": 320,
+      "overflow": false,
+      "dialogOverflow": false,
+      "errors": [],
+      "svgWidths": [
+        281
+      ],
+      "text": "",
+      "selectedRange": "ot",
+      "final": "◇97Final game quality · After the gameThis rates the whole game and its finish. The live graph ends at 71 (OT 7.3). It is a separate assessment, not another live observation."
+    },
+    {
+      "url": "http://127.0.0.1:5541/?qa-chart=1#game/NBA/401909914",
+      "width": 320,
+      "overflow": false,
+      "dialogOverflow": false,
+      "errors": [],
+      "svgWidths": [
+        281
+      ],
+      "text": "",
+      "selectedRange": "full",
+      "final": "◇97Final game quality · After the gameThis rates the whole game and its finish. The live graph ends at 71 (OT 7.3). It is a separate assessment, not another live observation."
+    },
+    {
+      "url": "http://127.0.0.1:5541/?qa-chart=1#game/NBA/401909914",
+      "width": 320,
+      "overflow": false,
+      "dialogOverflow": false,
+      "errors": [],
+      "svgWidths": [
+        281
+      ],
+      "text": "Q3 7:27. Recorded rating: 63. Nov 2, 9:33:45 PM. Score: 78–80.",
+      "selectedRange": "full",
+      "final": "◇97Final game quality · After the gameThis rates the whole game and its finish. The live graph ends at 71 (OT 7.3). It is a separate assessment, not another live observation."
+    },
+    {
+      "url": "http://127.0.0.1:5541/?qa-chart=1#game/NBA/401909914",
+      "width": 320,
+      "overflow": false,
+      "dialogOverflow": false,
+      "errors": [],
+      "svgWidths": [
+        281
+      ],
+      "text": "",
+      "selectedRange": "full",
+      "final": "◇97Final game quality · After the gameThis rates the whole game and its finish. The live graph ends at 71 (OT 7.3). It is a separate assessment, not another live observation."
+    },
+    {
+      "url": "http://127.0.0.1:5541/before/?qa-chart=1#game/NBA/401909914",
+      "width": 320,
+      "overflow": false,
+      "dialogOverflow": false,
+      "errors": [],
+      "svgWidths": [
+        281
+      ],
+      "text": "",
+      "selectedRange": "full",
+      "final": "◇97Final game quality · After the gameThis rates the whole game and its finish. The live graph ends at 71 (OT 7.3). It is a separate assessment, not another live observation."
+    },
+    {
+      "url": "http://127.0.0.1:5541/before/?qa-chart=1#game/NBA/401909914",
+      "width": 320,
+      "overflow": false,
+      "dialogOverflow": false,
+      "errors": [],
+      "svgWidths": [
+        281
+      ],
+      "text": "",
+      "selectedRange": "full",
+      "final": "◇97Final game quality · After the gameThis rates the whole game and its finish. The live graph ends at 71 (OT 7.3). It is a separate assessment, not another live observation."
+    },
+    {
+      "url": "http://127.0.0.1:5541/?qa-chart=1#game/NBA/401909914",
+      "width": 320,
+      "overflow": false,
+      "dialogOverflow": false,
+      "errors": [],
+      "svgWidths": [
+        281
+      ],
+      "text": "",
+      "selectedRange": "full",
+      "final": "◇97Final game quality · After the gameThis rates the whole game and its finish. The live graph ends at 71 (OT 7.3). It is a separate assessment, not another live observation."
+    },
+    {
+      "url": "http://127.0.0.1:5541/?qa-chart=1#game/NBA/401909914",
+      "width": 390,
+      "overflow": false,
+      "dialogOverflow": false,
+      "errors": [],
+      "svgWidths": [
+        351
+      ],
+      "text": "",
+      "selectedRange": "full",
+      "final": "◇97Final game quality · After the gameThis rates the whole game and its finish. The live graph ends at 71 (OT 7.3). It is a separate assessment, not another live observation."
+    },
+    {
+      "url": "http://127.0.0.1:5541/?qa-chart=1#game/NBA/401909914",
+      "width": 1440,
+      "overflow": false,
+      "dialogOverflow": false,
+      "errors": [],
+      "svgWidths": [
+        912.48095703125
+      ],
+      "text": "",
+      "selectedRange": "full",
+      "final": "◇97Final game quality · After the gameThis rates the whole game and its finish. The live graph ends at 71 (OT 7.3). It is a separate assessment, not another live observation."
+    },
+    {
+      "url": "http://127.0.0.1:5541/?qa-chart=1#game/NFL/401873024",
+      "width": 1440,
+      "overflow": false,
+      "dialogOverflow": false,
+      "errors": [],
+      "svgWidths": [
+        992.4828491210938
+      ],
+      "text": "",
+      "selectedRange": "full",
+      "final": "◇95Final game quality · After the gameThis rates the whole game and its finish. The live graph ends at 95 (OT 2:58). It is a separate assessment, not another live observation."
+    },
+    {
+      "url": "http://127.0.0.1:5541/?qa-chart=1#game/NFL/401873024",
+      "width": 390,
+      "overflow": false,
+      "dialogOverflow": false,
+      "errors": [],
+      "svgWidths": [
+        351
+      ],
+      "text": "",
+      "selectedRange": "full",
+      "final": "◇95Final game quality · After the gameThis rates the whole game and its finish. The live graph ends at 95 (OT 2:58). It is a separate assessment, not another live observation."
+    },
+    {
+      "url": "http://127.0.0.1:5541/?qa-chart=1#game/NFL/401873024",
+      "width": 320,
+      "overflow": false,
+      "dialogOverflow": false,
+      "errors": [],
+      "svgWidths": [
+        281
+      ],
+      "text": "",
+      "selectedRange": "full",
+      "final": "◇95Final game quality · After the gameThis rates the whole game and its finish. The live graph ends at 95 (OT 2:58). It is a separate assessment, not another live observation."
+    },
+    {
+      "url": "http://127.0.0.1:5541/?qa-chart=1#game/CFB/401856847",
+      "width": 320,
+      "overflow": false,
+      "dialogOverflow": false,
+      "errors": [],
+      "svgWidths": [
+        281
+      ],
+      "text": "",
+      "selectedRange": "full",
+      "final": "◇89Final game quality · After the gameThis rates the whole game and its finish. The live graph ends at 82 (Q4 0:02). It is a separate assessment, not another live observation."
+    },
+    {
+      "url": "http://127.0.0.1:5541/?qa-chart=1#game/CFB/401856847",
+      "width": 390,
+      "overflow": false,
+      "dialogOverflow": false,
+      "errors": [],
+      "svgWidths": [
+        351
+      ],
+      "text": "",
+      "selectedRange": "full",
+      "final": "◇89Final game quality · After the gameThis rates the whole game and its finish. The live graph ends at 82 (Q4 0:02). It is a separate assessment, not another live observation."
+    },
+    {
+      "url": "http://127.0.0.1:5541/?qa-chart=1#game/CFB/401856847",
+      "width": 1440,
+      "overflow": false,
+      "dialogOverflow": false,
+      "errors": [],
+      "svgWidths": [
+        992.4828491210938
+      ],
+      "text": "",
+      "selectedRange": "full",
+      "final": "◇89Final game quality · After the gameThis rates the whole game and its finish. The live graph ends at 82 (Q4 0:02). It is a separate assessment, not another live observation."
+    },
+    {
+      "url": "http://127.0.0.1:5541/?qa-chart=1#game/NHL/401892629",
+      "width": 1440,
+      "overflow": false,
+      "dialogOverflow": false,
+      "errors": [],
+      "svgWidths": [
+        992.4828491210938
+      ],
+      "text": "",
+      "selectedRange": "full",
+      "final": "◇69Final game quality · After the gameThis rates the whole game and its finish. The live graph ends at 97 (Shootout). It is a separate assessment, not another live observation."
+    },
+    {
+      "url": "http://127.0.0.1:5541/?qa-chart=1#game/NHL/401892629",
+      "width": 390,
+      "overflow": false,
+      "dialogOverflow": false,
+      "errors": [],
+      "svgWidths": [
+        351
+      ],
+      "text": "",
+      "selectedRange": "full",
+      "final": "◇69Final game quality · After the gameThis rates the whole game and its finish. The live graph ends at 97 (Shootout). It is a separate assessment, not another live observation."
+    },
+    {
+      "url": "http://127.0.0.1:5541/?qa-chart=1#game/NBA/401909903",
+      "width": 390,
+      "overflow": false,
+      "dialogOverflow": false,
+      "errors": [],
+      "svgWidths": [
+        351
+      ],
+      "text": "",
+      "selectedRange": "full",
+      "final": "◇67Final game quality · After the gameThis rates the whole game and its finish. The live graph ends at 7 (Q4 8.7). It is a separate assessment, not another live observation."
+    },
+    {
+      "url": "http://127.0.0.1:5541/?qa-chart=1#game/NBA/401909903",
+      "width": 320,
+      "overflow": false,
+      "dialogOverflow": false,
+      "errors": [],
+      "svgWidths": [
+        281
+      ],
+      "text": "",
+      "selectedRange": "full",
+      "final": "◇67Final game quality · After the gameThis rates the whole game and its finish. The live graph ends at 7 (Q4 8.7). It is a separate assessment, not another live observation."
+    },
+    {
+      "url": "http://127.0.0.1:5541/?qa-chart=1#game/NBA/401909903",
+      "width": 1440,
+      "overflow": false,
+      "dialogOverflow": false,
+      "errors": [],
+      "svgWidths": [
+        912.48095703125
+      ],
+      "text": "",
+      "selectedRange": "full",
+      "final": "◇67Final game quality · After the gameThis rates the whole game and its finish. The live graph ends at 7 (Q4 8.7). It is a separate assessment, not another live observation."
+    },
+    {
+      "url": "http://127.0.0.1:5541/?qa-chart=1#game/NBA/401909907",
+      "width": 1440,
+      "overflow": false,
+      "dialogOverflow": false,
+      "errors": [],
+      "svgWidths": [
+        992.4828491210938
+      ],
+      "text": "",
+      "selectedRange": "full",
+      "final": "◇78Final game quality · After the gameThis rates the whole game and its finish. The live graph ends at 70 (Q4 8:56). It is a separate assessment, not another live observation."
+    },
+    {
+      "url": "http://127.0.0.1:5541/?qa-chart=1#game/NBA/401909907",
+      "width": 390,
+      "overflow": false,
+      "dialogOverflow": false,
+      "errors": [],
+      "svgWidths": [
+        351
+      ],
+      "text": "",
+      "selectedRange": "full",
+      "final": "◇78Final game quality · After the gameThis rates the whole game and its finish. The live graph ends at 70 (Q4 8:56). It is a separate assessment, not another live observation."
+    },
+    {
+      "url": "http://127.0.0.1:5541/?qa-chart=1#game/NBA/401909907",
+      "width": 320,
+      "overflow": false,
+      "dialogOverflow": false,
+      "errors": [],
+      "svgWidths": [
+        281
+      ],
+      "text": "",
+      "selectedRange": "full",
+      "final": "◇78Final game quality · After the gameThis rates the whole game and its finish. The live graph ends at 70 (Q4 8:56). It is a separate assessment, not another live observation."
+    },
+    {
+      "url": "http://127.0.0.1:5541/?qa-chart=1#game/NFL/401873033",
+      "width": 320,
+      "overflow": false,
+      "dialogOverflow": false,
+      "errors": [],
+      "svgWidths": [],
+      "final": "◇75Final game quality · After the gameThis rates the whole game and its finish. It is a separate assessment, not another live observation."
+    },
+    {
+      "url": "http://127.0.0.1:5541/?qa-chart=1#game/NFL/401873033",
+      "width": 390,
+      "overflow": false,
+      "dialogOverflow": false,
+      "errors": [],
+      "svgWidths": [],
+      "final": "◇75Final game quality · After the gameThis rates the whole game and its finish. It is a separate assessment, not another live observation."
+    },
+    {
+      "url": "http://127.0.0.1:5541/?qa-chart=1#game/NFL/401873033",
+      "width": 1440,
+      "overflow": false,
+      "dialogOverflow": false,
+      "errors": [],
+      "svgWidths": [],
+      "final": "◇75Final game quality · After the gameThis rates the whole game and its finish. It is a separate assessment, not another live observation."
+    },
+    {
+      "url": "http://127.0.0.1:5541/?qa-chart=1#game/NHL/401892629",
+      "width": 1440,
+      "overflow": false,
+      "dialogOverflow": false,
+      "errors": [],
+      "svgWidths": [
+        992.4828491210938
+      ],
+      "text": "",
+      "selectedRange": "full",
+      "final": "◇69Final game quality · After the gameThis rates the whole game and its finish. The live graph ends at 97 (Shootout). It is a separate assessment, not another live observation."
+    },
+    {
+      "url": "http://127.0.0.1:5541/?qa-chart=1#game/NHL/401892629",
+      "width": 320,
+      "overflow": false,
+      "dialogOverflow": false,
+      "errors": [],
+      "svgWidths": [
+        281
+      ],
+      "text": "",
+      "selectedRange": "full",
+      "final": "◇69Final game quality · After the gameThis rates the whole game and its finish. The live graph ends at 97 (Shootout). It is a separate assessment, not another live observation."
+    },
+    {
+      "url": "http://127.0.0.1:5541/?qa-chart=1#game/NBA/401909914",
+      "width": 320,
+      "overflow": false,
+      "dialogOverflow": false,
+      "errors": [],
+      "svgWidths": [
+        281
+      ],
+      "text": "",
+      "selectedRange": "full",
+      "final": "◇97Final game quality · After the gameThis rates the whole game and its finish. The live graph ends at 71 (OT 7.3). It is a separate assessment, not another live observation."
+    },
+    {
+      "url": "http://127.0.0.1:5541/?qa-chart=1#game/NBA/401909914",
+      "width": 320,
+      "overflow": false,
+      "dialogOverflow": false,
+      "errors": [],
+      "svgWidths": [
+        281
+      ],
+      "text": "",
+      "selectedRange": "ot",
+      "final": "◇97Final game quality · After the gameThis rates the whole game and its finish. The live graph ends at 71 (OT 7.3). It is a separate assessment, not another live observation."
+    },
+    {
+      "url": "http://127.0.0.1:5541/?qa-chart=1#game/NBA/401909914",
+      "width": 320,
+      "overflow": false,
+      "dialogOverflow": false,
+      "errors": [],
+      "svgWidths": [
+        281
+      ],
+      "text": "",
+      "selectedRange": "full",
+      "final": "◇97Final game quality · After the gameThis rates the whole game and its finish. The live graph ends at 71 (OT 7.3). It is a separate assessment, not another live observation."
+    },
+    {
+      "url": "http://127.0.0.1:5541/?qa-chart=1#game/NBA/401909914",
+      "width": 320,
+      "overflow": false,
+      "dialogOverflow": false,
+      "errors": [],
+      "svgWidths": [
+        281
+      ],
+      "text": "",
+      "selectedRange": "ot",
+      "final": "◇97Final game quality · After the gameThis rates the whole game and its finish. The live graph ends at 71 (OT 7.3). It is a separate assessment, not another live observation."
+    },
+    {
+      "url": "http://127.0.0.1:5541/?qa-chart=1#game/NBA/401909914",
+      "width": 320,
+      "overflow": false,
+      "dialogOverflow": false,
+      "errors": [],
+      "svgWidths": [
+        281
+      ],
+      "text": "",
+      "selectedRange": "full",
+      "final": "◇97Final game quality · After the gameThis rates the whole game and its finish. The live graph ends at 71 (OT 7.3). It is a separate assessment, not another live observation."
+    },
+    {
+      "url": "http://127.0.0.1:5541/?qa-chart=1#game/NBA/401909914",
+      "width": 320,
+      "overflow": false,
+      "dialogOverflow": false,
+      "errors": [],
+      "svgWidths": [
+        281
+      ],
+      "text": "10 scoring plays. Q2 10:05: Bennedict Mathurin makes alley oop layup (Derik Queen assists) • Q2 9:31: Derik Queen makes 7-foot running pullup jump shot • Q2 8:54: Derik Queen makes 6-foot two point shot • Q2 8:30: Ty Jerome makes 22-foot step back jumpshot • Q2 8:06: Saddiq Bey makes 10-foot fade away jump shot • Q2 7:53: Ty Jerome makes 25-foot three pointer • Q2 7:18: Zion Williamson makes 4-foot driving floating jump shot • Q2 7:10: Cameron Boozer makes 24-foot three point jumper (Jerami Grant assists) • Q2 6:42: Jerami Grant makes free throw 1 of 2 • Q2 6:30: Derik Queen makes 24-foot three pointer",
+      "selectedRange": "full",
+      "final": "◇97Final game quality · After the gameThis rates the whole game and its finish. The live graph ends at 71 (OT 7.3). It is a separate assessment, not another live observation."
+    },
+    {
+      "url": "http://127.0.0.1:5541/?qa-chart=1#game/NBA/401909914",
+      "width": 320,
+      "overflow": false,
+      "dialogOverflow": false,
+      "errors": [],
+      "svgWidths": [
+        281
+      ],
+      "text": "",
+      "selectedRange": "full",
+      "final": "◇97Final game quality · After the gameThis rates the whole game and its finish. The live graph ends at 71 (OT 7.3). It is a separate assessment, not another live observation."
+    },
+    {
+      "url": "http://127.0.0.1:5541/?qa-chart=1#game/NBA/401909914",
+      "width": 1440,
+      "overflow": false,
+      "dialogOverflow": false,
+      "errors": [],
+      "svgWidths": [
+        912.48095703125
+      ],
+      "text": "",
+      "selectedRange": "full",
+      "final": "◇97Final game quality · After the gameThis rates the whole game and its finish. The live graph ends at 71 (OT 7.3). It is a separate assessment, not another live observation."
+    },
+    {
+      "url": "http://127.0.0.1:5541/?qa-chart=1#game/NBA/401909914",
+      "width": 1440,
+      "overflow": false,
+      "dialogOverflow": false,
+      "errors": [],
+      "svgWidths": [
+        912.48095703125
+      ],
+      "text": "Estimated connection between recorded ratings: 58 (Q1 11:10; Nov 2, 8:13:45 PM) and 53 (Q1 8:23; Nov 2, 8:19:45 PM). No rating or game event was recorded along this line.",
+      "selectedRange": "full",
+      "final": "◇97Final game quality · After the gameThis rates the whole game and its finish. The live graph ends at 71 (OT 7.3). It is a separate assessment, not another live observation."
+    },
+    {
+      "url": "http://127.0.0.1:5541/?qa-chart=1#game/NBA/401909914",
+      "width": 1440,
+      "overflow": false,
+      "dialogOverflow": false,
+      "errors": [],
+      "svgWidths": [
+        912.48095703125
+      ],
+      "text": "",
+      "selectedRange": "full",
+      "final": "◇97Final game quality · After the gameThis rates the whole game and its finish. The live graph ends at 71 (OT 7.3). It is a separate assessment, not another live observation."
+    },
+    {
+      "url": "http://127.0.0.1:5541/?qa-chart=1#game/NBA/401909914",
+      "width": 1440,
+      "overflow": false,
+      "dialogOverflow": false,
+      "errors": [],
+      "svgWidths": [
+        912.48095703125
+      ],
+      "text": "Estimated connection between recorded ratings: 51 (Q1 11:33; Nov 2, 8:12:30 PM) and 51 (Q1 11:30; Nov 2, 8:13:00 PM). No rating or game event was recorded along this line.",
+      "selectedRange": "full",
+      "final": "◇97Final game quality · After the gameThis rates the whole game and its finish. The live graph ends at 71 (OT 7.3). It is a separate assessment, not another live observation."
+    },
+    {
+      "url": "http://127.0.0.1:5541/?qa-chart=1#game/NBA/401909914",
+      "width": 1440,
+      "overflow": false,
+      "dialogOverflow": false,
+      "errors": [],
+      "svgWidths": [
+        912.48095703125
+      ],
+      "text": "",
+      "selectedRange": "full",
+      "final": "◇97Final game quality · After the gameThis rates the whole game and its finish. The live graph ends at 71 (OT 7.3). It is a separate assessment, not another live observation."
+    },
+    {
+      "url": "http://127.0.0.1:5541/?qa-chart=1#game/NBA/401909914",
+      "width": 1440,
+      "overflow": false,
+      "dialogOverflow": false,
+      "errors": [],
+      "svgWidths": [
+        912.48095703125
+      ],
+      "text": "Estimated connection between recorded ratings: 51 (Q1 11:33; Nov 2, 8:12:30 PM) and 51 (Q1 11:30; Nov 2, 8:13:00 PM). The line does not represent an additional recorded rating or game event.",
+      "selectedRange": "full",
+      "final": "◇97Final game quality · After the gameThis rates the whole game and its finish. The live graph ends at 71 (OT 7.3). It is a separate assessment, not another live observation."
+    },
+    {
+      "url": "http://127.0.0.1:5541/?qa-chart=1#game/NBA/401909914",
+      "width": 1440,
+      "overflow": false,
+      "dialogOverflow": false,
+      "errors": [],
+      "svgWidths": [
+        912.48095703125
+      ],
+      "text": "",
+      "selectedRange": "full",
+      "final": "◇97Final game quality · After the gameThis rates the whole game and its finish. The live graph ends at 71 (OT 7.3). It is a separate assessment, not another live observation."
+    },
+    {
+      "url": "http://127.0.0.1:5541/?qa-chart=1#team/NBA/29",
+      "width": 1440,
+      "overflow": false,
+      "dialogOverflow": false,
+      "errors": [],
+      "svgWidths": [],
+      "text": "",
+      "selectedRange": "full",
+      "final": "◇97Final game quality · After the gameThis rates the whole game and its finish. The live graph ends at 71 (OT 7.3). It is a separate assessment, not another live observation."
+    },
+    {
+      "url": "http://127.0.0.1:5541/?qa-chart=1#game/NBA/401909914",
+      "width": 1440,
+      "overflow": false,
+      "dialogOverflow": false,
+      "errors": [],
+      "svgWidths": [
+        912.48095703125
+      ],
+      "text": "",
+      "selectedRange": "full",
+      "final": "◇97Final game quality · After the gameThis rates the whole game and its finish. The live graph ends at 71 (OT 7.3). It is a separate assessment, not another live observation."
+    }
+  ]
+}
