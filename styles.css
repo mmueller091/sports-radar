@@ -131,11 +131,12 @@ body { margin: 0; min-width: 320px; color: var(--ink); background: radial-gradie
 .base.second { left: 10px; top: 2px; } .base.third { left: 3px; top: 11px; } .base.first { left: 17px; top: 11px; }
 .team-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; font-size: 15px; font-weight: 500; line-height: 1.25; text-shadow: 0 1px 1px var(--brand-charcoal); }
 .team-row + .team-row { margin-top: 6px; } .team-name { display: flex; align-items: center; gap: 8px; min-width: 0; } .team-name > span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.team-name-copy { display: contents; }
 .team-name-text { min-width: 0; flex: 1 1 auto; }
 .short-team-name { display: none; }
 .team-rank { flex: 0 0 auto; color: var(--selected-hi); font: 600 11px var(--font-mono); }
 .team-record { flex: 0 0 auto; color: var(--ink-secondary); font: 10px var(--font-mono); white-space: nowrap; }
-.team-logo { width: 25px; height: 25px; object-fit: contain; flex: 0 0 25px; filter: drop-shadow(0 1px 1px var(--brand-charcoal)); }
+.team-logo { width: 25px; height: 25px; object-fit: contain; flex: 0 0 25px; }
 .team-score { font: 600 17px var(--font-mono); color: var(--brand-cream); } .score-hidden { font-size: 13px; color: var(--muted); font-family: 'DM Mono'; }
 .game-context { color: var(--ink-secondary); font-size: 10px; line-height: 1.3; min-width: 0; } .game-context strong { display: block; color: var(--brand-cream); font-weight: 500; margin-bottom: 3px; text-shadow: 0 1px 1px var(--brand-charcoal); } .game-context > span { display: block; }
 .game-context > span:not(.stats-cue) { line-height: 1.45; }
@@ -822,10 +823,6 @@ body {
 
 .team-rank {
   color: var(--ink-secondary);
-}
-
-.team-logo {
-  filter: none;
 }
 
 .team-score {
@@ -2671,7 +2668,7 @@ dialog,
 }
 
 .detail-drive > summary::after {
-  content: '▾';
+  content: 'â–¾';
   grid-column: 3;
   grid-row: 1;
   justify-self: end;
@@ -4948,223 +4945,53 @@ button.team-spotlight-card {
 .nhl-playoff-picture .team-playoff-row.current {
   background: color-mix(in srgb, var(--ink-secondary) 12%, transparent);
 }
-/* TEAM LOGO CONTRAST SYSTEM
-   Official colors stay untouched. Transparent/dark marks sit on a neutral
-   light plate so navy/black linework remains legible on SlateMeter. */
-.team-hero-logo {
-  background: rgba(255,255,255,.055);
-  box-shadow:
-    inset 0 0 0 1px rgba(255,255,255,.075),
-    0 1px 2px rgba(0,0,0,.16);
+/* TEAM LOGO CONTRAST
+   One neutral cream surface keeps official dark and light artwork readable.
+   Cards and hero logos use their existing containers; other surfaces retain
+   their image dimensions. No padding, recoloring, or filter shrinks the mark.
+   League logos are intentionally excluded. */
+:root { --team-logo-surface: #e4ded2; }
+
+.card-team-link,
+.team-logo-shell,
+.team-hero-logo,
+.team-standing-team img,
+.team-spotlight-matchup img,
+.team-schedule-opponent img,
+.search-team-logo img,
+.favorite-tag img,
+.favorite-result img,
+.detail-team img,
+.player-team-switch img {
+  background: var(--team-logo-surface);
+  border-radius: 6px;
+  box-shadow: 0 0 0 2px var(--team-logo-surface), 0 2px 3px rgb(0 0 0 / .16);
 }
 
+.team-hero-logo { border-radius: 22px; }
 .team-hero-logo img,
 .team-standing-team img,
 .team-spotlight-matchup img,
 .team-schedule-opponent img,
 .search-team-logo img,
+.favorite-tag img,
 .favorite-result img,
 .detail-team img,
+.player-team-switch img,
 .team-name .team-logo {
   object-fit: contain;
-  background: color-mix(in srgb, var(--brand-cream) 88%, transparent);
-  box-shadow:
-    inset 0 0 0 1px color-mix(in srgb, var(--brand-charcoal) 10%, transparent),
-    0 1px 2px rgba(0,0,0,.20);
-  filter: drop-shadow(0 1px 1px rgba(0,0,0,.18));
-}
-
-.team-standing-team img,
-.team-spotlight-matchup img,
-.team-schedule-opponent img,
-.search-team-logo img,
-.favorite-result img,
-.detail-team img,
-.team-name .team-logo {
-  border-radius: 8px;
-  padding: 3px;
-}
-
-/* Hero logos get the strongest contrast treatment. */
-.team-hero-logo img {
-  border-radius: 12px;
-  padding: 10px;
-  background: color-mix(in srgb, var(--brand-cream) 94%, transparent);
-  box-shadow:
-    inset 0 0 0 1px color-mix(in srgb, var(--brand-charcoal) 12%, transparent),
-    0 2px 5px rgba(0,0,0,.16);
+  padding: 0;
+  border: 0;
   filter: none;
 }
 
-/* Tiny marks need a light plate because dark fine linework disappears first. */
-.team-standing-team img,
-.team-name .team-logo {
-  background: color-mix(in srgb, var(--brand-cream) 92%, transparent);
-}
+/* The plate belongs to the shell, leaving the full artwork area available. */
+.team-name .team-logo { background: transparent; box-shadow: none; }
 
-/* Preserve the selected-team accent without reducing logo contrast. */
+/* Keep the selected-team accent outside its cream logo surface. */
 .team-standing-row.current .team-standing-team img,
 .team-playoff-row.current .team-standing-team img {
-  box-shadow:
-    inset 0 0 0 1px color-mix(in srgb, var(--brand-charcoal) 12%, transparent),
-    0 0 0 2px color-mix(in srgb, var(--ink-secondary) 18%, transparent);
-}
-/* Large hero marks get a softer plate instead of looking boxed-in. */
-.team-hero-logo img {
-  border-radius: 12px;
-  background: rgba(255,255,255,.035);
-  box-shadow: none;
-}
-
-/* Tiny marks need slightly more separation because fine dark linework disappears first. */
-.team-standing-team img,
-.team-name .team-logo {
-  background: rgba(255,255,255,.095);
-}
-
-/* Preserve the current-team highlight as the strongest visual signal. */
-.team-standing-row.current .team-standing-team img,
-.team-playoff-row.current .team-standing-team img {
-  box-shadow:
-    inset 0 0 0 1px rgba(255,255,255,.095),
-    0 0 0 1px color-mix(in srgb, var(--ink-secondary) 10%, transparent);
-}
-/* TEAM LOGO CONTRAST SURFACE FIX
-   Game Center already reads well. Force the same neutral plate on the
-   team-page hero and home-page game-card team logos only. */
-
-/* Team page hero: make the entire visible logo well light, not just the image box. */
-.team-hero-logo {
-  background: color-mix(in srgb, var(--brand-cream) 94%, transparent) !important;
-  border-color: color-mix(in srgb, var(--brand-charcoal) 16%, transparent) !important;
-  box-shadow:
-    inset 0 0 0 1px color-mix(in srgb, var(--brand-charcoal) 10%, transparent),
-    0 2px 6px rgba(0,0,0,.20) !important;
-}
-
-.team-hero-logo img {
-  width: 100%;
-  height: 100%;
-  box-sizing: border-box;
-  padding: 14px !important;
-  background: transparent !important;
-  border-radius: inherit;
-  filter: none !important;
-}
-
-/* Home-page game cards: the visible logo square itself must be light. */
-.game-card .team-logo {
-  box-sizing: border-box;
-  padding: 4px !important;
-  background: color-mix(in srgb, var(--brand-cream) 94%, transparent) !important;
-  border: 1px solid color-mix(in srgb, var(--brand-charcoal) 12%, transparent) !important;
-  border-radius: 9px !important;
-  box-shadow:
-    0 1px 2px rgba(0,0,0,.22) !important;
-  filter: none !important;
-}
-
-/* Keep league logos untouched. */
-.game-card .league-logo {
-  background: transparent !important;
-  border: 0 !important;
-  box-shadow: none !important;
-  padding: 0 !important;
-}
-/* TEAM LOGO POLISHED HALO SYSTEM
-   Remove sticker-like light boxes. Keep transparent official marks and use
-   a soft neutral halo plus a pixel-following light edge for dark artwork. */
-
-/* Shared transparent logo treatment */
-.team-hero-logo img,
-.team-standing-team img,
-.team-spotlight-matchup img,
-.team-schedule-opponent img,
-.search-team-logo img,
-.favorite-result img,
-.detail-team img,
-.team-name .team-logo,
-.game-card .team-logo {
-  background: transparent !important;
-  border: 0 !important;
-  box-shadow: none !important;
-  padding: 0 !important;
-  object-fit: contain;
-  filter:
-    drop-shadow(0 0 .65px color-mix(in srgb, var(--brand-cream) 95%, transparent))
-    drop-shadow(0 0 1.6px color-mix(in srgb, var(--brand-cream) 42%, transparent))
-    drop-shadow(0 1px 1px rgba(0,0,0,.30)) !important;
-}
-
-/* Hero: soft circular light behind the mark, no visible tile edges. */
-.team-hero-logo {
-  background:
-    radial-gradient(
-      circle at center,
-      color-mix(in srgb, var(--brand-cream) 18%, transparent) 0%,
-      color-mix(in srgb, var(--brand-cream) 11%, transparent) 42%,
-      color-mix(in srgb, var(--brand-cream) 5%, transparent) 63%,
-      transparent 76%
-    ) !important;
-  border-color: color-mix(in srgb, var(--muted) 13%, transparent) !important;
-  box-shadow:
-    inset 0 0 0 1px rgba(255,255,255,.025),
-    0 2px 6px rgba(0,0,0,.16) !important;
-}
-
-.team-hero-logo img {
-  width: 78% !important;
-  height: 78% !important;
-  margin: 11% !important;
-  border-radius: 0 !important;
-}
-
-/* Small marks: localized halo follows the logo footprint rather than a square card. */
-.team-standing-team img,
-.team-spotlight-matchup img,
-.team-schedule-opponent img,
-.search-team-logo img,
-.favorite-result img,
-.detail-team img,
-.team-name .team-logo,
-.game-card .team-logo {
-  border-radius: 0 !important;
-  background-image:
-    radial-gradient(
-      circle at center,
-      color-mix(in srgb, var(--brand-cream) 16%, transparent) 0%,
-      color-mix(in srgb, var(--brand-cream) 8%, transparent) 48%,
-      transparent 74%
-    ) !important;
-}
-
-/* Home cards need a slightly stronger edge because marks are only ~32px. */
-.game-card .team-logo {
-  filter:
-    drop-shadow(0 0 .7px color-mix(in srgb, var(--brand-cream) 100%, transparent))
-    drop-shadow(0 0 1.7px color-mix(in srgb, var(--brand-cream) 52%, transparent))
-    drop-shadow(0 1px 1px rgba(0,0,0,.32)) !important;
-}
-
-/* Game Center already looked good; keep its treatment restrained. */
-.detail-team img {
-  background-image:
-    radial-gradient(
-      circle at center,
-      color-mix(in srgb, var(--brand-cream) 10%, transparent) 0%,
-      color-mix(in srgb, var(--brand-cream) 4%, transparent) 50%,
-      transparent 74%
-    ) !important;
-}
-
-/* League logos are intentionally excluded from the team-logo treatment. */
-.game-card .league-logo {
-  background: transparent !important;
-  background-image: none !important;
-  border: 0 !important;
-  box-shadow: none !important;
-  padding: 0 !important;
-  filter: none !important;
+  box-shadow: 0 0 0 2px var(--team-logo-surface), 0 0 0 3px var(--ink-secondary);
 }
 /* MOBILE RADAR DENSITY PASS V1
    Reduce navigation/filter chrome on phones while preserving useful
@@ -5659,7 +5486,7 @@ dialog[open] {
 .notification-favorites { display:flex; flex-wrap:wrap; gap:7px; margin-top:8px; }
 .install-settings details { margin:12px 0; padding:0 12px; border:1px solid var(--surface-3); border-radius:9px; }
 .install-settings summary { display:flex; align-items:center; gap:9px; min-height:48px; cursor:pointer; color:var(--brand-cream); font-weight:600; }
-.install-settings summary::after { content:'⌄'; margin-left:auto; font-size:22px; }
+.install-settings summary::after { content:'âŒ„'; margin-left:auto; font-size:22px; }
 .install-settings details[open] summary::after { transform:rotate(180deg); }
 .install-settings li { margin:10px 0; padding-left:3px; line-height:1.5; }
 .install-share-icon { display:inline-block; width:22px; height:22px; fill:none; stroke:currentColor; stroke-width:1.8; vertical-align:middle; }
@@ -6048,7 +5875,6 @@ body { background-image: none; }
 .card-team-link, .team-logo-shell { display: grid; place-items: center; flex: 0 0 28px; width: 28px; height: 28px; }
 .game-card .card-team-link { display: grid; flex: 0 0 28px; width: 28px; height: 28px; }
 .card-team-link > .team-logo, .card-team-link > .team-logo-fallback, .team-logo-shell > .team-logo, .team-logo-shell > .team-logo-fallback { grid-area: 1 / 1; }
-.team-name .team-logo, .detail-team img { background-image: none !important; }
 .team-logo-fallback[hidden] { display: none !important; }
 .team-logo[hidden], .detail-team img[hidden] { display: none !important; }
 .game-card .team-logo-fallback { flex-basis: 25px; width: 25px; height: 25px; }
@@ -6126,7 +5952,7 @@ body { background-image: none; }
   .detail-team:nth-child(2) .team-logo-fallback { grid-column: 3; }
 }
 
-/* The image is the normal team mark; tiles appear only after a failed load. */
+/* Abbreviation fallbacks appear only when the official image cannot load. */
 .team-hero-logo .team-logo-fallback { width: 84px; height: 84px; font-size: 25px; }
 .search-team-logo .team-logo-fallback { width: 32px; height: 32px; }
 .favorite-tag .team-logo-fallback,
@@ -6134,15 +5960,7 @@ body { background-image: none; }
 .team-spotlight-matchup > .team-logo-fallback { flex: 0 0 42px; width: 42px; height: 42px; display: grid; }
 .team-schedule-opponent > .team-logo-fallback { flex: 0 0 36px; width: 36px; height: 36px; display: grid; }
 .team-standing-team > .team-logo-fallback { flex: 0 0 34px; width: 34px; height: 34px; display: grid; }
-.team-hero-logo img,
-.search-team-logo img,
-.favorite-tag img,
-.favorite-result img,
-.team-spotlight-matchup img,
-.team-schedule-opponent img,
-.team-standing-team img,
-.game-card .team-logo,
-.detail-team img { object-fit: contain; background-image: none !important; filter: none !important; }
+
 
 .hidden-sport-notice { margin: 12px 4% 0; padding: 10px 14px; border: 1px solid var(--line); border-radius: 6px; color: var(--brand-cream); background: var(--surface); font-size: 13px; line-height: 1.4; }
 #preferences-dialog .sport-toggles { gap: 10px; margin-top: 10px; }

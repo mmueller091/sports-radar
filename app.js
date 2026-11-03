@@ -2594,7 +2594,7 @@ function teamMarkup(game, team, cardTeamIndex = null) {
   const logoMarkup = canOpen
     ? `<button type="button" class="card-team-link" data-card-team-index="${cardTeamIndex}" aria-label="Open ${safeText(team[0])} team page">${image}</button>`
     : `<span class="team-logo-shell">${image}</span>`;
-  return `<span class="team-name">${logoMarkup}${
+  return `<span class="team-name">${logoMarkup}<span class="team-name-copy">${
     team[6]
       ? `<b class="team-rank">#${safeText(team[6])}</b>`
       : ''
@@ -2602,7 +2602,7 @@ function teamMarkup(game, team, cardTeamIndex = null) {
     team[5]
       ? `<small class="team-record">${safeText(team[5])}</small>`
       : ''
-  }</span>`;
+  }</span></span>`;
 }
 
 function explainRating(game,summary=null) {
@@ -3138,7 +3138,7 @@ function gameCard(game) {
     game.timingUncertain || game.enrichmentPending || game.summaryValidationPending
       ? ''
       : game.moment
-      ? `<span class="card-moment"><strong>${safeText(game.momentLabel || 'Latest play')}</strong><span>${safeText(displayMoment(game))}</span></span>`
+      ? `<span class="card-moment" data-moment-kind="${game.momentLabel === 'Last score' ? 'last-score' : 'context'}"><strong>${safeText(game.momentLabel || 'Latest play')}</strong><span>${safeText(displayMoment(game))}</span></span>`
       : '';
 
   const accessibility = [

@@ -1,0 +1,20 @@
+{
+  "url": "https://slatemeter.app/",
+  "revision": "5a1da813ea9288739039b4a50b5a44d97303129d",
+  "controlled": true,
+  "keys": [
+    "slatemeter-shell-5a1da813ea9288739039b4a50b5a44d97303129d"
+  ],
+  "assets": [
+    "https://slatemeter.app/styles.css?rev=5a1da813ea9288739039b4a50b5a44d97303129d",
+    "https://slatemeter.app/mobile-readability.css?rev=5a1da813ea9288739039b4a50b5a44d97303129d",
+    "https://slatemeter.app/sport-visibility.js?rev=5a1da813ea9288739039b4a50b5a44d97303129d",
+    "https://slatemeter.app/scoring-runtime.js?rev=5a1da813ea9288739039b4a50b5a44d97303129d",
+    "https://slatemeter.app/alert-config.js?rev=5a1da813ea9288739039b4a50b5a44d97303129d",
+    "https://slatemeter.app/notifications.js?rev=5a1da813ea9288739039b4a50b5a44d97303129d",
+    "https://slatemeter.app/watch-links.js?rev=5a1da813ea9288739039b4a50b5a44d97303129d",
+    "https://slatemeter.app/tennis-coverage.js?rev=5a1da813ea9288739039b4a50b5a44d97303129d",
+    "https://slatemeter.app/game-center.js?rev=5a1da813ea9288739039b4a50b5a44d97303129d",
+    "https://slatemeter.app/app.js?rev=5a1da813ea9288739039b4a50b5a44d97303129d"
+  ]
+}
