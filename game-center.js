@@ -143,12 +143,18 @@
     const pending=game.score==null||!Number.isFinite(Number(game.score));
     const heading=`<div class="timeline-heading"><h3>Excitement timeline</h3><span class="timeline-key"><i></i> Recorded live ratings</span></div>`;
     const currentLabel=game.timingUncertain?'Last confirmed rating':game.scoringPartial?'Provisional live rating':game.state==='completed'?'Final rating':'Current live rating';
-    const ratings=`<div class="timeline-ratings"><div class="timeline-rating-current"><span>${currentLabel}</span><strong>${pending?'Pending':escape(game.score)}</strong><small>${game.timingUncertain?'Clock updating':game.state==='completed'?'Whole-game quality':game.scoringPartial?'Awaiting confirmation':'Watchability now'}</small></div><div class="timeline-rating-last"><span>Latest recorded live rating</span><strong>${last?last.score:'—'}</strong><small>${last?escape(last.label):'No confirmed live record'}</small></div></div>`;
+    const opening=game.pregameBaseline?.source==='observed'&&Number.isFinite(game.pregameBaseline.score)?game.pregameBaseline.score:null;
+    const openingCard=opening===null?'':`<div class="timeline-rating-opening"><span>Opening rating</span><strong>${opening}</strong><small>Before play</small></div>`;
+    const currentCard=game.state==='completed'?'':`<div class="timeline-rating-current"><span>${currentLabel}</span><strong>${pending?'Pending':escape(game.score)}</strong><small>${game.timingUncertain?'Clock updating':game.scoringPartial?'Awaiting confirmation':'Watchability now'}</small></div>`;
+    const ratings=`<div class="timeline-ratings">${openingCard}${currentCard}<div class="timeline-rating-last"><span>Latest recorded live rating</span><strong>${last?last.score:'—'}</strong><small>${last?escape(last.label):'No confirmed live record'}</small></div></div>`;
+    const finalPending=pending||game.scoringPartial||game.summaryLifecycleRejected||game.scoringHistoryRejected;
+    const lastDescription=last?` ${points.length<2?'The only verified live rating is':'The live graph ends at'} ${last.score} (${escape(last.label)}).`:'';
+    const outcome=game.state!=='completed'?'':`<aside class="timeline-outcome" aria-label="Retrospective final game quality"><div class="timeline-outcome-value"><span aria-hidden="true">◇</span><strong>${finalPending?'Pending':escape(game.score)}</strong></div><div><h4>Final game quality · After the game</h4><p>${finalPending?'The whole-game assessment is awaiting complete game data.':`This rates the whole game and its finish.${lastDescription} It is a separate assessment, not another live observation.`}</p></div></aside>`;
     if(points.length<2){
       const message=game.state==='completed'
-        ? 'Excitement history was not recorded for this game.'
+        ? points.length?'Only one verified live rating is available; there is not enough history to draw a line.':'No verified live ratings are available for this game.'
         : 'Excitement history will appear as the game unfolds.';
-      return `<section class="detail-section timeline-section"><h3>Excitement history</h3>${ratings}<p class="detail-empty">${message}</p></section>`;
+      return `<section class="detail-section timeline-section"><h3>Excitement history</h3>${ratings}<p class="detail-empty">${message}</p>${outcome}</section>`;
     }
     const scoringPlays=summary?.scoringPlays?.length?summary.scoringPlays:(summary?.plays||[]).filter(p=>p.scoringPlay);
     const events=scoringPlays.map((p,i)=>({
@@ -227,7 +233,9 @@
     };
     const playList=scoringPlays.length?`<details class="timeline-play-details"><summary>Browse scoring plays (${scoringPlays.length})</summary><ol>${scoringPlays.map(p=>
       `<li>${escape(phase(p.period?.number??p.period,p.clock?.displayValue,f,p.period?.displayValue))}: ${escape(p.text||p.shortText||p.type?.text||'Scoring play')}</li>`).join('')}</ol></details>`:'';
-    return `<section class="detail-section timeline-section">${heading}${ratings}<p class="timeline-note">Gaps mark intervals with unreliable timing or evidence.</p><div class="timeline-controls" role="group" aria-label="Timeline range">${views.map(v=>`<button type="button" data-timeline-range="${v.key}" aria-pressed="${v.key==='full'}">${v.label}</button>`).join('')}</div>${views.map(v=>`<div class="timeline-view" data-timeline-view="${v.key}"${v.key!=='full'?' hidden':''}>${chart(v)}${chart(v,true)}</div>`).join('')}<div class="timeline-point-help" id="${helpId}" role="status" aria-live="polite" aria-hidden="true"></div>${playList}</section>`;
+    const excluded=data.points.filter(p=>p.ratingKind==='live'&&!reliable(p)).length;
+    const coverage=excluded?'Some live updates could not be verified. Gaps are left open; missing ratings are not filled in.':'Lines join comparable recorded ratings. Breaks mark clock or model changes.';
+    return `<section class="detail-section timeline-section">${heading}${ratings}<p class="timeline-note">${coverage}</p><div class="timeline-controls" role="group" aria-label="Timeline range">${views.map(v=>`<button type="button" data-timeline-range="${v.key}" aria-pressed="${v.key==='full'}">${v.label}</button>`).join('')}</div>${views.map(v=>`<div class="timeline-view" data-timeline-view="${v.key}"${v.key!=='full'?' hidden':''}>${chart(v)}${chart(v,true)}</div>`).join('')}<div class="timeline-point-help" id="${helpId}" role="status" aria-live="polite" aria-hidden="true"></div>${outcome}${playList}</section>`;
   }
   const api={calculation,scoringMarkup,decimalSum,format,position,phase,reliable,curve,comparable,observations,timeline};
   if(typeof module!=='undefined'&&module.exports)module.exports=api;

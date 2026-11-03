@@ -611,7 +611,7 @@ function rememberPregameLine(game) {
 }
 
 function displayLine(game) {
-  const line = game.line || lineSnapshots[game.id]?.line;
+  const line = game.line || (game.state === 'upcoming' ? null : lineSnapshots[game.id]?.line);
 
   if (!line) {
     return {
@@ -2778,6 +2778,66 @@ function publicStorySentence(factor,stories=[]) {
 }
 
 
+// Editorial interpretation of the displayed quote only. Never feeds the scorer.
+function narrativeMarket(game) {
+  const sport=game.sport==='NCAAM'?'NCAAB':game.sport,teams=game.teams||[],line=game.line;
+  const unknown={kind:'unknown',favorite:null,spread:null};
+  if(!line||teams.length!==2)return unknown;
+  const token=s=>String(s||'').trim().toUpperCase();
+  const price=v=>/^[+-]?\d+$/.test(String(v))&&Math.abs(Number(v))>=100?Number(v):null;
+  const implied=n=>n<0?-n/(100-n):100/(100+n);
+  const match=String(line.moneyline||'').trim().match(/^(.+?)\s+([+-]\d+)$/);
+  const spreadMatch=String(line.spread||'').trim().match(/^(.+?)\s+([+-]\d+(?:\.\d+)?)$/);
+  const pick=/^(?:PK|pick(?:\s*['’]?em)?)$/i.test(String(line.spread||'').trim());
+  const teamToken=abbr=>sport==='NHL'&&token(abbr)==='UTAH'?'UTA':token(abbr);
+  const indexFor=abbr=>teams.findIndex(t=>teamToken(t[1])===teamToken(abbr));
+  let named=match?indexFor(match[1]):-1,paired=null;
+  // A baseline can contain an older quote. Require the displayed price, provider,
+  // team identities and one consistent pair; never mix opening/closing prices.
+  for(const raw of game.pregameBaseline?.odds||[]){
+    const q=raw.close||raw.closing||raw;
+    if(token(q.provider?.name||raw.provider?.name)!==token(line.provider))continue;
+    if(!match||String(q.details||q.displayValue||'').trim()!==String(line.moneyline).trim())continue;
+    const sideIds=['away','home'].map(s=>q[s+'TeamOdds']?.team?.id);
+    if(sideIds.some((id,i)=>id!=null&&String(id)!==String(teams[i][8])))continue;
+    if(named<0){
+      const side=['away','home'].findIndex(s=>token(q[s+'TeamOdds']?.team?.abbreviation)===token(match[1]));
+      if(side>=0&&sideIds[side]!=null)named=side;
+    }
+    const book=q.moneyline||q.moneyLine;
+    if(price(book?.draw?.close?.odds)!==null||price(q.drawOdds?.moneyLine)!==null)continue;
+    const modern=['away','home'].map(s=>price(book?.[s]?.close?.odds));
+    const legacy=['away','home'].map(s=>price(q[s+'TeamOdds']?.moneyLine??q[s+'TeamOdds']?.moneyline));
+    const prices=modern.every(n=>n!==null)?modern:legacy.every(n=>n!==null)?legacy:null;
+    if(!prices||named<0||prices[named]!==price(match[2]))continue;
+    // Contradictory current quote representations are not a reliable pair.
+    if(modern.every(n=>n!==null)&&legacy.some((n,i)=>n!==null&&n!==modern[i]))return {...unknown,conflict:true};
+    const sum=prices.reduce((s,n)=>s+implied(n),0);
+    if(sum<1||sum>1.12)continue;
+    if(paired&&paired.prices.some((n,i)=>n!==prices[i]))return {...unknown,conflict:true};
+    paired={prices,probabilities:prices.map(n=>implied(n)/sum)};
+  }
+  let money=null;
+  if(paired){
+    const p=Math.max(...paired.probabilities),favorite=paired.probabilities[0]>paired.probabilities[1]?0:1;
+    const heavy=({NHL:.70,MLB:.70,Tennis:.80})[sport]||.75;
+    money={kind:p<=.525?'even':p<.575?'slight':p<heavy?'meaningful':'heavy',favorite:teams[favorite],probability:p,paired:true};
+  }else if(match&&named>=0&&price(match[2])<0){
+    // One price includes an unknown margin. Name the listed favorite, but do
+    // not call the game even or heavily favored without a complete market.
+    const lower=implied(price(match[2]))/1.12;
+    if(lower>.5)money={kind:lower>=.575?'meaningful':'listed',favorite:teams[named],paired:false};
+  }
+  const limits=({NFL:[1,3,10],CFB:[1,3.5,17],NBA:[1,4,12],NCAAB:[1,4,15]})[sport];
+  if(limits&&(pick||spreadMatch)){
+    const spread=pick?0:Math.abs(Number(spreadMatch[2])),i=spreadMatch?indexFor(spreadMatch[1]):-1;
+    const favorite=i<0?null:teams[Number(spreadMatch[2])<0?i:1-i];
+    if(money?.favorite&&favorite&&money.kind!=='even'&&money.favorite!==favorite)return {...unknown,conflict:true};
+    return {kind:spread<=limits[0]?'even':spread<=limits[1]?'slight':spread<limits[2]?'meaningful':'heavy',favorite,spread,paired:false};
+  }
+  return money?{...money,spread:null}:unknown;
+}
+
 // Presentation only: no ratings, inputs, source evidence or live copy are changed.
 function pregameExplanation(game,verified=[]) {
   const teams=game.teams || [],sport=game.sport==='NCAAM'?'NCAAB':game.sport;
@@ -2787,7 +2847,8 @@ function pregameExplanation(game,verified=[]) {
   const record=t=>/^\d+-\d+(?:-\d+)?$/.test(String(t[5]||''))?String(t[5]):'';
   const records=teams.map(t=>record(t)?record(t).split('-').map(Number):null);
   const games=records.map(r=>r?r.reduce((a,b)=>a+b,0):0);
-  const known=records.every(Boolean)&&games.every(n=>n>0);
+  const known=sport!=='Tennis'&&records.every(Boolean)&&games.every(n=>n>0)&&
+    records.every(r=>r.length===2||['NHL','NFL','CFB'].includes(sport));
   // NHL overtime losses earn one standings point, not a win. Football ties
   // count as half a win; a 0-0 opener has no record-quality evidence.
   const rates=known?records.map((r,i)=>(r[0]+(['NHL','NFL','CFB'].includes(sport)?(r[2]||0)/2:0))/games[i]):null;
@@ -2802,13 +2863,8 @@ function pregameExplanation(game,verified=[]) {
   const pair=teams.map(named).join(' and ');
   const withRecord=t=>`${named(t)}${games[teams.indexOf(t)]?` (${record(t)})`:''}`;
   const recordPair=teams.map(withRecord).join(' and ');
-  const spreadMatch=String(game.line?.spread||'').match(/^([A-Z0-9.&-]+)\s*-\s*(\d+(?:\.\d+)?)$/i);
-  const pick=/^(?:PK|pick(?:\s*['’]?em)?)$/i.test(String(game.line?.spread||'').trim());
-  const spread=spreadMatch?Number(spreadMatch[2]):pick?0:Number.isFinite(game.pregameBaseline?.spread)?Math.abs(game.pregameBaseline.spread):null;
-  const favorite=spreadMatch?teams.find(t=>String(t[1]).toUpperCase()===spreadMatch[1].toUpperCase()):null;
+  const market=narrativeMarket(game),spread=market.spread,favorite=market.favorite;
   const hasSpread=spread!==null&&['NFL','CFB','NBA','NCAAB'].includes(sport);
-  const closeMarket=has(/pick.em|Competitive betting market|Very close projected spread|Tight projected spread/i);
-  const mismatch=has(/Heavy favorite|Lopsided betting market|market mismatch/i);
   const division=factors.find(f=>/^(?:(?:AFC|NFC) (?:East|North|South|West)|(?:AL|NL) (?:East|Central|West)|(?:Atlantic|Metropolitan|Central|Pacific|Northwest|Southeast|Southwest) Division) matchup$/.test(f.label||''))?.label.replace(' matchup','');
   const byuUtah=sport==='CFB'&&teams.map(t=>String(t[8])).sort().join(':')==='252:254';
   const rivalry=byuUtah||has(/^Rivalry$|^Rivalry context$/);
@@ -2868,27 +2924,38 @@ function pregameExplanation(game,verified=[]) {
       `They are also ${division} opponents${sport==='NFL'?', with a head-to-head division result at stake':''}`);
   }
 
-  const money=String(game.line?.moneyline||'').match(/^([A-Z0-9.-]+)\s*-\s*(\d+)$/i);
-  const moneyFavorite=money?teams.find(t=>String(t[1]).toUpperCase()===money[1].toUpperCase()):null;
+  const minimumGames=({NFL:4,CFB:4,NBA:5,NCAAB:5,NHL:8,MLB:20})[sport];
+  const comparableRecords=known&&minimumGames&&games.every(n=>n>=minimumGames)&&
+    Math.max(...games)/Math.min(...games)<=1.5&&!game.interDivision;
+  const gap=comparableRecords?Math.abs(rates[0]-rates[1]):0;
+  const stronger=comparableRecords?teams[rates[0]>rates[1]?0:1]:null;
+  const recordGap=({NFL:.20,CFB:.25,NBA:.20,NCAAB:.25,NHL:.15,MLB:.10})[sport];
+  const againstRecord=favorite&&stronger!==favorite&&gap>=recordGap;
+  const marketName=favorite?short(favorite):'the listed favorite';
+  const verb=pro?'are':'is';
+  const strength=kind=>kind==='listed'?'favored':`${pro?'':'a '}${kind==='heavy'?'heavy':kind==='meaningful'?'clear':'slight'} ${pro?'favorites':'favorite'}`;
   if(marketUsed) { /* The ranked-matchup lead already explains the line. */ }
+  else if(market.conflict)add('The listed markets give conflicting expectations');
+  else if(againstRecord&&market.kind!=='even') {
+    add(`${short(stronger)} ${pro?'have':'has'} the stronger record${sport==='NHL'?' by points percentage':''}, but ${marketName} ${verb} ${strength(market.kind)}${hasSpread?` by ${spread} points`:' in the listed market'}`);
+  }
   else if(hasSpread) {
-    if(spread===0)add('An even line sets up a game that could go either way');
-    else if(spread<=3.5)add(`A ${spread}-point spread points to a close contest`);
-    else if(spread<=7)add(`${favorite?`${short(favorite)} ${pro?'are':'is'} favored by ${spread} points`:`A ${spread}-point spread gives one side an edge`} in a matchup that still looks competitive`);
-    else if(spread<10)add(`${favorite?`The line favors ${short(favorite)} by ${spread} points`:`A ${spread}-point spread gives one side a sizable edge`}; the underdog faces a tougher test`);
-    else add(`${favorite?`The line favors ${short(favorite)} by ${spread} points`:`A ${spread}-point spread signals a clear favorite`}, so a one-sided game is a real possibility`);
-  } else if(['NHL','MLB'].includes(sport)&&money&&Number(money[2])>=200) {
-    const other=moneyFavorite&&teams.find(t=>t!==moneyFavorite);
-    add(moneyFavorite?`${short(moneyFavorite)} are clear favorites in the betting market; whether ${short(other)} can push them is the main question`:
-      'The betting market gives one side a clear edge, making a close finish less certain');
-  } else if(closeMarket)add('The betting market gives neither side much of an edge');
-  else if(mismatch)add('A clear betting favorite makes a close finish less certain');
+    if(market.kind==='even')add(spread===0?'An even line sets up a game that could go either way':`A ${spread}-point spread leaves little between the teams`);
+    else if(market.kind==='slight')add(`${favorite?`${marketName} ${verb} ${strength('slight')}`:'A narrow line points to a close contest'}${spread?` with a ${spread}-point spread`:''}${sport==='NFL'&&spread===3?', the margin of a field goal':'; the line points to a close contest'}`);
+    else add(`${favorite?`${marketName} ${verb} ${strength(market.kind)} by ${spread} points`:`A ${spread}-point spread gives one side a ${market.kind==='heavy'?'large':'clear'} edge`}${market.kind==='heavy'?', so a one-sided game is a real possibility':''}`);
+  } else if(market.kind==='even')add('The listed odds leave little between the teams');
+  else if(favorite)add(`${marketName} ${verb} ${strength(market.kind)} in the listed market`);
   else if(known&&Math.abs(rates[0]-rates[1])<.1) {
     add(bothLosing?'Neither has pulled away from the other on results so far':sport==='NHL'?
       'There is little between them on results so far':'Their similar records suggest a competitive game');
-  } else if(known&&Math.abs(rates[0]-rates[1])>=.3) {
-    const stronger=teams[rates[0]>rates[1]?0:1];
+  } else if(comparableRecords&&gap>=recordGap) {
     add(`${short(stronger)} ${college?'looks':'look'} the stronger side on results so far`);
+  }
+  if(!againstRecord&&favorite&&['meaningful','heavy'].includes(market.kind)&&comparableRecords){
+    const other=teams.find(t=>t!==favorite),otherRate=rates[teams.indexOf(other)];
+    if(gap<.08)add('Their records are similar, even though the market gives one side a clear advantage');
+    else if(stronger===favorite&&otherRate<.4)add(`${short(other)} ${pro?'have':'has'} struggled so far and ${pro?'face':'faces'} another difficult test`);
+    else if(market.kind==='heavy'&&otherRate>.55)add(`${short(other)} ${pro?'have':'has'} a strong record of ${record(other)} despite the large gap in market expectations`);
   }
 
   // Totals describe expectations, never assert offensive quality or an outcome.

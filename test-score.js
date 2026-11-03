@@ -110,7 +110,7 @@ const fixtures = `
   assert.doesNotMatch(nflProse,/ranked/);
   assert.doesNotMatch(explainRating({...nflGame,score:42,factors:[{label:'Sport baseline',points:32},{label:'Schedule scarcity',points:10}],teams:[['Team One','ONE'],['Team Two','TWO']]}),/ranked/);
   const weakDivisionProse = explainRating({sport:'NFL',state:'upcoming',score:jetsDolphins.score,factors:jetsDolphins.factors,startTime:'2026-10-25T17:00:00Z',line:{spread:'NYJ -4.5'},teams:[['Miami Dolphins','MIA','0','',null,'0-5'],['New York Jets','NYJ','0','',null,'2-4']]});
-  assert.match(weakDivisionProse,/difficult start/);
+  assert.match(weakDivisionProse,/difficult start|struggled so far/);
   assert.match(weakDivisionProse,/4\.5(?: points|-point)/);
   const futureFavorite = {favorite:true,state:'upcoming',startTime:new Date(Date.now()+3*86400000).toISOString(),score:71};
   const todayFavorite = {...futureFavorite,startTime:new Date().toISOString()};

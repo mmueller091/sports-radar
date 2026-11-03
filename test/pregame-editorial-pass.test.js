@@ -18,12 +18,12 @@ test('ranked quality plus a narrow market supports the watch recommendation for 
 });
 test('Ottawa-Buffalo explains division and competitiveness without calling overtime losses wins',()=>{
   const text=explain(game('401892644'));
-  assert.match(text,/9-6-1/);assert.match(text,/7-4-3/);assert.match(text,/Atlantic Division/);assert.match(text,/neither side much of an edge/);
+  assert.match(text,/9-6-1/);assert.match(text,/7-4-3/);assert.match(text,/Atlantic Division/);assert.match(text,/Sabres are (?:slight favorites|favored)/);
   assert.doesNotMatch(text,/half.*points|winning records|division lead|clinching|rivalry/);
 });
 test('Detroit-Tampa Bay names the favorite and divisional reason to watch without the unrelated recap',()=>{
   const text=explain(game('401892635'));
-  assert.match(text,/Atlantic Division/);assert.match(text,/Lightning are clear favorites/);assert.match(text,/Red Wings can push them/);
+  assert.match(text,/Atlantic Division/);assert.match(text,/Lightning are clear favorites/);assert.doesNotMatch(text,/neither side much of an edge/);
   assert.doesNotMatch(text,/Lightning has|1\.5.point|Faulk|Panthers|former.*return|half.*points/);
 });
 test('BYU-Utah keeps its verified rivalry while other games get context from their own supplied facts',()=>{

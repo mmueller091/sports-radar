@@ -1,0 +1,436 @@
+TAP version 13
+# (node:26864) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/mmuel/Documents/Codex/2026-10-21/sports-radar-publish/work/market-timeline/test/game-center-transparency.test.js is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\mmuel\\Documents\\package.json.
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: Cardinals–Cowboys: actual rendered factors reconcile to 95 and concise explanation preserves verified comeback/redemption
+ok 1 - Cardinals–Cowboys: actual rendered factors reconcile to 95 and concise explanation preserves verified comeback/redemption
+  ---
+  duration_ms: 68.4894
+  type: 'test'
+  ...
+# Subtest: authoritative normalization renders signed/fractional factors and each actual rounding, cap and floor
+ok 2 - authoritative normalization renders signed/fractional factors and each actual rounding, cap and floor
+  ---
+  duration_ms: 1.9765
+  type: 'test'
+  ...
+# Subtest: all captured current-engine calculations render exactly, across sports and states
+ok 3 - all captured current-engine calculations render exactly, across sports and states
+  ---
+  duration_ms: 640.1972
+  type: 'test'
+  ...
+# Subtest: missing, mismatched and non-additive historical evidence cannot masquerade as exact
+ok 4 - missing, mismatched and non-additive historical evidence cannot masquerade as exact
+  ---
+  duration_ms: 0.3239
+  type: 'test'
+  ...
+# Subtest: actual overtime history preserves every rating, timestamp, model, evidence flag and decisive play
+ok 5 - actual overtime history preserves every rating, timestamp, model, evidence flag and decisive play
+  ---
+  duration_ms: 32.9212
+  type: 'test'
+  ...
+# Subtest: chart keeps sharp changes but separates gaps, corrections, duplicate clocks and models
+ok 6 - chart keeps sharp changes but separates gaps, corrections, duplicate clocks and models
+  ---
+  duration_ms: 0.439
+  type: 'test'
+  ...
+# Subtest: missing clocks use real observation timestamps; unpositioned scoring events never get an ordinal
+ok 7 - missing clocks use real observation timestamps; unpositioned scoring events never get an ordinal
+  ---
+  duration_ms: 9.9747
+  type: 'test'
+  ...
+# Subtest: multiple overtimes map verified clocks without ordinal spacing; untimed CFB uses observations
+ok 8 - multiple overtimes map verified clocks without ordinal spacing; untimed CFB uses observations
+  ---
+  duration_ms: 0.4992
+  type: 'test'
+  ...
+# Subtest: games without chart history show natural empty states without exposing observations
+ok 9 - games without chart history show natural empty states without exposing observations
+  ---
+  duration_ms: 0.5085
+  type: 'test'
+  ...
+# Subtest: NFL upcoming: rendered engine calculations across margins, phases and evidence
+ok 10 - NFL upcoming: rendered engine calculations across margins, phases and evidence
+  ---
+  duration_ms: 5.0538
+  type: 'test'
+  ...
+# Subtest: NFL live: rendered engine calculations across margins, phases and evidence
+ok 11 - NFL live: rendered engine calculations across margins, phases and evidence
+  ---
+  duration_ms: 36.2101
+  type: 'test'
+  ...
+# Subtest: NFL completed: rendered engine calculations across margins, phases and evidence
+ok 12 - NFL completed: rendered engine calculations across margins, phases and evidence
+  ---
+  duration_ms: 1.8827
+  type: 'test'
+  ...
+# Subtest: CFB upcoming: rendered engine calculations across margins, phases and evidence
+ok 13 - CFB upcoming: rendered engine calculations across margins, phases and evidence
+  ---
+  duration_ms: 3.2935
+  type: 'test'
+  ...
+# Subtest: CFB live: rendered engine calculations across margins, phases and evidence
+ok 14 - CFB live: rendered engine calculations across margins, phases and evidence
+  ---
+  duration_ms: 17.4084
+  type: 'test'
+  ...
+# Subtest: CFB completed: rendered engine calculations across margins, phases and evidence
+ok 15 - CFB completed: rendered engine calculations across margins, phases and evidence
+  ---
+  duration_ms: 2.2275
+  type: 'test'
+  ...
+# Subtest: MLB upcoming: rendered engine calculations across margins, phases and evidence
+ok 16 - MLB upcoming: rendered engine calculations across margins, phases and evidence
+  ---
+  duration_ms: 2.9289
+  type: 'test'
+  ...
+# Subtest: MLB live: rendered engine calculations across margins, phases and evidence
+ok 17 - MLB live: rendered engine calculations across margins, phases and evidence
+  ---
+  duration_ms: 22.8354
+  type: 'test'
+  ...
+# Subtest: MLB completed: rendered engine calculations across margins, phases and evidence
+ok 18 - MLB completed: rendered engine calculations across margins, phases and evidence
+  ---
+  duration_ms: 1.7065
+  type: 'test'
+  ...
+# Subtest: NHL upcoming: rendered engine calculations across margins, phases and evidence
+ok 19 - NHL upcoming: rendered engine calculations across margins, phases and evidence
+  ---
+  duration_ms: 5.195
+  type: 'test'
+  ...
+# Subtest: NHL live: rendered engine calculations across margins, phases and evidence
+ok 20 - NHL live: rendered engine calculations across margins, phases and evidence
+  ---
+  duration_ms: 27.5051
+  type: 'test'
+  ...
+# Subtest: NHL completed: rendered engine calculations across margins, phases and evidence
+ok 21 - NHL completed: rendered engine calculations across margins, phases and evidence
+  ---
+  duration_ms: 3.0354
+  type: 'test'
+  ...
+# Subtest: NBA upcoming: rendered engine calculations across margins, phases and evidence
+ok 22 - NBA upcoming: rendered engine calculations across margins, phases and evidence
+  ---
+  duration_ms: 5.4578
+  type: 'test'
+  ...
+# Subtest: NBA live: rendered engine calculations across margins, phases and evidence
+ok 23 - NBA live: rendered engine calculations across margins, phases and evidence
+  ---
+  duration_ms: 17.6879
+  type: 'test'
+  ...
+# Subtest: NBA completed: rendered engine calculations across margins, phases and evidence
+ok 24 - NBA completed: rendered engine calculations across margins, phases and evidence
+  ---
+  duration_ms: 1.8106
+  type: 'test'
+  ...
+# Subtest: NCAAB upcoming: rendered engine calculations across margins, phases and evidence
+ok 25 - NCAAB upcoming: rendered engine calculations across margins, phases and evidence
+  ---
+  duration_ms: 2.3352
+  type: 'test'
+  ...
+# Subtest: NCAAB live: rendered engine calculations across margins, phases and evidence
+ok 26 - NCAAB live: rendered engine calculations across margins, phases and evidence
+  ---
+  duration_ms: 21.2534
+  type: 'test'
+  ...
+# Subtest: NCAAB completed: rendered engine calculations across margins, phases and evidence
+ok 27 - NCAAB completed: rendered engine calculations across margins, phases and evidence
+  ---
+  duration_ms: 3.3967
+  type: 'test'
+  ...
+# Subtest: Soccer upcoming: rendered engine calculations across margins, phases and evidence
+ok 28 - Soccer upcoming: rendered engine calculations across margins, phases and evidence
+  ---
+  duration_ms: 2.3252
+  type: 'test'
+  ...
+# Subtest: Soccer live: rendered engine calculations across margins, phases and evidence
+ok 29 - Soccer live: rendered engine calculations across margins, phases and evidence
+  ---
+  duration_ms: 13.1164
+  type: 'test'
+  ...
+# Subtest: Soccer completed: rendered engine calculations across margins, phases and evidence
+ok 30 - Soccer completed: rendered engine calculations across margins, phases and evidence
+  ---
+  duration_ms: 1.5825
+  type: 'test'
+  ...
+# Subtest: Tennis upcoming: rendered engine calculations across margins, phases and evidence
+ok 31 - Tennis upcoming: rendered engine calculations across margins, phases and evidence
+  ---
+  duration_ms: 2.295
+  type: 'test'
+  ...
+# Subtest: Tennis live: rendered engine calculations across margins, phases and evidence
+ok 32 - Tennis live: rendered engine calculations across margins, phases and evidence
+  ---
+  duration_ms: 12.0264
+  type: 'test'
+  ...
+# Subtest: Tennis completed: rendered engine calculations across margins, phases and evidence
+ok 33 - Tennis completed: rendered engine calculations across margins, phases and evidence
+  ---
+  duration_ms: 1.5513
+  type: 'test'
+  ...
+# Subtest: calculation metadata is tied to the canonical game, survives cache reuse, and never changes persisted game JSON
+ok 34 - calculation metadata is tied to the canonical game, survives cache reuse, and never changes persisted game JSON
+  ---
+  duration_ms: 0.4937
+  type: 'test'
+  ...
+# Subtest: unclassified browser observations cannot become a reliable curve or replace the last verified record
+ok 35 - unclassified browser observations cannot become a reliable curve or replace the last verified record
+  ---
+  duration_ms: 0.3612
+  type: 'test'
+  ...
+# (node:8168) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/mmuel/Documents/Codex/2026-10-21/sports-radar-publish/work/market-timeline/test/market-timeline-release.test.js is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\mmuel\\Documents\\package.json.
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: upcoming display never recycles an older cached market when current evidence is missing
+ok 36 - upcoming display never recycles an older cached market when current evidence is missing
+  ---
+  duration_ms: 2.3918
+  type: 'test'
+  ...
+# Subtest: seven-sport synthetic corpus covers market classes, missing/conflicting evidence and small samples
+ok 37 - seven-sport synthetic corpus covers market classes, missing/conflicting evidence and small samples
+  ---
+  duration_ms: 13.496
+  type: 'test'
+  ...
+# Subtest: both reported NHL markets use current paired prices with margin removed
+ok 38 - both reported NHL markets use current paired prices with margin removed
+  ---
+  duration_ms: 2.9193
+  type: 'test'
+  ...
+# Subtest: paired prices distinguish even, slight, meaningful and heavy across moneyline sports
+ok 39 - paired prices distinguish even, slight, meaningful and heavy across moneyline sports
+  ---
+  duration_ms: 2.1881
+  type: 'test'
+  ...
+# Subtest: spreads follow sport-specific anchors and never treat a puck line as a point spread
+ok 40 - spreads follow sport-specific anchors and never treat a puck line as a point spread
+  ---
+  duration_ms: 0.5351
+  type: 'test'
+  ...
+# Subtest: missing, one-sided, stale, conflicting and malformed quotes cannot manufacture confidence
+ok 41 - missing, one-sided, stale, conflicting and malformed quotes cannot manufacture confidence
+  ---
+  duration_ms: 0.6897
+  type: 'test'
+  ...
+# Subtest: records respect NHL points, ties, sample size and tennis context
+ok 42 - records respect NHL points, ties, sample size and tennis context
+  ---
+  duration_ms: 0.4852
+  type: 'test'
+  ...
+# Subtest: all captured pregame narratives leave every rating, factor and normalized input unchanged
+ok 43 - all captured pregame narratives leave every rating, factor and normalized input unchanged
+  ---
+  duration_ms: 45.5128
+  type: 'test'
+  ...
+# Subtest: mandatory Pelicans replay retains every snapshot and separates final 97 from live 71
+ok 44 - mandatory Pelicans replay retains every snapshot and separates final 97 from live 71
+  ---
+  duration_ms: 49.1992
+  type: 'test'
+  ...
+# Subtest: NFL: completed full or sparse history, equal or different final ratings stay separate (true)
+ok 45 - NFL: completed full or sparse history, equal or different final ratings stay separate (true)
+  ---
+  duration_ms: 2.5917
+  type: 'test'
+  ...
+# Subtest: NFL: completed full or sparse history, equal or different final ratings stay separate (false)
+ok 46 - NFL: completed full or sparse history, equal or different final ratings stay separate (false)
+  ---
+  duration_ms: 1.7806
+  type: 'test'
+  ...
+# Subtest: CFB: completed full or sparse history, equal or different final ratings stay separate (true)
+ok 47 - CFB: completed full or sparse history, equal or different final ratings stay separate (true)
+  ---
+  duration_ms: 3.2671
+  type: 'test'
+  ...
+# Subtest: CFB: completed full or sparse history, equal or different final ratings stay separate (false)
+ok 48 - CFB: completed full or sparse history, equal or different final ratings stay separate (false)
+  ---
+  duration_ms: 2.4711
+  type: 'test'
+  ...
+# Subtest: NBA: completed full or sparse history, equal or different final ratings stay separate (true)
+ok 49 - NBA: completed full or sparse history, equal or different final ratings stay separate (true)
+  ---
+  duration_ms: 3.2236
+  type: 'test'
+  ...
+# Subtest: NBA: completed full or sparse history, equal or different final ratings stay separate (false)
+ok 50 - NBA: completed full or sparse history, equal or different final ratings stay separate (false)
+  ---
+  duration_ms: 2.9035
+  type: 'test'
+  ...
+# Subtest: NHL: completed full or sparse history, equal or different final ratings stay separate (true)
+ok 51 - NHL: completed full or sparse history, equal or different final ratings stay separate (true)
+  ---
+  duration_ms: 1.9988
+  type: 'test'
+  ...
+# Subtest: NHL: completed full or sparse history, equal or different final ratings stay separate (false)
+ok 52 - NHL: completed full or sparse history, equal or different final ratings stay separate (false)
+  ---
+  duration_ms: 2.2622
+  type: 'test'
+  ...
+# Subtest: MLB: completed full or sparse history, equal or different final ratings stay separate (true)
+ok 53 - MLB: completed full or sparse history, equal or different final ratings stay separate (true)
+  ---
+  duration_ms: 3.5541
+  type: 'test'
+  ...
+# Subtest: MLB: completed full or sparse history, equal or different final ratings stay separate (false)
+ok 54 - MLB: completed full or sparse history, equal or different final ratings stay separate (false)
+  ---
+  duration_ms: 2.9528
+  type: 'test'
+  ...
+# Subtest: NCAAB: completed full or sparse history, equal or different final ratings stay separate (true)
+ok 55 - NCAAB: completed full or sparse history, equal or different final ratings stay separate (true)
+  ---
+  duration_ms: 2.9171
+  type: 'test'
+  ...
+# Subtest: NCAAB: completed full or sparse history, equal or different final ratings stay separate (false)
+ok 56 - NCAAB: completed full or sparse history, equal or different final ratings stay separate (false)
+  ---
+  duration_ms: 1.7087
+  type: 'test'
+  ...
+# Subtest: Tennis: completed full or sparse history, equal or different final ratings stay separate (true)
+ok 57 - Tennis: completed full or sparse history, equal or different final ratings stay separate (true)
+  ---
+  duration_ms: 2.379
+  type: 'test'
+  ...
+# Subtest: Tennis: completed full or sparse history, equal or different final ratings stay separate (false)
+ok 58 - Tennis: completed full or sparse history, equal or different final ratings stay separate (false)
+  ---
+  duration_ms: 2.0595
+  type: 'test'
+  ...
+# (node:31140) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/mmuel/Documents/Codex/2026-10-21/sports-radar-publish/work/market-timeline/test/timeline-clarity.test.js is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\mmuel\\Documents\\package.json.
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: read-time provenance exposes incomplete Chiefs finals without changing any stored observation
+ok 59 - read-time provenance exposes incomplete Chiefs finals without changing any stored observation
+  ---
+  duration_ms: 6.4816
+  type: 'test'
+  ...
+# Subtest: explicit invalid evidence takes precedence; absent evidence and a supported zero bonus are distinct
+ok 60 - explicit invalid evidence takes precedence; absent evidence and a supported zero bonus are distinct
+  ---
+  duration_ms: 0.2361
+  type: 'test'
+  ...
+# Subtest: Chiefs 75/38: one authoritative final, grouped incomplete 38s, and unchanged reliable live points
+ok 61 - Chiefs 75/38: one authoritative final, grouped incomplete 38s, and unchanged reliable live points
+  ---
+  duration_ms: 112.9297
+  type: 'test'
+  ...
+# Subtest: Notre Dame 61 is a superseded 74–70 result, not an invalid play or an alternative to 65
+ok 62 - Notre Dame 61 is a superseded 74–70 result, not an invalid play or an alternative to 65
+  ---
+  duration_ms: 10.7576
+  type: 'test'
+  ...
+# Subtest: Celtics duplicate 67s collapse across refreshes, releases and the provider final-clock reset
+ok 63 - Celtics duplicate 67s collapse across refreshes, releases and the provider final-clock reset
+  ---
+  duration_ms: 13.8682
+  type: 'test'
+  ...
+# Subtest: legitimate final corrections remain visible as earlier results; authority does not depend on the latest history row
+ok 64 - legitimate final corrections remain visible as earlier results; authority does not depend on the latest history row
+  ---
+  duration_ms: 0.7114
+  type: 'test'
+  ...
+# Subtest: a newer incomplete final cannot replace authority, and pending source data is not certified as final
+ok 65 - a newer incomplete final cannot replace authority, and pending source data is not certified as final
+  ---
+  duration_ms: 0.6709
+  type: 'test'
+  ...
+# Subtest: invalid live points leave gaps; real same-clock swings, score corrections and overtime survive unchanged
+ok 66 - invalid live points leave gaps; real same-clock swings, score corrections and overtime survive unchanged
+  ---
+  duration_ms: 0.4431
+  type: 'test'
+  ...
+# Subtest: resumed play supersedes an early final without changing CFB overtime spacing
+ok 67 - resumed play supersedes an early final without changing CFB overtime spacing
+  ---
+  duration_ms: 0.5528
+  type: 'test'
+  ...
+# Subtest: final-only and entirely incomplete history never fabricates a live curve
+ok 68 - final-only and entirely incomplete history never fabricates a live curve
+  ---
+  duration_ms: 0.8216
+  type: 'test'
+  ...
+# Subtest: history is collapsed by default, keyboard native, escaped, and remains readable on mobile
+ok 69 - history is collapsed by default, keyboard native, escaped, and remains readable on mobile
+  ---
+  duration_ms: 3.1961
+  type: 'test'
+  ...
+1..69
+# tests 69
+# suites 0
+# pass 69
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1534.4968

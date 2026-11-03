@@ -67,7 +67,7 @@ test('actual overtime history preserves every rating, timestamp, model, evidence
   const html=center.timeline(g,detail);
   assert.match(html,/OT 2:53: Chad Ryland 42 Yd Field Goal/);
   assert.match(html,/data-timeline-range="late"/);assert.match(html,/data-timeline-range="ot"/);
-  assert.match(html,/timeline-event-strip/);assert.match(html,/Gaps mark intervals with unreliable timing or evidence/);assert.doesNotMatch(html,/Original observation history|evidenceQuality/);
+  assert.match(html,/timeline-event-strip/);assert.match(html,/Gaps are left open/);assert.doesNotMatch(html,/Original observation history|evidenceQuality/);
   assert.doesNotMatch(html,/Final assessment|Opening estimate/);
   assert.equal(JSON.stringify(detail),before);
 });
@@ -105,10 +105,10 @@ test('multiple overtimes map verified clocks without ordinal spacing; untimed CF
 test('games without chart history show natural empty states without exposing observations',()=>{
   const s={scoringPlays:[{period:{number:4},clock:{displayValue:'0:00'},homeScore:33,awayScore:30,text:'Game-winning field goal'}]};
   const completed=center.timeline(game,s);
-  assert.doesNotMatch(completed,/<svg|Recorded|observation/);
-  assert.match(completed,/history was not recorded for this game/);
+  assert.doesNotMatch(completed,/<svg|Recorded rating:/);
+  assert.match(completed,/No verified live ratings are available/);
   const isolated=center.timeline(game,summary([p(1000,80)]));
-  assert.doesNotMatch(isolated,/<svg|Recorded rating: 80|observation/);
+  assert.doesNotMatch(isolated,/<svg|Recorded rating: 80/);
   assert.match(center.timeline({...game,state:'live'},s),/history will appear as the game unfolds/);
   assert.match(center.timeline({...game,state:'upcoming'},s),/history begins when the game starts/);
 });

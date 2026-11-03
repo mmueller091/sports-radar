@@ -19,7 +19,7 @@ for(const {game} of fixture.games)test(`production ${game.sport} ${game.id}: fac
 test('Saturday top six CFB games explain ranks and competitiveness without invented negatives',()=>{
   const top=fixture.games.map(r=>r.game).filter(g=>g.sport==='CFB').sort((a,b)=>b.score-a.score).slice(0,6);
   assert.deepEqual(top.map(g=>g.score),[82,81,80,79,76,73]);
-  for(const game of top){const text=explain(game);assert.match(text,/ranked|top-10/);assert.match(text,/close contest|expected closeness|looks competitive/);assert.doesNotMatch(text,/limits|less certain|risk|below|multiple losses/);}
+  for(const game of top){const text=explain(game);assert.match(text,/ranked|top-10/);assert.match(text,/close contest|expected closeness|slight favorites|slight favorite|clear favorite/);assert.doesNotMatch(text,/limits|less certain|risk|below|multiple losses/);}
 });
 test('NFL scoring outlook is explained without converting a total into team statistics',()=>{
   const game=fixture.games.find(r=>r.game.id==='401873038').game,text=explain(game);

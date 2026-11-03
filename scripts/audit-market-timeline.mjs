@@ -1,0 +1,45 @@
+import fs from 'node:fs';
+import vm from 'node:vm';
+import {execFileSync} from 'node:child_process';
+import {createHash} from 'node:crypto';
+import {gunzipSync} from 'node:zlib';
+import assert from 'node:assert/strict';
+import center from '../game-center.js';
+import {syntheticCases} from '../test/fixtures/market-timeline/synthetic-cases.mjs';
+const baseline='75c39cc2329723b6d2a68648fd6a6067ffdc57c5',dir='audit/market-timeline-20261103';
+fs.mkdirSync(dir,{recursive:true});
+const read=n=>JSON.parse(gunzipSync(fs.readFileSync(`test/fixtures/market-timeline/${n}.json.gz`)));
+const corpus=read('production-games'),detail=read('pelicans-grizzlies');
+const original=execFileSync('git',['show',`${baseline}:app.js`],{encoding:'utf8',maxBuffer:8e6}),source=fs.readFileSync('app.js','utf8');
+const api=s=>vm.runInNewContext(s.slice(s.indexOf('function explainRating('),s.indexOf('function trendFor('))+';({pregameExplanation,market:typeof narrativeMarket===\'function\'?narrativeMarket:null})',{Date,Intl});
+const before=api(original),after=api(source);
+const examples=[...corpus.games.filter(g=>g.state==='upcoming'),...syntheticCases].map(game=>{
+ const saved=JSON.stringify(game),a=before.pregameExplanation(game),b=after.pregameExplanation(game),m=after.market(game);
+ assert.equal(JSON.stringify(game),saved);
+ return {id:game.id,sport:game.sport,synthetic:game.synthetic||false,scenario:game.scenario,teams:game.teams.map(t=>({name:t[0],record:t[5]})),score:game.score,line:game.line,before:a,after:b,market:{...m,favorite:m.favorite?.[0]}};
+});
+const oldCenterContext=vm.createContext({module:{exports:{}}});
+vm.runInContext(execFileSync('git',['show',`${baseline}:game-center.js`],{encoding:'utf8'}),oldCenterContext);
+const oldCenter=oldCenterContext.module.exports,g=detail.sportsRadarGame;
+const oldPoints=oldCenter.observations(g,detail).points,newPoints=center.observations(g,detail).points;
+assert.equal(JSON.stringify(oldPoints),JSON.stringify(newPoints));
+const live=newPoints.filter(center.reliable),counts=key=>detail.sportsRadarHistory.snapshots.reduce((o,p)=>(o[p[key]||'unset']=(o[p[key]||'unset']||0)+1,o),{});
+const elapsed=detail.sportsRadarHistory.snapshots.filter(p=>p.state==='live').map(p=>p.observedAt);
+const intervals=elapsed.slice(1).map((v,i)=>(v-elapsed[i])/1000).sort((a,b)=>a-b);
+let boundaries={unverified:0,sameClockChangedRating:0,model:0,reverse:0},previous=null;
+for(const p of newPoints){if(p.ratingKind!=='live')continue;if(!center.reliable(p)){boundaries.unverified++;continue;}if(previous){if(p.modelVersion!==previous.modelVersion)boundaries.model++;if(p.x===previous.x&&p.score!==previous.score)boundaries.sameClockChangedRating++;if(p.x<previous.x||p.observedAt<=previous.observedAt)boundaries.reverse++;}previous=p;}
+const timeline={snapshots:newPoints.length,states:counts('state'),evidence:counts('evidenceQuality'),verifiedLive:live.length,first:live[0].label,last:{rating:live.at(-1).score,label:live.at(-1).label,observedAt:live.at(-1).observedAt},final:g.score,opening:g.pregameBaseline.score,finalSnapshots:newPoints.filter(p=>p.ratingKind==='final').length,liveObservedFinalValue:live.some(p=>p.score===g.score),boundaries,collectionSeconds:{median:intervals[Math.floor(intervals.length/2)],maximum:Math.max(...intervals),over60:intervals.filter(n=>n>60).length},observationsExactlyUnchanged:true};
+const tracked=execFileSync('git',['ls-tree','-r','--name-only',baseline,'scoring','calibration','rating-core.js','alerts-worker','notifications.js'],{encoding:'utf8',maxBuffer:8e6}).trim().split(/\r?\n/);
+const parity=tracked.map(path=>{
+ const original=execFileSync('git',['show',`${baseline}:${path}`],{maxBuffer:128e6}),current=fs.readFileSync(path);
+ const normalize=b=>/\.(gz|png|ttf|jpg)$/.test(path)?b:Buffer.from(b.toString().replaceAll('\r\n','\n'));
+ assert.ok(normalize(original).equals(normalize(current)),path);
+ return {path,sha256:createHash('sha256').update(normalize(current)).digest('hex')};
+});
+const outside=s=>s.replaceAll('\r\n','\n').replace("(game.state === 'upcoming' ? null : lineSnapshots[game.id]?.line)",'lineSnapshots[game.id]?.line').replace(/\/\/ Editorial interpretation[\s\S]*?(?=\/\/ Presentation only:)/,'').replace(/function pregameExplanation\([\s\S]*?(?=function trendFor\()/,'');
+assert.equal(outside(original),outside(source),'all other app code unchanged');
+const report={baseline,capturedAt:corpus.capturedAt,modelVersion:corpus.modelVersion,examples,timeline,parity:{files:parity.length,allScoringCalibrationWorkerNotificationFilesUnchanged:true,identities:parity}};
+fs.writeFileSync(`${dir}/audit.json`,JSON.stringify(report,null,2));
+const esc=s=>String(s??'').replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('"','&quot;');
+fs.writeFileSync(`${dir}/examples.html`,`<!doctype html><html lang="en"><meta charset="utf-8"><title>Market narrative audit</title><style>body{font:16px/1.5 system-ui;max-width:1050px;margin:40px auto;padding:0 20px;background:#f0e8d4;color:#202527}article{padding:18px 0;border-top:1px solid #bbb}h2{font-size:20px}.after{border-left:4px solid #bd343e;padding-left:14px}small{color:#444}</style><h1>Before and after: ${examples.length} audited matchups</h1><p>Production baseline ${baseline}. Ratings and market displays are unchanged. Classification is editorial only. The final 49 Away Team / Home Team cases are explicitly synthetic boundary scenarios, not actual games or quotes.</p>${examples.map(e=>`<article><h2>${esc(e.sport)} · ${e.teams.map(t=>esc(t.name)).join(' vs. ')}</h2><small>Rating ${e.score} · ${esc(e.line?.moneyline||e.line?.spread||'No market')} · ${esc(e.market.kind)}${e.market.probability?` (${(e.market.probability*100).toFixed(2)}% audit calculation)`:''}</small><p><b>Before:</b> ${esc(e.before)}</p><p class="after"><b>After:</b> ${esc(e.after)}</p></article>`).join('')}</html>`);
+console.log(JSON.stringify({examples:examples.length,timeline,unchangedFiles:parity.length},null,2));
