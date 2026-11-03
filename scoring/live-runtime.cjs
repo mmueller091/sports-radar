@@ -17,7 +17,7 @@ const footballMarket=require('./football-market.cjs');
 const integrity=require('./snapshot-integrity.cjs');
 const gameFacts=require('./game-facts.cjs');
 const PRODUCTION_POLICY = Object.freeze({...LIVE_POLICY,id:LIVE_POLICY.id+'-opening-transition',footballTransition:true,openingTransition:true});
-const MODEL_VERSION = '2026-11-02.clock-integrity.1';
+const MODEL_VERSION = '2026-11-02.clock-integrity.2';
 
 function describeCfbQualitySoFar(game,current,summary) {
   delete game.gameQualitySoFar;
@@ -39,12 +39,15 @@ function describeCfbQualitySoFar(game,current,summary) {
 
 function applyLiveSnapshot(game, competition, summary) {
   competition=integrity.reconcileObservation(game,competition || game.sourceCompetition,summary);
-  if(game.timingUncertain)return null;
+  // Generic clock reconciliation covers football and hockey. A basketball
+  // timing flag may already be set by an earlier pass; recheck it below so a
+  // later enrichment pass restores the same last trusted rating.
+  if(game.timingUncertain && !basketball.supports(game))return null;
   summary=providerEvidence.normalizeSummary(game,competition || game.sourceCompetition,summary);
   if(footballMarket.supports(game))competition=footballMarket.prepareUpcomingMarket(game,competition || game.sourceCompetition,summary);
   const reconciled=basketball.reconcileBasketball(game,competition || game.sourceCompetition,summary);
   competition=reconciled.competition;summary=reconciled.summary;
-  if(reconciled.timingUncertain)return null;
+  if(reconciled.timingUncertain){game.lastSummaryAccepted=false;return null;}
   prepareOpening(legacy,game,competition || game.sourceCompetition,null);
   if (game.state !== 'live') {
     if(game.state==='upcoming')calculation.set(game,calculation.fromFactors(game.factors,game.score,'Pregame',90));

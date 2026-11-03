@@ -62,6 +62,12 @@ export function enrichGame(game,summary,previousGame=null) {
   runtime.preservePregameBaseline(game,previousGame);
   runtime.preserveLiveEvidence(game,previousGame);
   summary=runtime.prepareProviderSummary(game,summary);
+  if(game.state==='live'&&game.timingUncertain){
+    // Recheck with the newly acquired summary: it may contain a corroborated
+    // play clock. Until then, do not let legacy enrichment score a false buzzer.
+    finish(game,summary);
+    if(game.timingUncertain)return;
+  }
   legacy.enrichGame(game,summary,game.liveEvidenceReset==='score-correction' ? null : previousGame?.modelVersion===runtime.MODEL_VERSION ? previousGame : null,runtime.playPeriodLabel);
   finish(game,summary);
   if(['NFL','CFB'].includes(game.sport))game.footballSituation=footballSituation(game,summary);

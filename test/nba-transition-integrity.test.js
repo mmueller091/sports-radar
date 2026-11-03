@@ -3,9 +3,11 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import {createRequire} from 'node:module';
 import {gameHistory,shouldSnapshot} from '../alerts-worker/src/snapshot-history.js';
+import * as liveModel from '../alerts-worker/src/live-game-model.js';
 
 const require=createRequire(import.meta.url);
 const center=require('../game-center.js');
+const runtime=require('../scoring/live-runtime.cjs');
 const {preserveBasketballState,reconcileBasketball}=require('../scoring/basketball-state.cjs');
 const {normalizedTime}=require('../scoring/shared/time.js');
 const observationIntegrity=require('../scoring/snapshot-integrity.cjs');
@@ -48,6 +50,73 @@ test('Q3 zero to Q4 zero holds the trusted rating, then a valid Q4 clock resumes
   assert.equal(reconcileBasketball(resumed,valid,{header:{competitions:[valid]},plays:[]}).timingUncertain,undefined);
   assert.notEqual(resumed.timingUncertain,true);
  }
+});
+
+test('a second scoring pass cannot overwrite the held rating during a real Q4 zero transition',()=>{
+ const id='401909916',q3=competition(3,'0.0',69,94,'End of 3rd Quarter');
+ const before=prior(id,q3);before.score=46;before.basketballLastTrusted.score=46;
+ const q4=competition(4,'0.0',69,94,'0.0 - 4th Quarter');
+ const pending=game(id,q4,19);preserveBasketballState(pending,before);
+ runtime.applyLiveSnapshot(pending,q4,null);
+ assert.equal(pending.timingUncertain,true);
+ assert.equal(pending.score,46);
+ // The feed's summary enrichment calls the scorer again on the same game.
+ pending.score=19;pending.liveRawStatus=q4.status;
+ runtime.applyLiveSnapshot(pending,q4,{header:{competitions:[q4]},plays:[]});
+ assert.equal(pending.timingUncertain,true);
+ assert.equal(pending.score,46);
+ assert.equal(pending.liveRawStatus.displayClock,'');
+});
+
+test('Worker enrichment keeps the last verified score until the NBA Q4 clock resolves',()=>{
+ const fixture=JSON.parse(fs.readFileSync(new URL('./fixtures/real-games/NBA-20261020-401909090.json',import.meta.url)));
+ const make=(period,clock,detail)=>{
+  const event=structuredClone(fixture.event);
+  const status={period,displayClock:clock,clock:0,
+   type:{id:'2',name:'STATUS_IN_PROGRESS',state:'in',completed:false,description:detail,detail,shortDetail:detail}};
+  event.status=structuredClone(status);event.competitions[0].status=status;
+  return event;
+ };
+ const q3=make(3,'0.0','End of 3rd Quarter'),q4=make(4,'0.0','0.0 - 4th Quarter');
+ const previous=liveModel.normalizeEvent(q3,'NBA');
+ previous.score=46;previous.scoringPartial=false;
+ previous.basketballLastTrusted={score:46,baseScore:46,factors:[],modelVersion:previous.modelVersion};
+ const pending=liveModel.normalizeEvent(q4,'NBA');
+ liveModel.enrichGame(pending,{header:{competitions:[q4.competitions[0]]},plays:[],scoringPlays:[]},previous);
+ assert.equal(pending.timingUncertain,true);
+ assert.equal(pending.score,46);
+ assert.equal(pending.liveRawStatus.displayClock,'');
+ assert.equal(pending.lastSummaryAccepted,false);
+ const valid=make(4,'11:06','11:06 - 4th Quarter');
+ const resumed=liveModel.normalizeEvent(valid,'NBA');
+ liveModel.enrichGame(resumed,{header:{competitions:[valid.competitions[0]]},plays:[],scoringPlays:[]},pending);
+ assert.notEqual(resumed.timingUncertain,true);
+ assert.equal(resumed.liveRawStatus.displayClock,'11:06');
+});
+
+test('Worker enrichment also holds NCAAM at an unconfirmed second-half zero',()=>{
+ const fixture=JSON.parse(fs.readFileSync(new URL('./fixtures/real-games/NCAAB-20260328-401856575.json',import.meta.url)));
+ const make=(period,clock,detail)=>{
+  const event=structuredClone(fixture.event);
+  const status={period,displayClock:clock,clock:0,
+   type:{id:'2',name:'STATUS_IN_PROGRESS',state:'in',completed:false,description:detail,detail,shortDetail:detail}};
+  event.status=structuredClone(status);event.competitions[0].status=status;
+  return event;
+ };
+ const first=make(1,'0:00','Halftime'),second=make(2,'0.0','0.0 - 2nd Half');
+ const previous=liveModel.normalizeEvent(first,'NCAAB');
+ previous.score=54;previous.scoringPartial=false;
+ previous.basketballLastTrusted={score:54,baseScore:54,factors:[],modelVersion:previous.modelVersion};
+ const pending=liveModel.normalizeEvent(second,'NCAAB');
+ liveModel.enrichGame(pending,{header:{competitions:[second.competitions[0]]},plays:[],scoringPlays:[]},previous);
+ assert.equal(pending.timingUncertain,true);
+ assert.equal(pending.score,54);
+ assert.equal(pending.liveRawStatus.displayClock,'');
+ const valid=make(2,'19:19','19:19 - 2nd Half');
+ const resumed=liveModel.normalizeEvent(valid,'NCAAB');
+ liveModel.enrichGame(resumed,{header:{competitions:[valid.competitions[0]]},plays:[],scoringPlays:[]},pending);
+ assert.notEqual(resumed.timingUncertain,true);
+ assert.equal(resumed.liveRawStatus.displayClock,'19:19');
 });
 
 test('nine-minute backward clocks need corroboration; official small corrections and actual buzzer remain valid',()=>{
