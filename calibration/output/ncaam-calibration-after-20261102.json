@@ -1,0 +1,599 @@
+{
+  "baselineCommit": "5641969b4dba3e4b1aa0f955fc9014dae5dbbc6f",
+  "modelVersion": "2026-11-01.audit-integrity.3",
+  "cases": [
+    {
+      "id": "A-live",
+      "kind": "captured",
+      "description": "Florida 41, Miami 31; first half 3:01, observed opening 51",
+      "observed": 40,
+      "openingScore": 51,
+      "score": 43,
+      "base": 43,
+      "liveBonus": 0.06138895717592596,
+      "progress": 0.4245833333333333,
+      "gap": 10,
+      "providerProbability": 0.877,
+      "currentTension": 15.95638772800926,
+      "marginCloseness": 0.6598667219871238,
+      "comebackFeasibility": 1,
+      "genericLeverage": 0,
+      "context": 15.7301,
+      "openingMaturity": 0.938611042824074,
+      "eventHistory": 0,
+      "trajectory": 0.016784560913190916,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 11.2633
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 15.7301
+        },
+        {
+          "label": "Current Tension",
+          "points": 15.9564
+        }
+      ]
+    },
+    {
+      "id": "A-probability-omitted",
+      "kind": "captured-provider-variant",
+      "description": "Detail probability array omits the current play",
+      "score": 43,
+      "openingScore": 51,
+      "providerProbability": 0.877,
+      "context": 15.7301,
+      "currentTension": 15.9564,
+      "evidenceQuality": "complete",
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 11.2633
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 15.7301
+        },
+        {
+          "label": "Current Tension",
+          "points": 15.9564
+        },
+        {
+          "label": "History relevance and trajectory",
+          "points": 0.02634277669371876
+        }
+      ]
+    },
+    {
+      "id": "A-stale-detail",
+      "kind": "captured-provider-variant",
+      "description": "Detail header clock trails the current scoreboard",
+      "score": 48,
+      "openingScore": 51,
+      "providerProbability": null,
+      "context": 15.7301,
+      "currentTension": 20.6494,
+      "evidenceQuality": "partial",
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 11.2633
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 15.7301
+        },
+        {
+          "label": "Current Tension",
+          "points": 20.6494
+        },
+        {
+          "label": "History relevance and trajectory",
+          "points": 0.32622380066562506
+        }
+      ]
+    },
+    {
+      "id": "B-live",
+      "kind": "captured-reconstruction",
+      "description": "Duke 18, Army 6; first half 11:30",
+      "observed": 41,
+      "openingScore": 38,
+      "score": 41,
+      "base": 36,
+      "liveBonus": 4.61165625,
+      "progress": 0.2125,
+      "gap": 12,
+      "providerProbability": 0.999,
+      "currentTension": 5.436812499999999,
+      "marginCloseness": 0.6325583984375001,
+      "comebackFeasibility": 1,
+      "genericLeverage": 0,
+      "context": 26.2448,
+      "openingMaturity": 0.38834374999999993,
+      "eventHistory": 0,
+      "trajectory": 0,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 4.6601
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 26.2448
+        },
+        {
+          "label": "Current Tension",
+          "points": 5.4368
+        }
+      ]
+    },
+    {
+      "id": "C-top10-close",
+      "kind": "controlled-counterfactual",
+      "description": "Both top 10, 35–33, first half 3:01, projected spread 3",
+      "observed": null,
+      "openingScore": 59,
+      "score": 61,
+      "base": 61,
+      "liveBonus": 0,
+      "progress": 0.4245833333333333,
+      "gap": 2,
+      "providerProbability": null,
+      "currentTension": 29.096942327546294,
+      "marginCloseness": 0.9166666666666666,
+      "comebackFeasibility": 1,
+      "genericLeverage": 0,
+      "context": 20.5619,
+      "openingMaturity": 0.938611042824074,
+      "eventHistory": 0,
+      "trajectory": 0,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 11.2633
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 20.5619
+        },
+        {
+          "label": "Current Tension",
+          "points": 29.0969
+        }
+      ]
+    },
+    {
+      "id": "D-ranked-early10",
+      "kind": "controlled-counterfactual",
+      "description": "Same ranked matchup, 41–31, first half 3:01, no current WP",
+      "observed": null,
+      "openingScore": 51,
+      "score": 48,
+      "base": 48,
+      "liveBonus": 0,
+      "progress": 0.4245833333333333,
+      "gap": 10,
+      "providerProbability": null,
+      "currentTension": 20.649442942129628,
+      "marginCloseness": 0.6598667219871238,
+      "comebackFeasibility": 1,
+      "genericLeverage": 0,
+      "context": 15.7301,
+      "openingMaturity": 0.938611042824074,
+      "eventHistory": 0,
+      "trajectory": 0,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 11.2633
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 15.7301
+        },
+        {
+          "label": "Current Tension",
+          "points": 20.6494
+        }
+      ]
+    },
+    {
+      "id": "E-ranked-late10",
+      "kind": "controlled-counterfactual",
+      "description": "Same ranked matchup, ten-point gap with 2:00 left in regulation",
+      "observed": null,
+      "openingScore": 51,
+      "score": 41,
+      "base": 41,
+      "liveBonus": 0,
+      "progress": 0.95,
+      "gap": 10,
+      "providerProbability": null,
+      "currentTension": 20,
+      "marginCloseness": 0.5746516548724367,
+      "comebackFeasibility": 0.9781187290638694,
+      "genericLeverage": 5,
+      "context": 4,
+      "openingMaturity": 1,
+      "eventHistory": 0,
+      "trajectory": 0,
+      "factors": [
+        {
+          "label": "Generic Leverage",
+          "points": 5
+        },
+        {
+          "label": "Game-state baseline",
+          "points": 12
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 4
+        },
+        {
+          "label": "Current Tension",
+          "points": 20
+        }
+      ]
+    },
+    {
+      "id": "F-ranked-early22",
+      "kind": "controlled-counterfactual",
+      "description": "Ranked favorite ahead 35–13, first half 12:00",
+      "observed": null,
+      "openingScore": 51,
+      "score": 39,
+      "base": 39,
+      "liveBonus": 0,
+      "progress": 0.2,
+      "gap": 22,
+      "providerProbability": null,
+      "currentTension": 1.0560000000000003,
+      "marginCloseness": 0.08333333333333337,
+      "comebackFeasibility": 1,
+      "genericLeverage": 0,
+      "context": 33.4255,
+      "openingMaturity": 0.3520000000000001,
+      "eventHistory": 0,
+      "trajectory": 0,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 4.224
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 33.4255
+        },
+        {
+          "label": "Current Tension",
+          "points": 1.056
+        }
+      ]
+    },
+    {
+      "id": "G-ranked-late22",
+      "kind": "controlled-counterfactual",
+      "description": "Ranked favorite ahead 84–62, second half 2:00",
+      "observed": null,
+      "openingScore": 51,
+      "score": 4,
+      "base": 4,
+      "liveBonus": 0,
+      "progress": 0.95,
+      "gap": 22,
+      "providerProbability": null,
+      "currentTension": 1,
+      "marginCloseness": 0.021756710314162906,
+      "comebackFeasibility": 0.014774031693273055,
+      "genericLeverage": 0,
+      "context": 4,
+      "openingMaturity": 1,
+      "eventHistory": 0,
+      "trajectory": 0,
+      "factors": [
+        {
+          "label": "Limited comeback runway",
+          "points": -13
+        },
+        {
+          "label": "Game-state baseline",
+          "points": 12
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 4
+        },
+        {
+          "label": "Current Tension",
+          "points": 1
+        }
+      ]
+    },
+    {
+      "id": "H-unranked-close",
+      "kind": "controlled-counterfactual",
+      "description": "Unranked 37–35 game, first half 3:01, projected spread 2",
+      "observed": null,
+      "openingScore": 43,
+      "score": 52,
+      "base": 52,
+      "liveBonus": 0,
+      "progress": 0.4245833333333333,
+      "gap": 2,
+      "providerProbability": null,
+      "currentTension": 29.096942327546294,
+      "marginCloseness": 0.9166666666666666,
+      "comebackFeasibility": 1,
+      "genericLeverage": 0,
+      "context": 11.9226,
+      "openingMaturity": 0.938611042824074,
+      "eventHistory": 0,
+      "trajectory": 0,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 11.2633
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 11.9226
+        },
+        {
+          "label": "Current Tension",
+          "points": 29.0969
+        }
+      ]
+    },
+    {
+      "id": "J1-close-late",
+      "kind": "controlled-counterfactual",
+      "description": "Two-point game with 0:48 remaining in regulation",
+      "observed": null,
+      "openingScore": 51,
+      "score": 53,
+      "base": 53,
+      "liveBonus": 0,
+      "progress": 0.98,
+      "gap": 2,
+      "providerProbability": null,
+      "currentTension": 31,
+      "marginCloseness": 0.9016232928980769,
+      "comebackFeasibility": 0.9781187290638694,
+      "genericLeverage": 7,
+      "context": 3,
+      "openingMaturity": 1,
+      "eventHistory": 0,
+      "trajectory": 0,
+      "factors": [
+        {
+          "label": "Generic Leverage",
+          "points": 7
+        },
+        {
+          "label": "Game-state baseline",
+          "points": 12
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 3
+        },
+        {
+          "label": "Current Tension",
+          "points": 31
+        }
+      ]
+    },
+    {
+      "id": "J2-overtime",
+      "kind": "controlled-counterfactual",
+      "description": "Two-point game with 1:30 remaining in overtime",
+      "observed": null,
+      "openingScore": 51,
+      "score": 59,
+      "base": 53,
+      "liveBonus": 6,
+      "progress": 1,
+      "gap": 2,
+      "providerProbability": null,
+      "currentTension": 31,
+      "marginCloseness": 0.9162025472893566,
+      "comebackFeasibility": 0.9993249172693672,
+      "genericLeverage": 7,
+      "context": 3,
+      "openingMaturity": 1,
+      "eventHistory": 0,
+      "trajectory": 0,
+      "factors": [
+        {
+          "label": "Generic Leverage",
+          "points": 7
+        },
+        {
+          "label": "Game-state baseline",
+          "points": 12
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 3
+        },
+        {
+          "label": "Current Tension",
+          "points": 31
+        }
+      ]
+    },
+    {
+      "id": "J3-missing-odds",
+      "kind": "controlled-counterfactual",
+      "description": "Ranked 41–31 game, first half 3:01, no odds or current WP",
+      "observed": null,
+      "openingScore": 49,
+      "score": 47,
+      "base": 47,
+      "liveBonus": 0,
+      "progress": 0.4245833333333333,
+      "gap": 10,
+      "providerProbability": null,
+      "currentTension": 20.649442942129628,
+      "marginCloseness": 0.6598667219871238,
+      "comebackFeasibility": 1,
+      "genericLeverage": 0,
+      "context": 14.6883,
+      "openingMaturity": 0.938611042824074,
+      "eventHistory": 0,
+      "trajectory": 0,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 11.2633
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 14.6883
+        },
+        {
+          "label": "Current Tension",
+          "points": 20.6494
+        }
+      ]
+    },
+    {
+      "id": "J5-half-end",
+      "kind": "controlled-counterfactual",
+      "description": "Ranked 41–31 game at the end of the first half",
+      "observed": null,
+      "openingScore": 51,
+      "score": 46,
+      "base": 46,
+      "liveBonus": 0,
+      "progress": 0.5,
+      "gap": 10,
+      "providerProbability": null,
+      "currentTension": 22,
+      "marginCloseness": 0.6458333333333333,
+      "comebackFeasibility": 1,
+      "genericLeverage": 0,
+      "context": 11.9892,
+      "openingMaturity": 1,
+      "eventHistory": 0,
+      "trajectory": 0,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 12
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 11.9892
+        },
+        {
+          "label": "Current Tension",
+          "points": 22
+        }
+      ]
+    },
+    {
+      "id": "J6-second-start",
+      "kind": "controlled-counterfactual",
+      "description": "Same ranked 41–31 game at the start of the second half",
+      "observed": null,
+      "openingScore": 51,
+      "score": 46,
+      "base": 46,
+      "liveBonus": 0,
+      "progress": 0.5,
+      "gap": 10,
+      "providerProbability": null,
+      "currentTension": 22,
+      "marginCloseness": 0.6458333333333333,
+      "comebackFeasibility": 1,
+      "genericLeverage": 0,
+      "context": 11.9892,
+      "openingMaturity": 1,
+      "eventHistory": 0,
+      "trajectory": 0,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 12
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 11.9892
+        },
+        {
+          "label": "Current Tension",
+          "points": 22
+        }
+      ]
+    },
+    {
+      "id": "I-second-half-comeback",
+      "kind": "captured-reconstruction",
+      "description": "Notre Dame–Villanova verified late second-half comeback",
+      "score": 85,
+      "openingScore": 44,
+      "context": 3,
+      "currentTension": 34,
+      "factors": [
+        {
+          "label": "Generic Leverage",
+          "points": 6
+        },
+        {
+          "label": "Underdog threatens upset",
+          "points": 9
+        },
+        {
+          "label": "Game-state baseline",
+          "points": 12
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 3
+        },
+        {
+          "label": "Current Tension",
+          "points": 34
+        },
+        {
+          "label": "1 late lead change",
+          "points": 4
+        },
+        {
+          "label": "Erased a large deficit",
+          "points": 6
+        },
+        {
+          "label": "Big win-chance swing",
+          "points": 5
+        }
+      ]
+    },
+    {
+      "id": "J4-completed",
+      "kind": "controlled-counterfactual",
+      "description": "Two-point regulation final, no detailed history",
+      "score": 40,
+      "openingScore": 46,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 20
+        }
+      ]
+    }
+  ]
+}

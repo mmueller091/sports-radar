@@ -115,9 +115,12 @@ function candidateStateRating(
     sport,gameState,gap,progress,context,closeLimit
   }) || {};
   const completedCloseLimit = modelState.completedCloseLimit ?? closeLimit;
-  const marginCloseness = gap === null
+  const ordinaryMarginCloseness = gap === null
     ? 0
     : modelState.marginClose ?? Math.max(0,1-gap/completedCloseLimit);
+  const marginCloseness = sport === 'NCAAB'
+    ? collegeFinish.timeAwareCloseness(gap,context?.competition,modelState.basketballState,ordinaryMarginCloseness)
+    : ordinaryMarginCloseness;
   const probability = policy?.footballEvidence
     ? footballCompetitionEvidence(policy.footballEvidence.game,context.competition,progress,core.normalizeWinProbability(homeWinProbability)).probability
     : policy?.openingEvidence

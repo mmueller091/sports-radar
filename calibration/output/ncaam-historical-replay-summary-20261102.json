@@ -1,0 +1,103 @@
+{
+  "baselineCommit": "5641969b4dba3e4b1aa0f955fc9014dae5dbbc6f",
+  "sports": {
+    "CFB": {
+      "checkpoints": 8409,
+      "exclusions": 691,
+      "beforeHash": "15e9d1e1209f7f23bc53b24068e25d08f977fe32bd4daa8ec8e8f5cd4eb5f37f",
+      "afterHash": "15e9d1e1209f7f23bc53b24068e25d08f977fe32bd4daa8ec8e8f5cd4eb5f37f",
+      "unchanged": true
+    },
+    "MLB": {
+      "checkpoints": 776,
+      "exclusions": 54,
+      "beforeHash": "96f5a0e08597604514bcd171a36f5f3ebdf3c0e8519b4185fbe3b6775e425c30",
+      "afterHash": "96f5a0e08597604514bcd171a36f5f3ebdf3c0e8519b4185fbe3b6775e425c30",
+      "unchanged": true
+    },
+    "NBA": {
+      "checkpoints": 1419,
+      "exclusions": 36,
+      "beforeHash": "3c1180cb16bd99a44c5d27c7d92065612855f40ccd28d48ef6ecffdd16ee8822",
+      "afterHash": "3c1180cb16bd99a44c5d27c7d92065612855f40ccd28d48ef6ecffdd16ee8822",
+      "unchanged": true
+    },
+    "NCAAB": {
+      "checkpoints": 659,
+      "exclusions": 21,
+      "beforeHash": "c8ed94822f20b7d4352a0cb080175b15e773d6623adbaf27eedb1da15ddfee4f",
+      "afterHash": "538a2902ab168fac58e01b9132f4224e1ab65623d97c21473e2676d044a60c31",
+      "unchanged": false
+    },
+    "NFL": {
+      "checkpoints": 4560,
+      "exclusions": 226,
+      "beforeHash": "5a154a0b010494821ab7e02d4c7cf384da38d26e9a3b6125c10285b69d49c52e",
+      "afterHash": "5a154a0b010494821ab7e02d4c7cf384da38d26e9a3b6125c10285b69d49c52e",
+      "unchanged": true
+    },
+    "NHL": {
+      "checkpoints": 7944,
+      "exclusions": 22,
+      "beforeHash": "2c792f601aac8d775f298a5883ca0ecc396c64ddbfafd09e9bf4d65285056fb6",
+      "afterHash": "2c792f601aac8d775f298a5883ca0ecc396c64ddbfafd09e9bf4d65285056fb6",
+      "unchanged": true
+    }
+  },
+  "ncaam": {
+    "changed": 340,
+    "increases": 336,
+    "decreases": 4,
+    "min": -1,
+    "max": 5,
+    "meanChange": 1.1593323216995448
+  },
+  "affected": {
+    "miami": {
+      "checkpoints": 181,
+      "changed": 111,
+      "increases": 105,
+      "decreases": 6,
+      "min": -1,
+      "max": 4
+    },
+    "army": {
+      "checkpoints": 109,
+      "changed": 31,
+      "increases": 5,
+      "decreases": 26,
+      "min": -2,
+      "max": 1
+    },
+    "oakland": {
+      "checkpoints": 186,
+      "changed": 76,
+      "increases": 43,
+      "decreases": 33,
+      "min": -1,
+      "max": 2
+    }
+  },
+  "omittedProbability": {
+    "before": {
+      "clock": "3:01",
+      "scores": [
+        "30",
+        "41"
+      ],
+      "rating": 37,
+      "probability": 0.893,
+      "providerLastPlayProbability": 0.893
+    },
+    "after": {
+      "clock": "3:01",
+      "scores": [
+        "30",
+        "41"
+      ],
+      "rating": 41,
+      "probability": 0.893,
+      "providerLastPlayProbability": 0.893
+    }
+  }
+}

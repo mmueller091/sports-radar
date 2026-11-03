@@ -1,5 +1,20 @@
 const {clockSeconds}=require('./shared/time.js');
 const {numberFromLine}=require('./shared/market.js');
+const unit=value=>Math.max(0,Math.min(1,value));
+const smooth=value=>{const x=unit(value);return x*x*(3-2*x);};
+function timeAwareCloseness(gap,competition,basketballState,ordinaryClose){
+ if(!basketballState||!Number.isFinite(gap)||gap<0)return ordinaryClose;
+ const status=competition?.status||{},period=Number(status.period);
+ const seconds=clockSeconds(status);
+ if(![1,2].includes(period)||seconds===null)return ordinaryClose;
+ // One-possession games already have full credit. A gap of six possessions
+ // is a wide margin even early; only the middle range can gain runway credit.
+ const moderateGap=smooth((gap-3)/6)*(1-smooth((gap-12)/6));
+ const remaining=seconds+(2-period)*20*60;
+ const earlyRunway=smooth(remaining/(40*60));
+ const margin=basketballState.marginClose+(1-basketballState.marginClose)*.3*moderateGap*earlyRunway;
+ return margin*(.25+.75*basketballState.comebackFeasibility);
+}
 function underdog(game,c,raw) {
  if(game.sport!=='NCAAB'||!raw||raw.isLive||/live|in[ -]?play/i.test([raw.type?.name||raw.type,raw.description,raw.marketType].join(' ')))return null;
  const market=raw.close||raw.closing||raw;
@@ -31,4 +46,4 @@ function situation(game,c,impact) {
  // pressure of a one-possession college finish, inside the existing 12 cap.
  return {...impact,candidatePoints:Math.min(12,(impact.candidatePoints||0)+Math.round(5*state.urgency))};
 }
-module.exports={tensionPolicy,situation,underdog};
+module.exports={tensionPolicy,situation,underdog,timeAwareCloseness};

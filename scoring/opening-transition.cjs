@@ -129,9 +129,23 @@ function competitionEvidence(game,competition,progress,probability) {
 function transitionBase(core,game,prepared,base) {
   const evidence=competitionEvidence(game,prepared.context.competition,prepared.progress,prepared.probability.probability);
   const m=evidence.maturity,state=base.state,points=label=>base.factors.find(f=>f.label===label)?.points || 0;
+  // Retain part of an already-valued two-ranked matchup while the first half
+  // remains competitive. Its opening ranking points already include the line
+  // discount, so this replaces lost carry rather than awarding a second rank.
+  const openingRanks=game.openingFactors||[];
+  const rankedPoints=game.sport==='NCAAB'&&openingRanks.some(f=>f.label==='Two ranked teams')
+    ? openingRanks.filter(f=>['Two ranked teams','Both top 10','Both top 20','Top 10 team'].includes(f.label))
+      .reduce((sum,f)=>sum+Math.max(0,Number(f.points)||0),0) : 0;
+  const firstHalfRelevance=1-smooth((prepared.progress-.5)/.3);
+  const rankedCarry=rankedPoints*(1-state.retainedContextWeight)*.35*
+    (state.marginCloseness||0)*firstHalfRelevance*m;
+  // The opening basis should also yield to a verified wide early margin as
+  // the transition matures, without changing the rating at tipoff.
+  const openingViability=game.sport==='NCAAB'
+    ? 1-.5*m*(1-unit(state.marginCloseness??1)) : 1;
   const replacements={
     'Game-state baseline':points('Game-state baseline')*m,
-    'Pregame context carried into play':Math.max(0,game.openingScore-state.persistentStakes)*(1-m)+points('Pregame context carried into play')*m,
+    'Pregame context carried into play':Math.max(0,game.openingScore-state.persistentStakes)*(1-m)*openingViability+points('Pregame context carried into play')*m+rankedCarry,
     'Persistent postseason stakes':state.persistentStakes*(1-m)+points('Persistent postseason stakes')*m,
     'Current Tension':points('Current Tension')*m
   };
@@ -140,7 +154,8 @@ function transitionBase(core,game,prepared,base) {
   const factors=base.factors.filter(f=>!(f.label in replacements)).map(f=>({...f}));
   for (const [label,points] of Object.entries(replacements)) if (points) factors.push({label,points:Number(points.toFixed(4))});
   const baseScore=core.clampScore(factors.reduce((sum,f)=>sum+f.points,0));
-  return {factors,baseScore,state:{...state,factors,score:baseScore,currentTensionPoints:replacements['Current Tension'],openingEvidence:evidence}};
+  return {factors,baseScore,state:{...state,factors,score:baseScore,currentTensionPoints:replacements['Current Tension'],openingEvidence:evidence,
+    ...(game.sport==='NCAAB'?{rankedCarry,openingViability}:{})}};
 }
 
 function openingEventModel(sport,model) {
