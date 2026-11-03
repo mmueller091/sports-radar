@@ -40,6 +40,39 @@ test('period breaks preserve context without impossible overtime ordinals',()=>{
   assert.equal(core.livePhase('NHL',{period:3,type:{detail:'Intermission'}}),'Intermission');
 });
 
+test('NCAAM halftime keeps the viewing-priority badge without repeating the phase',()=>{
+ const {competition}=fixture('NCAAB',1,'0:00');
+ competition.status.type={state:'in',name:'STATUS_HALFTIME',detail:'Halftime',shortDetail:'Halftime'};
+ const game=normalizeEvent({id:'oakland-half',competitions:[competition]},'NCAAB');
+ const {card,detail}=renderedGame(game,{header:{competitions:[competition]}});
+ assert.equal((card.match(/<span class="status-live"[^>]*>HALFTIME/g)||[]).length,1);
+ assert.match(card,/HALFTIME · lower viewing priority/);
+ assert.doesNotMatch(card,/class="live-phase"|class="card-clock"/);
+ assert.match(detail.innerHTML,/NCAAB · Halftime/);
+ assert.doesNotMatch(detail.innerHTML,/class="detail-live-clock"/);
+});
+
+test('NCAAM live, halftime and second-half cards keep one current phase',()=>{
+ const {competition}=fixture('NCAAB',1,'0:12');
+ const phases=[
+  {period:1,displayClock:'0:12',type:{state:'in',detail:'1st Half'},badge:/0:12/,clock:/class="card-clock"/},
+  {period:1,displayClock:'0:00',type:{state:'in',name:'STATUS_HALFTIME',detail:'Halftime',shortDetail:'Halftime'},badge:/HALFTIME \u00b7 lower viewing priority/,clock:null},
+  {period:2,displayClock:'19:43',type:{state:'in',detail:'2nd Half'},badge:/19:43/,clock:/class="card-clock"/}
+ ];
+ for (const phase of phases) {
+  competition.status=phase;
+  const game=normalizeEvent({id:'transition',competitions:[competition]},'NCAAB');
+  const {card,detail}=renderedGame(game,{header:{competitions:[competition]}});
+  assert.match(card,phase.badge);
+  assert.equal((card.match(/class="status-live"/g)||[]).length,1);
+  if (phase.clock) assert.match(card,phase.clock);
+  else {
+   assert.doesNotMatch(card,/class="card-clock"|class="live-phase"/);
+   assert.doesNotMatch(detail.innerHTML,/class="detail-live-clock"/);
+  }
+ }
+});
+
 test('NHL shootout status takes precedence over numeric overtime and its stopped clock',()=>{
   for (const type of [{detail:'Shootout'},{detail:'Live',shortDetail:'SO'},
     {name:'STATUS_SHOOTOUT',detail:'Live'}]) {

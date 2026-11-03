@@ -99,6 +99,19 @@ function reconcileBasketball(game,c,summary) {
   const probability=normalizeWinProbability(p.homeWinPercentage??p.homeWinProbability??p.homeWinPct??p.value);
   if(known.has(String(p.playId))&&probability!==null)probabilities.set(String(p.playId),{playId:p.playId,homeWinPercentage:probability});
  }
+ // The scoreboard's last play can carry the same provider probability before
+ // the detail probability array catches up. Use it only for that exact play,
+ // score and clock; never carry it to a subsequent observation.
+ const scoreboardPlay=c.situation?.lastPlay;
+ const scoreboardProbability=normalizeWinProbability(scoreboardPlay?.probability?.homeWinPercentage);
+ const anchored=plays.find(p=>String(p.id)===String(scoreboardPlay?.id));
+ if(game.sport==='NCAAB'&&headerMatches&&!stale&&scoreboardProbability!==null&&anchored&&
+   !probabilities.has(String(scoreboardPlay.id))&&
+   Number(anchored.homeScore)===Number(c.competitors.find(t=>t.homeAway==='home')?.score)&&
+   Number(anchored.awayScore)===Number(c.competitors.find(t=>t.homeAway==='away')?.score)&&
+   Math.abs((playTime(anchored)??-9999)-(position(game,c)??0))<=2){
+  probabilities.set(String(scoreboardPlay.id),{playId:scoreboardPlay.id,homeWinPercentage:scoreboardProbability});
+ }
  const orderedProbabilities=plays.flatMap(p=>probabilities.has(String(p.id))?[probabilities.get(String(p.id))]:[]);
  const historical={header:{competitions:[c]},plays,scoringPlays:plays.filter(p=>p.scoringPlay),winprobability:orderedProbabilities};
  // A probability for an unchanged, verified observation survives an optional

@@ -2615,6 +2615,7 @@ function explainRating(game,summary=null) {
   if(names.length!==2)return [game.state==='upcoming'?'Confirmed matchup details are not yet available.':game.state==='completed'?'The game has finished; detailed result evidence is unavailable.':'Live game details are still being confirmed.',evidenceNote].filter(Boolean).join(' ');
   const factors=game.factors || [],labels=factors.map(f=>f.label || ''),has=re=>labels.some(x=>re.test(x));
   const sport=game.sport==='NCAAM'?'NCAAB':game.sport,basketball=['NBA','NCAAB'].includes(sport),football=['NFL','CFB'].includes(sport);
+  const collegeTeamVerb=(name,singular,plural)=>sport==='NCAAB'&&/\s/.test(String(name||'').trim())?plural:singular;
   const unit=({MLB:'run',NHL:'goal',Soccer:'goal',Tennis:'set'})[sport] || 'point';
   const clean=s=>String(s || '').trim().replace(/\s+/g,' ');
   const sentenceKey=s=>clean(s).toLocaleLowerCase().replace(/[^\p{L}\p{N}]+/gu,' ').trim();
@@ -2710,20 +2711,20 @@ function explainRating(game,summary=null) {
     else if(gap!==null)add(gap<=({MLB:1,NHL:1,Soccer:1,Tennis:1,NFL:8,CFB:8,NBA:5,NCAAB:5}[sport] || 3)?'The narrow final margin made for a close result':has(/Wide margin/)?'The lopsided final margin limits the appeal of a replay':`The teams finished ${gap} ${unit}${gap===1?'':'s'} apart`);
     return [...sentences.slice(0,2),evidenceNote].filter(Boolean).join(' ');
   }
-  if(facts?.comeback)add(`${facts.comeback.team} has erased a ${facts.comeback.deficit}-point deficit${facts.comeback.team===leader[0]&&gap>0?' and taken the lead':''}`);
+  if(facts?.comeback)add(`${facts.comeback.team} ${collegeTeamVerb(facts.comeback.team,'has','have')} erased a ${facts.comeback.deficit}-point deficit${facts.comeback.team===leader[0]&&gap>0?' and taken the lead':''}`);
   else if(has(/Erased a multi-goal deficit/i))add('A verified comeback erased a multi-goal deficit');
   else if(has(/Erased a large deficit|comeback/i))add('A comeback has brought the game back to life');
   if(known) {
     const when=shootout?' in the Shootout':overtime?` in ${overtimeName}`:late?' late in the game':'';
     if(gap===0)add(`${names.join(' and ')} are tied ${x}–${y}${when}`);
-    else add(`${leader[0]} leads ${trailer[0]} ${Math.max(x,y)}–${Math.min(x,y)}${when}`);
+    else add(`${leader[0]} ${collegeTeamVerb(leader[0],'leads','lead')} ${trailer[0]} ${Math.max(x,y)}–${Math.min(x,y)}${when}`);
   }
   const possession=String(game.liveRawSituation?.possession?.id || game.liveRawSituation?.possession || '');
   const holder=teams.find(t=>String(t[8])===possession);
   if(basketball&&late&&known&&gap<=3) {
     const freeThrow=/free throw/i.test(game.liveRawSituation?.lastPlay?.text || '');
     if(freeThrow)add('Free throws could decide this one, with a single possession separating the teams');
-    else if(holder&&holder===trailer)add(`${holder[0]} has the ball with a chance to ${gap===3?'tie the game':'tie it or take the lead'}`);
+    else if(holder&&holder===trailer)add(`${holder[0]} ${collegeTeamVerb(holder[0],'has','have')} the ball with a chance to ${gap===3?'tie the game':'tie it or take the lead'}`);
     else add(`${seconds!==null&&seconds<60?'With less than a minute remaining, e':'E'}very possession could decide the game`);
   } else {
     const reason=(game.live?.reasons || []).find(r=>safe(r)&&!(game.manpowerQuality?.state==='conflict'&&/power play|extra attacker/i.test(r))&&/has .* (?:yards|points|goals)|power play|bases (?:are )?loaded|no.hit|match point|set point|break point|red zone|fourth down|extra attacker|goalie|potential tying|go-ahead|red card|equaliz|stoppage.time|scoring run/i.test(r));
@@ -2733,6 +2734,18 @@ function explainRating(game,summary=null) {
     else if(gap!==null&&has(/Wide margin/))add(`${trailer[0]} needs to close the ${gap}-${unit} gap${late?' with limited time remaining':''}`);
     else if(facts?.lateLeadChanges)add('The lead has changed hands in the closing stages');
 
+  }
+  if(sport==='NCAAB'&&known&&sentences.length===1){
+    const firstHalf=period===1;
+    const halftime=/half[ -]?time/i.test([game.liveRawStatus?.type?.name,game.liveRawStatus?.type?.detail,game.live?.phase].join(' '));
+    const phase=firstHalf?(halftime?'at halftime':seconds!==null&&seconds<=300?'as halftime approaches':'in the first half'):
+      late?'with little time left':'in the second half';
+    const ranked=teams.filter(t=>Number(t[6])>=1&&Number(t[6])<=25);
+    if(gap>=8){
+      const context=ranked.length===2?'Both teams are ranked, but ':ranked.includes(leader)?`${leader[0]} ${collegeTeamVerb(leader[0],'is','are')} ranked, but `:'';
+      add(`${context}${context?'the':'The'} ${gap}-point gap limits the suspense ${phase}`);
+    }else if(firstHalf&&gap<=3)add('A single possession could tie it or change the lead with plenty of game left');
+    else if(firstHalf)add('The margin is within reach with a half still to play');
   }
   return [...sentences.slice(0,3),evidenceNote].filter(Boolean).join(' ');
 }
@@ -2876,7 +2889,8 @@ function gameCard(game) {
   const phase = String(game.live?.phase || game.status || '');
   const clock = String(game.liveRawStatus?.displayClock || phase.match(/\b\d{1,2}:\d{2}\b/)?.[0] || '');
   const period = compactClockPeriod(game);
-  const clockMarkup = game.state === 'live' && (clock || period === 'Shootout')
+  const ncaabHalftime=game.sport==='NCAAB'&&Boolean(halftimePriorityAdjustment(game));
+  const clockMarkup = game.state === 'live' && !ncaabHalftime && (clock || period === 'Shootout')
     ? `<span class="card-clock"><span>${safeText(period || 'Live')}</span>${period === 'Shootout' ? '' : `<strong>${safeText(clock)}</strong>`}</span>`
     : '';
   const cardTeam = (team,index) => teamMarkup(game,team,index);
@@ -2887,7 +2901,7 @@ function gameCard(game) {
     game.state === 'live'
       ? `<span class="status-live"${halftimePriorityAdjustment(game) ? ' title="Halftime: ranked 6 points lower for viewing priority; excitement rating unchanged."' : ''}>${halftimePriorityAdjustment(game) ? 'HALFTIME · lower viewing priority' : '● LIVE'}</span>${
           game.live?.phase &&
-          game.live.phase !== 'Live'
+          game.live.phase !== 'Live' && !ncaabHalftime
             ? `<span class="live-phase">${safeText(game.live.phase)}</span>`
             : ''
         }`
@@ -6035,7 +6049,7 @@ function renderDetailContent(
 
   const detailClockValue = String(game.liveRawStatus?.displayClock || String(status || '').match(/\b\d{1,2}:\d{2}\b/)?.[0] || '');
   const detailPeriod = compactClockPeriod(game);
-  const detailClock = game.state === 'live' && (detailClockValue || detailPeriod === 'Shootout')
+  const detailClock = game.state === 'live' && !(game.sport==='NCAAB'&&halftimePriorityAdjustment(game)) && (detailClockValue || detailPeriod === 'Shootout')
     ? `<span class="detail-live-clock"><span>${safeText(detailPeriod || 'Live')}</span>${detailPeriod === 'Shootout' ? '' : `<strong>${safeText(detailClockValue)}</strong>`}</span>` : '';
 
   const venue =

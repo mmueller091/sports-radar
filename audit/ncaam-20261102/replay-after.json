@@ -1,0 +1,5275 @@
+{
+  "commit": "working",
+  "games": [
+    {
+      "name": "miami",
+      "id": "401906769",
+      "sourceCheckpoints": 181,
+      "exclusions": 0,
+      "states": [
+        {
+          "period": 1,
+          "clock": "20:00",
+          "scores": [
+            "0",
+            "0"
+          ],
+          "rating": 49,
+          "probability": 0.658,
+          "playId": "401906769120454495"
+        },
+        {
+          "period": 1,
+          "clock": "19:58",
+          "scores": [
+            "0",
+            "0"
+          ],
+          "rating": 49,
+          "probability": 0.647,
+          "playId": "401906769120454496"
+        },
+        {
+          "period": 1,
+          "clock": "19:58",
+          "scores": [
+            "0",
+            "0"
+          ],
+          "rating": 49,
+          "probability": 0.669,
+          "playId": "401906769120454497"
+        },
+        {
+          "period": 1,
+          "clock": "19:42",
+          "scores": [
+            "0",
+            "0"
+          ],
+          "rating": 49,
+          "probability": 0.663,
+          "playId": "401906769120454558"
+        },
+        {
+          "period": 1,
+          "clock": "19:37",
+          "scores": [
+            "0",
+            "0"
+          ],
+          "rating": 49,
+          "probability": 0.646,
+          "playId": "401906769120454609"
+        },
+        {
+          "period": 1,
+          "clock": "19:36",
+          "scores": [
+            "2",
+            "0"
+          ],
+          "rating": 50,
+          "probability": 0.621,
+          "playId": "401906769120454610"
+        },
+        {
+          "period": 1,
+          "clock": "19:08",
+          "scores": [
+            "2",
+            "2"
+          ],
+          "rating": 51,
+          "probability": 0.645,
+          "playId": "401906769120454796"
+        },
+        {
+          "period": 1,
+          "clock": "18:40",
+          "scores": [
+            "5",
+            "2"
+          ],
+          "rating": 52,
+          "probability": 0.586,
+          "playId": "401906769120454900"
+        },
+        {
+          "period": 1,
+          "clock": "18:19",
+          "scores": [
+            "5",
+            "4"
+          ],
+          "rating": 52,
+          "probability": 0.621,
+          "playId": "401906769120454970"
+        },
+        {
+          "period": 1,
+          "clock": "18:03",
+          "scores": [
+            "5",
+            "4"
+          ],
+          "rating": 56,
+          "probability": 0.643,
+          "playId": "401906769120455202"
+        },
+        {
+          "period": 1,
+          "clock": "18:03",
+          "scores": [
+            "5",
+            "4"
+          ],
+          "rating": 54,
+          "probability": 0.643,
+          "playId": "401906769120455225"
+        },
+        {
+          "period": 1,
+          "clock": "17:50",
+          "scores": [
+            "5",
+            "7"
+          ],
+          "rating": 54,
+          "probability": 0.689,
+          "playId": "401906769120455318"
+        },
+        {
+          "period": 1,
+          "clock": "17:29",
+          "scores": [
+            "7",
+            "7"
+          ],
+          "rating": 54,
+          "probability": 0.665,
+          "playId": "401906769120455446"
+        },
+        {
+          "period": 1,
+          "clock": "17:11",
+          "scores": [
+            "7",
+            "7"
+          ],
+          "rating": 53,
+          "probability": 0.646,
+          "playId": "401906769120455545"
+        },
+        {
+          "period": 1,
+          "clock": "17:11",
+          "scores": [
+            "7",
+            "7"
+          ],
+          "rating": 52,
+          "probability": 0.665,
+          "playId": "401906769120455574"
+        },
+        {
+          "period": 1,
+          "clock": "17:11",
+          "scores": [
+            "7",
+            "7"
+          ],
+          "rating": 51,
+          "probability": 0.669,
+          "playId": "401906769120455575"
+        },
+        {
+          "period": 1,
+          "clock": "17:11",
+          "scores": [
+            "7",
+            "7"
+          ],
+          "rating": 50,
+          "probability": 0.667,
+          "playId": "401906769120455683"
+        },
+        {
+          "period": 1,
+          "clock": "17:11",
+          "scores": [
+            "7",
+            "7"
+          ],
+          "rating": 49,
+          "probability": 0.661,
+          "playId": "401906769120455684"
+        },
+        {
+          "period": 1,
+          "clock": "17:11",
+          "scores": [
+            "7",
+            "8"
+          ],
+          "rating": 50,
+          "probability": 0.667,
+          "playId": "401906769120455832"
+        },
+        {
+          "period": 1,
+          "clock": "16:46",
+          "scores": [
+            "9",
+            "8"
+          ],
+          "rating": 51,
+          "probability": 0.642,
+          "playId": "401906769120456008"
+        },
+        {
+          "period": 1,
+          "clock": "16:37",
+          "scores": [
+            "9",
+            "8"
+          ],
+          "rating": 52,
+          "probability": 0.623,
+          "playId": "401906769120456034"
+        },
+        {
+          "period": 1,
+          "clock": "16:33",
+          "scores": [
+            "9",
+            "8"
+          ],
+          "rating": 51,
+          "probability": 0.617,
+          "playId": "401906769120456035"
+        },
+        {
+          "period": 1,
+          "clock": "16:29",
+          "scores": [
+            "9",
+            "8"
+          ],
+          "rating": 51,
+          "probability": 0.61,
+          "playId": "401906769120456112"
+        },
+        {
+          "period": 1,
+          "clock": "16:29",
+          "scores": [
+            "10",
+            "8"
+          ],
+          "rating": 51,
+          "probability": 0.587,
+          "playId": "401906769120456541"
+        },
+        {
+          "period": 1,
+          "clock": "16:29",
+          "scores": [
+            "10",
+            "8"
+          ],
+          "rating": 50,
+          "probability": 0.611,
+          "playId": "401906769120456559"
+        },
+        {
+          "period": 1,
+          "clock": "16:29",
+          "scores": [
+            "10",
+            "8"
+          ],
+          "rating": 49,
+          "probability": 0.583,
+          "playId": "401906769120456564"
+        },
+        {
+          "period": 1,
+          "clock": "16:29",
+          "scores": [
+            "11",
+            "8"
+          ],
+          "rating": 50,
+          "probability": 0.555,
+          "playId": "401906769120456756"
+        },
+        {
+          "period": 1,
+          "clock": "16:06",
+          "scores": [
+            "11",
+            "8"
+          ],
+          "rating": 50,
+          "probability": 0.56,
+          "playId": "401906769120456806"
+        },
+        {
+          "period": 1,
+          "clock": "16:03",
+          "scores": [
+            "11",
+            "8"
+          ],
+          "rating": 51,
+          "probability": 0.554,
+          "playId": "401906769120456828"
+        },
+        {
+          "period": 1,
+          "clock": "16:01",
+          "scores": [
+            "11",
+            "8"
+          ],
+          "rating": 51,
+          "probability": 0.583,
+          "playId": "401906769120456829"
+        },
+        {
+          "period": 1,
+          "clock": "16:01",
+          "scores": [
+            "11",
+            "8"
+          ],
+          "rating": 54,
+          "probability": 0.58,
+          "playId": "401906769120456830"
+        },
+        {
+          "period": 1,
+          "clock": "15:51",
+          "scores": [
+            "11",
+            "8"
+          ],
+          "rating": 54,
+          "probability": 0.584,
+          "playId": "401906769120457069"
+        },
+        {
+          "period": 1,
+          "clock": "15:51",
+          "scores": [
+            "11",
+            "8"
+          ],
+          "rating": 53,
+          "probability": 0.584,
+          "playId": "401906769120457151"
+        },
+        {
+          "period": 1,
+          "clock": "15:51",
+          "scores": [
+            "11",
+            "8"
+          ],
+          "rating": 52,
+          "probability": 0.557,
+          "playId": "401906769120457964"
+        },
+        {
+          "period": 1,
+          "clock": "15:51",
+          "scores": [
+            "11",
+            "9"
+          ],
+          "rating": 52,
+          "probability": 0.612,
+          "playId": "401906769120458056"
+        },
+        {
+          "period": 1,
+          "clock": "15:51",
+          "scores": [
+            "11",
+            "10"
+          ],
+          "rating": 52,
+          "probability": 0.615,
+          "playId": "401906769120458074"
+        },
+        {
+          "period": 1,
+          "clock": "15:26",
+          "scores": [
+            "11",
+            "10"
+          ],
+          "rating": 52,
+          "probability": 0.609,
+          "playId": "401906769120458306"
+        },
+        {
+          "period": 1,
+          "clock": "15:26",
+          "scores": [
+            "12",
+            "10"
+          ],
+          "rating": 52,
+          "probability": 0.586,
+          "playId": "401906769120458566"
+        },
+        {
+          "period": 1,
+          "clock": "15:26",
+          "scores": [
+            "12",
+            "10"
+          ],
+          "rating": 52,
+          "probability": 0.608,
+          "playId": "401906769120458624"
+        },
+        {
+          "period": 1,
+          "clock": "15:26",
+          "scores": [
+            "12",
+            "10"
+          ],
+          "rating": 51,
+          "probability": 0.581,
+          "playId": "401906769120458627"
+        },
+        {
+          "period": 1,
+          "clock": "15:26",
+          "scores": [
+            "12",
+            "10"
+          ],
+          "rating": 50,
+          "probability": 0.581,
+          "playId": "401906769120458644"
+        },
+        {
+          "period": 1,
+          "clock": "15:24",
+          "scores": [
+            "12",
+            "10"
+          ],
+          "rating": 50,
+          "probability": 0.608,
+          "playId": "401906769120458645"
+        },
+        {
+          "period": 1,
+          "clock": "15:10",
+          "scores": [
+            "12",
+            "10"
+          ],
+          "rating": 50,
+          "probability": 0.587,
+          "playId": "401906769120458722"
+        },
+        {
+          "period": 1,
+          "clock": "15:07",
+          "scores": [
+            "12",
+            "10"
+          ],
+          "rating": 50,
+          "probability": 0.58,
+          "playId": "401906769120458723"
+        },
+        {
+          "period": 1,
+          "clock": "15:04",
+          "scores": [
+            "12",
+            "10"
+          ],
+          "rating": 50,
+          "probability": 0.6,
+          "playId": "401906769120458724"
+        },
+        {
+          "period": 1,
+          "clock": "15:02",
+          "scores": [
+            "12",
+            "10"
+          ],
+          "rating": 50,
+          "probability": 0.608,
+          "playId": "401906769120458822"
+        },
+        {
+          "period": 1,
+          "clock": "15:02",
+          "scores": [
+            "12",
+            "10"
+          ],
+          "rating": 50,
+          "probability": 0.582,
+          "playId": "401906769120458970"
+        },
+        {
+          "period": 1,
+          "clock": "15:01",
+          "scores": [
+            "12",
+            "10"
+          ],
+          "rating": 50,
+          "probability": 0.607,
+          "playId": "401906769120458756"
+        },
+        {
+          "period": 1,
+          "clock": "14:52",
+          "scores": [
+            "12",
+            "13"
+          ],
+          "rating": 51,
+          "probability": 0.665,
+          "playId": "401906769120459002"
+        },
+        {
+          "period": 1,
+          "clock": "14:20",
+          "scores": [
+            "12",
+            "13"
+          ],
+          "rating": 51,
+          "probability": 0.684,
+          "playId": "401906769120459069"
+        },
+        {
+          "period": 1,
+          "clock": "14:16",
+          "scores": [
+            "12",
+            "13"
+          ],
+          "rating": 51,
+          "probability": 0.69,
+          "playId": "401906769120459070"
+        },
+        {
+          "period": 1,
+          "clock": "14:12",
+          "scores": [
+            "12",
+            "13"
+          ],
+          "rating": 55,
+          "probability": 0.664,
+          "playId": "401906769120459071"
+        },
+        {
+          "period": 1,
+          "clock": "14:12",
+          "scores": [
+            "12",
+            "13"
+          ],
+          "rating": 54,
+          "probability": 0.664,
+          "playId": "401906769120459099"
+        },
+        {
+          "period": 1,
+          "clock": "14:05",
+          "scores": [
+            "15",
+            "13"
+          ],
+          "rating": 54,
+          "probability": 0.606,
+          "playId": "401906769120459100"
+        },
+        {
+          "period": 1,
+          "clock": "14:02",
+          "scores": [
+            "15",
+            "13"
+          ],
+          "rating": 53,
+          "probability": 0.606,
+          "playId": "401906769120459324"
+        },
+        {
+          "period": 1,
+          "clock": "14:02",
+          "scores": [
+            "15",
+            "13"
+          ],
+          "rating": 52,
+          "probability": 0.578,
+          "playId": "401906769120459328"
+        },
+        {
+          "period": 1,
+          "clock": "13:48",
+          "scores": [
+            "15",
+            "13"
+          ],
+          "rating": 50,
+          "probability": 0.585,
+          "playId": "401906769120459442"
+        },
+        {
+          "period": 1,
+          "clock": "13:45",
+          "scores": [
+            "15",
+            "13"
+          ],
+          "rating": 50,
+          "probability": 0.578,
+          "playId": "401906769120459444"
+        },
+        {
+          "period": 1,
+          "clock": "13:30",
+          "scores": [
+            "15",
+            "13"
+          ],
+          "rating": 50,
+          "probability": 0.598,
+          "playId": "401906769120459583"
+        },
+        {
+          "period": 1,
+          "clock": "13:30",
+          "scores": [
+            "15",
+            "13"
+          ],
+          "rating": 50,
+          "probability": 0.598,
+          "playId": "401906769120459584"
+        },
+        {
+          "period": 1,
+          "clock": "13:28",
+          "scores": [
+            "15",
+            "13"
+          ],
+          "rating": 51,
+          "probability": 0.605,
+          "playId": "401906769120459756"
+        },
+        {
+          "period": 1,
+          "clock": "13:27",
+          "scores": [
+            "15",
+            "13"
+          ],
+          "rating": 51,
+          "probability": 0.605,
+          "playId": "401906769120459732"
+        },
+        {
+          "period": 1,
+          "clock": "13:05",
+          "scores": [
+            "15",
+            "15"
+          ],
+          "rating": 52,
+          "probability": 0.636,
+          "playId": "401906769120460080"
+        },
+        {
+          "period": 1,
+          "clock": "12:48",
+          "scores": [
+            "15",
+            "15"
+          ],
+          "rating": 52,
+          "probability": 0.636,
+          "playId": "401906769120460143"
+        },
+        {
+          "period": 1,
+          "clock": "12:35",
+          "scores": [
+            "15",
+            "15"
+          ],
+          "rating": 52,
+          "probability": 0.654,
+          "playId": "401906769120460240"
+        },
+        {
+          "period": 1,
+          "clock": "12:31",
+          "scores": [
+            "15",
+            "15"
+          ],
+          "rating": 52,
+          "probability": 0.635,
+          "playId": "401906769120460364"
+        },
+        {
+          "period": 1,
+          "clock": "12:30",
+          "scores": [
+            "15",
+            "15"
+          ],
+          "rating": 52,
+          "probability": 0.654,
+          "playId": "401906769120460365"
+        },
+        {
+          "period": 1,
+          "clock": "12:27",
+          "scores": [
+            "15",
+            "15"
+          ],
+          "rating": 52,
+          "probability": 0.66,
+          "playId": "401906769120460366"
+        },
+        {
+          "period": 1,
+          "clock": "12:20",
+          "scores": [
+            "15",
+            "15"
+          ],
+          "rating": 52,
+          "probability": 0.641,
+          "playId": "401906769120460382"
+        },
+        {
+          "period": 1,
+          "clock": "12:17",
+          "scores": [
+            "15",
+            "15"
+          ],
+          "rating": 52,
+          "probability": 0.635,
+          "playId": "401906769120460383"
+        },
+        {
+          "period": 1,
+          "clock": "12:16",
+          "scores": [
+            "17",
+            "15"
+          ],
+          "rating": 52,
+          "probability": 0.602,
+          "playId": "401906769120460421"
+        },
+        {
+          "period": 1,
+          "clock": "12:16",
+          "scores": [
+            "17",
+            "15"
+          ],
+          "rating": 52,
+          "probability": 0.575,
+          "playId": "401906769120460442"
+        },
+        {
+          "period": 1,
+          "clock": "12:16",
+          "scores": [
+            "17",
+            "15"
+          ],
+          "rating": 52,
+          "probability": 0.57,
+          "playId": "401906769120460573"
+        },
+        {
+          "period": 1,
+          "clock": "12:16",
+          "scores": [
+            "17",
+            "15"
+          ],
+          "rating": 51,
+          "probability": 0.57,
+          "playId": "401906769120460623"
+        },
+        {
+          "period": 1,
+          "clock": "12:15",
+          "scores": [
+            "17",
+            "15"
+          ],
+          "rating": 51,
+          "probability": 0.599,
+          "playId": "401906769120460624"
+        },
+        {
+          "period": 1,
+          "clock": "11:57",
+          "scores": [
+            "17",
+            "15"
+          ],
+          "rating": 51,
+          "probability": 0.599,
+          "playId": "401906769120460718"
+        },
+        {
+          "period": 1,
+          "clock": "11:57",
+          "scores": [
+            "17",
+            "15"
+          ],
+          "rating": 51,
+          "probability": 0.599,
+          "playId": "401906769120461557"
+        },
+        {
+          "period": 1,
+          "clock": "11:57",
+          "scores": [
+            "17",
+            "15"
+          ],
+          "rating": 51,
+          "probability": 0.569,
+          "playId": "401906769120461561"
+        },
+        {
+          "period": 1,
+          "clock": "11:45",
+          "scores": [
+            "17",
+            "15"
+          ],
+          "rating": 51,
+          "probability": 0.576,
+          "playId": "401906769120461706"
+        },
+        {
+          "period": 1,
+          "clock": "11:41",
+          "scores": [
+            "17",
+            "15"
+          ],
+          "rating": 51,
+          "probability": 0.598,
+          "playId": "401906769120461707"
+        },
+        {
+          "period": 1,
+          "clock": "11:38",
+          "scores": [
+            "17",
+            "18"
+          ],
+          "rating": 52,
+          "probability": 0.658,
+          "playId": "401906769120461730"
+        },
+        {
+          "period": 1,
+          "clock": "11:16",
+          "scores": [
+            "17",
+            "18"
+          ],
+          "rating": 56,
+          "probability": 0.684,
+          "playId": "401906769120461978"
+        },
+        {
+          "period": 1,
+          "clock": "11:16",
+          "scores": [
+            "17",
+            "18"
+          ],
+          "rating": 55,
+          "probability": 0.684,
+          "playId": "401906769120461979"
+        },
+        {
+          "period": 1,
+          "clock": "11:10",
+          "scores": [
+            "17",
+            "20"
+          ],
+          "rating": 54,
+          "probability": 0.713,
+          "playId": "401906769120461980"
+        },
+        {
+          "period": 1,
+          "clock": "11:10",
+          "scores": [
+            "17",
+            "20"
+          ],
+          "rating": 53,
+          "probability": 0.735,
+          "playId": "401906769120462012"
+        },
+        {
+          "period": 1,
+          "clock": "11:10",
+          "scores": [
+            "17",
+            "20"
+          ],
+          "rating": 53,
+          "probability": 0.714,
+          "playId": "401906769120462062"
+        },
+        {
+          "period": 1,
+          "clock": "11:10",
+          "scores": [
+            "17",
+            "21"
+          ],
+          "rating": 51,
+          "probability": 0.762,
+          "playId": "401906769120462161"
+        },
+        {
+          "period": 1,
+          "clock": "10:46",
+          "scores": [
+            "17",
+            "21"
+          ],
+          "rating": 50,
+          "probability": 0.757,
+          "playId": "401906769120462335"
+        },
+        {
+          "period": 1,
+          "clock": "10:46",
+          "scores": [
+            "17",
+            "21"
+          ],
+          "rating": 50,
+          "probability": 0.757,
+          "playId": "401906769120462492"
+        },
+        {
+          "period": 1,
+          "clock": "10:40",
+          "scores": [
+            "17",
+            "21"
+          ],
+          "rating": 50,
+          "probability": 0.742,
+          "playId": "401906769120462493"
+        },
+        {
+          "period": 1,
+          "clock": "10:39",
+          "scores": [
+            "17",
+            "21"
+          ],
+          "rating": 49,
+          "probability": 0.757,
+          "playId": "401906769120462494"
+        },
+        {
+          "period": 1,
+          "clock": "10:36",
+          "scores": [
+            "17",
+            "21"
+          ],
+          "rating": 49,
+          "probability": 0.742,
+          "playId": "401906769120462495"
+        },
+        {
+          "period": 1,
+          "clock": "10:33",
+          "scores": [
+            "17",
+            "21"
+          ],
+          "rating": 49,
+          "probability": 0.757,
+          "playId": "401906769120462514"
+        },
+        {
+          "period": 1,
+          "clock": "10:28",
+          "scores": [
+            "17",
+            "21"
+          ],
+          "rating": 49,
+          "probability": 0.742,
+          "playId": "401906769120462540"
+        },
+        {
+          "period": 1,
+          "clock": "10:28",
+          "scores": [
+            "17",
+            "21"
+          ],
+          "rating": 53,
+          "probability": 0.762,
+          "playId": "401906769120462541"
+        },
+        {
+          "period": 1,
+          "clock": "10:28",
+          "scores": [
+            "17",
+            "21"
+          ],
+          "rating": 52,
+          "probability": 0.762,
+          "playId": "401906769120462542"
+        },
+        {
+          "period": 1,
+          "clock": "10:17",
+          "scores": [
+            "17",
+            "24"
+          ],
+          "rating": 52,
+          "probability": 0.808,
+          "playId": "401906769120462543"
+        },
+        {
+          "period": 1,
+          "clock": "10:14",
+          "scores": [
+            "17",
+            "24"
+          ],
+          "rating": 51,
+          "probability": 0.808,
+          "playId": "401906769120462545"
+        },
+        {
+          "period": 1,
+          "clock": "10:14",
+          "scores": [
+            "17",
+            "24"
+          ],
+          "rating": 50,
+          "probability": 0.828,
+          "playId": "401906769120462983"
+        },
+        {
+          "period": 1,
+          "clock": "10:14",
+          "scores": [
+            "17",
+            "24"
+          ],
+          "rating": 48,
+          "probability": 0.808,
+          "playId": "401906769120462989"
+        },
+        {
+          "period": 1,
+          "clock": "9:58",
+          "scores": [
+            "19",
+            "24"
+          ],
+          "rating": 49,
+          "probability": 0.786,
+          "playId": "401906769120463180"
+        },
+        {
+          "period": 1,
+          "clock": "9:37",
+          "scores": [
+            "19",
+            "26"
+          ],
+          "rating": 48,
+          "probability": 0.809,
+          "playId": "401906769120463250"
+        },
+        {
+          "period": 1,
+          "clock": "9:28",
+          "scores": [
+            "19",
+            "26"
+          ],
+          "rating": 48,
+          "probability": 0.806,
+          "playId": "401906769120463293"
+        },
+        {
+          "period": 1,
+          "clock": "9:28",
+          "scores": [
+            "20",
+            "26"
+          ],
+          "rating": 48,
+          "probability": 0.786,
+          "playId": "401906769120463443"
+        },
+        {
+          "period": 1,
+          "clock": "9:28",
+          "scores": [
+            "20",
+            "26"
+          ],
+          "rating": 48,
+          "probability": 0.786,
+          "playId": "401906769120463474"
+        },
+        {
+          "period": 1,
+          "clock": "9:28",
+          "scores": [
+            "21",
+            "26"
+          ],
+          "rating": 49,
+          "probability": 0.785,
+          "playId": "401906769120463550"
+        },
+        {
+          "period": 1,
+          "clock": "9:08",
+          "scores": [
+            "21",
+            "28"
+          ],
+          "rating": 48,
+          "probability": 0.808,
+          "playId": "401906769120463696"
+        },
+        {
+          "period": 1,
+          "clock": "8:41",
+          "scores": [
+            "21",
+            "28"
+          ],
+          "rating": 48,
+          "probability": 0.823,
+          "playId": "401906769120463913"
+        },
+        {
+          "period": 1,
+          "clock": "8:37",
+          "scores": [
+            "21",
+            "28"
+          ],
+          "rating": 47,
+          "probability": 0.828,
+          "playId": "401906769120464009"
+        },
+        {
+          "period": 1,
+          "clock": "8:23",
+          "scores": [
+            "21",
+            "30"
+          ],
+          "rating": 46,
+          "probability": 0.849,
+          "playId": "401906769120464051"
+        },
+        {
+          "period": 1,
+          "clock": "8:23",
+          "scores": [
+            "21",
+            "30"
+          ],
+          "rating": 46,
+          "probability": 0.865,
+          "playId": "401906769120464138"
+        },
+        {
+          "period": 1,
+          "clock": "7:57",
+          "scores": [
+            "23",
+            "30"
+          ],
+          "rating": 47,
+          "probability": 0.828,
+          "playId": "401906769120464362"
+        },
+        {
+          "period": 1,
+          "clock": "7:46",
+          "scores": [
+            "23",
+            "30"
+          ],
+          "rating": 46,
+          "probability": 0.807,
+          "playId": "401906769120464494"
+        },
+        {
+          "period": 1,
+          "clock": "7:46",
+          "scores": [
+            "23",
+            "30"
+          ],
+          "rating": 50,
+          "probability": 0.808,
+          "playId": "401906769120464495"
+        },
+        {
+          "period": 1,
+          "clock": "7:45",
+          "scores": [
+            "23",
+            "30"
+          ],
+          "rating": 49,
+          "probability": 0.808,
+          "playId": "401906769120464550"
+        },
+        {
+          "period": 1,
+          "clock": "7:45",
+          "scores": [
+            "23",
+            "30"
+          ],
+          "rating": 49,
+          "probability": 0.827,
+          "playId": "401906769120465524"
+        },
+        {
+          "period": 1,
+          "clock": "7:45",
+          "scores": [
+            "23",
+            "30"
+          ],
+          "rating": 47,
+          "probability": 0.808,
+          "playId": "401906769120465528"
+        },
+        {
+          "period": 1,
+          "clock": "7:36",
+          "scores": [
+            "23",
+            "30"
+          ],
+          "rating": 46,
+          "probability": 0.807,
+          "playId": "401906769120465951"
+        },
+        {
+          "period": 1,
+          "clock": "7:15",
+          "scores": [
+            "23",
+            "30"
+          ],
+          "rating": 45,
+          "probability": 0.822,
+          "playId": "401906769120466177"
+        },
+        {
+          "period": 1,
+          "clock": "7:11",
+          "scores": [
+            "23",
+            "30"
+          ],
+          "rating": 45,
+          "probability": 0.827,
+          "playId": "401906769120466178"
+        },
+        {
+          "period": 1,
+          "clock": "7:05",
+          "scores": [
+            "23",
+            "33"
+          ],
+          "rating": 43,
+          "probability": 0.867,
+          "playId": "401906769120466221"
+        },
+        {
+          "period": 1,
+          "clock": "6:49",
+          "scores": [
+            "23",
+            "33"
+          ],
+          "rating": 42,
+          "probability": 0.878,
+          "playId": "401906769120466411"
+        },
+        {
+          "period": 1,
+          "clock": "6:43",
+          "scores": [
+            "23",
+            "33"
+          ],
+          "rating": 42,
+          "probability": 0.868,
+          "playId": "401906769120466412"
+        },
+        {
+          "period": 1,
+          "clock": "6:43",
+          "scores": [
+            "25",
+            "33"
+          ],
+          "rating": 46,
+          "probability": 0.846,
+          "playId": "401906769120466413"
+        },
+        {
+          "period": 1,
+          "clock": "6:42",
+          "scores": [
+            "25",
+            "33"
+          ],
+          "rating": 45,
+          "probability": 0.848,
+          "playId": "401906769120466465"
+        },
+        {
+          "period": 1,
+          "clock": "6:42",
+          "scores": [
+            "25",
+            "33"
+          ],
+          "rating": 45,
+          "probability": 0.847,
+          "playId": "401906769120466510"
+        },
+        {
+          "period": 1,
+          "clock": "6:24",
+          "scores": [
+            "25",
+            "33"
+          ],
+          "rating": 44,
+          "probability": 0.835,
+          "playId": "401906769120466658"
+        },
+        {
+          "period": 1,
+          "clock": "6:24",
+          "scores": [
+            "25",
+            "33"
+          ],
+          "rating": 44,
+          "probability": 0.831,
+          "playId": "401906769120466659"
+        },
+        {
+          "period": 1,
+          "clock": "6:20",
+          "scores": [
+            "25",
+            "33"
+          ],
+          "rating": 48,
+          "probability": 0.848,
+          "playId": "401906769120466780"
+        },
+        {
+          "period": 1,
+          "clock": "6:14",
+          "scores": [
+            "25",
+            "33"
+          ],
+          "rating": 47,
+          "probability": 0.831,
+          "playId": "401906769120466842"
+        },
+        {
+          "period": 1,
+          "clock": "6:06",
+          "scores": [
+            "25",
+            "33"
+          ],
+          "rating": 46,
+          "probability": 0.836,
+          "playId": "401906769120467017"
+        },
+        {
+          "period": 1,
+          "clock": "6:03",
+          "scores": [
+            "25",
+            "33"
+          ],
+          "rating": 46,
+          "probability": 0.848,
+          "playId": "401906769120467018"
+        },
+        {
+          "period": 1,
+          "clock": "6:03",
+          "scores": [
+            "25",
+            "33"
+          ],
+          "rating": 45,
+          "probability": 0.849,
+          "playId": "401906769120467073"
+        },
+        {
+          "period": 1,
+          "clock": "6:03",
+          "scores": [
+            "25",
+            "33"
+          ],
+          "rating": 45,
+          "probability": 0.832,
+          "playId": "401906769120467155"
+        },
+        {
+          "period": 1,
+          "clock": "6:03",
+          "scores": [
+            "25",
+            "34"
+          ],
+          "rating": 43,
+          "probability": 0.867,
+          "playId": "401906769120467226"
+        },
+        {
+          "period": 1,
+          "clock": "6:03",
+          "scores": [
+            "25",
+            "35"
+          ],
+          "rating": 42,
+          "probability": 0.87,
+          "playId": "401906769120467464"
+        },
+        {
+          "period": 1,
+          "clock": "5:46",
+          "scores": [
+            "25",
+            "35"
+          ],
+          "rating": 42,
+          "probability": 0.882,
+          "playId": "401906769120467573"
+        },
+        {
+          "period": 1,
+          "clock": "5:43",
+          "scores": [
+            "25",
+            "35"
+          ],
+          "rating": 42,
+          "probability": 0.892,
+          "playId": "401906769120467710"
+        },
+        {
+          "period": 1,
+          "clock": "5:43",
+          "scores": [
+            "25",
+            "35"
+          ],
+          "rating": 42,
+          "probability": 0.871,
+          "playId": "401906769120467729"
+        },
+        {
+          "period": 1,
+          "clock": "5:43",
+          "scores": [
+            "25",
+            "35"
+          ],
+          "rating": 42,
+          "probability": 0.886,
+          "playId": "401906769120467845"
+        },
+        {
+          "period": 1,
+          "clock": "5:41",
+          "scores": [
+            "25",
+            "35"
+          ],
+          "rating": 42,
+          "probability": 0.886,
+          "playId": "401906769120467574"
+        },
+        {
+          "period": 1,
+          "clock": "5:41",
+          "scores": [
+            "25",
+            "35"
+          ],
+          "rating": 42,
+          "probability": 0.871,
+          "playId": "401906769120467846"
+        },
+        {
+          "period": 1,
+          "clock": "5:25",
+          "scores": [
+            "25",
+            "35"
+          ],
+          "rating": 41,
+          "probability": 0.883,
+          "playId": "401906769120468006"
+        },
+        {
+          "period": 1,
+          "clock": "5:25",
+          "scores": [
+            "25",
+            "35"
+          ],
+          "rating": 41,
+          "probability": 0.883,
+          "playId": "401906769120468007"
+        },
+        {
+          "period": 1,
+          "clock": "5:18",
+          "scores": [
+            "25",
+            "35"
+          ],
+          "rating": 41,
+          "probability": 0.887,
+          "playId": "401906769120468088"
+        },
+        {
+          "period": 1,
+          "clock": "5:15",
+          "scores": [
+            "25",
+            "38"
+          ],
+          "rating": 37,
+          "probability": 0.917,
+          "playId": "401906769120468089"
+        },
+        {
+          "period": 1,
+          "clock": "4:48",
+          "scores": [
+            "25",
+            "38"
+          ],
+          "rating": 37,
+          "probability": 0.925,
+          "playId": "401906769120468238"
+        },
+        {
+          "period": 1,
+          "clock": "4:45",
+          "scores": [
+            "25",
+            "38"
+          ],
+          "rating": 37,
+          "probability": 0.935,
+          "playId": "401906769120468387"
+        },
+        {
+          "period": 1,
+          "clock": "4:45",
+          "scores": [
+            "25",
+            "38"
+          ],
+          "rating": 37,
+          "probability": 0.918,
+          "playId": "401906769120468415"
+        },
+        {
+          "period": 1,
+          "clock": "4:45",
+          "scores": [
+            "25",
+            "38"
+          ],
+          "rating": 37,
+          "probability": 0.928,
+          "playId": "401906769120468594"
+        },
+        {
+          "period": 1,
+          "clock": "4:45",
+          "scores": [
+            "25",
+            "38"
+          ],
+          "rating": 37,
+          "probability": 0.918,
+          "playId": "401906769120468647"
+        },
+        {
+          "period": 1,
+          "clock": "4:44",
+          "scores": [
+            "25",
+            "38"
+          ],
+          "rating": 37,
+          "probability": 0.928,
+          "playId": "401906769120468239"
+        },
+        {
+          "period": 1,
+          "clock": "4:25",
+          "scores": [
+            "27",
+            "38"
+          ],
+          "rating": 38,
+          "probability": 0.903,
+          "playId": "401906769120468825"
+        },
+        {
+          "period": 1,
+          "clock": "4:14",
+          "scores": [
+            "27",
+            "41"
+          ],
+          "rating": 36,
+          "probability": 0.931,
+          "playId": "401906769120468915"
+        },
+        {
+          "period": 1,
+          "clock": "3:46",
+          "scores": [
+            "30",
+            "41"
+          ],
+          "rating": 38,
+          "probability": 0.905,
+          "playId": "401906769120469133"
+        },
+        {
+          "period": 1,
+          "clock": "3:29",
+          "scores": [
+            "30",
+            "41"
+          ],
+          "rating": 42,
+          "probability": 0.894,
+          "playId": "401906769120469197"
+        },
+        {
+          "period": 1,
+          "clock": "3:28",
+          "scores": [
+            "30",
+            "41"
+          ],
+          "rating": 40,
+          "probability": 0.894,
+          "playId": "401906769120469279"
+        },
+        {
+          "period": 1,
+          "clock": "3:28",
+          "scores": [
+            "30",
+            "41"
+          ],
+          "rating": 40,
+          "probability": 0.906,
+          "playId": "401906769120470369"
+        },
+        {
+          "period": 1,
+          "clock": "3:17",
+          "scores": [
+            "30",
+            "41"
+          ],
+          "rating": 37,
+          "probability": 0.903,
+          "playId": "401906769120470521"
+        },
+        {
+          "period": 1,
+          "clock": "3:14",
+          "scores": [
+            "30",
+            "41"
+          ],
+          "rating": 37,
+          "probability": 0.906,
+          "playId": "401906769120470522"
+        },
+        {
+          "period": 1,
+          "clock": "3:03",
+          "scores": [
+            "30",
+            "41"
+          ],
+          "rating": 37,
+          "probability": 0.899,
+          "playId": "401906769120470623"
+        },
+        {
+          "period": 1,
+          "clock": "3:01",
+          "scores": [
+            "30",
+            "41"
+          ],
+          "rating": 37,
+          "probability": 0.896,
+          "playId": "401906769120470624"
+        },
+        {
+          "period": 1,
+          "clock": "3:01",
+          "scores": [
+            "30",
+            "41"
+          ],
+          "rating": 37,
+          "probability": 0.893,
+          "playId": "401906769120470645"
+        },
+        {
+          "period": 1,
+          "clock": "3:01",
+          "scores": [
+            "31",
+            "41"
+          ],
+          "rating": 39,
+          "probability": 0.877,
+          "playId": "401906769120470757"
+        },
+        {
+          "period": 1,
+          "clock": "3:01",
+          "scores": [
+            "32",
+            "41"
+          ],
+          "rating": 40,
+          "probability": 0.872,
+          "playId": "401906769120470840"
+        },
+        {
+          "period": 1,
+          "clock": "2:38",
+          "scores": [
+            "32",
+            "41"
+          ],
+          "rating": 39,
+          "probability": 0.863,
+          "playId": "401906769120470878"
+        },
+        {
+          "period": 1,
+          "clock": "2:33",
+          "scores": [
+            "32",
+            "41"
+          ],
+          "rating": 39,
+          "probability": 0.873,
+          "playId": "401906769120470963"
+        },
+        {
+          "period": 1,
+          "clock": "2:27",
+          "scores": [
+            "32",
+            "41"
+          ],
+          "rating": 39,
+          "probability": 0.888,
+          "playId": "401906769120471034"
+        },
+        {
+          "period": 1,
+          "clock": "2:27",
+          "scores": [
+            "32",
+            "41"
+          ],
+          "rating": 39,
+          "probability": 0.874,
+          "playId": "401906769120471099"
+        },
+        {
+          "period": 1,
+          "clock": "2:27",
+          "scores": [
+            "32",
+            "41"
+          ],
+          "rating": 39,
+          "probability": 0.874,
+          "playId": "401906769120471100"
+        },
+        {
+          "period": 1,
+          "clock": "2:27",
+          "scores": [
+            "32",
+            "42"
+          ],
+          "rating": 38,
+          "probability": 0.879,
+          "playId": "401906769120471208"
+        },
+        {
+          "period": 1,
+          "clock": "2:27",
+          "scores": [
+            "32",
+            "42"
+          ],
+          "rating": 37,
+          "probability": 0.892,
+          "playId": "401906769120471234"
+        },
+        {
+          "period": 1,
+          "clock": "2:05",
+          "scores": [
+            "32",
+            "42"
+          ],
+          "rating": 41,
+          "probability": 0.893,
+          "playId": "401906769120471334"
+        },
+        {
+          "period": 1,
+          "clock": "1:48",
+          "scores": [
+            "32",
+            "42"
+          ],
+          "rating": 41,
+          "probability": 0.884,
+          "playId": "401906769120471458"
+        },
+        {
+          "period": 1,
+          "clock": "1:42",
+          "scores": [
+            "32",
+            "42"
+          ],
+          "rating": 40,
+          "probability": 0.894,
+          "playId": "401906769120471459"
+        },
+        {
+          "period": 1,
+          "clock": "1:42",
+          "scores": [
+            "32",
+            "44"
+          ],
+          "rating": 37,
+          "probability": 0.913,
+          "playId": "401906769120471460"
+        },
+        {
+          "period": 1,
+          "clock": "1:27",
+          "scores": [
+            "32",
+            "44"
+          ],
+          "rating": 37,
+          "probability": 0.904,
+          "playId": "401906769120471549"
+        },
+        {
+          "period": 1,
+          "clock": "1:27",
+          "scores": [
+            "32",
+            "44"
+          ],
+          "rating": 36,
+          "probability": 0.931,
+          "playId": "401906769120471725"
+        },
+        {
+          "period": 1,
+          "clock": "1:27",
+          "scores": [
+            "32",
+            "44"
+          ],
+          "rating": 36,
+          "probability": 0.901,
+          "playId": "401906769120471867"
+        },
+        {
+          "period": 1,
+          "clock": "1:27",
+          "scores": [
+            "32",
+            "44"
+          ],
+          "rating": 35,
+          "probability": 0.913,
+          "playId": "401906769120472233"
+        },
+        {
+          "period": 1,
+          "clock": "1:27",
+          "scores": [
+            "32",
+            "44"
+          ],
+          "rating": 35,
+          "probability": 0.923,
+          "playId": "401906769120472329"
+        }
+      ]
+    },
+    {
+      "name": "army",
+      "id": "401909562",
+      "sourceCheckpoints": 109,
+      "exclusions": 0,
+      "states": [
+        {
+          "period": 1,
+          "clock": "20:00",
+          "scores": [
+            "0",
+            "0"
+          ],
+          "rating": 40,
+          "probability": 0.998,
+          "playId": "401909562120463685"
+        },
+        {
+          "period": 1,
+          "clock": "19:59",
+          "scores": [
+            "0",
+            "0"
+          ],
+          "rating": 40,
+          "probability": 0.998,
+          "playId": "401909562120463689"
+        },
+        {
+          "period": 1,
+          "clock": "19:59",
+          "scores": [
+            "0",
+            "0"
+          ],
+          "rating": 40,
+          "probability": 0.997,
+          "playId": "401909562120463691"
+        },
+        {
+          "period": 1,
+          "clock": "19:55",
+          "scores": [
+            "0",
+            "2"
+          ],
+          "rating": 41,
+          "probability": 0.998,
+          "playId": "401909562120463693"
+        },
+        {
+          "period": 1,
+          "clock": "19:26",
+          "scores": [
+            "0",
+            "2"
+          ],
+          "rating": 41,
+          "probability": 0.998,
+          "playId": "401909562120463898"
+        },
+        {
+          "period": 1,
+          "clock": "19:23",
+          "scores": [
+            "0",
+            "2"
+          ],
+          "rating": 41,
+          "probability": 0.998,
+          "playId": "401909562120463927"
+        },
+        {
+          "period": 1,
+          "clock": "19:11",
+          "scores": [
+            "0",
+            "2"
+          ],
+          "rating": 45,
+          "probability": 0.998,
+          "playId": "401909562120464127"
+        },
+        {
+          "period": 1,
+          "clock": "18:59",
+          "scores": [
+            "0",
+            "4"
+          ],
+          "rating": 45,
+          "probability": 0.998,
+          "playId": "401909562120464354"
+        },
+        {
+          "period": 1,
+          "clock": "18:48",
+          "scores": [
+            "0",
+            "4"
+          ],
+          "rating": 44,
+          "probability": 0.998,
+          "playId": "401909562120464388"
+        },
+        {
+          "period": 1,
+          "clock": "18:45",
+          "scores": [
+            "0",
+            "4"
+          ],
+          "rating": 43,
+          "probability": 0.998,
+          "playId": "401909562120464389"
+        },
+        {
+          "period": 1,
+          "clock": "18:29",
+          "scores": [
+            "0",
+            "6"
+          ],
+          "rating": 43,
+          "probability": 0.999,
+          "playId": "401909562120464575"
+        },
+        {
+          "period": 1,
+          "clock": "17:58",
+          "scores": [
+            "0",
+            "6"
+          ],
+          "rating": 42,
+          "probability": 0.999,
+          "playId": "401909562120464809"
+        },
+        {
+          "period": 1,
+          "clock": "17:55",
+          "scores": [
+            "0",
+            "6"
+          ],
+          "rating": 42,
+          "probability": 0.999,
+          "playId": "401909562120464883"
+        },
+        {
+          "period": 1,
+          "clock": "17:51",
+          "scores": [
+            "0",
+            "8"
+          ],
+          "rating": 42,
+          "probability": 0.999,
+          "playId": "401909562120464884"
+        },
+        {
+          "period": 1,
+          "clock": "17:40",
+          "scores": [
+            "0",
+            "8"
+          ],
+          "rating": 45,
+          "probability": 0.999,
+          "playId": "401909562120464955"
+        },
+        {
+          "period": 1,
+          "clock": "17:40",
+          "scores": [
+            "0",
+            "8"
+          ],
+          "rating": 44,
+          "probability": 0.999,
+          "playId": "401909562120464956"
+        },
+        {
+          "period": 1,
+          "clock": "17:36",
+          "scores": [
+            "0",
+            "10"
+          ],
+          "rating": 49,
+          "probability": 0.999,
+          "playId": "401909562120464957"
+        },
+        {
+          "period": 1,
+          "clock": "17:33",
+          "scores": [
+            "0",
+            "10"
+          ],
+          "rating": 48,
+          "probability": 0.999,
+          "playId": "401909562120465085"
+        },
+        {
+          "period": 1,
+          "clock": "17:02",
+          "scores": [
+            "0",
+            "10"
+          ],
+          "rating": 47,
+          "probability": 0.999,
+          "playId": "401909562120465688"
+        },
+        {
+          "period": 1,
+          "clock": "17:02",
+          "scores": [
+            "0",
+            "10"
+          ],
+          "rating": 46,
+          "probability": 0.999,
+          "playId": "401909562120465689"
+        },
+        {
+          "period": 1,
+          "clock": "17:01",
+          "scores": [
+            "0",
+            "10"
+          ],
+          "rating": 45,
+          "probability": 0.999,
+          "playId": "401909562120465690"
+        },
+        {
+          "period": 1,
+          "clock": "17:01",
+          "scores": [
+            "0",
+            "10"
+          ],
+          "rating": 48,
+          "probability": 0.999,
+          "playId": "401909562120465691"
+        },
+        {
+          "period": 1,
+          "clock": "17:01",
+          "scores": [
+            "0",
+            "10"
+          ],
+          "rating": 48,
+          "probability": 0.999,
+          "playId": "401909562120465796"
+        },
+        {
+          "period": 1,
+          "clock": "16:53",
+          "scores": [
+            "0",
+            "10"
+          ],
+          "rating": 49,
+          "probability": 0.999,
+          "playId": "401909562120465824"
+        },
+        {
+          "period": 1,
+          "clock": "16:53",
+          "scores": [
+            "0",
+            "10"
+          ],
+          "rating": 48,
+          "probability": 0.999,
+          "playId": "401909562120465826"
+        },
+        {
+          "period": 1,
+          "clock": "16:32",
+          "scores": [
+            "0",
+            "10"
+          ],
+          "rating": 47,
+          "probability": 0.999,
+          "playId": "401909562120465979"
+        },
+        {
+          "period": 1,
+          "clock": "16:28",
+          "scores": [
+            "0",
+            "10"
+          ],
+          "rating": 46,
+          "probability": 0.999,
+          "playId": "401909562120465980"
+        },
+        {
+          "period": 1,
+          "clock": "16:09",
+          "scores": [
+            "0",
+            "12"
+          ],
+          "rating": 47,
+          "probability": 0.999,
+          "playId": "401909562120466165"
+        },
+        {
+          "period": 1,
+          "clock": "15:58",
+          "scores": [
+            "0",
+            "12"
+          ],
+          "rating": 46,
+          "probability": 0.999,
+          "playId": "401909562120466124"
+        },
+        {
+          "period": 1,
+          "clock": "15:58",
+          "scores": [
+            "0",
+            "12"
+          ],
+          "rating": 45,
+          "probability": 0.999,
+          "playId": "401909562120466248"
+        },
+        {
+          "period": 1,
+          "clock": "15:58",
+          "scores": [
+            "0",
+            "12"
+          ],
+          "rating": 45,
+          "probability": 0.999,
+          "playId": "401909562120467396"
+        },
+        {
+          "period": 1,
+          "clock": "15:37",
+          "scores": [
+            "0",
+            "12"
+          ],
+          "rating": 44,
+          "probability": 0.999,
+          "playId": "401909562120467970"
+        },
+        {
+          "period": 1,
+          "clock": "15:35",
+          "scores": [
+            "0",
+            "12"
+          ],
+          "rating": 44,
+          "probability": 0.999,
+          "playId": "401909562120467972"
+        },
+        {
+          "period": 1,
+          "clock": "15:34",
+          "scores": [
+            "0",
+            "12"
+          ],
+          "rating": 44,
+          "probability": 0.999,
+          "playId": "401909562120468045"
+        },
+        {
+          "period": 1,
+          "clock": "15:34",
+          "scores": [
+            "1",
+            "12"
+          ],
+          "rating": 41,
+          "probability": 0.999,
+          "playId": "401909562120468195"
+        },
+        {
+          "period": 1,
+          "clock": "15:34",
+          "scores": [
+            "1",
+            "12"
+          ],
+          "rating": 41,
+          "probability": 0.999,
+          "playId": "401909562120468276"
+        },
+        {
+          "period": 1,
+          "clock": "15:34",
+          "scores": [
+            "2",
+            "12"
+          ],
+          "rating": 42,
+          "probability": 0.999,
+          "playId": "401909562120468343"
+        },
+        {
+          "period": 1,
+          "clock": "15:19",
+          "scores": [
+            "2",
+            "14"
+          ],
+          "rating": 42,
+          "probability": 0.999,
+          "playId": "401909562120468514"
+        },
+        {
+          "period": 1,
+          "clock": "14:52",
+          "scores": [
+            "2",
+            "14"
+          ],
+          "rating": 46,
+          "probability": 0.999,
+          "playId": "401909562120468683"
+        },
+        {
+          "period": 1,
+          "clock": "14:52",
+          "scores": [
+            "2",
+            "14"
+          ],
+          "rating": 45,
+          "probability": 0.999,
+          "playId": "401909562120468685"
+        },
+        {
+          "period": 1,
+          "clock": "14:44",
+          "scores": [
+            "2",
+            "14"
+          ],
+          "rating": 44,
+          "probability": 0.999,
+          "playId": "401909562120468900"
+        },
+        {
+          "period": 1,
+          "clock": "14:41",
+          "scores": [
+            "2",
+            "14"
+          ],
+          "rating": 43,
+          "probability": 0.999,
+          "playId": "401909562120468901"
+        },
+        {
+          "period": 1,
+          "clock": "14:29",
+          "scores": [
+            "2",
+            "16"
+          ],
+          "rating": 42,
+          "probability": 0.999,
+          "playId": "401909562120468950"
+        },
+        {
+          "period": 1,
+          "clock": "14:11",
+          "scores": [
+            "4",
+            "16"
+          ],
+          "rating": 43,
+          "probability": 0.999,
+          "playId": "401909562120469124"
+        },
+        {
+          "period": 1,
+          "clock": "13:59",
+          "scores": [
+            "4",
+            "16"
+          ],
+          "rating": 42,
+          "probability": 0.999,
+          "playId": "401909562120469153"
+        },
+        {
+          "period": 1,
+          "clock": "13:56",
+          "scores": [
+            "4",
+            "16"
+          ],
+          "rating": 41,
+          "probability": 0.999,
+          "playId": "401909562120469215"
+        },
+        {
+          "period": 1,
+          "clock": "13:38",
+          "scores": [
+            "4",
+            "16"
+          ],
+          "rating": 45,
+          "probability": 0.999,
+          "playId": "401909562120469262"
+        },
+        {
+          "period": 1,
+          "clock": "13:38",
+          "scores": [
+            "4",
+            "16"
+          ],
+          "rating": 44,
+          "probability": 0.999,
+          "playId": "401909562120469357"
+        },
+        {
+          "period": 1,
+          "clock": "13:29",
+          "scores": [
+            "4",
+            "16"
+          ],
+          "rating": 43,
+          "probability": 0.999,
+          "playId": "401909562120469360"
+        },
+        {
+          "period": 1,
+          "clock": "13:26",
+          "scores": [
+            "4",
+            "16"
+          ],
+          "rating": 41,
+          "probability": 0.999,
+          "playId": "401909562120469391"
+        },
+        {
+          "period": 1,
+          "clock": "13:15",
+          "scores": [
+            "4",
+            "16"
+          ],
+          "rating": 41,
+          "probability": 0.999,
+          "playId": "401909562120469455"
+        },
+        {
+          "period": 1,
+          "clock": "13:11",
+          "scores": [
+            "4",
+            "16"
+          ],
+          "rating": 40,
+          "probability": 0.999,
+          "playId": "401909562120469459"
+        },
+        {
+          "period": 1,
+          "clock": "13:01",
+          "scores": [
+            "4",
+            "16"
+          ],
+          "rating": 40,
+          "probability": 0.999,
+          "playId": "401909562120469571"
+        },
+        {
+          "period": 1,
+          "clock": "13:01",
+          "scores": [
+            "4",
+            "16"
+          ],
+          "rating": 43,
+          "probability": 0.999,
+          "playId": "401909562120469573"
+        },
+        {
+          "period": 1,
+          "clock": "13:01",
+          "scores": [
+            "4",
+            "16"
+          ],
+          "rating": 42,
+          "probability": 0.999,
+          "playId": "401909562120469720"
+        },
+        {
+          "period": 1,
+          "clock": "12:40",
+          "scores": [
+            "4",
+            "16"
+          ],
+          "rating": 39,
+          "probability": 0.999,
+          "playId": "401909562120469826"
+        },
+        {
+          "period": 1,
+          "clock": "12:37",
+          "scores": [
+            "4",
+            "16"
+          ],
+          "rating": 39,
+          "probability": 0.999,
+          "playId": "401909562120469828"
+        },
+        {
+          "period": 1,
+          "clock": "12:32",
+          "scores": [
+            "4",
+            "16"
+          ],
+          "rating": 39,
+          "probability": 0.999,
+          "playId": "401909562120469928"
+        },
+        {
+          "period": 1,
+          "clock": "12:32",
+          "scores": [
+            "4",
+            "17"
+          ],
+          "rating": 40,
+          "probability": 0.999,
+          "playId": "401909562120470042"
+        },
+        {
+          "period": 1,
+          "clock": "12:32",
+          "scores": [
+            "4",
+            "17"
+          ],
+          "rating": 40,
+          "probability": 0.999,
+          "playId": "401909562120470045"
+        },
+        {
+          "period": 1,
+          "clock": "12:32",
+          "scores": [
+            "4",
+            "18"
+          ],
+          "rating": 40,
+          "probability": 0.999,
+          "playId": "401909562120470120"
+        },
+        {
+          "period": 1,
+          "clock": "12:32",
+          "scores": [
+            "4",
+            "18"
+          ],
+          "rating": 40,
+          "probability": 0.999,
+          "playId": "401909562120470170"
+        },
+        {
+          "period": 1,
+          "clock": "12:14",
+          "scores": [
+            "4",
+            "18"
+          ],
+          "rating": 40,
+          "probability": 0.999,
+          "playId": "401909562120470304"
+        },
+        {
+          "period": 1,
+          "clock": "12:11",
+          "scores": [
+            "4",
+            "18"
+          ],
+          "rating": 39,
+          "probability": 0.999,
+          "playId": "401909562120470305"
+        },
+        {
+          "period": 1,
+          "clock": "12:08",
+          "scores": [
+            "4",
+            "18"
+          ],
+          "rating": 39,
+          "probability": 0.999,
+          "playId": "401909562120470377"
+        },
+        {
+          "period": 1,
+          "clock": "12:06",
+          "scores": [
+            "4",
+            "18"
+          ],
+          "rating": 39,
+          "probability": 0.999,
+          "playId": "401909562120470471"
+        },
+        {
+          "period": 1,
+          "clock": "12:02",
+          "scores": [
+            "4",
+            "18"
+          ],
+          "rating": 39,
+          "probability": 0.999,
+          "playId": "401909562120470472"
+        },
+        {
+          "period": 1,
+          "clock": "11:50",
+          "scores": [
+            "4",
+            "18"
+          ],
+          "rating": 39,
+          "probability": 0.999,
+          "playId": "401909562120470529"
+        },
+        {
+          "period": 1,
+          "clock": "11:48",
+          "scores": [
+            "4",
+            "18"
+          ],
+          "rating": 39,
+          "probability": 0.999,
+          "playId": "401909562120470530"
+        },
+        {
+          "period": 1,
+          "clock": "11:46",
+          "scores": [
+            "6",
+            "18"
+          ],
+          "rating": 40,
+          "probability": 0.999,
+          "playId": "401909562120470539"
+        },
+        {
+          "period": 1,
+          "clock": "11:30",
+          "scores": [
+            "6",
+            "18"
+          ],
+          "rating": 44,
+          "probability": 0.999,
+          "playId": "401909562120470586"
+        },
+        {
+          "period": 1,
+          "clock": "11:30",
+          "scores": [
+            "6",
+            "18"
+          ],
+          "rating": 43,
+          "probability": 0.999,
+          "playId": "401909562120470595"
+        },
+        {
+          "period": 1,
+          "clock": "11:30",
+          "scores": [
+            "6",
+            "18"
+          ],
+          "rating": 42,
+          "probability": 0.999,
+          "playId": "401909562120471405"
+        },
+        {
+          "period": 1,
+          "clock": "11:14",
+          "scores": [
+            "6",
+            "18"
+          ],
+          "rating": 39,
+          "probability": 0.999,
+          "playId": "401909562120471499"
+        },
+        {
+          "period": 1,
+          "clock": "11:11",
+          "scores": [
+            "6",
+            "18"
+          ],
+          "rating": 39,
+          "probability": 0.999,
+          "playId": "401909562120471503"
+        },
+        {
+          "period": 1,
+          "clock": "11:11",
+          "scores": [
+            "6",
+            "18"
+          ],
+          "rating": 39,
+          "probability": 0.999,
+          "playId": "401909562120471508"
+        },
+        {
+          "period": 1,
+          "clock": "11:01",
+          "scores": [
+            "6",
+            "18"
+          ],
+          "rating": 39,
+          "probability": 0.999,
+          "playId": "401909562120471515"
+        },
+        {
+          "period": 1,
+          "clock": "10:57",
+          "scores": [
+            "6",
+            "18"
+          ],
+          "rating": 39,
+          "probability": 0.999,
+          "playId": "401909562120471623"
+        },
+        {
+          "period": 1,
+          "clock": "10:45",
+          "scores": [
+            "9",
+            "18"
+          ],
+          "rating": 41,
+          "probability": 0.999,
+          "playId": "401909562120471636"
+        },
+        {
+          "period": 1,
+          "clock": "10:32",
+          "scores": [
+            "9",
+            "18"
+          ],
+          "rating": 41,
+          "probability": 0.998,
+          "playId": "401909562120471656"
+        },
+        {
+          "period": 1,
+          "clock": "10:28",
+          "scores": [
+            "9",
+            "18"
+          ],
+          "rating": 41,
+          "probability": 0.998,
+          "playId": "401909562120471670"
+        },
+        {
+          "period": 1,
+          "clock": "10:19",
+          "scores": [
+            "9",
+            "18"
+          ],
+          "rating": 41,
+          "probability": 0.998,
+          "playId": "401909562120471675"
+        },
+        {
+          "period": 1,
+          "clock": "10:17",
+          "scores": [
+            "9",
+            "18"
+          ],
+          "rating": 40,
+          "probability": 0.998,
+          "playId": "401909562120471676"
+        },
+        {
+          "period": 1,
+          "clock": "10:15",
+          "scores": [
+            "9",
+            "18"
+          ],
+          "rating": 44,
+          "probability": 0.999,
+          "playId": "401909562120471677"
+        },
+        {
+          "period": 1,
+          "clock": "10:15",
+          "scores": [
+            "9",
+            "18"
+          ],
+          "rating": 44,
+          "probability": 0.998,
+          "playId": "401909562120471753"
+        },
+        {
+          "period": 1,
+          "clock": "9:55",
+          "scores": [
+            "9",
+            "18"
+          ],
+          "rating": 40,
+          "probability": 0.998,
+          "playId": "401909562120471907"
+        },
+        {
+          "period": 1,
+          "clock": "9:52",
+          "scores": [
+            "9",
+            "18"
+          ],
+          "rating": 40,
+          "probability": 0.998,
+          "playId": "401909562120471908"
+        },
+        {
+          "period": 1,
+          "clock": "9:51",
+          "scores": [
+            "9",
+            "20"
+          ],
+          "rating": 39,
+          "probability": 0.999,
+          "playId": "401909562120471910"
+        },
+        {
+          "period": 1,
+          "clock": "9:29",
+          "scores": [
+            "9",
+            "20"
+          ],
+          "rating": 38,
+          "probability": 0.999,
+          "playId": "401909562120471965"
+        },
+        {
+          "period": 1,
+          "clock": "9:26",
+          "scores": [
+            "9",
+            "20"
+          ],
+          "rating": 38,
+          "probability": 0.999,
+          "playId": "401909562120471967"
+        },
+        {
+          "period": 1,
+          "clock": "9:23",
+          "scores": [
+            "9",
+            "20"
+          ],
+          "rating": 38,
+          "probability": 0.999,
+          "playId": "401909562120472027"
+        },
+        {
+          "period": 1,
+          "clock": "9:23",
+          "scores": [
+            "9",
+            "21"
+          ],
+          "rating": 38,
+          "probability": 0.999,
+          "playId": "401909562120472094"
+        },
+        {
+          "period": 1,
+          "clock": "9:23",
+          "scores": [
+            "9",
+            "21"
+          ],
+          "rating": 38,
+          "probability": 0.999,
+          "playId": "401909562120472095"
+        },
+        {
+          "period": 1,
+          "clock": "9:23",
+          "scores": [
+            "9",
+            "22"
+          ],
+          "rating": 38,
+          "probability": 0.999,
+          "playId": "401909562120472201"
+        },
+        {
+          "period": 1,
+          "clock": "8:58",
+          "scores": [
+            "11",
+            "22"
+          ],
+          "rating": 39,
+          "probability": 0.999,
+          "playId": "401909562120472253"
+        },
+        {
+          "period": 1,
+          "clock": "8:50",
+          "scores": [
+            "11",
+            "22"
+          ],
+          "rating": 39,
+          "probability": 0.999,
+          "playId": "401909562120472293"
+        },
+        {
+          "period": 1,
+          "clock": "8:50",
+          "scores": [
+            "11",
+            "22"
+          ],
+          "rating": 38,
+          "probability": 0.999,
+          "playId": "401909562120472396"
+        },
+        {
+          "period": 1,
+          "clock": "8:50",
+          "scores": [
+            "11",
+            "22"
+          ],
+          "rating": 38,
+          "probability": 0.999,
+          "playId": "401909562120472397"
+        },
+        {
+          "period": 1,
+          "clock": "8:50",
+          "scores": [
+            "11",
+            "22"
+          ],
+          "rating": 38,
+          "probability": 0.999,
+          "playId": "401909562120472443"
+        },
+        {
+          "period": 1,
+          "clock": "8:48",
+          "scores": [
+            "11",
+            "22"
+          ],
+          "rating": 38,
+          "probability": 0.999,
+          "playId": "401909562120472444"
+        },
+        {
+          "period": 1,
+          "clock": "8:41",
+          "scores": [
+            "11",
+            "22"
+          ],
+          "rating": 42,
+          "probability": 0.999,
+          "playId": "401909562120472480"
+        },
+        {
+          "period": 1,
+          "clock": "8:41",
+          "scores": [
+            "11",
+            "22"
+          ],
+          "rating": 41,
+          "probability": 0.999,
+          "playId": "401909562120472481"
+        },
+        {
+          "period": 1,
+          "clock": "8:35",
+          "scores": [
+            "11",
+            "22"
+          ],
+          "rating": 41,
+          "probability": 0.999,
+          "playId": "401909562120472493"
+        },
+        {
+          "period": 1,
+          "clock": "8:35",
+          "scores": [
+            "11",
+            "22"
+          ],
+          "rating": 44,
+          "probability": 0.999,
+          "playId": "401909562120472495"
+        },
+        {
+          "period": 1,
+          "clock": "8:14",
+          "scores": [
+            "11",
+            "22"
+          ],
+          "rating": 42,
+          "probability": 0.999,
+          "playId": "401909562120472600"
+        },
+        {
+          "period": 1,
+          "clock": "8:11",
+          "scores": [
+            "11",
+            "22"
+          ],
+          "rating": 41,
+          "probability": 0.999,
+          "playId": "401909562120472601"
+        },
+        {
+          "period": 1,
+          "clock": "8:11",
+          "scores": [
+            "11",
+            "22"
+          ],
+          "rating": 40,
+          "probability": 0.999,
+          "playId": "401909562120472608"
+        },
+        {
+          "period": 1,
+          "clock": "7:57",
+          "scores": [
+            "11",
+            "22"
+          ],
+          "rating": 38,
+          "probability": 0.999,
+          "playId": "401909562120472738"
+        },
+        {
+          "period": 1,
+          "clock": "7:57",
+          "scores": [
+            "11",
+            "22"
+          ],
+          "rating": 38,
+          "probability": 0.999,
+          "playId": "401909562120472741"
+        }
+      ]
+    },
+    {
+      "name": "oakland",
+      "id": "401925733",
+      "sourceCheckpoints": 186,
+      "exclusions": 4,
+      "states": [
+        {
+          "period": 1,
+          "clock": "20:00",
+          "scores": [
+            "0",
+            "0"
+          ],
+          "rating": 39,
+          "probability": 0.967,
+          "playId": "401925733120454132"
+        },
+        {
+          "period": 1,
+          "clock": "19:59",
+          "scores": [
+            "0",
+            "0"
+          ],
+          "rating": 39,
+          "probability": 0.968,
+          "playId": "401925733120454133"
+        },
+        {
+          "period": 1,
+          "clock": "19:59",
+          "scores": [
+            "0",
+            "0"
+          ],
+          "rating": 39,
+          "probability": 0.965,
+          "playId": "401925733120454134"
+        },
+        {
+          "period": 1,
+          "clock": "19:41",
+          "scores": [
+            "0",
+            "0"
+          ],
+          "rating": 39,
+          "probability": 0.968,
+          "playId": "401925733120454218"
+        },
+        {
+          "period": 1,
+          "clock": "19:41",
+          "scores": [
+            "0",
+            "1"
+          ],
+          "rating": 40,
+          "probability": 0.971,
+          "playId": "401925733120454248"
+        },
+        {
+          "period": 1,
+          "clock": "19:41",
+          "scores": [
+            "0",
+            "2"
+          ],
+          "rating": 41,
+          "probability": 0.971,
+          "playId": "401925733120454321"
+        },
+        {
+          "period": 1,
+          "clock": "19:19",
+          "scores": [
+            "3",
+            "2"
+          ],
+          "rating": 42,
+          "probability": 0.964,
+          "playId": "401925733120454359"
+        },
+        {
+          "period": 1,
+          "clock": "19:05",
+          "scores": [
+            "3",
+            "2"
+          ],
+          "rating": 41,
+          "probability": 0.964,
+          "playId": "401925733120454491"
+        },
+        {
+          "period": 1,
+          "clock": "18:55",
+          "scores": [
+            "3",
+            "4"
+          ],
+          "rating": 42,
+          "probability": 0.967,
+          "playId": "401925733120454611"
+        },
+        {
+          "period": 1,
+          "clock": "18:30",
+          "scores": [
+            "5",
+            "4"
+          ],
+          "rating": 42,
+          "probability": 0.963,
+          "playId": "401925733120454798"
+        },
+        {
+          "period": 1,
+          "clock": "18:22",
+          "scores": [
+            "5",
+            "4"
+          ],
+          "rating": 41,
+          "probability": 0.96,
+          "playId": "401925733120454831"
+        },
+        {
+          "period": 1,
+          "clock": "18:17",
+          "scores": [
+            "5",
+            "4"
+          ],
+          "rating": 41,
+          "probability": 0.963,
+          "playId": "401925733120454832"
+        },
+        {
+          "period": 1,
+          "clock": "18:16",
+          "scores": [
+            "5",
+            "6"
+          ],
+          "rating": 41,
+          "probability": 0.967,
+          "playId": "401925733120454833"
+        },
+        {
+          "period": 1,
+          "clock": "17:58",
+          "scores": [
+            "5",
+            "6"
+          ],
+          "rating": 45,
+          "probability": 0.969,
+          "playId": "401925733120454874"
+        },
+        {
+          "period": 1,
+          "clock": "17:58",
+          "scores": [
+            "5",
+            "6"
+          ],
+          "rating": 44,
+          "probability": 0.969,
+          "playId": "401925733120454876"
+        },
+        {
+          "period": 1,
+          "clock": "17:50",
+          "scores": [
+            "5",
+            "6"
+          ],
+          "rating": 43,
+          "probability": 0.967,
+          "playId": "401925733120454899"
+        },
+        {
+          "period": 1,
+          "clock": "17:48",
+          "scores": [
+            "5",
+            "6"
+          ],
+          "rating": 42,
+          "probability": 0.966,
+          "playId": "401925733120454901"
+        },
+        {
+          "period": 1,
+          "clock": "17:39",
+          "scores": [
+            "5",
+            "6"
+          ],
+          "rating": 42,
+          "probability": 0.968,
+          "playId": "401925733120454935"
+        },
+        {
+          "period": 1,
+          "clock": "17:36",
+          "scores": [
+            "5",
+            "6"
+          ],
+          "rating": 41,
+          "probability": 0.966,
+          "playId": "401925733120454936"
+        },
+        {
+          "period": 1,
+          "clock": "17:22",
+          "scores": [
+            "5",
+            "6"
+          ],
+          "rating": 41,
+          "probability": 0.968,
+          "playId": "401925733120454972"
+        },
+        {
+          "period": 1,
+          "clock": "17:19",
+          "scores": [
+            "5",
+            "6"
+          ],
+          "rating": 40,
+          "probability": 0.969,
+          "playId": "401925733120455143"
+        },
+        {
+          "period": 1,
+          "clock": "17:15",
+          "scores": [
+            "5",
+            "8"
+          ],
+          "rating": 41,
+          "probability": 0.973,
+          "playId": "401925733120455145"
+        },
+        {
+          "period": 1,
+          "clock": "16:48",
+          "scores": [
+            "5",
+            "8"
+          ],
+          "rating": 41,
+          "probability": 0.974,
+          "playId": "401925733120455261"
+        },
+        {
+          "period": 1,
+          "clock": "16:43",
+          "scores": [
+            "5",
+            "8"
+          ],
+          "rating": 41,
+          "probability": 0.975,
+          "playId": "401925733120455262"
+        },
+        {
+          "period": 1,
+          "clock": "16:37",
+          "scores": [
+            "5",
+            "8"
+          ],
+          "rating": 41,
+          "probability": 0.973,
+          "playId": "401925733120455415"
+        },
+        {
+          "period": 1,
+          "clock": "16:36",
+          "scores": [
+            "5",
+            "8"
+          ],
+          "rating": 40,
+          "probability": 0.975,
+          "playId": "401925733120455417"
+        },
+        {
+          "period": 1,
+          "clock": "16:36",
+          "scores": [
+            "5",
+            "8"
+          ],
+          "rating": 40,
+          "probability": 0.975,
+          "playId": "401925733120455449"
+        },
+        {
+          "period": 1,
+          "clock": "16:36",
+          "scores": [
+            "5",
+            "8"
+          ],
+          "rating": 40,
+          "probability": 0.972,
+          "playId": "401925733120455452"
+        },
+        {
+          "period": 1,
+          "clock": "16:27",
+          "scores": [
+            "5",
+            "8"
+          ],
+          "rating": 40,
+          "probability": 0.973,
+          "playId": "401925733120455546"
+        },
+        {
+          "period": 1,
+          "clock": "16:23",
+          "scores": [
+            "5",
+            "8"
+          ],
+          "rating": 40,
+          "probability": 0.972,
+          "playId": "401925733120455597"
+        },
+        {
+          "period": 1,
+          "clock": "15:59",
+          "scores": [
+            "5",
+            "8"
+          ],
+          "rating": 40,
+          "probability": 0.971,
+          "playId": "401925733120455685"
+        },
+        {
+          "period": 1,
+          "clock": "15:59",
+          "scores": [
+            "5",
+            "8"
+          ],
+          "rating": 40,
+          "probability": 0.971,
+          "playId": "401925733120455772"
+        },
+        {
+          "period": 1,
+          "clock": "15:59",
+          "scores": [
+            "5",
+            "8"
+          ],
+          "rating": 40,
+          "probability": 0.974,
+          "playId": "401925733120456597"
+        },
+        {
+          "period": 1,
+          "clock": "15:59",
+          "scores": [
+            "5",
+            "8"
+          ],
+          "rating": 40,
+          "probability": 0.971,
+          "playId": "401925733120456599"
+        },
+        {
+          "period": 1,
+          "clock": "15:51",
+          "scores": [
+            "5",
+            "8"
+          ],
+          "rating": 40,
+          "probability": 0.971,
+          "playId": "401925733120456886"
+        },
+        {
+          "period": 1,
+          "clock": "15:51",
+          "scores": [
+            "5",
+            "8"
+          ],
+          "rating": 40,
+          "probability": 0.974,
+          "playId": "401925733120456931"
+        },
+        {
+          "period": 1,
+          "clock": "15:33",
+          "scores": [
+            "5",
+            "8"
+          ],
+          "rating": 40,
+          "probability": 0.973,
+          "playId": "401925733120457009"
+        },
+        {
+          "period": 1,
+          "clock": "15:31",
+          "scores": [
+            "5",
+            "8"
+          ],
+          "rating": 40,
+          "probability": 0.973,
+          "playId": "401925733120457038"
+        },
+        {
+          "period": 1,
+          "clock": "15:21",
+          "scores": [
+            "5",
+            "10"
+          ],
+          "rating": 41,
+          "probability": 0.976,
+          "playId": "401925733120457091"
+        },
+        {
+          "period": 1,
+          "clock": "14:54",
+          "scores": [
+            "5",
+            "10"
+          ],
+          "rating": 41,
+          "probability": 0.976,
+          "playId": "401925733120457227"
+        },
+        {
+          "period": 1,
+          "clock": "14:54",
+          "scores": [
+            "5",
+            "10"
+          ],
+          "rating": 41,
+          "probability": 0.976,
+          "playId": "401925733120457372"
+        },
+        {
+          "period": 1,
+          "clock": "14:38",
+          "scores": [
+            "5",
+            "10"
+          ],
+          "rating": 40,
+          "probability": 0.977,
+          "playId": "401925733120457469"
+        },
+        {
+          "period": 1,
+          "clock": "14:35",
+          "scores": [
+            "5",
+            "10"
+          ],
+          "rating": 40,
+          "probability": 0.975,
+          "playId": "401925733120457470"
+        },
+        {
+          "period": 1,
+          "clock": "14:34",
+          "scores": [
+            "8",
+            "10"
+          ],
+          "rating": 42,
+          "probability": 0.969,
+          "playId": "401925733120457471"
+        },
+        {
+          "period": 1,
+          "clock": "14:20",
+          "scores": [
+            "8",
+            "13"
+          ],
+          "rating": 42,
+          "probability": 0.975,
+          "playId": "401925733120457501"
+        },
+        {
+          "period": 1,
+          "clock": "14:01",
+          "scores": [
+            "11",
+            "13"
+          ],
+          "rating": 43,
+          "probability": 0.968,
+          "playId": "401925733120457581"
+        },
+        {
+          "period": 1,
+          "clock": "13:36",
+          "scores": [
+            "11",
+            "13"
+          ],
+          "rating": 48,
+          "probability": 0.964,
+          "playId": "401925733120457645"
+        },
+        {
+          "period": 1,
+          "clock": "13:36",
+          "scores": [
+            "11",
+            "13"
+          ],
+          "rating": 47,
+          "probability": 0.964,
+          "playId": "401925733120457646"
+        },
+        {
+          "period": 1,
+          "clock": "13:32",
+          "scores": [
+            "11",
+            "13"
+          ],
+          "rating": 46,
+          "probability": 0.963,
+          "playId": "401925733120457666"
+        },
+        {
+          "period": 1,
+          "clock": "13:32",
+          "scores": [
+            "12",
+            "13"
+          ],
+          "rating": 46,
+          "probability": 0.959,
+          "playId": "401925733120457753"
+        },
+        {
+          "period": 1,
+          "clock": "13:32",
+          "scores": [
+            "12",
+            "13"
+          ],
+          "rating": 45,
+          "probability": 0.963,
+          "playId": "401925733120457754"
+        },
+        {
+          "period": 1,
+          "clock": "13:32",
+          "scores": [
+            "12",
+            "13"
+          ],
+          "rating": 43,
+          "probability": 0.958,
+          "playId": "401925733120457982"
+        },
+        {
+          "period": 1,
+          "clock": "13:31",
+          "scores": [
+            "12",
+            "13"
+          ],
+          "rating": 42,
+          "probability": 0.963,
+          "playId": "401925733120457983"
+        },
+        {
+          "period": 1,
+          "clock": "13:14",
+          "scores": [
+            "12",
+            "13"
+          ],
+          "rating": 42,
+          "probability": 0.959,
+          "playId": "401925733120458036"
+        },
+        {
+          "period": 1,
+          "clock": "13:10",
+          "scores": [
+            "12",
+            "13"
+          ],
+          "rating": 42,
+          "probability": 0.958,
+          "playId": "401925733120458111"
+        },
+        {
+          "period": 1,
+          "clock": "12:54",
+          "scores": [
+            "12",
+            "13"
+          ],
+          "rating": 42,
+          "probability": 0.957,
+          "playId": "401925733120458180"
+        },
+        {
+          "period": 1,
+          "clock": "12:54",
+          "scores": [
+            "13",
+            "13"
+          ],
+          "rating": 44,
+          "probability": 0.953,
+          "playId": "401925733120458310"
+        },
+        {
+          "period": 1,
+          "clock": "12:54",
+          "scores": [
+            "13",
+            "13"
+          ],
+          "rating": 44,
+          "probability": 0.957,
+          "playId": "401925733120458311"
+        },
+        {
+          "period": 1,
+          "clock": "12:54",
+          "scores": [
+            "14",
+            "13"
+          ],
+          "rating": 43,
+          "probability": 0.946,
+          "playId": "401925733120458408"
+        },
+        {
+          "period": 1,
+          "clock": "12:54",
+          "scores": [
+            "14",
+            "13"
+          ],
+          "rating": 43,
+          "probability": 0.946,
+          "playId": "401925733120458425"
+        },
+        {
+          "period": 1,
+          "clock": "12:17",
+          "scores": [
+            "16",
+            "13"
+          ],
+          "rating": 43,
+          "probability": 0.937,
+          "playId": "401925733120459273"
+        },
+        {
+          "period": 1,
+          "clock": "11:56",
+          "scores": [
+            "16",
+            "13"
+          ],
+          "rating": 43,
+          "probability": 0.93,
+          "playId": "401925733120459466"
+        },
+        {
+          "period": 1,
+          "clock": "11:53",
+          "scores": [
+            "16",
+            "13"
+          ],
+          "rating": 43,
+          "probability": 0.928,
+          "playId": "401925733120459467"
+        },
+        {
+          "period": 1,
+          "clock": "11:43",
+          "scores": [
+            "18",
+            "13"
+          ],
+          "rating": 46,
+          "probability": 0.917,
+          "playId": "401925733120459532"
+        },
+        {
+          "period": 1,
+          "clock": "11:37",
+          "scores": [
+            "18",
+            "13"
+          ],
+          "rating": 46,
+          "probability": 0.91,
+          "playId": "401925733120459533"
+        },
+        {
+          "period": 1,
+          "clock": "11:35",
+          "scores": [
+            "18",
+            "13"
+          ],
+          "rating": 46,
+          "probability": 0.917,
+          "playId": "401925733120459610"
+        },
+        {
+          "period": 1,
+          "clock": "11:35",
+          "scores": [
+            "18",
+            "13"
+          ],
+          "rating": 46,
+          "probability": 0.917,
+          "playId": "401925733120459628"
+        },
+        {
+          "period": 1,
+          "clock": "11:35",
+          "scores": [
+            "18",
+            "13"
+          ],
+          "rating": 45,
+          "probability": 0.917,
+          "playId": "401925733120460520"
+        },
+        {
+          "period": 1,
+          "clock": "11:35",
+          "scores": [
+            "18",
+            "13"
+          ],
+          "rating": 45,
+          "probability": 0.907,
+          "playId": "401925733120460528"
+        },
+        {
+          "period": 1,
+          "clock": "11:26",
+          "scores": [
+            "18",
+            "13"
+          ],
+          "rating": 45,
+          "probability": 0.909,
+          "playId": "401925733120460625"
+        },
+        {
+          "period": 1,
+          "clock": "11:23",
+          "scores": [
+            "18",
+            "13"
+          ],
+          "rating": 45,
+          "probability": 0.906,
+          "playId": "401925733120460626"
+        },
+        {
+          "period": 1,
+          "clock": "11:02",
+          "scores": [
+            "18",
+            "13"
+          ],
+          "rating": 46,
+          "probability": 0.912,
+          "playId": "401925733120460778"
+        },
+        {
+          "period": 1,
+          "clock": "10:59",
+          "scores": [
+            "18",
+            "13"
+          ],
+          "rating": 46,
+          "probability": 0.914,
+          "playId": "401925733120460780"
+        },
+        {
+          "period": 1,
+          "clock": "10:59",
+          "scores": [
+            "18",
+            "13"
+          ],
+          "rating": 46,
+          "probability": 0.916,
+          "playId": "401925733120460805"
+        },
+        {
+          "period": 1,
+          "clock": "10:38",
+          "scores": [
+            "18",
+            "15"
+          ],
+          "rating": 44,
+          "probability": 0.923,
+          "playId": "401925733120460865"
+        },
+        {
+          "period": 1,
+          "clock": "10:27",
+          "scores": [
+            "18",
+            "15"
+          ],
+          "rating": 48,
+          "probability": 0.931,
+          "playId": "401925733120460886"
+        },
+        {
+          "period": 1,
+          "clock": "10:27",
+          "scores": [
+            "18",
+            "15"
+          ],
+          "rating": 47,
+          "probability": 0.931,
+          "playId": "401925733120460967"
+        },
+        {
+          "period": 1,
+          "clock": "10:23",
+          "scores": [
+            "18",
+            "17"
+          ],
+          "rating": 48,
+          "probability": 0.94,
+          "playId": "401925733120460968"
+        },
+        {
+          "period": 1,
+          "clock": "9:59",
+          "scores": [
+            "18",
+            "17"
+          ],
+          "rating": 51,
+          "probability": 0.945,
+          "playId": "401925733120461072"
+        },
+        {
+          "period": 1,
+          "clock": "9:59",
+          "scores": [
+            "18",
+            "17"
+          ],
+          "rating": 49,
+          "probability": 0.945,
+          "playId": "401925733120461106"
+        },
+        {
+          "period": 1,
+          "clock": "9:59",
+          "scores": [
+            "18",
+            "17"
+          ],
+          "rating": 47,
+          "probability": 0.938,
+          "playId": "401925733120461108"
+        },
+        {
+          "period": 1,
+          "clock": "9:53",
+          "scores": [
+            "18",
+            "17"
+          ],
+          "rating": 45,
+          "probability": 0.938,
+          "playId": "401925733120461189"
+        },
+        {
+          "period": 1,
+          "clock": "9:43",
+          "scores": [
+            "18",
+            "17"
+          ],
+          "rating": 44,
+          "probability": 0.939,
+          "playId": "401925733120461211"
+        },
+        {
+          "period": 1,
+          "clock": "9:39",
+          "scores": [
+            "18",
+            "17"
+          ],
+          "rating": 44,
+          "probability": 0.944,
+          "playId": "401925733120461212"
+        },
+        {
+          "period": 1,
+          "clock": "9:38",
+          "scores": [
+            "18",
+            "17"
+          ],
+          "rating": 44,
+          "probability": 0.939,
+          "playId": "401925733120461213"
+        },
+        {
+          "period": 1,
+          "clock": "9:33",
+          "scores": [
+            "18",
+            "17"
+          ],
+          "rating": 44,
+          "probability": 0.937,
+          "playId": "401925733120461232"
+        },
+        {
+          "period": 1,
+          "clock": "9:33",
+          "scores": [
+            "18",
+            "17"
+          ],
+          "rating": 44,
+          "probability": 0.942,
+          "playId": "401925733120461233"
+        },
+        {
+          "period": 1,
+          "clock": "9:33",
+          "scores": [
+            "18",
+            "17"
+          ],
+          "rating": 44,
+          "probability": 0.942,
+          "playId": "401925733120461255"
+        },
+        {
+          "period": 1,
+          "clock": "9:33",
+          "scores": [
+            "18",
+            "17"
+          ],
+          "rating": 44,
+          "probability": 0.937,
+          "playId": "401925733120461256"
+        },
+        {
+          "period": 1,
+          "clock": "9:22",
+          "scores": [
+            "18",
+            "17"
+          ],
+          "rating": 43,
+          "probability": 0.942,
+          "playId": "401925733120461282"
+        },
+        {
+          "period": 1,
+          "clock": "9:19",
+          "scores": [
+            "18",
+            "17"
+          ],
+          "rating": 43,
+          "probability": 0.943,
+          "playId": "401925733120461283"
+        },
+        {
+          "period": 1,
+          "clock": "9:16",
+          "scores": [
+            "18",
+            "19"
+          ],
+          "rating": 43,
+          "probability": 0.95,
+          "playId": "401925733120461378"
+        },
+        {
+          "period": 1,
+          "clock": "8:53",
+          "scores": [
+            "18",
+            "19"
+          ],
+          "rating": 44,
+          "probability": 0.953,
+          "playId": "401925733120461424"
+        },
+        {
+          "period": 1,
+          "clock": "8:50",
+          "scores": [
+            "18",
+            "19"
+          ],
+          "rating": 44,
+          "probability": 0.954,
+          "playId": "401925733120461425"
+        },
+        {
+          "period": 1,
+          "clock": "8:41",
+          "scores": [
+            "18",
+            "19"
+          ],
+          "rating": 44,
+          "probability": 0.95,
+          "playId": "401925733120461563"
+        },
+        {
+          "period": 1,
+          "clock": "8:39",
+          "scores": [
+            "18",
+            "19"
+          ],
+          "rating": 44,
+          "probability": 0.954,
+          "playId": "401925733120461610"
+        },
+        {
+          "period": 1,
+          "clock": "8:39",
+          "scores": [
+            "18",
+            "19"
+          ],
+          "rating": 44,
+          "probability": 0.955,
+          "playId": "401925733120461612"
+        },
+        {
+          "period": 1,
+          "clock": "8:39",
+          "scores": [
+            "18",
+            "19"
+          ],
+          "rating": 44,
+          "probability": 0.949,
+          "playId": "401925733120461626"
+        },
+        {
+          "period": 1,
+          "clock": "8:34",
+          "scores": [
+            "18",
+            "19"
+          ],
+          "rating": 44,
+          "probability": 0.948,
+          "playId": "401925733120461657"
+        },
+        {
+          "period": 1,
+          "clock": "8:21",
+          "scores": [
+            "18",
+            "19"
+          ],
+          "rating": 44,
+          "probability": 0.949,
+          "playId": "401925733120462162"
+        },
+        {
+          "period": 1,
+          "clock": "8:18",
+          "scores": [
+            "18",
+            "19"
+          ],
+          "rating": 44,
+          "probability": 0.954,
+          "playId": "401925733120462163"
+        },
+        {
+          "period": 1,
+          "clock": "8:17",
+          "scores": [
+            "18",
+            "21"
+          ],
+          "rating": 43,
+          "probability": 0.96,
+          "playId": "401925733120462165"
+        },
+        {
+          "period": 1,
+          "clock": "7:54",
+          "scores": [
+            "18",
+            "21"
+          ],
+          "rating": 43,
+          "probability": 0.963,
+          "playId": "401925733120462226"
+        },
+        {
+          "period": 1,
+          "clock": "7:53",
+          "scores": [
+            "18",
+            "21"
+          ],
+          "rating": 43,
+          "probability": 0.959,
+          "playId": "401925733120462336"
+        },
+        {
+          "period": 1,
+          "clock": "7:53",
+          "scores": [
+            "18",
+            "21"
+          ],
+          "rating": 43,
+          "probability": 0.959,
+          "playId": "401925733120462360"
+        },
+        {
+          "period": 1,
+          "clock": "7:53",
+          "scores": [
+            "18",
+            "21"
+          ],
+          "rating": 43,
+          "probability": 0.964,
+          "playId": "401925733120463229"
+        },
+        {
+          "period": 1,
+          "clock": "7:53",
+          "scores": [
+            "18",
+            "21"
+          ],
+          "rating": 43,
+          "probability": 0.959,
+          "playId": "401925733120463232"
+        },
+        {
+          "period": 1,
+          "clock": "7:53",
+          "scores": [
+            "19",
+            "21"
+          ],
+          "rating": 44,
+          "probability": 0.953,
+          "playId": "401925733120463332"
+        },
+        {
+          "period": 1,
+          "clock": "7:53",
+          "scores": [
+            "19",
+            "21"
+          ],
+          "rating": 44,
+          "probability": 0.958,
+          "playId": "401925733120463475"
+        },
+        {
+          "period": 1,
+          "clock": "7:52",
+          "scores": [
+            "19",
+            "21"
+          ],
+          "rating": 44,
+          "probability": 0.953,
+          "playId": "401925733120462227"
+        },
+        {
+          "period": 1,
+          "clock": "7:52",
+          "scores": [
+            "19",
+            "21"
+          ],
+          "rating": 44,
+          "probability": 0.958,
+          "playId": "401925733120463477"
+        },
+        {
+          "period": 1,
+          "clock": "7:40",
+          "scores": [
+            "19",
+            "24"
+          ],
+          "rating": 41,
+          "probability": 0.968,
+          "playId": "401925733120463506"
+        },
+        {
+          "period": 1,
+          "clock": "7:08",
+          "scores": [
+            "19",
+            "24"
+          ],
+          "rating": 41,
+          "probability": 0.97,
+          "playId": "401925733120463763"
+        },
+        {
+          "period": 1,
+          "clock": "7:05",
+          "scores": [
+            "19",
+            "24"
+          ],
+          "rating": 41,
+          "probability": 0.971,
+          "playId": "401925733120463791"
+        },
+        {
+          "period": 1,
+          "clock": "6:52",
+          "scores": [
+            "19",
+            "24"
+          ],
+          "rating": 40,
+          "probability": 0.968,
+          "playId": "401925733120463865"
+        },
+        {
+          "period": 1,
+          "clock": "6:48",
+          "scores": [
+            "19",
+            "24"
+          ],
+          "rating": 39,
+          "probability": 0.971,
+          "playId": "401925733120463866"
+        },
+        {
+          "period": 1,
+          "clock": "6:45",
+          "scores": [
+            "19",
+            "26"
+          ],
+          "rating": 39,
+          "probability": 0.975,
+          "playId": "401925733120463942"
+        },
+        {
+          "period": 1,
+          "clock": "6:45",
+          "scores": [
+            "19",
+            "26"
+          ],
+          "rating": 39,
+          "probability": 0.978,
+          "playId": "401925733120463972"
+        },
+        {
+          "period": 1,
+          "clock": "6:45",
+          "scores": [
+            "19",
+            "26"
+          ],
+          "rating": 39,
+          "probability": 0.978,
+          "playId": "401925733120463985"
+        },
+        {
+          "period": 1,
+          "clock": "6:45",
+          "scores": [
+            "19",
+            "26"
+          ],
+          "rating": 38,
+          "probability": 0.975,
+          "playId": "401925733120463987"
+        },
+        {
+          "period": 1,
+          "clock": "6:45",
+          "scores": [
+            "19",
+            "27"
+          ],
+          "rating": 38,
+          "probability": 0.981,
+          "playId": "401925733120464227"
+        },
+        {
+          "period": 1,
+          "clock": "6:36",
+          "scores": [
+            "19",
+            "27"
+          ],
+          "rating": 38,
+          "probability": 0.98,
+          "playId": "401925733120464317"
+        },
+        {
+          "period": 1,
+          "clock": "6:35",
+          "scores": [
+            "19",
+            "27"
+          ],
+          "rating": 38,
+          "probability": 0.981,
+          "playId": "401925733120464318"
+        },
+        {
+          "period": 1,
+          "clock": "6:22",
+          "scores": [
+            "19",
+            "29"
+          ],
+          "rating": 37,
+          "probability": 0.984,
+          "playId": "401925733120464500"
+        },
+        {
+          "period": 1,
+          "clock": "5:53",
+          "scores": [
+            "21",
+            "29"
+          ],
+          "rating": 38,
+          "probability": 0.98,
+          "playId": "401925733120464695"
+        },
+        {
+          "period": 1,
+          "clock": "5:53",
+          "scores": [
+            "21",
+            "29"
+          ],
+          "rating": 38,
+          "probability": 0.978,
+          "playId": "401925733120464780"
+        },
+        {
+          "period": 1,
+          "clock": "5:53",
+          "scores": [
+            "22",
+            "29"
+          ],
+          "rating": 39,
+          "probability": 0.977,
+          "playId": "401925733120464961"
+        },
+        {
+          "period": 1,
+          "clock": "5:44",
+          "scores": [
+            "22",
+            "29"
+          ],
+          "rating": 38,
+          "probability": 0.979,
+          "playId": "401925733120465159"
+        },
+        {
+          "period": 1,
+          "clock": "5:44",
+          "scores": [
+            "22",
+            "29"
+          ],
+          "rating": 38,
+          "probability": 0.977,
+          "playId": "401925733120465216"
+        },
+        {
+          "period": 1,
+          "clock": "5:44",
+          "scores": [
+            "22",
+            "29"
+          ],
+          "rating": 38,
+          "probability": 0.977,
+          "playId": "401925733120465218"
+        },
+        {
+          "period": 1,
+          "clock": "5:44",
+          "scores": [
+            "22",
+            "29"
+          ],
+          "rating": 38,
+          "probability": 0.974,
+          "playId": "401925733120465280"
+        },
+        {
+          "period": 1,
+          "clock": "5:44",
+          "scores": [
+            "22",
+            "30"
+          ],
+          "rating": 37,
+          "probability": 0.98,
+          "playId": "401925733120465313"
+        },
+        {
+          "period": 1,
+          "clock": "5:44",
+          "scores": [
+            "22",
+            "30"
+          ],
+          "rating": 37,
+          "probability": 0.98,
+          "playId": "401925733120465446"
+        },
+        {
+          "period": 1,
+          "clock": "5:41",
+          "scores": [
+            "22",
+            "30"
+          ],
+          "rating": 41,
+          "probability": 0.98,
+          "playId": "401925733120465496"
+        },
+        {
+          "period": 1,
+          "clock": "5:41",
+          "scores": [
+            "22",
+            "30"
+          ],
+          "rating": 40,
+          "probability": 0.98,
+          "playId": "401925733120465497"
+        },
+        {
+          "period": 1,
+          "clock": "5:36",
+          "scores": [
+            "22",
+            "32"
+          ],
+          "rating": 39,
+          "probability": 0.983,
+          "playId": "401925733120465535"
+        },
+        {
+          "period": 1,
+          "clock": "5:17",
+          "scores": [
+            "22",
+            "32"
+          ],
+          "rating": 38,
+          "probability": 0.985,
+          "playId": "401925733120465702"
+        },
+        {
+          "period": 1,
+          "clock": "5:04",
+          "scores": [
+            "25",
+            "32"
+          ],
+          "rating": 39,
+          "probability": 0.977,
+          "playId": "401925733120465910"
+        },
+        {
+          "period": 1,
+          "clock": "4:58",
+          "scores": [
+            "25",
+            "32"
+          ],
+          "rating": 39,
+          "probability": 0.974,
+          "playId": "401925733120465959"
+        },
+        {
+          "period": 1,
+          "clock": "4:54",
+          "scores": [
+            "25",
+            "32"
+          ],
+          "rating": 38,
+          "probability": 0.976,
+          "playId": "401925733120465960"
+        },
+        {
+          "period": 1,
+          "clock": "4:53",
+          "scores": [
+            "25",
+            "34"
+          ],
+          "rating": 36,
+          "probability": 0.98,
+          "playId": "401925733120465961"
+        },
+        {
+          "period": 1,
+          "clock": "4:33",
+          "scores": [
+            "27",
+            "34"
+          ],
+          "rating": 38,
+          "probability": 0.976,
+          "playId": "401925733120466145"
+        },
+        {
+          "period": 1,
+          "clock": "4:18",
+          "scores": [
+            "27",
+            "34"
+          ],
+          "rating": 37,
+          "probability": 0.974,
+          "playId": "401925733120466222"
+        },
+        {
+          "period": 1,
+          "clock": "4:13",
+          "scores": [
+            "27",
+            "34"
+          ],
+          "rating": 36,
+          "probability": 0.973,
+          "playId": "401925733120466223"
+        },
+        {
+          "period": 1,
+          "clock": "4:09",
+          "scores": [
+            "27",
+            "34"
+          ],
+          "rating": 36,
+          "probability": 0.971,
+          "playId": "401925733120466279"
+        },
+        {
+          "period": 1,
+          "clock": "4:09",
+          "scores": [
+            "28",
+            "34"
+          ],
+          "rating": 38,
+          "probability": 0.969,
+          "playId": "401925733120466515"
+        },
+        {
+          "period": 1,
+          "clock": "4:09",
+          "scores": [
+            "29",
+            "34"
+          ],
+          "rating": 39,
+          "probability": 0.968,
+          "playId": "401925733120466584"
+        },
+        {
+          "period": 1,
+          "clock": "3:54",
+          "scores": [
+            "29",
+            "36"
+          ],
+          "rating": 36,
+          "probability": 0.972,
+          "playId": "401925733120466682"
+        },
+        {
+          "period": 1,
+          "clock": "3:29",
+          "scores": [
+            "29",
+            "36"
+          ],
+          "rating": 35,
+          "probability": 0.974,
+          "playId": "401925733120466869"
+        },
+        {
+          "period": 1,
+          "clock": "3:29",
+          "scores": [
+            "29",
+            "36"
+          ],
+          "rating": 35,
+          "probability": 0.974,
+          "playId": "401925733120466870"
+        },
+        {
+          "period": 1,
+          "clock": "3:25",
+          "scores": [
+            "29",
+            "36"
+          ],
+          "rating": 35,
+          "probability": 0.972,
+          "playId": "401925733120466871"
+        },
+        {
+          "period": 1,
+          "clock": "3:23",
+          "scores": [
+            "31",
+            "36"
+          ],
+          "rating": 37,
+          "probability": 0.967,
+          "playId": "401925733120466960"
+        },
+        {
+          "period": 1,
+          "clock": "3:16",
+          "scores": [
+            "31",
+            "39"
+          ],
+          "rating": 34,
+          "probability": 0.976,
+          "playId": "401925733120466961"
+        },
+        {
+          "period": 1,
+          "clock": "2:51",
+          "scores": [
+            "34",
+            "39"
+          ],
+          "rating": 37,
+          "probability": 0.966,
+          "playId": "401925733120467157"
+        },
+        {
+          "period": 1,
+          "clock": "2:40",
+          "scores": [
+            "34",
+            "39"
+          ],
+          "rating": 37,
+          "probability": 0.962,
+          "playId": "401925733120467227"
+        },
+        {
+          "period": 1,
+          "clock": "2:36",
+          "scores": [
+            "34",
+            "39"
+          ],
+          "rating": 37,
+          "probability": 0.961,
+          "playId": "401925733120467228"
+        },
+        {
+          "period": 1,
+          "clock": "2:35",
+          "scores": [
+            "34",
+            "39"
+          ],
+          "rating": 41,
+          "probability": 0.966,
+          "playId": "401925733120467229"
+        },
+        {
+          "period": 1,
+          "clock": "2:35",
+          "scores": [
+            "34",
+            "39"
+          ],
+          "rating": 40,
+          "probability": 0.966,
+          "playId": "401925733120467294"
+        },
+        {
+          "period": 1,
+          "clock": "2:32",
+          "scores": [
+            "34",
+            "39"
+          ],
+          "rating": 39,
+          "probability": 0.968,
+          "playId": "401925733120467434"
+        },
+        {
+          "period": 1,
+          "clock": "2:32",
+          "scores": [
+            "34",
+            "39"
+          ],
+          "rating": 38,
+          "probability": 0.968,
+          "playId": "401925733120467436"
+        },
+        {
+          "period": 1,
+          "clock": "2:32",
+          "scores": [
+            "34",
+            "39"
+          ],
+          "rating": 38,
+          "probability": 0.966,
+          "playId": "401925733120468438"
+        },
+        {
+          "period": 1,
+          "clock": "2:32",
+          "scores": [
+            "34",
+            "39"
+          ],
+          "rating": 36,
+          "probability": 0.961,
+          "playId": "401925733120468442"
+        },
+        {
+          "period": 1,
+          "clock": "2:32",
+          "scores": [
+            "34",
+            "39"
+          ],
+          "rating": 36,
+          "probability": 0.966,
+          "playId": "401925733120468719"
+        },
+        {
+          "period": 1,
+          "clock": "2:32",
+          "scores": [
+            "34",
+            "39"
+          ],
+          "rating": 36,
+          "probability": 0.966,
+          "playId": "401925733120468720"
+        },
+        {
+          "period": 1,
+          "clock": "2:32",
+          "scores": [
+            "34",
+            "40"
+          ],
+          "rating": 36,
+          "probability": 0.967,
+          "playId": "401925733120468788"
+        },
+        {
+          "period": 1,
+          "clock": "2:09",
+          "scores": [
+            "36",
+            "40"
+          ],
+          "rating": 37,
+          "probability": 0.96,
+          "playId": "401925733120469030"
+        },
+        {
+          "period": 1,
+          "clock": "1:50",
+          "scores": [
+            "36",
+            "42"
+          ],
+          "rating": 35,
+          "probability": 0.966,
+          "playId": "401925733120469172"
+        },
+        {
+          "period": 1,
+          "clock": "1:21",
+          "scores": [
+            "36",
+            "42"
+          ],
+          "rating": 34,
+          "probability": 0.968,
+          "playId": "401925733120469308"
+        },
+        {
+          "period": 1,
+          "clock": "1:16",
+          "scores": [
+            "36",
+            "42"
+          ],
+          "rating": 34,
+          "probability": 0.969,
+          "playId": "401925733120469309"
+        },
+        {
+          "period": 1,
+          "clock": "1:05",
+          "scores": [
+            "36",
+            "42"
+          ],
+          "rating": 34,
+          "probability": 0.966,
+          "playId": "401925733120469414"
+        },
+        {
+          "period": 1,
+          "clock": "1:03",
+          "scores": [
+            "36",
+            "42"
+          ],
+          "rating": 34,
+          "probability": 0.969,
+          "playId": "401925733120469415"
+        },
+        {
+          "period": 1,
+          "clock": "1:03",
+          "scores": [
+            "36",
+            "42"
+          ],
+          "rating": 34,
+          "probability": 0.972,
+          "playId": "401925733120469466"
+        },
+        {
+          "period": 1,
+          "clock": "1:03",
+          "scores": [
+            "36",
+            "42"
+          ],
+          "rating": 34,
+          "probability": 0.969,
+          "playId": "401925733120469528"
+        },
+        {
+          "period": 1,
+          "clock": "1:03",
+          "scores": [
+            "36",
+            "42"
+          ],
+          "rating": 34,
+          "probability": 0.966,
+          "playId": "401925733120469530"
+        },
+        {
+          "period": 1,
+          "clock": "1:03",
+          "scores": [
+            "36",
+            "43"
+          ],
+          "rating": 33,
+          "probability": 0.973,
+          "playId": "401925733120469692"
+        },
+        {
+          "period": 1,
+          "clock": "1:03",
+          "scores": [
+            "36",
+            "43"
+          ],
+          "rating": 33,
+          "probability": 0.97,
+          "playId": "401925733120469712"
+        },
+        {
+          "period": 1,
+          "clock": "1:02",
+          "scores": [
+            "36",
+            "43"
+          ],
+          "rating": 33,
+          "probability": 0.97,
+          "playId": "401925733120469713"
+        },
+        {
+          "period": 1,
+          "clock": "0:46",
+          "scores": [
+            "36",
+            "43"
+          ],
+          "rating": 36,
+          "probability": 0.973,
+          "playId": "401925733120469785"
+        },
+        {
+          "period": 1,
+          "clock": "0:41",
+          "scores": [
+            "36",
+            "43"
+          ],
+          "rating": 35,
+          "probability": 0.97,
+          "playId": "401925733120469934"
+        },
+        {
+          "period": 1,
+          "clock": "0:38",
+          "scores": [
+            "36",
+            "43"
+          ],
+          "rating": 35,
+          "probability": 0.973,
+          "playId": "401925733120469935"
+        },
+        {
+          "period": 1,
+          "clock": "0:37",
+          "scores": [
+            "36",
+            "45"
+          ],
+          "rating": 32,
+          "probability": 0.978,
+          "playId": "401925733120469936"
+        },
+        {
+          "period": 1,
+          "clock": "0:27",
+          "scores": [
+            "36",
+            "45"
+          ],
+          "rating": 32,
+          "probability": 0.978,
+          "playId": "401925733120470032"
+        },
+        {
+          "period": 1,
+          "clock": "0:09",
+          "scores": [
+            "36",
+            "45"
+          ],
+          "rating": 31,
+          "probability": 0.979,
+          "playId": "401925733120470387"
+        },
+        {
+          "period": 1,
+          "clock": "0:06",
+          "scores": [
+            "36",
+            "45"
+          ],
+          "rating": 31,
+          "probability": 0.979,
+          "playId": "401925733120470388"
+        },
+        {
+          "period": 1,
+          "clock": "0:01",
+          "scores": [
+            "36",
+            "47"
+          ],
+          "rating": 28,
+          "probability": 0.986,
+          "playId": "401925733120470436"
+        },
+        {
+          "period": 1,
+          "clock": "0:00",
+          "scores": [
+            "36",
+            "47"
+          ],
+          "rating": 28,
+          "probability": 0.986,
+          "playId": "401925733120470534"
+        }
+      ]
+    }
+  ],
+  "omittedCurrentProbability": {
+    "clock": "3:01",
+    "scores": [
+      "30",
+      "41"
+    ],
+    "rating": 37,
+    "probability": 0.893,
+    "providerLastPlayProbability": 0.893
+  }
+}

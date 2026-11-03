@@ -14,6 +14,21 @@ for(const sport of ['NFL','CFB','MLB','NHL','NBA','NCAAB','Soccer','Tennis'])for
 test('real game explanation names the verified comeback and current score without repeating the rating',()=>{
  const g=evaluate(active,frame()),text=explain(g);assert.match(text,/Notre Dame/);assert.match(text,/erased a \d+-point deficit/);assert.match(text,/70–68/);assert.match(text,/every possession/i);assert.doesNotMatch(text,new RegExp(`\\b${g.score}\\b`));assert.doesNotMatch(text,jargon);
 });
+test('ordinary first-half NCAAM ratings explain the gap and verified matchup context',()=>{
+ const miami={sport:'NCAAB',state:'live',score:38,teams:[team('Miami Hurricanes','2390','30'),team('Florida Gators','57','41')],
+  liveRawStatus:{period:1,displayClock:'3:01'},factors:[],live:{reasons:[]}};
+ miami.teams[0][6]=14;miami.teams[1][6]=1;
+ const floridaText=explain(miami);
+ assert.match(floridaText,/Florida Gators lead Miami Hurricanes 41–30/);
+ assert.match(floridaText,/Both teams are ranked.*11-point gap limits the suspense as halftime approaches/);
+ assert.doesNotMatch(floridaText,/Gators leads|rating|Current Tension/);
+ const army={...miami,teams:[team('Army Black Knights','349','6'),team('Duke Blue Devils','150','18')],liveRawStatus:{period:1,displayClock:'14:00'}};
+ army.teams[1][6]=7;
+ const dukeText=explain(army);
+ assert.match(dukeText,/Duke Blue Devils lead Army Black Knights 18–6/);
+ assert.match(dukeText,/12-point gap limits the suspense in the first half/);
+ assert.doesNotMatch(dukeText,/Blue Devils leads|rating|Current Tension/);
+});
 test('ten-point expected mismatch is described without inventing an outcome',()=>{
  const text=explain({sport:'NFL',state:'upcoming',teams:[team('San Francisco','SF','0'),team('Arizona','ARI','0')],line:{spread:'SF -10'},factors:[]});
  assert.match(text,/San Francisco is favored by 10 points/);assert.match(text,/possibility/);assert.doesNotMatch(text,/will win|rival|injur|capped|adjustment/);

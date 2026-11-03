@@ -1,0 +1,30 @@
+[
+  {
+    "label": "desktop",
+    "width": 1440,
+    "height": 1000,
+    "current": "40",
+    "latest": "38",
+    "miamiFirstHalf": "31",
+    "explanation": "Florida Gators lead Miami Hurricanes 41–31. Both teams are ranked, but the 10-point gap limits the suspense as halftime approaches.",
+    "oaklandBadge": "HALFTIME · lower viewing priority",
+    "screenshot": "work/ncaam-audit-visual/desktop.png",
+    "scoringScreenshot": "work/ncaam-audit-visual/desktop-scoring.png",
+    "cardScreenshot": "work/ncaam-audit-visual/desktop-oakland-card.png",
+    "errors": []
+  },
+  {
+    "label": "mobile",
+    "width": 390,
+    "height": 844,
+    "current": "40",
+    "latest": "38",
+    "miamiFirstHalf": "31",
+    "explanation": "Florida Gators lead Miami Hurricanes 41–31. Both teams are ranked, but the 10-point gap limits the suspense as halftime approaches.",
+    "oaklandBadge": "HALFTIME · lower viewing priority",
+    "screenshot": "work/ncaam-audit-visual/mobile.png",
+    "scoringScreenshot": "work/ncaam-audit-visual/mobile-scoring.png",
+    "cardScreenshot": "work/ncaam-audit-visual/mobile-oakland-card.png",
+    "errors": []
+  }
+]

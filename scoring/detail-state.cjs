@@ -13,6 +13,26 @@ function footballPeriods(game,summary){
  }
  return sums;
 }
+function periodPoints(entry){
+ const value=entry?.displayValue ?? entry?.value;
+ if(/^\d+$/.test(String(value??'')))return Number(value);
+ return /^\d+$/.test(String(entry?.value??''))?Number(entry.value):null;
+}
+function ncaabPeriods(game,team,score,competition){
+ if(game.sport!=='NCAAB'||!Number.isSafeInteger(Number(score)))return null;
+ const status=game.liveRawStatus||competition?.status||{};
+ const period=Number(status.period);
+ const elapsed=game.state==='completed'?Math.max(2,period||2):
+   /half[ -]?time/i.test([status.type?.name,status.type?.detail,status.type?.description].join(' '))?1:period;
+ const lines=team.linescores||[];
+ if(!Number.isInteger(elapsed)||elapsed<1||elapsed>8||lines.length>elapsed)return null;
+ const values=Array.from({length:elapsed},(_,i)=>periodPoints(lines[i]));
+ const missing=values.map((value,i)=>value===null?i:-1).filter(i=>i>=0);
+ if(missing.length!==1)return null;
+ const remainder=Number(score)-values.reduce((sum,value)=>sum+(value??0),0);
+ if(!Number.isSafeInteger(remainder)||remainder<0)return null;
+ return values.map((value,i)=>i===missing[0]?{value:remainder,displayValue:String(remainder)}:lines[i]);
+}
 // Reconcile visible totals without inventing player statistics or period splits.
 function canonicalDetailSummary(game,summary) {
  if(!summary||game.teams?.length!==2||!['NBA','NCAAB','NFL','CFB','NHL'].includes(game.sport))return summary;
@@ -22,12 +42,13 @@ function canonicalDetailSummary(game,summary) {
  const periods=footballPeriods(game,summary);
  const competitors=(competition?.competitors||[]).map(t=>{
   const score=byId.get(String(t.team?.id));if(score===undefined)return t;
-  const lines=t.linescores||[],sum=lines.reduce((n,l)=>n+Number(l.displayValue??l.value),0);
-  const consistent=lines.length&&sum===Number(score);
-  const reconciled=!consistent&&periods?.[t.homeAway];
+  const lines=t.linescores||[],sum=lines.reduce((n,l)=>n+(game.sport==='NCAAB'?periodPoints(l)??NaN:Number(l.displayValue??l.value)),0);
+  const consistent=lines.length&&(game.sport!=='NCAAB'||lines.every(line=>periodPoints(line)!==null))&&sum===Number(score);
+  const basketballReconciled=!consistent&&ncaabPeriods(game,t,score,competition);
+  const reconciled=!consistent&&(periods?.[t.homeAway]||basketballReconciled);
   if(String(t.score)!==score||lines.length&&!consistent&&!reconciled)mismatch=true;
-  return {...t,score,...(lines.length||reconciled?{linescores:consistent?lines:reconciled?reconciled.map(value=>({value,displayValue:String(value)})):[]}:{}),
-    ...(reconciled?{periodScoreSource:'verified scoring progression'}:{})};
+  return {...t,score,...(lines.length||reconciled?{linescores:consistent?lines:basketballReconciled||reconciled?.map(value=>({value,displayValue:String(value)}))||[]}:{}),
+    ...(reconciled?{periodScoreSource:basketballReconciled?'canonical total and reported periods':'verified scoring progression'}:{})};
  });
  const teams=summary.basketballBoxScore?.teams?.map(t=>{
   const score=byId.get(String(t.teamId));if(score===undefined)return t;
