@@ -1,0 +1,1068 @@
+{
+  "capturedAt": "2026-11-03T19:44:17.227Z",
+  "draftRevision": "338de5c",
+  "productionBaseline": "31f3eb26fbd3c3fc083f7828b2bb93d181fdb888",
+  "reviewer": "Implementation agent editorial review; not independent human visual verification",
+  "rubric": "1–5. Accuracy requires all factual clauses to follow supplied evidence or preserved verified context; readability >=4 and usefulness >=3. Distinctiveness may be 2 for documented sparse evidence. The watch recommendation is editorial judgment, not a new rating category.",
+  "decision": "Pass for integration; visual verification still required",
+  "rows": [
+    {
+      "id": "401856743",
+      "sport": "CFB",
+      "matchup": "Texas Longhorns – Missouri Tigers",
+      "rating": 82,
+      "evidence": {
+        "teams": [
+          {
+            "name": "Texas Longhorns",
+            "record": "6-2",
+            "rank": 10
+          },
+          {
+            "name": "Missouri Tigers",
+            "record": "6-2",
+            "rank": 19
+          }
+        ],
+        "line": {
+          "spread": "TEX -2.5",
+          "moneyline": "",
+          "total": 42.5,
+          "provider": "DraftKings",
+          "verifiedClose": false
+        },
+        "factors": [
+          "Sport baseline",
+          "Schedule scarcity",
+          "Very close projected spread",
+          "Both winning records",
+          "Two ranked teams",
+          "Both top 20",
+          "Top 10 team"
+        ]
+      },
+      "productionBefore": "No. 10 Texas Longhorns (6-2) and No. 19 Missouri Tigers (6-2) make this a meeting of ranked teams. A 2.5-point spread points to a close contest. Both teams already have multiple losses, keeping this below a meeting of unbeaten contenders.",
+      "phase1Before": "No. 10 Texas (6-2) and No. 19 Missouri (6-2) meet in a ranked matchup. A 2.5-point spread points to a close contest.",
+      "after": "No. 10 Texas and No. 19 Missouri bring matching 6-2 records to a ranked matchup with just a 2.5-point spread. That mix of quality and expected closeness makes this one worth circling.",
+      "assessment": {
+        "accuracy": 5,
+        "readability": 5,
+        "distinctiveness": 4,
+        "usefulness": 5,
+        "judgment": "Rankings, identical records and a narrow line now explain the watch recommendation. No unsupported claim about Saturday slate rank or postseason stakes.",
+        "pass": true
+      }
+    },
+    {
+      "id": "401856741",
+      "sport": "CFB",
+      "matchup": "Georgia Bulldogs – Ole Miss Rebels",
+      "rating": 81,
+      "evidence": {
+        "teams": [
+          {
+            "name": "Georgia Bulldogs",
+            "record": "7-1",
+            "rank": 2
+          },
+          {
+            "name": "Ole Miss Rebels",
+            "record": "6-2",
+            "rank": 12
+          }
+        ],
+        "line": {
+          "spread": "UGA -3.5",
+          "moneyline": "",
+          "total": 56.5,
+          "provider": "DraftKings",
+          "verifiedClose": false
+        },
+        "factors": [
+          "Sport baseline",
+          "Schedule scarcity",
+          "Competitive projected spread",
+          "Both winning records",
+          "Two ranked teams",
+          "Both top 20",
+          "Top 10 team"
+        ]
+      },
+      "productionBefore": "No. 2 Georgia Bulldogs (7-1) and No. 12 Ole Miss Rebels (6-2) make this a meeting of ranked teams. A 3.5-point spread points to a close contest.",
+      "phase1Before": "No. 2 Georgia (7-1) and No. 12 Ole Miss (6-2) meet in a ranked matchup. A 3.5-point spread points to a close contest.",
+      "after": "No. 2 Georgia (7-1) and No. 12 Ole Miss (6-2) meet in a ranked matchup with just a 3.5-point spread. That mix of quality and expected closeness makes this one worth circling.",
+      "assessment": {
+        "accuracy": 5,
+        "readability": 5,
+        "distinctiveness": 4,
+        "usefulness": 5,
+        "judgment": "The same compositional rule works for unequal records and different teams. Repeated watch wording is acceptable for the same supported reason, rather than artificial synonym rotation.",
+        "pass": true
+      }
+    },
+    {
+      "id": "401856849",
+      "sport": "CFB",
+      "matchup": "BYU Cougars – Utah Utes",
+      "rating": 80,
+      "evidence": {
+        "teams": [
+          {
+            "name": "BYU Cougars",
+            "record": "7-1",
+            "rank": 7
+          },
+          {
+            "name": "Utah Utes",
+            "record": "8-0",
+            "rank": 3
+          }
+        ],
+        "line": {
+          "spread": "UTAH -5.5",
+          "moneyline": "",
+          "total": 48.5,
+          "provider": "DraftKings",
+          "verifiedClose": false
+        },
+        "factors": [
+          "Sport baseline",
+          "Schedule scarcity",
+          "Competitive projected spread",
+          "Both winning records",
+          "Unbeaten team",
+          "Two ranked teams",
+          "Both top 20",
+          "Top 10 team"
+        ]
+      },
+      "productionBefore": "No. 7 BYU Cougars (7-1) and No. 3 Utah Utes (8-0) make this a meeting of top-10 teams, with Utah Utes still unbeaten. The long-running BYU–Utah rivalry adds local bragging rights. Utah Utes are favored by 5.5 points, leaving more risk of an uneven contest.",
+      "phase1Before": "No. 7 BYU (7-1) and No. 3 Utah (8-0) meet in a top-10 matchup, with Utah's unbeaten season on the line. The long-running BYU–Utah rivalry adds local bragging rights. The 5.5-point line favors Utah, but keeps a competitive game in view.",
+      "after": "No. 7 BYU (7-1) and No. 3 Utah (8-0) meet in a top-10 matchup, with Utah's unbeaten season on the line. The long-running BYU–Utah rivalry adds local bragging rights. Utah is favored by 5.5 points in a matchup that still looks competitive.",
+      "assessment": {
+        "accuracy": 5,
+        "readability": 5,
+        "distinctiveness": 5,
+        "usefulness": 5,
+        "judgment": "Keeps the verified rivalry, unbeaten Utah and top-10 meeting together; a modest favorite does not undermine the appeal.",
+        "pass": true
+      }
+    },
+    {
+      "id": "401858291",
+      "sport": "CFB",
+      "matchup": "Miami Hurricanes – Notre Dame Fighting Irish",
+      "rating": 79,
+      "evidence": {
+        "teams": [
+          {
+            "name": "Miami Hurricanes",
+            "record": "8-0",
+            "rank": 1
+          },
+          {
+            "name": "Notre Dame Fighting Irish",
+            "record": "7-1",
+            "rank": 4
+          }
+        ],
+        "line": {
+          "spread": "ND -6",
+          "moneyline": "",
+          "total": 57.5,
+          "provider": "DraftKings",
+          "verifiedClose": false
+        },
+        "factors": [
+          "Sport baseline",
+          "Schedule scarcity",
+          "Competitive projected spread",
+          "Both winning records",
+          "Unbeaten team",
+          "Two ranked teams",
+          "Both top 20",
+          "Top 10 team"
+        ]
+      },
+      "productionBefore": "No. 1 Miami Hurricanes (8-0) and No. 4 Notre Dame Fighting Irish (7-1) make this a meeting of top-10 teams, with Miami Hurricanes still unbeaten. Notre Dame Fighting Irish is favored by 6 points, leaving more risk of an uneven contest.",
+      "phase1Before": "No. 1 Miami (8-0) and No. 4 Notre Dame (7-1) meet in a top-10 matchup, with Miami's unbeaten season on the line. The 6-point line favors Notre Dame, but keeps a competitive game in view.",
+      "after": "No. 1 Miami (8-0) and No. 4 Notre Dame (7-1) meet in a top-10 matchup, with Miami's unbeaten season on the line. Notre Dame is favored by 6 points in a matchup that still looks competitive.",
+      "assessment": {
+        "accuracy": 5,
+        "readability": 5,
+        "distinctiveness": 4,
+        "usefulness": 5,
+        "judgment": "Unbeaten Miami against another top-10 team supplies distinct stakes without inventing a rivalry or playoff consequence.",
+        "pass": true
+      }
+    },
+    {
+      "id": "401856740",
+      "sport": "CFB",
+      "matchup": "Alabama Crimson Tide – LSU Tigers",
+      "rating": 76,
+      "evidence": {
+        "teams": [
+          {
+            "name": "Alabama Crimson Tide",
+            "record": "6-2",
+            "rank": 9
+          },
+          {
+            "name": "LSU Tigers",
+            "record": "6-2",
+            "rank": 15
+          }
+        ],
+        "line": {
+          "spread": "LSU -5.5",
+          "moneyline": "",
+          "total": 52.5,
+          "provider": "DraftKings",
+          "verifiedClose": false
+        },
+        "factors": [
+          "Sport baseline",
+          "Schedule scarcity",
+          "Competitive projected spread",
+          "Both winning records",
+          "Two ranked teams",
+          "Both top 20",
+          "Top 10 team"
+        ]
+      },
+      "productionBefore": "No. 9 Alabama Crimson Tide (6-2) and No. 15 LSU Tigers (6-2) make this a meeting of ranked teams. LSU Tigers are favored by 5.5 points, leaving more risk of an uneven contest.",
+      "phase1Before": "No. 9 Alabama (6-2) and No. 15 LSU (6-2) meet in a ranked matchup. The 5.5-point line favors LSU, but keeps a competitive game in view.",
+      "after": "No. 9 Alabama (6-2) and No. 15 LSU (6-2) meet in a ranked matchup. LSU is favored by 5.5 points in a matchup that still looks competitive.",
+      "assessment": {
+        "accuracy": 5,
+        "readability": 4,
+        "distinctiveness": 3,
+        "usefulness": 4,
+        "judgment": "Ranks and a moderate favorite give a useful watch outlook. No rivalry is inferred from familiar school names. Some ranked-matchup phrasing remains shared.",
+        "pass": true
+      }
+    },
+    {
+      "id": "401856745",
+      "sport": "CFB",
+      "matchup": "Kentucky Wildcats – Tennessee Volunteers",
+      "rating": 73,
+      "evidence": {
+        "teams": [
+          {
+            "name": "Kentucky Wildcats",
+            "record": "7-1",
+            "rank": 8
+          },
+          {
+            "name": "Tennessee Volunteers",
+            "record": "6-2",
+            "rank": 16
+          }
+        ],
+        "line": {
+          "spread": "TENN -6.5",
+          "moneyline": "",
+          "total": 50.5,
+          "provider": "DraftKings",
+          "verifiedClose": false
+        },
+        "factors": [
+          "Sport baseline",
+          "Schedule scarcity",
+          "Competitive projected spread",
+          "Both winning records",
+          "Two ranked teams",
+          "Both top 20",
+          "Top 10 team"
+        ]
+      },
+      "productionBefore": "No. 8 Kentucky Wildcats (7-1) and No. 16 Tennessee Volunteers (6-2) make this a meeting of ranked teams. Tennessee Volunteers are favored by 6.5 points, leaving more risk of an uneven contest.",
+      "phase1Before": "No. 8 Kentucky (7-1) and No. 16 Tennessee (6-2) meet in a ranked matchup. The 6.5-point line favors Tennessee, but keeps a competitive game in view.",
+      "after": "No. 8 Kentucky (7-1) and No. 16 Tennessee (6-2) meet in a ranked matchup. Tennessee is favored by 6.5 points in a matchup that still looks competitive.",
+      "assessment": {
+        "accuracy": 5,
+        "readability": 4,
+        "distinctiveness": 3,
+        "usefulness": 4,
+        "judgment": "Shows that a lower-ranked team is favored without trying to reconcile rankings and odds through invented injury or form claims.",
+        "pass": true
+      }
+    },
+    {
+      "id": "401892635",
+      "sport": "NHL",
+      "matchup": "Detroit Red Wings – Tampa Bay Lightning",
+      "rating": 51,
+      "evidence": {
+        "teams": [
+          {
+            "name": "Detroit Red Wings",
+            "record": "7-5-3",
+            "rank": null
+          },
+          {
+            "name": "Tampa Bay Lightning",
+            "record": "8-3-2",
+            "rank": null
+          }
+        ],
+        "line": {
+          "spread": "TB -1.5",
+          "moneyline": "TB -265",
+          "total": 6.5,
+          "provider": "DraftKings",
+          "verifiedClose": false
+        },
+        "factors": [
+          "Sport baseline",
+          "Schedule scarcity",
+          "Adjusted team quality",
+          "Both winning records",
+          "Atlantic Division matchup"
+        ]
+      },
+      "productionBefore": "Detroit Red Wings (7-5-3) and Tampa Bay Lightning (8-3-2) have both earned more than half the available standings points. Tampa Bay Lightning has a clear edge in the betting market, making a close finish less certain.",
+      "phase1Before": "Detroit Red Wings (7-5-3) and Tampa Bay Lightning (8-3-2) have both earned more than half the available standings points. They are also Atlantic Division opponents. The betting market gives the Lightning a clear edge, making a close finish less certain.",
+      "after": "Detroit Red Wings (7-5-3) and Tampa Bay Lightning (8-3-2) meet with a chance to gain ground on each other in the Atlantic Division. The Lightning are clear favorites in the betting market; whether the Red Wings can push them is the main question.",
+      "assessment": {
+        "accuracy": 5,
+        "readability": 5,
+        "distinctiveness": 5,
+        "usefulness": 5,
+        "judgment": "Division context plus the clear Lightning favorite makes the Red Wings test concrete. No puck-line-as-points mistake, false return story or singular collective verb.",
+        "pass": true
+      }
+    },
+    {
+      "id": "401892644",
+      "sport": "NHL",
+      "matchup": "Ottawa Senators – Buffalo Sabres",
+      "rating": 57,
+      "evidence": {
+        "teams": [
+          {
+            "name": "Ottawa Senators",
+            "record": "9-6-1",
+            "rank": null
+          },
+          {
+            "name": "Buffalo Sabres",
+            "record": "7-4-3",
+            "rank": null
+          }
+        ],
+        "line": {
+          "spread": "BUF -1.5",
+          "moneyline": "BUF -135",
+          "total": 6.5,
+          "provider": "DraftKings",
+          "verifiedClose": false
+        },
+        "factors": [
+          "Sport baseline",
+          "Schedule scarcity",
+          "Adjusted team quality",
+          "Both winning records",
+          "Evenly matched winning records",
+          "Atlantic Division matchup",
+          "Near pick’em market"
+        ]
+      },
+      "productionBefore": "Ottawa Senators (9-6-1) and Buffalo Sabres (7-4-3) have both earned more than half the available standings points. The betting market points to a competitive game.",
+      "phase1Before": "Ottawa Senators (9-6-1) and Buffalo Sabres (7-4-3) have both earned more than half the available standings points. They are also Atlantic Division opponents. The betting market points to a competitive game.",
+      "after": "Ottawa Senators (9-6-1) and Buffalo Sabres (7-4-3) meet with a chance to gain ground on each other in the Atlantic Division. The betting market gives neither side much of an edge.",
+      "assessment": {
+        "accuracy": 5,
+        "readability": 5,
+        "distinctiveness": 4,
+        "usefulness": 5,
+        "judgment": "Division opportunity and near-even market replace the awkward standings-percentage sentence. Buffalo is not mislabeled as having more wins than all losses.",
+        "pass": true
+      }
+    },
+    {
+      "id": "401892636",
+      "sport": "NHL",
+      "matchup": "Edmonton Oilers – New Jersey Devils",
+      "rating": 56,
+      "evidence": {
+        "teams": [
+          {
+            "name": "Edmonton Oilers",
+            "record": "11-2-2",
+            "rank": null
+          },
+          {
+            "name": "New Jersey Devils",
+            "record": "9-5-0",
+            "rank": null
+          }
+        ],
+        "line": {
+          "spread": "NJ -1.5",
+          "moneyline": "NJ -162",
+          "total": 6.5,
+          "provider": "DraftKings",
+          "verifiedClose": false
+        },
+        "factors": [
+          "Sport baseline",
+          "Schedule scarcity",
+          "Adjusted team quality",
+          "Both winning records",
+          "Near pick’em market"
+        ]
+      },
+      "productionBefore": "Edmonton Oilers (11-2-2) and New Jersey Devils (9-5-0) have both earned more than half the available standings points. The betting market points to a competitive game.",
+      "phase1Before": "Edmonton Oilers (11-2-2) and New Jersey Devils (9-5-0) have both earned more than half the available standings points. The betting market points to a competitive game.",
+      "after": "Edmonton Oilers (11-2-2) and New Jersey Devils (9-5-0) bring winning records into this matchup. The betting market gives neither side much of an edge.",
+      "assessment": {
+        "accuracy": 5,
+        "readability": 5,
+        "distinctiveness": 4,
+        "usefulness": 4,
+        "judgment": "Both clubs actually have more wins than all losses, so winning records is valid. Close market supports suspense without claiming league-leading attacks.",
+        "pass": true
+      }
+    },
+    {
+      "id": "401892634",
+      "sport": "NHL",
+      "matchup": "Winnipeg Jets – Montreal Canadiens",
+      "rating": 40,
+      "evidence": {
+        "teams": [
+          {
+            "name": "Winnipeg Jets",
+            "record": "4-8-3",
+            "rank": null
+          },
+          {
+            "name": "Montreal Canadiens",
+            "record": "9-3-2",
+            "rank": null
+          }
+        ],
+        "line": {
+          "spread": "MTL -1.5",
+          "moneyline": "MTL -175",
+          "total": 5.5,
+          "provider": "DraftKings",
+          "verifiedClose": false
+        },
+        "factors": [
+          "Sport baseline",
+          "Schedule scarcity",
+          "Competitive betting market"
+        ]
+      },
+      "productionBefore": "Winnipeg Jets (4-8-3) and Montreal Canadiens (9-3-2) meet. The betting market points to a competitive game.",
+      "phase1Before": "Winnipeg Jets (4-8-3) and Montreal Canadiens (9-3-2) meet. The betting market points to a competitive game.",
+      "after": "Winnipeg Jets (4-8-3) and Montreal Canadiens (9-3-2) meet. The betting market gives neither side much of an edge.",
+      "assessment": {
+        "accuracy": 5,
+        "readability": 4,
+        "distinctiveness": 3,
+        "usefulness": 4,
+        "judgment": "The market, not the raw record difference, supplies the competitiveness claim. The poor Winnipeg record remains visible; no automatic mismatch is imposed.",
+        "pass": true
+      }
+    },
+    {
+      "id": "401873038",
+      "sport": "NFL",
+      "matchup": "Cincinnati Bengals – Atlanta Falcons",
+      "rating": 56,
+      "evidence": {
+        "teams": [
+          {
+            "name": "Cincinnati Bengals",
+            "record": "5-2",
+            "rank": null
+          },
+          {
+            "name": "Atlanta Falcons",
+            "record": "3-5",
+            "rank": null
+          }
+        ],
+        "line": {
+          "spread": "CIN -3",
+          "moneyline": "",
+          "total": 52.5,
+          "provider": "Draft Kings",
+          "verifiedClose": false
+        },
+        "factors": [
+          "Sport baseline",
+          "Schedule scarcity",
+          "Winning team quality",
+          "Tight projected spread",
+          "Expected scoring potential",
+          "Close-game scoring upside"
+        ]
+      },
+      "productionBefore": "Cincinnati Bengals (5-2) and Atlanta Falcons (3-5) meet. A 3-point spread points to a close contest.",
+      "phase1Before": "Cincinnati Bengals (5-2) and Atlanta Falcons (3-5) meet. A 3-point spread points to a close contest. The listed total of 52.5 suggests the potential for plenty of scoring.",
+      "after": "Cincinnati Bengals (5-2) and Atlanta Falcons (3-5) meet. A 3-point spread points to a close contest. The listed total of 52.5 suggests the potential for plenty of scoring.",
+      "assessment": {
+        "accuracy": 5,
+        "readability": 5,
+        "distinctiveness": 4,
+        "usefulness": 5,
+        "judgment": "Close spread and 52.5 total explain suspense and scoring appeal. The existing useful wording is retained; no elite-offense claim is added.",
+        "pass": true
+      }
+    },
+    {
+      "id": "401873051",
+      "sport": "NFL",
+      "matchup": "Buffalo Bills – Minnesota Vikings",
+      "rating": 62,
+      "evidence": {
+        "teams": [
+          {
+            "name": "Buffalo Bills",
+            "record": "6-1",
+            "rank": null
+          },
+          {
+            "name": "Minnesota Vikings",
+            "record": "6-1",
+            "rank": null
+          }
+        ],
+        "line": {
+          "spread": "BUF -3.5",
+          "moneyline": "",
+          "total": 45.5,
+          "provider": "Draft Kings",
+          "verifiedClose": false
+        },
+        "factors": [
+          "Sport baseline",
+          "Schedule scarcity",
+          "Both winning records",
+          "Tight projected spread"
+        ]
+      },
+      "productionBefore": "Buffalo Bills (6-1) and Minnesota Vikings (6-1) bring winning records into this matchup. A 3.5-point spread points to a close contest.",
+      "phase1Before": "Buffalo Bills (6-1) and Minnesota Vikings (6-1) bring winning records into this matchup. A 3.5-point spread points to a close contest.",
+      "after": "Buffalo Bills and Minnesota Vikings put matching 6-1 records to the test. A 3.5-point spread points to a close contest.",
+      "assessment": {
+        "accuracy": 5,
+        "readability": 5,
+        "distinctiveness": 4,
+        "usefulness": 5,
+        "judgment": "Matching 6-1 records become a direct test between strong teams; the small spread gives a concrete reason to expect a contest.",
+        "pass": true
+      }
+    },
+    {
+      "id": "401873040",
+      "sport": "NFL",
+      "matchup": "Dallas Cowboys – Indianapolis Colts",
+      "rating": 44,
+      "evidence": {
+        "teams": [
+          {
+            "name": "Dallas Cowboys",
+            "record": "3-5",
+            "rank": null
+          },
+          {
+            "name": "Indianapolis Colts",
+            "record": "2-6",
+            "rank": null
+          }
+        ],
+        "line": {
+          "spread": "DAL -6",
+          "moneyline": "",
+          "total": 51.5,
+          "provider": "Draft Kings",
+          "verifiedClose": false
+        },
+        "factors": [
+          "Sport baseline",
+          "Schedule scarcity",
+          "Graduated losing-record penalty",
+          "Moderate projected favorite",
+          "Expected scoring potential",
+          "Close-game scoring upside"
+        ]
+      },
+      "productionBefore": "Dallas Cowboys (3-5) and Indianapolis Colts (2-6) meet. Dallas Cowboys are favored by 6 points, leaving more risk of an uneven contest. Both teams have losing records, which limits the appeal even if the game stays close.",
+      "phase1Before": "Dallas Cowboys (3-5) and Indianapolis Colts (2-6) meet with both teams looking to recover from losing starts. The 6-point line favors the Cowboys, but keeps a competitive game in view. The listed total of 51.5 suggests the potential for plenty of scoring.",
+      "after": "Dallas Cowboys (3-5) and Indianapolis Colts (2-6) meet with both teams looking to turn around a difficult start. The Cowboys are favored by 6 points in a matchup that still looks competitive. The listed total of 51.5 suggests the potential for plenty of scoring.",
+      "assessment": {
+        "accuracy": 5,
+        "readability": 4,
+        "distinctiveness": 4,
+        "usefulness": 4,
+        "judgment": "Losing records remain an honest limitation alongside a competitive spread and high total. Low rating is not turned into a marquee matchup.",
+        "pass": true
+      }
+    },
+    {
+      "id": "401873046",
+      "sport": "NFL",
+      "matchup": "Houston Texans – Los Angeles Chargers",
+      "rating": 40,
+      "evidence": {
+        "teams": [
+          {
+            "name": "Houston Texans",
+            "record": "2-5",
+            "rank": null
+          },
+          {
+            "name": "Los Angeles Chargers",
+            "record": "0-7",
+            "rank": null
+          }
+        ],
+        "line": {
+          "spread": "HOU -4.5",
+          "moneyline": "",
+          "total": 40.5,
+          "provider": "Draft Kings",
+          "verifiedClose": false
+        },
+        "factors": [
+          "Sport baseline",
+          "Schedule scarcity",
+          "Graduated losing-record penalty",
+          "Moderate projected favorite"
+        ]
+      },
+      "productionBefore": "Houston Texans (2-5) and Los Angeles Chargers (0-7) meet. Houston Texans are favored by 4.5 points, leaving more risk of an uneven contest. Both teams have losing records, which limits the appeal even if the game stays close.",
+      "phase1Before": "Houston Texans (2-5) and Los Angeles Chargers (0-7) meet with both teams looking to recover from losing starts. The 4.5-point line favors the Texans, but keeps a competitive game in view.",
+      "after": "Houston Texans (2-5) and Los Angeles Chargers (0-7) meet with both teams looking to turn around a difficult start. The Texans are favored by 4.5 points in a matchup that still looks competitive.",
+      "assessment": {
+        "accuracy": 5,
+        "readability": 4,
+        "distinctiveness": 3,
+        "usefulness": 4,
+        "judgment": "Both difficult starts and the modest Houston favorite are clear. Does not invent a quarterback return or assume the Chargers cannot win.",
+        "pass": true
+      }
+    },
+    {
+      "id": "401873037",
+      "sport": "NFL",
+      "matchup": "Jacksonville Jaguars – Baltimore Ravens",
+      "rating": 39,
+      "evidence": {
+        "teams": [
+          {
+            "name": "Jacksonville Jaguars",
+            "record": "5-2",
+            "rank": null
+          },
+          {
+            "name": "Baltimore Ravens",
+            "record": "4-4",
+            "rank": null
+          }
+        ],
+        "line": {
+          "spread": "JAX -10.5",
+          "moneyline": "",
+          "total": 40.5,
+          "provider": "Draft Kings",
+          "verifiedClose": false
+        },
+        "factors": [
+          "Sport baseline",
+          "Schedule scarcity",
+          "Winning team quality",
+          "Projected spread mismatch"
+        ]
+      },
+      "productionBefore": "Jacksonville Jaguars (5-2) and Baltimore Ravens (4-4) meet. Jacksonville Jaguars are favored by 10.5 points, so a one-sided game is a real possibility.",
+      "phase1Before": "Jacksonville Jaguars (5-2) and Baltimore Ravens (4-4) meet. The line favors the Jaguars by 10.5 points, so a one-sided game is a real possibility.",
+      "after": "Jacksonville Jaguars (5-2) and Baltimore Ravens (4-4) meet. The line favors the Jaguars by 10.5 points, so a one-sided game is a real possibility.",
+      "assessment": {
+        "accuracy": 5,
+        "readability": 5,
+        "distinctiveness": 3,
+        "usefulness": 4,
+        "judgment": "The double-digit spread supplies a concrete warning about a one-sided game, with no invented player explanation. Existing useful wording retained.",
+        "pass": true
+      }
+    },
+    {
+      "id": "401909922",
+      "sport": "NBA",
+      "matchup": "Philadelphia 76ers – Detroit Pistons",
+      "rating": 65,
+      "evidence": {
+        "teams": [
+          {
+            "name": "Philadelphia 76ers",
+            "record": "7-1",
+            "rank": null
+          },
+          {
+            "name": "Detroit Pistons",
+            "record": "6-1",
+            "rank": null
+          }
+        ],
+        "line": {
+          "spread": "DET -1.5",
+          "moneyline": "",
+          "total": 217.5,
+          "provider": "DraftKings",
+          "verifiedClose": false
+        },
+        "factors": [
+          "Sport baseline",
+          "Schedule scarcity",
+          "Adjusted team quality",
+          "Both teams have strong adjusted quality",
+          "Both winning records",
+          "Evenly matched winning records",
+          "Very close projected spread"
+        ]
+      },
+      "productionBefore": "Philadelphia 76ers (7-1) and Detroit Pistons (6-1) bring winning records into this matchup. A 1.5-point spread points to a close contest. It is still early in the season, so those records are a promising start rather than a long track record.",
+      "phase1Before": "Philadelphia 76ers (7-1) and Detroit Pistons (6-1) bring winning records into this matchup. A 1.5-point spread points to a close contest.",
+      "after": "Philadelphia 76ers (7-1) and Detroit Pistons (6-1) bring winning records into this matchup. A 1.5-point spread points to a close contest.",
+      "assessment": {
+        "accuracy": 5,
+        "readability": 5,
+        "distinctiveness": 4,
+        "usefulness": 5,
+        "judgment": "Strong actual records and a 1.5-point spread are enough to establish appeal; no claim of a conference final preview or sustainable pace. Existing useful wording retained.",
+        "pass": true
+      }
+    },
+    {
+      "id": "401909923",
+      "sport": "NBA",
+      "matchup": "Atlanta Hawks – Washington Wizards",
+      "rating": 44,
+      "evidence": {
+        "teams": [
+          {
+            "name": "Atlanta Hawks",
+            "record": "4-4",
+            "rank": null
+          },
+          {
+            "name": "Washington Wizards",
+            "record": "4-3",
+            "rank": null
+          }
+        ],
+        "line": null,
+        "factors": [
+          "Sport baseline",
+          "Schedule scarcity",
+          "Both teams at least .500",
+          "Southeast Division matchup"
+        ]
+      },
+      "productionBefore": "Atlanta Hawks (4-4) and Washington Wizards (4-3) meet. Without a listed betting line, it is harder to judge how evenly matched they are.",
+      "phase1Before": "Atlanta Hawks (4-4) and Washington Wizards (4-3) meet in the Southeast Division. There is little separation in their records.",
+      "after": "Atlanta Hawks (4-4) and Washington Wizards (4-3) meet with a chance to gain ground on each other in the Southeast Division. Their similar records suggest a competitive game.",
+      "assessment": {
+        "accuracy": 5,
+        "readability": 5,
+        "distinctiveness": 4,
+        "usefulness": 4,
+        "judgment": "Southeast Division context gives ordinary records a specific reason to care; no missing-lines filler and no unsupported lead-at-stake claim.",
+        "pass": true
+      }
+    },
+    {
+      "id": "401909924",
+      "sport": "NBA",
+      "matchup": "Milwaukee Bucks – Boston Celtics",
+      "rating": 37,
+      "evidence": {
+        "teams": [
+          {
+            "name": "Milwaukee Bucks",
+            "record": "1-6",
+            "rank": null
+          },
+          {
+            "name": "Boston Celtics",
+            "record": "5-2",
+            "rank": null
+          }
+        ],
+        "line": null,
+        "factors": [
+          "Sport baseline",
+          "Schedule scarcity"
+        ]
+      },
+      "productionBefore": "Milwaukee Bucks (1-6) and Boston Celtics (5-2) meet. The gap between their records makes a close contest less certain.",
+      "phase1Before": "Milwaukee Bucks (1-6) and Boston Celtics (5-2) meet. The stronger record belongs to the Celtics; the interest is in whether the other side can bridge that gap.",
+      "after": "Milwaukee Bucks (1-6) and Boston Celtics (5-2) meet. The Celtics look the stronger side on results so far.",
+      "assessment": {
+        "accuracy": 5,
+        "readability": 5,
+        "distinctiveness": 3,
+        "usefulness": 4,
+        "judgment": "Plainly identifies Boston as stronger on results. Removes the rhetorical bridge-that-gap ending without making up form, injuries or a betting line.",
+        "pass": true
+      }
+    },
+    {
+      "id": "401909925",
+      "sport": "NBA",
+      "matchup": "Charlotte Hornets – Brooklyn Nets",
+      "rating": 37,
+      "evidence": {
+        "teams": [
+          {
+            "name": "Charlotte Hornets",
+            "record": "3-5",
+            "rank": null
+          },
+          {
+            "name": "Brooklyn Nets",
+            "record": "1-6",
+            "rank": null
+          }
+        ],
+        "line": {
+          "spread": "CHA -2.5",
+          "moneyline": "",
+          "total": 214.5,
+          "provider": "DraftKings",
+          "verifiedClose": false
+        },
+        "factors": [
+          "Sport baseline",
+          "Schedule scarcity",
+          "Both teams below .500",
+          "Very close projected spread"
+        ]
+      },
+      "productionBefore": "Charlotte Hornets (3-5) and Brooklyn Nets (1-6) meet. A 2.5-point spread points to a close contest. Both teams have losing records, which limits the appeal even if the game stays close.",
+      "phase1Before": "Charlotte Hornets (3-5) and Brooklyn Nets (1-6) meet with both teams looking to recover from losing starts. A 2.5-point spread points to a close contest.",
+      "after": "Charlotte Hornets (3-5) and Brooklyn Nets (1-6) meet with both teams looking to turn around a difficult start. A 2.5-point spread points to a close contest.",
+      "assessment": {
+        "accuracy": 5,
+        "readability": 5,
+        "distinctiveness": 3,
+        "usefulness": 4,
+        "judgment": "Separates the prospect of a close game from team quality. Losing starts remain visible without a generic dismissal of the matchup.",
+        "pass": true
+      }
+    },
+    {
+      "id": "401909929",
+      "sport": "NBA",
+      "matchup": "Cleveland Cavaliers – Oklahoma City Thunder",
+      "rating": 50,
+      "evidence": {
+        "teams": [
+          {
+            "name": "Cleveland Cavaliers",
+            "record": "4-3",
+            "rank": null
+          },
+          {
+            "name": "Oklahoma City Thunder",
+            "record": "5-2",
+            "rank": null
+          }
+        ],
+        "line": {
+          "spread": "OKC -2.5",
+          "moneyline": "",
+          "total": 228.5,
+          "provider": "DraftKings",
+          "verifiedClose": false
+        },
+        "factors": [
+          "Sport baseline",
+          "Schedule scarcity",
+          "Adjusted team quality",
+          "Both winning records",
+          "Very close projected spread"
+        ]
+      },
+      "productionBefore": "Cleveland Cavaliers (4-3) and Oklahoma City Thunder (5-2) bring winning records into this matchup. A 2.5-point spread points to a close contest. It is still early in the season, so those records are a promising start rather than a long track record.",
+      "phase1Before": "Cleveland Cavaliers (4-3) and Oklahoma City Thunder (5-2) bring winning records into this matchup. A 2.5-point spread points to a close contest.",
+      "after": "Cleveland Cavaliers (4-3) and Oklahoma City Thunder (5-2) bring winning records into this matchup. A 2.5-point spread points to a close contest.",
+      "assessment": {
+        "accuracy": 5,
+        "readability": 5,
+        "distinctiveness": 3,
+        "usefulness": 4,
+        "judgment": "Winning records and a close spread are valid and readable; distinctiveness is limited by the available evidence, so useful existing copy is retained.",
+        "pass": true
+      }
+    },
+    {
+      "id": "401906848",
+      "sport": "NCAAB",
+      "matchup": "Wofford Terriers – Tennessee Volunteers",
+      "rating": 39,
+      "evidence": {
+        "teams": [
+          {
+            "name": "Wofford Terriers",
+            "record": "0-0",
+            "rank": null
+          },
+          {
+            "name": "Tennessee Volunteers",
+            "record": "0-0",
+            "rank": 8
+          }
+        ],
+        "line": {
+          "spread": "TENN -25.5",
+          "moneyline": "",
+          "total": 155.5,
+          "provider": "DraftKings",
+          "verifiedClose": false
+        },
+        "factors": [
+          "Sport baseline",
+          "Schedule scarcity",
+          "Ranked team",
+          "Season opener"
+        ]
+      },
+      "productionBefore": "Wofford Terriers and No. 8 Tennessee Volunteers open their seasons. Tennessee Volunteers are favored by 25.5 points, so a one-sided game is a real possibility.",
+      "phase1Before": "Wofford and No. 8 Tennessee open their seasons. The line favors Tennessee by 25.5 points, so a one-sided game is a real possibility.",
+      "after": "Wofford and No. 8 Tennessee open their seasons. The line favors Tennessee by 25.5 points, so a one-sided game is a real possibility.",
+      "assessment": {
+        "accuracy": 5,
+        "readability": 5,
+        "distinctiveness": 4,
+        "usefulness": 4,
+        "judgment": "Season opener and ranked Tennessee are accurate; a 25.5-point favorite is honestly described. Zero records do not become unbeaten-season claims.",
+        "pass": true
+      }
+    },
+    {
+      "id": "401858290",
+      "sport": "CFB",
+      "matchup": "Merrimack Warriors – Wake Forest Demon Deacons",
+      "rating": 44,
+      "evidence": {
+        "teams": [
+          {
+            "name": "Merrimack Warriors",
+            "record": "4-5",
+            "rank": null
+          },
+          {
+            "name": "Wake Forest Demon Deacons",
+            "record": "7-1",
+            "rank": 14
+          }
+        ],
+        "line": null,
+        "factors": [
+          "Sport baseline",
+          "Schedule scarcity",
+          "Ranked team"
+        ]
+      },
+      "productionBefore": "Merrimack Warriors (4-5) and No. 14 Wake Forest Demon Deacons (7-1) meet. The gap between their records makes a close contest less certain.",
+      "phase1Before": "No. 14 Wake Forest (7-1) faces Merrimack (4-5). The stronger record belongs to Wake Forest; the interest is in whether the other side can bridge that gap.",
+      "after": "No. 14 Wake Forest (7-1) faces Merrimack (4-5). Wake Forest looks the stronger side on results so far.",
+      "assessment": {
+        "accuracy": 5,
+        "readability": 5,
+        "distinctiveness": 3,
+        "usefulness": 3,
+        "judgment": "Names the ranked side and stronger record without inventing a close game. Cross-division FCS classification does not change the rating.",
+        "pass": true
+      }
+    },
+    {
+      "id": "401867964",
+      "sport": "CFB",
+      "matchup": "South Carolina State Bulldogs – Howard Bison",
+      "rating": 40,
+      "evidence": {
+        "teams": [
+          {
+            "name": "South Carolina State Bulldogs",
+            "record": "7-2",
+            "rank": null
+          },
+          {
+            "name": "Howard Bison",
+            "record": "4-5",
+            "rank": null
+          }
+        ],
+        "line": null,
+        "factors": [
+          "Sport baseline",
+          "Schedule scarcity"
+        ]
+      },
+      "productionBefore": "South Carolina State Bulldogs (7-2) and Howard Bison (4-5) meet. The gap between their records makes a close contest less certain.",
+      "phase1Before": "SC State (7-2) and Howard (4-5) meet. The stronger record belongs to SC State; the interest is in whether the other side can bridge that gap.",
+      "after": "SC State (7-2) and Howard (4-5) meet. SC State looks the stronger side on results so far.",
+      "assessment": {
+        "accuracy": 5,
+        "readability": 5,
+        "distinctiveness": 2,
+        "usefulness": 3,
+        "judgment": "Sparse FCS example remains modest: school names, records and the stronger side. Limited distinctiveness is accepted instead of inventing context.",
+        "pass": true
+      }
+    },
+    {
+      "id": "401866453",
+      "sport": "CFB",
+      "matchup": "Ohio Bobcats – Akron Zips",
+      "rating": 40,
+      "evidence": {
+        "teams": [
+          {
+            "name": "Ohio Bobcats",
+            "record": "6-2",
+            "rank": null
+          },
+          {
+            "name": "Akron Zips",
+            "record": "1-7",
+            "rank": null
+          }
+        ],
+        "line": {
+          "spread": "OHIO -13.5",
+          "moneyline": "",
+          "total": 51.5,
+          "provider": "DraftKings",
+          "verifiedClose": false
+        },
+        "factors": [
+          "Sport baseline",
+          "Schedule scarcity",
+          "Competitive projected spread"
+        ]
+      },
+      "productionBefore": "Ohio Bobcats (6-2) and Akron Zips (1-7) meet. Ohio Bobcats are favored by 13.5 points, so a one-sided game is a real possibility.",
+      "phase1Before": "Ohio (6-2) and Akron (1-7) meet. The line favors Ohio by 13.5 points, so a one-sided game is a real possibility.",
+      "after": "Ohio (6-2) and Akron (1-7) meet. The line favors Ohio by 13.5 points, so a one-sided game is a real possibility.",
+      "assessment": {
+        "accuracy": 5,
+        "readability": 5,
+        "distinctiveness": 3,
+        "usefulness": 4,
+        "judgment": "A substantial favorite gives a clear watch limitation. Ohio-Akron receives no unsupported rivalry or conference-race claim. Existing useful wording retained.",
+        "pass": true
+      }
+    }
+  ]
+}

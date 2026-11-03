@@ -103,13 +103,14 @@ const fixtures = `
   assert.equal(jetsDolphins.factors.find(factor => factor.label === 'AFC East matchup').points,4);
   const nflGame = {sport:'NFL',state:'upcoming',score:rivalry.score,factors:rivalry.factors,startTime:'2026-10-25T17:00:00Z',line:{spread:'BAL -3'},teams:[['Baltimore Ravens','BAL','0','',null,'4-2'],['Cincinnati Bengals','CIN','0','',null,'3-2']]};
   const nflProse = explainRating(nflGame);
-  assert.match(nflProse,/winning records/);
+  assert.match(nflProse,/AFC North/);
+  assert.ok(nflProse.includes('4-2') && nflProse.includes('3-2'));
   assert.match(nflProse,/3-point spread/);
   assert.doesNotMatch(nflProse,/Lamar Jackson|Joe Burrow|[+]\d|adjustment|capped/i);
   assert.doesNotMatch(nflProse,/ranked/);
   assert.doesNotMatch(explainRating({...nflGame,score:42,factors:[{label:'Sport baseline',points:32},{label:'Schedule scarcity',points:10}],teams:[['Team One','ONE'],['Team Two','TWO']]}),/ranked/);
   const weakDivisionProse = explainRating({sport:'NFL',state:'upcoming',score:jetsDolphins.score,factors:jetsDolphins.factors,startTime:'2026-10-25T17:00:00Z',line:{spread:'NYJ -4.5'},teams:[['Miami Dolphins','MIA','0','',null,'0-5'],['New York Jets','NYJ','0','',null,'2-4']]});
-  assert.match(weakDivisionProse,/losing records/);
+  assert.match(weakDivisionProse,/difficult start/);
   assert.match(weakDivisionProse,/4\.5(?: points|-point)/);
   const futureFavorite = {favorite:true,state:'upcoming',startTime:new Date(Date.now()+3*86400000).toISOString(),score:71};
   const todayFavorite = {...futureFavorite,startTime:new Date().toISOString()};

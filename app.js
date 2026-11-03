@@ -2802,6 +2802,13 @@ function pregameExplanation(game,verified=[]) {
   const pair=teams.map(named).join(' and ');
   const withRecord=t=>`${named(t)}${games[teams.indexOf(t)]?` (${record(t)})`:''}`;
   const recordPair=teams.map(withRecord).join(' and ');
+  const spreadMatch=String(game.line?.spread||'').match(/^([A-Z0-9.&-]+)\s*-\s*(\d+(?:\.\d+)?)$/i);
+  const pick=/^(?:PK|pick(?:\s*['’]?em)?)$/i.test(String(game.line?.spread||'').trim());
+  const spread=spreadMatch?Number(spreadMatch[2]):pick?0:Number.isFinite(game.pregameBaseline?.spread)?Math.abs(game.pregameBaseline.spread):null;
+  const favorite=spreadMatch?teams.find(t=>String(t[1]).toUpperCase()===spreadMatch[1].toUpperCase()):null;
+  const hasSpread=spread!==null&&['NFL','CFB','NBA','NCAAB'].includes(sport);
+  const closeMarket=has(/pick.em|Competitive betting market|Very close projected spread|Tight projected spread/i);
+  const mismatch=has(/Heavy favorite|Lopsided betting market|market mismatch/i);
   const division=factors.find(f=>/^(?:(?:AFC|NFC) (?:East|North|South|West)|(?:AL|NL) (?:East|Central|West)|(?:Atlantic|Metropolitan|Central|Pacific|Northwest|Southeast|Southwest) Division) matchup$/.test(f.label||''))?.label.replace(' matchup','');
   const byuUtah=sport==='CFB'&&teams.map(t=>String(t[8])).sort().join(':')==='252:254';
   const rivalry=byuUtah||has(/^Rivalry$|^Rivalry context$/);
@@ -2815,13 +2822,19 @@ function pregameExplanation(game,verified=[]) {
     const key=x=>x.toLowerCase().replace(/[^\p{L}\p{N}]+/gu,' ').trim();
     if(!lines.some(line=>key(line)===key(text)))lines.push(text);
   };
-  let divisionUsed=false,recordsUsed=false;
+  let divisionUsed=false,recordsUsed=false,marketUsed=false;
   if(occasion?.international&&occasion.city) add(`${pair} ${occasion.seasonOpener?'open their seasons':'meet'} in ${occasion.city}${occasion.name?' for the '+occasion.name:''}`);
   else if(has(/World Series/))add(`${pair} meet in the World Series, with a championship on the line`);
   else if(has(/^Championship$|Super Bowl|Stanley Cup Final/))add(`${pair} play for a championship`);
   else if(postseason||sport==='Tennis'&&has(/Major tournament/))add(sport==='Tennis'?`${pair} meet on one of tennis's biggest stages`:`${pair} meet with postseason stakes`);
   else if(ranked.length===2) {
-    add(`${recordPair} meet in a ${ranked.every(t=>rank(t)<=10)?'top-10':'ranked'} matchup${unbeaten.length===2?' between unbeaten teams':unbeaten.length===1?`, with ${name(unbeaten[0])}'s unbeaten season on the line`:''}`);
+    if(!unbeaten.length&&known&&bothWinning&&hasSpread&&spread>0&&spread<=3.5) {
+      add(record(teams[0])===record(teams[1])?
+        `${pair} bring matching ${record(teams[0])} records to a ranked matchup with just a ${spread}-point spread`:
+        `${recordPair} meet in a ranked matchup with just a ${spread}-point spread`);
+      add('That mix of quality and expected closeness makes this one worth circling');
+      marketUsed=true;
+    } else add(`${recordPair} meet in a ${ranked.every(t=>rank(t)<=10)?'top-10':'ranked'} matchup${unbeaten.length===2?' between unbeaten teams':unbeaten.length===1?`, with ${name(unbeaten[0])}'s unbeaten season on the line`:''}`);
     recordsUsed=true;
   } else if(positive(/^Division lead at stake$/)&&division) {
     add(`${pair} meet with at least a share of the ${division} lead available to either winner`);divisionUsed=true;
@@ -2830,49 +2843,52 @@ function pregameExplanation(game,verified=[]) {
     const contender=ranked[0],opponent=teams.find(t=>t!==contender);
     add(`${withRecord(contender)} faces ${withRecord(opponent)}${unbeaten.includes(contender)?' with an unbeaten season to protect':''}`);recordsUsed=true;
   }
-  else if(bothWinning) {
-    add(`${recordPair} ${sport==='NHL'?'have both earned more than half the available standings points':'bring winning records into this matchup'}`);recordsUsed=true;
-  } else if(division) {
-    add(`${recordPair} meet in the ${division}`);divisionUsed=true;recordsUsed=true;
+  else if(division) {
+    add(`${recordPair} meet with a chance to gain ground on each other in the ${division}`);divisionUsed=true;recordsUsed=true;
+  } else if(bothWinning) {
+    const actualWinning=records.every((r,i)=>r[0]>games[i]/2);
+    add(sport==='NHL'&&!actualWinning?`${recordPair} meet`:
+      known&&record(teams[0])===record(teams[1])?`${pair} put matching ${record(teams[0])} records to the test`:
+      `${recordPair} bring winning records into this matchup`);recordsUsed=true;
   } else if(unbeaten.length&&sport!=='Tennis') {
     add(`${recordPair} meet with ${unbeaten.length===2?'two unbeaten starts':name(unbeaten[0])+"'s unbeaten start"} on the line`);recordsUsed=true;
   } else if(bothLosing) {
-    add(`${recordPair} meet with both ${sport==='NHL'?'clubs looking to climb after earning less than half the available standings points':'teams looking to recover from losing starts'}`);recordsUsed=true;
+    add(`${recordPair} meet with both teams looking to turn around a difficult start`);recordsUsed=true;
   } else {add(`${recordPair} meet`);recordsUsed=true;}
 
+  const linked=upcomingLinkedStories(game);
+  const rivalryStory=verified.find(f=>f.contextType==='rivalry'&&
+    !/\/(?:recap|preview)(?:[/?]|$)/i.test(f.sourceUrl||''));
   if(byuUtah)add('The long-running BYU–Utah rivalry adds local bragging rights');
-  else if(rivalry)add('The rivalry adds an edge to the meeting');
+  else if(rivalryStory&&!linked.some(s=>s.type==='rivalry'))add(rivalryStory.publicText);
+  else if(rivalry&&!rivalryStory)add(unbeaten.length===1?
+    `The rivalry gives ${name(unbeaten[0])}'s unbeaten run an added test`:'Rivalry stakes add another reason to follow this meeting');
   if(division&&!divisionUsed) {
     add(positive(/^Division race positioning$/)?`Their ${division} meeting also carries weight near the top of the division`:
       `They are also ${division} opponents${sport==='NFL'?', with a head-to-head division result at stake':''}`);
   }
 
-  const spreadMatch=String(game.line?.spread||'').match(/^([A-Z0-9.&-]+)\s*-\s*(\d+(?:\.\d+)?)$/i);
-  const pick=/^(?:PK|pick(?:\s*['’]?em)?)$/i.test(String(game.line?.spread||'').trim());
-  const spread=spreadMatch?Number(spreadMatch[2]):pick?0:Number.isFinite(game.pregameBaseline?.spread)?Math.abs(game.pregameBaseline.spread):null;
-  const favorite=spreadMatch?teams.find(t=>String(t[1]).toUpperCase()===spreadMatch[1].toUpperCase()):null;
   const money=String(game.line?.moneyline||'').match(/^([A-Z0-9.-]+)\s*-\s*(\d+)$/i);
   const moneyFavorite=money?teams.find(t=>String(t[1]).toUpperCase()===money[1].toUpperCase()):null;
-  const closeMarket=has(/pick.em|Competitive betting market|Very close projected spread|Tight projected spread/i);
-  const mismatch=has(/Heavy favorite|Lopsided betting market|market mismatch/i);
-  const hasSpread=spread!==null&&['NFL','CFB','NBA','NCAAB'].includes(sport);
-  if(hasSpread) {
+  if(marketUsed) { /* The ranked-matchup lead already explains the line. */ }
+  else if(hasSpread) {
     if(spread===0)add('An even line sets up a game that could go either way');
     else if(spread<=3.5)add(`A ${spread}-point spread points to a close contest`);
-    else if(spread<=7)add(`${favorite?`The ${spread}-point line favors ${short(favorite)}`:`A ${spread}-point spread gives one side an edge`}, but keeps a competitive game in view`);
+    else if(spread<=7)add(`${favorite?`${short(favorite)} ${pro?'are':'is'} favored by ${spread} points`:`A ${spread}-point spread gives one side an edge`} in a matchup that still looks competitive`);
     else if(spread<10)add(`${favorite?`The line favors ${short(favorite)} by ${spread} points`:`A ${spread}-point spread gives one side a sizable edge`}; the underdog faces a tougher test`);
     else add(`${favorite?`The line favors ${short(favorite)} by ${spread} points`:`A ${spread}-point spread signals a clear favorite`}, so a one-sided game is a real possibility`);
   } else if(['NHL','MLB'].includes(sport)&&money&&Number(money[2])>=200) {
-    add(`${moneyFavorite?`The betting market gives ${short(moneyFavorite)}`:'The betting market gives one side'} a clear edge, making a close finish less certain`);
-  } else if(closeMarket)add('The betting market points to a competitive game');
+    const other=moneyFavorite&&teams.find(t=>t!==moneyFavorite);
+    add(moneyFavorite?`${short(moneyFavorite)} are clear favorites in the betting market; whether ${short(other)} can push them is the main question`:
+      'The betting market gives one side a clear edge, making a close finish less certain');
+  } else if(closeMarket)add('The betting market gives neither side much of an edge');
   else if(mismatch)add('A clear betting favorite makes a close finish less certain');
   else if(known&&Math.abs(rates[0]-rates[1])<.1) {
-    add(bothWinning?'Their similar records suggest a competitive game':bothLosing?'Their records are closely matched, though neither has established consistent winning form':sport==='NHL'?'Their standings points are closely matched':'There is little separation in their records');
+    add(bothLosing?'Neither has pulled away from the other on results so far':sport==='NHL'?
+      'There is little between them on results so far':'Their similar records suggest a competitive game');
   } else if(known&&Math.abs(rates[0]-rates[1])>=.3) {
     const stronger=teams[rates[0]>rates[1]?0:1];
-    add(`The stronger record belongs to ${short(stronger)}${sport==='NHL'?' by share of standings points':''}; the interest is in whether the other side can bridge that gap`);
-  } else if(known&&!bothWinning&&!bothLosing&&!opener&&!postseason&&lines.length===1) {
-    add('The records offer a mixed picture, leaving the balance of this matchup open');
+    add(`${short(stronger)} ${college?'looks':'look'} the stronger side on results so far`);
   }
 
   // Totals describe expectations, never assert offensive quality or an outcome.
@@ -2880,8 +2896,7 @@ function pregameExplanation(game,verified=[]) {
   if(sport==='NFL'&&positive(/^Expected scoring potential$|^Close-game scoring upside$/)&&Number.isFinite(total)&&total>0) {
     add(total>=50?`The listed total of ${total} suggests the potential for plenty of scoring`:`The listed total is ${total}, adding some scoring appeal`);
   }
-  if(!recordsUsed&&known&&bothWinning&&lines.length<3)add(`${sport==='NHL'?'Both clubs have earned more than half the available standings points':'Both teams have winning records'} (${teams.map(record).join(' and ')})`);
-  const linked=upcomingLinkedStories(game);
+  if(!recordsUsed&&known&&bothWinning&&lines.length<3&&sport!=='NHL')add(`Both teams have winning records (${teams.map(record).join(' and ')})`);
   for(const story of verified.filter(f=>!['international_showcase','season_opener'].includes(f.contextType))) {
     if(linked.some(item=>item.type===story.contextType)||story.contextType==='rivalry'&&rivalry||/\/(?:recap|preview)(?:[/?]|$)/i.test(story.sourceUrl||''))continue;
     if(lines.length>=5)break;
@@ -2889,8 +2904,8 @@ function pregameExplanation(game,verified=[]) {
   }
   // A limitation earns its place only when it explains a weak matchup; no
   // comparisons with imaginary better opponents, and no missing-odds filler.
-  if(bothLosing&&!postseason&&lines.length<3&&!lines[0].includes('losing starts')&&!lines[0].includes('less than half'))
-    add(sport==='NHL'?'Both clubs have struggled to collect standings points':'Both teams are trying to improve on losing records');
+  if(bothLosing&&!postseason&&lines.length<3&&!lines[0].includes('difficult start'))
+    add('Both teams are trying to turn around a difficult start');
   if(!known&&spread===null&&!postseason&&!verified.length&&lines.length===1&&sport!=='Tennis'&&!opener)
     add('Further matchup details are not available yet');
   return lines.slice(0,5).join(' ');

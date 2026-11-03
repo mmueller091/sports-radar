@@ -1,5 +1,7 @@
 SlateMeter pregame upgrade — Phase 1 review
 
+This is the original Phase 1 review record. The subsequent [24-example editorial pass](../pregame-editorial-20261103/examples.html) compares this draft with the final candidate; the full narrative corpus below has been refreshed to the final wording. Original test logs below predate that editorial pass; combined integration verification is recorded separately.
+
 Implemented locally on `pregame/phase1-narratives`, based on production commit `31f3eb26fbd3c3fc083f7828b2bb93d181fdb888`. Nothing was pushed or deployed. The original working checkout was preserved. Phase 1B and Phase 2 are independent sibling worktrees and branches.
 
 The new upcoming-game explanation leads with supported matchup appeal, describes the market naturally, includes NBA/NHL division context and positive NFL total context, uses short college names, and avoids hypothetical stronger opponents. Existing story verification, conditional language, link deduplication and live/completed explanations are preserved. No new excitement labels or scoring calculations appear in the product.
