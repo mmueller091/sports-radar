@@ -1,0 +1,204 @@
+{
+  "capturedAt": "2026-10-28T19:32:21.642Z",
+  "sources": [
+    {
+      "sport": "NFL",
+      "url": "https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard?dates=20261025&limit=100",
+      "status": 200,
+      "capturedAt": "2026-10-28T19:32:21.642Z"
+    },
+    {
+      "sport": "CFB",
+      "url": "https://site.api.espn.com/apis/site/v2/sports/football/college-football/scoreboard?dates=20261027&limit=100",
+      "status": 200,
+      "capturedAt": "2026-10-28T19:32:21.642Z"
+    },
+    {
+      "sport": "MLB",
+      "url": "https://site.api.espn.com/apis/site/v2/sports/baseball/mlb/scoreboard?dates=20261027&limit=100",
+      "status": 200,
+      "capturedAt": "2026-10-28T19:32:21.642Z"
+    },
+    {
+      "sport": "NHL",
+      "url": "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/scoreboard?dates=20261027&limit=100",
+      "status": 200,
+      "capturedAt": "2026-10-28T19:32:21.642Z"
+    },
+    {
+      "sport": "NBA",
+      "url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard?dates=20261027&limit=100",
+      "status": 200,
+      "capturedAt": "2026-10-28T19:32:21.642Z"
+    },
+    {
+      "sport": "NCAAB",
+      "url": "https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/scoreboard?dates=20260406&limit=100",
+      "status": 200,
+      "capturedAt": "2026-10-28T19:32:21.642Z"
+    },
+    {
+      "sport": "Tennis",
+      "url": "https://site.api.espn.com/apis/site/v2/sports/tennis/atp/scoreboard?dates=20261028&limit=100",
+      "status": 200,
+      "capturedAt": "2026-10-28T19:32:21.642Z"
+    },
+    {
+      "name": "NFL-summary",
+      "url": "https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401873011",
+      "status": 200,
+      "capturedAt": "2026-10-28T19:33:31.622Z",
+      "bytes": 520444
+    },
+    {
+      "name": "NFL-current-scoreboard",
+      "url": "https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard?dates=20261028&limit=100",
+      "status": 200,
+      "capturedAt": "2026-10-28T19:33:31.667Z",
+      "bytes": 5050
+    },
+    {
+      "name": "CFB-summary",
+      "url": "https://site.api.espn.com/apis/site/v2/sports/football/college-football/summary?event=401871071",
+      "status": 200,
+      "capturedAt": "2026-10-28T19:33:31.736Z",
+      "bytes": 439511
+    },
+    {
+      "name": "CFB-current-scoreboard",
+      "url": "https://site.api.espn.com/apis/site/v2/sports/football/college-football/scoreboard?dates=20261028&limit=100",
+      "status": 200,
+      "capturedAt": "2026-10-28T19:33:31.796Z",
+      "bytes": 41762
+    },
+    {
+      "name": "MLB-summary",
+      "url": "https://site.api.espn.com/apis/site/v2/sports/baseball/mlb/summary?event=401908045",
+      "status": 200,
+      "capturedAt": "2026-10-28T19:33:31.916Z",
+      "bytes": 1188294
+    },
+    {
+      "name": "MLB-current-scoreboard",
+      "url": "https://site.api.espn.com/apis/site/v2/sports/baseball/mlb/scoreboard?dates=20261028&limit=100",
+      "status": 200,
+      "capturedAt": "2026-10-28T19:33:31.958Z",
+      "bytes": 22010
+    },
+    {
+      "name": "NHL-summary",
+      "url": "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892585",
+      "status": 200,
+      "capturedAt": "2026-10-28T19:33:32.039Z",
+      "bytes": 453323
+    },
+    {
+      "name": "NHL-current-scoreboard",
+      "url": "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/scoreboard?dates=20261028&limit=100",
+      "status": 200,
+      "capturedAt": "2026-10-28T19:33:32.094Z",
+      "bytes": 85848
+    },
+    {
+      "name": "NBA-summary",
+      "url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909877",
+      "status": 200,
+      "capturedAt": "2026-10-28T19:33:32.178Z",
+      "bytes": 492383
+    },
+    {
+      "name": "NBA-current-scoreboard",
+      "url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard?dates=20261028&limit=100",
+      "status": 200,
+      "capturedAt": "2026-10-28T19:33:32.222Z",
+      "bytes": 237377
+    },
+    {
+      "name": "NCAAB-summary",
+      "url": "https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/summary?event=401856600",
+      "status": 200,
+      "capturedAt": "2026-10-28T19:33:32.317Z",
+      "bytes": 467871
+    },
+    {
+      "name": "NCAAB-current-scoreboard",
+      "url": "https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/scoreboard?dates=20261028&limit=100",
+      "status": 200,
+      "capturedAt": "2026-10-28T19:33:32.388Z",
+      "bytes": 3508
+    },
+    {
+      "name": "Tennis-post-summary",
+      "url": "https://site.api.espn.com/apis/site/v2/sports/tennis/atp/summary?event=187149",
+      "status": 400,
+      "capturedAt": "2026-10-28T19:33:32.543Z",
+      "bytes": 178
+    },
+    {
+      "name": "Tennis-post-tournament-summary",
+      "url": "https://site.api.espn.com/apis/site/v2/sports/tennis/atp/summary?event=10-2026&competition=187149",
+      "status": 400,
+      "capturedAt": "2026-10-28T19:33:32.598Z",
+      "bytes": 207
+    },
+    {
+      "name": "Tennis-in-summary",
+      "url": "https://site.api.espn.com/apis/site/v2/sports/tennis/atp/summary?event=185198",
+      "status": 400,
+      "capturedAt": "2026-10-28T19:33:32.654Z",
+      "bytes": 205
+    },
+    {
+      "name": "Tennis-in-tournament-summary",
+      "url": "https://site.api.espn.com/apis/site/v2/sports/tennis/atp/summary?event=10-2026&competition=185198",
+      "status": 400,
+      "capturedAt": "2026-10-28T19:33:32.703Z",
+      "bytes": 207
+    },
+    {
+      "name": "Tennis-core-live",
+      "url": "https://sports.core.api.espn.com/v2/sports/tennis/leagues/atp/events/10-2026/competitions/185198",
+      "status": 200,
+      "capturedAt": "2026-10-28T19:34:46.235Z"
+    },
+    {
+      "name": "Tennis-core-completed",
+      "url": "https://sports.core.api.espn.com/v2/sports/tennis/leagues/atp/events/10-2026/competitions/187149",
+      "status": 200,
+      "capturedAt": "2026-10-28T19:34:46.259Z"
+    },
+    {
+      "name": "Tennis-site-competitionId",
+      "url": "https://site.api.espn.com/apis/site/v2/sports/tennis/atp/summary?event=10-2026&competitionId=185198",
+      "status": 400,
+      "capturedAt": "2026-10-28T19:34:46.396Z"
+    },
+    {
+      "name": "Tennis-worker-live",
+      "url": "https://sports-radar-alerts.mmueller918.workers.dev/game/Tennis/185198",
+      "status": 404,
+      "capturedAt": "2026-10-28T19:34:47.673Z"
+    },
+    {
+      "name": "Tennis-core-situation",
+      "url": "https://sports.core.api.espn.com/v2/sports/tennis/leagues/atp/events/10-2026/competitions/185198/situation?lang=en&region=us",
+      "status": 200,
+      "capturedAt": "2026-10-28T19:40:14.544Z",
+      "bytes": 134
+    },
+    {
+      "name": "Tennis-core-linescores",
+      "url": "https://sports.core.api.espn.com/v2/sports/tennis/leagues/atp/events/10-2026/competitions/185198/competitors/10386/linescores?lang=en&region=us",
+      "status": 200,
+      "capturedAt": "2026-10-28T19:40:14.613Z",
+      "bytes": 263
+    },
+    {
+      "name": "Tennis-core-odds",
+      "url": "https://sports.core.api.espn.com/v2/sports/tennis/leagues/atp/events/10-2026/competitions/185198/odds?lang=en&region=us",
+      "status": 200,
+      "capturedAt": "2026-10-28T19:40:14.672Z",
+      "bytes": 64
+    }
+  ]
+}

@@ -1,5 +1,6 @@
 import '../../rating-core.js';
 import {reserveResearchAi} from './ai-budget.js';
+import {EDITORIAL_TYPE,editorialArticleEligible,acceptEditorialReview,discoverEditorialStories} from './editorial-context.js';
 
 const {
   rateGame,
@@ -74,6 +75,7 @@ function researchGame(sport,event,now=Date.now()) {
   if (!eligible) return null;
 
   return {
+    state:state==='pre'?'upcoming':'live',
     key:`${sport}:${event.id}`,
     eventId:String(event.id),
     sport,
@@ -121,6 +123,7 @@ function strongStoryText(text) {
 
 function articleMatchesGame(article,game,now=Date.now()) {
   if (!article.headline || !Number.isFinite(article.published) || now - article.published > ARTICLE_MAX_AGE_MS || article.published>now+300000) return false;
+  if (/recap/i.test(article.type||'') || /\/recap(?:[/?]|$)/i.test(article.url||'') || /game highlights/i.test(article.headline)) return false;
   const text=`${article.headline} ${article.description || ''}`;
   if (/uniform|jerseys?|cleats?|costumes?|fantasy|betting tips|prop plays|power rankings|mock draft|trade rumors?/i.test(text)) return false;
   const teams=game.teams || [];
@@ -205,6 +208,7 @@ function pregameStoryEligible(row,saved,now=Date.now()) {
   const published=Number(row.source_published)*1000;
   if (!/^https?:\/\//i.test(String(row.source_url || '')) || !Number.isFinite(published) ||
       published>now+300000 || now-published>ARTICLE_MAX_AGE_MS) return false;
+  if (/\/recap(?:[/?]|$)/i.test(row.source_url) || /game highlights/i.test(row.source_title||'')) return false;
   const article={headline:row.source_title,description:saved?.description || ''};
   if (!evidenceSupportsType(article,row.factor_type)) return false;
   if (row.factor_type==='notable_recent_performance' &&
@@ -250,7 +254,7 @@ function buildResearchItems(games,articlesBySport) {
   const items = [];
   for (const game of games) {
     const matches = (articlesBySport.get(game.sport) || [])
-      .filter(article => articleMatchesGame(article,game))
+      .filter(article => articleMatchesGame(article,game) || editorialArticleEligible(article,game))
       .sort((a,b) => b.published - a.published)
       .slice(0,MAX_ARTICLES_PER_GAME);
     matches.forEach(article => items.push({
@@ -305,7 +309,7 @@ async function aiFactors(env,items) {
   }
 }
 
-function mergeFactors(items,classified) {
+function mergeFactors(items,classified,editorial=[],now=Date.now()) {
   const byItem = new Map(classified
     .filter(item => item && ALLOWED_TYPES.has(item.type) && Number(item.confidence) >= .7)
     .map(item => [String(item.id),item]));
@@ -317,16 +321,15 @@ function mergeFactors(items,classified) {
     if (!chosen || (item.game && !achievementMatchesGame(item.article,item.game,chosen.type))) continue;
     if(item.sport==='NFL' && !nflMaterialFactor(item.article,chosen.type)) continue;
     const confidence = Math.min(.99,Math.max(.7,Number(chosen.confidence) || .7));
-    const chosenText = String(chosen.text || '').replace(/\s+/g,' ').trim();
-    const groundedText = chosenText && evidenceSupportsType({headline:chosenText,description:''},chosen.type)
-      ? chosenText
-      : item.article.headline;
+    const groundedText = item.article.headline;
     const factor = {
       eventId:item.eventId,
       sport:item.sport,
       type:chosen.type,
       text:groundedText.slice(0,260),
       confidence,
+      sourceDescription:String(item.article.description||'').slice(0,1000),
+      sourceTeamIds:[...(item.article.teamIds||[])],sourceEventIds:[...(item.article.eventIds||[])],
       sourceTitle:item.article.headline.slice(0,260),
       sourceUrl:item.article.url.slice(0,1000),
       sourcePublished:Math.floor(item.article.published / 1000)
@@ -345,6 +348,18 @@ function mergeFactors(items,classified) {
     const key = `${factor.sport}:${factor.eventId}:${factor.type}`;
     const prior = deduped.get(key);
     if (!prior || factor.confidence > prior.confidence || factor.sourcePublished > prior.sourcePublished) deduped.set(key,factor);
+  }
+  for(const candidate of editorial) {
+    const item=items.find(item=>item.id===candidate.id);
+    if(!item||!acceptEditorialReview(item,candidate,candidate.review,now))continue;
+    // An article already contributing a grounded factor needs only one link.
+    if([...deduped.values()].some(f=>f.eventId===item.eventId&&f.sport===item.sport&&f.sourceUrl===item.article.url))continue;
+    const factor={eventId:item.eventId,sport:item.sport,type:EDITORIAL_TYPE,text:item.article.headline,
+      confidence:candidate.confidence,sourceTitle:item.article.headline,sourceUrl:item.article.url,
+      sourcePublished:Math.floor(item.article.published/1000),sourceDescription:item.article.description||'',
+      sourceTeamIds:[...(item.article.teamIds||[])],sourceEventIds:[...(item.article.eventIds||[])],editorialReview:candidate};
+    // One exceptional story per game keeps the existing bounded D1 key shape.
+    deduped.set(`${factor.sport}:${factor.eventId}:${EDITORIAL_TYPE}`,factor);
   }
   return [...deduped.values()];
 }
@@ -366,7 +381,8 @@ async function saveFactors(env,games,factors,now) {
         expires_at=excluded.expires_at,
         updated_at=excluded.updated_at`)
       .bind(factor.eventId,factor.sport,factor.type,
-        factor.sport==='NFL' ? JSON.stringify({version:4,text:factor.text,description:factor.sourceDescription || '',teamIds:factor.sourceTeamIds || [],eventIds:factor.sourceEventIds || [],affectedTeamId:factor.injuryEvidence?.affectedTeamId}) : ACHIEVEMENTS.has(factor.type) ? JSON.stringify({version:3,text:factor.text,description:factor.sourceDescription || '',teamIds:factor.sourceTeamIds || []}) : factor.injuryEvidence ? JSON.stringify({version:2,text:factor.text,description:factor.sourceDescription || '',affectedTeamId:factor.injuryEvidence.affectedTeamId}) : factor.text,
+        JSON.stringify({version:5,text:factor.text,description:factor.sourceDescription||'',teamIds:factor.sourceTeamIds||[],
+          eventIds:factor.sourceEventIds||[],affectedTeamId:factor.injuryEvidence?.affectedTeamId,editorialReview:factor.editorialReview}),
         factor.confidence,factor.sourceTitle,factor.sourceUrl,factor.sourcePublished,expires,Math.floor(now / 1000));
   });
   for (let start=0;start<writes.length;start+=50) await env.DB.batch(writes.slice(start,start+50));
@@ -384,15 +400,16 @@ export async function refreshStorylines(env,now=Date.now()) {
     } catch { return [feed.sport,[]]; }
   }));
   const items = buildResearchItems(games,new Map(newsEntries));
-  // NFL research is deterministic; do not spend inference calls on this model.
+  // NFL scoring context stays deterministic. Editorial discovery is separate.
   const classified = await aiFactors(env,items.filter(item=>item.sport!=='NFL'));
-  const factors = mergeFactors(items,classified);
+  const editorial = await discoverEditorialStories(env,items,now);
+  const factors = mergeFactors(items,classified,editorial,now);
   await saveFactors(env,games,factors,now);
   await env.DB.prepare(`INSERT INTO research_status (id,last_run,candidates,articles,factors,ai_used,last_error)
     VALUES (1,?,?,?,?,?,NULL)
     ON CONFLICT(id) DO UPDATE SET last_run=excluded.last_run,candidates=excluded.candidates,articles=excluded.articles,factors=excluded.factors,ai_used=excluded.ai_used,last_error=NULL`)
-    .bind(Math.floor(now / 1000),games.length,items.length,factors.length,classified.length ? 1 : 0).run();
-  return {candidates:games.length,articles:items.length,factors:factors.length,aiUsed:Boolean(classified.length)};
+    .bind(Math.floor(now / 1000),games.length,items.length,factors.length,classified.length || editorial.length ? 1 : 0).run();
+  return {candidates:games.length,articles:items.length,factors:factors.length,aiUsed:Boolean(classified.length || editorial.length)};
 }
 
 export async function contextsForGames(env,keys,games=[]) {
@@ -420,8 +437,19 @@ export async function contextsForGames(env,keys,games=[]) {
     let text = row.context_text;
     let saved;
     try {saved=JSON.parse(text);} catch {}
-    if ([3,4].includes(saved?.version)) text=saved.text;
+    if ([3,4,5].includes(saved?.version)) text=saved.text;
     const game=games.find(g=>g.sport===row.sport && String(g.id)===String(row.event_id));
+    if(row.factor_type===EDITORIAL_TYPE) {
+      if(!game||game.state!=='upcoming'||saved?.version!==5)continue;
+      const candidate=saved.editorialReview;
+      const article={headline:row.source_title,description:saved.description||'',url:row.source_url,published:Number(row.source_published)*1000,
+        teamIds:new Set(saved.teamIds||[]),eventIds:new Set(saved.eventIds||[])};
+      const item={id:candidate?.id,game,article};
+      if(!acceptEditorialReview(item,candidate,candidate?.review))continue;
+      (output[key]||=[]).push({type:EDITORIAL_TYPE,text:row.source_title,confidence:Number(row.confidence),verified:true,editorialOnly:true,
+        sourceTitle:row.source_title,sourceDescription:saved.description||'',sourceUrl:row.source_url,publishedAt:new Date(article.published).toISOString()});
+      continue;
+    }
     if (game?.state==='upcoming' && !pregameStoryEligible(row,saved)) continue;
     if (row.sport==='NFL' && (!game || game.state==='upcoming')) {
       const article={headline:row.source_title,description:saved?.description || '',published:Number(row.source_published)*1000,
@@ -437,7 +465,7 @@ export async function contextsForGames(env,keys,games=[]) {
     if (['star_absence','star_injury_return'].includes(row.factor_type)) {
       let stored;
       try { stored = JSON.parse(row.context_text); } catch {}
-      const versioned = [2,4].includes(stored?.version) && typeof stored.text === 'string';
+      const versioned = [2,4,5].includes(stored?.version) && typeof stored.text === 'string';
       const article = {headline:row.source_title,description:versioned ? String(stored.description || '') : ''};
       const evidence = meaningfulInjuryEvidence(article,row.factor_type);
       // Revalidate legacy injury rows on every read. Unrelated cached storylines
@@ -452,6 +480,7 @@ export async function contextsForGames(env,keys,games=[]) {
       confidence:Number(row.confidence),
       verified:true,
       sourceTitle:row.source_title,
+      sourceDescription:saved?.description||'',
       sourceUrl:row.source_url,
       publishedAt:row.source_published ? new Date(Number(row.source_published) * 1000).toISOString() : null,
       ...(injuryEvidence ? {injuryEvidence} : {})

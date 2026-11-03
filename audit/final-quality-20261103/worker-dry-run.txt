@@ -1,0 +1,33 @@
+X [ERROR] Failed to write to log file Error: EPERM: operation not permitted, open 'C:\Users\mmuel\AppData\Roaming\xdg.config\.wrangler\logs\wrangler-2026-11-03_18-19-31_729.log'
+
+      at async open (node:internal/fs/promises:639:25)
+      at async writeFile (node:internal/fs/promises:1213:14)
+      at async C:\Users\mmuel\Documents\Codex\2026-11-03\i-want-one-final-quality-audit\slatemeter\alerts-worker\node_modules\wrangler\wrangler-dist\cli.js:69658:7
+      at async Mutex.runWith (C:\Users\mmuel\Documents\Codex\2026-11-03\i-want-one-final-quality-audit\slatemeter\alerts-worker\node_modules\miniflare\dist\src\index.js:80704:16)
+      at async appendToDebugLogFile (C:\Users\mmuel\Documents\Codex\2026-11-03\i-want-one-final-quality-audit\slatemeter\alerts-worker\node_modules\wrangler\wrangler-dist\cli.js:69655:3) {
+    errno: -4048,
+    code: 'EPERM',
+    syscall: 'open',
+    path: 'C:\\Users\\mmuel\\AppData\\Roaming\\xdg.config\\.wrangler\\logs\\wrangler-2026-11-03_18-19-31_729.log'
+  }
+
+
+X [ERROR] Would have written:
+
+  --- 2026-11-03T18:19:31.923Z debug
+  🪵  Writing logs to "C:\Users\mmuel\AppData\Roaming\xdg.config\.wrangler\logs\wrangler-2026-11-03_18-19-31_729.log"
+  ---
+
+
+
+
+ ⛅️ wrangler 4.151.3
+────────────────────
+Total Upload: 784.58 KiB / gzip: 181.28 KiB
+Your Worker has access to the following bindings:
+Binding                           Resource
+env.DB (sports-radar-alerts)      D1 Database
+env.AI                            AI
+
+--dry-run: exiting now.
+🪵  Logs were written to "C:\Users\mmuel\AppData\Roaming\xdg.config\.wrangler\logs\wrangler-2026-11-03_18-19-31_729.log"

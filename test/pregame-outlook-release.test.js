@@ -14,7 +14,7 @@ test('NHL outlook uses the matchup rather than a generic previous-game recap',()
     factor('Both winning records'),factor('Atlantic Division matchup'),
     factor('Recent notable performance',2,{contextType:'notable_recent_performance',contextText:'Detroit beats Florida in its previous game'})]);
   const text=explain(input);
-  assert.match(text,/winning records/i);
+  assert.match(text,/standings points/i);
   assert.match(text,/similar records|competitive/i);
   assert.doesNotMatch(text,/Florida|previous game|59|source-backed|rating contribution/i);
 });

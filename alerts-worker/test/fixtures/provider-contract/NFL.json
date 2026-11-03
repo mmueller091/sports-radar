@@ -1,0 +1,1831 @@
+{
+  "provenance": {
+    "name": "NFL-summary",
+    "url": "https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401873011",
+    "status": 200,
+    "capturedAt": "2026-10-28T19:33:31.622Z",
+    "bytes": 520444
+  },
+  "rawSha256": "1c28e60a19b608595442830f8d9670de56a4068349bde15b70613768b6d8ed14",
+  "inventory": {
+    "topLevelKeys": [
+      "boxscore",
+      "format",
+      "gameInfo",
+      "drives",
+      "leaders",
+      "injuries",
+      "broadcasts",
+      "pickcenter",
+      "odds",
+      "againstTheSpread",
+      "scoringPlays",
+      "news",
+      "winprobability",
+      "article",
+      "videos",
+      "header",
+      "wallclockAvailable",
+      "meta",
+      "standings"
+    ],
+    "playCount": 0,
+    "scoringPlayCount": 6,
+    "driveCount": 13,
+    "playerGroups": [
+      {
+        "teamId": "23",
+        "groups": [
+          {
+            "name": "passing",
+            "athleteCount": 1
+          },
+          {
+            "name": "rushing",
+            "athleteCount": 3
+          },
+          {
+            "name": "receiving",
+            "athleteCount": 7
+          },
+          {
+            "name": "fumbles",
+            "athleteCount": 0
+          },
+          {
+            "name": "defensive",
+            "athleteCount": 21
+          },
+          {
+            "name": "interceptions",
+            "athleteCount": 1
+          },
+          {
+            "name": "kickReturns",
+            "athleteCount": 2
+          },
+          {
+            "name": "puntReturns",
+            "athleteCount": 1
+          },
+          {
+            "name": "kicking",
+            "athleteCount": 1
+          },
+          {
+            "name": "punting",
+            "athleteCount": 1
+          }
+        ]
+      },
+      {
+        "teamId": "18",
+        "groups": [
+          {
+            "name": "passing",
+            "athleteCount": 1
+          },
+          {
+            "name": "rushing",
+            "athleteCount": 3
+          },
+          {
+            "name": "receiving",
+            "athleteCount": 9
+          },
+          {
+            "name": "fumbles",
+            "athleteCount": 1
+          },
+          {
+            "name": "defensive",
+            "athleteCount": 21
+          },
+          {
+            "name": "interceptions",
+            "athleteCount": 0
+          },
+          {
+            "name": "kickReturns",
+            "athleteCount": 2
+          },
+          {
+            "name": "puntReturns",
+            "athleteCount": 1
+          },
+          {
+            "name": "kicking",
+            "athleteCount": 1
+          },
+          {
+            "name": "punting",
+            "athleteCount": 1
+          }
+        ]
+      }
+    ]
+  },
+  "summary": {
+    "header": {
+      "id": "401873011",
+      "season": {
+        "year": 2026,
+        "current": true,
+        "type": 2
+      },
+      "timeValid": true,
+      "competitions": [
+        {
+          "id": "401873011",
+          "date": "2026-10-25T13:30Z",
+          "neutralSite": true,
+          "conferenceCompetition": false,
+          "boxscoreAvailable": true,
+          "commentaryAvailable": false,
+          "liveAvailable": false,
+          "onWatchESPN": false,
+          "recent": false,
+          "wallclockAvailable": true,
+          "boxscoreSource": "full",
+          "playByPlaySource": "full",
+          "competitors": [
+            {
+              "id": "18",
+              "order": 0,
+              "homeAway": "home",
+              "winner": false,
+              "team": {
+                "id": "18",
+                "displayName": "New Orleans Saints",
+                "abbreviation": "NO"
+              },
+              "score": "10",
+              "linescores": [
+                {
+                  "displayValue": "0"
+                },
+                {
+                  "displayValue": "10"
+                },
+                {
+                  "displayValue": "0"
+                },
+                {
+                  "displayValue": "0"
+                }
+              ],
+              "record": [
+                {
+                  "type": "total",
+                  "summary": "2-5",
+                  "displayValue": "2-5"
+                },
+                {
+                  "type": "home",
+                  "summary": "0-4",
+                  "displayValue": "0-4"
+                }
+              ],
+              "possession": false
+            },
+            {
+              "id": "23",
+              "order": 1,
+              "homeAway": "away",
+              "winner": true,
+              "team": {
+                "id": "23",
+                "displayName": "Pittsburgh Steelers",
+                "abbreviation": "PIT"
+              },
+              "score": "16",
+              "linescores": [
+                {
+                  "displayValue": "3"
+                },
+                {
+                  "displayValue": "10"
+                },
+                {
+                  "displayValue": "3"
+                },
+                {
+                  "displayValue": "0"
+                }
+              ],
+              "record": [
+                {
+                  "type": "total",
+                  "summary": "5-2",
+                  "displayValue": "5-2"
+                },
+                {
+                  "type": "road",
+                  "summary": "2-2",
+                  "displayValue": "2-2"
+                }
+              ],
+              "possession": false
+            }
+          ],
+          "status": {
+            "type": {
+              "id": "3",
+              "name": "STATUS_FINAL",
+              "state": "post",
+              "completed": true,
+              "description": "Final",
+              "detail": "Final",
+              "shortDetail": "Final"
+            },
+            "isTBDFlex": false
+          },
+          "broadcasts": [
+            {
+              "type": {
+                "id": "1",
+                "shortName": "TV"
+              },
+              "market": {
+                "id": "1",
+                "type": "National"
+              },
+              "lang": "en",
+              "region": "us",
+              "isNational": true
+            }
+          ],
+          "boxscoreMinutes": true
+        }
+      ],
+      "week": 7,
+      "league": {
+        "id": "28",
+        "name": "National Football League",
+        "abbreviation": "NFL",
+        "shortName": "NFL",
+        "slug": "nfl",
+        "isTournament": false
+      },
+      "gameNote": "NFL Paris Game"
+    },
+    "format": {
+      "regulation": {
+        "periods": 4,
+        "displayName": "Quarter",
+        "slug": "quarter",
+        "clock": 900
+      },
+      "overtime": {
+        "periods": 1,
+        "displayName": "sudden-death",
+        "slug": "sudden-death",
+        "clock": 600
+      },
+      "suddenDeath": {
+        "periods": 1,
+        "clock": 600
+      }
+    },
+    "gameInfo": {
+      "venue": {
+        "id": "1781",
+        "fullName": "Stade de France",
+        "address": {
+          "city": "Saint-Denis",
+          "country": "France"
+        },
+        "grass": true,
+        "images": []
+      },
+      "attendance": 78488,
+      "officials": [
+        {
+          "fullName": "Bill Vinovich",
+          "displayName": "Bill Vinovich",
+          "position": {
+            "name": "Referee",
+            "displayName": "Referee",
+            "id": "114"
+          },
+          "order": 1
+        },
+        {
+          "fullName": "Jimmy Buchanan",
+          "displayName": "Jimmy Buchanan",
+          "position": {
+            "name": "Side Judge",
+            "displayName": "Side Judge",
+            "id": "115"
+          },
+          "order": 2
+        },
+        {
+          "fullName": "Todd Prukop",
+          "displayName": "Todd Prukop",
+          "position": {
+            "name": "Back Judge",
+            "displayName": "Back Judge",
+            "id": "110"
+          },
+          "order": 3
+        },
+        {
+          "fullName": "Aaron Santi",
+          "displayName": "Aaron Santi",
+          "position": {
+            "name": "Field Judge",
+            "displayName": "Field Judge",
+            "id": "111"
+          },
+          "order": 4
+        },
+        {
+          "fullName": "Brian Bolinger",
+          "displayName": "Brian Bolinger",
+          "position": {
+            "name": "Line Judge",
+            "displayName": "Line Judge",
+            "id": "113"
+          },
+          "order": 5
+        },
+        {
+          "fullName": "Frank LeBlanc",
+          "displayName": "Frank LeBlanc",
+          "position": {
+            "name": "Down Judge",
+            "displayName": "Down Judge",
+            "id": "112"
+          },
+          "order": 6
+        },
+        {
+          "fullName": "Scott Campbell",
+          "displayName": "Scott Campbell",
+          "position": {
+            "name": "Umpire",
+            "displayName": "Umpire",
+            "id": "116"
+          },
+          "order": 7
+        }
+      ]
+    },
+    "boxscore": {
+      "teams": [
+        {
+          "team": {
+            "id": "23",
+            "displayName": "Pittsburgh Steelers",
+            "abbreviation": "PIT"
+          },
+          "statistics": [
+            {
+              "name": "firstDowns",
+              "displayValue": "20"
+            },
+            {
+              "name": "firstDownsPassing",
+              "displayValue": "9"
+            },
+            {
+              "name": "firstDownsRushing",
+              "displayValue": "10"
+            },
+            {
+              "name": "firstDownsPenalty",
+              "displayValue": "1"
+            },
+            {
+              "name": "thirdDownEff",
+              "displayValue": "10-16"
+            },
+            {
+              "name": "fourthDownEff",
+              "displayValue": "0-0"
+            },
+            {
+              "name": "totalOffensivePlays",
+              "displayValue": "63"
+            },
+            {
+              "name": "totalYards",
+              "displayValue": "343"
+            },
+            {
+              "name": "yardsPerPlay",
+              "displayValue": "5.4"
+            },
+            {
+              "name": "totalDrives",
+              "displayValue": "7"
+            },
+            {
+              "name": "netPassingYards",
+              "displayValue": "195"
+            },
+            {
+              "name": "completionAttempts",
+              "displayValue": "19/30"
+            },
+            {
+              "name": "yardsPerPass",
+              "displayValue": "5.9"
+            },
+            {
+              "name": "interceptions",
+              "displayValue": "0"
+            },
+            {
+              "name": "sacksYardsLost",
+              "displayValue": "3-17"
+            },
+            {
+              "name": "rushingYards",
+              "displayValue": "148"
+            },
+            {
+              "name": "rushingAttempts",
+              "displayValue": "30"
+            },
+            {
+              "name": "yardsPerRushAttempt",
+              "displayValue": "4.9"
+            },
+            {
+              "name": "redZoneAttempts",
+              "displayValue": "1-4"
+            },
+            {
+              "name": "totalPenaltiesYards",
+              "displayValue": "6-57"
+            },
+            {
+              "name": "turnovers",
+              "displayValue": "0"
+            },
+            {
+              "name": "fumblesLost",
+              "displayValue": "0"
+            },
+            {
+              "name": "interceptions",
+              "displayValue": "0"
+            },
+            {
+              "name": "defensiveTouchdowns",
+              "displayValue": "0"
+            },
+            {
+              "name": "possessionTime",
+              "displayValue": "32:03"
+            }
+          ],
+          "displayOrder": 1,
+          "homeAway": "away"
+        },
+        {
+          "team": {
+            "id": "18",
+            "displayName": "New Orleans Saints",
+            "abbreviation": "NO"
+          },
+          "statistics": [
+            {
+              "name": "firstDowns",
+              "displayValue": "19"
+            },
+            {
+              "name": "firstDownsPassing",
+              "displayValue": "15"
+            },
+            {
+              "name": "firstDownsRushing",
+              "displayValue": "3"
+            },
+            {
+              "name": "firstDownsPenalty",
+              "displayValue": "1"
+            },
+            {
+              "name": "thirdDownEff",
+              "displayValue": "6-12"
+            },
+            {
+              "name": "fourthDownEff",
+              "displayValue": "2-2"
+            },
+            {
+              "name": "totalOffensivePlays",
+              "displayValue": "57"
+            },
+            {
+              "name": "totalYards",
+              "displayValue": "281"
+            },
+            {
+              "name": "yardsPerPlay",
+              "displayValue": "4.9"
+            },
+            {
+              "name": "totalDrives",
+              "displayValue": "6"
+            },
+            {
+              "name": "netPassingYards",
+              "displayValue": "263"
+            },
+            {
+              "name": "completionAttempts",
+              "displayValue": "30/38"
+            },
+            {
+              "name": "yardsPerPass",
+              "displayValue": "6.6"
+            },
+            {
+              "name": "interceptions",
+              "displayValue": "1"
+            },
+            {
+              "name": "sacksYardsLost",
+              "displayValue": "2-15"
+            },
+            {
+              "name": "rushingYards",
+              "displayValue": "18"
+            },
+            {
+              "name": "rushingAttempts",
+              "displayValue": "17"
+            },
+            {
+              "name": "yardsPerRushAttempt",
+              "displayValue": "1.1"
+            },
+            {
+              "name": "redZoneAttempts",
+              "displayValue": "1-3"
+            },
+            {
+              "name": "totalPenaltiesYards",
+              "displayValue": "5-39"
+            },
+            {
+              "name": "turnovers",
+              "displayValue": "1"
+            },
+            {
+              "name": "fumblesLost",
+              "displayValue": "0"
+            },
+            {
+              "name": "interceptions",
+              "displayValue": "1"
+            },
+            {
+              "name": "defensiveTouchdowns",
+              "displayValue": "0"
+            },
+            {
+              "name": "possessionTime",
+              "displayValue": "27:57"
+            }
+          ],
+          "displayOrder": 2,
+          "homeAway": "home"
+        }
+      ],
+      "players": [
+        {
+          "team": {
+            "id": "23",
+            "displayName": "Pittsburgh Steelers",
+            "abbreviation": "PIT"
+          },
+          "statistics": [
+            {
+              "name": "passing",
+              "keys": [
+                "completions/passingAttempts",
+                "passingYards",
+                "yardsPerPassAttempt",
+                "passingTouchdowns",
+                "interceptions",
+                "sacks-sackYardsLost",
+                "adjQBR",
+                "QBRating"
+              ],
+              "text": "Pittsburgh Passing",
+              "labels": [
+                "C/ATT",
+                "YDS",
+                "AVG",
+                "TD",
+                "INT",
+                "SACKS",
+                "QBR",
+                "RTG"
+              ],
+              "athletes": [
+                {
+                  "athlete": {
+                    "id": "8439",
+                    "displayName": "Aaron Rodgers"
+                  },
+                  "stats": [
+                    "19/30",
+                    "212",
+                    "7.1",
+                    "1",
+                    "0",
+                    "3-17",
+                    "66.7",
+                    "95.4"
+                  ]
+                }
+              ],
+              "totals": [
+                "19/30",
+                "195",
+                "7.1",
+                "1",
+                "0",
+                "3-17",
+                "--",
+                "95.4"
+              ]
+            },
+            {
+              "name": "rushing",
+              "keys": [
+                "rushingAttempts",
+                "rushingYards",
+                "yardsPerRushAttempt",
+                "rushingTouchdowns",
+                "longRushing"
+              ],
+              "text": "Pittsburgh Rushing",
+              "labels": [
+                "CAR",
+                "YDS",
+                "AVG",
+                "TD",
+                "LONG"
+              ],
+              "athletes": [
+                {
+                  "athlete": {
+                    "id": "4569987",
+                    "displayName": "Jaylen Warren"
+                  },
+                  "stats": [
+                    "18",
+                    "101",
+                    "5.6",
+                    "0",
+                    "29"
+                  ]
+                }
+              ],
+              "totals": [
+                "30",
+                "148",
+                "4.9",
+                "0",
+                "29"
+              ]
+            },
+            {
+              "name": "receiving",
+              "keys": [
+                "receptions",
+                "receivingYards",
+                "yardsPerReception",
+                "receivingTouchdowns",
+                "longReception",
+                "receivingTargets"
+              ],
+              "text": "Pittsburgh Receiving",
+              "labels": [
+                "REC",
+                "YDS",
+                "AVG",
+                "TD",
+                "LONG",
+                "TGTS"
+              ],
+              "athletes": [
+                {
+                  "athlete": {
+                    "id": "4047650",
+                    "displayName": "DK Metcalf"
+                  },
+                  "stats": [
+                    "2",
+                    "56",
+                    "28.0",
+                    "0",
+                    "51",
+                    "6"
+                  ]
+                }
+              ],
+              "totals": [
+                "19",
+                "212",
+                "11.2",
+                "1",
+                "51",
+                "28"
+              ]
+            },
+            {
+              "name": "fumbles",
+              "keys": [
+                "fumbles",
+                "fumblesLost",
+                "fumblesRecovered"
+              ],
+              "text": "Pittsburgh Fumbles",
+              "labels": [
+                "FUM",
+                "LOST",
+                "REC"
+              ],
+              "athletes": [],
+              "totals": []
+            },
+            {
+              "name": "defensive",
+              "keys": [
+                "totalTackles",
+                "soloTackles",
+                "sacks",
+                "tacklesForLoss",
+                "passesDefended",
+                "QBHits",
+                "defensiveTouchdowns"
+              ],
+              "text": "Pittsburgh Defense",
+              "labels": [
+                "TOT",
+                "SOLO",
+                "SACKS",
+                "TFL",
+                "PD",
+                "QB HTS",
+                "TD"
+              ],
+              "athletes": [
+                {
+                  "athlete": {
+                    "id": "4242207",
+                    "displayName": "Patrick Queen"
+                  },
+                  "stats": [
+                    "10",
+                    "7",
+                    "1",
+                    "1",
+                    "1",
+                    "1",
+                    "0"
+                  ]
+                }
+              ],
+              "totals": [
+                "67",
+                "41",
+                "2",
+                "6",
+                "5",
+                "5",
+                "0"
+              ]
+            },
+            {
+              "name": "interceptions",
+              "keys": [
+                "interceptions",
+                "interceptionYards",
+                "interceptionTouchdowns"
+              ],
+              "text": "Pittsburgh Interceptions",
+              "labels": [
+                "INT",
+                "YDS",
+                "TD"
+              ],
+              "athletes": [
+                {
+                  "athlete": {
+                    "id": "4361652",
+                    "displayName": "Payton Wilson"
+                  },
+                  "stats": [
+                    "1",
+                    "18",
+                    "0"
+                  ]
+                }
+              ],
+              "totals": [
+                "1",
+                "18",
+                "0"
+              ]
+            },
+            {
+              "name": "kickReturns",
+              "keys": [
+                "kickReturns",
+                "kickReturnYards",
+                "yardsPerKickReturn",
+                "longKickReturn",
+                "kickReturnTouchdowns"
+              ],
+              "text": "Pittsburgh Kick Returns",
+              "labels": [
+                "NO",
+                "YDS",
+                "AVG",
+                "LONG",
+                "TD"
+              ],
+              "athletes": [
+                {
+                  "athlete": {
+                    "id": "5081338",
+                    "displayName": "Kaden Wetjen"
+                  },
+                  "stats": [
+                    "2",
+                    "60",
+                    "30.0",
+                    "35",
+                    "0"
+                  ]
+                }
+              ],
+              "totals": [
+                "3",
+                "82",
+                "27.3",
+                "35",
+                "0"
+              ]
+            },
+            {
+              "name": "puntReturns",
+              "keys": [
+                "puntReturns",
+                "puntReturnYards",
+                "yardsPerPuntReturn",
+                "longPuntReturn",
+                "puntReturnTouchdowns"
+              ],
+              "text": "Pittsburgh Punt Returns",
+              "labels": [
+                "NO",
+                "YDS",
+                "AVG",
+                "LONG",
+                "TD"
+              ],
+              "athletes": [
+                {
+                  "athlete": {
+                    "id": "5081338",
+                    "displayName": "Kaden Wetjen"
+                  },
+                  "stats": [
+                    "1",
+                    "13",
+                    "13.0",
+                    "13",
+                    "0"
+                  ]
+                }
+              ],
+              "totals": [
+                "1",
+                "13",
+                "13.0",
+                "13",
+                "0"
+              ]
+            },
+            {
+              "name": "kicking",
+              "keys": [
+                "fieldGoalsMade/fieldGoalAttempts",
+                "fieldGoalPct",
+                "longFieldGoalMade",
+                "extraPointsMade/extraPointAttempts",
+                "totalKickingPoints"
+              ],
+              "text": "Pittsburgh Kicking",
+              "labels": [
+                "FG",
+                "PCT",
+                "LONG",
+                "XP",
+                "PTS"
+              ],
+              "athletes": [
+                {
+                  "athlete": {
+                    "id": "17372",
+                    "displayName": "Chris Boswell"
+                  },
+                  "stats": [
+                    "3/3",
+                    "100.0",
+                    "47",
+                    "1/1",
+                    "10"
+                  ]
+                }
+              ],
+              "totals": [
+                "3/3",
+                "100.0",
+                "47",
+                "1/1",
+                "10"
+              ]
+            },
+            {
+              "name": "punting",
+              "keys": [
+                "punts",
+                "puntYards",
+                "grossAvgPuntYards",
+                "touchbacks",
+                "puntsInside20",
+                "longPunt"
+              ],
+              "text": "Pittsburgh Punting",
+              "labels": [
+                "NO",
+                "YDS",
+                "AVG",
+                "TB",
+                "In 20",
+                "LONG"
+              ],
+              "athletes": [
+                {
+                  "athlete": {
+                    "id": "3051397",
+                    "displayName": "Cameron Johnston"
+                  },
+                  "stats": [
+                    "2",
+                    "89",
+                    "44.5",
+                    "0",
+                    "1",
+                    "54"
+                  ]
+                }
+              ],
+              "totals": [
+                "2",
+                "89",
+                "44.5",
+                "0",
+                "1",
+                "54"
+              ]
+            }
+          ],
+          "displayOrder": 1
+        },
+        {
+          "team": {
+            "id": "18",
+            "displayName": "New Orleans Saints",
+            "abbreviation": "NO"
+          },
+          "statistics": [
+            {
+              "name": "passing",
+              "keys": [
+                "completions/passingAttempts",
+                "passingYards",
+                "yardsPerPassAttempt",
+                "passingTouchdowns",
+                "interceptions",
+                "sacks-sackYardsLost",
+                "adjQBR",
+                "QBRating"
+              ],
+              "text": "New Orleans Passing",
+              "labels": [
+                "C/ATT",
+                "YDS",
+                "AVG",
+                "TD",
+                "INT",
+                "SACKS",
+                "QBR",
+                "RTG"
+              ],
+              "athletes": [
+                {
+                  "athlete": {
+                    "id": "4360689",
+                    "displayName": "Tyler Shough"
+                  },
+                  "stats": [
+                    "30/38",
+                    "278",
+                    "7.3",
+                    "1",
+                    "1",
+                    "2-15",
+                    "65.1",
+                    "95.0"
+                  ]
+                }
+              ],
+              "totals": [
+                "30/38",
+                "263",
+                "7.3",
+                "1",
+                "1",
+                "2-15",
+                "--",
+                "95.0"
+              ]
+            },
+            {
+              "name": "rushing",
+              "keys": [
+                "rushingAttempts",
+                "rushingYards",
+                "yardsPerRushAttempt",
+                "rushingTouchdowns",
+                "longRushing"
+              ],
+              "text": "New Orleans Rushing",
+              "labels": [
+                "CAR",
+                "YDS",
+                "AVG",
+                "TD",
+                "LONG"
+              ],
+              "athletes": [
+                {
+                  "athlete": {
+                    "id": "4360689",
+                    "displayName": "Tyler Shough"
+                  },
+                  "stats": [
+                    "3",
+                    "7",
+                    "2.3",
+                    "0",
+                    "6"
+                  ]
+                }
+              ],
+              "totals": [
+                "17",
+                "18",
+                "1.1",
+                "0",
+                "6"
+              ]
+            },
+            {
+              "name": "receiving",
+              "keys": [
+                "receptions",
+                "receivingYards",
+                "yardsPerReception",
+                "receivingTouchdowns",
+                "longReception",
+                "receivingTargets"
+              ],
+              "text": "New Orleans Receiving",
+              "labels": [
+                "REC",
+                "YDS",
+                "AVG",
+                "TD",
+                "LONG",
+                "TGTS"
+              ],
+              "athletes": [
+                {
+                  "athlete": {
+                    "id": "4698597",
+                    "displayName": "Barion Brown"
+                  },
+                  "stats": [
+                    "3",
+                    "57",
+                    "19.0",
+                    "0",
+                    "49",
+                    "3"
+                  ]
+                }
+              ],
+              "totals": [
+                "30",
+                "278",
+                "9.3",
+                "1",
+                "49",
+                "38"
+              ]
+            },
+            {
+              "name": "fumbles",
+              "keys": [
+                "fumbles",
+                "fumblesLost",
+                "fumblesRecovered"
+              ],
+              "text": "New Orleans Fumbles",
+              "labels": [
+                "FUM",
+                "LOST",
+                "REC"
+              ],
+              "athletes": [
+                {
+                  "athlete": {
+                    "id": "4360689",
+                    "displayName": "Tyler Shough"
+                  },
+                  "stats": [
+                    "1",
+                    "0",
+                    "0"
+                  ]
+                }
+              ],
+              "totals": [
+                "1",
+                "0",
+                "0"
+              ]
+            },
+            {
+              "name": "defensive",
+              "keys": [
+                "totalTackles",
+                "soloTackles",
+                "sacks",
+                "tacklesForLoss",
+                "passesDefended",
+                "QBHits",
+                "defensiveTouchdowns"
+              ],
+              "text": "New Orleans Defense",
+              "labels": [
+                "TOT",
+                "SOLO",
+                "SACKS",
+                "TFL",
+                "PD",
+                "QB HTS",
+                "TD"
+              ],
+              "athletes": [
+                {
+                  "athlete": {
+                    "id": "4683813",
+                    "displayName": "Jonas Sanker"
+                  },
+                  "stats": [
+                    "9",
+                    "7",
+                    "0",
+                    "0",
+                    "0",
+                    "0",
+                    "0"
+                  ]
+                }
+              ],
+              "totals": [
+                "69",
+                "39",
+                "3",
+                "3",
+                "2",
+                "5",
+                "0"
+              ]
+            },
+            {
+              "name": "interceptions",
+              "keys": [
+                "interceptions",
+                "interceptionYards",
+                "interceptionTouchdowns"
+              ],
+              "text": "New Orleans Interceptions",
+              "labels": [
+                "INT",
+                "YDS",
+                "TD"
+              ],
+              "athletes": [],
+              "totals": []
+            },
+            {
+              "name": "kickReturns",
+              "keys": [
+                "kickReturns",
+                "kickReturnYards",
+                "yardsPerKickReturn",
+                "longKickReturn",
+                "kickReturnTouchdowns"
+              ],
+              "text": "New Orleans Kick Returns",
+              "labels": [
+                "NO",
+                "YDS",
+                "AVG",
+                "LONG",
+                "TD"
+              ],
+              "athletes": [
+                {
+                  "athlete": {
+                    "id": "4698597",
+                    "displayName": "Barion Brown"
+                  },
+                  "stats": [
+                    "3",
+                    "77",
+                    "25.7",
+                    "42",
+                    "0"
+                  ]
+                }
+              ],
+              "totals": [
+                "4",
+                "99",
+                "24.8",
+                "42",
+                "0"
+              ]
+            },
+            {
+              "name": "puntReturns",
+              "keys": [
+                "puntReturns",
+                "puntReturnYards",
+                "yardsPerPuntReturn",
+                "longPuntReturn",
+                "puntReturnTouchdowns"
+              ],
+              "text": "New Orleans Punt Returns",
+              "labels": [
+                "NO",
+                "YDS",
+                "AVG",
+                "LONG",
+                "TD"
+              ],
+              "athletes": [
+                {
+                  "athlete": {
+                    "id": "4698597",
+                    "displayName": "Barion Brown"
+                  },
+                  "stats": [
+                    "1",
+                    "20",
+                    "20.0",
+                    "20",
+                    "0"
+                  ]
+                }
+              ],
+              "totals": [
+                "1",
+                "20",
+                "20.0",
+                "20",
+                "0"
+              ]
+            },
+            {
+              "name": "kicking",
+              "keys": [
+                "fieldGoalsMade/fieldGoalAttempts",
+                "fieldGoalPct",
+                "longFieldGoalMade",
+                "extraPointsMade/extraPointAttempts",
+                "totalKickingPoints"
+              ],
+              "text": "New Orleans Kicking",
+              "labels": [
+                "FG",
+                "PCT",
+                "LONG",
+                "XP",
+                "PTS"
+              ],
+              "athletes": [
+                {
+                  "athlete": {
+                    "id": "3051909",
+                    "displayName": "Daniel Carlson"
+                  },
+                  "stats": [
+                    "1/2",
+                    "50.0",
+                    "38",
+                    "1/1",
+                    "4"
+                  ]
+                }
+              ],
+              "totals": [
+                "1/2",
+                "50.0",
+                "38",
+                "1/1",
+                "4"
+              ]
+            },
+            {
+              "name": "punting",
+              "keys": [
+                "punts",
+                "puntYards",
+                "grossAvgPuntYards",
+                "touchbacks",
+                "puntsInside20",
+                "longPunt"
+              ],
+              "text": "New Orleans Punting",
+              "labels": [
+                "NO",
+                "YDS",
+                "AVG",
+                "TB",
+                "In 20",
+                "LONG"
+              ],
+              "athletes": [
+                {
+                  "athlete": {
+                    "id": "4361823",
+                    "displayName": "Ryan Wright"
+                  },
+                  "stats": [
+                    "2",
+                    "87",
+                    "43.5",
+                    "0",
+                    "1",
+                    "46"
+                  ]
+                }
+              ],
+              "totals": [
+                "2",
+                "87",
+                "43.5",
+                "0",
+                "1",
+                "46"
+              ]
+            }
+          ],
+          "displayOrder": 2
+        }
+      ]
+    },
+    "odds": [],
+    "pickcenter": [
+      {
+        "provider": {
+          "id": "100",
+          "name": "DraftKings",
+          "priority": 1
+        },
+        "details": "PIT -3",
+        "overUnder": 42.5,
+        "spread": 3,
+        "overOdds": -118,
+        "underOdds": -102,
+        "awayTeamOdds": {
+          "favorite": true,
+          "underdog": false,
+          "moneyLine": -162,
+          "spreadOdds": -115,
+          "team": {},
+          "teamId": "23",
+          "favoriteAtOpen": true
+        },
+        "homeTeamOdds": {
+          "favorite": false,
+          "underdog": true,
+          "moneyLine": 136,
+          "spreadOdds": -105,
+          "team": {},
+          "teamId": "18",
+          "favoriteAtOpen": false
+        },
+        "moneyline": {
+          "displayName": "Moneyline",
+          "shortDisplayName": "ML",
+          "home": {
+            "close": {
+              "odds": "+136"
+            },
+            "open": {
+              "odds": "+114"
+            }
+          },
+          "away": {
+            "close": {
+              "odds": "-162"
+            },
+            "open": {
+              "odds": "-135"
+            }
+          }
+        },
+        "pointSpread": {
+          "displayName": "Spread",
+          "shortDisplayName": "Spread",
+          "home": {
+            "close": {
+              "line": "+3",
+              "odds": "-105"
+            },
+            "open": {
+              "line": "+2.5",
+              "odds": "-115"
+            }
+          },
+          "away": {
+            "close": {
+              "line": "-3",
+              "odds": "-115"
+            },
+            "open": {
+              "line": "-2.5",
+              "odds": "-105"
+            }
+          }
+        },
+        "total": {
+          "displayName": "Total",
+          "shortDisplayName": "Total",
+          "over": {
+            "close": {
+              "line": "o42.5",
+              "odds": "-118"
+            },
+            "open": {
+              "line": "o42.5",
+              "odds": "-110"
+            }
+          },
+          "under": {
+            "close": {
+              "line": "u42.5",
+              "odds": "-102"
+            },
+            "open": {
+              "line": "u42.5",
+              "odds": "-110"
+            }
+          }
+        }
+      }
+    ],
+    "drives": {
+      "previous": [
+        {
+          "id": "4018730111",
+          "description": "8 plays, 51 yards, 4:09",
+          "team": {
+            "id": "23",
+            "displayName": "Pittsburgh Steelers",
+            "abbreviation": "PIT"
+          },
+          "start": {
+            "period": {
+              "type": "quarter",
+              "number": 1
+            },
+            "clock": {
+              "displayValue": "15:00"
+            },
+            "yardLine": 61,
+            "text": "PIT 39"
+          },
+          "end": {
+            "period": {
+              "type": "quarter",
+              "number": 1
+            },
+            "clock": {
+              "displayValue": "10:51"
+            },
+            "yardLine": 10,
+            "text": "NO 10"
+          },
+          "timeElapsed": {
+            "displayValue": "4:09"
+          },
+          "yards": 51,
+          "isScore": true,
+          "offensivePlays": 8,
+          "result": "FG",
+          "shortDisplayResult": "FG",
+          "displayResult": "Field Goal",
+          "plays": [
+            {
+              "id": "40187301139",
+              "sequenceNumber": "3900",
+              "type": {
+                "id": "53",
+                "text": "Kickoff",
+                "abbreviation": "K"
+              },
+              "text": "D.Carlson kicks 61 yards from NO 35 to PIT 4. K.Wetjen to PIT 39 for 35 yards (A.Jennings).",
+              "awayScore": 0,
+              "homeScore": 0,
+              "period": {
+                "number": 1
+              },
+              "clock": {
+                "displayValue": "15:00"
+              },
+              "scoringPlay": false,
+              "priority": false,
+              "modified": "2026-10-25T16:49Z",
+              "wallclock": "2026-10-25T13:32:50Z",
+              "teamParticipants": [
+                {
+                  "team": {},
+                  "id": "23",
+                  "statistics": {},
+                  "playStatistics": {},
+                  "order": 1,
+                  "type": "offense"
+                },
+                {
+                  "team": {},
+                  "id": "18",
+                  "statistics": {},
+                  "playStatistics": {},
+                  "order": 2,
+                  "type": "defense"
+                }
+              ],
+              "isPenalty": false,
+              "statYardage": 35,
+              "start": {
+                "down": 0,
+                "distance": 0,
+                "yardLine": 35,
+                "yardsToEndzone": 65,
+                "team": {
+                  "id": "18"
+                }
+              },
+              "end": {
+                "down": 1,
+                "distance": 10,
+                "yardLine": 61,
+                "yardsToEndzone": 61,
+                "downDistanceText": "1st & 10 at PIT 39",
+                "shortDownDistanceText": "1st & 10",
+                "possessionText": "PIT 39",
+                "team": {
+                  "id": "23"
+                }
+              },
+              "isTurnover": false
+            },
+            {
+              "id": "40187301162",
+              "sequenceNumber": "6200",
+              "type": {
+                "id": "24",
+                "text": "Pass Reception",
+                "abbreviation": "REC"
+              },
+              "text": "(Shotgun) A.Rodgers pass short middle to J.Warren to PIT 42 for 3 yards (K.Elliss).",
+              "awayScore": 0,
+              "homeScore": 0,
+              "period": {
+                "number": 1
+              },
+              "clock": {
+                "displayValue": "14:55"
+              },
+              "scoringPlay": false,
+              "priority": false,
+              "modified": "2026-10-25T16:49Z",
+              "wallclock": "2026-10-25T13:33:41Z",
+              "teamParticipants": [
+                {
+                  "team": {},
+                  "id": "23",
+                  "statistics": {},
+                  "playStatistics": {},
+                  "order": 1,
+                  "type": "offense"
+                },
+                {
+                  "team": {},
+                  "id": "18",
+                  "statistics": {},
+                  "playStatistics": {},
+                  "order": 2,
+                  "type": "defense"
+                }
+              ],
+              "isPenalty": false,
+              "statYardage": 3,
+              "start": {
+                "down": 1,
+                "distance": 10,
+                "yardLine": 61,
+                "yardsToEndzone": 61,
+                "downDistanceText": "1st & 10 at PIT 39",
+                "shortDownDistanceText": "1st & 10",
+                "possessionText": "PIT 39",
+                "team": {
+                  "id": "23"
+                }
+              },
+              "end": {
+                "down": 2,
+                "distance": 7,
+                "yardLine": 58,
+                "yardsToEndzone": 58,
+                "downDistanceText": "2nd & 7 at PIT 42",
+                "shortDownDistanceText": "2nd & 7",
+                "possessionText": "PIT 42",
+                "team": {
+                  "id": "23"
+                }
+              },
+              "yardsAfterCatch": 0,
+              "isTurnover": false
+            }
+          ]
+        },
+        {
+          "id": "4018730114",
+          "description": "7 plays, 62 yards, 3:00",
+          "team": {
+            "id": "18",
+            "displayName": "New Orleans Saints",
+            "abbreviation": "NO"
+          },
+          "start": {
+            "period": {
+              "type": "quarter",
+              "number": 2
+            },
+            "clock": {
+              "displayValue": "13:17"
+            },
+            "yardLine": 18,
+            "text": "NO 18"
+          },
+          "end": {
+            "period": {
+              "type": "quarter",
+              "number": 2
+            },
+            "clock": {
+              "displayValue": "10:17"
+            },
+            "yardLine": 80,
+            "text": "PIT 20"
+          },
+          "timeElapsed": {
+            "displayValue": "3:00"
+          },
+          "yards": 62,
+          "isScore": true,
+          "offensivePlays": 7,
+          "result": "FG",
+          "shortDisplayResult": "FG",
+          "displayResult": "Field Goal",
+          "plays": [
+            {
+              "id": "401873011997",
+              "sequenceNumber": "99700",
+              "type": {
+                "id": "21",
+                "text": "Timeout",
+                "abbreviation": "TO"
+              },
+              "text": "Timeout #1 by NO at 12:41.",
+              "awayScore": 3,
+              "homeScore": 0,
+              "period": {
+                "number": 2
+              },
+              "clock": {
+                "displayValue": "12:41"
+              },
+              "scoringPlay": false,
+              "priority": false,
+              "modified": "2026-10-25T16:49Z",
+              "wallclock": "2026-10-25T14:10:34Z",
+              "teamParticipants": [
+                {
+                  "team": {},
+                  "id": "18",
+                  "order": 1,
+                  "type": "offense",
+                  "timeout": true
+                },
+                {
+                  "team": {},
+                  "id": "23",
+                  "order": 2,
+                  "type": "defense"
+                }
+              ],
+              "isPenalty": false,
+              "statYardage": 0,
+              "start": {
+                "down": 1,
+                "distance": 10,
+                "yardLine": 67,
+                "yardsToEndzone": 0,
+                "downDistanceText": "1st & 10 at PIT 33",
+                "shortDownDistanceText": "1st & 10",
+                "possessionText": "PIT 33",
+                "team": {
+                  "id": "18"
+                }
+              },
+              "end": {
+                "down": 1,
+                "distance": 10,
+                "yardLine": 67,
+                "yardsToEndzone": 33,
+                "downDistanceText": "1st & 10 at PIT 33",
+                "shortDownDistanceText": "1st & 10",
+                "possessionText": "PIT 33",
+                "team": {
+                  "id": "18"
+                }
+              },
+              "isTurnover": false
+            }
+          ]
+        }
+      ]
+    },
+    "scoringPlays": [
+      {
+        "id": "401873011231",
+        "type": {
+          "id": "59",
+          "text": "Field Goal Good",
+          "abbreviation": "FG"
+        },
+        "text": "Chris Boswell 28 Yd Field Goal ",
+        "awayScore": 3,
+        "homeScore": 0,
+        "period": {
+          "number": 1
+        },
+        "clock": {
+          "value": 651,
+          "displayValue": "10:51"
+        },
+        "team": {
+          "id": "23",
+          "displayName": "Pittsburgh Steelers",
+          "abbreviation": "PIT"
+        },
+        "scoringType": {
+          "name": "field-goal",
+          "displayName": "Field Goal",
+          "abbreviation": "FG"
+        }
+      }
+    ]
+  }
+}

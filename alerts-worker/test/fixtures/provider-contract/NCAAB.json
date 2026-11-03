@@ -1,0 +1,835 @@
+{
+  "provenance": {
+    "name": "NCAAB-summary",
+    "url": "https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/summary?event=401856600",
+    "status": 200,
+    "capturedAt": "2026-10-28T19:33:32.317Z",
+    "bytes": 467871
+  },
+  "rawSha256": "d32633f7d7babf087d045e3c081b24df5bf9485dab9d1401fbadf99e30e4db97",
+  "inventory": {
+    "topLevelKeys": ["boxscore", "format", "gameInfo", "leaders", "broadcasts", "pickcenter", "odds", "againstTheSpread", "news", "winprobability", "plays", "videos", "header", "wallclockAvailable", "meta", "standings"],
+    "playCount": 482,
+    "scoringPlayCount": 0,
+    "driveCount": 0,
+    "playerGroups": [
+      {
+        "teamId": "41",
+        "groups": [
+          {
+            "athleteCount": 15
+          }
+        ]
+      },
+      {
+        "teamId": "130",
+        "groups": [
+          {
+            "athleteCount": 16
+          }
+        ]
+      }
+    ]
+  },
+  "summary": {
+    "header": {
+      "id": "401856600",
+      "season": {
+        "year": 2026,
+        "current": false,
+        "type": 3
+      },
+      "timeValid": true,
+      "competitions": [
+        {
+          "id": "401856600",
+          "date": "2026-04-07T00:50Z",
+          "neutralSite": true,
+          "conferenceCompetition": false,
+          "boxscoreAvailable": true,
+          "commentaryAvailable": false,
+          "liveAvailable": false,
+          "shotChartAvailable": true,
+          "timeoutsAvailable": false,
+          "possessionArrowAvailable": false,
+          "onWatchESPN": false,
+          "recent": false,
+          "wallclockAvailable": true,
+          "boxscoreSource": "full",
+          "playByPlaySource": "full",
+          "competitors": [
+            {
+              "id": "130",
+              "order": 0,
+              "homeAway": "home",
+              "winner": true,
+              "team": {
+                "id": "130",
+                "displayName": "Michigan Wolverines",
+                "abbreviation": "MICH"
+              },
+              "score": "69",
+              "linescores": [
+                {
+                  "displayValue": "33"
+                },
+                {
+                  "displayValue": "36"
+                }
+              ],
+              "record": [
+                {
+                  "type": "total",
+                  "summary": "37-3",
+                  "displayValue": "37-3"
+                },
+                {
+                  "type": "home",
+                  "summary": "14-1",
+                  "displayValue": "14-1"
+                },
+                {
+                  "type": "vsconf",
+                  "summary": "19-1",
+                  "displayValue": "19-1"
+                }
+              ],
+              "possession": false,
+              "rank": 1
+            },
+            {
+              "id": "41",
+              "order": 1,
+              "homeAway": "away",
+              "winner": false,
+              "team": {
+                "id": "41",
+                "displayName": "UConn Huskies",
+                "abbreviation": "CONN"
+              },
+              "score": "63",
+              "linescores": [
+                {
+                  "displayValue": "29"
+                },
+                {
+                  "displayValue": "34"
+                }
+              ],
+              "record": [
+                {
+                  "type": "total",
+                  "summary": "34-6",
+                  "displayValue": "34-6"
+                },
+                {
+                  "type": "road",
+                  "summary": "9-3",
+                  "displayValue": "9-3"
+                },
+                {
+                  "type": "vsconf",
+                  "summary": "17-3",
+                  "displayValue": "17-3"
+                }
+              ],
+              "possession": false,
+              "rank": 2
+            }
+          ],
+          "status": {
+            "type": {
+              "id": "3",
+              "name": "STATUS_FINAL",
+              "state": "post",
+              "completed": true,
+              "description": "Final",
+              "detail": "Final",
+              "shortDetail": "Final"
+            }
+          },
+          "broadcasts": [
+            {
+              "type": {
+                "id": "1",
+                "shortName": "TV"
+              },
+              "market": {
+                "id": "1",
+                "type": "National"
+              },
+              "lang": "en",
+              "region": "us",
+              "isNational": true
+            },
+            {
+              "type": {
+                "id": "1",
+                "shortName": "TV"
+              },
+              "market": {
+                "id": "1",
+                "type": "National"
+              },
+              "lang": "en",
+              "region": "us",
+              "isNational": true
+            },
+            {
+              "type": {
+                "id": "4",
+                "shortName": "Streaming"
+              },
+              "market": {
+                "id": "1",
+                "type": "National"
+              },
+              "lang": "en",
+              "region": "us",
+              "isNational": true
+            }
+          ],
+          "tournamentId": 22,
+          "boxscoreMinutes": true
+        }
+      ],
+      "league": {
+        "id": "41",
+        "name": "NCAA Men's Basketball",
+        "abbreviation": "NCAAM",
+        "shortName": "NCAAM",
+        "midsizeName": "NCAAM Basketball",
+        "slug": "mens-college-basketball",
+        "isTournament": false
+      },
+      "gameNote": "NCAA Men's Basketball Championship - National Championship"
+    },
+    "format": {
+      "regulation": {
+        "periods": 2,
+        "displayName": "Half",
+        "slug": "half",
+        "clock": 1200
+      },
+      "overtime": {
+        "displayName": "Half",
+        "slug": "half",
+        "clock": 300
+      }
+    },
+    "gameInfo": {
+      "venue": {
+        "id": "3812",
+        "fullName": "Lucas Oil Stadium",
+        "address": {
+          "city": "Indianapolis",
+          "state": "IN",
+          "zipCode": "46225"
+        },
+        "grass": false,
+        "images": []
+      },
+      "attendance": 70720,
+      "officials": [
+        {
+          "fullName": "James Breeding",
+          "displayName": "James Breeding",
+          "position": {
+            "name": "Referee",
+            "displayName": "Referee",
+            "id": "40"
+          },
+          "order": 1
+        },
+        {
+          "fullName": "Kipp Kissinger",
+          "displayName": "Kipp Kissinger",
+          "position": {
+            "name": "Referee",
+            "displayName": "Referee",
+            "id": "40"
+          },
+          "order": 2
+        },
+        {
+          "fullName": "Jeff Anderson",
+          "displayName": "Jeff Anderson",
+          "position": {
+            "name": "Referee",
+            "displayName": "Referee",
+            "id": "40"
+          },
+          "order": 3
+        }
+      ]
+    },
+    "boxscore": {
+      "teams": [
+        {
+          "team": {
+            "id": "41",
+            "displayName": "UConn Huskies",
+            "abbreviation": "CONN"
+          },
+          "statistics": [
+            {
+              "name": "fieldGoalsMade-fieldGoalsAttempted",
+              "displayValue": "21-68"
+            },
+            {
+              "name": "fieldGoalPct",
+              "displayValue": "31"
+            },
+            {
+              "name": "threePointFieldGoalsMade-threePointFieldGoalsAttempted",
+              "displayValue": "9-33"
+            },
+            {
+              "name": "threePointFieldGoalPct",
+              "displayValue": "27"
+            },
+            {
+              "name": "freeThrowsMade-freeThrowsAttempted",
+              "displayValue": "12-16"
+            },
+            {
+              "name": "freeThrowPct",
+              "displayValue": "75"
+            },
+            {
+              "name": "totalRebounds",
+              "displayValue": "46"
+            },
+            {
+              "name": "offensiveRebounds",
+              "displayValue": "22"
+            },
+            {
+              "name": "defensiveRebounds",
+              "displayValue": "24"
+            },
+            {
+              "name": "assists",
+              "displayValue": "9"
+            },
+            {
+              "name": "steals",
+              "displayValue": "4"
+            },
+            {
+              "name": "blocks",
+              "displayValue": "2"
+            },
+            {
+              "name": "turnovers",
+              "displayValue": "11"
+            },
+            {
+              "name": "teamTurnovers",
+              "displayValue": "1"
+            },
+            {
+              "name": "totalTurnovers",
+              "displayValue": "11"
+            },
+            {
+              "name": "technicalFouls",
+              "displayValue": "0"
+            },
+            {
+              "name": "totalTechnicalFouls",
+              "displayValue": "0"
+            },
+            {
+              "name": "flagrantFouls",
+              "displayValue": "1"
+            },
+            {
+              "name": "turnoverPoints",
+              "displayValue": "8"
+            },
+            {
+              "name": "fastBreakPoints",
+              "displayValue": "4"
+            },
+            {
+              "name": "pointsInPaint",
+              "displayValue": "22"
+            },
+            {
+              "name": "fouls",
+              "displayValue": "22"
+            },
+            {
+              "name": "largestLead",
+              "displayValue": "3"
+            },
+            {
+              "name": "leadChanges",
+              "displayValue": "6"
+            },
+            {
+              "name": "leadPercentage",
+              "displayValue": "15"
+            }
+          ],
+          "displayOrder": 1,
+          "homeAway": "away"
+        },
+        {
+          "team": {
+            "id": "130",
+            "displayName": "Michigan Wolverines",
+            "abbreviation": "MICH"
+          },
+          "statistics": [
+            {
+              "name": "fieldGoalsMade-fieldGoalsAttempted",
+              "displayValue": "21-55"
+            },
+            {
+              "name": "fieldGoalPct",
+              "displayValue": "38"
+            },
+            {
+              "name": "threePointFieldGoalsMade-threePointFieldGoalsAttempted",
+              "displayValue": "2-15"
+            },
+            {
+              "name": "threePointFieldGoalPct",
+              "displayValue": "13"
+            },
+            {
+              "name": "freeThrowsMade-freeThrowsAttempted",
+              "displayValue": "25-28"
+            },
+            {
+              "name": "freeThrowPct",
+              "displayValue": "89"
+            },
+            {
+              "name": "totalRebounds",
+              "displayValue": "39"
+            },
+            {
+              "name": "offensiveRebounds",
+              "displayValue": "12"
+            },
+            {
+              "name": "defensiveRebounds",
+              "displayValue": "27"
+            },
+            {
+              "name": "assists",
+              "displayValue": "7"
+            },
+            {
+              "name": "steals",
+              "displayValue": "6"
+            },
+            {
+              "name": "blocks",
+              "displayValue": "6"
+            },
+            {
+              "name": "turnovers",
+              "displayValue": "10"
+            },
+            {
+              "name": "teamTurnovers",
+              "displayValue": "0"
+            },
+            {
+              "name": "totalTurnovers",
+              "displayValue": "10"
+            },
+            {
+              "name": "technicalFouls",
+              "displayValue": "0"
+            },
+            {
+              "name": "totalTechnicalFouls",
+              "displayValue": "0"
+            },
+            {
+              "name": "flagrantFouls",
+              "displayValue": "0"
+            },
+            {
+              "name": "turnoverPoints",
+              "displayValue": "4"
+            },
+            {
+              "name": "fastBreakPoints",
+              "displayValue": "2"
+            },
+            {
+              "name": "pointsInPaint",
+              "displayValue": "36"
+            },
+            {
+              "name": "fouls",
+              "displayValue": "13"
+            },
+            {
+              "name": "largestLead",
+              "displayValue": "11"
+            },
+            {
+              "name": "leadChanges",
+              "displayValue": "6"
+            },
+            {
+              "name": "leadPercentage",
+              "displayValue": "75"
+            }
+          ],
+          "displayOrder": 2,
+          "homeAway": "home"
+        }
+      ],
+      "players": [
+        {
+          "team": {
+            "id": "41",
+            "displayName": "UConn Huskies",
+            "abbreviation": "CONN"
+          },
+          "statistics": [
+            {
+              "names": ["MIN", "PTS", "FG", "3PT", "FT", "REB", "AST", "TO", "STL", "BLK", "OREB", "DREB", "PF"],
+              "keys": ["minutes", "points", "fieldGoalsMade-fieldGoalsAttempted", "threePointFieldGoalsMade-threePointFieldGoalsAttempted", "freeThrowsMade-freeThrowsAttempted", "rebounds", "assists", "turnovers", "steals", "blocks", "offensiveRebounds", "defensiveRebounds", "fouls"],
+              "labels": ["MIN", "PTS", "FG", "3PT", "FT", "REB", "AST", "TO", "STL", "BLK", "OREB", "DREB", "PF"],
+              "athletes": [
+                {
+                  "active": true,
+                  "athlete": {
+                    "id": "4917149",
+                    "displayName": "Alex Karaban",
+                    "shortName": "A. Karaban",
+                    "position": {
+                      "name": "Forward",
+                      "displayName": "Forward",
+                      "abbreviation": "F"
+                    }
+                  },
+                  "starter": true,
+                  "didNotPlay": false,
+                  "ejected": false,
+                  "stats": ["40", "17", "5-14", "3-10", "4-6", "11", "2", "1", "2", "0", "3", "8", "1"]
+                },
+                {
+                  "active": false,
+                  "athlete": {
+                    "id": "4895753",
+                    "displayName": "Jayden Ross",
+                    "shortName": "J. Ross",
+                    "position": {
+                      "name": "Forward",
+                      "displayName": "Forward",
+                      "abbreviation": "F"
+                    }
+                  },
+                  "starter": false,
+                  "didNotPlay": false,
+                  "ejected": false,
+                  "stats": ["19", "3", "0-2", "0-1", "3-4", "4", "0", "1", "0", "0", "2", "2", "2"]
+                },
+                {
+                  "active": false,
+                  "athlete": {
+                    "id": "5142624",
+                    "displayName": "Jacob Ross",
+                    "shortName": "J. Ross",
+                    "position": {
+                      "name": "Forward",
+                      "displayName": "Forward",
+                      "abbreviation": "F"
+                    }
+                  },
+                  "starter": false,
+                  "didNotPlay": true,
+                  "ejected": false,
+                  "stats": []
+                }
+              ],
+              "totals": ["", "63", "21-68", "9-33", "12-16", "46", "9", "11", "4", "2", "22", "24", "22"]
+            }
+          ],
+          "displayOrder": 1
+        },
+        {
+          "team": {
+            "id": "130",
+            "displayName": "Michigan Wolverines",
+            "abbreviation": "MICH"
+          },
+          "statistics": [
+            {
+              "names": ["MIN", "PTS", "FG", "3PT", "FT", "REB", "AST", "TO", "STL", "BLK", "OREB", "DREB", "PF"],
+              "keys": ["minutes", "points", "fieldGoalsMade-fieldGoalsAttempted", "threePointFieldGoalsMade-threePointFieldGoalsAttempted", "freeThrowsMade-freeThrowsAttempted", "rebounds", "assists", "turnovers", "steals", "blocks", "offensiveRebounds", "defensiveRebounds", "fouls"],
+              "labels": ["MIN", "PTS", "FG", "3PT", "FT", "REB", "AST", "TO", "STL", "BLK", "OREB", "DREB", "PF"],
+              "athletes": [
+                {
+                  "active": true,
+                  "athlete": {
+                    "id": "5175737",
+                    "displayName": "Yaxel Lendeborg",
+                    "shortName": "Y. Lendeborg",
+                    "position": {
+                      "name": "Forward",
+                      "displayName": "Forward",
+                      "abbreviation": "F"
+                    }
+                  },
+                  "starter": true,
+                  "didNotPlay": false,
+                  "ejected": false,
+                  "stats": ["36", "13", "4-13", "0-5", "5-5", "2", "1", "1", "0", "1", "1", "1", "3"]
+                },
+                {
+                  "active": false,
+                  "athlete": {
+                    "id": "4684596",
+                    "displayName": "Will Tschetter",
+                    "shortName": "W. Tschetter",
+                    "position": {
+                      "name": "Forward",
+                      "displayName": "Forward",
+                      "abbreviation": "F"
+                    }
+                  },
+                  "starter": false,
+                  "didNotPlay": false,
+                  "ejected": false,
+                  "stats": ["6", "0", "0-1", "0-0", "0-0", "1", "0", "0", "0", "0", "0", "1", "0"]
+                },
+                {
+                  "active": false,
+                  "athlete": {
+                    "id": "5244505",
+                    "displayName": "Oscar Goodman",
+                    "shortName": "O. Goodman",
+                    "position": {
+                      "name": "Forward",
+                      "displayName": "Forward",
+                      "abbreviation": "F"
+                    }
+                  },
+                  "starter": false,
+                  "didNotPlay": true,
+                  "ejected": false,
+                  "stats": []
+                }
+              ],
+              "totals": ["", "69", "21-55", "2-15", "25-28", "39", "7", "10", "6", "6", "12", "27", "13"]
+            }
+          ],
+          "displayOrder": 2
+        }
+      ]
+    },
+    "odds": [],
+    "pickcenter": [
+      {
+        "provider": {
+          "id": "100",
+          "name": "DraftKings",
+          "priority": 1
+        },
+        "details": "MICH -6.5",
+        "overUnder": 146.5,
+        "spread": -6.5,
+        "overOdds": -112,
+        "underOdds": -108,
+        "awayTeamOdds": {
+          "favorite": false,
+          "underdog": true,
+          "moneyLine": 230,
+          "spreadOdds": -108,
+          "team": {},
+          "teamId": "41",
+          "favoriteAtOpen": false
+        },
+        "homeTeamOdds": {
+          "favorite": true,
+          "underdog": false,
+          "moneyLine": -285,
+          "spreadOdds": -112,
+          "team": {},
+          "teamId": "130",
+          "favoriteAtOpen": true
+        },
+        "moneyline": {
+          "displayName": "Moneyline",
+          "shortDisplayName": "ML",
+          "home": {
+            "close": {
+              "odds": "-285"
+            },
+            "open": {
+              "odds": "-285"
+            }
+          },
+          "away": {
+            "close": {
+              "odds": "+230"
+            },
+            "open": {
+              "odds": "+230"
+            }
+          }
+        },
+        "pointSpread": {
+          "displayName": "Spread",
+          "shortDisplayName": "Spread",
+          "home": {
+            "close": {
+              "line": "-6.5",
+              "odds": "-112"
+            },
+            "open": {
+              "line": "-7.5",
+              "odds": "-105"
+            }
+          },
+          "away": {
+            "close": {
+              "line": "+6.5",
+              "odds": "-108"
+            },
+            "open": {
+              "line": "+7.5",
+              "odds": "-115"
+            }
+          }
+        },
+        "total": {
+          "displayName": "Total",
+          "shortDisplayName": "Total",
+          "over": {
+            "close": {
+              "line": "o146.5",
+              "odds": "-112"
+            },
+            "open": {
+              "line": "o144.5",
+              "odds": "-110"
+            }
+          },
+          "under": {
+            "close": {
+              "line": "u146.5",
+              "odds": "-108"
+            },
+            "open": {
+              "line": "u144.5",
+              "odds": "-110"
+            }
+          }
+        }
+      }
+    ],
+    "plays": [
+      {
+        "id": "401856600120416832",
+        "sequenceNumber": "120416832",
+        "type": {
+          "id": "615",
+          "text": "Jumpball"
+        },
+        "text": "Start game",
+        "awayScore": 0,
+        "homeScore": 0,
+        "period": {
+          "number": 1,
+          "displayValue": "1st Half"
+        },
+        "clock": {
+          "displayValue": "20:00"
+        },
+        "scoringPlay": false,
+        "scoreValue": 0,
+        "wallclock": "2026-04-07T00:51:31Z",
+        "shootingPlay": false,
+        "coordinate": {
+          "x": 25,
+          "y": 0
+        },
+        "pointsAttempted": 0,
+        "shortDescription": "Jump Ball"
+      },
+      {
+        "id": "401856600120416923",
+        "sequenceNumber": "120416923",
+        "type": {
+          "id": "572",
+          "text": "LayUpShot"
+        },
+        "text": "Morez Johnson Jr. makes layup (Elliot Cadeau assists)",
+        "awayScore": 0,
+        "homeScore": 2,
+        "period": {
+          "number": 1,
+          "displayValue": "1st Half"
+        },
+        "clock": {
+          "displayValue": "18:23"
+        },
+        "scoringPlay": true,
+        "scoreValue": 2,
+        "team": {
+          "id": "130"
+        },
+        "participants": [
+          {
+            "athlete": {
+              "id": "4873153"
+            }
+          },
+          {
+            "athlete": {
+              "id": "4869764"
+            }
+          }
+        ],
+        "wallclock": "2026-04-07T00:53:25Z",
+        "shootingPlay": true,
+        "coordinate": {
+          "x": 27,
+          "y": 7
+        },
+        "pointsAttempted": 2,
+        "shortDescription": "+2 Points"
+      },
+      {
+        "id": "401856600120417454",
+        "sequenceNumber": "120417454",
+        "type": {
+          "id": "402",
+          "text": "End Game"
+        },
+        "text": "End of Game",
+        "awayScore": 63,
+        "homeScore": 69,
+        "period": {
+          "number": 2,
+          "displayValue": "2nd Half"
+        },
+        "clock": {
+          "displayValue": "0:00"
+        },
+        "scoringPlay": false,
+        "scoreValue": 0,
+        "wallclock": "2026-04-07T03:19:29Z",
+        "shootingPlay": false,
+        "coordinate": {
+          "x": 25,
+          "y": 0
+        },
+        "pointsAttempted": 0,
+        "shortDescription": "End of Game"
+      }
+    ]
+  }
+}

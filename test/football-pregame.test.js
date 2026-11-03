@@ -139,7 +139,7 @@ test('new significant-injury evidence survives storage and revalidation with pla
     return {async run(){},async all(){return {results:[row]};}};
   }};},async batch(){}}};
   await saveFactors(env,[game],factors,now);
-  assert.equal(JSON.parse(row.context_text).version,4);
+  assert.equal(JSON.parse(row.context_text).version,5);
   const result=await contextsForGames(env,[key]);
   assert.equal(result[key][0].text,factors[0].text);
   assert.equal(result[key][0].injuryEvidence.importance,'starting-quarterback');

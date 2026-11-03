@@ -1,0 +1,70 @@
+SlateMeter final quality audit: manual visual verification
+
+This is the candidate build, not a production deployment. The localhost server
+uses captured upcoming games plus explicitly archived live/return examples.
+
+1. In PowerShell, enter the candidate repository:
+   cd C:\Users\mmuel\Documents\Codex\2026-11-03\i-want-one-final-quality-audit\slatemeter
+   node scripts/build-site.mjs
+   node scripts/serve-quality-audit.mjs
+   If the server is already listening on 4173, use that existing server.
+
+2. Open http://127.0.0.1:4173/ in a browser. In browser developer tools, enable
+   responsive/device mode and set the viewport to 1440 x 1000, zoom 100%.
+   Keep developer tools undocked or use its responsive viewport so the content
+   size, rather than the outer browser window, is the specified size.
+
+3. Open these exact routes, read the full Pregame Outlook, and compare its text
+   and rating with the corresponding entry in report.html:
+   /#game/CFB/401856743  Texas–Missouri, high rating 82
+   /#game/CFB/401856849  BYU–Utah, rivalry and unbeaten team, rating 80
+   /#game/CFB/401856739  Oklahoma–Florida, coaching story, rating 51
+   /#game/CFB/401856740  Alabama–LSU, unusual rivalry story, rating 76
+   /#game/NFL/401873026  Archived Ravens–Bills, linked Jackson return, rating 75
+   /#game/NFL/401873046  Texans–Chargers, low appeal, rating 40
+   /#game/NHL/401892635  Detroit–Tampa Bay, clear moneyline favorite, rating 51
+   /#game/NBA/401909922  Philadelphia–Detroit, evenly matched, rating 65
+   /#game/NCAAB/401929372 Arkansas–Pine Bluff–Arkansas, long names, rating 38
+   All routes start with http://127.0.0.1:4173/ . NCAAB is the internal route;
+   the public label must remain NCAAM.
+
+4. Check Key Storylines. Oklahoma must link to the Arbuckle/Witten source;
+   Alabama–LSU must link to the annual-series hiatus source; archived Ravens–
+   Bills must contain one Jackson return link. Click Read source and verify
+   that the destination corresponds to the displayed story. Return to the
+   audit tab. The generic Allen/Jackson preview must not appear. The same story
+   must not repeat in Pregame Outlook. No point awards or classifier jargon
+   should appear. Missing-news games must have no empty Key Storylines box.
+
+5. Inspect the whole Game Center: no overlapping or clipped text, horizontal
+   scrolling, empty tabs, broken team logos, blank reserved sections, or large
+   gaps. Confirm SlateMeter's existing dark palette, cyan accents, typeface,
+   score styling, close control and navigation remain consistent.
+
+6. Repeat steps 3–5 at 390 x 844, then spot-check 360 x 800. Scroll to the bottom
+   of each Game Center. Pay special attention to the long NCAAM names, full
+   Outlook paragraphs, source links and tab controls. Confirm all are readable
+   and touch targets are accessible without horizontal scrolling.
+
+7. Inspect archived LIVE replays at both desktop and mobile sizes:
+   /#game/NBA/401909901
+   /#game/CFB/401856847
+   /#game/NHL/401892621
+   These remain live fixtures (not current real-time games). Confirm their
+   existing live explanation, score/clock, tabs, plays, stats/player views and
+   timeline still render. Switch tabs, close/reopen Game Center, and wait at
+   least 12 seconds to exercise refresh without losing the selected tab. Check
+   the browser console for uncaught errors. Do not expect the frozen replay
+   scores to advance. Automated tests separately cover changing scores/clocks.
+
+8. Record screenshots at both sizes for one story case, one empty case, the long
+   NCAAM case and each live case. Record pass/fail for text, sources, duplicates,
+   empty sections, branding, logos, layout and live interactions. Any failure
+   keeps deployment blocked until fixed and rechecked.
+
+9. Only after all checks pass: commit the candidate, deploy the Worker and push
+   the reviewed commit to main for Pages. Verify slatemeter.app/index.html and
+   sw.js name that exact commit; compare downloaded app.js, styles.css and
+   scoring-runtime.js to the local dist assets; confirm Worker deployment ID,
+   healthy /feed and /game responses, then repeat desktop/mobile production
+   spot checks with a fresh reload. Do not deploy merely to get a screenshot.

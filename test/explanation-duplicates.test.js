@@ -1,14 +1,17 @@
 import test from 'node:test';import assert from 'node:assert/strict';import fs from 'node:fs';import vm from 'node:vm';
 import {refinementGames} from '../scripts/nfl-refinement-report.mjs';
 const source=fs.readFileSync('app.js','utf8').replaceAll('\r\n','\n');
-const explain=vm.runInNewContext(source.slice(source.indexOf('function explainRating('),source.indexOf('\nfunction trendFor('))+';explainRating');
+class AuditDate extends Date {static now(){return Date.parse('2026-11-03T18:00:00Z');}}
+const api=vm.runInNewContext(source.slice(source.indexOf('function explainRating('),source.indexOf('\nfunction trendFor('))+';({explainRating,publicStorySentence,upcomingLinkedStories})',{Date:AuditDate});
+const explain=api.explainRating;
 const title="Ravens QB Jackson to return for Bills clash, calls ankle pain 'bearable'";
 const description='Ravens quarterback Lamar Jackson will return to play Sunday at Buffalo, saying the pain in his injured left ankle is "bearable."';
 const base=(sport='NFL')=>({sport,state:'upcoming',score:75,teams:[['Away','AWAY','0'],['Home','HOME','0']],line:{spread:'HOME -3'},factors:[]});
 test('captured Ravens source produces one return sentence and preserves the exact game and rating',()=>{
  const game=refinementGames().find(g=>g.teams.some(t=>t[1]==='BAL')),original=JSON.stringify(game),text=explain(game);
- assert.equal((text.match(/\breturn\b/gi)||[]).length,1,text);assert.match(text,/Lamar Jackson/);assert.match(text,/3-point spread/);
- assert.doesNotMatch(text,/Ravens QB Jackson to return|bearable|[.!?]["”][.!?]/);assert.equal(JSON.stringify(game),original);
+ const stories=api.upcomingLinkedStories(game).map(s=>api.publicStorySentence(s)).join(' ');
+ assert.equal((text.match(/\breturn\b/gi)||[]).length,0,text);assert.match(stories,/Lamar Jackson.*return/);assert.match(text,/3-point spread/);
+ assert.doesNotMatch(text+stories,/Ravens QB Jackson to return|bearable|[.!?]["”][.!?]/);assert.equal(JSON.stringify(game),original);
 });
 for(const sport of ['NFL','CFB','NBA','NCAAB','MLB','NHL','Soccer','Tennis'])test(`${sport}: headline plus description is one public storyline`,()=>{
  const headline='Jordan Smith returns from injury',body='Jordan Smith will return from injury for the season opener.';
@@ -54,7 +57,7 @@ test('the source-story list uses the same renderer and suppresses repeated entri
  const context=vm.createContext({URL,safeText:String});
  vm.runInContext(source.slice(source.indexOf('function explainRating('),source.indexOf('\nfunction trendFor(')),context);
  vm.runInContext(source.slice(source.indexOf('function safeStoryUrl('),source.indexOf('const DETAIL_TAB_CONFIG')),context);
- const story={type:'star_injury_return',text:title+'. '+description,sourceTitle:title,sourceUrl:'https://example.com/story'};
+ const story={type:'star_injury_return',text:title+'. '+description,sourceTitle:title,sourceUrl:'https://example.com/story',publishedAt:new Date().toISOString()};
  const g={...base(),qualitativeContexts:[story,{...story}],factors:[{contextType:'star_injury_return',points:5}]},original=JSON.stringify(g);
  const html=context.storylineDetails(g),text=html.match(/<span>(.*?)<\/span>/)?.[1];
  assert.equal((text.match(/\breturn\b/gi)||[]).length,1);assert.doesNotMatch(text,/bearable/);assert.equal((html.match(/<li>/g)||[]).length,1);

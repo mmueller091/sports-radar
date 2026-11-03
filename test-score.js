@@ -28,7 +28,7 @@ assert.match(styles,/\.game-card:has\(\.score-dot-wrap:hover\).*z-index: 8/);
 assert.match(app,/style="\$\{scoreColorStyle\}"/);
 assert.match(styles,/--score-hue/);
 assert.match(styles,/color: hsl\(var\(--score-hue, 190\) 92% 64%\)/);
-assert.match(styles,/-webkit-text-stroke: \.8px #080d12/);
+assert.match(styles,/\.detail-excitement-score \{[^}]*-webkit-text-stroke: 0;/);
 assert.match(app,/status-\$\{game\.state\}/);
 assert.match(app,/strong>Broadcast<\/strong>/);
 assert.match(app,/completed-card/);
@@ -121,9 +121,10 @@ const fixtures = `
   function safeText(value) { return String(value); }
   function gameCard(game) { return '<button>' + game.id + '</button>'; }
   const yesterday = new Date(Date.now()-86400000).toISOString();
-  const twoDaysAgo = new Date(Date.now()-2*86400000).toISOString();
+  // Completed games remain in All for 48 hours; use a clearly expired fixture.
+  const threeDaysAgo = new Date(Date.now()-3*86400000).toISOString();
   const today = new Date().toISOString();
-  const oldFinal = {id:'old-final',state:'completed',startTime:twoDaysAgo,score:99};
+  const oldFinal = {id:'old-final',state:'completed',startTime:threeDaysAgo,score:99};
   const yesterdayFinal = {id:'yesterday-final',state:'completed',startTime:yesterday,score:72};
   const todayFinal = {id:'today-final',state:'completed',startTime:today,score:95};
   const todayUpcoming = {id:'today-upcoming',state:'upcoming',startTime:today,score:45};

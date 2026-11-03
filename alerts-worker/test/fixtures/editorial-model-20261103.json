@@ -1,0 +1,160 @@
+{
+  "capturedAt": "2026-11-03T18:07:58.285Z",
+  "sourceCapturedAt": "2026-11-03T17:30:17.056Z",
+  "model": "@cf/meta/llama-3.1-8b-instruct-fp8",
+  "items": [
+    {
+      "id": "i0",
+      "sport": "CFB",
+      "eventId": "401856739",
+      "matchup": "Oklahoma Sooners vs Florida Gators",
+      "headline": "Oklahoma fires OC Ben Arbuckle, tabs Jason Witten as play caller",
+      "description": "Oklahoma has fired offensive coordinator Ben Arbuckle after less than two seasons, the school announced on Monday.",
+      "url": "https://www.espn.com/college-football/story/_/id/50359646/oklahoma-fires-second-year-oc-ben-arbuckle-jason-witten-call-plays",
+      "published": 1793657255000,
+      "teamIds": [
+        "201"
+      ],
+      "eventIds": [],
+      "eligible": true,
+      "oldDeterministic": null,
+      "teams": [
+        {
+          "id": "201",
+          "name": "Oklahoma Sooners",
+          "abbr": "OU"
+        },
+        {
+          "id": "57",
+          "name": "Florida Gators",
+          "abbr": "FLA"
+        }
+      ]
+    },
+    {
+      "id": "i1",
+      "sport": "CFB",
+      "eventId": "401856740",
+      "matchup": "Alabama Crimson Tide vs LSU Tigers",
+      "headline": "Kiffin 'sad' annual LSU-Alabama game to take hiatus in 2027",
+      "description": "LSU coach Lane Kiffin on Monday lamented the end of his program's rivalry game vs. Alabama being played annually.",
+      "url": "https://www.espn.com/college-football/story/_/id/50360298/kiffin-sad-annual-lsu-alabama-game-take-hiatus-2027",
+      "published": 1793651330000,
+      "teamIds": [
+        "333",
+        "99"
+      ],
+      "eventIds": [],
+      "eligible": true,
+      "oldDeterministic": {
+        "type": "rivalry",
+        "text": "Kiffin 'sad' annual LSU-Alabama game to take hiatus in 2027",
+        "confidence": 0.78
+      },
+      "teams": [
+        {
+          "id": "333",
+          "name": "Alabama Crimson Tide",
+          "abbr": "ALA"
+        },
+        {
+          "id": "99",
+          "name": "LSU Tigers",
+          "abbr": "LSU"
+        }
+      ]
+    },
+    {
+      "id": "i2",
+      "sport": "NFL",
+      "eventId": "401873038",
+      "matchup": "Cincinnati Bengals vs Atlanta Falcons",
+      "headline": "Falcons' James Pearce back from suspension, expected to play",
+      "description": "Pearce served an eight-game league suspension stemming from a February domestic violence arrest.",
+      "url": "https://www.espn.com/nfl/story/_/id/50362043/falcons-james-pearce-back-suspension-expected-play",
+      "published": 1793664863000,
+      "teamIds": [
+        "1"
+      ],
+      "eventIds": [],
+      "eligible": true,
+      "oldDeterministic": null,
+      "teams": [
+        {
+          "id": "4",
+          "name": "Cincinnati Bengals",
+          "abbr": "CIN"
+        },
+        {
+          "id": "1",
+          "name": "Atlanta Falcons",
+          "abbr": "ATL"
+        }
+      ]
+    },
+    {
+      "id": "i3",
+      "sport": "NHL",
+      "eventId": "401892652",
+      "matchup": "Carolina Hurricanes vs New York Islanders",
+      "headline": "Cancer center unveils room named for mom of Islanders' Schaefer",
+      "description": "A Long Island cancer center unveiled a room dedicated to the late mother of Islanders player Matthew Schaefer on Monday.",
+      "url": "https://www.espn.com/nhl/story/_/id/50361048/cancer-center-unveils-room-named-mom-islanders-schaefer",
+      "published": 1793655240000,
+      "teamIds": [
+        "12"
+      ],
+      "eventIds": [],
+      "eligible": true,
+      "oldDeterministic": null,
+      "teams": [
+        {
+          "id": "7",
+          "name": "Carolina Hurricanes",
+          "abbr": "CAR"
+        },
+        {
+          "id": "12",
+          "name": "New York Islanders",
+          "abbr": "NYI"
+        }
+      ]
+    }
+  ],
+  "responses": [
+    {
+      "response": "{\"factors\":[{\"id\":\"i0\",\"type\":\"editorial_storyline\",\"kind\":\"coaching\",\"evidence\":\"Oklahoma has fired offensive coordinator Ben Arbuckle after less than two seasons, the school announced on Monday.\",\"matchupEvidence\":\"Oklahoma fires OC Ben Arbuckle, tabs Jason Witten as play caller\",\"confidence\":0.95},{\"id\":\"i1\",\"type\":\"editorial_storyline\",\"kind\":\"rivalry\",\"evidence\":\"LSU coach Lane Kiffin on Monday lamented the end of his program's rivalry game vs. Alabama being played annually.\",\"matchupEvidence\":\"Kiffin 'sad' annual LSU-Alabama game to take hiatus in 2027\",\"confidence\":0.95},{\"id\":\"i2\",\"type\":\"editorial_storyline\",\"kind\":\"player_return\",\"evidence\":\"Pearce served an eight-game league suspension stemming from a February domestic violence arrest.\",\"matchupEvidence\":\"Falcons' James Pearce back from suspension, expected to play\",\"confidence\":0.95}]}",
+      "usage": {
+        "prompt_tokens": 547,
+        "completion_tokens": 208,
+        "total_tokens": 755,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "neurons": 12.971407466568053
+      }
+    },
+    {
+      "response": "Here is the JSON object with the requested information:\n\n```\n{\n  \"reviews\": [\n    {\n      \"id\": \"i0\",\n      \"kind\": \"coaching\",\n      \"factual\": true,\n      \"relevant\": true,\n      \"material\": true,\n      \"notRoutine\": true,\n      \"upcoming\": true,\n      \"confidence\": 0.95,\n      \"evidence\": \"Oklahoma has fired offensive coordinator Ben Arbuckle after less than two seasons, the school announced on Monday.\"\n    },\n    {\n      \"id\": \"i1\",\n      \"kind\": \"rivalry\",\n      \"factual\": true,\n      \"relevant\": true,\n      \"material\": true,\n      \"notRoutine\": true,\n      \"upcoming\": true,\n      \"confidence\": 0.95,\n      \"evidence\": \"LSU coach Lane Kiffin on Monday lamented the end of his program's rivalry game vs. Alabama being played annually.\"\n    }\n  ]\n}\n```\n\nHere's the reasoning behind each decision:\n\ni0:\n- Factual: True, as the information about Ben Arbuckle being fired is verifiable.\n- Relevant: True, as the change in coaching staff may impact the upcoming game.\n- Material: True, as the change in coaching staff is a substantial reason for fans to watch the game.\n- NotRoutine: True, as the change in coaching staff is not a routine occurrence.\n- Upcoming: True, as the game is an upcoming event and the change in coaching staff still applies.\n\ni1:\n- Factual: True, as the information about the hiatus in the rivalry game is verifiable.\n- Relevant: True, as the hiatus in the rivalry game may impact the upcoming game.\n- Material: True, as the hiatus in the rivalry game is a substantial reason for fans to watch the game.\n- NotRoutine: True, as the hiatus in the rivalry game is not a routine occurrence.\n- Upcoming: True, as the game is an upcoming event and the hiatus in the rivalry game still applies.",
+      "usage": {
+        "prompt_tokens": 441,
+        "completion_tokens": 423,
+        "total_tokens": 864,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "neurons": 17.128411528654397
+      }
+    }
+  ],
+  "accepted": [
+    {
+      "id": "i0",
+      "kind": "coaching"
+    },
+    {
+      "id": "i1",
+      "kind": "rivalry"
+    }
+  ]
+}

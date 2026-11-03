@@ -1,6 +1,7 @@
 alerts-worker/node_modules/
 alerts-worker/.wrangler/
 alerts-worker/.wrangler-config/
+/.wrangler/
 work/
 dist/
 /audit/integrity-20261101/tools/

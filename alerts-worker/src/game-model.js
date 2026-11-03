@@ -261,6 +261,10 @@ function preservePregameRecords(game,previousGame) {
 
 function applyContextsToGame(game,factors) {
   if (!game.sourceEvent || !game.sourceCompetition || !Array.isArray(factors)) return false;
+  const editorial=factors.filter(f=>f?.type==='editorial_storyline'&&f.editorialOnly===true&&f.verified===true&&Number(f.confidence)>=.9);
+  if(game.state==='upcoming'&&editorial.length)game.editorialStorylines=editorial;
+  else delete game.editorialStorylines;
+  factors=factors.filter(f=>f?.type!=='editorial_storyline'&&!f?.editorialOnly);
   const valid = factors.filter(factor => factor?.verified !== false && Number(factor?.confidence) >= .7 && factor?.type && factor?.text);
   const accepted = (game.sport==='NFL' ? [...valid.reduce((byType,factor)=>{
     if(!byType.has(factor.type))byType.set(factor.type,factor);return byType;
