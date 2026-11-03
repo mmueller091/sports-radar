@@ -2631,7 +2631,8 @@ function explainRating(game,summary=null) {
       sentences.push(/[.!?]["'\u2019\u201d)\]]*$/.test(s)?s:s+'.');
   };
   const safe=s=>s&&!/capped|adjustment|jointly add|projected competitiveness|winning team quality|before market|[+]\d|\b(?:trajectory|telemetry|scaling|allocation|baseline|retention|leverage points)\b/i.test(s);
-  const verified=factors.filter(f=>f.contextType&&f.contextText&&Math.abs(f.points)>=2&&safe(f.contextText))
+  const verified=factors.filter(f=>f.contextType&&f.contextText&&Math.abs(f.points)>=2&&safe(f.contextText)&&
+    (f.contextType!=='notable_recent_performance'||/hat trick|record[- ]breaking|milestone|in (?:(?:his|her|their) )?(?:last|past) (?:\d+|two|three|four) games|averaged? .{1,30} in (?:(?:his|her|their) )?(?:last|past) (?:\d+|two|three|four) games/i.test(f.contextText)))
     .map(f=>({...f,publicText:publicStorySentence(f,game.qualitativeContexts)})).filter(f=>safe(f.publicText))
     .sort((x,y)=>Math.abs(y.points)-Math.abs(x.points));
   if(game.state==='upcoming') {
@@ -2641,7 +2642,6 @@ function explainRating(game,summary=null) {
       if(has(/World Series/))add(`${names.join(' and ')} meet in the World Series, with a championship on the line`);
       else if(has(/^Championship$|Super Bowl|Stanley Cup Final/))add(`${names.join(' and ')} play for a championship`);
       else if(has(/Postseason|Playoff|Elimination|Final round|Major tournament/))add(sport==='Tennis'?`${names.join(' and ')} meet on one of tennis's biggest stages`:`${names.join(' and ')} meet with postseason stakes`);
-      else if(verified.length)add(verified[0].publicText);
       else {
         const ranked=teams.filter(t=>Number(t[6])>=1&&Number(t[6])<=25);
         if(ranked.length===2)add(`No. ${ranked[0][6]} ${ranked[0][0]} meets No. ${ranked[1][6]} ${ranked[1][0]} in a matchup of ranked teams`);
@@ -2662,9 +2662,23 @@ function explainRating(game,summary=null) {
       const unbeaten=teams.find(t=>/^[1-9]\d*-0(?:-0)?$/.test(String(t[5]||'')));
       if(unbeaten)add(`${unbeaten[0]} is unbeaten at ${unbeaten[5]}`);
     }
-    if(sentences.length<2&&verified.length)add(verified.find(f=>!['international_showcase','season_opener'].includes(f.contextType)&&!sentences.some(s=>sentenceKey(s)===sentenceKey(f.publicText)))?.publicText);
+    const records=teams.map(t=>String(t[5]||'').match(/^(\d+)-(\d+)(?:-\d+)?$/));
+    const winRates=records.every(Boolean)?records.map(r=>Number(r[1])/Math.max(1,Number(r[1])+Number(r[2]))):null;
+    if(spread===null&&winRates&&has(/Both winning records|Evenly matched winning records/)){
+      if(Math.abs(winRates[0]-winRates[1])<.1)add('Their similar records point to a competitive game');
+      else if(Math.abs(winRates[0]-winRates[1])>=.3)add('The gap between their records makes a close contest less certain');
+    }
+    for(const story of verified.filter(f=>!['international_showcase','season_opener'].includes(f.contextType))){
+      if(sentences.length>=3)break;
+      if(!sentences.some(s=>sentenceKey(s)===sentenceKey(story.publicText)))add(story.publicText);
+    }
+    if(sentences.length<3&&has(/Rivalry|Division race between winning teams/)&&!sentences.some(s=>/rival|division/i.test(s)))
+      add(`${names.join(' and ')} bring familiar stakes to this meeting`);
+    if(sentences.length<3&&!spread&&!has(/Postseason|Playoff|Elimination|Final round|Championship|World Series|Major tournament|Rivalry/)&&
+      !has(/Both winning records|Evenly matched winning records|Competitive betting market|Very close projected spread/))
+      add(`${names.join(' and ')} have few visible signs of unusually high stakes or an especially close game`);
     if(!sentences.length)add(`${names.join(' and ')} ${sport==='Tennis'?'meet on court':sport==='MLB'?'meet on the diamond':sport==='NHL'?'face off':football?'meet on the football field':basketball?'meet on the basketball court':'meet on the pitch'}`);
-    return [...sentences.slice(0,2),evidenceNote].filter(Boolean).join(' ');
+    return [...sentences.slice(0,4),evidenceNote].filter(Boolean).join(' ');
   }
   const x=Number(a[2]),y=Number(b[2]),known=a[2]!=null&&b[2]!=null&&String(a[2]).trim()!==''&&String(b[2]).trim()!==''&&Number.isFinite(x)&&Number.isFinite(y),gap=known?Math.abs(x-y):null;
   const leader=x>y?a:b,trailer=x>y?b:a;
@@ -5797,7 +5811,7 @@ function storylineDetails(game) {
     ...(Array.isArray(game.qualitativeContexts) ? game.qualitativeContexts : []).filter(f=>!game.suppressedContextTypes?.includes(f.type))];
   if (!factors.length) return '';
   const seen=new Set();
-  const rows = factors.map(factor => {
+  const rows = factors.slice(0,6).map(factor => {
     const text=publicStorySentence(factor),key=text.toLocaleLowerCase().replace(/[^\p{L}\p{N}]+/gu,' ').trim();
     if(!key||seen.has(key))return '';
     seen.add(key);
@@ -5810,8 +5824,9 @@ function storylineDetails(game) {
     const proof=game.sport==='NFL' && proofUrl && significance.verified
       ? `<a href="${safeText(proofUrl)}" target="_blank" rel="noopener noreferrer" title="${safeText(significance.fact)}">Player honors source ↗</a>` : '';
     return `<li><span>${safeText(text)}</span>${source}${proof}</li>`;
-  }).join('');
-  return `<section class="detail-section storyline-section"><h3>${game.verifiedDevelopments?.length?'Verified game context':'Pregame storylines'}</h3><ul>${rows}</ul><p class="detail-empty">Only source-backed game context is included.</p></section>`;
+  }).filter(Boolean).slice(0,3).join('');
+  if(!rows)return '';
+  return `<section class="detail-section storyline-section"><h3>${game.state==='upcoming'?'Key storylines':'Game storylines'}</h3><ul>${rows}</ul></section>`;
 }
 
 const DETAIL_TAB_CONFIG = {
@@ -6089,7 +6104,7 @@ function renderDetailContent(
   const scoreColorStyle = `--score-hue:${scoreHueFor(game.score)};`;
 
   $('#game-detail-content').innerHTML =
-    `<header class="detail-header"><div class="detail-kicker">${safeText(labelForSport(game.sport))} · ${safeText(status)}${detailClock}</div><h2>${safeText(title)}</h2><button type="button" class="detail-watch ${isWatched(game) ? 'active' : ''}" data-watch-id="${safeText(watchKey(game))}" aria-pressed="${isWatched(game)}">${isWatched(game) ? '★ Watching this game' : '☆ Add to watchlist'}</button><div class="detail-scoreboard${game.state === 'upcoming' ? ' pregame' : ''}">${scores}</div><div class="detail-meta"><span><strong>Venue</strong> ${safeText(venue)}</span><span><strong>Broadcast</strong> ${safeText(game.channel || 'Channel not listed')}</span>${lineMeta}</div>${broadcastWatchMarkup(game,summary)}${game.moment ? `<section class="detail-moment"><strong>${safeText(game.momentLabel || 'Notable play')}</strong><span>${safeText(displayMoment(game))}</span></section>` : ''}</header><section class="detail-radar" style="${scoreColorStyle}"><div class="detail-excitement-head"><span class="detail-excitement-score ${scoreClass}" style="${scoreColorStyle}">${safeText(game.score)}</span><span class="detail-excitement-copy"><small>${game.state==='live'?'Watch now':game.state==='completed'?'Game quality':'Pregame rating'}</small><strong>${safeText(ratingContext)}</strong>${trendFor(game)}</span></div><div class="detail-radar-why"><h3>Why ${safeText(game.score)}?</h3><p class="detail-explanation detail-why-text">${safeText(explainRating(game,summary))}</p></div></section>${renderExcitementTimeline(game,summary)}${detailTabsMarkup(game,summary)}`;
+    `<header class="detail-header"><div class="detail-kicker">${safeText(labelForSport(game.sport))} · ${safeText(status)}${detailClock}</div><h2>${safeText(title)}</h2><button type="button" class="detail-watch ${isWatched(game) ? 'active' : ''}" data-watch-id="${safeText(watchKey(game))}" aria-pressed="${isWatched(game)}">${isWatched(game) ? '★ Watching this game' : '☆ Add to watchlist'}</button><div class="detail-scoreboard${game.state === 'upcoming' ? ' pregame' : ''}">${scores}</div><div class="detail-meta"><span><strong>Venue</strong> ${safeText(venue)}</span><span><strong>Broadcast</strong> ${safeText(game.channel || 'Channel not listed')}</span>${lineMeta}</div>${broadcastWatchMarkup(game,summary)}${game.moment ? `<section class="detail-moment"><strong>${safeText(game.momentLabel || 'Notable play')}</strong><span>${safeText(displayMoment(game))}</span></section>` : ''}</header><section class="detail-radar" style="${scoreColorStyle}"><div class="detail-excitement-head"><span class="detail-excitement-score ${scoreClass}" style="${scoreColorStyle}">${safeText(game.score)}</span><span class="detail-excitement-copy"><small>${game.state==='live'?'Watch now':game.state==='completed'?'Game quality':'Pregame rating'}</small><strong>${safeText(ratingContext)}</strong>${trendFor(game)}</span></div><div class="detail-radar-why"><h3>${game.state==='upcoming'?'Pregame outlook':`Why ${safeText(game.score)}?`}</h3><p class="detail-explanation detail-why-text">${safeText(explainRating(game,summary))}</p></div></section>${renderExcitementTimeline(game,summary)}${detailTabsMarkup(game,summary)}`;
 }
 
 async function fetchGameSummary(game,controller=new AbortController()) {
