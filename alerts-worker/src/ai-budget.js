@@ -21,3 +21,16 @@ export async function reserveResearchAi(env,messages,now=Date.now()) {
     return false;
   }
 }
+
+// Observe the existing calls. Missing provider usage remains unknown, never zero.
+// This does not change the reservation, refund failures, or add inference calls.
+export async function measuredResearchInference(env,model,args,usage,stage) {
+  const entry={stage,attempted:true};
+  usage?.push(entry);
+  try {
+    const result=await env.AI.run(model,args),u=result?.usage;
+    const number=value=>typeof value==='number'&&Number.isFinite(value)&&value>=0?value:null;
+    Object.assign(entry,{succeeded:true,promptTokens:number(u?.prompt_tokens),completionTokens:number(u?.completion_tokens),neurons:number(u?.neurons)});
+    return result;
+  } catch(error){Object.assign(entry,{succeeded:false,promptTokens:null,completionTokens:null,neurons:null});throw error;}
+}

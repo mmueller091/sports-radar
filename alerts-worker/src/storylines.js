@@ -1,6 +1,7 @@
 import '../../rating-core.js';
-import {reserveResearchAi} from './ai-budget.js';
+import {reserveResearchAi,measuredResearchInference} from './ai-budget.js';
 import {EDITORIAL_TYPE,editorialArticleEligible,acceptEditorialReview,discoverEditorialStories} from './editorial-context.js';
+import {RESEARCH_LIMITS,DIAGNOSTIC_KEY,cachedResearchSlate,selectResearchGames,researchDiagnostics,publicLinkEligible} from './research-allocation.js';
 
 const {
   rateGame,
@@ -11,9 +12,8 @@ const {
 
 const ESPN = 'https://site.api.espn.com/apis/site/v2/sports';
 const AI_MODEL = '@cf/meta/llama-3.1-8b-instruct-fp8';
-const LOOKAHEAD_MS = 42 * 60 * 60 * 1000;
+const LOOKAHEAD_MS = RESEARCH_LIMITS.days * 24 * 60 * 60 * 1000;
 const ARTICLE_MAX_AGE_MS = 7 * 24 * 60 * 60 * 1000;
-const MAX_GAMES = 30;
 const MAX_ARTICLES_PER_GAME = 4;
 const ALLOWED_TYPES = new Set(Object.keys(CONTEXT_WEIGHTS));
 
@@ -26,14 +26,10 @@ const RESEARCH_FEEDS = [
   {sport:'NCAAB',scoreboard:'basketball/mens-college-basketball/scoreboard',news:'basketball/mens-college-basketball/news'}
 ];
 
-function dateToken(value) {
-  const date = new Date(value);
-  return `${date.getUTCFullYear()}${String(date.getUTCMonth() + 1).padStart(2,'0')}${String(date.getUTCDate()).padStart(2,'0')}`;
-}
-
 async function fetchJson(url) {
   const response = await fetch(url,{
     headers:{Accept:'application/json'},
+    signal:AbortSignal.timeout(7000),
     cf:{cacheTtl:300,cacheEverything:true}
   });
   if (!response.ok) throw new Error(`HTTP ${response.status} for ${url}`);
@@ -87,19 +83,6 @@ function researchGame(sport,event,now=Date.now()) {
     event,
     competition
   };
-}
-
-async function gamesForFeed(feed,now=Date.now()) {
-  const tokens = [...new Set([dateToken(now),dateToken(now + 24 * 60 * 60 * 1000),dateToken(now + 48 * 60 * 60 * 1000)])];
-  const payloads = await Promise.all(tokens.map(async dates => {
-    const separator = feed.scoreboard.includes('?') ? '&' : '?';
-    try { return await fetchJson(`${ESPN}/${feed.scoreboard}${separator}dates=${dates}&limit=500`); }
-    catch { return {events:[]}; }
-  }));
-  const events = payloads.flatMap(payload => payload.events || []);
-  return [...new Map(events.map(event => [String(event.id),event])).values()]
-    .map(event => researchGame(feed.sport,event,now))
-    .filter(Boolean);
 }
 
 function articleMetadata(article) {
@@ -250,14 +233,30 @@ function achievementMatchesGame(article,game,type) {
   return ids.length===1 && (game.teamIds || new Set(teams.map(t=>String(t.id || t[8])))).has(ids[0]);
 }
 
-function buildResearchItems(games,articlesBySport) {
+function buildResearchItems(games,articlesBySport,now=Date.now()) {
   const items = [];
-  for (const game of games) {
+  const groups=games.map(game=>{
+    const priority=article=>Number(article.eventIds?.has(game.eventId))*8+
+      Math.min(2,[...(article.teamIds||[])].filter(id=>game.teamIds.has(String(id))).length)*2+
+      Number(Boolean(deterministicFactor(article)))*2+Number(editorialArticleEligible(article,game,now));
     const matches = (articlesBySport.get(game.sport) || [])
-      .filter(article => articleMatchesGame(article,game) || editorialArticleEligible(article,game))
-      .sort((a,b) => b.published - a.published)
+      .filter(article => !/\/(?:recap|preview)(?:[/?]|$)/i.test(article.url||'')&&
+        (!article.eventIds?.size||article.eventIds.has(game.eventId))&&
+        // A return, absence or streak reported for the next game is not evidence
+        // for another game several days later. Require that future event's tag.
+        (game.start-now<=42*60*60*1000||article.eventIds?.has(game.eventId)||
+          !/injur|return|ruled out|sidelined|activated|debut|streak|will start|confirmed starter/i.test(`${article.headline} ${article.description}`))&&
+        (articleMatchesGame(article,game,now) || editorialArticleEligible(article,game,now)))
+      .sort((a,b) => priority(b)-priority(a) || b.published - a.published || String(a.id||'').localeCompare(String(b.id||'')))
       .slice(0,MAX_ARTICLES_PER_GAME);
-    matches.forEach(article => items.push({
+    return {game,matches};
+  });
+  // Each selected game gets a first article before any gets a second. This
+  // prevents the early games in the pool from consuming all sixty slots.
+  for(let index=0;index<MAX_ARTICLES_PER_GAME;index++)for(const {game,matches} of groups){
+    const article=matches[index];if(!article)continue;
+    if(items.length>=RESEARCH_LIMITS.articles)return items;
+    items.push({
       id:`i${items.length}`,
       gameKey:game.key,
       eventId:game.eventId,
@@ -266,7 +265,7 @@ function buildResearchItems(games,articlesBySport) {
       article,
       game,
       affectedTeamId:affectedInjuryTeam(article,game)
-    }));
+    });
   }
   return items.slice(0,60);
 }
@@ -280,7 +279,7 @@ function parseAiResponse(result) {
   } catch { return []; }
 }
 
-async function aiFactors(env,items) {
+async function aiFactors(env,items,now=Date.now(),usage) {
   if (!env.AI || !items.length) return [];
   const compact = items.map(item => ({
     id:item.id,
@@ -295,13 +294,13 @@ async function aiFactors(env,items) {
     {role:'system',content:'You extract conservative, source-grounded sports matchup context into JSON.'},
     {role:'user',content:prompt}
   ];
-  if (!await reserveResearchAi(env,messages)) return [];
+  if (!await reserveResearchAi(env,messages,now)) return [];
   try {
-    const result = await env.AI.run(AI_MODEL,{
+    const result = await measuredResearchInference(env,AI_MODEL,{
       messages,
       temperature:0,
       max_tokens:1200
-    });
+    },usage,'scoring-classification');
     return parseAiResponse(result);
   } catch (error) {
     console.error('Storyline AI unavailable; using deterministic fallback',String(error));
@@ -390,8 +389,8 @@ async function saveFactors(env,games,factors,now) {
 }
 
 export async function refreshStorylines(env,now=Date.now()) {
-  const gameGroups = await Promise.all(RESEARCH_FEEDS.map(feed => gamesForFeed(feed,now)));
-  const games = gameGroups.flat().sort((a,b) => a.start - b.start || b.score - a.score).slice(0,MAX_GAMES);
+  const [slate,previous]=await Promise.all([cachedResearchSlate(env,now),researchDiagnostics(env)]);
+  const games=selectResearchGames(slate.games,previous?.lastResearched||{},now);
   const neededSports = new Set(games.map(game => game.sport));
   const newsEntries = await Promise.all(RESEARCH_FEEDS.filter(feed => neededSports.has(feed.sport)).map(async feed => {
     try {
@@ -399,20 +398,35 @@ export async function refreshStorylines(env,now=Date.now()) {
       return [feed.sport,(payload.articles || []).map(articleMetadata)];
     } catch { return [feed.sport,[]]; }
   }));
-  const items = buildResearchItems(games,new Map(newsEntries));
+  const items = buildResearchItems(games,new Map(newsEntries),now);
+  const usage=[];
   // NFL scoring context stays deterministic. Editorial discovery is separate.
-  const classified = await aiFactors(env,items.filter(item=>item.sport!=='NFL'));
-  const editorial = await discoverEditorialStories(env,items,now);
+  const classified = await aiFactors(env,items.filter(item=>item.sport!=='NFL'),now,usage);
+  const editorial = await discoverEditorialStories(env,items,now,usage);
   const factors = mergeFactors(items,classified,editorial,now);
   await saveFactors(env,games,factors,now);
+  const revalidated=await contextsForGames(env,games.map(g=>g.key),games.map(g=>g.publicGame),now);
+  const counts=games.map(g=>{
+    const accepted=revalidated[g.key]||[];
+    return {key:g.key,accepted:accepted.length,publicLinkEligible:accepted.filter(s=>publicLinkEligible(s,g.publicGame,now)).length};
+  });
+  const diagnostics={version:1,lastRun:Math.floor(now/1000),slateSource:slate.reason,slateUpdatedAt:slate.updatedAt||null,
+    limits:RESEARCH_LIMITS,candidatePool:slate.games.length,selected:games.map(g=>({key:g.key,score:g.score,start:new Date(g.start).toISOString()})),
+    articles:items.length,savedFactors:factors.length,readAccepted:counts.reduce((n,g)=>n+g.accepted,0),
+    eligiblePublicLinks:counts.reduce((n,g)=>n+g.publicLinkEligible,0),gamesWithEligibleLinks:counts.filter(g=>g.publicLinkEligible).length,
+    counts,usage,providerRequests:neededSports.size,
+    lastResearched:Object.fromEntries(slate.games.map(g=>[g.key,games.some(s=>s.key===g.key)?now:previous?.lastResearched?.[g.key]||0]))};
+  // Optional diagnostics cannot fail a successful research run or the feed.
+  try {await env.DB.prepare('INSERT INTO sports_resources (key,payload,updated_at) VALUES (?,?,?) ON CONFLICT(key) DO UPDATE SET payload=excluded.payload,updated_at=excluded.updated_at')
+    .bind(DIAGNOSTIC_KEY,JSON.stringify(diagnostics),now).run();}catch{}
   await env.DB.prepare(`INSERT INTO research_status (id,last_run,candidates,articles,factors,ai_used,last_error)
     VALUES (1,?,?,?,?,?,NULL)
     ON CONFLICT(id) DO UPDATE SET last_run=excluded.last_run,candidates=excluded.candidates,articles=excluded.articles,factors=excluded.factors,ai_used=excluded.ai_used,last_error=NULL`)
-    .bind(Math.floor(now / 1000),games.length,items.length,factors.length,classified.length || editorial.length ? 1 : 0).run();
-  return {candidates:games.length,articles:items.length,factors:factors.length,aiUsed:Boolean(classified.length || editorial.length)};
+    .bind(Math.floor(now / 1000),games.length,items.length,factors.length,usage.length ? 1 : 0).run();
+  return {candidates:games.length,articles:items.length,factors:factors.length,aiUsed:Boolean(usage.length),diagnostics};
 }
 
-export async function contextsForGames(env,keys,games=[]) {
+export async function contextsForGames(env,keys,games=[],now=Date.now()) {
   const parsed = keys.map(key => {
     const separator = key.indexOf(':');
     return separator > 0 ? {sport:key.slice(0,separator),eventId:key.slice(separator + 1)} : null;
@@ -420,7 +434,7 @@ export async function contextsForGames(env,keys,games=[]) {
   if (!parsed.length) return {};
   const eventIds = [...new Set(parsed.map(item => item.eventId))];
   const rows = [];
-  const expiresAt = Math.floor(Date.now() / 1000);
+  const expiresAt = Math.floor(now / 1000);
   for (let start = 0; start < eventIds.length; start += 90) {
     const batch = eventIds.slice(start,start + 90);
     const placeholders = batch.map(() => '?').join(',');
@@ -445,17 +459,17 @@ export async function contextsForGames(env,keys,games=[]) {
       const article={headline:row.source_title,description:saved.description||'',url:row.source_url,published:Number(row.source_published)*1000,
         teamIds:new Set(saved.teamIds||[]),eventIds:new Set(saved.eventIds||[])};
       const item={id:candidate?.id,game,article};
-      if(!acceptEditorialReview(item,candidate,candidate?.review))continue;
+      if(!acceptEditorialReview(item,candidate,candidate?.review,now))continue;
       (output[key]||=[]).push({type:EDITORIAL_TYPE,text:row.source_title,confidence:Number(row.confidence),verified:true,editorialOnly:true,
         sourceTitle:row.source_title,sourceDescription:saved.description||'',sourceUrl:row.source_url,publishedAt:new Date(article.published).toISOString()});
       continue;
     }
-    if (game?.state==='upcoming' && !pregameStoryEligible(row,saved)) continue;
+    if (game?.state==='upcoming' && !pregameStoryEligible(row,saved,now)) continue;
     if (row.sport==='NFL' && (!game || game.state==='upcoming')) {
       const article={headline:row.source_title,description:saved?.description || '',published:Number(row.source_published)*1000,
         teamIds:new Set(saved?.teamIds || []),eventIds:new Set(saved?.eventIds || [])};
       if (/uniform|jerseys?|costume|fantasy/i.test(article.headline) ||
-          !evidenceSupportsType(article,row.factor_type) || !nflMaterialFactor(article,row.factor_type) || (game && !articleMatchesGame(article,game))) continue;
+          !evidenceSupportsType(article,row.factor_type) || !nflMaterialFactor(article,row.factor_type) || (game && !articleMatchesGame(article,game,now))) continue;
     }
     if (ACHIEVEMENTS.has(row.factor_type)) {
       const article={headline:row.source_title,description:saved?.description || '',teamIds:new Set(saved?.teamIds || [])};

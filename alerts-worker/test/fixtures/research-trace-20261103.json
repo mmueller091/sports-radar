@@ -1,0 +1,174 @@
+{
+  "workerDeployment": {
+    "version": "1b44b059-cccf-43e6-8968-2f9cdcf448f9",
+    "createdAt": "2026-11-03T18:31:45Z"
+  },
+  "rows": [
+    {
+      "event_id": "401892642",
+      "sport": "NHL",
+      "factor_type": "major_trade_storyline",
+      "context_text": "Predators acquire Shane Wright from Kraken for Matthew Wood",
+      "confidence": 0.78,
+      "source_title": "Predators acquire Shane Wright from Kraken for Matthew Wood",
+      "source_url": "https://www.espn.com/nhl/story/_/id/50352466/predators-acquire-shane-wright-kraken-matthew-wood",
+      "source_published": 1793577299,
+      "expires_at": 1793926800,
+      "updated_at": 1793729862
+    },
+    {
+      "event_id": "401892635",
+      "sport": "NHL",
+      "factor_type": "former_star_return",
+      "context_text": "Faulk, Brandsegg-Nygård score early in 3rd, lift Red Wings past Panthers 5-3",
+      "confidence": 0.78,
+      "source_title": "Faulk, Brandsegg-Nygård score early in 3rd, lift Red Wings past Panthers 5-3",
+      "source_url": "http://www.espn.com/nhl/recap?gameId=401892630",
+      "source_published": 1793673347,
+      "expires_at": 1793923200,
+      "updated_at": 1793729862
+    },
+    {
+      "event_id": "401921801",
+      "sport": "NCAAB",
+      "factor_type": "rivalry",
+      "context_text": "No. 22 UCLA outlasts No. 5 Arizona 84-75 despite Ivan Kharchenkov’s 38-point night",
+      "confidence": 0.78,
+      "source_title": "No. 22 UCLA outlasts No. 5 Arizona 84-75 despite Ivan Kharchenkov’s 38-point night",
+      "source_url": "http://www.espn.com/ncb/recap?gameId=401909738",
+      "source_published": 1793684987,
+      "expires_at": 1793923200,
+      "updated_at": 1793729862
+    },
+    {
+      "event_id": "401892642",
+      "sport": "NHL",
+      "factor_type": "team_win_streak",
+      "context_text": "{\"version\":3,\"text\":\"Hurricanes bring 4-game win streak into matchup against the Predators\",\"description\":\"Carolina Hurricanes (12-2-2, in the Metropolitan Division) vs. Nashville Predators (5-4-5, in the Central Division)\",\"teamIds\":[\"27\",\"7\"]}",
+      "confidence": 0.78,
+      "source_title": "Hurricanes bring 4-game win streak into matchup against the Predators",
+      "source_url": "http://www.espn.com/nhl/preview?gameId=401892642",
+      "source_published": 1793610654,
+      "expires_at": 1793926800,
+      "updated_at": 1793722662
+    },
+    {
+      "event_id": "401909933",
+      "sport": "NBA",
+      "factor_type": "team_win_streak",
+      "context_text": "{\"version\":3,\"text\":\"Spurs face the Mavericks on 5-game win streak\",\"description\":\"Dallas Mavericks (4-3, ninth in the Western Conference) vs. San Antonio Spurs (5-2, sixth in the Western Conference)\",\"teamIds\":[\"24\",\"6\"]}",
+      "confidence": 0.78,
+      "source_title": "Spurs face the Mavericks on 5-game win streak",
+      "source_url": "http://www.espn.com/nba/preview?gameId=401909933",
+      "source_published": 1793689426,
+      "expires_at": 1794018600,
+      "updated_at": 1793722662
+    },
+    {
+      "event_id": "401909922",
+      "sport": "NBA",
+      "factor_type": "season_debut",
+      "context_text": "Coby White returns for Hornets, Kon Knueppel 'right around the corner'",
+      "confidence": 0.78,
+      "source_title": "Coby White returns for Hornets, Kon Knueppel 'right around the corner'",
+      "source_url": "https://www.espn.com/nba/story/_/id/50362034/coby-white-returns-hornets-kon-knueppel-right-corner",
+      "source_published": 1793678129,
+      "expires_at": 1794009600,
+      "updated_at": 1793686662
+    },
+    {
+      "event_id": "401892630",
+      "sport": "NHL",
+      "factor_type": "team_win_streak",
+      "context_text": "{\"version\":3,\"text\":\"Panthers take win streak into game against the Red Wings\",\"description\":\"Detroit Red Wings (6-5-3, in the Atlantic Division) vs. Florida Panthers (8-4-2, in the Atlantic Division)\",\"teamIds\":[\"26\",\"5\"]}",
+      "confidence": 0.78,
+      "source_title": "Panthers take win streak into game against the Red Wings",
+      "source_url": "http://www.espn.com/nhl/preview?gameId=401892630",
+      "source_published": 1793520646,
+      "expires_at": 1793836800,
+      "updated_at": 1793657863
+    },
+    {
+      "event_id": "401892630",
+      "sport": "NHL",
+      "factor_type": "notable_recent_performance",
+      "context_text": "{\"version\":3,\"text\":\"Anton Lundell scores 3 goals, Seth Jones caps record month and Panthers beat reeling Jets 5-2\",\"description\":\"— Anton Lundell had a hat trick, Seth Jones capped a record-setting month with a goal and two assists, and the Florida Panthers topped the reeling Winnipeg Jets 5-2 on Friday night for their sixth win in eight games.\",\"teamIds\":[\"26\",\"28\"]}",
+      "confidence": 0.78,
+      "source_title": "Anton Lundell scores 3 goals, Seth Jones caps record month and Panthers beat reeling Jets 5-2",
+      "source_url": "http://www.espn.com/nhl/recap?gameId=401892612",
+      "source_published": 1793411447,
+      "expires_at": 1793836800,
+      "updated_at": 1793578662
+    },
+    {
+      "event_id": "401873032",
+      "sport": "NFL",
+      "factor_type": "rivalry",
+      "context_text": "NFL Week 8 uniforms: Jaguars, Lions become latest team to debut Rivalries look",
+      "confidence": 0.78,
+      "source_title": "NFL Week 8 uniforms: Jaguars, Lions become latest team to debut Rivalries look",
+      "source_url": "https://www.espn.com/nfl/story/_/id/50302364/nfl-week-8-uniforms",
+      "source_published": 1793483608,
+      "expires_at": 1793739900,
+      "updated_at": 1793542663
+    },
+    {
+      "event_id": "401873033",
+      "sport": "NFL",
+      "factor_type": "rivalry",
+      "context_text": "NFL Week 8 uniforms: Jaguars, Lions become latest team to debut Rivalries look",
+      "confidence": 0.78,
+      "source_title": "NFL Week 8 uniforms: Jaguars, Lions become latest team to debut Rivalries look",
+      "source_url": "https://www.espn.com/nfl/story/_/id/50302364/nfl-week-8-uniforms",
+      "source_published": 1793483608,
+      "expires_at": 1793741100,
+      "updated_at": 1793542663
+    },
+    {
+      "event_id": "401873034",
+      "sport": "NFL",
+      "factor_type": "rivalry",
+      "context_text": "NFL Week 8 uniforms: Jaguars, Lions become latest team to debut Rivalries look",
+      "confidence": 0.78,
+      "source_title": "NFL Week 8 uniforms: Jaguars, Lions become latest team to debut Rivalries look",
+      "source_url": "https://www.espn.com/nfl/story/_/id/50302364/nfl-week-8-uniforms",
+      "source_published": 1793483608,
+      "expires_at": 1793741100,
+      "updated_at": 1793542663
+    },
+    {
+      "event_id": "401873035",
+      "sport": "NFL",
+      "factor_type": "rivalry",
+      "context_text": "NFL Week 8 uniforms: Jaguars, Lions become latest team to debut Rivalries look",
+      "confidence": 0.78,
+      "source_title": "NFL Week 8 uniforms: Jaguars, Lions become latest team to debut Rivalries look",
+      "source_url": "https://www.espn.com/nfl/story/_/id/50302364/nfl-week-8-uniforms",
+      "source_published": 1793483608,
+      "expires_at": 1793755200,
+      "updated_at": 1793542663
+    },
+    {
+      "event_id": "401873035",
+      "sport": "NFL",
+      "factor_type": "major_trade_storyline",
+      "context_text": "Sources: Saquon Barkley won't be traded by deadline despite Eagles' struggles",
+      "confidence": 0.78,
+      "source_title": "Sources: Saquon Barkley won't be traded by deadline despite Eagles' struggles",
+      "source_url": "https://www.espn.com/nfl/story/_/id/50336880/sources-eagles-trade-star-rb-saquon-barkley",
+      "source_published": 1793540208,
+      "expires_at": 1793755200,
+      "updated_at": 1793542663
+    }
+  ],
+  "researchStatus": {
+    "enabled": true,
+    "source": "league news + Workers AI free allocation",
+    "lastRun": 1793729862,
+    "candidates": 15,
+    "articles": 17,
+    "factors": 3,
+    "aiUsed": true,
+    "lastError": null
+  }
+}

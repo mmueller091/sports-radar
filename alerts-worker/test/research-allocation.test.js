@@ -1,0 +1,82 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import {DatabaseSync} from 'node:sqlite';
+import {canonicalResearchGame,selectResearchGames,cachedResearchSlate,RESEARCH_LIMITS,researchDiagnostics,publicLinkEligible} from '../src/research-allocation.js';
+import {buildResearchItems,refreshStorylines} from '../src/storylines.js';
+import {measuredResearchInference} from '../src/ai-budget.js';
+const fixture=JSON.parse(fs.readFileSync(new URL('./fixtures/research-slate-20261103.json',import.meta.url)));
+const now=Date.parse(fixture.capturedAt),DAY=86400000;
+const raw=(id,score=60,sport='NBA',offset=DAY)=>({id:String(id),sport,state:'upcoming',score,startTime:new Date(now+offset).toISOString(),teams:[['Away','A','0','','','5-1',null,'Away','1'],['Home','H','0','','','5-1',null,'Home','2']],factors:[]});
+function database(t,feed){
+  const db=new DatabaseSync(':memory:');t.after(()=>db.close());db.exec(fs.readFileSync(new URL('../schema.sql',import.meta.url),'utf8'));
+  if(feed)db.prepare('INSERT INTO sports_feed (id,payload) VALUES (1,?)').run(JSON.stringify(feed));
+  const env={DB:{prepare(sql){let args=[];return {bind(...v){args=v;return this;},async first(){return db.prepare(sql).get(...args)||null;},async all(){return {results:db.prepare(sql).all(...args)};},async run(){return {meta:{changes:db.prepare(sql).run(...args).changes}};}};},async batch(statements){return Promise.all(statements.map(s=>s.run()));}}};
+  return {db,env};
+}
+test('captured Saturday leaders receive attention four days ahead, at noon and in prime time',()=>{
+  const games=fixture.games.map(g=>canonicalResearchGame(g,now)).filter(Boolean),before=JSON.stringify(fixture);
+  const selected=selectResearchGames(games,{},now);
+  for(const id of ['401856743','401856741','401856849','401858291','401856740','401856745'])assert.ok(selected.some(g=>g.eventId===id),id);
+  assert.equal(selected.length,30);assert.equal(JSON.stringify(fixture),before);
+  assert.deepEqual(selected.slice(0,6).map(g=>g.score),[82,81,80,79,76,73]);
+});
+test('quality slots, sport coverage and bounded rotation do not become time-first selection',()=>{
+  const games=Array.from({length:50},(_,i)=>canonicalResearchGame(raw(i,99-i,'NBA',DAY*(i%6+1)),now));
+  games.push(canonicalResearchGame(raw('nfl',48,'NFL'),now));
+  const first=selectResearchGames(games,{},now),last=Object.fromEntries(first.map(g=>[g.key,now]));
+  const second=selectResearchGames(games,last,now+1);
+  assert.equal(first.length,30);assert.equal(second.length,30);
+  assert.ok(first.some(g=>g.sport==='NFL'));assert.deepEqual(first.slice(0,20).map(g=>g.key),second.slice(0,20).map(g=>g.key));
+  assert.ok(second.some(g=>!last[g.key]));
+});
+test('only upcoming identified games within seven days enter the pool',()=>{
+  for(const change of [{state:'live'},{state:'completed'},{score:NaN},{teams:[]},{startTime:new Date(now+8*DAY).toISOString()},{startTime:new Date(now-1).toISOString()}])assert.equal(canonicalResearchGame({...raw('x'),...change},now),null);
+});
+
+test('a near-term return story is not carried into an unrelated game four days away',()=>{
+  const game=canonicalResearchGame(raw('future',80,'NBA',4*DAY),now);
+  const article={id:'injury',headline:'Away star returns from knee injury',description:'The star is back tonight.',published:now,url:'https://www.espn.com/nba/story/1',teamIds:new Set(['1']),eventIds:new Set()};
+  assert.equal(buildResearchItems([game],new Map([['NBA',[article]]]),now).length,0);
+  article.eventIds.add('future');
+  assert.equal(buildResearchItems([game],new Map([['NBA',[article]]]),now).length,1);
+});
+test('cached partitioned feed is reused; missing, stale and partial feeds fail closed',async t=>{
+  const {env,db}=database(t,{updatedAt:new Date(now).toISOString(),revision:1,parts:1});
+  assert.equal((await cachedResearchSlate(env,now)).reason,'incomplete-parts');
+  db.prepare('INSERT INTO sports_feed_parts VALUES (1,0,?)').run(JSON.stringify([raw('x')]));
+  assert.equal((await cachedResearchSlate(env,now)).games.length,1);
+  assert.equal((await cachedResearchSlate(env,now+3*3600000)).reason,'stale-feed');
+});
+test('older exact-match evidence outranks four new loosely related articles; every selected game gets articles',()=>{
+  const games=Array.from({length:30},(_,i)=>canonicalResearchGame(raw(i),now));
+  const articles=Array.from({length:6},(_,i)=>({id:String(i),headline:'Away coach returns to former team',description:'Away will meet Home in this coaching reunion.',published:now-i*3600000,url:'https://www.espn.com/nba/story/'+i,teamIds:new Set(['1']),eventIds:new Set()}));
+  articles[5].eventIds=new Set(['0']);
+  const items=buildResearchItems(games,new Map([['NBA',articles]]),now);
+  assert.equal(items.length,60);assert.equal(items[0].article.id,'5');
+  assert.equal(new Set(items.map(i=>i.gameKey)).size,30);assert.ok(items.every(i=>i.article.id!=='5'||i.eventId==='0'));
+});
+test('a research run stays inside the existing request, item, AI and quota limits',async t=>{
+  const {env,db}=database(t,{updatedAt:new Date(now).toISOString(),games:fixture.games});
+  const original=globalThis.fetch,calls=[];t.after(()=>{globalThis.fetch=original;});
+  globalThis.fetch=async url=>{calls.push(url);return Response.json({articles:[]});};
+  const result=await refreshStorylines(env,now);
+  assert.ok(calls.length<=6);assert.ok(calls.every(url=>url.includes('/news?')));assert.equal(result.candidates,30);
+  assert.equal(result.diagnostics.savedFactors,0);assert.equal(result.diagnostics.readAccepted,0);assert.equal(result.aiUsed,false);
+  assert.equal((await researchDiagnostics(env)).candidatePool,result.diagnostics.candidatePool);
+  assert.equal(db.prepare('SELECT count(*) AS n FROM research_ai_budget').get().n,0);
+  assert.deepEqual(RESEARCH_LIMITS,{days:7,games:30,articles:60,perGame:4,editorialItems:8,providerRequests:6,aiRequests:3});
+});
+test('actual returned usage is recorded and missing or failed usage is never presented as zero',async()=>{
+  const usage=[],env={AI:{run:async()=>({response:'{}',usage:{prompt_tokens:547,completion_tokens:208,neurons:12.9714}})}};
+  await measuredResearchInference(env,'model',{},usage,'review');assert.equal(usage[0].neurons,12.9714);
+  env.AI.run=async()=>({response:'{}'});await measuredResearchInference(env,'model',{},usage,'review');assert.equal(usage[1].neurons,null);
+  env.AI.run=async()=>{throw Error('failed');};await assert.rejects(measuredResearchInference(env,'model',{},usage,'review'));
+  assert.equal(usage[2].succeeded,false);assert.equal(usage[2].neurons,null);
+});
+test('diagnostic public eligibility retains recap, preview, freshness and suppression rules',()=>{
+  const story={type:'coach_return',verified:true,text:'A coaching reunion',sourceUrl:'https://www.espn.com/nba/story/x',publishedAt:new Date(now).toISOString()};
+  assert.equal(publicLinkEligible(story,{},now),true);
+  for(const change of [{sourceUrl:'https://www.espn.com/nba/preview?gameId=x'},{publishedAt:new Date(now-8*DAY).toISOString()},{verified:false},{type:'notable_recent_performance'},{sourceUrl:'https://user:password@example.com/story'}])assert.equal(publicLinkEligible({...story,...change},{},now),false);
+  assert.equal(publicLinkEligible(story,{suppressedContextTypes:['coach_return']},now),false);
+});

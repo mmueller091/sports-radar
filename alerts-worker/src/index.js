@@ -2,6 +2,7 @@ import {buildPushPayload} from '@block65/webcrypto-web-push';
 import '../../sport-visibility.js';
 import '../../rating-core.js';
 import {contextsForGames,refreshStorylines} from './storylines.js';
+import {researchDiagnostics} from './research-allocation.js';
 import {readFeed,withFreshness,gameDetails,teamDetails,teamStandings,refreshDue,refreshSportsData,requestFeedRefresh} from './sports-feed.js';
 import {gameHistory} from './snapshot-history.js';
 import {cfbConferenceMetadata,cfbSeason} from './cfb-metadata.js';
@@ -143,7 +144,12 @@ export default {
     if (url.pathname === '/config' && request.method === 'GET') return reply(request,{publicKey:env.VAPID_SERVER_PUBLIC_KEY || '',pollSeconds:60});
     if (url.pathname === '/health' && request.method === 'GET') {
       const research = await env.DB.prepare('SELECT last_run,candidates,articles,factors,ai_used,last_error FROM research_status WHERE id=1').first().catch(() => null);
-      return reply(request,{ok:true,notificationVersion:ALERT_DELIVERY_VERSION,alertDelivery:{canonicalRevalidation:true,atomicClaim:true,maxQueueAgeMs:ALERT_MAX_AGE_MS,ambiguousRetry:false},modelVersion:runtime.MODEL_VERSION,scoringPolicy:runtime.POLICY_ID,storylines:{enabled:true,source:'league news + Workers AI free allocation',lastRun:research?.last_run || null,candidates:research?.candidates || 0,articles:research?.articles || 0,factors:research?.factors || 0,aiUsed:Boolean(research?.ai_used),lastError:research?.last_error || null}});
+      const diagnostics=await researchDiagnostics(env);
+      const coverage=diagnostics&&research&&diagnostics.lastRun===research.last_run?{slateSource:diagnostics.slateSource,slateUpdatedAt:diagnostics.slateUpdatedAt,
+        candidatePool:diagnostics.candidatePool,savedFactors:diagnostics.savedFactors,readAccepted:diagnostics.readAccepted,
+        eligiblePublicLinks:diagnostics.eligiblePublicLinks,gamesWithEligibleLinks:diagnostics.gamesWithEligibleLinks,
+        providerRequests:diagnostics.providerRequests,limits:diagnostics.limits,usage:diagnostics.usage}:null;
+      return reply(request,{ok:true,notificationVersion:ALERT_DELIVERY_VERSION,alertDelivery:{canonicalRevalidation:true,atomicClaim:true,maxQueueAgeMs:ALERT_MAX_AGE_MS,ambiguousRetry:false},modelVersion:runtime.MODEL_VERSION,scoringPolicy:runtime.POLICY_ID,storylines:{enabled:true,source:'league news + Workers AI free allocation',lastRun:research?.last_run || null,candidates:research?.candidates || 0,articles:research?.articles || 0,factors:research?.factors || 0,aiUsed:Boolean(research?.ai_used),lastError:research?.last_error || null,coverage}});
     }
     if (url.pathname === '/contexts' && request.method === 'GET') {
       const games = String(url.searchParams.get('games') || '').split(',').map(value => value.trim()).filter(Boolean);
