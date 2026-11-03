@@ -31,7 +31,7 @@ test('ordinary first-half NCAAM ratings explain the gap and verified matchup con
 });
 test('ten-point expected mismatch is described without inventing an outcome',()=>{
  const text=explain({sport:'NFL',state:'upcoming',teams:[team('San Francisco','SF','0'),team('Arizona','ARI','0')],line:{spread:'SF -10'},factors:[]});
- assert.match(text,/San Francisco is favored by 10 points/);assert.match(text,/possibility/);assert.doesNotMatch(text,/will win|rival|injur|capped|adjustment/);
+ assert.match(text,/line favors San Francisco by 10 points/);assert.match(text,/possibility/);assert.doesNotMatch(text,/will win|rival|injur|capped|adjustment/);
 });
 test('only verified occasion fields can add an overseas season opener',()=>{
  const g=evaluate(active,frame());g.state='upcoming';const text=explain(g);assert.match(text,/open their seasons in Rome/);assert.match(text,/Eternal City Tip-Off/);assert.doesNotMatch(text,/first.*entire|former.*rival|Big East|historic programs/);

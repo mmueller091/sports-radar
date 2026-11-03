@@ -8,7 +8,7 @@ class AuditDate extends Date {static now(){return Date.parse(fixtures.capturedAt
 const api=vm.runInNewContext(source.slice(source.indexOf('function explainRating('),source.indexOf('function trendFor('))+';({explainRating,upcomingLinkedStories,publicStorySentence})',{Date:AuditDate});
 for(const {game} of fixtures.games)test(`${game.sport} ${game.id}: captured outlook is specific, readable and read-only`,()=>{
   const input=structuredClone(game),before=JSON.stringify(input),text=api.explainRating(input);
-  for(const team of game.teams)assert.ok(text.includes(team[0]),text);
+  for(const team of game.teams)assert.ok(text.includes(['CFB','NCAAB'].includes(game.sport)?team[7]||team[0]:team[0]),text);
   assert.ok(text.length<800,text);
   assert.doesNotMatch(text,/few visible signs|brings a ranked team|\b(?:algorithm|telemetry|modifier|allocation|baseline|source-backed|provider)\b|\+\d/);
   assert.equal(JSON.stringify(input),before);

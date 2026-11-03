@@ -2635,74 +2635,8 @@ function explainRating(game,summary=null) {
     (f.contextType!=='notable_recent_performance'||/hat trick|record[- ]breaking|milestone|in (?:(?:his|her|their) )?(?:last|past) (?:\d+|two|three|four) games|averaged? .{1,30} in (?:(?:his|her|their) )?(?:last|past) (?:\d+|two|three|four) games/i.test(f.contextText)))
     .map(f=>({...f,publicText:publicStorySentence(f,game.qualitativeContexts)})).filter(f=>safe(f.publicText))
     .sort((x,y)=>Math.abs(y.points)-Math.abs(x.points));
-  if(game.state==='upcoming') {
-    const record=t=>/^\d+-\d+(?:-\d+)?$/.test(String(t[5]||''))?String(t[5]):'';
-    const records=teams.map(t=>record(t).split('-').map(Number));
-    const knownRecords=teams.every(t=>record(t));
-    const gamesPlayed=records.map(r=>r.reduce((n,v)=>n+v,0));
-    // NHL uses earned standings points: an overtime loss earns one of two.
-    const rates=knownRecords?records.map((r,i)=>(r[0]+(['NFL','CFB','NHL'].includes(sport)?(r[2]||0)/2:0))/Math.max(1,gamesPlayed[i])):null;
-    const bothWinning=rates&&rates.every(r=>r>.5),bothLosing=rates&&rates.every(r=>r<.5)&&gamesPlayed.every(n=>n>0);
-    const ranked=['CFB','NCAAB'].includes(sport)?teams.filter(t=>Number(t[6])>=1&&Number(t[6])<=25):[];
-    const teamText=t=>`${ranked.includes(t)?'No. '+t[6]+' ':''}${t[0]}${record(t)&&gamesPlayed[teams.indexOf(t)]>0?' ('+record(t)+')':''}`;
-    const unbeaten=ranked.filter(t=>{const r=records[teams.indexOf(t)];return r[0]>0&&r[1]===0&&!(r[2]>0);});
-    const occasion=game.eventOccasion;
-    const postseason=has(/World Series|^Championship$|Super Bowl|Stanley Cup Final|Postseason|Playoff|Elimination|Final round/);
-    const seasonOpener=has(/^Season opener$/)||knownRecords&&gamesPlayed.every(n=>n===0);
-    if(occasion?.international) add(`${names.join(' and ')} ${occasion.seasonOpener?'open their seasons':'meet'} in ${occasion.city}${occasion.name?' for the '+occasion.name:''}`);
-    else if(has(/World Series/))add(`${names.join(' and ')} meet in the World Series, with a championship on the line`);
-    else if(has(/^Championship$|Super Bowl|Stanley Cup Final/))add(`${names.join(' and ')} play for a championship`);
-    else if(postseason||sport==='Tennis'&&has(/Major tournament/))add(sport==='Tennis'?`${names.join(' and ')} meet on one of tennis's biggest stages`:`${names.join(' and ')} meet with postseason stakes`);
-    else if(ranked.length===2)add(`${teamText(a)} and ${teamText(b)} make this a meeting of ${ranked.every(t=>Number(t[6])<=10)?'top-10':'ranked'} teams${unbeaten.length===2?', both still unbeaten':unbeaten.length===1?', with '+unbeaten[0][0]+' still unbeaten':''}`);
-    else if(seasonOpener)add(`${teamText(a)} and ${teamText(b)} open their seasons`);
-    else if(bothWinning)add(`${teamText(a)} and ${teamText(b)} ${sport==='NHL'?'have both earned more than half the available standings points':'bring winning records into this matchup'}`);
-    else add(`${teamText(a)} and ${teamText(b)} meet`);
+  if(game.state==='upcoming') return pregameExplanation(game,verified);
 
-    const division=labels.find(label=>/^(?:(?:AFC|NFC) (?:East|North|South|West)|(?:Atlantic|Metropolitan|Central|Pacific|Northwest|Southeast|Southwest) Division) matchup$/.test(label));
-    // Stable, verified series identity; this presentation fact awards no points.
-    // https://utahutes.com/news/2024/11/4/utah-football-set-to-host-9-byu-saturday-night
-    const byuUtah=sport==='CFB'&&teams.map(t=>String(t[8])).sort().join(':')==='252:254';
-    if(byuUtah)add('The long-running BYU–Utah rivalry adds local bragging rights');
-    else if(has(/^Rivalry$|^Rivalry context$/))add('The rivalry adds an edge beyond their records');
-    else if(division&&sport==='NFL')add(`This ${division.replace(' matchup','')} meeting also counts in the division race`);
-
-    const match=String(game.line?.spread||'').match(/([A-Z0-9.-]+)\s*-\s*(\d+(?:\.\d+)?)/i);
-    const spread=match?Number(match[2]):Number.isFinite(game.pregameBaseline?.spread)?Math.abs(game.pregameBaseline.spread):null;
-    const favorite=match?teams.find(t=>String(t[1]).toUpperCase()===match[1].toUpperCase()):null;
-    const favoriteText=favorite?favorite[0]:'The favorite';
-    const favoriteVerb=favorite&&/\s/.test(favorite[0])&&/s$/.test(favorite[0])?'are':'is';
-    const moneyline=String(game.line?.moneyline||'').match(/([A-Z0-9.]+)\s*-\s*(\d+)/i);
-    const moneyFavorite=moneyline?teams.find(t=>String(t[1]).toUpperCase()===moneyline[1].toUpperCase()):null;
-    const closeMarket=has(/pick.em|Competitive betting market|Very close projected spread|Tight projected spread/i);
-    if(spread!==null&&(basketball||football)) {
-      if(spread<=3.5)add(`A ${spread}-point spread points to a close contest`);
-      else if(spread>=10)add(`${favoriteText} ${favoriteVerb} favored by ${spread} points, so a one-sided game is a real possibility`);
-      else add(`${favoriteText} ${favoriteVerb} favored by ${spread} points, leaving more risk of an uneven contest`);
-    }else if(sport==='NHL'&&moneyline&&Number(moneyline[2])>=200)add(`${moneyFavorite?moneyFavorite[0]:'One side'} ${moneyFavorite&&/s$/.test(moneyFavorite[0])?'enter as clear favorites':'has a clear edge in the betting market'}, making a close finish less certain`);
-    else if(closeMarket)add('The betting market points to a competitive game');
-    else if(has(/Heavy favorite|Lopsided betting market|market mismatch/i))add('A clear betting favorite makes a close finish less certain');
-    else if(bothWinning&&Math.abs(rates[0]-rates[1])<.1)add('Their similar records suggest a competitive game, although no betting line is listed yet');
-    else if(knownRecords&&gamesPlayed.every(n=>n>0)&&Math.abs(rates[0]-rates[1])>=.3)add('The gap between their records makes a close contest less certain');
-
-    // Factual source copy belongs in the linked story list. Older unlinked
-    // factors retain the existing guarded sentence renderer.
-    const linked=upcomingLinkedStories(game);
-    for(const story of verified.filter(f=>!['international_showcase','season_opener'].includes(f.contextType))) {
-      if(linked.some(item=>item.type===story.contextType))continue;
-      if(story.contextType==='rivalry'&&(byuUtah||has(/^Rivalry$|^Rivalry context$/)))continue;
-      if(/\/(?:recap|preview)(?:[/?]|$)/i.test(story.sourceUrl||''))continue;
-      if(sentences.length>=4)break;
-      add(story.publicText);
-    }
-    if(bothLosing)add(sport==='NHL'?'Both clubs have earned less than half the available standings points, which limits the matchup’s appeal':'Both teams have losing records, which limits the appeal even if the game stays close');
-    else if(ranked.length===2&&spread!==null&&spread<=3.5&&records.every(r=>r[1]>=2))add('Both teams already have multiple losses, keeping this below a meeting of unbeaten contenders');
-    else if(!postseason&&['NBA','NHL'].includes(sport)&&knownRecords&&gamesPlayed.every(n=>n>0&&n<15)&&bothWinning)add('It is still early in the season, so those records are a promising start rather than a long track record');
-    else if(!postseason&&ranked.length===1&&spread!==null&&spread<10)add('Only one side is ranked, keeping this below the strongest ranked matchups');
-    else if(!postseason&&ranked.length===0&&sport==='CFB'&&closeMarket)add('Neither team is ranked, so the main draw is the prospect of a close game');
-    else if(!knownRecords&&spread===null&&!postseason&&!verified.length&&sport!=='Tennis')add('Records and a betting line are not available yet, leaving little to judge the matchup beyond the teams involved');
-    else if(spread===null&&!closeMarket&&!bothWinning&&!bothLosing&&knownRecords&&!postseason&&sentences.length===1)add('Without a listed betting line, it is harder to judge how evenly matched they are');
-    return sentences.slice(0,5).join(' ');
-  }
   const x=Number(a[2]),y=Number(b[2]),known=a[2]!=null&&b[2]!=null&&String(a[2]).trim()!==''&&String(b[2]).trim()!==''&&Number.isFinite(x)&&Number.isFinite(y),gap=known?Math.abs(x-y):null;
   const leader=x>y?a:b,trailer=x>y?b:a;
   const period=Number(game.liveRawStatus?.period),clock=String(game.liveRawStatus?.displayClock || ''),parts=clock.split(':').map(Number),seconds=parts.length===2?parts[0]*60+parts[1]:null;
@@ -2841,6 +2775,125 @@ function publicStorySentence(factor,stories=[]) {
   const sentence=clean(first || text).replaceAll(marker,'.').replace(/,\s+(?:saying|adding|according to)\b[\s\S]*$/i,
     attribution=>conditional.test(attribution)?attribution:'');
   return !sentence || /[.!?]["'\u2019\u201d)\]]*$/.test(sentence)?sentence:sentence+'.';
+}
+
+
+// Presentation only: no ratings, inputs, source evidence or live copy are changed.
+function pregameExplanation(game,verified=[]) {
+  const teams=game.teams || [],sport=game.sport==='NCAAM'?'NCAAB':game.sport;
+  const college=['CFB','NCAAB'].includes(sport),pro=['NFL','NBA','NHL','MLB'].includes(sport);
+  const factors=game.factors || [],has=re=>factors.some(f=>re.test(f.label || ''));
+  const positive=re=>factors.some(f=>Number(f.points)>0&&re.test(f.label || ''));
+  const record=t=>/^\d+-\d+(?:-\d+)?$/.test(String(t[5]||''))?String(t[5]):'';
+  const records=teams.map(t=>record(t)?record(t).split('-').map(Number):null);
+  const games=records.map(r=>r?r.reduce((a,b)=>a+b,0):0);
+  const known=records.every(Boolean)&&games.every(n=>n>0);
+  // NHL overtime losses earn one standings point, not a win. Football ties
+  // count as half a win; a 0-0 opener has no record-quality evidence.
+  const rates=known?records.map((r,i)=>(r[0]+(['NHL','NFL','CFB'].includes(sport)?(r[2]||0)/2:0))/games[i]):null;
+  const bothWinning=rates&&rates.every(r=>r>.5),bothLosing=rates&&rates.every(r=>r<.5);
+  const full=t=>String(t[0]||'').trim();
+  const name=t=>college?String(t[7]||t[0]).trim():full(t);
+  const short=t=>pro&&t[7]&&t[7]!==t[0]?`the ${t[7]}`:name(t);
+  const rank=t=>college&&Number.isInteger(Number(t[6]))&&Number(t[6])>=1&&Number(t[6])<=25?Number(t[6]):null;
+  const ranked=teams.filter(rank);
+  const unbeaten=teams.filter((t,i)=>games[i]>0&&records[i][0]>0&&records[i].slice(1).every(n=>n===0));
+  const named=t=>`${rank(t)?`No. ${rank(t)} `:''}${name(t)}`;
+  const pair=teams.map(named).join(' and ');
+  const withRecord=t=>`${named(t)}${games[teams.indexOf(t)]?` (${record(t)})`:''}`;
+  const recordPair=teams.map(withRecord).join(' and ');
+  const division=factors.find(f=>/^(?:(?:AFC|NFC) (?:East|North|South|West)|(?:AL|NL) (?:East|Central|West)|(?:Atlantic|Metropolitan|Central|Pacific|Northwest|Southeast|Southwest) Division) matchup$/.test(f.label||''))?.label.replace(' matchup','');
+  const byuUtah=sport==='CFB'&&teams.map(t=>String(t[8])).sort().join(':')==='252:254';
+  const rivalry=byuUtah||has(/^Rivalry$|^Rivalry context$/);
+  const postseason=has(/World Series|^Championship$|Super Bowl|Stanley Cup Final|Postseason|Playoff|Elimination|Final round/);
+  const occasion=game.eventOccasion;
+  const opener=has(/^Season opener$/)||records.every(Boolean)&&games.every(n=>n===0);
+  const lines=[],add=text=>{
+    if(!text)return;
+    text=text.trim().replace(/^[a-z]/,c=>c.toUpperCase());
+    if(!/[.!?]["'\u2019\u201d)\]]*$/.test(text))text+='.';
+    const key=x=>x.toLowerCase().replace(/[^\p{L}\p{N}]+/gu,' ').trim();
+    if(!lines.some(line=>key(line)===key(text)))lines.push(text);
+  };
+  let divisionUsed=false,recordsUsed=false;
+  if(occasion?.international&&occasion.city) add(`${pair} ${occasion.seasonOpener?'open their seasons':'meet'} in ${occasion.city}${occasion.name?' for the '+occasion.name:''}`);
+  else if(has(/World Series/))add(`${pair} meet in the World Series, with a championship on the line`);
+  else if(has(/^Championship$|Super Bowl|Stanley Cup Final/))add(`${pair} play for a championship`);
+  else if(postseason||sport==='Tennis'&&has(/Major tournament/))add(sport==='Tennis'?`${pair} meet on one of tennis's biggest stages`:`${pair} meet with postseason stakes`);
+  else if(ranked.length===2) {
+    add(`${recordPair} meet in a ${ranked.every(t=>rank(t)<=10)?'top-10':'ranked'} matchup${unbeaten.length===2?' between unbeaten teams':unbeaten.length===1?`, with ${name(unbeaten[0])}'s unbeaten season on the line`:''}`);
+    recordsUsed=true;
+  } else if(positive(/^Division lead at stake$/)&&division) {
+    add(`${pair} meet with at least a share of the ${division} lead available to either winner`);divisionUsed=true;
+  } else if(opener)add(`${pair} open their seasons`);
+  else if(ranked.length===1) {
+    const contender=ranked[0],opponent=teams.find(t=>t!==contender);
+    add(`${withRecord(contender)} faces ${withRecord(opponent)}${unbeaten.includes(contender)?' with an unbeaten season to protect':''}`);recordsUsed=true;
+  }
+  else if(bothWinning) {
+    add(`${recordPair} ${sport==='NHL'?'have both earned more than half the available standings points':'bring winning records into this matchup'}`);recordsUsed=true;
+  } else if(division) {
+    add(`${recordPair} meet in the ${division}`);divisionUsed=true;recordsUsed=true;
+  } else if(unbeaten.length&&sport!=='Tennis') {
+    add(`${recordPair} meet with ${unbeaten.length===2?'two unbeaten starts':name(unbeaten[0])+"'s unbeaten start"} on the line`);recordsUsed=true;
+  } else if(bothLosing) {
+    add(`${recordPair} meet with both ${sport==='NHL'?'clubs looking to climb after earning less than half the available standings points':'teams looking to recover from losing starts'}`);recordsUsed=true;
+  } else {add(`${recordPair} meet`);recordsUsed=true;}
+
+  if(byuUtah)add('The long-running BYU–Utah rivalry adds local bragging rights');
+  else if(rivalry)add('The rivalry adds an edge to the meeting');
+  if(division&&!divisionUsed) {
+    add(positive(/^Division race positioning$/)?`Their ${division} meeting also carries weight near the top of the division`:
+      `They are also ${division} opponents${sport==='NFL'?', with a head-to-head division result at stake':''}`);
+  }
+
+  const spreadMatch=String(game.line?.spread||'').match(/^([A-Z0-9.&-]+)\s*-\s*(\d+(?:\.\d+)?)$/i);
+  const pick=/^(?:PK|pick(?:\s*['’]?em)?)$/i.test(String(game.line?.spread||'').trim());
+  const spread=spreadMatch?Number(spreadMatch[2]):pick?0:Number.isFinite(game.pregameBaseline?.spread)?Math.abs(game.pregameBaseline.spread):null;
+  const favorite=spreadMatch?teams.find(t=>String(t[1]).toUpperCase()===spreadMatch[1].toUpperCase()):null;
+  const money=String(game.line?.moneyline||'').match(/^([A-Z0-9.-]+)\s*-\s*(\d+)$/i);
+  const moneyFavorite=money?teams.find(t=>String(t[1]).toUpperCase()===money[1].toUpperCase()):null;
+  const closeMarket=has(/pick.em|Competitive betting market|Very close projected spread|Tight projected spread/i);
+  const mismatch=has(/Heavy favorite|Lopsided betting market|market mismatch/i);
+  const hasSpread=spread!==null&&['NFL','CFB','NBA','NCAAB'].includes(sport);
+  if(hasSpread) {
+    if(spread===0)add('An even line sets up a game that could go either way');
+    else if(spread<=3.5)add(`A ${spread}-point spread points to a close contest`);
+    else if(spread<=7)add(`${favorite?`The ${spread}-point line favors ${short(favorite)}`:`A ${spread}-point spread gives one side an edge`}, but keeps a competitive game in view`);
+    else if(spread<10)add(`${favorite?`The line favors ${short(favorite)} by ${spread} points`:`A ${spread}-point spread gives one side a sizable edge`}; the underdog faces a tougher test`);
+    else add(`${favorite?`The line favors ${short(favorite)} by ${spread} points`:`A ${spread}-point spread signals a clear favorite`}, so a one-sided game is a real possibility`);
+  } else if(['NHL','MLB'].includes(sport)&&money&&Number(money[2])>=200) {
+    add(`${moneyFavorite?`The betting market gives ${short(moneyFavorite)}`:'The betting market gives one side'} a clear edge, making a close finish less certain`);
+  } else if(closeMarket)add('The betting market points to a competitive game');
+  else if(mismatch)add('A clear betting favorite makes a close finish less certain');
+  else if(known&&Math.abs(rates[0]-rates[1])<.1) {
+    add(bothWinning?'Their similar records suggest a competitive game':bothLosing?'Their records are closely matched, though neither has established consistent winning form':sport==='NHL'?'Their standings points are closely matched':'There is little separation in their records');
+  } else if(known&&Math.abs(rates[0]-rates[1])>=.3) {
+    const stronger=teams[rates[0]>rates[1]?0:1];
+    add(`The stronger record belongs to ${short(stronger)}${sport==='NHL'?' by share of standings points':''}; the interest is in whether the other side can bridge that gap`);
+  } else if(known&&!bothWinning&&!bothLosing&&!opener&&!postseason&&lines.length===1) {
+    add('The records offer a mixed picture, leaving the balance of this matchup open');
+  }
+
+  // Totals describe expectations, never assert offensive quality or an outcome.
+  const total=Number(game.line?.total);
+  if(sport==='NFL'&&positive(/^Expected scoring potential$|^Close-game scoring upside$/)&&Number.isFinite(total)&&total>0) {
+    add(total>=50?`The listed total of ${total} suggests the potential for plenty of scoring`:`The listed total is ${total}, adding some scoring appeal`);
+  }
+  if(!recordsUsed&&known&&bothWinning&&lines.length<3)add(`${sport==='NHL'?'Both clubs have earned more than half the available standings points':'Both teams have winning records'} (${teams.map(record).join(' and ')})`);
+  const linked=upcomingLinkedStories(game);
+  for(const story of verified.filter(f=>!['international_showcase','season_opener'].includes(f.contextType))) {
+    if(linked.some(item=>item.type===story.contextType)||story.contextType==='rivalry'&&rivalry||/\/(?:recap|preview)(?:[/?]|$)/i.test(story.sourceUrl||''))continue;
+    if(lines.length>=5)break;
+    add(story.publicText);
+  }
+  // A limitation earns its place only when it explains a weak matchup; no
+  // comparisons with imaginary better opponents, and no missing-odds filler.
+  if(bothLosing&&!postseason&&lines.length<3&&!lines[0].includes('losing starts')&&!lines[0].includes('less than half'))
+    add(sport==='NHL'?'Both clubs have struggled to collect standings points':'Both teams are trying to improve on losing records');
+  if(!known&&spread===null&&!postseason&&!verified.length&&lines.length===1&&sport!=='Tennis'&&!opener)
+    add('Further matchup details are not available yet');
+  return lines.slice(0,5).join(' ');
 }
 
 function trendFor(game) {

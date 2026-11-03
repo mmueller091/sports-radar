@@ -1,0 +1,3123 @@
+{
+  "capturedAt": "2026-11-03T19:44:17.227Z",
+  "baseline": "31f3eb26fbd3c3fc083f7828b2bb93d181fdb888",
+  "modelVersion": "2026-11-02.clock-integrity.2",
+  "count": 262,
+  "bySport": {
+    "NFL": 15,
+    "NHL": 57,
+    "CFB": 124,
+    "NBA": 53,
+    "NCAAB": 5,
+    "Soccer": 8
+  },
+  "before": {
+    "recordGap": 50,
+    "losingRecordFiller": 54,
+    "missingMarket": 49,
+    "hypotheticalComparison": 26
+  },
+  "after": {
+    "recordGap": 0,
+    "losingRecordFiller": 0,
+    "missingMarket": 0,
+    "hypotheticalComparison": 0
+  },
+  "divisionCoverage": {
+    "eligible": 22,
+    "described": 22
+  },
+  "liveChecks": [
+    {
+      "sport": "NFL",
+      "id": "401873023",
+      "state": "completed"
+    },
+    {
+      "sport": "NFL",
+      "id": "401873026",
+      "state": "completed"
+    },
+    {
+      "sport": "NFL",
+      "id": "401873031",
+      "state": "completed"
+    },
+    {
+      "sport": "NFL",
+      "id": "401873024",
+      "state": "completed"
+    },
+    {
+      "sport": "NFL",
+      "id": "401873030",
+      "state": "completed"
+    },
+    {
+      "sport": "NFL",
+      "id": "401873029",
+      "state": "completed"
+    },
+    {
+      "sport": "NFL",
+      "id": "401873027",
+      "state": "completed"
+    },
+    {
+      "sport": "NFL",
+      "id": "401873025",
+      "state": "completed"
+    },
+    {
+      "sport": "NFL",
+      "id": "401873028",
+      "state": "completed"
+    },
+    {
+      "sport": "NFL",
+      "id": "401873032",
+      "state": "completed"
+    },
+    {
+      "sport": "NFL",
+      "id": "401873033",
+      "state": "completed"
+    },
+    {
+      "sport": "NFL",
+      "id": "401873034",
+      "state": "completed"
+    },
+    {
+      "sport": "NFL",
+      "id": "401873035",
+      "state": "completed"
+    },
+    {
+      "sport": "NFL",
+      "id": "401873036",
+      "state": "completed"
+    },
+    {
+      "sport": "MLB",
+      "id": "401908046",
+      "state": "completed"
+    },
+    {
+      "sport": "NHL",
+      "id": "401892629",
+      "state": "completed"
+    },
+    {
+      "sport": "NHL",
+      "id": "401892630",
+      "state": "completed"
+    },
+    {
+      "sport": "NHL",
+      "id": "401892631",
+      "state": "completed"
+    },
+    {
+      "sport": "NHL",
+      "id": "401892632",
+      "state": "completed"
+    },
+    {
+      "sport": "NBA",
+      "id": "401909907",
+      "state": "completed"
+    },
+    {
+      "sport": "NBA",
+      "id": "401909908",
+      "state": "completed"
+    },
+    {
+      "sport": "NBA",
+      "id": "401909909",
+      "state": "completed"
+    },
+    {
+      "sport": "NBA",
+      "id": "401909910",
+      "state": "completed"
+    },
+    {
+      "sport": "NBA",
+      "id": "401909911",
+      "state": "completed"
+    },
+    {
+      "sport": "NBA",
+      "id": "401909912",
+      "state": "completed"
+    },
+    {
+      "sport": "NBA",
+      "id": "401909913",
+      "state": "completed"
+    },
+    {
+      "sport": "NBA",
+      "id": "401909914",
+      "state": "completed"
+    },
+    {
+      "sport": "NBA",
+      "id": "401909915",
+      "state": "completed"
+    },
+    {
+      "sport": "NBA",
+      "id": "401909916",
+      "state": "completed"
+    },
+    {
+      "sport": "NBA",
+      "id": "401909917",
+      "state": "completed"
+    },
+    {
+      "sport": "NBA",
+      "id": "401909918",
+      "state": "completed"
+    },
+    {
+      "sport": "NBA",
+      "id": "401909919",
+      "state": "completed"
+    },
+    {
+      "sport": "NBA",
+      "id": "401909920",
+      "state": "completed"
+    },
+    {
+      "sport": "NBA",
+      "id": "401909921",
+      "state": "completed"
+    },
+    {
+      "sport": "Soccer",
+      "id": "401915311",
+      "state": "completed"
+    },
+    {
+      "sport": "Soccer",
+      "id": "401915310",
+      "state": "completed"
+    }
+  ],
+  "immutable": [
+    {
+      "path": "alerts-worker/src/ai-budget.js",
+      "unchanged": true,
+      "sha256": "48ab79a26e8240fd4346a623b01f4db2abafb30fb1dd4eae9d34c4c8947bf3da"
+    },
+    {
+      "path": "alerts-worker/src/alert-delivery.js",
+      "unchanged": true,
+      "sha256": "4bebb2cd8fb901254de5926daf8de3c37ceb875d766711c5cb5bb33a3d633358"
+    },
+    {
+      "path": "alerts-worker/src/cfb-metadata.js",
+      "unchanged": true,
+      "sha256": "51fafb622436e8c5bda981c094f9c7b996201c627c0d19cbdf676bc9e65e47f5"
+    },
+    {
+      "path": "alerts-worker/src/display-model.js",
+      "unchanged": true,
+      "sha256": "5536a902bc1bf469a5ca982b21cc53167afbbe6328f1cb2ef8fcd6519e9416fd"
+    },
+    {
+      "path": "alerts-worker/src/editorial-context.js",
+      "unchanged": true,
+      "sha256": "67f794a891dcd1f4cddf025db5aa293f36a33c9046c4f0a163a439d83b4ce78a"
+    },
+    {
+      "path": "alerts-worker/src/game-model.js",
+      "unchanged": true,
+      "sha256": "415178a53fa20c348eb5695603c154da173a65e4135874005c6a0832777ae3ee"
+    },
+    {
+      "path": "alerts-worker/src/index.js",
+      "unchanged": true,
+      "sha256": "7c7c599c4e54426998b6cc62085ccced2ba3f8c8443b6bb8e3e261c36db07dcf"
+    },
+    {
+      "path": "alerts-worker/src/live-game-model.js",
+      "unchanged": true,
+      "sha256": "670e020eba725c01e7551f6c08c68c1bc345f3e159631e2cbcf4f6bb64838cc1"
+    },
+    {
+      "path": "alerts-worker/src/nfl-pregame.js",
+      "unchanged": true,
+      "sha256": "c4803baec689142e8cb7f026083c78494cc6d86ba4b778fbfd8f9d9a19e88736"
+    },
+    {
+      "path": "alerts-worker/src/nfl-return.js",
+      "unchanged": true,
+      "sha256": "fd81b9682ec5d7ff5b3b83a296c61671500ed891f41a276a24ac03ea6b62e46c"
+    },
+    {
+      "path": "alerts-worker/src/notification-preferences.js",
+      "unchanged": true,
+      "sha256": "1233ffa1292caa894153d3aba8b9d36316fbf48795df9cc8fc761dfed3956b0e"
+    },
+    {
+      "path": "alerts-worker/src/providers/espn.js",
+      "unchanged": true,
+      "sha256": "cb316d00cdbd0f72549c8dd25365188786a5e3f58981a9aef256c08a82318127"
+    },
+    {
+      "path": "alerts-worker/src/providers/nhl.js",
+      "unchanged": true,
+      "sha256": "d5d4f1661e05973fef21796d5e1829d271b71a9729c9a866cb48dbbca0d5972a"
+    },
+    {
+      "path": "alerts-worker/src/providers/tennis.js",
+      "unchanged": true,
+      "sha256": "fe01200bc88671642a495ddf78fdfe33bb9798f91d10f23a99a6e0a0d9296e0c"
+    },
+    {
+      "path": "alerts-worker/src/refresh-policy.js",
+      "unchanged": true,
+      "sha256": "854c4a304117e000f57e586cc7334afd703830519b2d08b44bb78bbc786704a9"
+    },
+    {
+      "path": "alerts-worker/src/snapshot-history.js",
+      "unchanged": true,
+      "sha256": "da9fdd57f6282a7f546707be1381f14cb5b6371f24b015720105b5a9e1cddf6d"
+    },
+    {
+      "path": "alerts-worker/src/sports-feed.js",
+      "unchanged": true,
+      "sha256": "6b38c5a963f65da1c941e76bd3878fd60e443a42507eff8e443c68f6287a4795"
+    },
+    {
+      "path": "alerts-worker/src/storylines.js",
+      "unchanged": true,
+      "sha256": "5a9610f71626af04a6f1b1ff2732b7f99da8e9180f42845861edd2e706c655c2"
+    },
+    {
+      "path": "calibration/output/basketball-audit-20261101.json",
+      "unchanged": true,
+      "sha256": "9b4443c5b7fafca6c41b8ee8d67bccc04edd965e3d82f100462f2e34b9b4788c"
+    },
+    {
+      "path": "calibration/output/current-tension-calibration.json",
+      "unchanged": true,
+      "sha256": "72ba816c4ec92b6f8fff7f09f72973e713c3846bf6d222bef10250f01a379ebb"
+    },
+    {
+      "path": "calibration/output/finish-audit-20261031.json",
+      "unchanged": true,
+      "sha256": "ec00cba23a3f300d080886c4f067c3e8219a29be69a45ba7e5834390ba552a1c"
+    },
+    {
+      "path": "calibration/output/football-live-20261101.json",
+      "unchanged": true,
+      "sha256": "3aa618e409f6e97f0f0a5270549718de02248ebe1ad77efb43d7382e548ca156"
+    },
+    {
+      "path": "calibration/output/football-pregame-20261031.json",
+      "unchanged": true,
+      "sha256": "c9e900f20b1cd9738808f6779cd2ffc87dc336d0b163a1151c8fd787357ff126"
+    },
+    {
+      "path": "calibration/output/football-transition-20261031.json",
+      "unchanged": true,
+      "sha256": "0cd1e775d7c3ef278599c91e2cb21ac6d013a0ca52c7652a4232866f371bf30f"
+    },
+    {
+      "path": "calibration/output/latest.csv",
+      "unchanged": true,
+      "sha256": "9466a11a69429d66ed0f922cf19f51e44ad9b3138e418c31680d13498f80fd11"
+    },
+    {
+      "path": "calibration/output/live-sync-20261101.json",
+      "unchanged": true,
+      "sha256": "63a8528a920ea84c0d5e81c8ea39c060b34c8e27c517bf501642a12baec29fd0"
+    },
+    {
+      "path": "calibration/output/ncaam-calibration-after-20261102.json",
+      "unchanged": true,
+      "sha256": "baf6cdd3b5146002e47e01ceedb2fcb243180988edd402e860ccc86b41e4cfa1"
+    },
+    {
+      "path": "calibration/output/ncaam-calibration-before-20261102.json",
+      "unchanged": true,
+      "sha256": "aab09f6dfdf8416ab758ea9b09fde7dc9c5a9935dfe13f8e5cb0b3bc1df89cbf"
+    },
+    {
+      "path": "calibration/output/ncaam-historical-replay-summary-20261102.json",
+      "unchanged": true,
+      "sha256": "b26d31b56f7a5f0aa6bcd5052766882f71f24ddc2d2198ee175a90bdef7c70b0"
+    },
+    {
+      "path": "calibration/output/nfl-competitiveness-20261101.json",
+      "unchanged": true,
+      "sha256": "c44c48a571d799f049a96dee6984569319e247e24e3aac3cda60dd5ef05d74b9"
+    },
+    {
+      "path": "calibration/output/nfl-pregame-20261101.json",
+      "unchanged": true,
+      "sha256": "659b0d6a9790b442df4423dca5c8a3259f4c64e19565d6d3293d275240bb47bb"
+    },
+    {
+      "path": "calibration/output/nfl-refinement-20261101.json",
+      "unchanged": true,
+      "sha256": "f02acbcf11a0620b19df4b704c9b4e8e72978f4e3d066091283255b5ef8b242b"
+    },
+    {
+      "path": "calibration/output/nhl-pressure-comparison.json",
+      "unchanged": true,
+      "sha256": "eb6635f33d9e5095477f90d4e5232e202eb5945c5a786e9a8d93442934f73d53"
+    },
+    {
+      "path": "calibration/output/opening-transition-20261031.json",
+      "unchanged": true,
+      "sha256": "7db5d3fcf0765ab78d3d938fd7dbfed3e63930ddfa6c7e3632b66869dfcbe001"
+    },
+    {
+      "path": "calibration/output/pregame-market-hotfix-20261101.json",
+      "unchanged": true,
+      "sha256": "f15ec10f0a32349de73a4b929100dd13ba90659c38e1d92d384c1da1a880be57"
+    },
+    {
+      "path": "calibration/output/replay-input-comparison.v2.json",
+      "unchanged": true,
+      "sha256": "99caa9a1cef49ffcdf74681f15cd2ed8d78340f41fa9b608c651f9984d505ddc"
+    },
+    {
+      "path": "calibration/output/replay-input-provenance.v2.json",
+      "unchanged": true,
+      "sha256": "5e0ad48b1a4b3f0f237fef47eb62108b6a6c1daf549e23db65308286b81b4a92"
+    },
+    {
+      "path": "calibration/output/replay-input-scope.v2.json",
+      "unchanged": true,
+      "sha256": "d20b2adf3a28026378c0df2f650ed4ea4f06c2203967d64804a43991e5d9112f"
+    },
+    {
+      "path": "calibration/output/replay-input-states.v2.json.gz",
+      "unchanged": true,
+      "sha256": "f2346dd275102553e734879f87e551cdc0deafabf15fc6f02217d56bc345268d"
+    },
+    {
+      "path": "calibration/output/shadow-candidate-replay-summary.json",
+      "unchanged": true,
+      "sha256": "21616fad1500f46048e64671a4c4278c0dd30b762420ff90498031defb7dec98"
+    },
+    {
+      "path": "calibration/output/trajectory-calibration.json",
+      "unchanged": true,
+      "sha256": "63f7fcd076bb056e5ac623c833f833ae749ad17c9bc2fa8597d1eacece1007b1"
+    },
+    {
+      "path": "calibration/output/trajectory-live-calibration.json",
+      "unchanged": true,
+      "sha256": "6581601b64d2a22a8e27e3e10387642a038a5fc5ae36fd1e1c584f489fe345c7"
+    },
+    {
+      "path": "rating-core.js",
+      "unchanged": true,
+      "sha256": "4ec177dafc11cacf0f4651677b52f3d52b96b411fad267ba41147a18344cc510"
+    },
+    {
+      "path": "scoring/README.md",
+      "unchanged": true,
+      "sha256": "0ee5e85b84dd0fd55e4b49f2c1731dbeb3f5de2cfdda07a2c6c97ae96a22d719"
+    },
+    {
+      "path": "scoring/basketball-calibration.cjs",
+      "unchanged": true,
+      "sha256": "a0ab681f106a8e6047e973359a70797aa8182a963f621a7512efda175be8826d"
+    },
+    {
+      "path": "scoring/basketball-state.cjs",
+      "unchanged": true,
+      "sha256": "e4b930858f1b6c5f5f82888c861a408ad9546568d5032801fbef66a0cde72da2"
+    },
+    {
+      "path": "scoring/browser-entry.cjs",
+      "unchanged": true,
+      "sha256": "2c093b14095e7d02dc57fc11f4564712be28e04342f2108418fa328288376e62"
+    },
+    {
+      "path": "scoring/detail-state.cjs",
+      "unchanged": true,
+      "sha256": "0f99a4369f14a78771ec766743104b8fe610a5576e42202d8674261d237b8f4a"
+    },
+    {
+      "path": "scoring/event-occasion.cjs",
+      "unchanged": true,
+      "sha256": "2a560c63844497a56b2242777ad57769cf59634aad90891204404fbb2d5ffe58"
+    },
+    {
+      "path": "scoring/football-live.cjs",
+      "unchanged": true,
+      "sha256": "ff94b034ef7e75e82891b279132896cc5d15f1520e66c4b9693103fc0aa40c66"
+    },
+    {
+      "path": "scoring/football-market.cjs",
+      "unchanged": true,
+      "sha256": "de64629ad210c50a135e7c9752cec366e0ed6fdc9088ea1cbc96e87e08a1f4d1"
+    },
+    {
+      "path": "scoring/football-transition.cjs",
+      "unchanged": true,
+      "sha256": "0d772e802bc1f16eae852cce97fbcdaf95fe11a96ff408abd63a3b286d4a4c13"
+    },
+    {
+      "path": "scoring/game-facts.cjs",
+      "unchanged": true,
+      "sha256": "ebbda2d72dca446a9fe0deebdb5bce6cc71b164a270dac4cb23a41aac3c00083"
+    },
+    {
+      "path": "scoring/live-evidence.cjs",
+      "unchanged": true,
+      "sha256": "9e109dab44cac72c83d1ffcfacfdc9a38d9e39b9f984798331fa6159942c575e"
+    },
+    {
+      "path": "scoring/live-runtime.cjs",
+      "unchanged": true,
+      "sha256": "643d531bbb4dc6a9bb12ef769de4582025fd4ee3df1b54a052bd9822cf8fd8fe"
+    },
+    {
+      "path": "scoring/models.js",
+      "unchanged": true,
+      "sha256": "9efc69e6ffe186423515dc476a7551031b13fc35d2580b3100fb86b15a60584d"
+    },
+    {
+      "path": "scoring/nhl-advanced.cjs",
+      "unchanged": true,
+      "sha256": "89c7c8b31910d54bd50b798eaf97cc027c4143b3a43d1f655342cc7c380990d0"
+    },
+    {
+      "path": "scoring/nhl-manpower-evidence.cjs",
+      "unchanged": true,
+      "sha256": "32098b7765e3c67971422c8ec6aa34f75ff4aaf7c82f2e7ce8b8f722a7f93ab3"
+    },
+    {
+      "path": "scoring/opening-transition.cjs",
+      "unchanged": true,
+      "sha256": "5066aad6c56f6d107ae72caa5e29cad3027c608c30839aef45183dfd0224b62d"
+    },
+    {
+      "path": "scoring/provider-evidence.cjs",
+      "unchanged": true,
+      "sha256": "ccefebc6d6cd703d20879fba3f3c479798e7f7b05723c5d0718dbcac99f1bd2e"
+    },
+    {
+      "path": "scoring/shared/basketball.js",
+      "unchanged": true,
+      "sha256": "986710c0c9e83be41aac1fd49419ec6541a6ace81a7df0a4b88cd68293d0e3aa"
+    },
+    {
+      "path": "scoring/shared/calculation.js",
+      "unchanged": true,
+      "sha256": "bb16db6b6c4bfdf7f2890e999bae91e6412c70654b4df769989f2a7fe1ddeccd"
+    },
+    {
+      "path": "scoring/shared/college.js",
+      "unchanged": true,
+      "sha256": "ff117eb5fd806a005ed24c131d961fba6c0d45187bf8649b25f1fba8e6769fcc"
+    },
+    {
+      "path": "scoring/shared/config.js",
+      "unchanged": true,
+      "sha256": "a1bee51d57d387e18ae8bc49dfd19800b096cca341f0ad8fa44c39a097ae9e69"
+    },
+    {
+      "path": "scoring/shared/context.js",
+      "unchanged": true,
+      "sha256": "05c3827f105e8b018c6ccb3f12023c5d88275858d72e86ed30f38e2003091a29"
+    },
+    {
+      "path": "scoring/shared/events.js",
+      "unchanged": true,
+      "sha256": "e0956eb8236b91cb9cff57018d0b794821dcc19a730c7a6f2dd94b441744647b"
+    },
+    {
+      "path": "scoring/shared/football.js",
+      "unchanged": true,
+      "sha256": "529cba8c50f7270085470abc45de755e1b08ff633c307c9bb81a57c67cb5ec69"
+    },
+    {
+      "path": "scoring/shared/history.js",
+      "unchanged": true,
+      "sha256": "d2ef22c345a9a1b394d5336781248e70927a4510225901d5273323a741984a0b"
+    },
+    {
+      "path": "scoring/shared/market.js",
+      "unchanged": true,
+      "sha256": "4e0e65ffaf98a00127e1bbd3dfde5163d4e753a9215ca8439e665b6971f58477"
+    },
+    {
+      "path": "scoring/shared/nfl-pregame.js",
+      "unchanged": true,
+      "sha256": "f9710d37e991c0457580a530cf9e8db6e96148cb5c0a264e5f568d33a4ff6a05"
+    },
+    {
+      "path": "scoring/shared/pregame.js",
+      "unchanged": true,
+      "sha256": "bc54c64629c27616611b9fdae79bbb367e9450df379f07bd4036f477cb25cad4"
+    },
+    {
+      "path": "scoring/shared/pressure.js",
+      "unchanged": true,
+      "sha256": "72104bd7a61c6a8bc12e47be64c12704dce7b4b389bcc7eaf27ba15cb2aeb1c5"
+    },
+    {
+      "path": "scoring/shared/probability.js",
+      "unchanged": true,
+      "sha256": "cd77a581eff895cd26b3250ee309a08c6fc4c65de92b881b162a5e161b4917ce"
+    },
+    {
+      "path": "scoring/shared/records.js",
+      "unchanged": true,
+      "sha256": "5fb463f91c3399749a1b41fbfc12101e1c53955f6d9eeac1b2d902a78c83b673"
+    },
+    {
+      "path": "scoring/shared/time.js",
+      "unchanged": true,
+      "sha256": "14ea2a31e47e7c04843a1ce0ffd6cf7f41e03fb70cb903998417f82d2435071a"
+    },
+    {
+      "path": "scoring/shared/trajectory.js",
+      "unchanged": true,
+      "sha256": "069733ef4bf563442024b32fa56f2467758b34a235d2a22dac72d7840bebd87f"
+    },
+    {
+      "path": "scoring/shared/upset.js",
+      "unchanged": true,
+      "sha256": "b39e00f9f423fac4c75417e6b3ba9b4b91df12070af8cebe522baca1d24a83a6"
+    },
+    {
+      "path": "scoring/snapshot-integrity.cjs",
+      "unchanged": true,
+      "sha256": "f2b7242e4210affc30005296df69d5140f9e3f9cd92ac5da0c3b8b289993161e"
+    },
+    {
+      "path": "scoring/sports/basketball.js",
+      "unchanged": true,
+      "sha256": "ebdea5b3fb25dac4e4bbf50752152386b37a9696030755521218e1cb30e239a6"
+    },
+    {
+      "path": "scoring/sports/cfb.js",
+      "unchanged": true,
+      "sha256": "3b9a10d5a58246375f4a6a6d08b28def6039850633f00f6774c448cf5384f0e7"
+    },
+    {
+      "path": "scoring/sports/mlb.js",
+      "unchanged": true,
+      "sha256": "9ef1a496ad00eaf08452346ba5e5b1a9dde8e6c284bf97a8649a83c00c33a95f"
+    },
+    {
+      "path": "scoring/sports/nfl.js",
+      "unchanged": true,
+      "sha256": "71b78d6ac0d40e89aae007ba902256f2a249a212a9f4561d1bbf242bc47ecafb"
+    },
+    {
+      "path": "scoring/sports/nhl.js",
+      "unchanged": true,
+      "sha256": "de427202c899adf42ca9f142cde06a0edfd23de8cea5ca7bedb6c9cf66d5f501"
+    },
+    {
+      "path": "scoring/sports/soccer.js",
+      "unchanged": true,
+      "sha256": "79de9a0ed13ee039c89db05b5b51fd833683a3c43886cac315f3f657227111e7"
+    },
+    {
+      "path": "scoring/sports/tennis.js",
+      "unchanged": true,
+      "sha256": "c29c70198cab513219b50191508490026ebc8ba7ad07c1e3277395fd9231caf0"
+    }
+  ],
+  "rows": [
+    {
+      "id": "401873037",
+      "sport": "NFL",
+      "rating": 39,
+      "start": "2026-11-06T01:15Z",
+      "matchup": "Jacksonville Jaguars – Baltimore Ravens",
+      "before": "Jacksonville Jaguars (5-2) and Baltimore Ravens (4-4) meet. Jacksonville Jaguars are favored by 10.5 points, so a one-sided game is a real possibility.",
+      "after": "Jacksonville Jaguars (5-2) and Baltimore Ravens (4-4) meet. The line favors the Jaguars by 10.5 points, so a one-sided game is a real possibility."
+    },
+    {
+      "id": "401873038",
+      "sport": "NFL",
+      "rating": 56,
+      "start": "2026-11-08T14:30Z",
+      "matchup": "Cincinnati Bengals – Atlanta Falcons",
+      "before": "Cincinnati Bengals (5-2) and Atlanta Falcons (3-5) meet. A 3-point spread points to a close contest.",
+      "after": "Cincinnati Bengals (5-2) and Atlanta Falcons (3-5) meet. A 3-point spread points to a close contest. The listed total of 52.5 suggests the potential for plenty of scoring."
+    },
+    {
+      "id": "401873040",
+      "sport": "NFL",
+      "rating": 44,
+      "start": "2026-11-08T18:00Z",
+      "matchup": "Dallas Cowboys – Indianapolis Colts",
+      "before": "Dallas Cowboys (3-5) and Indianapolis Colts (2-6) meet. Dallas Cowboys are favored by 6 points, leaving more risk of an uneven contest. Both teams have losing records, which limits the appeal even if the game stays close.",
+      "after": "Dallas Cowboys (3-5) and Indianapolis Colts (2-6) meet with both teams looking to recover from losing starts. The 6-point line favors the Cowboys, but keeps a competitive game in view. The listed total of 51.5 suggests the potential for plenty of scoring."
+    },
+    {
+      "id": "401873045",
+      "sport": "NFL",
+      "rating": 40,
+      "start": "2026-11-08T18:00Z",
+      "matchup": "New York Jets – Kansas City Chiefs",
+      "before": "New York Jets (2-6) and Kansas City Chiefs (5-2) meet. Kansas City Chiefs are favored by 9.5 points, leaving more risk of an uneven contest.",
+      "after": "New York Jets (2-6) and Kansas City Chiefs (5-2) meet. The line favors the Chiefs by 9.5 points; the underdog faces a tougher test. The listed total is 46.5, adding some scoring appeal."
+    },
+    {
+      "id": "401873042",
+      "sport": "NFL",
+      "rating": 46,
+      "start": "2026-11-08T18:00Z",
+      "matchup": "Detroit Lions – Miami Dolphins",
+      "before": "Detroit Lions (5-2) and Miami Dolphins (1-6) meet. Detroit Lions are favored by 7 points, leaving more risk of an uneven contest.",
+      "after": "Detroit Lions (5-2) and Miami Dolphins (1-6) meet. The 7-point line favors the Lions, but keeps a competitive game in view. The listed total of 50.5 suggests the potential for plenty of scoring."
+    },
+    {
+      "id": "401873039",
+      "sport": "NFL",
+      "rating": 50,
+      "start": "2026-11-08T18:00Z",
+      "matchup": "Cleveland Browns – New Orleans Saints",
+      "before": "Cleveland Browns (5-3) and New Orleans Saints (2-5) meet. A 1.5-point spread points to a close contest.",
+      "after": "Cleveland Browns (5-3) and New Orleans Saints (2-5) meet. A 1.5-point spread points to a close contest."
+    },
+    {
+      "id": "401873044",
+      "sport": "NFL",
+      "rating": 53,
+      "start": "2026-11-08T18:00Z",
+      "matchup": "New York Giants – Philadelphia Eagles",
+      "before": "New York Giants (4-2-1) and Philadelphia Eagles (2-6) meet. This NFC East meeting also counts in the division race. A 3.5-point spread points to a close contest.",
+      "after": "New York Giants (4-2-1) and Philadelphia Eagles (2-6) meet in the NFC East. A 3.5-point spread points to a close contest."
+    },
+    {
+      "id": "401873043",
+      "sport": "NFL",
+      "rating": 46,
+      "start": "2026-11-08T18:00Z",
+      "matchup": "Los Angeles Rams – Washington Commanders",
+      "before": "Los Angeles Rams (4-4) and Washington Commanders (2-4-1) meet. Los Angeles Rams are favored by 5.5 points, leaving more risk of an uneven contest.",
+      "after": "Los Angeles Rams (4-4) and Washington Commanders (2-4-1) meet. The 5.5-point line favors the Rams, but keeps a competitive game in view. The listed total is 47.5, adding some scoring appeal."
+    },
+    {
+      "id": "401873041",
+      "sport": "NFL",
+      "rating": 50,
+      "start": "2026-11-08T18:00Z",
+      "matchup": "Denver Broncos – Carolina Panthers",
+      "before": "Denver Broncos (6-2) and Carolina Panthers (3-4) meet. A 2.5-point spread points to a close contest.",
+      "after": "Denver Broncos (6-2) and Carolina Panthers (3-4) meet. A 2.5-point spread points to a close contest."
+    },
+    {
+      "id": "401873046",
+      "sport": "NFL",
+      "rating": 40,
+      "start": "2026-11-08T21:05Z",
+      "matchup": "Houston Texans – Los Angeles Chargers",
+      "before": "Houston Texans (2-5) and Los Angeles Chargers (0-7) meet. Houston Texans are favored by 4.5 points, leaving more risk of an uneven contest. Both teams have losing records, which limits the appeal even if the game stays close.",
+      "after": "Houston Texans (2-5) and Los Angeles Chargers (0-7) meet with both teams looking to recover from losing starts. The 4.5-point line favors the Texans, but keeps a competitive game in view."
+    },
+    {
+      "id": "401873049",
+      "sport": "NFL",
+      "rating": 58,
+      "start": "2026-11-08T21:25Z",
+      "matchup": "Green Bay Packers – New England Patriots",
+      "before": "Green Bay Packers (5-3) and New England Patriots (5-3) bring winning records into this matchup. A 3-point spread points to a close contest.",
+      "after": "Green Bay Packers (5-3) and New England Patriots (5-3) bring winning records into this matchup. A 3-point spread points to a close contest. The listed total is 46.5, adding some scoring appeal."
+    },
+    {
+      "id": "401873047",
+      "sport": "NFL",
+      "rating": 43,
+      "start": "2026-11-08T21:25Z",
+      "matchup": "Las Vegas Raiders – San Francisco 49ers",
+      "before": "Las Vegas Raiders (4-4) and San Francisco 49ers (6-1) meet. San Francisco 49ers are favored by 10 points, so a one-sided game is a real possibility.",
+      "after": "Las Vegas Raiders (4-4) and San Francisco 49ers (6-1) meet. The line favors the 49ers by 10 points, so a one-sided game is a real possibility. The listed total of 51.5 suggests the potential for plenty of scoring."
+    },
+    {
+      "id": "401873048",
+      "sport": "NFL",
+      "rating": 42,
+      "start": "2026-11-08T21:25Z",
+      "matchup": "Arizona Cardinals – Seattle Seahawks",
+      "before": "Arizona Cardinals (3-5) and Seattle Seahawks (4-4) meet. This NFC West meeting also counts in the division race. Seattle Seahawks are favored by 10.5 points, so a one-sided game is a real possibility.",
+      "after": "Arizona Cardinals (3-5) and Seattle Seahawks (4-4) meet in the NFC West. The line favors the Seahawks by 10.5 points, so a one-sided game is a real possibility."
+    },
+    {
+      "id": "401873050",
+      "sport": "NFL",
+      "rating": 46,
+      "start": "2026-11-09T01:20Z",
+      "matchup": "Tampa Bay Buccaneers – Chicago Bears",
+      "before": "Tampa Bay Buccaneers (3-5) and Chicago Bears (6-2) meet. Chicago Bears are favored by 6 points, leaving more risk of an uneven contest.",
+      "after": "Tampa Bay Buccaneers (3-5) and Chicago Bears (6-2) meet. The 6-point line favors the Bears, but keeps a competitive game in view. The listed total is 46.5, adding some scoring appeal."
+    },
+    {
+      "id": "401873051",
+      "sport": "NFL",
+      "rating": 62,
+      "start": "2026-11-10T01:15Z",
+      "matchup": "Buffalo Bills – Minnesota Vikings",
+      "before": "Buffalo Bills (6-1) and Minnesota Vikings (6-1) bring winning records into this matchup. A 3.5-point spread points to a close contest.",
+      "after": "Buffalo Bills (6-1) and Minnesota Vikings (6-1) bring winning records into this matchup. A 3.5-point spread points to a close contest."
+    },
+    {
+      "id": "401892633",
+      "sport": "NHL",
+      "rating": 54,
+      "start": "2026-11-04T00:00Z",
+      "matchup": "Utah Mammoth – Toronto Maple Leafs",
+      "before": "Utah Mammoth (9-6-0) and Toronto Maple Leafs (8-6-2) have both earned more than half the available standings points. The betting market points to a competitive game.",
+      "after": "Utah Mammoth (9-6-0) and Toronto Maple Leafs (8-6-2) have both earned more than half the available standings points. The betting market points to a competitive game."
+    },
+    {
+      "id": "401892634",
+      "sport": "NHL",
+      "rating": 40,
+      "start": "2026-11-04T00:00Z",
+      "matchup": "Winnipeg Jets – Montreal Canadiens",
+      "before": "Winnipeg Jets (4-8-3) and Montreal Canadiens (9-3-2) meet. The betting market points to a competitive game.",
+      "after": "Winnipeg Jets (4-8-3) and Montreal Canadiens (9-3-2) meet. The betting market points to a competitive game."
+    },
+    {
+      "id": "401892635",
+      "sport": "NHL",
+      "rating": 51,
+      "start": "2026-11-04T00:00Z",
+      "matchup": "Detroit Red Wings – Tampa Bay Lightning",
+      "before": "Detroit Red Wings (7-5-3) and Tampa Bay Lightning (8-3-2) have both earned more than half the available standings points. Tampa Bay Lightning has a clear edge in the betting market, making a close finish less certain.",
+      "after": "Detroit Red Wings (7-5-3) and Tampa Bay Lightning (8-3-2) have both earned more than half the available standings points. They are also Atlantic Division opponents. The betting market gives the Lightning a clear edge, making a close finish less certain."
+    },
+    {
+      "id": "401892637",
+      "sport": "NHL",
+      "rating": 46,
+      "start": "2026-11-04T00:00Z",
+      "matchup": "St. Louis Blues – New York Rangers",
+      "before": "St. Louis Blues (7-6-1) and New York Rangers (7-7-1) meet. The betting market points to a competitive game.",
+      "after": "St. Louis Blues (7-6-1) and New York Rangers (7-7-1) meet. The betting market points to a competitive game."
+    },
+    {
+      "id": "401892638",
+      "sport": "NHL",
+      "rating": 40,
+      "start": "2026-11-04T00:00Z",
+      "matchup": "Minnesota Wild – Philadelphia Flyers",
+      "before": "Minnesota Wild (10-3-3) and Philadelphia Flyers (4-8-4) meet. The betting market points to a competitive game.",
+      "after": "Minnesota Wild (10-3-3) and Philadelphia Flyers (4-8-4) meet. The betting market points to a competitive game."
+    },
+    {
+      "id": "401892639",
+      "sport": "NHL",
+      "rating": 42,
+      "start": "2026-11-04T00:00Z",
+      "matchup": "Vegas Golden Knights – Pittsburgh Penguins",
+      "before": "Vegas Golden Knights (9-5-2) and Pittsburgh Penguins (5-7-2) meet. The betting market points to a competitive game.",
+      "after": "Vegas Golden Knights (9-5-2) and Pittsburgh Penguins (5-7-2) meet. The betting market points to a competitive game."
+    },
+    {
+      "id": "401892640",
+      "sport": "NHL",
+      "rating": 54,
+      "start": "2026-11-04T00:00Z",
+      "matchup": "Dallas Stars – Washington Capitals",
+      "before": "Dallas Stars (8-5-1) and Washington Capitals (8-5-0) have both earned more than half the available standings points. The betting market points to a competitive game. It is still early in the season, so those records are a promising start rather than a long track record.",
+      "after": "Dallas Stars (8-5-1) and Washington Capitals (8-5-0) have both earned more than half the available standings points. The betting market points to a competitive game."
+    },
+    {
+      "id": "401892641",
+      "sport": "NHL",
+      "rating": 42,
+      "start": "2026-11-04T00:00Z",
+      "matchup": "Colorado Avalanche – Columbus Blue Jackets",
+      "before": "Colorado Avalanche (9-5-1) and Columbus Blue Jackets (5-7-0) meet. The betting market points to a competitive game.",
+      "after": "Colorado Avalanche (9-5-1) and Columbus Blue Jackets (5-7-0) meet. The betting market points to a competitive game."
+    },
+    {
+      "id": "401892636",
+      "sport": "NHL",
+      "rating": 56,
+      "start": "2026-11-04T00:30Z",
+      "matchup": "Edmonton Oilers – New Jersey Devils",
+      "before": "Edmonton Oilers (11-2-2) and New Jersey Devils (9-5-0) have both earned more than half the available standings points. The betting market points to a competitive game.",
+      "after": "Edmonton Oilers (11-2-2) and New Jersey Devils (9-5-0) have both earned more than half the available standings points. The betting market points to a competitive game."
+    },
+    {
+      "id": "401892642",
+      "sport": "NHL",
+      "rating": 51,
+      "start": "2026-11-04T01:00Z",
+      "matchup": "Carolina Hurricanes – Nashville Predators",
+      "before": "Carolina Hurricanes (12-2-2) and Nashville Predators (5-4-5) have both earned more than half the available standings points. The betting market points to a competitive game.",
+      "after": "Carolina Hurricanes (12-2-2) and Nashville Predators (5-4-5) have both earned more than half the available standings points. The betting market points to a competitive game."
+    },
+    {
+      "id": "401892643",
+      "sport": "NHL",
+      "rating": 41,
+      "start": "2026-11-04T02:00Z",
+      "matchup": "Anaheim Ducks – Vancouver Canucks",
+      "before": "Anaheim Ducks (6-7-1) and Vancouver Canucks (3-12-1) meet. The betting market points to a competitive game. Both clubs have earned less than half the available standings points, which limits the matchup’s appeal.",
+      "after": "Anaheim Ducks (6-7-1) and Vancouver Canucks (3-12-1) meet in the Pacific Division. The betting market points to a competitive game. Both clubs have struggled to collect standings points."
+    },
+    {
+      "id": "401892644",
+      "sport": "NHL",
+      "rating": 57,
+      "start": "2026-11-05T00:30Z",
+      "matchup": "Ottawa Senators – Buffalo Sabres",
+      "before": "Ottawa Senators (9-6-1) and Buffalo Sabres (7-4-3) have both earned more than half the available standings points. The betting market points to a competitive game.",
+      "after": "Ottawa Senators (9-6-1) and Buffalo Sabres (7-4-3) have both earned more than half the available standings points. They are also Atlantic Division opponents. The betting market points to a competitive game."
+    },
+    {
+      "id": "401892645",
+      "sport": "NHL",
+      "rating": 37,
+      "start": "2026-11-05T00:30Z",
+      "matchup": "Chicago Blackhawks – Florida Panthers",
+      "before": "Chicago Blackhawks (4-10-1) and Florida Panthers (8-5-2) meet. Florida Panthers enter as clear favorites, making a close finish less certain.",
+      "after": "Chicago Blackhawks (4-10-1) and Florida Panthers (8-5-2) meet. The betting market gives the Panthers a clear edge, making a close finish less certain."
+    },
+    {
+      "id": "401892646",
+      "sport": "NHL",
+      "rating": 39,
+      "start": "2026-11-05T03:00Z",
+      "matchup": "San Jose Sharks – Los Angeles Kings",
+      "before": "San Jose Sharks (7-8-1) and Los Angeles Kings (4-7-2) meet. The betting market points to a competitive game. Both clubs have earned less than half the available standings points, which limits the matchup’s appeal.",
+      "after": "San Jose Sharks (7-8-1) and Los Angeles Kings (4-7-2) meet in the Pacific Division. The betting market points to a competitive game. Both clubs have struggled to collect standings points."
+    },
+    {
+      "id": "401892647",
+      "sport": "NHL",
+      "rating": 43,
+      "start": "2026-11-05T03:00Z",
+      "matchup": "Calgary Flames – Seattle Kraken",
+      "before": "Calgary Flames (7-8-0) and Seattle Kraken (8-5-1) meet. The betting market points to a competitive game.",
+      "after": "Calgary Flames (7-8-0) and Seattle Kraken (8-5-1) meet in the Pacific Division. The betting market points to a competitive game."
+    },
+    {
+      "id": "401892648",
+      "sport": "NHL",
+      "rating": 48,
+      "start": "2026-11-06T00:00Z",
+      "matchup": "Utah Mammoth – Montreal Canadiens",
+      "before": "Utah Mammoth (9-6-0) and Montreal Canadiens (9-3-2) have both earned more than half the available standings points.",
+      "after": "Utah Mammoth (9-6-0) and Montreal Canadiens (9-3-2) have both earned more than half the available standings points."
+    },
+    {
+      "id": "401892649",
+      "sport": "NHL",
+      "rating": 49,
+      "start": "2026-11-06T00:00Z",
+      "matchup": "Vegas Golden Knights – Detroit Red Wings",
+      "before": "Vegas Golden Knights (9-5-2) and Detroit Red Wings (7-5-3) have both earned more than half the available standings points. Their similar records suggest a competitive game, although no betting line is listed yet.",
+      "after": "Vegas Golden Knights (9-5-2) and Detroit Red Wings (7-5-3) have both earned more than half the available standings points. Their similar records suggest a competitive game."
+    },
+    {
+      "id": "401892650",
+      "sport": "NHL",
+      "rating": 37,
+      "start": "2026-11-06T00:00Z",
+      "matchup": "Chicago Blackhawks – Tampa Bay Lightning",
+      "before": "Chicago Blackhawks (4-10-1) and Tampa Bay Lightning (8-3-2) meet. The gap between their records makes a close contest less certain.",
+      "after": "Chicago Blackhawks (4-10-1) and Tampa Bay Lightning (8-3-2) meet. The stronger record belongs to the Lightning by share of standings points; the interest is in whether the other side can bridge that gap."
+    },
+    {
+      "id": "401892651",
+      "sport": "NHL",
+      "rating": 46,
+      "start": "2026-11-06T00:00Z",
+      "matchup": "St. Louis Blues – New Jersey Devils",
+      "before": "St. Louis Blues (7-6-1) and New Jersey Devils (9-5-0) have both earned more than half the available standings points. It is still early in the season, so those records are a promising start rather than a long track record.",
+      "after": "St. Louis Blues (7-6-1) and New Jersey Devils (9-5-0) have both earned more than half the available standings points."
+    },
+    {
+      "id": "401892652",
+      "sport": "NHL",
+      "rating": 51,
+      "start": "2026-11-06T00:00Z",
+      "matchup": "Carolina Hurricanes – New York Islanders",
+      "before": "Carolina Hurricanes (12-2-2) and New York Islanders (7-5-2) have both earned more than half the available standings points.",
+      "after": "Carolina Hurricanes (12-2-2) and New York Islanders (7-5-2) have both earned more than half the available standings points. They are also Metropolitan Division opponents."
+    },
+    {
+      "id": "401892653",
+      "sport": "NHL",
+      "rating": 40,
+      "start": "2026-11-06T00:00Z",
+      "matchup": "Philadelphia Flyers – New York Rangers",
+      "before": "Philadelphia Flyers (4-8-4) and New York Rangers (7-7-1) meet. Without a listed betting line, it is harder to judge how evenly matched they are.",
+      "after": "Philadelphia Flyers (4-8-4) and New York Rangers (7-7-1) meet in the Metropolitan Division. The records offer a mixed picture, leaving the balance of this matchup open."
+    },
+    {
+      "id": "401892654",
+      "sport": "NHL",
+      "rating": 39,
+      "start": "2026-11-06T00:00Z",
+      "matchup": "Boston Bruins – Pittsburgh Penguins",
+      "before": "Boston Bruins (11-4-1) and Pittsburgh Penguins (5-7-2) meet. Without a listed betting line, it is harder to judge how evenly matched they are.",
+      "after": "Boston Bruins (11-4-1) and Pittsburgh Penguins (5-7-2) meet. The records offer a mixed picture, leaving the balance of this matchup open."
+    },
+    {
+      "id": "401892655",
+      "sport": "NHL",
+      "rating": 37,
+      "start": "2026-11-06T00:00Z",
+      "matchup": "Dallas Stars – Columbus Blue Jackets",
+      "before": "Dallas Stars (8-5-1) and Columbus Blue Jackets (5-7-0) meet. Without a listed betting line, it is harder to judge how evenly matched they are.",
+      "after": "Dallas Stars (8-5-1) and Columbus Blue Jackets (5-7-0) meet. The records offer a mixed picture, leaving the balance of this matchup open."
+    },
+    {
+      "id": "401892656",
+      "sport": "NHL",
+      "rating": 33,
+      "start": "2026-11-06T01:00Z",
+      "matchup": "Vancouver Canucks – Winnipeg Jets",
+      "before": "Vancouver Canucks (3-12-1) and Winnipeg Jets (4-8-3) meet. Both clubs have earned less than half the available standings points, which limits the matchup’s appeal.",
+      "after": "Vancouver Canucks (3-12-1) and Winnipeg Jets (4-8-3) meet with both clubs looking to climb after earning less than half the available standings points."
+    },
+    {
+      "id": "401892657",
+      "sport": "NHL",
+      "rating": 44,
+      "start": "2026-11-06T01:00Z",
+      "matchup": "Anaheim Ducks – Edmonton Oilers",
+      "before": "Anaheim Ducks (6-7-1) and Edmonton Oilers (11-2-2) meet. The gap between their records makes a close contest less certain.",
+      "after": "Anaheim Ducks (6-7-1) and Edmonton Oilers (11-2-2) meet in the Pacific Division. The stronger record belongs to the Oilers by share of standings points; the interest is in whether the other side can bridge that gap."
+    },
+    {
+      "id": "401892658",
+      "sport": "NHL",
+      "rating": 52,
+      "start": "2026-11-06T02:30Z",
+      "matchup": "Nashville Predators – Colorado Avalanche",
+      "before": "Nashville Predators (5-4-5) and Colorado Avalanche (9-5-1) have both earned more than half the available standings points. Their similar records suggest a competitive game, although no betting line is listed yet.",
+      "after": "Nashville Predators (5-4-5) and Colorado Avalanche (9-5-1) have both earned more than half the available standings points. They are also Central Division opponents. Their similar records suggest a competitive game."
+    },
+    {
+      "id": "401892659",
+      "sport": "NHL",
+      "rating": 37,
+      "start": "2026-11-07T00:00Z",
+      "matchup": "Columbus Blue Jackets – Buffalo Sabres",
+      "before": "Columbus Blue Jackets (5-7-0) and Buffalo Sabres (7-4-3) meet. Without a listed betting line, it is harder to judge how evenly matched they are.",
+      "after": "Columbus Blue Jackets (5-7-0) and Buffalo Sabres (7-4-3) meet. The records offer a mixed picture, leaving the balance of this matchup open."
+    },
+    {
+      "id": "401892660",
+      "sport": "NHL",
+      "rating": 39,
+      "start": "2026-11-07T01:00Z",
+      "matchup": "San Jose Sharks – Minnesota Wild",
+      "before": "San Jose Sharks (7-8-1) and Minnesota Wild (10-3-3) meet. Without a listed betting line, it is harder to judge how evenly matched they are.",
+      "after": "San Jose Sharks (7-8-1) and Minnesota Wild (10-3-3) meet. The records offer a mixed picture, leaving the balance of this matchup open."
+    },
+    {
+      "id": "401892661",
+      "sport": "NHL",
+      "rating": 36,
+      "start": "2026-11-07T01:00Z",
+      "matchup": "Anaheim Ducks – Calgary Flames",
+      "before": "Anaheim Ducks (6-7-1) and Calgary Flames (7-8-0) meet. Both clubs have earned less than half the available standings points, which limits the matchup’s appeal.",
+      "after": "Anaheim Ducks (6-7-1) and Calgary Flames (7-8-0) meet in the Pacific Division. Their records are closely matched, though neither has established consistent winning form. Both clubs have struggled to collect standings points."
+    },
+    {
+      "id": "401892662",
+      "sport": "NHL",
+      "rating": 49,
+      "start": "2026-11-07T17:30Z",
+      "matchup": "Florida Panthers – Washington Capitals",
+      "before": "Florida Panthers (8-5-2) and Washington Capitals (8-5-0) have both earned more than half the available standings points. Their similar records suggest a competitive game, although no betting line is listed yet.",
+      "after": "Florida Panthers (8-5-2) and Washington Capitals (8-5-0) have both earned more than half the available standings points. Their similar records suggest a competitive game."
+    },
+    {
+      "id": "401892663",
+      "sport": "NHL",
+      "rating": 50,
+      "start": "2026-11-07T18:00Z",
+      "matchup": "St. Louis Blues – Nashville Predators",
+      "before": "St. Louis Blues (7-6-1) and Nashville Predators (5-4-5) have both earned more than half the available standings points. Their similar records suggest a competitive game, although no betting line is listed yet. It is still early in the season, so those records are a promising start rather than a long track record.",
+      "after": "St. Louis Blues (7-6-1) and Nashville Predators (5-4-5) have both earned more than half the available standings points. They are also Central Division opponents. Their similar records suggest a competitive game."
+    },
+    {
+      "id": "401892664",
+      "sport": "NHL",
+      "rating": 41,
+      "start": "2026-11-07T22:00Z",
+      "matchup": "New York Rangers – Seattle Kraken",
+      "before": "New York Rangers (7-7-1) and Seattle Kraken (8-5-1) meet. Without a listed betting line, it is harder to judge how evenly matched they are.",
+      "after": "New York Rangers (7-7-1) and Seattle Kraken (8-5-1) meet. The records offer a mixed picture, leaving the balance of this matchup open."
+    },
+    {
+      "id": "401892665",
+      "sport": "NHL",
+      "rating": 51,
+      "start": "2026-11-08T00:00Z",
+      "matchup": "Montreal Canadiens – Toronto Maple Leafs",
+      "before": "Montreal Canadiens (9-3-2) and Toronto Maple Leafs (8-6-2) have both earned more than half the available standings points.",
+      "after": "Montreal Canadiens (9-3-2) and Toronto Maple Leafs (8-6-2) have both earned more than half the available standings points. They are also Atlantic Division opponents."
+    },
+    {
+      "id": "401892666",
+      "sport": "NHL",
+      "rating": 49,
+      "start": "2026-11-08T00:00Z",
+      "matchup": "Utah Mammoth – Ottawa Senators",
+      "before": "Utah Mammoth (9-6-0) and Ottawa Senators (9-6-1) have both earned more than half the available standings points. Their similar records suggest a competitive game, although no betting line is listed yet.",
+      "after": "Utah Mammoth (9-6-0) and Ottawa Senators (9-6-1) have both earned more than half the available standings points. Their similar records suggest a competitive game."
+    },
+    {
+      "id": "401892667",
+      "sport": "NHL",
+      "rating": 52,
+      "start": "2026-11-08T00:00Z",
+      "matchup": "New Jersey Devils – New York Islanders",
+      "before": "New Jersey Devils (9-5-0) and New York Islanders (7-5-2) have both earned more than half the available standings points. Their similar records suggest a competitive game, although no betting line is listed yet. It is still early in the season, so those records are a promising start rather than a long track record.",
+      "after": "New Jersey Devils (9-5-0) and New York Islanders (7-5-2) have both earned more than half the available standings points. They are also Metropolitan Division opponents. Their similar records suggest a competitive game."
+    },
+    {
+      "id": "401892668",
+      "sport": "NHL",
+      "rating": 39,
+      "start": "2026-11-08T01:00Z",
+      "matchup": "Chicago Blackhawks – Carolina Hurricanes",
+      "before": "Chicago Blackhawks (4-10-1) and Carolina Hurricanes (12-2-2) meet. The gap between their records makes a close contest less certain.",
+      "after": "Chicago Blackhawks (4-10-1) and Carolina Hurricanes (12-2-2) meet. The stronger record belongs to the Hurricanes by share of standings points; the interest is in whether the other side can bridge that gap."
+    },
+    {
+      "id": "401892669",
+      "sport": "NHL",
+      "rating": 37,
+      "start": "2026-11-08T01:00Z",
+      "matchup": "San Jose Sharks – Dallas Stars",
+      "before": "San Jose Sharks (7-8-1) and Dallas Stars (8-5-1) meet. Without a listed betting line, it is harder to judge how evenly matched they are.",
+      "after": "San Jose Sharks (7-8-1) and Dallas Stars (8-5-1) meet. The records offer a mixed picture, leaving the balance of this matchup open."
+    },
+    {
+      "id": "401892670",
+      "sport": "NHL",
+      "rating": 54,
+      "start": "2026-11-08T01:00Z",
+      "matchup": "Tampa Bay Lightning – Minnesota Wild",
+      "before": "Tampa Bay Lightning (8-3-2) and Minnesota Wild (10-3-3) have both earned more than half the available standings points. Their similar records suggest a competitive game, although no betting line is listed yet.",
+      "after": "Tampa Bay Lightning (8-3-2) and Minnesota Wild (10-3-3) have both earned more than half the available standings points. Their similar records suggest a competitive game."
+    },
+    {
+      "id": "401892671",
+      "sport": "NHL",
+      "rating": 49,
+      "start": "2026-11-08T02:00Z",
+      "matchup": "Detroit Red Wings – Colorado Avalanche",
+      "before": "Detroit Red Wings (7-5-3) and Colorado Avalanche (9-5-1) have both earned more than half the available standings points. Their similar records suggest a competitive game, although no betting line is listed yet.",
+      "after": "Detroit Red Wings (7-5-3) and Colorado Avalanche (9-5-1) have both earned more than half the available standings points. Their similar records suggest a competitive game."
+    },
+    {
+      "id": "401892672",
+      "sport": "NHL",
+      "rating": 33,
+      "start": "2026-11-08T02:00Z",
+      "matchup": "Pittsburgh Penguins – Los Angeles Kings",
+      "before": "Pittsburgh Penguins (5-7-2) and Los Angeles Kings (4-7-2) meet. Both clubs have earned less than half the available standings points, which limits the matchup’s appeal.",
+      "after": "Pittsburgh Penguins (5-7-2) and Los Angeles Kings (4-7-2) meet with both clubs looking to climb after earning less than half the available standings points. Their records are closely matched, though neither has established consistent winning form."
+    },
+    {
+      "id": "401892673",
+      "sport": "NHL",
+      "rating": 40,
+      "start": "2026-11-08T03:00Z",
+      "matchup": "Vancouver Canucks – Edmonton Oilers",
+      "before": "Vancouver Canucks (3-12-1) and Edmonton Oilers (11-2-2) meet. The gap between their records makes a close contest less certain.",
+      "after": "Vancouver Canucks (3-12-1) and Edmonton Oilers (11-2-2) meet in the Pacific Division. The stronger record belongs to the Oilers by share of standings points; the interest is in whether the other side can bridge that gap."
+    },
+    {
+      "id": "401892674",
+      "sport": "NHL",
+      "rating": 51,
+      "start": "2026-11-08T18:00Z",
+      "matchup": "Florida Panthers – Boston Bruins",
+      "before": "Florida Panthers (8-5-2) and Boston Bruins (11-4-1) have both earned more than half the available standings points.",
+      "after": "Florida Panthers (8-5-2) and Boston Bruins (11-4-1) have both earned more than half the available standings points. They are also Atlantic Division opponents."
+    },
+    {
+      "id": "401892675",
+      "sport": "NHL",
+      "rating": 51,
+      "start": "2026-11-08T20:30Z",
+      "matchup": "Vegas Golden Knights – Buffalo Sabres",
+      "before": "Vegas Golden Knights (9-5-2) and Buffalo Sabres (7-4-3) have both earned more than half the available standings points. Their similar records suggest a competitive game, although no betting line is listed yet.",
+      "after": "Vegas Golden Knights (9-5-2) and Buffalo Sabres (7-4-3) have both earned more than half the available standings points. Their similar records suggest a competitive game."
+    },
+    {
+      "id": "401892676",
+      "sport": "NHL",
+      "rating": 49,
+      "start": "2026-11-09T00:00Z",
+      "matchup": "New Jersey Devils – Toronto Maple Leafs",
+      "before": "New Jersey Devils (9-5-0) and Toronto Maple Leafs (8-6-2) have both earned more than half the available standings points. Their similar records suggest a competitive game, although no betting line is listed yet.",
+      "after": "New Jersey Devils (9-5-0) and Toronto Maple Leafs (8-6-2) have both earned more than half the available standings points. Their similar records suggest a competitive game."
+    },
+    {
+      "id": "401892677",
+      "sport": "NHL",
+      "rating": 37,
+      "start": "2026-11-09T00:00Z",
+      "matchup": "Tampa Bay Lightning – Winnipeg Jets",
+      "before": "Tampa Bay Lightning (8-3-2) and Winnipeg Jets (4-8-3) meet. The gap between their records makes a close contest less certain.",
+      "after": "Tampa Bay Lightning (8-3-2) and Winnipeg Jets (4-8-3) meet. The stronger record belongs to the Lightning by share of standings points; the interest is in whether the other side can bridge that gap."
+    },
+    {
+      "id": "401892678",
+      "sport": "NHL",
+      "rating": 33,
+      "start": "2026-11-09T00:00Z",
+      "matchup": "Philadelphia Flyers – Calgary Flames",
+      "before": "Philadelphia Flyers (4-8-4) and Calgary Flames (7-8-0) meet. Both clubs have earned less than half the available standings points, which limits the matchup’s appeal.",
+      "after": "Philadelphia Flyers (4-8-4) and Calgary Flames (7-8-0) meet with both clubs looking to climb after earning less than half the available standings points. Their records are closely matched, though neither has established consistent winning form."
+    },
+    {
+      "id": "401892679",
+      "sport": "NHL",
+      "rating": 33,
+      "start": "2026-11-09T01:00Z",
+      "matchup": "Pittsburgh Penguins – Anaheim Ducks",
+      "before": "Pittsburgh Penguins (5-7-2) and Anaheim Ducks (6-7-1) meet. Both clubs have earned less than half the available standings points, which limits the matchup’s appeal.",
+      "after": "Pittsburgh Penguins (5-7-2) and Anaheim Ducks (6-7-1) meet with both clubs looking to climb after earning less than half the available standings points. Their records are closely matched, though neither has established consistent winning form."
+    },
+    {
+      "id": "401892680",
+      "sport": "NHL",
+      "rating": 45,
+      "start": "2026-11-10T01:00Z",
+      "matchup": "New York Rangers – Edmonton Oilers",
+      "before": "New York Rangers (7-7-1) and Edmonton Oilers (11-2-2) meet. The gap between their records makes a close contest less certain.",
+      "after": "New York Rangers (7-7-1) and Edmonton Oilers (11-2-2) meet. The stronger record belongs to the Oilers by share of standings points; the interest is in whether the other side can bridge that gap."
+    },
+    {
+      "id": "401892681",
+      "sport": "NHL",
+      "rating": 33,
+      "start": "2026-11-10T02:30Z",
+      "matchup": "Philadelphia Flyers – Vancouver Canucks",
+      "before": "Philadelphia Flyers (4-8-4) and Vancouver Canucks (3-12-1) meet. Both clubs have earned less than half the available standings points, which limits the matchup’s appeal.",
+      "after": "Philadelphia Flyers (4-8-4) and Vancouver Canucks (3-12-1) meet with both clubs looking to climb after earning less than half the available standings points."
+    },
+    {
+      "id": "401892682",
+      "sport": "NHL",
+      "rating": 37,
+      "start": "2026-11-10T03:00Z",
+      "matchup": "New York Islanders – San Jose Sharks",
+      "before": "New York Islanders (7-5-2) and San Jose Sharks (7-8-1) meet. Without a listed betting line, it is harder to judge how evenly matched they are.",
+      "after": "New York Islanders (7-5-2) and San Jose Sharks (7-8-1) meet. The records offer a mixed picture, leaving the balance of this matchup open."
+    },
+    {
+      "id": "401892683",
+      "sport": "NHL",
+      "rating": 49,
+      "start": "2026-11-11T00:00Z",
+      "matchup": "Colorado Avalanche – Toronto Maple Leafs",
+      "before": "Colorado Avalanche (9-5-1) and Toronto Maple Leafs (8-6-2) have both earned more than half the available standings points. Their similar records suggest a competitive game, although no betting line is listed yet.",
+      "after": "Colorado Avalanche (9-5-1) and Toronto Maple Leafs (8-6-2) have both earned more than half the available standings points. Their similar records suggest a competitive game."
+    },
+    {
+      "id": "401892684",
+      "sport": "NHL",
+      "rating": 57,
+      "start": "2026-11-11T00:00Z",
+      "matchup": "Minnesota Wild – Montreal Canadiens",
+      "before": "Minnesota Wild (10-3-3) and Montreal Canadiens (9-3-2) have both earned more than half the available standings points. Their similar records suggest a competitive game, although no betting line is listed yet.",
+      "after": "Minnesota Wild (10-3-3) and Montreal Canadiens (9-3-2) have both earned more than half the available standings points. Their similar records suggest a competitive game."
+    },
+    {
+      "id": "401892685",
+      "sport": "NHL",
+      "rating": 49,
+      "start": "2026-11-11T00:00Z",
+      "matchup": "Washington Capitals – Ottawa Senators",
+      "before": "Washington Capitals (8-5-0) and Ottawa Senators (9-6-1) have both earned more than half the available standings points. Their similar records suggest a competitive game, although no betting line is listed yet.",
+      "after": "Washington Capitals (8-5-0) and Ottawa Senators (9-6-1) have both earned more than half the available standings points. Their similar records suggest a competitive game."
+    },
+    {
+      "id": "401892686",
+      "sport": "NHL",
+      "rating": 37,
+      "start": "2026-11-11T00:30Z",
+      "matchup": "Florida Panthers – Columbus Blue Jackets",
+      "before": "Florida Panthers (8-5-2) and Columbus Blue Jackets (5-7-0) meet. Without a listed betting line, it is harder to judge how evenly matched they are.",
+      "after": "Florida Panthers (8-5-2) and Columbus Blue Jackets (5-7-0) meet. The records offer a mixed picture, leaving the balance of this matchup open."
+    },
+    {
+      "id": "401892687",
+      "sport": "NHL",
+      "rating": 47,
+      "start": "2026-11-11T01:00Z",
+      "matchup": "Detroit Red Wings – St. Louis Blues",
+      "before": "Detroit Red Wings (7-5-3) and St. Louis Blues (7-6-1) have both earned more than half the available standings points. Their similar records suggest a competitive game, although no betting line is listed yet.",
+      "after": "Detroit Red Wings (7-5-3) and St. Louis Blues (7-6-1) have both earned more than half the available standings points. Their similar records suggest a competitive game."
+    },
+    {
+      "id": "401892688",
+      "sport": "NHL",
+      "rating": 37,
+      "start": "2026-11-11T01:00Z",
+      "matchup": "New Jersey Devils – Winnipeg Jets",
+      "before": "New Jersey Devils (9-5-0) and Winnipeg Jets (4-8-3) meet. Without a listed betting line, it is harder to judge how evenly matched they are.",
+      "after": "New Jersey Devils (9-5-0) and Winnipeg Jets (4-8-3) meet. The records offer a mixed picture, leaving the balance of this matchup open."
+    },
+    {
+      "id": "401892689",
+      "sport": "NHL",
+      "rating": 37,
+      "start": "2026-11-11T03:00Z",
+      "matchup": "Nashville Predators – Los Angeles Kings",
+      "before": "Nashville Predators (5-4-5) and Los Angeles Kings (4-7-2) meet. Without a listed betting line, it is harder to judge how evenly matched they are.",
+      "after": "Nashville Predators (5-4-5) and Los Angeles Kings (4-7-2) meet. The records offer a mixed picture, leaving the balance of this matchup open."
+    },
+    {
+      "id": "401866453",
+      "sport": "CFB",
+      "division": "FBS",
+      "rating": 40,
+      "start": "2026-11-04T00:00Z",
+      "matchup": "Ohio Bobcats – Akron Zips",
+      "before": "Ohio Bobcats (6-2) and Akron Zips (1-7) meet. Ohio Bobcats are favored by 13.5 points, so a one-sided game is a real possibility.",
+      "after": "Ohio (6-2) and Akron (1-7) meet. The line favors Ohio by 13.5 points, so a one-sided game is a real possibility."
+    },
+    {
+      "id": "401866454",
+      "sport": "CFB",
+      "division": "FBS",
+      "rating": 43,
+      "start": "2026-11-04T01:00Z",
+      "matchup": "Buffalo Bulls – Miami (OH) RedHawks",
+      "before": "Buffalo Bulls (5-3) and Miami (OH) RedHawks (5-3) bring winning records into this matchup. Miami (OH) RedHawks are favored by 6 points, leaving more risk of an uneven contest.",
+      "after": "Buffalo (5-3) and Miami OH (5-3) bring winning records into this matchup. The 6-point line favors Miami OH, but keeps a competitive game in view."
+    },
+    {
+      "id": "401866455",
+      "sport": "CFB",
+      "division": "FBS",
+      "rating": 44,
+      "start": "2026-11-05T00:00Z",
+      "matchup": "Ball State Cardinals – Massachusetts Minutemen",
+      "before": "Ball State Cardinals (3-5) and Massachusetts Minutemen (4-4) meet. A 3-point spread points to a close contest. Neither team is ranked, so the main draw is the prospect of a close game.",
+      "after": "Ball State (3-5) and UMass (4-4) meet. A 3-point spread points to a close contest."
+    },
+    {
+      "id": "401866457",
+      "sport": "CFB",
+      "division": "FBS",
+      "rating": 34,
+      "start": "2026-11-05T00:00Z",
+      "matchup": "Toledo Rockets – Sacramento State Hornets",
+      "before": "Toledo Rockets (6-2) and Sacramento State Hornets (2-7) meet. Toledo Rockets are favored by 25.5 points, so a one-sided game is a real possibility.",
+      "after": "Toledo (6-2) and Sacramento St (2-7) meet. The line favors Toledo by 25.5 points, so a one-sided game is a real possibility."
+    },
+    {
+      "id": "401866456",
+      "sport": "CFB",
+      "division": "FBS",
+      "rating": 45,
+      "start": "2026-11-05T00:30Z",
+      "matchup": "Central Michigan Chippewas – Eastern Michigan Eagles",
+      "before": "Central Michigan Chippewas (3-5) and Eastern Michigan Eagles (4-5) meet. A 1.5-point spread points to a close contest. Both teams have losing records, which limits the appeal even if the game stays close.",
+      "after": "C Michigan (3-5) and E Michigan (4-5) meet with both teams looking to recover from losing starts. A 1.5-point spread points to a close contest."
+    },
+    {
+      "id": "401862817",
+      "sport": "CFB",
+      "division": "FBS",
+      "rating": 42,
+      "start": "2026-11-06T00:30Z",
+      "matchup": "UTSA Roadrunners – Florida Atlantic Owls",
+      "before": "UTSA Roadrunners (7-1) and Florida Atlantic Owls (5-3) bring winning records into this matchup. UTSA Roadrunners are favored by 7 points, leaving more risk of an uneven contest.",
+      "after": "UTSA (7-1) and FAU (5-3) bring winning records into this matchup. The 7-point line favors UTSA, but keeps a competitive game in view."
+    },
+    {
+      "id": "401869964",
+      "sport": "CFB",
+      "division": "FBS",
+      "rating": 40,
+      "start": "2026-11-06T01:00Z",
+      "matchup": "James Madison Dukes – Southern Miss Golden Eagles",
+      "before": "James Madison Dukes (7-2) and Southern Miss Golden Eagles (3-5) meet. James Madison Dukes are favored by 14.5 points, so a one-sided game is a real possibility.",
+      "after": "James Madison (7-2) and Southern Miss (3-5) meet. The line favors James Madison by 14.5 points, so a one-sided game is a real possibility."
+    },
+    {
+      "id": "401858288",
+      "sport": "CFB",
+      "division": "FBS",
+      "rating": 43,
+      "start": "2026-11-07T00:00Z",
+      "matchup": "Virginia Tech Hokies – SMU Mustangs",
+      "before": "Virginia Tech Hokies (6-2) and SMU Mustangs (6-2) bring winning records into this matchup. SMU Mustangs are favored by 6 points, leaving more risk of an uneven contest.",
+      "after": "Virginia Tech (6-2) and SMU (6-2) bring winning records into this matchup. The 6-point line favors SMU, but keeps a competitive game in view."
+    },
+    {
+      "id": "401862818",
+      "sport": "CFB",
+      "division": "FBS",
+      "rating": 45,
+      "start": "2026-11-07T00:30Z",
+      "matchup": "South Florida Bulls – East Carolina Pirates",
+      "before": "South Florida Bulls (6-2) and East Carolina Pirates (4-4) meet. A 1.5-point spread points to a close contest. Neither team is ranked, so the main draw is the prospect of a close game.",
+      "after": "South Florida (6-2) and East Carolina (4-4) meet. A 1.5-point spread points to a close contest."
+    },
+    {
+      "id": "401858510",
+      "sport": "CFB",
+      "division": "FBS",
+      "rating": 43,
+      "start": "2026-11-07T01:00Z",
+      "matchup": "Nebraska Cornhuskers – Illinois Fighting Illini",
+      "before": "Nebraska Cornhuskers (5-3) and Illinois Fighting Illini (5-3) bring winning records into this matchup. Nebraska Cornhuskers are favored by 4.5 points, leaving more risk of an uneven contest.",
+      "after": "Nebraska (5-3) and Illinois (5-3) bring winning records into this matchup. The 4.5-point line favors Nebraska, but keeps a competitive game in view."
+    },
+    {
+      "id": "401864533",
+      "sport": "CFB",
+      "division": "FBS",
+      "rating": 47,
+      "start": "2026-11-07T02:00Z",
+      "matchup": "New Mexico Lobos – Nevada Wolf Pack",
+      "before": "No. 22 New Mexico Lobos (7-1) and Nevada Wolf Pack (3-5) meet. New Mexico Lobos are favored by 9.5 points, leaving more risk of an uneven contest. Only one side is ranked, keeping this below the strongest ranked matchups.",
+      "after": "No. 22 New Mexico (7-1) faces Nevada (3-5). The line favors New Mexico by 9.5 points; the underdog faces a tougher test."
+    },
+    {
+      "id": "401856855",
+      "sport": "CFB",
+      "division": "FBS",
+      "rating": 47,
+      "start": "2026-11-07T03:15Z",
+      "matchup": "TCU Horned Frogs – Arizona Wildcats",
+      "before": "TCU Horned Frogs (4-4) and No. 24 Arizona Wildcats (6-2) meet. Arizona Wildcats are favored by 9.5 points, leaving more risk of an uneven contest. Only one side is ranked, keeping this below the strongest ranked matchups.",
+      "after": "No. 24 Arizona (6-2) faces TCU (4-4). The line favors Arizona by 9.5 points; the underdog faces a tougher test."
+    },
+    {
+      "id": "401856849",
+      "sport": "CFB",
+      "division": "FBS",
+      "rating": 80,
+      "start": "2026-11-07T17:00Z",
+      "matchup": "BYU Cougars – Utah Utes",
+      "before": "No. 7 BYU Cougars (7-1) and No. 3 Utah Utes (8-0) make this a meeting of top-10 teams, with Utah Utes still unbeaten. The long-running BYU–Utah rivalry adds local bragging rights. Utah Utes are favored by 5.5 points, leaving more risk of an uneven contest.",
+      "after": "No. 7 BYU (7-1) and No. 3 Utah (8-0) meet in a top-10 matchup, with Utah's unbeaten season on the line. The long-running BYU–Utah rivalry adds local bragging rights. The 5.5-point line favors Utah, but keeps a competitive game in view."
+    },
+    {
+      "id": "401858512",
+      "sport": "CFB",
+      "division": "FBS",
+      "rating": 55,
+      "start": "2026-11-07T17:00Z",
+      "matchup": "UCLA Bruins – Minnesota Golden Gophers",
+      "before": "No. 5 UCLA Bruins (8-0) and Minnesota Golden Gophers (5-3) bring winning records into this matchup. UCLA Bruins are favored by 5.5 points, leaving more risk of an uneven contest. Only one side is ranked, keeping this below the strongest ranked matchups.",
+      "after": "No. 5 UCLA (8-0) faces Minnesota (5-3) with an unbeaten season to protect. The 5.5-point line favors UCLA, but keeps a competitive game in view."
+    },
+    {
+      "id": "401856743",
+      "sport": "CFB",
+      "division": "FBS",
+      "rating": 82,
+      "start": "2026-11-07T17:00Z",
+      "matchup": "Texas Longhorns – Missouri Tigers",
+      "before": "No. 10 Texas Longhorns (6-2) and No. 19 Missouri Tigers (6-2) make this a meeting of ranked teams. A 2.5-point spread points to a close contest. Both teams already have multiple losses, keeping this below a meeting of unbeaten contenders.",
+      "after": "No. 10 Texas (6-2) and No. 19 Missouri (6-2) meet in a ranked matchup. A 2.5-point spread points to a close contest."
+    },
+    {
+      "id": "401856853",
+      "sport": "CFB",
+      "division": "FBS",
+      "rating": 41,
+      "start": "2026-11-07T17:00Z",
+      "matchup": "Iowa State Cyclones – Baylor Bears",
+      "before": "Iowa State Cyclones (4-4) and Baylor Bears (5-3) meet. Baylor Bears are favored by 10 points, so a one-sided game is a real possibility.",
+      "after": "Iowa State (4-4) and Baylor (5-3) meet. The line favors Baylor by 10 points, so a one-sided game is a real possibility."
+    },
+    {
+      "id": "401858285",
+      "sport": "CFB",
+      "division": "FBS",
+      "rating": 44,
+      "start": "2026-11-07T17:00Z",
+      "matchup": "Clemson Tigers – Syracuse Orange",
+      "before": "Clemson Tigers (5-3) and Syracuse Orange (4-4) meet. A 2.5-point spread points to a close contest. Neither team is ranked, so the main draw is the prospect of a close game.",
+      "after": "Clemson (5-3) and Syracuse (4-4) meet. A 2.5-point spread points to a close contest."
+    },
+    {
+      "id": "401858289",
+      "sport": "CFB",
+      "division": "FBS",
+      "rating": 42,
+      "start": "2026-11-07T17:00Z",
+      "matchup": "Florida State Seminoles – Boston College Eagles",
+      "before": "Florida State Seminoles (3-5) and Boston College Eagles (4-4) meet. Florida State Seminoles are favored by 6.5 points, leaving more risk of an uneven contest.",
+      "after": "Florida St (3-5) and Boston College (4-4) meet. The 6.5-point line favors Florida St, but keeps a competitive game in view."
+    },
+    {
+      "id": "401858292",
+      "sport": "CFB",
+      "division": "FBS",
+      "rating": 42,
+      "start": "2026-11-07T17:00Z",
+      "matchup": "North Carolina Tar Heels – UConn Huskies",
+      "before": "North Carolina Tar Heels (4-4) and UConn Huskies (4-4) meet. North Carolina Tar Heels are favored by 7 points, leaving more risk of an uneven contest.",
+      "after": "North Carolina (4-4) and UConn (4-4) meet. The 7-point line favors North Carolina, but keeps a competitive game in view."
+    },
+    {
+      "id": "401862822",
+      "sport": "CFB",
+      "division": "FBS",
+      "rating": 45,
+      "start": "2026-11-07T17:00Z",
+      "matchup": "Tulsa Golden Hurricane – Tulane Green Wave",
+      "before": "Tulsa Golden Hurricane (4-4) and Tulane Green Wave (4-4) meet. A 1.5-point spread points to a close contest. Neither team is ranked, so the main draw is the prospect of a close game.",
+      "after": "Tulsa (4-4) and Tulane (4-4) meet. A 1.5-point spread points to a close contest."
+    },
+    {
+      "id": "401858286",
+      "sport": "CFB",
+      "division": "FBS",
+      "rating": 43,
+      "start": "2026-11-07T17:30Z",
+      "matchup": "Duke Blue Devils – NC State Wolfpack",
+      "before": "Duke Blue Devils (6-2) and NC State Wolfpack (4-4) meet. Duke Blue Devils are favored by 4.5 points, leaving more risk of an uneven contest.",
+      "after": "Duke (6-2) and NC State (4-4) meet. The 4.5-point line favors Duke, but keeps a competitive game in view."
+    },
+    {
+      "id": "401858515",
+      "sport": "CFB",
+      "division": "FBS",
+      "rating": 42,
+      "start": "2026-11-07T17:30Z",
+      "matchup": "Maryland Terrapins – Purdue Boilermakers",
+      "before": "Maryland Terrapins (2-6) and Purdue Boilermakers (3-5) meet. Purdue Boilermakers are favored by 6.5 points, leaving more risk of an uneven contest. Both teams have losing records, which limits the appeal even if the game stays close.",
+      "after": "Maryland (2-6) and Purdue (3-5) meet with both teams looking to recover from losing starts. The 6.5-point line favors Purdue, but keeps a competitive game in view."
+    },
+    {
+      "id": "401856738",
+      "sport": "CFB",
+      "division": "FBS",
+      "rating": 41,
+      "start": "2026-11-07T17:45Z",
+      "matchup": "Arkansas Razorbacks – Auburn Tigers",
+      "before": "Arkansas Razorbacks (3-5) and Auburn Tigers (4-4) meet. Auburn Tigers are favored by 10.5 points, so a one-sided game is a real possibility.",
+      "after": "Arkansas (3-5) and Auburn (4-4) meet. The line favors Auburn by 10.5 points, so a one-sided game is a real possibility."
+    },
+    {
+      "id": "401856854",
+      "sport": "CFB",
+      "division": "FBS",
+      "rating": 43,
+      "start": "2026-11-07T18:00Z",
+      "matchup": "Oklahoma State Cowboys – Kansas State Wildcats",
+      "before": "Oklahoma State Cowboys (5-3) and Kansas State Wildcats (4-4) meet. Oklahoma State Cowboys are favored by 4.5 points, leaving more risk of an uneven contest.",
+      "after": "Oklahoma St (5-3) and Kansas St (4-4) meet. The 4.5-point line favors Oklahoma St, but keeps a competitive game in view."
+    },
+    {
+      "id": "401869945",
+      "sport": "CFB",
+      "division": "FBS",
+      "rating": 42,
+      "start": "2026-11-07T18:00Z",
+      "matchup": "Old Dominion Monarchs – Coastal Carolina Chanticleers",
+      "before": "Old Dominion Monarchs (2-7) and Coastal Carolina Chanticleers (3-5) meet. Coastal Carolina Chanticleers are favored by 7 points, leaving more risk of an uneven contest. Both teams have losing records, which limits the appeal even if the game stays close.",
+      "after": "Old Dominion (2-7) and Coastal (3-5) meet with both teams looking to recover from losing starts. The 7-point line favors Coastal, but keeps a competitive game in view."
+    },
+    {
+      "id": "401869927",
+      "sport": "CFB",
+      "division": "FBS",
+      "rating": 43,
+      "start": "2026-11-07T19:30Z",
+      "matchup": "Georgia State Panthers – App State Mountaineers",
+      "before": "Georgia State Panthers (4-4) and App State Mountaineers (5-3) meet. App State Mountaineers are favored by 5.5 points, leaving more risk of an uneven contest.",
+      "after": "Georgia St (4-4) and App State (5-3) meet. The 5.5-point line favors App State, but keeps a competitive game in view."
+    },
+    {
+      "id": "401856744",
+      "sport": "CFB",
+      "division": "FBS",
+      "rating": 49,
+      "start": "2026-11-07T20:00Z",
+      "matchup": "Texas A&M Aggies – South Carolina Gamecocks",
+      "before": "Texas A&M Aggies (4-4) and No. 23 South Carolina Gamecocks (5-3) meet. South Carolina Gamecocks are favored by 7 points, leaving more risk of an uneven contest. Only one side is ranked, keeping this below the strongest ranked matchups.",
+      "after": "No. 23 South Carolina (5-3) faces Texas A&M (4-4). The 7-point line favors South Carolina, but keeps a competitive game in view."
+    },
+    {
+      "id": "401869936",
+      "sport": "CFB",
+      "division": "FBS",
+      "rating": 40,
+      "start": "2026-11-07T20:00Z",
+      "matchup": "UL Monroe Warhawks – Arkansas State Red Wolves",
+      "before": "UL Monroe Warhawks (1-7) and Arkansas State Red Wolves (4-4) meet. Arkansas State Red Wolves are favored by 14.5 points, so a one-sided game is a real possibility.",
+      "after": "UL Monroe (1-7) and Arkansas St (4-4) meet. The line favors Arkansas St by 14.5 points, so a one-sided game is a real possibility."
+    },
+    {
+      "id": "401871073",
+      "sport": "CFB",
+      "division": "FBS",
+      "rating": 45,
+      "start": "2026-11-07T20:00Z",
+      "matchup": "Delaware Blue Hens – Kennesaw State Owls",
+      "before": "Delaware Blue Hens (4-4) and Kennesaw State Owls (2-6) meet. A 1.5-point spread points to a close contest. Neither team is ranked, so the main draw is the prospect of a close game.",
+      "after": "Delaware (4-4) and Kennesaw St (2-6) meet. A 1.5-point spread points to a close contest."
+    },
+    {
+      "id": "401856740",
+      "sport": "CFB",
+      "division": "FBS",
+      "rating": 76,
+      "start": "2026-11-07T20:30Z",
+      "matchup": "Alabama Crimson Tide – LSU Tigers",
+      "before": "No. 9 Alabama Crimson Tide (6-2) and No. 15 LSU Tigers (6-2) make this a meeting of ranked teams. LSU Tigers are favored by 5.5 points, leaving more risk of an uneven contest.",
+      "after": "No. 9 Alabama (6-2) and No. 15 LSU (6-2) meet in a ranked matchup. The 5.5-point line favors LSU, but keeps a competitive game in view."
+    },
+    {
+      "id": "401858514",
+      "sport": "CFB",
+      "division": "FBS",
+      "rating": 49,
+      "start": "2026-11-07T20:30Z",
+      "matchup": "Oregon Ducks – Ohio State Buckeyes",
+      "before": "Oregon Ducks (5-3) and No. 11 Ohio State Buckeyes (6-2) bring winning records into this matchup. Ohio State Buckeyes are favored by 7.5 points, leaving more risk of an uneven contest. Only one side is ranked, keeping this below the strongest ranked matchups.",
+      "after": "No. 11 Ohio State (6-2) faces Oregon (5-3). The line favors Ohio State by 7.5 points; the underdog faces a tougher test."
+    },
+    {
+      "id": "401858290",
+      "sport": "CFB",
+      "division": "FCS",
+      "rating": 44,
+      "start": "2026-11-07T20:30Z",
+      "matchup": "Merrimack Warriors – Wake Forest Demon Deacons",
+      "before": "Merrimack Warriors (4-5) and No. 14 Wake Forest Demon Deacons (7-1) meet. The gap between their records makes a close contest less certain.",
+      "after": "No. 14 Wake Forest (7-1) faces Merrimack (4-5). The stronger record belongs to Wake Forest; the interest is in whether the other side can bridge that gap."
+    },
+    {
+      "id": "401856851",
+      "sport": "CFB",
+      "division": "FBS",
+      "rating": 46,
+      "start": "2026-11-07T20:30Z",
+      "matchup": "Cincinnati Bearcats – Houston Cougars",
+      "before": "Cincinnati Bearcats (5-3) and No. 17 Houston Cougars (6-2) bring winning records into this matchup. Houston Cougars are favored by 11.5 points, so a one-sided game is a real possibility.",
+      "after": "No. 17 Houston (6-2) faces Cincinnati (5-3). The line favors Houston by 11.5 points, so a one-sided game is a real possibility."
+    },
+    {
+      "id": "401858516",
+      "sport": "CFB",
+      "division": "FBS",
+      "rating": 44,
+      "start": "2026-11-07T20:30Z",
+      "matchup": "Penn State Nittany Lions – Washington Huskies",
+      "before": "Penn State Nittany Lions (4-4) and Washington Huskies (5-3) meet. A 2.5-point spread points to a close contest. Neither team is ranked, so the main draw is the prospect of a close game.",
+      "after": "Penn State (4-4) and Washington (5-3) meet. A 2.5-point spread points to a close contest."
+    },
+    {
+      "id": "401862819",
+      "sport": "CFB",
+      "division": "FBS",
+      "rating": 42,
+      "start": "2026-11-07T20:30Z",
+      "matchup": "Charlotte 49ers – UAB Blazers",
+      "before": "Charlotte 49ers (1-7) and UAB Blazers (4-4) meet. UAB Blazers are favored by 8.5 points, leaving more risk of an uneven contest.",
+      "after": "Charlotte (1-7) and UAB (4-4) meet. The line favors UAB by 8.5 points; the underdog faces a tougher test."
+    },
+    {
+      "id": "401862820",
+      "sport": "CFB",
+      "division": "FBS",
+      "rating": 42,
+      "start": "2026-11-07T20:30Z",
+      "matchup": "Temple Owls – Navy Midshipmen",
+      "before": "Temple Owls (2-6) and Navy Midshipmen (2-6) meet. Navy Midshipmen is favored by 7.5 points, leaving more risk of an uneven contest. Both teams have losing records, which limits the appeal even if the game stays close.",
+      "after": "Temple (2-6) and Navy (2-6) meet with both teams looking to recover from losing starts. The line favors Navy by 7.5 points; the underdog faces a tougher test."
+    },
+    {
+      "id": "401869951",
+      "sport": "CFB",
+      "division": "FBS",
+      "rating": 41,
+      "start": "2026-11-07T20:30Z",
+      "matchup": "Marshall Thundering Herd – Georgia Southern Eagles",
+      "before": "Marshall Thundering Herd (5-3) and Georgia Southern Eagles (4-4) meet. Georgia Southern Eagles are favored by 10.5 points, so a one-sided game is a real possibility.",
+      "after": "Marshall (5-3) and GA Southern (4-4) meet. The line favors GA Southern by 10.5 points, so a one-sided game is a real possibility."
+    },
+    {
+      "id": "401871076",
+      "sport": "CFB",
+      "division": "FBS",
+      "rating": 45,
+      "start": "2026-11-07T20:30Z",
+      "matchup": "Western Kentucky Hilltoppers – Middle Tennessee Blue Raiders",
+      "before": "Western Kentucky Hilltoppers (3-5) and Middle Tennessee Blue Raiders (4-4) meet. A 1.5-point spread points to a close contest. Neither team is ranked, so the main draw is the prospect of a close game.",
+      "after": "Western KY (3-5) and MTSU (4-4) meet. A 1.5-point spread points to a close contest."
+    },
+    {
+      "id": "401856850",
+      "sport": "CFB",
+      "division": "FBS",
+      "rating": 44,
+      "start": "2026-11-07T20:45Z",
+      "matchup": "UCF Knights – Kansas Jayhawks",
+      "before": "UCF Knights (4-4) and Kansas Jayhawks (3-5) meet. A 2.5-point spread points to a close contest. Neither team is ranked, so the main draw is the prospect of a close game.",
+      "after": "UCF (4-4) and Kansas (3-5) meet. A 2.5-point spread points to a close contest."
+    },
+    {
+      "id": "401862821",
+      "sport": "CFB",
+      "division": "FBS",
+      "rating": 38,
+      "start": "2026-11-07T21:00Z",
+      "matchup": "Rice Owls – North Texas Mean Green",
+      "before": "Rice Owls (1-7) and North Texas Mean Green (6-2) meet. North Texas Mean Green is favored by 16.5 points, so a one-sided game is a real possibility.",
+      "after": "Rice (1-7) and North Texas (6-2) meet. The line favors North Texas by 16.5 points, so a one-sided game is a real possibility."
+    },
+    {
+      "id": "401864534",
+      "sport": "CFB",
+      "division": "FBS",
+      "rating": 41,
+      "start": "2026-11-07T21:00Z",
+      "matchup": "Northern Illinois Huskies – San José State Spartans",
+      "before": "Northern Illinois Huskies (0-8) and San José State Spartans (4-5) meet. San José State Spartans are favored by 10 points, so a one-sided game is a real possibility. Both teams have losing records, which limits the appeal even if the game stays close.",
+      "after": "N Illinois (0-8) and San José St (4-5) meet with both teams looking to recover from losing starts. The line favors San José St by 10 points, so a one-sided game is a real possibility."
+    },
+    {
+      "id": "401871074",
+      "sport": "CFB",
+      "division": "FBS",
+      "rating": 43,
+      "start": "2026-11-07T21:00Z",
+      "matchup": "Missouri State Bears – Florida International Panthers",
+      "before": "Missouri State Bears (3-5) and Florida International Panthers (3-5) meet. Florida International Panthers are favored by 4.5 points, leaving more risk of an uneven contest. Both teams have losing records, which limits the appeal even if the game stays close.",
+      "after": "Missouri St (3-5) and FIU (3-5) meet with both teams looking to recover from losing starts. The 4.5-point line favors FIU, but keeps a competitive game in view."
+    },
+    {
+      "id": "401871098",
+      "sport": "CFB",
+      "division": "FBS",
+      "rating": 43,
+      "start": "2026-11-07T21:00Z",
+      "matchup": "Louisiana Tech Bulldogs – Troy Trojans",
+      "before": "Louisiana Tech Bulldogs (6-2) and Troy Trojans (4-4) meet. Louisiana Tech Bulldogs are favored by 4.5 points, leaving more risk of an uneven contest.",
+      "after": "Louisiana Tech (6-2) and Troy (4-4) meet. The 4.5-point line favors Louisiana Tech, but keeps a competitive game in view."
+    },
+    {
+      "id": "401856742",
+      "sport": "CFB",
+      "division": "FBS",
+      "rating": 44,
+      "start": "2026-11-07T21:15Z",
+      "matchup": "Vanderbilt Commodores – Mississippi State Bulldogs",
+      "before": "Vanderbilt Commodores (3-5) and Mississippi State Bulldogs (4-4) meet. A 3-point spread points to a close contest. Neither team is ranked, so the main draw is the prospect of a close game.",
+      "after": "Vanderbilt (3-5) and Mississippi St (4-4) meet. A 3-point spread points to a close contest."
+    },
+    {
+      "id": "401858517",
+      "sport": "CFB",
+      "division": "FBS",
+      "rating": 38,
+      "start": "2026-11-07T21:15Z",
+      "matchup": "Rutgers Scarlet Knights – Wisconsin Badgers",
+      "before": "Rutgers Scarlet Knights (2-6) and Wisconsin Badgers (5-3) meet. Wisconsin Badgers are favored by 17.5 points, so a one-sided game is a real possibility.",
+      "after": "Rutgers (2-6) and Wisconsin (5-3) meet. The line favors Wisconsin by 17.5 points, so a one-sided game is a real possibility."
+    },
+    {
+      "id": "401869968",
+      "sport": "CFB",
+      "division": "FBS",
+      "rating": 42,
+      "start": "2026-11-07T22:00Z",
+      "matchup": "South Alabama Jaguars – Louisiana Ragin' Cajuns",
+      "before": "South Alabama Jaguars (4-4) and Louisiana Ragin' Cajuns (5-3) meet. Louisiana Ragin' Cajuns are favored by 8.5 points, leaving more risk of an uneven contest.",
+      "after": "South Alabama (4-4) and Louisiana (5-3) meet. The line favors Louisiana by 8.5 points; the underdog faces a tougher test."
+    },
+    {
+      "id": "401860911",
+      "sport": "CFB",
+      "division": "FBS",
+      "rating": 41,
+      "start": "2026-11-07T23:00Z",
+      "matchup": "Boise State Broncos – Colorado State Rams",
+      "before": "No. 20 Boise State Broncos (7-1) and Colorado State Rams (3-5) meet. Boise State Broncos are favored by 17.5 points, so a one-sided game is a real possibility.",
+      "after": "No. 20 Boise St (7-1) faces Colorado St (3-5). The line favors Boise St by 17.5 points, so a one-sided game is a real possibility."
+    },
+    {
+      "id": "401856745",
+      "sport": "CFB",
+      "division": "FBS",
+      "rating": 73,
+      "start": "2026-11-07T23:15Z",
+      "matchup": "Kentucky Wildcats – Tennessee Volunteers",
+      "before": "No. 8 Kentucky Wildcats (7-1) and No. 16 Tennessee Volunteers (6-2) make this a meeting of ranked teams. Tennessee Volunteers are favored by 6.5 points, leaving more risk of an uneven contest.",
+      "after": "No. 8 Kentucky (7-1) and No. 16 Tennessee (6-2) meet in a ranked matchup. The 6.5-point line favors Tennessee, but keeps a competitive game in view."
+    },
+    {
+      "id": "401871075",
+      "sport": "CFB",
+      "division": "FBS",
+      "rating": 38,
+      "start": "2026-11-08T00:00Z",
+      "matchup": "Sam Houston Bearkats – Jacksonville State Gamecocks",
+      "before": "Sam Houston Bearkats (1-7) and Jacksonville State Gamecocks (6-2) meet. Jacksonville State Gamecocks are favored by 16.5 points, so a one-sided game is a real possibility.",
+      "after": "Sam Houston (1-7) and Jax State (6-2) meet. The line favors Jax State by 16.5 points, so a one-sided game is a real possibility."
+    },
+    {
+      "id": "401858291",
+      "sport": "CFB",
+      "division": "FBS",
+      "rating": 79,
+      "start": "2026-11-08T00:30Z",
+      "matchup": "Miami Hurricanes – Notre Dame Fighting Irish",
+      "before": "No. 1 Miami Hurricanes (8-0) and No. 4 Notre Dame Fighting Irish (7-1) make this a meeting of top-10 teams, with Miami Hurricanes still unbeaten. Notre Dame Fighting Irish is favored by 6 points, leaving more risk of an uneven contest.",
+      "after": "No. 1 Miami (8-0) and No. 4 Notre Dame (7-1) meet in a top-10 matchup, with Miami's unbeaten season on the line. The 6-point line favors Notre Dame, but keeps a competitive game in view."
+    },
+    {
+      "id": "401856741",
+      "sport": "CFB",
+      "division": "FBS",
+      "rating": 81,
+      "start": "2026-11-08T00:30Z",
+      "matchup": "Georgia Bulldogs – Ole Miss Rebels",
+      "before": "No. 2 Georgia Bulldogs (7-1) and No. 12 Ole Miss Rebels (6-2) make this a meeting of ranked teams. A 3.5-point spread points to a close contest.",
+      "after": "No. 2 Georgia (7-1) and No. 12 Ole Miss (6-2) meet in a ranked matchup. A 3.5-point spread points to a close contest."
+    },
+    {
+      "id": "401858513",
+      "sport": "CFB",
+      "division": "FBS",
+      "rating": 54,
+      "start": "2026-11-08T00:30Z",
+      "matchup": "Iowa Hawkeyes – Northwestern Wildcats",
+      "before": "No. 21 Iowa Hawkeyes (6-2) and Northwestern Wildcats (6-2) bring winning records into this matchup. A 2.5-point spread points to a close contest. Only one side is ranked, keeping this below the strongest ranked matchups.",
+      "after": "No. 21 Iowa (6-2) faces Northwestern (6-2). A 2.5-point spread points to a close contest."
+    },
+    {
+      "id": "401856852",
+      "sport": "CFB",
+      "division": "FBS",
+      "rating": 44,
+      "start": "2026-11-08T00:30Z",
+      "matchup": "Colorado Buffaloes – Arizona State Sun Devils",
+      "before": "Colorado Buffaloes (3-5) and Arizona State Sun Devils (4-4) meet. A 3-point spread points to a close contest. Neither team is ranked, so the main draw is the prospect of a close game.",
+      "after": "Colorado (3-5) and Arizona St (4-4) meet. A 3-point spread points to a close contest."
+    },
+    {
+      "id": "401858287",
+      "sport": "CFB",
+      "division": "FBS",
+      "rating": 40,
+      "start": "2026-11-08T00:30Z",
+      "matchup": "Louisville Cardinals – Georgia Tech Yellow Jackets",
+      "before": "Louisville Cardinals (5-3) and Georgia Tech Yellow Jackets (2-6) meet. Louisville Cardinals are favored by 14.5 points, so a one-sided game is a real possibility.",
+      "after": "Louisville (5-3) and Georgia Tech (2-6) meet. The line favors Louisville by 14.5 points, so a one-sided game is a real possibility."
+    },
+    {
+      "id": "401858511",
+      "sport": "CFB",
+      "division": "FBS",
+      "rating": 40,
+      "start": "2026-11-08T00:30Z",
+      "matchup": "Michigan State Spartans – Michigan Wolverines",
+      "before": "Michigan State Spartans (2-6) and Michigan Wolverines (5-3) meet. Michigan Wolverines are favored by 13.5 points, so a one-sided game is a real possibility.",
+      "after": "Michigan St (2-6) and Michigan (5-3) meet. The line favors Michigan by 13.5 points, so a one-sided game is a real possibility."
+    },
+    {
+      "id": "401862823",
+      "sport": "CFB",
+      "division": "FBS",
+      "rating": 44,
+      "start": "2026-11-08T00:30Z",
+      "matchup": "Air Force Falcons – Army Black Knights",
+      "before": "Air Force Falcons (6-2) and Army Black Knights (5-3) bring winning records into this matchup. A 3-point spread points to a close contest. Neither team is ranked, so the main draw is the prospect of a close game.",
+      "after": "Air Force (6-2) and Army (5-3) bring winning records into this matchup. A 3-point spread points to a close contest."
+    },
+    {
+      "id": "401856739",
+      "sport": "CFB",
+      "division": "FBS",
+      "rating": 51,
+      "start": "2026-11-08T00:45Z",
+      "matchup": "Oklahoma Sooners – Florida Gators",
+      "before": "Oklahoma Sooners (4-4) and No. 25 Florida Gators (5-3) meet. Florida Gators are favored by 6 points, leaving more risk of an uneven contest. Only one side is ranked, keeping this below the strongest ranked matchups.",
+      "after": "No. 25 Florida (5-3) faces Oklahoma (4-4). The 6-point line favors Florida, but keeps a competitive game in view."
+    },
+    {
+      "id": "401870795",
+      "sport": "CFB",
+      "division": "FBS",
+      "rating": 38,
+      "start": "2026-11-08T01:00Z",
+      "matchup": "Liberty Flames – New Mexico State Aggies",
+      "before": "Liberty Flames (7-1) and New Mexico State Aggies (3-5) meet. Liberty Flames are favored by 16.5 points, so a one-sided game is a real possibility.",
+      "after": "Liberty (7-1) and New Mexico St (3-5) meet. The line favors Liberty by 16.5 points, so a one-sided game is a real possibility."
+    },
+    {
+      "id": "401856856",
+      "sport": "CFB",
+      "division": "FBS",
+      "rating": 41,
+      "start": "2026-11-08T02:30Z",
+      "matchup": "West Virginia Mountaineers – Texas Tech Red Raiders",
+      "before": "West Virginia Mountaineers (5-3) and No. 13 Texas Tech Red Raiders (7-1) bring winning records into this matchup. Texas Tech Red Raiders are favored by 17.5 points, so a one-sided game is a real possibility.",
+      "after": "No. 13 Texas Tech (7-1) faces West Virginia (5-3). The line favors Texas Tech by 17.5 points, so a one-sided game is a real possibility."
+    },
+    {
+      "id": "401860913",
+      "sport": "CFB",
+      "division": "FBS",
+      "rating": 44,
+      "start": "2026-11-08T02:30Z",
+      "matchup": "Fresno State Bulldogs – Utah State Aggies",
+      "before": "Fresno State Bulldogs (5-3) and Utah State Aggies (3-5) meet. A 2.5-point spread points to a close contest. Neither team is ranked, so the main draw is the prospect of a close game.",
+      "after": "Fresno St (5-3) and Utah State (3-5) meet. A 2.5-point spread points to a close contest."
+    },
+    {
+      "id": "401864532",
+      "sport": "CFB",
+      "division": "FBS",
+      "rating": 41,
+      "start": "2026-11-08T02:30Z",
+      "matchup": "Hawai'i Rainbow Warriors – UTEP Miners",
+      "before": "Hawai'i Rainbow Warriors (2-6) and UTEP Miners (1-7) meet. Hawai'i Rainbow Warriors are favored by 9.5 points, leaving more risk of an uneven contest. Both teams have losing records, which limits the appeal even if the game stays close.",
+      "after": "Hawai'i (2-6) and UTEP (1-7) meet with both teams looking to recover from losing starts. The line favors Hawai'i by 9.5 points; the underdog faces a tougher test."
+    },
+    {
+      "id": "401860912",
+      "sport": "CFB",
+      "division": "FBS",
+      "rating": 42,
+      "start": "2026-11-08T03:30Z",
+      "matchup": "Texas State Bobcats – Oregon State Beavers",
+      "before": "Texas State Bobcats (4-4) and Oregon State Beavers (5-3) meet. Oregon State Beavers are favored by 6.5 points, leaving more risk of an uneven contest.",
+      "after": "Texas St (4-4) and Oregon St (5-3) meet. The 6.5-point line favors Oregon St, but keeps a competitive game in view."
+    },
+    {
+      "id": "401864535",
+      "sport": "CFB",
+      "division": "FBS",
+      "rating": 43,
+      "start": "2026-11-08T03:30Z",
+      "matchup": "Wyoming Cowboys – UNLV Rebels",
+      "before": "Wyoming Cowboys (5-3) and UNLV Rebels (5-3) bring winning records into this matchup. UNLV Rebels are favored by 6 points, leaving more risk of an uneven contest.",
+      "after": "Wyoming (5-3) and UNLV (5-3) bring winning records into this matchup. The 6-point line favors UNLV, but keeps a competitive game in view."
+    },
+    {
+      "id": "401867964",
+      "sport": "CFB",
+      "division": "FCS",
+      "rating": 40,
+      "start": "2026-11-06T00:30Z",
+      "matchup": "South Carolina State Bulldogs – Howard Bison",
+      "before": "South Carolina State Bulldogs (7-2) and Howard Bison (4-5) meet. The gap between their records makes a close contest less certain.",
+      "after": "SC State (7-2) and Howard (4-5) meet. The stronger record belongs to SC State; the interest is in whether the other side can bridge that gap."
+    },
+    {
+      "id": "401866681",
+      "sport": "CFB",
+      "division": "FCS",
+      "rating": 40,
+      "start": "2026-11-07T17:00Z",
+      "matchup": "North Carolina A&T Aggies – Monmouth Hawks",
+      "before": "North Carolina A&T Aggies (4-5) and Monmouth Hawks (7-2) meet. The gap between their records makes a close contest less certain.",
+      "after": "NC A&T (4-5) and Monmouth (7-2) meet. The stronger record belongs to Monmouth; the interest is in whether the other side can bridge that gap."
+    },
+    {
+      "id": "401866682",
+      "sport": "CFB",
+      "division": "FCS",
+      "rating": 40,
+      "start": "2026-11-07T17:00Z",
+      "matchup": "Towson Tigers – Sacred Heart Pioneers",
+      "before": "Towson Tigers (1-8) and Sacred Heart Pioneers (4-4) meet. The gap between their records makes a close contest less certain.",
+      "after": "Towson (1-8) and Sacred Heart (4-4) meet. The stronger record belongs to Sacred Heart; the interest is in whether the other side can bridge that gap."
+    },
+    {
+      "id": "401867810",
+      "sport": "CFB",
+      "division": "FCS",
+      "rating": 40,
+      "start": "2026-11-07T17:00Z",
+      "matchup": "Brown Bears – Yale Bulldogs",
+      "before": "Brown Bears (4-3) and Yale Bulldogs (4-3) bring winning records into this matchup. Their similar records suggest a competitive game, although no betting line is listed yet.",
+      "after": "Brown (4-3) and Yale (4-3) bring winning records into this matchup. Their similar records suggest a competitive game."
+    },
+    {
+      "id": "401867839",
+      "sport": "CFB",
+      "division": "FCS",
+      "rating": 40,
+      "start": "2026-11-07T17:00Z",
+      "matchup": "Dartmouth Big Green – Princeton Tigers",
+      "before": "Dartmouth Big Green (4-3) and Princeton Tigers (5-2) bring winning records into this matchup.",
+      "after": "Dartmouth (4-3) and Princeton (5-2) bring winning records into this matchup."
+    },
+    {
+      "id": "401867914",
+      "sport": "CFB",
+      "division": "FCS",
+      "rating": 40,
+      "start": "2026-11-07T17:00Z",
+      "matchup": "Long Island University Sharks – New Haven Chargers",
+      "before": "Long Island University Sharks (3-6) and New Haven Chargers (2-7) meet. Both teams have losing records, which limits the appeal even if the game stays close.",
+      "after": "Long Island (3-6) and New Haven (2-7) meet with both teams looking to recover from losing starts."
+    },
+    {
+      "id": "401867922",
+      "sport": "CFB",
+      "division": "FCS",
+      "rating": 40,
+      "start": "2026-11-07T17:00Z",
+      "matchup": "Robert Morris Colonials – Duquesne Dukes",
+      "before": "Robert Morris Colonials (4-5) and Duquesne Dukes (4-4) meet. Without a listed betting line, it is harder to judge how evenly matched they are.",
+      "after": "Robert Morris (4-5) and Duquesne (4-4) meet. There is little separation in their records."
+    },
+    {
+      "id": "401867933",
+      "sport": "CFB",
+      "division": "FCS",
+      "rating": 40,
+      "start": "2026-11-07T17:00Z",
+      "matchup": "Wagner Seahawks – Mercyhurst Lakers",
+      "before": "Wagner Seahawks (1-8) and Mercyhurst Lakers (1-8) meet. Both teams have losing records, which limits the appeal even if the game stays close.",
+      "after": "Wagner (1-8) and Mercyhurst (1-8) meet with both teams looking to recover from losing starts. Their records are closely matched, though neither has established consistent winning form."
+    },
+    {
+      "id": "401867976",
+      "sport": "CFB",
+      "division": "FCS",
+      "rating": 40,
+      "start": "2026-11-07T17:00Z",
+      "matchup": "North Carolina Central Eagles – Norfolk State Spartans",
+      "before": "North Carolina Central Eagles (4-5) and Norfolk State Spartans (4-5) meet. Both teams have losing records, which limits the appeal even if the game stays close.",
+      "after": "NC Central (4-5) and Norfolk St (4-5) meet with both teams looking to recover from losing starts. Their records are closely matched, though neither has established consistent winning form."
+    },
+    {
+      "id": "401868005",
+      "sport": "CFB",
+      "division": "FCS",
+      "rating": 40,
+      "start": "2026-11-07T17:00Z",
+      "matchup": "Colgate Raiders – Lehigh Mountain Hawks",
+      "before": "Colgate Raiders (5-4) and Lehigh Mountain Hawks (7-2) bring winning records into this matchup.",
+      "after": "Colgate (5-4) and Lehigh (7-2) bring winning records into this matchup."
+    },
+    {
+      "id": "401868232",
+      "sport": "CFB",
+      "division": "FCS",
+      "rating": 40,
+      "start": "2026-11-07T17:00Z",
+      "matchup": "Valparaiso Beacons – Dayton Flyers",
+      "before": "Valparaiso Beacons (4-4) and Dayton Flyers (7-1) meet. The gap between their records makes a close contest less certain.",
+      "after": "Valparaiso (4-4) and Dayton (7-1) meet. The stronger record belongs to Dayton; the interest is in whether the other side can bridge that gap."
+    },
+    {
+      "id": "401868268",
+      "sport": "CFB",
+      "division": "FCS",
+      "rating": 40,
+      "start": "2026-11-07T17:00Z",
+      "matchup": "Morehead State Eagles – Marist Red Foxes",
+      "before": "Morehead State Eagles (2-7) and Marist Red Foxes (4-5) meet. Both teams have losing records, which limits the appeal even if the game stays close.",
+      "after": "Morehead St (2-7) and Marist (4-5) meet with both teams looking to recover from losing starts."
+    },
+    {
+      "id": "401868020",
+      "sport": "CFB",
+      "division": "FCS",
+      "rating": 40,
+      "start": "2026-11-07T17:30Z",
+      "matchup": "Holy Cross Crusaders – Georgetown Hoyas",
+      "before": "Holy Cross Crusaders (4-5) and Georgetown Hoyas (3-4) meet. Both teams have losing records, which limits the appeal even if the game stays close.",
+      "after": "Holy Cross (4-5) and Georgetown (3-4) meet with both teams looking to recover from losing starts. Their records are closely matched, though neither has established consistent winning form."
+    },
+    {
+      "id": "401866683",
+      "sport": "CFB",
+      "division": "FCS",
+      "rating": 40,
+      "start": "2026-11-07T18:00Z",
+      "matchup": "UAlbany Great Danes – Bryant Bulldogs",
+      "before": "UAlbany Great Danes (6-3) and Bryant Bulldogs (5-4) bring winning records into this matchup.",
+      "after": "UAlbany (6-3) and Bryant (5-4) bring winning records into this matchup."
+    },
+    {
+      "id": "401866684",
+      "sport": "CFB",
+      "division": "FCS",
+      "rating": 40,
+      "start": "2026-11-07T18:00Z",
+      "matchup": "Stony Brook Seawolves – Campbell Fighting Camels",
+      "before": "Stony Brook Seawolves (5-4) and Campbell Fighting Camels (7-2) bring winning records into this matchup.",
+      "after": "Stony Brook (5-4) and Campbell (7-2) bring winning records into this matchup."
+    },
+    {
+      "id": "401866686",
+      "sport": "CFB",
+      "division": "FCS",
+      "rating": 40,
+      "start": "2026-11-07T18:00Z",
+      "matchup": "Rhode Island Rams – New Hampshire Wildcats",
+      "before": "Rhode Island Rams (5-4) and New Hampshire Wildcats (2-7) meet. The gap between their records makes a close contest less certain.",
+      "after": "Rhode Island (5-4) and New Hampshire (2-7) meet. The stronger record belongs to Rhode Island; the interest is in whether the other side can bridge that gap."
+    },
+    {
+      "id": "401867824",
+      "sport": "CFB",
+      "division": "FCS",
+      "rating": 40,
+      "start": "2026-11-07T18:00Z",
+      "matchup": "Columbia Lions – Harvard Crimson",
+      "before": "Columbia Lions (4-3) and Harvard Crimson (6-1) bring winning records into this matchup.",
+      "after": "Columbia (4-3) and Harvard (6-1) bring winning records into this matchup."
+    },
+    {
+      "id": "401867832",
+      "sport": "CFB",
+      "division": "FCS",
+      "rating": 40,
+      "start": "2026-11-07T18:00Z",
+      "matchup": "Pennsylvania Quakers – Cornell Big Red",
+      "before": "Pennsylvania Quakers (3-4) and Cornell Big Red (3-4) meet. Both teams have losing records, which limits the appeal even if the game stays close.",
+      "after": "Penn (3-4) and Cornell (3-4) meet with both teams looking to recover from losing starts. Their records are closely matched, though neither has established consistent winning form."
+    },
+    {
+      "id": "401867904",
+      "sport": "CFB",
+      "division": "FCS",
+      "rating": 40,
+      "start": "2026-11-07T18:00Z",
+      "matchup": "Central Connecticut Blue Devils – Stonehill Skyhawks",
+      "before": "Central Connecticut Blue Devils (5-3) and Stonehill Skyhawks (4-5) meet. Without a listed betting line, it is harder to judge how evenly matched they are.",
+      "after": "C Connecticut (5-3) and Stonehill (4-5) meet. The records offer a mixed picture, leaving the balance of this matchup open."
+    },
+    {
+      "id": "401867957",
+      "sport": "CFB",
+      "division": "FCS",
+      "rating": 40,
+      "start": "2026-11-07T18:00Z",
+      "matchup": "Morgan State Bears – Delaware State Hornets",
+      "before": "Morgan State Bears (5-4) and Delaware State Hornets (5-4) bring winning records into this matchup. Their similar records suggest a competitive game, although no betting line is listed yet.",
+      "after": "Morgan St (5-4) and Delaware St (5-4) bring winning records into this matchup. Their similar records suggest a competitive game."
+    },
+    {
+      "id": "401867996",
+      "sport": "CFB",
+      "division": "FCS",
+      "rating": 40,
+      "start": "2026-11-07T18:00Z",
+      "matchup": "Fordham Rams – Bucknell Bison",
+      "before": "Fordham Rams (2-7) and Bucknell Bison (1-8) meet. Both teams have losing records, which limits the appeal even if the game stays close.",
+      "after": "Fordham (2-7) and Bucknell (1-8) meet with both teams looking to recover from losing starts."
+    },
+    {
+      "id": "401868031",
+      "sport": "CFB",
+      "division": "FCS",
+      "rating": 40,
+      "start": "2026-11-07T18:00Z",
+      "matchup": "Lafayette Leopards – William & Mary Tribe",
+      "before": "Lafayette Leopards (3-5) and William & Mary Tribe (3-6) meet. Both teams have losing records, which limits the appeal even if the game stays close.",
+      "after": "Lafayette (3-5) and William & Mary (3-6) meet with both teams looking to recover from losing starts. Their records are closely matched, though neither has established consistent winning form."
+    },
+    {
+      "id": "401868038",
+      "sport": "CFB",
+      "division": "FCS",
+      "rating": 40,
+      "start": "2026-11-07T18:00Z",
+      "matchup": "Richmond Spiders – Villanova Wildcats",
+      "before": "Richmond Spiders (6-3) and Villanova Wildcats (5-4) bring winning records into this matchup.",
+      "after": "Richmond (6-3) and Villanova (5-4) bring winning records into this matchup."
+    },
+    {
+      "id": "401868216",
+      "sport": "CFB",
+      "division": "FCS",
+      "rating": 40,
+      "start": "2026-11-07T18:00Z",
+      "matchup": "St. Thomas Tommies – Butler Bulldogs",
+      "before": "St. Thomas Tommies (7-2) and Butler Bulldogs (7-2) bring winning records into this matchup. Their similar records suggest a competitive game, although no betting line is listed yet.",
+      "after": "St Thomas (7-2) and Butler (7-2) bring winning records into this matchup. Their similar records suggest a competitive game."
+    },
+    {
+      "id": "401868224",
+      "sport": "CFB",
+      "division": "FCS",
+      "rating": 40,
+      "start": "2026-11-07T18:00Z",
+      "matchup": "Stetson Hatters – Davidson Wildcats",
+      "before": "Stetson Hatters (1-8) and Davidson Wildcats (3-6) meet. Both teams have losing records, which limits the appeal even if the game stays close.",
+      "after": "Stetson (1-8) and Davidson (3-6) meet with both teams looking to recover from losing starts."
+    },
+    {
+      "id": "401868259",
+      "sport": "CFB",
+      "division": "FCS",
+      "rating": 40,
+      "start": "2026-11-07T18:00Z",
+      "matchup": "San Diego Toreros – Drake Bulldogs",
+      "before": "San Diego Toreros (4-5) and Drake Bulldogs (3-6) meet. Both teams have losing records, which limits the appeal even if the game stays close.",
+      "after": "San Diego (4-5) and Drake (3-6) meet with both teams looking to recover from losing starts."
+    },
+    {
+      "id": "401868343",
+      "sport": "CFB",
+      "division": "FCS",
+      "rating": 40,
+      "start": "2026-11-07T18:00Z",
+      "matchup": "Mercer Bears – Chattanooga Mocs",
+      "before": "Mercer Bears (7-2) and Chattanooga Mocs (6-3) bring winning records into this matchup.",
+      "after": "Mercer (7-2) and Chattanooga (6-3) bring winning records into this matchup."
+    },
+    {
+      "id": "401868350",
+      "sport": "CFB",
+      "division": "FCS",
+      "rating": 40,
+      "start": "2026-11-07T18:00Z",
+      "matchup": "Samford Bulldogs – East Tennessee State Buccaneers",
+      "before": "Samford Bulldogs (3-6) and East Tennessee State Buccaneers (6-3) meet. The gap between their records makes a close contest less certain.",
+      "after": "Samford (3-6) and ETSU (6-3) meet. The stronger record belongs to ETSU; the interest is in whether the other side can bridge that gap."
+    },
+    {
+      "id": "401868399",
+      "sport": "CFB",
+      "division": "FCS",
+      "rating": 40,
+      "start": "2026-11-07T18:00Z",
+      "matchup": "Wofford Terriers – Western Carolina Catamounts",
+      "before": "Wofford Terriers (5-4) and Western Carolina Catamounts (4-5) meet. Without a listed betting line, it is harder to judge how evenly matched they are.",
+      "after": "Wofford (5-4) and W Carolina (4-5) meet. The records offer a mixed picture, leaving the balance of this matchup open."
+    },
+    {
+      "id": "401868191",
+      "sport": "CFB",
+      "division": "FCS",
+      "rating": 40,
+      "start": "2026-11-07T18:30Z",
+      "matchup": "Lindenwood Lions – Gardner-Webb Runnin' Bulldogs",
+      "before": "Lindenwood Lions (4-4) and Gardner-Webb Runnin' Bulldogs (3-6) meet. Without a listed betting line, it is harder to judge how evenly matched they are.",
+      "after": "Lindenwood (4-4) and Gardner-Webb (3-6) meet. The records offer a mixed picture, leaving the balance of this matchup open."
+    },
+    {
+      "id": "401866685",
+      "sport": "CFB",
+      "division": "FCS",
+      "rating": 40,
+      "start": "2026-11-07T19:00Z",
+      "matchup": "Hampton Pirates – Elon Phoenix",
+      "before": "Hampton Pirates (1-8) and Elon Phoenix (4-5) meet. The gap between their records makes a close contest less certain. Both teams have losing records, which limits the appeal even if the game stays close.",
+      "after": "Hampton (1-8) and Elon (4-5) meet with both teams looking to recover from losing starts. The stronger record belongs to Elon; the interest is in whether the other side can bridge that gap."
+    },
+    {
+      "id": "401867852",
+      "sport": "CFB",
+      "division": "FCS",
+      "rating": 40,
+      "start": "2026-11-07T19:00Z",
+      "matchup": "Illinois State Redbirds – North Dakota Fighting Hawks",
+      "before": "Illinois State Redbirds (7-2) and North Dakota Fighting Hawks (6-4) bring winning records into this matchup.",
+      "after": "Illinois St (7-2) and North Dakota (6-4) bring winning records into this matchup."
+    },
+    {
+      "id": "401867872",
+      "sport": "CFB",
+      "division": "FCS",
+      "rating": 40,
+      "start": "2026-11-07T19:00Z",
+      "matchup": "Youngstown State Penguins – Murray State Racers",
+      "before": "Youngstown State Penguins (7-2) and Murray State Racers (1-8) meet. The gap between their records makes a close contest less certain.",
+      "after": "Youngstown St (7-2) and Murray St (1-8) meet. The stronger record belongs to Youngstown St; the interest is in whether the other side can bridge that gap."
+    },
+    {
+      "id": "401868176",
+      "sport": "CFB",
+      "division": "FCS",
+      "rating": 40,
+      "start": "2026-11-07T19:00Z",
+      "matchup": "UT Martin Skyhawks – Charleston Southern Buccaneers",
+      "before": "UT Martin Skyhawks (3-6) and Charleston Southern Buccaneers (4-5) meet. Both teams have losing records, which limits the appeal even if the game stays close.",
+      "after": "UT Martin (3-6) and Charleston So (4-5) meet with both teams looking to recover from losing starts."
+    },
+    {
+      "id": "401868252",
+      "sport": "CFB",
+      "division": "FCS",
+      "rating": 40,
+      "start": "2026-11-07T19:00Z",
+      "matchup": "UT Rio Grande Valley Vaqueros – Northwestern State Demons",
+      "before": "UT Rio Grande Valley Vaqueros (4-5) and Northwestern State Demons (0-9) meet. The gap between their records makes a close contest less certain. Both teams have losing records, which limits the appeal even if the game stays close.",
+      "after": "UT Rio Grande (4-5) and N'Western St (0-9) meet with both teams looking to recover from losing starts. The stronger record belongs to UT Rio Grande; the interest is in whether the other side can bridge that gap."
+    },
+    {
+      "id": "401868379",
+      "sport": "CFB",
+      "division": "FCS",
+      "rating": 40,
+      "start": "2026-11-07T19:00Z",
+      "matchup": "Furman Paladins – The Citadel Bulldogs",
+      "before": "Furman Paladins (2-7) and The Citadel Bulldogs (2-7) meet. Both teams have losing records, which limits the appeal even if the game stays close.",
+      "after": "Furman (2-7) and The Citadel (2-7) meet with both teams looking to recover from losing starts. Their records are closely matched, though neither has established consistent winning form."
+    },
+    {
+      "id": "401872617",
+      "sport": "CFB",
+      "division": "FCS",
+      "rating": 40,
+      "start": "2026-11-07T19:00Z",
+      "matchup": "South Dakota State Jackrabbits – Northern Iowa Panthers",
+      "before": "South Dakota State Jackrabbits (7-2) and Northern Iowa Panthers (4-4) meet. Without a listed betting line, it is harder to judge how evenly matched they are.",
+      "after": "S Dakota St (7-2) and Northern Iowa (4-4) meet. The records offer a mixed picture, leaving the balance of this matchup open."
+    },
+    {
+      "id": "401868393",
+      "sport": "CFB",
+      "division": "FCS",
+      "rating": 40,
+      "start": "2026-11-07T19:30Z",
+      "matchup": "VMI Keydets – Tennessee Tech Golden Eagles",
+      "before": "VMI Keydets (0-9) and Tennessee Tech Golden Eagles (8-1) meet. The gap between their records makes a close contest less certain.",
+      "after": "VMI (0-9) and Tennessee Tech (8-1) meet. The stronger record belongs to Tennessee Tech; the interest is in whether the other side can bridge that gap."
+    },
+    {
+      "id": "401868116",
+      "sport": "CFB",
+      "division": "FCS",
+      "rating": 40,
+      "start": "2026-11-07T20:00Z",
+      "matchup": "Portland State Vikings – Montana Grizzlies",
+      "before": "Portland State Vikings (2-7) and Montana Grizzlies (6-3) meet. The gap between their records makes a close contest less certain.",
+      "after": "Portland St (2-7) and Montana (6-3) meet. The stronger record belongs to Montana; the interest is in whether the other side can bridge that gap."
+    },
+    {
+      "id": "401868153",
+      "sport": "CFB",
+      "division": "FCS",
+      "rating": 40,
+      "start": "2026-11-07T20:00Z",
+      "matchup": "Northern Colorado Bears – Southern Utah Thunderbirds",
+      "before": "Northern Colorado Bears (3-6) and Southern Utah Thunderbirds (3-6) meet. Both teams have losing records, which limits the appeal even if the game stays close.",
+      "after": "N Colorado (3-6) and Southern Utah (3-6) meet with both teams looking to recover from losing starts. Their records are closely matched, though neither has established consistent winning form."
+    },
+    {
+      "id": "401868184",
+      "sport": "CFB",
+      "division": "FCS",
+      "rating": 40,
+      "start": "2026-11-07T20:00Z",
+      "matchup": "Western Illinois Leathernecks – Eastern Illinois Panthers",
+      "before": "Western Illinois Leathernecks (5-4) and Eastern Illinois Panthers (3-6) meet. Without a listed betting line, it is harder to judge how evenly matched they are.",
+      "after": "W Illinois (5-4) and E Illinois (3-6) meet. The records offer a mixed picture, leaving the balance of this matchup open."
+    },
+    {
+      "id": "401868302",
+      "sport": "CFB",
+      "division": "FCS",
+      "rating": 40,
+      "start": "2026-11-07T20:00Z",
+      "matchup": "Alabama A&M Bulldogs – Prairie View A&M Panthers",
+      "before": "Alabama A&M Bulldogs (7-2) and Prairie View A&M Panthers (4-5) meet. The gap between their records makes a close contest less certain.",
+      "after": "Alabama A&M (7-2) and Prairie View (4-5) meet. The stronger record belongs to Alabama A&M; the interest is in whether the other side can bridge that gap."
+    },
+    {
+      "id": "401868331",
+      "sport": "CFB",
+      "division": "FCS",
+      "rating": 40,
+      "start": "2026-11-07T20:00Z",
+      "matchup": "Alabama State Hornets – Texas Southern Tigers",
+      "before": "Alabama State Hornets (4-4) and Texas Southern Tigers (3-5) meet. Without a listed betting line, it is harder to judge how evenly matched they are.",
+      "after": "Alabama St (4-4) and Texas Southern (3-5) meet. The records offer a mixed picture, leaving the balance of this matchup open."
+    },
+    {
+      "id": "401868363",
+      "sport": "CFB",
+      "division": "FCS",
+      "rating": 40,
+      "start": "2026-11-07T20:00Z",
+      "matchup": "Florida A&M Rattlers – Alcorn State Braves",
+      "before": "Florida A&M Rattlers (2-7) and Alcorn State Braves (5-4) meet. The gap between their records makes a close contest less certain.",
+      "after": "Florida A&M (2-7) and Alcorn St (5-4) meet. The stronger record belongs to Alcorn St; the interest is in whether the other side can bridge that gap."
+    },
+    {
+      "id": "401868939",
+      "sport": "CFB",
+      "division": "FCS",
+      "rating": 40,
+      "start": "2026-11-07T20:00Z",
+      "matchup": "Arkansas-Pine Bluff Golden Lions – Grambling Tigers",
+      "before": "Arkansas-Pine Bluff Golden Lions (5-3) and Grambling Tigers (4-4) meet. Without a listed betting line, it is harder to judge how evenly matched they are.",
+      "after": "AR-Pine Bluff (5-3) and Grambling (4-4) meet. The records offer a mixed picture, leaving the balance of this matchup open."
+    },
+    {
+      "id": "401868945",
+      "sport": "CFB",
+      "division": "FCS",
+      "rating": 40,
+      "start": "2026-11-07T20:00Z",
+      "matchup": "Bethune-Cookman Wildcats – Southern Jaguars",
+      "before": "Bethune-Cookman Wildcats (5-4) and Southern Jaguars (4-5) meet. Without a listed betting line, it is harder to judge how evenly matched they are.",
+      "after": "Bethune (5-4) and Southern (4-5) meet. The records offer a mixed picture, leaving the balance of this matchup open."
+    },
+    {
+      "id": "401868961",
+      "sport": "CFB",
+      "division": "FCS",
+      "rating": 40,
+      "start": "2026-11-07T20:00Z",
+      "matchup": "Mississippi Valley State Delta Devils – Jackson State Tigers",
+      "before": "Mississippi Valley State Delta Devils (3-6) and Jackson State Tigers (6-2) meet. The gap between their records makes a close contest less certain.",
+      "after": "Miss Valley St (3-6) and Jackson St (6-2) meet. The stronger record belongs to Jackson St; the interest is in whether the other side can bridge that gap."
+    },
+    {
+      "id": "401868200",
+      "sport": "CFB",
+      "division": "FCS",
+      "rating": 40,
+      "start": "2026-11-07T20:30Z",
+      "matchup": "Southeast Missouri State Redhawks – Tennessee State Tigers",
+      "before": "Southeast Missouri State Redhawks (5-4) and Tennessee State Tigers (2-7) meet. The gap between their records makes a close contest less certain.",
+      "after": "SE Missouri (5-4) and Tennessee St (2-7) meet. The stronger record belongs to SE Missouri; the interest is in whether the other side can bridge that gap."
+    },
+    {
+      "id": "401868068",
+      "sport": "CFB",
+      "division": "FCS",
+      "rating": 40,
+      "start": "2026-11-07T21:00Z",
+      "matchup": "Eastern Kentucky Colonels – Austin Peay Governors",
+      "before": "Eastern Kentucky Colonels (3-6) and Austin Peay Governors (7-2) meet. The gap between their records makes a close contest less certain.",
+      "after": "E Kentucky (3-6) and Austin Peay (7-2) meet. The stronger record belongs to Austin Peay; the interest is in whether the other side can bridge that gap."
+    },
+    {
+      "id": "401868313",
+      "sport": "CFB",
+      "division": "FCS",
+      "rating": 40,
+      "start": "2026-11-07T21:00Z",
+      "matchup": "Stephen F. Austin Lumberjacks – Lamar Cardinals",
+      "before": "Stephen F. Austin Lumberjacks (9-0) and Lamar Cardinals (7-2) bring winning records into this matchup.",
+      "after": "SF Austin (9-0) and Lamar (7-2) bring winning records into this matchup."
+    },
+    {
+      "id": "401869153",
+      "sport": "CFB",
+      "division": "FCS",
+      "rating": 40,
+      "start": "2026-11-07T21:00Z",
+      "matchup": "East Texas A&M Lions – Nicholls Colonels",
+      "before": "East Texas A&M Lions (3-6) and Nicholls Colonels (3-6) meet. Both teams have losing records, which limits the appeal even if the game stays close.",
+      "after": "East Texas A&M (3-6) and Nicholls (3-6) meet with both teams looking to recover from losing starts. Their records are closely matched, though neither has established consistent winning form."
+    },
+    {
+      "id": "401868082",
+      "sport": "CFB",
+      "division": "FCS",
+      "rating": 40,
+      "start": "2026-11-07T22:00Z",
+      "matchup": "Northern Arizona Lumberjacks – Cal Poly Mustangs",
+      "before": "Northern Arizona Lumberjacks (7-2) and Cal Poly Mustangs (4-6) meet. The gap between their records makes a close contest less certain.",
+      "after": "N Arizona (7-2) and Cal Poly (4-6) meet. The stronger record belongs to N Arizona; the interest is in whether the other side can bridge that gap."
+    },
+    {
+      "id": "401868090",
+      "sport": "CFB",
+      "division": "FCS",
+      "rating": 40,
+      "start": "2026-11-07T22:00Z",
+      "matchup": "Eastern Washington Eagles – Idaho Vandals",
+      "before": "Eastern Washington Eagles (2-7) and Idaho Vandals (4-5) meet. Both teams have losing records, which limits the appeal even if the game stays close.",
+      "after": "E Washington (2-7) and Idaho (4-5) meet with both teams looking to recover from losing starts."
+    },
+    {
+      "id": "401868137",
+      "sport": "CFB",
+      "division": "FCS",
+      "rating": 40,
+      "start": "2026-11-07T22:00Z",
+      "matchup": "West Georgia Wolves – Central Arkansas Bears",
+      "before": "West Georgia Wolves (1-8) and Central Arkansas Bears (2-7) meet. Both teams have losing records, which limits the appeal even if the game stays close.",
+      "after": "West Georgia (1-8) and C Arkansas (2-7) meet with both teams looking to recover from losing starts."
+    },
+    {
+      "id": "401869140",
+      "sport": "CFB",
+      "division": "FCS",
+      "rating": 40,
+      "start": "2026-11-07T22:00Z",
+      "matchup": "McNeese Cowboys – Houston Christian Huskies",
+      "before": "McNeese Cowboys (4-5) and Houston Christian Huskies (4-5) meet. Both teams have losing records, which limits the appeal even if the game stays close.",
+      "after": "McNeese (4-5) and Hou Christian (4-5) meet with both teams looking to recover from losing starts. Their records are closely matched, though neither has established consistent winning form."
+    },
+    {
+      "id": "401867862",
+      "sport": "CFB",
+      "division": "FCS",
+      "rating": 40,
+      "start": "2026-11-07T23:00Z",
+      "matchup": "Southern Illinois Salukis – Indiana State Sycamores",
+      "before": "Southern Illinois Salukis (4-5) and Indiana State Sycamores (2-7) meet. Both teams have losing records, which limits the appeal even if the game stays close.",
+      "after": "S Illinois (4-5) and Indiana St (2-7) meet with both teams looking to recover from losing starts."
+    },
+    {
+      "id": "401868108",
+      "sport": "CFB",
+      "division": "FCS",
+      "rating": 40,
+      "start": "2026-11-07T23:00Z",
+      "matchup": "Montana State Bobcats – Idaho State Bengals",
+      "before": "Montana State Bobcats (8-1) and Idaho State Bengals (6-3) bring winning records into this matchup.",
+      "after": "Montana St (8-1) and Idaho St (6-3) bring winning records into this matchup."
+    },
+    {
+      "id": "401868057",
+      "sport": "CFB",
+      "division": "FCS",
+      "rating": 40,
+      "start": "2026-11-08T00:00Z",
+      "matchup": "Abilene Christian Wildcats – Tarleton State Texans",
+      "before": "Abilene Christian Wildcats (5-4) and Tarleton State Texans (9-0) bring winning records into this matchup. The gap between their records makes a close contest less certain.",
+      "after": "Abilene Chrstn (5-4) and Tarleton St (9-0) bring winning records into this matchup. The stronger record belongs to Tarleton St; the interest is in whether the other side can bridge that gap."
+    },
+    {
+      "id": "401868152",
+      "sport": "CFB",
+      "division": "FCS",
+      "rating": 40,
+      "start": "2026-11-08T00:00Z",
+      "matchup": "West Florida Argonauts – North Alabama Lions",
+      "before": "West Florida Argonauts (4-3) and North Alabama Lions (5-4) bring winning records into this matchup. Their similar records suggest a competitive game, although no betting line is listed yet.",
+      "after": "West Florida (4-3) and North Alabama (5-4) bring winning records into this matchup. Their similar records suggest a competitive game."
+    },
+    {
+      "id": "401868166",
+      "sport": "CFB",
+      "division": "FCS",
+      "rating": 40,
+      "start": "2026-11-08T00:00Z",
+      "matchup": "Utah Tech Trailblazers – UC Davis Aggies",
+      "before": "Utah Tech Trailblazers (1-8) and UC Davis Aggies (5-4) meet. The gap between their records makes a close contest less certain.",
+      "after": "Utah Tech (1-8) and UC Davis (5-4) meet. The stronger record belongs to UC Davis; the interest is in whether the other side can bridge that gap."
+    },
+    {
+      "id": "401868321",
+      "sport": "CFB",
+      "division": "FCS",
+      "rating": 40,
+      "start": "2026-11-08T00:00Z",
+      "matchup": "Incarnate Word Cardinals – SE Louisiana Lions",
+      "before": "Incarnate Word Cardinals (5-4) and SE Louisiana Lions (4-5) meet. Without a listed betting line, it is harder to judge how evenly matched they are.",
+      "after": "Incarnate Word (5-4) and SE Louisiana (4-5) meet. The records offer a mixed picture, leaving the balance of this matchup open."
+    },
+    {
+      "id": "401909922",
+      "sport": "NBA",
+      "rating": 65,
+      "start": "2026-11-05T00:00Z",
+      "matchup": "Philadelphia 76ers – Detroit Pistons",
+      "before": "Philadelphia 76ers (7-1) and Detroit Pistons (6-1) bring winning records into this matchup. A 1.5-point spread points to a close contest. It is still early in the season, so those records are a promising start rather than a long track record.",
+      "after": "Philadelphia 76ers (7-1) and Detroit Pistons (6-1) bring winning records into this matchup. A 1.5-point spread points to a close contest."
+    },
+    {
+      "id": "401909923",
+      "sport": "NBA",
+      "rating": 44,
+      "start": "2026-11-05T00:00Z",
+      "matchup": "Atlanta Hawks – Washington Wizards",
+      "before": "Atlanta Hawks (4-4) and Washington Wizards (4-3) meet. Without a listed betting line, it is harder to judge how evenly matched they are.",
+      "after": "Atlanta Hawks (4-4) and Washington Wizards (4-3) meet in the Southeast Division. There is little separation in their records."
+    },
+    {
+      "id": "401909924",
+      "sport": "NBA",
+      "rating": 37,
+      "start": "2026-11-05T00:30Z",
+      "matchup": "Milwaukee Bucks – Boston Celtics",
+      "before": "Milwaukee Bucks (1-6) and Boston Celtics (5-2) meet. The gap between their records makes a close contest less certain.",
+      "after": "Milwaukee Bucks (1-6) and Boston Celtics (5-2) meet. The stronger record belongs to the Celtics; the interest is in whether the other side can bridge that gap."
+    },
+    {
+      "id": "401909925",
+      "sport": "NBA",
+      "rating": 37,
+      "start": "2026-11-05T00:30Z",
+      "matchup": "Charlotte Hornets – Brooklyn Nets",
+      "before": "Charlotte Hornets (3-5) and Brooklyn Nets (1-6) meet. A 2.5-point spread points to a close contest. Both teams have losing records, which limits the appeal even if the game stays close.",
+      "after": "Charlotte Hornets (3-5) and Brooklyn Nets (1-6) meet with both teams looking to recover from losing starts. A 2.5-point spread points to a close contest."
+    },
+    {
+      "id": "401909926",
+      "sport": "NBA",
+      "rating": 33,
+      "start": "2026-11-05T00:30Z",
+      "matchup": "Chicago Bulls – New York Knicks",
+      "before": "Chicago Bulls (1-6) and New York Knicks (3-4) meet. Both teams have losing records, which limits the appeal even if the game stays close.",
+      "after": "Chicago Bulls (1-6) and New York Knicks (3-4) meet with both teams looking to recover from losing starts."
+    },
+    {
+      "id": "401909927",
+      "sport": "NBA",
+      "rating": 37,
+      "start": "2026-11-05T01:00Z",
+      "matchup": "Indiana Pacers – Memphis Grizzlies",
+      "before": "Indiana Pacers (2-6) and Memphis Grizzlies (6-1) meet. The gap between their records makes a close contest less certain.",
+      "after": "Indiana Pacers (2-6) and Memphis Grizzlies (6-1) meet. The stronger record belongs to the Grizzlies; the interest is in whether the other side can bridge that gap."
+    },
+    {
+      "id": "401909928",
+      "sport": "NBA",
+      "rating": 33,
+      "start": "2026-11-05T01:00Z",
+      "matchup": "Utah Jazz – New Orleans Pelicans",
+      "before": "Utah Jazz (1-6) and New Orleans Pelicans (3-4) meet. Both teams have losing records, which limits the appeal even if the game stays close.",
+      "after": "Utah Jazz (1-6) and New Orleans Pelicans (3-4) meet with both teams looking to recover from losing starts."
+    },
+    {
+      "id": "401909929",
+      "sport": "NBA",
+      "rating": 50,
+      "start": "2026-11-05T01:00Z",
+      "matchup": "Cleveland Cavaliers – Oklahoma City Thunder",
+      "before": "Cleveland Cavaliers (4-3) and Oklahoma City Thunder (5-2) bring winning records into this matchup. A 2.5-point spread points to a close contest. It is still early in the season, so those records are a promising start rather than a long track record.",
+      "after": "Cleveland Cavaliers (4-3) and Oklahoma City Thunder (5-2) bring winning records into this matchup. A 2.5-point spread points to a close contest."
+    },
+    {
+      "id": "401909930",
+      "sport": "NBA",
+      "rating": 52,
+      "start": "2026-11-05T01:30Z",
+      "matchup": "Minnesota Timberwolves – Houston Rockets",
+      "before": "Minnesota Timberwolves (5-3) and Houston Rockets (7-1) bring winning records into this matchup. Houston Rockets are favored by 9.5 points, leaving more risk of an uneven contest. It is still early in the season, so those records are a promising start rather than a long track record.",
+      "after": "Minnesota Timberwolves (5-3) and Houston Rockets (7-1) bring winning records into this matchup. The line favors the Rockets by 9.5 points; the underdog faces a tougher test."
+    },
+    {
+      "id": "401909931",
+      "sport": "NBA",
+      "rating": 41,
+      "start": "2026-11-05T02:00Z",
+      "matchup": "Toronto Raptors – Denver Nuggets",
+      "before": "Toronto Raptors (4-3) and Denver Nuggets (3-3) meet. Without a listed betting line, it is harder to judge how evenly matched they are.",
+      "after": "Toronto Raptors (4-3) and Denver Nuggets (3-3) meet. There is little separation in their records."
+    },
+    {
+      "id": "401909932",
+      "sport": "NBA",
+      "rating": 37,
+      "start": "2026-11-05T02:00Z",
+      "matchup": "Portland Trail Blazers – Phoenix Suns",
+      "before": "Portland Trail Blazers (5-1) and Phoenix Suns (1-4) meet. The gap between their records makes a close contest less certain.",
+      "after": "Portland Trail Blazers (5-1) and Phoenix Suns (1-4) meet. The stronger record belongs to the Trail Blazers; the interest is in whether the other side can bridge that gap."
+    },
+    {
+      "id": "401909933",
+      "sport": "NBA",
+      "rating": 50,
+      "start": "2026-11-05T02:30Z",
+      "matchup": "Dallas Mavericks – San Antonio Spurs",
+      "before": "Dallas Mavericks (4-3) and San Antonio Spurs (5-2) bring winning records into this matchup. San Antonio Spurs are favored by 12.5 points, so a one-sided game is a real possibility. It is still early in the season, so those records are a promising start rather than a long track record.",
+      "after": "Dallas Mavericks (4-3) and San Antonio Spurs (5-2) bring winning records into this matchup. They are also Southwest Division opponents. The line favors the Spurs by 12.5 points, so a one-sided game is a real possibility."
+    },
+    {
+      "id": "401909934",
+      "sport": "NBA",
+      "rating": 40,
+      "start": "2026-11-05T03:00Z",
+      "matchup": "Los Angeles Lakers – Sacramento Kings",
+      "before": "Los Angeles Lakers (6-2) and Sacramento Kings (1-6) meet. The gap between their records makes a close contest less certain.",
+      "after": "Los Angeles Lakers (6-2) and Sacramento Kings (1-6) meet in the Pacific Division. The stronger record belongs to the Lakers; the interest is in whether the other side can bridge that gap."
+    },
+    {
+      "id": "401909935",
+      "sport": "NBA",
+      "rating": 33,
+      "start": "2026-11-05T03:30Z",
+      "matchup": "Miami Heat – LA Clippers",
+      "before": "Miami Heat (2-5) and LA Clippers (1-6) meet. Both teams have losing records, which limits the appeal even if the game stays close.",
+      "after": "Miami Heat (2-5) and LA Clippers (1-6) meet with both teams looking to recover from losing starts."
+    },
+    {
+      "id": "401909936",
+      "sport": "NBA",
+      "rating": 33,
+      "start": "2026-11-06T02:00Z",
+      "matchup": "Orlando Magic – Phoenix Suns",
+      "before": "Orlando Magic (2-5) and Phoenix Suns (1-4) meet. Both teams have losing records, which limits the appeal even if the game stays close.",
+      "after": "Orlando Magic (2-5) and Phoenix Suns (1-4) meet with both teams looking to recover from losing starts. Their records are closely matched, though neither has established consistent winning form."
+    },
+    {
+      "id": "401909937",
+      "sport": "NBA",
+      "rating": 37,
+      "start": "2026-11-06T03:00Z",
+      "matchup": "Miami Heat – Golden State Warriors",
+      "before": "Miami Heat (2-5) and Golden State Warriors (5-3) meet. The gap between their records makes a close contest less certain.",
+      "after": "Miami Heat (2-5) and Golden State Warriors (5-3) meet. The stronger record belongs to the Warriors; the interest is in whether the other side can bridge that gap."
+    },
+    {
+      "id": "401909287",
+      "sport": "NBA",
+      "rating": 44,
+      "start": "2026-11-07T00:00Z",
+      "matchup": "Washington Wizards – Atlanta Hawks",
+      "before": "Washington Wizards (4-3) and Atlanta Hawks (4-4) meet. Without a listed betting line, it is harder to judge how evenly matched they are.",
+      "after": "Washington Wizards (4-3) and Atlanta Hawks (4-4) meet in the Southeast Division. There is little separation in their records."
+    },
+    {
+      "id": "401909288",
+      "sport": "NBA",
+      "rating": 37,
+      "start": "2026-11-07T00:00Z",
+      "matchup": "Boston Celtics – Charlotte Hornets",
+      "before": "Boston Celtics (5-2) and Charlotte Hornets (3-5) meet. The gap between their records makes a close contest less certain.",
+      "after": "Boston Celtics (5-2) and Charlotte Hornets (3-5) meet. The stronger record belongs to the Celtics; the interest is in whether the other side can bridge that gap."
+    },
+    {
+      "id": "401909289",
+      "sport": "NBA",
+      "rating": 48,
+      "start": "2026-11-07T00:30Z",
+      "matchup": "Philadelphia 76ers – Cleveland Cavaliers",
+      "before": "Philadelphia 76ers (7-1) and Cleveland Cavaliers (4-3) bring winning records into this matchup. The gap between their records makes a close contest less certain. It is still early in the season, so those records are a promising start rather than a long track record.",
+      "after": "Philadelphia 76ers (7-1) and Cleveland Cavaliers (4-3) bring winning records into this matchup. The stronger record belongs to the 76ers; the interest is in whether the other side can bridge that gap."
+    },
+    {
+      "id": "401909290",
+      "sport": "NBA",
+      "rating": 37,
+      "start": "2026-11-07T01:00Z",
+      "matchup": "Utah Jazz – Dallas Mavericks",
+      "before": "Utah Jazz (1-6) and Dallas Mavericks (4-3) meet. The gap between their records makes a close contest less certain.",
+      "after": "Utah Jazz (1-6) and Dallas Mavericks (4-3) meet. The stronger record belongs to the Mavericks; the interest is in whether the other side can bridge that gap."
+    },
+    {
+      "id": "401909291",
+      "sport": "NBA",
+      "rating": 51,
+      "start": "2026-11-07T01:00Z",
+      "matchup": "Oklahoma City Thunder – Memphis Grizzlies",
+      "before": "Oklahoma City Thunder (5-2) and Memphis Grizzlies (6-1) bring winning records into this matchup. It is still early in the season, so those records are a promising start rather than a long track record.",
+      "after": "Oklahoma City Thunder (5-2) and Memphis Grizzlies (6-1) bring winning records into this matchup."
+    },
+    {
+      "id": "401909292",
+      "sport": "NBA",
+      "rating": 37,
+      "start": "2026-11-07T01:00Z",
+      "matchup": "Toronto Raptors – Milwaukee Bucks",
+      "before": "Toronto Raptors (4-3) and Milwaukee Bucks (1-6) meet. The gap between their records makes a close contest less certain.",
+      "after": "Toronto Raptors (4-3) and Milwaukee Bucks (1-6) meet. The stronger record belongs to the Raptors; the interest is in whether the other side can bridge that gap."
+    },
+    {
+      "id": "401909293",
+      "sport": "NBA",
+      "rating": 37,
+      "start": "2026-11-07T01:00Z",
+      "matchup": "Minnesota Timberwolves – New Orleans Pelicans",
+      "before": "Minnesota Timberwolves (5-3) and New Orleans Pelicans (3-4) meet. Without a listed betting line, it is harder to judge how evenly matched they are.",
+      "after": "Minnesota Timberwolves (5-3) and New Orleans Pelicans (3-4) meet. The records offer a mixed picture, leaving the balance of this matchup open."
+    },
+    {
+      "id": "401909294",
+      "sport": "NBA",
+      "rating": 57,
+      "start": "2026-11-07T03:00Z",
+      "matchup": "Portland Trail Blazers – Los Angeles Lakers",
+      "before": "Portland Trail Blazers (5-1) and Los Angeles Lakers (6-2) bring winning records into this matchup. Their similar records suggest a competitive game, although no betting line is listed yet. It is still early in the season, so those records are a promising start rather than a long track record.",
+      "after": "Portland Trail Blazers (5-1) and Los Angeles Lakers (6-2) bring winning records into this matchup. Their similar records suggest a competitive game."
+    },
+    {
+      "id": "401909295",
+      "sport": "NBA",
+      "rating": 37,
+      "start": "2026-11-07T03:00Z",
+      "matchup": "San Antonio Spurs – Sacramento Kings",
+      "before": "San Antonio Spurs (5-2) and Sacramento Kings (1-6) meet. The gap between their records makes a close contest less certain.",
+      "after": "San Antonio Spurs (5-2) and Sacramento Kings (1-6) meet. The stronger record belongs to the Spurs; the interest is in whether the other side can bridge that gap."
+    },
+    {
+      "id": "401909938",
+      "sport": "NBA",
+      "rating": 37,
+      "start": "2026-11-07T22:00Z",
+      "matchup": "Denver Nuggets – Indiana Pacers",
+      "before": "Denver Nuggets (3-3) and Indiana Pacers (2-6) meet. Without a listed betting line, it is harder to judge how evenly matched they are.",
+      "after": "Denver Nuggets (3-3) and Indiana Pacers (2-6) meet. The records offer a mixed picture, leaving the balance of this matchup open."
+    },
+    {
+      "id": "401909939",
+      "sport": "NBA",
+      "rating": 37,
+      "start": "2026-11-08T00:30Z",
+      "matchup": "Brooklyn Nets – Atlanta Hawks",
+      "before": "Brooklyn Nets (1-6) and Atlanta Hawks (4-4) meet. The gap between their records makes a close contest less certain.",
+      "after": "Brooklyn Nets (1-6) and Atlanta Hawks (4-4) meet. The stronger record belongs to the Hawks; the interest is in whether the other side can bridge that gap."
+    },
+    {
+      "id": "401909940",
+      "sport": "NBA",
+      "rating": 37,
+      "start": "2026-11-08T01:00Z",
+      "matchup": "New York Knicks – Cleveland Cavaliers",
+      "before": "New York Knicks (3-4) and Cleveland Cavaliers (4-3) meet. Without a listed betting line, it is harder to judge how evenly matched they are.",
+      "after": "New York Knicks (3-4) and Cleveland Cavaliers (4-3) meet. The records offer a mixed picture, leaving the balance of this matchup open."
+    },
+    {
+      "id": "401909941",
+      "sport": "NBA",
+      "rating": 46,
+      "start": "2026-11-08T01:00Z",
+      "matchup": "Washington Wizards – Oklahoma City Thunder",
+      "before": "Washington Wizards (4-3) and Oklahoma City Thunder (5-2) bring winning records into this matchup. It is still early in the season, so those records are a promising start rather than a long track record.",
+      "after": "Washington Wizards (4-3) and Oklahoma City Thunder (5-2) bring winning records into this matchup."
+    },
+    {
+      "id": "401909942",
+      "sport": "NBA",
+      "rating": 37,
+      "start": "2026-11-08T01:30Z",
+      "matchup": "Orlando Magic – Golden State Warriors",
+      "before": "Orlando Magic (2-5) and Golden State Warriors (5-3) meet. The gap between their records makes a close contest less certain.",
+      "after": "Orlando Magic (2-5) and Golden State Warriors (5-3) meet. The stronger record belongs to the Warriors; the interest is in whether the other side can bridge that gap."
+    },
+    {
+      "id": "401909943",
+      "sport": "NBA",
+      "rating": 37,
+      "start": "2026-11-08T02:00Z",
+      "matchup": "Houston Rockets – Phoenix Suns",
+      "before": "Houston Rockets (7-1) and Phoenix Suns (1-4) meet. The gap between their records makes a close contest less certain.",
+      "after": "Houston Rockets (7-1) and Phoenix Suns (1-4) meet. The stronger record belongs to the Rockets; the interest is in whether the other side can bridge that gap."
+    },
+    {
+      "id": "401909944",
+      "sport": "NBA",
+      "rating": 51,
+      "start": "2026-11-08T03:00Z",
+      "matchup": "San Antonio Spurs – Portland Trail Blazers",
+      "before": "San Antonio Spurs (5-2) and Portland Trail Blazers (5-1) bring winning records into this matchup. It is still early in the season, so those records are a promising start rather than a long track record.",
+      "after": "San Antonio Spurs (5-2) and Portland Trail Blazers (5-1) bring winning records into this matchup."
+    },
+    {
+      "id": "401909945",
+      "sport": "NBA",
+      "rating": 37,
+      "start": "2026-11-08T20:30Z",
+      "matchup": "Philadelphia 76ers – Chicago Bulls",
+      "before": "Philadelphia 76ers (7-1) and Chicago Bulls (1-6) meet. The gap between their records makes a close contest less certain.",
+      "after": "Philadelphia 76ers (7-1) and Chicago Bulls (1-6) meet. The stronger record belongs to the 76ers; the interest is in whether the other side can bridge that gap."
+    },
+    {
+      "id": "401909946",
+      "sport": "NBA",
+      "rating": 54,
+      "start": "2026-11-08T23:00Z",
+      "matchup": "Los Angeles Lakers – Detroit Pistons",
+      "before": "Los Angeles Lakers (6-2) and Detroit Pistons (6-1) bring winning records into this matchup. It is still early in the season, so those records are a promising start rather than a long track record.",
+      "after": "Los Angeles Lakers (6-2) and Detroit Pistons (6-1) bring winning records into this matchup."
+    },
+    {
+      "id": "401909947",
+      "sport": "NBA",
+      "rating": 37,
+      "start": "2026-11-09T00:00Z",
+      "matchup": "Utah Jazz – Minnesota Timberwolves",
+      "before": "Utah Jazz (1-6) and Minnesota Timberwolves (5-3) meet. The gap between their records makes a close contest less certain.",
+      "after": "Utah Jazz (1-6) and Minnesota Timberwolves (5-3) meet. The stronger record belongs to the Timberwolves; the interest is in whether the other side can bridge that gap."
+    },
+    {
+      "id": "401909948",
+      "sport": "NBA",
+      "rating": 37,
+      "start": "2026-11-09T00:30Z",
+      "matchup": "Brooklyn Nets – Dallas Mavericks",
+      "before": "Brooklyn Nets (1-6) and Dallas Mavericks (4-3) meet. The gap between their records makes a close contest less certain.",
+      "after": "Brooklyn Nets (1-6) and Dallas Mavericks (4-3) meet. The stronger record belongs to the Mavericks; the interest is in whether the other side can bridge that gap."
+    },
+    {
+      "id": "401909949",
+      "sport": "NBA",
+      "rating": 37,
+      "start": "2026-11-09T01:00Z",
+      "matchup": "Boston Celtics – Milwaukee Bucks",
+      "before": "Boston Celtics (5-2) and Milwaukee Bucks (1-6) meet. The gap between their records makes a close contest less certain.",
+      "after": "Boston Celtics (5-2) and Milwaukee Bucks (1-6) meet. The stronger record belongs to the Celtics; the interest is in whether the other side can bridge that gap."
+    },
+    {
+      "id": "401909950",
+      "sport": "NBA",
+      "rating": 33,
+      "start": "2026-11-09T02:00Z",
+      "matchup": "New Orleans Pelicans – LA Clippers",
+      "before": "New Orleans Pelicans (3-4) and LA Clippers (1-6) meet. Both teams have losing records, which limits the appeal even if the game stays close.",
+      "after": "New Orleans Pelicans (3-4) and LA Clippers (1-6) meet with both teams looking to recover from losing starts."
+    },
+    {
+      "id": "401909951",
+      "sport": "NBA",
+      "rating": 33,
+      "start": "2026-11-09T02:00Z",
+      "matchup": "Miami Heat – Sacramento Kings",
+      "before": "Miami Heat (2-5) and Sacramento Kings (1-6) meet. Both teams have losing records, which limits the appeal even if the game stays close.",
+      "after": "Miami Heat (2-5) and Sacramento Kings (1-6) meet with both teams looking to recover from losing starts."
+    },
+    {
+      "id": "401909952",
+      "sport": "NBA",
+      "rating": 43,
+      "start": "2026-11-10T00:00Z",
+      "matchup": "Los Angeles Lakers – Atlanta Hawks",
+      "before": "Los Angeles Lakers (6-2) and Atlanta Hawks (4-4) meet. Without a listed betting line, it is harder to judge how evenly matched they are.",
+      "after": "Los Angeles Lakers (6-2) and Atlanta Hawks (4-4) meet. The records offer a mixed picture, leaving the balance of this matchup open."
+    },
+    {
+      "id": "401909953",
+      "sport": "NBA",
+      "rating": 37,
+      "start": "2026-11-10T00:00Z",
+      "matchup": "Cleveland Cavaliers – Charlotte Hornets",
+      "before": "Cleveland Cavaliers (4-3) and Charlotte Hornets (3-5) meet. Without a listed betting line, it is harder to judge how evenly matched they are.",
+      "after": "Cleveland Cavaliers (4-3) and Charlotte Hornets (3-5) meet. The records offer a mixed picture, leaving the balance of this matchup open."
+    },
+    {
+      "id": "401909954",
+      "sport": "NBA",
+      "rating": 48,
+      "start": "2026-11-10T00:00Z",
+      "matchup": "Washington Wizards – Detroit Pistons",
+      "before": "Washington Wizards (4-3) and Detroit Pistons (6-1) bring winning records into this matchup. It is still early in the season, so those records are a promising start rather than a long track record.",
+      "after": "Washington Wizards (4-3) and Detroit Pistons (6-1) bring winning records into this matchup."
+    },
+    {
+      "id": "401909955",
+      "sport": "NBA",
+      "rating": 48,
+      "start": "2026-11-10T00:30Z",
+      "matchup": "Memphis Grizzlies – Toronto Raptors",
+      "before": "Memphis Grizzlies (6-1) and Toronto Raptors (4-3) bring winning records into this matchup. It is still early in the season, so those records are a promising start rather than a long track record.",
+      "after": "Memphis Grizzlies (6-1) and Toronto Raptors (4-3) bring winning records into this matchup."
+    },
+    {
+      "id": "401909956",
+      "sport": "NBA",
+      "rating": 37,
+      "start": "2026-11-10T01:00Z",
+      "matchup": "Indiana Pacers – Dallas Mavericks",
+      "before": "Indiana Pacers (2-6) and Dallas Mavericks (4-3) meet. The gap between their records makes a close contest less certain.",
+      "after": "Indiana Pacers (2-6) and Dallas Mavericks (4-3) meet. The stronger record belongs to the Mavericks; the interest is in whether the other side can bridge that gap."
+    },
+    {
+      "id": "401909957",
+      "sport": "NBA",
+      "rating": 45,
+      "start": "2026-11-10T01:30Z",
+      "matchup": "Denver Nuggets – Houston Rockets",
+      "before": "Denver Nuggets (3-3) and Houston Rockets (7-1) meet. The gap between their records makes a close contest less certain.",
+      "after": "Denver Nuggets (3-3) and Houston Rockets (7-1) meet. The stronger record belongs to the Rockets; the interest is in whether the other side can bridge that gap."
+    },
+    {
+      "id": "401909958",
+      "sport": "NBA",
+      "rating": 37,
+      "start": "2026-11-10T02:00Z",
+      "matchup": "San Antonio Spurs – Phoenix Suns",
+      "before": "San Antonio Spurs (5-2) and Phoenix Suns (1-4) meet. The gap between their records makes a close contest less certain.",
+      "after": "San Antonio Spurs (5-2) and Phoenix Suns (1-4) meet. The stronger record belongs to the Spurs; the interest is in whether the other side can bridge that gap."
+    },
+    {
+      "id": "401909959",
+      "sport": "NBA",
+      "rating": 37,
+      "start": "2026-11-10T03:00Z",
+      "matchup": "New Orleans Pelicans – Golden State Warriors",
+      "before": "New Orleans Pelicans (3-4) and Golden State Warriors (5-3) meet. Without a listed betting line, it is harder to judge how evenly matched they are.",
+      "after": "New Orleans Pelicans (3-4) and Golden State Warriors (5-3) meet. The records offer a mixed picture, leaving the balance of this matchup open."
+    },
+    {
+      "id": "401909960",
+      "sport": "NBA",
+      "rating": 33,
+      "start": "2026-11-11T00:30Z",
+      "matchup": "Milwaukee Bucks – New York Knicks",
+      "before": "Milwaukee Bucks (1-6) and New York Knicks (3-4) meet. Both teams have losing records, which limits the appeal even if the game stays close.",
+      "after": "Milwaukee Bucks (1-6) and New York Knicks (3-4) meet with both teams looking to recover from losing starts."
+    },
+    {
+      "id": "401909961",
+      "sport": "NBA",
+      "rating": 54,
+      "start": "2026-11-11T01:00Z",
+      "matchup": "Boston Celtics – Philadelphia 76ers",
+      "before": "Boston Celtics (5-2) and Philadelphia 76ers (7-1) bring winning records into this matchup. It is still early in the season, so those records are a promising start rather than a long track record.",
+      "after": "Boston Celtics (5-2) and Philadelphia 76ers (7-1) bring winning records into this matchup. They are also Atlantic Division opponents."
+    },
+    {
+      "id": "401909962",
+      "sport": "NBA",
+      "rating": 36,
+      "start": "2026-11-11T02:00Z",
+      "matchup": "LA Clippers – Phoenix Suns",
+      "before": "LA Clippers (1-6) and Phoenix Suns (1-4) meet. Both teams have losing records, which limits the appeal even if the game stays close.",
+      "after": "LA Clippers (1-6) and Phoenix Suns (1-4) meet in the Pacific Division. Their records are closely matched, though neither has established consistent winning form. Both teams are trying to improve on losing records."
+    },
+    {
+      "id": "401909963",
+      "sport": "NBA",
+      "rating": 33,
+      "start": "2026-11-11T02:00Z",
+      "matchup": "Miami Heat – Utah Jazz",
+      "before": "Miami Heat (2-5) and Utah Jazz (1-6) meet. Both teams have losing records, which limits the appeal even if the game stays close.",
+      "after": "Miami Heat (2-5) and Utah Jazz (1-6) meet with both teams looking to recover from losing starts."
+    },
+    {
+      "id": "401909964",
+      "sport": "NBA",
+      "rating": 33,
+      "start": "2026-11-11T03:00Z",
+      "matchup": "Orlando Magic – Sacramento Kings",
+      "before": "Orlando Magic (2-5) and Sacramento Kings (1-6) meet. Both teams have losing records, which limits the appeal even if the game stays close.",
+      "after": "Orlando Magic (2-5) and Sacramento Kings (1-6) meet with both teams looking to recover from losing starts."
+    },
+    {
+      "id": "401909965",
+      "sport": "NBA",
+      "rating": 54,
+      "start": "2026-11-11T04:00Z",
+      "matchup": "Oklahoma City Thunder – Portland Trail Blazers",
+      "before": "Oklahoma City Thunder (5-2) and Portland Trail Blazers (5-1) bring winning records into this matchup. It is still early in the season, so those records are a promising start rather than a long track record.",
+      "after": "Oklahoma City Thunder (5-2) and Portland Trail Blazers (5-1) bring winning records into this matchup. They are also Northwest Division opponents."
+    },
+    {
+      "id": "401906848",
+      "sport": "NCAAB",
+      "rating": 39,
+      "start": "2026-11-03T23:00Z",
+      "matchup": "Wofford Terriers – Tennessee Volunteers",
+      "before": "Wofford Terriers and No. 8 Tennessee Volunteers open their seasons. Tennessee Volunteers are favored by 25.5 points, so a one-sided game is a real possibility.",
+      "after": "Wofford and No. 8 Tennessee open their seasons. The line favors Tennessee by 25.5 points, so a one-sided game is a real possibility."
+    },
+    {
+      "id": "401921801",
+      "sport": "NCAAB",
+      "rating": 38,
+      "start": "2026-11-04T00:00Z",
+      "matchup": "Manhattan Jaspers – Kentucky Wildcats",
+      "before": "Manhattan Jaspers and No. 23 Kentucky Wildcats open their seasons. Kentucky Wildcats are favored by 33.5 points, so a one-sided game is a real possibility.",
+      "after": "Manhattan and No. 23 Kentucky open their seasons. The line favors Kentucky by 33.5 points, so a one-sided game is a real possibility."
+    },
+    {
+      "id": "401920422",
+      "sport": "NCAAB",
+      "rating": 39,
+      "start": "2026-11-04T00:30Z",
+      "matchup": "Drexel Dragons – Virginia Cavaliers",
+      "before": "Drexel Dragons and No. 9 Virginia Cavaliers open their seasons. Virginia Cavaliers are favored by 31.5 points, so a one-sided game is a real possibility.",
+      "after": "Drexel and No. 9 Virginia open their seasons. The line favors Virginia by 31.5 points, so a one-sided game is a real possibility."
+    },
+    {
+      "id": "401906757",
+      "sport": "NCAAB",
+      "rating": 38,
+      "start": "2026-11-04T00:30Z",
+      "matchup": "Sam Houston Bearkats – Alabama Crimson Tide",
+      "before": "Sam Houston Bearkats and No. 20 Alabama Crimson Tide open their seasons. Alabama Crimson Tide is favored by 26.5 points, so a one-sided game is a real possibility.",
+      "after": "Sam Houston and No. 20 Alabama open their seasons. The line favors Alabama by 26.5 points, so a one-sided game is a real possibility."
+    },
+    {
+      "id": "401929372",
+      "sport": "NCAAB",
+      "rating": 38,
+      "start": "2026-11-04T01:00Z",
+      "matchup": "Arkansas-Pine Bluff Golden Lions – Arkansas Razorbacks",
+      "before": "Arkansas-Pine Bluff Golden Lions and No. 12 Arkansas Razorbacks open their seasons. Arkansas Razorbacks are favored by 41.5 points, so a one-sided game is a real possibility.",
+      "after": "AR-Pine Bluff and No. 12 Arkansas open their seasons. The line favors Arkansas by 41.5 points, so a one-sided game is a real possibility."
+    },
+    {
+      "id": "401879242",
+      "sport": "Soccer",
+      "rating": 36,
+      "start": "2026-11-06T20:00Z",
+      "matchup": "Coventry City – Everton",
+      "before": "Coventry City (3-0-6) and Everton (3-4-2) meet. Both teams have losing records, which limits the appeal even if the game stays close.",
+      "after": "Coventry City (3-0-6) and Everton (3-4-2) meet with both teams looking to recover from losing starts. Their records are closely matched, though neither has established consistent winning form."
+    },
+    {
+      "id": "401915386",
+      "sport": "Soccer",
+      "rating": 36,
+      "start": "2026-11-03T20:00Z",
+      "matchup": "Bayern Munich – Atlético Madrid",
+      "before": "Bayern Munich (1-2-0) and Atlético Madrid (1-1-1) meet. Both teams have losing records, which limits the appeal even if the game stays close.",
+      "after": "Bayern Munich (1-2-0) and Atlético Madrid (1-1-1) meet with both teams looking to recover from losing starts. Their records are closely matched, though neither has established consistent winning form."
+    },
+    {
+      "id": "401915387",
+      "sport": "Soccer",
+      "rating": 36,
+      "start": "2026-11-03T20:00Z",
+      "matchup": "Aston Villa – Barcelona",
+      "before": "Aston Villa (3-0-0) and Barcelona (2-0-1) bring winning records into this matchup. The gap between their records makes a close contest less certain.",
+      "after": "Aston Villa (3-0-0) and Barcelona (2-0-1) bring winning records into this matchup. The stronger record belongs to Aston Villa; the interest is in whether the other side can bridge that gap."
+    },
+    {
+      "id": "401915384",
+      "sport": "Soccer",
+      "rating": 36,
+      "start": "2026-11-03T20:00Z",
+      "matchup": "Lille – Bodo/Glimt",
+      "before": "Lille (0-0-3) and Bodo/Glimt (1-0-2) meet. The gap between their records makes a close contest less certain. Both teams have losing records, which limits the appeal even if the game stays close.",
+      "after": "Lille (0-0-3) and Bodo/Glimt (1-0-2) meet with both teams looking to recover from losing starts. The stronger record belongs to Bodo/Glimt; the interest is in whether the other side can bridge that gap."
+    },
+    {
+      "id": "401915307",
+      "sport": "Soccer",
+      "rating": 36,
+      "start": "2026-11-03T20:00Z",
+      "matchup": "Internazionale – Feyenoord Rotterdam",
+      "before": "Internazionale (1-0-2) and Feyenoord Rotterdam (1-0-2) meet. Both teams have losing records, which limits the appeal even if the game stays close.",
+      "after": "Internazionale (1-0-2) and Feyenoord Rotterdam (1-0-2) meet with both teams looking to recover from losing starts. Their records are closely matched, though neither has established consistent winning form."
+    },
+    {
+      "id": "401915385",
+      "sport": "Soccer",
+      "rating": 36,
+      "start": "2026-11-03T20:00Z",
+      "matchup": "Slovan Bratislava – LASK Linz",
+      "before": "Slovan Bratislava (0-0-3) and LASK Linz (1-0-2) meet. The gap between their records makes a close contest less certain. Both teams have losing records, which limits the appeal even if the game stays close.",
+      "after": "Slovan Bratislava (0-0-3) and LASK Linz (1-0-2) meet with both teams looking to recover from losing starts. The stronger record belongs to LASK Linz; the interest is in whether the other side can bridge that gap."
+    },
+    {
+      "id": "401915308",
+      "sport": "Soccer",
+      "rating": 36,
+      "start": "2026-11-03T20:00Z",
+      "matchup": "AS Roma – Manchester United",
+      "before": "AS Roma (1-1-1) and Manchester United (1-0-2) meet. Both teams have losing records, which limits the appeal even if the game stays close.",
+      "after": "AS Roma (1-1-1) and Manchester United (1-0-2) meet with both teams looking to recover from losing starts. Their records are closely matched, though neither has established consistent winning form."
+    },
+    {
+      "id": "401915309",
+      "sport": "Soccer",
+      "rating": 36,
+      "start": "2026-11-03T20:00Z",
+      "matchup": "Paris Saint-Germain – Villarreal",
+      "before": "Paris Saint-Germain (3-0-0) and Villarreal (1-0-2) meet. The gap between their records makes a close contest less certain.",
+      "after": "Paris Saint-Germain (3-0-0) and Villarreal (1-0-2) meet with Paris Saint-Germain's unbeaten start on the line. The stronger record belongs to Paris Saint-Germain; the interest is in whether the other side can bridge that gap."
+    }
+  ]
+}
