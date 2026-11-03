@@ -17,7 +17,10 @@ function stateKey(c){
 function sequence(p,event){const id=String(p?.id||'');return /^\d+$/.test(id)&&id.startsWith(String(event))?Number(id.slice(String(event).length)):null;}
 function preserveObservation(game,previous){
  if(!reconciles(game)||game.state!=='live'||previous?.state!=='live'||identity(game)!==identity(previous))return;
- game.priorObservation={identity:identity(game),competition:competitionFor(previous)};
+ game.priorObservation=previous.timingUncertain&&previous.priorObservation?.identity===identity(game)?clone(previous.priorObservation):
+  {identity:identity(game),competition:competitionFor(previous)};
+ game.timedLastTrusted=clone(previous.timedLastTrusted || (!previous.timingUncertain&&!previous.scoringPartial&&Number.isFinite(previous.score)?
+  Object.fromEntries(['score','baseScore','openingScore','rawPregameScore','factors','live','momentumPoints','trajectoryScoring','historyOwnership','why','upsetText','upsetPoints','modelVersion','scoringPolicy'].map(key=>[key,previous[key]]).filter(([,value])=>value!==undefined)):null));
  if(previous.observationEvidence)game.observationEvidence=clone(previous.observationEvidence);
  if(previous.liveInputEvidence)game.liveInputEvidence=clone(previous.liveInputEvidence);
 }
@@ -47,6 +50,24 @@ function corroboratedRevision(c,prior,header,at,before){
 function reconcileObservation(game,c,summary){
  if(!reconciles(game)||game.state!=='live'||!c)return c;
  const prior=game.priorObservation?.identity===identity(game)?game.priorObservation.competition:null;
+ const status=c.status||{},period=Number(status.period),finalPeriod=game.sport==='NHL'?3:4;
+ const zero=/^0+(?:(?::0+(?:\.0+)?)|(?:\.0+))?$/.test(String(status.displayClock||''));
+ const terminal=status.type?.completed===true||status.type?.state==='post'||/\b(final|end of|intermission)\b/i.test(String(status.type?.detail||''));
+ const play=c.situation?.lastPlay,lastId=String(play?.id||'');
+ const zeroPlay=lastId&&[...(summary?.plays||[]),...(summary?.scoringPlays||[])].some(p=>
+  String(p.id||'')===lastId&&Number(p.period?.number)===period&&
+  /^0+(?:(?::0+(?:\.0+)?)|(?:\.0+))?$/.test(String(p.clock?.displayValue||''))&&
+  (c.competitors||[]).every(t=>String(t.score)===String(p[t.homeAway==='home'?'homeScore':'awayScore'])));
+ const transition=prior&&Number(prior.status?.period)<period&&
+  (period===finalPeriod||game.sport==='NHL'&&period===4);
+ if(zero&&transition&&!terminal&&!zeroPlay){
+  game.timingUncertain=true;game.scoringPartial=true;game.evidenceQuality='partial';
+  game.evidenceReasons=[...new Set([...(game.evidenceReasons||[]),'unconfirmed-clock'])];
+  game.liveRawStatus={...status,displayClock:'',timingUncertain:true};
+  if(game.timedLastTrusted)Object.assign(game,clone(game.timedLastTrusted));else game.score=null;
+  return c;
+ }
+ delete game.timingUncertain;
  if(!prior)return c;
  const at=normalizedTime(game.sport,c).elapsedSeconds,before=normalizedTime(game.sport,prior).elapsedSeconds;
  const seq=sequence(c.situation?.lastPlay,game.id),old=sequence(prior.situation?.lastPlay,game.id);
@@ -66,8 +87,11 @@ function reconcileObservation(game,c,summary){
  const olderRevision=String(c.situation?.lastPlay?.id)===String(prior.situation?.lastPlay?.id)&&nextRevision!==null&&oldRevision!==null&&nextRevision<oldRevision;
  // Without ordered provider IDs, a small clock correction remains legitimate.
  // A score correction corroborated by the independent summary also wins.
+ const officialClockCorrection=at!==null&&before!==null&&before-at>2&&before-at<=120&&
+  Number(c.status?.period)===Number(prior.status?.period)&&agrees&&matchingClock&&
+  /\b(clock correction|official review|clock reset)\b/i.test(String(c.situation?.lastPlay?.text||''));
  const rejected=replay||olderRevision||!correction&&!revision&&((older&&at!==null&&before!==null&&at<=before)||
-  (at!==null&&before!==null&&before-at>2&&!newer));
+  (at!==null&&before!==null&&before-at>2&&!officialClockCorrection));
  game.liveUpdateRejected=rejected;
  if(nextKey!==priorKey||rejected||!game.observationIntegrity)
   game.observationIntegrity={status:rejected?'rejected':revision?'revised':'accepted',reason:rejected?(replay?'superseded-observation':olderRevision?'older-provider-revision':'out-of-order-observation'):revision||null};

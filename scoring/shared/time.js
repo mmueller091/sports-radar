@@ -4,6 +4,10 @@
     const status =
       competition?.status || {};
 
+    // Reconciliation marks provider transition clocks that have no trustworthy
+    // game-time position. A zero value alone must never supply a precise end.
+    if(status.timingUncertain===true)return {progress:null,elapsedSeconds:null,remainingSeconds:null};
+
     const period =
       Number(
         status.period || 0

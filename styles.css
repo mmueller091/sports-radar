@@ -3413,6 +3413,12 @@ dialog::backdrop,
 .timeline-event-strip rect { fill:var(--surface); stroke:none; }
 .timeline-section .timeline-event-strip text { fill:var(--muted); font-size:9px; letter-spacing:1px; }
 .timeline-event-marker path { fill:var(--gold); stroke:var(--surface); stroke-width:1; }
+.timeline-event-highlight path { fill:var(--brand-cream); stroke:var(--gold); stroke-width:1.5; }
+.status-provisional { color:var(--gold); font-size:11px; font-weight:600; letter-spacing:.02em; }
+.timeline-play-details { margin-top:10px; color:var(--ink-secondary); font-size:13px; }
+.timeline-play-details summary { cursor:pointer; color:var(--brand-cream); }
+.timeline-play-details ol { max-height:250px; overflow:auto; padding-left:25px; line-height:1.45; }
+.timeline-play-details li { margin:5px 0; }
 .timeline-event-marker:focus-visible path { stroke:white; stroke-width:2; }
 .timeline-section .timeline-note { margin:5px 0 10px; font-size:11px; line-height:1.5; }
 .timeline-observations { margin-top:8px; color:var(--md-text-2); font-size:12px; }

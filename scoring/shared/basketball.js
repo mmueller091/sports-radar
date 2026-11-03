@@ -9,6 +9,7 @@
     const points = Math.max(0,Number(gap));
     const marginClose = Math.max(0,1-points/24);
     const status = context.competition?.status || context.status || {};
+    if(status.timingUncertain===true)return null;
     const seconds = clockSeconds(status);
     if (seconds === null) return {close:marginClose,marginClose,comebackFeasibility:1,expectedPossessions:null,requiredPossessions:Math.ceil(points/3)};
     const regulationPeriods = sport === 'NCAAB' ? 2 : 4;

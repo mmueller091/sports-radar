@@ -67,28 +67,30 @@ test('actual overtime history preserves every rating, timestamp, model, evidence
   const html=center.timeline(g,detail);
   assert.match(html,/OT 2:53: Chad Ryland 42 Yd Field Goal/);
   assert.match(html,/data-timeline-range="late"/);assert.match(html,/data-timeline-range="ot"/);
-  assert.match(html,/timeline-event-strip/);assert.doesNotMatch(html,/Original observation history|reliable|evidenceQuality/);
+  assert.match(html,/timeline-event-strip/);assert.match(html,/Gaps mark intervals with unreliable timing or evidence/);assert.doesNotMatch(html,/Original observation history|evidenceQuality/);
   assert.doesNotMatch(html,/Final assessment|Opening estimate/);
   assert.equal(JSON.stringify(detail),before);
 });
 const game={id:'test',sport:'NFL',state:'completed',score:95,teams:[['A','A','33'],['B','B','30']]};
 const p=(at,rating,clock='2:00',extra={})=>({observedAt:at,rating,state:'live',period:4,clock,modelVersion:'same',evidenceQuality:'verified',...extra});
 const summary=snapshots=>({sportsRadarHistory:{snapshots}});
-test('reliable observations connect across gaps, excluded points, corrections, duplicates and model boundaries; finals stay separate',()=>{
+test('chart keeps sharp changes but separates gaps, corrections, duplicate clocks and models',()=>{
   const ps=[p(1000,20),p(16000,90),p(31000,10,'1:59',{evidenceQuality:'partial'}),p(46000,80,'1:59'),p(61000,70,'2:01'),p(61000,71,'2:01'),p(200000,75,'1:50'),p(215000,85,'1:49',{modelVersion:'new'}),p(230000,95,'0:00',{state:'completed'})];
   const data=center.observations(game,summary(ps)),live=data.points.filter(p=>p.ratingKind==='live'&&!p.incomplete);
-  assert.equal(center.comparable(live[1],live[0]),true,'sharp same-clock rise retained');
-  for(let i=2;i<live.length;i++)assert.equal(center.comparable(live[i],live[i-1]),true);
+  assert.equal(center.comparable(live[1],live[0]),false,'same-clock ratings stay recorded without a vertical line');
+  assert.equal(live[1].score,90,'sharp same-clock rise remains available');
+  for(let i=2;i<live.length;i++)assert.equal(center.comparable(live[i],live[i-1]),false);
   assert.equal(center.comparable(data.points.at(-1),live.at(-1)),false);
   assert.equal(live[0].x,live[1].x,'same-clock observations are never shifted');
   assert.ok(live[3].x<live[2].x,'clock corrections are never moved forward');
+  assert.equal(live[3].compatibilityIssue,true);
 });
 test('missing clocks use real observation timestamps; unpositioned scoring events never get an ordinal',()=>{
   for(const sport of ['NFL','CFB','MLB','NHL','NBA','NCAAB','Soccer','Tennis']){
     const g={...game,sport},s=summary([p(1000,30,''),p(61000,70,'')]);
     s.scoringPlays=[{period:{number:4},text:'Untimed score'}];
     const data=center.observations(g,s);assert.equal(data.axis,'observed');assert.deepEqual(data.points.map(p=>p.x),[1000,61000]);
-    assert.doesNotMatch(center.timeline(g,s),/aria-label=".*Untimed score/);
+    assert.doesNotMatch(center.timeline(g,s),/class="timeline-point timeline-event-marker"[^>]*Untimed score/);
   }
 });
 test('multiple overtimes map verified clocks without ordinal spacing; untimed CFB uses observations',()=>{

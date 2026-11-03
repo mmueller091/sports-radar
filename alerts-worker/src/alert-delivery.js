@@ -12,7 +12,7 @@ export function currentAlertGame(feed,game,now=Date.now()) {
     updatedAt<=now && now-updatedAt<=ALERT_MAX_AGE_MS && !feed.freshness?.stale &&
     game?.state==='live' && currentGameAllowed(game,now) && game.modelVersion===runtime.MODEL_VERSION &&
     game.score!=null && Number.isFinite(Number(game.score)) &&
-    !game.detailStale && !game.scoringPartial && !game.liveUpdateRejected && !game.basketballUpdateRejected &&
+    !game.detailStale && !game.scoringPartial && !game.timingUncertain && !game.liveUpdateRejected && !game.basketballUpdateRejected &&
     !game.summaryLifecycleRejected && !game.scoringHistoryRejected &&
     !['partial','invalid'].includes(game.evidenceQuality);
 }

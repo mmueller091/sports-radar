@@ -2606,6 +2606,7 @@ function teamMarkup(game, team, cardTeamIndex = null) {
 }
 
 function explainRating(game,summary=null) {
+  if(game.timingUncertain)return 'The clock is updating. This rating was last confirmed before the latest plays.';
   // Keep feed and evidence diagnostics out of the public game explanation.
   const evidenceNote='';
   const scoresKnown=game.teams?.length===2&&game.teams.every(t=>t[2]!=null&&String(t[2]).trim()!==''&&Number.isFinite(Number(t[2])));
@@ -2615,7 +2616,12 @@ function explainRating(game,summary=null) {
   if(names.length!==2)return [game.state==='upcoming'?'Confirmed matchup details are not yet available.':game.state==='completed'?'The game has finished; detailed result evidence is unavailable.':'Live game details are still being confirmed.',evidenceNote].filter(Boolean).join(' ');
   const factors=game.factors || [],labels=factors.map(f=>f.label || ''),has=re=>labels.some(x=>re.test(x));
   const sport=game.sport==='NCAAM'?'NCAAB':game.sport,basketball=['NBA','NCAAB'].includes(sport),football=['NFL','CFB'].includes(sport);
-  const collegeTeamVerb=(name,singular,plural)=>sport==='NCAAB'&&/\s/.test(String(name||'').trim())?plural:singular;
+  const collegeTeamVerb=(name,singular,plural)=>(['NBA','NHL','MLB','NCAAB'].includes(sport)&&/\s/.test(String(name||'').trim()))?plural:singular;
+  const teamPlace=name=>{
+    const team=teams.find(t=>t[0]===name),short=String(team?.[7]||'').trim();
+    return sport==='NBA'&&short&&name.endsWith(` ${short}`)?name.slice(0,-short.length-1):
+      sport==='NBA'&&String(name).includes(' ')?String(name).split(' ').slice(0,-1).join(' '):name;
+  };
   const unit=({MLB:'run',NHL:'goal',Soccer:'goal',Tennis:'set'})[sport] || 'point';
   const clean=s=>String(s || '').trim().replace(/\s+/g,' ');
   const sentenceKey=s=>clean(s).toLocaleLowerCase().replace(/[^\p{L}\p{N}]+/gu,' ').trim();
@@ -2711,7 +2717,7 @@ function explainRating(game,summary=null) {
     else if(gap!==null)add(gap<=({MLB:1,NHL:1,Soccer:1,Tennis:1,NFL:8,CFB:8,NBA:5,NCAAB:5}[sport] || 3)?'The narrow final margin made for a close result':has(/Wide margin/)?'The lopsided final margin limits the appeal of a replay':`The teams finished ${gap} ${unit}${gap===1?'':'s'} apart`);
     return [...sentences.slice(0,2),evidenceNote].filter(Boolean).join(' ');
   }
-  if(facts?.comeback)add(`${facts.comeback.team} ${collegeTeamVerb(facts.comeback.team,'has','have')} erased a ${facts.comeback.deficit}-point deficit${facts.comeback.team===leader[0]&&gap>0?' and taken the lead':''}`);
+  if(facts?.comeback)add(`${teamPlace(facts.comeback.team)} erased a ${facts.comeback.deficit}-point deficit${facts.comeback.team===leader[0]&&gap>0?' and took the lead':''}`);
   else if(has(/Erased a multi-goal deficit/i))add('A verified comeback erased a multi-goal deficit');
   else if(has(/Erased a large deficit|comeback/i))add('A comeback has brought the game back to life');
   if(known) {
@@ -2780,6 +2786,7 @@ function publicStorySentence(factor,stories=[]) {
 }
 
 function trendFor(game) {
+  if(game.timingUncertain||game.scoringPartial)return '';
   if (game.pregameBaseline?.source !== 'observed') return '';
   if (
     game.state === 'upcoming' ||
@@ -2885,9 +2892,9 @@ function broadcastWatchMarkup(game,summary=null,inline=false) {
 }
 
 function gameCard(game) {
-  const liveNote=game.manpowerQuality?.state==='conflict' ? '' : game.live?.note;
+  const liveNote=game.timingUncertain||game.manpowerQuality?.state==='conflict' ? '' : game.live?.note;
   const phase = String(game.live?.phase || game.status || '');
-  const clock = String(game.liveRawStatus?.displayClock || phase.match(/\b\d{1,2}:\d{2}\b/)?.[0] || '');
+  const clock = game.timingUncertain ? '' : String(game.liveRawStatus?.displayClock || phase.match(/\b\d{1,2}:\d{2}\b/)?.[0] || '');
   const period = compactClockPeriod(game);
   const ncaabHalftime=game.sport==='NCAAB'&&Boolean(halftimePriorityAdjustment(game));
   const clockMarkup = game.state === 'live' && !ncaabHalftime && (clock || period === 'Shootout')
@@ -2900,11 +2907,11 @@ function gameCard(game) {
   const stateLabel =
     game.state === 'live'
       ? `<span class="status-live"${halftimePriorityAdjustment(game) ? ' title="Halftime: ranked 6 points lower for viewing priority; excitement rating unchanged."' : ''}>${halftimePriorityAdjustment(game) ? 'HALFTIME · lower viewing priority' : '● LIVE'}</span>${
-          game.live?.phase &&
+          !game.timingUncertain && game.live?.phase &&
           game.live.phase !== 'Live' && !ncaabHalftime
             ? `<span class="live-phase">${safeText(game.live.phase)}</span>`
             : ''
-        }`
+        }${game.timingUncertain?'<span class="status-provisional">Clock updating</span>':game.scoringPartial?'<span class="status-provisional">Provisional rating</span>':''}`
       : `<span class="status-${game.state}">${safeText(game.status)}</span>`;
 
   const leagueLogo =
@@ -2935,7 +2942,7 @@ function gameCard(game) {
       : '';
 
   const momentMarkup =
-    game.enrichmentPending || game.summaryValidationPending
+    game.timingUncertain || game.enrichmentPending || game.summaryValidationPending
       ? ''
       : game.moment
       ? `<span class="card-moment"><strong>${safeText(game.momentLabel || 'Latest play')}</strong><span>${safeText(displayMoment(game))}</span></span>`
@@ -2955,7 +2962,7 @@ function gameCard(game) {
           .map(([base]) => base)
           .join(' and ')
       : '',
-    `${game.state==='live'?'watch now rating':game.state==='completed'?'game quality':'pregame rating'} ${game.score}`,
+    `${game.timingUncertain?'last confirmed rating, clock updating':game.state==='live'&&game.scoringPartial?'provisional watch now rating':game.state==='live'?'watch now rating':game.state==='completed'?'game quality':'pregame rating'} ${game.score==null?'pending':game.score}`,
     'Open game details'
   ]
     .filter(Boolean)
@@ -6043,11 +6050,10 @@ function renderDetailContent(
     return `<${tag} class="detail-team ${teamPageId ? 'detail-team-link' : ''}"${attrs}>${teamLogoWithFallback(logo,team[1] || team[0],'','eager')}<span class="detail-team-copy"><strong>${safeText(team[0])}</strong>${teamMeta.length ? `<small>${safeText(teamMeta.join(' · '))}</small>` : ''}</span><b>${game.state === 'upcoming' ? '' : safeText(team[2])}</b></${tag}>`;
   }).join('') + (game.state === 'upcoming' ? '<span class="pregame-versus">VS</span>' : '');
 
-  const status =
-    (game.state === 'live' ? game.live?.phase : '') ||
-    game.status;
+  const status = game.timingUncertain ? 'Clock updating' :
+    (game.state === 'live' ? game.live?.phase : '') || game.status;
 
-  const detailClockValue = String(game.liveRawStatus?.displayClock || String(status || '').match(/\b\d{1,2}:\d{2}\b/)?.[0] || '');
+  const detailClockValue = game.timingUncertain ? '' : String(game.liveRawStatus?.displayClock || String(status || '').match(/\b\d{1,2}:\d{2}\b/)?.[0] || '');
   const detailPeriod = compactClockPeriod(game);
   const detailClock = game.state === 'live' && !(game.sport==='NCAAB'&&halftimePriorityAdjustment(game)) && (detailClockValue || detailPeriod === 'Shootout')
     ? `<span class="detail-live-clock"><span>${safeText(detailPeriod || 'Live')}</span>${detailPeriod === 'Shootout' ? '' : `<strong>${safeText(detailClockValue)}</strong>`}</span>` : '';
@@ -6070,8 +6076,11 @@ function renderDetailContent(
       ? game.pregameBaseline.score
       : null;
 
-  const ratingContext =
-    game.state === 'upcoming'
+  const ratingContext = game.timingUncertain
+    ? `Last confirmed rating ${game.score==null?'pending':safeText(game.score)} · Clock updating`
+    : game.state==='live'&&game.scoringPartial
+      ? `Provisional rating ${game.score==null?'pending':safeText(game.score)} · Awaiting confirmation`
+    : game.state === 'upcoming'
       ? `Pregame rating ${safeText(game.score)}`
       : opening !== null
         ? `Opening ${safeText(opening)} · Current ${safeText(game.score)}`

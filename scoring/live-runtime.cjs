@@ -17,7 +17,7 @@ const footballMarket=require('./football-market.cjs');
 const integrity=require('./snapshot-integrity.cjs');
 const gameFacts=require('./game-facts.cjs');
 const PRODUCTION_POLICY = Object.freeze({...LIVE_POLICY,id:LIVE_POLICY.id+'-opening-transition',footballTransition:true,openingTransition:true});
-const MODEL_VERSION = '2026-11-01.audit-integrity.3';
+const MODEL_VERSION = '2026-11-02.clock-integrity.1';
 
 function describeCfbQualitySoFar(game,current,summary) {
   delete game.gameQualitySoFar;
@@ -39,10 +39,12 @@ function describeCfbQualitySoFar(game,current,summary) {
 
 function applyLiveSnapshot(game, competition, summary) {
   competition=integrity.reconcileObservation(game,competition || game.sourceCompetition,summary);
+  if(game.timingUncertain)return null;
   summary=providerEvidence.normalizeSummary(game,competition || game.sourceCompetition,summary);
   if(footballMarket.supports(game))competition=footballMarket.prepareUpcomingMarket(game,competition || game.sourceCompetition,summary);
   const reconciled=basketball.reconcileBasketball(game,competition || game.sourceCompetition,summary);
   competition=reconciled.competition;summary=reconciled.summary;
+  if(reconciled.timingUncertain)return null;
   prepareOpening(legacy,game,competition || game.sourceCompetition,null);
   if (game.state !== 'live') {
     if(game.state==='upcoming')calculation.set(game,calculation.fromFactors(game.factors,game.score,'Pregame',90));
@@ -134,6 +136,16 @@ function applyLiveSnapshot(game, competition, summary) {
   if(!basketball.supports(game))game.historicalEvidenceRetained=Boolean(history || game.sameStateEvidenceRetained);
   delete game.basketballHistory;
   if(basketball.supports(game))game.lastSummaryAccepted=reconciled.rawCurrent;
+  if(basketball.supports(game) && Number.isFinite(game.score) && !game.scoringPartial){
+    game.basketballLastTrusted=JSON.parse(JSON.stringify(Object.fromEntries(
+      ['score','baseScore','openingScore','rawPregameScore','factors','live','momentumPoints','trajectoryScoring','historyOwnership','why','upsetText','upsetPoints','modelVersion','scoringPolicy']
+        .map(key=>[key,game[key]]).filter(([,value])=>value!==undefined))));
+  }
+  if(['NFL','CFB','NHL'].includes(game.sport) && Number.isFinite(game.score) && !game.scoringPartial){
+    game.timedLastTrusted=JSON.parse(JSON.stringify(Object.fromEntries(
+      ['score','baseScore','openingScore','rawPregameScore','factors','live','momentumPoints','trajectoryScoring','historyOwnership','why','upsetText','upsetPoints','modelVersion','scoringPolicy']
+        .map(key=>[key,game[key]]).filter(([,value])=>value!==undefined))));
+  }
   delete game.staleEnrichment;
   return result;
 }

@@ -23,20 +23,66 @@ function compactCompetition(c) {
  return clone({status:c.status,situation:c.situation,competitors:(c.competitors||[]).map(t=>({team:{id:t.team?.id,displayName:t.team?.displayName},homeAway:t.homeAway,score:t.score,possession:t.possession,fouls:t.fouls,timeoutsRemaining:t.timeoutsRemaining}))});
 }
 function preserveBasketballState(game,previous) {
- if(supports(game)&&game.state==='live'&&previous?.basketballEvidence?.identity===identity(game)){
-  game.basketballEvidence=clone(previous.basketballEvidence);
+ if(supports(game)&&game.state==='live'&&previous?.sport===game.sport&&String(previous.id)===String(game.id)&&
+    previous.teams?.map(t=>String(t[8])).sort().join(',')===game.teams.map(t=>String(t[8])).sort().join(',')){
+  if(previous.basketballEvidence?.identity===identity(game))game.basketballEvidence=clone(previous.basketballEvidence);
+  game.basketballLastTrusted=clone(previous.basketballLastTrusted || (!previous.timingUncertain && !previous.scoringPartial && Number.isFinite(previous.score) ?
+   Object.fromEntries(['score','baseScore','openingScore','rawPregameScore','factors','live','momentumPoints','trajectoryScoring','historyOwnership','why','upsetText','upsetPoints','modelVersion','scoringPolicy'].map(key=>[key,previous[key]]).filter(([,value])=>value!==undefined)) : null));
   if(previous.recoveredCollegeUnderdog)game.recoveredCollegeUnderdog=clone(previous.recoveredCollegeUnderdog);
  }
+}
+const zeroClock=status=>/^(?:0+(?::0+(?:\.0+)?)?|0+\.0+)$/.test(String(status?.displayClock??'').trim());
+const terminal=status=>status?.type?.completed===true || status?.type?.state==='post' || /\b(final|end of (?:the )?(?:4th|fourth|second|2nd|quarter|half)|overtime ends)\b/i.test(String(status?.type?.detail||''));
+function corroboratedZero(c,summary){
+ const period=Number(c.status?.period),lastId=String(c.situation?.lastPlay?.id||'');
+ return Boolean(lastId && [...(summary?.plays||[]),...(summary?.scoringPlays||[])].some(p=>
+  String(p.id||'')===lastId && Number(p.period?.number)===period && zeroClock({displayClock:p.clock?.displayValue}) &&
+  Number(p.homeScore)===Number(c.competitors.find(t=>t.homeAway==='home')?.score) &&
+  Number(p.awayScore)===Number(c.competitors.find(t=>t.homeAway==='away')?.score)));
+}
+function corroboratedPlayClock(game,c,summary){
+ const target=scoreMap(c),period=Number(c.status?.period),lastId=String(c.situation?.lastPlay?.id||'');
+ const plays=[...(summary?.plays||[]),...(summary?.scoringPlays||[])];
+ const play=plays.findLast(p=>String(p.id||'')===lastId && Number(p.period?.number)===period &&
+  Number(p.homeScore)===Number(c.competitors.find(t=>t.homeAway==='home')?.score) &&
+  Number(p.awayScore)===Number(c.competitors.find(t=>t.homeAway==='away')?.score) &&
+  !zeroClock({displayClock:p.clock?.displayValue}));
+ if(!play || Object.keys(target).length!==2)return null;
+ const clock=String(play.clock.displayValue),parts=clock.match(/^(\d+):(\d+(?:\.\d+)?)$/);
+ const remaining=parts?Number(parts[1])*60+Number(parts[2]):NaN;
+ return parts&&Number(parts[2])<60&&remaining>0&&remaining<=(game.sport==='NBA'?720:1200)?clock:null;
 }
 function reconcileBasketball(game,c,summary) {
  if(!supports(game)||game.state!=='live'||!c)return {competition:c,summary};
  let e=game.basketballEvidence;
  if(e?.identity!==identity(game))e=null;
- const prior=e?.competition,at=position(game,c),before=prior&&position(game,prior);
+ const prior=e?.competition,before=prior&&position(game,prior);
  const nextId=seq(c.situation?.lastPlay,game.id),priorId=seq(prior?.situation?.lastPlay,game.id);
  const olderEvent=nextId&&priorId&&compare(nextId,priorId)<0;
  const newerEvent=nextId&&priorId&&compare(nextId,priorId)>0;
- const backward=at!==null&&before!==null&&at<before;
+ const regressedScore=prior&&Object.keys(scoreMap(c)).some(id=>scoreMap(c)[id]<scoreMap(prior)[id]);
+ const period=Number(c.status?.period),priorPeriod=Number(prior?.status?.period);
+ const advanced=prior && period>priorPeriod;
+ const clockFromPlay=zeroClock(c.status)&&!terminal(c.status)?corroboratedPlayClock(game,c,summary):null;
+ if(clockFromPlay)c={...c,status:{...c.status,displayClock:clockFromPlay,clockSource:'corroborated-play'}};
+ const at=position(game,c),backward=at!==null&&before!==null&&at<before;
+ const largeBackward=backward&&before-at>2;
+ const transitionZero=zeroClock(c.status)&&!terminal(c.status)&&!corroboratedZero(c,summary)&&
+  period >= (game.sport==='NBA'?4:2);
+ const uncertain=transitionZero || largeBackward && !olderEvent && !regressedScore && !(
+  summary?.header?.competitions?.[0] && sameScores(scoreMap(summary.header.competitions[0]),scoreMap(c)) &&
+  Number(summary.header.competitions[0].status?.period)===period &&
+  Math.abs((position(game,summary.header.competitions[0])??Infinity)-(position(game,c)??-Infinity))<=2 &&
+  /(?:clock correction|official review)/i.test(String(c.situation?.lastPlay?.text||'')) && before-at<=120);
+ if(uncertain){
+  game.timingUncertain=true;game.scoringPartial=true;game.evidenceQuality='partial';
+  game.evidenceReasons=[...new Set([...(game.evidenceReasons||[]),'unconfirmed-clock'])];
+  game.liveRawStatus={...c.status,displayClock:'',timingUncertain:true};
+  if(game.basketballLastTrusted)Object.assign(game,clone(game.basketballLastTrusted));
+  else game.score=null;
+  return {competition:c,summary:null,history:null,rawCurrent:false,timingUncertain:true};
+ }
+ delete game.timingUncertain;
  // A small scoreboard clock correction is valid. A larger reset needs a new
  // provider event; a delayed earlier event can never roll back the game.
  const lowerScore=prior&&Object.keys(scoreMap(c)).some(id=>scoreMap(c)[id]<scoreMap(prior)[id]);

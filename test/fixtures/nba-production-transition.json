@@ -1,0 +1,3741 @@
+{
+  "provenance": "Compact, verbatim fields selected from public production responses fetched 2026-11-02; raw responses retained in ignored work/ files.",
+  "games": [
+    {
+      "id": "401909907",
+      "source": "https://sports-radar-alerts.mmueller918.workers.dev/game/NBA/401909907",
+      "sourceSha256": "3812a663bf90b8a47dd7e268c8ffaf73b5c7e09473b410a5a88a94147eb32c8f",
+      "originalSnapshotCount": 467,
+      "originalScoringPlayCount": 117,
+      "game": {
+        "id": "401909907",
+        "sport": "NBA",
+        "state": "completed",
+        "score": 78,
+        "teams": [
+          [
+            "Oklahoma City Thunder",
+            "OKC",
+            "117",
+            "white",
+            "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/okc.png",
+            "5-2",
+            null,
+            "Thunder",
+            "25"
+          ],
+          [
+            "Cleveland Cavaliers",
+            "CLE",
+            "112",
+            "white",
+            "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/cle.png",
+            "4-3",
+            null,
+            "Cavaliers",
+            "5"
+          ]
+        ]
+      },
+      "snapshots": [
+        {
+          "observedAt": 1793670750000,
+          "state": "live",
+          "rating": 46,
+          "scoreA": "90",
+          "scoreB": "84",
+          "period": 3,
+          "clock": "0.0",
+          "phaseLabel": "End of 3rd Quarter",
+          "modelVersion": "2026-11-01.audit-integrity.3",
+          "evidenceQuality": "verified"
+        },
+        {
+          "observedAt": 1793670765000,
+          "state": "live",
+          "rating": 46,
+          "scoreA": "90",
+          "scoreB": "84",
+          "period": 3,
+          "clock": "0.0",
+          "phaseLabel": "End of 3rd Quarter",
+          "modelVersion": "2026-11-01.audit-integrity.3",
+          "evidenceQuality": "verified"
+        },
+        {
+          "observedAt": 1793670780000,
+          "state": "live",
+          "rating": 46,
+          "scoreA": "90",
+          "scoreB": "84",
+          "period": 3,
+          "clock": "0.0",
+          "phaseLabel": "End of 3rd Quarter",
+          "modelVersion": "2026-11-01.audit-integrity.3",
+          "evidenceQuality": "verified"
+        },
+        {
+          "observedAt": 1793670810000,
+          "state": "live",
+          "rating": 46,
+          "scoreA": "90",
+          "scoreB": "84",
+          "period": 3,
+          "clock": "0.0",
+          "phaseLabel": "End of 3rd Quarter",
+          "modelVersion": "2026-11-01.audit-integrity.3",
+          "evidenceQuality": "verified"
+        },
+        {
+          "observedAt": 1793670840000,
+          "state": "live",
+          "rating": 15,
+          "scoreA": "90",
+          "scoreB": "84",
+          "period": 4,
+          "clock": "0.0",
+          "phaseLabel": "4th quarter",
+          "modelVersion": "2026-11-01.audit-integrity.3",
+          "evidenceQuality": "verified"
+        },
+        {
+          "observedAt": 1793670855000,
+          "state": "live",
+          "rating": 16,
+          "scoreA": "90",
+          "scoreB": "86",
+          "period": 4,
+          "clock": "0.0",
+          "phaseLabel": "4th quarter",
+          "modelVersion": "2026-11-01.audit-integrity.3",
+          "evidenceQuality": "partial"
+        },
+        {
+          "observedAt": 1793670870000,
+          "state": "live",
+          "rating": 46,
+          "scoreA": "90",
+          "scoreB": "89",
+          "period": 4,
+          "clock": "0.0",
+          "phaseLabel": "4th quarter",
+          "modelVersion": "2026-11-01.audit-integrity.3",
+          "evidenceQuality": "partial"
+        },
+        {
+          "observedAt": 1793670885000,
+          "state": "live",
+          "rating": 46,
+          "scoreA": "90",
+          "scoreB": "89",
+          "period": 4,
+          "clock": "0.0",
+          "phaseLabel": "4th quarter",
+          "modelVersion": "2026-11-01.audit-integrity.3",
+          "evidenceQuality": "partial"
+        },
+        {
+          "observedAt": 1793670900000,
+          "state": "live",
+          "rating": 42,
+          "scoreA": "92",
+          "scoreB": "89",
+          "period": 4,
+          "clock": "0.0",
+          "phaseLabel": "4th quarter",
+          "modelVersion": "2026-11-01.audit-integrity.3",
+          "evidenceQuality": "verified"
+        },
+        {
+          "observedAt": 1793670915000,
+          "state": "live",
+          "rating": 42,
+          "scoreA": "92",
+          "scoreB": "89",
+          "period": 4,
+          "clock": "0.0",
+          "phaseLabel": "4th quarter",
+          "modelVersion": "2026-11-01.audit-integrity.3",
+          "evidenceQuality": "verified"
+        },
+        {
+          "observedAt": 1793670930000,
+          "state": "live",
+          "rating": 16,
+          "scoreA": "93",
+          "scoreB": "89",
+          "period": 4,
+          "clock": "0.0",
+          "phaseLabel": "4th quarter",
+          "modelVersion": "2026-11-01.audit-integrity.3",
+          "evidenceQuality": "partial"
+        },
+        {
+          "observedAt": 1793670945000,
+          "state": "live",
+          "rating": 46,
+          "scoreA": "93",
+          "scoreB": "92",
+          "period": 4,
+          "clock": "0.0",
+          "phaseLabel": "4th quarter",
+          "modelVersion": "2026-11-01.audit-integrity.3",
+          "evidenceQuality": "partial"
+        },
+        {
+          "observedAt": 1793670960000,
+          "state": "live",
+          "rating": 46,
+          "scoreA": "93",
+          "scoreB": "92",
+          "period": 4,
+          "clock": "0.0",
+          "phaseLabel": "4th quarter",
+          "modelVersion": "2026-11-01.audit-integrity.3",
+          "evidenceQuality": "partial"
+        },
+        {
+          "observedAt": 1793671005000,
+          "state": "live",
+          "rating": 47,
+          "scoreA": "93",
+          "scoreB": "92",
+          "period": 4,
+          "clock": "0.0",
+          "phaseLabel": "4th quarter",
+          "modelVersion": "2026-11-01.audit-integrity.3",
+          "evidenceQuality": "verified"
+        },
+        {
+          "observedAt": 1793671020000,
+          "state": "live",
+          "rating": 47,
+          "scoreA": "93",
+          "scoreB": "92",
+          "period": 4,
+          "clock": "0.0",
+          "phaseLabel": "4th quarter",
+          "modelVersion": "2026-11-01.audit-integrity.3",
+          "evidenceQuality": "verified"
+        },
+        {
+          "observedAt": 1793671035000,
+          "state": "live",
+          "rating": 47,
+          "scoreA": "93",
+          "scoreB": "92",
+          "period": 4,
+          "clock": "0.0",
+          "phaseLabel": "4th quarter",
+          "modelVersion": "2026-11-01.audit-integrity.3",
+          "evidenceQuality": "verified"
+        },
+        {
+          "observedAt": 1793671050000,
+          "state": "live",
+          "rating": 65,
+          "scoreA": "93",
+          "scoreB": "92",
+          "period": 4,
+          "clock": "12:00",
+          "phaseLabel": "12:00 · 4th quarter",
+          "modelVersion": "2026-11-01.audit-integrity.3",
+          "evidenceQuality": "partial"
+        },
+        {
+          "observedAt": 1793671080000,
+          "state": "live",
+          "rating": 70,
+          "scoreA": "93",
+          "scoreB": "93",
+          "period": 4,
+          "clock": "9:14",
+          "phaseLabel": "9:14 · 4th quarter",
+          "modelVersion": "2026-11-01.audit-integrity.3",
+          "evidenceQuality": "verified"
+        },
+        {
+          "observedAt": 1793671095000,
+          "state": "live",
+          "rating": 70,
+          "scoreA": "93",
+          "scoreB": "94",
+          "period": 4,
+          "clock": "9:14",
+          "phaseLabel": "9:14 · 4th quarter",
+          "modelVersion": "2026-11-01.audit-integrity.3",
+          "evidenceQuality": "verified"
+        },
+        {
+          "observedAt": 1793671110000,
+          "state": "live",
+          "rating": 70,
+          "scoreA": "93",
+          "scoreB": "94",
+          "period": 4,
+          "clock": "8:56",
+          "phaseLabel": "8:56 · 4th quarter",
+          "modelVersion": "2026-11-01.audit-integrity.3",
+          "evidenceQuality": "verified"
+        },
+        {
+          "observedAt": 1793673270000,
+          "state": "live",
+          "rating": 29,
+          "scoreA": "117",
+          "scoreB": "112",
+          "period": 4,
+          "clock": "0.0",
+          "phaseLabel": "End of 4th Quarter",
+          "modelVersion": "2026-11-01.audit-integrity.3",
+          "evidenceQuality": "partial"
+        },
+        {
+          "observedAt": 1793673296918,
+          "state": "completed",
+          "rating": 79,
+          "scoreA": "117",
+          "scoreB": "112",
+          "period": 4,
+          "clock": "0.0",
+          "phaseLabel": "Final",
+          "modelVersion": "2026-11-01.audit-integrity.3",
+          "evidenceQuality": "verified"
+        }
+      ],
+      "scoringPlays": [
+        {
+          "id": "4019099077",
+          "period": {
+            "number": 1
+          },
+          "clock": {
+            "displayValue": "11:43"
+          },
+          "homeScore": 2,
+          "awayScore": 0,
+          "text": "Evan Mobley makes driving layup (James Harden assists)",
+          "wallclock": "2026-11-03T00:11:16Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "40190990715",
+          "period": {
+            "number": 1
+          },
+          "clock": {
+            "displayValue": "11:23"
+          },
+          "homeScore": 2,
+          "awayScore": 1,
+          "text": "Isaiah Hartenstein makes free throw 2 of 2",
+          "wallclock": "2026-11-03T00:12:23Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "40190990720",
+          "period": {
+            "number": 1
+          },
+          "clock": {
+            "displayValue": "11:03"
+          },
+          "homeScore": 2,
+          "awayScore": 3,
+          "text": "Ajay Mitchell makes 14-foot pullup jump shot",
+          "wallclock": "2026-11-03T00:12:44Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "40190990726",
+          "period": {
+            "number": 1
+          },
+          "clock": {
+            "displayValue": "10:22"
+          },
+          "homeScore": 5,
+          "awayScore": 3,
+          "text": "Donovan Mitchell makes 25-foot three point step back jumpshot (Evan Mobley assists)",
+          "wallclock": "2026-11-03T00:13:41Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "40190990730",
+          "period": {
+            "number": 1
+          },
+          "clock": {
+            "displayValue": "10:04"
+          },
+          "homeScore": 5,
+          "awayScore": 5,
+          "text": "Kenrich Williams makes 15-foot pullup jump shot (Jaylin Williams assists)",
+          "wallclock": "2026-11-03T00:13:58Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "40190990742",
+          "period": {
+            "number": 1
+          },
+          "clock": {
+            "displayValue": "9:17"
+          },
+          "homeScore": 7,
+          "awayScore": 5,
+          "text": "James Harden makes 8-foot driving floating jump shot",
+          "wallclock": "2026-11-03T00:15:24Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "40190990747",
+          "period": {
+            "number": 1
+          },
+          "clock": {
+            "displayValue": "8:48"
+          },
+          "homeScore": 9,
+          "awayScore": 5,
+          "text": "James Harden makes 13-foot driving floating jump shot (Donovan Mitchell assists)",
+          "wallclock": "2026-11-03T00:15:53Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "40190990750",
+          "period": {
+            "number": 1
+          },
+          "clock": {
+            "displayValue": "8:35"
+          },
+          "homeScore": 9,
+          "awayScore": 7,
+          "text": "Shai Gilgeous-Alexander makes driving floating jump shot",
+          "wallclock": "2026-11-03T00:16:28Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "40190990755",
+          "period": {
+            "number": 1
+          },
+          "clock": {
+            "displayValue": "8:06"
+          },
+          "homeScore": 11,
+          "awayScore": 7,
+          "text": "Evan Mobley makes dunk (Donovan Mitchell assists)",
+          "wallclock": "2026-11-03T00:16:57Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "40190990757",
+          "period": {
+            "number": 1
+          },
+          "clock": {
+            "displayValue": "7:46"
+          },
+          "homeScore": 11,
+          "awayScore": 9,
+          "text": "Shai Gilgeous-Alexander makes finger roll layup",
+          "wallclock": "2026-11-03T00:17:17Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "40190990766",
+          "period": {
+            "number": 1
+          },
+          "clock": {
+            "displayValue": "6:52"
+          },
+          "homeScore": 13,
+          "awayScore": 9,
+          "text": "Evan Mobley makes 11-foot two point shot (Meleek Thomas assists)",
+          "wallclock": "2026-11-03T00:22:20Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "40190990769",
+          "period": {
+            "number": 1
+          },
+          "clock": {
+            "displayValue": "6:42"
+          },
+          "homeScore": 13,
+          "awayScore": 11,
+          "text": "Ajay Mitchell makes 5-foot driving floating jump shot",
+          "wallclock": "2026-11-03T00:22:30Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "40190990770",
+          "period": {
+            "number": 1
+          },
+          "clock": {
+            "displayValue": "6:27"
+          },
+          "homeScore": 15,
+          "awayScore": 11,
+          "text": "Jarrett Allen makes 2-foot layup (Donovan Mitchell assists)",
+          "wallclock": "2026-11-03T00:22:45Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "40190990784",
+          "period": {
+            "number": 1
+          },
+          "clock": {
+            "displayValue": "5:44"
+          },
+          "homeScore": 15,
+          "awayScore": 13,
+          "text": "Aday Mara makes 7-foot jumper",
+          "wallclock": "2026-11-03T00:24:05Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "40190990787",
+          "period": {
+            "number": 1
+          },
+          "clock": {
+            "displayValue": "5:16"
+          },
+          "homeScore": 15,
+          "awayScore": 16,
+          "text": "Kenrich Williams makes 29-foot three point jumper (Shai Gilgeous-Alexander assists)",
+          "wallclock": "2026-11-03T00:24:33Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "40190990799",
+          "period": {
+            "number": 1
+          },
+          "clock": {
+            "displayValue": "4:18"
+          },
+          "homeScore": 17,
+          "awayScore": 16,
+          "text": "Meleek Thomas makes running layup (James Harden assists)",
+          "wallclock": "2026-11-03T00:25:31Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909907111",
+          "period": {
+            "number": 1
+          },
+          "clock": {
+            "displayValue": "4:01"
+          },
+          "homeScore": 17,
+          "awayScore": 19,
+          "text": "Kenrich Williams makes 25-foot three point jumper (Shai Gilgeous-Alexander assists)",
+          "wallclock": "2026-11-03T00:29:16Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909907119",
+          "period": {
+            "number": 1
+          },
+          "clock": {
+            "displayValue": "3:42"
+          },
+          "homeScore": 20,
+          "awayScore": 19,
+          "text": "Donovan Mitchell makes 25-foot three point jumper (Jarrett Allen assists)",
+          "wallclock": "2026-11-03T00:29:57Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909907121",
+          "period": {
+            "number": 1
+          },
+          "clock": {
+            "displayValue": "3:30"
+          },
+          "homeScore": 20,
+          "awayScore": 21,
+          "text": "Shai Gilgeous-Alexander makes driving layup",
+          "wallclock": "2026-11-03T00:30:10Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909907122",
+          "period": {
+            "number": 1
+          },
+          "clock": {
+            "displayValue": "3:19"
+          },
+          "homeScore": 22,
+          "awayScore": 21,
+          "text": "Donovan Mitchell makes 14-foot two point shot",
+          "wallclock": "2026-11-03T00:30:21Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909907138",
+          "period": {
+            "number": 1
+          },
+          "clock": {
+            "displayValue": "2:34"
+          },
+          "homeScore": 22,
+          "awayScore": 23,
+          "text": "Aday Mara makes 1-foot dunk (Jared McCain assists)",
+          "wallclock": "2026-11-03T00:32:02Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909907140",
+          "period": {
+            "number": 1
+          },
+          "clock": {
+            "displayValue": "2:22"
+          },
+          "homeScore": 24,
+          "awayScore": 23,
+          "text": "Jarrett Allen makes dunk (Tyrese Proctor assists)",
+          "wallclock": "2026-11-03T00:32:14Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909907144",
+          "period": {
+            "number": 1
+          },
+          "clock": {
+            "displayValue": "1:44"
+          },
+          "homeScore": 27,
+          "awayScore": 23,
+          "text": "Tyrese Proctor makes 24-foot three point jumper (Sam Merrill assists)",
+          "wallclock": "2026-11-03T00:32:53Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909907155",
+          "period": {
+            "number": 1
+          },
+          "clock": {
+            "displayValue": "1:15"
+          },
+          "homeScore": 27,
+          "awayScore": 24,
+          "text": "Shai Gilgeous-Alexander makes free throw 1 of 2",
+          "wallclock": "2026-11-03T00:34:11Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909907156",
+          "period": {
+            "number": 1
+          },
+          "clock": {
+            "displayValue": "1:15"
+          },
+          "homeScore": 27,
+          "awayScore": 25,
+          "text": "Shai Gilgeous-Alexander makes free throw 2 of 2",
+          "wallclock": "2026-11-03T00:34:25Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909907163",
+          "period": {
+            "number": 1
+          },
+          "clock": {
+            "displayValue": "30.2"
+          },
+          "homeScore": 30,
+          "awayScore": 25,
+          "text": "Tyrese Proctor makes 30-foot three point jumper (Mario Hezonja assists)",
+          "wallclock": "2026-11-03T00:35:14Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909907171",
+          "period": {
+            "number": 1
+          },
+          "clock": {
+            "displayValue": "24.5"
+          },
+          "homeScore": 30,
+          "awayScore": 26,
+          "text": "Shai Gilgeous-Alexander makes free throw 2 of 2",
+          "wallclock": "2026-11-03T00:36:15Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909907200",
+          "period": {
+            "number": 2
+          },
+          "clock": {
+            "displayValue": "10:51"
+          },
+          "homeScore": 30,
+          "awayScore": 29,
+          "text": "Micah Peavy makes 23-foot three point jumper (Jared McCain assists)",
+          "wallclock": "2026-11-03T00:41:31Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909907204",
+          "period": {
+            "number": 2
+          },
+          "clock": {
+            "displayValue": "10:23"
+          },
+          "homeScore": 30,
+          "awayScore": 31,
+          "text": "Jared McCain makes two point shot",
+          "wallclock": "2026-11-03T00:41:59Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909907206",
+          "period": {
+            "number": 2
+          },
+          "clock": {
+            "displayValue": "9:58"
+          },
+          "homeScore": 32,
+          "awayScore": 31,
+          "text": "Thomas Bryant makes 14-foot pullup jump shot (Craig Porter Jr. assists)",
+          "wallclock": "2026-11-03T00:45:51Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909907218",
+          "period": {
+            "number": 2
+          },
+          "clock": {
+            "displayValue": "8:44"
+          },
+          "homeScore": 32,
+          "awayScore": 33,
+          "text": "Ajay Mitchell makes two point shot",
+          "wallclock": "2026-11-03T00:47:05Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909907219",
+          "period": {
+            "number": 2
+          },
+          "clock": {
+            "displayValue": "8:33"
+          },
+          "homeScore": 34,
+          "awayScore": 33,
+          "text": "Thomas Bryant makes 5-foot layup (Donovan Mitchell assists)",
+          "wallclock": "2026-11-03T00:47:19Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909907229",
+          "period": {
+            "number": 2
+          },
+          "clock": {
+            "displayValue": "8:28"
+          },
+          "homeScore": 34,
+          "awayScore": 34,
+          "text": "Ajay Mitchell makes free throw 1 of 2",
+          "wallclock": "2026-11-03T00:48:27Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909907230",
+          "period": {
+            "number": 2
+          },
+          "clock": {
+            "displayValue": "8:28"
+          },
+          "homeScore": 34,
+          "awayScore": 35,
+          "text": "Ajay Mitchell makes free throw 2 of 2",
+          "wallclock": "2026-11-03T00:48:43Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909907233",
+          "period": {
+            "number": 2
+          },
+          "clock": {
+            "displayValue": "8:00"
+          },
+          "homeScore": 34,
+          "awayScore": 37,
+          "text": "Jared McCain makes layup (Isaiah Hartenstein assists)",
+          "wallclock": "2026-11-03T00:49:13Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909907239",
+          "period": {
+            "number": 2
+          },
+          "clock": {
+            "displayValue": "7:18"
+          },
+          "homeScore": 34,
+          "awayScore": 39,
+          "text": "Ajay Mitchell makes 10-foot fade away jump shot",
+          "wallclock": "2026-11-03T00:49:55Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909907257",
+          "period": {
+            "number": 2
+          },
+          "clock": {
+            "displayValue": "6:28"
+          },
+          "homeScore": 34,
+          "awayScore": 41,
+          "text": "Ajay Mitchell makes 1-foot layup (Isaiah Hartenstein assists)",
+          "wallclock": "2026-11-03T00:51:27Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909907259",
+          "period": {
+            "number": 2
+          },
+          "clock": {
+            "displayValue": "6:13"
+          },
+          "homeScore": 37,
+          "awayScore": 41,
+          "text": "James Harden makes 30-foot three pointer",
+          "wallclock": "2026-11-03T00:51:42Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909907262",
+          "period": {
+            "number": 2
+          },
+          "clock": {
+            "displayValue": "6:05"
+          },
+          "homeScore": 37,
+          "awayScore": 42,
+          "text": "Ajay Mitchell makes free throw 1 of 2",
+          "wallclock": "2026-11-03T00:52:27Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909907263",
+          "period": {
+            "number": 2
+          },
+          "clock": {
+            "displayValue": "6:05"
+          },
+          "homeScore": 37,
+          "awayScore": 43,
+          "text": "Ajay Mitchell makes free throw 2 of 2",
+          "wallclock": "2026-11-03T00:52:46Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909907264",
+          "period": {
+            "number": 2
+          },
+          "clock": {
+            "displayValue": "5:46"
+          },
+          "homeScore": 39,
+          "awayScore": 43,
+          "text": "Meleek Thomas makes 12-foot driving floating jump shot",
+          "wallclock": "2026-11-03T00:53:06Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909907269",
+          "period": {
+            "number": 2
+          },
+          "clock": {
+            "displayValue": "5:22"
+          },
+          "homeScore": 41,
+          "awayScore": 43,
+          "text": "Jarrett Allen makes two point shot",
+          "wallclock": "2026-11-03T00:53:33Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909907272",
+          "period": {
+            "number": 2
+          },
+          "clock": {
+            "displayValue": "5:22"
+          },
+          "homeScore": 42,
+          "awayScore": 43,
+          "text": "Jarrett Allen makes free throw 1 of 1",
+          "wallclock": "2026-11-03T00:53:33Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909907281",
+          "period": {
+            "number": 2
+          },
+          "clock": {
+            "displayValue": "5:02"
+          },
+          "homeScore": 42,
+          "awayScore": 46,
+          "text": "Shai Gilgeous-Alexander makes 25-foot three point step back jumpshot (Jaylin Williams assists)",
+          "wallclock": "2026-11-03T00:54:41Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909907286",
+          "period": {
+            "number": 2
+          },
+          "clock": {
+            "displayValue": "4:41"
+          },
+          "homeScore": 42,
+          "awayScore": 49,
+          "text": "Bennett Stirtz makes 23-foot three point jumper (Shai Gilgeous-Alexander assists)",
+          "wallclock": "2026-11-03T00:55:15Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909907290",
+          "period": {
+            "number": 2
+          },
+          "clock": {
+            "displayValue": "4:12"
+          },
+          "homeScore": 45,
+          "awayScore": 49,
+          "text": "Meleek Thomas makes 24-foot three point jumper (Sam Merrill assists)",
+          "wallclock": "2026-11-03T00:55:44Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909907292",
+          "period": {
+            "number": 2
+          },
+          "clock": {
+            "displayValue": "3:58"
+          },
+          "homeScore": 45,
+          "awayScore": 52,
+          "text": "Bennett Stirtz makes 30-foot three pointer",
+          "wallclock": "2026-11-03T00:55:58Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909907298",
+          "period": {
+            "number": 2
+          },
+          "clock": {
+            "displayValue": "3:41"
+          },
+          "homeScore": 46,
+          "awayScore": 52,
+          "text": "Jarrett Allen makes free throw 1 of 2",
+          "wallclock": "2026-11-03T00:56:42Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909907299",
+          "period": {
+            "number": 2
+          },
+          "clock": {
+            "displayValue": "3:41"
+          },
+          "homeScore": 47,
+          "awayScore": 52,
+          "text": "Jarrett Allen makes free throw 2 of 2",
+          "wallclock": "2026-11-03T01:00:22Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909907305",
+          "period": {
+            "number": 2
+          },
+          "clock": {
+            "displayValue": "2:58"
+          },
+          "homeScore": 47,
+          "awayScore": 55,
+          "text": "Shai Gilgeous-Alexander makes 24-foot three pointer",
+          "wallclock": "2026-11-03T01:01:07Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909907319",
+          "period": {
+            "number": 2
+          },
+          "clock": {
+            "displayValue": "2:12"
+          },
+          "homeScore": 48,
+          "awayScore": 55,
+          "text": "Donovan Mitchell makes free throw 2 of 2",
+          "wallclock": "2026-11-03T01:03:36Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909907339",
+          "period": {
+            "number": 2
+          },
+          "clock": {
+            "displayValue": "41.5"
+          },
+          "homeScore": 48,
+          "awayScore": 57,
+          "text": "Shai Gilgeous-Alexander makes running layup",
+          "wallclock": "2026-11-03T01:06:27Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909907342",
+          "period": {
+            "number": 2
+          },
+          "clock": {
+            "displayValue": "25.1"
+          },
+          "homeScore": 48,
+          "awayScore": 59,
+          "text": "Ajay Mitchell makes running layup (Kenrich Williams assists)",
+          "wallclock": "2026-11-03T01:06:47Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909907361",
+          "period": {
+            "number": 3
+          },
+          "clock": {
+            "displayValue": "11:46"
+          },
+          "homeScore": 48,
+          "awayScore": 61,
+          "text": "Shai Gilgeous-Alexander makes 16-foot pullup jump shot",
+          "wallclock": "2026-11-03T01:23:37Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909907362",
+          "period": {
+            "number": 3
+          },
+          "clock": {
+            "displayValue": "11:26"
+          },
+          "homeScore": 51,
+          "awayScore": 61,
+          "text": "Evan Mobley makes 24-foot three point jumper (James Harden assists)",
+          "wallclock": "2026-11-03T01:23:58Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909907366",
+          "period": {
+            "number": 3
+          },
+          "clock": {
+            "displayValue": "11:04"
+          },
+          "homeScore": 51,
+          "awayScore": 63,
+          "text": "Kenrich Williams makes 1-foot layup (Isaiah Hartenstein assists)",
+          "wallclock": "2026-11-03T01:24:19Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909907370",
+          "period": {
+            "number": 3
+          },
+          "clock": {
+            "displayValue": "10:36"
+          },
+          "homeScore": 53,
+          "awayScore": 63,
+          "text": "Evan Mobley makes layup (Donovan Mitchell assists)",
+          "wallclock": "2026-11-03T01:24:47Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909907374",
+          "period": {
+            "number": 3
+          },
+          "clock": {
+            "displayValue": "10:13"
+          },
+          "homeScore": 55,
+          "awayScore": 63,
+          "text": "Meleek Thomas makes 17-foot pullup jump shot (Donovan Mitchell assists)",
+          "wallclock": "2026-11-03T01:25:11Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909907378",
+          "period": {
+            "number": 3
+          },
+          "clock": {
+            "displayValue": "9:55"
+          },
+          "homeScore": 55,
+          "awayScore": 64,
+          "text": "Shai Gilgeous-Alexander makes free throw 1 of 2",
+          "wallclock": "2026-11-03T01:25:52Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909907379",
+          "period": {
+            "number": 3
+          },
+          "clock": {
+            "displayValue": "9:55"
+          },
+          "homeScore": 55,
+          "awayScore": 65,
+          "text": "Shai Gilgeous-Alexander makes free throw 2 of 2",
+          "wallclock": "2026-11-03T01:26:08Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909907382",
+          "period": {
+            "number": 3
+          },
+          "clock": {
+            "displayValue": "9:43"
+          },
+          "homeScore": 55,
+          "awayScore": 67,
+          "text": "Kenrich Williams makes running layup (Isaiah Hartenstein assists)",
+          "wallclock": "2026-11-03T01:26:24Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909907391",
+          "period": {
+            "number": 3
+          },
+          "clock": {
+            "displayValue": "9:26"
+          },
+          "homeScore": 55,
+          "awayScore": 68,
+          "text": "Shai Gilgeous-Alexander makes free throw 1 of 2",
+          "wallclock": "2026-11-03T01:27:54Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909907392",
+          "period": {
+            "number": 3
+          },
+          "clock": {
+            "displayValue": "9:26"
+          },
+          "homeScore": 55,
+          "awayScore": 69,
+          "text": "Shai Gilgeous-Alexander makes free throw 2 of 2",
+          "wallclock": "2026-11-03T01:28:11Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909907393",
+          "period": {
+            "number": 3
+          },
+          "clock": {
+            "displayValue": "9:13"
+          },
+          "homeScore": 58,
+          "awayScore": 69,
+          "text": "Donovan Mitchell makes 25-foot three point jumper (James Harden assists)",
+          "wallclock": "2026-11-03T01:28:26Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909907397",
+          "period": {
+            "number": 3
+          },
+          "clock": {
+            "displayValue": "8:51"
+          },
+          "homeScore": 61,
+          "awayScore": 69,
+          "text": "James Harden makes 25-foot running jump shot (Evan Mobley assists)",
+          "wallclock": "2026-11-03T01:28:48Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909907401",
+          "period": {
+            "number": 3
+          },
+          "clock": {
+            "displayValue": "8:24"
+          },
+          "homeScore": 61,
+          "awayScore": 71,
+          "text": "Isaiah Hartenstein makes driving layup",
+          "wallclock": "2026-11-03T01:29:14Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909907402",
+          "period": {
+            "number": 3
+          },
+          "clock": {
+            "displayValue": "8:13"
+          },
+          "homeScore": 64,
+          "awayScore": 71,
+          "text": "James Harden makes 23-foot three point jumper (Donovan Mitchell assists)",
+          "wallclock": "2026-11-03T01:29:26Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909907404",
+          "period": {
+            "number": 3
+          },
+          "clock": {
+            "displayValue": "7:54"
+          },
+          "homeScore": 64,
+          "awayScore": 74,
+          "text": "Jaylin Williams makes 22-foot three point jumper (Shai Gilgeous-Alexander assists)",
+          "wallclock": "2026-11-03T01:29:45Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909907406",
+          "period": {
+            "number": 3
+          },
+          "clock": {
+            "displayValue": "7:42"
+          },
+          "homeScore": 67,
+          "awayScore": 74,
+          "text": "Meleek Thomas makes 22-foot three point jumper (Evan Mobley assists)",
+          "wallclock": "2026-11-03T01:29:57Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909907413",
+          "period": {
+            "number": 3
+          },
+          "clock": {
+            "displayValue": "7:11"
+          },
+          "homeScore": 70,
+          "awayScore": 74,
+          "text": "Meleek Thomas makes 24-foot three point jumper (James Harden assists)",
+          "wallclock": "2026-11-03T01:30:28Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909907439",
+          "period": {
+            "number": 3
+          },
+          "clock": {
+            "displayValue": "5:48"
+          },
+          "homeScore": 70,
+          "awayScore": 75,
+          "text": "Shai Gilgeous-Alexander makes free throw 1 of 2",
+          "wallclock": "2026-11-03T01:36:29Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909907440",
+          "period": {
+            "number": 3
+          },
+          "clock": {
+            "displayValue": "5:48"
+          },
+          "homeScore": 70,
+          "awayScore": 76,
+          "text": "Shai Gilgeous-Alexander makes free throw 2 of 2",
+          "wallclock": "2026-11-03T01:36:45Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909907443",
+          "period": {
+            "number": 3
+          },
+          "clock": {
+            "displayValue": "5:06"
+          },
+          "homeScore": 70,
+          "awayScore": 79,
+          "text": "Shai Gilgeous-Alexander makes 27-foot three pointer",
+          "wallclock": "2026-11-03T01:37:29Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909907446",
+          "period": {
+            "number": 3
+          },
+          "clock": {
+            "displayValue": "4:49"
+          },
+          "homeScore": 73,
+          "awayScore": 79,
+          "text": "Sam Merrill makes 25-foot three point jumper (Evan Mobley assists)",
+          "wallclock": "2026-11-03T01:37:46Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909907457",
+          "period": {
+            "number": 3
+          },
+          "clock": {
+            "displayValue": "4:05"
+          },
+          "homeScore": 76,
+          "awayScore": 79,
+          "text": "Mario Hezonja makes 27-foot three point jumper (Tyrese Proctor assists)",
+          "wallclock": "2026-11-03T01:38:59Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909907469",
+          "period": {
+            "number": 3
+          },
+          "clock": {
+            "displayValue": "3:12"
+          },
+          "homeScore": 78,
+          "awayScore": 79,
+          "text": "Mario Hezonja makes driving layup",
+          "wallclock": "2026-11-03T01:40:40Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909907471",
+          "period": {
+            "number": 3
+          },
+          "clock": {
+            "displayValue": "2:49"
+          },
+          "homeScore": 78,
+          "awayScore": 82,
+          "text": "Micah Peavy makes 24-foot three point jumper (Shai Gilgeous-Alexander assists)",
+          "wallclock": "2026-11-03T01:41:18Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909907477",
+          "period": {
+            "number": 3
+          },
+          "clock": {
+            "displayValue": "2:21"
+          },
+          "homeScore": 78,
+          "awayScore": 84,
+          "text": "Aday Mara makes 11-foot floating jump shot (Shai Gilgeous-Alexander assists)",
+          "wallclock": "2026-11-03T01:45:40Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909907479",
+          "period": {
+            "number": 3
+          },
+          "clock": {
+            "displayValue": "2:07"
+          },
+          "homeScore": 80,
+          "awayScore": 84,
+          "text": "Donovan Mitchell makes 9-foot driving floating jump shot",
+          "wallclock": "2026-11-03T01:45:54Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909907484",
+          "period": {
+            "number": 3
+          },
+          "clock": {
+            "displayValue": "1:53"
+          },
+          "homeScore": 80,
+          "awayScore": 85,
+          "text": "Micah Peavy makes free throw 1 of 2",
+          "wallclock": "2026-11-03T01:46:45Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909907485",
+          "period": {
+            "number": 3
+          },
+          "clock": {
+            "displayValue": "1:53"
+          },
+          "homeScore": 80,
+          "awayScore": 86,
+          "text": "Micah Peavy makes free throw 2 of 2",
+          "wallclock": "2026-11-03T01:47:01Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909907490",
+          "period": {
+            "number": 3
+          },
+          "clock": {
+            "displayValue": "1:24"
+          },
+          "homeScore": 80,
+          "awayScore": 88,
+          "text": "Aday Mara makes tip in dunk",
+          "wallclock": "2026-11-03T01:47:31Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909907495",
+          "period": {
+            "number": 3
+          },
+          "clock": {
+            "displayValue": "1:21"
+          },
+          "homeScore": 81,
+          "awayScore": 88,
+          "text": "Mario Hezonja makes free throw 2 of 2",
+          "wallclock": "2026-11-03T01:48:26Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909907498",
+          "period": {
+            "number": 3
+          },
+          "clock": {
+            "displayValue": "1:09"
+          },
+          "homeScore": 81,
+          "awayScore": 90,
+          "text": "Shai Gilgeous-Alexander makes 14-foot pullup jump shot",
+          "wallclock": "2026-11-03T01:48:40Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909907499",
+          "period": {
+            "number": 3
+          },
+          "clock": {
+            "displayValue": "55.9"
+          },
+          "homeScore": 84,
+          "awayScore": 90,
+          "text": "Mario Hezonja makes 23-foot three point jumper (Donovan Mitchell assists)",
+          "wallclock": "2026-11-03T01:48:56Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909907518",
+          "period": {
+            "number": 4
+          },
+          "clock": {
+            "displayValue": "11:39"
+          },
+          "homeScore": 86,
+          "awayScore": 90,
+          "text": "Tyrese Proctor makes finger roll layup",
+          "wallclock": "2026-11-03T01:53:55Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909907521",
+          "period": {
+            "number": 4
+          },
+          "clock": {
+            "displayValue": "11:09"
+          },
+          "homeScore": 89,
+          "awayScore": 90,
+          "text": "Donovan Mitchell makes 24-foot three pointer",
+          "wallclock": "2026-11-03T01:54:25Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909907522",
+          "period": {
+            "number": 4
+          },
+          "clock": {
+            "displayValue": "10:58"
+          },
+          "homeScore": 89,
+          "awayScore": 92,
+          "text": "Jared McCain makes finger roll layup",
+          "wallclock": "2026-11-03T01:54:38Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909907525",
+          "period": {
+            "number": 4
+          },
+          "clock": {
+            "displayValue": "10:58"
+          },
+          "homeScore": 89,
+          "awayScore": 93,
+          "text": "Jared McCain makes free throw 1 of 1",
+          "wallclock": "2026-11-03T01:54:38Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909907526",
+          "period": {
+            "number": 4
+          },
+          "clock": {
+            "displayValue": "10:45"
+          },
+          "homeScore": 92,
+          "awayScore": 93,
+          "text": "Mario Hezonja makes 25-foot three point jumper (Donovan Mitchell assists)",
+          "wallclock": "2026-11-03T01:55:24Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909907540",
+          "period": {
+            "number": 4
+          },
+          "clock": {
+            "displayValue": "9:14"
+          },
+          "homeScore": 93,
+          "awayScore": 93,
+          "text": "Tyrese Proctor makes free throw 1 of 2",
+          "wallclock": "2026-11-03T01:57:23Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909907541",
+          "period": {
+            "number": 4
+          },
+          "clock": {
+            "displayValue": "9:14"
+          },
+          "homeScore": 94,
+          "awayScore": 93,
+          "text": "Tyrese Proctor makes free throw 2 of 2",
+          "wallclock": "2026-11-03T01:57:46Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909907613",
+          "period": {
+            "number": 4
+          },
+          "clock": {
+            "displayValue": "8:04"
+          },
+          "homeScore": 94,
+          "awayScore": 94,
+          "text": "Shai Gilgeous-Alexander makes technical free throw",
+          "wallclock": "2026-11-03T02:04:07Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909907574",
+          "period": {
+            "number": 4
+          },
+          "clock": {
+            "displayValue": "8:00"
+          },
+          "homeScore": 95,
+          "awayScore": 93,
+          "text": "James Harden makes free throw 2 of 3",
+          "wallclock": "2026-11-03T02:05:12Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909907579",
+          "period": {
+            "number": 4
+          },
+          "clock": {
+            "displayValue": "7:49"
+          },
+          "homeScore": 95,
+          "awayScore": 95,
+          "text": "Aday Mara makes 5-foot floating jump shot (Shai Gilgeous-Alexander assists)",
+          "wallclock": "2026-11-03T02:05:39Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909907580",
+          "period": {
+            "number": 4
+          },
+          "clock": {
+            "displayValue": "7:35"
+          },
+          "homeScore": 97,
+          "awayScore": 95,
+          "text": "Jarrett Allen makes layup (Mario Hezonja assists)",
+          "wallclock": "2026-11-03T02:05:55Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909907584",
+          "period": {
+            "number": 4
+          },
+          "clock": {
+            "displayValue": "7:35"
+          },
+          "homeScore": 98,
+          "awayScore": 95,
+          "text": "Jarrett Allen makes free throw 1 of 1",
+          "wallclock": "2026-11-03T02:05:55Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909907585",
+          "period": {
+            "number": 4
+          },
+          "clock": {
+            "displayValue": "7:26"
+          },
+          "homeScore": 98,
+          "awayScore": 97,
+          "text": "Shai Gilgeous-Alexander makes driving layup",
+          "wallclock": "2026-11-03T02:06:31Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909907586",
+          "period": {
+            "number": 4
+          },
+          "clock": {
+            "displayValue": "7:05"
+          },
+          "homeScore": 100,
+          "awayScore": 97,
+          "text": "Meleek Thomas makes 9-foot driving floating jump shot (James Harden assists)",
+          "wallclock": "2026-11-03T02:06:52Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909907588",
+          "period": {
+            "number": 4
+          },
+          "clock": {
+            "displayValue": "6:47"
+          },
+          "homeScore": 100,
+          "awayScore": 99,
+          "text": "Shai Gilgeous-Alexander makes 13-foot pullup jump shot",
+          "wallclock": "2026-11-03T02:07:10Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909907589",
+          "period": {
+            "number": 4
+          },
+          "clock": {
+            "displayValue": "6:32"
+          },
+          "homeScore": 102,
+          "awayScore": 99,
+          "text": "Jarrett Allen makes 15-foot jumper (Mario Hezonja assists)",
+          "wallclock": "2026-11-03T02:07:25Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909907597",
+          "period": {
+            "number": 4
+          },
+          "clock": {
+            "displayValue": "5:54"
+          },
+          "homeScore": 102,
+          "awayScore": 102,
+          "text": "Bennett Stirtz makes 22-foot running pullup jump shot (Ajay Mitchell assists)",
+          "wallclock": "2026-11-03T02:08:03Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909907610",
+          "period": {
+            "number": 4
+          },
+          "clock": {
+            "displayValue": "5:34"
+          },
+          "homeScore": 103,
+          "awayScore": 102,
+          "text": "Sam Merrill makes free throw 1 of 2",
+          "wallclock": "2026-11-03T02:12:21Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909907611",
+          "period": {
+            "number": 4
+          },
+          "clock": {
+            "displayValue": "5:34"
+          },
+          "homeScore": 104,
+          "awayScore": 102,
+          "text": "Sam Merrill makes free throw 2 of 2",
+          "wallclock": "2026-11-03T02:12:40Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909907617",
+          "period": {
+            "number": 4
+          },
+          "clock": {
+            "displayValue": "5:06"
+          },
+          "homeScore": 104,
+          "awayScore": 105,
+          "text": "Shai Gilgeous-Alexander makes 13-foot two point shot",
+          "wallclock": "2026-11-03T02:13:27Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909907649",
+          "period": {
+            "number": 4
+          },
+          "clock": {
+            "displayValue": "3:43"
+          },
+          "homeScore": 105,
+          "awayScore": 105,
+          "text": "Evan Mobley makes free throw 1 of 2",
+          "wallclock": "2026-11-03T02:17:54Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909907650",
+          "period": {
+            "number": 4
+          },
+          "clock": {
+            "displayValue": "3:43"
+          },
+          "homeScore": 106,
+          "awayScore": 105,
+          "text": "Evan Mobley makes free throw 2 of 2",
+          "wallclock": "2026-11-03T02:18:33Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909907657",
+          "period": {
+            "number": 4
+          },
+          "clock": {
+            "displayValue": "3:21"
+          },
+          "homeScore": 108,
+          "awayScore": 105,
+          "text": "Evan Mobley makes layup (Donovan Mitchell assists)",
+          "wallclock": "2026-11-03T02:18:58Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909907679",
+          "period": {
+            "number": 4
+          },
+          "clock": {
+            "displayValue": "3:21"
+          },
+          "homeScore": 108,
+          "awayScore": 106,
+          "text": "Shai Gilgeous-Alexander makes technical free throw",
+          "wallclock": "2026-11-03T02:20:43Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909907665",
+          "period": {
+            "number": 4
+          },
+          "clock": {
+            "displayValue": "3:09"
+          },
+          "homeScore": 108,
+          "awayScore": 107,
+          "text": "Shai Gilgeous-Alexander makes 13-foot turnaround jump shot",
+          "wallclock": "2026-11-03T02:21:10Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909907672",
+          "period": {
+            "number": 4
+          },
+          "clock": {
+            "displayValue": "2:47"
+          },
+          "homeScore": 109,
+          "awayScore": 107,
+          "text": "Evan Mobley makes free throw 2 of 2",
+          "wallclock": "2026-11-03T02:25:01Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909907682",
+          "period": {
+            "number": 4
+          },
+          "clock": {
+            "displayValue": "1:51"
+          },
+          "homeScore": 109,
+          "awayScore": 109,
+          "text": "Isaiah Hartenstein makes 6-foot floating jump shot (Shai Gilgeous-Alexander assists)",
+          "wallclock": "2026-11-03T02:26:02Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909907686",
+          "period": {
+            "number": 4
+          },
+          "clock": {
+            "displayValue": "1:16"
+          },
+          "homeScore": 109,
+          "awayScore": 112,
+          "text": "Ajay Mitchell makes 14-foot pullup jump shot",
+          "wallclock": "2026-11-03T02:26:39Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909907687",
+          "period": {
+            "number": 4
+          },
+          "clock": {
+            "displayValue": "1:01"
+          },
+          "homeScore": 112,
+          "awayScore": 112,
+          "text": "Sam Merrill makes 23-foot three point jumper (Donovan Mitchell assists)",
+          "wallclock": "2026-11-03T02:27:00Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909907693",
+          "period": {
+            "number": 4
+          },
+          "clock": {
+            "displayValue": "32.6"
+          },
+          "homeScore": 112,
+          "awayScore": 115,
+          "text": "Shai Gilgeous-Alexander makes 24-foot three point step back jumpshot",
+          "wallclock": "2026-11-03T02:27:56Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909907713",
+          "period": {
+            "number": 4
+          },
+          "clock": {
+            "displayValue": "15.4"
+          },
+          "homeScore": 112,
+          "awayScore": 116,
+          "text": "Ajay Mitchell makes free throw 1 of 2",
+          "wallclock": "2026-11-03T02:33:21Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909907715",
+          "period": {
+            "number": 4
+          },
+          "clock": {
+            "displayValue": "15.4"
+          },
+          "homeScore": 112,
+          "awayScore": 117,
+          "text": "Ajay Mitchell makes free throw 2 of 2",
+          "wallclock": "2026-11-03T02:33:48Z",
+          "scoringPlay": true
+        }
+      ]
+    },
+    {
+      "id": "401909905",
+      "source": "https://sports-radar-alerts.mmueller918.workers.dev/game/NBA/401909905",
+      "sourceSha256": "b8b82f8d69f157ebbb80cf05b07d351ffc475bad352312a08cdadbd1c24b7355",
+      "originalSnapshotCount": 390,
+      "originalScoringPlayCount": 114,
+      "game": {
+        "id": "401909905",
+        "sport": "NBA",
+        "state": "completed",
+        "score": 54,
+        "teams": [
+          [
+            "LA Clippers",
+            "LAC",
+            "112",
+            "white",
+            "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/lac.png",
+            "1-5",
+            null,
+            "Clippers",
+            "12"
+          ],
+          [
+            "Golden State Warriors",
+            "GS",
+            "124",
+            "white",
+            "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/gs.png",
+            "4-3",
+            null,
+            "Warriors",
+            "9"
+          ]
+        ]
+      },
+      "snapshots": [
+        {
+          "observedAt": 1793589840000,
+          "state": "live",
+          "rating": 43,
+          "scoreA": "85",
+          "scoreB": "92",
+          "period": 3,
+          "clock": "0.0",
+          "phaseLabel": "End of 3rd Quarter",
+          "modelVersion": "2026-11-01.production-integrity.2",
+          "evidenceQuality": "verified"
+        },
+        {
+          "observedAt": 1793589855000,
+          "state": "live",
+          "rating": 43,
+          "scoreA": "85",
+          "scoreB": "92",
+          "period": 3,
+          "clock": "0.0",
+          "phaseLabel": "End of 3rd Quarter",
+          "modelVersion": "2026-11-01.production-integrity.2",
+          "evidenceQuality": "verified"
+        },
+        {
+          "observedAt": 1793589885000,
+          "state": "live",
+          "rating": 43,
+          "scoreA": "85",
+          "scoreB": "92",
+          "period": 3,
+          "clock": "0.0",
+          "phaseLabel": "End of 3rd Quarter",
+          "modelVersion": "2026-11-01.production-integrity.2",
+          "evidenceQuality": "verified"
+        },
+        {
+          "observedAt": 1793589915000,
+          "state": "live",
+          "rating": 43,
+          "scoreA": "85",
+          "scoreB": "92",
+          "period": 3,
+          "clock": "0.0",
+          "phaseLabel": "End of 3rd Quarter",
+          "modelVersion": "2026-11-01.production-integrity.2",
+          "evidenceQuality": "verified"
+        },
+        {
+          "observedAt": 1793589945000,
+          "state": "live",
+          "rating": 9,
+          "scoreA": "85",
+          "scoreB": "92",
+          "period": 4,
+          "clock": "0.0",
+          "phaseLabel": "4th quarter",
+          "modelVersion": "2026-11-01.production-integrity.2",
+          "evidenceQuality": "verified"
+        },
+        {
+          "observedAt": 1793589960000,
+          "state": "live",
+          "rating": 8,
+          "scoreA": "85",
+          "scoreB": "94",
+          "period": 4,
+          "clock": "0.0",
+          "phaseLabel": "4th quarter",
+          "modelVersion": "2026-11-01.production-integrity.2",
+          "evidenceQuality": "partial"
+        },
+        {
+          "observedAt": 1793589990000,
+          "state": "live",
+          "rating": 7,
+          "scoreA": "87",
+          "scoreB": "97",
+          "period": 4,
+          "clock": "0.0",
+          "phaseLabel": "4th quarter",
+          "modelVersion": "2026-11-01.production-integrity.2",
+          "evidenceQuality": "partial"
+        },
+        {
+          "observedAt": 1793590005000,
+          "state": "live",
+          "rating": 46,
+          "scoreA": "87",
+          "scoreB": "97",
+          "period": 4,
+          "clock": "10:45",
+          "phaseLabel": "10:45 · 4th quarter",
+          "modelVersion": "2026-11-01.production-integrity.2",
+          "evidenceQuality": "partial"
+        },
+        {
+          "observedAt": 1793590035000,
+          "state": "live",
+          "rating": 50,
+          "scoreA": "89",
+          "scoreB": "97",
+          "period": 4,
+          "clock": "10:19",
+          "phaseLabel": "10:19 · 4th quarter",
+          "modelVersion": "2026-11-01.production-integrity.2",
+          "evidenceQuality": "partial"
+        },
+        {
+          "observedAt": 1793590050000,
+          "state": "live",
+          "rating": 50,
+          "scoreA": "89",
+          "scoreB": "97",
+          "period": 4,
+          "clock": "10:12",
+          "phaseLabel": "10:12 · 4th quarter",
+          "modelVersion": "2026-11-01.production-integrity.2",
+          "evidenceQuality": "verified"
+        },
+        {
+          "observedAt": 1793590080000,
+          "state": "live",
+          "rating": 46,
+          "scoreA": "89",
+          "scoreB": "97",
+          "period": 4,
+          "clock": "10:09",
+          "phaseLabel": "10:09 · 4th quarter",
+          "modelVersion": "2026-11-01.production-integrity.2",
+          "evidenceQuality": "verified"
+        },
+        {
+          "observedAt": 1793591775000,
+          "state": "live",
+          "rating": 4,
+          "scoreA": "112",
+          "scoreB": "124",
+          "period": 4,
+          "clock": "0.0",
+          "phaseLabel": "End of 4th Quarter",
+          "modelVersion": "2026-11-01.production-integrity.2",
+          "evidenceQuality": "partial"
+        },
+        {
+          "observedAt": 1793591789418,
+          "state": "completed",
+          "rating": 54,
+          "scoreA": "112",
+          "scoreB": "124",
+          "period": 4,
+          "clock": "0.0",
+          "phaseLabel": "Final",
+          "modelVersion": "2026-11-01.production-integrity.2",
+          "evidenceQuality": "verified"
+        }
+      ],
+      "scoringPlays": [
+        {
+          "id": "40190990510",
+          "period": {
+            "number": 1
+          },
+          "clock": {
+            "displayValue": "11:29"
+          },
+          "homeScore": 0,
+          "awayScore": 2,
+          "text": "Rui Hachimura makes 16-foot pullup jump shot (Kris Dunn assists)",
+          "wallclock": "2026-11-02T01:41:47Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "40190990516",
+          "period": {
+            "number": 1
+          },
+          "clock": {
+            "displayValue": "11:03"
+          },
+          "homeScore": 3,
+          "awayScore": 2,
+          "text": "De'Anthony Melton makes 24-foot running jump shot (Yaxel Lendeborg assists)",
+          "wallclock": "2026-11-02T01:42:14Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "40190990520",
+          "period": {
+            "number": 1
+          },
+          "clock": {
+            "displayValue": "10:40"
+          },
+          "homeScore": 3,
+          "awayScore": 4,
+          "text": "Isaiah Jackson makes 3-foot hook shot",
+          "wallclock": "2026-11-02T01:42:37Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "40190990523",
+          "period": {
+            "number": 1
+          },
+          "clock": {
+            "displayValue": "10:22"
+          },
+          "homeScore": 3,
+          "awayScore": 6,
+          "text": "Kris Dunn makes 8-foot driving floating jump shot",
+          "wallclock": "2026-11-02T01:42:55Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "40190990528",
+          "period": {
+            "number": 1
+          },
+          "clock": {
+            "displayValue": "9:49"
+          },
+          "homeScore": 5,
+          "awayScore": 6,
+          "text": "Charles Bassey makes 7-foot floating jump shot (Yaxel Lendeborg assists)",
+          "wallclock": "2026-11-02T01:43:28Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "40190990534",
+          "period": {
+            "number": 1
+          },
+          "clock": {
+            "displayValue": "9:20"
+          },
+          "homeScore": 7,
+          "awayScore": 6,
+          "text": "Yaxel Lendeborg makes 10-foot turnaround jump shot",
+          "wallclock": "2026-11-02T01:45:39Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "40190990535",
+          "period": {
+            "number": 1
+          },
+          "clock": {
+            "displayValue": "8:59"
+          },
+          "homeScore": 7,
+          "awayScore": 9,
+          "text": "Rui Hachimura makes 26-foot three point jumper (Isaiah Jackson assists)",
+          "wallclock": "2026-11-02T01:46:00Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "40190990539",
+          "period": {
+            "number": 1
+          },
+          "clock": {
+            "displayValue": "8:40"
+          },
+          "homeScore": 8,
+          "awayScore": 9,
+          "text": "De'Anthony Melton makes free throw 1 of 2",
+          "wallclock": "2026-11-02T01:46:50Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "40190990540",
+          "period": {
+            "number": 1
+          },
+          "clock": {
+            "displayValue": "8:40"
+          },
+          "homeScore": 9,
+          "awayScore": 9,
+          "text": "De'Anthony Melton makes free throw 2 of 2",
+          "wallclock": "2026-11-02T01:47:03Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "40190990550",
+          "period": {
+            "number": 1
+          },
+          "clock": {
+            "displayValue": "7:56"
+          },
+          "homeScore": 9,
+          "awayScore": 11,
+          "text": "Rui Hachimura makes driving layup (Derrick Jones Jr. assists)",
+          "wallclock": "2026-11-02T01:47:49Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "40190990554",
+          "period": {
+            "number": 1
+          },
+          "clock": {
+            "displayValue": "7:32"
+          },
+          "homeScore": 9,
+          "awayScore": 14,
+          "text": "Derrick Jones Jr. makes 26-foot three point jumper (Kris Dunn assists)",
+          "wallclock": "2026-11-02T01:48:16Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "40190990565",
+          "period": {
+            "number": 1
+          },
+          "clock": {
+            "displayValue": "7:11"
+          },
+          "homeScore": 12,
+          "awayScore": 14,
+          "text": "Gary Payton II makes 23-foot three point jumper (Brandon Williams assists)",
+          "wallclock": "2026-11-02T01:51:42Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "40190990571",
+          "period": {
+            "number": 1
+          },
+          "clock": {
+            "displayValue": "6:29"
+          },
+          "homeScore": 14,
+          "awayScore": 14,
+          "text": "Brandin Podziemski makes tip shot",
+          "wallclock": "2026-11-02T01:52:23Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "40190990572",
+          "period": {
+            "number": 1
+          },
+          "clock": {
+            "displayValue": "6:19"
+          },
+          "homeScore": 14,
+          "awayScore": 16,
+          "text": "Derrick Jones Jr. makes 13-foot pullup jump shot",
+          "wallclock": "2026-11-02T01:52:34Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "40190990575",
+          "period": {
+            "number": 1
+          },
+          "clock": {
+            "displayValue": "5:57"
+          },
+          "homeScore": 14,
+          "awayScore": 19,
+          "text": "Kobe Sanders makes 24-foot three point jumper (Darius Garland assists)",
+          "wallclock": "2026-11-02T01:52:55Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "40190990577",
+          "period": {
+            "number": 1
+          },
+          "clock": {
+            "displayValue": "5:34"
+          },
+          "homeScore": 16,
+          "awayScore": 19,
+          "text": "Gui Santos makes driving layup",
+          "wallclock": "2026-11-02T01:53:18Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "40190990585",
+          "period": {
+            "number": 1
+          },
+          "clock": {
+            "displayValue": "5:04"
+          },
+          "homeScore": 18,
+          "awayScore": 19,
+          "text": "Brandon Williams makes 4-foot driving floating jump shot (Will Richard assists)",
+          "wallclock": "2026-11-02T01:54:08Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "40190990589",
+          "period": {
+            "number": 1
+          },
+          "clock": {
+            "displayValue": "4:52"
+          },
+          "homeScore": 18,
+          "awayScore": 20,
+          "text": "Darius Garland makes free throw 1 of 3",
+          "wallclock": "2026-11-02T01:56:13Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "40190990591",
+          "period": {
+            "number": 1
+          },
+          "clock": {
+            "displayValue": "4:52"
+          },
+          "homeScore": 18,
+          "awayScore": 21,
+          "text": "Darius Garland makes free throw 2 of 3",
+          "wallclock": "2026-11-02T01:56:32Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "40190990592",
+          "period": {
+            "number": 1
+          },
+          "clock": {
+            "displayValue": "4:52"
+          },
+          "homeScore": 18,
+          "awayScore": 22,
+          "text": "Darius Garland makes free throw 3 of 3",
+          "wallclock": "2026-11-02T01:56:58Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "40190990597",
+          "period": {
+            "number": 1
+          },
+          "clock": {
+            "displayValue": "4:34"
+          },
+          "homeScore": 21,
+          "awayScore": 22,
+          "text": "Al Horford makes 26-foot three point jumper (Will Richard assists)",
+          "wallclock": "2026-11-02T01:57:18Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "40190990599",
+          "period": {
+            "number": 1
+          },
+          "clock": {
+            "displayValue": "4:19"
+          },
+          "homeScore": 21,
+          "awayScore": 24,
+          "text": "Brook Lopez makes 2-foot dunk (Darius Garland assists)",
+          "wallclock": "2026-11-02T01:57:32Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909905101",
+          "period": {
+            "number": 1
+          },
+          "clock": {
+            "displayValue": "4:10"
+          },
+          "homeScore": 24,
+          "awayScore": 24,
+          "text": "Yaxel Lendeborg makes 27-foot three pointer (Brandon Williams assists)",
+          "wallclock": "2026-11-02T01:57:41Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909905115",
+          "period": {
+            "number": 1
+          },
+          "clock": {
+            "displayValue": "3:07"
+          },
+          "homeScore": 24,
+          "awayScore": 27,
+          "text": "Kobe Sanders makes 24-foot three point jumper (Keaton Wagler assists)",
+          "wallclock": "2026-11-02T01:59:04Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909905117",
+          "period": {
+            "number": 1
+          },
+          "clock": {
+            "displayValue": "2:57"
+          },
+          "homeScore": 26,
+          "awayScore": 27,
+          "text": "Brandon Williams makes 5-foot driving floating jump shot",
+          "wallclock": "2026-11-02T01:59:14Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909905118",
+          "period": {
+            "number": 1
+          },
+          "clock": {
+            "displayValue": "2:46"
+          },
+          "homeScore": 26,
+          "awayScore": 30,
+          "text": "Kobe Sanders makes 24-foot three point jumper (Keaton Wagler assists)",
+          "wallclock": "2026-11-02T01:59:26Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909905122",
+          "period": {
+            "number": 1
+          },
+          "clock": {
+            "displayValue": "2:08"
+          },
+          "homeScore": 26,
+          "awayScore": 32,
+          "text": "Kobe Sanders makes 3-foot driving dunk (Keaton Wagler assists)",
+          "wallclock": "2026-11-02T02:00:04Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909905143",
+          "period": {
+            "number": 1
+          },
+          "clock": {
+            "displayValue": "1:30"
+          },
+          "homeScore": 26,
+          "awayScore": 33,
+          "text": "Keaton Wagler makes free throw 1 of 2",
+          "wallclock": "2026-11-02T02:04:35Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909905144",
+          "period": {
+            "number": 1
+          },
+          "clock": {
+            "displayValue": "1:30"
+          },
+          "homeScore": 26,
+          "awayScore": 34,
+          "text": "Keaton Wagler makes free throw 2 of 2",
+          "wallclock": "2026-11-02T02:04:52Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909905147",
+          "period": {
+            "number": 1
+          },
+          "clock": {
+            "displayValue": "1:07"
+          },
+          "homeScore": 26,
+          "awayScore": 37,
+          "text": "Brook Lopez makes 25-foot three point jumper (Keaton Wagler assists)",
+          "wallclock": "2026-11-02T02:05:16Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909905149",
+          "period": {
+            "number": 1
+          },
+          "clock": {
+            "displayValue": "54.4"
+          },
+          "homeScore": 29,
+          "awayScore": 37,
+          "text": "Al Horford makes 27-foot three point jumper (Brandin Podziemski assists)",
+          "wallclock": "2026-11-02T02:05:31Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909905174",
+          "period": {
+            "number": 2
+          },
+          "clock": {
+            "displayValue": "11:03"
+          },
+          "homeScore": 31,
+          "awayScore": 37,
+          "text": "Gui Santos makes running layup",
+          "wallclock": "2026-11-02T02:11:17Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909905184",
+          "period": {
+            "number": 2
+          },
+          "clock": {
+            "displayValue": "10:28"
+          },
+          "homeScore": 34,
+          "awayScore": 37,
+          "text": "Brandon Williams makes 24-foot three point jumper (Gui Santos assists)",
+          "wallclock": "2026-11-02T02:12:14Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909905191",
+          "period": {
+            "number": 2
+          },
+          "clock": {
+            "displayValue": "10:03"
+          },
+          "homeScore": 36,
+          "awayScore": 37,
+          "text": "Brandon Williams makes running layup",
+          "wallclock": "2026-11-02T02:15:38Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909905200",
+          "period": {
+            "number": 2
+          },
+          "clock": {
+            "displayValue": "9:00"
+          },
+          "homeScore": 36,
+          "awayScore": 39,
+          "text": "Rui Hachimura makes driving layup",
+          "wallclock": "2026-11-02T02:16:42Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909905220",
+          "period": {
+            "number": 2
+          },
+          "clock": {
+            "displayValue": "7:56"
+          },
+          "homeScore": 38,
+          "awayScore": 39,
+          "text": "Yaxel Lendeborg makes 3-foot two point shot (Charles Bassey assists)",
+          "wallclock": "2026-11-02T02:18:39Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909905226",
+          "period": {
+            "number": 2
+          },
+          "clock": {
+            "displayValue": "7:30"
+          },
+          "homeScore": 40,
+          "awayScore": 39,
+          "text": "Yaxel Lendeborg makes running layup (De'Anthony Melton assists)",
+          "wallclock": "2026-11-02T02:19:05Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909905241",
+          "period": {
+            "number": 2
+          },
+          "clock": {
+            "displayValue": "6:29"
+          },
+          "homeScore": 40,
+          "awayScore": 41,
+          "text": "Rui Hachimura makes 2-foot dunk (Darius Garland assists)",
+          "wallclock": "2026-11-02T02:20:28Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909905246",
+          "period": {
+            "number": 2
+          },
+          "clock": {
+            "displayValue": "6:06"
+          },
+          "homeScore": 42,
+          "awayScore": 41,
+          "text": "Gary Payton II makes tip shot",
+          "wallclock": "2026-11-02T02:21:10Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909905249",
+          "period": {
+            "number": 2
+          },
+          "clock": {
+            "displayValue": "5:38"
+          },
+          "homeScore": 45,
+          "awayScore": 41,
+          "text": "Georges Niang makes 25-foot running jump shot (De'Anthony Melton assists)",
+          "wallclock": "2026-11-02T02:21:39Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909905255",
+          "period": {
+            "number": 2
+          },
+          "clock": {
+            "displayValue": "5:12"
+          },
+          "homeScore": 45,
+          "awayScore": 42,
+          "text": "Kris Dunn makes free throw 1 of 2",
+          "wallclock": "2026-11-02T02:22:40Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909905256",
+          "period": {
+            "number": 2
+          },
+          "clock": {
+            "displayValue": "5:12"
+          },
+          "homeScore": 45,
+          "awayScore": 43,
+          "text": "Kris Dunn makes free throw 2 of 2",
+          "wallclock": "2026-11-02T02:23:08Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909905279",
+          "period": {
+            "number": 2
+          },
+          "clock": {
+            "displayValue": "3:59"
+          },
+          "homeScore": 47,
+          "awayScore": 43,
+          "text": "Graham Ike makes tip shot",
+          "wallclock": "2026-11-02T02:28:57Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909905280",
+          "period": {
+            "number": 2
+          },
+          "clock": {
+            "displayValue": "3:45"
+          },
+          "homeScore": 47,
+          "awayScore": 45,
+          "text": "Derrick Jones Jr. makes 1-foot layup (Isaiah Jackson assists)",
+          "wallclock": "2026-11-02T02:29:11Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909905282",
+          "period": {
+            "number": 2
+          },
+          "clock": {
+            "displayValue": "3:21"
+          },
+          "homeScore": 50,
+          "awayScore": 45,
+          "text": "De'Anthony Melton makes 25-foot three point jumper (Yaxel Lendeborg assists)",
+          "wallclock": "2026-11-02T02:29:35Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909905284",
+          "period": {
+            "number": 2
+          },
+          "clock": {
+            "displayValue": "3:05"
+          },
+          "homeScore": 50,
+          "awayScore": 47,
+          "text": "Darius Garland makes 3-foot two point shot",
+          "wallclock": "2026-11-02T02:29:52Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909905285",
+          "period": {
+            "number": 2
+          },
+          "clock": {
+            "displayValue": "2:57"
+          },
+          "homeScore": 53,
+          "awayScore": 47,
+          "text": "Brandon Williams makes 23-foot three point jumper (Gary Payton II assists)",
+          "wallclock": "2026-11-02T02:30:00Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909905291",
+          "period": {
+            "number": 2
+          },
+          "clock": {
+            "displayValue": "2:16"
+          },
+          "homeScore": 53,
+          "awayScore": 49,
+          "text": "Rui Hachimura makes 3-foot running dunk (Darius Garland assists)",
+          "wallclock": "2026-11-02T02:30:40Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909905301",
+          "period": {
+            "number": 2
+          },
+          "clock": {
+            "displayValue": "1:28"
+          },
+          "homeScore": 55,
+          "awayScore": 49,
+          "text": "Yaxel Lendeborg makes 9-foot turnaround jump shot",
+          "wallclock": "2026-11-02T02:32:20Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909905308",
+          "period": {
+            "number": 2
+          },
+          "clock": {
+            "displayValue": "1:08"
+          },
+          "homeScore": 55,
+          "awayScore": 52,
+          "text": "Darius Garland makes 29-foot three point step back jumpshot",
+          "wallclock": "2026-11-02T02:32:39Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909905309",
+          "period": {
+            "number": 2
+          },
+          "clock": {
+            "displayValue": "54.2"
+          },
+          "homeScore": 58,
+          "awayScore": 52,
+          "text": "Yaxel Lendeborg makes 27-foot three pointer",
+          "wallclock": "2026-11-02T02:32:55Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909905314",
+          "period": {
+            "number": 2
+          },
+          "clock": {
+            "displayValue": "35.9"
+          },
+          "homeScore": 59,
+          "awayScore": 52,
+          "text": "Yaxel Lendeborg makes free throw 1 of 2",
+          "wallclock": "2026-11-02T02:33:50Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909905315",
+          "period": {
+            "number": 2
+          },
+          "clock": {
+            "displayValue": "35.9"
+          },
+          "homeScore": 60,
+          "awayScore": 52,
+          "text": "Yaxel Lendeborg makes free throw 2 of 2",
+          "wallclock": "2026-11-02T02:34:06Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909905316",
+          "period": {
+            "number": 2
+          },
+          "clock": {
+            "displayValue": "29.3"
+          },
+          "homeScore": 60,
+          "awayScore": 55,
+          "text": "Rui Hachimura makes 25-foot three point jumper (Darius Garland assists)",
+          "wallclock": "2026-11-02T02:34:17Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909905318",
+          "period": {
+            "number": 2
+          },
+          "clock": {
+            "displayValue": "8.5"
+          },
+          "homeScore": 63,
+          "awayScore": 55,
+          "text": "Yaxel Lendeborg makes 26-foot three point jumper (Brandin Podziemski assists)",
+          "wallclock": "2026-11-02T02:34:43Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909905322",
+          "period": {
+            "number": 2
+          },
+          "clock": {
+            "displayValue": "0.9"
+          },
+          "homeScore": 63,
+          "awayScore": 57,
+          "text": "Isaiah Jackson makes tip in dunk",
+          "wallclock": "2026-11-02T02:34:59Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909905346",
+          "period": {
+            "number": 3
+          },
+          "clock": {
+            "displayValue": "10:55"
+          },
+          "homeScore": 66,
+          "awayScore": 57,
+          "text": "Brandin Podziemski makes 26-foot three point jumper (Yaxel Lendeborg assists)",
+          "wallclock": "2026-11-02T02:51:50Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909905354",
+          "period": {
+            "number": 3
+          },
+          "clock": {
+            "displayValue": "10:41"
+          },
+          "homeScore": 66,
+          "awayScore": 58,
+          "text": "Isaiah Jackson makes free throw 2 of 2",
+          "wallclock": "2026-11-02T02:52:58Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909905357",
+          "period": {
+            "number": 3
+          },
+          "clock": {
+            "displayValue": "10:25"
+          },
+          "homeScore": 66,
+          "awayScore": 60,
+          "text": "Rui Hachimura makes 1-foot running dunk (Darius Garland assists)",
+          "wallclock": "2026-11-02T02:53:16Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909905359",
+          "period": {
+            "number": 3
+          },
+          "clock": {
+            "displayValue": "10:12"
+          },
+          "homeScore": 68,
+          "awayScore": 60,
+          "text": "Brandin Podziemski makes 6-foot two point shot",
+          "wallclock": "2026-11-02T02:53:29Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909905363",
+          "period": {
+            "number": 3
+          },
+          "clock": {
+            "displayValue": "9:37"
+          },
+          "homeScore": 68,
+          "awayScore": 63,
+          "text": "Rui Hachimura makes 26-foot running jump shot (Kris Dunn assists)",
+          "wallclock": "2026-11-02T02:54:19Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909905369",
+          "period": {
+            "number": 3
+          },
+          "clock": {
+            "displayValue": "9:18"
+          },
+          "homeScore": 70,
+          "awayScore": 63,
+          "text": "Brandin Podziemski makes driving layup (Charles Bassey assists)",
+          "wallclock": "2026-11-02T02:55:16Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909905376",
+          "period": {
+            "number": 3
+          },
+          "clock": {
+            "displayValue": "8:42"
+          },
+          "homeScore": 73,
+          "awayScore": 63,
+          "text": "De'Anthony Melton makes 27-foot three point jumper (Gary Payton II assists)",
+          "wallclock": "2026-11-02T02:58:58Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909905384",
+          "period": {
+            "number": 3
+          },
+          "clock": {
+            "displayValue": "8:03"
+          },
+          "homeScore": 75,
+          "awayScore": 63,
+          "text": "Yaxel Lendeborg makes alley oop layup (Brandin Podziemski assists)",
+          "wallclock": "2026-11-02T03:00:20Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909905406",
+          "period": {
+            "number": 3
+          },
+          "clock": {
+            "displayValue": "6:51"
+          },
+          "homeScore": 77,
+          "awayScore": 63,
+          "text": "Yaxel Lendeborg makes driving layup (Brandin Podziemski assists)",
+          "wallclock": "2026-11-02T03:05:40Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909905408",
+          "period": {
+            "number": 3
+          },
+          "clock": {
+            "displayValue": "6:40"
+          },
+          "homeScore": 77,
+          "awayScore": 66,
+          "text": "Rui Hachimura makes 28-foot three point step back jumpshot (Kris Dunn assists)",
+          "wallclock": "2026-11-02T03:05:51Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909905411",
+          "period": {
+            "number": 3
+          },
+          "clock": {
+            "displayValue": "6:16"
+          },
+          "homeScore": 78,
+          "awayScore": 66,
+          "text": "De'Anthony Melton makes free throw 1 of 2",
+          "wallclock": "2026-11-02T03:06:38Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909905418",
+          "period": {
+            "number": 3
+          },
+          "clock": {
+            "displayValue": "5:46"
+          },
+          "homeScore": 80,
+          "awayScore": 66,
+          "text": "Yaxel Lendeborg makes 23-foot step back jumpshot",
+          "wallclock": "2026-11-02T03:07:19Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909905419",
+          "period": {
+            "number": 3
+          },
+          "clock": {
+            "displayValue": "5:33"
+          },
+          "homeScore": 80,
+          "awayScore": 68,
+          "text": "Kris Dunn makes driving layup",
+          "wallclock": "2026-11-02T03:07:33Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909905420",
+          "period": {
+            "number": 3
+          },
+          "clock": {
+            "displayValue": "5:20"
+          },
+          "homeScore": 83,
+          "awayScore": 68,
+          "text": "Yaxel Lendeborg makes 26-foot three point jumper (Al Horford assists)",
+          "wallclock": "2026-11-02T03:07:45Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909905426",
+          "period": {
+            "number": 3
+          },
+          "clock": {
+            "displayValue": "4:36"
+          },
+          "homeScore": 83,
+          "awayScore": 70,
+          "text": "Brook Lopez makes 15-foot two point shot",
+          "wallclock": "2026-11-02T03:08:29Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909905446",
+          "period": {
+            "number": 3
+          },
+          "clock": {
+            "displayValue": "4:01"
+          },
+          "homeScore": 85,
+          "awayScore": 70,
+          "text": "Brandon Williams makes driving layup (Al Horford assists)",
+          "wallclock": "2026-11-02T03:11:48Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909905447",
+          "period": {
+            "number": 3
+          },
+          "clock": {
+            "displayValue": "3:56"
+          },
+          "homeScore": 85,
+          "awayScore": 73,
+          "text": "Kobe Sanders makes 26-foot three point jumper (Darius Garland assists)",
+          "wallclock": "2026-11-02T03:11:52Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909905451",
+          "period": {
+            "number": 3
+          },
+          "clock": {
+            "displayValue": "3:41"
+          },
+          "homeScore": 85,
+          "awayScore": 75,
+          "text": "Kris Dunn makes 2-foot driving dunk",
+          "wallclock": "2026-11-02T03:12:10Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909905457",
+          "period": {
+            "number": 3
+          },
+          "clock": {
+            "displayValue": "3:30"
+          },
+          "homeScore": 85,
+          "awayScore": 77,
+          "text": "Kobe Sanders makes 1-foot driving dunk",
+          "wallclock": "2026-11-02T03:13:58Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909905461",
+          "period": {
+            "number": 3
+          },
+          "clock": {
+            "displayValue": "2:54"
+          },
+          "homeScore": 87,
+          "awayScore": 77,
+          "text": "Brandon Williams makes driving layup (Will Richard assists)",
+          "wallclock": "2026-11-02T03:14:52Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909905465",
+          "period": {
+            "number": 3
+          },
+          "clock": {
+            "displayValue": "2:20"
+          },
+          "homeScore": 90,
+          "awayScore": 77,
+          "text": "Brandin Podziemski makes 26-foot three point step back jumpshot (Georges Niang assists)",
+          "wallclock": "2026-11-02T03:15:40Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909905469",
+          "period": {
+            "number": 3
+          },
+          "clock": {
+            "displayValue": "1:52"
+          },
+          "homeScore": 90,
+          "awayScore": 79,
+          "text": "Kris Dunn makes two point shot",
+          "wallclock": "2026-11-02T03:16:08Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909905474",
+          "period": {
+            "number": 3
+          },
+          "clock": {
+            "displayValue": "1:28"
+          },
+          "homeScore": 90,
+          "awayScore": 80,
+          "text": "Darius Garland makes free throw 1 of 2",
+          "wallclock": "2026-11-02T03:17:14Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909905475",
+          "period": {
+            "number": 3
+          },
+          "clock": {
+            "displayValue": "1:28"
+          },
+          "homeScore": 90,
+          "awayScore": 81,
+          "text": "Darius Garland makes free throw 2 of 2",
+          "wallclock": "2026-11-02T03:17:36Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909905487",
+          "period": {
+            "number": 3
+          },
+          "clock": {
+            "displayValue": "1:02"
+          },
+          "homeScore": 91,
+          "awayScore": 81,
+          "text": "Yaxel Lendeborg makes free throw 1 of 2",
+          "wallclock": "2026-11-02T03:18:33Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909905490",
+          "period": {
+            "number": 3
+          },
+          "clock": {
+            "displayValue": "54.4"
+          },
+          "homeScore": 91,
+          "awayScore": 83,
+          "text": "Darius Garland makes driving layup",
+          "wallclock": "2026-11-02T03:18:56Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909905498",
+          "period": {
+            "number": 3
+          },
+          "clock": {
+            "displayValue": "7.5"
+          },
+          "homeScore": 91,
+          "awayScore": 84,
+          "text": "Derrick Jones Jr. makes free throw 1 of 2",
+          "wallclock": "2026-11-02T03:20:20Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909905499",
+          "period": {
+            "number": 3
+          },
+          "clock": {
+            "displayValue": "7.5"
+          },
+          "homeScore": 91,
+          "awayScore": 85,
+          "text": "Derrick Jones Jr. makes free throw 2 of 2",
+          "wallclock": "2026-11-02T03:21:10Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909905510",
+          "period": {
+            "number": 3
+          },
+          "clock": {
+            "displayValue": "1.9"
+          },
+          "homeScore": 92,
+          "awayScore": 85,
+          "text": "Brandon Williams makes free throw 2 of 2",
+          "wallclock": "2026-11-02T03:22:37Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909905530",
+          "period": {
+            "number": 4
+          },
+          "clock": {
+            "displayValue": "11:44"
+          },
+          "homeScore": 94,
+          "awayScore": 85,
+          "text": "Brandin Podziemski makes driving layup (Georges Niang assists)",
+          "wallclock": "2026-11-02T03:25:44Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909905532",
+          "period": {
+            "number": 4
+          },
+          "clock": {
+            "displayValue": "11:19"
+          },
+          "homeScore": 94,
+          "awayScore": 87,
+          "text": "Keaton Wagler makes driving layup",
+          "wallclock": "2026-11-02T03:26:09Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909905533",
+          "period": {
+            "number": 4
+          },
+          "clock": {
+            "displayValue": "11:09"
+          },
+          "homeScore": 97,
+          "awayScore": 87,
+          "text": "Al Horford makes 26-foot three point jumper (Brandin Podziemski assists)",
+          "wallclock": "2026-11-02T03:26:18Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909905539",
+          "period": {
+            "number": 4
+          },
+          "clock": {
+            "displayValue": "10:25"
+          },
+          "homeScore": 97,
+          "awayScore": 89,
+          "text": "Darius Garland makes driving layup",
+          "wallclock": "2026-11-02T03:27:02Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909905548",
+          "period": {
+            "number": 4
+          },
+          "clock": {
+            "displayValue": "9:55"
+          },
+          "homeScore": 100,
+          "awayScore": 89,
+          "text": "Will Richard makes 24-foot three point jumper (Brandin Podziemski assists)",
+          "wallclock": "2026-11-02T03:28:05Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909905551",
+          "period": {
+            "number": 4
+          },
+          "clock": {
+            "displayValue": "9:36"
+          },
+          "homeScore": 100,
+          "awayScore": 90,
+          "text": "Darius Garland makes technical free throw",
+          "wallclock": "2026-11-02T03:28:47Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909905559",
+          "period": {
+            "number": 4
+          },
+          "clock": {
+            "displayValue": "9:13"
+          },
+          "homeScore": 100,
+          "awayScore": 92,
+          "text": "Kris Dunn makes 1-foot driving dunk",
+          "wallclock": "2026-11-02T03:29:41Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909905571",
+          "period": {
+            "number": 4
+          },
+          "clock": {
+            "displayValue": "8:29"
+          },
+          "homeScore": 103,
+          "awayScore": 92,
+          "text": "Yaxel Lendeborg makes 26-foot running jump shot (De'Anthony Melton assists)",
+          "wallclock": "2026-11-02T03:30:51Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909905582",
+          "period": {
+            "number": 4
+          },
+          "clock": {
+            "displayValue": "7:59"
+          },
+          "homeScore": 104,
+          "awayScore": 92,
+          "text": "Yaxel Lendeborg makes free throw 1 of 2",
+          "wallclock": "2026-11-02T03:35:54Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909905583",
+          "period": {
+            "number": 4
+          },
+          "clock": {
+            "displayValue": "7:59"
+          },
+          "homeScore": 105,
+          "awayScore": 92,
+          "text": "Yaxel Lendeborg makes free throw 2 of 2",
+          "wallclock": "2026-11-02T03:36:08Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909905586",
+          "period": {
+            "number": 4
+          },
+          "clock": {
+            "displayValue": "7:45"
+          },
+          "homeScore": 108,
+          "awayScore": 92,
+          "text": "De'Anthony Melton makes 26-foot running jump shot (Brandon Williams assists)",
+          "wallclock": "2026-11-02T03:36:22Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909905603",
+          "period": {
+            "number": 4
+          },
+          "clock": {
+            "displayValue": "6:36"
+          },
+          "homeScore": 111,
+          "awayScore": 92,
+          "text": "Yaxel Lendeborg makes 27-foot three point step back jumpshot (Brandin Podziemski assists)",
+          "wallclock": "2026-11-02T03:41:21Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909905606",
+          "period": {
+            "number": 4
+          },
+          "clock": {
+            "displayValue": "6:11"
+          },
+          "homeScore": 113,
+          "awayScore": 92,
+          "text": "Brandin Podziemski makes 12-foot driving floating jump shot (Yaxel Lendeborg assists)",
+          "wallclock": "2026-11-02T03:41:50Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909905610",
+          "period": {
+            "number": 4
+          },
+          "clock": {
+            "displayValue": "6:11"
+          },
+          "homeScore": 114,
+          "awayScore": 92,
+          "text": "Brandin Podziemski makes free throw 1 of 1",
+          "wallclock": "2026-11-02T03:41:50Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909905621",
+          "period": {
+            "number": 4
+          },
+          "clock": {
+            "displayValue": "5:44"
+          },
+          "homeScore": 114,
+          "awayScore": 94,
+          "text": "Nick Martinelli makes two point shot",
+          "wallclock": "2026-11-02T03:43:18Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909905622",
+          "period": {
+            "number": 4
+          },
+          "clock": {
+            "displayValue": "5:33"
+          },
+          "homeScore": 116,
+          "awayScore": 94,
+          "text": "Charles Bassey makes 1-foot alley oop dunk (Brandin Podziemski assists)",
+          "wallclock": "2026-11-02T03:43:30Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909905624",
+          "period": {
+            "number": 4
+          },
+          "clock": {
+            "displayValue": "5:21"
+          },
+          "homeScore": 116,
+          "awayScore": 96,
+          "text": "Keaton Wagler makes driving layup",
+          "wallclock": "2026-11-02T03:44:05Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909905627",
+          "period": {
+            "number": 4
+          },
+          "clock": {
+            "displayValue": "5:21"
+          },
+          "homeScore": 116,
+          "awayScore": 97,
+          "text": "Keaton Wagler makes free throw 1 of 1",
+          "wallclock": "2026-11-02T03:44:05Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909905639",
+          "period": {
+            "number": 4
+          },
+          "clock": {
+            "displayValue": "4:17"
+          },
+          "homeScore": 118,
+          "awayScore": 97,
+          "text": "Charles Bassey makes 4-foot layup (Yaxel Lendeborg assists)",
+          "wallclock": "2026-11-02T03:45:42Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909905643",
+          "period": {
+            "number": 4
+          },
+          "clock": {
+            "displayValue": "4:05"
+          },
+          "homeScore": 118,
+          "awayScore": 98,
+          "text": "Baba Miller makes free throw 1 of 2",
+          "wallclock": "2026-11-02T03:46:27Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909905644",
+          "period": {
+            "number": 4
+          },
+          "clock": {
+            "displayValue": "4:05"
+          },
+          "homeScore": 118,
+          "awayScore": 99,
+          "text": "Baba Miller makes free throw 2 of 2",
+          "wallclock": "2026-11-02T03:46:50Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909905651",
+          "period": {
+            "number": 4
+          },
+          "clock": {
+            "displayValue": "3:40"
+          },
+          "homeScore": 118,
+          "awayScore": 101,
+          "text": "Nick Martinelli makes 6-foot driving floating jump shot (Jalen Pickett assists)",
+          "wallclock": "2026-11-02T03:47:18Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909905655",
+          "period": {
+            "number": 4
+          },
+          "clock": {
+            "displayValue": "3:07"
+          },
+          "homeScore": 118,
+          "awayScore": 104,
+          "text": "Nick Martinelli makes 26-foot three point jumper (Baba Miller assists)",
+          "wallclock": "2026-11-02T03:47:51Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909905659",
+          "period": {
+            "number": 4
+          },
+          "clock": {
+            "displayValue": "2:41"
+          },
+          "homeScore": 118,
+          "awayScore": 107,
+          "text": "Cam Christie makes 24-foot running jump shot (Jalen Pickett assists)",
+          "wallclock": "2026-11-02T03:48:16Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909905663",
+          "period": {
+            "number": 4
+          },
+          "clock": {
+            "displayValue": "2:16"
+          },
+          "homeScore": 118,
+          "awayScore": 110,
+          "text": "Nick Martinelli makes 27-foot running jump shot (Jalen Pickett assists)",
+          "wallclock": "2026-11-02T03:48:42Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909905679",
+          "period": {
+            "number": 4
+          },
+          "clock": {
+            "displayValue": "1:16"
+          },
+          "homeScore": 121,
+          "awayScore": 110,
+          "text": "De'Anthony Melton makes 27-foot three point step back jumpshot",
+          "wallclock": "2026-11-02T03:52:01Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909905682",
+          "period": {
+            "number": 4
+          },
+          "clock": {
+            "displayValue": "39.5"
+          },
+          "homeScore": 124,
+          "awayScore": 110,
+          "text": "De'Anthony Melton makes 29-foot three pointer",
+          "wallclock": "2026-11-02T03:52:42Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909905685",
+          "period": {
+            "number": 4
+          },
+          "clock": {
+            "displayValue": "33.3"
+          },
+          "homeScore": 124,
+          "awayScore": 111,
+          "text": "Blake Wesley makes free throw 1 of 2",
+          "wallclock": "2026-11-02T03:53:16Z",
+          "scoringPlay": true
+        },
+        {
+          "id": "401909905686",
+          "period": {
+            "number": 4
+          },
+          "clock": {
+            "displayValue": "33.3"
+          },
+          "homeScore": 124,
+          "awayScore": 112,
+          "text": "Blake Wesley makes free throw 2 of 2",
+          "wallclock": "2026-11-02T03:53:28Z",
+          "scoringPlay": true
+        }
+      ]
+    }
+  ]
+}

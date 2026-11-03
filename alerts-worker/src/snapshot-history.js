@@ -112,7 +112,7 @@ export async function snapshotHistory(env,games,now) {
 // Read-time provenance only: never rewrite or re-rate a stored observation.
 export function snapshotEvidence(normalized,state) {
   if(normalized.liveUpdateRejected || normalized.basketballUpdateRejected ||
-     normalized.summaryLifecycleRejected || normalized.scoringHistoryRejected)
+     normalized.summaryLifecycleRejected || normalized.scoringHistoryRejected || normalized.timingUncertain)
     return {evidenceQuality:'invalid'};
   if(normalized.evidenceQuality==='invalid')return {evidenceQuality:'invalid'};
   if(normalized.evidenceQuality==='partial')return {evidenceQuality:'partial'};
@@ -149,7 +149,7 @@ export async function gameHistory(env,sport,id,now=Date.now()) {
     return {
       observedAt:Number(row.observed_at),
       state:String(row.state || ''),
-      rating:Number(row.rating),
+      rating:row.rating==null ? NaN : Number(row.rating),
       scoreA:String(row.score_a ?? ''),
       scoreB:String(row.score_b ?? ''),
       period:Number.isFinite(period) && period > 0 ? period : null,
@@ -163,6 +163,20 @@ export async function gameHistory(env,sport,id,now=Date.now()) {
     Number.isFinite(point.observedAt) &&
     Number.isFinite(point.rating)
   );
+
+  // Historical provider transitions stay in the audit record. Classify them
+  // at read time so an old "verified" flag cannot make Q4 0.0 a game-end fact.
+  if(['NBA','NCAAB'].includes(sport)){
+    const finalPeriod=sport==='NBA'?4:2;
+    for(let i=0;i<snapshots.length;i++){
+      const point=snapshots[i],previous=snapshots[i-1];
+      if(point.state!=='live'||point.period!==finalPeriod||!/^0+(?:(?::0+(?:\.0+)?)|(?:\.0+))?$/.test(point.clock))continue;
+      const followedByPlay=snapshots.slice(i+1).some(next=>next.state==='live'&&next.period===point.period&&
+        /^(?:\d+):(?:\d+(?:\.\d+)?)$/.test(next.clock)&&Number(next.clock.split(':')[0])*60+Number(next.clock.split(':')[1])>2);
+      const atTransition=previous?.period<point.period && previous?.state==='live';
+      if(followedByPlay||atTransition){point.evidenceQuality='invalid';point.integrityIssue=true;point.timingIssue='unconfirmed-period-transition';}
+    }
+  }
 
   return {gameKey,snapshots};
 }
@@ -188,7 +202,8 @@ export function finalContent(game) {
 
 export function shouldSnapshot(game,history,now,modelVersion) {
   const key = `${game.sport}:${game.id}`;
-  if (game.state==='live') return !game.liveUpdateRejected && !game.basketballUpdateRejected;
+  if (game.state==='live') return game.score!=null && Number.isFinite(Number(game.score)) &&
+    !game.liveUpdateRejected && !game.basketballUpdateRejected;
   if (game.state==='upcoming') return !history.upcoming.has(key);
   if (game.state!=='completed') return false;
   if (game.scoringPartial || game.summaryLifecycleRejected) return false;

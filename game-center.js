@@ -65,22 +65,23 @@
   }
   const timestamp=at=>new Date(at).toLocaleString([],{month:'short',day:'numeric',hour:'numeric',minute:'2-digit',second:'2-digit'});
   function reliable(p){
-    return Boolean(p)&&p.ratingKind==='live'&&p.evidenceQuality==='verified'&&!p.invalid&&!p.incomplete&&
+    return Boolean(p)&&p.ratingKind==='live'&&p.evidenceQuality==='verified'&&!p.invalid&&!p.incomplete&&!p.compatibilityIssue&&
       Number.isFinite(p.score)&&p.score>=0&&p.score<=100&&Number.isFinite(p.x)&&Number.isFinite(p.observedAt);
   }
   function comparable(p,previous){
-    return reliable(p)&&reliable(previous)&&p.axis===previous.axis;
+    return reliable(p)&&reliable(previous)&&p.axis===previous.axis&&p.segment===previous.segment&&
+      p.x>previous.x&&p.observedAt>previous.observedAt&&p.modelVersion===previous.modelVersion;
   }
   // Monotone cubic Hermite geometry: bounded control values cannot overshoot
   // either recorded endpoint. These controls are drawing coordinates, never
-  // observations, tooltips, or stored ratings. Equal/reversed clocks stay exact.
+  // observations, tooltips, or stored ratings. Equal/reversed clocks start a gap.
   function curve(points,px,py){
     if(!points.length)return '';
     let path=`M ${px(points[0])} ${py(points[0])}`,start=0;
     while(start<points.length-1){
       let end=start;
       while(end+1<points.length&&px(points[end+1])>px(points[end]))end++;
-      if(end===start){path+=` L ${px(points[start+1])} ${py(points[start+1])}`;start++;continue;}
+      if(end===start){path+=` M ${px(points[start+1])} ${py(points[start+1])}`;start++;continue;}
       const run=points.slice(start,end+1),xs=run.map(px),ys=run.map(py),h=[],d=[],m=[];
       for(let i=0;i<run.length-1;i++){h[i]=xs[i+1]-xs[i];d[i]=(ys[i+1]-ys[i])/h[i];}
       m[0]=d[0];m[run.length-1]=d.at(-1);
@@ -101,8 +102,18 @@
     const last=Math.max(-Infinity,...records.map(p=>Number(p.observedAt)));
     if(game.state==='live')for(const [i,p]of local.entries())if(p.state!=='completed'&&p.at>last+5000)records.push({...p,observedAt:p.at,rating:p.score,phaseLabel:p.phase,recordIndex:records.length,local:true});
     // Preserve the provider's observation order, including corrections and duplicates.
-    const timed=records.filter(p=>p.state==='live'&&p.evidenceQuality==='verified'&&!p.integrityIssue&&p.rating!=null&&Number.isFinite(Number(p.rating))&&Number(p.rating)>=0&&Number(p.rating)<=100);
-    const useGameTime=Boolean(timed.length)&&timed.every(p=>position(p.period,p.clock,f)!==null);
+    const finalPeriod=game.sport==='NBA'?4:game.sport==='NCAAB'?2:null;
+    for(let i=0;i<records.length;i++){
+      const p=records[i];
+      if(!finalPeriod||p.state!=='live'||Number(p.period)!==finalPeriod||!/^0+(?:(?::0+(?:\.0+)?)|(?:\.0+))?$/.test(String(p.clock||'')))continue;
+      const previous=records[i-1];
+      const later=records.slice(i+1).some(next=>next.state==='live'&&Number(next.period)===finalPeriod&&
+        Number.isFinite(position(next.period,next.clock,f))&&position(next.period,next.clock,f)<position(p.period,p.clock,f)-2);
+      if(later||previous?.state==='live'&&Number(previous.period)<finalPeriod)p.compatibilityIssue=true;
+    }
+    const timed=records.filter(p=>p.state==='live'&&p.evidenceQuality==='verified'&&!p.integrityIssue&&!p.compatibilityIssue&&p.rating!=null&&Number.isFinite(Number(p.rating))&&Number(p.rating)>=0&&Number(p.rating)<=100);
+    const untimedExtra=['CFB','NHL'].includes(game.sport)&&timed.some(p=>Number(p.period)>f.periods&&position(p.period,p.clock,f)===null);
+    const useGameTime=!untimedExtra&&Boolean(timed.length)&&timed.some(p=>position(p.period,p.clock,f)!==null);
     const axis=useGameTime?'game':'observed';
     const points=records.map(p=>({
       x:useGameTime?position(p.period,p.clock,f):p.observedAt==null?null:Number(p.observedAt),axis,
@@ -111,26 +122,41 @@
       label:phase(p.period,p.clock,f,p.phaseLabel),text:p.local?'Browser observation':'Recorded by SlateMeter',
       modelVersion:p.modelVersion||'legacy',evidenceQuality:p.evidenceQuality,
       incomplete:p.evidenceQuality==='partial',invalid:p.evidenceQuality==='invalid'||p.integrityIssue===true,
+      compatibilityIssue:p.compatibilityIssue===true,
       recorded:p.recorded,local:p.local,original:p,
     }));
+    let segment=0,lastEligible=null;
+    for(const point of points){
+      if(!reliable(point)){segment++;point.segment=segment;continue;}
+      if(lastEligible&&(point.x<lastEligible.x||point.observedAt<=lastEligible.observedAt)){
+        point.compatibilityIssue=true;segment++;point.segment=segment;continue;
+      }
+      if(lastEligible&&(point.modelVersion!==lastEligible.modelVersion||point.x===lastEligible.x&&point.score!==lastEligible.score))segment++;
+      point.segment=segment;lastEligible=point;
+    }
     return {points,axis,format:f,source:records.length?'recorded snapshots':'unavailable'};
   }
   function timeline(game,summary,local=[]){
     if(game.state==='upcoming')return '<section class="detail-section timeline-section"><h3>Excitement history</h3><p class="detail-empty">Excitement history begins when the game starts.</p></section>';
     const data=observations(game,summary,local),f=data.format;
     const points=data.points.filter(reliable),last=points.at(-1);
-    const pending=game.scoringPartial||game.summaryLifecycleRejected||game.scoringHistoryRejected;
+    const pending=game.score==null||!Number.isFinite(Number(game.score));
     const heading=`<div class="timeline-heading"><h3>Excitement timeline</h3><span class="timeline-key"><i></i> Recorded live ratings</span></div>`;
-    const ratings=`<div class="timeline-ratings"><div class="timeline-rating-current"><span>${game.state==='completed'?'Final rating':'Current live rating'}</span><strong>${pending?'Pending':escape(game.score)}</strong><small>${game.state==='completed'?'Whole-game quality':'Watchability now'}</small></div><div class="timeline-rating-last"><span>Latest live rating</span><strong>${last?last.score:'—'}</strong><small>${last?escape(last.label):'No live rating yet'}</small></div></div>`;
+    const currentLabel=game.timingUncertain?'Last confirmed rating':game.scoringPartial?'Provisional live rating':game.state==='completed'?'Final rating':'Current live rating';
+    const ratings=`<div class="timeline-ratings"><div class="timeline-rating-current"><span>${currentLabel}</span><strong>${pending?'Pending':escape(game.score)}</strong><small>${game.timingUncertain?'Clock updating':game.state==='completed'?'Whole-game quality':game.scoringPartial?'Awaiting confirmation':'Watchability now'}</small></div><div class="timeline-rating-last"><span>Latest recorded live rating</span><strong>${last?last.score:'—'}</strong><small>${last?escape(last.label):'No confirmed live record'}</small></div></div>`;
     if(points.length<2){
       const message=game.state==='completed'
         ? 'Excitement history was not recorded for this game.'
         : 'Excitement history will appear as the game unfolds.';
-      return `<section class="detail-section timeline-section"><h3>Excitement history</h3><p class="detail-empty">${message}</p></section>`;
+      return `<section class="detail-section timeline-section"><h3>Excitement history</h3>${ratings}<p class="detail-empty">${message}</p></section>`;
     }
-    const events=(summary?.scoringPlays?.length?summary.scoringPlays:(summary?.plays||[]).filter(p=>p.scoringPlay)).map(p=>({
+    const scoringPlays=summary?.scoringPlays?.length?summary.scoringPlays:(summary?.plays||[]).filter(p=>p.scoringPlay);
+    const events=scoringPlays.map((p,i)=>({
       x:data.axis==='game'?position(p.period?.number??p.period,p.clock?.displayValue,f):Date.parse(p.wallclock||p.occurredAt||''),
-      label:phase(p.period?.number??p.period,p.clock?.displayValue,f,p.period?.displayValue),text:p.text||p.shortText||p.type?.text||'Scoring play'
+      label:phase(p.period?.number??p.period,p.clock?.displayValue,f,p.period?.displayValue),text:p.text||p.shortText||p.type?.text||'Scoring play',
+      important:Number.isFinite(Number(p.homeScore))&&Number.isFinite(Number(p.awayScore))&&
+        (Number(p.homeScore)===Number(p.awayScore)||i>0&&Number.isFinite(Number(scoringPlays[i-1].homeScore))&&Number.isFinite(Number(scoringPlays[i-1].awayScore))&&
+          Math.sign(Number(p.homeScore)-Number(p.awayScore))!==Math.sign(Number(scoringPlays[i-1].homeScore)-Number(scoringPlays[i-1].awayScore)))
     })).filter(p=>Number.isFinite(p.x));
     const start=data.axis==='game'?0:Math.min(...points.map(p=>p.x));
     const end=Math.max(start+1,data.axis==='game'?f.regulation||0:0,...points.map(p=>p.x),...events.map(p=>p.x));
@@ -140,12 +166,17 @@
     if(data.axis==='game'&&f.periods&&end>f.regulation)views.push({key:'ot',label:'Overtime',start:f.regulation,end});
     const id=`timeline-${String(game.sport+game.id).replace(/[^\w-]/g,'')}`;
     const helpId=id+'-help';
-    const marker=(p,x,y,description,event=false)=>`<g class="timeline-point${event?' timeline-event-marker':''}" data-timeline-explanation="${escape(description)}" role="button" tabindex="0" aria-expanded="false" aria-controls="${helpId}" aria-label="${escape(description)}">${event?`<path d="M ${x} ${y-4} l 4 4 -4 4 -4 -4 Z"/>`:`<circle cx="${x}" cy="${y}" r="${p===last?3.5:2}"/>`}<circle class="timeline-hit-target" cx="${x}" cy="${y}" r="11"/><title>${escape(description)}</title></g>`;
+    const marker=(p,x,y,description,event=false,highlight=false)=>`<g class="timeline-point${event?' timeline-event-marker':''}${highlight?' timeline-event-highlight':''}" data-timeline-explanation="${escape(description)}" role="button" tabindex="0" aria-expanded="false" aria-controls="${helpId}" aria-label="${escape(description)}">${event?`<path d="M ${x} ${y-4} l 4 4 -4 4 -4 -4 Z"/>`:`<circle cx="${x}" cy="${y}" r="${p===last?3.5:2}"/>`}<circle class="timeline-hit-target" cx="${x}" cy="${y}" r="11"/><title>${escape(description)}</title></g>`;
     const chart=(v,mobile=false)=>{
       const width=mobile?360:940,left=34,right=12,top=14,bottom=170;
       const px=p=>left+(p.x-v.start)/(v.end-v.start)*(width-left-right),py=p=>top+(100-p.score)*(bottom-top)/100;
-      const visible=points.filter(p=>p.x>=v.start&&p.x<=v.end),shownEvents=events.filter(p=>p.x>=v.start&&p.x<=v.end);
-      const path=curve(visible,px,py);
+      const visible=[],shownEvents=events.filter(p=>p.x>=v.start&&p.x<=v.end);
+      for(const point of points.filter(p=>p.x>=v.start&&p.x<=v.end)){
+        const previous=visible.at(-1);
+        if(previous&&point.x===previous.x&&point.score===previous.score&&point.segment===previous.segment)visible[visible.length-1]=point;
+        else visible.push(point);
+      }
+      const path=visible.map((point,i)=>`${i&&comparable(point,visible[i-1])?'L':'M'} ${px(point)} ${py(point)}`).join(' ');
       const guides=[0,25,50,75,100].map(score=>`<line class="timeline-reference" x1="${left}" x2="${width-right}" y1="${py({score})}" y2="${py({score})}"/>${score%50===0?`<text x="25" y="${py({score})+4}" text-anchor="end">${score}</text>`:''}`).join('');
       const ticks=[];
       if(data.axis==='game'&&f.periods){
@@ -185,12 +216,18 @@
         const description=`${p.label}. Recorded rating: ${p.score}. ${timestamp(p.observedAt)}.`;
         return marker(p,px(p),py(p),description);
       }).join('');
-      const eventGroups=new Map();
-      for(const p of shownEvents){if(!eventGroups.has(p.x))eventGroups.set(p.x,[]);eventGroups.get(p.x).push(p);}
-      const eventDots=[...eventGroups.values()].map((group,i)=>marker(group[0],px(group[0]),230+(i%2)*14,group.map(p=>`${p.label}: ${p.text}`).join(' • '),true)).join('');
+      const eventGroups=new Map(),spacing=mobile?26:24;
+      for(const p of shownEvents){const bucket=Math.floor((px(p)-left)/spacing);if(!eventGroups.has(bucket))eventGroups.set(bucket,[]);eventGroups.get(bucket).push(p);}
+      const eventDots=[...eventGroups].map(([bucket,group],i)=>{
+        const x=left+(bucket+.5)*spacing,description=group.map(p=>`${p.label}: ${p.text}`).join(' • ');
+        const important=group.some(p=>p.important);
+        return marker(group[0],x,230+(i%2)*14,`${group.length} scoring ${group.length===1?'play':'plays'}. ${description}`,true,important);
+      }).join('');
       return `<svg class="timeline-chart ${mobile?'timeline-mobile':'timeline-desktop'}" viewBox="0 0 ${width} 260" role="group" aria-label="Recorded live ratings, ${escape(v.label)}"><g>${guides}<path class="timeline-line" d="${path}"/>${dots}${axis}${periodLabels.join('')}</g><g class="timeline-event-strip"><rect x="${left}" y="207" width="${width-left-right}" height="51" rx="5"/><text x="${left+8}" y="220">SCORING PLAYS</text>${eventDots}</g></svg>`;
     };
-    return `<section class="detail-section timeline-section">${heading}${ratings}<div class="timeline-controls" role="group" aria-label="Timeline range">${views.map(v=>`<button type="button" data-timeline-range="${v.key}" aria-pressed="${v.key==='full'}">${v.label}</button>`).join('')}</div>${views.map(v=>`<div class="timeline-view" data-timeline-view="${v.key}"${v.key!=='full'?' hidden':''}>${chart(v)}${chart(v,true)}</div>`).join('')}<div class="timeline-point-help" id="${helpId}" role="status" aria-live="polite" aria-hidden="true"></div></section>`;
+    const playList=scoringPlays.length?`<details class="timeline-play-details"><summary>Browse scoring plays (${scoringPlays.length})</summary><ol>${scoringPlays.map(p=>
+      `<li>${escape(phase(p.period?.number??p.period,p.clock?.displayValue,f,p.period?.displayValue))}: ${escape(p.text||p.shortText||p.type?.text||'Scoring play')}</li>`).join('')}</ol></details>`:'';
+    return `<section class="detail-section timeline-section">${heading}${ratings}<p class="timeline-note">Gaps mark intervals with unreliable timing or evidence.</p><div class="timeline-controls" role="group" aria-label="Timeline range">${views.map(v=>`<button type="button" data-timeline-range="${v.key}" aria-pressed="${v.key==='full'}">${v.label}</button>`).join('')}</div>${views.map(v=>`<div class="timeline-view" data-timeline-view="${v.key}"${v.key!=='full'?' hidden':''}>${chart(v)}${chart(v,true)}</div>`).join('')}<div class="timeline-point-help" id="${helpId}" role="status" aria-live="polite" aria-hidden="true"></div>${playList}</section>`;
   }
   const api={calculation,scoringMarkup,decimalSum,format,position,phase,reliable,curve,comparable,observations,timeline};
   if(typeof module!=='undefined'&&module.exports)module.exports=api;

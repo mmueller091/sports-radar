@@ -1,0 +1,23 @@
+{
+  "provenance": "Incident report observations supplied by the user on 2026-11-02; live history endpoint was unavailable from this environment. These are not raw production responses.",
+  "games": [
+    {
+      "id": "401909907",
+      "matchup": "Oklahoma City Thunder at Cleveland Cavaliers",
+      "observations": [
+        {"observedAt": "2026-11-03T01:54:00Z", "period": 4, "clock": "0.0", "scoreA": 90, "scoreB": 84, "rating": 15},
+        {"observedAt": "2026-11-03T01:55:00Z", "period": 4, "clock": "0.0", "scoreA": 92, "scoreB": 89, "rating": 42},
+        {"observedAt": "2026-11-03T01:56:45Z", "period": 4, "clock": "0.0", "scoreA": 93, "scoreB": 92, "rating": 47},
+        {"observedAt": "2026-11-03T01:58:00Z", "period": 4, "clock": "9:14", "scoreA": 93, "scoreB": 93, "rating": 70}
+      ]
+    },
+    {
+      "id": "401909905",
+      "matchup": "LA Clippers at Golden State Warriors",
+      "observations": [
+        {"observedAt": "2026-11-02T03:25:45Z", "period": 4, "clock": "0.0", "scoreA": 85, "scoreB": 92, "rating": 9},
+        {"observedAt": "2026-11-02T03:27:30Z", "period": 4, "clock": "10:12", "scoreA": 89, "scoreB": 97, "rating": 50}
+      ]
+    }
+  ]
+}

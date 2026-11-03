@@ -73,11 +73,11 @@ test('production presentation has no individual-game narrative or public calcula
 });
 const p=(observedAt,rating,extra={})=>({observedAt,rating,state:'live',period:4,clock:'2:00',evidenceQuality:'verified',modelVersion:'m',...extra});
 const game={id:'curve',sport:'NFL',state:'completed',score:95};
-test('continuous path bridges long gaps and excluded observations using only reliable anchors',()=>{
+test('excluded observations create a visible gap without changing reliable ratings',()=>{
  const snapshots=[p(1,20,{clock:'3:00'}),p(50000,100,{evidenceQuality:'partial'}),p(80000,NaN,{evidenceQuality:'invalid'}),p(900000,80),p(1200000,65,{clock:'1:00'}),p(1300000,95,{state:'completed',clock:'0:00'})];
  const detail={sportsRadarHistory:{snapshots}},before=JSON.stringify(detail),html=center.timeline(game,detail);
- const paths=[...html.matchAll(/class="timeline-line" d="([^"]+)"/g)].map(m=>m[1]);assert.ok(paths.length);for(const path of paths)assert.equal((path.match(/M /g)||[]).length,1);
- assert.match(paths[0],/ C /);assert.doesNotMatch(html,/Recorded rating: (100|95|NaN)|observation history|evidenceQuality/);assert.equal(JSON.stringify(detail),before);
+ const paths=[...html.matchAll(/class="timeline-line" d="([^"]+)"/g)].map(m=>m[1]);assert.ok(paths.length);for(const path of paths)assert.ok((path.match(/M /g)||[]).length>=2);
+ assert.match(paths[0],/ L /);assert.doesNotMatch(html,/Recorded rating: (100|95|NaN)|observation history|evidenceQuality/);assert.equal(JSON.stringify(detail),before);
 });
 test('curve passes through every recorded anchor and never overshoots endpoint values',()=>{
  const points=[{x:0,score:10},{x:1,score:90},{x:2,score:20},{x:50,score:20},{x:51,score:99},{x:52,score:0}];
@@ -91,7 +91,7 @@ test('curve passes through every recorded anchor and never overshoots endpoint v
 test('duplicate clocks, clock corrections, timestamps and original order remain unchanged',()=>{
  const snapshots=[p(300,20),p(200,80),p(400,30,{clock:'2:01'}),p(500,40,{clock:'1:59'})],detail={sportsRadarHistory:{snapshots}};
  const data=center.observations(game,detail);assert.deepEqual(data.points.map(p=>p.observedAt),[300,200,400,500]);assert.deepEqual(data.points.map(p=>p.score),[20,80,30,40]);
- const path=center.curve(data.points,p=>p.x,p=>p.score);assert.equal((path.match(/M /g)||[]).length,1);assert.match(path,/ L /);assert.ok(data.points[2].x<data.points[1].x);
+ const path=center.curve(data.points,p=>p.x,p=>p.score);assert.ok((path.match(/M /g)||[]).length>=2);assert.ok(data.points[2].x<data.points[1].x);
 });
 
 test('verified sport-specific pressure changes live prose rather than using generic filler',()=>{
@@ -115,4 +115,11 @@ test('captured basketball comeback and postseason baseball explain meaningful ev
  for(const [sport,pattern]of [['NBA',/22-point deficit.*closing stages/],['MLB',/Postseason stakes.*competitive/],['NCAAB',/10-point deficit.*4 times/]]){
   const f=fixtures.find(f=>f.modelSport===sport),g=active.normalizeEvent(structuredClone(f.event),sport);active.enrichGame(g,structuredClone(f.summary));assert.match(check(g,f.summary),pattern);
  }
+});
+test('NBA comeback uses a city and natural team agreement',()=>{
+ const g={sport:'NBA',state:'live',score:70,teams:[['Oklahoma City Thunder','OKC','93','','','','','Thunder','1'],['Cleveland Cavaliers','CLE','94','','','','','Cavaliers','2']],
+  factors:[],basketballFacts:{comeback:{team:'Cleveland Cavaliers',deficit:14}},liveRawStatus:{period:4,displayClock:'9:14'}};
+ const text=check(g,null);
+ assert.match(text,/Cleveland erased a 14-point deficit and took the lead/);
+ assert.doesNotMatch(text,/Cleveland Cavaliers has erased/);
 });
