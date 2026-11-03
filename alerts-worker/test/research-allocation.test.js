@@ -74,6 +74,43 @@ test('actual returned usage is recorded and missing or failed usage is never pre
   env.AI.run=async()=>{throw Error('failed');};await assert.rejects(measuredResearchInference(env,'model',{},usage,'review'));
   assert.equal(usage[2].succeeded,false);assert.equal(usage[2].neurons,null);
 });
+
+test('a saturated six-sport pass respects every bound, and exhausted quota prevents all inference',async t=>{
+  const paths={NFL:'nfl',MLB:'mlb',NHL:'nhl',NBA:'nba',CFB:'college-football',NCAAB:'mens-college-basketball'};
+  const games=Object.keys(paths).flatMap((sport,s)=>Array.from({length:10},(_,i)=>raw(`${s}${i}`,80-i,sport)));
+  const {env,db}=database(t,{updatedAt:new Date(now).toISOString(),games});
+  const original=globalThis.fetch,requests=[],inferences=[];t.after(()=>{globalThis.fetch=original;});
+  globalThis.fetch=async url=>{
+    requests.push(url);const league=new URL(url).pathname.split('/').at(-2);
+    return Response.json({articles:Array.from({length:100},(_,i)=>({id:String(i),headline:'Away names a new head coach',description:'Away appointed a new head coach for the rest of the season.',published:new Date(now-i*1000).toISOString(),
+      links:{web:{href:`https://www.espn.com/${league}/story/_/id/${i}`}},categories:[{type:'team',teamId:1}]}))});
+  };
+  env.AI={async run(model,args){
+    inferences.push(args);assert.equal(model,'@cf/meta/llama-3.1-8b-instruct-fp8');assert.equal(args.max_tokens,1200);
+    assert.ok(new TextEncoder().encode(JSON.stringify(args.messages)).length<=24000);
+    const prompt=args.messages[1].content;let response;
+    if(prompt.includes('Sources: ')){
+      const items=JSON.parse(prompt.split('Sources: ')[1]);assert.ok(items.length<=8);
+      response={factors:items.map(item=>({id:item.id,type:'editorial_storyline',kind:'coaching',evidence:item.description,matchupEvidence:item.headline,confidence:.95}))};
+    }else if(prompt.startsWith('For each item independently')){
+      const items=JSON.parse(prompt.split('Items: ')[1]);assert.ok(items.length<=8);
+      response={reviews:items.map(item=>({id:item.id,kind:item.kind,evidence:item.description,factual:true,relevant:true,material:true,notRoutine:true,upcoming:true,confidence:.95}))};
+    }else response={factors:[]};
+    return {response:JSON.stringify(response),usage:{prompt_tokens:100,completion_tokens:50,neurons:1}};
+  }};
+  const result=await refreshStorylines(env,now);
+  assert.equal(requests.length,6);assert.ok(requests.every(url=>url.includes('/news?')));
+  assert.equal(result.candidates,30);assert.equal(result.articles,60);assert.equal(inferences.length,3);
+  assert.equal(result.diagnostics.usage.length,3);
+  assert.ok(db.prepare('SELECT reserved_neurons n FROM research_ai_budget').get().n<=8000);
+  const selected=selectResearchGames(games.map(g=>canonicalResearchGame(g,now)),{},now);
+  const articles=Array.from({length:100},(_,i)=>({id:String(i),headline:'Away coach changes',description:'Away named a new coach to lead the team.',published:now,url:`https://www.espn.com/nba/story/${i}`,teamIds:new Set(['1']),eventIds:new Set()}));
+  const items=buildResearchItems(selected,new Map(Object.keys(paths).map(s=>[s,articles])),now);
+  assert.ok(selected.every(g=>items.filter(i=>i.gameKey===g.key).length<=4));
+  db.prepare('UPDATE research_ai_budget SET reserved_neurons=8000').run();
+  inferences.length=0;await refreshStorylines(env,now);
+  assert.equal(inferences.length,0);assert.equal(db.prepare('SELECT reserved_neurons n FROM research_ai_budget').get().n,8000);
+});
 test('diagnostic public eligibility retains recap, preview, freshness and suppression rules',()=>{
   const story={type:'coach_return',verified:true,text:'A coaching reunion',sourceUrl:'https://www.espn.com/nba/story/x',publishedAt:new Date(now).toISOString()};
   assert.equal(publicLinkEligible(story,{},now),true);

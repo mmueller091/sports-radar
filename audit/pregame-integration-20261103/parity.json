@@ -1,0 +1,1159 @@
+{
+  "baseline": "31f3eb26fbd3c3fc083f7828b2bb93d181fdb888",
+  "candidateSource": "36fca6bcd78b5cf8cd88478de1bf4439aafd1625",
+  "unchangedFiles": 160,
+  "identities": [
+    {
+      "path": "alerts-worker/src/alert-delivery.js",
+      "sha256": "4bebb2cd8fb901254de5926daf8de3c37ceb875d766711c5cb5bb33a3d633358",
+      "unchanged": true
+    },
+    {
+      "path": "alerts-worker/src/cfb-metadata.js",
+      "sha256": "51fafb622436e8c5bda981c094f9c7b996201c627c0d19cbdf676bc9e65e47f5",
+      "unchanged": true
+    },
+    {
+      "path": "alerts-worker/src/display-model.js",
+      "sha256": "5536a902bc1bf469a5ca982b21cc53167afbbe6328f1cb2ef8fcd6519e9416fd",
+      "unchanged": true
+    },
+    {
+      "path": "alerts-worker/src/game-model.js",
+      "sha256": "415178a53fa20c348eb5695603c154da173a65e4135874005c6a0832777ae3ee",
+      "unchanged": true
+    },
+    {
+      "path": "alerts-worker/src/live-game-model.js",
+      "sha256": "670e020eba725c01e7551f6c08c68c1bc345f3e159631e2cbcf4f6bb64838cc1",
+      "unchanged": true
+    },
+    {
+      "path": "alerts-worker/src/nfl-pregame.js",
+      "sha256": "c4803baec689142e8cb7f026083c78494cc6d86ba4b778fbfd8f9d9a19e88736",
+      "unchanged": true
+    },
+    {
+      "path": "alerts-worker/src/nfl-return.js",
+      "sha256": "fd81b9682ec5d7ff5b3b83a296c61671500ed891f41a276a24ac03ea6b62e46c",
+      "unchanged": true
+    },
+    {
+      "path": "alerts-worker/src/notification-preferences.js",
+      "sha256": "1233ffa1292caa894153d3aba8b9d36316fbf48795df9cc8fc761dfed3956b0e",
+      "unchanged": true
+    },
+    {
+      "path": "alerts-worker/src/providers/espn.js",
+      "sha256": "cb316d00cdbd0f72549c8dd25365188786a5e3f58981a9aef256c08a82318127",
+      "unchanged": true
+    },
+    {
+      "path": "alerts-worker/src/providers/nhl.js",
+      "sha256": "d5d4f1661e05973fef21796d5e1829d271b71a9729c9a866cb48dbbca0d5972a",
+      "unchanged": true
+    },
+    {
+      "path": "alerts-worker/src/providers/tennis.js",
+      "sha256": "fe01200bc88671642a495ddf78fdfe33bb9798f91d10f23a99a6e0a0d9296e0c",
+      "unchanged": true
+    },
+    {
+      "path": "alerts-worker/src/refresh-policy.js",
+      "sha256": "854c4a304117e000f57e586cc7334afd703830519b2d08b44bb78bbc786704a9",
+      "unchanged": true
+    },
+    {
+      "path": "alerts-worker/src/snapshot-history.js",
+      "sha256": "da9fdd57f6282a7f546707be1381f14cb5b6371f24b015720105b5a9e1cddf6d",
+      "unchanged": true
+    },
+    {
+      "path": "alerts-worker/src/sports-feed.js",
+      "sha256": "6b38c5a963f65da1c941e76bd3878fd60e443a42507eff8e443c68f6287a4795",
+      "unchanged": true
+    },
+    {
+      "path": "calibration/basketball-audit-20261101.md",
+      "sha256": "288b35a8d25b782b0d3793393c1be0f223a12d121655f4cb4497feeb89523d2e",
+      "unchanged": true
+    },
+    {
+      "path": "calibration/cfb-baseline.json",
+      "sha256": "b33988a70fe87b25e3be4881c043ddd90253823c841e45b9578fc0dc4372baf1",
+      "unchanged": true
+    },
+    {
+      "path": "calibration/cfb-calibration.md",
+      "sha256": "a9401d19f95a11945019b4c3bff5e04a3ae915353e0e55280b2deb9d298292d7",
+      "unchanged": true
+    },
+    {
+      "path": "calibration/cfb-completed-audit.md",
+      "sha256": "b31671bc41f7b4cc55bd0709481a193fc564ba7f5677fd8427aa20de38e504b5",
+      "unchanged": true
+    },
+    {
+      "path": "calibration/cfb-completed-baseline.json",
+      "sha256": "daa6dfc8adba9f2cda702ad1c31ec943fea86bad63e1dfacc295dbda22f2f065",
+      "unchanged": true
+    },
+    {
+      "path": "calibration/cfb-completed-calibration.md",
+      "sha256": "35c0dfdd5653529508c5c3399d47373348c10cc3c1d83016ab6950e41ea3f487",
+      "unchanged": true
+    },
+    {
+      "path": "calibration/cfb-completed-upset-audit.md",
+      "sha256": "b1055a1255b4050521c44749c683b7860bff16966d1160348f618443d72ae4d7",
+      "unchanged": true
+    },
+    {
+      "path": "calibration/cfb-completed-upset-calibration.md",
+      "sha256": "aae55e4a6799eee98b175555704da6bc2ad5c859ded5b88d3c0fdf065faa2e72",
+      "unchanged": true
+    },
+    {
+      "path": "calibration/cfb-context-fixtures.mjs",
+      "sha256": "26c11f89ef35775b79fe9d4dca351ddc8cc1616d02b0e31c47cf7b9c8d554e1a",
+      "unchanged": true
+    },
+    {
+      "path": "calibration/cfb-scoring-audit.md",
+      "sha256": "00f93514a57e6dff39021deeb5d6de3734280b3d01746e1d389a9ce9adafa7ff",
+      "unchanged": true
+    },
+    {
+      "path": "calibration/cfb-watchability-fixtures.mjs",
+      "sha256": "f5a4f3172a82a5677feff24bb508eee4694f252962a67fc42c7066b579cc4034",
+      "unchanged": true
+    },
+    {
+      "path": "calibration/context-overrides.json",
+      "sha256": "12f27eb128c401b4099d2bf574f6fb9228f535e2bad53798493701f784372d7c",
+      "unchanged": true
+    },
+    {
+      "path": "calibration/current-tension-calibration-report.md",
+      "sha256": "a8c7d64010c2d25a3ee1d7ad3c45e2405aed094f97a74a4f599b079c244a7593",
+      "unchanged": true
+    },
+    {
+      "path": "calibration/endgame-allocation-fixtures.mjs",
+      "sha256": "afd86e025792c2bf6f1d2cad5fa8b2a15678af89df717d68fa8bf1cb96221879",
+      "unchanged": true
+    },
+    {
+      "path": "calibration/expectations.json",
+      "sha256": "0e3d7a003569dff0bf393b36c5081b573698fba5ad990746855dc4bc3ac9fa0a",
+      "unchanged": true
+    },
+    {
+      "path": "calibration/finish-audit-20261031.md",
+      "sha256": "39fdf70f73ec6f8677cc007e8e4b397ca8dc007cec81ec705f75ad1b597831b3",
+      "unchanged": true
+    },
+    {
+      "path": "calibration/fixture-provenance.mjs",
+      "sha256": "6a936e6a7768f52ca2b00f099da15d5d3cb34ef08163db8c7b65b690da5b351a",
+      "unchanged": true
+    },
+    {
+      "path": "calibration/fixture-provenance.v1.json",
+      "sha256": "406d9a3fa9abf824a187090c251f35d07152cf0a3f51d801b00e139abfd097c4",
+      "unchanged": true
+    },
+    {
+      "path": "calibration/football-live-20261101.md",
+      "sha256": "576d874613999fb12b63ed29fdf579262eed12d4625dc20f7c5fb9484aa836e7",
+      "unchanged": true
+    },
+    {
+      "path": "calibration/football-pregame-20261031.md",
+      "sha256": "d94d43f587e7d974d7b026bcb58ed301bcf75bde6259c915ab311294e7777954",
+      "unchanged": true
+    },
+    {
+      "path": "calibration/football-transition-20261031.md",
+      "sha256": "450bca4f53c89f100467554fba53ff91c873b6a050ec6843e2056aa9d63595d2",
+      "unchanged": true
+    },
+    {
+      "path": "calibration/helpers.mjs",
+      "sha256": "d306895efccd9cdca409cac4d6bc1db2f26c11267348dd4bfdf6b7c01be6bef7",
+      "unchanged": true
+    },
+    {
+      "path": "calibration/live-cfb-competition.md",
+      "sha256": "43d32198dac0badbdf12b3c308b9b06b63be5829c44bcae36a91d91f8e110ab0",
+      "unchanged": true
+    },
+    {
+      "path": "calibration/live-cfb-context.md",
+      "sha256": "63e31b0866970f5afe33243478769b8604ffc988d7c147b7776caef1bb9c4186",
+      "unchanged": true
+    },
+    {
+      "path": "calibration/live-cfb-watchability.md",
+      "sha256": "9ec79277e682f69a3c2ac051aa06e6ad7faf6c1074d8c63039c85b9104f0a796",
+      "unchanged": true
+    },
+    {
+      "path": "calibration/live-endgame-allocation.md",
+      "sha256": "91d3a8361a162ca979c0d519df9c9504215b13be00cb3115a0aa7b32af6570b4",
+      "unchanged": true
+    },
+    {
+      "path": "calibration/live-nhl-allocation.md",
+      "sha256": "f5ddd8e492d30ea079c857646ac45b653e58d49791e17426d595705a261b58d9",
+      "unchanged": true
+    },
+    {
+      "path": "calibration/live-sync-20261101.md",
+      "sha256": "9e345a49fc2959783ee7e2ee18ce945eeb14e1ca8aa1bf0cbb8e19f5081eff34",
+      "unchanged": true
+    },
+    {
+      "path": "calibration/midgame-calibration.md",
+      "sha256": "38dcd30146a7976adc748f04e8ef738f716dc299a8cb6f8a98b1725167cba87e",
+      "unchanged": true
+    },
+    {
+      "path": "calibration/ncaam-first-half-20261102.md",
+      "sha256": "df9ce537b4463b958ded80dbea7d0b5617bc13501a0cf7fc918fd91f7a8a460f",
+      "unchanged": true
+    },
+    {
+      "path": "calibration/nfl-competitiveness-20261101.md",
+      "sha256": "58111aebb79e03494c76d5c8e7e7d4237441a2ec91cc7524f83a3293af2acc66",
+      "unchanged": true
+    },
+    {
+      "path": "calibration/nfl-decisive-baseline.json",
+      "sha256": "feb6c34ef31a9101cc5dada6c413e4f3534dba39f3393bf539cdc7eebc81e3bc",
+      "unchanged": true
+    },
+    {
+      "path": "calibration/nfl-decisive-calibration.md",
+      "sha256": "53ac0cd1c9603dc7903fbf4733edce9e7f5b234182c7094e9e90497c0f794c7b",
+      "unchanged": true
+    },
+    {
+      "path": "calibration/nfl-overtime-rules-20261031.md",
+      "sha256": "683a1d5c5df83a296243da46d6d174a8186584ce56f2b7a494fa88181df3afd8",
+      "unchanged": true
+    },
+    {
+      "path": "calibration/nfl-scoring-audit.md",
+      "sha256": "c4942e1846bc0f5ab22b52fbe0521550d6524a015e780458af2ba23feb90bd1e",
+      "unchanged": true
+    },
+    {
+      "path": "calibration/nhl-advanced-pressure-audit.md",
+      "sha256": "d5acaaad2f5603b509bfdcb9dd63a2a5a2feefe5e6a3e16f3c3af59a2e540489",
+      "unchanged": true
+    },
+    {
+      "path": "calibration/nhl-allocation-fixtures.mjs",
+      "sha256": "4912983665c14089706680b3df728dd1c41d16419679dce62360a5b306887089",
+      "unchanged": true
+    },
+    {
+      "path": "calibration/nhl-calibration.json",
+      "sha256": "13475ab8c234dfe3eebda9606c4bc2b68514860c6d4cec8ae663307aa111133b",
+      "unchanged": true
+    },
+    {
+      "path": "calibration/nhl-calibration.md",
+      "sha256": "0fe515c0c555c0fec4cf2b22e24e83dd9e4990ab5fdac48aeb749730806c9258",
+      "unchanged": true
+    },
+    {
+      "path": "calibration/nhl-pressure-experiment.cjs",
+      "sha256": "5f0cabb08f6b198fc7c073e99dd4f3c43f10cadea850742b599b441acfca914f",
+      "unchanged": true
+    },
+    {
+      "path": "calibration/nhl-pressure-results.md",
+      "sha256": "4431e8c772fd4496c027fd74ef55d5ee15d067fe1348c7a74d51f9157a1babca",
+      "unchanged": true
+    },
+    {
+      "path": "calibration/nhl-pressure-review.md",
+      "sha256": "f3680eec95e460fef4717d9dfd7803fc8b4cf1b03a59c29749f0ff6b1624e559",
+      "unchanged": true
+    },
+    {
+      "path": "calibration/nhl-public-replay.mjs",
+      "sha256": "4206e617fd532ba2c56d676c13003e8dd24d629a3766b98dafed061e7e8bac8e",
+      "unchanged": true
+    },
+    {
+      "path": "calibration/nhl-scoring-audit.md",
+      "sha256": "45ce3ba4c44be1f6c26b6e580abf3d73394675b805db58820aafaa2f3aab27ab",
+      "unchanged": true
+    },
+    {
+      "path": "calibration/nhl-statistics-release.md",
+      "sha256": "04e8df59473af2f9f6199eb753287a645e42146bfb3a88752637749c7ad20499",
+      "unchanged": true
+    },
+    {
+      "path": "calibration/opening-transition-20261031.md",
+      "sha256": "b1aeba0c76e80f8489579762933819e980053d36211dc9f8651635ffa63d5ea4",
+      "unchanged": true
+    },
+    {
+      "path": "calibration/output/basketball-audit-20261101.json",
+      "sha256": "9b4443c5b7fafca6c41b8ee8d67bccc04edd965e3d82f100462f2e34b9b4788c",
+      "unchanged": true
+    },
+    {
+      "path": "calibration/output/current-tension-calibration.json",
+      "sha256": "72ba816c4ec92b6f8fff7f09f72973e713c3846bf6d222bef10250f01a379ebb",
+      "unchanged": true
+    },
+    {
+      "path": "calibration/output/finish-audit-20261031.json",
+      "sha256": "ec00cba23a3f300d080886c4f067c3e8219a29be69a45ba7e5834390ba552a1c",
+      "unchanged": true
+    },
+    {
+      "path": "calibration/output/football-live-20261101.json",
+      "sha256": "3aa618e409f6e97f0f0a5270549718de02248ebe1ad77efb43d7382e548ca156",
+      "unchanged": true
+    },
+    {
+      "path": "calibration/output/football-pregame-20261031.json",
+      "sha256": "c9e900f20b1cd9738808f6779cd2ffc87dc336d0b163a1151c8fd787357ff126",
+      "unchanged": true
+    },
+    {
+      "path": "calibration/output/football-transition-20261031.json",
+      "sha256": "0cd1e775d7c3ef278599c91e2cb21ac6d013a0ca52c7652a4232866f371bf30f",
+      "unchanged": true
+    },
+    {
+      "path": "calibration/output/latest.csv",
+      "sha256": "9466a11a69429d66ed0f922cf19f51e44ad9b3138e418c31680d13498f80fd11",
+      "unchanged": true
+    },
+    {
+      "path": "calibration/output/live-sync-20261101.json",
+      "sha256": "63a8528a920ea84c0d5e81c8ea39c060b34c8e27c517bf501642a12baec29fd0",
+      "unchanged": true
+    },
+    {
+      "path": "calibration/output/ncaam-calibration-after-20261102.json",
+      "sha256": "baf6cdd3b5146002e47e01ceedb2fcb243180988edd402e860ccc86b41e4cfa1",
+      "unchanged": true
+    },
+    {
+      "path": "calibration/output/ncaam-calibration-before-20261102.json",
+      "sha256": "aab09f6dfdf8416ab758ea9b09fde7dc9c5a9935dfe13f8e5cb0b3bc1df89cbf",
+      "unchanged": true
+    },
+    {
+      "path": "calibration/output/ncaam-historical-replay-summary-20261102.json",
+      "sha256": "b26d31b56f7a5f0aa6bcd5052766882f71f24ddc2d2198ee175a90bdef7c70b0",
+      "unchanged": true
+    },
+    {
+      "path": "calibration/output/nfl-competitiveness-20261101.json",
+      "sha256": "c44c48a571d799f049a96dee6984569319e247e24e3aac3cda60dd5ef05d74b9",
+      "unchanged": true
+    },
+    {
+      "path": "calibration/output/nfl-pregame-20261101.json",
+      "sha256": "659b0d6a9790b442df4423dca5c8a3259f4c64e19565d6d3293d275240bb47bb",
+      "unchanged": true
+    },
+    {
+      "path": "calibration/output/nfl-refinement-20261101.json",
+      "sha256": "f02acbcf11a0620b19df4b704c9b4e8e72978f4e3d066091283255b5ef8b242b",
+      "unchanged": true
+    },
+    {
+      "path": "calibration/output/nhl-pressure-comparison.json",
+      "sha256": "eb6635f33d9e5095477f90d4e5232e202eb5945c5a786e9a8d93442934f73d53",
+      "unchanged": true
+    },
+    {
+      "path": "calibration/output/opening-transition-20261031.json",
+      "sha256": "7db5d3fcf0765ab78d3d938fd7dbfed3e63930ddfa6c7e3632b66869dfcbe001",
+      "unchanged": true
+    },
+    {
+      "path": "calibration/output/pregame-market-hotfix-20261101.json",
+      "sha256": "f15ec10f0a32349de73a4b929100dd13ba90659c38e1d92d384c1da1a880be57",
+      "unchanged": true
+    },
+    {
+      "path": "calibration/output/replay-input-comparison.v2.json",
+      "sha256": "99caa9a1cef49ffcdf74681f15cd2ed8d78340f41fa9b608c651f9984d505ddc",
+      "unchanged": true
+    },
+    {
+      "path": "calibration/output/replay-input-provenance.v2.json",
+      "sha256": "5e0ad48b1a4b3f0f237fef47eb62108b6a6c1daf549e23db65308286b81b4a92",
+      "unchanged": true
+    },
+    {
+      "path": "calibration/output/replay-input-scope.v2.json",
+      "sha256": "d20b2adf3a28026378c0df2f650ed4ea4f06c2203967d64804a43991e5d9112f",
+      "unchanged": true
+    },
+    {
+      "path": "calibration/output/replay-input-states.v2.json.gz",
+      "sha256": "f2346dd275102553e734879f87e551cdc0deafabf15fc6f02217d56bc345268d",
+      "unchanged": true
+    },
+    {
+      "path": "calibration/output/shadow-candidate-replay-summary.json",
+      "sha256": "21616fad1500f46048e64671a4c4278c0dd30b762420ff90498031defb7dec98",
+      "unchanged": true
+    },
+    {
+      "path": "calibration/output/trajectory-calibration.json",
+      "sha256": "63f7fcd076bb056e5ac623c833f833ae749ad17c9bc2fa8597d1eacece1007b1",
+      "unchanged": true
+    },
+    {
+      "path": "calibration/output/trajectory-live-calibration.json",
+      "sha256": "6581601b64d2a22a8e27e3e10387642a038a5fc5ae36fd1e1c584f489fe345c7",
+      "unchanged": true
+    },
+    {
+      "path": "calibration/overtime-response-20261031.md",
+      "sha256": "382b1f2c15cb7fe949eac6fe93a2eb52b77668ae565baf592ee2abaa3ff6924f",
+      "unchanged": true
+    },
+    {
+      "path": "calibration/pending-conversion-20261031.md",
+      "sha256": "585b00bfa435b8d95f4a8e85ebb2717b3ad1d6337ca0d30d5b9676904a00937a",
+      "unchanged": true
+    },
+    {
+      "path": "calibration/pregame-market-hotfix-20261101.md",
+      "sha256": "37185444efe08ecce9d3feb8bc0f7f69723cf5bb42d3a746b912b67c807ca4cc",
+      "unchanged": true
+    },
+    {
+      "path": "calibration/replay-input-comparison.v2.md",
+      "sha256": "2cf3f18a7623a558f05413d4e006cbcf2d0858241ffea9896d167d39590b56d9",
+      "unchanged": true
+    },
+    {
+      "path": "calibration/replay-input-rules.v2.md",
+      "sha256": "c1bada0e9c8f5f405263b62a6b2c242ffe8789c5a4ba169acd70438fe1232a95",
+      "unchanged": true
+    },
+    {
+      "path": "calibration/replay-input-validation.v2.md",
+      "sha256": "1315aaac7b296ed453a7686ced5b83e0b4a5475c17591a24c060a89ed2efaca0",
+      "unchanged": true
+    },
+    {
+      "path": "calibration/shadow-candidate-replay-report.md",
+      "sha256": "caed5fc3ecbec6991471c4553fa8aff6f171d78cddf25c579135a2062487db8c",
+      "unchanged": true
+    },
+    {
+      "path": "calibration/shadow-candidate-time-audit.md",
+      "sha256": "e12ca7c365e552a95282a15c84ee50297d8b7851d7b0b2c5866ff1dd9befd9c5",
+      "unchanged": true
+    },
+    {
+      "path": "calibration/shadow-candidate.cjs",
+      "sha256": "5473635499c905d7f40f5c41a22235b1dc07b42b71faa3d2c000f19ff67d178b",
+      "unchanged": true
+    },
+    {
+      "path": "calibration/slates.json",
+      "sha256": "b6bdc4b158860f3c3423113a7ed45bbc28912240ee002742da81bbce4bac9081",
+      "unchanged": true
+    },
+    {
+      "path": "calibration/trajectory-archetypes.mjs",
+      "sha256": "c59191a5f109c4f0a04eceeb1510fff0320f89a62eee119d46cbe0f091fd7200",
+      "unchanged": true
+    },
+    {
+      "path": "calibration/trajectory-calibration-report.md",
+      "sha256": "a40a9ed890c9f0457ebe32f955026c3e4602e64c34519b501661dddaedbf6078",
+      "unchanged": true
+    },
+    {
+      "path": "calibration/trajectory-checkpoint-fixtures.mjs",
+      "sha256": "bf5dd636ab952f92be67e9ca04a87c7fafc6779f495420cec9b64a76412bc914",
+      "unchanged": true
+    },
+    {
+      "path": "calibration/trajectory-checkpoint-manifest.json",
+      "sha256": "855a49a162001a80d823ac61d8e485c17fd0757241e0953fe0850e3c078b7102",
+      "unchanged": true
+    },
+    {
+      "path": "calibration/trajectory-checkpoint-manifest.md",
+      "sha256": "fa1882f4b02903aba9642e54d174c5ef274b6efd8573fb1be712a170252f8a3c",
+      "unchanged": true
+    },
+    {
+      "path": "calibration/trajectory-current-checkpoint-manifest.json",
+      "sha256": "8d59dce56fb6f63e66b0cdab6951facb97453051a034f1f1d697dd24eb347610",
+      "unchanged": true
+    },
+    {
+      "path": "calibration/trajectory-diagnostic-key.corrected.json",
+      "sha256": "6be8ea8649c76bfa4d2cb0f954a8db9a693e2d9dbf13931f829e95fc677f6dad",
+      "unchanged": true
+    },
+    {
+      "path": "calibration/trajectory-diagnostic-key.json",
+      "sha256": "83030772ff71aaa3b250bb48ff1345735afc95b7afb7da2f863c4aa61e54c186",
+      "unchanged": true
+    },
+    {
+      "path": "calibration/trajectory-diagnostic-key.replay-v2.json",
+      "sha256": "4f36e3678b1c41cdb088c581c733211250c61c0eae560edbd059ec8cb2f22a41",
+      "unchanged": true
+    },
+    {
+      "path": "calibration/trajectory-focused-validation.md",
+      "sha256": "7c30cf3ac124312dab0bc2e2a018d3dbafe365c494f0098d1c636b6d6adcf514",
+      "unchanged": true
+    },
+    {
+      "path": "calibration/trajectory-history-ownership.md",
+      "sha256": "a178e82a32ad6b81f6dc02dc965ef853b6582dc88f6c45a274f9019a3730a130",
+      "unchanged": true
+    },
+    {
+      "path": "calibration/trajectory-live-calibration-report.md",
+      "sha256": "573930e78e18ae2bde511f547c8db1fa52abddbc6558c8b771d22b7eb6487e1f",
+      "unchanged": true
+    },
+    {
+      "path": "calibration/trajectory-live-fixtures.mjs",
+      "sha256": "96250972d8e67ae645e5a02dc8750ae07c95b99083ccc7dfc615f420445997ec",
+      "unchanged": true
+    },
+    {
+      "path": "calibration/trajectory-live-policy.cjs",
+      "sha256": "3eb8830eafc8ec8ab64c92d9638d1c579def9876e8ca5edf52228332417b7609",
+      "unchanged": true
+    },
+    {
+      "path": "calibration/trajectory-policy.cjs",
+      "sha256": "84abbf0d1971612d3fee3372d7ef60eeec98be481ddea67af896e316b3f9b9ed",
+      "unchanged": true
+    },
+    {
+      "path": "calibration/trajectory-review-correction-findings.md",
+      "sha256": "79af6ef627817b209a5eebec38a40aa6a9955f9534cd6543b6fa05a024d7da91",
+      "unchanged": true
+    },
+    {
+      "path": "calibration/trajectory-reviewer-pack.corrected.md",
+      "sha256": "20a7390d013a177815ceae76293aaa473f3e9309305b2217e2af49c378a860a0",
+      "unchanged": true
+    },
+    {
+      "path": "calibration/trajectory-reviewer-pack.md",
+      "sha256": "243f4f3f9d9b58260819739305bb47c358bbf8ba41465f23f8593fd940a6c3d0",
+      "unchanged": true
+    },
+    {
+      "path": "calibration/trajectory-reviewer-pack.replay-v2.md",
+      "sha256": "60c69e1ffbd333ca00b9fbc58b0bc4df0b9323e2e334156d2e6d561bb0e2215d",
+      "unchanged": true
+    },
+    {
+      "path": "game-center.js",
+      "sha256": "8c7527e1462c73d89de80130f820845c5766f7102322442088e572698fcf58f1",
+      "unchanged": true
+    },
+    {
+      "path": "mobile-readability.css",
+      "sha256": "6406f965121a2e5750c4fba11c52b79fb44ef5ebfa2e03e49c5e8179e170b0d0",
+      "unchanged": true
+    },
+    {
+      "path": "notifications.js",
+      "sha256": "c1afd53f559952507b2f63842f701cc62be76d7497df4d6efc9e36536838189c",
+      "unchanged": true
+    },
+    {
+      "path": "rating-core.js",
+      "sha256": "4ec177dafc11cacf0f4651677b52f3d52b96b411fad267ba41147a18344cc510",
+      "unchanged": true
+    },
+    {
+      "path": "scoring/README.md",
+      "sha256": "0ee5e85b84dd0fd55e4b49f2c1731dbeb3f5de2cfdda07a2c6c97ae96a22d719",
+      "unchanged": true
+    },
+    {
+      "path": "scoring/basketball-calibration.cjs",
+      "sha256": "a0ab681f106a8e6047e973359a70797aa8182a963f621a7512efda175be8826d",
+      "unchanged": true
+    },
+    {
+      "path": "scoring/basketball-state.cjs",
+      "sha256": "e4b930858f1b6c5f5f82888c861a408ad9546568d5032801fbef66a0cde72da2",
+      "unchanged": true
+    },
+    {
+      "path": "scoring/browser-entry.cjs",
+      "sha256": "2c093b14095e7d02dc57fc11f4564712be28e04342f2108418fa328288376e62",
+      "unchanged": true
+    },
+    {
+      "path": "scoring/detail-state.cjs",
+      "sha256": "0f99a4369f14a78771ec766743104b8fe610a5576e42202d8674261d237b8f4a",
+      "unchanged": true
+    },
+    {
+      "path": "scoring/event-occasion.cjs",
+      "sha256": "2a560c63844497a56b2242777ad57769cf59634aad90891204404fbb2d5ffe58",
+      "unchanged": true
+    },
+    {
+      "path": "scoring/football-live.cjs",
+      "sha256": "ff94b034ef7e75e82891b279132896cc5d15f1520e66c4b9693103fc0aa40c66",
+      "unchanged": true
+    },
+    {
+      "path": "scoring/football-market.cjs",
+      "sha256": "de64629ad210c50a135e7c9752cec366e0ed6fdc9088ea1cbc96e87e08a1f4d1",
+      "unchanged": true
+    },
+    {
+      "path": "scoring/football-transition.cjs",
+      "sha256": "0d772e802bc1f16eae852cce97fbcdaf95fe11a96ff408abd63a3b286d4a4c13",
+      "unchanged": true
+    },
+    {
+      "path": "scoring/game-facts.cjs",
+      "sha256": "ebbda2d72dca446a9fe0deebdb5bce6cc71b164a270dac4cb23a41aac3c00083",
+      "unchanged": true
+    },
+    {
+      "path": "scoring/live-evidence.cjs",
+      "sha256": "9e109dab44cac72c83d1ffcfacfdc9a38d9e39b9f984798331fa6159942c575e",
+      "unchanged": true
+    },
+    {
+      "path": "scoring/live-runtime.cjs",
+      "sha256": "643d531bbb4dc6a9bb12ef769de4582025fd4ee3df1b54a052bd9822cf8fd8fe",
+      "unchanged": true
+    },
+    {
+      "path": "scoring/models.js",
+      "sha256": "9efc69e6ffe186423515dc476a7551031b13fc35d2580b3100fb86b15a60584d",
+      "unchanged": true
+    },
+    {
+      "path": "scoring/nhl-advanced.cjs",
+      "sha256": "89c7c8b31910d54bd50b798eaf97cc027c4143b3a43d1f655342cc7c380990d0",
+      "unchanged": true
+    },
+    {
+      "path": "scoring/nhl-manpower-evidence.cjs",
+      "sha256": "32098b7765e3c67971422c8ec6aa34f75ff4aaf7c82f2e7ce8b8f722a7f93ab3",
+      "unchanged": true
+    },
+    {
+      "path": "scoring/opening-transition.cjs",
+      "sha256": "5066aad6c56f6d107ae72caa5e29cad3027c608c30839aef45183dfd0224b62d",
+      "unchanged": true
+    },
+    {
+      "path": "scoring/provider-evidence.cjs",
+      "sha256": "ccefebc6d6cd703d20879fba3f3c479798e7f7b05723c5d0718dbcac99f1bd2e",
+      "unchanged": true
+    },
+    {
+      "path": "scoring/shared/basketball.js",
+      "sha256": "986710c0c9e83be41aac1fd49419ec6541a6ace81a7df0a4b88cd68293d0e3aa",
+      "unchanged": true
+    },
+    {
+      "path": "scoring/shared/calculation.js",
+      "sha256": "bb16db6b6c4bfdf7f2890e999bae91e6412c70654b4df769989f2a7fe1ddeccd",
+      "unchanged": true
+    },
+    {
+      "path": "scoring/shared/college.js",
+      "sha256": "ff117eb5fd806a005ed24c131d961fba6c0d45187bf8649b25f1fba8e6769fcc",
+      "unchanged": true
+    },
+    {
+      "path": "scoring/shared/config.js",
+      "sha256": "a1bee51d57d387e18ae8bc49dfd19800b096cca341f0ad8fa44c39a097ae9e69",
+      "unchanged": true
+    },
+    {
+      "path": "scoring/shared/context.js",
+      "sha256": "05c3827f105e8b018c6ccb3f12023c5d88275858d72e86ed30f38e2003091a29",
+      "unchanged": true
+    },
+    {
+      "path": "scoring/shared/events.js",
+      "sha256": "e0956eb8236b91cb9cff57018d0b794821dcc19a730c7a6f2dd94b441744647b",
+      "unchanged": true
+    },
+    {
+      "path": "scoring/shared/football.js",
+      "sha256": "529cba8c50f7270085470abc45de755e1b08ff633c307c9bb81a57c67cb5ec69",
+      "unchanged": true
+    },
+    {
+      "path": "scoring/shared/history.js",
+      "sha256": "d2ef22c345a9a1b394d5336781248e70927a4510225901d5273323a741984a0b",
+      "unchanged": true
+    },
+    {
+      "path": "scoring/shared/market.js",
+      "sha256": "4e0e65ffaf98a00127e1bbd3dfde5163d4e753a9215ca8439e665b6971f58477",
+      "unchanged": true
+    },
+    {
+      "path": "scoring/shared/nfl-pregame.js",
+      "sha256": "f9710d37e991c0457580a530cf9e8db6e96148cb5c0a264e5f568d33a4ff6a05",
+      "unchanged": true
+    },
+    {
+      "path": "scoring/shared/pregame.js",
+      "sha256": "bc54c64629c27616611b9fdae79bbb367e9450df379f07bd4036f477cb25cad4",
+      "unchanged": true
+    },
+    {
+      "path": "scoring/shared/pressure.js",
+      "sha256": "72104bd7a61c6a8bc12e47be64c12704dce7b4b389bcc7eaf27ba15cb2aeb1c5",
+      "unchanged": true
+    },
+    {
+      "path": "scoring/shared/probability.js",
+      "sha256": "cd77a581eff895cd26b3250ee309a08c6fc4c65de92b881b162a5e161b4917ce",
+      "unchanged": true
+    },
+    {
+      "path": "scoring/shared/records.js",
+      "sha256": "5fb463f91c3399749a1b41fbfc12101e1c53955f6d9eeac1b2d902a78c83b673",
+      "unchanged": true
+    },
+    {
+      "path": "scoring/shared/time.js",
+      "sha256": "14ea2a31e47e7c04843a1ce0ffd6cf7f41e03fb70cb903998417f82d2435071a",
+      "unchanged": true
+    },
+    {
+      "path": "scoring/shared/trajectory.js",
+      "sha256": "069733ef4bf563442024b32fa56f2467758b34a235d2a22dac72d7840bebd87f",
+      "unchanged": true
+    },
+    {
+      "path": "scoring/shared/upset.js",
+      "sha256": "b39e00f9f423fac4c75417e6b3ba9b4b91df12070af8cebe522baca1d24a83a6",
+      "unchanged": true
+    },
+    {
+      "path": "scoring/snapshot-integrity.cjs",
+      "sha256": "f2b7242e4210affc30005296df69d5140f9e3f9cd92ac5da0c3b8b289993161e",
+      "unchanged": true
+    },
+    {
+      "path": "scoring/sports/basketball.js",
+      "sha256": "ebdea5b3fb25dac4e4bbf50752152386b37a9696030755521218e1cb30e239a6",
+      "unchanged": true
+    },
+    {
+      "path": "scoring/sports/cfb.js",
+      "sha256": "3b9a10d5a58246375f4a6a6d08b28def6039850633f00f6774c448cf5384f0e7",
+      "unchanged": true
+    },
+    {
+      "path": "scoring/sports/mlb.js",
+      "sha256": "9ef1a496ad00eaf08452346ba5e5b1a9dde8e6c284bf97a8649a83c00c33a95f",
+      "unchanged": true
+    },
+    {
+      "path": "scoring/sports/nfl.js",
+      "sha256": "71b78d6ac0d40e89aae007ba902256f2a249a212a9f4561d1bbf242bc47ecafb",
+      "unchanged": true
+    },
+    {
+      "path": "scoring/sports/nhl.js",
+      "sha256": "de427202c899adf42ca9f142cde06a0edfd23de8cea5ca7bedb6c9cf66d5f501",
+      "unchanged": true
+    },
+    {
+      "path": "scoring/sports/soccer.js",
+      "sha256": "79de9a0ed13ee039c89db05b5b51fd833683a3c43886cac315f3f657227111e7",
+      "unchanged": true
+    },
+    {
+      "path": "scoring/sports/tennis.js",
+      "sha256": "c29c70198cab513219b50191508490026ebc8ba7ad07c1e3277395fd9231caf0",
+      "unchanged": true
+    },
+    {
+      "path": "styles.css",
+      "sha256": "d94947acd7cb64a8efbfd24a4875e2f264daae8946b77359509db1de8e7135ab",
+      "unchanged": true
+    }
+  ],
+  "liveCompleted": [
+    {
+      "sport": "NFL",
+      "id": "401873023",
+      "state": "completed"
+    },
+    {
+      "sport": "NFL",
+      "id": "401873026",
+      "state": "completed"
+    },
+    {
+      "sport": "NFL",
+      "id": "401873031",
+      "state": "completed"
+    },
+    {
+      "sport": "NFL",
+      "id": "401873024",
+      "state": "completed"
+    },
+    {
+      "sport": "NFL",
+      "id": "401873030",
+      "state": "completed"
+    },
+    {
+      "sport": "NFL",
+      "id": "401873029",
+      "state": "completed"
+    },
+    {
+      "sport": "NFL",
+      "id": "401873027",
+      "state": "completed"
+    },
+    {
+      "sport": "NFL",
+      "id": "401873025",
+      "state": "completed"
+    },
+    {
+      "sport": "NFL",
+      "id": "401873028",
+      "state": "completed"
+    },
+    {
+      "sport": "NFL",
+      "id": "401873032",
+      "state": "completed"
+    },
+    {
+      "sport": "NFL",
+      "id": "401873033",
+      "state": "completed"
+    },
+    {
+      "sport": "NFL",
+      "id": "401873034",
+      "state": "completed"
+    },
+    {
+      "sport": "NFL",
+      "id": "401873035",
+      "state": "completed"
+    },
+    {
+      "sport": "NFL",
+      "id": "401873036",
+      "state": "completed"
+    },
+    {
+      "sport": "MLB",
+      "id": "401908046",
+      "state": "completed"
+    },
+    {
+      "sport": "NHL",
+      "id": "401892629",
+      "state": "completed"
+    },
+    {
+      "sport": "NHL",
+      "id": "401892630",
+      "state": "completed"
+    },
+    {
+      "sport": "NHL",
+      "id": "401892631",
+      "state": "completed"
+    },
+    {
+      "sport": "NHL",
+      "id": "401892632",
+      "state": "completed"
+    },
+    {
+      "sport": "NBA",
+      "id": "401909907",
+      "state": "completed"
+    },
+    {
+      "sport": "NBA",
+      "id": "401909908",
+      "state": "completed"
+    },
+    {
+      "sport": "NBA",
+      "id": "401909909",
+      "state": "completed"
+    },
+    {
+      "sport": "NBA",
+      "id": "401909910",
+      "state": "completed"
+    },
+    {
+      "sport": "NBA",
+      "id": "401909911",
+      "state": "completed"
+    },
+    {
+      "sport": "NBA",
+      "id": "401909912",
+      "state": "completed"
+    },
+    {
+      "sport": "NBA",
+      "id": "401909913",
+      "state": "completed"
+    },
+    {
+      "sport": "NBA",
+      "id": "401909914",
+      "state": "completed"
+    },
+    {
+      "sport": "NBA",
+      "id": "401909915",
+      "state": "completed"
+    },
+    {
+      "sport": "NBA",
+      "id": "401909916",
+      "state": "completed"
+    },
+    {
+      "sport": "NBA",
+      "id": "401909917",
+      "state": "completed"
+    },
+    {
+      "sport": "NBA",
+      "id": "401909918",
+      "state": "completed"
+    },
+    {
+      "sport": "NBA",
+      "id": "401909919",
+      "state": "completed"
+    },
+    {
+      "sport": "NBA",
+      "id": "401909920",
+      "state": "completed"
+    },
+    {
+      "sport": "NBA",
+      "id": "401909921",
+      "state": "completed"
+    },
+    {
+      "sport": "Soccer",
+      "id": "401915311",
+      "state": "completed"
+    },
+    {
+      "sport": "Soccer",
+      "id": "401915310",
+      "state": "completed"
+    }
+  ],
+  "upcomingInputsUnchanged": 262,
+  "storyFormattingAndLinkSafeguardsUnchanged": true,
+  "phase2": {
+    "commit": "2ae18b31ae97257214492795b9338db76032e8fa",
+    "ancestor": false,
+    "prototypeFilesAbsent": true
+  },
+  "research": {
+    "limits": {
+      "days": 7,
+      "games": 30,
+      "articles": 60,
+      "perGame": 4,
+      "editorialItems": 8,
+      "providerRequests": 6,
+      "aiRequests": 3
+    },
+    "selected": [
+      {
+        "id": "401856743",
+        "sport": "CFB",
+        "score": 82
+      },
+      {
+        "id": "401856741",
+        "sport": "CFB",
+        "score": 81
+      },
+      {
+        "id": "401856849",
+        "sport": "CFB",
+        "score": 80
+      },
+      {
+        "id": "401858291",
+        "sport": "CFB",
+        "score": 79
+      },
+      {
+        "id": "401856740",
+        "sport": "CFB",
+        "score": 76
+      },
+      {
+        "id": "401856745",
+        "sport": "CFB",
+        "score": 73
+      },
+      {
+        "id": "401909922",
+        "sport": "NBA",
+        "score": 65
+      },
+      {
+        "id": "401873051",
+        "sport": "NFL",
+        "score": 62
+      },
+      {
+        "id": "401873049",
+        "sport": "NFL",
+        "score": 58
+      },
+      {
+        "id": "401892644",
+        "sport": "NHL",
+        "score": 57
+      },
+      {
+        "id": "401909294",
+        "sport": "NBA",
+        "score": 57
+      },
+      {
+        "id": "401892636",
+        "sport": "NHL",
+        "score": 56
+      },
+      {
+        "id": "401873038",
+        "sport": "NFL",
+        "score": 56
+      },
+      {
+        "id": "401858512",
+        "sport": "CFB",
+        "score": 55
+      },
+      {
+        "id": "401892633",
+        "sport": "NHL",
+        "score": 54
+      },
+      {
+        "id": "401892640",
+        "sport": "NHL",
+        "score": 54
+      },
+      {
+        "id": "401858513",
+        "sport": "CFB",
+        "score": 54
+      },
+      {
+        "id": "401892670",
+        "sport": "NHL",
+        "score": 54
+      },
+      {
+        "id": "401909946",
+        "sport": "NBA",
+        "score": 54
+      },
+      {
+        "id": "401873044",
+        "sport": "NFL",
+        "score": 53
+      },
+      {
+        "id": "401906848",
+        "sport": "NCAAB",
+        "score": 39
+      },
+      {
+        "id": "401909930",
+        "sport": "NBA",
+        "score": 52
+      },
+      {
+        "id": "401892658",
+        "sport": "NHL",
+        "score": 52
+      },
+      {
+        "id": "401892667",
+        "sport": "NHL",
+        "score": 52
+      },
+      {
+        "id": "401892635",
+        "sport": "NHL",
+        "score": 51
+      },
+      {
+        "id": "401892642",
+        "sport": "NHL",
+        "score": 51
+      },
+      {
+        "id": "401892652",
+        "sport": "NHL",
+        "score": 51
+      },
+      {
+        "id": "401909291",
+        "sport": "NBA",
+        "score": 51
+      },
+      {
+        "id": "401892665",
+        "sport": "NHL",
+        "score": 51
+      },
+      {
+        "id": "401856739",
+        "sport": "CFB",
+        "score": 51
+      }
+    ]
+  }
+}

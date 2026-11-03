@@ -1,0 +1,11 @@
+{
+  "checkedAt": "2026-11-03T20:41:46.219Z",
+  "baseline": "31f3eb26fbd3c3fc083f7828b2bb93d181fdb888",
+  "htmlRevisions": [
+    "31f3eb26fbd3c3fc083f7828b2bb93d181fdb888"
+  ],
+  "servedAppMatchesBaseline": true,
+  "servedAppSha256": "c03e8364ed999d3b1551cb108182af8d9a5b5e5778ec33f75d4b39298237189a",
+  "modelVersion": "2026-11-02.clock-integrity.2",
+  "scoringPolicy": "live-owned-45-95-relevant-history-cfb-competition-opening-transition"
+}
