@@ -11,13 +11,14 @@ const providerEvidence=require('./provider-evidence.cjs');
 const basketball=require('./basketball-state.cjs');
 const {analyzeTrajectory}=require('./models.js');
 const basketballCalibration=require('./basketball-calibration.cjs');
+const basketballUpset=require('./basketball-upset.cjs');
 const {canonicalDetailSummary}=require('./detail-state.cjs');
 const footballLive=require('./football-live.cjs');
 const footballMarket=require('./football-market.cjs');
 const integrity=require('./snapshot-integrity.cjs');
 const gameFacts=require('./game-facts.cjs');
 const PRODUCTION_POLICY = Object.freeze({...LIVE_POLICY,id:LIVE_POLICY.id+'-opening-transition',footballTransition:true,openingTransition:true});
-const MODEL_VERSION = '2026-11-02.clock-integrity.2';
+const MODEL_VERSION = '2026-11-03.live-underdog.1';
 
 function describeCfbQualitySoFar(game,current,summary) {
   delete game.gameQualitySoFar;
@@ -79,11 +80,18 @@ function applyLiveSnapshot(game, competition, summary) {
   const unanchoredProbability=(history || game.sameStateEvidenceRetained) && latestProbability && (latestProbability.playId==null || !probabilityPlays.some(p=>String(p.id)===String(latestProbability.playId)));
   const currentSummary=unanchoredProbability ? {...effective,winprobability:[]} : effective;
   prepareOpening(legacy,game,competition || game.sourceCompetition,accepted);
-  if (['NFL','CFB','NCAAB'].includes(game.sport)) {
+  if (['NFL','CFB'].includes(game.sport)) {
     const upset=legacy.upsetImpact(game.underdog,game.teams,'live',legacy.gameProgress(game.sport,current),game.sport,current);
     game.factors=game.factors.filter(f=>f.label!=='Underdog threatens upset');
     if (upset.points) game.factors.push({label:'Underdog threatens upset',points:upset.points});
     game.upsetPoints=upset.points;game.upsetText=upset.text;
+  }
+  if (basketball.supports(game)) {
+    const upset=basketballUpset.liveSurprise(legacy,game,current,currentSummary,history?.summary||currentSummary);
+    if(upset.market)game.liveUpsetMarket=upset.market;
+    Object.assign(game,{liveUpset:upset,upsetPoints:upset.points,upsetText:upset.text});
+    game.factors=game.factors.filter(f=>f.label!=='Underdog threatens upset');
+    if(upset.points)game.factors.push({label:'Underdog threatens upset',points:upset.points,liveUpset:true});
   }
   let scoringGame=game;
   if (['NFL','CFB'].includes(game.sport)) {
@@ -153,7 +161,7 @@ function applyLiveSnapshot(game, competition, summary) {
   return result;
 }
 
-function preserveEvidence(game,previous){preserveLiveEvidence(game,previous);basketball.preserveBasketballState(game,previous);integrity.preserveObservation(game,previous);}
+function preserveEvidence(game,previous){preserveLiveEvidence(game,previous);basketball.preserveBasketballState(game,previous);basketballUpset.preserveMarket(game,previous);integrity.preserveObservation(game,previous);}
 function prepareProviderSummary(game,summary){
  const competition=integrity.reconcileObservation(game,game.sourceCompetition,summary);
  return providerEvidence.normalizeSummary(game,competition,summary);

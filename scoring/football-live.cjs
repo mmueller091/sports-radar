@@ -70,8 +70,13 @@ function liveSurprise(core,game,competition,summary,historySummary=summary) {
   // Expected score differential grows with elapsed regulation. Merely covering
   // earns no signal: actual lead/tie threat and sport runway are required.
   const reversal=1-Math.exp(-(Math.max(0,margin)+(market.spread||0)*p)/14);
-  const threat=margin>0 ? .35+.65*(1-Math.exp(-margin/7)) :
-    smooth((p-.5)/.4)*Math.exp(-Math.pow(Math.abs(margin)/7,1.6))*.65;
+  const tiedThreat=.65*smooth((p-.5)/.4);
+  // The late tied threat can exceed the original narrow-lead curve. Keep that
+  // same-clock floor when the underdog moves ahead, rather than resetting its
+  // threat from as much as .65 to .35. The existing curve still owns early and
+  // larger leads; possession/runway, history overlap and all caps stay intact.
+  const threat=margin>0 ? Math.max(tiedThreat,.35+.65*(1-Math.exp(-margin/7))) :
+    tiedThreat*Math.exp(-Math.pow(Math.abs(margin)/7,1.6));
   const viability=margin<0 ? core.footballLiveCloseness(game.sport,-margin,p,competition).comebackFeasibility : 1;
   // Deterministic sustained evidence comes from a validated ledger, never the
   // number of polls. Reject future, duplicate, regressing or mismatched scores.

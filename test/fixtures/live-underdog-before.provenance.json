@@ -1,0 +1,17 @@
+{
+  "sourceCommit": "0f0eb90dc332e951afc3a20e3226f99e951a6cec",
+  "sourceModel": "2026-11-02.clock-integrity.2",
+  "branch": "calibrate/live-underdog-20261103",
+  "capturedDate": "2026-11-03",
+  "entry": "scripts/finish-audit-entry.mjs",
+  "method": "esbuild CommonJS bundle from git archive of exact source commit; no active worktree source used",
+  "compressedSha256": "c4ecc3b7ca5076c6b0a13dfbb0bfec46293254f7171101c2edeb526c95679bf4",
+  "uncompressedSha256": "389241829b6d914bfe98ff2a8f8ea2e9f41e780f326f65c3daff196580acf1a7",
+  "productionVerification": {
+    "frontend": "https://mmueller091.github.io/sports-radar/",
+    "assetRevision": "0f0eb90dc332e951afc3a20e3226f99e951a6cec",
+    "worker": "https://sports-radar-alerts.mmueller918.workers.dev/health",
+    "modelVersion": "2026-11-02.clock-integrity.2"
+  },
+  "historicalPolicy": "Independent test-only baseline; never deployed or used to rewrite recorded ratings."
+}

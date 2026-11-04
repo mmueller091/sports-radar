@@ -43,7 +43,11 @@ test('ranked context remains conditional on current competition and fades withou
  assert.equal(point('J5-half-end').score,point('J6-second-start').score);
  assert.equal(point('J1-close-late').score,53);
  assert.equal(point('J2-overtime').score,59);
- assert.equal(point('I-second-half-comeback').score,85);
+ // Rerating this captured play-prefix uses the new live upset component:
+ // 9 -> 4 for a +7.5 underdog, including correlated-history discount. The
+ // closeness, late finish and verified comeback factors remain unchanged;
+ // the separately stored historical ratings are not rewritten.
+ assert.equal(point('I-second-half-comeback').score,80);
  assert.equal(point('J4-completed').score,40);
 });
 

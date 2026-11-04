@@ -1,0 +1,77 @@
+{
+  "date": "2026-11-03",
+  "baselineCommit": "0f0eb90dc332e951afc3a20e3226f99e951a6cec",
+  "model": "2026-11-03.live-underdog.1",
+  "fullSuite": {
+    "testFiles": 124,
+    "tests": 1790,
+    "passed": 1790,
+    "failed": 0,
+    "skipped": 0,
+    "durationMs": 78616.9771,
+    "command": "node --test --test-concurrency=4 (all test/*.test.js, test/*.test.cjs, alerts-worker/test/*.test.js)"
+  },
+  "standalone": {
+    "command": "node test-score.js",
+    "passed": true
+  },
+  "browserBuild": {
+    "command": "node scripts/build-site.mjs",
+    "passed": true
+  },
+  "browserWorkerParity": {
+    "scenarios": 432,
+    "passed": true
+  },
+  "nearEightSpreadContinuity": {
+    "spreads": [
+      7.9,
+      8,
+      8.1
+    ],
+    "sports": 4,
+    "phases": 6,
+    "margins": 9,
+    "passed": true,
+    "assertedMaximumTotalRange": 1
+  },
+  "protectedOutputs": {
+    "observedOpenings": "exact",
+    "pregameAndCompleted": "same scores and factors",
+    "otherSports": "unchanged",
+    "historicalSnapshots": "not rewritten",
+    "alertLogicAndThresholds": "unchanged",
+    "providerAndAiBudgets": "unchanged"
+  },
+  "initialRunResolved": {
+    "recalibratedAssertion": "Notre Dame-Villanova live replay85 to80; upset factor9 to4 only",
+    "windowsCheckout": "21 untouched historical/source files restored to exact HEAD bytes; no content or expected-hash changes"
+  },
+  "deployment": "not deployed; await calibration review",
+  "replay": {
+    "games": 92,
+    "checkpoints": 17895,
+    "rated": 17883,
+    "withheld": 12,
+    "scenarios": 2940,
+    "clockBoundaryPairs": 648,
+    "maximumFormerClockGateJump": 1,
+    "materialChanges": 141,
+    "reviewRows": 198,
+    "new85States": 17,
+    "new85Games": 5,
+    "nonliveChanges": 0,
+    "openingChanges": 0,
+    "otherSportChanges": 0
+  },
+  "sourceHashFormat": "SHA-256 after CRLF-to-LF normalization",
+  "candidateSources": {
+    "scoring/basketball-upset.cjs": "0ad3da0bf584467b30fb66376d4fe5908bcb11a20c768f02e2b432fd44a550a8",
+    "scoring/football-live.cjs": "1d6c13c24a20bc4224c274b6cdb2fc3b979c03a5eb5e80592aa6ea5e5e24ec9c",
+    "scoring/live-runtime.cjs": "cc848d1f1367e9b8c6823beee95b9a3c821f2259baddb29a638e5f81cb16749d",
+    "scripts/live-underdog-report.mjs": "8ee9265bef50db8eacee25d14ff2cc311af97818d2069f4ab842a75e1062fa33",
+    "scripts/append-live-underdog-report.mjs": "65fcea3ebd5b24d020948a6e94eda5003c19439c46d768af9421b47aa44e2c57",
+    "test/helpers/live-underdog-scenarios.mjs": "46a8376838fbbeafb946ab80ca20d4847625eeffb43ad763723f82a4ae973899"
+  },
+  "reportSha256": "9d1005f5554eb6fc6ee93a5b13eb2770e82e55e65766c1c4cbeb20a7e59c4c57"
+}
