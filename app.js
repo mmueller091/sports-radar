@@ -331,7 +331,6 @@ function syncSportToggles() {
     input.checked = state.visibleSports.has(input.dataset.visibleSport);
     input.closest?.('label')?.classList.toggle('hidden',!publicSport(input.dataset.visibleSport));
   });
-  $$('.sport-chip[data-sport]').forEach(chip => chip.classList.toggle('hidden',chip.dataset.sport!=='all' && !publicSport(chip.dataset.sport)));
   $$('.nav-link[data-page="soccer"]').forEach(link => link.classList.toggle('hidden',!publicSport('Soccer')));
   $$('#favorite-sport option').forEach(option => {if(!publicSport(option.value)) option.remove();});
 }
@@ -6720,6 +6719,11 @@ function render() {
     !state.visibleSports.has('CFB')
   );
 
+  $$('.sport-chip[data-sport]').forEach(chip => {
+    const sport = chip.dataset.sport;
+    if (HOME_SPORTS.includes(sport)) chip.classList.toggle('hidden',!publicSport(sport) || (!isSoccer && !state.visibleSports.has(sport)));
+  });
+
   if (
     !isSoccer &&
     state.sport !== 'all' &&
@@ -6728,6 +6732,7 @@ function render() {
     )
   ) {
     state.sport = 'all';
+    $('#mobile-sport-filter-label').textContent = 'All';
 
     $$('.sport-chip[data-sport]')
       .forEach(chip =>
