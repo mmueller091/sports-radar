@@ -8,7 +8,7 @@ import {gameHistory} from './snapshot-history.js';
 import {cfbConferenceMetadata,cfbSeason} from './cfb-metadata.js';
 import runtime from '../../scoring/live-runtime.cjs';
 import {normalizeNotificationPreferences,preferencesForRow,notificationEligible} from './notification-preferences.js';
-import {ALERT_DELIVERY_VERSION,ALERT_MAX_AGE_MS,currentAlertGame,notificationCopy,drainAlerts} from './alert-delivery.js';
+import {ALERT_DELIVERY_VERSION,ALERT_MAX_AGE_MS,CONSUMED_GAME_ALERT_SQL,currentAlertGame,notificationCopy,drainAlerts} from './alert-delivery.js';
 
 const {rateGame,applyLiveSnapshot,recordFor,rankFor,clampScore,underdogCandidate,upsetImpact,gameProgress,momentumImpact} = globalThis.SportsRadarScore;
 const ORIGIN = 'https://mmueller091.github.io';
@@ -70,9 +70,10 @@ async function checkGames(env,feed,deliver=sendPush) {
     for (const sub of subscribers) {
       if (notificationEligible(item.game,preferencesForRow(sub)) && prior < sub.threshold && score >= sub.threshold) {
         const {title,body}=notificationCopy(item.game);
-        pending.push(env.DB.prepare(`INSERT INTO alerts (token_hash, game_key, score, title, body, created_at) VALUES (?, ?, ?, ?, ?, ?)
+        pending.push(env.DB.prepare(`INSERT INTO alerts (token_hash, game_key, score, title, body, created_at) SELECT ?, ?, ?, ?, ?, ?
+          WHERE NOT EXISTS (${CONSUMED_GAME_ALERT_SQL})
           ON CONFLICT(token_hash,game_key) DO UPDATE SET score=excluded.score,title=excluded.title,body=excluded.body,created_at=excluded.created_at,status='pending'
-          WHERE alerts.status='cancelled'`).bind(sub.token_hash,stateKey(item),score,title,body,now));
+          WHERE alerts.status='cancelled'`).bind(sub.token_hash,stateKey(item),score,title,body,now,sub.token_hash,item.key,`:${item.key}`,`:${item.key}`));
       }
     }
   }

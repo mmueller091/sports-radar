@@ -1,0 +1,620 @@
+{
+  "baseline": "0f0eb90dc332e951afc3a20e3226f99e951a6cec",
+  "newerProduction": "3d14f0006113f390bb8adfd81728036e4dafa70c",
+  "scoringFieldsCompared": [
+    "score",
+    "baseScore",
+    "openingScore",
+    "rawPregameScore",
+    "factors",
+    "momentumPoints",
+    "upsetPoints",
+    "upsetText",
+    "openingFactors",
+    "live",
+    "trajectoryScoring",
+    "historyOwnership"
+  ],
+  "stats": {
+    "MLB": {
+      "games": 2,
+      "endStates": 2,
+      "replayStates": 776,
+      "byteIdentical": 778
+    },
+    "NHL": {
+      "games": 25,
+      "endStates": 25,
+      "replayStates": 7944,
+      "byteIdentical": 7969
+    }
+  },
+  "changedExistingScoringFiles": [
+    "scoring/football-live.cjs",
+    "scoring/live-runtime.cjs"
+  ],
+  "newScoringModule": "scoring/basketball-upset.cjs",
+  "scoringChangesInNewerProduction": [],
+  "newerProductionFiles": [
+    "app.js",
+    "audit/mobile-cards-20261103/README.md",
+    "audit/mobile-cards-20261103/cases.json",
+    "audit/mobile-cards-20261103/comparison-390.png",
+    "audit/mobile-cards-20261103/desktop-0.png",
+    "audit/mobile-cards-20261103/desktop-1.png",
+    "audit/mobile-cards-20261103/desktop-2.png",
+    "audit/mobile-cards-20261103/layout-after-1280-0.json",
+    "audit/mobile-cards-20261103/layout-after-1280-1.json",
+    "audit/mobile-cards-20261103/layout-after-1280-2.json",
+    "audit/mobile-cards-20261103/layout-after-320-0.json",
+    "audit/mobile-cards-20261103/layout-after-320-1.json",
+    "audit/mobile-cards-20261103/layout-after-320-2.json",
+    "audit/mobile-cards-20261103/layout-after-375-0.json",
+    "audit/mobile-cards-20261103/layout-after-375-1.json",
+    "audit/mobile-cards-20261103/layout-after-375-2.json",
+    "audit/mobile-cards-20261103/layout-after-390-0.json",
+    "audit/mobile-cards-20261103/layout-after-390-1.json",
+    "audit/mobile-cards-20261103/layout-after-390-2.json",
+    "audit/mobile-cards-20261103/layout-after-430-0.json",
+    "audit/mobile-cards-20261103/layout-after-430-1.json",
+    "audit/mobile-cards-20261103/layout-after-430-2.json",
+    "audit/mobile-cards-20261103/layout-after-768-0.json",
+    "audit/mobile-cards-20261103/layout-after-768-1.json",
+    "audit/mobile-cards-20261103/layout-after-768-2.json",
+    "audit/mobile-cards-20261103/layout-before-390-0.json",
+    "audit/mobile-cards-20261103/layout-reference-390-0.json",
+    "audit/mobile-cards-20261103/live-mobile.png",
+    "audit/mobile-cards-20261103/phones-0.png",
+    "audit/mobile-cards-20261103/phones-1-footer.png",
+    "audit/mobile-cards-20261103/phones-1.png",
+    "audit/mobile-cards-20261103/phones-2.png",
+    "audit/mobile-cards-20261103/tablet-0.png",
+    "audit/mobile-cards-20261103/tablet-1.png",
+    "audit/mobile-cards-20261103/tablet-2.png",
+    "mobile-readability.css",
+    "scripts/review-mobile-cards.mjs",
+    "test/card-footer.test.js",
+    "test/team-schedule-broadcast.test.js",
+    "test/watch-links.test.js"
+  ],
+  "failures": [],
+  "releaseRestriction": "712f221 predates production mobile UI commit 3d14f00. Release must carry this calibration and alert fix on top of current production; publishing this older branch wholesale is prohibited.",
+  "pass": true,
+  "sourceEquivalence": [
+    {
+      "file": "alerts-worker/src/ai-budget.js",
+      "replaySha256": "531d71c1911fff3d70f9baad2d9e615b1bc77bf6854e59f5dbccb9ec7a56846d",
+      "candidateSha256": "f7a7e1f7fdd08c5283d3eda325145157d8179e828b44c750d6615d8cf3b3cb5c",
+      "byteIdentical": false,
+      "contentIdentical": true
+    },
+    {
+      "file": "alerts-worker/src/alert-delivery.js",
+      "replaySha256": "854bc2dc515c3a869519e4dbba8e35f495141e5cfc3715143400fc0c283fc716",
+      "candidateSha256": "854bc2dc515c3a869519e4dbba8e35f495141e5cfc3715143400fc0c283fc716",
+      "byteIdentical": true,
+      "contentIdentical": true
+    },
+    {
+      "file": "alerts-worker/src/cfb-metadata.js",
+      "replaySha256": "62aee5a794ac7b37f9538f398029e79c72ac1a5b839231ce16560beba65e2f44",
+      "candidateSha256": "51fafb622436e8c5bda981c094f9c7b996201c627c0d19cbdf676bc9e65e47f5",
+      "byteIdentical": false,
+      "contentIdentical": true
+    },
+    {
+      "file": "alerts-worker/src/display-model.js",
+      "replaySha256": "a38bf0b500da4d5b6c42d50f46bbaca529e6f7a1e9e341aced58152b615c1895",
+      "candidateSha256": "5536a902bc1bf469a5ca982b21cc53167afbbe6328f1cb2ef8fcd6519e9416fd",
+      "byteIdentical": false,
+      "contentIdentical": true
+    },
+    {
+      "file": "alerts-worker/src/editorial-context.js",
+      "replaySha256": "47690e871dae3fee0d16975f597932267f2e07b370d8f6a4fec032c9dfae85a1",
+      "candidateSha256": "c7e37f75e7e7be93ad5938b2bce425a3a1d4f196e5cecb4da4e19e6c1bec7f1e",
+      "byteIdentical": false,
+      "contentIdentical": true
+    },
+    {
+      "file": "alerts-worker/src/game-model.js",
+      "replaySha256": "ee769f2be33fea7117701c0d0ebb5c0e5c5499e0657f5c07e27deda10bcaf06b",
+      "candidateSha256": "415178a53fa20c348eb5695603c154da173a65e4135874005c6a0832777ae3ee",
+      "byteIdentical": false,
+      "contentIdentical": true
+    },
+    {
+      "file": "alerts-worker/src/index.js",
+      "replaySha256": "2a9fc4c430aeebc5ca9ae7d2a24296a2fb5f7c998261098c5a9246f529ed4420",
+      "candidateSha256": "2a9fc4c430aeebc5ca9ae7d2a24296a2fb5f7c998261098c5a9246f529ed4420",
+      "byteIdentical": true,
+      "contentIdentical": true
+    },
+    {
+      "file": "alerts-worker/src/live-game-model.js",
+      "replaySha256": "4c728f40a74a2405e42715349f0b99e087df81a1309b319eccb3e78e1b13574d",
+      "candidateSha256": "670e020eba725c01e7551f6c08c68c1bc345f3e159631e2cbcf4f6bb64838cc1",
+      "byteIdentical": false,
+      "contentIdentical": true
+    },
+    {
+      "file": "alerts-worker/src/nfl-pregame.js",
+      "replaySha256": "e91f340369f209396d1489435d37c2415a4a306c2a87589b5029994c16be8683",
+      "candidateSha256": "c4803baec689142e8cb7f026083c78494cc6d86ba4b778fbfd8f9d9a19e88736",
+      "byteIdentical": false,
+      "contentIdentical": true
+    },
+    {
+      "file": "alerts-worker/src/nfl-return.js",
+      "replaySha256": "2cfc05f827a68cee604c214dcb15bb03455165e93b680c6a210f2b3f3a691d79",
+      "candidateSha256": "fd81b9682ec5d7ff5b3b83a296c61671500ed891f41a276a24ac03ea6b62e46c",
+      "byteIdentical": false,
+      "contentIdentical": true
+    },
+    {
+      "file": "alerts-worker/src/notification-preferences.js",
+      "replaySha256": "bf5779624c0c675a45107b852d921cb4373ec82aaa567d997b939ce0d2738856",
+      "candidateSha256": "1233ffa1292caa894153d3aba8b9d36316fbf48795df9cc8fc761dfed3956b0e",
+      "byteIdentical": false,
+      "contentIdentical": true
+    },
+    {
+      "file": "alerts-worker/src/providers/espn.js",
+      "replaySha256": "e5d59cf00433f5ee025cb45b48b28542d4995b14246d7e038fdda5909de9ba33",
+      "candidateSha256": "cb316d00cdbd0f72549c8dd25365188786a5e3f58981a9aef256c08a82318127",
+      "byteIdentical": false,
+      "contentIdentical": true
+    },
+    {
+      "file": "alerts-worker/src/providers/nhl.js",
+      "replaySha256": "6684058fd9b07d4ccd056fa249505d8dbb87f2fb4729fa2dac83d38a69155f56",
+      "candidateSha256": "d5d4f1661e05973fef21796d5e1829d271b71a9729c9a866cb48dbbca0d5972a",
+      "byteIdentical": false,
+      "contentIdentical": true
+    },
+    {
+      "file": "alerts-worker/src/providers/tennis.js",
+      "replaySha256": "ad36a88b157594ddb633ffac047b586040dc17d62a1ef0caca21f01dab771e8a",
+      "candidateSha256": "fe01200bc88671642a495ddf78fdfe33bb9798f91d10f23a99a6e0a0d9296e0c",
+      "byteIdentical": false,
+      "contentIdentical": true
+    },
+    {
+      "file": "alerts-worker/src/refresh-policy.js",
+      "replaySha256": "444425eaf9d6c3051b69c239f5dc1bdc2ab029630000c55060af0253c4503e88",
+      "candidateSha256": "854c4a304117e000f57e586cc7334afd703830519b2d08b44bb78bbc786704a9",
+      "byteIdentical": false,
+      "contentIdentical": true
+    },
+    {
+      "file": "alerts-worker/src/research-allocation.js",
+      "replaySha256": "9426de4506bc53d9828ac4b0ff281ad6f10612507f10570396f9233ef2ef475a",
+      "candidateSha256": "ba3ef6233e58d4a000e09815fbeb7031550f05d3b63c06e3de80cbacb799873f",
+      "byteIdentical": false,
+      "contentIdentical": true
+    },
+    {
+      "file": "alerts-worker/src/snapshot-history.js",
+      "replaySha256": "47ca5fc649f5691893e0e00b524000c546c66720837bfedebedb52a76dcd4dee",
+      "candidateSha256": "da9fdd57f6282a7f546707be1381f14cb5b6371f24b015720105b5a9e1cddf6d",
+      "byteIdentical": false,
+      "contentIdentical": true
+    },
+    {
+      "file": "alerts-worker/src/sports-feed.js",
+      "replaySha256": "0a668a41278e0e39c85448576e65f11303d1bda2df016c1e0c85bb1d402b3623",
+      "candidateSha256": "0a668a41278e0e39c85448576e65f11303d1bda2df016c1e0c85bb1d402b3623",
+      "byteIdentical": true,
+      "contentIdentical": true
+    },
+    {
+      "file": "alerts-worker/src/storylines.js",
+      "replaySha256": "ac0e7aabccdd2229b1e5cf82091e3061991cd22aa70f5fae02fd80ed3407165e",
+      "candidateSha256": "6d38f646b17f176acc225e0752d7433480249fb3f910796b4868bb304dbb9994",
+      "byteIdentical": false,
+      "contentIdentical": true
+    },
+    {
+      "file": "calibration/nhl-pressure-experiment.cjs",
+      "replaySha256": "e88112229052b124af2c6bd74d89b07cd13098876d82e16023bad3a03c5ca29a",
+      "candidateSha256": "e88112229052b124af2c6bd74d89b07cd13098876d82e16023bad3a03c5ca29a",
+      "byteIdentical": true,
+      "contentIdentical": true
+    },
+    {
+      "file": "calibration/shadow-candidate.cjs",
+      "replaySha256": "4549e40c27e6618b8bbbdf1aecbf01e945ae63df6cc00077237219928bca8f90",
+      "candidateSha256": "5473635499c905d7f40f5c41a22235b1dc07b42b71faa3d2c000f19ff67d178b",
+      "byteIdentical": false,
+      "contentIdentical": true
+    },
+    {
+      "file": "calibration/trajectory-live-policy.cjs",
+      "replaySha256": "858e90e54c2c90a32a240e3096e9fddc012abb489dae3d7521a47d7867a48fba",
+      "candidateSha256": "3eb8830eafc8ec8ab64c92d9638d1c579def9876e8ca5edf52228332417b7609",
+      "byteIdentical": false,
+      "contentIdentical": true
+    },
+    {
+      "file": "calibration/trajectory-policy.cjs",
+      "replaySha256": "1a4c40fde1a87c4463a4e221532978298239d23a3369f1fba6cd6ab1f81a1f26",
+      "candidateSha256": "84abbf0d1971612d3fee3372d7ef60eeec98be481ddea67af896e316b3f9b9ed",
+      "byteIdentical": false,
+      "contentIdentical": true
+    },
+    {
+      "file": "rating-core.js",
+      "replaySha256": "28734ce4e7a40c7974ae0eaa6ab3b542fec7bd91ca3c64ffcd3ee6cb1dce5243",
+      "candidateSha256": "28734ce4e7a40c7974ae0eaa6ab3b542fec7bd91ca3c64ffcd3ee6cb1dce5243",
+      "byteIdentical": true,
+      "contentIdentical": true
+    },
+    {
+      "file": "scoring/README.md",
+      "replaySha256": "8f1866dcf42d169538cf3e32bbd6e453a51e416bdb6ea68b58cf56bd3a433436",
+      "candidateSha256": "0ee5e85b84dd0fd55e4b49f2c1731dbeb3f5de2cfdda07a2c6c97ae96a22d719",
+      "byteIdentical": false,
+      "contentIdentical": true
+    },
+    {
+      "file": "scoring/basketball-calibration.cjs",
+      "replaySha256": "a28d77afb2e1da95faefd22f883b20877bfd6023d9a151e7cb627108ab69bea1",
+      "candidateSha256": "a0ab681f106a8e6047e973359a70797aa8182a963f621a7512efda175be8826d",
+      "byteIdentical": false,
+      "contentIdentical": true
+    },
+    {
+      "file": "scoring/basketball-state.cjs",
+      "replaySha256": "e15cb51de8f335daf6bc22b5b06b72b1a56cb4622f3377b2718372aa90687686",
+      "candidateSha256": "e4b930858f1b6c5f5f82888c861a408ad9546568d5032801fbef66a0cde72da2",
+      "byteIdentical": false,
+      "contentIdentical": true
+    },
+    {
+      "file": "scoring/basketball-upset.cjs",
+      "replaySha256": "0ad3da0bf584467b30fb66376d4fe5908bcb11a20c768f02e2b432fd44a550a8",
+      "candidateSha256": "0ad3da0bf584467b30fb66376d4fe5908bcb11a20c768f02e2b432fd44a550a8",
+      "byteIdentical": true,
+      "contentIdentical": true
+    },
+    {
+      "file": "scoring/browser-entry.cjs",
+      "replaySha256": "e445f885fcaef57de3fd247b3e23cc89849b8e1f504812b7b6e7746f35b555e3",
+      "candidateSha256": "2c093b14095e7d02dc57fc11f4564712be28e04342f2108418fa328288376e62",
+      "byteIdentical": false,
+      "contentIdentical": true
+    },
+    {
+      "file": "scoring/detail-state.cjs",
+      "replaySha256": "84ceecff534181b6c1b050dc1298a968dda077ad8efedc484b37ccbdc3ee9885",
+      "candidateSha256": "0f99a4369f14a78771ec766743104b8fe610a5576e42202d8674261d237b8f4a",
+      "byteIdentical": false,
+      "contentIdentical": true
+    },
+    {
+      "file": "scoring/event-occasion.cjs",
+      "replaySha256": "e978a1f9adc33fcb47c7d43dff505d9f5ac6432f618917306758ed44591ac8bd",
+      "candidateSha256": "2a560c63844497a56b2242777ad57769cf59634aad90891204404fbb2d5ffe58",
+      "byteIdentical": false,
+      "contentIdentical": true
+    },
+    {
+      "file": "scoring/football-live.cjs",
+      "replaySha256": "88186536f38e9f0a015faf9fdc016068c72b1a953eca334dd2c1825a3b0a8426",
+      "candidateSha256": "1d6c13c24a20bc4224c274b6cdb2fc3b979c03a5eb5e80592aa6ea5e5e24ec9c",
+      "byteIdentical": false,
+      "contentIdentical": true
+    },
+    {
+      "file": "scoring/football-market.cjs",
+      "replaySha256": "1e17c4ab2d99ddeb3e778356dc0186e75e43bc33067de19fea3e611f02be878b",
+      "candidateSha256": "de64629ad210c50a135e7c9752cec366e0ed6fdc9088ea1cbc96e87e08a1f4d1",
+      "byteIdentical": false,
+      "contentIdentical": true
+    },
+    {
+      "file": "scoring/football-transition.cjs",
+      "replaySha256": "28e93b68ef033a34348508325644dade180010f5df3f0d00a8879b2f04f86628",
+      "candidateSha256": "0d772e802bc1f16eae852cce97fbcdaf95fe11a96ff408abd63a3b286d4a4c13",
+      "byteIdentical": false,
+      "contentIdentical": true
+    },
+    {
+      "file": "scoring/game-facts.cjs",
+      "replaySha256": "a94baf01e7978f8a3835db9a93a244d4f533bc27b99df17045cf6a5b3bb88ba0",
+      "candidateSha256": "ebbda2d72dca446a9fe0deebdb5bce6cc71b164a270dac4cb23a41aac3c00083",
+      "byteIdentical": false,
+      "contentIdentical": true
+    },
+    {
+      "file": "scoring/live-evidence.cjs",
+      "replaySha256": "74a4c05d7398255fa37f7330969bd3fcc65b8bdea0de03a902491076f2caa19f",
+      "candidateSha256": "9e109dab44cac72c83d1ffcfacfdc9a38d9e39b9f984798331fa6159942c575e",
+      "byteIdentical": false,
+      "contentIdentical": true
+    },
+    {
+      "file": "scoring/live-runtime.cjs",
+      "replaySha256": "b0b03540b99b95da15d9c5f8fa70e31168662b2037e920419e89173b5ffaa988",
+      "candidateSha256": "cc848d1f1367e9b8c6823beee95b9a3c821f2259baddb29a638e5f81cb16749d",
+      "byteIdentical": false,
+      "contentIdentical": true
+    },
+    {
+      "file": "scoring/models.js",
+      "replaySha256": "e0e71699004860056d9441281e060fdee01316d83f244e6c11cb7395368cc889",
+      "candidateSha256": "9efc69e6ffe186423515dc476a7551031b13fc35d2580b3100fb86b15a60584d",
+      "byteIdentical": false,
+      "contentIdentical": true
+    },
+    {
+      "file": "scoring/nhl-advanced.cjs",
+      "replaySha256": "2ebd249a89f69a1977025537e7df2d7e1bc93b8613d24dd3e7c7f8752473dff1",
+      "candidateSha256": "89c7c8b31910d54bd50b798eaf97cc027c4143b3a43d1f655342cc7c380990d0",
+      "byteIdentical": false,
+      "contentIdentical": true
+    },
+    {
+      "file": "scoring/nhl-manpower-evidence.cjs",
+      "replaySha256": "3917a7faf2701dd542d41e6afde12c18b01c3a9321f5a7ca9d34de9374c37c42",
+      "candidateSha256": "32098b7765e3c67971422c8ec6aa34f75ff4aaf7c82f2e7ce8b8f722a7f93ab3",
+      "byteIdentical": false,
+      "contentIdentical": true
+    },
+    {
+      "file": "scoring/opening-transition.cjs",
+      "replaySha256": "617eeedf45b19e282d3c3a8dbdbf56d4d0cba0046473fc55cb01ab97715f4604",
+      "candidateSha256": "5066aad6c56f6d107ae72caa5e29cad3027c608c30839aef45183dfd0224b62d",
+      "byteIdentical": false,
+      "contentIdentical": true
+    },
+    {
+      "file": "scoring/provider-evidence.cjs",
+      "replaySha256": "788ef80fcff97a45ef73bbfe20e31650b349e9aaba2f33236b34f13fd4c976d0",
+      "candidateSha256": "ccefebc6d6cd703d20879fba3f3c479798e7f7b05723c5d0718dbcac99f1bd2e",
+      "byteIdentical": false,
+      "contentIdentical": true
+    },
+    {
+      "file": "scoring/shared/basketball.js",
+      "replaySha256": "f5d2edf23de2896d60a3278c8f38397e8bf295a5955be675c2ea79bdb5cb581b",
+      "candidateSha256": "986710c0c9e83be41aac1fd49419ec6541a6ace81a7df0a4b88cd68293d0e3aa",
+      "byteIdentical": false,
+      "contentIdentical": true
+    },
+    {
+      "file": "scoring/shared/calculation.js",
+      "replaySha256": "72217d3830f00c73345b9b062bf51833b12c25d08ccb60cc6ff0743a1d94a142",
+      "candidateSha256": "72217d3830f00c73345b9b062bf51833b12c25d08ccb60cc6ff0743a1d94a142",
+      "byteIdentical": true,
+      "contentIdentical": true
+    },
+    {
+      "file": "scoring/shared/college.js",
+      "replaySha256": "8b7ee59994895e3b565e0d6c69ff208ea999050da2210a12fcefaa959bdbed1d",
+      "candidateSha256": "ff117eb5fd806a005ed24c131d961fba6c0d45187bf8649b25f1fba8e6769fcc",
+      "byteIdentical": false,
+      "contentIdentical": true
+    },
+    {
+      "file": "scoring/shared/config.js",
+      "replaySha256": "d420e83eebdc66c9cea14a5038dbd0a2265ed4f03b9b884249ff56e4b083f6ab",
+      "candidateSha256": "a1bee51d57d387e18ae8bc49dfd19800b096cca341f0ad8fa44c39a097ae9e69",
+      "byteIdentical": false,
+      "contentIdentical": true
+    },
+    {
+      "file": "scoring/shared/context.js",
+      "replaySha256": "b88863fa93b2b54f0ec7251efb59a8adbd934e705e49cab8ba27c4441df7303d",
+      "candidateSha256": "05c3827f105e8b018c6ccb3f12023c5d88275858d72e86ed30f38e2003091a29",
+      "byteIdentical": false,
+      "contentIdentical": true
+    },
+    {
+      "file": "scoring/shared/events.js",
+      "replaySha256": "bbc9eb4b7e0a162480b2eca8bf0f8c346368c551c3e0673429b0955c1d838358",
+      "candidateSha256": "e0956eb8236b91cb9cff57018d0b794821dcc19a730c7a6f2dd94b441744647b",
+      "byteIdentical": false,
+      "contentIdentical": true
+    },
+    {
+      "file": "scoring/shared/football.js",
+      "replaySha256": "541653bbb564d53dcd8cbcfaf3bfa599be55a36c45fb933db195fa23f1b2d984",
+      "candidateSha256": "529cba8c50f7270085470abc45de755e1b08ff633c307c9bb81a57c67cb5ec69",
+      "byteIdentical": false,
+      "contentIdentical": true
+    },
+    {
+      "file": "scoring/shared/history.js",
+      "replaySha256": "b61e5b06d58ee6964b6fb1ad81b1a975c233d8cc27ac36ede3e7120da907ef78",
+      "candidateSha256": "d2ef22c345a9a1b394d5336781248e70927a4510225901d5273323a741984a0b",
+      "byteIdentical": false,
+      "contentIdentical": true
+    },
+    {
+      "file": "scoring/shared/market.js",
+      "replaySha256": "a247e3a4706d45abe67456fc1361cd71e741a2bf3c9fc803d0d6d4b38896afae",
+      "candidateSha256": "4e0e65ffaf98a00127e1bbd3dfde5163d4e753a9215ca8439e665b6971f58477",
+      "byteIdentical": false,
+      "contentIdentical": true
+    },
+    {
+      "file": "scoring/shared/nfl-pregame.js",
+      "replaySha256": "975ccec565d24be6f2ab99af0b490814051aab00c75181c90085f8b3d160e2e0",
+      "candidateSha256": "f9710d37e991c0457580a530cf9e8db6e96148cb5c0a264e5f568d33a4ff6a05",
+      "byteIdentical": false,
+      "contentIdentical": true
+    },
+    {
+      "file": "scoring/shared/pregame.js",
+      "replaySha256": "40f095298414f61c008b92b2ffe100b5d707f8854c0c9f4e456f65d4bb6e32e0",
+      "candidateSha256": "bc54c64629c27616611b9fdae79bbb367e9450df379f07bd4036f477cb25cad4",
+      "byteIdentical": false,
+      "contentIdentical": true
+    },
+    {
+      "file": "scoring/shared/pressure.js",
+      "replaySha256": "d93fa13b6a3f80853f074a261cd7091313fad46c2e9385bba048a79e15ddf078",
+      "candidateSha256": "72104bd7a61c6a8bc12e47be64c12704dce7b4b389bcc7eaf27ba15cb2aeb1c5",
+      "byteIdentical": false,
+      "contentIdentical": true
+    },
+    {
+      "file": "scoring/shared/probability.js",
+      "replaySha256": "192ab4861c74240970fffeb8d6a87610bafceea48ddb997762b6728d45a42a14",
+      "candidateSha256": "cd77a581eff895cd26b3250ee309a08c6fc4c65de92b881b162a5e161b4917ce",
+      "byteIdentical": false,
+      "contentIdentical": true
+    },
+    {
+      "file": "scoring/shared/records.js",
+      "replaySha256": "11c12737362e88fcd866d289d8579597e8db8d614ec475a7ed9a8b01c42570ec",
+      "candidateSha256": "5fb463f91c3399749a1b41fbfc12101e1c53955f6d9eeac1b2d902a78c83b673",
+      "byteIdentical": false,
+      "contentIdentical": true
+    },
+    {
+      "file": "scoring/shared/time.js",
+      "replaySha256": "6e9694ac8cf0318449c33b68b3179fd2d480809674c0866e1e5142546578f882",
+      "candidateSha256": "14ea2a31e47e7c04843a1ce0ffd6cf7f41e03fb70cb903998417f82d2435071a",
+      "byteIdentical": false,
+      "contentIdentical": true
+    },
+    {
+      "file": "scoring/shared/trajectory.js",
+      "replaySha256": "59f78b1fdc1b68d1948713736daeffa04f57662bef7cb5eb87fcf3ab44a52da6",
+      "candidateSha256": "069733ef4bf563442024b32fa56f2467758b34a235d2a22dac72d7840bebd87f",
+      "byteIdentical": false,
+      "contentIdentical": true
+    },
+    {
+      "file": "scoring/shared/upset.js",
+      "replaySha256": "deaaa0ab5fed57049e02e318685a0c5a559803edca5cc256cd9c3e169c59f282",
+      "candidateSha256": "b39e00f9f423fac4c75417e6b3ba9b4b91df12070af8cebe522baca1d24a83a6",
+      "byteIdentical": false,
+      "contentIdentical": true
+    },
+    {
+      "file": "scoring/snapshot-integrity.cjs",
+      "replaySha256": "f36fe3123705f456159a97ba2001c29edf8f37cffcb24a5fcd50c64c6cc96e6e",
+      "candidateSha256": "f2b7242e4210affc30005296df69d5140f9e3f9cd92ac5da0c3b8b289993161e",
+      "byteIdentical": false,
+      "contentIdentical": true
+    },
+    {
+      "file": "scoring/sports/basketball.js",
+      "replaySha256": "f834b9039e731448178aa7cb32155b4e71173db83a051da7bc1a285913d2ff0f",
+      "candidateSha256": "ebdea5b3fb25dac4e4bbf50752152386b37a9696030755521218e1cb30e239a6",
+      "byteIdentical": false,
+      "contentIdentical": true
+    },
+    {
+      "file": "scoring/sports/cfb.js",
+      "replaySha256": "c1e781d18dda89f975153c6df41b6f2f29f20de2c52d4e0639a4d40bc6b392cb",
+      "candidateSha256": "3b9a10d5a58246375f4a6a6d08b28def6039850633f00f6774c448cf5384f0e7",
+      "byteIdentical": false,
+      "contentIdentical": true
+    },
+    {
+      "file": "scoring/sports/mlb.js",
+      "replaySha256": "3f106784e0cb238bb37a84fa961d999b5884c9b442bf91ce34872941025a8e64",
+      "candidateSha256": "9ef1a496ad00eaf08452346ba5e5b1a9dde8e6c284bf97a8649a83c00c33a95f",
+      "byteIdentical": false,
+      "contentIdentical": true
+    },
+    {
+      "file": "scoring/sports/nfl.js",
+      "replaySha256": "d3afdac378373c1ac2046c3c08acd6221c60eea4e1d057d9f4c6682ce1529976",
+      "candidateSha256": "71b78d6ac0d40e89aae007ba902256f2a249a212a9f4561d1bbf242bc47ecafb",
+      "byteIdentical": false,
+      "contentIdentical": true
+    },
+    {
+      "file": "scoring/sports/nhl.js",
+      "replaySha256": "e3732978f6ea25b4d446b7e461d919f69a9c6e83cc9a507532c32aaeb20c7594",
+      "candidateSha256": "de427202c899adf42ca9f142cde06a0edfd23de8cea5ca7bedb6c9cf66d5f501",
+      "byteIdentical": false,
+      "contentIdentical": true
+    },
+    {
+      "file": "scoring/sports/soccer.js",
+      "replaySha256": "a77ee21164f4af72e69ce618f547569975b25777267a08added811d4dd8b6618",
+      "candidateSha256": "79de9a0ed13ee039c89db05b5b51fd833683a3c43886cac315f3f657227111e7",
+      "byteIdentical": false,
+      "contentIdentical": true
+    },
+    {
+      "file": "scoring/sports/tennis.js",
+      "replaySha256": "efdc35b208c4f9b8c9f80c400b77fd40517dc7d635512e5f6773df5f3f44f4a1",
+      "candidateSha256": "c29c70198cab513219b50191508490026ebc8ba7ad07c1e3277395fd9231caf0",
+      "byteIdentical": false,
+      "contentIdentical": true
+    }
+  ],
+  "numericalReplay": {
+    "sha256": "f988777215ee00078cc2754d06c9f0dbf9ac4c33115384ac115975da5008b2e0",
+    "artifact": "preservation-replay.json",
+    "stats": {
+      "MLB": {
+        "games": 2,
+        "endStates": 2,
+        "replayStates": 776,
+        "byteIdentical": 778
+      },
+      "NHL": {
+        "games": 25,
+        "endStates": 25,
+        "replayStates": 7944,
+        "byteIdentical": 7969
+      }
+    }
+  },
+  "environmentResolution": "Original replay compared every numerical result successfully, but its raw source-byte gate saw Windows CRLF conversions. This check proves the complete scoring graph has identical text in both worktrees and verifies exact baseline source bytes in the production-based candidate. Only the two expected existing scoring files differ from production; the new basketball module is retained.",
+  "originalSourceGateFailures": [
+    {
+      "unexpectedScoringSourceChanges": [
+        "scoring/README.md",
+        "scoring/basketball-calibration.cjs",
+        "scoring/basketball-state.cjs",
+        "scoring/browser-entry.cjs",
+        "scoring/detail-state.cjs",
+        "scoring/event-occasion.cjs",
+        "scoring/football-live.cjs",
+        "scoring/football-market.cjs",
+        "scoring/football-transition.cjs",
+        "scoring/game-facts.cjs",
+        "scoring/live-evidence.cjs",
+        "scoring/live-runtime.cjs",
+        "scoring/models.js",
+        "scoring/nhl-advanced.cjs",
+        "scoring/nhl-manpower-evidence.cjs",
+        "scoring/opening-transition.cjs",
+        "scoring/provider-evidence.cjs",
+        "scoring/shared/basketball.js",
+        "scoring/shared/college.js",
+        "scoring/shared/config.js",
+        "scoring/shared/context.js",
+        "scoring/shared/events.js",
+        "scoring/shared/football.js",
+        "scoring/shared/history.js",
+        "scoring/shared/market.js",
+        "scoring/shared/nfl-pregame.js",
+        "scoring/shared/pregame.js",
+        "scoring/shared/pressure.js",
+        "scoring/shared/probability.js",
+        "scoring/shared/records.js",
+        "scoring/shared/time.js",
+        "scoring/shared/trajectory.js",
+        "scoring/shared/upset.js",
+        "scoring/snapshot-integrity.cjs",
+        "scoring/sports/basketball.js",
+        "scoring/sports/cfb.js",
+        "scoring/sports/mlb.js",
+        "scoring/sports/nfl.js",
+        "scoring/sports/nhl.js",
+        "scoring/sports/soccer.js",
+        "scoring/sports/tennis.js"
+      ]
+    }
+  ]
+}

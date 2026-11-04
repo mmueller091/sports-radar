@@ -1,0 +1,257 @@
+{
+  "pass": true,
+  "productionCommit": "3d14f0006113f390bb8adfd81728036e4dafa70c",
+  "calibrationCommit": "712f221",
+  "integrationCommit": "254be171b980415345813ee2710125098fe8d25f",
+  "checkedTrackedFiles": 1067,
+  "changedExistingFiles": [
+    "alerts-worker/src/alert-delivery.js",
+    "alerts-worker/src/index.js",
+    "test/live-phase.test.js"
+  ],
+  "calibrationIdentity": [
+    {
+      "path": "calibration/live-underdog-evidence-20261103.md",
+      "byteIdentical": true
+    },
+    {
+      "path": "calibration/live-underdog-review-20261103.md",
+      "byteIdentical": true
+    },
+    {
+      "path": "calibration/output/live-underdog-20261103.json",
+      "byteIdentical": true
+    },
+    {
+      "path": "calibration/output/live-underdog-material-changes-20261103.csv",
+      "byteIdentical": true
+    },
+    {
+      "path": "calibration/output/live-underdog-validation-20261103.json",
+      "byteIdentical": true
+    },
+    {
+      "path": "scoring/basketball-upset.cjs",
+      "byteIdentical": true
+    },
+    {
+      "path": "scoring/football-live.cjs",
+      "byteIdentical": true
+    },
+    {
+      "path": "scoring/live-runtime.cjs",
+      "byteIdentical": true
+    },
+    {
+      "path": "scripts/append-live-underdog-report.mjs",
+      "byteIdentical": true
+    },
+    {
+      "path": "scripts/live-underdog-report.mjs",
+      "byteIdentical": true
+    },
+    {
+      "path": "test/basketball-upset.test.js",
+      "byteIdentical": true
+    },
+    {
+      "path": "test/fixtures/live-underdog-before.cjs.gz",
+      "byteIdentical": true
+    },
+    {
+      "path": "test/fixtures/live-underdog-before.provenance.json",
+      "byteIdentical": true
+    },
+    {
+      "path": "test/football-upset-transition.test.js",
+      "byteIdentical": true
+    },
+    {
+      "path": "test/helpers/live-underdog-scenarios.mjs",
+      "byteIdentical": true
+    },
+    {
+      "path": "test/live-underdog-preservation.test.js",
+      "byteIdentical": true
+    },
+    {
+      "path": "test/ncaam-calibration.test.js",
+      "byteIdentical": true
+    }
+  ],
+  "productionIdentity": [
+    {
+      "path": ".gitignore",
+      "sha256": "4a4b5a39553475b69771dd648a89ae6c8ad97d19cea25e29c12390c4a3687026",
+      "byteIdentical": true
+    },
+    {
+      "path": "CALIBRATION-TESTS.md",
+      "sha256": "c82ea76357f7735dad59ca80ea6a2370f4acb764906942d5953b88322663249e",
+      "byteIdentical": true
+    },
+    {
+      "path": "CFB-FILTERS.md",
+      "sha256": "7f8e4a487b6ec78b16a0439c671fa780eb8035aa5a216c5e51588b7b2647d22d",
+      "byteIdentical": true
+    },
+    {
+      "path": "README.md",
+      "sha256": "8259010107f694aced35357888985ebb6f52cc315dd383ebc6a8b5fa2ebe1175",
+      "byteIdentical": true
+    },
+    {
+      "path": "SLATEMETER-MIGRATION.md",
+      "sha256": "8f8bc60af1b4d55eb58412b686d005a5ed37d9cb00618ebaeaa6e0cc8d415569",
+      "byteIdentical": true
+    },
+    {
+      "path": "alert-config.js",
+      "sha256": "8e13b1a6b66b56c1dfc6d9c61b28c9fa108249258736b0a8f4e00d86d92902ed",
+      "byteIdentical": true
+    },
+    {
+      "path": "app-icon-192.png",
+      "sha256": "65a796c104142796cb352063c405fffd0fb923e36260be913165d9e6515d4a3d",
+      "byteIdentical": true
+    },
+    {
+      "path": "app-icon-512.png",
+      "sha256": "70d6bead342e9d8ad66019bed11b476696bfdb41283bc09c23a536038320c2c6",
+      "byteIdentical": true
+    },
+    {
+      "path": "app.js",
+      "sha256": "4c1ac585092bead9825cdfadea1ea04be45f055fa4fd831a5015b351d6a6d067",
+      "byteIdentical": true
+    },
+    {
+      "path": "fonts/BarlowCondensed-Bold.ttf",
+      "sha256": "e476562ec9c1e16cf16475895b511f08c804f438cc9a9f80a44ea50a0eeb5b65",
+      "byteIdentical": true
+    },
+    {
+      "path": "fonts/BarlowCondensed-SemiBold.ttf",
+      "sha256": "7b619d14bc2327509a9ef32b0890f709626f7ecc9ff61191c2a4314c5499d2d9",
+      "byteIdentical": true
+    },
+    {
+      "path": "fonts/OFL.txt",
+      "sha256": "10b0e6bb43166a50fbe7cde2895bd7f703738a5da843acb5c97c95dc9ea26817",
+      "byteIdentical": true
+    },
+    {
+      "path": "game-center.js",
+      "sha256": "8825e9fb02eee3a7769b8fd703d06fb61f7bf5f85ef55872e9b3041ccd38d88b",
+      "byteIdentical": true
+    },
+    {
+      "path": "icon.svg",
+      "sha256": "758a9541b4307c59228cf3fd22f605ae7ccf97241bd2e79345d33c17a1d7681e",
+      "byteIdentical": true
+    },
+    {
+      "path": "index.html",
+      "sha256": "e43eebfd7477cfddfdc8498146319b8fc092635e6300dfaf2e5dc53a2e66da33",
+      "byteIdentical": true
+    },
+    {
+      "path": "manifest.webmanifest",
+      "sha256": "4c9d1daa9772d9de2d0efee294806d06f5977fbe48ff217ab5b66e07711c9d5b",
+      "byteIdentical": true
+    },
+    {
+      "path": "mobile-readability.css",
+      "sha256": "db4b044c64779e2545f2bf5db804ae11d960451dcd743eba25c615bf32ac3422",
+      "byteIdentical": true
+    },
+    {
+      "path": "notifications.js",
+      "sha256": "c1afd53f559952507b2f63842f701cc62be76d7497df4d6efc9e36536838189c",
+      "byteIdentical": true
+    },
+    {
+      "path": "overtime-phase-label-audit.md",
+      "sha256": "7116c3728f3d998c72930c4e6da72f67966bae7e088d4ceadf08a1bd24b9f81a",
+      "byteIdentical": true
+    },
+    {
+      "path": "rating-core.js",
+      "sha256": "28734ce4e7a40c7974ae0eaa6ab3b542fec7bd91ca3c64ffcd3ee6cb1dce5243",
+      "byteIdentical": true
+    },
+    {
+      "path": "slatemeter-pennant-s-favicon-32.png",
+      "sha256": "7ba77bd852731bd58b4168ef9b545447d1ec8cb284f0226b76f81950d7e50e9e",
+      "byteIdentical": true
+    },
+    {
+      "path": "slatemeter-pennant-s-icon.png",
+      "sha256": "39dcaf66a3851c453481147a4dee672c3b4c5e4dbd90cb119b5b12940d511b2d",
+      "byteIdentical": true
+    },
+    {
+      "path": "slatemeter-pennant-s-icon.svg",
+      "sha256": "758a9541b4307c59228cf3fd22f605ae7ccf97241bd2e79345d33c17a1d7681e",
+      "byteIdentical": true
+    },
+    {
+      "path": "slatemeter-pennant-s-wordmark.png",
+      "sha256": "6f46af1ec78e5d8e05818f785a00d5d7da1672bb523d7d80c8ae3593cc84d62d",
+      "byteIdentical": true
+    },
+    {
+      "path": "slatemeter-pennant-s-wordmark.svg",
+      "sha256": "3de52cccd06ef1c12296ae709303f1f0d495790675c33489610a08d179a75ff9",
+      "byteIdentical": true
+    },
+    {
+      "path": "sport-visibility.js",
+      "sha256": "66227ca16c690a55caee8e326b59137322d4bb1e114a8b3be35b07b562f5a735",
+      "byteIdentical": true
+    },
+    {
+      "path": "sports-radar-logo.png",
+      "sha256": "0673fbf37c4990163b6f2cdf0594f1a9f9be3a0c3f7572953206c0d69fe85997",
+      "byteIdentical": true
+    },
+    {
+      "path": "styles.css",
+      "sha256": "a6840605d426d4f1ac8bdffb1b974fc66e0b4bb35d301dbd458ed4538bd8bdcc",
+      "byteIdentical": true
+    },
+    {
+      "path": "sw.js",
+      "sha256": "ad068e28f17fd45b2ec1c48da67709290e6f50ed8a2e6a34c13bf41dc33fd9e9",
+      "byteIdentical": true
+    },
+    {
+      "path": "teams.json",
+      "sha256": "cc504b5c74537e298b03d00aa224a0e7da5dcbd2f1060a67e1ef6c4e1f2b3cd5",
+      "byteIdentical": true
+    },
+    {
+      "path": "tennis-coverage.js",
+      "sha256": "1ce96e52d4dfd16b1789f837b050288d5924f955cd6d0206b5dd2ca39c888c6f",
+      "byteIdentical": true
+    },
+    {
+      "path": "test-score.js",
+      "sha256": "b06b5150c115d8e8b84b5c90f883274cb3324fe6b81c3f9612433ab94cb29c12",
+      "byteIdentical": true
+    },
+    {
+      "path": "testt",
+      "sha256": "7eb70257593da06f682a3ddda54a9d260d4fc514f645237f5ca74b08f8da61a6",
+      "byteIdentical": true
+    },
+    {
+      "path": "watch-links.js",
+      "sha256": "b916e8b34328f93f4ba59ae14d18e7c178510a24b23a29d37126bb8b4ae8a2e8",
+      "byteIdentical": true
+    }
+  ],
+  "modelVersion": "2026-11-03.live-underdog.1",
+  "alertVersion": "2026-11-03.cross-model-dedupe.1",
+  "releaseStatus": "LOCAL ONLY. No deployment or push. User approval is required before release."
+}

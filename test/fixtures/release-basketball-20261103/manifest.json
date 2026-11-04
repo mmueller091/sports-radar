@@ -1,0 +1,109 @@
+{
+  "description": "Public provider retrospective archives captured for final release audit. These are causal play-prefix reconstruction sources, not original live observations.",
+  "captures": [
+    {
+      "file": "NCAAB-401168219.json.gz",
+      "modelSport": "NCAAB",
+      "eventId": "401168219",
+      "date": "20191126",
+      "matchup": "Stephen F. Austin Lumberjacks at Duke Blue Devils",
+      "capturedAt": "2026-11-04T00:53:59.237Z",
+      "urls": {
+        "scoreboard": "https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/scoreboard?dates=20191126&limit=500",
+        "summary": "https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/summary?event=401168219"
+      },
+      "sha256": "719b1e8fa98efb662ec8bd48e4a28749d2c678dcda77988f2ff62b04138d071b"
+    },
+    {
+      "file": "NCAAB-401169817.json.gz",
+      "modelSport": "NCAAB",
+      "eventId": "401169817",
+      "date": "20191112",
+      "matchup": "Evansville Purple Aces at Kentucky Wildcats",
+      "capturedAt": "2026-11-04T00:53:59.417Z",
+      "urls": {
+        "scoreboard": "https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/scoreboard?dates=20191112&limit=500",
+        "summary": "https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/summary?event=401169817"
+      },
+      "sha256": "a2ee0bab4c268ec4ddbceed302edf29cf28133e3e02a52edbd6eb849e2fdd5c0"
+    },
+    {
+      "file": "NCAAB-401588945.json.gz",
+      "modelSport": "NCAAB",
+      "eventId": "401588945",
+      "date": "20231202",
+      "matchup": "UNC Wilmington Seahawks at Kentucky Wildcats",
+      "capturedAt": "2026-11-04T00:53:59.620Z",
+      "urls": {
+        "scoreboard": "https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/scoreboard?dates=20231202&limit=500",
+        "summary": "https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/summary?event=401588945"
+      },
+      "sha256": "5f66a49c54b2eebcf4138c72134dfc507033db998b366c78b6d4da58d17f43d1"
+    },
+    {
+      "file": "NBA-401585049.json.gz",
+      "modelSport": "NBA",
+      "eventId": "401585049",
+      "date": "20231228",
+      "matchup": "Detroit Pistons at Boston Celtics",
+      "capturedAt": "2026-11-04T00:53:59.780Z",
+      "urls": {
+        "scoreboard": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard?dates=20231228&limit=500",
+        "summary": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401585049"
+      },
+      "sha256": "6b5db584112b6a0c800ace16e57cc58bcc5934cbefd298e0370eeb474b574f29"
+    },
+    {
+      "file": "NCAAB-401918947.json.gz",
+      "modelSport": "NCAAB",
+      "eventId": "401918947",
+      "date": "20261102",
+      "matchup": "Chattanooga Mocs at Louisville Cardinals",
+      "capturedAt": "2026-11-04T00:57:47.122Z",
+      "urls": {
+        "scoreboard": "https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/scoreboard?dates=20261102&limit=500",
+        "summary": "https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/summary?event=401918947"
+      },
+      "sha256": "e949fc600d4e5339e0429d7257acfe9082399fc3fa593ed1178705f539246151"
+    },
+    {
+      "file": "NCAAB-401925733.json.gz",
+      "modelSport": "NCAAB",
+      "eventId": "401925733",
+      "date": "20261102",
+      "matchup": "Oakland Golden Grizzlies at Michigan Wolverines",
+      "capturedAt": "2026-11-04T00:57:47.214Z",
+      "urls": {
+        "scoreboard": "https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/scoreboard?dates=20261102&limit=500",
+        "summary": "https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/summary?event=401925733"
+      },
+      "sha256": "3a13bc71c4a23f52d657869cfadeb2a3368095ece4926728fd73f14a7b76500a"
+    },
+    {
+      "file": "NCAAB-401909771.json.gz",
+      "modelSport": "NCAAB",
+      "eventId": "401909771",
+      "date": "20261102",
+      "matchup": "Memphis Tigers at Iowa State Cyclones",
+      "capturedAt": "2026-11-04T00:57:47.302Z",
+      "urls": {
+        "scoreboard": "https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/scoreboard?dates=20261102&limit=500",
+        "summary": "https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/summary?event=401909771"
+      },
+      "sha256": "e40abb36354749ee99c1424c067b74ea7e804724232bd0884932718ec0a9f57c"
+    },
+    {
+      "file": "NBA-401909877.json.gz",
+      "modelSport": "NBA",
+      "eventId": "401909877",
+      "date": "20261027",
+      "matchup": "Brooklyn Nets at Boston Celtics",
+      "capturedAt": "2026-11-04T00:57:47.397Z",
+      "urls": {
+        "scoreboard": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard?dates=20261027&limit=500",
+        "summary": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909877"
+      },
+      "sha256": "faaae1b3579dc8cf8ecb6f6e6dea9aa49e4bfe55e8261613f1d681abd80c0892"
+    }
+  ]
+}

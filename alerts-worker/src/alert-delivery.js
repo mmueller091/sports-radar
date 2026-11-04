@@ -3,8 +3,16 @@ import '../../sport-visibility.js';
 import {currentGameAllowed} from './providers/tennis.js';
 import {preferencesForRow,notificationEligible,notificationGame,gameNotificationUrl} from './notification-preferences.js';
 
-export const ALERT_DELIVERY_VERSION='2026-11-01.canonical-revalidation.1';
+export const ALERT_DELIVERY_VERSION='2026-11-03.cross-model-dedupe.1';
 export const ALERT_MAX_AGE_MS=120000;
+
+// Crossing baselines belong to a model, but a device's consumed notification
+// belongs to the game. Preserve sent, ambiguous and in-flight claims across
+// model changes (including legacy unversioned keys). Bind device, game, suffix,
+// suffix; exact suffix comparison avoids treating '_' in event IDs as LIKE.
+export const CONSUMED_GAME_ALERT_SQL=`SELECT 1 FROM alerts consumed WHERE consumed.token_hash=?
+  AND (consumed.game_key=? OR substr(consumed.game_key,-length(?))=?)
+  AND (consumed.status IN ('sent','delivery_unknown') OR consumed.status LIKE 'sending:%')`;
 
 export function currentAlertGame(feed,game,now=Date.now()) {
   const updatedAt=Date.parse(feed?.updatedAt || '');
@@ -34,10 +42,21 @@ export async function drainAlerts(env,readCurrentFeed,deliver) {
   const queued=(await env.DB.prepare("SELECT a.token_hash,a.game_key,a.created_at FROM alerts a WHERE a.status='pending' AND a.game_key LIKE ? ORDER BY a.created_at LIMIT 10")
     .bind(`${runtime.MODEL_VERSION}:%`).all()).results || [];
   for(const queuedRow of queued){
+    const identity=notificationGame(queuedRow.game_key,runtime.MODEL_VERSION);
+    const gameKey=identity?.gameKey || queuedRow.game_key,suffix=`:${gameKey}`;
     const claimStatus=`sending:${crypto.randomUUID()}`;
-    const claim=await env.DB.prepare("UPDATE alerts SET status=? WHERE token_hash=? AND game_key=? AND created_at=? AND status='pending'")
-      .bind(claimStatus,queuedRow.token_hash,queuedRow.game_key,queuedRow.created_at).run();
-    if(!claim.meta?.changes)continue;
+    const claim=await env.DB.prepare(`UPDATE alerts SET status=? WHERE token_hash=? AND game_key=? AND created_at=? AND status='pending'
+      AND NOT EXISTS (${CONSUMED_GAME_ALERT_SQL})`)
+      .bind(claimStatus,queuedRow.token_hash,queuedRow.game_key,queuedRow.created_at,queuedRow.token_hash,gameKey,suffix,suffix).run();
+    if(!claim.meta?.changes){
+      // A losing concurrent claim is already sending. Cancel only if consumed
+      // history still exists: its owner may meanwhile have received a definite
+      // transport rejection and reopened this row for a legitimate retry.
+      await env.DB.prepare(`UPDATE alerts SET status='cancelled' WHERE token_hash=? AND game_key=? AND created_at=? AND status='pending'
+        AND EXISTS (${CONSUMED_GAME_ALERT_SQL})`)
+        .bind(queuedRow.token_hash,queuedRow.game_key,queuedRow.created_at,queuedRow.token_hash,gameKey,suffix,suffix).run();
+      continue;
+    }
     const settle=status=>env.DB.prepare("UPDATE alerts SET status=? WHERE token_hash=? AND game_key=? AND status=? AND created_at=?")
       .bind(status,queuedRow.token_hash,queuedRow.game_key,claimStatus,queuedRow.created_at).run();
     let sending=false;
@@ -48,7 +67,6 @@ export async function drainAlerts(env,readCurrentFeed,deliver) {
       // and transport call. A passed-in cron feed or archived snapshot can lag it.
       const feed=await readCurrentFeed();
       const now=Date.now(),createdAt=Number(queuedRow.created_at)*1000;
-      const identity=notificationGame(queuedRow.game_key,runtime.MODEL_VERSION);
       const game=identity && feed?.games?.find(g=>g.sport===identity.sport && String(g.id)===identity.gameId);
       if(!row || !globalThis.SlateMeterSports.visible.includes(identity?.sport) || !Number.isFinite(createdAt) || createdAt>now || now-createdAt>ALERT_MAX_AGE_MS ||
         !currentAlertGame(feed,game,now) || !Number.isFinite(Number(row.threshold)) ||

@@ -46,7 +46,9 @@ test('NCAAM halftime keeps the viewing-priority badge without repeating the phas
  const game=normalizeEvent({id:'oakland-half',competitions:[competition]},'NCAAB');
  const {card,detail}=renderedGame(game,{header:{competitions:[competition]}});
  assert.equal((card.match(/<span class="status-live"[^>]*>HALFTIME/g)||[]).length,1);
- assert.match(card,/HALFTIME · lower viewing priority/);
+ // The current production mobile cards keep the explanation in the title.
+ assert.match(card,/title="Halftime: ranked 6 points lower for viewing priority; excitement rating unchanged\."/);
+ assert.match(card,/>HALFTIME<\/span>/);
  assert.doesNotMatch(card,/class="live-phase"|class="card-clock"/);
  assert.match(detail.innerHTML,/NCAAB · Halftime/);
  assert.doesNotMatch(detail.innerHTML,/class="detail-live-clock"/);
@@ -56,7 +58,7 @@ test('NCAAM live, halftime and second-half cards keep one current phase',()=>{
  const {competition}=fixture('NCAAB',1,'0:12');
  const phases=[
   {period:1,displayClock:'0:12',type:{state:'in',detail:'1st Half'},badge:/0:12/,clock:/class="card-clock"/},
-  {period:1,displayClock:'0:00',type:{state:'in',name:'STATUS_HALFTIME',detail:'Halftime',shortDetail:'Halftime'},badge:/HALFTIME \u00b7 lower viewing priority/,clock:null},
+  {period:1,displayClock:'0:00',type:{state:'in',name:'STATUS_HALFTIME',detail:'Halftime',shortDetail:'Halftime'},badge:/>HALFTIME<\/span>/,clock:null},
   {period:2,displayClock:'19:43',type:{state:'in',detail:'2nd Half'},badge:/19:43/,clock:/class="card-clock"/}
  ];
  for (const phase of phases) {

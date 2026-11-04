@@ -1,0 +1,347 @@
+{
+  "result": "PASS",
+  "rounds": 20,
+  "method": "two worker threads, separate real SQLite connections, simultaneous start barrier, exact production conditional claim SQL",
+  "results": [
+    {
+      "round": 0,
+      "claims": [
+        1,
+        0
+      ],
+      "statuses": [
+        {
+          "game_key": "current-model:NCAAB:race_game",
+          "status": "pending"
+        },
+        {
+          "game_key": "prior-model:NCAAB:race_game",
+          "status": "sending:owner-0"
+        }
+      ]
+    },
+    {
+      "round": 1,
+      "claims": [
+        0,
+        1
+      ],
+      "statuses": [
+        {
+          "game_key": "current-model:NCAAB:race_game",
+          "status": "sending:owner-1"
+        },
+        {
+          "game_key": "prior-model:NCAAB:race_game",
+          "status": "pending"
+        }
+      ]
+    },
+    {
+      "round": 2,
+      "claims": [
+        1,
+        0
+      ],
+      "statuses": [
+        {
+          "game_key": "current-model:NCAAB:race_game",
+          "status": "pending"
+        },
+        {
+          "game_key": "prior-model:NCAAB:race_game",
+          "status": "sending:owner-0"
+        }
+      ]
+    },
+    {
+      "round": 3,
+      "claims": [
+        0,
+        1
+      ],
+      "statuses": [
+        {
+          "game_key": "current-model:NCAAB:race_game",
+          "status": "sending:owner-1"
+        },
+        {
+          "game_key": "prior-model:NCAAB:race_game",
+          "status": "pending"
+        }
+      ]
+    },
+    {
+      "round": 4,
+      "claims": [
+        1,
+        0
+      ],
+      "statuses": [
+        {
+          "game_key": "current-model:NCAAB:race_game",
+          "status": "pending"
+        },
+        {
+          "game_key": "prior-model:NCAAB:race_game",
+          "status": "sending:owner-0"
+        }
+      ]
+    },
+    {
+      "round": 5,
+      "claims": [
+        0,
+        1
+      ],
+      "statuses": [
+        {
+          "game_key": "current-model:NCAAB:race_game",
+          "status": "sending:owner-1"
+        },
+        {
+          "game_key": "prior-model:NCAAB:race_game",
+          "status": "pending"
+        }
+      ]
+    },
+    {
+      "round": 6,
+      "claims": [
+        0,
+        1
+      ],
+      "statuses": [
+        {
+          "game_key": "current-model:NCAAB:race_game",
+          "status": "sending:owner-1"
+        },
+        {
+          "game_key": "prior-model:NCAAB:race_game",
+          "status": "pending"
+        }
+      ]
+    },
+    {
+      "round": 7,
+      "claims": [
+        0,
+        1
+      ],
+      "statuses": [
+        {
+          "game_key": "current-model:NCAAB:race_game",
+          "status": "sending:owner-1"
+        },
+        {
+          "game_key": "prior-model:NCAAB:race_game",
+          "status": "pending"
+        }
+      ]
+    },
+    {
+      "round": 8,
+      "claims": [
+        0,
+        1
+      ],
+      "statuses": [
+        {
+          "game_key": "current-model:NCAAB:race_game",
+          "status": "sending:owner-1"
+        },
+        {
+          "game_key": "prior-model:NCAAB:race_game",
+          "status": "pending"
+        }
+      ]
+    },
+    {
+      "round": 9,
+      "claims": [
+        1,
+        0
+      ],
+      "statuses": [
+        {
+          "game_key": "current-model:NCAAB:race_game",
+          "status": "pending"
+        },
+        {
+          "game_key": "prior-model:NCAAB:race_game",
+          "status": "sending:owner-0"
+        }
+      ]
+    },
+    {
+      "round": 10,
+      "claims": [
+        1,
+        0
+      ],
+      "statuses": [
+        {
+          "game_key": "current-model:NCAAB:race_game",
+          "status": "pending"
+        },
+        {
+          "game_key": "prior-model:NCAAB:race_game",
+          "status": "sending:owner-0"
+        }
+      ]
+    },
+    {
+      "round": 11,
+      "claims": [
+        0,
+        1
+      ],
+      "statuses": [
+        {
+          "game_key": "current-model:NCAAB:race_game",
+          "status": "sending:owner-1"
+        },
+        {
+          "game_key": "prior-model:NCAAB:race_game",
+          "status": "pending"
+        }
+      ]
+    },
+    {
+      "round": 12,
+      "claims": [
+        0,
+        1
+      ],
+      "statuses": [
+        {
+          "game_key": "current-model:NCAAB:race_game",
+          "status": "sending:owner-1"
+        },
+        {
+          "game_key": "prior-model:NCAAB:race_game",
+          "status": "pending"
+        }
+      ]
+    },
+    {
+      "round": 13,
+      "claims": [
+        1,
+        0
+      ],
+      "statuses": [
+        {
+          "game_key": "current-model:NCAAB:race_game",
+          "status": "pending"
+        },
+        {
+          "game_key": "prior-model:NCAAB:race_game",
+          "status": "sending:owner-0"
+        }
+      ]
+    },
+    {
+      "round": 14,
+      "claims": [
+        0,
+        1
+      ],
+      "statuses": [
+        {
+          "game_key": "current-model:NCAAB:race_game",
+          "status": "sending:owner-1"
+        },
+        {
+          "game_key": "prior-model:NCAAB:race_game",
+          "status": "pending"
+        }
+      ]
+    },
+    {
+      "round": 15,
+      "claims": [
+        0,
+        1
+      ],
+      "statuses": [
+        {
+          "game_key": "current-model:NCAAB:race_game",
+          "status": "sending:owner-1"
+        },
+        {
+          "game_key": "prior-model:NCAAB:race_game",
+          "status": "pending"
+        }
+      ]
+    },
+    {
+      "round": 16,
+      "claims": [
+        1,
+        0
+      ],
+      "statuses": [
+        {
+          "game_key": "current-model:NCAAB:race_game",
+          "status": "pending"
+        },
+        {
+          "game_key": "prior-model:NCAAB:race_game",
+          "status": "sending:owner-0"
+        }
+      ]
+    },
+    {
+      "round": 17,
+      "claims": [
+        1,
+        0
+      ],
+      "statuses": [
+        {
+          "game_key": "current-model:NCAAB:race_game",
+          "status": "pending"
+        },
+        {
+          "game_key": "prior-model:NCAAB:race_game",
+          "status": "sending:owner-0"
+        }
+      ]
+    },
+    {
+      "round": 18,
+      "claims": [
+        0,
+        1
+      ],
+      "statuses": [
+        {
+          "game_key": "current-model:NCAAB:race_game",
+          "status": "sending:owner-1"
+        },
+        {
+          "game_key": "prior-model:NCAAB:race_game",
+          "status": "pending"
+        }
+      ]
+    },
+    {
+      "round": 19,
+      "claims": [
+        0,
+        1
+      ],
+      "statuses": [
+        {
+          "game_key": "current-model:NCAAB:race_game",
+          "status": "sending:owner-1"
+        },
+        {
+          "game_key": "prior-model:NCAAB:race_game",
+          "status": "pending"
+        }
+      ]
+    }
+  ]
+}

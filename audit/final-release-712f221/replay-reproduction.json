@@ -1,0 +1,553 @@
+{
+  "pass": true,
+  "checks": {
+    "baselineCommit": true,
+    "baselineModel": true,
+    "model": true,
+    "materialDefinition": true,
+    "replayLimitation": true,
+    "woffordProvenance": true,
+    "statistics": true,
+    "provenance": true,
+    "histories": true,
+    "nonliveChanges": true,
+    "openingChanges": true,
+    "otherSportChanges": true,
+    "scenarioCount": true,
+    "scenarios": true,
+    "boundaries": true,
+    "wofford": true,
+    "historicalFlags": true,
+    "new85": true,
+    "capturedStates": true,
+    "replayRows": true
+  },
+  "comparison": "Exact after individually recorded omissions of six non-scoring retained-quote diagnostic fields; scoring/evidence fields are never omitted",
+  "committedLedgerSha256": "9d1005f5554eb6fc6ee93a5b13eb2770e82e55e65766c1c4cbeb20a7e59c4c57",
+  "regeneratedLedgerSha256": "b1cc30f92234cfd87159f3a9b6e4a6eb1d31aaecb2c9b1f4283c5f92ecf51164",
+  "serializationOmissions": {
+    "leafCount": 1140,
+    "rows": 190,
+    "byPath": {
+      "historicalFlags.ROW.afterDetail.context.market.raw.pointSpread.displayName": 183,
+      "historicalFlags.ROW.afterDetail.context.market.raw.pointSpread.shortDisplayName": 183,
+      "historicalFlags.ROW.afterDetail.context.market.raw.pointSpread.home.close.odds": 183,
+      "historicalFlags.ROW.afterDetail.context.market.raw.pointSpread.home.open.odds": 183,
+      "historicalFlags.ROW.afterDetail.context.market.raw.pointSpread.away.close.odds": 183,
+      "historicalFlags.ROW.afterDetail.context.market.raw.pointSpread.away.open.odds": 183,
+      "new85.ROW.afterDetail.context.market.raw.pointSpread.displayName": 7,
+      "new85.ROW.afterDetail.context.market.raw.pointSpread.shortDisplayName": 7,
+      "new85.ROW.afterDetail.context.market.raw.pointSpread.home.close.odds": 7,
+      "new85.ROW.afterDetail.context.market.raw.pointSpread.home.open.odds": 7,
+      "new85.ROW.afterDetail.context.market.raw.pointSpread.away.close.odds": 7,
+      "new85.ROW.afterDetail.context.market.raw.pointSpread.away.open.odds": 7
+    },
+    "details": "replay-reproduction-differences.json",
+    "verifiedArchivedQuotes": 3,
+    "scorer": {
+      "path": "scoring/basketball-upset.cjs",
+      "sha256": "0ad3da0bf584467b30fb66376d4fe5908bcb11a20c768f02e2b432fd44a550a8",
+      "byteIdentical": true
+    },
+    "negativeControls": 5
+  },
+  "sourceVerification": [
+    {
+      "file": "test/fixtures/live-underdog-before.cjs.gz",
+      "sha256": "c4ecc3b7ca5076c6b0a13dfbb0bfec46293254f7171101c2edeb526c95679bf4"
+    },
+    {
+      "file": "test/fixtures/real-games/CFB-20261017-401856719.json",
+      "sha256": "b2c7d7958198c40a99fdd869ee5be1df4a6c90a71af3bdcee6302c9c1f657cbc"
+    },
+    {
+      "file": "test/fixtures/real-games/CFB-20261017-401856720.json",
+      "sha256": "cf9c93a3ced5a8f228178c6a659a2a8ffdfd30c160469c066ad3e8b153f53bee"
+    },
+    {
+      "file": "test/fixtures/real-games/CFB-20261017-401856721.json",
+      "sha256": "276859016d4a72651e7db2d888fda4f47a3dedf8c5e168e036cd696a56c4b371"
+    },
+    {
+      "file": "test/fixtures/real-games/CFB-20261017-401856722.json",
+      "sha256": "50626c46dd3da305cf77777915f64c39b57b61e92a87596e79f77ed8ebe0bb49"
+    },
+    {
+      "file": "test/fixtures/real-games/CFB-20261017-401856723.json",
+      "sha256": "c7510f39770e03bc81887a595cafccf326ba31cf849a5e278916f8f4f40684a0"
+    },
+    {
+      "file": "test/fixtures/real-games/CFB-20261017-401856724.json",
+      "sha256": "f5b9d6b83bf8eed752d0123d8de07a7b1c88da82d55326415fdddca0e79ed04d"
+    },
+    {
+      "file": "test/fixtures/real-games/CFB-20261017-401856725.json",
+      "sha256": "808249cc3fb970491fa99ba8cdd1d7c3de62b5f0d50eecc12caef32dfbef9531"
+    },
+    {
+      "file": "test/fixtures/real-games/CFB-20261017-401856726.json",
+      "sha256": "89f8f59aadfc7f1387e62773528c2619f47e7f359186863330f3a2dada403acf"
+    },
+    {
+      "file": "test/fixtures/real-games/CFB-20261017-401856809.json",
+      "sha256": "965ea31550e1dd8f9d454b3803f9f250b4b224340952930392dfe169f6ef15ee"
+    },
+    {
+      "file": "test/fixtures/real-games/CFB-20261017-401856828.json",
+      "sha256": "3852feab274c851e90901ad84a48fce15ab9125dcc760c650dbabf6d5dd2c40d"
+    },
+    {
+      "file": "test/fixtures/real-games/CFB-20261017-401856829.json",
+      "sha256": "03524b378419124ec9d3b3d4d6af161f80f214c15fdc2054ff65a56f536d0409"
+    },
+    {
+      "file": "test/fixtures/real-games/CFB-20261017-401856830.json",
+      "sha256": "0d91bb5bab9e291fd133d440f705c12fdc76f9b1e5700bb974268ec59fdaf61a"
+    },
+    {
+      "file": "test/fixtures/real-games/CFB-20261017-401856831.json",
+      "sha256": "7f15dc920f99dc851d2a94566fdf4c7b7c726ff992920cf51b728571ebf06003"
+    },
+    {
+      "file": "test/fixtures/real-games/CFB-20261017-401856832.json",
+      "sha256": "caafcfcaf4a04c558e01fa42faa281f4b21087faf25c273523e637ce1c93726a"
+    },
+    {
+      "file": "test/fixtures/real-games/CFB-20261017-401856833.json",
+      "sha256": "4b4e3685dd50fc5e908d745f06abf3e26eb255af5689f7c45520b9ae14b8ddf1"
+    },
+    {
+      "file": "test/fixtures/real-games/CFB-20261017-401858261.json",
+      "sha256": "da09ff4215ea86c7d3ddd9b456504d55ab76f5e7dadbab47527e63ae07dd3e9c"
+    },
+    {
+      "file": "test/fixtures/real-games/CFB-20261017-401858262.json",
+      "sha256": "14b749f764d77a1fe298c23f5b7f43ac022013e0218b3bc4aca5684a9f45ad49"
+    },
+    {
+      "file": "test/fixtures/real-games/CFB-20261017-401858263.json",
+      "sha256": "0acd4ce754a897527bf1c85890a2c2c88478827f3c01dd0a115d45fce1ff9ad0"
+    },
+    {
+      "file": "test/fixtures/real-games/CFB-20261017-401858264.json",
+      "sha256": "8083e860e492d04008a908894e339d2e57cf3f4bc4d0a6ca34acc31d98bec5dd"
+    },
+    {
+      "file": "test/fixtures/real-games/CFB-20261017-401858265.json",
+      "sha256": "fccb7b06a92af2a07205ef9d6ed5405acdaeb4d57ac4ed80d1e4369b063ef15f"
+    },
+    {
+      "file": "test/fixtures/real-games/CFB-20261017-401858266.json",
+      "sha256": "048fec32e2dd93e9afdcddf5c05cf7413569e162b6a0af96c4f181dec855325f"
+    },
+    {
+      "file": "test/fixtures/real-games/CFB-20261017-401858267.json",
+      "sha256": "9caf7b9989a7fc37fa7c2e4accbfd8f3c16a3c525f8a34536f8fc1ebfc7f7a34"
+    },
+    {
+      "file": "test/fixtures/real-games/CFB-20261017-401858268.json",
+      "sha256": "b45b2695f1e1b17d7e8dbc5943afba0ae7e1d2382bfe14cb07051cddb8d6aaa3"
+    },
+    {
+      "file": "test/fixtures/real-games/CFB-20261017-401858269.json",
+      "sha256": "137bf033ece63e5c5f72a0d95859cf0c185193670cc007bbd6d84ecb1a8dd5b5"
+    },
+    {
+      "file": "test/fixtures/real-games/CFB-20261017-401858488.json",
+      "sha256": "5b90174c5e2f592fe1575196f8b6597c3d9b4e8c9e496eab200ad2ce911bfa51"
+    },
+    {
+      "file": "test/fixtures/real-games/CFB-20261017-401858489.json",
+      "sha256": "678de10976560dd1112278f97049d58f04842b8526f5e3bcf985d7e51f4ee6fa"
+    },
+    {
+      "file": "test/fixtures/real-games/CFB-20261017-401858490.json",
+      "sha256": "235281911900030f8d05de3da4e8452e1ba1e1474aab34767329e89f52486efc"
+    },
+    {
+      "file": "test/fixtures/real-games/CFB-20261017-401858491.json",
+      "sha256": "cefd140c5a948562dbcf62bcea39258be6d596dd9e4eadc7c3268c3c7086dd04"
+    },
+    {
+      "file": "test/fixtures/real-games/CFB-20261017-401858494.json",
+      "sha256": "409b7bdc29aad793052a6ba1f14bb9f9a06abd4fd239d8baaffb5b835fc82258"
+    },
+    {
+      "file": "test/fixtures/real-games/CFB-20261017-401860903.json",
+      "sha256": "d81d6eda97f7e77ad88a64679ba50fad593e081232def25427ec06e9aca1d85b"
+    },
+    {
+      "file": "test/fixtures/real-games/CFB-20261017-401860904.json",
+      "sha256": "fb1a80be0ef813a0e58c2ea96b90de7e7e3a95d266d7100b549b96de6c8b14c5"
+    },
+    {
+      "file": "test/fixtures/real-games/CFB-20261017-401862802.json",
+      "sha256": "000b2a42cc7feb0ff607ef6636db27cdb68199f0dfd19589683de22f3c88dce8"
+    },
+    {
+      "file": "test/fixtures/real-games/CFB-20261017-401862803.json",
+      "sha256": "02176d8d7d9945d51d43b6e17fea1b6f98432d5e8ca85a5ef3397357c655eef5"
+    },
+    {
+      "file": "test/fixtures/real-games/CFB-20261017-401862804.json",
+      "sha256": "80cc2e32f2a2838c98bd96ad666b020e430fab3596627cf2e4aa56593dfa01f9"
+    },
+    {
+      "file": "test/fixtures/real-games/CFB-20261017-401862805.json",
+      "sha256": "af1907a27e25e5eb0d81d0ca62ef839b3a64f1a63b5ea9314d8bb254670034cc"
+    },
+    {
+      "file": "test/fixtures/real-games/CFB-20261017-401862806.json",
+      "sha256": "8725138aa68d8086f199a4215138c8a111f30b8853cbb938c776fa8de6f39a14"
+    },
+    {
+      "file": "test/fixtures/real-games/CFB-20261017-401864520.json",
+      "sha256": "8492ce10b9641295f1ea99c62f9d89eef47ed8e6f837d6ca318b0f98e05eda9d"
+    },
+    {
+      "file": "test/fixtures/real-games/CFB-20261017-401864522.json",
+      "sha256": "c23b8e92cefbc7cdb1998b4b8b796f0e88d8045ec2d608a06b07a6a1c41279d9"
+    },
+    {
+      "file": "test/fixtures/real-games/CFB-20261017-401864523.json",
+      "sha256": "d5a6073dbe114e450d86f82fb9b66b9b11c60caae99c170c5d9e1fb046a75f9d"
+    },
+    {
+      "file": "test/fixtures/real-games/CFB-20261017-401864524.json",
+      "sha256": "e4af4a1fa2d423f2c8d9fe8c6ad0a0e53be97be00f571ae7c3d809b20b09789c"
+    },
+    {
+      "file": "test/fixtures/real-games/CFB-20261017-401866441.json",
+      "sha256": "04e59560f8607dfa5977a52d1ea610b593388a079a76705d01ddc3d4865d87c1"
+    },
+    {
+      "file": "test/fixtures/real-games/CFB-20261017-401866442.json",
+      "sha256": "4d789fb6bc9bd15c38a05c06e32ba520661127dce5dcdcd9af7419763ef641a4"
+    },
+    {
+      "file": "test/fixtures/real-games/CFB-20261017-401866443.json",
+      "sha256": "9741228c748885bc0f91f6da124d34ff823170ad95d7103349dd46dbf307a391"
+    },
+    {
+      "file": "test/fixtures/real-games/CFB-20261017-401866444.json",
+      "sha256": "12665378a708322c513043e7351372d738db264c622cde6b6fdf911a4d223de2"
+    },
+    {
+      "file": "test/fixtures/real-games/CFB-20261017-401866445.json",
+      "sha256": "993d7ade2544d493ea672bfdbd6aac9bbecfdc50facb3aba750d57037297c072"
+    },
+    {
+      "file": "test/fixtures/real-games/CFB-20261017-401866478.json",
+      "sha256": "2d0c9843da4a23c91efa3f6f3b7decd8976c28aa1ba5d91974ba026c2f4a4e2e"
+    },
+    {
+      "file": "test/fixtures/real-games/CFB-20261017-401869934.json",
+      "sha256": "b55c8d3c413ca3e700014177eae1d349af1e28fe4df0d5f5dc0817f816308e89"
+    },
+    {
+      "file": "test/fixtures/real-games/CFB-20261017-401869957.json",
+      "sha256": "4e86a33a247a794f0b78f18c7833ad8912225dbec2915b8af2639aa008d562ef"
+    },
+    {
+      "file": "test/fixtures/real-games/CFB-20261017-401869966.json",
+      "sha256": "e8686290b08064ee5d725ddbae34233799f3e5e349b00ff8590d40c87faae705"
+    },
+    {
+      "file": "test/fixtures/real-games/CFB-20261017-401871091.json",
+      "sha256": "c2d8eb65f4799a56a0f610a6f2c77b51f17a300356b8562c494b0f3ae6216511"
+    },
+    {
+      "file": "test/fixtures/real-games/MLB-20261013-401908024.json",
+      "sha256": "9e2a028b675c8c7f79bbb6ca8348b4641995de2fd09c86e61b1be48d63317154"
+    },
+    {
+      "file": "test/fixtures/real-games/MLB-20261018-401930515.json",
+      "sha256": "cfc0d626bc8bad601c5f52e01e0d01c60aeabebb542a2be986eec88ba24f1341"
+    },
+    {
+      "file": "test/fixtures/real-games/NBA-20261020-401909088.json",
+      "sha256": "07393eadf2b98f45f47840b806e374370aa6150374483b6b9dca27a8b926e37d"
+    },
+    {
+      "file": "test/fixtures/real-games/NBA-20261020-401909089.json",
+      "sha256": "638d59e49722905aa822e06cab4e32979dfd6a7ea36a94e48f32434aad934b63"
+    },
+    {
+      "file": "test/fixtures/real-games/NBA-20261020-401909090.json",
+      "sha256": "6d0171f8c169987ebd232227ee760864f149107d2f7748f07557603748adae19"
+    },
+    {
+      "file": "test/fixtures/real-games/NCAAB-20260328-401856574.json",
+      "sha256": "4fba014581ebd40eef0f833f9ed349f8267f0e5eaeab5d2bb3738487ef5cb187"
+    },
+    {
+      "file": "test/fixtures/real-games/NCAAB-20260328-401856575.json",
+      "sha256": "76911ec6c5892fb0a7511243d30bad6a3d980bdf0aa7100b4d61d88b24f1d258"
+    },
+    {
+      "file": "test/fixtures/real-games/NFL-20261011-401872981.json",
+      "sha256": "b467eba4005e2876522cb00b0454121bf6d292bd74ccb5da643f9416b37a5a73"
+    },
+    {
+      "file": "test/fixtures/real-games/NFL-20261011-401872982.json",
+      "sha256": "8996937a3ee3db16faed34ed889f4df7d23117fa495c78524fad371ab4b1f714"
+    },
+    {
+      "file": "test/fixtures/real-games/NFL-20261011-401872983.json",
+      "sha256": "7493baebcf260b29629ed7b120e3851feb5d72f7b88761f7382f1b4c67ca3875"
+    },
+    {
+      "file": "test/fixtures/real-games/NFL-20261011-401872984.json",
+      "sha256": "b4322bf35dce312dee008377ecadaac0827254b770425f81a3343ac54ba56c2f"
+    },
+    {
+      "file": "test/fixtures/real-games/NFL-20261011-401872985.json",
+      "sha256": "7efef3bf57c4f19d20901b56897cd151d400e0f9b55faf68b313eaad0d9d21a3"
+    },
+    {
+      "file": "test/fixtures/real-games/NFL-20261011-401872986.json",
+      "sha256": "d2e06fef9d89bda883a7c6a7390a8de6033dc0cdea36754a2b2756875d354a5a"
+    },
+    {
+      "file": "test/fixtures/real-games/NFL-20261011-401872987.json",
+      "sha256": "c65ced2e8b5cb9b0edff4eda244afc664daac6bc4cbfcf3f9794ffbc25255d56"
+    },
+    {
+      "file": "test/fixtures/real-games/NFL-20261011-401872988.json",
+      "sha256": "12bd41e8ba79b81b43971608f0d1f3da7aaecf7d900146f30019117d6e0e025d"
+    },
+    {
+      "file": "test/fixtures/real-games/NFL-20261011-401872989.json",
+      "sha256": "1075b9f038d52ee3c4c43e905ad2053304acdd23cfa73d322029a83739e1e84b"
+    },
+    {
+      "file": "test/fixtures/real-games/NFL-20261011-401872990.json",
+      "sha256": "84699612c39ac76d5e12589b1144fb1844c3f2d5056e52d3c83ff85e79a633f2"
+    },
+    {
+      "file": "test/fixtures/real-games/NFL-20261011-401872991.json",
+      "sha256": "cdd9db13b76f83bf7c6831b6258f9f06246062929c29446cecbea91b239e14b0"
+    },
+    {
+      "file": "test/fixtures/real-games/NFL-20261011-401872992.json",
+      "sha256": "cf2eae1862a0fe8865896b8e9016571785b44474b0f4a064d2729d682adfb779"
+    },
+    {
+      "file": "test/fixtures/real-games/NFL-20261011-401872993.json",
+      "sha256": "8b30c91ead9ae20b037be3d23d6564d5d1086ec70ff49ab7b7b98ce3269b83db"
+    },
+    {
+      "file": "test/fixtures/real-games/NFL-20261018-401872996.json",
+      "sha256": "a4d0256d0684169e9fbbc1b929792b71b12788a2023b289b41f5dcfd2893f774"
+    },
+    {
+      "file": "test/fixtures/real-games/NFL-20261018-401872997.json",
+      "sha256": "dab9a305f80631ff6cf3cba9dbd348a6c6f5790c3436ffe818da1f319beee1ee"
+    },
+    {
+      "file": "test/fixtures/real-games/NFL-20261018-401872998.json",
+      "sha256": "ddcf6cec3872981524fd78b678aec3f9bc23776b3f295573ade6885b628d3471"
+    },
+    {
+      "file": "test/fixtures/real-games/NFL-20261018-401872999.json",
+      "sha256": "52a53f83956d5f65dc4ce809d5eb0273efd8f898558cc208292309f65af49244"
+    },
+    {
+      "file": "test/fixtures/real-games/NFL-20261018-401873000.json",
+      "sha256": "74a9d7ab2d2e174c47f47363e1354983569f2d3352b29485bc1c99c6a37568d3"
+    },
+    {
+      "file": "test/fixtures/real-games/NFL-20261018-401873001.json",
+      "sha256": "6e033ba76f4ccabf3dee80a18d7b84e84879e5454b46279b7212d97b8f4f9e91"
+    },
+    {
+      "file": "test/fixtures/real-games/NFL-20261018-401873002.json",
+      "sha256": "6bb1c94b11078a1aab67d3e022f14bf6180fca1959d82456dec739c1612e9cd4"
+    },
+    {
+      "file": "test/fixtures/real-games/NFL-20261018-401873003.json",
+      "sha256": "ee17652f6fbf315472f4ecb5e0bafde408eaa4d3e6988fcb3d94f7e0aeb374ea"
+    },
+    {
+      "file": "test/fixtures/real-games/NFL-20261018-401873004.json",
+      "sha256": "4cb0fd17ad7213182bd0037ef2905c3bf22473bfe772cc4054585328c8ac9063"
+    },
+    {
+      "file": "test/fixtures/real-games/NFL-20261018-401873005.json",
+      "sha256": "78084e0bd8f89f9ae85982098413d3fd85ba30be293991ca41311ee7318adf95"
+    },
+    {
+      "file": "test/fixtures/real-games/NFL-20261018-401873006.json",
+      "sha256": "de972605fd677632ca780f7a3f94c30206a2dfa829cfe19c0a7330f7af027052"
+    },
+    {
+      "file": "test/fixtures/real-games/NFL-20261018-401873007.json",
+      "sha256": "60fdb0bf930864309c4a2d08b4241e050620fb5e304422081c5ca54eaa710471"
+    },
+    {
+      "file": "test/fixtures/real-games/NHL-20261017-401892519.json",
+      "sha256": "652f41797f53e72d77dfe39702bf0a2b41a1210576e53d564a3952e854ff7dcc"
+    },
+    {
+      "file": "test/fixtures/real-games/NHL-20261017-401892520.json",
+      "sha256": "72c48f48914e0df9bdd695177d30eac8c0d0f70741fcbd2177ba02c88781ea71"
+    },
+    {
+      "file": "test/fixtures/real-games/NHL-20261017-401892521.json",
+      "sha256": "4596bbcc0f4d68e2a0074c9632f98f365e2b4c3f1c1c7cf12c8e5a8612a770f5"
+    },
+    {
+      "file": "test/fixtures/real-games/NHL-20261017-401892522.json",
+      "sha256": "dfa12bb71c634c6d88d068b59049be49920175d2a013a79b5fb9865867677b06"
+    },
+    {
+      "file": "test/fixtures/real-games/NHL-20261017-401892523.json",
+      "sha256": "b3a2844abc236f18accd963efec29e29f44d2f7b516c81f4294cfc81f662fcc1"
+    },
+    {
+      "file": "test/fixtures/real-games/NHL-20261017-401892524.json",
+      "sha256": "e2e0c887483b912c49ce9af446495faad418e71a6cc1eab8768c69a54b465e7f"
+    },
+    {
+      "file": "test/fixtures/real-games/NHL-20261017-401892525.json",
+      "sha256": "bae5b46710122ce986102b25648dfe195163da162a022921de6ae3d901c3a8bc"
+    },
+    {
+      "file": "test/fixtures/real-games/NHL-20261017-401892526.json",
+      "sha256": "02ee933aaed397a59ba496dd7dbe5f752fb70d61d710fb15604c707dd5966017"
+    },
+    {
+      "file": "test/fixtures/real-games/NHL-20261017-401892527.json",
+      "sha256": "bb02d9cca468a88366115da4661e5a54b47e69f73066a27efa9f1fd99f98c9ad"
+    },
+    {
+      "file": "test/fixtures/real-games/NHL-20261017-401892528.json",
+      "sha256": "7c0fc1468791f08e7018a34b66f14b2dee07b7d74252f4c4657de3cb876e7ba5"
+    },
+    {
+      "file": "test/fixtures/real-games/NHL-20261017-401892529.json",
+      "sha256": "314cc711153caee6dc6fd85633d407d9b4040bde8977a111554a3a6348ba5ee4"
+    },
+    {
+      "file": "test/fixtures/real-games/NHL-20261017-401892530.json",
+      "sha256": "2b0ceda6dba83f50b31d77ab953ca6bab4fb9418d1b733f153bf90265c2b77ad"
+    },
+    {
+      "file": "test/fixtures/real-games/NHL-20261017-401892531.json",
+      "sha256": "f778e12ff87b588a6157c0dba70b2e3f0eb7f4710aeef27dfa1e80d21d7fe99d"
+    },
+    {
+      "file": "test/fixtures/real-games/NHL-20261017-401892532.json",
+      "sha256": "14177bf00825481cb571ede1ef1188055ae4586af6a5c9f70039ad5bca793533"
+    },
+    {
+      "file": "test/fixtures/real-games/NHL-20261020-401892539.json",
+      "sha256": "a466812faa31a409c99242e546a0b7866fbc8340ecd6e8c7e5403a306e145a8b"
+    },
+    {
+      "file": "test/fixtures/real-games/NHL-20261020-401892540.json",
+      "sha256": "b02dace31ea15764d89fa7047938d69a1cd8770bcc21bf166cc1335530777508"
+    },
+    {
+      "file": "test/fixtures/real-games/NHL-20261020-401892541.json",
+      "sha256": "787aad8a70ecb03714009c7658b04b93d60a06dd8bdc3b3f013e003267719b97"
+    },
+    {
+      "file": "test/fixtures/real-games/NHL-20261020-401892542.json",
+      "sha256": "2610c1b40e6997a9fa37aca861945f887874e9795d850f9425bcb5dc973dcc59"
+    },
+    {
+      "file": "test/fixtures/real-games/NHL-20261020-401892543.json",
+      "sha256": "2ad4b1776466781d4fc27f9696015902355eb260fb10ddc275e5c9318f8599ff"
+    },
+    {
+      "file": "test/fixtures/real-games/NHL-20261020-401892544.json",
+      "sha256": "2e5278f6e193dd7abb41b9db0529e7804149110be9f66452d160a0988b04054e"
+    },
+    {
+      "file": "test/fixtures/real-games/NHL-20261020-401892545.json",
+      "sha256": "c008a5d1af5d8db2ef26de95aeeda2fab1e618b0c19a28af25a52b07aee7e5dd"
+    },
+    {
+      "file": "test/fixtures/real-games/NHL-20261020-401892546.json",
+      "sha256": "f727636a63009f68ae305f7e7189998f74627415708375defad9beedec7193bd"
+    },
+    {
+      "file": "test/fixtures/real-games/NHL-20261020-401892547.json",
+      "sha256": "2a72ad827d1be521c8f1164623e0f306a93db55f2e046f816a5c8b9e01f5130d"
+    },
+    {
+      "file": "test/fixtures/real-games/NHL-20261020-401892548.json",
+      "sha256": "f729994f3b224e08f87bd8ab774bd45d37c81eea2f77ead4af4180d2ddebbca9"
+    },
+    {
+      "file": "test/fixtures/real-games/NHL-20261020-401892549.json",
+      "sha256": "8d5cbed97ddb75157700895891fd9a303ea895da908f790ae0473db26e87bbc3"
+    },
+    {
+      "file": "test/fixtures/football-live-20261101.json",
+      "sha256": "0ff45a9126f90123956415e966b941e316c94580d857f1898cc0c05777c1879e"
+    },
+    {
+      "file": "test/fixtures/production-integrity/CFB-401856847.json.gz",
+      "sha256": "9f15c46365a3d096e6be34519e0f5688b0400c3c0e8650721a6927945e51ef24"
+    },
+    {
+      "file": "test/fixtures/production-integrity/CFB-401858282.json.gz",
+      "sha256": "babf3d4c2af71bb06e9dd7789c5b62028c03064c0dd420a04a5754fcc5f3bb76"
+    },
+    {
+      "file": "test/fixtures/production-integrity/NBA-401909903.json.gz",
+      "sha256": "69014a1fcbf3e1fe1864a78be05676d94b131d5bbf99da474a0f52c716503f8e"
+    },
+    {
+      "file": "test/fixtures/production-integrity/NCAAB-401920982.json.gz",
+      "sha256": "014a65330d78e83eba10b7ec14e64d90e976d554c6319090d6832ac4ca2ec319"
+    },
+    {
+      "file": "test/fixtures/production-integrity/NFL-401873024.json.gz",
+      "sha256": "48960ab938586d2e9b8ced62b712e087246bae8095ea0e380be763608f17c51c"
+    },
+    {
+      "file": "test/fixtures/production-integrity/NFL-401873028.json.gz",
+      "sha256": "26c7c6b964253745b8e8d4bb1ec2433d6995179d57c653c15875044115c8e224"
+    },
+    {
+      "file": "test/fixtures/production-integrity/NFL-401873033.json.gz",
+      "sha256": "daa7628164ab017d1443027310adb65a1b58c8281e7957ee6b1daa66663f8065"
+    },
+    {
+      "file": "test/fixtures/production-integrity/NFL-401873034.json.gz",
+      "sha256": "b66111c7c955e12b1a5e1a47e088bfe1034760ebe7ffdf2ea9ae5fafa219a4c0"
+    },
+    {
+      "file": "test/fixtures/live-sync/NBA-401909901.json.gz",
+      "sha256": "5a76d802fb8b8b334d7b65acaa93b3de63bcf7cc58637699d752f2e73f41bcbe"
+    },
+    {
+      "file": "test/fixtures/market-timeline/pelicans-grizzlies.json.gz",
+      "sha256": "580ff7dc06944dbe231aaab2846973a7051b645ebce3cab05ecf073d39fd3e45"
+    }
+  ],
+  "gameCount": 92,
+  "checkpoints": 17895,
+  "numerical": 17883,
+  "scenarioCount": 2940,
+  "boundaryPairs": 648,
+  "maximumBoundaryJump": 1,
+  "materialRows": 198,
+  "restored": [
+    {
+      "path": "calibration/output/live-underdog-20261103.json",
+      "sha256": "9d1005f5554eb6fc6ee93a5b13eb2770e82e55e65766c1c4cbeb20a7e59c4c57"
+    },
+    {
+      "path": "calibration/output/live-underdog-material-changes-20261103.csv",
+      "sha256": "438090ed7bf5d376b93b050c89220a7713c6ec1ba24fd2e8bc42ec63854ae920"
+    },
+    {
+      "path": "calibration/live-underdog-evidence-20261103.md",
+      "sha256": "bc2e32fbc1637aafebf5db41f11085de82087e39b5b14719172314dc6d981207"
+    }
+  ]
+}
