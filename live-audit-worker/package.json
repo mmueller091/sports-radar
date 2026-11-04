@@ -1,0 +1,6 @@
+{
+  "name":"slatemeter-live-audit",
+  "private":true,
+  "type":"module",
+  "scripts":{"build:dashboard":"node scripts/build-dashboard.mjs","test":"node --test test/*.test.js"}
+}

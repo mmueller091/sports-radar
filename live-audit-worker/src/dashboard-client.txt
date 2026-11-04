@@ -1,0 +1,99 @@
+// DOM-only rendering: provider and finding text is never inserted as HTML.
+const $=id=>document.getElementById(id);
+const fmt=value=>value?new Date(Number(value)).toLocaleString('en-US',{timeZone:'America/New_York',month:'short',day:'numeric',hour:'numeric',minute:'2-digit'}):'—';
+const node=(tag,cls,text)=>{const el=document.createElement(tag);if(cls)el.className=cls;if(text!==undefined)el.textContent=String(text);return el;};
+const clear=el=>{while(el.firstChild)el.firstChild.remove();};
+const empty=(el,message)=>el.append(node('div','empty',message));
+const dayNY=()=>new Intl.DateTimeFormat('en-CA',{timeZone:'America/New_York',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
+function findingCard(f) {
+  const evidence=f.evidence || {}, card=node('article','finding'),row=node('div','row'),left=node('div');
+  left.append(node('div','title',`${f.game_key} · ${String(f.reason_code || '').replaceAll('_',' ')}`));
+  left.append(node('div','sub',`${f.status || 'recorded'} · First seen ${fmt(f.first_seen)} · Last seen ${fmt(f.last_seen)} · ${f.failure_layer || 'unknown layer'}`));
+  row.append(left,node('span',`badge ${f.severity || 'medium'}`,String(f.severity || 'medium').toUpperCase()));card.append(row);
+  card.append(node('div','detail',evidence.detail || 'Review the recorded evidence.'));
+  card.append(node('div','evidence',`Observed: ${JSON.stringify(evidence.observed ?? {})} · Expected: ${evidence.expected || 'review'} · Confidence: ${Math.round(Number(f.confidence || 0)*100)}%`));
+  return card;
+}
+function gameCard(g,findings) {
+  const e=g.latestEvidence || {},s=e.state || {},teams=(s.teams || []).map(t=>t?.[0] || '?').join(' vs '),
+    associated=findings.filter(f=>f.game_key===g.game_key || f.evidence?.affectedGames?.includes(g.game_key));
+  const card=node('article','game'),row=node('div','row'),left=node('div');
+  left.append(node('div','title',teams || g.game_key));
+  left.append(node('div','sub',`${g.sport} · ${g.observations} observations · ${fmt(g.first_seen)} to ${fmt(g.last_seen)}`));
+  row.append(left,node('span',associated.length?'badge medium':'badge',associated.length?`${associated.length} finding${associated.length===1?'':'s'}`:'No findings'));
+  card.append(row,node('div','detail',`Rating range ${g.min_rating}–${g.peak_rating} · Latest recorded ${s.score ?? '—'} · ${(s.teams || []).map(t=>t?.[2] ?? '—').join('–')}`));
+  if(associated.length)card.append(node('div','evidence',associated.map(f=>String(f.reason_code || '').replaceAll('_',' ')).join(' · ')));
+  return card;
+}
+async function refresh() {
+  try {
+    const day=$('day').value || dayNY(),res=await fetch(`/report?date=${encodeURIComponent(day)}`,{credentials:'same-origin',cache:'no-store'});
+    if(res.status===401){location.href='/dashboard';return}if(!res.ok)throw new Error(`Report HTTP ${res.status}`);
+    const data=await res.json(),run=data.latestRun || {},post=data.postSlate || {},all=post.findings || [],active=data.activeUnresolvedFindings || [];
+    const history=(post.events || []).map(event=>({game_key:event.game_key,reason_code:event.reason_code,
+      status:event.event,first_seen:event.at,last_seen:event.at,severity:event.evidence?.severity || 'medium',
+      failure_layer:event.evidence?.failureLayer || 'unknown',confidence:event.evidence?.confidence || 0,
+      evidence:event.evidence}));
+    const byReason=new Map();for(const f of [...all,...history])byReason.set(`${f.game_key}|${f.reason_code}`,f);
+    const healthy=Boolean(run.finished_at && !run.error && Date.now()-run.finished_at<8*60000);
+    $('status-dot').classList.toggle('warn',!healthy);
+    $('status').textContent=run.error?'Audit scan failed':healthy?'Monitoring active':'Waiting for scheduled scan';
+    $('updated').textContent=`Last successful audit ${fmt(data.lastSuccessfulScan)} · Feed age ${data.sourceFreshnessMs==null?'—':Math.round(data.sourceFreshnessMs/60000)+' min'}`;
+    $('games-checked').textContent=run.games_checked ?? '—';$('checks-completed').textContent=run.checks_completed ?? '—';
+    $('clean-games').textContent=run.clean_games ?? '—';$('active-findings').textContent=data.activeUnresolvedCount ?? 0;
+    clear($('findings'));if(active.length)active.forEach(f=>$('findings').append(findingCard(f)));else empty($('findings'),'No active anomalies.');
+    $('night-summary').textContent=`${post.distinctGames || 0} distinct games · ${post.scans || 0} scheduled scans · ${post.checksCompleted || 0} checks · ${history.filter(f=>f.status==='opened').length} findings opened`;
+    clear($('games'));if(post.gameSummaries?.length)post.gameSummaries.forEach(g=>$('games').append(gameCard(g,[...byReason.values()])));else empty($('games'),'No live games have been audited on this night yet. Inactive slates are skipped.');
+    clear($('history'));if(history.length)history.forEach(f=>$('history').append(findingCard(f)));else empty($('history'),'No confirmed finding events recorded on this night.');
+  } catch(error){$('status-dot').classList.add('warn');$('status').textContent='Dashboard data unavailable';$('updated').textContent=String(error)}
+}
+async function init(){
+  try{const response=await fetch('/export/dates',{credentials:'same-origin',cache:'no-store'});
+    if(response.ok){const dates=await response.json();$('day').value=dates.defaultDate || dayNY();}
+    else $('day').value=dayNY();
+  }catch{$('day').value=dayNY()}
+  await refresh();
+}
+function qualityCard(r){
+  const card=node('article','finding');
+  card.append(node('div','title',`${r.matchup} · ${r.rating} · ${r.scores.join('–')}`));
+  card.append(node('div','sub',`${r.gameKey} · ${fmt(r.observedAt)} · period ${r.period}, ${r.clockSeconds??'?'}s · ${r.modelVersion}`));
+  card.append(node('div','detail',`${r.classification} · ${r.confidence} confidence. ${r.suspectedCause}.`));
+  card.append(node('div','evidence',`Evidence: ${r.signals.join('; ')||'wide margin / low comeback feasibility'}. Missing: ${r.missingEvidence.join('; ')||'none detected'}.`));
+  if(r.sourceEvent)card.append(node('div','evidence',`Source event ${r.sourceEvent.id} · event time ${fmt(r.sourceEvent.occurredAt)} · ${r.sourceEvent.text||''}`));
+  card.append(node('div','detail',`Next: ${r.recommendedCorrection}. Impact: production ratings 0, alerts 0; candidate impact requires replay.`));
+  const details=node('details'),summary=node('summary',null,'Supporting state');details.append(summary,node('pre','evidence',JSON.stringify({state:r.evidence,sourceReference:r.sourceReference},null,2)));card.append(details);
+  return card;
+}
+let qualityGeneration=0;
+function invalidateQuality(){qualityGeneration++;clear($('quality'));$('quality-status').textContent='Load quality for the selected date.';}
+async function loadQuality(){
+  const generation=++qualityGeneration,date=$('day').value||dayNY();
+  $('quality-load').disabled=true;$('quality-status').textContent='Analyzing retained live observations…';
+  try{
+    const response=await fetch(`/quality?date=${encodeURIComponent(date)}`,{credentials:'same-origin',cache:'no-store'});
+    if(response.status===401){location.href='/dashboard';return}if(!response.ok)throw Error(`Quality HTTP ${response.status}`);
+    const data=await response.json();if(generation!==qualityGeneration)return;
+    const q=data.scoringQuality,el=$('quality');clear(el);
+    $('quality-status').textContent=`${data.dateNewYork} · ${q.modelCohorts.length} scoring model(s). Hypotheses require review; an equivalent 85 across sports is not established. Duration is a sampled estimate. Missing evidence is not uneventful play.`;
+    for(const cohort of q.modelCohorts){
+      el.append(node('h3',null,`Calibration · ${cohort.modelVersion}`));
+      for(const s of cohort.sports){
+        const card=node('article','game');card.append(node('div','title',s.sport==='NCAAB'?'NCAAM':s.sport));
+        card.append(node('div','detail',`${s.gamesWithRating} games with ratings · reaching 70/80/85/90/95: ${Object.values(s.percentageReaching).map(v=>v===null?'unknown':v.toFixed(1)+'%').join(' / ')} · peak median ${s.peakDistribution.median??'unknown'} · seconds >85: ${s.estimatedSecondsAbove85??'unknown'}`));
+        card.append(node('div','evidence',`${s.decisiveMoments.length} significant observations · ${s.significantNeverReached85.length} significant games never observed at 85. ${s.comparability85}.`));
+        const detail=node('details'),heading=node('summary',null,'Moments, event responses and evidence gaps');detail.append(heading,node('pre','evidence',JSON.stringify({decisiveMoments:s.decisiveMoments,eventResponses:s.eventResponses,significantNeverReached85:s.significantNeverReached85,evidenceGaps:s.evidenceGaps},null,2)));card.append(detail);el.append(card);
+      }
+    }
+    if(!q.modelCohorts.length)empty(el,'No retained live observations. All sport calibration metrics are unavailable.');
+    for(const [title,rows] of [['Top 10 potentially overrated games',q.topOverrated],['Top 10 potentially underrated games',q.topUnderrated]]){
+      el.append(node('h3',null,title));if(rows.length)rows.forEach(r=>el.append(qualityCard(r)));else empty(el,'No supported candidates; coverage may be incomplete.');
+    }
+    const details=node('details');details.append(node('summary',null,'Integrity, watchability and simultaneous-game comparisons'),node('pre','evidence',JSON.stringify({integrity:q.integrityProblems,missingEvidence:q.missingEvidence,watchability:q.games.map(g=>({gameKey:g.gameKey,modelVersion:g.modelVersion,...g.watchability})),simultaneous:q.simultaneousPriorityConflicts},null,2)));el.append(details);
+  }catch(error){if(generation===qualityGeneration)$('quality-status').textContent=String(error);}
+  finally{$('quality-load').disabled=false;}
+}
+$('quality-load').addEventListener('click',loadQuality);
+$('refresh').addEventListener('click',refresh);$('day').addEventListener('change',()=>{invalidateQuality();refresh();});
+$('export').addEventListener('click',()=>{const date=$('day').value || dayNY();location.href=`/export?date=${encodeURIComponent(date)}`});
+init();setInterval(refresh,60000);
