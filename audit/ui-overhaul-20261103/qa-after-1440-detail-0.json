@@ -1,0 +1,142 @@
+{
+  "capturedAt": "2026-11-04T05:16:32.416Z",
+  "source": {
+    "baseline": "5b7f797c879d36826d08b2ea31a6fecd18ef092c",
+    "files": {
+      "app.js": "ba53b6380e01e3f29a872504f9a148f2a15987af6b6cd9670511dc8e29dcd35a",
+      "styles.css": "0bfc16322525812046225f2d3f24a13b1cf940a3224b76225fa599be7735094d",
+      "mobile-readability.css": "b4ebae26110029a9530c8a63d8ecb270b29be8d224fcd593d6069891b5641635",
+      "ui-overhaul.css": "ffa0e64cc96f7cdbc6488e24da1e3163f62367b0787bbce32ddd1dc46450153f",
+      "team-logos.js": "75730ccdf44fafc61bbb9be1fae0a9a44a8c454d8f195885df1182f09c7b24aa",
+      "team-logos.css": "e29f47cbcce0ff10c49ca489324eed2c80c58b64ab75839445541c7c0e56241f",
+      "scoring-runtime.js": "aa5ee805be4401866607f0c25a1f98ebf756f1fc04a19e5097b71cadb1a09622"
+    }
+  },
+  "surface": "game-detail-overlay",
+  "phase": "after",
+  "width": 1440,
+  "view": "detail",
+  "set": 0,
+  "overflow": false,
+  "logos": [
+    {
+      "src": "https://a.espncdn.com/i/teamlogos/nfl/500/lv.png",
+      "loaded": true,
+      "box": {
+        "x": 231.54515075683594,
+        "y": 231.56251525878906,
+        "width": 47.99479293823242,
+        "height": 47.99479293823242,
+        "right": 279.53994369506836,
+        "bottom": 279.5573081970215
+      },
+      "expectedSize": null,
+      "filter": "drop-shadow(rgba(240, 232, 212, 0.94) 0.5px 0px 0px) drop-shadow(rgba(240, 232, 212, 0.94) -0.5px 0px 0px) drop-shadow(rgba(240, 232, 212, 0.94) 0px 0.5px 0px) drop-shadow(rgba(240, 232, 212, 0.94) 0px -0.5px 0px)",
+      "background": "rgba(0, 0, 0, 0)",
+      "cardBackground": null,
+      "treatment": "contour",
+      "natural": [
+        500,
+        500
+      ]
+    },
+    {
+      "src": "https://a.espncdn.com/i/teamlogos/nfl/500/bal.png",
+      "loaded": true,
+      "box": {
+        "x": 1158.4549560546875,
+        "y": 231.56251525878906,
+        "width": 47.99479293823242,
+        "height": 47.99479293823242,
+        "right": 1206.44974899292,
+        "bottom": 279.5573081970215
+      },
+      "expectedSize": null,
+      "filter": "drop-shadow(rgba(240, 232, 212, 0.94) 0.5px 0px 0px) drop-shadow(rgba(240, 232, 212, 0.94) -0.5px 0px 0px) drop-shadow(rgba(240, 232, 212, 0.94) 0px 0.5px 0px) drop-shadow(rgba(240, 232, 212, 0.94) 0px -0.5px 0px)",
+      "background": "rgba(0, 0, 0, 0)",
+      "cardBackground": null,
+      "treatment": "contour",
+      "natural": [
+        500,
+        500
+      ]
+    }
+  ],
+  "logoSizeMismatches": [],
+  "clipped": [],
+  "overlaps": [],
+  "recordFailures": [],
+  "cardLayout": [],
+  "detailTeams": [
+    {
+      "index": 0,
+      "box": {
+        "x": 214.54861450195312,
+        "y": 213.56771850585938,
+        "width": 505.451416015625,
+        "height": 83.99305725097656,
+        "right": 720.0000305175781,
+        "bottom": 297.56077575683594
+      },
+      "expectedRecord": "6-2",
+      "record": {
+        "text": "6-2",
+        "visible": true,
+        "fontSize": 11,
+        "box": {
+          "x": 293.54168701171875,
+          "y": 259.7829895019531,
+          "width": 333.47222900390625,
+          "height": 14.44444465637207,
+          "right": 627.013916015625,
+          "bottom": 274.2274341583252
+        },
+        "insideTeam": true
+      },
+      "badge": null
+    },
+    {
+      "index": 1,
+      "box": {
+        "x": 720.0000610351562,
+        "y": 213.56771850585938,
+        "width": 505.451416015625,
+        "height": 83.99305725097656,
+        "right": 1225.4514770507812,
+        "bottom": 297.56077575683594
+      },
+      "expectedRecord": "5-3",
+      "record": {
+        "text": "5-3",
+        "visible": true,
+        "fontSize": 11,
+        "box": {
+          "x": 813.5416870117188,
+          "y": 259.7829895019531,
+          "width": 332.91668701171875,
+          "height": 14.44444465637207,
+          "right": 1146.4583740234375,
+          "bottom": 274.2274341583252
+        },
+        "insideTeam": true
+      },
+      "badge": null
+    }
+  ],
+  "headerLogo": null,
+  "reducedMotion": false,
+  "reducedMotionEvidence": {
+    "actualPreference": false,
+    "testedUpdateClasses": false,
+    "elements": [],
+    "failures": []
+  },
+  "focusedLogo": null,
+  "errors": [],
+  "requests": [
+    "/after/teams.json",
+    "/config"
+  ],
+  "cards": 0,
+  "ppBadges": 0
+}

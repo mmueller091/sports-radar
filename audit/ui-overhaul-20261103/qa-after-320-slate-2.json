@@ -1,0 +1,201 @@
+{
+  "capturedAt": "2026-11-04T05:16:19.866Z",
+  "source": {
+    "baseline": "5b7f797c879d36826d08b2ea31a6fecd18ef092c",
+    "files": {
+      "app.js": "ba53b6380e01e3f29a872504f9a148f2a15987af6b6cd9670511dc8e29dcd35a",
+      "styles.css": "0bfc16322525812046225f2d3f24a13b1cf940a3224b76225fa599be7735094d",
+      "mobile-readability.css": "b4ebae26110029a9530c8a63d8ecb270b29be8d224fcd593d6069891b5641635",
+      "ui-overhaul.css": "ffa0e64cc96f7cdbc6488e24da1e3163f62367b0787bbce32ddd1dc46450153f",
+      "team-logos.js": "75730ccdf44fafc61bbb9be1fae0a9a44a8c454d8f195885df1182f09c7b24aa",
+      "team-logos.css": "e29f47cbcce0ff10c49ca489324eed2c80c58b64ab75839445541c7c0e56241f",
+      "scoring-runtime.js": "aa5ee805be4401866607f0c25a1f98ebf756f1fc04a19e5097b71cadb1a09622"
+    }
+  },
+  "surface": "document",
+  "phase": "after",
+  "width": 320,
+  "view": "slate",
+  "set": 2,
+  "overflow": false,
+  "logos": [
+    {
+      "src": "https://a.espncdn.com/i/teamlogos/ncaa/500/357.png",
+      "loaded": true,
+      "box": {
+        "x": 21,
+        "y": 343.7421875,
+        "width": 28,
+        "height": 28,
+        "right": 49,
+        "bottom": 371.7421875
+      },
+      "expectedSize": null,
+      "filter": "drop-shadow(rgba(240, 232, 212, 0.94) 0.5px 0px 0px) drop-shadow(rgba(240, 232, 212, 0.94) -0.5px 0px 0px) drop-shadow(rgba(240, 232, 212, 0.94) 0px 0.5px 0px) drop-shadow(rgba(240, 232, 212, 0.94) 0px -0.5px 0px)",
+      "background": "rgba(0, 0, 0, 0)",
+      "cardBackground": "rgb(34, 38, 41)",
+      "treatment": "contour",
+      "natural": [
+        500,
+        500
+      ]
+    },
+    {
+      "src": "https://a.espncdn.com/i/teamlogos/ncaa/500/96.png",
+      "loaded": true,
+      "box": {
+        "x": 21,
+        "y": 399.390625,
+        "width": 28,
+        "height": 28,
+        "right": 49,
+        "bottom": 427.390625
+      },
+      "expectedSize": null,
+      "filter": "drop-shadow(rgba(240, 232, 212, 0.94) 0.5px 0px 0px) drop-shadow(rgba(240, 232, 212, 0.94) -0.5px 0px 0px) drop-shadow(rgba(240, 232, 212, 0.94) 0px 0.5px 0px) drop-shadow(rgba(240, 232, 212, 0.94) 0px -0.5px 0px)",
+      "background": "rgba(0, 0, 0, 0)",
+      "cardBackground": "rgb(34, 38, 41)",
+      "treatment": "contour",
+      "natural": [
+        500,
+        500
+      ]
+    }
+  ],
+  "logoSizeMismatches": [],
+  "clipped": [],
+  "overlaps": [],
+  "recordFailures": [],
+  "cardLayout": [
+    {
+      "id": "qa-ncaam-upcoming",
+      "box": {
+        "x": 10,
+        "y": 280.59375,
+        "width": 300,
+        "height": 267.0859375,
+        "right": 310,
+        "bottom": 547.6796875
+      },
+      "footer": {
+        "x": 21,
+        "y": 490.484375,
+        "width": 278,
+        "height": 46.1953125,
+        "right": 299,
+        "bottom": 536.6796875
+      },
+      "primary": [
+        {
+          "class": "team-row ",
+          "box": {
+            "x": 21,
+            "y": 327.59375,
+            "width": 204,
+            "height": 60.296875,
+            "right": 225,
+            "bottom": 387.890625
+          }
+        },
+        {
+          "class": "team-row ",
+          "box": {
+            "x": 21,
+            "y": 387.890625,
+            "width": 204,
+            "height": 51,
+            "right": 225,
+            "bottom": 438.890625
+          }
+        },
+        {
+          "class": "card-moment",
+          "box": {
+            "x": 21,
+            "y": 446.890625,
+            "width": 278,
+            "height": 33.59375,
+            "right": 299,
+            "bottom": 480.484375
+          }
+        },
+        {
+          "class": "excitement",
+          "box": {
+            "x": 235,
+            "y": 327.59375,
+            "width": 64,
+            "height": 111.296875,
+            "right": 299,
+            "bottom": 438.890625
+          }
+        }
+      ],
+      "footerOverlaps": [],
+      "badges": [],
+      "expectedRecords": 2,
+      "records": [
+        {
+          "text": "0-0",
+          "visible": true,
+          "fontSize": 11,
+          "box": {
+            "x": 57,
+            "y": 369.59375,
+            "width": 168,
+            "height": 14.296875,
+            "right": 225,
+            "bottom": 383.890625
+          },
+          "insideCard": true
+        },
+        {
+          "text": "0-0",
+          "visible": true,
+          "fontSize": 11,
+          "box": {
+            "x": 57,
+            "y": 416.4921875,
+            "width": 168,
+            "height": 14.296875,
+            "right": 225,
+            "bottom": 430.7890625
+          },
+          "insideCard": true
+        }
+      ]
+    }
+  ],
+  "detailTeams": [],
+  "headerLogo": {
+    "loaded": true,
+    "box": {
+      "x": 8,
+      "y": 13,
+      "width": 34,
+      "height": 34,
+      "right": 42,
+      "bottom": 47
+    },
+    "objectFit": "contain",
+    "natural": [
+      512,
+      512
+    ]
+  },
+  "reducedMotion": false,
+  "reducedMotionEvidence": {
+    "actualPreference": false,
+    "testedUpdateClasses": false,
+    "elements": [],
+    "failures": []
+  },
+  "focusedLogo": null,
+  "errors": [],
+  "requests": [
+    "/after/teams.json",
+    "/config"
+  ],
+  "cards": 1,
+  "ppBadges": 0
+}

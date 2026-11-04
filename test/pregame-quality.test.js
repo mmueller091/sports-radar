@@ -58,7 +58,7 @@ test('a generic cached rivalry preview neither repeats the Outlook nor fills Key
 });
 
 test('empty Game Center story and summary sections disappear',()=>{
-  const empty=()=>'',context={URL,safeText:String,storylineDetails:empty,detailScoring:empty,detailLeaders:empty,detailDrives:empty,
+  const empty=()=>'',context={URL,safeText:String,renderExcitementTimeline:empty,storylineDetails:empty,detailScoring:empty,detailLeaders:empty,detailDrives:empty,
     detailMlbPlayerStats:empty,detailStats:empty,detailNhlAdvanced:empty,detailPlayerStats:empty,detailNhlGoalies:empty,basketballBoxScoreMarkup:empty,detailPlays:empty,
     globalThis:{innerWidth:1440}};
   const section=source.slice(source.indexOf('const DETAIL_TAB_CONFIG ='),source.indexOf('function detailTabsMarkup('));

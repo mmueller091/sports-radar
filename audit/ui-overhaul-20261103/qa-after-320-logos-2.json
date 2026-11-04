@@ -1,0 +1,617 @@
+{
+  "phase": "after",
+  "width": 320,
+  "view": "logos",
+  "set": 2,
+  "overflow": false,
+  "logos": [
+    {
+      "src": "https://a.espncdn.com/i/teamlogos/ncaa/500/2509.png",
+      "loaded": true,
+      "box": {
+        "x": 44.390625,
+        "y": 102.5,
+        "width": 20,
+        "height": 20,
+        "right": 64.390625,
+        "bottom": 122.5
+      },
+      "expectedSize": 20,
+      "filter": "drop-shadow(rgba(240, 232, 212, 0.94) 0.5px 0px 0px) drop-shadow(rgba(240, 232, 212, 0.94) -0.5px 0px 0px) drop-shadow(rgba(240, 232, 212, 0.94) 0px 0.5px 0px) drop-shadow(rgba(240, 232, 212, 0.94) 0px -0.5px 0px)",
+      "background": "rgba(0, 0, 0, 0)",
+      "cardBackground": "rgb(25, 28, 31)",
+      "treatment": "contour",
+      "natural": [
+        500,
+        500
+      ]
+    },
+    {
+      "src": "https://a.espncdn.com/i/teamlogos/ncaa/500/2509.png",
+      "loaded": true,
+      "box": {
+        "x": 101.9921875,
+        "y": 98.5,
+        "width": 28,
+        "height": 28,
+        "right": 129.9921875,
+        "bottom": 126.5
+      },
+      "expectedSize": 28,
+      "filter": "drop-shadow(rgba(240, 232, 212, 0.94) 0.5px 0px 0px) drop-shadow(rgba(240, 232, 212, 0.94) -0.5px 0px 0px) drop-shadow(rgba(240, 232, 212, 0.94) 0px 0.5px 0px) drop-shadow(rgba(240, 232, 212, 0.94) 0px -0.5px 0px)",
+      "background": "rgba(0, 0, 0, 0)",
+      "cardBackground": "rgb(25, 28, 31)",
+      "treatment": "contour",
+      "natural": [
+        500,
+        500
+      ]
+    },
+    {
+      "src": "https://a.espncdn.com/i/teamlogos/ncaa/500/2509.png",
+      "loaded": true,
+      "box": {
+        "x": 164.390625,
+        "y": 96.5,
+        "width": 32,
+        "height": 32,
+        "right": 196.390625,
+        "bottom": 128.5
+      },
+      "expectedSize": 32,
+      "filter": "drop-shadow(rgba(240, 232, 212, 0.94) 0.5px 0px 0px) drop-shadow(rgba(240, 232, 212, 0.94) -0.5px 0px 0px) drop-shadow(rgba(240, 232, 212, 0.94) 0px 0.5px 0px) drop-shadow(rgba(240, 232, 212, 0.94) 0px -0.5px 0px)",
+      "background": "rgba(0, 0, 0, 0)",
+      "cardBackground": "rgb(25, 28, 31)",
+      "treatment": "contour",
+      "natural": [
+        500,
+        500
+      ]
+    },
+    {
+      "src": "https://a.espncdn.com/i/teamlogos/ncaa/500/2509.png",
+      "loaded": true,
+      "box": {
+        "x": 230.796875,
+        "y": 88.5,
+        "width": 48,
+        "height": 48,
+        "right": 278.796875,
+        "bottom": 136.5
+      },
+      "expectedSize": 48,
+      "filter": "drop-shadow(rgba(240, 232, 212, 0.94) 0.5px 0px 0px) drop-shadow(rgba(240, 232, 212, 0.94) -0.5px 0px 0px) drop-shadow(rgba(240, 232, 212, 0.94) 0px 0.5px 0px) drop-shadow(rgba(240, 232, 212, 0.94) 0px -0.5px 0px)",
+      "background": "rgba(0, 0, 0, 0)",
+      "cardBackground": "rgb(25, 28, 31)",
+      "treatment": "contour",
+      "natural": [
+        500,
+        500
+      ]
+    },
+    {
+      "src": "https://a.espncdn.com/i/teamlogos/ncaa/500/2579.png",
+      "loaded": true,
+      "box": {
+        "x": 44.390625,
+        "y": 279,
+        "width": 20,
+        "height": 20,
+        "right": 64.390625,
+        "bottom": 299
+      },
+      "expectedSize": 20,
+      "filter": "drop-shadow(rgba(240, 232, 212, 0.94) 0.5px 0px 0px) drop-shadow(rgba(240, 232, 212, 0.94) -0.5px 0px 0px) drop-shadow(rgba(240, 232, 212, 0.94) 0px 0.5px 0px) drop-shadow(rgba(240, 232, 212, 0.94) 0px -0.5px 0px)",
+      "background": "rgba(0, 0, 0, 0)",
+      "cardBackground": "rgb(41, 45, 48)",
+      "treatment": "contour",
+      "natural": [
+        500,
+        500
+      ]
+    },
+    {
+      "src": "https://a.espncdn.com/i/teamlogos/ncaa/500/2579.png",
+      "loaded": true,
+      "box": {
+        "x": 101.9921875,
+        "y": 275,
+        "width": 28,
+        "height": 28,
+        "right": 129.9921875,
+        "bottom": 303
+      },
+      "expectedSize": 28,
+      "filter": "drop-shadow(rgba(240, 232, 212, 0.94) 0.5px 0px 0px) drop-shadow(rgba(240, 232, 212, 0.94) -0.5px 0px 0px) drop-shadow(rgba(240, 232, 212, 0.94) 0px 0.5px 0px) drop-shadow(rgba(240, 232, 212, 0.94) 0px -0.5px 0px)",
+      "background": "rgba(0, 0, 0, 0)",
+      "cardBackground": "rgb(41, 45, 48)",
+      "treatment": "contour",
+      "natural": [
+        500,
+        500
+      ]
+    },
+    {
+      "src": "https://a.espncdn.com/i/teamlogos/ncaa/500/2579.png",
+      "loaded": true,
+      "box": {
+        "x": 164.390625,
+        "y": 273,
+        "width": 32,
+        "height": 32,
+        "right": 196.390625,
+        "bottom": 305
+      },
+      "expectedSize": 32,
+      "filter": "drop-shadow(rgba(240, 232, 212, 0.94) 0.5px 0px 0px) drop-shadow(rgba(240, 232, 212, 0.94) -0.5px 0px 0px) drop-shadow(rgba(240, 232, 212, 0.94) 0px 0.5px 0px) drop-shadow(rgba(240, 232, 212, 0.94) 0px -0.5px 0px)",
+      "background": "rgba(0, 0, 0, 0)",
+      "cardBackground": "rgb(41, 45, 48)",
+      "treatment": "contour",
+      "natural": [
+        500,
+        500
+      ]
+    },
+    {
+      "src": "https://a.espncdn.com/i/teamlogos/ncaa/500/2579.png",
+      "loaded": true,
+      "box": {
+        "x": 230.796875,
+        "y": 265,
+        "width": 48,
+        "height": 48,
+        "right": 278.796875,
+        "bottom": 313
+      },
+      "expectedSize": 48,
+      "filter": "drop-shadow(rgba(240, 232, 212, 0.94) 0.5px 0px 0px) drop-shadow(rgba(240, 232, 212, 0.94) -0.5px 0px 0px) drop-shadow(rgba(240, 232, 212, 0.94) 0px 0.5px 0px) drop-shadow(rgba(240, 232, 212, 0.94) 0px -0.5px 0px)",
+      "background": "rgba(0, 0, 0, 0)",
+      "cardBackground": "rgb(41, 45, 48)",
+      "treatment": "contour",
+      "natural": [
+        500,
+        500
+      ]
+    },
+    {
+      "src": "https://a.espncdn.com/i/teamlogos/ncaa/500/213.png",
+      "loaded": true,
+      "box": {
+        "x": 44.390625,
+        "y": 455.5,
+        "width": 20,
+        "height": 20,
+        "right": 64.390625,
+        "bottom": 475.5
+      },
+      "expectedSize": 20,
+      "filter": "drop-shadow(rgba(240, 232, 212, 0.94) 0.5px 0px 0px) drop-shadow(rgba(240, 232, 212, 0.94) -0.5px 0px 0px) drop-shadow(rgba(240, 232, 212, 0.94) 0px 0.5px 0px) drop-shadow(rgba(240, 232, 212, 0.94) 0px -0.5px 0px)",
+      "background": "rgba(0, 0, 0, 0)",
+      "cardBackground": "rgb(25, 28, 31)",
+      "treatment": "contour",
+      "natural": [
+        500,
+        500
+      ]
+    },
+    {
+      "src": "https://a.espncdn.com/i/teamlogos/ncaa/500/213.png",
+      "loaded": true,
+      "box": {
+        "x": 101.9921875,
+        "y": 451.5,
+        "width": 28,
+        "height": 28,
+        "right": 129.9921875,
+        "bottom": 479.5
+      },
+      "expectedSize": 28,
+      "filter": "drop-shadow(rgba(240, 232, 212, 0.94) 0.5px 0px 0px) drop-shadow(rgba(240, 232, 212, 0.94) -0.5px 0px 0px) drop-shadow(rgba(240, 232, 212, 0.94) 0px 0.5px 0px) drop-shadow(rgba(240, 232, 212, 0.94) 0px -0.5px 0px)",
+      "background": "rgba(0, 0, 0, 0)",
+      "cardBackground": "rgb(25, 28, 31)",
+      "treatment": "contour",
+      "natural": [
+        500,
+        500
+      ]
+    },
+    {
+      "src": "https://a.espncdn.com/i/teamlogos/ncaa/500/213.png",
+      "loaded": true,
+      "box": {
+        "x": 164.390625,
+        "y": 449.5,
+        "width": 32,
+        "height": 32,
+        "right": 196.390625,
+        "bottom": 481.5
+      },
+      "expectedSize": 32,
+      "filter": "drop-shadow(rgba(240, 232, 212, 0.94) 0.5px 0px 0px) drop-shadow(rgba(240, 232, 212, 0.94) -0.5px 0px 0px) drop-shadow(rgba(240, 232, 212, 0.94) 0px 0.5px 0px) drop-shadow(rgba(240, 232, 212, 0.94) 0px -0.5px 0px)",
+      "background": "rgba(0, 0, 0, 0)",
+      "cardBackground": "rgb(25, 28, 31)",
+      "treatment": "contour",
+      "natural": [
+        500,
+        500
+      ]
+    },
+    {
+      "src": "https://a.espncdn.com/i/teamlogos/ncaa/500/213.png",
+      "loaded": true,
+      "box": {
+        "x": 230.796875,
+        "y": 441.5,
+        "width": 48,
+        "height": 48,
+        "right": 278.796875,
+        "bottom": 489.5
+      },
+      "expectedSize": 48,
+      "filter": "drop-shadow(rgba(240, 232, 212, 0.94) 0.5px 0px 0px) drop-shadow(rgba(240, 232, 212, 0.94) -0.5px 0px 0px) drop-shadow(rgba(240, 232, 212, 0.94) 0px 0.5px 0px) drop-shadow(rgba(240, 232, 212, 0.94) 0px -0.5px 0px)",
+      "background": "rgba(0, 0, 0, 0)",
+      "cardBackground": "rgb(25, 28, 31)",
+      "treatment": "contour",
+      "natural": [
+        500,
+        500
+      ]
+    },
+    {
+      "src": "https://a.espncdn.com/i/teamlogos/ncaa/500/2747.png",
+      "loaded": true,
+      "box": {
+        "x": 44.390625,
+        "y": 632,
+        "width": 20,
+        "height": 20,
+        "right": 64.390625,
+        "bottom": 652
+      },
+      "expectedSize": 20,
+      "filter": "drop-shadow(rgba(240, 232, 212, 0.94) 0.5px 0px 0px) drop-shadow(rgba(240, 232, 212, 0.94) -0.5px 0px 0px) drop-shadow(rgba(240, 232, 212, 0.94) 0px 0.5px 0px) drop-shadow(rgba(240, 232, 212, 0.94) 0px -0.5px 0px)",
+      "background": "rgba(0, 0, 0, 0)",
+      "cardBackground": "rgb(25, 28, 31)",
+      "treatment": "contour",
+      "natural": [
+        500,
+        500
+      ]
+    },
+    {
+      "src": "https://a.espncdn.com/i/teamlogos/ncaa/500/2747.png",
+      "loaded": true,
+      "box": {
+        "x": 101.9921875,
+        "y": 628,
+        "width": 28,
+        "height": 28,
+        "right": 129.9921875,
+        "bottom": 656
+      },
+      "expectedSize": 28,
+      "filter": "drop-shadow(rgba(240, 232, 212, 0.94) 0.5px 0px 0px) drop-shadow(rgba(240, 232, 212, 0.94) -0.5px 0px 0px) drop-shadow(rgba(240, 232, 212, 0.94) 0px 0.5px 0px) drop-shadow(rgba(240, 232, 212, 0.94) 0px -0.5px 0px)",
+      "background": "rgba(0, 0, 0, 0)",
+      "cardBackground": "rgb(25, 28, 31)",
+      "treatment": "contour",
+      "natural": [
+        500,
+        500
+      ]
+    },
+    {
+      "src": "https://a.espncdn.com/i/teamlogos/ncaa/500/2747.png",
+      "loaded": true,
+      "box": {
+        "x": 164.390625,
+        "y": 626,
+        "width": 32,
+        "height": 32,
+        "right": 196.390625,
+        "bottom": 658
+      },
+      "expectedSize": 32,
+      "filter": "drop-shadow(rgba(240, 232, 212, 0.94) 0.5px 0px 0px) drop-shadow(rgba(240, 232, 212, 0.94) -0.5px 0px 0px) drop-shadow(rgba(240, 232, 212, 0.94) 0px 0.5px 0px) drop-shadow(rgba(240, 232, 212, 0.94) 0px -0.5px 0px)",
+      "background": "rgba(0, 0, 0, 0)",
+      "cardBackground": "rgb(25, 28, 31)",
+      "treatment": "contour",
+      "natural": [
+        500,
+        500
+      ]
+    },
+    {
+      "src": "https://a.espncdn.com/i/teamlogos/ncaa/500/2747.png",
+      "loaded": true,
+      "box": {
+        "x": 230.796875,
+        "y": 618,
+        "width": 48,
+        "height": 48,
+        "right": 278.796875,
+        "bottom": 666
+      },
+      "expectedSize": 48,
+      "filter": "drop-shadow(rgba(240, 232, 212, 0.94) 0.5px 0px 0px) drop-shadow(rgba(240, 232, 212, 0.94) -0.5px 0px 0px) drop-shadow(rgba(240, 232, 212, 0.94) 0px 0.5px 0px) drop-shadow(rgba(240, 232, 212, 0.94) 0px -0.5px 0px)",
+      "background": "rgba(0, 0, 0, 0)",
+      "cardBackground": "rgb(25, 28, 31)",
+      "treatment": "contour",
+      "natural": [
+        500,
+        500
+      ]
+    },
+    {
+      "src": "https://a.espncdn.com/i/teamlogos/ncaa/500/357.png",
+      "loaded": true,
+      "box": {
+        "x": 44.390625,
+        "y": 808.5,
+        "width": 20,
+        "height": 20,
+        "right": 64.390625,
+        "bottom": 828.5
+      },
+      "expectedSize": 20,
+      "filter": "drop-shadow(rgba(240, 232, 212, 0.94) 0.5px 0px 0px) drop-shadow(rgba(240, 232, 212, 0.94) -0.5px 0px 0px) drop-shadow(rgba(240, 232, 212, 0.94) 0px 0.5px 0px) drop-shadow(rgba(240, 232, 212, 0.94) 0px -0.5px 0px)",
+      "background": "rgba(0, 0, 0, 0)",
+      "cardBackground": "rgb(25, 28, 31)",
+      "treatment": "contour",
+      "natural": [
+        500,
+        500
+      ]
+    },
+    {
+      "src": "https://a.espncdn.com/i/teamlogos/ncaa/500/357.png",
+      "loaded": true,
+      "box": {
+        "x": 101.9921875,
+        "y": 804.5,
+        "width": 28,
+        "height": 28,
+        "right": 129.9921875,
+        "bottom": 832.5
+      },
+      "expectedSize": 28,
+      "filter": "drop-shadow(rgba(240, 232, 212, 0.94) 0.5px 0px 0px) drop-shadow(rgba(240, 232, 212, 0.94) -0.5px 0px 0px) drop-shadow(rgba(240, 232, 212, 0.94) 0px 0.5px 0px) drop-shadow(rgba(240, 232, 212, 0.94) 0px -0.5px 0px)",
+      "background": "rgba(0, 0, 0, 0)",
+      "cardBackground": "rgb(25, 28, 31)",
+      "treatment": "contour",
+      "natural": [
+        500,
+        500
+      ]
+    },
+    {
+      "src": "https://a.espncdn.com/i/teamlogos/ncaa/500/357.png",
+      "loaded": true,
+      "box": {
+        "x": 164.390625,
+        "y": 802.5,
+        "width": 32,
+        "height": 32,
+        "right": 196.390625,
+        "bottom": 834.5
+      },
+      "expectedSize": 32,
+      "filter": "drop-shadow(rgba(240, 232, 212, 0.94) 0.5px 0px 0px) drop-shadow(rgba(240, 232, 212, 0.94) -0.5px 0px 0px) drop-shadow(rgba(240, 232, 212, 0.94) 0px 0.5px 0px) drop-shadow(rgba(240, 232, 212, 0.94) 0px -0.5px 0px)",
+      "background": "rgba(0, 0, 0, 0)",
+      "cardBackground": "rgb(25, 28, 31)",
+      "treatment": "contour",
+      "natural": [
+        500,
+        500
+      ]
+    },
+    {
+      "src": "https://a.espncdn.com/i/teamlogos/ncaa/500/357.png",
+      "loaded": true,
+      "box": {
+        "x": 230.796875,
+        "y": 794.5,
+        "width": 48,
+        "height": 48,
+        "right": 278.796875,
+        "bottom": 842.5
+      },
+      "expectedSize": 48,
+      "filter": "drop-shadow(rgba(240, 232, 212, 0.94) 0.5px 0px 0px) drop-shadow(rgba(240, 232, 212, 0.94) -0.5px 0px 0px) drop-shadow(rgba(240, 232, 212, 0.94) 0px 0.5px 0px) drop-shadow(rgba(240, 232, 212, 0.94) 0px -0.5px 0px)",
+      "background": "rgba(0, 0, 0, 0)",
+      "cardBackground": "rgb(25, 28, 31)",
+      "treatment": "contour",
+      "natural": [
+        500,
+        500
+      ]
+    },
+    {
+      "src": "https://a.espncdn.com/i/teamlogos/ncaa/500/24.png",
+      "loaded": true,
+      "box": {
+        "x": 44.390625,
+        "y": 985,
+        "width": 20,
+        "height": 20,
+        "right": 64.390625,
+        "bottom": 1005
+      },
+      "expectedSize": 20,
+      "filter": "drop-shadow(rgba(240, 232, 212, 0.94) 0.5px 0px 0px) drop-shadow(rgba(240, 232, 212, 0.94) -0.5px 0px 0px) drop-shadow(rgba(240, 232, 212, 0.94) 0px 0.5px 0px) drop-shadow(rgba(240, 232, 212, 0.94) 0px -0.5px 0px)",
+      "background": "rgba(0, 0, 0, 0)",
+      "cardBackground": "rgb(25, 28, 31)",
+      "treatment": "contour",
+      "natural": [
+        500,
+        500
+      ]
+    },
+    {
+      "src": "https://a.espncdn.com/i/teamlogos/ncaa/500/24.png",
+      "loaded": true,
+      "box": {
+        "x": 101.9921875,
+        "y": 981,
+        "width": 28,
+        "height": 28,
+        "right": 129.9921875,
+        "bottom": 1009
+      },
+      "expectedSize": 28,
+      "filter": "drop-shadow(rgba(240, 232, 212, 0.94) 0.5px 0px 0px) drop-shadow(rgba(240, 232, 212, 0.94) -0.5px 0px 0px) drop-shadow(rgba(240, 232, 212, 0.94) 0px 0.5px 0px) drop-shadow(rgba(240, 232, 212, 0.94) 0px -0.5px 0px)",
+      "background": "rgba(0, 0, 0, 0)",
+      "cardBackground": "rgb(25, 28, 31)",
+      "treatment": "contour",
+      "natural": [
+        500,
+        500
+      ]
+    },
+    {
+      "src": "https://a.espncdn.com/i/teamlogos/ncaa/500/24.png",
+      "loaded": true,
+      "box": {
+        "x": 164.390625,
+        "y": 979,
+        "width": 32,
+        "height": 32,
+        "right": 196.390625,
+        "bottom": 1011
+      },
+      "expectedSize": 32,
+      "filter": "drop-shadow(rgba(240, 232, 212, 0.94) 0.5px 0px 0px) drop-shadow(rgba(240, 232, 212, 0.94) -0.5px 0px 0px) drop-shadow(rgba(240, 232, 212, 0.94) 0px 0.5px 0px) drop-shadow(rgba(240, 232, 212, 0.94) 0px -0.5px 0px)",
+      "background": "rgba(0, 0, 0, 0)",
+      "cardBackground": "rgb(25, 28, 31)",
+      "treatment": "contour",
+      "natural": [
+        500,
+        500
+      ]
+    },
+    {
+      "src": "https://a.espncdn.com/i/teamlogos/ncaa/500/24.png",
+      "loaded": true,
+      "box": {
+        "x": 230.796875,
+        "y": 971,
+        "width": 48,
+        "height": 48,
+        "right": 278.796875,
+        "bottom": 1019
+      },
+      "expectedSize": 48,
+      "filter": "drop-shadow(rgba(240, 232, 212, 0.94) 0.5px 0px 0px) drop-shadow(rgba(240, 232, 212, 0.94) -0.5px 0px 0px) drop-shadow(rgba(240, 232, 212, 0.94) 0px 0.5px 0px) drop-shadow(rgba(240, 232, 212, 0.94) 0px -0.5px 0px)",
+      "background": "rgba(0, 0, 0, 0)",
+      "cardBackground": "rgb(25, 28, 31)",
+      "treatment": "contour",
+      "natural": [
+        500,
+        500
+      ]
+    }
+  ],
+  "logoSizeMismatches": [],
+  "clipped": [],
+  "overlaps": [],
+  "recordFailures": [],
+  "cardLayout": [
+    {
+      "box": {
+        "x": 10,
+        "y": 10,
+        "width": 300,
+        "height": 172.5,
+        "right": 310,
+        "bottom": 182.5
+      },
+      "footer": null,
+      "primary": [],
+      "footerOverlaps": [],
+      "badges": [],
+      "records": []
+    },
+    {
+      "box": {
+        "x": 10,
+        "y": 186.5,
+        "width": 300,
+        "height": 172.5,
+        "right": 310,
+        "bottom": 359
+      },
+      "footer": null,
+      "primary": [],
+      "footerOverlaps": [],
+      "badges": [],
+      "records": []
+    },
+    {
+      "box": {
+        "x": 10,
+        "y": 363,
+        "width": 300,
+        "height": 172.5,
+        "right": 310,
+        "bottom": 535.5
+      },
+      "footer": null,
+      "primary": [],
+      "footerOverlaps": [],
+      "badges": [],
+      "records": []
+    },
+    {
+      "box": {
+        "x": 10,
+        "y": 539.5,
+        "width": 300,
+        "height": 172.5,
+        "right": 310,
+        "bottom": 712
+      },
+      "footer": null,
+      "primary": [],
+      "footerOverlaps": [],
+      "badges": [],
+      "records": []
+    },
+    {
+      "box": {
+        "x": 10,
+        "y": 716,
+        "width": 300,
+        "height": 172.5,
+        "right": 310,
+        "bottom": 888.5
+      },
+      "footer": null,
+      "primary": [],
+      "footerOverlaps": [],
+      "badges": [],
+      "records": []
+    },
+    {
+      "box": {
+        "x": 10,
+        "y": 892.5,
+        "width": 300,
+        "height": 172.5,
+        "right": 310,
+        "bottom": 1065
+      },
+      "footer": null,
+      "primary": [],
+      "footerOverlaps": [],
+      "badges": [],
+      "records": []
+    }
+  ],
+  "headerLogo": null,
+  "errors": [],
+  "requests": [
+    "/after/teams.json",
+    "/config"
+  ],
+  "cards": 6,
+  "ppBadges": 0
+}

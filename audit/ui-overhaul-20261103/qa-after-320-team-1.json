@@ -1,0 +1,94 @@
+{
+  "capturedAt": "2026-11-04T04:55:58.415Z",
+  "source": {
+    "baseline": "5b7f797c879d36826d08b2ea31a6fecd18ef092c",
+    "files": {
+      "app.js": "ba53b6380e01e3f29a872504f9a148f2a15987af6b6cd9670511dc8e29dcd35a",
+      "styles.css": "b2966f30cb36996e8ac21c5cea8e3c2b31265077e6e15b4c5b1b8e874e438f02",
+      "mobile-readability.css": "a85dea947825851f262438d9f2a073f5d9129c8a1d645b5e8d652bcbcacc01ba",
+      "ui-overhaul.css": "ffa0e64cc96f7cdbc6488e24da1e3163f62367b0787bbce32ddd1dc46450153f",
+      "team-logos.js": "75730ccdf44fafc61bbb9be1fae0a9a44a8c454d8f195885df1182f09c7b24aa",
+      "team-logos.css": "e29f47cbcce0ff10c49ca489324eed2c80c58b64ab75839445541c7c0e56241f",
+      "scoring-runtime.js": "aa5ee805be4401866607f0c25a1f98ebf756f1fc04a19e5097b71cadb1a09622"
+    }
+  },
+  "phase": "after",
+  "width": 320,
+  "view": "team",
+  "set": 1,
+  "overflow": false,
+  "logos": [
+    {
+      "src": "https://a.espncdn.com/i/teamlogos/nhl/500/det.png",
+      "loaded": true,
+      "box": {
+        "x": 36,
+        "y": 162.1875,
+        "width": 58,
+        "height": 58,
+        "right": 94,
+        "bottom": 220.1875
+      },
+      "expectedSize": null,
+      "filter": "drop-shadow(rgba(240, 232, 212, 0.68) 0px 0px 0.55px)",
+      "background": "rgba(0, 0, 0, 0)",
+      "cardBackground": null,
+      "treatment": "soft",
+      "natural": [
+        500,
+        500
+      ]
+    },
+    {
+      "src": "https://a.espncdn.com/i/teamlogos/nhl/500/tb.png",
+      "loaded": true,
+      "box": {
+        "x": 26,
+        "y": 603.375,
+        "width": 42,
+        "height": 42,
+        "right": 68,
+        "bottom": 645.375
+      },
+      "expectedSize": null,
+      "filter": "drop-shadow(rgba(240, 232, 212, 0.94) 0.5px 0px 0px) drop-shadow(rgba(240, 232, 212, 0.94) -0.5px 0px 0px) drop-shadow(rgba(240, 232, 212, 0.94) 0px 0.5px 0px) drop-shadow(rgba(240, 232, 212, 0.94) 0px -0.5px 0px)",
+      "background": "rgba(0, 0, 0, 0)",
+      "cardBackground": null,
+      "treatment": "contour",
+      "natural": [
+        500,
+        500
+      ]
+    }
+  ],
+  "logoSizeMismatches": [],
+  "clipped": [],
+  "overlaps": [],
+  "recordFailures": [],
+  "cardLayout": [],
+  "headerLogo": {
+    "loaded": true,
+    "box": {
+      "x": 8,
+      "y": 13,
+      "width": 34,
+      "height": 34,
+      "right": 42,
+      "bottom": 47
+    },
+    "objectFit": "contain",
+    "natural": [
+      512,
+      512
+    ]
+  },
+  "reducedMotion": false,
+  "focusedLogo": null,
+  "errors": [],
+  "requests": [
+    "/after/teams.json",
+    "/config"
+  ],
+  "cards": 0,
+  "ppBadges": 0
+}

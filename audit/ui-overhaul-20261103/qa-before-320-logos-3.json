@@ -1,0 +1,221 @@
+{
+  "phase": "before",
+  "width": 320,
+  "view": "logos",
+  "set": 3,
+  "overflow": false,
+  "logos": [
+    {
+      "src": "https://a.espncdn.com/i/teamlogos/nhl/500-dark/tb.png",
+      "loaded": true,
+      "box": {
+        "x": 43.640625,
+        "y": 127,
+        "width": 20,
+        "height": 20,
+        "right": 63.640625,
+        "bottom": 147
+      },
+      "expectedSize": 20,
+      "filter": "drop-shadow(rgb(240, 232, 212) 0px 0px 1px) drop-shadow(rgb(240, 232, 212) 0px 0px 1px)",
+      "background": "rgba(0, 0, 0, 0)",
+      "cardBackground": "rgb(25, 28, 31)",
+      "treatment": "",
+      "natural": [
+        500,
+        500
+      ]
+    },
+    {
+      "src": "https://a.espncdn.com/i/teamlogos/nhl/500-dark/tb.png",
+      "loaded": true,
+      "box": {
+        "x": 101.7421875,
+        "y": 123,
+        "width": 28,
+        "height": 28,
+        "right": 129.7421875,
+        "bottom": 151
+      },
+      "expectedSize": 28,
+      "filter": "drop-shadow(rgb(240, 232, 212) 0px 0px 1px) drop-shadow(rgb(240, 232, 212) 0px 0px 1px)",
+      "background": "rgba(0, 0, 0, 0)",
+      "cardBackground": "rgb(25, 28, 31)",
+      "treatment": "",
+      "natural": [
+        500,
+        500
+      ]
+    },
+    {
+      "src": "https://a.espncdn.com/i/teamlogos/nhl/500-dark/tb.png",
+      "loaded": true,
+      "box": {
+        "x": 164.640625,
+        "y": 121,
+        "width": 32,
+        "height": 32,
+        "right": 196.640625,
+        "bottom": 153
+      },
+      "expectedSize": 32,
+      "filter": "drop-shadow(rgb(240, 232, 212) 0px 0px 1px) drop-shadow(rgb(240, 232, 212) 0px 0px 1px)",
+      "background": "rgba(0, 0, 0, 0)",
+      "cardBackground": "rgb(25, 28, 31)",
+      "treatment": "",
+      "natural": [
+        500,
+        500
+      ]
+    },
+    {
+      "src": "https://a.espncdn.com/i/teamlogos/nhl/500-dark/tb.png",
+      "loaded": true,
+      "box": {
+        "x": 231.546875,
+        "y": 113,
+        "width": 48,
+        "height": 48,
+        "right": 279.546875,
+        "bottom": 161
+      },
+      "expectedSize": 48,
+      "filter": "drop-shadow(rgb(240, 232, 212) 0px 0px 1px) drop-shadow(rgb(240, 232, 212) 0px 0px 1px)",
+      "background": "rgba(0, 0, 0, 0)",
+      "cardBackground": "rgb(25, 28, 31)",
+      "treatment": "",
+      "natural": [
+        500,
+        500
+      ]
+    },
+    {
+      "src": "https://www.mlbstatic.com/team-logos/145.svg",
+      "loaded": true,
+      "box": {
+        "x": 43.640625,
+        "y": 309,
+        "width": 20,
+        "height": 20,
+        "right": 63.640625,
+        "bottom": 329
+      },
+      "expectedSize": 20,
+      "filter": "drop-shadow(rgb(240, 232, 212) 0px 0px 1px) drop-shadow(rgb(240, 232, 212) 0px 0px 1px)",
+      "background": "rgba(0, 0, 0, 0)",
+      "cardBackground": "rgb(25, 28, 31)",
+      "treatment": "",
+      "natural": [
+        107,
+        150
+      ]
+    },
+    {
+      "src": "https://www.mlbstatic.com/team-logos/145.svg",
+      "loaded": true,
+      "box": {
+        "x": 101.7421875,
+        "y": 305,
+        "width": 28,
+        "height": 28,
+        "right": 129.7421875,
+        "bottom": 333
+      },
+      "expectedSize": 28,
+      "filter": "drop-shadow(rgb(240, 232, 212) 0px 0px 1px) drop-shadow(rgb(240, 232, 212) 0px 0px 1px)",
+      "background": "rgba(0, 0, 0, 0)",
+      "cardBackground": "rgb(25, 28, 31)",
+      "treatment": "",
+      "natural": [
+        107,
+        150
+      ]
+    },
+    {
+      "src": "https://www.mlbstatic.com/team-logos/145.svg",
+      "loaded": true,
+      "box": {
+        "x": 164.640625,
+        "y": 303,
+        "width": 32,
+        "height": 32,
+        "right": 196.640625,
+        "bottom": 335
+      },
+      "expectedSize": 32,
+      "filter": "drop-shadow(rgb(240, 232, 212) 0px 0px 1px) drop-shadow(rgb(240, 232, 212) 0px 0px 1px)",
+      "background": "rgba(0, 0, 0, 0)",
+      "cardBackground": "rgb(25, 28, 31)",
+      "treatment": "",
+      "natural": [
+        107,
+        150
+      ]
+    },
+    {
+      "src": "https://www.mlbstatic.com/team-logos/145.svg",
+      "loaded": true,
+      "box": {
+        "x": 231.546875,
+        "y": 295,
+        "width": 48,
+        "height": 48,
+        "right": 279.546875,
+        "bottom": 343
+      },
+      "expectedSize": 48,
+      "filter": "drop-shadow(rgb(240, 232, 212) 0px 0px 1px) drop-shadow(rgb(240, 232, 212) 0px 0px 1px)",
+      "background": "rgba(0, 0, 0, 0)",
+      "cardBackground": "rgb(25, 28, 31)",
+      "treatment": "",
+      "natural": [
+        107,
+        150
+      ]
+    }
+  ],
+  "logoSizeMismatches": [],
+  "clipped": [],
+  "overlaps": [],
+  "recordFailures": [],
+  "cardLayout": [
+    {
+      "box": {
+        "x": 9,
+        "y": 22,
+        "width": 302,
+        "height": 185,
+        "right": 311,
+        "bottom": 207
+      },
+      "footer": null,
+      "primary": [],
+      "footerOverlaps": [],
+      "badges": [],
+      "records": []
+    },
+    {
+      "box": {
+        "x": 9,
+        "y": 219,
+        "width": 302,
+        "height": 170,
+        "right": 311,
+        "bottom": 389
+      },
+      "footer": null,
+      "primary": [],
+      "footerOverlaps": [],
+      "badges": [],
+      "records": []
+    }
+  ],
+  "headerLogo": null,
+  "errors": [],
+  "requests": [
+    "/before/teams.json",
+    "/config"
+  ],
+  "cards": 2,
+  "ppBadges": 0
+}

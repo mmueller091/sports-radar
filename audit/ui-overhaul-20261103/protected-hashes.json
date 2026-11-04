@@ -1,0 +1,1546 @@
+{
+  "baselineRevision": "5b7f797c879d36826d08b2ea31a6fecd18ef092c",
+  "baselineCheckout": "C:\\Users\\mmuel\\Documents\\Codex\\2026-10-21\\sports-radar-publish\\work\\slatemeter-ui-overhaul-20261103\\work\\baseline-replay-5b7f797",
+  "baselineCheckoutClean": true,
+  "generatedScorer": {
+    "baselineSha256": "aa5ee805be4401866607f0c25a1f98ebf756f1fc04a19e5097b71cadb1a09622",
+    "currentSha256": "aa5ee805be4401866607f0c25a1f98ebf756f1fc04a19e5097b71cadb1a09622",
+    "identical": true,
+    "baselineBuild": "esbuild pristine HEAD scoring/browser-entry.cjs; bundle browser iife es2022 minify"
+  },
+  "replayTest": {
+    "path": "test/replay-input-comparison.test.js",
+    "baselineSha256": "151922b3577864dda6987e987b2b64a201d4e5b88f43b267ea4378f6082b5e57",
+    "pristineCheckoutSha256": "151922b3577864dda6987e987b2b64a201d4e5b88f43b267ea4378f6082b5e57",
+    "currentSha256": "151922b3577864dda6987e987b2b64a201d4e5b88f43b267ea4378f6082b5e57",
+    "identical": true,
+    "historicalRevision": "1bf1c66703a097c97fcde55b4c7af13055c3c593",
+    "missingPath": "calibration/trajectory-current-checkpoint-manifest.json"
+  },
+  "allProtectedFilesIdentical": false,
+  "protectedFileCount": 151,
+  "entries": [
+    {
+      "path": "alert-config.js",
+      "baselineSha256": "8e13b1a6b66b56c1dfc6d9c61b28c9fa108249258736b0a8f4e00d86d92902ed",
+      "currentSha256": "e2fa5c4bb15e8ad80f4a820082f6494709e6bcfea380382f3502568b33ab4406",
+      "identical": false,
+      "baselineCanonicalLfSha256": "8e13b1a6b66b56c1dfc6d9c61b28c9fa108249258736b0a8f4e00d86d92902ed",
+      "currentCanonicalLfSha256": "8e13b1a6b66b56c1dfc6d9c61b28c9fa108249258736b0a8f4e00d86d92902ed",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": true
+    },
+    {
+      "path": "alerts-worker/README.md",
+      "baselineSha256": "c8f6e90083d0435c370319ea9a4e51fa09d450ea8e86ea121baf92518c19ece4",
+      "currentSha256": "8d125208f7c26afc7ba7f108b2cd3127d12357bf0c9b976d98d6e751bde0c12c",
+      "identical": false,
+      "baselineCanonicalLfSha256": "c8f6e90083d0435c370319ea9a4e51fa09d450ea8e86ea121baf92518c19ece4",
+      "currentCanonicalLfSha256": "c8f6e90083d0435c370319ea9a4e51fa09d450ea8e86ea121baf92518c19ece4",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": true
+    },
+    {
+      "path": "alerts-worker/migrations/0001_scoring_audit.sql",
+      "baselineSha256": "4d293aa0d5578392a03c7f99fb35a6203349cb72b7421173ce8dfd951e0d8ce0",
+      "currentSha256": "6c6669876b1f2717e7a2d24e754248b36e038aac6d0bd1c067900cd95dae590a",
+      "identical": false,
+      "baselineCanonicalLfSha256": "4d293aa0d5578392a03c7f99fb35a6203349cb72b7421173ce8dfd951e0d8ce0",
+      "currentCanonicalLfSha256": "4d293aa0d5578392a03c7f99fb35a6203349cb72b7421173ce8dfd951e0d8ce0",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": true
+    },
+    {
+      "path": "alerts-worker/migrations/0002_history_lookup_indexes.sql",
+      "baselineSha256": "11bbb27459f9cd574e838c24048799bbcf46c20b1f858061e1eded7b2e94ecfc",
+      "currentSha256": "56880db9478a280db18104ea4828ba8cd00f565525c131a66a5f5111a54c858b",
+      "identical": false,
+      "baselineCanonicalLfSha256": "11bbb27459f9cd574e838c24048799bbcf46c20b1f858061e1eded7b2e94ecfc",
+      "currentCanonicalLfSha256": "11bbb27459f9cd574e838c24048799bbcf46c20b1f858061e1eded7b2e94ecfc",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": true
+    },
+    {
+      "path": "alerts-worker/migrations/0003_notification_preferences.sql",
+      "baselineSha256": "2c4a1d98326286572f399899d2a1dea5f02b05d48a130cb843980a4a9d8705cc",
+      "currentSha256": "ce779e3d962bc45942fbd769fb6f35d769458321a2dc1b51f14d74a9325f9b2d",
+      "identical": false,
+      "baselineCanonicalLfSha256": "2c4a1d98326286572f399899d2a1dea5f02b05d48a130cb843980a4a9d8705cc",
+      "currentCanonicalLfSha256": "2c4a1d98326286572f399899d2a1dea5f02b05d48a130cb843980a4a9d8705cc",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": true
+    },
+    {
+      "path": "alerts-worker/package-lock.json",
+      "baselineSha256": "84b5bbd13c18b27d3a8f54ac2d3a495c008b62517fb153d4a6f223ae0f7e7dd3",
+      "currentSha256": "05ffe74617ab0290b98bd3af3a14567309474f83c85ee9010f898c575e07ad4d",
+      "identical": false,
+      "baselineCanonicalLfSha256": "84b5bbd13c18b27d3a8f54ac2d3a495c008b62517fb153d4a6f223ae0f7e7dd3",
+      "currentCanonicalLfSha256": "84b5bbd13c18b27d3a8f54ac2d3a495c008b62517fb153d4a6f223ae0f7e7dd3",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": true
+    },
+    {
+      "path": "alerts-worker/package.json",
+      "baselineSha256": "6a6940f48348a0eefc7a2e675a7b9acb019b1b5e4f6d81545431931d2f127604",
+      "currentSha256": "f02933fec7bb52e7cd653f985268278793ff5ec170fe2ddedc677f3fa7a40749",
+      "identical": false,
+      "baselineCanonicalLfSha256": "6a6940f48348a0eefc7a2e675a7b9acb019b1b5e4f6d81545431931d2f127604",
+      "currentCanonicalLfSha256": "6a6940f48348a0eefc7a2e675a7b9acb019b1b5e4f6d81545431931d2f127604",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": true
+    },
+    {
+      "path": "alerts-worker/schema.sql",
+      "baselineSha256": "16caf708091e027b58d166fed25347f3b706c68d777f38352e5d955b0adaebd6",
+      "currentSha256": "cebc4adad4b37997da40b48f14fdccc78d622539620494eb88e3eb834c489743",
+      "identical": false,
+      "baselineCanonicalLfSha256": "16caf708091e027b58d166fed25347f3b706c68d777f38352e5d955b0adaebd6",
+      "currentCanonicalLfSha256": "16caf708091e027b58d166fed25347f3b706c68d777f38352e5d955b0adaebd6",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": true
+    },
+    {
+      "path": "alerts-worker/scripts/generate-vapid.js",
+      "baselineSha256": "a9c1f0150ceb1724111c37f9c553f838bdd31f3a2669a213c6888a3a4dcce605",
+      "currentSha256": "cebca6fbf36ac0395d7255a1aacb125d865a247a435ebdbcb0316e0900ee432b",
+      "identical": false,
+      "baselineCanonicalLfSha256": "a9c1f0150ceb1724111c37f9c553f838bdd31f3a2669a213c6888a3a4dcce605",
+      "currentCanonicalLfSha256": "a9c1f0150ceb1724111c37f9c553f838bdd31f3a2669a213c6888a3a4dcce605",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": true
+    },
+    {
+      "path": "alerts-worker/src/ai-budget.js",
+      "baselineSha256": "f7a7e1f7fdd08c5283d3eda325145157d8179e828b44c750d6615d8cf3b3cb5c",
+      "currentSha256": "531d71c1911fff3d70f9baad2d9e615b1bc77bf6854e59f5dbccb9ec7a56846d",
+      "identical": false,
+      "baselineCanonicalLfSha256": "f7a7e1f7fdd08c5283d3eda325145157d8179e828b44c750d6615d8cf3b3cb5c",
+      "currentCanonicalLfSha256": "f7a7e1f7fdd08c5283d3eda325145157d8179e828b44c750d6615d8cf3b3cb5c",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": true
+    },
+    {
+      "path": "alerts-worker/src/alert-delivery.js",
+      "baselineSha256": "854bc2dc515c3a869519e4dbba8e35f495141e5cfc3715143400fc0c283fc716",
+      "currentSha256": "f673bdea8ebde81b5c6e9a0996de7eea8774cb05f8650a551d121e5bbbe710e6",
+      "identical": false,
+      "baselineCanonicalLfSha256": "854bc2dc515c3a869519e4dbba8e35f495141e5cfc3715143400fc0c283fc716",
+      "currentCanonicalLfSha256": "854bc2dc515c3a869519e4dbba8e35f495141e5cfc3715143400fc0c283fc716",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": true
+    },
+    {
+      "path": "alerts-worker/src/cfb-metadata.js",
+      "baselineSha256": "51fafb622436e8c5bda981c094f9c7b996201c627c0d19cbdf676bc9e65e47f5",
+      "currentSha256": "62aee5a794ac7b37f9538f398029e79c72ac1a5b839231ce16560beba65e2f44",
+      "identical": false,
+      "baselineCanonicalLfSha256": "51fafb622436e8c5bda981c094f9c7b996201c627c0d19cbdf676bc9e65e47f5",
+      "currentCanonicalLfSha256": "51fafb622436e8c5bda981c094f9c7b996201c627c0d19cbdf676bc9e65e47f5",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": true
+    },
+    {
+      "path": "alerts-worker/src/display-model.js",
+      "baselineSha256": "5536a902bc1bf469a5ca982b21cc53167afbbe6328f1cb2ef8fcd6519e9416fd",
+      "currentSha256": "a38bf0b500da4d5b6c42d50f46bbaca529e6f7a1e9e341aced58152b615c1895",
+      "identical": false,
+      "baselineCanonicalLfSha256": "5536a902bc1bf469a5ca982b21cc53167afbbe6328f1cb2ef8fcd6519e9416fd",
+      "currentCanonicalLfSha256": "5536a902bc1bf469a5ca982b21cc53167afbbe6328f1cb2ef8fcd6519e9416fd",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": true
+    },
+    {
+      "path": "alerts-worker/src/editorial-context.js",
+      "baselineSha256": "c7e37f75e7e7be93ad5938b2bce425a3a1d4f196e5cecb4da4e19e6c1bec7f1e",
+      "currentSha256": "47690e871dae3fee0d16975f597932267f2e07b370d8f6a4fec032c9dfae85a1",
+      "identical": false,
+      "baselineCanonicalLfSha256": "c7e37f75e7e7be93ad5938b2bce425a3a1d4f196e5cecb4da4e19e6c1bec7f1e",
+      "currentCanonicalLfSha256": "c7e37f75e7e7be93ad5938b2bce425a3a1d4f196e5cecb4da4e19e6c1bec7f1e",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": true
+    },
+    {
+      "path": "alerts-worker/src/game-model.js",
+      "baselineSha256": "415178a53fa20c348eb5695603c154da173a65e4135874005c6a0832777ae3ee",
+      "currentSha256": "ee769f2be33fea7117701c0d0ebb5c0e5c5499e0657f5c07e27deda10bcaf06b",
+      "identical": false,
+      "baselineCanonicalLfSha256": "415178a53fa20c348eb5695603c154da173a65e4135874005c6a0832777ae3ee",
+      "currentCanonicalLfSha256": "415178a53fa20c348eb5695603c154da173a65e4135874005c6a0832777ae3ee",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": true
+    },
+    {
+      "path": "alerts-worker/src/index.js",
+      "baselineSha256": "2a9fc4c430aeebc5ca9ae7d2a24296a2fb5f7c998261098c5a9246f529ed4420",
+      "currentSha256": "624318a025169544689a0074f29c96c169aae8923ff210c01078b457885ad34f",
+      "identical": false,
+      "baselineCanonicalLfSha256": "2a9fc4c430aeebc5ca9ae7d2a24296a2fb5f7c998261098c5a9246f529ed4420",
+      "currentCanonicalLfSha256": "2a9fc4c430aeebc5ca9ae7d2a24296a2fb5f7c998261098c5a9246f529ed4420",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": true
+    },
+    {
+      "path": "alerts-worker/src/live-game-model.js",
+      "baselineSha256": "670e020eba725c01e7551f6c08c68c1bc345f3e159631e2cbcf4f6bb64838cc1",
+      "currentSha256": "4c728f40a74a2405e42715349f0b99e087df81a1309b319eccb3e78e1b13574d",
+      "identical": false,
+      "baselineCanonicalLfSha256": "670e020eba725c01e7551f6c08c68c1bc345f3e159631e2cbcf4f6bb64838cc1",
+      "currentCanonicalLfSha256": "670e020eba725c01e7551f6c08c68c1bc345f3e159631e2cbcf4f6bb64838cc1",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": true
+    },
+    {
+      "path": "alerts-worker/src/nfl-pregame.js",
+      "baselineSha256": "c4803baec689142e8cb7f026083c78494cc6d86ba4b778fbfd8f9d9a19e88736",
+      "currentSha256": "e91f340369f209396d1489435d37c2415a4a306c2a87589b5029994c16be8683",
+      "identical": false,
+      "baselineCanonicalLfSha256": "c4803baec689142e8cb7f026083c78494cc6d86ba4b778fbfd8f9d9a19e88736",
+      "currentCanonicalLfSha256": "c4803baec689142e8cb7f026083c78494cc6d86ba4b778fbfd8f9d9a19e88736",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": true
+    },
+    {
+      "path": "alerts-worker/src/nfl-return.js",
+      "baselineSha256": "fd81b9682ec5d7ff5b3b83a296c61671500ed891f41a276a24ac03ea6b62e46c",
+      "currentSha256": "2cfc05f827a68cee604c214dcb15bb03455165e93b680c6a210f2b3f3a691d79",
+      "identical": false,
+      "baselineCanonicalLfSha256": "fd81b9682ec5d7ff5b3b83a296c61671500ed891f41a276a24ac03ea6b62e46c",
+      "currentCanonicalLfSha256": "fd81b9682ec5d7ff5b3b83a296c61671500ed891f41a276a24ac03ea6b62e46c",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": true
+    },
+    {
+      "path": "alerts-worker/src/notification-preferences.js",
+      "baselineSha256": "1233ffa1292caa894153d3aba8b9d36316fbf48795df9cc8fc761dfed3956b0e",
+      "currentSha256": "bf5779624c0c675a45107b852d921cb4373ec82aaa567d997b939ce0d2738856",
+      "identical": false,
+      "baselineCanonicalLfSha256": "1233ffa1292caa894153d3aba8b9d36316fbf48795df9cc8fc761dfed3956b0e",
+      "currentCanonicalLfSha256": "1233ffa1292caa894153d3aba8b9d36316fbf48795df9cc8fc761dfed3956b0e",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": true
+    },
+    {
+      "path": "alerts-worker/src/providers/espn.js",
+      "baselineSha256": "cb316d00cdbd0f72549c8dd25365188786a5e3f58981a9aef256c08a82318127",
+      "currentSha256": "e5d59cf00433f5ee025cb45b48b28542d4995b14246d7e038fdda5909de9ba33",
+      "identical": false,
+      "baselineCanonicalLfSha256": "cb316d00cdbd0f72549c8dd25365188786a5e3f58981a9aef256c08a82318127",
+      "currentCanonicalLfSha256": "cb316d00cdbd0f72549c8dd25365188786a5e3f58981a9aef256c08a82318127",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": true
+    },
+    {
+      "path": "alerts-worker/src/providers/nhl.js",
+      "baselineSha256": "d5d4f1661e05973fef21796d5e1829d271b71a9729c9a866cb48dbbca0d5972a",
+      "currentSha256": "6684058fd9b07d4ccd056fa249505d8dbb87f2fb4729fa2dac83d38a69155f56",
+      "identical": false,
+      "baselineCanonicalLfSha256": "d5d4f1661e05973fef21796d5e1829d271b71a9729c9a866cb48dbbca0d5972a",
+      "currentCanonicalLfSha256": "d5d4f1661e05973fef21796d5e1829d271b71a9729c9a866cb48dbbca0d5972a",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": true
+    },
+    {
+      "path": "alerts-worker/src/providers/tennis.js",
+      "baselineSha256": "fe01200bc88671642a495ddf78fdfe33bb9798f91d10f23a99a6e0a0d9296e0c",
+      "currentSha256": "ad36a88b157594ddb633ffac047b586040dc17d62a1ef0caca21f01dab771e8a",
+      "identical": false,
+      "baselineCanonicalLfSha256": "fe01200bc88671642a495ddf78fdfe33bb9798f91d10f23a99a6e0a0d9296e0c",
+      "currentCanonicalLfSha256": "fe01200bc88671642a495ddf78fdfe33bb9798f91d10f23a99a6e0a0d9296e0c",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": true
+    },
+    {
+      "path": "alerts-worker/src/refresh-policy.js",
+      "baselineSha256": "854c4a304117e000f57e586cc7334afd703830519b2d08b44bb78bbc786704a9",
+      "currentSha256": "444425eaf9d6c3051b69c239f5dc1bdc2ab029630000c55060af0253c4503e88",
+      "identical": false,
+      "baselineCanonicalLfSha256": "854c4a304117e000f57e586cc7334afd703830519b2d08b44bb78bbc786704a9",
+      "currentCanonicalLfSha256": "854c4a304117e000f57e586cc7334afd703830519b2d08b44bb78bbc786704a9",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": true
+    },
+    {
+      "path": "alerts-worker/src/research-allocation.js",
+      "baselineSha256": "ba3ef6233e58d4a000e09815fbeb7031550f05d3b63c06e3de80cbacb799873f",
+      "currentSha256": "9426de4506bc53d9828ac4b0ff281ad6f10612507f10570396f9233ef2ef475a",
+      "identical": false,
+      "baselineCanonicalLfSha256": "ba3ef6233e58d4a000e09815fbeb7031550f05d3b63c06e3de80cbacb799873f",
+      "currentCanonicalLfSha256": "ba3ef6233e58d4a000e09815fbeb7031550f05d3b63c06e3de80cbacb799873f",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": true
+    },
+    {
+      "path": "alerts-worker/src/snapshot-history.js",
+      "baselineSha256": "da9fdd57f6282a7f546707be1381f14cb5b6371f24b015720105b5a9e1cddf6d",
+      "currentSha256": "47ca5fc649f5691893e0e00b524000c546c66720837bfedebedb52a76dcd4dee",
+      "identical": false,
+      "baselineCanonicalLfSha256": "da9fdd57f6282a7f546707be1381f14cb5b6371f24b015720105b5a9e1cddf6d",
+      "currentCanonicalLfSha256": "da9fdd57f6282a7f546707be1381f14cb5b6371f24b015720105b5a9e1cddf6d",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": true
+    },
+    {
+      "path": "alerts-worker/src/sports-feed.js",
+      "baselineSha256": "0a668a41278e0e39c85448576e65f11303d1bda2df016c1e0c85bb1d402b3623",
+      "currentSha256": "0a668a41278e0e39c85448576e65f11303d1bda2df016c1e0c85bb1d402b3623",
+      "identical": true,
+      "baselineCanonicalLfSha256": "6b38c5a963f65da1c941e76bd3878fd60e443a42507eff8e443c68f6287a4795",
+      "currentCanonicalLfSha256": "6b38c5a963f65da1c941e76bd3878fd60e443a42507eff8e443c68f6287a4795",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": false
+    },
+    {
+      "path": "alerts-worker/src/storylines.js",
+      "baselineSha256": "6d38f646b17f176acc225e0752d7433480249fb3f910796b4868bb304dbb9994",
+      "currentSha256": "ac0e7aabccdd2229b1e5cf82091e3061991cd22aa70f5fae02fd80ed3407165e",
+      "identical": false,
+      "baselineCanonicalLfSha256": "6d38f646b17f176acc225e0752d7433480249fb3f910796b4868bb304dbb9994",
+      "currentCanonicalLfSha256": "6d38f646b17f176acc225e0752d7433480249fb3f910796b4868bb304dbb9994",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": true
+    },
+    {
+      "path": "alerts-worker/test/ai-budget.test.js",
+      "baselineSha256": "e0bbb016e894a98215f254b354d1f46c3041fc1a453edfb31002182b300aa93d",
+      "currentSha256": "e43325efd76e6a9853ed480b05442d1a8ea9647edb41651e9628909846a9fb66",
+      "identical": false,
+      "baselineCanonicalLfSha256": "e0bbb016e894a98215f254b354d1f46c3041fc1a453edfb31002182b300aa93d",
+      "currentCanonicalLfSha256": "e0bbb016e894a98215f254b354d1f46c3041fc1a453edfb31002182b300aa93d",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": true
+    },
+    {
+      "path": "alerts-worker/test/audit-alert-delivery.test.js",
+      "baselineSha256": "f6a12ccc8bdd12a136e45d6c370f2bbf036315489062083d48e7a8d46856ec90",
+      "currentSha256": "4da185f57b1ebba08d4930d6573b498d9a527c0e94e089b5528d59414c507ba8",
+      "identical": false,
+      "baselineCanonicalLfSha256": "f6a12ccc8bdd12a136e45d6c370f2bbf036315489062083d48e7a8d46856ec90",
+      "currentCanonicalLfSha256": "f6a12ccc8bdd12a136e45d6c370f2bbf036315489062083d48e7a8d46856ec90",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": true
+    },
+    {
+      "path": "alerts-worker/test/audit-migration-played-score.test.js",
+      "baselineSha256": "be05db31d945cbd76cc79829048a38c33cf1e5aad790379706c580db6cfe5b0e",
+      "currentSha256": "1c0926afa8ff2fa6a340616e17e9c2c080d78b49b70ed12ee760813981dd06b3",
+      "identical": false,
+      "baselineCanonicalLfSha256": "be05db31d945cbd76cc79829048a38c33cf1e5aad790379706c580db6cfe5b0e",
+      "currentCanonicalLfSha256": "be05db31d945cbd76cc79829048a38c33cf1e5aad790379706c580db6cfe5b0e",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": true
+    },
+    {
+      "path": "alerts-worker/test/audit-migration-pregame.test.js",
+      "baselineSha256": "e0c324be5c5ec594bf913d127d8fed0c1deff26fc836efe503091c9144c2417a",
+      "currentSha256": "e12f638c738ddd8288a699b61ef93941a7bb6a192935f99659d3407e4648659a",
+      "identical": false,
+      "baselineCanonicalLfSha256": "e0c324be5c5ec594bf913d127d8fed0c1deff26fc836efe503091c9144c2417a",
+      "currentCanonicalLfSha256": "e0c324be5c5ec594bf913d127d8fed0c1deff26fc836efe503091c9144c2417a",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": true
+    },
+    {
+      "path": "alerts-worker/test/audit-refresh-migration.test.js",
+      "baselineSha256": "66991bd22b788468a41a658b914ccd23474c94bc83090ed9f854c858055301f1",
+      "currentSha256": "6dcb731cec78c332503d3a8d5d2dcb2df2e34f9a5cf2611fa59b6a195071ccb6",
+      "identical": false,
+      "baselineCanonicalLfSha256": "66991bd22b788468a41a658b914ccd23474c94bc83090ed9f854c858055301f1",
+      "currentCanonicalLfSha256": "66991bd22b788468a41a658b914ccd23474c94bc83090ed9f854c858055301f1",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": true
+    },
+    {
+      "path": "alerts-worker/test/audit-tennis-collection.test.js",
+      "baselineSha256": "86442152ff4e7e169d55d811553358a327463baa30579b78644eb5ba0206d937",
+      "currentSha256": "dda560a55b9f7e7f76a3bb7225e07fd673b55abfb1044642b150472abdcd7b40",
+      "identical": false,
+      "baselineCanonicalLfSha256": "86442152ff4e7e169d55d811553358a327463baa30579b78644eb5ba0206d937",
+      "currentCanonicalLfSha256": "86442152ff4e7e169d55d811553358a327463baa30579b78644eb5ba0206d937",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": true
+    },
+    {
+      "path": "alerts-worker/test/cfb-metadata.test.js",
+      "baselineSha256": "b9913d1f474b7bf3ea0780a27e3a227438104ededee05339496fb792ee0a5a59",
+      "currentSha256": "f2318a682179494efaef5afe45e2ea687c4d05f28ba6e0d99d84ea2830cf2143",
+      "identical": false,
+      "baselineCanonicalLfSha256": "b9913d1f474b7bf3ea0780a27e3a227438104ededee05339496fb792ee0a5a59",
+      "currentCanonicalLfSha256": "b9913d1f474b7bf3ea0780a27e3a227438104ededee05339496fb792ee0a5a59",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": true
+    },
+    {
+      "path": "alerts-worker/test/domain-compatibility.test.js",
+      "baselineSha256": "af0c43bf90797d2b31227526d26ded29f413a62062034edd0eb29792371efc99",
+      "currentSha256": "c769ec564723534dfe61ce80b27cea0b7164246b6a26c988841024f6ba4904f4",
+      "identical": false,
+      "baselineCanonicalLfSha256": "af0c43bf90797d2b31227526d26ded29f413a62062034edd0eb29792371efc99",
+      "currentCanonicalLfSha256": "af0c43bf90797d2b31227526d26ded29f413a62062034edd0eb29792371efc99",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": true
+    },
+    {
+      "path": "alerts-worker/test/editorial-context.test.js",
+      "baselineSha256": "06cff3434a4098b0eeb653800037e90135226cd80b0516a44c57e68bf82b18c3",
+      "currentSha256": "64a50ff822f562977a7f7e79257736a7ce9405181ae0a0ddfa24e1b3b35b2841",
+      "identical": false,
+      "baselineCanonicalLfSha256": "06cff3434a4098b0eeb653800037e90135226cd80b0516a44c57e68bf82b18c3",
+      "currentCanonicalLfSha256": "06cff3434a4098b0eeb653800037e90135226cd80b0516a44c57e68bf82b18c3",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": true
+    },
+    {
+      "path": "alerts-worker/test/fixtures/audit-integrity/tennis-20261101.json.gz",
+      "baselineSha256": "e4ce708bbaf5084f8c7778cd44abb3f42e9e99d16349afd2ef51298047b4cb21",
+      "currentSha256": "e4ce708bbaf5084f8c7778cd44abb3f42e9e99d16349afd2ef51298047b4cb21",
+      "identical": true,
+      "baselineCanonicalLfSha256": "54f4667f7e1074fae089bc68cf265a8b588e760fc088094a72dfd65172b30647",
+      "currentCanonicalLfSha256": "54f4667f7e1074fae089bc68cf265a8b588e760fc088094a72dfd65172b30647",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": false
+    },
+    {
+      "path": "alerts-worker/test/fixtures/audit-integrity/tennis-contract-20261028.json",
+      "baselineSha256": "4bb78ed5b5d094e853c0f156a78693540771f9b8273da1a0db0c0415ec77a09c",
+      "currentSha256": "9e1b0e17195a83e40d461be026aa4da1a5a9851131be574c2476f6f7bc12afee",
+      "identical": false,
+      "baselineCanonicalLfSha256": "4bb78ed5b5d094e853c0f156a78693540771f9b8273da1a0db0c0415ec77a09c",
+      "currentCanonicalLfSha256": "4bb78ed5b5d094e853c0f156a78693540771f9b8273da1a0db0c0415ec77a09c",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": true
+    },
+    {
+      "path": "alerts-worker/test/fixtures/editorial-model-20261103.json",
+      "baselineSha256": "0cd43f52cb6084d9f6c9e04244a3a52587ef273fa4aa5d06f3a8c123f1e39f7d",
+      "currentSha256": "61313dd68060cbf4e252a8657ae78859c7215077143c8baa8e6d13a1f61fc7d7",
+      "identical": false,
+      "baselineCanonicalLfSha256": "0cd43f52cb6084d9f6c9e04244a3a52587ef273fa4aa5d06f3a8c123f1e39f7d",
+      "currentCanonicalLfSha256": "0cd43f52cb6084d9f6c9e04244a3a52587ef273fa4aa5d06f3a8c123f1e39f7d",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": true
+    },
+    {
+      "path": "alerts-worker/test/fixtures/migration-inputs.json.gz",
+      "baselineSha256": "2f4318f63dbb0ddc0f2513d70c85604f9b1e42cfe3c438ebeef5b86e80a4a06c",
+      "currentSha256": "2f4318f63dbb0ddc0f2513d70c85604f9b1e42cfe3c438ebeef5b86e80a4a06c",
+      "identical": true,
+      "baselineCanonicalLfSha256": "b47d8518c0d20c186b6a321c9da16fb6a66498bdd2f130b3705444c6745fb32c",
+      "currentCanonicalLfSha256": "b47d8518c0d20c186b6a321c9da16fb6a66498bdd2f130b3705444c6745fb32c",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": false
+    },
+    {
+      "path": "alerts-worker/test/fixtures/migration-parity.json",
+      "baselineSha256": "1842a1c0065fdf0801ad5497960b1c3862bcf20d38cf85f69a9d35fd49173ea9",
+      "currentSha256": "77780791893fb8b994b8b88732edadff725e1849b95a67b8112c69e9274611ab",
+      "identical": false,
+      "baselineCanonicalLfSha256": "1842a1c0065fdf0801ad5497960b1c3862bcf20d38cf85f69a9d35fd49173ea9",
+      "currentCanonicalLfSha256": "1842a1c0065fdf0801ad5497960b1c3862bcf20d38cf85f69a9d35fd49173ea9",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": true
+    },
+    {
+      "path": "alerts-worker/test/fixtures/pre-migration-browser.js.gz",
+      "baselineSha256": "df7730c3746d7e9c453ffeebaeb4e05ae84bec7ab24b1804dbbbac868447c349",
+      "currentSha256": "df7730c3746d7e9c453ffeebaeb4e05ae84bec7ab24b1804dbbbac868447c349",
+      "identical": true,
+      "baselineCanonicalLfSha256": "bd839f0a6f364c3ebd8838948a76640a85f85b6b1d27c9bb670761123f9bd1aa",
+      "currentCanonicalLfSha256": "bd839f0a6f364c3ebd8838948a76640a85f85b6b1d27c9bb670761123f9bd1aa",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": false
+    },
+    {
+      "path": "alerts-worker/test/fixtures/pre-migration-core.js.gz",
+      "baselineSha256": "992e9f69ba0eb8d5af369a38d0efed373b9170cdf34b7656e0f7de7477353516",
+      "currentSha256": "992e9f69ba0eb8d5af369a38d0efed373b9170cdf34b7656e0f7de7477353516",
+      "identical": true,
+      "baselineCanonicalLfSha256": "e96eef99cab3e5752f868374a0344af0e2991f1b4c3c9d31238a62ab19f1f3ce",
+      "currentCanonicalLfSha256": "e96eef99cab3e5752f868374a0344af0e2991f1b4c3c9d31238a62ab19f1f3ce",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": false
+    },
+    {
+      "path": "alerts-worker/test/fixtures/provider-contract/CFB.json",
+      "baselineSha256": "b45e2ecc83cae99f29030bf354834e42668d37aa9b5d0634a7e7f4af72fd508b",
+      "currentSha256": "fde32e9666bcd22e4feefb71d4a34bb24034a06e292f48c2846b015088037a3c",
+      "identical": false,
+      "baselineCanonicalLfSha256": "b45e2ecc83cae99f29030bf354834e42668d37aa9b5d0634a7e7f4af72fd508b",
+      "currentCanonicalLfSha256": "b45e2ecc83cae99f29030bf354834e42668d37aa9b5d0634a7e7f4af72fd508b",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": true
+    },
+    {
+      "path": "alerts-worker/test/fixtures/provider-contract/MLB.json",
+      "baselineSha256": "f2a3ba50d55ac540a321fbd8d3a6d8a932e6ab51ef972f13ccf24fa9d1dced17",
+      "currentSha256": "6588bee4737b421c78148f310240deb1de85acd2fe39f7a2546b4d97278595b5",
+      "identical": false,
+      "baselineCanonicalLfSha256": "f2a3ba50d55ac540a321fbd8d3a6d8a932e6ab51ef972f13ccf24fa9d1dced17",
+      "currentCanonicalLfSha256": "f2a3ba50d55ac540a321fbd8d3a6d8a932e6ab51ef972f13ccf24fa9d1dced17",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": true
+    },
+    {
+      "path": "alerts-worker/test/fixtures/provider-contract/NBA.json",
+      "baselineSha256": "0a75410b2ff8d0cefe476606b75e0fa20cb2e91dc9efa125f1d2576603e9600b",
+      "currentSha256": "9697a4085137abba341449709bcd61826ef85098e1eea536eb5bcc8e9c6d4f94",
+      "identical": false,
+      "baselineCanonicalLfSha256": "0a75410b2ff8d0cefe476606b75e0fa20cb2e91dc9efa125f1d2576603e9600b",
+      "currentCanonicalLfSha256": "0a75410b2ff8d0cefe476606b75e0fa20cb2e91dc9efa125f1d2576603e9600b",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": true
+    },
+    {
+      "path": "alerts-worker/test/fixtures/provider-contract/NCAAB.json",
+      "baselineSha256": "4e4c292b099f982c7a1e8a93e03b0a0270b2a384155d0f771b2d296d0095c35c",
+      "currentSha256": "db7d3431e94c18cffe065ca1f36e8809a8ed78dfa77b084ba3d5cb242d7ccb77",
+      "identical": false,
+      "baselineCanonicalLfSha256": "4e4c292b099f982c7a1e8a93e03b0a0270b2a384155d0f771b2d296d0095c35c",
+      "currentCanonicalLfSha256": "4e4c292b099f982c7a1e8a93e03b0a0270b2a384155d0f771b2d296d0095c35c",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": true
+    },
+    {
+      "path": "alerts-worker/test/fixtures/provider-contract/NFL.json",
+      "baselineSha256": "d724d37ddebd5bf468c30abc6eef47a463853476780ff7a03ebf1105a99c608b",
+      "currentSha256": "a0b6207c36dd2c1746f2ed7b00a309f93bc2de303d81e3d8b29b7127b877c148",
+      "identical": false,
+      "baselineCanonicalLfSha256": "d724d37ddebd5bf468c30abc6eef47a463853476780ff7a03ebf1105a99c608b",
+      "currentCanonicalLfSha256": "d724d37ddebd5bf468c30abc6eef47a463853476780ff7a03ebf1105a99c608b",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": true
+    },
+    {
+      "path": "alerts-worker/test/fixtures/provider-contract/NHL.json",
+      "baselineSha256": "fc56e6b2b80e7cb8edc5ef9a6da6fc05d0548f34aec33f866ca096916f851976",
+      "currentSha256": "4ce33f5fc4d80d5066590d9d3c405ae709d2c57b5312c13d9b2977173b99bc6e",
+      "identical": false,
+      "baselineCanonicalLfSha256": "fc56e6b2b80e7cb8edc5ef9a6da6fc05d0548f34aec33f866ca096916f851976",
+      "currentCanonicalLfSha256": "fc56e6b2b80e7cb8edc5ef9a6da6fc05d0548f34aec33f866ca096916f851976",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": true
+    },
+    {
+      "path": "alerts-worker/test/fixtures/provider-contract/sources.json",
+      "baselineSha256": "bd903692f53f35dc7d0dcf89ff846f711e569a759800188eff42e24d213850a4",
+      "currentSha256": "dd7bc5960e673d0ef716d6e26f48d17b1dff775a0f5d59549814414cdbb44f8e",
+      "identical": false,
+      "baselineCanonicalLfSha256": "bd903692f53f35dc7d0dcf89ff846f711e569a759800188eff42e24d213850a4",
+      "currentCanonicalLfSha256": "bd903692f53f35dc7d0dcf89ff846f711e569a759800188eff42e24d213850a4",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": true
+    },
+    {
+      "path": "alerts-worker/test/fixtures/research-slate-20261103.json",
+      "baselineSha256": "3046c75bdfd122e0015233877651a87cf8a600dafa28a0014914d5de6a30927a",
+      "currentSha256": "5bf323304e30410faae360311691bfbce59398f7b5b98b4e5088eacff065dcd9",
+      "identical": false,
+      "baselineCanonicalLfSha256": "3046c75bdfd122e0015233877651a87cf8a600dafa28a0014914d5de6a30927a",
+      "currentCanonicalLfSha256": "3046c75bdfd122e0015233877651a87cf8a600dafa28a0014914d5de6a30927a",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": true
+    },
+    {
+      "path": "alerts-worker/test/fixtures/research-trace-20261103.json",
+      "baselineSha256": "b4f18bce60b8c72cafdc300435f9d32dd525a4a3a017398617e5c7a5ab810679",
+      "currentSha256": "b605e256b43d8d1326c50c82c0d41748767fa4afa637344ff2bebbce6dee0ebf",
+      "identical": false,
+      "baselineCanonicalLfSha256": "b4f18bce60b8c72cafdc300435f9d32dd525a4a3a017398617e5c7a5ab810679",
+      "currentCanonicalLfSha256": "b4f18bce60b8c72cafdc300435f9d32dd525a4a3a017398617e5c7a5ab810679",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": true
+    },
+    {
+      "path": "alerts-worker/test/fixtures/team-leaders/CFB-120.json",
+      "baselineSha256": "fbffe6a0f695e28654968ac56c5d67bca4d56f70db5fa36791c1d5bfd6c10566",
+      "currentSha256": "8ba930d95a4349dab7fed9c841a06ac91a9254e8ad273c5cbd3f1e9699e68e44",
+      "identical": false,
+      "baselineCanonicalLfSha256": "fbffe6a0f695e28654968ac56c5d67bca4d56f70db5fa36791c1d5bfd6c10566",
+      "currentCanonicalLfSha256": "fbffe6a0f695e28654968ac56c5d67bca4d56f70db5fa36791c1d5bfd6c10566",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": true
+    },
+    {
+      "path": "alerts-worker/test/fixtures/team-leaders/MLB-1.json",
+      "baselineSha256": "8ccc3480b5646189cfbed2088b7f009ff4fb6578c3ffc5ca7450e30bd3115da8",
+      "currentSha256": "a367d712bb593e59a7eab738de011871f12b9cc63149fddecc088237ab0155c5",
+      "identical": false,
+      "baselineCanonicalLfSha256": "8ccc3480b5646189cfbed2088b7f009ff4fb6578c3ffc5ca7450e30bd3115da8",
+      "currentCanonicalLfSha256": "8ccc3480b5646189cfbed2088b7f009ff4fb6578c3ffc5ca7450e30bd3115da8",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": true
+    },
+    {
+      "path": "alerts-worker/test/fixtures/team-leaders/NBA-13.json",
+      "baselineSha256": "d1e4b8a9951af1a6442e8ab1ca5eb94095a9d10013a2864ea2ba9e8d9fac296d",
+      "currentSha256": "f47b022b926f5e4117fa42c9147e9152b29ace9a93ac40b85a1dbf447b01f6f9",
+      "identical": false,
+      "baselineCanonicalLfSha256": "d1e4b8a9951af1a6442e8ab1ca5eb94095a9d10013a2864ea2ba9e8d9fac296d",
+      "currentCanonicalLfSha256": "d1e4b8a9951af1a6442e8ab1ca5eb94095a9d10013a2864ea2ba9e8d9fac296d",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": true
+    },
+    {
+      "path": "alerts-worker/test/fixtures/team-leaders/NCAAB-120.json",
+      "baselineSha256": "981967c9bde53decfd02df9cd590420dad8852180bb39e930836c1f5a5688d2f",
+      "currentSha256": "ee36585eaf8d3cf496ffc9caef435bde427503d48134702f44cfbcc6253c0b3d",
+      "identical": false,
+      "baselineCanonicalLfSha256": "981967c9bde53decfd02df9cd590420dad8852180bb39e930836c1f5a5688d2f",
+      "currentCanonicalLfSha256": "981967c9bde53decfd02df9cd590420dad8852180bb39e930836c1f5a5688d2f",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": true
+    },
+    {
+      "path": "alerts-worker/test/fixtures/team-leaders/NFL-33.json",
+      "baselineSha256": "2990c96e902fa055ac0c5f9fdae25048e87b4c364bb70b99eae61f58142d46f8",
+      "currentSha256": "195d340d242ce0c3eeb7dbe47b7b9fb150877cc1209535f631191c801a3c1105",
+      "identical": false,
+      "baselineCanonicalLfSha256": "2990c96e902fa055ac0c5f9fdae25048e87b4c364bb70b99eae61f58142d46f8",
+      "currentCanonicalLfSha256": "2990c96e902fa055ac0c5f9fdae25048e87b4c364bb70b99eae61f58142d46f8",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": true
+    },
+    {
+      "path": "alerts-worker/test/fixtures/team-leaders/NHL-23.json",
+      "baselineSha256": "cfce81e2acb42ff0aade6b28afc082bc1e7b79aff63f1b3bd7338b9f03dd7e1f",
+      "currentSha256": "7480ad7492744692f8e52efb3bf461997ea3b39f58715005c6dc9b74deb8a9b1",
+      "identical": false,
+      "baselineCanonicalLfSha256": "cfce81e2acb42ff0aade6b28afc082bc1e7b79aff63f1b3bd7338b9f03dd7e1f",
+      "currentCanonicalLfSha256": "cfce81e2acb42ff0aade6b28afc082bc1e7b79aff63f1b3bd7338b9f03dd7e1f",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": true
+    },
+    {
+      "path": "alerts-worker/test/fixtures/team-leaders/README.md",
+      "baselineSha256": "540cc11810cfd4557c4560bf3d4b113a338dd4dda2921538ac79b90fa651f8ea",
+      "currentSha256": "a55b9f84e65a4307edeed972477581c5fa05143307490c75ec5870d449966d51",
+      "identical": false,
+      "baselineCanonicalLfSha256": "540cc11810cfd4557c4560bf3d4b113a338dd4dda2921538ac79b90fa651f8ea",
+      "currentCanonicalLfSha256": "540cc11810cfd4557c4560bf3d4b113a338dd4dda2921538ac79b90fa651f8ea",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": true
+    },
+    {
+      "path": "alerts-worker/test/fixtures/tennis-grand-slams/atp-20240128.json",
+      "baselineSha256": "a69303e334a29e3e5be74be2928276ad87cecb4930ce98d5370677b6ca19451e",
+      "currentSha256": "3e2ffc2c55a64e80ddca79af7cfc321827a443c02e8987ee9288611b6d2704e4",
+      "identical": false,
+      "baselineCanonicalLfSha256": "a69303e334a29e3e5be74be2928276ad87cecb4930ce98d5370677b6ca19451e",
+      "currentCanonicalLfSha256": "a69303e334a29e3e5be74be2928276ad87cecb4930ce98d5370677b6ca19451e",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": true
+    },
+    {
+      "path": "alerts-worker/test/fixtures/tennis-grand-slams/atp-20240609.json",
+      "baselineSha256": "7af3dcf5f01f88dad2c5917271b13c139ace6d71f10ac2e9012b27a96077aa82",
+      "currentSha256": "a2bb6a11365dd90fffa7e3046d98cea011005840fb46654b08d4520872056044",
+      "identical": false,
+      "baselineCanonicalLfSha256": "7af3dcf5f01f88dad2c5917271b13c139ace6d71f10ac2e9012b27a96077aa82",
+      "currentCanonicalLfSha256": "7af3dcf5f01f88dad2c5917271b13c139ace6d71f10ac2e9012b27a96077aa82",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": true
+    },
+    {
+      "path": "alerts-worker/test/fixtures/tennis-grand-slams/atp-20240714.json",
+      "baselineSha256": "6f592cc3602351507da7f63270bec8f856eed67af5a2a6c969a1acb434de6e92",
+      "currentSha256": "d2b66fa003504c50b5b879edc9de3310f0670659e33fe231724fc7472f570c73",
+      "identical": false,
+      "baselineCanonicalLfSha256": "6f592cc3602351507da7f63270bec8f856eed67af5a2a6c969a1acb434de6e92",
+      "currentCanonicalLfSha256": "6f592cc3602351507da7f63270bec8f856eed67af5a2a6c969a1acb434de6e92",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": true
+    },
+    {
+      "path": "alerts-worker/test/fixtures/tennis-grand-slams/atp-20240908.json",
+      "baselineSha256": "00ddde0009fcc2db46f30084c10c69b5ef3a00d2b6e9d6429c32b4f972be176a",
+      "currentSha256": "dbae8ab126004cfeaa62562a544f69aae76a0aaa04bbc54b91129cfeeb57e6d7",
+      "identical": false,
+      "baselineCanonicalLfSha256": "00ddde0009fcc2db46f30084c10c69b5ef3a00d2b6e9d6429c32b4f972be176a",
+      "currentCanonicalLfSha256": "00ddde0009fcc2db46f30084c10c69b5ef3a00d2b6e9d6429c32b4f972be176a",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": true
+    },
+    {
+      "path": "alerts-worker/test/fixtures/tennis-grand-slams/atp-20250126.json",
+      "baselineSha256": "c68b312217ba112fdd17649cd9a91bb598347910b8ee1b6f4e85aedefe77f524",
+      "currentSha256": "d8c74456d6d923195b4bb27cc79192eeb40fe2837c8775a2b2793e92faae0ed3",
+      "identical": false,
+      "baselineCanonicalLfSha256": "c68b312217ba112fdd17649cd9a91bb598347910b8ee1b6f4e85aedefe77f524",
+      "currentCanonicalLfSha256": "c68b312217ba112fdd17649cd9a91bb598347910b8ee1b6f4e85aedefe77f524",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": true
+    },
+    {
+      "path": "alerts-worker/test/fixtures/tennis-grand-slams/atp-20250608.json",
+      "baselineSha256": "d939d0ee2053e77f67be4ff7fd783dcebf1f229828b75878d2025a52e79ecd3a",
+      "currentSha256": "0d90168abe7b5b12a56ddc32559778064bf0cd80fc07a0eba0dbea19e6d98b08",
+      "identical": false,
+      "baselineCanonicalLfSha256": "d939d0ee2053e77f67be4ff7fd783dcebf1f229828b75878d2025a52e79ecd3a",
+      "currentCanonicalLfSha256": "d939d0ee2053e77f67be4ff7fd783dcebf1f229828b75878d2025a52e79ecd3a",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": true
+    },
+    {
+      "path": "alerts-worker/test/fixtures/tennis-grand-slams/atp-20250713.json",
+      "baselineSha256": "50523f6b262ab0808f32d54a040aa50f51fd49581705dab3e115c4dbce73d3ff",
+      "currentSha256": "07821e220d1cdb355f5b67ea015624e30c38377ac7ecbec6a26fdb9ebefe1d95",
+      "identical": false,
+      "baselineCanonicalLfSha256": "50523f6b262ab0808f32d54a040aa50f51fd49581705dab3e115c4dbce73d3ff",
+      "currentCanonicalLfSha256": "50523f6b262ab0808f32d54a040aa50f51fd49581705dab3e115c4dbce73d3ff",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": true
+    },
+    {
+      "path": "alerts-worker/test/fixtures/tennis-grand-slams/atp-20250907.json",
+      "baselineSha256": "7c89ff0ce31798bc9f86b52d033827c4cb9a8735bb744bfe2282fe94af81e3ab",
+      "currentSha256": "d925632b36ab57694dec296a381ffa227106f80dedcb6fcb013c98b4b11281c0",
+      "identical": false,
+      "baselineCanonicalLfSha256": "7c89ff0ce31798bc9f86b52d033827c4cb9a8735bb744bfe2282fe94af81e3ab",
+      "currentCanonicalLfSha256": "7c89ff0ce31798bc9f86b52d033827c4cb9a8735bb744bfe2282fe94af81e3ab",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": true
+    },
+    {
+      "path": "alerts-worker/test/fixtures/tennis-grand-slams/wta-20240128.json",
+      "baselineSha256": "9dd4c94b3d65eb069a88f98e47d80d2fc7c21cc5583455c069f101e26c1f3c7d",
+      "currentSha256": "cff063d1ecb82eb7c50b3334b847ebd83d45264864a5070f2b6b640894bf7e63",
+      "identical": false,
+      "baselineCanonicalLfSha256": "9dd4c94b3d65eb069a88f98e47d80d2fc7c21cc5583455c069f101e26c1f3c7d",
+      "currentCanonicalLfSha256": "9dd4c94b3d65eb069a88f98e47d80d2fc7c21cc5583455c069f101e26c1f3c7d",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": true
+    },
+    {
+      "path": "alerts-worker/test/fixtures/tennis-grand-slams/wta-20240609.json",
+      "baselineSha256": "7f11dfa1283a87e0258b942a4beeaf3e088515db327c0522abd35232bbd14cd7",
+      "currentSha256": "6b236b7fb0a89f170300058e1e69282b477ae6a17052697de02fc48753040f0c",
+      "identical": false,
+      "baselineCanonicalLfSha256": "7f11dfa1283a87e0258b942a4beeaf3e088515db327c0522abd35232bbd14cd7",
+      "currentCanonicalLfSha256": "7f11dfa1283a87e0258b942a4beeaf3e088515db327c0522abd35232bbd14cd7",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": true
+    },
+    {
+      "path": "alerts-worker/test/fixtures/tennis-grand-slams/wta-20240714.json",
+      "baselineSha256": "0cc3fb8c2c6f3e079bc7a44dae38958d318abc12758387d5e7236448a8c6bf26",
+      "currentSha256": "0067ab9be8d1c2c7f88dff4536862b848c0ee9928712170db9f84a2b66f7964a",
+      "identical": false,
+      "baselineCanonicalLfSha256": "0cc3fb8c2c6f3e079bc7a44dae38958d318abc12758387d5e7236448a8c6bf26",
+      "currentCanonicalLfSha256": "0cc3fb8c2c6f3e079bc7a44dae38958d318abc12758387d5e7236448a8c6bf26",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": true
+    },
+    {
+      "path": "alerts-worker/test/fixtures/tennis-grand-slams/wta-20240908.json",
+      "baselineSha256": "141f305b6660abaf99e93d201fe9092d336b1d1426499f9d297147cc69a1748c",
+      "currentSha256": "c47d05344251811789bcb54192bdf8c234c23470a43e50b15f23f750f3af800b",
+      "identical": false,
+      "baselineCanonicalLfSha256": "141f305b6660abaf99e93d201fe9092d336b1d1426499f9d297147cc69a1748c",
+      "currentCanonicalLfSha256": "141f305b6660abaf99e93d201fe9092d336b1d1426499f9d297147cc69a1748c",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": true
+    },
+    {
+      "path": "alerts-worker/test/fixtures/tennis-grand-slams/wta-20250126.json",
+      "baselineSha256": "cca441a5d5f294020c6188a5f0a0a24803e8a76cf008edccff6e27ae5f13d2f0",
+      "currentSha256": "d682724eca685dd690c05cb75e2513fd65589b43c30cb365310a11053156dd1a",
+      "identical": false,
+      "baselineCanonicalLfSha256": "cca441a5d5f294020c6188a5f0a0a24803e8a76cf008edccff6e27ae5f13d2f0",
+      "currentCanonicalLfSha256": "cca441a5d5f294020c6188a5f0a0a24803e8a76cf008edccff6e27ae5f13d2f0",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": true
+    },
+    {
+      "path": "alerts-worker/test/fixtures/tennis-grand-slams/wta-20250608.json",
+      "baselineSha256": "da55855d5728da475b006f350c9eef1bde575ac3ca169edf63955ba2575e820f",
+      "currentSha256": "8d753be32538f5696f6e4b088f1478b9047befa92b157ce35ab23583afc146c1",
+      "identical": false,
+      "baselineCanonicalLfSha256": "da55855d5728da475b006f350c9eef1bde575ac3ca169edf63955ba2575e820f",
+      "currentCanonicalLfSha256": "da55855d5728da475b006f350c9eef1bde575ac3ca169edf63955ba2575e820f",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": true
+    },
+    {
+      "path": "alerts-worker/test/fixtures/tennis-grand-slams/wta-20250713.json",
+      "baselineSha256": "efc2ebd0638b45752b71bec5c7ca6197ecb39cd16f1d092ae4d400a30cbae511",
+      "currentSha256": "40d5a99bb4fd03e6ab14ac714b1a090d9daddcc7c1fda7e73ecd91a3d10c8c44",
+      "identical": false,
+      "baselineCanonicalLfSha256": "efc2ebd0638b45752b71bec5c7ca6197ecb39cd16f1d092ae4d400a30cbae511",
+      "currentCanonicalLfSha256": "efc2ebd0638b45752b71bec5c7ca6197ecb39cd16f1d092ae4d400a30cbae511",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": true
+    },
+    {
+      "path": "alerts-worker/test/fixtures/tennis-grand-slams/wta-20250907.json",
+      "baselineSha256": "1d614794544d5be7e284aa5080ac31dbc3c45efcf03df84957064259ba9a60ad",
+      "currentSha256": "a8c2c83c4ddbffa1a0f55654cf5d4c8add8da18fc2232deb3d8ac71acf75ed6d",
+      "identical": false,
+      "baselineCanonicalLfSha256": "1d614794544d5be7e284aa5080ac31dbc3c45efcf03df84957064259ba9a60ad",
+      "currentCanonicalLfSha256": "1d614794544d5be7e284aa5080ac31dbc3c45efcf03df84957064259ba9a60ad",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": true
+    },
+    {
+      "path": "alerts-worker/test/game-history.test.js",
+      "baselineSha256": "44dad6121e3ff52892dd0f61b75ad137f9373972e67188d7072f181ded686a99",
+      "currentSha256": "47626988e190e93d5f5a733d5d7be72c79d5e3ce8a868985f471d357f9105b1b",
+      "identical": false,
+      "baselineCanonicalLfSha256": "44dad6121e3ff52892dd0f61b75ad137f9373972e67188d7072f181ded686a99",
+      "currentCanonicalLfSha256": "44dad6121e3ff52892dd0f61b75ad137f9373972e67188d7072f181ded686a99",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": true
+    },
+    {
+      "path": "alerts-worker/test/history-storage.test.js",
+      "baselineSha256": "544c4aa59e6c347d2b9bc797b552b4abf95b3fec03807351e4928eb0a23fb42a",
+      "currentSha256": "ce062d07f569cf70eb6f4970933227787b18f86e84c79142f46db3b3b5354ca9",
+      "identical": false,
+      "baselineCanonicalLfSha256": "544c4aa59e6c347d2b9bc797b552b4abf95b3fec03807351e4928eb0a23fb42a",
+      "currentCanonicalLfSha256": "544c4aa59e6c347d2b9bc797b552b4abf95b3fec03807351e4928eb0a23fb42a",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": true
+    },
+    {
+      "path": "alerts-worker/test/nhl-provider.test.js",
+      "baselineSha256": "4e80a83a2ec768f1638e805358946b743c796f111b9b2b8b47cd92aa8781da8b",
+      "currentSha256": "173de90b8dee0ed5c06b205f51db3e7fc90107ccb6f8e857f1f3d1a570bb1280",
+      "identical": false,
+      "baselineCanonicalLfSha256": "4e80a83a2ec768f1638e805358946b743c796f111b9b2b8b47cd92aa8781da8b",
+      "currentCanonicalLfSha256": "4e80a83a2ec768f1638e805358946b743c796f111b9b2b8b47cd92aa8781da8b",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": true
+    },
+    {
+      "path": "alerts-worker/test/notification-preferences.test.js",
+      "baselineSha256": "e6df2b07f9df7cbf28593be6df66ceb3e7e1f1267d510c0b379fc6e1fdd9b7cb",
+      "currentSha256": "317106245c632f1e01977b958017e8b39c4cad8ff1348ad40c86e7758f43aad7",
+      "identical": false,
+      "baselineCanonicalLfSha256": "e6df2b07f9df7cbf28593be6df66ceb3e7e1f1267d510c0b379fc6e1fdd9b7cb",
+      "currentCanonicalLfSha256": "e6df2b07f9df7cbf28593be6df66ceb3e7e1f1267d510c0b379fc6e1fdd9b7cb",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": true
+    },
+    {
+      "path": "alerts-worker/test/pregame-story-relevance.test.js",
+      "baselineSha256": "b8378ed13471675b1077cd323996bfea102c1a35646d6a9ced7a4067176c750b",
+      "currentSha256": "a5d97d6c658c61633778858c7a3d0cd7884fe9d46752aa0dabcb2835db72796d",
+      "identical": false,
+      "baselineCanonicalLfSha256": "b8378ed13471675b1077cd323996bfea102c1a35646d6a9ced7a4067176c750b",
+      "currentCanonicalLfSha256": "b8378ed13471675b1077cd323996bfea102c1a35646d6a9ced7a4067176c750b",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": true
+    },
+    {
+      "path": "alerts-worker/test/provider-contract.test.js",
+      "baselineSha256": "12f8ab41385fdc9244d216ebcbf3e28045c1efab3a9721a895fe23bc4ef6ae4c",
+      "currentSha256": "91cd7d26b8b3ea09465d8c1f301be3ed5c009c0415dd8ae50a12aac8c57cad51",
+      "identical": false,
+      "baselineCanonicalLfSha256": "12f8ab41385fdc9244d216ebcbf3e28045c1efab3a9721a895fe23bc4ef6ae4c",
+      "currentCanonicalLfSha256": "12f8ab41385fdc9244d216ebcbf3e28045c1efab3a9721a895fe23bc4ef6ae4c",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": true
+    },
+    {
+      "path": "alerts-worker/test/refresh-optimization.test.js",
+      "baselineSha256": "398fc3e24286a6af28648121e28900384ef9a1c518c9bf637bb50bde32c3598b",
+      "currentSha256": "031fda3df7ddaa8d179240fac139733dbe554a414e879bdf30322724257c6626",
+      "identical": false,
+      "baselineCanonicalLfSha256": "398fc3e24286a6af28648121e28900384ef9a1c518c9bf637bb50bde32c3598b",
+      "currentCanonicalLfSha256": "398fc3e24286a6af28648121e28900384ef9a1c518c9bf637bb50bde32c3598b",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": true
+    },
+    {
+      "path": "alerts-worker/test/release-alert-transitions.test.js",
+      "baselineSha256": "fa77dea7053b440e71224a1adc735df8e96feecc3efcaff87363265246997690",
+      "currentSha256": "fd0bb7c4fc01f304bf121a86eeffe47a51de260d87f6b209eb9950494a1a0640",
+      "identical": false,
+      "baselineCanonicalLfSha256": "fa77dea7053b440e71224a1adc735df8e96feecc3efcaff87363265246997690",
+      "currentCanonicalLfSha256": "fa77dea7053b440e71224a1adc735df8e96feecc3efcaff87363265246997690",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": true
+    },
+    {
+      "path": "alerts-worker/test/research-allocation.test.js",
+      "baselineSha256": "a222b04ac44f728a822594c9f6930ed9ff29e52dcccd684335ddd6fbb9f145f8",
+      "currentSha256": "b1afaff4fb971cebbc588c38fee2a242884037850753e3ab3a811340c196581e",
+      "identical": false,
+      "baselineCanonicalLfSha256": "a222b04ac44f728a822594c9f6930ed9ff29e52dcccd684335ddd6fbb9f145f8",
+      "currentCanonicalLfSha256": "a222b04ac44f728a822594c9f6930ed9ff29e52dcccd684335ddd6fbb9f145f8",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": true
+    },
+    {
+      "path": "alerts-worker/test/research-trace.test.js",
+      "baselineSha256": "7e0946f5263bd21869cfa696c6ab8c1bc0995ab2a9e2b760c1f362b17501b1bb",
+      "currentSha256": "eee352d8502be8de7a98207c19af38fe46c5281d0d3d9b5a124005fcb28b6329",
+      "identical": false,
+      "baselineCanonicalLfSha256": "7e0946f5263bd21869cfa696c6ab8c1bc0995ab2a9e2b760c1f362b17501b1bb",
+      "currentCanonicalLfSha256": "7e0946f5263bd21869cfa696c6ab8c1bc0995ab2a9e2b760c1f362b17501b1bb",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": true
+    },
+    {
+      "path": "alerts-worker/test/sports-feed.test.js",
+      "baselineSha256": "ac657aabb431481a5330e2a39576fbd61db0d61b7127a2386904e913856facf8",
+      "currentSha256": "ac657aabb431481a5330e2a39576fbd61db0d61b7127a2386904e913856facf8",
+      "identical": true,
+      "baselineCanonicalLfSha256": "8e17c51eeb38dd1415f646fcecff9abdc4b61ad7e1477c5a518294c664c2b03a",
+      "currentCanonicalLfSha256": "8e17c51eeb38dd1415f646fcecff9abdc4b61ad7e1477c5a518294c664c2b03a",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": false
+    },
+    {
+      "path": "alerts-worker/test/summary-integrity.test.js",
+      "baselineSha256": "4e96de7203de10017110147a38ece54f4991067ec50e919c5542a7d5976b29df",
+      "currentSha256": "451cfd70919d7b4146450111fa425c94617a2e82bc9369a24d9feeb712cc926b",
+      "identical": false,
+      "baselineCanonicalLfSha256": "4e96de7203de10017110147a38ece54f4991067ec50e919c5542a7d5976b29df",
+      "currentCanonicalLfSha256": "4e96de7203de10017110147a38ece54f4991067ec50e919c5542a7d5976b29df",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": true
+    },
+    {
+      "path": "alerts-worker/test/tennis-grand-slams.test.js",
+      "baselineSha256": "8e79c591279358d361590c881e1d08c46304f29913deb43f5a72762c0df973b9",
+      "currentSha256": "88e55b6e450633cc97a0798bcc0cffa7764e087c865f17f7a8b2eeb11ee64541",
+      "identical": false,
+      "baselineCanonicalLfSha256": "8e79c591279358d361590c881e1d08c46304f29913deb43f5a72762c0df973b9",
+      "currentCanonicalLfSha256": "8e79c591279358d361590c881e1d08c46304f29913deb43f5a72762c0df973b9",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": true
+    },
+    {
+      "path": "alerts-worker/test/worker.test.js",
+      "baselineSha256": "b4f0798dde6f52d966303729a07a52b7c89c318e33b8fbd0496c22bc2f72d2d0",
+      "currentSha256": "023f280e04b4eb928af7c6aad651794a227831a4468ebded809562de5e8ffe1d",
+      "identical": false,
+      "baselineCanonicalLfSha256": "b4f0798dde6f52d966303729a07a52b7c89c318e33b8fbd0496c22bc2f72d2d0",
+      "currentCanonicalLfSha256": "b4f0798dde6f52d966303729a07a52b7c89c318e33b8fbd0496c22bc2f72d2d0",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": true
+    },
+    {
+      "path": "alerts-worker/wrangler.toml",
+      "baselineSha256": "dd45566ef6e0ff14a1e27260d44ed708250ee233adb6eda100cdfb5e842083b0",
+      "currentSha256": "da8e175b254de8abfb50a8fc8280196bc11b73ed3348c782f19fdf7b7e41fda4",
+      "identical": false,
+      "baselineCanonicalLfSha256": "dd45566ef6e0ff14a1e27260d44ed708250ee233adb6eda100cdfb5e842083b0",
+      "currentCanonicalLfSha256": "dd45566ef6e0ff14a1e27260d44ed708250ee233adb6eda100cdfb5e842083b0",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": true
+    },
+    {
+      "path": "calibration/cfb-context-fixtures.mjs",
+      "baselineSha256": "26c11f89ef35775b79fe9d4dca351ddc8cc1616d02b0e31c47cf7b9c8d554e1a",
+      "currentSha256": "34e4f4b7f591abf92b349c334d7946b8f0e9c09e8cb8f6debf40d949195e974f",
+      "identical": false,
+      "baselineCanonicalLfSha256": "26c11f89ef35775b79fe9d4dca351ddc8cc1616d02b0e31c47cf7b9c8d554e1a",
+      "currentCanonicalLfSha256": "26c11f89ef35775b79fe9d4dca351ddc8cc1616d02b0e31c47cf7b9c8d554e1a",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": true
+    },
+    {
+      "path": "calibration/cfb-watchability-fixtures.mjs",
+      "baselineSha256": "f5a4f3172a82a5677feff24bb508eee4694f252962a67fc42c7066b579cc4034",
+      "currentSha256": "d8f3ce7f6f9157210d831ac3e7f5ffa887cf3495b708f44515117c9d3b447a64",
+      "identical": false,
+      "baselineCanonicalLfSha256": "f5a4f3172a82a5677feff24bb508eee4694f252962a67fc42c7066b579cc4034",
+      "currentCanonicalLfSha256": "f5a4f3172a82a5677feff24bb508eee4694f252962a67fc42c7066b579cc4034",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": true
+    },
+    {
+      "path": "calibration/endgame-allocation-fixtures.mjs",
+      "baselineSha256": "afd86e025792c2bf6f1d2cad5fa8b2a15678af89df717d68fa8bf1cb96221879",
+      "currentSha256": "e8809b9072058285feb59ea69e90dee8fe6d8d37167cf534b2982452e7eba396",
+      "identical": false,
+      "baselineCanonicalLfSha256": "afd86e025792c2bf6f1d2cad5fa8b2a15678af89df717d68fa8bf1cb96221879",
+      "currentCanonicalLfSha256": "afd86e025792c2bf6f1d2cad5fa8b2a15678af89df717d68fa8bf1cb96221879",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": true
+    },
+    {
+      "path": "calibration/fixture-provenance.mjs",
+      "baselineSha256": "6a936e6a7768f52ca2b00f099da15d5d3cb34ef08163db8c7b65b690da5b351a",
+      "currentSha256": "6a936e6a7768f52ca2b00f099da15d5d3cb34ef08163db8c7b65b690da5b351a",
+      "identical": true,
+      "baselineCanonicalLfSha256": "6a936e6a7768f52ca2b00f099da15d5d3cb34ef08163db8c7b65b690da5b351a",
+      "currentCanonicalLfSha256": "6a936e6a7768f52ca2b00f099da15d5d3cb34ef08163db8c7b65b690da5b351a",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": false
+    },
+    {
+      "path": "calibration/helpers.mjs",
+      "baselineSha256": "d306895efccd9cdca409cac4d6bc1db2f26c11267348dd4bfdf6b7c01be6bef7",
+      "currentSha256": "9b79336f5f5e30bbd88b5a1ca58321590e4716b90117731ccf4562ead2a9826e",
+      "identical": false,
+      "baselineCanonicalLfSha256": "d306895efccd9cdca409cac4d6bc1db2f26c11267348dd4bfdf6b7c01be6bef7",
+      "currentCanonicalLfSha256": "d306895efccd9cdca409cac4d6bc1db2f26c11267348dd4bfdf6b7c01be6bef7",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": true
+    },
+    {
+      "path": "calibration/nhl-allocation-fixtures.mjs",
+      "baselineSha256": "4912983665c14089706680b3df728dd1c41d16419679dce62360a5b306887089",
+      "currentSha256": "5db255ff0798fcb13418afc7187d1c32edef64a9281771c1dfc5dcab3975a7d5",
+      "identical": false,
+      "baselineCanonicalLfSha256": "4912983665c14089706680b3df728dd1c41d16419679dce62360a5b306887089",
+      "currentCanonicalLfSha256": "4912983665c14089706680b3df728dd1c41d16419679dce62360a5b306887089",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": true
+    },
+    {
+      "path": "calibration/nhl-pressure-experiment.cjs",
+      "baselineSha256": "e88112229052b124af2c6bd74d89b07cd13098876d82e16023bad3a03c5ca29a",
+      "currentSha256": "e88112229052b124af2c6bd74d89b07cd13098876d82e16023bad3a03c5ca29a",
+      "identical": true,
+      "baselineCanonicalLfSha256": "5f0cabb08f6b198fc7c073e99dd4f3c43f10cadea850742b599b441acfca914f",
+      "currentCanonicalLfSha256": "5f0cabb08f6b198fc7c073e99dd4f3c43f10cadea850742b599b441acfca914f",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": false
+    },
+    {
+      "path": "calibration/nhl-public-replay.mjs",
+      "baselineSha256": "4206e617fd532ba2c56d676c13003e8dd24d629a3766b98dafed061e7e8bac8e",
+      "currentSha256": "6a8586c43b4fa3a0f984e6694acf5f4e73191fdeb325010c9966b94a0d17712a",
+      "identical": false,
+      "baselineCanonicalLfSha256": "4206e617fd532ba2c56d676c13003e8dd24d629a3766b98dafed061e7e8bac8e",
+      "currentCanonicalLfSha256": "4206e617fd532ba2c56d676c13003e8dd24d629a3766b98dafed061e7e8bac8e",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": true
+    },
+    {
+      "path": "calibration/shadow-candidate.cjs",
+      "baselineSha256": "5473635499c905d7f40f5c41a22235b1dc07b42b71faa3d2c000f19ff67d178b",
+      "currentSha256": "5473635499c905d7f40f5c41a22235b1dc07b42b71faa3d2c000f19ff67d178b",
+      "identical": true,
+      "baselineCanonicalLfSha256": "5473635499c905d7f40f5c41a22235b1dc07b42b71faa3d2c000f19ff67d178b",
+      "currentCanonicalLfSha256": "5473635499c905d7f40f5c41a22235b1dc07b42b71faa3d2c000f19ff67d178b",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": false
+    },
+    {
+      "path": "calibration/trajectory-archetypes.mjs",
+      "baselineSha256": "c59191a5f109c4f0a04eceeb1510fff0320f89a62eee119d46cbe0f091fd7200",
+      "currentSha256": "c59191a5f109c4f0a04eceeb1510fff0320f89a62eee119d46cbe0f091fd7200",
+      "identical": true,
+      "baselineCanonicalLfSha256": "c59191a5f109c4f0a04eceeb1510fff0320f89a62eee119d46cbe0f091fd7200",
+      "currentCanonicalLfSha256": "c59191a5f109c4f0a04eceeb1510fff0320f89a62eee119d46cbe0f091fd7200",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": false
+    },
+    {
+      "path": "calibration/trajectory-checkpoint-fixtures.mjs",
+      "baselineSha256": "bf5dd636ab952f92be67e9ca04a87c7fafc6779f495420cec9b64a76412bc914",
+      "currentSha256": "bf5dd636ab952f92be67e9ca04a87c7fafc6779f495420cec9b64a76412bc914",
+      "identical": true,
+      "baselineCanonicalLfSha256": "bf5dd636ab952f92be67e9ca04a87c7fafc6779f495420cec9b64a76412bc914",
+      "currentCanonicalLfSha256": "bf5dd636ab952f92be67e9ca04a87c7fafc6779f495420cec9b64a76412bc914",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": false
+    },
+    {
+      "path": "calibration/trajectory-live-fixtures.mjs",
+      "baselineSha256": "96250972d8e67ae645e5a02dc8750ae07c95b99083ccc7dfc615f420445997ec",
+      "currentSha256": "96250972d8e67ae645e5a02dc8750ae07c95b99083ccc7dfc615f420445997ec",
+      "identical": true,
+      "baselineCanonicalLfSha256": "96250972d8e67ae645e5a02dc8750ae07c95b99083ccc7dfc615f420445997ec",
+      "currentCanonicalLfSha256": "96250972d8e67ae645e5a02dc8750ae07c95b99083ccc7dfc615f420445997ec",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": false
+    },
+    {
+      "path": "calibration/trajectory-live-policy.cjs",
+      "baselineSha256": "3eb8830eafc8ec8ab64c92d9638d1c579def9876e8ca5edf52228332417b7609",
+      "currentSha256": "3eb8830eafc8ec8ab64c92d9638d1c579def9876e8ca5edf52228332417b7609",
+      "identical": true,
+      "baselineCanonicalLfSha256": "3eb8830eafc8ec8ab64c92d9638d1c579def9876e8ca5edf52228332417b7609",
+      "currentCanonicalLfSha256": "3eb8830eafc8ec8ab64c92d9638d1c579def9876e8ca5edf52228332417b7609",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": false
+    },
+    {
+      "path": "calibration/trajectory-policy.cjs",
+      "baselineSha256": "84abbf0d1971612d3fee3372d7ef60eeec98be481ddea67af896e316b3f9b9ed",
+      "currentSha256": "84abbf0d1971612d3fee3372d7ef60eeec98be481ddea67af896e316b3f9b9ed",
+      "identical": true,
+      "baselineCanonicalLfSha256": "84abbf0d1971612d3fee3372d7ef60eeec98be481ddea67af896e316b3f9b9ed",
+      "currentCanonicalLfSha256": "84abbf0d1971612d3fee3372d7ef60eeec98be481ddea67af896e316b3f9b9ed",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": false
+    },
+    {
+      "path": "game-center.js",
+      "baselineSha256": "8825e9fb02eee3a7769b8fd703d06fb61f7bf5f85ef55872e9b3041ccd38d88b",
+      "currentSha256": "8825e9fb02eee3a7769b8fd703d06fb61f7bf5f85ef55872e9b3041ccd38d88b",
+      "identical": true,
+      "baselineCanonicalLfSha256": "d10380a9d29244494cddd78b17aff25936596fa81d15c04734b6d4d13ec77656",
+      "currentCanonicalLfSha256": "d10380a9d29244494cddd78b17aff25936596fa81d15c04734b6d4d13ec77656",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": false
+    },
+    {
+      "path": "notifications.js",
+      "baselineSha256": "c1afd53f559952507b2f63842f701cc62be76d7497df4d6efc9e36536838189c",
+      "currentSha256": "4a4094d8594cc34f8fb199732c483609254e8cf9586e9af9fe9bec556f1e98bd",
+      "identical": false,
+      "baselineCanonicalLfSha256": "c1afd53f559952507b2f63842f701cc62be76d7497df4d6efc9e36536838189c",
+      "currentCanonicalLfSha256": "c1afd53f559952507b2f63842f701cc62be76d7497df4d6efc9e36536838189c",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": true
+    },
+    {
+      "path": "rating-core.js",
+      "baselineSha256": "28734ce4e7a40c7974ae0eaa6ab3b542fec7bd91ca3c64ffcd3ee6cb1dce5243",
+      "currentSha256": "28734ce4e7a40c7974ae0eaa6ab3b542fec7bd91ca3c64ffcd3ee6cb1dce5243",
+      "identical": true,
+      "baselineCanonicalLfSha256": "4ec177dafc11cacf0f4651677b52f3d52b96b411fad267ba41147a18344cc510",
+      "currentCanonicalLfSha256": "4ec177dafc11cacf0f4651677b52f3d52b96b411fad267ba41147a18344cc510",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": false
+    },
+    {
+      "path": "scoring/README.md",
+      "baselineSha256": "0ee5e85b84dd0fd55e4b49f2c1731dbeb3f5de2cfdda07a2c6c97ae96a22d719",
+      "currentSha256": "8f1866dcf42d169538cf3e32bbd6e453a51e416bdb6ea68b58cf56bd3a433436",
+      "identical": false,
+      "baselineCanonicalLfSha256": "0ee5e85b84dd0fd55e4b49f2c1731dbeb3f5de2cfdda07a2c6c97ae96a22d719",
+      "currentCanonicalLfSha256": "0ee5e85b84dd0fd55e4b49f2c1731dbeb3f5de2cfdda07a2c6c97ae96a22d719",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": true
+    },
+    {
+      "path": "scoring/basketball-calibration.cjs",
+      "baselineSha256": "a0ab681f106a8e6047e973359a70797aa8182a963f621a7512efda175be8826d",
+      "currentSha256": "a28d77afb2e1da95faefd22f883b20877bfd6023d9a151e7cb627108ab69bea1",
+      "identical": false,
+      "baselineCanonicalLfSha256": "a0ab681f106a8e6047e973359a70797aa8182a963f621a7512efda175be8826d",
+      "currentCanonicalLfSha256": "a0ab681f106a8e6047e973359a70797aa8182a963f621a7512efda175be8826d",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": true
+    },
+    {
+      "path": "scoring/basketball-state.cjs",
+      "baselineSha256": "e4b930858f1b6c5f5f82888c861a408ad9546568d5032801fbef66a0cde72da2",
+      "currentSha256": "e15cb51de8f335daf6bc22b5b06b72b1a56cb4622f3377b2718372aa90687686",
+      "identical": false,
+      "baselineCanonicalLfSha256": "e4b930858f1b6c5f5f82888c861a408ad9546568d5032801fbef66a0cde72da2",
+      "currentCanonicalLfSha256": "e4b930858f1b6c5f5f82888c861a408ad9546568d5032801fbef66a0cde72da2",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": true
+    },
+    {
+      "path": "scoring/basketball-upset.cjs",
+      "baselineSha256": "0ad3da0bf584467b30fb66376d4fe5908bcb11a20c768f02e2b432fd44a550a8",
+      "currentSha256": "a98d270bcb4ff27d04b577a72833754c4ab94dfbdc014a66e4b3b4ab74667088",
+      "identical": false,
+      "baselineCanonicalLfSha256": "0ad3da0bf584467b30fb66376d4fe5908bcb11a20c768f02e2b432fd44a550a8",
+      "currentCanonicalLfSha256": "0ad3da0bf584467b30fb66376d4fe5908bcb11a20c768f02e2b432fd44a550a8",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": true
+    },
+    {
+      "path": "scoring/browser-entry.cjs",
+      "baselineSha256": "2c093b14095e7d02dc57fc11f4564712be28e04342f2108418fa328288376e62",
+      "currentSha256": "e445f885fcaef57de3fd247b3e23cc89849b8e1f504812b7b6e7746f35b555e3",
+      "identical": false,
+      "baselineCanonicalLfSha256": "2c093b14095e7d02dc57fc11f4564712be28e04342f2108418fa328288376e62",
+      "currentCanonicalLfSha256": "2c093b14095e7d02dc57fc11f4564712be28e04342f2108418fa328288376e62",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": true
+    },
+    {
+      "path": "scoring/detail-state.cjs",
+      "baselineSha256": "0f99a4369f14a78771ec766743104b8fe610a5576e42202d8674261d237b8f4a",
+      "currentSha256": "84ceecff534181b6c1b050dc1298a968dda077ad8efedc484b37ccbdc3ee9885",
+      "identical": false,
+      "baselineCanonicalLfSha256": "0f99a4369f14a78771ec766743104b8fe610a5576e42202d8674261d237b8f4a",
+      "currentCanonicalLfSha256": "0f99a4369f14a78771ec766743104b8fe610a5576e42202d8674261d237b8f4a",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": true
+    },
+    {
+      "path": "scoring/event-occasion.cjs",
+      "baselineSha256": "2a560c63844497a56b2242777ad57769cf59634aad90891204404fbb2d5ffe58",
+      "currentSha256": "e978a1f9adc33fcb47c7d43dff505d9f5ac6432f618917306758ed44591ac8bd",
+      "identical": false,
+      "baselineCanonicalLfSha256": "2a560c63844497a56b2242777ad57769cf59634aad90891204404fbb2d5ffe58",
+      "currentCanonicalLfSha256": "2a560c63844497a56b2242777ad57769cf59634aad90891204404fbb2d5ffe58",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": true
+    },
+    {
+      "path": "scoring/football-live.cjs",
+      "baselineSha256": "1d6c13c24a20bc4224c274b6cdb2fc3b979c03a5eb5e80592aa6ea5e5e24ec9c",
+      "currentSha256": "88186536f38e9f0a015faf9fdc016068c72b1a953eca334dd2c1825a3b0a8426",
+      "identical": false,
+      "baselineCanonicalLfSha256": "1d6c13c24a20bc4224c274b6cdb2fc3b979c03a5eb5e80592aa6ea5e5e24ec9c",
+      "currentCanonicalLfSha256": "1d6c13c24a20bc4224c274b6cdb2fc3b979c03a5eb5e80592aa6ea5e5e24ec9c",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": true
+    },
+    {
+      "path": "scoring/football-market.cjs",
+      "baselineSha256": "de64629ad210c50a135e7c9752cec366e0ed6fdc9088ea1cbc96e87e08a1f4d1",
+      "currentSha256": "1e17c4ab2d99ddeb3e778356dc0186e75e43bc33067de19fea3e611f02be878b",
+      "identical": false,
+      "baselineCanonicalLfSha256": "de64629ad210c50a135e7c9752cec366e0ed6fdc9088ea1cbc96e87e08a1f4d1",
+      "currentCanonicalLfSha256": "de64629ad210c50a135e7c9752cec366e0ed6fdc9088ea1cbc96e87e08a1f4d1",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": true
+    },
+    {
+      "path": "scoring/football-transition.cjs",
+      "baselineSha256": "0d772e802bc1f16eae852cce97fbcdaf95fe11a96ff408abd63a3b286d4a4c13",
+      "currentSha256": "28e93b68ef033a34348508325644dade180010f5df3f0d00a8879b2f04f86628",
+      "identical": false,
+      "baselineCanonicalLfSha256": "0d772e802bc1f16eae852cce97fbcdaf95fe11a96ff408abd63a3b286d4a4c13",
+      "currentCanonicalLfSha256": "0d772e802bc1f16eae852cce97fbcdaf95fe11a96ff408abd63a3b286d4a4c13",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": true
+    },
+    {
+      "path": "scoring/game-facts.cjs",
+      "baselineSha256": "ebbda2d72dca446a9fe0deebdb5bce6cc71b164a270dac4cb23a41aac3c00083",
+      "currentSha256": "a94baf01e7978f8a3835db9a93a244d4f533bc27b99df17045cf6a5b3bb88ba0",
+      "identical": false,
+      "baselineCanonicalLfSha256": "ebbda2d72dca446a9fe0deebdb5bce6cc71b164a270dac4cb23a41aac3c00083",
+      "currentCanonicalLfSha256": "ebbda2d72dca446a9fe0deebdb5bce6cc71b164a270dac4cb23a41aac3c00083",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": true
+    },
+    {
+      "path": "scoring/live-evidence.cjs",
+      "baselineSha256": "9e109dab44cac72c83d1ffcfacfdc9a38d9e39b9f984798331fa6159942c575e",
+      "currentSha256": "74a4c05d7398255fa37f7330969bd3fcc65b8bdea0de03a902491076f2caa19f",
+      "identical": false,
+      "baselineCanonicalLfSha256": "9e109dab44cac72c83d1ffcfacfdc9a38d9e39b9f984798331fa6159942c575e",
+      "currentCanonicalLfSha256": "9e109dab44cac72c83d1ffcfacfdc9a38d9e39b9f984798331fa6159942c575e",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": true
+    },
+    {
+      "path": "scoring/live-runtime.cjs",
+      "baselineSha256": "cc848d1f1367e9b8c6823beee95b9a3c821f2259baddb29a638e5f81cb16749d",
+      "currentSha256": "b0b03540b99b95da15d9c5f8fa70e31168662b2037e920419e89173b5ffaa988",
+      "identical": false,
+      "baselineCanonicalLfSha256": "cc848d1f1367e9b8c6823beee95b9a3c821f2259baddb29a638e5f81cb16749d",
+      "currentCanonicalLfSha256": "cc848d1f1367e9b8c6823beee95b9a3c821f2259baddb29a638e5f81cb16749d",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": true
+    },
+    {
+      "path": "scoring/models.js",
+      "baselineSha256": "9efc69e6ffe186423515dc476a7551031b13fc35d2580b3100fb86b15a60584d",
+      "currentSha256": "e0e71699004860056d9441281e060fdee01316d83f244e6c11cb7395368cc889",
+      "identical": false,
+      "baselineCanonicalLfSha256": "9efc69e6ffe186423515dc476a7551031b13fc35d2580b3100fb86b15a60584d",
+      "currentCanonicalLfSha256": "9efc69e6ffe186423515dc476a7551031b13fc35d2580b3100fb86b15a60584d",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": true
+    },
+    {
+      "path": "scoring/nhl-advanced.cjs",
+      "baselineSha256": "89c7c8b31910d54bd50b798eaf97cc027c4143b3a43d1f655342cc7c380990d0",
+      "currentSha256": "2ebd249a89f69a1977025537e7df2d7e1bc93b8613d24dd3e7c7f8752473dff1",
+      "identical": false,
+      "baselineCanonicalLfSha256": "89c7c8b31910d54bd50b798eaf97cc027c4143b3a43d1f655342cc7c380990d0",
+      "currentCanonicalLfSha256": "89c7c8b31910d54bd50b798eaf97cc027c4143b3a43d1f655342cc7c380990d0",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": true
+    },
+    {
+      "path": "scoring/nhl-manpower-evidence.cjs",
+      "baselineSha256": "32098b7765e3c67971422c8ec6aa34f75ff4aaf7c82f2e7ce8b8f722a7f93ab3",
+      "currentSha256": "3917a7faf2701dd542d41e6afde12c18b01c3a9321f5a7ca9d34de9374c37c42",
+      "identical": false,
+      "baselineCanonicalLfSha256": "32098b7765e3c67971422c8ec6aa34f75ff4aaf7c82f2e7ce8b8f722a7f93ab3",
+      "currentCanonicalLfSha256": "32098b7765e3c67971422c8ec6aa34f75ff4aaf7c82f2e7ce8b8f722a7f93ab3",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": true
+    },
+    {
+      "path": "scoring/opening-transition.cjs",
+      "baselineSha256": "5066aad6c56f6d107ae72caa5e29cad3027c608c30839aef45183dfd0224b62d",
+      "currentSha256": "617eeedf45b19e282d3c3a8dbdbf56d4d0cba0046473fc55cb01ab97715f4604",
+      "identical": false,
+      "baselineCanonicalLfSha256": "5066aad6c56f6d107ae72caa5e29cad3027c608c30839aef45183dfd0224b62d",
+      "currentCanonicalLfSha256": "5066aad6c56f6d107ae72caa5e29cad3027c608c30839aef45183dfd0224b62d",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": true
+    },
+    {
+      "path": "scoring/provider-evidence.cjs",
+      "baselineSha256": "ccefebc6d6cd703d20879fba3f3c479798e7f7b05723c5d0718dbcac99f1bd2e",
+      "currentSha256": "788ef80fcff97a45ef73bbfe20e31650b349e9aaba2f33236b34f13fd4c976d0",
+      "identical": false,
+      "baselineCanonicalLfSha256": "ccefebc6d6cd703d20879fba3f3c479798e7f7b05723c5d0718dbcac99f1bd2e",
+      "currentCanonicalLfSha256": "ccefebc6d6cd703d20879fba3f3c479798e7f7b05723c5d0718dbcac99f1bd2e",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": true
+    },
+    {
+      "path": "scoring/shared/basketball.js",
+      "baselineSha256": "986710c0c9e83be41aac1fd49419ec6541a6ace81a7df0a4b88cd68293d0e3aa",
+      "currentSha256": "986710c0c9e83be41aac1fd49419ec6541a6ace81a7df0a4b88cd68293d0e3aa",
+      "identical": true,
+      "baselineCanonicalLfSha256": "986710c0c9e83be41aac1fd49419ec6541a6ace81a7df0a4b88cd68293d0e3aa",
+      "currentCanonicalLfSha256": "986710c0c9e83be41aac1fd49419ec6541a6ace81a7df0a4b88cd68293d0e3aa",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": false
+    },
+    {
+      "path": "scoring/shared/calculation.js",
+      "baselineSha256": "72217d3830f00c73345b9b062bf51833b12c25d08ccb60cc6ff0743a1d94a142",
+      "currentSha256": "72217d3830f00c73345b9b062bf51833b12c25d08ccb60cc6ff0743a1d94a142",
+      "identical": true,
+      "baselineCanonicalLfSha256": "bb16db6b6c4bfdf7f2890e999bae91e6412c70654b4df769989f2a7fe1ddeccd",
+      "currentCanonicalLfSha256": "bb16db6b6c4bfdf7f2890e999bae91e6412c70654b4df769989f2a7fe1ddeccd",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": false
+    },
+    {
+      "path": "scoring/shared/college.js",
+      "baselineSha256": "ff117eb5fd806a005ed24c131d961fba6c0d45187bf8649b25f1fba8e6769fcc",
+      "currentSha256": "8b7ee59994895e3b565e0d6c69ff208ea999050da2210a12fcefaa959bdbed1d",
+      "identical": false,
+      "baselineCanonicalLfSha256": "ff117eb5fd806a005ed24c131d961fba6c0d45187bf8649b25f1fba8e6769fcc",
+      "currentCanonicalLfSha256": "ff117eb5fd806a005ed24c131d961fba6c0d45187bf8649b25f1fba8e6769fcc",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": true
+    },
+    {
+      "path": "scoring/shared/config.js",
+      "baselineSha256": "a1bee51d57d387e18ae8bc49dfd19800b096cca341f0ad8fa44c39a097ae9e69",
+      "currentSha256": "d420e83eebdc66c9cea14a5038dbd0a2265ed4f03b9b884249ff56e4b083f6ab",
+      "identical": false,
+      "baselineCanonicalLfSha256": "a1bee51d57d387e18ae8bc49dfd19800b096cca341f0ad8fa44c39a097ae9e69",
+      "currentCanonicalLfSha256": "a1bee51d57d387e18ae8bc49dfd19800b096cca341f0ad8fa44c39a097ae9e69",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": true
+    },
+    {
+      "path": "scoring/shared/context.js",
+      "baselineSha256": "05c3827f105e8b018c6ccb3f12023c5d88275858d72e86ed30f38e2003091a29",
+      "currentSha256": "b88863fa93b2b54f0ec7251efb59a8adbd934e705e49cab8ba27c4441df7303d",
+      "identical": false,
+      "baselineCanonicalLfSha256": "05c3827f105e8b018c6ccb3f12023c5d88275858d72e86ed30f38e2003091a29",
+      "currentCanonicalLfSha256": "05c3827f105e8b018c6ccb3f12023c5d88275858d72e86ed30f38e2003091a29",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": true
+    },
+    {
+      "path": "scoring/shared/events.js",
+      "baselineSha256": "e0956eb8236b91cb9cff57018d0b794821dcc19a730c7a6f2dd94b441744647b",
+      "currentSha256": "bbc9eb4b7e0a162480b2eca8bf0f8c346368c551c3e0673429b0955c1d838358",
+      "identical": false,
+      "baselineCanonicalLfSha256": "e0956eb8236b91cb9cff57018d0b794821dcc19a730c7a6f2dd94b441744647b",
+      "currentCanonicalLfSha256": "e0956eb8236b91cb9cff57018d0b794821dcc19a730c7a6f2dd94b441744647b",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": true
+    },
+    {
+      "path": "scoring/shared/football.js",
+      "baselineSha256": "529cba8c50f7270085470abc45de755e1b08ff633c307c9bb81a57c67cb5ec69",
+      "currentSha256": "541653bbb564d53dcd8cbcfaf3bfa599be55a36c45fb933db195fa23f1b2d984",
+      "identical": false,
+      "baselineCanonicalLfSha256": "529cba8c50f7270085470abc45de755e1b08ff633c307c9bb81a57c67cb5ec69",
+      "currentCanonicalLfSha256": "529cba8c50f7270085470abc45de755e1b08ff633c307c9bb81a57c67cb5ec69",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": true
+    },
+    {
+      "path": "scoring/shared/history.js",
+      "baselineSha256": "d2ef22c345a9a1b394d5336781248e70927a4510225901d5273323a741984a0b",
+      "currentSha256": "d2ef22c345a9a1b394d5336781248e70927a4510225901d5273323a741984a0b",
+      "identical": true,
+      "baselineCanonicalLfSha256": "d2ef22c345a9a1b394d5336781248e70927a4510225901d5273323a741984a0b",
+      "currentCanonicalLfSha256": "d2ef22c345a9a1b394d5336781248e70927a4510225901d5273323a741984a0b",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": false
+    },
+    {
+      "path": "scoring/shared/market.js",
+      "baselineSha256": "4e0e65ffaf98a00127e1bbd3dfde5163d4e753a9215ca8439e665b6971f58477",
+      "currentSha256": "a247e3a4706d45abe67456fc1361cd71e741a2bf3c9fc803d0d6d4b38896afae",
+      "identical": false,
+      "baselineCanonicalLfSha256": "4e0e65ffaf98a00127e1bbd3dfde5163d4e753a9215ca8439e665b6971f58477",
+      "currentCanonicalLfSha256": "4e0e65ffaf98a00127e1bbd3dfde5163d4e753a9215ca8439e665b6971f58477",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": true
+    },
+    {
+      "path": "scoring/shared/nfl-pregame.js",
+      "baselineSha256": "f9710d37e991c0457580a530cf9e8db6e96148cb5c0a264e5f568d33a4ff6a05",
+      "currentSha256": "975ccec565d24be6f2ab99af0b490814051aab00c75181c90085f8b3d160e2e0",
+      "identical": false,
+      "baselineCanonicalLfSha256": "f9710d37e991c0457580a530cf9e8db6e96148cb5c0a264e5f568d33a4ff6a05",
+      "currentCanonicalLfSha256": "f9710d37e991c0457580a530cf9e8db6e96148cb5c0a264e5f568d33a4ff6a05",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": true
+    },
+    {
+      "path": "scoring/shared/pregame.js",
+      "baselineSha256": "bc54c64629c27616611b9fdae79bbb367e9450df379f07bd4036f477cb25cad4",
+      "currentSha256": "40f095298414f61c008b92b2ffe100b5d707f8854c0c9f4e456f65d4bb6e32e0",
+      "identical": false,
+      "baselineCanonicalLfSha256": "bc54c64629c27616611b9fdae79bbb367e9450df379f07bd4036f477cb25cad4",
+      "currentCanonicalLfSha256": "bc54c64629c27616611b9fdae79bbb367e9450df379f07bd4036f477cb25cad4",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": true
+    },
+    {
+      "path": "scoring/shared/pressure.js",
+      "baselineSha256": "72104bd7a61c6a8bc12e47be64c12704dce7b4b389bcc7eaf27ba15cb2aeb1c5",
+      "currentSha256": "72104bd7a61c6a8bc12e47be64c12704dce7b4b389bcc7eaf27ba15cb2aeb1c5",
+      "identical": true,
+      "baselineCanonicalLfSha256": "72104bd7a61c6a8bc12e47be64c12704dce7b4b389bcc7eaf27ba15cb2aeb1c5",
+      "currentCanonicalLfSha256": "72104bd7a61c6a8bc12e47be64c12704dce7b4b389bcc7eaf27ba15cb2aeb1c5",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": false
+    },
+    {
+      "path": "scoring/shared/probability.js",
+      "baselineSha256": "cd77a581eff895cd26b3250ee309a08c6fc4c65de92b881b162a5e161b4917ce",
+      "currentSha256": "cd77a581eff895cd26b3250ee309a08c6fc4c65de92b881b162a5e161b4917ce",
+      "identical": true,
+      "baselineCanonicalLfSha256": "cd77a581eff895cd26b3250ee309a08c6fc4c65de92b881b162a5e161b4917ce",
+      "currentCanonicalLfSha256": "cd77a581eff895cd26b3250ee309a08c6fc4c65de92b881b162a5e161b4917ce",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": false
+    },
+    {
+      "path": "scoring/shared/records.js",
+      "baselineSha256": "5fb463f91c3399749a1b41fbfc12101e1c53955f6d9eeac1b2d902a78c83b673",
+      "currentSha256": "11c12737362e88fcd866d289d8579597e8db8d614ec475a7ed9a8b01c42570ec",
+      "identical": false,
+      "baselineCanonicalLfSha256": "5fb463f91c3399749a1b41fbfc12101e1c53955f6d9eeac1b2d902a78c83b673",
+      "currentCanonicalLfSha256": "5fb463f91c3399749a1b41fbfc12101e1c53955f6d9eeac1b2d902a78c83b673",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": true
+    },
+    {
+      "path": "scoring/shared/time.js",
+      "baselineSha256": "14ea2a31e47e7c04843a1ce0ffd6cf7f41e03fb70cb903998417f82d2435071a",
+      "currentSha256": "6e9694ac8cf0318449c33b68b3179fd2d480809674c0866e1e5142546578f882",
+      "identical": false,
+      "baselineCanonicalLfSha256": "14ea2a31e47e7c04843a1ce0ffd6cf7f41e03fb70cb903998417f82d2435071a",
+      "currentCanonicalLfSha256": "14ea2a31e47e7c04843a1ce0ffd6cf7f41e03fb70cb903998417f82d2435071a",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": true
+    },
+    {
+      "path": "scoring/shared/trajectory.js",
+      "baselineSha256": "069733ef4bf563442024b32fa56f2467758b34a235d2a22dac72d7840bebd87f",
+      "currentSha256": "069733ef4bf563442024b32fa56f2467758b34a235d2a22dac72d7840bebd87f",
+      "identical": true,
+      "baselineCanonicalLfSha256": "069733ef4bf563442024b32fa56f2467758b34a235d2a22dac72d7840bebd87f",
+      "currentCanonicalLfSha256": "069733ef4bf563442024b32fa56f2467758b34a235d2a22dac72d7840bebd87f",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": false
+    },
+    {
+      "path": "scoring/shared/upset.js",
+      "baselineSha256": "b39e00f9f423fac4c75417e6b3ba9b4b91df12070af8cebe522baca1d24a83a6",
+      "currentSha256": "deaaa0ab5fed57049e02e318685a0c5a559803edca5cc256cd9c3e169c59f282",
+      "identical": false,
+      "baselineCanonicalLfSha256": "b39e00f9f423fac4c75417e6b3ba9b4b91df12070af8cebe522baca1d24a83a6",
+      "currentCanonicalLfSha256": "b39e00f9f423fac4c75417e6b3ba9b4b91df12070af8cebe522baca1d24a83a6",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": true
+    },
+    {
+      "path": "scoring/snapshot-integrity.cjs",
+      "baselineSha256": "f2b7242e4210affc30005296df69d5140f9e3f9cd92ac5da0c3b8b289993161e",
+      "currentSha256": "f36fe3123705f456159a97ba2001c29edf8f37cffcb24a5fcd50c64c6cc96e6e",
+      "identical": false,
+      "baselineCanonicalLfSha256": "f2b7242e4210affc30005296df69d5140f9e3f9cd92ac5da0c3b8b289993161e",
+      "currentCanonicalLfSha256": "f2b7242e4210affc30005296df69d5140f9e3f9cd92ac5da0c3b8b289993161e",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": true
+    },
+    {
+      "path": "scoring/sports/basketball.js",
+      "baselineSha256": "ebdea5b3fb25dac4e4bbf50752152386b37a9696030755521218e1cb30e239a6",
+      "currentSha256": "f834b9039e731448178aa7cb32155b4e71173db83a051da7bc1a285913d2ff0f",
+      "identical": false,
+      "baselineCanonicalLfSha256": "ebdea5b3fb25dac4e4bbf50752152386b37a9696030755521218e1cb30e239a6",
+      "currentCanonicalLfSha256": "ebdea5b3fb25dac4e4bbf50752152386b37a9696030755521218e1cb30e239a6",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": true
+    },
+    {
+      "path": "scoring/sports/cfb.js",
+      "baselineSha256": "3b9a10d5a58246375f4a6a6d08b28def6039850633f00f6774c448cf5384f0e7",
+      "currentSha256": "c1e781d18dda89f975153c6df41b6f2f29f20de2c52d4e0639a4d40bc6b392cb",
+      "identical": false,
+      "baselineCanonicalLfSha256": "3b9a10d5a58246375f4a6a6d08b28def6039850633f00f6774c448cf5384f0e7",
+      "currentCanonicalLfSha256": "3b9a10d5a58246375f4a6a6d08b28def6039850633f00f6774c448cf5384f0e7",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": true
+    },
+    {
+      "path": "scoring/sports/mlb.js",
+      "baselineSha256": "9ef1a496ad00eaf08452346ba5e5b1a9dde8e6c284bf97a8649a83c00c33a95f",
+      "currentSha256": "3f106784e0cb238bb37a84fa961d999b5884c9b442bf91ce34872941025a8e64",
+      "identical": false,
+      "baselineCanonicalLfSha256": "9ef1a496ad00eaf08452346ba5e5b1a9dde8e6c284bf97a8649a83c00c33a95f",
+      "currentCanonicalLfSha256": "9ef1a496ad00eaf08452346ba5e5b1a9dde8e6c284bf97a8649a83c00c33a95f",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": true
+    },
+    {
+      "path": "scoring/sports/nfl.js",
+      "baselineSha256": "71b78d6ac0d40e89aae007ba902256f2a249a212a9f4561d1bbf242bc47ecafb",
+      "currentSha256": "d3afdac378373c1ac2046c3c08acd6221c60eea4e1d057d9f4c6682ce1529976",
+      "identical": false,
+      "baselineCanonicalLfSha256": "71b78d6ac0d40e89aae007ba902256f2a249a212a9f4561d1bbf242bc47ecafb",
+      "currentCanonicalLfSha256": "71b78d6ac0d40e89aae007ba902256f2a249a212a9f4561d1bbf242bc47ecafb",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": true
+    },
+    {
+      "path": "scoring/sports/nhl.js",
+      "baselineSha256": "de427202c899adf42ca9f142cde06a0edfd23de8cea5ca7bedb6c9cf66d5f501",
+      "currentSha256": "de427202c899adf42ca9f142cde06a0edfd23de8cea5ca7bedb6c9cf66d5f501",
+      "identical": true,
+      "baselineCanonicalLfSha256": "de427202c899adf42ca9f142cde06a0edfd23de8cea5ca7bedb6c9cf66d5f501",
+      "currentCanonicalLfSha256": "de427202c899adf42ca9f142cde06a0edfd23de8cea5ca7bedb6c9cf66d5f501",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": false
+    },
+    {
+      "path": "scoring/sports/soccer.js",
+      "baselineSha256": "79de9a0ed13ee039c89db05b5b51fd833683a3c43886cac315f3f657227111e7",
+      "currentSha256": "a77ee21164f4af72e69ce618f547569975b25777267a08added811d4dd8b6618",
+      "identical": false,
+      "baselineCanonicalLfSha256": "79de9a0ed13ee039c89db05b5b51fd833683a3c43886cac315f3f657227111e7",
+      "currentCanonicalLfSha256": "79de9a0ed13ee039c89db05b5b51fd833683a3c43886cac315f3f657227111e7",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": true
+    },
+    {
+      "path": "scoring/sports/tennis.js",
+      "baselineSha256": "c29c70198cab513219b50191508490026ebc8ba7ad07c1e3277395fd9231caf0",
+      "currentSha256": "efdc35b208c4f9b8c9f80c400b77fd40517dc7d635512e5f6773df5f3f44f4a1",
+      "identical": false,
+      "baselineCanonicalLfSha256": "c29c70198cab513219b50191508490026ebc8ba7ad07c1e3277395fd9231caf0",
+      "currentCanonicalLfSha256": "c29c70198cab513219b50191508490026ebc8ba7ad07c1e3277395fd9231caf0",
+      "canonicalContentIdentical": true,
+      "checkoutLineEndingsOnly": true
+    }
+  ],
+  "allProtectedCanonicalContentIdentical": true,
+  "rawMismatchExplanation": "Existing Windows autocrlf checkout differences. No semantic source content differs. Both raw and canonical-LF hashes are retained explicitly.",
+  "baselineTestResult": {
+    "command": "node --test work/baseline-replay-5b7f797/test/replay-input-comparison.test.js",
+    "exitCode": 1,
+    "testFileFailures": 1,
+    "cause": "git show historical manifest exits 128 during test import",
+    "log": "baseline-replay.log"
+  },
+  "manifestIntroduced": [
+    "88f5b40b3d90aeac7f0c266c77f49fa6519c41e7"
+  ]
+}

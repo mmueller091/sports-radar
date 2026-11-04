@@ -1,3 +1,4 @@
+import {slateNode,slateTemplate} from './helpers/slate-dom.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
@@ -14,6 +15,7 @@ function start(storage=new Map()) {
   const elements=new Map();
   const element=selector=>{
     if (!elements.has(selector)) {
+      if(selector === '#game-list'){const node=slateNode();node.events={};node.addEventListener=(name,handler)=>(node.events[name]??=[]).push(handler);elements.set(selector,node);return node;}
       const classes=new Set(),events={};
       elements.set(selector,{innerHTML:'',textContent:'',value:'',dataset:{},events,
         classList:{add:n=>classes.add(n),remove:n=>classes.delete(n),contains:n=>classes.has(n),toggle:(n,on)=>{if(on??!classes.has(n))classes.add(n);else classes.delete(n);}},
@@ -31,7 +33,7 @@ function start(storage=new Map()) {
   const all=selector=>selector==='.sport-chip[data-sport]'?chips:selector==='[data-visible-sport]'?toggles:selector==='.soccer-chip'?chips.filter(chip=>chip.dataset.sport==='Soccer'):[];
   const feed=sports.map(sport=>({id:sport,sport,state:'live',startTime:new Date().toISOString(),status:'Live',score:60,modelVersion,teams:[['Home','H','0'],['Away','A','0']]}));
   const context=vm.createContext({
-    document:{body:element('body'),querySelector:element,querySelectorAll:all,addEventListener(){},hidden:false},
+    document:{createElement:slateTemplate,body:element('body'),querySelector:element,querySelectorAll:all,addEventListener(){},hidden:false},
     window:{addEventListener(){}},navigator:{},location:{hash:''},
     localStorage:{getItem:key=>storage.get(key)??null,setItem:(key,value)=>storage.set(key,value)},
     fetch:async()=>({ok:true,json:async()=>({modelVersion,updatedAt:new Date().toISOString(),games:feed})}),

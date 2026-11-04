@@ -181,6 +181,7 @@ test('Game Center presents mapped statistics, zero shares, missing data and fres
   assert.match(html,/awaiting score reconciliation/);assert.doesNotMatch(html,/NaN|Infinity|undefined/);
   assert.match(context.detailNhlAdvanced({}),/unavailable/);
   context.storylineDetails=()=>'';
+  context.renderExcitementTimeline=()=>'';
   vm.runInContext(source.slice(source.indexOf('const DETAIL_TAB_CONFIG ='),source.indexOf('function detailTabsMarkup(')),context);
   const tabs=context.detailTabSections({sport:'NHL'},summary);
   assert.match(tabs.find(tab=>tab.id==='team-stats').content,/Full game Corsi/);

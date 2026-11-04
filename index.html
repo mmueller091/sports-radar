@@ -14,6 +14,8 @@
     <link rel="apple-touch-icon" href="app-icon-192.png" />
     <link rel="stylesheet" href="styles.css?rev=slatemeter-rebrand" />
     <link rel="stylesheet" href="mobile-readability.css?rev=slatemeter-rebrand" />
+    <link rel="stylesheet" href="ui-overhaul.css?rev=ui-overhaul" />
+    <link rel="stylesheet" href="team-logos.css?rev=logo-contrast" />
     <link rel="canonical" href="https://slatemeter.app/" />
     <meta property="og:site_name" content="SlateMeter" />
     <meta property="og:title" content="SlateMeter — Live sports, ranked by excitement." />
@@ -117,15 +119,6 @@
 
     <dialog id="preferences-dialog">
       <div class="dialog-header"><div><div class="eyebrow">SETTINGS</div><h2>Your SlateMeter.</h2></div><button class="close-dialog" aria-label="Close">×</button></div>
-      <details class="preference-block migration-note">
-        <summary id="migration-heading">Moving from Sports Radar?</summary>
-        <p class="subtle">Welcome to <a href="https://slatemeter.app/">slatemeter.app</a>. Your previous browser data stays on the old address. Favorites, Watching selections, sport filters, and notification choices need to be set up here once per browser.</p>
-        <details><summary>Set up your new installation</summary><ol>
-          <li>Choose your favorite teams and home page sports below. Add individual games to Watching again.</li>
-          <li>Install SlateMeter from this address, then choose notification sports, teams, and threshold. Tap Enable notifications to grant this site its own permission.</li>
-          <li>Your old subscription is kept. To avoid duplicate alerts, turn notifications off in your old installed app when you are ready, or use your browser’s notification settings for mmueller091.github.io. Keep the old installation until you have checked your choices.</li>
-        </ol><p class="subtle">Browser-local rating history and saved pregame lines stay on the old address; they are not transferred. Available recorded Game Center history still comes from the same service. No account or sign-in is needed.</p></details>
-      </details>
       <div class="preference-block">
         <label>Favorite teams</label>
         <p class="subtle">Game-day favorites appear first. Choose your own teams; future games still rank by excitement.</p>
@@ -165,10 +158,19 @@
           <li>Open SlateMeter in <strong>Chrome</strong>.</li><li>Tap the <strong>three-dot menu</strong> <span class="install-menu-icon" aria-hidden="true">⋮</span>.</li><li>Select <strong>Install app</strong>, <strong>Install and create shortcut</strong>, or <strong>Add to Home screen</strong>, depending on Chrome.</li><li>Confirm installation.</li><li>Open SlateMeter from its icon.</li><li>Open <strong>Settings &gt; Notifications</strong> in SlateMeter.</li><li>Enable notifications and choose sports and teams.</li>
         </ol></details>
       </section>
+      <details class="preference-block migration-note">
+        <summary id="migration-heading">Help: Moving from Sports Radar?</summary>
+        <p class="subtle">Welcome to <a href="https://slatemeter.app/">slatemeter.app</a>. Your previous browser data stays on the old address. Favorites, Watching selections, sport filters, and notification choices need to be set up here once per browser.</p>
+        <details><summary>Set up your new installation</summary><ol>
+          <li>Choose your favorite teams and home page sports below. Add individual games to Watching again.</li>
+          <li>Install SlateMeter from this address, then choose notification sports, teams, and threshold. Tap Enable notifications to grant this site its own permission.</li>
+          <li>Your old subscription is kept. To avoid duplicate alerts, turn notifications off in your old installed app when you are ready, or use your browser’s notification settings for mmueller091.github.io. Keep the old installation until you have checked your choices.</li>
+        </ol><p class="subtle">Browser-local rating history and saved pregame lines stay on the old address; they are not transferred. Available recorded Game Center history still comes from the same service. No account or sign-in is needed.</p></details>
+      </details>
       <div class="preference-block"><label>How ratings work</label><p class="subtle">Before play: verified stakes, team quality and form, the listed spread and total, and relevant player or matchup stories. Ordinary division games receive a small boost. During play: closeness, game time, and verified momentum swings. After play: the finish and big swings across the whole game.</p></div><button class="primary-button close-dialog">Done</button>
     </dialog>
     <dialog id="data-dialog"><div class="dialog-header"><div><div class="eyebrow">UNDER THE HOOD</div><h2>How the rating works.</h2></div><button class="close-dialog" aria-label="Close">×</button></div><p class="dialog-copy">Live scores and game details come from public ESPN feeds and refresh each minute. NBA and NHL schedules include yesterday, today, and the following seven days. If the initial feed cannot be reached, retry from the status line. Later refresh failures keep the last loaded scores and mark them stale.</p><div class="source-grid"><div><strong>Before play</strong><span>Matchup stakes, team quality, rankings, and market expectations. NFL division positioning uses actual standings; recent form, scoring potential, and verified stories add bounded context.</span></div><div><strong>During play</strong><span>Current leverage leads the rating: margin, time remaining, possession or baserunners, and verified recent momentum. Pregame reputation fades after play begins.</span></div><div><strong>After play</strong><span>The whole game matters: final margin, sustained competitiveness, comebacks, lead changes, overtime, and the deciding sequence when available.</span></div><div><strong>Betting lines</strong><span>Shown when ESPN lists them. MLB and NHL may offer a moneyline rather than a run/puck spread. Post-start pregame lines are not labeled as verified closes unless the feed says so.</span></div></div><div class="model-note"><strong>Ranking model</strong><span>Momentum signals are capped so repeated descriptions of the same run do not dominate the rating. The 1–99 score is an estimate, not a league statistic.</span></div><button class="primary-button close-dialog">Got it</button></dialog>
-    <dialog id="score-guide-dialog"><div class="dialog-header"><div><div class="eyebrow">SCORE GUIDE</div><h2>What the ratings mean.</h2></div><button class="close-dialog" aria-label="Close">×</button></div><p class="dialog-copy">The number answers a different question before, during, and after a game: how promising it looks, how urgently it is worth watching now, or how exciting the full game was.</p><div class="score-range-list"><div><b>95–99</b><span><strong>Exceptional</strong> Historic drama, a remarkable finish, or something rare unfolding.</span></div><div><b>85–94</b><span><strong>Tune in now</strong> A high-leverage game with a strong reason to watch immediately.</span></div><div><b>70–84</b><span><strong>Strong watch</strong> A compelling matchup, live situation, or finished game.</span></div><div><b>50–69</b><span><strong>Worth checking</strong> Competitive or notable, but not yet urgent.</span></div><div><b>1–49</b><span><strong>Background</strong> Limited stakes, an ordinary situation, or a game moving toward a clear result.</span></div></div><p class="score-guide-note">A quiet slate may have no games above 85. Scores are not forced into every range.</p><button class="primary-button close-dialog">Got it</button></dialog>
+    <dialog id="score-guide-dialog"><div class="dialog-header"><div><div class="eyebrow">SCORE GUIDE</div><h2>What the ratings mean.</h2></div><button class="close-dialog" aria-label="Close">×</button></div><p class="dialog-copy">The number answers a different question before, during, and after a game: how promising it looks, how urgently it is worth watching now, or how exciting the full game was.</p><div class="score-range-list"><div style="--score-hue:6"><b>95–99</b><span><strong>Exceptional</strong> Historic drama, a remarkable finish, or something rare unfolding.</span></div><div style="--score-hue:22"><b>85–94</b><span><strong>Tune in now</strong> A high-leverage game with a strong reason to watch immediately.</span></div><div style="--score-hue:49"><b>70–84</b><span><strong>Strong watch</strong> A compelling matchup, live situation, or finished game.</span></div><div style="--score-hue:110"><b>50–69</b><span><strong>Worth checking</strong> Competitive or notable, but not yet urgent.</span></div><div style="--score-hue:197"><b>1–49</b><span><strong>Background</strong> Limited stakes, an ordinary situation, or a game moving toward a clear result.</span></div></div><p class="score-guide-note">A quiet slate may have no games above 85. Scores are not forced into every range.</p><button class="primary-button close-dialog">Got it</button></dialog>
     <div id="game-detail-overlay" class="detail-overlay" hidden><section id="game-detail-dialog" class="detail-panel" role="dialog" aria-modal="true" aria-labelledby="game-detail-title"><div class="dialog-header"><div><div class="eyebrow">GAME DETAILS</div><h2 id="game-detail-title">Live game center</h2></div><button type="button" class="close-dialog" aria-label="Close game center">×</button></div><div id="game-detail-content"></div></section></div>
     <script src="sport-visibility.js?rev=six-sports"></script>
     <script src="scoring-runtime.js?rev=20261030-cfb1"></script>
@@ -177,6 +179,7 @@
     <script src="watch-links.js?rev=streaming-20261031"></script>
     <script src="tennis-coverage.js?rev=grand-slams-1"></script>
     <script src="game-center.js?rev=20261102-transparency"></script>
+    <script src="team-logos.js?rev=logo-contrast"></script>
   <script src="app.js?rev=20261029-history2"></script>
     <script>
       (() => {

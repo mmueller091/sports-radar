@@ -15,7 +15,7 @@ test('compact card odds retain every value and distinguish current, closing and 
   assert.ok(html.includes(`<strong>${label}</strong>`));
   assert.ok(html.includes('COL -1.5 · ML COL -125 · O/U 6.5'));
   assert.ok(html.includes(full.text),'the complete market description remains accessible in the title');
-  assert.ok(html.includes('Stats ›'));
+  assert.ok(html.includes('<span class="stats-cue">Game Center</span>'));
   assert.deepEqual(game,before,'presentation must not mutate scoring or feed data');
  }
 });

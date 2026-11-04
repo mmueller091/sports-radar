@@ -1,3 +1,4 @@
+import {slateNode,slateTemplate} from './helpers/slate-dom.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
@@ -17,6 +18,7 @@ function start(storage=new Map(),feed=[]) {
   const elements=new Map(),calls=[];
   const element=selector=>{
     if (!elements.has(selector)) {
+      if(selector === '#game-list'){const node=slateNode();node.events={};node.addEventListener=(name,handler)=>(node.events[name]??=[]).push(handler);elements.set(selector,node);return node;}
       const classes=new Set(),events={};
       elements.set(selector,{innerHTML:'',textContent:'',value:'',dataset:{},events,
         classList:{add:n=>classes.add(n),remove:n=>classes.delete(n),contains:n=>classes.has(n),toggle:(n,on)=>{if(on??!classes.has(n))classes.add(n);else classes.delete(n);}},
@@ -24,7 +26,7 @@ function start(storage=new Map(),feed=[]) {
     }return elements.get(selector);
   };
   class Clock extends Date {constructor(...args){super(...(args.length?args:[now]));}static now(){return now;}}
-  const context=vm.createContext({Date:Clock,document:{body:element('body'),querySelector:element,querySelectorAll:()=>[],addEventListener(){},hidden:false},window:{addEventListener(){}},navigator:{},location:{hash:''},
+  const context=vm.createContext({Date:Clock,document:{createElement:slateTemplate,body:element('body'),querySelector:element,querySelectorAll:()=>[],addEventListener(){},hidden:false},window:{addEventListener(){}},navigator:{},location:{hash:''},
     localStorage:{getItem:key=>storage.get(key)??null,setItem:(key,value)=>storage.set(key,value)},
     fetch:async url=>{calls.push(url);return {ok:true,json:async()=>String(url).includes('/metadata/')?structuredClone(metadata):{modelVersion,updatedAt:new Date(now).toISOString(),games:feed}};},
     AbortSignal,setTimeout:()=>1,clearTimeout(){},setInterval(){}});

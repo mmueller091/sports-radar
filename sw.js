@@ -1,6 +1,6 @@
 const CACHE_NAME = 'slatemeter-shell-__BUILD_REV__';
 const REV = '__BUILD_REV__';
-const SHELL = ['./', './index.html', './styles.css', './mobile-readability.css', './sport-visibility.js', './scoring-runtime.js', './alert-config.js', './notifications.js', './watch-links.js', './tennis-coverage.js', './app.js',
+const SHELL = ['./', './index.html', './styles.css', './mobile-readability.css', './ui-overhaul.css', './team-logos.css', './team-logos.js', './sport-visibility.js', './scoring-runtime.js', './alert-config.js', './notifications.js', './watch-links.js', './tennis-coverage.js', './app.js',
   './game-center.js', './teams.json', './manifest.webmanifest', './fonts/BarlowCondensed-SemiBold.ttf', './fonts/BarlowCondensed-Bold.ttf', './slatemeter-pennant-s-icon.svg', './slatemeter-pennant-s-icon.png', './slatemeter-pennant-s-favicon-32.png', './app-icon-192.png', './app-icon-512.png', './icon.svg'];
 self.addEventListener('install', event => {
   event.waitUntil(caches.open(CACHE_NAME).then(async cache => {

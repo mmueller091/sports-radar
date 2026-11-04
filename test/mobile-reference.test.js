@@ -9,6 +9,7 @@ const context=vm.createContext({
   teamLogoUrl:()=>'',normalizedTeamName:value=>String(value || '').trim().toLowerCase().replace(/\s+/g,' ')
 });
 vm.runInContext(source.slice(source.indexOf('function basketballPeriodLabel('),source.indexOf('function readRatingHistory(')),context);
+vm.runInContext(source.slice(source.indexOf('function teamLogoWithFallback('),source.indexOf('function summaryUrlFor(')),context);
 vm.runInContext("let activePlayerTeam=''; let activePlayerCategory='';",context);
 vm.runInContext(source.slice(source.indexOf('function detailPlayerBrowser('),source.indexOf('function detailTabSections(')),context);
 

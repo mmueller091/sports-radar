@@ -1,0 +1,192 @@
+{
+  "capturedAt": "2026-11-04T05:15:58.357Z",
+  "source": {
+    "baseline": "5b7f797c879d36826d08b2ea31a6fecd18ef092c",
+    "files": {
+      "app.js": "ba53b6380e01e3f29a872504f9a148f2a15987af6b6cd9670511dc8e29dcd35a",
+      "styles.css": "0bfc16322525812046225f2d3f24a13b1cf940a3224b76225fa599be7735094d",
+      "mobile-readability.css": "b4ebae26110029a9530c8a63d8ecb270b29be8d224fcd593d6069891b5641635",
+      "ui-overhaul.css": "ffa0e64cc96f7cdbc6488e24da1e3163f62367b0787bbce32ddd1dc46450153f",
+      "team-logos.js": "75730ccdf44fafc61bbb9be1fae0a9a44a8c454d8f195885df1182f09c7b24aa",
+      "team-logos.css": "e29f47cbcce0ff10c49ca489324eed2c80c58b64ab75839445541c7c0e56241f",
+      "scoring-runtime.js": "aa5ee805be4401866607f0c25a1f98ebf756f1fc04a19e5097b71cadb1a09622"
+    }
+  },
+  "surface": "game-detail-overlay",
+  "phase": "after",
+  "width": 320,
+  "view": "detail",
+  "set": 1,
+  "overflow": false,
+  "logos": [
+    {
+      "src": "https://a.espncdn.com/i/teamlogos/nhl/500/det.png",
+      "loaded": true,
+      "box": {
+        "x": 51.234375,
+        "y": 162.09375,
+        "width": 40,
+        "height": 40,
+        "right": 91.234375,
+        "bottom": 202.09375
+      },
+      "expectedSize": null,
+      "filter": "drop-shadow(rgba(240, 232, 212, 0.68) 0px 0px 0.55px)",
+      "background": "rgba(0, 0, 0, 0)",
+      "cardBackground": null,
+      "treatment": "soft",
+      "natural": [
+        500,
+        500
+      ]
+    },
+    {
+      "src": "https://a.espncdn.com/i/teamlogos/nhl/500/tb.png",
+      "loaded": true,
+      "box": {
+        "x": 228.765625,
+        "y": 162.09375,
+        "width": 40,
+        "height": 40,
+        "right": 268.765625,
+        "bottom": 202.09375
+      },
+      "expectedSize": null,
+      "filter": "drop-shadow(rgba(240, 232, 212, 0.94) 0.5px 0px 0px) drop-shadow(rgba(240, 232, 212, 0.94) -0.5px 0px 0px) drop-shadow(rgba(240, 232, 212, 0.94) 0px 0.5px 0px) drop-shadow(rgba(240, 232, 212, 0.94) 0px -0.5px 0px)",
+      "background": "rgba(0, 0, 0, 0)",
+      "cardBackground": null,
+      "treatment": "contour",
+      "natural": [
+        500,
+        500
+      ]
+    }
+  ],
+  "logoSizeMismatches": [],
+  "clipped": [],
+  "overlaps": [],
+  "recordFailures": [],
+  "cardLayout": [],
+  "detailTeams": [
+    {
+      "index": 0,
+      "box": {
+        "x": 21,
+        "y": 160.09375,
+        "width": 144.84375,
+        "height": 120,
+        "right": 165.84375,
+        "bottom": 280.09375
+      },
+      "expectedRecord": "7-5-3",
+      "record": {
+        "text": "7-5-3",
+        "visible": true,
+        "fontSize": 11,
+        "box": {
+          "x": 21,
+          "y": 246.09375,
+          "width": 100.46875,
+          "height": 15,
+          "right": 121.46875,
+          "bottom": 261.09375
+        },
+        "insideTeam": true
+      },
+      "badge": null
+    },
+    {
+      "index": 1,
+      "box": {
+        "x": 173.84375,
+        "y": 160.09375,
+        "width": 125.15625,
+        "height": 120,
+        "right": 299,
+        "bottom": 280.09375
+      },
+      "expectedRecord": "8-3-2",
+      "record": {
+        "text": "8-3-2",
+        "visible": true,
+        "fontSize": 11,
+        "box": {
+          "x": 198.53125,
+          "y": 246.09375,
+          "width": 100.46875,
+          "height": 15,
+          "right": 299,
+          "bottom": 261.09375
+        },
+        "insideTeam": true
+      },
+      "badge": {
+        "text": "PP",
+        "box": {
+          "x": 237.6171875,
+          "y": 263.09375,
+          "width": 22.2890625,
+          "height": 17,
+          "right": 259.90625,
+          "bottom": 280.09375
+        },
+        "insideTeam": true,
+        "overlapsRecord": false,
+        "overlapsName": false,
+        "overlapsScore": false
+      }
+    }
+  ],
+  "headerLogo": null,
+  "reducedMotion": true,
+  "reducedMotionEvidence": {
+    "actualPreference": true,
+    "testedUpdateClasses": false,
+    "elements": [
+      {
+        "className": "detail-tab",
+        "animationName": "none",
+        "animationDuration": "0s",
+        "transitionProperty": "none",
+        "transitionDuration": "0s"
+      },
+      {
+        "className": "detail-tab active",
+        "animationName": "none",
+        "animationDuration": "0s",
+        "transitionProperty": "none",
+        "transitionDuration": "0s"
+      },
+      {
+        "className": "detail-tab ",
+        "animationName": "none",
+        "animationDuration": "0s",
+        "transitionProperty": "none",
+        "transitionDuration": "0s"
+      },
+      {
+        "className": "detail-tab-panel",
+        "animationName": "none",
+        "animationDuration": "0s",
+        "transitionProperty": "none",
+        "transitionDuration": "0s"
+      },
+      {
+        "className": "detail-overlay",
+        "animationName": "none",
+        "animationDuration": "0s",
+        "transitionProperty": "none",
+        "transitionDuration": "0s"
+      }
+    ],
+    "failures": []
+  },
+  "focusedLogo": null,
+  "errors": [],
+  "requests": [
+    "/after/teams.json",
+    "/config"
+  ],
+  "cards": 0,
+  "ppBadges": 1
+}

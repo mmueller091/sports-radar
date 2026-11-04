@@ -1,3 +1,4 @@
+import {slateNode,slateTemplate} from './helpers/slate-dom.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
@@ -12,7 +13,7 @@ function startApp(production=false) {
   const element = selector => {
     if (!elements.has(selector)) {
       const classes = new Set();
-      elements.set(selector,{
+      elements.set(selector,selector === '#game-list' ? slateNode() : {
         innerHTML:'',textContent:'',value:selector === '#favorite-sport' ? 'NFL' : '',
         classList:{add:name => classes.add(name),remove:name => classes.delete(name),toggle:(name,force) => {
           if (force ?? !classes.has(name)) classes.add(name);
@@ -20,6 +21,7 @@ function startApp(production=false) {
         },contains:name => classes.has(name)},
         addEventListener(){},setAttribute(){},querySelectorAll(){return [];}
       });
+      if(selector === '#game-list')elements.get(selector).addEventListener=()=>{};
     }
     return elements.get(selector);
   };
@@ -32,7 +34,8 @@ function startApp(production=false) {
   let nextFeed = feedRequest;
   let fetchCount = 0;
   const context = vm.createContext({
-    document:{body:element('body'),querySelector:element,querySelectorAll:() => [],addEventListener(){},hidden:false},
+    document:{body:element('body'),querySelector:element,querySelectorAll:() => [],addEventListener(){},hidden:false,
+      createElement:slateTemplate},
     window:{addEventListener(){}},
     navigator:{},location:{hash:''},
     localStorage:{getItem:() => null,setItem(){}},
@@ -80,11 +83,14 @@ test('startup renders no cards before the first feed resolves, then renders real
   const app = startApp();
   assert.equal(app.fetchCount,1);
   assert.doesNotMatch(app.element('#game-list').innerHTML,/game-card|Chiefs|Bills/);
+  assert.match(app.element('#game-list').innerHTML,/slate-skeleton/);
+  assert.equal(app.element('#game-list').getAttribute('aria-busy'),'true');
   assert.equal(app.element('#empty-state h3').textContent,'Loading live scores…');
   app.resolveFeed({ok:true,json:async () => ({updatedAt:'2026-10-26T20:00:00Z',games:[realGame]})});
   await new Promise(resolve => setImmediate(resolve));
   assert.match(app.element('#game-list').innerHTML,/game-card/);
   assert.match(app.element('#game-list').innerHTML,/Seattle Seahawks/);
+  assert.equal(app.element('#game-list').getAttribute('aria-busy'),'false');
   assert.doesNotMatch(app.element('#game-list').innerHTML,/Chiefs|Bills/);
 });
 
@@ -106,6 +112,22 @@ test('a later refresh failure keeps the last verified game and marks scores stal
   assert.equal(app.fetchCount,2);
   assert.match(app.element('#game-list').innerHTML,/Seattle Seahawks/);
   assert.match(app.element('#data-status-label').textContent,/Stale scores/);
+});
+
+test('refresh keeps card identities and visible order while explicit filters apply current ranking',async()=>{
+  const app=startApp();
+  const high={...realGame,state:'live',score:83,live:{phase:'Q4'}},low={...high,id:'other-game',score:60};
+  app.resolveFeed({ok:true,json:async()=>({updatedAt:'2026-10-26T20:00:00Z',games:[low,high]})});
+  await new Promise(resolve=>setImmediate(resolve));
+  const list=app.element('#game-list'),original=list.querySelectorAll(':scope > .game-card');
+  assert.deepEqual(original.map(card=>card.dataset.id),['verified-game','other-game']);
+  await app.refreshWith({ok:true,json:async()=>({updatedAt:'2026-10-26T20:01:00Z',games:[{...low,score:95},high]})});
+  const refreshed=list.querySelectorAll(':scope > .game-card');
+  assert.equal(refreshed[0],original[0],'unchanged card stays mounted');
+  assert.equal(refreshed[1],original[1],'updated card retains its article identity');
+  assert.match(refreshed[1].innerHTML,/>95<\/span>/,'new score renders without moving the card');
+  vm.runInContext('state.gameState="live"; render()',app.context);
+  assert.deepEqual(list.querySelectorAll(':scope > .game-card').map(card=>card.dataset.id),['other-game','verified-game']);
 });
 
 test('older feed revision cannot rewind the current canonical games',async()=>{

@@ -1,0 +1,534 @@
+{
+  "capturedAt": "2026-11-04T05:18:13.688Z",
+  "source": {
+    "baseline": "5b7f797c879d36826d08b2ea31a6fecd18ef092c",
+    "files": {
+      "app.js": "ba53b6380e01e3f29a872504f9a148f2a15987af6b6cd9670511dc8e29dcd35a",
+      "styles.css": "0bfc16322525812046225f2d3f24a13b1cf940a3224b76225fa599be7735094d",
+      "mobile-readability.css": "b4ebae26110029a9530c8a63d8ecb270b29be8d224fcd593d6069891b5641635",
+      "ui-overhaul.css": "721fcb6cc6bf8ea7b1255b2bc325396c4cac9df629a6e2c133382e6e5eb24e6c",
+      "team-logos.js": "75730ccdf44fafc61bbb9be1fae0a9a44a8c454d8f195885df1182f09c7b24aa",
+      "team-logos.css": "e29f47cbcce0ff10c49ca489324eed2c80c58b64ab75839445541c7c0e56241f",
+      "scoring-runtime.js": "aa5ee805be4401866607f0c25a1f98ebf756f1fc04a19e5097b71cadb1a09622"
+    }
+  },
+  "surface": "search-dialog",
+  "phase": "after",
+  "width": 320,
+  "view": "search",
+  "set": 0,
+  "overflow": false,
+  "logos": [
+    {
+      "src": "https://a.espncdn.com/i/teamlogos/ncaa/500/213.png",
+      "loaded": true,
+      "box": {
+        "x": 17.5,
+        "y": 389.296875,
+        "width": 28,
+        "height": 28,
+        "right": 45.5,
+        "bottom": 417.296875
+      },
+      "expectedSize": null,
+      "filter": "drop-shadow(rgba(240, 232, 212, 0.94) 0.5px 0px 0px) drop-shadow(rgba(240, 232, 212, 0.94) -0.5px 0px 0px) drop-shadow(rgba(240, 232, 212, 0.94) 0px 0.5px 0px) drop-shadow(rgba(240, 232, 212, 0.94) 0px -0.5px 0px)",
+      "background": "rgba(0, 0, 0, 0)",
+      "cardBackground": null,
+      "treatment": "contour",
+      "natural": [
+        500,
+        500
+      ]
+    },
+    {
+      "src": "https://a.espncdn.com/i/teamlogos/ncaa/500/264.png",
+      "loaded": true,
+      "box": {
+        "x": 17.5,
+        "y": 422.796875,
+        "width": 28,
+        "height": 28,
+        "right": 45.5,
+        "bottom": 450.796875
+      },
+      "expectedSize": null,
+      "filter": "drop-shadow(rgba(240, 232, 212, 0.94) 0.5px 0px 0px) drop-shadow(rgba(240, 232, 212, 0.94) -0.5px 0px 0px) drop-shadow(rgba(240, 232, 212, 0.94) 0px 0.5px 0px) drop-shadow(rgba(240, 232, 212, 0.94) 0px -0.5px 0px)",
+      "background": "rgba(0, 0, 0, 0)",
+      "cardBackground": null,
+      "treatment": "contour",
+      "natural": [
+        500,
+        500
+      ]
+    },
+    {
+      "src": "https://a.espncdn.com/i/teamlogos/mlb/500/nyy.png",
+      "loaded": true,
+      "box": {
+        "x": 17.5,
+        "y": 467.296875,
+        "width": 28,
+        "height": 28,
+        "right": 45.5,
+        "bottom": 495.296875
+      },
+      "expectedSize": null,
+      "filter": "drop-shadow(rgba(240, 232, 212, 0.94) 0.5px 0px 0px) drop-shadow(rgba(240, 232, 212, 0.94) -0.5px 0px 0px) drop-shadow(rgba(240, 232, 212, 0.94) 0px 0.5px 0px) drop-shadow(rgba(240, 232, 212, 0.94) 0px -0.5px 0px)",
+      "background": "rgba(0, 0, 0, 0)",
+      "cardBackground": null,
+      "treatment": "contour",
+      "natural": [
+        500,
+        500
+      ]
+    },
+    {
+      "src": "https://a.espncdn.com/i/teamlogos/mlb/500/chw.png",
+      "loaded": true,
+      "box": {
+        "x": 17.5,
+        "y": 500.796875,
+        "width": 28,
+        "height": 28,
+        "right": 45.5,
+        "bottom": 528.796875
+      },
+      "expectedSize": null,
+      "filter": "drop-shadow(rgba(240, 232, 212, 0.68) 0px 0px 0.55px)",
+      "background": "rgba(0, 0, 0, 0)",
+      "cardBackground": null,
+      "treatment": "soft",
+      "natural": [
+        500,
+        500
+      ]
+    },
+    {
+      "src": "https://a.espncdn.com/i/teamlogos/nhl/500/det.png",
+      "loaded": true,
+      "box": {
+        "x": 17.5,
+        "y": 545.296875,
+        "width": 28,
+        "height": 28,
+        "right": 45.5,
+        "bottom": 573.296875
+      },
+      "expectedSize": null,
+      "filter": "drop-shadow(rgba(240, 232, 212, 0.68) 0px 0px 0.55px)",
+      "background": "rgba(0, 0, 0, 0)",
+      "cardBackground": null,
+      "treatment": "soft",
+      "natural": [
+        500,
+        500
+      ]
+    },
+    {
+      "src": "https://a.espncdn.com/i/teamlogos/nhl/500/tb.png",
+      "loaded": true,
+      "box": {
+        "x": 17.5,
+        "y": 578.796875,
+        "width": 28,
+        "height": 28,
+        "right": 45.5,
+        "bottom": 606.796875
+      },
+      "expectedSize": null,
+      "filter": "drop-shadow(rgba(240, 232, 212, 0.94) 0.5px 0px 0px) drop-shadow(rgba(240, 232, 212, 0.94) -0.5px 0px 0px) drop-shadow(rgba(240, 232, 212, 0.94) 0px 0.5px 0px) drop-shadow(rgba(240, 232, 212, 0.94) 0px -0.5px 0px)",
+      "background": "rgba(0, 0, 0, 0)",
+      "cardBackground": null,
+      "treatment": "contour",
+      "natural": [
+        500,
+        500
+      ]
+    },
+    {
+      "src": "https://a.espncdn.com/i/teamlogos/ncaa/500/2747.png",
+      "loaded": true,
+      "box": {
+        "x": 17.5,
+        "y": 623.296875,
+        "width": 28,
+        "height": 28,
+        "right": 45.5,
+        "bottom": 651.296875
+      },
+      "expectedSize": null,
+      "filter": "drop-shadow(rgba(240, 232, 212, 0.94) 0.5px 0px 0px) drop-shadow(rgba(240, 232, 212, 0.94) -0.5px 0px 0px) drop-shadow(rgba(240, 232, 212, 0.94) 0px 0.5px 0px) drop-shadow(rgba(240, 232, 212, 0.94) 0px -0.5px 0px)",
+      "background": "rgba(0, 0, 0, 0)",
+      "cardBackground": null,
+      "treatment": "contour",
+      "natural": [
+        500,
+        500
+      ]
+    },
+    {
+      "src": "https://a.espncdn.com/i/teamlogos/ncaa/500/2633.png",
+      "loaded": true,
+      "box": {
+        "x": 17.5,
+        "y": 656.796875,
+        "width": 28,
+        "height": 28,
+        "right": 45.5,
+        "bottom": 684.796875
+      },
+      "expectedSize": null,
+      "filter": "drop-shadow(rgba(240, 232, 212, 0.68) 0px 0px 0.55px)",
+      "background": "rgba(0, 0, 0, 0)",
+      "cardBackground": null,
+      "treatment": "soft",
+      "natural": [
+        500,
+        500
+      ]
+    },
+    {
+      "src": "https://a.espncdn.com/i/teamlogos/nfl/500/lv.png",
+      "loaded": true,
+      "box": {
+        "x": 17.5,
+        "y": 701.296875,
+        "width": 28,
+        "height": 28,
+        "right": 45.5,
+        "bottom": 729.296875
+      },
+      "expectedSize": null,
+      "filter": "drop-shadow(rgba(240, 232, 212, 0.94) 0.5px 0px 0px) drop-shadow(rgba(240, 232, 212, 0.94) -0.5px 0px 0px) drop-shadow(rgba(240, 232, 212, 0.94) 0px 0.5px 0px) drop-shadow(rgba(240, 232, 212, 0.94) 0px -0.5px 0px)",
+      "background": "rgba(0, 0, 0, 0)",
+      "cardBackground": null,
+      "treatment": "contour",
+      "natural": [
+        500,
+        500
+      ]
+    },
+    {
+      "src": "https://a.espncdn.com/i/teamlogos/nfl/500/bal.png",
+      "loaded": true,
+      "box": {
+        "x": 17.5,
+        "y": 734.796875,
+        "width": 28,
+        "height": 28,
+        "right": 45.5,
+        "bottom": 762.796875
+      },
+      "expectedSize": null,
+      "filter": "drop-shadow(rgba(240, 232, 212, 0.94) 0.5px 0px 0px) drop-shadow(rgba(240, 232, 212, 0.94) -0.5px 0px 0px) drop-shadow(rgba(240, 232, 212, 0.94) 0px 0.5px 0px) drop-shadow(rgba(240, 232, 212, 0.94) 0px -0.5px 0px)",
+      "background": "rgba(0, 0, 0, 0)",
+      "cardBackground": null,
+      "treatment": "contour",
+      "natural": [
+        500,
+        500
+      ]
+    },
+    {
+      "src": "https://a.espncdn.com/i/teamlogos/nba/500/bkn.png",
+      "loaded": true,
+      "box": {
+        "x": 17.5,
+        "y": 779.296875,
+        "width": 28,
+        "height": 28,
+        "right": 45.5,
+        "bottom": 807.296875
+      },
+      "expectedSize": null,
+      "filter": "drop-shadow(rgba(240, 232, 212, 0.94) 0.5px 0px 0px) drop-shadow(rgba(240, 232, 212, 0.94) -0.5px 0px 0px) drop-shadow(rgba(240, 232, 212, 0.94) 0px 0.5px 0px) drop-shadow(rgba(240, 232, 212, 0.94) 0px -0.5px 0px)",
+      "background": "rgba(0, 0, 0, 0)",
+      "cardBackground": null,
+      "treatment": "contour",
+      "natural": [
+        500,
+        500
+      ]
+    },
+    {
+      "src": "https://a.espncdn.com/i/teamlogos/nba/500/sa.png",
+      "loaded": true,
+      "box": {
+        "x": 17.5,
+        "y": 812.796875,
+        "width": 28,
+        "height": 28,
+        "right": 45.5,
+        "bottom": 840.796875
+      },
+      "expectedSize": null,
+      "filter": "drop-shadow(rgba(240, 232, 212, 0.94) 0.5px 0px 0px) drop-shadow(rgba(240, 232, 212, 0.94) -0.5px 0px 0px) drop-shadow(rgba(240, 232, 212, 0.94) 0px 0.5px 0px) drop-shadow(rgba(240, 232, 212, 0.94) 0px -0.5px 0px)",
+      "background": "rgba(0, 0, 0, 0)",
+      "cardBackground": null,
+      "treatment": "contour",
+      "natural": [
+        500,
+        500
+      ]
+    }
+  ],
+  "logoSizeMismatches": [],
+  "clipped": [],
+  "overlaps": [],
+  "recordFailures": [],
+  "cardLayout": [],
+  "detailTeams": [],
+  "searchRows": [
+    {
+      "index": 0,
+      "text": "PSUWASPenn State Nittany Lions vs Washington HuskiesCollege Football · LIVE · 4th · 4:18 · 24 – 21Excitement92",
+      "box": {
+        "x": 7.5,
+        "y": 380.296875,
+        "width": 290,
+        "height": 76,
+        "right": 297.5,
+        "bottom": 456.296875
+      },
+      "leading": {
+        "x": 16.5,
+        "y": 389.296875,
+        "width": 30,
+        "height": 58,
+        "right": 46.5,
+        "bottom": 447.296875
+      },
+      "copy": {
+        "x": 55.5,
+        "y": 399.625,
+        "width": 182,
+        "height": 37.34375,
+        "right": 237.5,
+        "bottom": 436.96875
+      },
+      "trailing": {
+        "x": 246.5,
+        "y": 403.296875,
+        "width": 42,
+        "height": 30,
+        "right": 288.5,
+        "bottom": 433.296875
+      },
+      "logoCopyOverlap": false,
+      "copyTrailingOverlap": false,
+      "outOfRow": []
+    },
+    {
+      "index": 1,
+      "text": "NYYCHWNew York Yankees vs Chicago White SoxMLB · LIVE · Top 9th · 3 – 3Excitement91",
+      "box": {
+        "x": 7.5,
+        "y": 458.296875,
+        "width": 290,
+        "height": 76,
+        "right": 297.5,
+        "bottom": 534.296875
+      },
+      "leading": {
+        "x": 16.5,
+        "y": 467.296875,
+        "width": 30,
+        "height": 58,
+        "right": 46.5,
+        "bottom": 525.296875
+      },
+      "copy": {
+        "x": 55.5,
+        "y": 477.625,
+        "width": 182,
+        "height": 37.34375,
+        "right": 237.5,
+        "bottom": 514.96875
+      },
+      "trailing": {
+        "x": 246.5,
+        "y": 481.296875,
+        "width": 42,
+        "height": 30,
+        "right": 288.5,
+        "bottom": 511.296875
+      },
+      "logoCopyOverlap": false,
+      "copyTrailingOverlap": false,
+      "outOfRow": []
+    },
+    {
+      "index": 2,
+      "text": "DETTBDetroit Red Wings vs Tampa Bay LightningNHL · LIVE · 3rd · 2:14 · 2 – 3Excitement88",
+      "box": {
+        "x": 7.5,
+        "y": 536.296875,
+        "width": 290,
+        "height": 76,
+        "right": 297.5,
+        "bottom": 612.296875
+      },
+      "leading": {
+        "x": 16.5,
+        "y": 545.296875,
+        "width": 30,
+        "height": 58,
+        "right": 46.5,
+        "bottom": 603.296875
+      },
+      "copy": {
+        "x": 55.5,
+        "y": 555.625,
+        "width": 182,
+        "height": 37.34375,
+        "right": 237.5,
+        "bottom": 592.96875
+      },
+      "trailing": {
+        "x": 246.5,
+        "y": 559.296875,
+        "width": 42,
+        "height": 30,
+        "right": 288.5,
+        "bottom": 589.296875
+      },
+      "logoCopyOverlap": false,
+      "copyTrailingOverlap": false,
+      "outOfRow": []
+    },
+    {
+      "index": 3,
+      "text": "WOFTENWofford Terriers vs Tennessee VolunteersNCAAM · LIVE · 2nd half · 0:24 · 65 – 65Excitement88",
+      "box": {
+        "x": 7.5,
+        "y": 614.296875,
+        "width": 290,
+        "height": 76,
+        "right": 297.5,
+        "bottom": 690.296875
+      },
+      "leading": {
+        "x": 16.5,
+        "y": 623.296875,
+        "width": 30,
+        "height": 58,
+        "right": 46.5,
+        "bottom": 681.296875
+      },
+      "copy": {
+        "x": 55.5,
+        "y": 633.625,
+        "width": 182,
+        "height": 37.34375,
+        "right": 237.5,
+        "bottom": 670.96875
+      },
+      "trailing": {
+        "x": 246.5,
+        "y": 637.296875,
+        "width": 42,
+        "height": 30,
+        "right": 288.5,
+        "bottom": 667.296875
+      },
+      "logoCopyOverlap": false,
+      "copyTrailingOverlap": false,
+      "outOfRow": []
+    },
+    {
+      "index": 4,
+      "text": "LVBALLas Vegas Raiders vs Baltimore RavensNFL · LIVE · 4th · 4:18 · 24 – 21Excitement83",
+      "box": {
+        "x": 7.5,
+        "y": 692.296875,
+        "width": 290,
+        "height": 76,
+        "right": 297.5,
+        "bottom": 768.296875
+      },
+      "leading": {
+        "x": 16.5,
+        "y": 701.296875,
+        "width": 30,
+        "height": 58,
+        "right": 46.5,
+        "bottom": 759.296875
+      },
+      "copy": {
+        "x": 55.5,
+        "y": 711.625,
+        "width": 182,
+        "height": 37.34375,
+        "right": 237.5,
+        "bottom": 748.96875
+      },
+      "trailing": {
+        "x": 246.5,
+        "y": 715.296875,
+        "width": 42,
+        "height": 30,
+        "right": 288.5,
+        "bottom": 745.296875
+      },
+      "logoCopyOverlap": false,
+      "copyTrailingOverlap": false,
+      "outOfRow": []
+    },
+    {
+      "index": 5,
+      "text": "BKNSABrooklyn Nets vs San Antonio SpursNBA · LIVE · 4th · 4:18 · 102 – 101Excitement79",
+      "box": {
+        "x": 7.5,
+        "y": 770.296875,
+        "width": 290,
+        "height": 76,
+        "right": 297.5,
+        "bottom": 846.296875
+      },
+      "leading": {
+        "x": 16.5,
+        "y": 779.296875,
+        "width": 30,
+        "height": 58,
+        "right": 46.5,
+        "bottom": 837.296875
+      },
+      "copy": {
+        "x": 55.5,
+        "y": 789.625,
+        "width": 182,
+        "height": 37.34375,
+        "right": 237.5,
+        "bottom": 826.96875
+      },
+      "trailing": {
+        "x": 246.5,
+        "y": 793.296875,
+        "width": 42,
+        "height": 30,
+        "right": 288.5,
+        "bottom": 823.296875
+      },
+      "logoCopyOverlap": false,
+      "copyTrailingOverlap": false,
+      "outOfRow": []
+    }
+  ],
+  "headerLogo": null,
+  "reducedMotion": false,
+  "reducedMotionEvidence": {
+    "actualPreference": false,
+    "maxAcceptedDurationSeconds": 0.00001,
+    "testedUpdateClasses": false,
+    "elements": [],
+    "failures": []
+  },
+  "focusedLogo": null,
+  "errors": [],
+  "requests": [
+    "/after/teams.json",
+    "/config"
+  ],
+  "cards": 0,
+  "ppBadges": 0
+}

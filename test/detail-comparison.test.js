@@ -87,10 +87,12 @@ test('Game Center shell keeps excitement first-class and moves detail into sport
   const detailSource = source.slice(detailStart,detailEnd);
 
   assert.match(detailSource,/detail-excitement-score/);
-  assert.match(detailSource,/\$\{renderExcitementTimeline\(game,summary\)\}/);
+  assert.doesNotMatch(detailSource,/\$\{renderExcitementTimeline\(game,summary\)\}/,'timeline no longer precedes the tabs');
+  const sections=source.slice(source.indexOf('function detailTabSections('),source.indexOf('function detailTabsMarkup('));
+  assert.match(sections,/const overviewParts = \[\s*renderExcitementTimeline\(game,summary\)/,'timeline is retained in Overview');
   assert.match(detailSource,/\$\{detailTabsMarkup\(game,summary\)\}/);
   assert.ok(
-    detailSource.indexOf('${excitementTimeline(game,summary)}') <
+    detailSource.indexOf('detail-excitement-score') <
     detailSource.indexOf('${detailTabsMarkup(game,summary)}')
   );
   assert.doesNotMatch(source,/https?:\/\/[^'"\s]*espn[^'"\s]*\/(?:scoreboard|summary)/i);

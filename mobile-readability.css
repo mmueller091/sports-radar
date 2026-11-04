@@ -693,8 +693,7 @@ button.team-spotlight-matchup, button.team-schedule-opponent { position:relative
 }
 .game-card .team-logo {
   flex:0 0 26px; width:26px !important; height:26px !important;
-  /* A fine contour follows the artwork instead of a large solid logo tile. */
-  filter:drop-shadow(0 0 1px #f0e8d4) drop-shadow(0 0 1px #f0e8d4);
+  /* Artwork-specific separation is applied by team-logos.css. */
 }
 .game-card .team-logo-fallback { width:26px; height:26px; border-radius:3px; }
 .game-card .excitement {

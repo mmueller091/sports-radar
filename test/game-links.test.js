@@ -1,3 +1,4 @@
+import {slateNode,slateTemplate} from './helpers/slate-dom.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
@@ -10,11 +11,11 @@ const fixture=JSON.parse(fs.readFileSync('test/fixtures/real-games/CFB-20261017-
 const archived=normalizeEvent(fixture.event,'CFB');enrichGame(archived,fixture.summary);
 function harness(hash,{available=true,inFeed=false,initialState='completed'}={}) {
   const elements=new Map(),events={},calls=[];let serverGame={...archived,state:initialState};
-  const element=selector=>{if(!elements.has(selector)){const classes=new Set();elements.set(selector,{innerHTML:'',textContent:'',value:'',hidden:true,
+  const element=selector=>{if(!elements.has(selector)){if(selector === '#game-list'){const node=slateNode();node.addEventListener=()=>{};elements.set(selector,node);return node;}const classes=new Set();elements.set(selector,{insertAdjacentHTML(position,value){this.innerHTML+=value;},innerHTML:'',textContent:'',value:'',hidden:true,
     classList:{add:()=>{},remove:()=>{},contains:()=>false,toggle(){}},addEventListener(){},setAttribute(){},querySelectorAll:()=>[],querySelector:()=>({focus(){}})});}return elements.get(selector);};
   const location={hash};
   const context=vm.createContext({console,location,AbortSignal,AbortController,
-    document:{body:element('body'),querySelector:element,querySelectorAll:()=>[],addEventListener(){},hidden:false},
+    document:{createElement:slateTemplate,body:element('body'),querySelector:element,querySelectorAll:()=>[],addEventListener(){},hidden:false},
     window:{addEventListener:(name,fn)=>events[name]=fn},navigator:{},localStorage:{getItem:()=>null,setItem(){}},
     history:{pushState(state,title,url){location.hash=url;},replaceState(state,title,url){location.hash=url;}},
     setTimeout:()=>1,clearTimeout(){},setInterval(){},

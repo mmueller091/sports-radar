@@ -1,0 +1,635 @@
+{
+  "createdAt": "2026-11-04T05:22:01.865Z",
+  "baseline": "5b7f797c879d36826d08b2ea31a6fecd18ef092c",
+  "localVisualAcceptance": "passed for documented representative coverage",
+  "publication": "not yet deployed",
+  "sourceHashes": {
+    "app.js": {
+      "source": "ba53b6380e01e3f29a872504f9a148f2a15987af6b6cd9670511dc8e29dcd35a",
+      "dist": "ba53b6380e01e3f29a872504f9a148f2a15987af6b6cd9670511dc8e29dcd35a"
+    },
+    "index.html": {
+      "source": "540621ce2893b6eb60437395eefd92e994b2e4ffada9da4b20a2af413043fe12",
+      "dist": "7b9e2021a9c9c7a25c7db416a4668a77e6338dd22316666fc9b255ab07121974"
+    },
+    "styles.css": {
+      "source": "0bfc16322525812046225f2d3f24a13b1cf940a3224b76225fa599be7735094d",
+      "dist": "0bfc16322525812046225f2d3f24a13b1cf940a3224b76225fa599be7735094d"
+    },
+    "mobile-readability.css": {
+      "source": "b4ebae26110029a9530c8a63d8ecb270b29be8d224fcd593d6069891b5641635",
+      "dist": "b4ebae26110029a9530c8a63d8ecb270b29be8d224fcd593d6069891b5641635"
+    },
+    "ui-overhaul.css": {
+      "source": "721fcb6cc6bf8ea7b1255b2bc325396c4cac9df629a6e2c133382e6e5eb24e6c",
+      "dist": "721fcb6cc6bf8ea7b1255b2bc325396c4cac9df629a6e2c133382e6e5eb24e6c"
+    },
+    "team-logos.js": {
+      "source": "75730ccdf44fafc61bbb9be1fae0a9a44a8c454d8f195885df1182f09c7b24aa",
+      "dist": "75730ccdf44fafc61bbb9be1fae0a9a44a8c454d8f195885df1182f09c7b24aa"
+    },
+    "team-logos.css": {
+      "source": "e29f47cbcce0ff10c49ca489324eed2c80c58b64ab75839445541c7c0e56241f",
+      "dist": "e29f47cbcce0ff10c49ca489324eed2c80c58b64ab75839445541c7c0e56241f"
+    },
+    "scoring-runtime.js": {
+      "source": null,
+      "dist": "aa5ee805be4401866607f0c25a1f98ebf756f1fc04a19e5097b71cadb1a09622"
+    },
+    "sw.js": {
+      "source": "12f480d4c1b3ea91b88bf057c479a5dbc03e184f883f00249d5db0a0cb21649e",
+      "dist": "4ed303af270577345f83c161f7dcab5b6833f57f5a01363d335a4688c00a7189"
+    }
+  },
+  "measurements": [
+    {
+      "path": "audit/ui-overhaul-20261103/qa-after-1024-slate-0.json",
+      "capturedAt": null,
+      "surface": null,
+      "logos": 8,
+      "loaded": 8,
+      "overflow": false,
+      "clipped": 0,
+      "overlaps": 0,
+      "recordFailures": 0,
+      "errors": 0,
+      "searchRows": null,
+      "source": null
+    },
+    {
+      "path": "audit/ui-overhaul-20261103/qa-after-1440-detail-0.json",
+      "capturedAt": "2026-11-04T05:16:32.416Z",
+      "surface": "game-detail-overlay",
+      "logos": 2,
+      "loaded": 2,
+      "overflow": false,
+      "clipped": 0,
+      "overlaps": 0,
+      "recordFailures": 0,
+      "errors": 0,
+      "searchRows": null,
+      "source": {
+        "baseline": "5b7f797c879d36826d08b2ea31a6fecd18ef092c",
+        "files": {
+          "app.js": "ba53b6380e01e3f29a872504f9a148f2a15987af6b6cd9670511dc8e29dcd35a",
+          "styles.css": "0bfc16322525812046225f2d3f24a13b1cf940a3224b76225fa599be7735094d",
+          "mobile-readability.css": "b4ebae26110029a9530c8a63d8ecb270b29be8d224fcd593d6069891b5641635",
+          "ui-overhaul.css": "ffa0e64cc96f7cdbc6488e24da1e3163f62367b0787bbce32ddd1dc46450153f",
+          "team-logos.js": "75730ccdf44fafc61bbb9be1fae0a9a44a8c454d8f195885df1182f09c7b24aa",
+          "team-logos.css": "e29f47cbcce0ff10c49ca489324eed2c80c58b64ab75839445541c7c0e56241f",
+          "scoring-runtime.js": "aa5ee805be4401866607f0c25a1f98ebf756f1fc04a19e5097b71cadb1a09622"
+        }
+      }
+    },
+    {
+      "path": "audit/ui-overhaul-20261103/qa-after-1440-search-0.json",
+      "capturedAt": "2026-11-04T05:18:40.820Z",
+      "surface": "search-dialog",
+      "logos": 12,
+      "loaded": 12,
+      "overflow": false,
+      "clipped": 0,
+      "overlaps": 0,
+      "recordFailures": 0,
+      "errors": 0,
+      "searchRows": 6,
+      "source": {
+        "baseline": "5b7f797c879d36826d08b2ea31a6fecd18ef092c",
+        "files": {
+          "app.js": "ba53b6380e01e3f29a872504f9a148f2a15987af6b6cd9670511dc8e29dcd35a",
+          "styles.css": "0bfc16322525812046225f2d3f24a13b1cf940a3224b76225fa599be7735094d",
+          "mobile-readability.css": "b4ebae26110029a9530c8a63d8ecb270b29be8d224fcd593d6069891b5641635",
+          "ui-overhaul.css": "721fcb6cc6bf8ea7b1255b2bc325396c4cac9df629a6e2c133382e6e5eb24e6c",
+          "team-logos.js": "75730ccdf44fafc61bbb9be1fae0a9a44a8c454d8f195885df1182f09c7b24aa",
+          "team-logos.css": "e29f47cbcce0ff10c49ca489324eed2c80c58b64ab75839445541c7c0e56241f",
+          "scoring-runtime.js": "aa5ee805be4401866607f0c25a1f98ebf756f1fc04a19e5097b71cadb1a09622"
+        }
+      }
+    },
+    {
+      "path": "audit/ui-overhaul-20261103/qa-after-1440-slate-0.json",
+      "capturedAt": "2026-11-04T04:56:23.008Z",
+      "surface": null,
+      "logos": 8,
+      "loaded": 8,
+      "overflow": false,
+      "clipped": 0,
+      "overlaps": 0,
+      "recordFailures": 0,
+      "errors": 0,
+      "searchRows": null,
+      "source": {
+        "baseline": "5b7f797c879d36826d08b2ea31a6fecd18ef092c",
+        "files": {
+          "app.js": "ba53b6380e01e3f29a872504f9a148f2a15987af6b6cd9670511dc8e29dcd35a",
+          "styles.css": "b2966f30cb36996e8ac21c5cea8e3c2b31265077e6e15b4c5b1b8e874e438f02",
+          "mobile-readability.css": "a85dea947825851f262438d9f2a073f5d9129c8a1d645b5e8d652bcbcacc01ba",
+          "ui-overhaul.css": "ffa0e64cc96f7cdbc6488e24da1e3163f62367b0787bbce32ddd1dc46450153f",
+          "team-logos.js": "75730ccdf44fafc61bbb9be1fae0a9a44a8c454d8f195885df1182f09c7b24aa",
+          "team-logos.css": "e29f47cbcce0ff10c49ca489324eed2c80c58b64ab75839445541c7c0e56241f",
+          "scoring-runtime.js": "aa5ee805be4401866607f0c25a1f98ebf756f1fc04a19e5097b71cadb1a09622"
+        }
+      }
+    },
+    {
+      "path": "audit/ui-overhaul-20261103/qa-after-1440-team-0.json",
+      "capturedAt": "2026-11-04T05:16:21.076Z",
+      "surface": "team-page",
+      "logos": 2,
+      "loaded": 2,
+      "overflow": false,
+      "clipped": 0,
+      "overlaps": 0,
+      "recordFailures": 0,
+      "errors": 0,
+      "searchRows": null,
+      "source": {
+        "baseline": "5b7f797c879d36826d08b2ea31a6fecd18ef092c",
+        "files": {
+          "app.js": "ba53b6380e01e3f29a872504f9a148f2a15987af6b6cd9670511dc8e29dcd35a",
+          "styles.css": "0bfc16322525812046225f2d3f24a13b1cf940a3224b76225fa599be7735094d",
+          "mobile-readability.css": "b4ebae26110029a9530c8a63d8ecb270b29be8d224fcd593d6069891b5641635",
+          "ui-overhaul.css": "ffa0e64cc96f7cdbc6488e24da1e3163f62367b0787bbce32ddd1dc46450153f",
+          "team-logos.js": "75730ccdf44fafc61bbb9be1fae0a9a44a8c454d8f195885df1182f09c7b24aa",
+          "team-logos.css": "e29f47cbcce0ff10c49ca489324eed2c80c58b64ab75839445541c7c0e56241f",
+          "scoring-runtime.js": "aa5ee805be4401866607f0c25a1f98ebf756f1fc04a19e5097b71cadb1a09622"
+        }
+      }
+    },
+    {
+      "path": "audit/ui-overhaul-20261103/qa-after-320-detail-1.json",
+      "capturedAt": "2026-11-04T05:15:58.357Z",
+      "surface": "game-detail-overlay",
+      "logos": 2,
+      "loaded": 2,
+      "overflow": false,
+      "clipped": 0,
+      "overlaps": 0,
+      "recordFailures": 0,
+      "errors": 0,
+      "searchRows": null,
+      "source": {
+        "baseline": "5b7f797c879d36826d08b2ea31a6fecd18ef092c",
+        "files": {
+          "app.js": "ba53b6380e01e3f29a872504f9a148f2a15987af6b6cd9670511dc8e29dcd35a",
+          "styles.css": "0bfc16322525812046225f2d3f24a13b1cf940a3224b76225fa599be7735094d",
+          "mobile-readability.css": "b4ebae26110029a9530c8a63d8ecb270b29be8d224fcd593d6069891b5641635",
+          "ui-overhaul.css": "ffa0e64cc96f7cdbc6488e24da1e3163f62367b0787bbce32ddd1dc46450153f",
+          "team-logos.js": "75730ccdf44fafc61bbb9be1fae0a9a44a8c454d8f195885df1182f09c7b24aa",
+          "team-logos.css": "e29f47cbcce0ff10c49ca489324eed2c80c58b64ab75839445541c7c0e56241f",
+          "scoring-runtime.js": "aa5ee805be4401866607f0c25a1f98ebf756f1fc04a19e5097b71cadb1a09622"
+        }
+      }
+    },
+    {
+      "path": "audit/ui-overhaul-20261103/qa-after-320-logos-0.json",
+      "capturedAt": "2026-11-04T05:14:13.002Z",
+      "surface": "document",
+      "logos": 24,
+      "loaded": 24,
+      "overflow": false,
+      "clipped": 0,
+      "overlaps": 0,
+      "recordFailures": 0,
+      "errors": 0,
+      "searchRows": null,
+      "source": {
+        "baseline": "5b7f797c879d36826d08b2ea31a6fecd18ef092c",
+        "files": {
+          "app.js": "ba53b6380e01e3f29a872504f9a148f2a15987af6b6cd9670511dc8e29dcd35a",
+          "styles.css": "0bfc16322525812046225f2d3f24a13b1cf940a3224b76225fa599be7735094d",
+          "mobile-readability.css": "b4ebae26110029a9530c8a63d8ecb270b29be8d224fcd593d6069891b5641635",
+          "ui-overhaul.css": "ffa0e64cc96f7cdbc6488e24da1e3163f62367b0787bbce32ddd1dc46450153f",
+          "team-logos.js": "75730ccdf44fafc61bbb9be1fae0a9a44a8c454d8f195885df1182f09c7b24aa",
+          "team-logos.css": "e29f47cbcce0ff10c49ca489324eed2c80c58b64ab75839445541c7c0e56241f",
+          "scoring-runtime.js": "aa5ee805be4401866607f0c25a1f98ebf756f1fc04a19e5097b71cadb1a09622"
+        }
+      }
+    },
+    {
+      "path": "audit/ui-overhaul-20261103/qa-after-320-logos-1.json",
+      "capturedAt": "2026-11-04T05:14:06.729Z",
+      "surface": "document",
+      "logos": 24,
+      "loaded": 24,
+      "overflow": false,
+      "clipped": 0,
+      "overlaps": 0,
+      "recordFailures": 0,
+      "errors": 0,
+      "searchRows": null,
+      "source": {
+        "baseline": "5b7f797c879d36826d08b2ea31a6fecd18ef092c",
+        "files": {
+          "app.js": "ba53b6380e01e3f29a872504f9a148f2a15987af6b6cd9670511dc8e29dcd35a",
+          "styles.css": "0bfc16322525812046225f2d3f24a13b1cf940a3224b76225fa599be7735094d",
+          "mobile-readability.css": "b4ebae26110029a9530c8a63d8ecb270b29be8d224fcd593d6069891b5641635",
+          "ui-overhaul.css": "ffa0e64cc96f7cdbc6488e24da1e3163f62367b0787bbce32ddd1dc46450153f",
+          "team-logos.js": "75730ccdf44fafc61bbb9be1fae0a9a44a8c454d8f195885df1182f09c7b24aa",
+          "team-logos.css": "e29f47cbcce0ff10c49ca489324eed2c80c58b64ab75839445541c7c0e56241f",
+          "scoring-runtime.js": "aa5ee805be4401866607f0c25a1f98ebf756f1fc04a19e5097b71cadb1a09622"
+        }
+      }
+    },
+    {
+      "path": "audit/ui-overhaul-20261103/qa-after-320-logos-2.json",
+      "capturedAt": null,
+      "surface": null,
+      "logos": 24,
+      "loaded": 24,
+      "overflow": false,
+      "clipped": 0,
+      "overlaps": 0,
+      "recordFailures": 0,
+      "errors": 0,
+      "searchRows": null,
+      "source": null
+    },
+    {
+      "path": "audit/ui-overhaul-20261103/qa-after-320-logos-3.json",
+      "capturedAt": null,
+      "surface": null,
+      "logos": 8,
+      "loaded": 8,
+      "overflow": false,
+      "clipped": 0,
+      "overlaps": 0,
+      "recordFailures": 0,
+      "errors": 0,
+      "searchRows": null,
+      "source": null
+    },
+    {
+      "path": "audit/ui-overhaul-20261103/qa-after-320-search-0.json",
+      "capturedAt": "2026-11-04T05:18:13.688Z",
+      "surface": "search-dialog",
+      "logos": 12,
+      "loaded": 12,
+      "overflow": false,
+      "clipped": 0,
+      "overlaps": 0,
+      "recordFailures": 0,
+      "errors": 0,
+      "searchRows": 6,
+      "source": {
+        "baseline": "5b7f797c879d36826d08b2ea31a6fecd18ef092c",
+        "files": {
+          "app.js": "ba53b6380e01e3f29a872504f9a148f2a15987af6b6cd9670511dc8e29dcd35a",
+          "styles.css": "0bfc16322525812046225f2d3f24a13b1cf940a3224b76225fa599be7735094d",
+          "mobile-readability.css": "b4ebae26110029a9530c8a63d8ecb270b29be8d224fcd593d6069891b5641635",
+          "ui-overhaul.css": "721fcb6cc6bf8ea7b1255b2bc325396c4cac9df629a6e2c133382e6e5eb24e6c",
+          "team-logos.js": "75730ccdf44fafc61bbb9be1fae0a9a44a8c454d8f195885df1182f09c7b24aa",
+          "team-logos.css": "e29f47cbcce0ff10c49ca489324eed2c80c58b64ab75839445541c7c0e56241f",
+          "scoring-runtime.js": "aa5ee805be4401866607f0c25a1f98ebf756f1fc04a19e5097b71cadb1a09622"
+        }
+      }
+    },
+    {
+      "path": "audit/ui-overhaul-20261103/qa-after-320-settings-0.json",
+      "capturedAt": "2026-11-04T04:56:17.992Z",
+      "surface": null,
+      "logos": 25,
+      "loaded": 25,
+      "overflow": false,
+      "clipped": 0,
+      "overlaps": 0,
+      "recordFailures": 0,
+      "errors": 0,
+      "searchRows": null,
+      "source": {
+        "baseline": "5b7f797c879d36826d08b2ea31a6fecd18ef092c",
+        "files": {
+          "app.js": "ba53b6380e01e3f29a872504f9a148f2a15987af6b6cd9670511dc8e29dcd35a",
+          "styles.css": "b2966f30cb36996e8ac21c5cea8e3c2b31265077e6e15b4c5b1b8e874e438f02",
+          "mobile-readability.css": "a85dea947825851f262438d9f2a073f5d9129c8a1d645b5e8d652bcbcacc01ba",
+          "ui-overhaul.css": "ffa0e64cc96f7cdbc6488e24da1e3163f62367b0787bbce32ddd1dc46450153f",
+          "team-logos.js": "75730ccdf44fafc61bbb9be1fae0a9a44a8c454d8f195885df1182f09c7b24aa",
+          "team-logos.css": "e29f47cbcce0ff10c49ca489324eed2c80c58b64ab75839445541c7c0e56241f",
+          "scoring-runtime.js": "aa5ee805be4401866607f0c25a1f98ebf756f1fc04a19e5097b71cadb1a09622"
+        }
+      }
+    },
+    {
+      "path": "audit/ui-overhaul-20261103/qa-after-320-slate-0.json",
+      "capturedAt": null,
+      "surface": null,
+      "logos": 8,
+      "loaded": 8,
+      "overflow": false,
+      "clipped": 0,
+      "overlaps": 0,
+      "recordFailures": 0,
+      "errors": 0,
+      "searchRows": null,
+      "source": null
+    },
+    {
+      "path": "audit/ui-overhaul-20261103/qa-after-320-slate-1.json",
+      "capturedAt": null,
+      "surface": null,
+      "logos": 8,
+      "loaded": 8,
+      "overflow": false,
+      "clipped": 0,
+      "overlaps": 0,
+      "recordFailures": 0,
+      "errors": 0,
+      "searchRows": null,
+      "source": null
+    },
+    {
+      "path": "audit/ui-overhaul-20261103/qa-after-320-slate-2.json",
+      "capturedAt": "2026-11-04T05:16:19.866Z",
+      "surface": "document",
+      "logos": 2,
+      "loaded": 2,
+      "overflow": false,
+      "clipped": 0,
+      "overlaps": 0,
+      "recordFailures": 0,
+      "errors": 0,
+      "searchRows": null,
+      "source": {
+        "baseline": "5b7f797c879d36826d08b2ea31a6fecd18ef092c",
+        "files": {
+          "app.js": "ba53b6380e01e3f29a872504f9a148f2a15987af6b6cd9670511dc8e29dcd35a",
+          "styles.css": "0bfc16322525812046225f2d3f24a13b1cf940a3224b76225fa599be7735094d",
+          "mobile-readability.css": "b4ebae26110029a9530c8a63d8ecb270b29be8d224fcd593d6069891b5641635",
+          "ui-overhaul.css": "ffa0e64cc96f7cdbc6488e24da1e3163f62367b0787bbce32ddd1dc46450153f",
+          "team-logos.js": "75730ccdf44fafc61bbb9be1fae0a9a44a8c454d8f195885df1182f09c7b24aa",
+          "team-logos.css": "e29f47cbcce0ff10c49ca489324eed2c80c58b64ab75839445541c7c0e56241f",
+          "scoring-runtime.js": "aa5ee805be4401866607f0c25a1f98ebf756f1fc04a19e5097b71cadb1a09622"
+        }
+      }
+    },
+    {
+      "path": "audit/ui-overhaul-20261103/qa-after-320-team-1.json",
+      "capturedAt": "2026-11-04T04:55:58.415Z",
+      "surface": null,
+      "logos": 2,
+      "loaded": 2,
+      "overflow": false,
+      "clipped": 0,
+      "overlaps": 0,
+      "recordFailures": 0,
+      "errors": 0,
+      "searchRows": null,
+      "source": {
+        "baseline": "5b7f797c879d36826d08b2ea31a6fecd18ef092c",
+        "files": {
+          "app.js": "ba53b6380e01e3f29a872504f9a148f2a15987af6b6cd9670511dc8e29dcd35a",
+          "styles.css": "b2966f30cb36996e8ac21c5cea8e3c2b31265077e6e15b4c5b1b8e874e438f02",
+          "mobile-readability.css": "a85dea947825851f262438d9f2a073f5d9129c8a1d645b5e8d652bcbcacc01ba",
+          "ui-overhaul.css": "ffa0e64cc96f7cdbc6488e24da1e3163f62367b0787bbce32ddd1dc46450153f",
+          "team-logos.js": "75730ccdf44fafc61bbb9be1fae0a9a44a8c454d8f195885df1182f09c7b24aa",
+          "team-logos.css": "e29f47cbcce0ff10c49ca489324eed2c80c58b64ab75839445541c7c0e56241f",
+          "scoring-runtime.js": "aa5ee805be4401866607f0c25a1f98ebf756f1fc04a19e5097b71cadb1a09622"
+        }
+      }
+    },
+    {
+      "path": "audit/ui-overhaul-20261103/qa-after-375-slate-0.json",
+      "capturedAt": null,
+      "surface": null,
+      "logos": 8,
+      "loaded": 8,
+      "overflow": false,
+      "clipped": 0,
+      "overlaps": 0,
+      "recordFailures": 0,
+      "errors": 0,
+      "searchRows": null,
+      "source": null
+    },
+    {
+      "path": "audit/ui-overhaul-20261103/qa-after-375-slate-1.json",
+      "capturedAt": null,
+      "surface": null,
+      "logos": 8,
+      "loaded": 8,
+      "overflow": false,
+      "clipped": 0,
+      "overlaps": 0,
+      "recordFailures": 0,
+      "errors": 0,
+      "searchRows": null,
+      "source": null
+    },
+    {
+      "path": "audit/ui-overhaul-20261103/qa-after-375-slate-2.json",
+      "capturedAt": "2026-11-04T04:54:28.675Z",
+      "surface": null,
+      "logos": 8,
+      "loaded": 8,
+      "overflow": false,
+      "clipped": 0,
+      "overlaps": 0,
+      "recordFailures": 0,
+      "errors": 0,
+      "searchRows": null,
+      "source": {
+        "baseline": "5b7f797c879d36826d08b2ea31a6fecd18ef092c",
+        "files": {
+          "app.js": "ba53b6380e01e3f29a872504f9a148f2a15987af6b6cd9670511dc8e29dcd35a",
+          "styles.css": "b2966f30cb36996e8ac21c5cea8e3c2b31265077e6e15b4c5b1b8e874e438f02",
+          "mobile-readability.css": "a85dea947825851f262438d9f2a073f5d9129c8a1d645b5e8d652bcbcacc01ba",
+          "ui-overhaul.css": "dce04392466a9fe6ce647a66245e58c706cd36d74e4f9da4700d2e23fdc2b393",
+          "team-logos.js": "75730ccdf44fafc61bbb9be1fae0a9a44a8c454d8f195885df1182f09c7b24aa",
+          "team-logos.css": "e29f47cbcce0ff10c49ca489324eed2c80c58b64ab75839445541c7c0e56241f",
+          "scoring-runtime.js": "aa5ee805be4401866607f0c25a1f98ebf756f1fc04a19e5097b71cadb1a09622"
+        }
+      }
+    },
+    {
+      "path": "audit/ui-overhaul-20261103/qa-after-390-slate-0.json",
+      "capturedAt": null,
+      "surface": null,
+      "logos": 8,
+      "loaded": 8,
+      "overflow": false,
+      "clipped": 0,
+      "overlaps": 0,
+      "recordFailures": 0,
+      "errors": 0,
+      "searchRows": null,
+      "source": null
+    },
+    {
+      "path": "audit/ui-overhaul-20261103/qa-after-390-slate-1.json",
+      "capturedAt": null,
+      "surface": null,
+      "logos": 8,
+      "loaded": 8,
+      "overflow": false,
+      "clipped": 0,
+      "overlaps": 0,
+      "recordFailures": 0,
+      "errors": 0,
+      "searchRows": null,
+      "source": null
+    },
+    {
+      "path": "audit/ui-overhaul-20261103/qa-after-390-slate-2.json",
+      "capturedAt": "2026-11-04T04:54:28.668Z",
+      "surface": null,
+      "logos": 8,
+      "loaded": 8,
+      "overflow": false,
+      "clipped": 0,
+      "overlaps": 0,
+      "recordFailures": 0,
+      "errors": 0,
+      "searchRows": null,
+      "source": {
+        "baseline": "5b7f797c879d36826d08b2ea31a6fecd18ef092c",
+        "files": {
+          "app.js": "ba53b6380e01e3f29a872504f9a148f2a15987af6b6cd9670511dc8e29dcd35a",
+          "styles.css": "b2966f30cb36996e8ac21c5cea8e3c2b31265077e6e15b4c5b1b8e874e438f02",
+          "mobile-readability.css": "a85dea947825851f262438d9f2a073f5d9129c8a1d645b5e8d652bcbcacc01ba",
+          "ui-overhaul.css": "dce04392466a9fe6ce647a66245e58c706cd36d74e4f9da4700d2e23fdc2b393",
+          "team-logos.js": "75730ccdf44fafc61bbb9be1fae0a9a44a8c454d8f195885df1182f09c7b24aa",
+          "team-logos.css": "e29f47cbcce0ff10c49ca489324eed2c80c58b64ab75839445541c7c0e56241f",
+          "scoring-runtime.js": "aa5ee805be4401866607f0c25a1f98ebf756f1fc04a19e5097b71cadb1a09622"
+        }
+      }
+    },
+    {
+      "path": "audit/ui-overhaul-20261103/qa-after-430-slate-0.json",
+      "capturedAt": null,
+      "surface": null,
+      "logos": 8,
+      "loaded": 8,
+      "overflow": false,
+      "clipped": 0,
+      "overlaps": 0,
+      "recordFailures": 0,
+      "errors": 0,
+      "searchRows": null,
+      "source": null
+    },
+    {
+      "path": "audit/ui-overhaul-20261103/qa-after-430-slate-1.json",
+      "capturedAt": null,
+      "surface": null,
+      "logos": 8,
+      "loaded": 8,
+      "overflow": false,
+      "clipped": 0,
+      "overlaps": 0,
+      "recordFailures": 0,
+      "errors": 0,
+      "searchRows": null,
+      "source": null
+    },
+    {
+      "path": "audit/ui-overhaul-20261103/qa-after-430-slate-2.json",
+      "capturedAt": "2026-11-04T04:54:28.664Z",
+      "surface": null,
+      "logos": 8,
+      "loaded": 8,
+      "overflow": false,
+      "clipped": 0,
+      "overlaps": 0,
+      "recordFailures": 0,
+      "errors": 0,
+      "searchRows": null,
+      "source": {
+        "baseline": "5b7f797c879d36826d08b2ea31a6fecd18ef092c",
+        "files": {
+          "app.js": "ba53b6380e01e3f29a872504f9a148f2a15987af6b6cd9670511dc8e29dcd35a",
+          "styles.css": "b2966f30cb36996e8ac21c5cea8e3c2b31265077e6e15b4c5b1b8e874e438f02",
+          "mobile-readability.css": "a85dea947825851f262438d9f2a073f5d9129c8a1d645b5e8d652bcbcacc01ba",
+          "ui-overhaul.css": "dce04392466a9fe6ce647a66245e58c706cd36d74e4f9da4700d2e23fdc2b393",
+          "team-logos.js": "75730ccdf44fafc61bbb9be1fae0a9a44a8c454d8f195885df1182f09c7b24aa",
+          "team-logos.css": "e29f47cbcce0ff10c49ca489324eed2c80c58b64ab75839445541c7c0e56241f",
+          "scoring-runtime.js": "aa5ee805be4401866607f0c25a1f98ebf756f1fc04a19e5097b71cadb1a09622"
+        }
+      }
+    }
+  ],
+  "evidenceHashes": {
+    "audit/ui-overhaul-20261103/README.md": "01a6e03d771156300b280b58b08ba9779cecf3874795f4a45342477aad90d484",
+    "audit/ui-overhaul-20261103/after-final-1024-slate.png": "5571e6ef78b65eb230695f6e9bfcc46f9e782a806611bf15515783f86fb82830",
+    "audit/ui-overhaul-20261103/after-final-1440-game-center.png": "af60aaf2c2370e612ff2208a4fce633560867d736bf092da8fc12c6fadeab83d",
+    "audit/ui-overhaul-20261103/after-final-1440-search.png": "8befbab88efdd3873b036571383d2e1be6dd7b34462cdebe793af8193ee2f104",
+    "audit/ui-overhaul-20261103/after-final-1440-slate.png": "99ab493caf47fffbacf3c79086876c43af9c699d8db69df3f3245bb2c182245a",
+    "audit/ui-overhaul-20261103/after-final-1440-team.png": "8aad4ea92fb2172d6c260411893722eafc81cb7344798220d1e16ce5bcf96b41",
+    "audit/ui-overhaul-20261103/after-final-320-completed-filter.png": "fe4ce39ab980af169442d62adfe3fa4a729f2befdf170d9ba60f0ddb7b086989",
+    "audit/ui-overhaul-20261103/after-final-320-detail-reduced-motion-measurement.png": "05a618fabce0da361c394bdc83942920c9984bff59288633ba1ac88bb8871384",
+    "audit/ui-overhaul-20261103/after-final-320-game-center-plays.png": "d3cf8460ede357e8f0184899ef57a5a4410921612195b4f081692d7127adb062",
+    "audit/ui-overhaul-20261103/after-final-320-game-center-stats.png": "0cf5e765a97bc3ee7e9ac888a5dcf552e9ebbd544b0aeaf66759730b2265a6b2",
+    "audit/ui-overhaul-20261103/after-final-320-game-center.png": "1c06405b56128178cf492695cc98461dba3ec95c4453367bfc89371a5280fe2b",
+    "audit/ui-overhaul-20261103/after-final-320-preferences.png": "aa9df539ab83d9eb66be06f83ae5b75f77e665a740fb52aad4af8a46ee080ae2",
+    "audit/ui-overhaul-20261103/after-final-320-reduced-motion-measurement.png": "b8eb14cd0037c9944611e632f82df3b45b87a5c501a33aff5f10048128c8b565",
+    "audit/ui-overhaul-20261103/after-final-320-reduced-motion-tab.png": "29e67f10692234f1f561dd23c665419f310768c239db48787de4203ba46778c9",
+    "audit/ui-overhaul-20261103/after-final-320-search.png": "bd5a833c01c089dde6d72a001d2102839b7a0fc539519cfea34d3141978ca0f0",
+    "audit/ui-overhaul-20261103/after-final-320-team.png": "58e2651ce444853a8d97364828284b71cc13a8875b8095b533febe879c1ae7b3",
+    "audit/ui-overhaul-20261103/after-final-320-upcoming-filter.png": "c27d1fc0ec28e51dd1c94926fe0cacad0e4f25bfad4c22daa38168b0491866f1",
+    "audit/ui-overhaul-20261103/after-final-phones-set0.png": "93b49791be639b3b1a3d28d41ea2d1f074ffc18389768070e93dcc259c48b0eb",
+    "audit/ui-overhaul-20261103/after-final-phones-set1.png": "96c3d49f324416e80cdb8836ba09219f5bb6097923cc742f426f22e49b00115d",
+    "audit/ui-overhaul-20261103/after-final-phones-set2.png": "3378c8d27d4fbfcc98a6dd0195ea1720d449f5c537d6f9226cbb47e03dcdf3f8",
+    "audit/ui-overhaul-20261103/baseline-failure.md": "ed7d41c1160943d532e597c978f15b53add8366ad1dcba12d7b926c46bb585fe",
+    "audit/ui-overhaul-20261103/baseline-replay.log": "6ee8e42b95c9c667bf1cdfec5078d2a1ec6e453b1645bc6854665688fe0a8fe4",
+    "audit/ui-overhaul-20261103/baseline-scoring-runtime.js": "aa5ee805be4401866607f0c25a1f98ebf756f1fc04a19e5097b71cadb1a09622",
+    "audit/ui-overhaul-20261103/logos-final-before-after-320-set0-lower.png": "e14d85aedb37e7498367ddf647900353b8d53556792043998784dbf70ee7c42f",
+    "audit/ui-overhaul-20261103/logos-final-before-after-320-set0.png": "a334feb0968b11d3fee6b101f359b29cc94db9059fa8efc7fc79f2c292b9d520",
+    "audit/ui-overhaul-20261103/logos-final-before-after-320-set1-lower.png": "bcc92b673fe81d22fee9b8b7732bc4c8abe4f6aef5f6ec44a1b2b04841b16b64",
+    "audit/ui-overhaul-20261103/logos-final-before-after-320-set1.png": "fc22166874e968d4f213e3394ce380924d663c84a8bc6f3d6d98f6a897871ddb",
+    "audit/ui-overhaul-20261103/logos-final-before-after-320-set2-lower.png": "b8272af33330ba2c2348e7425fbce26a7e6abdd9ffa1599a8a6e9cc02f39b57a",
+    "audit/ui-overhaul-20261103/logos-final-before-after-320-set2.png": "4dedc179a788f5245eca99697773ddbd115f33f9399be8983c7f1d17fb5efca4",
+    "audit/ui-overhaul-20261103/logos-final-before-after-320-white-svg.png": "e3b6a0099697c9639e9e90afcaca030dd5232bb52f1e952f44f917d065c3985b",
+    "audit/ui-overhaul-20261103/logos-final-interactive-dark-320.png": "021cfe2b2995a3205f2a6b9879b83d03ef8bde5bfac5564b248761c382a5ebc9",
+    "audit/ui-overhaul-20261103/logos-final-interactive-light-320.png": "3837babdc9c8a3cdf72e19a00123d2da606f0f9e090cfc182f8ddf3aed86194c",
+    "audit/ui-overhaul-20261103/protected-hashes.json": "32303e4be7c4bc2cd8b15a34b5f966ba1a9a20a663114b7f07067638f34ea21e",
+    "audit/ui-overhaul-20261103/publication-plan.md": "2004a3c683f2f521a4c0bd93518569f93ea1eac02b95822f0b3a8c2717c7f616",
+    "audit/ui-overhaul-20261103/qa-after-1024-slate-0.json": "abdd369fa18fa542c715942e473597414a2f9ad70d9dbe476e9ba51358fad5b2",
+    "audit/ui-overhaul-20261103/qa-after-1440-detail-0.json": "ff2a3bea9da42773f6a7c6f9055e41b5a386bca0a92cfb24bcacb77f9d4753a5",
+    "audit/ui-overhaul-20261103/qa-after-1440-search-0.json": "65cbc59601da02c363be08dc8b4847560b72d85282f647a645d24dc7f02d5d35",
+    "audit/ui-overhaul-20261103/qa-after-1440-slate-0.json": "bf0d0f22c50c61f2dde315c52add65a3eec13cb683d0c4dc129a376e002f53a9",
+    "audit/ui-overhaul-20261103/qa-after-1440-team-0.json": "390eaac8134c6f6f3993300e6f1eed8dabee487101a51f7cd3fcee2640ca0cd0",
+    "audit/ui-overhaul-20261103/qa-after-320-detail-1.json": "3d0c4b73c5f88f8b34bbab4e1a819a667f6d7852d4e65c89ed6014c20c9972fb",
+    "audit/ui-overhaul-20261103/qa-after-320-logos-0.json": "bb60fa25e87944d4d1e007070adb6e50ce15c89f79ae79f011455af8fd184da5",
+    "audit/ui-overhaul-20261103/qa-after-320-logos-1.json": "8b7681a74fe18878109316e6163494d6f377603780efbd065a5adffd1a3b7d2b",
+    "audit/ui-overhaul-20261103/qa-after-320-logos-2.json": "5002fb0fcfa86e6e19f31565bebc0d8bbb350da0d4d6dd2455f9d8da22b7824b",
+    "audit/ui-overhaul-20261103/qa-after-320-logos-3.json": "b15c59e836ab453f39bd12adcb1e6831828f5046ce48b00736abc7807c265abb",
+    "audit/ui-overhaul-20261103/qa-after-320-search-0.json": "db28dfa503cbd6201e41f2d6458fd161ceeb39e7595abbe65d3cb228a286a58b",
+    "audit/ui-overhaul-20261103/qa-after-320-settings-0.json": "9d985078a4d31d44821734c64c7393079472916d26d3ac72fb76e23f56f78afd",
+    "audit/ui-overhaul-20261103/qa-after-320-slate-0.json": "ff15659f640baad2b80608de5de5db6da2183c9a63256bda478ba68c44972456",
+    "audit/ui-overhaul-20261103/qa-after-320-slate-1.json": "99cdb29f6f83ecf42bb6caaa49eb185cb044f13d5d7ba11b7e4a5da70474d069",
+    "audit/ui-overhaul-20261103/qa-after-320-slate-2.json": "3c4ffad4662aa67ce46d2e106f5223f1ff70258448e8414661ac23a518883b39",
+    "audit/ui-overhaul-20261103/qa-after-320-team-1.json": "a21724164aeedb6bd88c56cf75e49092a42fa779e33bbdf976699aac02415f1e",
+    "audit/ui-overhaul-20261103/qa-after-375-slate-0.json": "c0f5d7d05dfabb05e8effaf9f10c235a68f635c98e9e5ba74532db8a9cdbe4f9",
+    "audit/ui-overhaul-20261103/qa-after-375-slate-1.json": "2d889264ab1210d509935c120d38c10060bf70a9a9f294dc98ae890d5bde3075",
+    "audit/ui-overhaul-20261103/qa-after-375-slate-2.json": "6279c01c9dc0c42442f6c35e5e7bf40b9b9b9c6b4de04b962a6a8c0ce3ee9ad5",
+    "audit/ui-overhaul-20261103/qa-after-390-slate-0.json": "85e3c9392edc29a26b70bd4f51f11a461e1b8f9b1414443504a604a3d04e7780",
+    "audit/ui-overhaul-20261103/qa-after-390-slate-1.json": "da96b31e47539d4c541751f9739c9bde200c80b2b985b53c4f40acc364033d4e",
+    "audit/ui-overhaul-20261103/qa-after-390-slate-2.json": "7d9f84ce5e2441f085d5dcbe27e9692c185003780b3ea80c61a8e55c8f097562",
+    "audit/ui-overhaul-20261103/qa-after-430-slate-0.json": "e730dcf5d6465d5d4bf6ae19c200bc32e5a20562be8ea0607952ad80fd311f1a",
+    "audit/ui-overhaul-20261103/qa-after-430-slate-1.json": "279d6b2cbd8010d971abe8421f7a6108532d31db7efa12977b918d418e564a17",
+    "audit/ui-overhaul-20261103/qa-after-430-slate-2.json": "37b7ca60cfb847ca1cbe139e8ef92ef49c4d27ec79cc53910f891f6861197d08",
+    "audit/ui-overhaul-20261103/qa-before-320-logos-0.json": "35af7cb4d9667cfc6b03f6e7e89b15fa3822a562455b2a756786d406efb731a3",
+    "audit/ui-overhaul-20261103/qa-before-320-logos-1.json": "3fb7858dc84a3035a35d028b6185ac6d07e14982351cfad9d68342324e9191b5",
+    "audit/ui-overhaul-20261103/qa-before-320-logos-2.json": "e36eb0cf966f7c6f7e28268486be946afde551d7554e86bb879867b3a6bc1e09",
+    "audit/ui-overhaul-20261103/qa-before-320-logos-3.json": "bf15d94321624fff88d1132b62c9652a10ee78aea6aa2e774bae4c9978f49996",
+    "audit/ui-overhaul-20261103/qa-history/qa-after-320-detail-1-1793769358359.json": "3d0c4b73c5f88f8b34bbab4e1a819a667f6d7852d4e65c89ed6014c20c9972fb",
+    "audit/ui-overhaul-20261103/qa-history/qa-after-320-slate-2-1793768068696.json": "b9c77c6e080f4a19e7b9d43debd60fdae15c4b35627d6c4cb575aa7cd7175d23",
+    "audit/ui-overhaul-20261103/qa-history/qa-after-320-slate-2-1793769308570.json": "8c1832611c8dcf0ddec72753db5edc5004128b1e6fa347db5b3e89335f46bc7b",
+    "audit/ui-overhaul-20261103/qa-history/qa-after-320-slate-2-1793769373256.json": "8663194b1c133d2a25b5beca19b31e574c50d63f9db858783def4b153eb57851",
+    "audit/ui-overhaul-20261103/qa-lightning-alternate.png": "1a5bbbad80f133d00616364f6d390464a2e608c9053694f6203ebd49f316a1df",
+    "audit/ui-overhaul-20261103/qa-reduced-motion-acceptance.json": "a295540af07241c84e89e608a7e03e015eae65070100476be6d767e09a539ee2",
+    "audit/ui-overhaul-20261103/qa-reduced-motion-detail.json": "3d0c4b73c5f88f8b34bbab4e1a819a667f6d7852d4e65c89ed6014c20c9972fb",
+    "audit/ui-overhaul-20261103/qa-reduced-motion-measured.json": "8c1832611c8dcf0ddec72753db5edc5004128b1e6fa347db5b3e89335f46bc7b",
+    "audit/ui-overhaul-20261103/qa-white-sox-official.svg": "ca1ee0dc0e5a0f848703d0081ba60a12d44b0364da5c3b146985b6fe33f2e994",
+    "audit/ui-overhaul-20261103/qa-worker-tests.log": "a3e0e41415104e6eca6a34032d5d1f784a6064d2d2cb73acb9b30853a4d9bc10",
+    "audit/ui-overhaul-20261103/tests-final-sanity.log": "ba6cf4b46b1c4a7fe89243f0613d68da8972f2210c96bc4d1019cb0a98b89015",
+    "audit/ui-overhaul-20261103/tests-legacy.log": "93abca27599f1479feb83d56a9f2030daa5a62a6bbf6bebb280965086d3b119f",
+    "audit/ui-overhaul-20261103/tests-provenance.log": "ec7953d35f6028395118e2f28f6b700b231d554beac380f76adc1dcc492a9594",
+    "audit/ui-overhaul-20261103/tests-root.log": "3cabb19969290a779079325153302e278b423b732a17d582d16b5b6f16a7c8db"
+  },
+  "notes": [
+    "Final 1440px and 320px search reports match final dist assets. Earlier valid captures preserve their original source fingerprints where recorded.",
+    "Card contact sheets predate the Game Center-specific record correction; Game Center was rechecked after that correction. Other earlier captures predate the final search-only column correction; search was rechecked afterward.",
+    "Null capture time or source means the earlier harness did not record it; no historical identity has been inferred.",
+    "The reduced-motion acceptance review explicitly normalizes the legacy one-microsecond transition sentinel; raw measurements are preserved."
+  ]
+}

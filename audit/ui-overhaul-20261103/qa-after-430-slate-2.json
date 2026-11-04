@@ -1,0 +1,613 @@
+{
+  "capturedAt": "2026-11-04T04:54:28.664Z",
+  "source": {
+    "baseline": "5b7f797c879d36826d08b2ea31a6fecd18ef092c",
+    "files": {
+      "app.js": "ba53b6380e01e3f29a872504f9a148f2a15987af6b6cd9670511dc8e29dcd35a",
+      "styles.css": "b2966f30cb36996e8ac21c5cea8e3c2b31265077e6e15b4c5b1b8e874e438f02",
+      "mobile-readability.css": "a85dea947825851f262438d9f2a073f5d9129c8a1d645b5e8d652bcbcacc01ba",
+      "ui-overhaul.css": "dce04392466a9fe6ce647a66245e58c706cd36d74e4f9da4700d2e23fdc2b393",
+      "team-logos.js": "75730ccdf44fafc61bbb9be1fae0a9a44a8c454d8f195885df1182f09c7b24aa",
+      "team-logos.css": "e29f47cbcce0ff10c49ca489324eed2c80c58b64ab75839445541c7c0e56241f",
+      "scoring-runtime.js": "aa5ee805be4401866607f0c25a1f98ebf756f1fc04a19e5097b71cadb1a09622"
+    }
+  },
+  "phase": "after",
+  "width": 430,
+  "view": "slate",
+  "set": 2,
+  "overflow": false,
+  "logos": [
+    {
+      "src": "https://a.espncdn.com/i/teamlogos/nhl/500/dal.png",
+      "loaded": true,
+      "box": {
+        "x": 22.6171875,
+        "y": 338.8671875,
+        "width": 30,
+        "height": 30,
+        "right": 52.6171875,
+        "bottom": 368.8671875
+      },
+      "expectedSize": null,
+      "filter": "drop-shadow(rgba(240, 232, 212, 0.94) 0.5px 0px 0px) drop-shadow(rgba(240, 232, 212, 0.94) -0.5px 0px 0px) drop-shadow(rgba(240, 232, 212, 0.94) 0px 0.5px 0px) drop-shadow(rgba(240, 232, 212, 0.94) 0px -0.5px 0px)",
+      "background": "rgba(0, 0, 0, 0)",
+      "cardBackground": "rgb(34, 38, 41)",
+      "treatment": "contour",
+      "natural": [
+        500,
+        500
+      ]
+    },
+    {
+      "src": "https://a.espncdn.com/i/teamlogos/nhl/500/wsh.png",
+      "loaded": true,
+      "box": {
+        "x": 22.6171875,
+        "y": 392.353515625,
+        "width": 30,
+        "height": 30,
+        "right": 52.6171875,
+        "bottom": 422.353515625
+      },
+      "expectedSize": null,
+      "filter": "drop-shadow(rgba(240, 232, 212, 0.94) 0.5px 0px 0px) drop-shadow(rgba(240, 232, 212, 0.94) -0.5px 0px 0px) drop-shadow(rgba(240, 232, 212, 0.94) 0px 0.5px 0px) drop-shadow(rgba(240, 232, 212, 0.94) 0px -0.5px 0px)",
+      "background": "rgba(0, 0, 0, 0)",
+      "cardBackground": "rgb(34, 38, 41)",
+      "treatment": "contour",
+      "natural": [
+        500,
+        500
+      ]
+    },
+    {
+      "src": "https://a.espncdn.com/i/teamlogos/nba/500/bkn.png",
+      "loaded": true,
+      "box": {
+        "x": 22.6171875,
+        "y": 635.6640625,
+        "width": 30,
+        "height": 30,
+        "right": 52.6171875,
+        "bottom": 665.6640625
+      },
+      "expectedSize": null,
+      "filter": "drop-shadow(rgba(240, 232, 212, 0.94) 0.5px 0px 0px) drop-shadow(rgba(240, 232, 212, 0.94) -0.5px 0px 0px) drop-shadow(rgba(240, 232, 212, 0.94) 0px 0.5px 0px) drop-shadow(rgba(240, 232, 212, 0.94) 0px -0.5px 0px)",
+      "background": "rgba(0, 0, 0, 0)",
+      "cardBackground": "rgb(34, 38, 41)",
+      "treatment": "contour",
+      "natural": [
+        500,
+        500
+      ]
+    },
+    {
+      "src": "https://a.espncdn.com/i/teamlogos/nba/500/ny.png",
+      "loaded": true,
+      "box": {
+        "x": 22.6171875,
+        "y": 686.66015625,
+        "width": 30,
+        "height": 30,
+        "right": 52.6171875,
+        "bottom": 716.66015625
+      },
+      "expectedSize": null,
+      "filter": "drop-shadow(rgba(240, 232, 212, 0.68) 0px 0px 0.55px)",
+      "background": "rgba(0, 0, 0, 0)",
+      "cardBackground": "rgb(34, 38, 41)",
+      "treatment": "soft",
+      "natural": [
+        500,
+        500
+      ]
+    },
+    {
+      "src": "https://a.espncdn.com/i/teamlogos/nhl/500/la.png",
+      "loaded": true,
+      "box": {
+        "x": 22.6171875,
+        "y": 927.470703125,
+        "width": 30,
+        "height": 30,
+        "right": 52.6171875,
+        "bottom": 957.470703125
+      },
+      "expectedSize": null,
+      "filter": "drop-shadow(rgba(240, 232, 212, 0.94) 0.5px 0px 0px) drop-shadow(rgba(240, 232, 212, 0.94) -0.5px 0px 0px) drop-shadow(rgba(240, 232, 212, 0.94) 0px 0.5px 0px) drop-shadow(rgba(240, 232, 212, 0.94) 0px -0.5px 0px)",
+      "background": "rgba(0, 0, 0, 0)",
+      "cardBackground": "rgb(34, 38, 41)",
+      "treatment": "contour",
+      "natural": [
+        500,
+        500
+      ]
+    },
+    {
+      "src": "https://a.espncdn.com/i/teamlogos/nhl/500/bos.png",
+      "loaded": true,
+      "box": {
+        "x": 22.6171875,
+        "y": 980.95703125,
+        "width": 30,
+        "height": 30,
+        "right": 52.6171875,
+        "bottom": 1010.95703125
+      },
+      "expectedSize": null,
+      "filter": "drop-shadow(rgba(240, 232, 212, 0.94) 0.5px 0px 0px) drop-shadow(rgba(240, 232, 212, 0.94) -0.5px 0px 0px) drop-shadow(rgba(240, 232, 212, 0.94) 0px 0.5px 0px) drop-shadow(rgba(240, 232, 212, 0.94) 0px -0.5px 0px)",
+      "background": "rgba(0, 0, 0, 0)",
+      "cardBackground": "rgb(34, 38, 41)",
+      "treatment": "contour",
+      "natural": [
+        500,
+        500
+      ]
+    },
+    {
+      "src": "https://a.espncdn.com/i/teamlogos/ncaa/500/357.png",
+      "loaded": true,
+      "box": {
+        "x": 22.6171875,
+        "y": 1228.26171875,
+        "width": 30,
+        "height": 30,
+        "right": 52.6171875,
+        "bottom": 1258.26171875
+      },
+      "expectedSize": null,
+      "filter": "drop-shadow(rgba(240, 232, 212, 0.94) 0.5px 0px 0px) drop-shadow(rgba(240, 232, 212, 0.94) -0.5px 0px 0px) drop-shadow(rgba(240, 232, 212, 0.94) 0px 0.5px 0px) drop-shadow(rgba(240, 232, 212, 0.94) 0px -0.5px 0px)",
+      "background": "rgba(0, 0, 0, 0)",
+      "cardBackground": "rgb(34, 38, 41)",
+      "treatment": "contour",
+      "natural": [
+        500,
+        500
+      ]
+    },
+    {
+      "src": "https://a.espncdn.com/i/teamlogos/ncaa/500/96.png",
+      "loaded": true,
+      "box": {
+        "x": 22.6171875,
+        "y": 1279.2578125,
+        "width": 30,
+        "height": 30,
+        "right": 52.6171875,
+        "bottom": 1309.2578125
+      },
+      "expectedSize": null,
+      "filter": "drop-shadow(rgba(240, 232, 212, 0.94) 0.5px 0px 0px) drop-shadow(rgba(240, 232, 212, 0.94) -0.5px 0px 0px) drop-shadow(rgba(240, 232, 212, 0.94) 0px 0.5px 0px) drop-shadow(rgba(240, 232, 212, 0.94) 0px -0.5px 0px)",
+      "background": "rgba(0, 0, 0, 0)",
+      "cardBackground": "rgb(34, 38, 41)",
+      "treatment": "contour",
+      "natural": [
+        500,
+        500
+      ]
+    }
+  ],
+  "logoSizeMismatches": [],
+  "clipped": [],
+  "overlaps": [],
+  "recordFailures": [],
+  "cardLayout": [
+    {
+      "id": "qa-nhl-intermission",
+      "box": {
+        "x": 10,
+        "y": 279.755859375,
+        "width": 391.25,
+        "height": 284.8046875,
+        "right": 401.25,
+        "bottom": 564.560546875
+      },
+      "footer": {
+        "x": 22.6171875,
+        "y": 506.142578125,
+        "width": 366.015625,
+        "height": 45.80078125,
+        "right": 388.6328125,
+        "bottom": 551.943359375
+      },
+      "primary": [
+        {
+          "class": "team-row ",
+          "box": {
+            "x": 22.6171875,
+            "y": 328.369140625,
+            "width": 284.0234375,
+            "height": 50.99609375,
+            "right": 306.640625,
+            "bottom": 379.365234375
+          }
+        },
+        {
+          "class": "team-row ",
+          "box": {
+            "x": 22.6171875,
+            "y": 381.85546875,
+            "width": 284.0234375,
+            "height": 50.99609375,
+            "right": 306.640625,
+            "bottom": 432.8515625
+          }
+        },
+        {
+          "class": "card-moment",
+          "box": {
+            "x": 22.6171875,
+            "y": 479.345703125,
+            "width": 366.015625,
+            "height": 16.796875,
+            "right": 388.6328125,
+            "bottom": 496.142578125
+          }
+        },
+        {
+          "class": "excitement",
+          "box": {
+            "x": 316.640625,
+            "y": 328.369140625,
+            "width": 71.9921875,
+            "height": 106.982421875,
+            "right": 388.6328125,
+            "bottom": 435.3515625
+          }
+        }
+      ],
+      "footerOverlaps": [],
+      "badges": [],
+      "expectedRecords": 2,
+      "records": [
+        {
+          "text": "8-5-1",
+          "visible": true,
+          "fontSize": 11,
+          "box": {
+            "x": 60.615234375,
+            "y": 357.59765625,
+            "width": 214.7265625,
+            "height": 14.287109375,
+            "right": 275.341796875,
+            "bottom": 371.884765625
+          },
+          "insideCard": true
+        },
+        {
+          "text": "8-5-0",
+          "visible": true,
+          "fontSize": 11,
+          "box": {
+            "x": 60.615234375,
+            "y": 411.083984375,
+            "width": 214.7265625,
+            "height": 14.287109375,
+            "right": 275.341796875,
+            "bottom": 425.37109375
+          },
+          "insideCard": true
+        }
+      ]
+    },
+    {
+      "id": "qa-nba-pending",
+      "box": {
+        "x": 10,
+        "y": 576.552734375,
+        "width": 391.25,
+        "height": 279.814453125,
+        "right": 401.25,
+        "bottom": 856.3671875
+      },
+      "footer": {
+        "x": 22.6171875,
+        "y": 797.94921875,
+        "width": 366.015625,
+        "height": 45.80078125,
+        "right": 388.6328125,
+        "bottom": 843.75
+      },
+      "primary": [
+        {
+          "class": "team-row ",
+          "box": {
+            "x": 22.6171875,
+            "y": 625.166015625,
+            "width": 284.0234375,
+            "height": 50.99609375,
+            "right": 306.640625,
+            "bottom": 676.162109375
+          }
+        },
+        {
+          "class": "team-row ",
+          "box": {
+            "x": 22.6171875,
+            "y": 676.162109375,
+            "width": 284.0234375,
+            "height": 50.99609375,
+            "right": 306.640625,
+            "bottom": 727.158203125
+          }
+        },
+        {
+          "class": "card-moment",
+          "box": {
+            "x": 22.6171875,
+            "y": 771.15234375,
+            "width": 366.015625,
+            "height": 16.796875,
+            "right": 388.6328125,
+            "bottom": 787.94921875
+          }
+        },
+        {
+          "class": "excitement",
+          "box": {
+            "x": 316.640625,
+            "y": 625.166015625,
+            "width": 71.9921875,
+            "height": 101.9921875,
+            "right": 388.6328125,
+            "bottom": 727.158203125
+          }
+        }
+      ],
+      "footerOverlaps": [],
+      "badges": [],
+      "expectedRecords": 2,
+      "records": [
+        {
+          "text": "5-2",
+          "visible": true,
+          "fontSize": 11,
+          "box": {
+            "x": 60.615234375,
+            "y": 654.39453125,
+            "width": 214.716796875,
+            "height": 14.287109375,
+            "right": 275.33203125,
+            "bottom": 668.681640625
+          },
+          "insideCard": true
+        },
+        {
+          "text": "4-3",
+          "visible": true,
+          "fontSize": 11,
+          "box": {
+            "x": 60.615234375,
+            "y": 705.390625,
+            "width": 214.716796875,
+            "height": 14.287109375,
+            "right": 275.33203125,
+            "bottom": 719.677734375
+          },
+          "insideCard": true
+        }
+      ]
+    },
+    {
+      "id": "qa-nhl-final",
+      "box": {
+        "x": 10,
+        "y": 868.359375,
+        "width": 391.25,
+        "height": 248.80859375,
+        "right": 401.25,
+        "bottom": 1117.16796875
+      },
+      "footer": {
+        "x": 22.6171875,
+        "y": 1058.75,
+        "width": 366.015625,
+        "height": 45.80078125,
+        "right": 388.6328125,
+        "bottom": 1104.55078125
+      },
+      "primary": [
+        {
+          "class": "team-row winner-row",
+          "box": {
+            "x": 22.6171875,
+            "y": 916.97265625,
+            "width": 284.0234375,
+            "height": 50.99609375,
+            "right": 306.640625,
+            "bottom": 967.96875
+          }
+        },
+        {
+          "class": "team-row ",
+          "box": {
+            "x": 22.6171875,
+            "y": 970.458984375,
+            "width": 284.0234375,
+            "height": 50.99609375,
+            "right": 306.640625,
+            "bottom": 1021.455078125
+          }
+        },
+        {
+          "class": "card-moment",
+          "box": {
+            "x": 22.6171875,
+            "y": 1031.953125,
+            "width": 366.015625,
+            "height": 16.796875,
+            "right": 388.6328125,
+            "bottom": 1048.75
+          }
+        },
+        {
+          "class": "excitement",
+          "box": {
+            "x": 316.640625,
+            "y": 916.97265625,
+            "width": 71.9921875,
+            "height": 106.982421875,
+            "right": 388.6328125,
+            "bottom": 1023.955078125
+          }
+        }
+      ],
+      "footerOverlaps": [],
+      "badges": [],
+      "expectedRecords": 2,
+      "records": [
+        {
+          "text": "8-5-1",
+          "visible": true,
+          "fontSize": 11,
+          "box": {
+            "x": 60.615234375,
+            "y": 946.201171875,
+            "width": 214.7265625,
+            "height": 14.287109375,
+            "right": 275.341796875,
+            "bottom": 960.48828125
+          },
+          "insideCard": true
+        },
+        {
+          "text": "9-4-1",
+          "visible": true,
+          "fontSize": 11,
+          "box": {
+            "x": 60.615234375,
+            "y": 999.6875,
+            "width": 214.7265625,
+            "height": 14.287109375,
+            "right": 275.341796875,
+            "bottom": 1013.974609375
+          },
+          "insideCard": true
+        }
+      ]
+    },
+    {
+      "id": "qa-ncaam-upcoming",
+      "box": {
+        "x": 10,
+        "y": 1169.150390625,
+        "width": 391.25,
+        "height": 243.818359375,
+        "right": 401.25,
+        "bottom": 1412.96875
+      },
+      "footer": {
+        "x": 22.6171875,
+        "y": 1354.55078125,
+        "width": 366.015625,
+        "height": 45.80078125,
+        "right": 388.6328125,
+        "bottom": 1400.3515625
+      },
+      "primary": [
+        {
+          "class": "team-row ",
+          "box": {
+            "x": 22.6171875,
+            "y": 1217.763671875,
+            "width": 284.0234375,
+            "height": 50.99609375,
+            "right": 306.640625,
+            "bottom": 1268.759765625
+          }
+        },
+        {
+          "class": "team-row ",
+          "box": {
+            "x": 22.6171875,
+            "y": 1268.759765625,
+            "width": 284.0234375,
+            "height": 50.99609375,
+            "right": 306.640625,
+            "bottom": 1319.755859375
+          }
+        },
+        {
+          "class": "card-moment",
+          "box": {
+            "x": 22.6171875,
+            "y": 1327.75390625,
+            "width": 366.015625,
+            "height": 16.796875,
+            "right": 388.6328125,
+            "bottom": 1344.55078125
+          }
+        },
+        {
+          "class": "excitement",
+          "box": {
+            "x": 316.640625,
+            "y": 1217.763671875,
+            "width": 71.9921875,
+            "height": 101.9921875,
+            "right": 388.6328125,
+            "bottom": 1319.755859375
+          }
+        }
+      ],
+      "footerOverlaps": [],
+      "badges": [],
+      "expectedRecords": 2,
+      "records": [
+        {
+          "text": "0-0",
+          "visible": true,
+          "fontSize": 11,
+          "box": {
+            "x": 60.615234375,
+            "y": 1246.9921875,
+            "width": 246.025390625,
+            "height": 14.287109375,
+            "right": 306.640625,
+            "bottom": 1261.279296875
+          },
+          "insideCard": true
+        },
+        {
+          "text": "0-0",
+          "visible": true,
+          "fontSize": 11,
+          "box": {
+            "x": 60.615234375,
+            "y": 1297.98828125,
+            "width": 246.025390625,
+            "height": 14.287109375,
+            "right": 306.640625,
+            "bottom": 1312.275390625
+          },
+          "insideCard": true
+        }
+      ]
+    }
+  ],
+  "headerLogo": {
+    "loaded": true,
+    "box": {
+      "x": 10,
+      "y": 12.998046875,
+      "width": 33.994140625,
+      "height": 33.994140625,
+      "right": 43.994140625,
+      "bottom": 46.9921875
+    },
+    "objectFit": "contain",
+    "natural": [
+      512,
+      512
+    ]
+  },
+  "reducedMotion": false,
+  "focusedLogo": null,
+  "errors": [],
+  "requests": [
+    "/after/teams.json",
+    "/config"
+  ],
+  "cards": 4,
+  "ppBadges": 0
+}

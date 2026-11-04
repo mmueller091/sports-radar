@@ -1,0 +1,63 @@
+/* Load after the responsive styles. Treatments follow alpha, never the image
+   rectangle. No official pixels, colors, aspect ratios or transparent areas are
+   replaced. Dark artwork receives a half-pixel alpha contour, not a glow. */
+:root {
+  --logo-soft-edge: drop-shadow(0 0 .55px rgb(240 232 212 / .68));
+  --logo-dark-edge:
+    drop-shadow(.5px 0 0 rgb(240 232 212 / .94))
+    drop-shadow(-.5px 0 0 rgb(240 232 212 / .94))
+    drop-shadow(0 .5px 0 rgb(240 232 212 / .94))
+    drop-shadow(0 -.5px 0 rgb(240 232 212 / .94));
+}
+
+/* Retire the former universal cream plates, including selected team rows. */
+.card-team-link,
+.team-logo-shell,
+.team-hero-logo,
+.search-team-logo,
+.team-standing-team img[data-team-logo],
+.team-spotlight-matchup img[data-team-logo],
+.team-schedule-opponent img[data-team-logo],
+.search-team-logo img[data-team-logo],
+.favorite-tag img[data-team-logo],
+.favorite-result img[data-team-logo],
+.detail-team img[data-team-logo],
+.player-team-switch img[data-team-logo],
+.team-standing-row.current .team-standing-team img[data-team-logo],
+.team-playoff-row.current .team-standing-team img[data-team-logo] {
+  background: transparent;
+  box-shadow: none;
+  border-radius: 0;
+}
+
+.card-team-link,
+.team-name > .team-logo-shell,
+.team-hero-logo,
+.search-team-logo { overflow: visible; }
+
+/* Specificity deliberately wins over the legacy mobile double-glow rule. */
+img[data-team-logo][data-logo-contrast],
+.game-card .team-name img[data-team-logo][data-logo-contrast] {
+  object-fit: contain;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+  border-radius: 0;
+  filter: var(--team-logo-filter, none);
+  mix-blend-mode: normal;
+}
+img[data-logo-contrast="none"] { --team-logo-filter: none; }
+img[data-logo-contrast="pending"],
+img[data-logo-contrast="soft"] { --team-logo-filter: var(--logo-soft-edge); }
+img[data-logo-contrast="contour"],
+/* Pixels unavailable (for example a CDN denying CORS): retain a fine contour
+   rather than guessing the artwork is light. No opaque backing is introduced. */
+img[data-logo-contrast="unreadable"] { --team-logo-filter: var(--logo-dark-edge); }
+
+/* The focus affordance belongs to the actionable link, not the artwork. */
+.card-team-link:focus-visible {
+  outline: 2px solid var(--brand-cream, #f0e8d4);
+  outline-offset: 3px;
+  border-radius: 3px;
+}

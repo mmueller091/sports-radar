@@ -1,0 +1,847 @@
+{
+  "capturedAt": "2026-11-04T05:15:08.563Z",
+  "source": {
+    "baseline": "5b7f797c879d36826d08b2ea31a6fecd18ef092c",
+    "files": {
+      "app.js": "ba53b6380e01e3f29a872504f9a148f2a15987af6b6cd9670511dc8e29dcd35a",
+      "styles.css": "0bfc16322525812046225f2d3f24a13b1cf940a3224b76225fa599be7735094d",
+      "mobile-readability.css": "b4ebae26110029a9530c8a63d8ecb270b29be8d224fcd593d6069891b5641635",
+      "ui-overhaul.css": "ffa0e64cc96f7cdbc6488e24da1e3163f62367b0787bbce32ddd1dc46450153f",
+      "team-logos.js": "75730ccdf44fafc61bbb9be1fae0a9a44a8c454d8f195885df1182f09c7b24aa",
+      "team-logos.css": "e29f47cbcce0ff10c49ca489324eed2c80c58b64ab75839445541c7c0e56241f",
+      "scoring-runtime.js": "aa5ee805be4401866607f0c25a1f98ebf756f1fc04a19e5097b71cadb1a09622"
+    }
+  },
+  "surface": "document",
+  "phase": "after",
+  "width": 320,
+  "view": "slate",
+  "set": 2,
+  "overflow": false,
+  "logos": [
+    {
+      "src": "https://a.espncdn.com/i/teamlogos/nhl/500/dal.png",
+      "loaded": true,
+      "box": {
+        "x": 21,
+        "y": 339.09375,
+        "width": 28,
+        "height": 28,
+        "right": 49,
+        "bottom": 367.09375
+      },
+      "expectedSize": null,
+      "filter": "drop-shadow(rgba(240, 232, 212, 0.94) 0.5px 0px 0px) drop-shadow(rgba(240, 232, 212, 0.94) -0.5px 0px 0px) drop-shadow(rgba(240, 232, 212, 0.94) 0px 0.5px 0px) drop-shadow(rgba(240, 232, 212, 0.94) 0px -0.5px 0px)",
+      "background": "rgba(0, 0, 0, 0)",
+      "cardBackground": "rgb(34, 38, 41)",
+      "treatment": "contour",
+      "natural": [
+        500,
+        500
+      ]
+    },
+    {
+      "src": "https://a.espncdn.com/i/teamlogos/nhl/500/wsh.png",
+      "loaded": true,
+      "box": {
+        "x": 21,
+        "y": 394.7421875,
+        "width": 28,
+        "height": 28,
+        "right": 49,
+        "bottom": 422.7421875
+      },
+      "expectedSize": null,
+      "filter": "drop-shadow(rgba(240, 232, 212, 0.94) 0.5px 0px 0px) drop-shadow(rgba(240, 232, 212, 0.94) -0.5px 0px 0px) drop-shadow(rgba(240, 232, 212, 0.94) 0px 0.5px 0px) drop-shadow(rgba(240, 232, 212, 0.94) 0px -0.5px 0px)",
+      "background": "rgba(0, 0, 0, 0)",
+      "cardBackground": "rgb(34, 38, 41)",
+      "treatment": "contour",
+      "natural": [
+        500,
+        500
+      ]
+    },
+    {
+      "src": "https://a.espncdn.com/i/teamlogos/nba/500/bkn.png",
+      "loaded": true,
+      "box": {
+        "x": 21,
+        "y": 665.4765625,
+        "width": 28,
+        "height": 28,
+        "right": 49,
+        "bottom": 693.4765625
+      },
+      "expectedSize": null,
+      "filter": "drop-shadow(rgba(240, 232, 212, 0.94) 0.5px 0px 0px) drop-shadow(rgba(240, 232, 212, 0.94) -0.5px 0px 0px) drop-shadow(rgba(240, 232, 212, 0.94) 0px 0.5px 0px) drop-shadow(rgba(240, 232, 212, 0.94) 0px -0.5px 0px)",
+      "background": "rgba(0, 0, 0, 0)",
+      "cardBackground": "rgb(34, 38, 41)",
+      "treatment": "contour",
+      "natural": [
+        500,
+        500
+      ]
+    },
+    {
+      "src": "https://a.espncdn.com/i/teamlogos/nba/500/ny.png",
+      "loaded": true,
+      "box": {
+        "x": 21,
+        "y": 716.4765625,
+        "width": 28,
+        "height": 28,
+        "right": 49,
+        "bottom": 744.4765625
+      },
+      "expectedSize": null,
+      "filter": "drop-shadow(rgba(240, 232, 212, 0.68) 0px 0px 0.55px)",
+      "background": "rgba(0, 0, 0, 0)",
+      "cardBackground": "rgb(34, 38, 41)",
+      "treatment": "soft",
+      "natural": [
+        500,
+        500
+      ]
+    },
+    {
+      "src": "https://a.espncdn.com/i/teamlogos/ncaa/500/357.png",
+      "loaded": true,
+      "box": {
+        "x": 21,
+        "y": 1036.3125,
+        "width": 28,
+        "height": 28,
+        "right": 49,
+        "bottom": 1064.3125
+      },
+      "expectedSize": null,
+      "filter": "drop-shadow(rgba(240, 232, 212, 0.94) 0.5px 0px 0px) drop-shadow(rgba(240, 232, 212, 0.94) -0.5px 0px 0px) drop-shadow(rgba(240, 232, 212, 0.94) 0px 0.5px 0px) drop-shadow(rgba(240, 232, 212, 0.94) 0px -0.5px 0px)",
+      "background": "rgba(0, 0, 0, 0)",
+      "cardBackground": "rgb(34, 38, 41)",
+      "treatment": "contour",
+      "natural": [
+        500,
+        500
+      ]
+    },
+    {
+      "src": "https://a.espncdn.com/i/teamlogos/ncaa/500/96.png",
+      "loaded": true,
+      "box": {
+        "x": 21,
+        "y": 1091.9609375,
+        "width": 28,
+        "height": 28,
+        "right": 49,
+        "bottom": 1119.9609375
+      },
+      "expectedSize": null,
+      "filter": "drop-shadow(rgba(240, 232, 212, 0.94) 0.5px 0px 0px) drop-shadow(rgba(240, 232, 212, 0.94) -0.5px 0px 0px) drop-shadow(rgba(240, 232, 212, 0.94) 0px 0.5px 0px) drop-shadow(rgba(240, 232, 212, 0.94) 0px -0.5px 0px)",
+      "background": "rgba(0, 0, 0, 0)",
+      "cardBackground": "rgb(34, 38, 41)",
+      "treatment": "contour",
+      "natural": [
+        500,
+        500
+      ]
+    },
+    {
+      "src": "https://a.espncdn.com/i/teamlogos/nhl/500/la.png",
+      "loaded": true,
+      "box": {
+        "x": 21,
+        "y": 1351.046875,
+        "width": 28,
+        "height": 28,
+        "right": 49,
+        "bottom": 1379.046875
+      },
+      "expectedSize": null,
+      "filter": "drop-shadow(rgba(240, 232, 212, 0.94) 0.5px 0px 0px) drop-shadow(rgba(240, 232, 212, 0.94) -0.5px 0px 0px) drop-shadow(rgba(240, 232, 212, 0.94) 0px 0.5px 0px) drop-shadow(rgba(240, 232, 212, 0.94) 0px -0.5px 0px)",
+      "background": "rgba(0, 0, 0, 0)",
+      "cardBackground": "rgb(34, 38, 41)",
+      "treatment": "contour",
+      "natural": [
+        500,
+        500
+      ]
+    },
+    {
+      "src": "https://a.espncdn.com/i/teamlogos/nhl/500/bos.png",
+      "loaded": true,
+      "box": {
+        "x": 21,
+        "y": 1404.546875,
+        "width": 28,
+        "height": 28,
+        "right": 49,
+        "bottom": 1432.546875
+      },
+      "expectedSize": null,
+      "filter": "drop-shadow(rgba(240, 232, 212, 0.94) 0.5px 0px 0px) drop-shadow(rgba(240, 232, 212, 0.94) -0.5px 0px 0px) drop-shadow(rgba(240, 232, 212, 0.94) 0px 0.5px 0px) drop-shadow(rgba(240, 232, 212, 0.94) 0px -0.5px 0px)",
+      "background": "rgba(0, 0, 0, 0)",
+      "cardBackground": "rgb(34, 38, 41)",
+      "treatment": "contour",
+      "natural": [
+        500,
+        500
+      ]
+    }
+  ],
+  "logoSizeMismatches": [],
+  "clipped": [],
+  "overlaps": [],
+  "recordFailures": [],
+  "cardLayout": [
+    {
+      "id": "qa-nhl-intermission",
+      "box": {
+        "x": 10,
+        "y": 280.59375,
+        "width": 285,
+        "height": 303.0859375,
+        "right": 295,
+        "bottom": 583.6796875
+      },
+      "footer": {
+        "x": 21,
+        "y": 526.484375,
+        "width": 263,
+        "height": 46.1953125,
+        "right": 284,
+        "bottom": 572.6796875
+      },
+      "primary": [
+        {
+          "class": "team-row ",
+          "box": {
+            "x": 21,
+            "y": 327.59375,
+            "width": 189,
+            "height": 51,
+            "right": 210,
+            "bottom": 378.59375
+          }
+        },
+        {
+          "class": "team-row ",
+          "box": {
+            "x": 21,
+            "y": 378.59375,
+            "width": 189,
+            "height": 60.296875,
+            "right": 210,
+            "bottom": 438.890625
+          }
+        },
+        {
+          "class": "card-moment",
+          "box": {
+            "x": 21,
+            "y": 482.890625,
+            "width": 263,
+            "height": 33.59375,
+            "right": 284,
+            "bottom": 516.484375
+          }
+        },
+        {
+          "class": "excitement",
+          "box": {
+            "x": 220,
+            "y": 327.59375,
+            "width": 64,
+            "height": 111.296875,
+            "right": 284,
+            "bottom": 438.890625
+          }
+        }
+      ],
+      "footerOverlaps": [],
+      "badges": [],
+      "expectedRecords": 2,
+      "records": [
+        {
+          "text": "8-5-1",
+          "visible": true,
+          "fontSize": 11,
+          "box": {
+            "x": 57,
+            "y": 356.1953125,
+            "width": 123.9921875,
+            "height": 14.296875,
+            "right": 180.9921875,
+            "bottom": 370.4921875
+          },
+          "insideCard": true
+        },
+        {
+          "text": "8-5-0",
+          "visible": true,
+          "fontSize": 11,
+          "box": {
+            "x": 57,
+            "y": 420.59375,
+            "width": 123.9921875,
+            "height": 14.296875,
+            "right": 180.9921875,
+            "bottom": 434.890625
+          },
+          "insideCard": true
+        }
+      ]
+    },
+    {
+      "id": "qa-nba-pending",
+      "box": {
+        "x": 10,
+        "y": 595.6796875,
+        "width": 285,
+        "height": 325.484375,
+        "right": 295,
+        "bottom": 921.1640625
+      },
+      "footer": {
+        "x": 21,
+        "y": 843.5703125,
+        "width": 263,
+        "height": 66.59375,
+        "right": 284,
+        "bottom": 910.1640625
+      },
+      "primary": [
+        {
+          "class": "team-row ",
+          "box": {
+            "x": 21,
+            "y": 653.9765625,
+            "width": 189,
+            "height": 51,
+            "right": 210,
+            "bottom": 704.9765625
+          }
+        },
+        {
+          "class": "team-row ",
+          "box": {
+            "x": 21,
+            "y": 704.9765625,
+            "width": 189,
+            "height": 51,
+            "right": 210,
+            "bottom": 755.9765625
+          }
+        },
+        {
+          "class": "card-moment",
+          "box": {
+            "x": 21,
+            "y": 799.9765625,
+            "width": 263,
+            "height": 33.59375,
+            "right": 284,
+            "bottom": 833.5703125
+          }
+        },
+        {
+          "class": "excitement",
+          "box": {
+            "x": 220,
+            "y": 653.9765625,
+            "width": 64,
+            "height": 102,
+            "right": 284,
+            "bottom": 755.9765625
+          }
+        }
+      ],
+      "footerOverlaps": [],
+      "badges": [],
+      "expectedRecords": 2,
+      "records": [
+        {
+          "text": "5-2",
+          "visible": true,
+          "fontSize": 11,
+          "box": {
+            "x": 57,
+            "y": 682.578125,
+            "width": 123.9921875,
+            "height": 14.296875,
+            "right": 180.9921875,
+            "bottom": 696.875
+          },
+          "insideCard": true
+        },
+        {
+          "text": "4-3",
+          "visible": true,
+          "fontSize": 11,
+          "box": {
+            "x": 57,
+            "y": 733.578125,
+            "width": 123.9921875,
+            "height": 14.296875,
+            "right": 180.9921875,
+            "bottom": 747.875
+          },
+          "insideCard": true
+        }
+      ]
+    },
+    {
+      "id": "qa-ncaam-upcoming",
+      "box": {
+        "x": 10,
+        "y": 973.1640625,
+        "width": 285,
+        "height": 267.0859375,
+        "right": 295,
+        "bottom": 1240.25
+      },
+      "footer": {
+        "x": 21,
+        "y": 1183.0546875,
+        "width": 263,
+        "height": 46.1953125,
+        "right": 284,
+        "bottom": 1229.25
+      },
+      "primary": [
+        {
+          "class": "team-row ",
+          "box": {
+            "x": 21,
+            "y": 1020.1640625,
+            "width": 189,
+            "height": 60.296875,
+            "right": 210,
+            "bottom": 1080.4609375
+          }
+        },
+        {
+          "class": "team-row ",
+          "box": {
+            "x": 21,
+            "y": 1080.4609375,
+            "width": 189,
+            "height": 51,
+            "right": 210,
+            "bottom": 1131.4609375
+          }
+        },
+        {
+          "class": "card-moment",
+          "box": {
+            "x": 21,
+            "y": 1139.4609375,
+            "width": 263,
+            "height": 33.59375,
+            "right": 284,
+            "bottom": 1173.0546875
+          }
+        },
+        {
+          "class": "excitement",
+          "box": {
+            "x": 220,
+            "y": 1020.1640625,
+            "width": 64,
+            "height": 111.296875,
+            "right": 284,
+            "bottom": 1131.4609375
+          }
+        }
+      ],
+      "footerOverlaps": [],
+      "badges": [],
+      "expectedRecords": 2,
+      "records": [
+        {
+          "text": "0-0",
+          "visible": true,
+          "fontSize": 11,
+          "box": {
+            "x": 57,
+            "y": 1062.1640625,
+            "width": 153,
+            "height": 14.296875,
+            "right": 210,
+            "bottom": 1076.4609375
+          },
+          "insideCard": true
+        },
+        {
+          "text": "0-0",
+          "visible": true,
+          "fontSize": 11,
+          "box": {
+            "x": 57,
+            "y": 1109.0625,
+            "width": 153,
+            "height": 14.296875,
+            "right": 210,
+            "bottom": 1123.359375
+          },
+          "insideCard": true
+        }
+      ]
+    },
+    {
+      "id": "qa-nhl-final",
+      "box": {
+        "x": 10,
+        "y": 1292.25,
+        "width": 285,
+        "height": 263.0859375,
+        "right": 295,
+        "bottom": 1555.3359375
+      },
+      "footer": {
+        "x": 21,
+        "y": 1498.140625,
+        "width": 263,
+        "height": 46.1953125,
+        "right": 284,
+        "bottom": 1544.3359375
+      },
+      "primary": [
+        {
+          "class": "team-row winner-row",
+          "box": {
+            "x": 21,
+            "y": 1339.546875,
+            "width": 189,
+            "height": 51,
+            "right": 210,
+            "bottom": 1390.546875
+          }
+        },
+        {
+          "class": "team-row ",
+          "box": {
+            "x": 21,
+            "y": 1393.046875,
+            "width": 189,
+            "height": 51,
+            "right": 210,
+            "bottom": 1444.046875
+          }
+        },
+        {
+          "class": "card-moment",
+          "box": {
+            "x": 21,
+            "y": 1454.546875,
+            "width": 263,
+            "height": 33.59375,
+            "right": 284,
+            "bottom": 1488.140625
+          }
+        },
+        {
+          "class": "excitement",
+          "box": {
+            "x": 220,
+            "y": 1339.546875,
+            "width": 64,
+            "height": 107,
+            "right": 284,
+            "bottom": 1446.546875
+          }
+        }
+      ],
+      "footerOverlaps": [],
+      "badges": [],
+      "expectedRecords": 2,
+      "records": [
+        {
+          "text": "8-5-1",
+          "visible": true,
+          "fontSize": 11,
+          "box": {
+            "x": 57,
+            "y": 1368.1484375,
+            "width": 123.9921875,
+            "height": 14.296875,
+            "right": 180.9921875,
+            "bottom": 1382.4453125
+          },
+          "insideCard": true
+        },
+        {
+          "text": "9-4-1",
+          "visible": true,
+          "fontSize": 11,
+          "box": {
+            "x": 57,
+            "y": 1421.6484375,
+            "width": 123.9921875,
+            "height": 14.296875,
+            "right": 180.9921875,
+            "bottom": 1435.9453125
+          },
+          "insideCard": true
+        }
+      ]
+    }
+  ],
+  "detailTeams": [],
+  "headerLogo": {
+    "loaded": true,
+    "box": {
+      "x": 8,
+      "y": 13,
+      "width": 34,
+      "height": 34,
+      "right": 42,
+      "bottom": 47
+    },
+    "objectFit": "contain",
+    "natural": [
+      512,
+      512
+    ]
+  },
+  "reducedMotion": true,
+  "reducedMotionEvidence": {
+    "actualPreference": true,
+    "testedUpdateClasses": true,
+    "elements": [
+      {
+        "className": "game-card score-just-changed rating-just-changed",
+        "animationName": "none",
+        "animationDuration": "0s",
+        "transitionProperty": "none",
+        "transitionDuration": "0s"
+      },
+      {
+        "className": "team-score",
+        "animationName": "none",
+        "animationDuration": "0s",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-06s"
+      },
+      {
+        "className": "team-score",
+        "animationName": "none",
+        "animationDuration": "0s",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-06s"
+      },
+      {
+        "className": "excitement",
+        "animationName": "none",
+        "animationDuration": "0s",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-06s"
+      },
+      {
+        "className": "score-circle warm",
+        "animationName": "none",
+        "animationDuration": "0s",
+        "transitionProperty": "none",
+        "transitionDuration": "0s"
+      },
+      {
+        "className": "score-trend",
+        "animationName": "none",
+        "animationDuration": "0s",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-06s"
+      },
+      {
+        "className": "game-card score-just-changed rating-just-changed",
+        "animationName": "none",
+        "animationDuration": "0s",
+        "transitionProperty": "none",
+        "transitionDuration": "0s"
+      },
+      {
+        "className": "team-score",
+        "animationName": "none",
+        "animationDuration": "0s",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-06s"
+      },
+      {
+        "className": "team-score",
+        "animationName": "none",
+        "animationDuration": "0s",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-06s"
+      },
+      {
+        "className": "excitement",
+        "animationName": "none",
+        "animationDuration": "0s",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-06s"
+      },
+      {
+        "className": "score-circle ",
+        "animationName": "none",
+        "animationDuration": "0s",
+        "transitionProperty": "none",
+        "transitionDuration": "0s"
+      },
+      {
+        "className": "game-card score-just-changed rating-just-changed",
+        "animationName": "none",
+        "animationDuration": "0s",
+        "transitionProperty": "none",
+        "transitionDuration": "0s"
+      },
+      {
+        "className": "excitement",
+        "animationName": "none",
+        "animationDuration": "0s",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-06s"
+      },
+      {
+        "className": "score-circle ",
+        "animationName": "none",
+        "animationDuration": "0s",
+        "transitionProperty": "none",
+        "transitionDuration": "0s"
+      },
+      {
+        "className": "game-card completed-card score-just-changed rating-just-changed",
+        "animationName": "none",
+        "animationDuration": "0s",
+        "transitionProperty": "none",
+        "transitionDuration": "0s"
+      },
+      {
+        "className": "team-score",
+        "animationName": "none",
+        "animationDuration": "0s",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-06s"
+      },
+      {
+        "className": "team-score",
+        "animationName": "none",
+        "animationDuration": "0s",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-06s"
+      },
+      {
+        "className": "excitement",
+        "animationName": "none",
+        "animationDuration": "0s",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-06s"
+      },
+      {
+        "className": "score-circle warm",
+        "animationName": "none",
+        "animationDuration": "0s",
+        "transitionProperty": "none",
+        "transitionDuration": "0s"
+      },
+      {
+        "className": "score-trend",
+        "animationName": "none",
+        "animationDuration": "0s",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-06s"
+      }
+    ],
+    "failures": [
+      {
+        "className": "team-score",
+        "animationName": "none",
+        "animationDuration": "0s",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-06s"
+      },
+      {
+        "className": "team-score",
+        "animationName": "none",
+        "animationDuration": "0s",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-06s"
+      },
+      {
+        "className": "excitement",
+        "animationName": "none",
+        "animationDuration": "0s",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-06s"
+      },
+      {
+        "className": "score-trend",
+        "animationName": "none",
+        "animationDuration": "0s",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-06s"
+      },
+      {
+        "className": "team-score",
+        "animationName": "none",
+        "animationDuration": "0s",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-06s"
+      },
+      {
+        "className": "team-score",
+        "animationName": "none",
+        "animationDuration": "0s",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-06s"
+      },
+      {
+        "className": "excitement",
+        "animationName": "none",
+        "animationDuration": "0s",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-06s"
+      },
+      {
+        "className": "excitement",
+        "animationName": "none",
+        "animationDuration": "0s",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-06s"
+      },
+      {
+        "className": "team-score",
+        "animationName": "none",
+        "animationDuration": "0s",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-06s"
+      },
+      {
+        "className": "team-score",
+        "animationName": "none",
+        "animationDuration": "0s",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-06s"
+      },
+      {
+        "className": "excitement",
+        "animationName": "none",
+        "animationDuration": "0s",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-06s"
+      },
+      {
+        "className": "score-trend",
+        "animationName": "none",
+        "animationDuration": "0s",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-06s"
+      }
+    ]
+  },
+  "focusedLogo": null,
+  "errors": [],
+  "requests": [
+    "/after/teams.json",
+    "/config"
+  ],
+  "cards": 4,
+  "ppBadges": 0
+}

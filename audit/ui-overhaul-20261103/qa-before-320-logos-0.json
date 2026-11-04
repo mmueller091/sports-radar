@@ -1,0 +1,640 @@
+{
+  "capturedAt": "2026-11-04T05:14:08.243Z",
+  "source": {
+    "baseline": "5b7f797c879d36826d08b2ea31a6fecd18ef092c",
+    "files": {
+      "app.js": "1c2eb4852b7ce51dd2715085a50467d33ee1f8657946563e3c0cc5f4427cda36",
+      "styles.css": "a258df16b1e905dd1bbe5ca9a9bce931555fe05be877cb9f79433ab458dbe17a",
+      "mobile-readability.css": "bece0f604fb54aefe21c9c37527972b1b7be40939a088cc1197e845beba4c7bf",
+      "ui-overhaul.css": null,
+      "team-logos.js": null,
+      "team-logos.css": null,
+      "scoring-runtime.js": "aa5ee805be4401866607f0c25a1f98ebf756f1fc04a19e5097b71cadb1a09622"
+    }
+  },
+  "surface": "document",
+  "phase": "before",
+  "width": 320,
+  "view": "logos",
+  "set": 0,
+  "overflow": false,
+  "logos": [
+    {
+      "src": "https://a.espncdn.com/i/teamlogos/nfl/500/lv.png",
+      "loaded": true,
+      "box": {
+        "x": 41.765625,
+        "y": 112,
+        "width": 20,
+        "height": 20,
+        "right": 61.765625,
+        "bottom": 132
+      },
+      "expectedSize": 20,
+      "filter": "drop-shadow(rgb(240, 232, 212) 0px 0px 1px) drop-shadow(rgb(240, 232, 212) 0px 0px 1px)",
+      "background": "rgba(0, 0, 0, 0)",
+      "cardBackground": "rgb(25, 28, 31)",
+      "treatment": "",
+      "natural": [
+        500,
+        500
+      ]
+    },
+    {
+      "src": "https://a.espncdn.com/i/teamlogos/nfl/500/lv.png",
+      "loaded": true,
+      "box": {
+        "x": 96.1171875,
+        "y": 108,
+        "width": 28,
+        "height": 28,
+        "right": 124.1171875,
+        "bottom": 136
+      },
+      "expectedSize": 28,
+      "filter": "drop-shadow(rgb(240, 232, 212) 0px 0px 1px) drop-shadow(rgb(240, 232, 212) 0px 0px 1px)",
+      "background": "rgba(0, 0, 0, 0)",
+      "cardBackground": "rgb(25, 28, 31)",
+      "treatment": "",
+      "natural": [
+        500,
+        500
+      ]
+    },
+    {
+      "src": "https://a.espncdn.com/i/teamlogos/nfl/500/lv.png",
+      "loaded": true,
+      "box": {
+        "x": 155.265625,
+        "y": 106,
+        "width": 32,
+        "height": 32,
+        "right": 187.265625,
+        "bottom": 138
+      },
+      "expectedSize": 32,
+      "filter": "drop-shadow(rgb(240, 232, 212) 0px 0px 1px) drop-shadow(rgb(240, 232, 212) 0px 0px 1px)",
+      "background": "rgba(0, 0, 0, 0)",
+      "cardBackground": "rgb(25, 28, 31)",
+      "treatment": "",
+      "natural": [
+        500,
+        500
+      ]
+    },
+    {
+      "src": "https://a.espncdn.com/i/teamlogos/nfl/500/lv.png",
+      "loaded": true,
+      "box": {
+        "x": 218.421875,
+        "y": 98,
+        "width": 48,
+        "height": 48,
+        "right": 266.421875,
+        "bottom": 146
+      },
+      "expectedSize": 48,
+      "filter": "drop-shadow(rgb(240, 232, 212) 0px 0px 1px) drop-shadow(rgb(240, 232, 212) 0px 0px 1px)",
+      "background": "rgba(0, 0, 0, 0)",
+      "cardBackground": "rgb(25, 28, 31)",
+      "treatment": "",
+      "natural": [
+        500,
+        500
+      ]
+    },
+    {
+      "src": "https://a.espncdn.com/i/teamlogos/nfl/500/bal.png",
+      "loaded": true,
+      "box": {
+        "x": 41.765625,
+        "y": 294,
+        "width": 20,
+        "height": 20,
+        "right": 61.765625,
+        "bottom": 314
+      },
+      "expectedSize": 20,
+      "filter": "drop-shadow(rgb(240, 232, 212) 0px 0px 1px) drop-shadow(rgb(240, 232, 212) 0px 0px 1px)",
+      "background": "rgba(0, 0, 0, 0)",
+      "cardBackground": "rgb(25, 28, 31)",
+      "treatment": "",
+      "natural": [
+        500,
+        500
+      ]
+    },
+    {
+      "src": "https://a.espncdn.com/i/teamlogos/nfl/500/bal.png",
+      "loaded": true,
+      "box": {
+        "x": 96.1171875,
+        "y": 290,
+        "width": 28,
+        "height": 28,
+        "right": 124.1171875,
+        "bottom": 318
+      },
+      "expectedSize": 28,
+      "filter": "drop-shadow(rgb(240, 232, 212) 0px 0px 1px) drop-shadow(rgb(240, 232, 212) 0px 0px 1px)",
+      "background": "rgba(0, 0, 0, 0)",
+      "cardBackground": "rgb(25, 28, 31)",
+      "treatment": "",
+      "natural": [
+        500,
+        500
+      ]
+    },
+    {
+      "src": "https://a.espncdn.com/i/teamlogos/nfl/500/bal.png",
+      "loaded": true,
+      "box": {
+        "x": 155.265625,
+        "y": 288,
+        "width": 32,
+        "height": 32,
+        "right": 187.265625,
+        "bottom": 320
+      },
+      "expectedSize": 32,
+      "filter": "drop-shadow(rgb(240, 232, 212) 0px 0px 1px) drop-shadow(rgb(240, 232, 212) 0px 0px 1px)",
+      "background": "rgba(0, 0, 0, 0)",
+      "cardBackground": "rgb(25, 28, 31)",
+      "treatment": "",
+      "natural": [
+        500,
+        500
+      ]
+    },
+    {
+      "src": "https://a.espncdn.com/i/teamlogos/nfl/500/bal.png",
+      "loaded": true,
+      "box": {
+        "x": 218.421875,
+        "y": 280,
+        "width": 48,
+        "height": 48,
+        "right": 266.421875,
+        "bottom": 328
+      },
+      "expectedSize": 48,
+      "filter": "drop-shadow(rgb(240, 232, 212) 0px 0px 1px) drop-shadow(rgb(240, 232, 212) 0px 0px 1px)",
+      "background": "rgba(0, 0, 0, 0)",
+      "cardBackground": "rgb(25, 28, 31)",
+      "treatment": "",
+      "natural": [
+        500,
+        500
+      ]
+    },
+    {
+      "src": "https://a.espncdn.com/i/teamlogos/nfl/500/dal.png",
+      "loaded": true,
+      "box": {
+        "x": 41.765625,
+        "y": 476,
+        "width": 20,
+        "height": 20,
+        "right": 61.765625,
+        "bottom": 496
+      },
+      "expectedSize": 20,
+      "filter": "drop-shadow(rgb(240, 232, 212) 0px 0px 1px) drop-shadow(rgb(240, 232, 212) 0px 0px 1px)",
+      "background": "rgba(0, 0, 0, 0)",
+      "cardBackground": "rgb(25, 28, 31)",
+      "treatment": "",
+      "natural": [
+        500,
+        500
+      ]
+    },
+    {
+      "src": "https://a.espncdn.com/i/teamlogos/nfl/500/dal.png",
+      "loaded": true,
+      "box": {
+        "x": 96.1171875,
+        "y": 472,
+        "width": 28,
+        "height": 28,
+        "right": 124.1171875,
+        "bottom": 500
+      },
+      "expectedSize": 28,
+      "filter": "drop-shadow(rgb(240, 232, 212) 0px 0px 1px) drop-shadow(rgb(240, 232, 212) 0px 0px 1px)",
+      "background": "rgba(0, 0, 0, 0)",
+      "cardBackground": "rgb(25, 28, 31)",
+      "treatment": "",
+      "natural": [
+        500,
+        500
+      ]
+    },
+    {
+      "src": "https://a.espncdn.com/i/teamlogos/nfl/500/dal.png",
+      "loaded": true,
+      "box": {
+        "x": 155.265625,
+        "y": 470,
+        "width": 32,
+        "height": 32,
+        "right": 187.265625,
+        "bottom": 502
+      },
+      "expectedSize": 32,
+      "filter": "drop-shadow(rgb(240, 232, 212) 0px 0px 1px) drop-shadow(rgb(240, 232, 212) 0px 0px 1px)",
+      "background": "rgba(0, 0, 0, 0)",
+      "cardBackground": "rgb(25, 28, 31)",
+      "treatment": "",
+      "natural": [
+        500,
+        500
+      ]
+    },
+    {
+      "src": "https://a.espncdn.com/i/teamlogos/nfl/500/dal.png",
+      "loaded": true,
+      "box": {
+        "x": 218.421875,
+        "y": 462,
+        "width": 48,
+        "height": 48,
+        "right": 266.421875,
+        "bottom": 510
+      },
+      "expectedSize": 48,
+      "filter": "drop-shadow(rgb(240, 232, 212) 0px 0px 1px) drop-shadow(rgb(240, 232, 212) 0px 0px 1px)",
+      "background": "rgba(0, 0, 0, 0)",
+      "cardBackground": "rgb(25, 28, 31)",
+      "treatment": "",
+      "natural": [
+        500,
+        500
+      ]
+    },
+    {
+      "src": "https://a.espncdn.com/i/teamlogos/mlb/500/chw.png",
+      "loaded": true,
+      "box": {
+        "x": 41.765625,
+        "y": 658,
+        "width": 20,
+        "height": 20,
+        "right": 61.765625,
+        "bottom": 678
+      },
+      "expectedSize": 20,
+      "filter": "drop-shadow(rgb(240, 232, 212) 0px 0px 1px) drop-shadow(rgb(240, 232, 212) 0px 0px 1px)",
+      "background": "rgba(0, 0, 0, 0)",
+      "cardBackground": "rgb(25, 28, 31)",
+      "treatment": "",
+      "natural": [
+        500,
+        500
+      ]
+    },
+    {
+      "src": "https://a.espncdn.com/i/teamlogos/mlb/500/chw.png",
+      "loaded": true,
+      "box": {
+        "x": 96.1171875,
+        "y": 654,
+        "width": 28,
+        "height": 28,
+        "right": 124.1171875,
+        "bottom": 682
+      },
+      "expectedSize": 28,
+      "filter": "drop-shadow(rgb(240, 232, 212) 0px 0px 1px) drop-shadow(rgb(240, 232, 212) 0px 0px 1px)",
+      "background": "rgba(0, 0, 0, 0)",
+      "cardBackground": "rgb(25, 28, 31)",
+      "treatment": "",
+      "natural": [
+        500,
+        500
+      ]
+    },
+    {
+      "src": "https://a.espncdn.com/i/teamlogos/mlb/500/chw.png",
+      "loaded": true,
+      "box": {
+        "x": 155.265625,
+        "y": 652,
+        "width": 32,
+        "height": 32,
+        "right": 187.265625,
+        "bottom": 684
+      },
+      "expectedSize": 32,
+      "filter": "drop-shadow(rgb(240, 232, 212) 0px 0px 1px) drop-shadow(rgb(240, 232, 212) 0px 0px 1px)",
+      "background": "rgba(0, 0, 0, 0)",
+      "cardBackground": "rgb(25, 28, 31)",
+      "treatment": "",
+      "natural": [
+        500,
+        500
+      ]
+    },
+    {
+      "src": "https://a.espncdn.com/i/teamlogos/mlb/500/chw.png",
+      "loaded": true,
+      "box": {
+        "x": 218.421875,
+        "y": 644,
+        "width": 48,
+        "height": 48,
+        "right": 266.421875,
+        "bottom": 692
+      },
+      "expectedSize": 48,
+      "filter": "drop-shadow(rgb(240, 232, 212) 0px 0px 1px) drop-shadow(rgb(240, 232, 212) 0px 0px 1px)",
+      "background": "rgba(0, 0, 0, 0)",
+      "cardBackground": "rgb(25, 28, 31)",
+      "treatment": "",
+      "natural": [
+        500,
+        500
+      ]
+    },
+    {
+      "src": "https://a.espncdn.com/i/teamlogos/mlb/500/nyy.png",
+      "loaded": true,
+      "box": {
+        "x": 41.765625,
+        "y": 840,
+        "width": 20,
+        "height": 20,
+        "right": 61.765625,
+        "bottom": 860
+      },
+      "expectedSize": 20,
+      "filter": "drop-shadow(rgb(240, 232, 212) 0px 0px 1px) drop-shadow(rgb(240, 232, 212) 0px 0px 1px)",
+      "background": "rgba(0, 0, 0, 0)",
+      "cardBackground": "rgb(25, 28, 31)",
+      "treatment": "",
+      "natural": [
+        500,
+        500
+      ]
+    },
+    {
+      "src": "https://a.espncdn.com/i/teamlogos/mlb/500/nyy.png",
+      "loaded": true,
+      "box": {
+        "x": 96.1171875,
+        "y": 836,
+        "width": 28,
+        "height": 28,
+        "right": 124.1171875,
+        "bottom": 864
+      },
+      "expectedSize": 28,
+      "filter": "drop-shadow(rgb(240, 232, 212) 0px 0px 1px) drop-shadow(rgb(240, 232, 212) 0px 0px 1px)",
+      "background": "rgba(0, 0, 0, 0)",
+      "cardBackground": "rgb(25, 28, 31)",
+      "treatment": "",
+      "natural": [
+        500,
+        500
+      ]
+    },
+    {
+      "src": "https://a.espncdn.com/i/teamlogos/mlb/500/nyy.png",
+      "loaded": true,
+      "box": {
+        "x": 155.265625,
+        "y": 834,
+        "width": 32,
+        "height": 32,
+        "right": 187.265625,
+        "bottom": 866
+      },
+      "expectedSize": 32,
+      "filter": "drop-shadow(rgb(240, 232, 212) 0px 0px 1px) drop-shadow(rgb(240, 232, 212) 0px 0px 1px)",
+      "background": "rgba(0, 0, 0, 0)",
+      "cardBackground": "rgb(25, 28, 31)",
+      "treatment": "",
+      "natural": [
+        500,
+        500
+      ]
+    },
+    {
+      "src": "https://a.espncdn.com/i/teamlogos/mlb/500/nyy.png",
+      "loaded": true,
+      "box": {
+        "x": 218.421875,
+        "y": 826,
+        "width": 48,
+        "height": 48,
+        "right": 266.421875,
+        "bottom": 874
+      },
+      "expectedSize": 48,
+      "filter": "drop-shadow(rgb(240, 232, 212) 0px 0px 1px) drop-shadow(rgb(240, 232, 212) 0px 0px 1px)",
+      "background": "rgba(0, 0, 0, 0)",
+      "cardBackground": "rgb(25, 28, 31)",
+      "treatment": "",
+      "natural": [
+        500,
+        500
+      ]
+    },
+    {
+      "src": "https://a.espncdn.com/i/teamlogos/mlb/500/bos.png",
+      "loaded": true,
+      "box": {
+        "x": 41.765625,
+        "y": 1022,
+        "width": 20,
+        "height": 20,
+        "right": 61.765625,
+        "bottom": 1042
+      },
+      "expectedSize": 20,
+      "filter": "drop-shadow(rgb(240, 232, 212) 0px 0px 1px) drop-shadow(rgb(240, 232, 212) 0px 0px 1px)",
+      "background": "rgba(0, 0, 0, 0)",
+      "cardBackground": "rgb(25, 28, 31)",
+      "treatment": "",
+      "natural": [
+        500,
+        500
+      ]
+    },
+    {
+      "src": "https://a.espncdn.com/i/teamlogos/mlb/500/bos.png",
+      "loaded": true,
+      "box": {
+        "x": 96.1171875,
+        "y": 1018,
+        "width": 28,
+        "height": 28,
+        "right": 124.1171875,
+        "bottom": 1046
+      },
+      "expectedSize": 28,
+      "filter": "drop-shadow(rgb(240, 232, 212) 0px 0px 1px) drop-shadow(rgb(240, 232, 212) 0px 0px 1px)",
+      "background": "rgba(0, 0, 0, 0)",
+      "cardBackground": "rgb(25, 28, 31)",
+      "treatment": "",
+      "natural": [
+        500,
+        500
+      ]
+    },
+    {
+      "src": "https://a.espncdn.com/i/teamlogos/mlb/500/bos.png",
+      "loaded": true,
+      "box": {
+        "x": 155.265625,
+        "y": 1016,
+        "width": 32,
+        "height": 32,
+        "right": 187.265625,
+        "bottom": 1048
+      },
+      "expectedSize": 32,
+      "filter": "drop-shadow(rgb(240, 232, 212) 0px 0px 1px) drop-shadow(rgb(240, 232, 212) 0px 0px 1px)",
+      "background": "rgba(0, 0, 0, 0)",
+      "cardBackground": "rgb(25, 28, 31)",
+      "treatment": "",
+      "natural": [
+        500,
+        500
+      ]
+    },
+    {
+      "src": "https://a.espncdn.com/i/teamlogos/mlb/500/bos.png",
+      "loaded": true,
+      "box": {
+        "x": 218.421875,
+        "y": 1008,
+        "width": 48,
+        "height": 48,
+        "right": 266.421875,
+        "bottom": 1056
+      },
+      "expectedSize": 48,
+      "filter": "drop-shadow(rgb(240, 232, 212) 0px 0px 1px) drop-shadow(rgb(240, 232, 212) 0px 0px 1px)",
+      "background": "rgba(0, 0, 0, 0)",
+      "cardBackground": "rgb(25, 28, 31)",
+      "treatment": "",
+      "natural": [
+        500,
+        500
+      ]
+    }
+  ],
+  "logoSizeMismatches": [],
+  "clipped": [],
+  "overlaps": [],
+  "recordFailures": [],
+  "cardLayout": [
+    {
+      "box": {
+        "x": 9,
+        "y": 22,
+        "width": 287,
+        "height": 170,
+        "right": 296,
+        "bottom": 192
+      },
+      "footer": null,
+      "primary": [],
+      "footerOverlaps": [],
+      "badges": [],
+      "records": []
+    },
+    {
+      "box": {
+        "x": 9,
+        "y": 204,
+        "width": 287,
+        "height": 170,
+        "right": 296,
+        "bottom": 374
+      },
+      "footer": null,
+      "primary": [],
+      "footerOverlaps": [],
+      "badges": [],
+      "records": []
+    },
+    {
+      "box": {
+        "x": 9,
+        "y": 386,
+        "width": 287,
+        "height": 170,
+        "right": 296,
+        "bottom": 556
+      },
+      "footer": null,
+      "primary": [],
+      "footerOverlaps": [],
+      "badges": [],
+      "records": []
+    },
+    {
+      "box": {
+        "x": 9,
+        "y": 568,
+        "width": 287,
+        "height": 170,
+        "right": 296,
+        "bottom": 738
+      },
+      "footer": null,
+      "primary": [],
+      "footerOverlaps": [],
+      "badges": [],
+      "records": []
+    },
+    {
+      "box": {
+        "x": 9,
+        "y": 750,
+        "width": 287,
+        "height": 170,
+        "right": 296,
+        "bottom": 920
+      },
+      "footer": null,
+      "primary": [],
+      "footerOverlaps": [],
+      "badges": [],
+      "records": []
+    },
+    {
+      "box": {
+        "x": 9,
+        "y": 932,
+        "width": 287,
+        "height": 170,
+        "right": 296,
+        "bottom": 1102
+      },
+      "footer": null,
+      "primary": [],
+      "footerOverlaps": [],
+      "badges": [],
+      "records": []
+    }
+  ],
+  "detailTeams": [],
+  "headerLogo": null,
+  "reducedMotion": false,
+  "reducedMotionEvidence": {
+    "actualPreference": false,
+    "testedUpdateClasses": false,
+    "elements": [],
+    "failures": []
+  },
+  "focusedLogo": null,
+  "errors": [],
+  "requests": [
+    "/before/teams.json",
+    "/config"
+  ],
+  "cards": 6,
+  "ppBadges": 0
+}

@@ -12,7 +12,13 @@ test('only the logo is inside the team-page button',()=>{
   const html=context.teamMarkup({sport:'NHL'},team,0);
   assert.match(html,/<button[^>]*class="card-team-link"[^>]*><img[^>]*><span class="team-logo-fallback"[^>]*>NJD<\/span><\/button>/);
   assert.match(html,/class="team-logo-fallback"[^>]* hidden/);
-  assert.match(html,/onerror="this.hidden=true;this.nextElementSibling.hidden=false"/);
+  const handler=html.match(/onerror="([^"]+)"/)[1];
+  for(const retry of [true,false]) {
+    const image={hidden:false,nextElementSibling:{hidden:true}};
+    vm.runInNewContext(`(function(){${handler}}).call(image)`,{image,SlateMeterTeamLogos:{failed:()=>retry}});
+    assert.equal(image.hidden,!retry,'retry preserves the authentic image; terminal failure exposes fallback');
+    assert.equal(image.nextElementSibling.hidden,retry);
+  }
   assert.match(context.teamMarkup({sport:'NHL'},[...team.slice(0,4),'',...team.slice(5)],0),/class="team-logo-fallback"[^>]*>NJD<\/span>/);
   assert.ok(html.indexOf('</button>')<html.indexOf('class="team-name-text"'));
   assert.doesNotMatch(context.teamMarkup({sport:'NHL'},team),/card-team-link/);

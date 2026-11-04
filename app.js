@@ -369,7 +369,7 @@ function teamLogoUrl(sport, abbreviation) {
 
 function teamLogoWithFallback(logo, abbreviation, imageClass = '', loading = 'lazy') {
   const label = String(abbreviation || '?').replace(/[^A-Za-z0-9]/g,'').slice(0,3).toUpperCase() || '?';
-  return `${logo ? `<img${imageClass ? ` class="${imageClass}"` : ''} src="${safeText(logo)}" alt="" loading="${loading}" onload="this.nextElementSibling.hidden=true" onerror="this.hidden=true;this.nextElementSibling.hidden=false">` : ''}<span class="team-logo-fallback" aria-hidden="true"${logo ? ' hidden' : ''}>${safeText(label)}</span>`;
+  return `${logo ? `<img${imageClass ? ` class="${imageClass}"` : ''} ${globalThis.SlateMeterTeamLogos?.attributes(logo) || ''} src="${safeText(logo)}" alt="" loading="${loading}" onload="this.nextElementSibling.hidden=true;globalThis.SlateMeterTeamLogos?.loaded(this)" onerror="if(!globalThis.SlateMeterTeamLogos?.failed(this)){this.hidden=true;this.nextElementSibling.hidden=false}">` : ''}<span class="team-logo-fallback" aria-hidden="true"${logo ? ' hidden' : ''}>${safeText(label)}</span>`;
 }
 
 function summaryUrlFor(sport,eventId) {
@@ -1614,7 +1614,7 @@ function teamSpotlightRows(team,data) {
         )
       : null
   ]
-    .filter(Boolean)
+    .filter(row => row && teamScheduleView(row,team).state === 'completed')
     .sort((a,b) =>
       compareTeamGameTimes(b,a)
     );
@@ -1646,11 +1646,12 @@ function teamSpotlightRows(team,data) {
         )
       : null
   ]
-    .filter(Boolean)
+    .filter(row => row && teamScheduleView(row,team).state === 'upcoming')
     .sort(compareTeamGameTimes);
 
   const last =
-    lastCandidates[0] || null;
+    lastCandidates[0] ||
+    schedule.filter(row => teamScheduleView(row,team).state === 'completed').sort((a,b) => compareTeamGameTimes(b,a))[0] || null;
 
   const next =
     liveRow ||
@@ -2339,7 +2340,8 @@ function globalSearchGameMarkup(game) {
           .filter(value => value !== undefined && value !== null && value !== '')
           .join(' – ');
 
-  return `<button type="button" class="search-result search-game-result" data-search-game="${safeText(game.sport)}" data-search-game-id="${safeText(game.id)}"><span class="search-result-leading"><img src="${safeText(game.leagueLogo || LEAGUE_LOGOS[game.sport] || '')}" alt="" loading="lazy" onerror="this.style.display='none'"></span><span class="search-result-copy"><strong>${safeText(matchup || 'Game')}</strong><span>${safeText(globalSearchGameMeta(game))}${scores ? ` · ${safeText(scores)}` : ''}</span></span><span class="search-result-rating"><small>Excitement</small><b>${safeText(game.score)}</b></span></button>`;
+  const logos = (game.teams || []).slice(0,2).map(team => `<span>${teamLogoWithFallback(team[4] || teamLogoUrl(game.sport,team[1]),team[1] || team[0])}</span>`).join('');
+  return `<button type="button" class="search-result search-game-result" data-search-game="${safeText(game.sport)}" data-search-game-id="${safeText(game.id)}"><span class="search-result-leading search-game-logos">${logos}</span><span class="search-result-copy"><strong>${safeText(matchup || 'Game')}</strong><span>${safeText(globalSearchGameMeta(game))}${scores ? ` · ${safeText(scores)}` : ''}</span></span><span class="search-result-rating" style="--score-hue:${scoreHueFor(game.score)}"><small>${game.timingUncertain ? 'Last confirmed' : game.scoringPartial ? 'Provisional' : 'Excitement'}</small><b class="${scoreHeatClass(game.score)}">${safeText(game.score ?? '—')}</b></span></button>`;
 }
 
 function renderGlobalSearch() {
@@ -2601,7 +2603,19 @@ function teamMarkup(game, team, cardTeamIndex = null) {
     team[5]
       ? `<small class="team-record">${safeText(team[5])}</small>`
       : ''
-  }</span></span>`;
+  }${nhlPowerPlayMarkup(game,team)}</span></span>`;
+}
+
+function nhlPowerPlayMarkup(game,team) {
+  if (game.sport !== 'NHL' || game.state !== 'live' || game.timingUncertain ||
+      game.staleEnrichment || game.summaryValidationPending || game.summaryLifecycleRejected ||
+      game.manpowerQuality?.state === 'conflict' || game.manpowerQuality?.state === 'unknown' ||
+      /intermission|end of|break|shootout/i.test(game.live?.phase || game.status || '')) return '';
+  // The existing validated on-ice state emits this exact team-specific note.
+  // Never infer an advantage from a penalty play, score, or missing goalie.
+  // No verified timer/strength is serialized by the feed, so neither is invented.
+  if (String(game.live?.note || '').trim() !== `${team[0]} power play`) return '';
+  return `<span class="team-power-play" aria-label="${safeText(team[0])} power play" title="${safeText(team[0])} power play">PP</span>`;
 }
 
 function explainRating(game,summary=null) {
@@ -2990,20 +3004,18 @@ function trendFor(game) {
 
   const delta = game.score - game.pregameBaseline.score;
 
-  const arrow =
-    delta > 2
-      ? '↗'
-      : delta < -2
-        ? '↘'
-        : '→';
+  const direction = delta > 2 ? 'rising' : delta < -2 ? 'falling' : 'steady';
+  const path = direction === 'rising' ? 'M3 13 13 3M5 3h8v8'
+    : direction === 'falling' ? 'M3 3 13 13M5 13h8V5' : 'M2 8h12M9 3l5 5-5 5';
+  const arrow = `<svg class="trend-icon" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="${path}"/></svg>`;
 
   return `<small class="score-trend" aria-label="${
     delta > 2 ? 'Rising' : delta < -2 ? 'Falling' : 'Steady, change of'
-  } ${Math.abs(delta)} ${Math.abs(delta)===1?'point':'points'} from the opening rating">${arrow}&#xfe0e; ${
+  } ${Math.abs(delta)} ${Math.abs(delta)===1?'point':'points'} from the opening rating">${arrow}<span>${
     delta > 0
       ? '+'
       : ''
-  }${delta} from opening</small>`;
+  }${delta} from opening</span></small>`;
 }
 
 function isWinningTeam(game, team) {
@@ -3089,7 +3101,8 @@ function gameCard(game) {
   const clock = game.timingUncertain ? '' : String(game.liveRawStatus?.displayClock || phase.match(/\b\d{1,2}:\d{2}\b/)?.[0] || '');
   const period = compactClockPeriod(game);
   const ncaabHalftime=game.sport==='NCAAB'&&Boolean(halftimePriorityAdjustment(game));
-  const clockMarkup = game.state === 'live' && !ncaabHalftime && (clock || period === 'Shootout')
+  const betweenPeriods = /halftime|half time|intermission|end of|end[_ ]period|break/i.test([phase,game.status,game.liveRawStatus?.type?.name].join(' '));
+  const clockMarkup = game.state === 'live' && !betweenPeriods && !ncaabHalftime && (clock || period === 'Shootout')
     ? `<span class="card-clock"><span>${safeText(period || 'Live')}</span>${period === 'Shootout' ? '' : `<strong>${safeText(clock)}</strong>`}</span>`
     : '';
   const cardTeam = (team,index) => teamMarkup(game,team,index);
@@ -3174,7 +3187,7 @@ function gameCard(game) {
     isWatched(game)
       ? 'watched'
       : ''
-  } ${completionClass}" data-id="${safeText(game.id)}" data-sport="${safeText(game.sport)}" data-division="${safeText(game.division || '')}"><button type="button" class="card-open-target" data-open-game aria-label="${safeText(accessibility)}"></button><span class="sport-icon"><img class="league-logo" src="${safeText(leagueLogo)}" alt="" loading="lazy" onerror="this.style.display='none'"></span><span class="team-column${pregame ? ' pregame' : ''}"><span class="match-meta">${stateLabel}<span class="mobile-card-league">${safeText(game.sport)}</span>${
+  } ${completionClass}" data-id="${safeText(game.id)}" data-sport="${safeText(game.sport)}" data-division="${safeText(game.division || '')}"><button type="button" class="card-open-target" data-open-game aria-label="${safeText(accessibility)}"></button><span class="sport-icon"><img class="league-logo" src="${safeText(leagueLogo)}" alt="" loading="lazy" onerror="this.style.display='none'"></span><span class="team-column${pregame ? ' pregame' : ''}"><span class="match-meta">${stateLabel}<span class="mobile-card-league">${safeText(game.sport === 'NCAAB' ? 'NCAAM' : game.sport)}</span>${
     isWatched(game)
       ? '<span class="watch-indicator" aria-hidden="true">★ Watching</span>'
       : ''
@@ -3182,7 +3195,7 @@ function gameCard(game) {
     game.division
       ? `<span>•</span><span>${safeText(game.division)}</span>`
       : ''
-  }<span>•</span><span>${safeText(game.sub)}</span><span class="card-rating-change">${trendFor(game)}</span>${clockMarkup}</span><span class="team-row ${isWinningTeam(game,game.teams[0]) ? 'winner-row' : ''}">${cardTeam(game.teams[0],0)}<b class="team-score">${possessionMarkup(game,game.teams[0])}${pregame ? '' : safeText(game.teams[0][2])}</b></span><span class="team-row ${isWinningTeam(game,game.teams[1]) ? 'winner-row' : ''}">${cardTeam(game.teams[1],1)}<b class="team-score">${possessionMarkup(game,game.teams[1])}${pregame ? '' : safeText(game.teams[1][2])}</b></span>${pregame ? '<span class="pregame-versus">VS</span>' : ''}${situation}</span>${momentMarkup}<span class="game-context channel-context"><span class="detail-inline"><strong>TV</strong><span class="broadcast-labels" title="${safeText(game.channel || 'Channel not listed')}">${broadcastWatchMarkup(game,null,true)}</span></span><span class="stats-cue">Stats ›</span><span class="detail-inline line-inline"><strong>${safeText(compactLineLabel)}</strong><span title="${safeText(`${line.label}: ${line.text}`)}">${safeText(compactLineText)}</span></span></span><span class="excitement" style="${scoreColorStyle}"><span class="score-circle ${scoreClass}">${game.score}</span>${trendFor(game)}</span></article>`;
+  }<span class="card-secondary-meta" aria-hidden="true">·</span><span class="card-secondary-meta">${safeText(game.sub)}</span><span class="card-rating-change">${trendFor(game)}</span>${clockMarkup}</span><span class="team-row ${isWinningTeam(game,game.teams[0]) ? 'winner-row' : ''}">${cardTeam(game.teams[0],0)}<b class="team-score">${possessionMarkup(game,game.teams[0])}${pregame ? '' : safeText(game.teams[0][2])}</b></span><span class="team-row ${isWinningTeam(game,game.teams[1]) ? 'winner-row' : ''}">${cardTeam(game.teams[1],1)}<b class="team-score">${possessionMarkup(game,game.teams[1])}${pregame ? '' : safeText(game.teams[1][2])}</b></span>${pregame ? '<span class="pregame-versus">VS</span>' : ''}${situation}</span>${momentMarkup}<span class="game-context channel-context"><span class="detail-inline"><strong>TV</strong><span class="broadcast-labels" title="${safeText(game.channel || 'Channel not listed')}">${broadcastWatchMarkup(game,null,true)}</span></span><span class="stats-cue">Game Center</span><span class="detail-inline line-inline"><strong>${safeText(compactLineLabel)}</strong><span title="${safeText(`${line.label}: ${line.text}`)}">${safeText(compactLineText)}</span></span></span><span class="excitement" style="${scoreColorStyle}"><span class="score-circle ${scoreClass}">${game.score}</span>${trendFor(game)}</span></article>`;
 }
 
 function footballAccessibleSituation(game) {
@@ -6069,13 +6082,14 @@ function detailPlayerBrowser(game,summary) {
     const labels = group.labels?.length ? group.labels : group.headers?.length ? group.headers : Object.keys(first?.stats || {});
     return playerTable(group,labels.map(label => ({title:label,aliases:[label]})),categories.get(activePlayerCategory));
   }).join('');
-  const buttons = game.teams.slice(0,2).map((item,i) => `<button type="button" data-player-team="${i}" aria-pressed="${i === index}"><img src="${safeText(item[4] || teamLogoUrl(game.sport,item[1]))}" alt="" onerror="this.style.display='none'"><span>${safeText(item[0])}</span></button>`).join('');
+  const buttons = game.teams.slice(0,2).map((item,i) => `<button type="button" data-player-team="${i}" aria-pressed="${i === index}">${teamLogoWithFallback(item[4] || teamLogoUrl(game.sport,item[1]),item[1] || item[0])}<span>${safeText(item[0])}</span></button>`).join('');
   const options = [...categories].map(([key,label]) => `<option value="${safeText(key)}"${key === activePlayerCategory ? ' selected' : ''}>${safeText(label)}</option>`).join('');
   return `<div class="mobile-player-browser"><div class="player-team-switch" role="group" aria-label="Team for player statistics">${buttons}</div><label class="player-category"><span>Category</span><span class="player-select-wrap"><select data-player-category aria-label="Player statistics category">${options}</select><span aria-hidden="true">⌄</span></span></label><p class="player-caption">${safeText(team[0])} · ${safeText(game.live?.phase || game.status || '')}</p>${table || '<p class="detail-empty">No player statistics are available for this team and category.</p>'}</div>`;
 }
 
 function detailTabSections(game,summary) {
   const overviewParts = [
+    renderExcitementTimeline(game,summary),
     storylineDetails(game),
     detailScoring(summary,game.sport),
     detailLeaders(summary)
@@ -6209,9 +6223,8 @@ function renderDetailContent(
     'Game Center';
 
   if (loading) {
-    $('#game-detail-content').innerHTML =
-      `<div class="detail-loading">Loading live game details…</div>`;
-
+    renderDetailContent(game,null,false);
+    $('#game-detail-content').insertAdjacentHTML('beforeend','<p class="detail-loading" role="status">Loading game statistics...</p>');
     return;
   }
 
@@ -6240,15 +6253,20 @@ function renderDetailContent(
       : '';
 
     const logo = team[4] || teamLogoUrl(game.sport,team[1]);
-    return `<${tag} class="detail-team ${teamPageId ? 'detail-team-link' : ''}"${attrs}>${teamLogoWithFallback(logo,team[1] || team[0],'','eager')}<span class="detail-team-copy"><strong>${safeText(team[0])}</strong>${teamMeta.length ? `<small>${safeText(teamMeta.join(' · '))}</small>` : ''}</span><b>${game.state === 'upcoming' ? '' : safeText(team[2])}</b></${tag}>`;
+    return `<${tag} class="detail-team ${teamPageId ? 'detail-team-link' : ''}"${attrs}>${teamLogoWithFallback(logo,team[1] || team[0],'','eager')}<span class="detail-team-copy"><strong>${safeText(team[0])}</strong>${teamMeta.length ? `<small>${safeText(teamMeta.join(' · '))}</small>` : ''}${typeof nhlPowerPlayMarkup === 'function' ? nhlPowerPlayMarkup(game,team) : ''}</span><b>${game.state === 'upcoming' ? '' : safeText(team[2])}</b></${tag}>`;
   }).join('') + (game.state === 'upcoming' ? '<span class="pregame-versus">VS</span>' : '');
+
+  const detailSituation = game.timingUncertain ? '' :
+    ['NFL','CFB'].includes(game.sport) && game.footballSituation ? footballSituationMarkup(game) :
+    game.sport === 'MLB' && game.baseballSituation ? baseballSituationMarkup(game) : '';
 
   const status = game.timingUncertain ? 'Clock updating' :
     (game.state === 'live' ? game.live?.phase : '') || game.status;
 
   const detailClockValue = game.timingUncertain ? '' : String(game.liveRawStatus?.displayClock || String(status || '').match(/\b\d{1,2}:\d{2}\b/)?.[0] || '');
   const detailPeriod = compactClockPeriod(game);
-  const detailClock = game.state === 'live' && !(game.sport==='NCAAB'&&halftimePriorityAdjustment(game)) && (detailClockValue || detailPeriod === 'Shootout')
+  const betweenPeriods = /halftime|half time|intermission|end of|end[_ ]period|break/i.test([status,game.status,game.liveRawStatus?.type?.name].join(' '));
+  const detailClock = game.state === 'live' && !betweenPeriods && !(game.sport==='NCAAB'&&halftimePriorityAdjustment(game)) && (detailClockValue || detailPeriod === 'Shootout')
     ? `<span class="detail-live-clock"><span>${safeText(detailPeriod || 'Live')}</span>${detailPeriod === 'Shootout' ? '' : `<strong>${safeText(detailClockValue)}</strong>`}</span>` : '';
 
   const venue =
@@ -6282,7 +6300,7 @@ function renderDetailContent(
   const scoreColorStyle = `--score-hue:${scoreHueFor(game.score)};`;
 
   $('#game-detail-content').innerHTML =
-    `<header class="detail-header"><div class="detail-kicker">${safeText(labelForSport(game.sport))} · ${safeText(status)}${detailClock}</div><h2>${safeText(title)}</h2><button type="button" class="detail-watch ${isWatched(game) ? 'active' : ''}" data-watch-id="${safeText(watchKey(game))}" aria-pressed="${isWatched(game)}">${isWatched(game) ? '★ Watching this game' : '☆ Add to watchlist'}</button><div class="detail-scoreboard${game.state === 'upcoming' ? ' pregame' : ''}">${scores}</div><div class="detail-meta"><span><strong>Venue</strong> ${safeText(venue)}</span><span><strong>Broadcast</strong> ${safeText(game.channel || 'Channel not listed')}</span>${lineMeta}</div>${broadcastWatchMarkup(game,summary)}${game.moment ? `<section class="detail-moment"><strong>${safeText(game.momentLabel || 'Notable play')}</strong><span>${safeText(displayMoment(game))}</span></section>` : ''}</header><section class="detail-radar" style="${scoreColorStyle}"><div class="detail-excitement-head"><span class="detail-excitement-score ${scoreClass}" style="${scoreColorStyle}">${safeText(game.score)}</span><span class="detail-excitement-copy"><small>${game.state==='live'?'Watch now':game.state==='completed'?'Game quality':'Pregame rating'}</small><strong>${safeText(ratingContext)}</strong>${trendFor(game)}</span></div><div class="detail-radar-why"><h3>${game.state==='upcoming'?'Pregame outlook':`Why ${safeText(game.score)}?`}</h3><p class="detail-explanation detail-why-text">${safeText(explainRating(game,summary))}</p></div></section>${renderExcitementTimeline(game,summary)}${detailTabsMarkup(game,summary)}`;
+    `<header class="detail-header"><div class="detail-kicker">${safeText(labelForSport(game.sport))} · ${safeText(status)}${detailClock}</div><h2>${safeText(title)}</h2><button type="button" class="detail-watch ${isWatched(game) ? 'active' : ''}" data-watch-id="${safeText(watchKey(game))}" aria-pressed="${isWatched(game)}">${isWatched(game) ? '★ Watching this game' : '☆ Add to watchlist'}</button><div class="detail-scoreboard${game.state === 'upcoming' ? ' pregame' : ''}">${scores}</div>${detailSituation ? `<div class="detail-situation">${detailSituation}</div>` : ''}<div class="detail-meta"><span><strong>Venue</strong> ${safeText(venue)}</span><span><strong>Broadcast</strong> ${safeText(game.channel || 'Channel not listed')}</span>${lineMeta}</div>${broadcastWatchMarkup(game,summary)}${game.moment ? `<section class="detail-moment"><strong>${safeText(game.momentLabel || 'Notable play')}</strong><span>${safeText(displayMoment(game))}</span></section>` : ''}</header><section class="detail-radar" style="${scoreColorStyle}"><div class="detail-excitement-head"><span class="detail-excitement-score ${scoreClass}" style="${scoreColorStyle}">${safeText(game.score)}</span><span class="detail-excitement-copy"><small>${game.state==='live'?'Watch now':game.state==='completed'?'Game quality':'Pregame rating'}</small><strong>${safeText(ratingContext)}</strong>${trendFor(game)}</span></div><div class="detail-radar-why"><h3>${game.state==='upcoming'?'Pregame outlook':`Why ${safeText(game.score)}?`}</h3><p class="detail-explanation detail-why-text">${safeText(explainRating(game,summary))}</p></div></section>${detailTabsMarkup(game,summary)}`;
 }
 
 async function fetchGameSummary(game,controller=new AbortController()) {
@@ -6791,11 +6809,48 @@ function render() {
         : compareGames
   );
 
-  $('#game-list').innerHTML =
-    renderGameList(
-      visible,
-      state.gameState
-    );
+  const gameList = $('#game-list');
+  // Only the first empty load needs placeholders. A refresh keeps the existing
+  // slate, with no extra provider request or polling changes.
+  const initialLoading = state.source === 'loading' && !games.length;
+  gameList.setAttribute('aria-busy',String(initialLoading));
+  if (initialLoading) {
+    if (!gameList.querySelector('.slate-skeleton')) gameList.innerHTML = Array.from({length:6},() => '<div class="slate-skeleton" aria-hidden="true"><i></i><span></span><span></span><b></b><small></small></div>').join('');
+  } else {
+    // Explicit filter/favorite changes retain the established sort. During a
+    // refresh, unchanged membership and game states retain their visible order.
+    const viewKey = JSON.stringify([localDayStamp(new Date()),state.page,state.sport,state.gameState,state.showFCS,state.sportFilters,[...state.visibleSports],state.favoriteTeams,[...state.watchedGames],visible.map(game => [watchKey(game),game.state,localDayStamp(game.startTime)]).sort()]);
+    const currentCards = [...gameList.querySelectorAll(':scope > .game-card')];
+    if (gameList.dataset.viewKey === viewKey) {
+      const positions = new Map(currentCards.map((card,index) => [`${card.dataset.sport}:${card.dataset.id}`,index]));
+      visible.sort((a,b) => (positions.get(watchKey(a)) ?? Infinity) - (positions.get(watchKey(b)) ?? Infinity));
+    }
+    gameList.dataset.viewKey = viewKey;
+    const template = document.createElement('template');
+    template.innerHTML = renderGameList(visible,state.gameState);
+    const reusable = new Map(currentCards.map(card => [`${card.dataset.sport}:${card.dataset.id}`,card]));
+    const nextChildren = [...template.content.children].map(node => {
+      if (!node.classList.contains('game-card')) return node;
+      const card = reusable.get(`${node.dataset.sport}:${node.dataset.id}`);
+      const markup = node.outerHTML;
+      if (!card) { node._slateMarkup = markup; return node; }
+      if (card._slateMarkup !== markup) {
+        const focused = card.contains(document.activeElement) ? document.activeElement : null;
+        const focusSelector = focused?.hasAttribute('data-card-team-index') ? `[data-card-team-index="${focused.dataset.cardTeamIndex}"]` : focused?.hasAttribute('data-open-game') ? '[data-open-game]' : null;
+        card.className = node.className;
+        card.dataset.division = node.dataset.division;
+        card.innerHTML = node.innerHTML;
+        card._slateMarkup = markup;
+        if (focusSelector) card.querySelector(focusSelector)?.focus({preventScroll:true});
+      }
+      return card;
+    });
+    // Moving existing nodes preserves the identity of unchanged cards and logos.
+    for (let index = 0; index < nextChildren.length; index++) {
+      if (gameList.children[index] !== nextChildren[index]) gameList.insertBefore(nextChildren[index],gameList.children[index] || null);
+    }
+    while (gameList.children.length > nextChildren.length) gameList.lastElementChild.remove();
+  }
   if (typeof recentLiveChanges !== 'undefined' && recentLiveChanges.size) {
     for (const card of $$('#game-list .game-card')) {
       const change = recentLiveChanges.get(`${card.dataset.sport}:${card.dataset.id}`);
@@ -6875,6 +6930,10 @@ function render() {
             game.state === 'completed'
         ).length;
     });
+
+  $('.seg[data-state="all"]')?.setAttribute('aria-label',`All ${$('#all-count').textContent} games: live games, upcoming games, and today's finals. Older finals remain in Final.`);
+  $('.seg[data-state="all"]')?.setAttribute('title',"Live games, upcoming games, and today's finals. Final also includes older completed games.");
+  $('.seg[data-state="completed"]')?.setAttribute('title','All retained completed games, including older finals excluded from All.');
 
   $('#watch-count').textContent =
     scopeGames.filter(

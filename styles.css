@@ -351,7 +351,7 @@ body.detail-open { overflow: hidden; }
 .card-moment { grid-column: 2 / 4; grid-row: 2; display: flex; flex-wrap: wrap; gap: 4px 7px; color: var(--brand-cream); font: 10px/1.35 var(--font-mono); min-width: 0; }
 .card-moment strong { color: var(--ink-secondary); white-space: nowrap; }
 .card-moment span { overflow-wrap: anywhere; }
-.game-card:has(.card-moment) .channel-context { grid-row: 3; }
+/* Supporting context follows the matchup in ui-overhaul.css. */
 .detail-watch { display: inline-flex; align-items: center; min-height: 36px; margin: -2px 0 13px; padding: 7px 12px; color: var(--brand-cream); background: linear-gradient(var(--surface-raised),var(--surface-3)); border: 1px solid var(--muted); border-radius: 6px; font: 600 11px var(--font-mono); cursor: pointer; box-shadow: inset 0 1px 1px var(--line-strong),0 2px 3px var(--brand-charcoal); }
 .detail-watch.active { color: var(--surface); background: linear-gradient(var(--ink-secondary),var(--muted)); border-color: var(--ink-secondary); }
 .detail-watch:focus-visible { outline: 2px solid var(--brand-cream); outline-offset: 2px; }
@@ -4945,54 +4945,7 @@ button.team-spotlight-card {
 .nhl-playoff-picture .team-playoff-row.current {
   background: color-mix(in srgb, var(--ink-secondary) 12%, transparent);
 }
-/* TEAM LOGO CONTRAST
-   One neutral cream surface keeps official dark and light artwork readable.
-   Cards and hero logos use their existing containers; other surfaces retain
-   their image dimensions. No padding, recoloring, or filter shrinks the mark.
-   League logos are intentionally excluded. */
-:root { --team-logo-surface: #e4ded2; }
-
-.card-team-link,
-.team-logo-shell,
-.team-hero-logo,
-.team-standing-team img,
-.team-spotlight-matchup img,
-.team-schedule-opponent img,
-.search-team-logo img,
-.favorite-tag img,
-.favorite-result img,
-.detail-team img,
-.player-team-switch img {
-  background: var(--team-logo-surface);
-  border-radius: 6px;
-  box-shadow: 0 0 0 2px var(--team-logo-surface), 0 2px 3px rgb(0 0 0 / .16);
-}
-
-.team-hero-logo { border-radius: 22px; }
-.team-hero-logo img,
-.team-standing-team img,
-.team-spotlight-matchup img,
-.team-schedule-opponent img,
-.search-team-logo img,
-.favorite-tag img,
-.favorite-result img,
-.detail-team img,
-.player-team-switch img,
-.team-name .team-logo {
-  object-fit: contain;
-  padding: 0;
-  border: 0;
-  filter: none;
-}
-
-/* The plate belongs to the shell, leaving the full artwork area available. */
-.team-name .team-logo { background: transparent; box-shadow: none; }
-
-/* Keep the selected-team accent outside its cream logo surface. */
-.team-standing-row.current .team-standing-team img,
-.team-playoff-row.current .team-standing-team img {
-  box-shadow: 0 0 0 2px var(--team-logo-surface), 0 0 0 3px var(--ink-secondary);
-}
+/* Official team logo separation is maintained in team-logos.css. */
 /* MOBILE RADAR DENSITY PASS V1
    Reduce navigation/filter chrome on phones while preserving useful
    at-a-glance game information, including Broadcast and Current Line. */

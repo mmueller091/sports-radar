@@ -24,12 +24,14 @@ test('absolute ratings retain a continuous cool-to-red heatmap',()=>{
 
 test('movement uses only the observed opening and agrees with its arrow',()=>{
   const base={state:'live',score:78,pregameBaseline:{source:'observed',score:60}};
-  assert.match(context.trendFor(base),/↗&#xfe0e; \+18 from opening/);
-  assert.match(context.trendFor({...base,score:48}),/↘&#xfe0e; -12 from opening/);
-  assert.match(context.trendFor({...base,score:61}),/→&#xfe0e; \+1 from opening/);
-  assert.match(context.trendFor({...base,score:62}),/→&#xfe0e; \+2 from opening/);
-  assert.match(context.trendFor({...base,score:58}),/→&#xfe0e; -2 from opening/);
-  assert.match(context.trendFor({...base,score:60}),/→&#xfe0e; 0 from opening/);
+  for (const [score,path,delta,label] of [[78,'M3 13 13 3M5 3h8v8','+18','Rising'],[48,'M3 3 13 13M5 13h8V5','-12','Falling'],[61,'M2 8h12M9 3l5 5-5 5','+1','Steady'],[62,'M2 8h12M9 3l5 5-5 5','+2','Steady'],[58,'M2 8h12M9 3l5 5-5 5','-2','Steady'],[60,'M2 8h12M9 3l5 5-5 5','0','Steady']]) {
+    const html=context.trendFor({...base,score});
+    assert.ok(html.includes(`<path d="${path}"/>`),`correct directional geometry at ${score}`);
+    assert.ok(html.includes(`<span>${delta} from opening</span>`));
+    assert.ok(html.includes(`aria-label="${label}`));
+    assert.match(html,/<svg class="trend-icon"[^>]+aria-hidden="true"/);
+    assert.doesNotMatch(html,/[↗↘→]/);
+  }
   assert.match(context.trendFor({...base,state:'completed'}),/\+18 from opening/);
   assert.equal(context.trendFor({...base,state:'upcoming'}),'');
   assert.equal(context.trendFor({...base,pregameBaseline:{source:'reconstructed',score:60}}),'');
@@ -47,11 +49,11 @@ test('cards and Game Center use the same absolute hue and verified movement',()=
   ui.renderDetailContent(game,detail);
   assert.match(card,/class="excitement" style="--score-hue:11;"/);
   assert.match(card,/class="score-circle extreme"/);
-  assert.match(card,/↘&#xfe0e; -4 from opening/);
+  assert.match(card,/<path d="M3 3 13 13M5 13h8V5"\/><\/svg><span>-4 from opening/);
   assert.doesNotMatch(card,/rating-tier|>Low<|>Building<|>High<|>Peak</);
   assert.match(ui.detail.innerHTML,/class="detail-excitement-score extreme" style="--score-hue:11;"/);
   assert.match(ui.detail.innerHTML,/class="detail-radar" style="--score-hue:11;"/);
-  assert.match(ui.detail.innerHTML,/↘&#xfe0e; -4 from opening/);
+  assert.match(ui.detail.innerHTML,/<path d="M3 3 13 13M5 13h8V5"\/><\/svg><span>-4 from opening/);
   assert.match(ui.detail.innerHTML,/Opening 99 · Current 95/);
 });
 
@@ -84,6 +86,7 @@ test('pregame Game Center omits empty current-game statistics without losing liv
   const start=source.indexOf('function detailTabSections(');
   const end=source.indexOf('\n}',start)+2;
   const context=vm.createContext({
+    renderExcitementTimeline:()=>'',
     storylineDetails:()=>'',detailScoring:()=>'',detailLeaders:()=>'',detailPlayerBrowser:()=>'',
     detailDrives:()=>'',detailMlbPlayerStats:()=>'',detailStats:()=>'<section>Team statistics</section>',
     detailNhlAdvanced:()=>'',detailPlayerStats:()=>'',detailNhlGoalies:()=>'',

@@ -1,0 +1,26 @@
+{
+  "source": "qa-reduced-motion-measured.json",
+  "historySource": "qa-history/qa-after-320-slate-2-1793769308570.json",
+  "sourceSha256": "8c1832611c8dcf0ddec72753db5edc5004128b1e6fa347db5b3e89335f46bc7b",
+  "capturedAt": "2026-11-04T05:15:08.563Z",
+  "actualPreference": true,
+  "testedUpdateClasses": true,
+  "elementsChecked": 20,
+  "maxAcceptedDurationSeconds": 0.00001,
+  "maxMeasuredTransitionSeconds": 0.000001,
+  "allAnimationNamesNone": true,
+  "allAnimationDurationsZero": true,
+  "rawExactZeroFailures": 12,
+  "normalizedFailures": [],
+  "passed": true,
+  "interpretation": "The 12 raw exact-zero flags are inherited 1-microsecond CSS transitions. Durations up to 0.01 ms are treated as effectively zero; all measured animations are none/0s. Original raw measurement is preserved.",
+  "detail": {
+    "source": "qa-reduced-motion-detail.json",
+    "historySource": "qa-history/qa-after-320-detail-1-1793769358359.json",
+    "capturedAt": "2026-11-04T05:15:58.357Z",
+    "actualPreference": true,
+    "elementsChecked": 5,
+    "failures": [],
+    "errors": []
+  }
+}
