@@ -1,0 +1,5154 @@
+{
+  "capturedAt": "2026-11-04T19:15:03.096Z",
+  "source": "Public production /feed; scoreboard inputs reconstructed from published identities, ranks, records and observed market",
+  "baselineModel": "2026-11-03.live-underdog.1",
+  "candidateModel": "2026-11-04.cfb-context.1",
+  "slateSize": 111,
+  "changed": [
+    "401856849",
+    "401858514",
+    "401856745",
+    "401858291",
+    "401856741",
+    "401862823"
+  ],
+  "targets": [
+    {
+      "id": "401856849",
+      "game": "BYU at Utah",
+      "before": 80,
+      "after": 87,
+      "delta": 7,
+      "originalFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        },
+        {
+          "label": "Competitive projected spread",
+          "points": 2.75
+        },
+        {
+          "label": "Both winning records",
+          "points": 3
+        },
+        {
+          "label": "Unbeaten team",
+          "points": 4
+        },
+        {
+          "label": "Two ranked teams",
+          "points": 22
+        },
+        {
+          "label": "Both top 20",
+          "points": 4
+        },
+        {
+          "label": "Top 10 team",
+          "points": 4
+        }
+      ],
+      "proposedFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        },
+        {
+          "label": "Competitive projected spread",
+          "points": 2.75
+        },
+        {
+          "label": "Both winning records",
+          "points": 3
+        },
+        {
+          "label": "Unbeaten team",
+          "points": 4
+        },
+        {
+          "label": "Two ranked teams",
+          "points": 22
+        },
+        {
+          "label": "Both top 20",
+          "points": 4
+        },
+        {
+          "label": "Top 10 team",
+          "points": 4
+        },
+        {
+          "label": "Rivalry context",
+          "points": 7,
+          "contextType": "rivalry",
+          "contextText": "BYU and Utah renew their rivalry in its first matchup with both teams ranked in the top ten.",
+          "sourceUrl": "https://byucougars.com/news/2026/11/2/byu-football-game-week-2026-at-utah",
+          "evidence": [
+            {
+              "url": "https://byucougars.com/news/2026/11/2/byu-football-game-week-2026-at-utah",
+              "title": "BYU game week at Utah",
+              "publishedAt": "2026-11-02",
+              "evidence": "The November 7 visit to Utah is the first meeting of these rivals with both teams in the top ten.",
+              "reviewedAt": "2026-11-04T19:00:00Z"
+            }
+          ],
+          "eventId": "401856849",
+          "factKey": "first-top-ten-holy-war"
+        }
+      ],
+      "explanation": "No. 9 BYU (7-1) and No. 3 Utah (8-0) meet in a top-10 matchup, with Utah's unbeaten season on the line. Utah is a clear favorite by 5.5 points.",
+      "linkedContext": [
+        {
+          "text": "BYU and Utah renew their rivalry in its first matchup with both teams ranked in the top ten.",
+          "url": "https://byucougars.com/news/2026/11/2/byu-football-game-week-2026-at-utah",
+          "type": "rivalry",
+          "evidence": [
+            {
+              "url": "https://byucougars.com/news/2026/11/2/byu-football-game-week-2026-at-utah",
+              "title": "BYU game week at Utah",
+              "publishedAt": "2026-11-02",
+              "evidence": "The November 7 visit to Utah is the first meeting of these rivals with both teams in the top ten.",
+              "reviewedAt": "2026-11-04T19:00:00Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "401856741",
+      "game": "Georgia at Ole Miss",
+      "before": 81,
+      "after": 87,
+      "delta": 6,
+      "originalFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        },
+        {
+          "label": "Competitive projected spread",
+          "points": 3.75
+        },
+        {
+          "label": "Both winning records",
+          "points": 3
+        },
+        {
+          "label": "Two ranked teams",
+          "points": 25
+        },
+        {
+          "label": "Both top 20",
+          "points": 4
+        },
+        {
+          "label": "Top 10 team",
+          "points": 5
+        }
+      ],
+      "proposedFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        },
+        {
+          "label": "Competitive projected spread",
+          "points": 3.75
+        },
+        {
+          "label": "Both winning records",
+          "points": 3
+        },
+        {
+          "label": "Two ranked teams",
+          "points": 25
+        },
+        {
+          "label": "Both top 20",
+          "points": 4
+        },
+        {
+          "label": "Top 10 team",
+          "points": 5
+        },
+        {
+          "label": "Playoff rematch",
+          "points": 6,
+          "contextType": "playoff_rematch",
+          "contextText": "Georgia faces Ole Miss again after the Rebels ended its playoff run with a 39-34 CFP quarterfinal win in January 2026.",
+          "sourceUrl": "https://georgiadogs.com/news/2026/11/2/football-georgia-travels-to-oxford-to-take-on-ole-miss",
+          "evidence": [
+            {
+              "url": "https://georgiadogs.com/news/2026/11/2/football-georgia-travels-to-oxford-to-take-on-ole-miss",
+              "title": "Georgia travels to Oxford",
+              "publishedAt": "2026-11-02",
+              "evidence": "The upcoming opponents last met in the January 2026 CFP quarterfinal; Ole Miss won 39-34.",
+              "reviewedAt": "2026-11-04T19:00:00Z"
+            }
+          ],
+          "eventId": "401856741",
+          "factKey": "sugar-bowl-rematch"
+        }
+      ],
+      "explanation": "No. 2 Georgia and No. 10 Ole Miss meet with postseason stakes. Georgia is a slight favorite with a 3.5-point spread; the line points to a close contest. Both teams have winning records (7-1 and 6-2).",
+      "linkedContext": [
+        {
+          "text": "Georgia faces Ole Miss again after the Rebels ended its playoff run with a 39-34 CFP quarterfinal win in January 2026.",
+          "url": "https://georgiadogs.com/news/2026/11/2/football-georgia-travels-to-oxford-to-take-on-ole-miss",
+          "type": "playoff_rematch",
+          "evidence": [
+            {
+              "url": "https://georgiadogs.com/news/2026/11/2/football-georgia-travels-to-oxford-to-take-on-ole-miss",
+              "title": "Georgia travels to Oxford",
+              "publishedAt": "2026-11-02",
+              "evidence": "The upcoming opponents last met in the January 2026 CFP quarterfinal; Ole Miss won 39-34.",
+              "reviewedAt": "2026-11-04T19:00:00Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "401858291",
+      "game": "Miami at Notre Dame",
+      "before": 79,
+      "after": 88,
+      "delta": 9,
+      "originalFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        },
+        {
+          "label": "Competitive projected spread",
+          "points": 2.5
+        },
+        {
+          "label": "Both winning records",
+          "points": 3
+        },
+        {
+          "label": "Unbeaten team",
+          "points": 4
+        },
+        {
+          "label": "Two ranked teams",
+          "points": 22
+        },
+        {
+          "label": "Both top 20",
+          "points": 3
+        },
+        {
+          "label": "Top 10 team",
+          "points": 4
+        }
+      ],
+      "proposedFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        },
+        {
+          "label": "Competitive projected spread",
+          "points": 2.5
+        },
+        {
+          "label": "Both winning records",
+          "points": 3
+        },
+        {
+          "label": "Unbeaten team",
+          "points": 4
+        },
+        {
+          "label": "Two ranked teams",
+          "points": 22
+        },
+        {
+          "label": "Both top 20",
+          "points": 3
+        },
+        {
+          "label": "Top 10 team",
+          "points": 4
+        },
+        {
+          "label": "Rivalry context",
+          "points": 7,
+          "contextType": "rivalry",
+          "contextText": "Miami and Notre Dame renew their longstanding rivalry.",
+          "sourceUrl": "https://miamihurricanes.com/news/2026/11/2/canes-rewind-a-look-back-at-the-win-over-north-carolina",
+          "evidence": [
+            {
+              "url": "https://miamihurricanes.com/news/2026/11/2/canes-rewind-a-look-back-at-the-win-over-north-carolina",
+              "title": "Miami: Up Next, Notre Dame",
+              "publishedAt": "2026-11-02",
+              "evidence": "The Up Next section identifies the longtime rivalry and the coming South Bend game. Miami won the 2025 meeting 27-24 and later received the final CFP at-large place ahead of Notre Dame.",
+              "reviewedAt": "2026-11-04T19:00:00Z"
+            }
+          ],
+          "eventId": "401858291",
+          "factKey": "miami-notre-dame"
+        },
+        {
+          "label": "Verified rematch context",
+          "points": 2,
+          "contextType": "meaningful_rematch",
+          "contextText": "Miami's 27-24 win over Notre Dame in 2025 became central to the CFP selection debate when Miami took the final at-large berth ahead of the Irish.",
+          "sourceUrl": "https://miamihurricanes.com/news/2026/11/2/canes-rewind-a-look-back-at-the-win-over-north-carolina",
+          "evidence": [
+            {
+              "url": "https://miamihurricanes.com/news/2026/11/2/canes-rewind-a-look-back-at-the-win-over-north-carolina",
+              "title": "Miami: Up Next, Notre Dame",
+              "publishedAt": "2026-11-02",
+              "evidence": "The Up Next section identifies the longtime rivalry and the coming South Bend game. Miami won the 2025 meeting 27-24 and later received the final CFP at-large place ahead of Notre Dame.",
+              "reviewedAt": "2026-11-04T19:00:00Z"
+            }
+          ],
+          "eventId": "401858291",
+          "factKey": "selection-rematch"
+        }
+      ],
+      "explanation": "No. 1 Miami (8-0) and No. 11 Notre Dame (7-1) meet in a ranked matchup, with Miami's unbeaten season on the line. Miami and Notre Dame renew their longstanding rivalry. Notre Dame is a clear favorite by 6 points.",
+      "linkedContext": [
+        {
+          "text": "Miami's 27-24 win over Notre Dame in 2025 became central to the CFP selection debate when Miami took the final at-large berth ahead of the Irish.",
+          "url": "https://miamihurricanes.com/news/2026/11/2/canes-rewind-a-look-back-at-the-win-over-north-carolina",
+          "type": "meaningful_rematch",
+          "evidence": [
+            {
+              "url": "https://miamihurricanes.com/news/2026/11/2/canes-rewind-a-look-back-at-the-win-over-north-carolina",
+              "title": "Miami: Up Next, Notre Dame",
+              "publishedAt": "2026-11-02",
+              "evidence": "The Up Next section identifies the longtime rivalry and the coming South Bend game. Miami won the 2025 meeting 27-24 and later received the final CFP at-large place ahead of Notre Dame.",
+              "reviewedAt": "2026-11-04T19:00:00Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "401856745",
+      "game": "Kentucky at Tennessee",
+      "before": 73,
+      "after": 80,
+      "delta": 7,
+      "originalFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        },
+        {
+          "label": "Competitive projected spread",
+          "points": 2.25
+        },
+        {
+          "label": "Both winning records",
+          "points": 3
+        },
+        {
+          "label": "Two ranked teams",
+          "points": 21
+        },
+        {
+          "label": "Both top 20",
+          "points": 3
+        },
+        {
+          "label": "Top 10 team",
+          "points": 4
+        }
+      ],
+      "proposedFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        },
+        {
+          "label": "Competitive projected spread",
+          "points": 2.25
+        },
+        {
+          "label": "Both winning records",
+          "points": 3
+        },
+        {
+          "label": "Two ranked teams",
+          "points": 21
+        },
+        {
+          "label": "Both top 20",
+          "points": 3
+        },
+        {
+          "label": "Top 10 team",
+          "points": 4
+        },
+        {
+          "label": "Rivalry context",
+          "points": 7,
+          "contextType": "rivalry",
+          "contextText": "Kentucky and Tennessee meet for the 122nd time and only the fourth with both ranked; Kentucky enters with its best-ever CFP ranking at No. 6.",
+          "sourceUrl": "https://utsports.com/news/2026/11/2/football-16-16-vols-ramping-up-for-rivalry-showdown-against-8-7-kentucky",
+          "evidence": [
+            {
+              "url": "https://utsports.com/news/2026/11/2/football-16-16-vols-ramping-up-for-rivalry-showdown-against-8-7-kentucky",
+              "title": "Tennessee prepares for Kentucky rivalry",
+              "publishedAt": "2026-11-02",
+              "evidence": "The November 7 rivalry game is meeting 122; only three previous meetings featured two ranked teams.",
+              "reviewedAt": "2026-11-04T19:00:00Z"
+            },
+            {
+              "url": "https://collegefootballplayoff.com/news/2026/11/3/rankings",
+              "title": "First CFP rankings of 2026",
+              "publishedAt": "2026-11-03",
+              "evidence": "Kentucky is sixth, its highest position in CFP ranking history.",
+              "reviewedAt": "2026-11-04T19:00:00Z"
+            }
+          ],
+          "eventId": "401856745",
+          "factKey": "rare-ranked-border-rivalry"
+        }
+      ],
+      "explanation": "No. 6 Kentucky (7-1) and No. 13 Tennessee (6-2) meet in a ranked matchup. Tennessee is a clear favorite by 6.5 points.",
+      "linkedContext": [
+        {
+          "text": "Kentucky and Tennessee meet for the 122nd time and only the fourth with both ranked; Kentucky enters with its best-ever CFP ranking at No. 6.",
+          "url": "https://utsports.com/news/2026/11/2/football-16-16-vols-ramping-up-for-rivalry-showdown-against-8-7-kentucky",
+          "type": "rivalry",
+          "evidence": [
+            {
+              "url": "https://utsports.com/news/2026/11/2/football-16-16-vols-ramping-up-for-rivalry-showdown-against-8-7-kentucky",
+              "title": "Tennessee prepares for Kentucky rivalry",
+              "publishedAt": "2026-11-02",
+              "evidence": "The November 7 rivalry game is meeting 122; only three previous meetings featured two ranked teams.",
+              "reviewedAt": "2026-11-04T19:00:00Z"
+            },
+            {
+              "url": "https://collegefootballplayoff.com/news/2026/11/3/rankings",
+              "title": "First CFP rankings of 2026",
+              "publishedAt": "2026-11-03",
+              "evidence": "Kentucky is sixth, its highest position in CFP ranking history.",
+              "reviewedAt": "2026-11-04T19:00:00Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "401862823",
+      "game": "Air Force at Army",
+      "before": 44,
+      "after": 51,
+      "delta": 7,
+      "originalFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        },
+        {
+          "label": "Very close projected spread",
+          "points": 4
+        }
+      ],
+      "proposedFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        },
+        {
+          "label": "Very close projected spread",
+          "points": 4
+        },
+        {
+          "label": "Rivalry context",
+          "points": 7,
+          "contextType": "rivalry",
+          "contextText": "Army and Air Force renew a service-academy rivalry played annually since 1971, with a result in the Commander-in-Chief's Trophy series at stake.",
+          "sourceUrl": "https://goarmywestpoint.com/news/2025/12/17/army-football-to-open-2026-vs-bryant-all-12-opponents-set",
+          "evidence": [
+            {
+              "url": "https://goarmywestpoint.com/news/2025/12/17/army-football-to-open-2026-vs-bryant-all-12-opponents-set",
+              "title": "Army announces 2026 opponents",
+              "publishedAt": "2025-12-17",
+              "evidence": "Army hosts service-academy rival Air Force on November 7. The series has been annual since 1971. Army meets Navy on December 12.",
+              "reviewedAt": "2026-11-04T19:00:00Z"
+            },
+            {
+              "url": "https://goarmywestpoint.com/documents/download/2025/10/28/Army_2025_Game_Notes__8__at_Air_Force.pdf",
+              "title": "Army game notes: Commander-in-Chief's Trophy",
+              "publishedAt": "2025-10-28",
+              "evidence": "Army, Navy and Air Force compete for the trophy in a round robin each season; Army-Navy is an established rivalry.",
+              "reviewedAt": "2026-11-04T19:00:00Z"
+            }
+          ],
+          "eventId": "401862823",
+          "factKey": "army-air-force"
+        }
+      ],
+      "explanation": "Air Force (6-2) and Army (5-3) bring winning records into this matchup. Army is a slight favorite with a 3-point spread; the line points to a close contest.",
+      "linkedContext": [
+        {
+          "text": "Army and Air Force renew a service-academy rivalry played annually since 1971, with a result in the Commander-in-Chief's Trophy series at stake.",
+          "url": "https://goarmywestpoint.com/news/2025/12/17/army-football-to-open-2026-vs-bryant-all-12-opponents-set",
+          "type": "rivalry",
+          "evidence": [
+            {
+              "url": "https://goarmywestpoint.com/news/2025/12/17/army-football-to-open-2026-vs-bryant-all-12-opponents-set",
+              "title": "Army announces 2026 opponents",
+              "publishedAt": "2025-12-17",
+              "evidence": "Army hosts service-academy rival Air Force on November 7. The series has been annual since 1971. Army meets Navy on December 12.",
+              "reviewedAt": "2026-11-04T19:00:00Z"
+            },
+            {
+              "url": "https://goarmywestpoint.com/documents/download/2025/10/28/Army_2025_Game_Notes__8__at_Air_Force.pdf",
+              "title": "Army game notes: Commander-in-Chief's Trophy",
+              "publishedAt": "2025-10-28",
+              "evidence": "Army, Navy and Air Force compete for the trophy in a round robin each season; Army-Navy is an established rivalry.",
+              "reviewedAt": "2026-11-04T19:00:00Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "401858514",
+      "game": "Oregon at Ohio State",
+      "before": 64,
+      "after": 66,
+      "delta": 2,
+      "originalFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        },
+        {
+          "label": "Competitive projected spread",
+          "points": 1.83
+        },
+        {
+          "label": "Both winning records",
+          "points": 3
+        },
+        {
+          "label": "Two ranked teams",
+          "points": 19
+        }
+      ],
+      "proposedFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        },
+        {
+          "label": "Competitive projected spread",
+          "points": 1.83
+        },
+        {
+          "label": "Both winning records",
+          "points": 3
+        },
+        {
+          "label": "Two ranked teams",
+          "points": 19
+        },
+        {
+          "label": "Verified rematch context",
+          "points": 2,
+          "contextType": "meaningful_rematch",
+          "contextText": "Oregon and Ohio State meet for the first time since the Buckeyes won their January 2025 CFP quarterfinal, following Oregon's October 2024 victory.",
+          "sourceUrl": "https://goducks.com/news/2026/11/2/football-ducks-buckeyes-clash-in-columbus",
+          "evidence": [
+            {
+              "url": "https://goducks.com/news/2026/11/2/football-ducks-buckeyes-clash-in-columbus",
+              "title": "Oregon visits Ohio State",
+              "publishedAt": "2026-11-02",
+              "evidence": "The preview connects this meeting to Oregon's October 2024 win and Ohio State's January 2025 CFP quarterfinal victory, the most recent meeting.",
+              "reviewedAt": "2026-11-04T19:00:00Z"
+            }
+          ],
+          "eventId": "401858514",
+          "factKey": "older-rose-bowl-rematch"
+        }
+      ],
+      "explanation": "No. 23 Oregon (5-3) and No. 12 Ohio State (6-2) meet in a ranked matchup. Ohio State is a clear favorite by 7.5 points.",
+      "linkedContext": [
+        {
+          "text": "Oregon and Ohio State meet for the first time since the Buckeyes won their January 2025 CFP quarterfinal, following Oregon's October 2024 victory.",
+          "url": "https://goducks.com/news/2026/11/2/football-ducks-buckeyes-clash-in-columbus",
+          "type": "meaningful_rematch",
+          "evidence": [
+            {
+              "url": "https://goducks.com/news/2026/11/2/football-ducks-buckeyes-clash-in-columbus",
+              "title": "Oregon visits Ohio State",
+              "publishedAt": "2026-11-02",
+              "evidence": "The preview connects this meeting to Oregon's October 2024 win and Ohio State's January 2025 CFP quarterfinal victory, the most recent meeting.",
+              "reviewedAt": "2026-11-04T19:00:00Z"
+            }
+          ]
+        },
+        {
+          "text": "Ohio State to stick with Luke Fahey at quarterback vs. Oregon.",
+          "url": "https://www.espn.com/college-football/story/_/id/50370894/ohio-state-stick-luke-fahey-quarterback-vs-oregon",
+          "type": "editorial_storyline"
+        }
+      ]
+    },
+    {
+      "id": "401856740",
+      "game": "Alabama at LSU",
+      "before": 83,
+      "after": 83,
+      "delta": 0,
+      "originalFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        },
+        {
+          "label": "Competitive projected spread",
+          "points": 2.75
+        },
+        {
+          "label": "Both winning records",
+          "points": 3
+        },
+        {
+          "label": "Two ranked teams",
+          "points": 22
+        },
+        {
+          "label": "Both top 20",
+          "points": 4
+        },
+        {
+          "label": "Top 10 team",
+          "points": 4
+        },
+        {
+          "label": "Rivalry context",
+          "points": 7,
+          "contextType": "rivalry",
+          "contextText": "Lane Kiffin gives perspective on LSU vs Bama then challenges fans",
+          "sourceUrl": "https://www.espn.com/video/clip/_/id/50362283/lane-kiffin-gives-perspective-lsu-vs-bama-challenges-fans"
+        }
+      ],
+      "proposedFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        },
+        {
+          "label": "Competitive projected spread",
+          "points": 2.75
+        },
+        {
+          "label": "Both winning records",
+          "points": 3
+        },
+        {
+          "label": "Two ranked teams",
+          "points": 22
+        },
+        {
+          "label": "Both top 20",
+          "points": 4
+        },
+        {
+          "label": "Top 10 team",
+          "points": 4
+        },
+        {
+          "label": "Rivalry context",
+          "points": 7,
+          "contextType": "rivalry",
+          "contextText": "Lane Kiffin gives perspective on LSU vs Bama then challenges fans",
+          "sourceUrl": "https://www.espn.com/video/clip/_/id/50362283/lane-kiffin-gives-perspective-lsu-vs-bama-challenges-fans"
+        }
+      ],
+      "explanation": "No. 5 Alabama (6-2) and No. 14 LSU (6-2) meet in a ranked matchup. LSU is a clear favorite by 5.5 points. Their records are similar, even though the market gives one side a clear advantage.",
+      "linkedContext": [
+        {
+          "text": "Kiffin discusses a common misconception about playing after a bye week as he shares his perspective on the Alabama vs LSU rivalry, then challenges fans to set a new energy record.",
+          "url": "https://www.espn.com/video/clip/_/id/50362283/lane-kiffin-gives-perspective-lsu-vs-bama-challenges-fans",
+          "type": "rivalry"
+        },
+        {
+          "text": "LSU head coach Lane Kiffin previously served as Alabama's offensive coordinator from 2014 to 2016.",
+          "url": "https://lsusports.net/sports/fb/roster/season/2026/staff/lane-kiffin",
+          "type": "editorial_storyline",
+          "evidence": [
+            {
+              "url": "https://lsusports.net/sports/fb/roster/season/2026/staff/lane-kiffin",
+              "title": "LSU coach Lane Kiffin biography",
+              "publishedAt": null,
+              "evidence": "LSU lists Kiffin as head coach; he previously coordinated Alabama's offense from 2014 through 2016.",
+              "reviewedAt": "2026-11-04T19:00:00Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "401856743",
+      "game": "Texas at Missouri",
+      "before": 82,
+      "after": 82,
+      "delta": 0,
+      "originalFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        },
+        {
+          "label": "Very close projected spread",
+          "points": 4.17
+        },
+        {
+          "label": "Both winning records",
+          "points": 3
+        },
+        {
+          "label": "Two ranked teams",
+          "points": 27
+        },
+        {
+          "label": "Both top 20",
+          "points": 3
+        },
+        {
+          "label": "Top 10 team",
+          "points": 5
+        }
+      ],
+      "proposedFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        },
+        {
+          "label": "Very close projected spread",
+          "points": 4.17
+        },
+        {
+          "label": "Both winning records",
+          "points": 3
+        },
+        {
+          "label": "Two ranked teams",
+          "points": 27
+        },
+        {
+          "label": "Both top 20",
+          "points": 3
+        },
+        {
+          "label": "Top 10 team",
+          "points": 5
+        }
+      ],
+      "explanation": "No. 7 Texas and No. 18 Missouri bring matching 6-2 records to a ranked matchup with just a 2.5-point spread. That mix of quality and expected closeness makes this one worth circling.",
+      "linkedContext": [
+        {
+          "text": "Texas visits Missouri in Columbia for the first time since 2011.",
+          "url": "https://texaslonghorns.com/news/2025/12/11/footballs-2026-schedule-announced",
+          "type": "editorial_storyline",
+          "evidence": [
+            {
+              "url": "https://texaslonghorns.com/news/2025/12/11/footballs-2026-schedule-announced",
+              "title": "Texas announces 2026 schedule",
+              "publishedAt": "2025-12-11",
+              "evidence": "The November 7 trip to Missouri is Texas' first visit to Columbia since 2011.",
+              "reviewedAt": "2026-11-04T19:00:00Z"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "beforeTopTen": [
+    {
+      "id": "401856740",
+      "game": "Alabama at LSU",
+      "score": 83
+    },
+    {
+      "id": "401856743",
+      "game": "Texas at Missouri",
+      "score": 82
+    },
+    {
+      "id": "401856741",
+      "game": "Georgia at Ole Miss",
+      "score": 81
+    },
+    {
+      "id": "401856849",
+      "game": "BYU at Utah",
+      "score": 80
+    },
+    {
+      "id": "401858291",
+      "game": "Miami at Notre Dame",
+      "score": 79
+    },
+    {
+      "id": "401856745",
+      "game": "Kentucky at Tennessee",
+      "score": 73
+    },
+    {
+      "id": "401858514",
+      "game": "Oregon at Ohio State",
+      "score": 64
+    },
+    {
+      "id": "401858512",
+      "game": "UCLA at Minnesota",
+      "score": 55
+    },
+    {
+      "id": "401858513",
+      "game": "Iowa at Northwestern",
+      "score": 54
+    },
+    {
+      "id": "401856739",
+      "game": "Oklahoma at Florida",
+      "score": 50
+    }
+  ],
+  "afterTopTen": [
+    {
+      "id": "401858291",
+      "game": "Miami at Notre Dame",
+      "score": 88
+    },
+    {
+      "id": "401856849",
+      "game": "BYU at Utah",
+      "score": 87
+    },
+    {
+      "id": "401856741",
+      "game": "Georgia at Ole Miss",
+      "score": 87
+    },
+    {
+      "id": "401856740",
+      "game": "Alabama at LSU",
+      "score": 83
+    },
+    {
+      "id": "401856743",
+      "game": "Texas at Missouri",
+      "score": 82
+    },
+    {
+      "id": "401856745",
+      "game": "Kentucky at Tennessee",
+      "score": 80
+    },
+    {
+      "id": "401858514",
+      "game": "Oregon at Ohio State",
+      "score": 66
+    },
+    {
+      "id": "401858512",
+      "game": "UCLA at Minnesota",
+      "score": 55
+    },
+    {
+      "id": "401858513",
+      "game": "Iowa at Northwestern",
+      "score": 54
+    },
+    {
+      "id": "401862823",
+      "game": "Air Force at Army",
+      "score": 51
+    }
+  ],
+  "slate": [
+    {
+      "id": "401856849",
+      "game": "BYU at Utah",
+      "before": 80,
+      "after": 87,
+      "delta": 7,
+      "originalFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        },
+        {
+          "label": "Competitive projected spread",
+          "points": 2.75
+        },
+        {
+          "label": "Both winning records",
+          "points": 3
+        },
+        {
+          "label": "Unbeaten team",
+          "points": 4
+        },
+        {
+          "label": "Two ranked teams",
+          "points": 22
+        },
+        {
+          "label": "Both top 20",
+          "points": 4
+        },
+        {
+          "label": "Top 10 team",
+          "points": 4
+        }
+      ],
+      "proposedFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        },
+        {
+          "label": "Competitive projected spread",
+          "points": 2.75
+        },
+        {
+          "label": "Both winning records",
+          "points": 3
+        },
+        {
+          "label": "Unbeaten team",
+          "points": 4
+        },
+        {
+          "label": "Two ranked teams",
+          "points": 22
+        },
+        {
+          "label": "Both top 20",
+          "points": 4
+        },
+        {
+          "label": "Top 10 team",
+          "points": 4
+        },
+        {
+          "label": "Rivalry context",
+          "points": 7,
+          "contextType": "rivalry",
+          "contextText": "BYU and Utah renew their rivalry in its first matchup with both teams ranked in the top ten.",
+          "sourceUrl": "https://byucougars.com/news/2026/11/2/byu-football-game-week-2026-at-utah",
+          "evidence": [
+            {
+              "url": "https://byucougars.com/news/2026/11/2/byu-football-game-week-2026-at-utah",
+              "title": "BYU game week at Utah",
+              "publishedAt": "2026-11-02",
+              "evidence": "The November 7 visit to Utah is the first meeting of these rivals with both teams in the top ten.",
+              "reviewedAt": "2026-11-04T19:00:00Z"
+            }
+          ],
+          "eventId": "401856849",
+          "factKey": "first-top-ten-holy-war"
+        }
+      ],
+      "explanation": "No. 9 BYU (7-1) and No. 3 Utah (8-0) meet in a top-10 matchup, with Utah's unbeaten season on the line. Utah is a clear favorite by 5.5 points.",
+      "linkedContext": [
+        {
+          "text": "BYU and Utah renew their rivalry in its first matchup with both teams ranked in the top ten.",
+          "url": "https://byucougars.com/news/2026/11/2/byu-football-game-week-2026-at-utah",
+          "type": "rivalry",
+          "evidence": [
+            {
+              "url": "https://byucougars.com/news/2026/11/2/byu-football-game-week-2026-at-utah",
+              "title": "BYU game week at Utah",
+              "publishedAt": "2026-11-02",
+              "evidence": "The November 7 visit to Utah is the first meeting of these rivals with both teams in the top ten.",
+              "reviewedAt": "2026-11-04T19:00:00Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "401856743",
+      "game": "Texas at Missouri",
+      "before": 82,
+      "after": 82,
+      "delta": 0,
+      "originalFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        },
+        {
+          "label": "Very close projected spread",
+          "points": 4.17
+        },
+        {
+          "label": "Both winning records",
+          "points": 3
+        },
+        {
+          "label": "Two ranked teams",
+          "points": 27
+        },
+        {
+          "label": "Both top 20",
+          "points": 3
+        },
+        {
+          "label": "Top 10 team",
+          "points": 5
+        }
+      ],
+      "proposedFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        },
+        {
+          "label": "Very close projected spread",
+          "points": 4.17
+        },
+        {
+          "label": "Both winning records",
+          "points": 3
+        },
+        {
+          "label": "Two ranked teams",
+          "points": 27
+        },
+        {
+          "label": "Both top 20",
+          "points": 3
+        },
+        {
+          "label": "Top 10 team",
+          "points": 5
+        }
+      ],
+      "explanation": "No. 7 Texas and No. 18 Missouri bring matching 6-2 records to a ranked matchup with just a 2.5-point spread. That mix of quality and expected closeness makes this one worth circling.",
+      "linkedContext": [
+        {
+          "text": "Texas visits Missouri in Columbia for the first time since 2011.",
+          "url": "https://texaslonghorns.com/news/2025/12/11/footballs-2026-schedule-announced",
+          "type": "editorial_storyline",
+          "evidence": [
+            {
+              "url": "https://texaslonghorns.com/news/2025/12/11/footballs-2026-schedule-announced",
+              "title": "Texas announces 2026 schedule",
+              "publishedAt": "2025-12-11",
+              "evidence": "The November 7 trip to Missouri is Texas' first visit to Columbia since 2011.",
+              "reviewedAt": "2026-11-04T19:00:00Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "401858512",
+      "game": "UCLA at Minnesota",
+      "before": 55,
+      "after": 55,
+      "delta": 0,
+      "originalFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        },
+        {
+          "label": "Competitive projected spread",
+          "points": 2.75
+        },
+        {
+          "label": "Ranked team",
+          "points": 8
+        },
+        {
+          "label": "Top 10 team",
+          "points": 4
+        }
+      ],
+      "proposedFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        },
+        {
+          "label": "Competitive projected spread",
+          "points": 2.75
+        },
+        {
+          "label": "Ranked team",
+          "points": 8
+        },
+        {
+          "label": "Top 10 team",
+          "points": 4
+        }
+      ],
+      "explanation": "No. 8 UCLA (8-0) faces Minnesota (5-3) with an unbeaten season to protect. UCLA is a clear favorite by 5.5 points.",
+      "linkedContext": []
+    },
+    {
+      "id": "401856853",
+      "game": "Iowa State at Baylor",
+      "before": 41,
+      "after": 41,
+      "delta": 0,
+      "originalFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        },
+        {
+          "label": "Competitive projected spread",
+          "points": 1
+        }
+      ],
+      "proposedFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        },
+        {
+          "label": "Competitive projected spread",
+          "points": 1
+        }
+      ],
+      "explanation": "Iowa State (4-4) and Baylor (5-3) meet. Baylor is a clear favorite by 10 points.",
+      "linkedContext": []
+    },
+    {
+      "id": "401858285",
+      "game": "Clemson at Syracuse",
+      "before": 44,
+      "after": 44,
+      "delta": 0,
+      "originalFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        },
+        {
+          "label": "Very close projected spread",
+          "points": 4.17
+        }
+      ],
+      "proposedFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        },
+        {
+          "label": "Very close projected spread",
+          "points": 4.17
+        }
+      ],
+      "explanation": "Clemson (5-3) and Syracuse (4-4) meet. Clemson is a slight favorite with a 2.5-point spread; the line points to a close contest.",
+      "linkedContext": []
+    },
+    {
+      "id": "401858289",
+      "game": "Florida St at Boston College",
+      "before": 42,
+      "after": 42,
+      "delta": 0,
+      "originalFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        },
+        {
+          "label": "Competitive projected spread",
+          "points": 2.25
+        }
+      ],
+      "proposedFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        },
+        {
+          "label": "Competitive projected spread",
+          "points": 2.25
+        }
+      ],
+      "explanation": "Florida St (3-5) and Boston College (4-4) meet. Florida St is a clear favorite by 6.5 points.",
+      "linkedContext": []
+    },
+    {
+      "id": "401858292",
+      "game": "North Carolina at UConn",
+      "before": 42,
+      "after": 42,
+      "delta": 0,
+      "originalFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        },
+        {
+          "label": "Competitive projected spread",
+          "points": 2
+        }
+      ],
+      "proposedFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        },
+        {
+          "label": "Competitive projected spread",
+          "points": 2
+        }
+      ],
+      "explanation": "North Carolina (4-4) and UConn (4-4) meet. North Carolina is a clear favorite by 7 points. Their records are similar, even though the market gives one side a clear advantage.",
+      "linkedContext": []
+    },
+    {
+      "id": "401862822",
+      "game": "Tulsa at Tulane",
+      "before": 45,
+      "after": 45,
+      "delta": 0,
+      "originalFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        },
+        {
+          "label": "Very close projected spread",
+          "points": 4.5
+        }
+      ],
+      "proposedFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        },
+        {
+          "label": "Very close projected spread",
+          "points": 4.5
+        }
+      ],
+      "explanation": "Tulsa (4-4) and Tulane (4-4) meet. Tulsa is a slight favorite with a 1.5-point spread; the line points to a close contest.",
+      "linkedContext": []
+    },
+    {
+      "id": "401858286",
+      "game": "Duke at NC State",
+      "before": 43,
+      "after": 43,
+      "delta": 0,
+      "originalFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        },
+        {
+          "label": "Competitive projected spread",
+          "points": 3.25
+        }
+      ],
+      "proposedFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        },
+        {
+          "label": "Competitive projected spread",
+          "points": 3.25
+        }
+      ],
+      "explanation": "Duke (6-2) and NC State (4-4) meet. Duke is a clear favorite by 4.5 points.",
+      "linkedContext": []
+    },
+    {
+      "id": "401858515",
+      "game": "Maryland at Purdue",
+      "before": 43,
+      "after": 43,
+      "delta": 0,
+      "originalFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        },
+        {
+          "label": "Competitive projected spread",
+          "points": 2.5
+        }
+      ],
+      "proposedFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        },
+        {
+          "label": "Competitive projected spread",
+          "points": 2.5
+        }
+      ],
+      "explanation": "Maryland (2-6) and Purdue (3-5) meet with both teams looking to turn around a difficult start. Purdue is a clear favorite by 6 points. Maryland has struggled so far and faces another difficult test.",
+      "linkedContext": []
+    },
+    {
+      "id": "401856738",
+      "game": "Arkansas at Auburn",
+      "before": 41,
+      "after": 41,
+      "delta": 0,
+      "originalFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        },
+        {
+          "label": "Competitive projected spread",
+          "points": 0.88
+        }
+      ],
+      "proposedFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        },
+        {
+          "label": "Competitive projected spread",
+          "points": 0.88
+        }
+      ],
+      "explanation": "Arkansas (3-5) and Auburn (4-4) meet. Auburn is a clear favorite by 10.5 points. Arkansas has struggled so far and faces another difficult test.",
+      "linkedContext": []
+    },
+    {
+      "id": "401856854",
+      "game": "Oklahoma St at Kansas St",
+      "before": 43,
+      "after": 43,
+      "delta": 0,
+      "originalFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        },
+        {
+          "label": "Competitive projected spread",
+          "points": 2.75
+        }
+      ],
+      "proposedFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        },
+        {
+          "label": "Competitive projected spread",
+          "points": 2.75
+        }
+      ],
+      "explanation": "Oklahoma St (5-3) and Kansas St (4-4) meet. Oklahoma St is a clear favorite by 5.5 points.",
+      "linkedContext": []
+    },
+    {
+      "id": "401869945",
+      "game": "Old Dominion at Coastal",
+      "before": 42,
+      "after": 42,
+      "delta": 0,
+      "originalFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        },
+        {
+          "label": "Competitive projected spread",
+          "points": 2
+        }
+      ],
+      "proposedFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        },
+        {
+          "label": "Competitive projected spread",
+          "points": 2
+        }
+      ],
+      "explanation": "Old Dominion (2-7) and Coastal (3-5) meet with both teams looking to turn around a difficult start. Coastal is a clear favorite by 7 points. Old Dominion has struggled so far and faces another difficult test.",
+      "linkedContext": []
+    },
+    {
+      "id": "401869927",
+      "game": "Georgia St at App State",
+      "before": 43,
+      "after": 43,
+      "delta": 0,
+      "originalFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        },
+        {
+          "label": "Competitive projected spread",
+          "points": 2.75
+        }
+      ],
+      "proposedFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        },
+        {
+          "label": "Competitive projected spread",
+          "points": 2.75
+        }
+      ],
+      "explanation": "Georgia St (4-4) and App State (5-3) meet. App State is a clear favorite by 5.5 points.",
+      "linkedContext": []
+    },
+    {
+      "id": "401856744",
+      "game": "Texas A&M at South Carolina",
+      "before": 49,
+      "after": 49,
+      "delta": 0,
+      "originalFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        },
+        {
+          "label": "Competitive projected spread",
+          "points": 2
+        },
+        {
+          "label": "Ranked team",
+          "points": 7
+        }
+      ],
+      "proposedFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        },
+        {
+          "label": "Competitive projected spread",
+          "points": 2
+        },
+        {
+          "label": "Ranked team",
+          "points": 7
+        }
+      ],
+      "explanation": "No. 21 South Carolina (5-3) faces Texas A&M (4-4). South Carolina is a clear favorite by 7 points.",
+      "linkedContext": []
+    },
+    {
+      "id": "401869936",
+      "game": "UL Monroe at Arkansas St",
+      "before": 40,
+      "after": 40,
+      "delta": 0,
+      "originalFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        },
+        {
+          "label": "Projected spread mismatch",
+          "points": -0.33
+        }
+      ],
+      "proposedFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        },
+        {
+          "label": "Projected spread mismatch",
+          "points": -0.33
+        }
+      ],
+      "explanation": "UL Monroe (1-7) and Arkansas St (4-4) meet. Arkansas St is a clear favorite by 14.5 points. UL Monroe has struggled so far and faces another difficult test.",
+      "linkedContext": []
+    },
+    {
+      "id": "401871073",
+      "game": "Delaware at Kennesaw St",
+      "before": 45,
+      "after": 45,
+      "delta": 0,
+      "originalFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        },
+        {
+          "label": "Very close projected spread",
+          "points": 4.5
+        }
+      ],
+      "proposedFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        },
+        {
+          "label": "Very close projected spread",
+          "points": 4.5
+        }
+      ],
+      "explanation": "Delaware (4-4) and Kennesaw St (2-6) meet. Delaware is a slight favorite with a 1.5-point spread; the line points to a close contest.",
+      "linkedContext": []
+    },
+    {
+      "id": "401856740",
+      "game": "Alabama at LSU",
+      "before": 83,
+      "after": 83,
+      "delta": 0,
+      "originalFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        },
+        {
+          "label": "Competitive projected spread",
+          "points": 2.75
+        },
+        {
+          "label": "Both winning records",
+          "points": 3
+        },
+        {
+          "label": "Two ranked teams",
+          "points": 22
+        },
+        {
+          "label": "Both top 20",
+          "points": 4
+        },
+        {
+          "label": "Top 10 team",
+          "points": 4
+        },
+        {
+          "label": "Rivalry context",
+          "points": 7,
+          "contextType": "rivalry",
+          "contextText": "Lane Kiffin gives perspective on LSU vs Bama then challenges fans",
+          "sourceUrl": "https://www.espn.com/video/clip/_/id/50362283/lane-kiffin-gives-perspective-lsu-vs-bama-challenges-fans"
+        }
+      ],
+      "proposedFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        },
+        {
+          "label": "Competitive projected spread",
+          "points": 2.75
+        },
+        {
+          "label": "Both winning records",
+          "points": 3
+        },
+        {
+          "label": "Two ranked teams",
+          "points": 22
+        },
+        {
+          "label": "Both top 20",
+          "points": 4
+        },
+        {
+          "label": "Top 10 team",
+          "points": 4
+        },
+        {
+          "label": "Rivalry context",
+          "points": 7,
+          "contextType": "rivalry",
+          "contextText": "Lane Kiffin gives perspective on LSU vs Bama then challenges fans",
+          "sourceUrl": "https://www.espn.com/video/clip/_/id/50362283/lane-kiffin-gives-perspective-lsu-vs-bama-challenges-fans"
+        }
+      ],
+      "explanation": "No. 5 Alabama (6-2) and No. 14 LSU (6-2) meet in a ranked matchup. LSU is a clear favorite by 5.5 points. Their records are similar, even though the market gives one side a clear advantage.",
+      "linkedContext": [
+        {
+          "text": "Kiffin discusses a common misconception about playing after a bye week as he shares his perspective on the Alabama vs LSU rivalry, then challenges fans to set a new energy record.",
+          "url": "https://www.espn.com/video/clip/_/id/50362283/lane-kiffin-gives-perspective-lsu-vs-bama-challenges-fans",
+          "type": "rivalry"
+        },
+        {
+          "text": "LSU head coach Lane Kiffin previously served as Alabama's offensive coordinator from 2014 to 2016.",
+          "url": "https://lsusports.net/sports/fb/roster/season/2026/staff/lane-kiffin",
+          "type": "editorial_storyline",
+          "evidence": [
+            {
+              "url": "https://lsusports.net/sports/fb/roster/season/2026/staff/lane-kiffin",
+              "title": "LSU coach Lane Kiffin biography",
+              "publishedAt": null,
+              "evidence": "LSU lists Kiffin as head coach; he previously coordinated Alabama's offense from 2014 through 2016.",
+              "reviewedAt": "2026-11-04T19:00:00Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "401858514",
+      "game": "Oregon at Ohio State",
+      "before": 64,
+      "after": 66,
+      "delta": 2,
+      "originalFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        },
+        {
+          "label": "Competitive projected spread",
+          "points": 1.83
+        },
+        {
+          "label": "Both winning records",
+          "points": 3
+        },
+        {
+          "label": "Two ranked teams",
+          "points": 19
+        }
+      ],
+      "proposedFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        },
+        {
+          "label": "Competitive projected spread",
+          "points": 1.83
+        },
+        {
+          "label": "Both winning records",
+          "points": 3
+        },
+        {
+          "label": "Two ranked teams",
+          "points": 19
+        },
+        {
+          "label": "Verified rematch context",
+          "points": 2,
+          "contextType": "meaningful_rematch",
+          "contextText": "Oregon and Ohio State meet for the first time since the Buckeyes won their January 2025 CFP quarterfinal, following Oregon's October 2024 victory.",
+          "sourceUrl": "https://goducks.com/news/2026/11/2/football-ducks-buckeyes-clash-in-columbus",
+          "evidence": [
+            {
+              "url": "https://goducks.com/news/2026/11/2/football-ducks-buckeyes-clash-in-columbus",
+              "title": "Oregon visits Ohio State",
+              "publishedAt": "2026-11-02",
+              "evidence": "The preview connects this meeting to Oregon's October 2024 win and Ohio State's January 2025 CFP quarterfinal victory, the most recent meeting.",
+              "reviewedAt": "2026-11-04T19:00:00Z"
+            }
+          ],
+          "eventId": "401858514",
+          "factKey": "older-rose-bowl-rematch"
+        }
+      ],
+      "explanation": "No. 23 Oregon (5-3) and No. 12 Ohio State (6-2) meet in a ranked matchup. Ohio State is a clear favorite by 7.5 points.",
+      "linkedContext": [
+        {
+          "text": "Oregon and Ohio State meet for the first time since the Buckeyes won their January 2025 CFP quarterfinal, following Oregon's October 2024 victory.",
+          "url": "https://goducks.com/news/2026/11/2/football-ducks-buckeyes-clash-in-columbus",
+          "type": "meaningful_rematch",
+          "evidence": [
+            {
+              "url": "https://goducks.com/news/2026/11/2/football-ducks-buckeyes-clash-in-columbus",
+              "title": "Oregon visits Ohio State",
+              "publishedAt": "2026-11-02",
+              "evidence": "The preview connects this meeting to Oregon's October 2024 win and Ohio State's January 2025 CFP quarterfinal victory, the most recent meeting.",
+              "reviewedAt": "2026-11-04T19:00:00Z"
+            }
+          ]
+        },
+        {
+          "text": "Ohio State to stick with Luke Fahey at quarterback vs. Oregon.",
+          "url": "https://www.espn.com/college-football/story/_/id/50370894/ohio-state-stick-luke-fahey-quarterback-vs-oregon",
+          "type": "editorial_storyline"
+        }
+      ]
+    },
+    {
+      "id": "401858290",
+      "game": "Merrimack at Wake Forest",
+      "before": 44,
+      "after": 44,
+      "delta": 0,
+      "originalFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        },
+        {
+          "label": "Ranked team",
+          "points": 4
+        }
+      ],
+      "proposedFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        },
+        {
+          "label": "Ranked team",
+          "points": 4
+        }
+      ],
+      "explanation": "No. 16 Wake Forest (7-1) faces Merrimack (4-5). Wake Forest looks the stronger side on results so far.",
+      "linkedContext": []
+    },
+    {
+      "id": "401856851",
+      "game": "Cincinnati at Houston",
+      "before": 46,
+      "after": 46,
+      "delta": 0,
+      "originalFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        },
+        {
+          "label": "Competitive projected spread",
+          "points": 0.88
+        },
+        {
+          "label": "Ranked team",
+          "points": 5
+        }
+      ],
+      "proposedFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        },
+        {
+          "label": "Competitive projected spread",
+          "points": 0.88
+        },
+        {
+          "label": "Ranked team",
+          "points": 5
+        }
+      ],
+      "explanation": "No. 17 Houston (6-2) faces Cincinnati (5-3). Houston is a clear favorite by 10.5 points.",
+      "linkedContext": []
+    },
+    {
+      "id": "401858516",
+      "game": "Penn State at Washington",
+      "before": 44,
+      "after": 44,
+      "delta": 0,
+      "originalFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        },
+        {
+          "label": "Very close projected spread",
+          "points": 4.17
+        }
+      ],
+      "proposedFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        },
+        {
+          "label": "Very close projected spread",
+          "points": 4.17
+        }
+      ],
+      "explanation": "Penn State (4-4) and Washington (5-3) meet. Washington is a slight favorite with a 2.5-point spread; the line points to a close contest.",
+      "linkedContext": []
+    },
+    {
+      "id": "401862819",
+      "game": "Charlotte at UAB",
+      "before": 42,
+      "after": 42,
+      "delta": 0,
+      "originalFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        },
+        {
+          "label": "Competitive projected spread",
+          "points": 1.5
+        }
+      ],
+      "proposedFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        },
+        {
+          "label": "Competitive projected spread",
+          "points": 1.5
+        }
+      ],
+      "explanation": "Charlotte (1-7) and UAB (4-4) meet. UAB is a clear favorite by 8.5 points. Charlotte has struggled so far and faces another difficult test.",
+      "linkedContext": []
+    },
+    {
+      "id": "401862820",
+      "game": "Temple at Navy",
+      "before": 42,
+      "after": 42,
+      "delta": 0,
+      "originalFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        },
+        {
+          "label": "Competitive projected spread",
+          "points": 1.83
+        }
+      ],
+      "proposedFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        },
+        {
+          "label": "Competitive projected spread",
+          "points": 1.83
+        }
+      ],
+      "explanation": "Temple (2-6) and Navy (2-6) meet with both teams looking to turn around a difficult start. Navy is a clear favorite by 7.5 points. Their records are similar, even though the market gives one side a clear advantage.",
+      "linkedContext": []
+    },
+    {
+      "id": "401869951",
+      "game": "Marshall at GA Southern",
+      "before": 41,
+      "after": 41,
+      "delta": 0,
+      "originalFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        },
+        {
+          "label": "Competitive projected spread",
+          "points": 0.88
+        }
+      ],
+      "proposedFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        },
+        {
+          "label": "Competitive projected spread",
+          "points": 0.88
+        }
+      ],
+      "explanation": "Marshall (5-3) and GA Southern (4-4) meet. GA Southern is a clear favorite by 10.5 points.",
+      "linkedContext": []
+    },
+    {
+      "id": "401871076",
+      "game": "Western KY at MTSU",
+      "before": 45,
+      "after": 45,
+      "delta": 0,
+      "originalFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        },
+        {
+          "label": "Very close projected spread",
+          "points": 4.5
+        }
+      ],
+      "proposedFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        },
+        {
+          "label": "Very close projected spread",
+          "points": 4.5
+        }
+      ],
+      "explanation": "Western KY (3-5) and MTSU (4-4) meet. Western KY is a slight favorite with a 1.5-point spread; the line points to a close contest.",
+      "linkedContext": []
+    },
+    {
+      "id": "401856850",
+      "game": "UCF at Kansas",
+      "before": 44,
+      "after": 44,
+      "delta": 0,
+      "originalFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        },
+        {
+          "label": "Very close projected spread",
+          "points": 4
+        }
+      ],
+      "proposedFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        },
+        {
+          "label": "Very close projected spread",
+          "points": 4
+        }
+      ],
+      "explanation": "UCF (4-4) and Kansas (3-5) meet. Kansas is a slight favorite with a 3-point spread; the line points to a close contest.",
+      "linkedContext": []
+    },
+    {
+      "id": "401862821",
+      "game": "Rice at North Texas",
+      "before": 38,
+      "after": 38,
+      "delta": 0,
+      "originalFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        },
+        {
+          "label": "Projected spread mismatch",
+          "points": -2.33
+        }
+      ],
+      "proposedFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        },
+        {
+          "label": "Projected spread mismatch",
+          "points": -2.33
+        }
+      ],
+      "explanation": "Rice (1-7) and North Texas (6-2) meet. North Texas is a heavy favorite by 17.5 points, so a one-sided game is a real possibility. Rice has struggled so far and faces another difficult test.",
+      "linkedContext": []
+    },
+    {
+      "id": "401864534",
+      "game": "N Illinois at San José St",
+      "before": 41,
+      "after": 41,
+      "delta": 0,
+      "originalFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        },
+        {
+          "label": "Competitive projected spread",
+          "points": 1
+        }
+      ],
+      "proposedFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        },
+        {
+          "label": "Competitive projected spread",
+          "points": 1
+        }
+      ],
+      "explanation": "N Illinois (0-8) and San José St (4-5) meet with both teams looking to turn around a difficult start. San José St is a clear favorite by 10 points. N Illinois has struggled so far and faces another difficult test.",
+      "linkedContext": []
+    },
+    {
+      "id": "401871074",
+      "game": "Missouri St at FIU",
+      "before": 43,
+      "after": 43,
+      "delta": 0,
+      "originalFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        },
+        {
+          "label": "Competitive projected spread",
+          "points": 3.25
+        }
+      ],
+      "proposedFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        },
+        {
+          "label": "Competitive projected spread",
+          "points": 3.25
+        }
+      ],
+      "explanation": "Missouri St (3-5) and FIU (3-5) meet with both teams looking to turn around a difficult start. FIU is a clear favorite by 4.5 points. Their records are similar, even though the market gives one side a clear advantage.",
+      "linkedContext": []
+    },
+    {
+      "id": "401871098",
+      "game": "Louisiana Tech at Troy",
+      "before": 43,
+      "after": 43,
+      "delta": 0,
+      "originalFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        },
+        {
+          "label": "Competitive projected spread",
+          "points": 3.25
+        }
+      ],
+      "proposedFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        },
+        {
+          "label": "Competitive projected spread",
+          "points": 3.25
+        }
+      ],
+      "explanation": "Louisiana Tech (6-2) and Troy (4-4) meet. Louisiana Tech is a clear favorite by 4.5 points.",
+      "linkedContext": []
+    },
+    {
+      "id": "401856742",
+      "game": "Vanderbilt at Mississippi St",
+      "before": 44,
+      "after": 44,
+      "delta": 0,
+      "originalFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        },
+        {
+          "label": "Very close projected spread",
+          "points": 4
+        }
+      ],
+      "proposedFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        },
+        {
+          "label": "Very close projected spread",
+          "points": 4
+        }
+      ],
+      "explanation": "Vanderbilt (3-5) and Mississippi St (4-4) meet. Mississippi St is a slight favorite with a 3-point spread; the line points to a close contest.",
+      "linkedContext": []
+    },
+    {
+      "id": "401858517",
+      "game": "Rutgers at Wisconsin",
+      "before": 38,
+      "after": 38,
+      "delta": 0,
+      "originalFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        },
+        {
+          "label": "Projected spread mismatch",
+          "points": -2.33
+        }
+      ],
+      "proposedFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        },
+        {
+          "label": "Projected spread mismatch",
+          "points": -2.33
+        }
+      ],
+      "explanation": "Rutgers (2-6) and Wisconsin (5-3) meet. Wisconsin is a heavy favorite by 17.5 points, so a one-sided game is a real possibility. Rutgers has struggled so far and faces another difficult test.",
+      "linkedContext": []
+    },
+    {
+      "id": "401869968",
+      "game": "South Alabama at Louisiana",
+      "before": 42,
+      "after": 42,
+      "delta": 0,
+      "originalFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        },
+        {
+          "label": "Competitive projected spread",
+          "points": 1.83
+        }
+      ],
+      "proposedFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        },
+        {
+          "label": "Competitive projected spread",
+          "points": 1.83
+        }
+      ],
+      "explanation": "South Alabama (4-4) and Louisiana (5-3) meet. Louisiana is a clear favorite by 7.5 points.",
+      "linkedContext": []
+    },
+    {
+      "id": "401860911",
+      "game": "Boise St at Colorado St",
+      "before": 41,
+      "after": 41,
+      "delta": 0,
+      "originalFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        },
+        {
+          "label": "Projected spread mismatch",
+          "points": -2.33
+        },
+        {
+          "label": "Ranked team",
+          "points": 3
+        }
+      ],
+      "proposedFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        },
+        {
+          "label": "Projected spread mismatch",
+          "points": -2.33
+        },
+        {
+          "label": "Ranked team",
+          "points": 3
+        }
+      ],
+      "explanation": "No. 25 Boise St (7-1) faces Colorado St (3-5). Boise St is a heavy favorite by 17.5 points, so a one-sided game is a real possibility. Colorado St has struggled so far and faces another difficult test.",
+      "linkedContext": []
+    },
+    {
+      "id": "401856745",
+      "game": "Kentucky at Tennessee",
+      "before": 73,
+      "after": 80,
+      "delta": 7,
+      "originalFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        },
+        {
+          "label": "Competitive projected spread",
+          "points": 2.25
+        },
+        {
+          "label": "Both winning records",
+          "points": 3
+        },
+        {
+          "label": "Two ranked teams",
+          "points": 21
+        },
+        {
+          "label": "Both top 20",
+          "points": 3
+        },
+        {
+          "label": "Top 10 team",
+          "points": 4
+        }
+      ],
+      "proposedFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        },
+        {
+          "label": "Competitive projected spread",
+          "points": 2.25
+        },
+        {
+          "label": "Both winning records",
+          "points": 3
+        },
+        {
+          "label": "Two ranked teams",
+          "points": 21
+        },
+        {
+          "label": "Both top 20",
+          "points": 3
+        },
+        {
+          "label": "Top 10 team",
+          "points": 4
+        },
+        {
+          "label": "Rivalry context",
+          "points": 7,
+          "contextType": "rivalry",
+          "contextText": "Kentucky and Tennessee meet for the 122nd time and only the fourth with both ranked; Kentucky enters with its best-ever CFP ranking at No. 6.",
+          "sourceUrl": "https://utsports.com/news/2026/11/2/football-16-16-vols-ramping-up-for-rivalry-showdown-against-8-7-kentucky",
+          "evidence": [
+            {
+              "url": "https://utsports.com/news/2026/11/2/football-16-16-vols-ramping-up-for-rivalry-showdown-against-8-7-kentucky",
+              "title": "Tennessee prepares for Kentucky rivalry",
+              "publishedAt": "2026-11-02",
+              "evidence": "The November 7 rivalry game is meeting 122; only three previous meetings featured two ranked teams.",
+              "reviewedAt": "2026-11-04T19:00:00Z"
+            },
+            {
+              "url": "https://collegefootballplayoff.com/news/2026/11/3/rankings",
+              "title": "First CFP rankings of 2026",
+              "publishedAt": "2026-11-03",
+              "evidence": "Kentucky is sixth, its highest position in CFP ranking history.",
+              "reviewedAt": "2026-11-04T19:00:00Z"
+            }
+          ],
+          "eventId": "401856745",
+          "factKey": "rare-ranked-border-rivalry"
+        }
+      ],
+      "explanation": "No. 6 Kentucky (7-1) and No. 13 Tennessee (6-2) meet in a ranked matchup. Tennessee is a clear favorite by 6.5 points.",
+      "linkedContext": [
+        {
+          "text": "Kentucky and Tennessee meet for the 122nd time and only the fourth with both ranked; Kentucky enters with its best-ever CFP ranking at No. 6.",
+          "url": "https://utsports.com/news/2026/11/2/football-16-16-vols-ramping-up-for-rivalry-showdown-against-8-7-kentucky",
+          "type": "rivalry",
+          "evidence": [
+            {
+              "url": "https://utsports.com/news/2026/11/2/football-16-16-vols-ramping-up-for-rivalry-showdown-against-8-7-kentucky",
+              "title": "Tennessee prepares for Kentucky rivalry",
+              "publishedAt": "2026-11-02",
+              "evidence": "The November 7 rivalry game is meeting 122; only three previous meetings featured two ranked teams.",
+              "reviewedAt": "2026-11-04T19:00:00Z"
+            },
+            {
+              "url": "https://collegefootballplayoff.com/news/2026/11/3/rankings",
+              "title": "First CFP rankings of 2026",
+              "publishedAt": "2026-11-03",
+              "evidence": "Kentucky is sixth, its highest position in CFP ranking history.",
+              "reviewedAt": "2026-11-04T19:00:00Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "401871075",
+      "game": "Sam Houston at Jax State",
+      "before": 38,
+      "after": 38,
+      "delta": 0,
+      "originalFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        },
+        {
+          "label": "Projected spread mismatch",
+          "points": -1.67
+        }
+      ],
+      "proposedFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        },
+        {
+          "label": "Projected spread mismatch",
+          "points": -1.67
+        }
+      ],
+      "explanation": "Sam Houston (1-7) and Jax State (6-2) meet. Jax State is a clear favorite by 16.5 points. Sam Houston has struggled so far and faces another difficult test.",
+      "linkedContext": []
+    },
+    {
+      "id": "401858291",
+      "game": "Miami at Notre Dame",
+      "before": 79,
+      "after": 88,
+      "delta": 9,
+      "originalFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        },
+        {
+          "label": "Competitive projected spread",
+          "points": 2.5
+        },
+        {
+          "label": "Both winning records",
+          "points": 3
+        },
+        {
+          "label": "Unbeaten team",
+          "points": 4
+        },
+        {
+          "label": "Two ranked teams",
+          "points": 22
+        },
+        {
+          "label": "Both top 20",
+          "points": 3
+        },
+        {
+          "label": "Top 10 team",
+          "points": 4
+        }
+      ],
+      "proposedFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        },
+        {
+          "label": "Competitive projected spread",
+          "points": 2.5
+        },
+        {
+          "label": "Both winning records",
+          "points": 3
+        },
+        {
+          "label": "Unbeaten team",
+          "points": 4
+        },
+        {
+          "label": "Two ranked teams",
+          "points": 22
+        },
+        {
+          "label": "Both top 20",
+          "points": 3
+        },
+        {
+          "label": "Top 10 team",
+          "points": 4
+        },
+        {
+          "label": "Rivalry context",
+          "points": 7,
+          "contextType": "rivalry",
+          "contextText": "Miami and Notre Dame renew their longstanding rivalry.",
+          "sourceUrl": "https://miamihurricanes.com/news/2026/11/2/canes-rewind-a-look-back-at-the-win-over-north-carolina",
+          "evidence": [
+            {
+              "url": "https://miamihurricanes.com/news/2026/11/2/canes-rewind-a-look-back-at-the-win-over-north-carolina",
+              "title": "Miami: Up Next, Notre Dame",
+              "publishedAt": "2026-11-02",
+              "evidence": "The Up Next section identifies the longtime rivalry and the coming South Bend game. Miami won the 2025 meeting 27-24 and later received the final CFP at-large place ahead of Notre Dame.",
+              "reviewedAt": "2026-11-04T19:00:00Z"
+            }
+          ],
+          "eventId": "401858291",
+          "factKey": "miami-notre-dame"
+        },
+        {
+          "label": "Verified rematch context",
+          "points": 2,
+          "contextType": "meaningful_rematch",
+          "contextText": "Miami's 27-24 win over Notre Dame in 2025 became central to the CFP selection debate when Miami took the final at-large berth ahead of the Irish.",
+          "sourceUrl": "https://miamihurricanes.com/news/2026/11/2/canes-rewind-a-look-back-at-the-win-over-north-carolina",
+          "evidence": [
+            {
+              "url": "https://miamihurricanes.com/news/2026/11/2/canes-rewind-a-look-back-at-the-win-over-north-carolina",
+              "title": "Miami: Up Next, Notre Dame",
+              "publishedAt": "2026-11-02",
+              "evidence": "The Up Next section identifies the longtime rivalry and the coming South Bend game. Miami won the 2025 meeting 27-24 and later received the final CFP at-large place ahead of Notre Dame.",
+              "reviewedAt": "2026-11-04T19:00:00Z"
+            }
+          ],
+          "eventId": "401858291",
+          "factKey": "selection-rematch"
+        }
+      ],
+      "explanation": "No. 1 Miami (8-0) and No. 11 Notre Dame (7-1) meet in a ranked matchup, with Miami's unbeaten season on the line. Miami and Notre Dame renew their longstanding rivalry. Notre Dame is a clear favorite by 6 points.",
+      "linkedContext": [
+        {
+          "text": "Miami's 27-24 win over Notre Dame in 2025 became central to the CFP selection debate when Miami took the final at-large berth ahead of the Irish.",
+          "url": "https://miamihurricanes.com/news/2026/11/2/canes-rewind-a-look-back-at-the-win-over-north-carolina",
+          "type": "meaningful_rematch",
+          "evidence": [
+            {
+              "url": "https://miamihurricanes.com/news/2026/11/2/canes-rewind-a-look-back-at-the-win-over-north-carolina",
+              "title": "Miami: Up Next, Notre Dame",
+              "publishedAt": "2026-11-02",
+              "evidence": "The Up Next section identifies the longtime rivalry and the coming South Bend game. Miami won the 2025 meeting 27-24 and later received the final CFP at-large place ahead of Notre Dame.",
+              "reviewedAt": "2026-11-04T19:00:00Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "401856741",
+      "game": "Georgia at Ole Miss",
+      "before": 81,
+      "after": 87,
+      "delta": 6,
+      "originalFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        },
+        {
+          "label": "Competitive projected spread",
+          "points": 3.75
+        },
+        {
+          "label": "Both winning records",
+          "points": 3
+        },
+        {
+          "label": "Two ranked teams",
+          "points": 25
+        },
+        {
+          "label": "Both top 20",
+          "points": 4
+        },
+        {
+          "label": "Top 10 team",
+          "points": 5
+        }
+      ],
+      "proposedFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        },
+        {
+          "label": "Competitive projected spread",
+          "points": 3.75
+        },
+        {
+          "label": "Both winning records",
+          "points": 3
+        },
+        {
+          "label": "Two ranked teams",
+          "points": 25
+        },
+        {
+          "label": "Both top 20",
+          "points": 4
+        },
+        {
+          "label": "Top 10 team",
+          "points": 5
+        },
+        {
+          "label": "Playoff rematch",
+          "points": 6,
+          "contextType": "playoff_rematch",
+          "contextText": "Georgia faces Ole Miss again after the Rebels ended its playoff run with a 39-34 CFP quarterfinal win in January 2026.",
+          "sourceUrl": "https://georgiadogs.com/news/2026/11/2/football-georgia-travels-to-oxford-to-take-on-ole-miss",
+          "evidence": [
+            {
+              "url": "https://georgiadogs.com/news/2026/11/2/football-georgia-travels-to-oxford-to-take-on-ole-miss",
+              "title": "Georgia travels to Oxford",
+              "publishedAt": "2026-11-02",
+              "evidence": "The upcoming opponents last met in the January 2026 CFP quarterfinal; Ole Miss won 39-34.",
+              "reviewedAt": "2026-11-04T19:00:00Z"
+            }
+          ],
+          "eventId": "401856741",
+          "factKey": "sugar-bowl-rematch"
+        }
+      ],
+      "explanation": "No. 2 Georgia and No. 10 Ole Miss meet with postseason stakes. Georgia is a slight favorite with a 3.5-point spread; the line points to a close contest. Both teams have winning records (7-1 and 6-2).",
+      "linkedContext": [
+        {
+          "text": "Georgia faces Ole Miss again after the Rebels ended its playoff run with a 39-34 CFP quarterfinal win in January 2026.",
+          "url": "https://georgiadogs.com/news/2026/11/2/football-georgia-travels-to-oxford-to-take-on-ole-miss",
+          "type": "playoff_rematch",
+          "evidence": [
+            {
+              "url": "https://georgiadogs.com/news/2026/11/2/football-georgia-travels-to-oxford-to-take-on-ole-miss",
+              "title": "Georgia travels to Oxford",
+              "publishedAt": "2026-11-02",
+              "evidence": "The upcoming opponents last met in the January 2026 CFP quarterfinal; Ole Miss won 39-34.",
+              "reviewedAt": "2026-11-04T19:00:00Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "401858513",
+      "game": "Iowa at Northwestern",
+      "before": 54,
+      "after": 54,
+      "delta": 0,
+      "originalFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        },
+        {
+          "label": "Very close projected spread",
+          "points": 4
+        },
+        {
+          "label": "Ranked team",
+          "points": 10
+        }
+      ],
+      "proposedFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        },
+        {
+          "label": "Very close projected spread",
+          "points": 4
+        },
+        {
+          "label": "Ranked team",
+          "points": 10
+        }
+      ],
+      "explanation": "No. 19 Iowa (6-2) faces Northwestern (6-2). Northwestern is a slight favorite with a 3-point spread; the line points to a close contest.",
+      "linkedContext": []
+    },
+    {
+      "id": "401856852",
+      "game": "Colorado at Arizona St",
+      "before": 44,
+      "after": 44,
+      "delta": 0,
+      "originalFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        },
+        {
+          "label": "Very close projected spread",
+          "points": 4
+        }
+      ],
+      "proposedFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        },
+        {
+          "label": "Very close projected spread",
+          "points": 4
+        }
+      ],
+      "explanation": "Colorado (3-5) and Arizona St (4-4) meet. Arizona St is a slight favorite with a 3-point spread; the line points to a close contest.",
+      "linkedContext": []
+    },
+    {
+      "id": "401858287",
+      "game": "Louisville at Georgia Tech",
+      "before": 40,
+      "after": 40,
+      "delta": 0,
+      "originalFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        },
+        {
+          "label": "Projected spread mismatch",
+          "points": -0.33
+        }
+      ],
+      "proposedFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        },
+        {
+          "label": "Projected spread mismatch",
+          "points": -0.33
+        }
+      ],
+      "explanation": "Louisville (5-3) and Georgia Tech (2-6) meet. Louisville is a clear favorite by 14.5 points. Georgia Tech has struggled so far and faces another difficult test.",
+      "linkedContext": []
+    },
+    {
+      "id": "401858511",
+      "game": "Michigan St at Michigan",
+      "before": 40,
+      "after": 40,
+      "delta": 0,
+      "originalFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        },
+        {
+          "label": "Competitive projected spread",
+          "points": 0.13
+        }
+      ],
+      "proposedFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        },
+        {
+          "label": "Competitive projected spread",
+          "points": 0.13
+        }
+      ],
+      "explanation": "Michigan St (2-6) and Michigan (5-3) meet. Michigan is a clear favorite by 13.5 points. Michigan St has struggled so far and faces another difficult test.",
+      "linkedContext": []
+    },
+    {
+      "id": "401862823",
+      "game": "Air Force at Army",
+      "before": 44,
+      "after": 51,
+      "delta": 7,
+      "originalFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        },
+        {
+          "label": "Very close projected spread",
+          "points": 4
+        }
+      ],
+      "proposedFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        },
+        {
+          "label": "Very close projected spread",
+          "points": 4
+        },
+        {
+          "label": "Rivalry context",
+          "points": 7,
+          "contextType": "rivalry",
+          "contextText": "Army and Air Force renew a service-academy rivalry played annually since 1971, with a result in the Commander-in-Chief's Trophy series at stake.",
+          "sourceUrl": "https://goarmywestpoint.com/news/2025/12/17/army-football-to-open-2026-vs-bryant-all-12-opponents-set",
+          "evidence": [
+            {
+              "url": "https://goarmywestpoint.com/news/2025/12/17/army-football-to-open-2026-vs-bryant-all-12-opponents-set",
+              "title": "Army announces 2026 opponents",
+              "publishedAt": "2025-12-17",
+              "evidence": "Army hosts service-academy rival Air Force on November 7. The series has been annual since 1971. Army meets Navy on December 12.",
+              "reviewedAt": "2026-11-04T19:00:00Z"
+            },
+            {
+              "url": "https://goarmywestpoint.com/documents/download/2025/10/28/Army_2025_Game_Notes__8__at_Air_Force.pdf",
+              "title": "Army game notes: Commander-in-Chief's Trophy",
+              "publishedAt": "2025-10-28",
+              "evidence": "Army, Navy and Air Force compete for the trophy in a round robin each season; Army-Navy is an established rivalry.",
+              "reviewedAt": "2026-11-04T19:00:00Z"
+            }
+          ],
+          "eventId": "401862823",
+          "factKey": "army-air-force"
+        }
+      ],
+      "explanation": "Air Force (6-2) and Army (5-3) bring winning records into this matchup. Army is a slight favorite with a 3-point spread; the line points to a close contest.",
+      "linkedContext": [
+        {
+          "text": "Army and Air Force renew a service-academy rivalry played annually since 1971, with a result in the Commander-in-Chief's Trophy series at stake.",
+          "url": "https://goarmywestpoint.com/news/2025/12/17/army-football-to-open-2026-vs-bryant-all-12-opponents-set",
+          "type": "rivalry",
+          "evidence": [
+            {
+              "url": "https://goarmywestpoint.com/news/2025/12/17/army-football-to-open-2026-vs-bryant-all-12-opponents-set",
+              "title": "Army announces 2026 opponents",
+              "publishedAt": "2025-12-17",
+              "evidence": "Army hosts service-academy rival Air Force on November 7. The series has been annual since 1971. Army meets Navy on December 12.",
+              "reviewedAt": "2026-11-04T19:00:00Z"
+            },
+            {
+              "url": "https://goarmywestpoint.com/documents/download/2025/10/28/Army_2025_Game_Notes__8__at_Air_Force.pdf",
+              "title": "Army game notes: Commander-in-Chief's Trophy",
+              "publishedAt": "2025-10-28",
+              "evidence": "Army, Navy and Air Force compete for the trophy in a round robin each season; Army-Navy is an established rivalry.",
+              "reviewedAt": "2026-11-04T19:00:00Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "401856739",
+      "game": "Oklahoma at Florida",
+      "before": 50,
+      "after": 50,
+      "delta": 0,
+      "originalFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        },
+        {
+          "label": "Competitive projected spread",
+          "points": 2.25
+        },
+        {
+          "label": "Ranked team",
+          "points": 8
+        }
+      ],
+      "proposedFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        },
+        {
+          "label": "Competitive projected spread",
+          "points": 2.25
+        },
+        {
+          "label": "Ranked team",
+          "points": 8
+        }
+      ],
+      "explanation": "No. 24 Florida (5-3) faces Oklahoma (4-4). Florida is a clear favorite by 6.5 points.",
+      "linkedContext": []
+    },
+    {
+      "id": "401870795",
+      "game": "Liberty at New Mexico St",
+      "before": 38,
+      "after": 38,
+      "delta": 0,
+      "originalFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        },
+        {
+          "label": "Projected spread mismatch",
+          "points": -1.67
+        }
+      ],
+      "proposedFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        },
+        {
+          "label": "Projected spread mismatch",
+          "points": -1.67
+        }
+      ],
+      "explanation": "Liberty (7-1) and New Mexico St (3-5) meet. Liberty is a clear favorite by 16.5 points. New Mexico St has struggled so far and faces another difficult test.",
+      "linkedContext": []
+    },
+    {
+      "id": "401856856",
+      "game": "West Virginia at Texas Tech",
+      "before": 41,
+      "after": 41,
+      "delta": 0,
+      "originalFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        },
+        {
+          "label": "Projected spread mismatch",
+          "points": -2.33
+        },
+        {
+          "label": "Ranked team",
+          "points": 3
+        }
+      ],
+      "proposedFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        },
+        {
+          "label": "Projected spread mismatch",
+          "points": -2.33
+        },
+        {
+          "label": "Ranked team",
+          "points": 3
+        }
+      ],
+      "explanation": "No. 15 Texas Tech (7-1) faces West Virginia (5-3). Texas Tech is a heavy favorite by 17.5 points, so a one-sided game is a real possibility. West Virginia has a strong record of 5-3 despite the large gap in market expectations.",
+      "linkedContext": []
+    },
+    {
+      "id": "401860913",
+      "game": "Fresno St at Utah State",
+      "before": 44,
+      "after": 44,
+      "delta": 0,
+      "originalFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        },
+        {
+          "label": "Very close projected spread",
+          "points": 4.17
+        }
+      ],
+      "proposedFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        },
+        {
+          "label": "Very close projected spread",
+          "points": 4.17
+        }
+      ],
+      "explanation": "Fresno St (5-3) and Utah State (3-5) meet. Fresno St is a slight favorite with a 2.5-point spread; the line points to a close contest.",
+      "linkedContext": []
+    },
+    {
+      "id": "401864532",
+      "game": "Hawai'i at UTEP",
+      "before": 41,
+      "after": 41,
+      "delta": 0,
+      "originalFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        },
+        {
+          "label": "Competitive projected spread",
+          "points": 1.17
+        }
+      ],
+      "proposedFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        },
+        {
+          "label": "Competitive projected spread",
+          "points": 1.17
+        }
+      ],
+      "explanation": "Hawai'i (2-6) and UTEP (1-7) meet with both teams looking to turn around a difficult start. Hawai'i is a clear favorite by 9.5 points. UTEP has struggled so far and faces another difficult test.",
+      "linkedContext": []
+    },
+    {
+      "id": "401860912",
+      "game": "Texas St at Oregon St",
+      "before": 42,
+      "after": 42,
+      "delta": 0,
+      "originalFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        },
+        {
+          "label": "Competitive projected spread",
+          "points": 2.25
+        }
+      ],
+      "proposedFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        },
+        {
+          "label": "Competitive projected spread",
+          "points": 2.25
+        }
+      ],
+      "explanation": "Texas St (4-4) and Oregon St (5-3) meet. Oregon St is a clear favorite by 6.5 points.",
+      "linkedContext": []
+    },
+    {
+      "id": "401864535",
+      "game": "Wyoming at UNLV",
+      "before": 43,
+      "after": 43,
+      "delta": 0,
+      "originalFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        },
+        {
+          "label": "Competitive projected spread",
+          "points": 2.5
+        }
+      ],
+      "proposedFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        },
+        {
+          "label": "Competitive projected spread",
+          "points": 2.5
+        }
+      ],
+      "explanation": "Wyoming and UNLV put matching 5-3 records to the test. UNLV is a clear favorite by 6 points. Their records are similar, even though the market gives one side a clear advantage.",
+      "linkedContext": []
+    },
+    {
+      "id": "401866681",
+      "game": "NC A&T at Monmouth",
+      "before": 40,
+      "after": 40,
+      "delta": 0,
+      "originalFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        }
+      ],
+      "proposedFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        }
+      ],
+      "explanation": "NC A&T (4-5) and Monmouth (7-2) meet. Monmouth looks the stronger side on results so far.",
+      "linkedContext": []
+    },
+    {
+      "id": "401866682",
+      "game": "Towson at Sacred Heart",
+      "before": 40,
+      "after": 40,
+      "delta": 0,
+      "originalFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        }
+      ],
+      "proposedFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        }
+      ],
+      "explanation": "Towson (1-8) and Sacred Heart (4-4) meet. Sacred Heart looks the stronger side on results so far.",
+      "linkedContext": []
+    },
+    {
+      "id": "401867810",
+      "game": "Brown at Yale",
+      "before": 40,
+      "after": 40,
+      "delta": 0,
+      "originalFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        }
+      ],
+      "proposedFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        }
+      ],
+      "explanation": "Brown and Yale put matching 4-3 records to the test. Their similar records suggest a competitive game.",
+      "linkedContext": []
+    },
+    {
+      "id": "401867839",
+      "game": "Dartmouth at Princeton",
+      "before": 40,
+      "after": 40,
+      "delta": 0,
+      "originalFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        }
+      ],
+      "proposedFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        }
+      ],
+      "explanation": "Dartmouth (4-3) and Princeton (5-2) bring winning records into this matchup.",
+      "linkedContext": []
+    },
+    {
+      "id": "401867914",
+      "game": "Long Island at New Haven",
+      "before": 40,
+      "after": 40,
+      "delta": 0,
+      "originalFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        }
+      ],
+      "proposedFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        }
+      ],
+      "explanation": "Long Island (3-6) and New Haven (2-7) meet with both teams looking to turn around a difficult start.",
+      "linkedContext": []
+    },
+    {
+      "id": "401867922",
+      "game": "Robert Morris at Duquesne",
+      "before": 40,
+      "after": 40,
+      "delta": 0,
+      "originalFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        }
+      ],
+      "proposedFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        }
+      ],
+      "explanation": "Robert Morris (4-5) and Duquesne (4-4) meet. Their similar records suggest a competitive game.",
+      "linkedContext": []
+    },
+    {
+      "id": "401867933",
+      "game": "Wagner at Mercyhurst",
+      "before": 40,
+      "after": 40,
+      "delta": 0,
+      "originalFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        }
+      ],
+      "proposedFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        }
+      ],
+      "explanation": "Wagner (1-8) and Mercyhurst (1-8) meet with both teams looking to turn around a difficult start. Neither has pulled away from the other on results so far.",
+      "linkedContext": []
+    },
+    {
+      "id": "401867976",
+      "game": "NC Central at Norfolk St",
+      "before": 40,
+      "after": 40,
+      "delta": 0,
+      "originalFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        }
+      ],
+      "proposedFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        }
+      ],
+      "explanation": "NC Central (4-5) and Norfolk St (4-5) meet with both teams looking to turn around a difficult start. Neither has pulled away from the other on results so far.",
+      "linkedContext": []
+    },
+    {
+      "id": "401868005",
+      "game": "Colgate at Lehigh",
+      "before": 40,
+      "after": 40,
+      "delta": 0,
+      "originalFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        }
+      ],
+      "proposedFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        }
+      ],
+      "explanation": "Colgate (5-4) and Lehigh (7-2) bring winning records into this matchup.",
+      "linkedContext": []
+    },
+    {
+      "id": "401868232",
+      "game": "Valparaiso at Dayton",
+      "before": 40,
+      "after": 40,
+      "delta": 0,
+      "originalFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        }
+      ],
+      "proposedFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        }
+      ],
+      "explanation": "Valparaiso (4-4) and Dayton (7-1) meet. Dayton looks the stronger side on results so far.",
+      "linkedContext": []
+    },
+    {
+      "id": "401868268",
+      "game": "Morehead St at Marist",
+      "before": 40,
+      "after": 40,
+      "delta": 0,
+      "originalFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        }
+      ],
+      "proposedFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        }
+      ],
+      "explanation": "Morehead St (2-7) and Marist (4-5) meet with both teams looking to turn around a difficult start.",
+      "linkedContext": []
+    },
+    {
+      "id": "401868020",
+      "game": "Holy Cross at Georgetown",
+      "before": 40,
+      "after": 40,
+      "delta": 0,
+      "originalFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        }
+      ],
+      "proposedFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        }
+      ],
+      "explanation": "Holy Cross (4-5) and Georgetown (3-4) meet with both teams looking to turn around a difficult start. Neither has pulled away from the other on results so far.",
+      "linkedContext": []
+    },
+    {
+      "id": "401866683",
+      "game": "UAlbany at Bryant",
+      "before": 40,
+      "after": 40,
+      "delta": 0,
+      "originalFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        }
+      ],
+      "proposedFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        }
+      ],
+      "explanation": "UAlbany (6-3) and Bryant (5-4) bring winning records into this matchup.",
+      "linkedContext": []
+    },
+    {
+      "id": "401866684",
+      "game": "Stony Brook at Campbell",
+      "before": 40,
+      "after": 40,
+      "delta": 0,
+      "originalFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        }
+      ],
+      "proposedFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        }
+      ],
+      "explanation": "Stony Brook (5-4) and Campbell (7-2) bring winning records into this matchup.",
+      "linkedContext": []
+    },
+    {
+      "id": "401866686",
+      "game": "Rhode Island at New Hampshire",
+      "before": 40,
+      "after": 40,
+      "delta": 0,
+      "originalFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        }
+      ],
+      "proposedFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        }
+      ],
+      "explanation": "Rhode Island (5-4) and New Hampshire (2-7) meet. Rhode Island looks the stronger side on results so far.",
+      "linkedContext": []
+    },
+    {
+      "id": "401867824",
+      "game": "Columbia at Harvard",
+      "before": 40,
+      "after": 40,
+      "delta": 0,
+      "originalFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        }
+      ],
+      "proposedFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        }
+      ],
+      "explanation": "Columbia (4-3) and Harvard (6-1) bring winning records into this matchup. Harvard looks the stronger side on results so far.",
+      "linkedContext": []
+    },
+    {
+      "id": "401867832",
+      "game": "Penn at Cornell",
+      "before": 40,
+      "after": 40,
+      "delta": 0,
+      "originalFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        }
+      ],
+      "proposedFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        }
+      ],
+      "explanation": "Penn (3-4) and Cornell (3-4) meet with both teams looking to turn around a difficult start. Neither has pulled away from the other on results so far.",
+      "linkedContext": []
+    },
+    {
+      "id": "401867904",
+      "game": "C Connecticut at Stonehill",
+      "before": 40,
+      "after": 40,
+      "delta": 0,
+      "originalFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        }
+      ],
+      "proposedFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        }
+      ],
+      "explanation": "C Connecticut (5-3) and Stonehill (4-5) meet.",
+      "linkedContext": []
+    },
+    {
+      "id": "401867957",
+      "game": "Morgan St at Delaware St",
+      "before": 40,
+      "after": 40,
+      "delta": 0,
+      "originalFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        }
+      ],
+      "proposedFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        }
+      ],
+      "explanation": "Morgan St and Delaware St put matching 5-4 records to the test. Their similar records suggest a competitive game.",
+      "linkedContext": []
+    },
+    {
+      "id": "401867996",
+      "game": "Fordham at Bucknell",
+      "before": 40,
+      "after": 40,
+      "delta": 0,
+      "originalFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        }
+      ],
+      "proposedFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        }
+      ],
+      "explanation": "Fordham (2-7) and Bucknell (1-8) meet with both teams looking to turn around a difficult start.",
+      "linkedContext": []
+    },
+    {
+      "id": "401868031",
+      "game": "Lafayette at William & Mary",
+      "before": 40,
+      "after": 40,
+      "delta": 0,
+      "originalFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        }
+      ],
+      "proposedFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        }
+      ],
+      "explanation": "Lafayette (3-5) and William & Mary (3-6) meet with both teams looking to turn around a difficult start. Neither has pulled away from the other on results so far.",
+      "linkedContext": []
+    },
+    {
+      "id": "401868038",
+      "game": "Richmond at Villanova",
+      "before": 40,
+      "after": 40,
+      "delta": 0,
+      "originalFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        }
+      ],
+      "proposedFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        }
+      ],
+      "explanation": "Richmond (6-3) and Villanova (5-4) bring winning records into this matchup.",
+      "linkedContext": []
+    },
+    {
+      "id": "401868216",
+      "game": "St Thomas at Butler",
+      "before": 40,
+      "after": 40,
+      "delta": 0,
+      "originalFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        }
+      ],
+      "proposedFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        }
+      ],
+      "explanation": "St Thomas and Butler put matching 7-2 records to the test. Their similar records suggest a competitive game.",
+      "linkedContext": []
+    },
+    {
+      "id": "401868224",
+      "game": "Stetson at Davidson",
+      "before": 40,
+      "after": 40,
+      "delta": 0,
+      "originalFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        }
+      ],
+      "proposedFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        }
+      ],
+      "explanation": "Stetson (1-8) and Davidson (3-6) meet with both teams looking to turn around a difficult start.",
+      "linkedContext": []
+    },
+    {
+      "id": "401868259",
+      "game": "San Diego at Drake",
+      "before": 40,
+      "after": 40,
+      "delta": 0,
+      "originalFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        }
+      ],
+      "proposedFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        }
+      ],
+      "explanation": "San Diego (4-5) and Drake (3-6) meet with both teams looking to turn around a difficult start.",
+      "linkedContext": []
+    },
+    {
+      "id": "401868343",
+      "game": "Mercer at Chattanooga",
+      "before": 40,
+      "after": 40,
+      "delta": 0,
+      "originalFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        }
+      ],
+      "proposedFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        }
+      ],
+      "explanation": "Mercer (7-2) and Chattanooga (6-3) bring winning records into this matchup.",
+      "linkedContext": []
+    },
+    {
+      "id": "401868350",
+      "game": "Samford at ETSU",
+      "before": 40,
+      "after": 40,
+      "delta": 0,
+      "originalFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        }
+      ],
+      "proposedFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        }
+      ],
+      "explanation": "Samford (3-6) and ETSU (6-3) meet. ETSU looks the stronger side on results so far.",
+      "linkedContext": []
+    },
+    {
+      "id": "401868399",
+      "game": "Wofford at W Carolina",
+      "before": 40,
+      "after": 40,
+      "delta": 0,
+      "originalFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        }
+      ],
+      "proposedFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        }
+      ],
+      "explanation": "Wofford (5-4) and W Carolina (4-5) meet.",
+      "linkedContext": []
+    },
+    {
+      "id": "401868191",
+      "game": "Lindenwood at Gardner-Webb",
+      "before": 40,
+      "after": 40,
+      "delta": 0,
+      "originalFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        }
+      ],
+      "proposedFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        }
+      ],
+      "explanation": "Lindenwood (4-4) and Gardner-Webb (3-6) meet.",
+      "linkedContext": []
+    },
+    {
+      "id": "401866685",
+      "game": "Hampton at Elon",
+      "before": 40,
+      "after": 40,
+      "delta": 0,
+      "originalFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        }
+      ],
+      "proposedFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        }
+      ],
+      "explanation": "Hampton (1-8) and Elon (4-5) meet with both teams looking to turn around a difficult start. Elon looks the stronger side on results so far.",
+      "linkedContext": []
+    },
+    {
+      "id": "401867852",
+      "game": "Illinois St at North Dakota",
+      "before": 40,
+      "after": 40,
+      "delta": 0,
+      "originalFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        }
+      ],
+      "proposedFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        }
+      ],
+      "explanation": "Illinois St (7-2) and North Dakota (6-4) bring winning records into this matchup.",
+      "linkedContext": []
+    },
+    {
+      "id": "401867872",
+      "game": "Youngstown St at Murray St",
+      "before": 40,
+      "after": 40,
+      "delta": 0,
+      "originalFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        }
+      ],
+      "proposedFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        }
+      ],
+      "explanation": "Youngstown St (7-2) and Murray St (1-8) meet. Youngstown St looks the stronger side on results so far.",
+      "linkedContext": []
+    },
+    {
+      "id": "401868176",
+      "game": "UT Martin at Charleston So",
+      "before": 40,
+      "after": 40,
+      "delta": 0,
+      "originalFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        }
+      ],
+      "proposedFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        }
+      ],
+      "explanation": "UT Martin (3-6) and Charleston So (4-5) meet with both teams looking to turn around a difficult start.",
+      "linkedContext": []
+    },
+    {
+      "id": "401868252",
+      "game": "UT Rio Grande at N'Western St",
+      "before": 40,
+      "after": 40,
+      "delta": 0,
+      "originalFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        }
+      ],
+      "proposedFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        }
+      ],
+      "explanation": "UT Rio Grande (4-5) and N'Western St (0-9) meet with both teams looking to turn around a difficult start. UT Rio Grande looks the stronger side on results so far.",
+      "linkedContext": []
+    },
+    {
+      "id": "401868379",
+      "game": "Furman at The Citadel",
+      "before": 40,
+      "after": 40,
+      "delta": 0,
+      "originalFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        }
+      ],
+      "proposedFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        }
+      ],
+      "explanation": "Furman (2-7) and The Citadel (2-7) meet with both teams looking to turn around a difficult start. Neither has pulled away from the other on results so far.",
+      "linkedContext": []
+    },
+    {
+      "id": "401872617",
+      "game": "S Dakota St at Northern Iowa",
+      "before": 40,
+      "after": 40,
+      "delta": 0,
+      "originalFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        }
+      ],
+      "proposedFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        }
+      ],
+      "explanation": "S Dakota St (7-2) and Northern Iowa (4-4) meet. S Dakota St looks the stronger side on results so far.",
+      "linkedContext": []
+    },
+    {
+      "id": "401868393",
+      "game": "VMI at Tennessee Tech",
+      "before": 40,
+      "after": 40,
+      "delta": 0,
+      "originalFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        }
+      ],
+      "proposedFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        }
+      ],
+      "explanation": "VMI (0-9) and Tennessee Tech (8-1) meet. Tennessee Tech looks the stronger side on results so far.",
+      "linkedContext": []
+    },
+    {
+      "id": "401868116",
+      "game": "Portland St at Montana",
+      "before": 40,
+      "after": 40,
+      "delta": 0,
+      "originalFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        }
+      ],
+      "proposedFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        }
+      ],
+      "explanation": "Portland St (2-7) and Montana (6-3) meet. Montana looks the stronger side on results so far.",
+      "linkedContext": []
+    },
+    {
+      "id": "401868153",
+      "game": "N Colorado at Southern Utah",
+      "before": 40,
+      "after": 40,
+      "delta": 0,
+      "originalFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        }
+      ],
+      "proposedFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        }
+      ],
+      "explanation": "N Colorado (3-6) and Southern Utah (3-6) meet with both teams looking to turn around a difficult start. Neither has pulled away from the other on results so far.",
+      "linkedContext": []
+    },
+    {
+      "id": "401868184",
+      "game": "W Illinois at E Illinois",
+      "before": 40,
+      "after": 40,
+      "delta": 0,
+      "originalFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        }
+      ],
+      "proposedFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        }
+      ],
+      "explanation": "W Illinois (5-4) and E Illinois (3-6) meet.",
+      "linkedContext": []
+    },
+    {
+      "id": "401868302",
+      "game": "Alabama A&M at Prairie View",
+      "before": 40,
+      "after": 40,
+      "delta": 0,
+      "originalFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        }
+      ],
+      "proposedFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        }
+      ],
+      "explanation": "Alabama A&M (7-2) and Prairie View (4-5) meet. Alabama A&M looks the stronger side on results so far.",
+      "linkedContext": []
+    },
+    {
+      "id": "401868331",
+      "game": "Alabama St at Texas Southern",
+      "before": 40,
+      "after": 40,
+      "delta": 0,
+      "originalFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        }
+      ],
+      "proposedFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        }
+      ],
+      "explanation": "Alabama St (4-4) and Texas Southern (3-5) meet.",
+      "linkedContext": []
+    },
+    {
+      "id": "401868363",
+      "game": "Florida A&M at Alcorn St",
+      "before": 40,
+      "after": 40,
+      "delta": 0,
+      "originalFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        }
+      ],
+      "proposedFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        }
+      ],
+      "explanation": "Florida A&M (2-7) and Alcorn St (5-4) meet. Alcorn St looks the stronger side on results so far.",
+      "linkedContext": []
+    },
+    {
+      "id": "401868939",
+      "game": "AR-Pine Bluff at Grambling",
+      "before": 40,
+      "after": 40,
+      "delta": 0,
+      "originalFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        }
+      ],
+      "proposedFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        }
+      ],
+      "explanation": "AR-Pine Bluff (5-3) and Grambling (4-4) meet.",
+      "linkedContext": []
+    },
+    {
+      "id": "401868945",
+      "game": "Bethune at Southern",
+      "before": 40,
+      "after": 40,
+      "delta": 0,
+      "originalFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        }
+      ],
+      "proposedFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        }
+      ],
+      "explanation": "Bethune (5-4) and Southern (4-5) meet.",
+      "linkedContext": []
+    },
+    {
+      "id": "401868961",
+      "game": "Miss Valley St at Jackson St",
+      "before": 40,
+      "after": 40,
+      "delta": 0,
+      "originalFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        }
+      ],
+      "proposedFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        }
+      ],
+      "explanation": "Miss Valley St (3-6) and Jackson St (6-2) meet. Jackson St looks the stronger side on results so far.",
+      "linkedContext": []
+    },
+    {
+      "id": "401868200",
+      "game": "SE Missouri at Tennessee St",
+      "before": 40,
+      "after": 40,
+      "delta": 0,
+      "originalFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        }
+      ],
+      "proposedFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        }
+      ],
+      "explanation": "SE Missouri (5-4) and Tennessee St (2-7) meet. SE Missouri looks the stronger side on results so far.",
+      "linkedContext": []
+    },
+    {
+      "id": "401868313",
+      "game": "SF Austin at Lamar",
+      "before": 40,
+      "after": 40,
+      "delta": 0,
+      "originalFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        }
+      ],
+      "proposedFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        }
+      ],
+      "explanation": "SF Austin (9-0) and Lamar (7-2) bring winning records into this matchup.",
+      "linkedContext": []
+    },
+    {
+      "id": "401869153",
+      "game": "East Texas A&M at Nicholls",
+      "before": 40,
+      "after": 40,
+      "delta": 0,
+      "originalFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        }
+      ],
+      "proposedFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        }
+      ],
+      "explanation": "East Texas A&M (3-6) and Nicholls (3-6) meet with both teams looking to turn around a difficult start. Neither has pulled away from the other on results so far.",
+      "linkedContext": []
+    },
+    {
+      "id": "401868068",
+      "game": "E Kentucky at Austin Peay",
+      "before": 40,
+      "after": 40,
+      "delta": 0,
+      "originalFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        }
+      ],
+      "proposedFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        }
+      ],
+      "explanation": "E Kentucky (3-6) and Austin Peay (7-2) meet. Austin Peay looks the stronger side on results so far.",
+      "linkedContext": []
+    },
+    {
+      "id": "401868082",
+      "game": "N Arizona at Cal Poly",
+      "before": 40,
+      "after": 40,
+      "delta": 0,
+      "originalFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        }
+      ],
+      "proposedFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        }
+      ],
+      "explanation": "N Arizona (7-2) and Cal Poly (4-6) meet. N Arizona looks the stronger side on results so far.",
+      "linkedContext": []
+    },
+    {
+      "id": "401868090",
+      "game": "E Washington at Idaho",
+      "before": 40,
+      "after": 40,
+      "delta": 0,
+      "originalFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        }
+      ],
+      "proposedFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        }
+      ],
+      "explanation": "E Washington (2-7) and Idaho (4-5) meet with both teams looking to turn around a difficult start.",
+      "linkedContext": []
+    },
+    {
+      "id": "401868137",
+      "game": "West Georgia at C Arkansas",
+      "before": 40,
+      "after": 40,
+      "delta": 0,
+      "originalFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        }
+      ],
+      "proposedFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        }
+      ],
+      "explanation": "West Georgia (1-8) and C Arkansas (2-7) meet with both teams looking to turn around a difficult start.",
+      "linkedContext": []
+    },
+    {
+      "id": "401869140",
+      "game": "McNeese at Hou Christian",
+      "before": 40,
+      "after": 40,
+      "delta": 0,
+      "originalFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        }
+      ],
+      "proposedFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        }
+      ],
+      "explanation": "McNeese (4-5) and Hou Christian (4-5) meet with both teams looking to turn around a difficult start. Neither has pulled away from the other on results so far.",
+      "linkedContext": []
+    },
+    {
+      "id": "401867862",
+      "game": "S Illinois at Indiana St",
+      "before": 40,
+      "after": 40,
+      "delta": 0,
+      "originalFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        }
+      ],
+      "proposedFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        }
+      ],
+      "explanation": "S Illinois (4-5) and Indiana St (2-7) meet with both teams looking to turn around a difficult start.",
+      "linkedContext": []
+    },
+    {
+      "id": "401868108",
+      "game": "Montana St at Idaho St",
+      "before": 40,
+      "after": 40,
+      "delta": 0,
+      "originalFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        }
+      ],
+      "proposedFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        }
+      ],
+      "explanation": "Montana St (8-1) and Idaho St (6-3) bring winning records into this matchup.",
+      "linkedContext": []
+    },
+    {
+      "id": "401868057",
+      "game": "Abilene Chrstn at Tarleton St",
+      "before": 40,
+      "after": 40,
+      "delta": 0,
+      "originalFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        }
+      ],
+      "proposedFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        }
+      ],
+      "explanation": "Abilene Chrstn (5-4) and Tarleton St (9-0) bring winning records into this matchup. Tarleton St looks the stronger side on results so far.",
+      "linkedContext": []
+    },
+    {
+      "id": "401868152",
+      "game": "West Florida at North Alabama",
+      "before": 40,
+      "after": 40,
+      "delta": 0,
+      "originalFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        }
+      ],
+      "proposedFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        }
+      ],
+      "explanation": "West Florida (4-3) and North Alabama (5-4) bring winning records into this matchup. Their similar records suggest a competitive game.",
+      "linkedContext": []
+    },
+    {
+      "id": "401868166",
+      "game": "Utah Tech at UC Davis",
+      "before": 40,
+      "after": 40,
+      "delta": 0,
+      "originalFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        }
+      ],
+      "proposedFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        }
+      ],
+      "explanation": "Utah Tech (1-8) and UC Davis (5-4) meet. UC Davis looks the stronger side on results so far.",
+      "linkedContext": []
+    },
+    {
+      "id": "401868321",
+      "game": "Incarnate Word at SE Louisiana",
+      "before": 40,
+      "after": 40,
+      "delta": 0,
+      "originalFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        }
+      ],
+      "proposedFactors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 8
+        }
+      ],
+      "explanation": "Incarnate Word (5-4) and SE Louisiana (4-5) meet.",
+      "linkedContext": []
+    }
+  ]
+}

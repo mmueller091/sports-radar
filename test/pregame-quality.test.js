@@ -44,9 +44,9 @@ test('editorial story copy preserves the source headline, including uncertainty 
   assert.equal(api.publicStorySentence({type:'editorial_storyline',sourceTitle:'A player could return if cleared'}),'A player could return if cleared.');
 });
 
-test('BYU–Utah rivalry is displayed only for the verified college pair without changing its score',()=>{
+test('a BYU–Utah identity alone cannot imply rivalry scoring credit or mutate its rating',()=>{
   const game=structuredClone(fixtures.games.find(row=>row.game.id==='401856849').game),original=JSON.stringify(game);
-  assert.match(api.explainRating(game),/BYU–Utah rivalry/);assert.equal(JSON.stringify(game),original);
+  assert.doesNotMatch(api.explainRating(game),/rivalry|bragging rights/);assert.equal(JSON.stringify(game),original);
   assert.doesNotMatch(api.explainRating({...game,sport:'NCAAB'}),/BYU–Utah rivalry/);
   game.teams[0][8]='999';assert.doesNotMatch(api.explainRating(game),/BYU–Utah rivalry/);
 });

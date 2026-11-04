@@ -137,12 +137,14 @@
 
         points,
         sourceUrl:item.sourceUrl,
+        ...(item.registryVersion ? {evidence:item.evidence,eventId:item.eventId,factKey:item.factKey} : {}),
         returnSignificance:type==='star_injury_return' ? item.injuryEvidence?.playerSignificance : undefined,
 
         dedupeKey:
           options.calibratedPregame && options.sport==='NFL' &&
             ['former_captain_return','first_game_back','former_star_return','star_injury_return','season_debut'].includes(type)
-            ? 'player-return' : String(
+            ? 'player-return' : options.calibratedPregame && options.sport==='CFB' &&
+              ['championship_rematch','playoff_rematch','meaningful_rematch'].includes(type) ? 'rematch' : String(
             item?.dedupeKey ||
             (
               [
@@ -153,7 +155,8 @@
                 ? 'former-team-return'
                 : [
                     'championship_rematch',
-                    'playoff_rematch'
+                    'playoff_rematch',
+                    ...(options.calibratedPregame && options.sport==='CFB' ? ['meaningful_rematch'] : [])
                   ].includes(type)
                   ? 'rematch'
                   : type
@@ -217,6 +220,7 @@
         contextType:item.type,
         contextText:item.text,
         ...(item.sourceUrl ? {sourceUrl:item.sourceUrl} : {}),
+        ...(item.evidence ? {evidence:item.evidence,eventId:item.eventId,factKey:item.factKey} : {}),
         ...(item.returnSignificance ? {returnSignificance:item.returnSignificance} : {})
       });
     }

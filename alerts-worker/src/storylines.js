@@ -1,6 +1,7 @@
 import '../../rating-core.js';
 import {reserveResearchAi,measuredResearchInference} from './ai-budget.js';
-import {EDITORIAL_TYPE,editorialArticleEligible,acceptEditorialReview,discoverEditorialStories} from './editorial-context.js';
+import {EDITORIAL_TYPE,editorialArticleEligible,acceptEditorialReview,discoverEditorialStories,cfbArticleRelevant} from './editorial-context.js';
+import cfbContext from '../../scoring/cfb-verified-context.cjs';
 import {RESEARCH_LIMITS,DIAGNOSTIC_KEY,cachedResearchSlate,selectResearchGames,researchDiagnostics,publicLinkEligible} from './research-allocation.js';
 
 const {
@@ -67,7 +68,8 @@ function researchGame(sport,event,now=Date.now()) {
   const rating = rateGame(sport,'upcoming',teams,event,competition,context);
   const ranked = teams.some(team => Number.isInteger(team.rank) && team.rank >= 1 && team.rank <= 25);
   const postseason = /(playoff|postseason|championship|world series|bowl|final four|tournament|wild card)/i.test(context);
-  const eligible = sport === 'NFL' || postseason || (['CFB','NCAAB'].includes(sport) ? ranked : rating.score >= 47);
+  const verifiedContext=cfbContext.cfbResearchPriority({sport,id:String(event.id),startTime:event.date,state:state==='pre'?'upcoming':'live',teams},now);
+  const eligible = sport === 'NFL' || postseason || verifiedContext || (['CFB','NCAAB'].includes(sport) ? ranked : rating.score >= 47);
   if (!eligible) return null;
 
   return {
@@ -105,6 +107,7 @@ function strongStoryText(text) {
 }
 
 function articleMatchesGame(article,game,now=Date.now()) {
+  if(!cfbArticleRelevant(article,game))return false;
   if (!article.headline || !Number.isFinite(article.published) || now - article.published > ARTICLE_MAX_AGE_MS || article.published>now+300000) return false;
   if (/recap/i.test(article.type||'') || /\/recap(?:[/?]|$)/i.test(article.url||'') || /game highlights/i.test(article.headline)) return false;
   const text=`${article.headline} ${article.description || ''}`;
@@ -499,6 +502,14 @@ export async function contextsForGames(env,keys,games=[],now=Date.now()) {
       publishedAt:row.source_published ? new Date(Number(row.source_published) * 1000).toISOString() : null,
       ...(injuryEvidence ? {injuryEvidence} : {})
     });
+  }
+  // The checked-in registry is an independent, reviewed evidence channel. It
+  // cannot be populated by an editorial verdict and does not need AI/news slots.
+  for(const game of games.filter(Boolean)) {
+    const key=`${game.sport}:${game.id}`;
+    if(!allowed.has(key)||game.sport!=='CFB')continue;
+    const merged=cfbContext.mergeCfbContexts(game,output[key]||[],now);
+    if(merged.length)output[key]=merged;
   }
   return output;
 }

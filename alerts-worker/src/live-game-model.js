@@ -4,6 +4,7 @@ import * as legacy from './game-model.js';
 import runtime from '../../scoring/live-runtime.cjs';
 import football from '../../scoring/football-live.cjs';
 import footballMarket from '../../scoring/football-market.cjs';
+import cfbContext from '../../scoring/cfb-verified-context.cjs';
 import {footballSituation,baseballSituation} from './display-model.js';
 export {preservePregameRecords} from './game-model.js';
 
@@ -39,7 +40,8 @@ export function normalizeEvent(...args) {
   if(game&&footballMarket.supports(game))Object.defineProperty(game,'marketAsOf',{value:Date.now(),writable:true,configurable:true,enumerable:false});
   return finish(game);
 }
-export function applyContextsToGame(game,factors) {
+export function applyContextsToGame(game,factors,now=Date.now()) {
+  if(game.sport==='CFB'&&Array.isArray(factors))factors=factors.filter(f=>!f?.registryVersion||cfbContext.verifiedCfbContextEligible(f,game,now));
   const changed=legacy.applyContextsToGame(game,factors);
   if (changed) finish(game);
   return changed;

@@ -26,9 +26,9 @@ test('Detroit-Tampa Bay names the favorite and divisional reason to watch withou
   assert.match(text,/Atlantic Division/);assert.match(text,/Lightning are clear favorites/);assert.doesNotMatch(text,/neither side much of an edge/);
   assert.doesNotMatch(text,/Lightning has|1\.5.point|Faulk|Panthers|former.*return|half.*points/);
 });
-test('BYU-Utah keeps its verified rivalry while other games get context from their own supplied facts',()=>{
+test('rivalry explanations require supplied scoring facts for BYU-Utah and other games alike',()=>{
   const text=explain(game('401856849'));
-  assert.match(text,/Utah's unbeaten season/);assert.match(text,/long-running BYU–Utah rivalry/);assert.match(text,/5\.5 points/);
+  assert.match(text,/Utah's unbeaten season/);assert.doesNotMatch(text,/rivalry|bragging rights/);assert.match(text,/5\.5 points/);
   const other=game('401858291');assert.match(explain(other),/Miami's unbeaten season/);assert.doesNotMatch(explain(other),/rivalry|BYU|bragging/);
   other.factors.push({label:'Rivalry',points:4,contextType:'rivalry',contextText:'This is their final scheduled meeting before a break in the series.'});
   const result=explain(other);assert.match(result,/final scheduled meeting before a break/);assert.equal(result.match(/final scheduled meeting/g).length,1);

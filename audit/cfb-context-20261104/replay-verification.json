@@ -1,0 +1,40 @@
+{
+  "baseline": "2026-11-03.live-underdog.1",
+  "candidate": "2026-11-04.cfb-context.1",
+  "states": 1997,
+  "allResultsIdentical": true,
+  "perSport": [
+    {
+      "sport": "NFL",
+      "states": 220,
+      "repeatedDifferences": 0
+    },
+    {
+      "sport": "CFB",
+      "states": 177,
+      "repeatedDifferences": 0
+    },
+    {
+      "sport": "MLB",
+      "states": 385,
+      "repeatedDifferences": 0
+    },
+    {
+      "sport": "NHL",
+      "states": 312,
+      "repeatedDifferences": 0
+    },
+    {
+      "sport": "NBA",
+      "states": 499,
+      "repeatedDifferences": 0
+    },
+    {
+      "sport": "NCAAB",
+      "states": 404,
+      "repeatedDifferences": 0
+    }
+  ],
+  "baselineSource": "1355215aae6e7bab6a1eca7f11b8821698ca69c53199e8a825a9f91725f753c0",
+  "candidateSource": "9d5a58d596ae569e48cbe78f9939623932867cda62ade450f6b42c54fd91b19f"
+}

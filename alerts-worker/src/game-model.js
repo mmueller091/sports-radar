@@ -276,6 +276,8 @@ function applyContextsToGame(game,factors) {
     verified:true,
     sourceTitle:factor.sourceTitle,
     sourceUrl:factor.sourceUrl,
+    ...(factor.registryVersion ? {registryVersion:factor.registryVersion,factKey:factor.factKey,eventId:factor.eventId,
+      teamIds:factor.teamIds,eventDate:factor.eventDate,expiresAt:factor.expiresAt,evidence:factor.evidence} : {}),
     ...(factor.injuryEvidence ? {injuryEvidence:factor.injuryEvidence} : {})
   }));
   const rating = rateGame(

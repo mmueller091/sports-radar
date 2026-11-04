@@ -2748,7 +2748,8 @@ function upcomingLinkedStories(game,now=Date.now()) {
     .filter(story=>{
       if(!story||story.verified===false||game.suppressedContextTypes?.includes(story.type))return false;
       const at=story.publishedAt?Date.parse(story.publishedAt):Number(story.sourcePublished)*1000;
-      if(!Number.isFinite(at)||at>now+60000||now-at>7*86400000)return false;
+      if(story.registryVersion){if(!globalThis.SportsRadarScore?.verifiedCfbContextEligible(story,game,now))return false;}
+      else if(!Number.isFinite(at)||at>now+60000||now-at>7*86400000)return false;
       if(!/^https?:\/\/[a-z0-9](?:[a-z0-9.-]*[a-z0-9])?(?::\d+)?(?:[/?#]|$)/i.test(story.sourceUrl||''))return false;
       if(/\/(?:recap|preview)(?:[/?]|$)/i.test(story.sourceUrl))return false;
       if(story.type==='notable_recent_performance')return false;
@@ -2767,7 +2768,7 @@ function publicStorySentence(factor,stories=[]) {
   const title=clean(factor.sourceTitle || story?.sourceTitle);
   const description=clean(factor.sourceDescription || story?.sourceDescription);
   // Editorial discoveries are source headlines, never model-authored prose.
-  if((factor.type||factor.contextType)==='editorial_storyline'&&title)
+  if((factor.type||factor.contextType)==='editorial_storyline'&&title&&!factor.registryVersion)
     return /[.!?]["'\u2019\u201d)\]]*$/.test(title)?title:title+'.';
   const conditional=/\b(?:if|unless|pending|subject to|could|may|might|not|no|clearance|cleared|questionable|doubtful|uncertain)\b/i;
   // Source evidence may include both a headline and its lede. Public copy
@@ -2879,8 +2880,7 @@ function pregameExplanation(game,verified=[]) {
   const market=narrativeMarket(game),spread=market.spread,favorite=market.favorite;
   const hasSpread=spread!==null&&['NFL','CFB','NBA','NCAAB'].includes(sport);
   const division=factors.find(f=>/^(?:(?:AFC|NFC) (?:East|North|South|West)|(?:AL|NL) (?:East|Central|West)|(?:Atlantic|Metropolitan|Central|Pacific|Northwest|Southeast|Southwest) Division) matchup$/.test(f.label||''))?.label.replace(' matchup','');
-  const byuUtah=sport==='CFB'&&teams.map(t=>String(t[8])).sort().join(':')==='252:254';
-  const rivalry=byuUtah||has(/^Rivalry$|^Rivalry context$/);
+  const rivalry=has(/^Rivalry$|^Rivalry context$/);
   const postseason=has(/World Series|^Championship$|Super Bowl|Stanley Cup Final|Postseason|Playoff|Elimination|Final round/);
   const occasion=game.eventOccasion;
   const opener=has(/^Season opener$/)||records.every(Boolean)&&games.every(n=>n===0);
@@ -2928,8 +2928,7 @@ function pregameExplanation(game,verified=[]) {
   const linked=upcomingLinkedStories(game);
   const rivalryStory=verified.find(f=>f.contextType==='rivalry'&&
     !/\/(?:recap|preview)(?:[/?]|$)/i.test(f.sourceUrl||''));
-  if(byuUtah)add('The long-running BYU–Utah rivalry adds local bragging rights');
-  else if(rivalryStory&&!linked.some(s=>s.type==='rivalry'))add(rivalryStory.publicText);
+  if(rivalryStory&&!linked.some(s=>s.type==='rivalry'))add(rivalryStory.publicText);
   else if(rivalry&&!rivalryStory)add(unbeaten.length===1?
     `The rivalry gives ${name(unbeaten[0])}'s unbeaten run an added test`:'Rivalry stakes add another reason to follow this meeting');
   if(division&&!divisionUsed) {

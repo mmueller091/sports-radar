@@ -9,8 +9,26 @@ const clean=value=>String(value||'').replace(/\s+/g,' ').trim();
 const kinds=new Set(['coaching','player_return','off_field','rivalry']);
 const sourceText=article=>clean(article.description||article.headline);
 
+// A future scheduling announcement about one participant does not explain this
+// matchup. Keep current coaching/availability developments eligible for review.
+export function cfbArticleRelevant(article,game) {
+  if(game?.sport!=='CFB')return true;
+  const text=clean(`${article.headline||''} ${article.description||''}`).toLowerCase();
+  if(!/schedul|home-and-home|series|hiatus|\b20\d{2}\b/.test(text))return true;
+  const teams=game.teams||[];
+  const named=teams.map(t=>{
+    const name=String(t.name||t[0]||'').toLowerCase(),short=String(t.shortName||t[7]||'').toLowerCase();
+    const words=name.split(' ');
+    const aliases=[name,short,...[1,2,3].map(n=>words.slice(0,n).join(' '))].filter(a=>a.length>=3);
+    return aliases.some(a=>new RegExp(`\\b${a.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')}\\b`,'i').test(text));
+  });
+  if(/schedul|home-and-home|series|hiatus/.test(text)&&!(named.length===2&&named.every(Boolean)))return false;
+  return true;
+}
+
 export function editorialArticleEligible(article,game,now=Date.now()) {
   if(!article?.headline||!game||game.state&&game.state!=='upcoming')return false;
+  if(!cfbArticleRelevant(article,game))return false;
   if(!Number.isFinite(article.published)||article.published>now+60000||now-article.published>7*DAY)return false;
   let url;try{url=new URL(article.url);}catch{return false;}
   if(!['http:','https:'].includes(url.protocol)||url.username||url.password)return false;

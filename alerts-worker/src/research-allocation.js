@@ -1,3 +1,4 @@
+import cfbContext from '../../scoring/cfb-verified-context.cjs';
 // Selection is editorial scheduling, not scoring. Reuse the canonical seven-day
 // slate rather than making a second, narrower set of scoreboard requests.
 export const RESEARCH_LIMITS=Object.freeze({days:7,games:30,articles:60,perGame:4,editorialItems:8,providerRequests:6,aiRequests:3});
@@ -12,9 +13,10 @@ export function canonicalResearchGame(game,now=Date.now()) {
   if(teams.length!==2||teams.some(t=>!t.id)||teams[0].id===teams[1].id)return null;
   const ranked=teams.some(t=>Number(t.rank)>=1&&Number(t.rank)<=25);
   const postseason=(game.factors||[]).some(f=>/World Series|Championship|Postseason|Playoff|Final round/.test(f.label||''));
-  if(!(game.sport==='NFL'||postseason||ranked||game.score>=47))return null;
+  const verifiedContext=cfbContext.cfbResearchPriority(game,now);
+  if(!(game.sport==='NFL'||postseason||ranked||game.score>=47||verifiedContext))return null;
   return {key:`${game.sport}:${game.id}`,eventId:String(game.id),id:String(game.id),sport:game.sport,state:'upcoming',
-    start,score:game.score,teams,teamIds:new Set(teams.map(t=>t.id)),publicGame:game};
+    start,score:game.score,teams,teamIds:new Set(teams.map(t=>t.id)),publicGame:game,verifiedContext};
 }
 const quality=(a,b)=>b.score-a.score||a.start-b.start||a.key.localeCompare(b.key);
 export function selectResearchGames(games,lastResearched={},now=Date.now()) {
@@ -24,6 +26,9 @@ export function selectResearchGames(games,lastResearched={},now=Date.now()) {
   const selected=ranked.slice(0,20),seen=new Set(selected.map(g=>g.key));
   const add=g=>{if(g&&!seen.has(g.key)&&selected.length<30){selected.push(g);seen.add(g.key);}};
   for(const sport of SPORTS)if(!selected.some(g=>g.sport===sport))add(ranked.find(g=>g.sport===sport));
+  // Two of the existing rotation slots protect exceptional unranked CFB games.
+  // Reviewed facts are applied independently of selection; no larger AI budget.
+  for(const game of ranked.filter(g=>g.verifiedContext&&!seen.has(g.key)).slice(0,2))add(game);
   const last=g=>Number.isFinite(lastResearched[g.key])&&lastResearched[g.key]<=now?lastResearched[g.key]:0;
   for(const game of ranked.filter(g=>!seen.has(g.key)).sort((a,b)=>last(a)-last(b)||quality(a,b)))add(game);
   return selected;
@@ -48,6 +53,7 @@ export async function researchDiagnostics(env) {
 }
 export function publicLinkEligible(story,game,now=Date.now()) {
   if(!story||story.verified===false||game?.suppressedContextTypes?.includes(story.type)||story.type==='notable_recent_performance')return false;
+  if(story.registryVersion)return cfbContext.verifiedCfbContextEligible(story,game,now);
   const at=Date.parse(story.publishedAt||'');
   if(!Number.isFinite(at)||at>now+60000||now-at>7*DAY)return false;
   try {const u=new URL(story.sourceUrl);if(!['http:','https:'].includes(u.protocol)||u.username||u.password||/\/(?:recap|preview)(?:[/?]|$)/i.test(u.pathname))return false;}catch{return false;}

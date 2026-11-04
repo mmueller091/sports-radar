@@ -1,4 +1,5 @@
 const calculation=require('./shared/calculation.js');
+const {verifiedCfbContextEligible}=require('./cfb-verified-context.cjs');
 const {isHalftimeStatus,playPeriodLabel,displayMoment} = require('./shared/time.js');
 // Production entry: reuse the reviewed candidate verbatim and the legacy core's
 // chronology validator. rating-core.js remains the explicit capture baseline.
@@ -18,7 +19,7 @@ const footballMarket=require('./football-market.cjs');
 const integrity=require('./snapshot-integrity.cjs');
 const gameFacts=require('./game-facts.cjs');
 const PRODUCTION_POLICY = Object.freeze({...LIVE_POLICY,id:LIVE_POLICY.id+'-opening-transition',footballTransition:true,openingTransition:true});
-const MODEL_VERSION = '2026-11-03.live-underdog.1';
+const MODEL_VERSION = '2026-11-04.cfb-context.1';
 
 function describeCfbQualitySoFar(game,current,summary) {
   delete game.gameQualitySoFar;
@@ -166,4 +167,4 @@ function prepareProviderSummary(game,summary){
  const competition=integrity.reconcileObservation(game,game.sourceCompetition,summary);
  return providerEvidence.normalizeSummary(game,competition,summary);
 }
-module.exports = {...legacy,...gameFacts,isHalftimeStatus,playPeriodLabel,displayMoment,canonicalDetailSummary,applyLiveSnapshot,prepareProviderSummary,preservePregameBaseline,preserveLiveEvidence:preserveEvidence,footballLiveExplanation:footballLive.footballLiveExplanation,MODEL_VERSION,POLICY_ID:PRODUCTION_POLICY.id,PRODUCTION_POLICY};
+module.exports = {...legacy,...gameFacts,verifiedCfbContextEligible,isHalftimeStatus,playPeriodLabel,displayMoment,canonicalDetailSummary,applyLiveSnapshot,prepareProviderSummary,preservePregameBaseline,preserveLiveEvidence:preserveEvidence,footballLiveExplanation:footballLive.footballLiveExplanation,MODEL_VERSION,POLICY_ID:PRODUCTION_POLICY.id,PRODUCTION_POLICY};
