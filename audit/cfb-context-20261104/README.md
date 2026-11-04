@@ -223,3 +223,11 @@ fluctuated from 82 at the original baseline to 61 before deployment, zero on the
 first new-model feed and 76 on the final read. These are not a claim of an
 error-free upstream provider; all final entries are summary URLs and the
 provider/network code is unchanged. No new application error was observed.
+
+The report-only follow-up commit `7d9f2ba2141bb71316e33fcb9bfdf2515f64c72b`
+built and uploaded successfully, but its Pages run failed when GitHub's deploy
+step could not find the just-uploaded artifact. The original verified application
+release remained live. The GitHub connector could not retry that run, and an
+alternative API-authentication attempt was blocked before execution. This report
+update is published through the existing Git push workflow; no credentials,
+workflow settings or application code were changed to address that service error.
