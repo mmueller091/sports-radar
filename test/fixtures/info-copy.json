@@ -1,6 +1,5 @@
 [
   "About SlateMeter",
-  "I'm Matt. I'm a lifelong sports fan, and I work with data and analytics for a living. SlateMeter is a side project that combines those two interests.",
   "Think about a Saturday afternoon during college football season. There are 15 games on, you don't have a rooting interest, and you just want to find a good game to watch. Which one do you pick?",
   "The biggest matchup isn't necessarily the most entertaining, and a close score doesn't always mean a good game. That's really where the idea for SlateMeter came from.",
   "How it works",
@@ -9,7 +8,8 @@
   "A big comeback, a late scoring opportunity, overtime, or a particularly competitive matchup can all make a game more interesting. And because every sport is different, SlateMeter uses different scoring models for football, basketball, hockey, and baseball.",
   "The goal isn't to predict who's going to win. It's to help answer a much simpler question: What's worth watching right now?",
   "Who's behind it?",
-  "SlateMeter is an independent project. There's no development team or big company behind it. It's just me, working on something in my spare time because I genuinely enjoy sports, data, and the challenge of trying to put the two together.",
+  "I'm Matt. I'm a lifelong sports fan, and I work with data and analytics for a living. SlateMeter is a side project that combines those two interests.",
+  "There's no development team or big company behind it. I build and maintain it myself in my spare time.",
   "I don't think there's ever going to be a perfect formula for excitement. Sports are too unpredictable, and people have different opinions about what makes a game great.",
   "But I do think it's possible to build something that gets pretty good at identifying games worth watching.",
   "Some ratings will be wrong. Some games will be more exciting than the numbers suggest, and others won't live up to their expectations. I'm constantly looking at what the models get right, what they miss, and how they can improve.",
