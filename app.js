@@ -148,7 +148,7 @@ function hiddenSportFromHash(hash=location.hash) {
 }
 
 const state = {
-  page:teamRouteFromHash(location.hash) ? 'team' : location.hash === '#soccer' && publicSport('Soccer') ? 'soccer' : 'home',
+  page:teamRouteFromHash(location.hash) ? 'team' : location.hash === '#info' ? 'info' : location.hash === '#soccer' && publicSport('Soccer') ? 'soccer' : 'home',
   teamRoute:teamRouteFromHash(location.hash),
   sport:'all',
   gameState:'all',
@@ -6668,6 +6668,14 @@ function summarySpecificWhy(game,summary) {
 
 function render() {
   syncActiveDetail();
+  const isInfoPage = state.page === 'info';
+  document.body.classList.toggle('info-page-open',isInfoPage);
+  $('#info-page').classList.toggle('hidden',!isInfoPage);
+  $$('.nav-link').forEach(link => {
+    if (link.dataset.page === state.page) link.setAttribute('aria-current','page');
+    else link.removeAttribute('aria-current');
+    link.classList.toggle('active',link.dataset.page === state.page);
+  });
   const hiddenRoute=hiddenSportFromHash();
   $('#hidden-sport-notice').classList.toggle('hidden',!hiddenRoute);
   if (hiddenRoute) $('#hidden-sport-notice').textContent=`${labelForSport(hiddenRoute)} is temporarily unavailable. SlateMeter currently covers NFL, College Football, NCAAM, NHL, MLB, and NBA.`;
@@ -6690,8 +6698,13 @@ function render() {
 
   $('#game-list').classList.toggle(
     'hidden',
-    isTeamPage
+    isTeamPage || isInfoPage
   );
+
+  if (isInfoPage) {
+    document.title = 'About SlateMeter — SlateMeter';
+    return;
+  }
 
   if (isTeamPage) {
     $$('.nav-link').forEach(link =>
@@ -6949,7 +6962,10 @@ $$('.nav-link').forEach(
   link =>
     link.addEventListener(
       'click',
-      () => {
+      event => {
+        // Info uses the existing hash router without resetting Slate filters.
+        if (event.ctrlKey || event.metaKey || event.shiftKey || event.altKey ||
+            link.dataset.page === 'info' || state.page === 'info') return;
         state.page =
           link.dataset.page;
 
@@ -6984,7 +7000,7 @@ function handleLocationChange() {
     const linked=gameRouteFromHash();
     if(linked) {
       if(returning){state.page=returning.page || 'home';state.teamRoute=returning.teamRoute || null;}
-      else if(state.page==='team'){state.page=linked.sport==='Soccer'?'soccer':'home';state.teamRoute=null;}
+      else if(state.page==='team' || state.page==='info'){state.page=linked.sport==='Soccer'?'soccer':'home';state.teamRoute=null;}
       render();
       if(returning?.detail)restoreTeamReturn(returning);
       else if(!activeDetailGame || activeDetailGame.sport!==linked.sport || String(activeDetailGame.id)!==linked.id)openGameDetails(linked.id,linked.sport);
@@ -7003,11 +7019,14 @@ function handleLocationChange() {
     state.page =
       route
         ? 'team'
+        : location.hash === '#info'
+          ? 'info'
         : location.hash === '#soccer' && publicSport('Soccer')
           ? 'soccer'
           : 'home';
 
     render();
+    if (state.page === 'info') $('#info-title').focus({preventScroll:true});
 
     if (route) {
       const routeKey =
