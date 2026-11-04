@@ -148,9 +148,11 @@ export default {
       const diagnostics=await researchDiagnostics(env);
       const coverage=diagnostics&&research&&diagnostics.lastRun===research.last_run?{slateSource:diagnostics.slateSource,slateUpdatedAt:diagnostics.slateUpdatedAt,
         candidatePool:diagnostics.candidatePool,savedFactors:diagnostics.savedFactors,readAccepted:diagnostics.readAccepted,
+        automaticAccepted:diagnostics.automaticAccepted,reviewedAccepted:diagnostics.reviewedAccepted,
+        exploratoryGames:diagnostics.exploratoryGames,teamNews:diagnostics.teamNews,
         eligiblePublicLinks:diagnostics.eligiblePublicLinks,gamesWithEligibleLinks:diagnostics.gamesWithEligibleLinks,
         providerRequests:diagnostics.providerRequests,limits:diagnostics.limits,usage:diagnostics.usage}:null;
-      return reply(request,{ok:true,notificationVersion:ALERT_DELIVERY_VERSION,alertDelivery:{canonicalRevalidation:true,atomicClaim:true,maxQueueAgeMs:ALERT_MAX_AGE_MS,ambiguousRetry:false},modelVersion:runtime.MODEL_VERSION,scoringPolicy:runtime.POLICY_ID,storylines:{enabled:true,source:'league news + Workers AI free allocation',lastRun:research?.last_run || null,candidates:research?.candidates || 0,articles:research?.articles || 0,factors:research?.factors || 0,aiUsed:Boolean(research?.ai_used),lastError:research?.last_error || null,coverage}});
+      return reply(request,{ok:true,notificationVersion:ALERT_DELIVERY_VERSION,alertDelivery:{canonicalRevalidation:true,atomicClaim:true,maxQueueAgeMs:ALERT_MAX_AGE_MS,ambiguousRetry:false},modelVersion:runtime.MODEL_VERSION,scoringPolicy:runtime.POLICY_ID,storylines:{enabled:true,source:'league and rotating CFB team news + existing Workers AI allocation',lastRun:research?.last_run || null,candidates:research?.candidates || 0,articles:research?.articles || 0,factors:research?.factors || 0,aiUsed:Boolean(research?.ai_used),lastError:research?.last_error || null,coverage}});
     }
     if (url.pathname === '/contexts' && request.method === 'GET') {
       const games = String(url.searchParams.get('games') || '').split(',').map(value => value.trim()).filter(Boolean);

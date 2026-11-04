@@ -2926,9 +2926,17 @@ function pregameExplanation(game,verified=[]) {
   } else {add(`${recordPair} meet`);recordsUsed=true;}
 
   const linked=upcomingLinkedStories(game);
+  // A verified scoring reason belongs in the outlook even when the same
+  // evidence also earns a separate source link under Key storylines.
+  // Keeping this ledger-driven avoids a special-case rivalry narrative.
+  const cfbScoredStories=sport==='CFB'
+    ? verified.filter(f=>f.points>0&&f.publicText&&
+      !['international_showcase','season_opener'].includes(f.contextType)).slice(0,2)
+    : [];
+  for(const story of cfbScoredStories)add(story.publicText);
   const rivalryStory=verified.find(f=>f.contextType==='rivalry'&&
     !/\/(?:recap|preview)(?:[/?]|$)/i.test(f.sourceUrl||''));
-  if(rivalryStory&&!linked.some(s=>s.type==='rivalry'))add(rivalryStory.publicText);
+  if(rivalryStory&&!linked.some(s=>s.type==='rivalry')&&!cfbScoredStories.includes(rivalryStory))add(rivalryStory.publicText);
   else if(rivalry&&!rivalryStory)add(unbeaten.length===1?
     `The rivalry gives ${name(unbeaten[0])}'s unbeaten run an added test`:'Rivalry stakes add another reason to follow this meeting');
   if(division&&!divisionUsed) {
@@ -2977,7 +2985,7 @@ function pregameExplanation(game,verified=[]) {
   }
   if(!recordsUsed&&known&&bothWinning&&lines.length<3&&sport!=='NHL')add(`Both teams have winning records (${teams.map(record).join(' and ')})`);
   for(const story of verified.filter(f=>!['international_showcase','season_opener'].includes(f.contextType))) {
-    if(linked.some(item=>item.type===story.contextType)||story.contextType==='rivalry'&&rivalry||/\/(?:recap|preview)(?:[/?]|$)/i.test(story.sourceUrl||''))continue;
+    if(cfbScoredStories.includes(story)||linked.some(item=>item.type===story.contextType)||story.contextType==='rivalry'&&rivalry||/\/(?:recap|preview)(?:[/?]|$)/i.test(story.sourceUrl||''))continue;
     if(lines.length>=5)break;
     add(story.publicText);
   }

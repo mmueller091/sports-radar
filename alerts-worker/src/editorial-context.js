@@ -15,6 +15,13 @@ export function cfbArticleRelevant(article,game) {
   if(game?.sport!=='CFB')return true;
   const text=clean(`${article.headline||''} ${article.description||''}`).toLowerCase();
   if(!/schedul|home-and-home|series|hiatus|\b20\d{2}\b/.test(text))return true;
+  const start=Number(game.start)||Date.parse(game.startTime||'');
+  const gameYear=new Date(start).getUTCFullYear();
+  const mentionedYears=[...text.matchAll(/\b20\d{2}\b/g)].map(match=>Number(match[0]));
+  // A newly announced series in a later year cannot be evidence about this
+  // weekend's game, even if it happens to tag both of today's opponents.
+  if(Number.isInteger(gameYear)&&mentionedYears.some(year=>year>gameYear)&&
+    !mentionedYears.includes(gameYear)&&/schedul|series|future|plan|announce/i.test(text))return false;
   const teams=game.teams||[];
   const named=teams.map(t=>{
     const name=String(t.name||t[0]||'').toLowerCase(),short=String(t.shortName||t[7]||'').toLowerCase();

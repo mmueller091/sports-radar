@@ -2,8 +2,8 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import {DatabaseSync} from 'node:sqlite';
-import {canonicalResearchGame,selectResearchGames,cachedResearchSlate,RESEARCH_LIMITS,researchDiagnostics,publicLinkEligible} from '../src/research-allocation.js';
-import {buildResearchItems,refreshStorylines} from '../src/storylines.js';
+import {canonicalResearchGame,selectResearchGames,selectCfbTeamNews,cachedResearchSlate,RESEARCH_LIMITS,researchDiagnostics,publicLinkEligible} from '../src/research-allocation.js';
+import {buildResearchItems,refreshStorylines,articleMatchesGame} from '../src/storylines.js';
 import {measuredResearchInference} from '../src/ai-budget.js';
 const fixture=JSON.parse(fs.readFileSync(new URL('./fixtures/research-slate-20261103.json',import.meta.url)));
 const now=Date.parse(fixture.capturedAt),DAY=86400000;
@@ -29,6 +29,57 @@ test('quality slots, sport coverage and bounded rotation do not become time-firs
   assert.equal(first.length,30);assert.equal(second.length,30);
   assert.ok(first.some(g=>g.sport==='NFL'));assert.deepEqual(first.slice(0,20).map(g=>g.key),second.slice(0,20).map(g=>g.key));
   assert.ok(second.some(g=>!last[g.key]));
+});
+test('spare source requests rotate through future uncurated CFB teams without increasing the provider ceiling',()=>{
+  const games=Array.from({length:5},(_,i)=>{
+    const g=canonicalResearchGame(raw(`g${i}`,80-i,'CFB'),now);
+    g.teams[0].id=String(i*2+1);g.teams[1].id=String(i*2+2);
+    return g;
+  });
+  const first=selectCfbTeamNews(games,{},4,now);
+  assert.deepEqual(first,['1','2','3','4']);
+  const second=selectCfbTeamNews(games,Object.fromEntries(first.map(id=>[id,now])),4,now+1);
+  assert.deepEqual(second,['5','6','7','8']);
+  assert.deepEqual(selectCfbTeamNews(games,{},0,now),[]);
+});
+test('unranked games below the news threshold receive rotating discovery opportunities before they earn a bonus',()=>{
+  const quality=Array.from({length:40},(_,i)=>canonicalResearchGame(raw(`high-${i}`,80-i,'CFB'),now));
+  const low=Array.from({length:10},(_,i)=>{
+    const row=raw(`low-${i}`,35-i,'CFB');row.teams[0][8]=String(100+i*2);row.teams[1][8]=String(101+i*2);
+    return canonicalResearchGame(row,now);
+  });
+  assert.ok(low.every(g=>g.exploratory&&!g.verifiedContext));
+  const first=selectResearchGames([...quality,...low],{},now);
+  assert.ok(first.filter(g=>g.exploratory).length>=2);
+  assert.ok(selectCfbTeamNews(first,{},2,now).includes(first.find(g=>g.exploratory).teams[0].id));
+  const previously=Object.fromEntries(first.filter(g=>g.exploratory).map(g=>[g.key,now]));
+  const second=selectResearchGames([...quality,...low],previously,now+1);
+  assert.ok(second.some(g=>g.exploratory&&!previously[g.key]));
+});
+test('unreviewed CFB rivalry articles must identify both actual opponents',()=>{
+  const game=canonicalResearchGame(raw('uncurated',80,'CFB'),now);
+  const article={headline:'Away and Home renew their rivalry',description:'Away meets Home this weekend for their annual rivalry.',published:now,
+    url:'https://www.espn.com/college-football/story/_/id/auto',teamIds:new Set(['1','2']),eventIds:new Set()};
+  assert.equal(articleMatchesGame(article,game,now),true);
+  assert.equal(articleMatchesGame({...article,headline:'Away prepares for rivalry with Other',description:'Away meets Other this weekend.',teamIds:new Set(['1'])},game,now),false);
+  assert.equal(articleMatchesGame({...article,headline:'Away and Home plan future rivalry for 2028',description:'The two schools announce a future series in 2028.',teamIds:new Set(['1','2'])},game,now),false);
+});
+test('team-specific CFB news automatically contributes a grounded fact for an unseen game',async t=>{
+  const unseen=raw('unseen-game',80,'CFB');
+  const {env,db}=database(t,{updatedAt:new Date(now).toISOString(),games:[unseen]});
+  const original=globalThis.fetch,calls=[];t.after(()=>{globalThis.fetch=original;});
+  const article={id:'new-rivalry',headline:'Away and Home renew their rivalry',description:'Away and Home meet again in their annual rivalry game.',
+    published:new Date(now).toISOString(),links:{web:{href:'https://www.espn.com/college-football/story/_/id/new-rivalry'}},
+    categories:[{type:'team',teamId:1},{type:'team',teamId:2}]};
+  globalThis.fetch=async url=>{calls.push(url);return Response.json({articles:url.includes('team=1')?[article]:[]});};
+  const result=await refreshStorylines(env,now);
+  assert.equal(result.diagnostics.savedFactors,1);
+  assert.equal(result.diagnostics.readAccepted,1);
+  assert.equal(db.prepare('SELECT factor_type AS type FROM game_context').get().type,'rivalry');
+  assert.deepEqual(result.diagnostics.teamNews.queried,['1','2']);
+  assert.equal(calls.length,3);
+  assert.ok(calls.every(url=>url.includes('/news?')));
+  assert.ok(!JSON.stringify(unseen).includes('new-rivalry'));
 });
 test('only upcoming identified games within seven days enter the pool',()=>{
   for(const change of [{state:'live'},{state:'completed'},{score:NaN},{teams:[]},{startTime:new Date(now+8*DAY).toISOString()},{startTime:new Date(now-1).toISOString()}])assert.equal(canonicalResearchGame({...raw('x'),...change},now),null);

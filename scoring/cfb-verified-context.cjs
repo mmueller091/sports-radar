@@ -8,6 +8,8 @@ const source=(url,title,publishedAt,evidence)=>({url,title,publishedAt,evidence,
 const sources={
   byu:source('https://byucougars.com/news/2026/11/2/byu-football-game-week-2026-at-utah','BYU game week at Utah','2026-11-02',
     'The November 7 visit to Utah is the first meeting of these rivals with both teams in the top ten.'),
+  holyWar:source('https://byucougars.com/news/2000/11/22/the-holy-war-a-historical-look-at-the-76th-meeting-between-utah-and-byu','The Holy War: a historical look at Utah and BYU','2000-11-22',
+    'BYU Athletics identifies its long-running football rivalry with Utah as the Holy War.'),
   georgia:source('https://georgiadogs.com/news/2026/11/2/football-georgia-travels-to-oxford-to-take-on-ole-miss','Georgia travels to Oxford','2026-11-02',
     'The upcoming opponents last met in the January 2026 CFP quarterfinal; Ole Miss won 39-34.'),
   miami:source('https://miamihurricanes.com/news/2026/11/2/canes-rewind-a-look-back-at-the-win-over-north-carolina','Miami: Up Next, Notre Dame','2026-11-02',
@@ -30,7 +32,7 @@ const sources={
 // Team IDs are ESPN CFB identities. Historical membership alone can establish
 // a rivalry; rankings, trophy-clinching scenarios and current personnel cannot.
 const rivalries=[
-  {key:'byu-utah',teams:['252','254'],sources:['byu'],text:'BYU and Utah renew their longstanding rivalry.'},
+  {key:'byu-utah',teams:['252','254'],sources:['holyWar'],text:'BYU and Utah renew the Holy War rivalry.'},
   {key:'miami-notre-dame',teams:['2390','87'],sources:['miami'],text:'Miami and Notre Dame renew their longstanding rivalry.'},
   {key:'kentucky-tennessee',teams:['96','2633'],sources:['tennessee'],text:'Kentucky and Tennessee renew their border rivalry.'},
   {key:'army-air-force',teams:['349','2005'],sources:['army','trophy'],text:'Army and Air Force renew a service-academy rivalry played annually since 1971, with a result in the Commander-in-Chief\'s Trophy series at stake.'},
@@ -40,7 +42,7 @@ const rivalries=[
 // Ranking history and coaching connections explain interest without extra points.
 const events=[
   {id:'401856849',away:'252',home:'254',date:'2026-11-07',facts:[
-    {key:'first-top-ten-holy-war',type:'rivalry',sources:['byu'],text:'BYU and Utah renew their rivalry in its first matchup with both teams ranked in the top ten.'}]},
+    {key:'first-top-ten-holy-war',type:'rivalry',sources:['byu','holyWar'],text:'The Holy War brings BYU and Utah together for the first time with both teams ranked in the top ten.'}]},
   {id:'401856741',away:'61',home:'145',date:'2026-11-07',facts:[
     {key:'sugar-bowl-rematch',type:'playoff_rematch',previousSeason:2025,sources:['georgia'],text:'Georgia faces Ole Miss again after the Rebels ended its playoff run with a 39-34 CFP quarterfinal win in January 2026.'}]},
   {id:'401858291',away:'2390',home:'87',date:'2026-11-07',facts:[

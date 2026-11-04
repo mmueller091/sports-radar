@@ -2,7 +2,7 @@ import '../../rating-core.js';
 import {reserveResearchAi,measuredResearchInference} from './ai-budget.js';
 import {EDITORIAL_TYPE,editorialArticleEligible,acceptEditorialReview,discoverEditorialStories,cfbArticleRelevant} from './editorial-context.js';
 import cfbContext from '../../scoring/cfb-verified-context.cjs';
-import {RESEARCH_LIMITS,DIAGNOSTIC_KEY,cachedResearchSlate,selectResearchGames,researchDiagnostics,publicLinkEligible} from './research-allocation.js';
+import {RESEARCH_LIMITS,DIAGNOSTIC_KEY,cachedResearchSlate,selectResearchGames,selectCfbTeamNews,researchDiagnostics,publicLinkEligible} from './research-allocation.js';
 
 const {
   rateGame,
@@ -115,6 +115,20 @@ function articleMatchesGame(article,game,now=Date.now()) {
   const teams=game.teams || [];
   const teamIds=game.teamIds || new Set(teams.map(t=>String(t.id || t[8])));
   const eventId=String(game.eventId || game.id);
+  // Matchup-level claims need evidence about BOTH opponents, not a team tag
+  // attached to a story about that school's different rival or future game.
+  const matchupTypes=new Set(['rivalry','rivalry_development','championship_rematch','playoff_rematch','meaningful_rematch']);
+  if(game.sport==='CFB'&&matchupTypes.has(deterministicFactor(article)?.type)&&!article.eventIds?.has(eventId)){
+    const tagged=[...(article.teamIds||[])].map(String);
+    const taggedBoth=tagged.length===2&&tagged.every(id=>teamIds.has(id));
+    const mentionsBoth=teams.every(team=>{
+      const name=String(team.name||team[0]||'').trim();
+      const school=name.split(' ').slice(0,-1).join(' ');
+      return [name,school].filter(alias=>alias.length>=3).some(alias=>
+        new RegExp(`\\b${alias.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')}\\b`,'i').test(text));
+    });
+    if(!taggedBoth&&!(mentionsBoth&&tagged.every(id=>teamIds.has(id))))return false;
+  }
   const direct=teams.some(t=>{
     const name=String(t.name || t[0] || ''),abbr=String(t.abbr || t[1] || '');
     return [name,name.split(' ').at(-1),abbr.length>=3?abbr:''].filter(n=>n.length>=3)
@@ -395,13 +409,32 @@ export async function refreshStorylines(env,now=Date.now()) {
   const [slate,previous]=await Promise.all([cachedResearchSlate(env,now),researchDiagnostics(env)]);
   const games=selectResearchGames(slate.games,previous?.lastResearched||{},now);
   const neededSports = new Set(games.map(game => game.sport));
+  const remainingRequests=Math.max(0,RESEARCH_LIMITS.providerRequests-neededSports.size);
+  const teamNewsIds=selectCfbTeamNews(games,previous?.lastTeamResearch||{},remainingRequests,now);
   const newsEntries = await Promise.all(RESEARCH_FEEDS.filter(feed => neededSports.has(feed.sport)).map(async feed => {
     try {
       const payload = await fetchJson(`${ESPN}/${feed.news}?limit=100`);
       return [feed.sport,(payload.articles || []).map(articleMetadata)];
     } catch { return [feed.sport,[]]; }
   }));
-  const items = buildResearchItems(games,new Map(newsEntries),now);
+  const teamEntries=await Promise.all(teamNewsIds.map(async id=>{
+    try{
+      const payload=await fetchJson(`${ESPN}/football/college-football/news?team=${id}&limit=100`);
+      // The team query is a discovery hint, never trusted as evidence. Keep
+      // only articles whose ESPN category actually names the requested team.
+      return {id,articles:(payload.articles||[]).map(articleMetadata).filter(a=>a.teamIds.has(id))};
+    }catch{return {id,articles:[]};}
+  }));
+  const articlesBySport=new Map(newsEntries);
+  if(teamEntries.length){
+    const cfb=articlesBySport.get('CFB')||[],seen=new Set(cfb.map(a=>a.id||a.url));
+    for(const {articles} of teamEntries)for(const article of articles){
+      const key=article.id||article.url;if(!key||seen.has(key))continue;
+      seen.add(key);cfb.push(article);
+    }
+    articlesBySport.set('CFB',cfb);
+  }
+  const items = buildResearchItems(games,articlesBySport,now);
   const usage=[];
   // NFL scoring context stays deterministic. Editorial discovery is separate.
   const classified = await aiFactors(env,items.filter(item=>item.sport!=='NFL'),now,usage);
@@ -411,13 +444,22 @@ export async function refreshStorylines(env,now=Date.now()) {
   const revalidated=await contextsForGames(env,games.map(g=>g.key),games.map(g=>g.publicGame),now);
   const counts=games.map(g=>{
     const accepted=revalidated[g.key]||[];
-    return {key:g.key,accepted:accepted.length,publicLinkEligible:accepted.filter(s=>publicLinkEligible(s,g.publicGame,now)).length};
+    return {key:g.key,accepted:accepted.length,automatic:accepted.filter(s=>!s.registryVersion).length,
+      reviewed:accepted.filter(s=>s.registryVersion).length,
+      publicLinkEligible:accepted.filter(s=>publicLinkEligible(s,g.publicGame,now)).length};
   });
   const diagnostics={version:1,lastRun:Math.floor(now/1000),slateSource:slate.reason,slateUpdatedAt:slate.updatedAt||null,
     limits:RESEARCH_LIMITS,candidatePool:slate.games.length,selected:games.map(g=>({key:g.key,score:g.score,start:new Date(g.start).toISOString()})),
     articles:items.length,savedFactors:factors.length,readAccepted:counts.reduce((n,g)=>n+g.accepted,0),
+    automaticAccepted:counts.reduce((n,g)=>n+g.automatic,0),reviewedAccepted:counts.reduce((n,g)=>n+g.reviewed,0),
+    exploratoryGames:games.filter(g=>g.exploratory).length,
     eligiblePublicLinks:counts.reduce((n,g)=>n+g.publicLinkEligible,0),gamesWithEligibleLinks:counts.filter(g=>g.publicLinkEligible).length,
-    counts,usage,providerRequests:neededSports.size,
+    counts,usage,providerRequests:neededSports.size+teamNewsIds.length,
+    teamNews:{queried:teamNewsIds,eligibleArticles:teamEntries.reduce((total,entry)=>total+entry.articles.length,0)},
+    lastTeamResearch:Object.fromEntries([
+      ...Object.entries(previous?.lastTeamResearch||{}).filter(([id,at])=>/^[1-9]\d{0,7}$/.test(id)&&Number.isFinite(at)&&at>now-8*86400000&&at<=now),
+      ...teamNewsIds.map(id=>[id,now])
+    ].slice(-300)),
     lastResearched:Object.fromEntries(slate.games.map(g=>[g.key,games.some(s=>s.key===g.key)?now:previous?.lastResearched?.[g.key]||0]))};
   // Optional diagnostics cannot fail a successful research run or the feed.
   try {await env.DB.prepare('INSERT INTO sports_resources (key,payload,updated_at) VALUES (?,?,?) ON CONFLICT(key) DO UPDATE SET payload=excluded.payload,updated_at=excluded.updated_at')
@@ -468,6 +510,11 @@ export async function contextsForGames(env,keys,games=[],now=Date.now()) {
       continue;
     }
     if (game?.state==='upcoming' && !pregameStoryEligible(row,saved,now)) continue;
+    if(game?.sport==='CFB'&&game.state==='upcoming'&&saved?.version===5){
+      const article={headline:row.source_title,description:saved.description||'',published:Number(row.source_published)*1000,
+        url:row.source_url,teamIds:new Set((saved.teamIds||[]).map(String)),eventIds:new Set((saved.eventIds||[]).map(String))};
+      if(!articleMatchesGame(article,game,now))continue;
+    }
     if (row.sport==='NFL' && (!game || game.state==='upcoming')) {
       const article={headline:row.source_title,description:saved?.description || '',published:Number(row.source_published)*1000,
         teamIds:new Set(saved?.teamIds || []),eventIds:new Set(saved?.eventIds || [])};

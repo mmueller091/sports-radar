@@ -42,7 +42,11 @@ test('Army-Air Force and Army-Navy qualify unranked; bounded selection protects 
   const navy={...army,id:'future-navy',startTime:'2026-12-12T20:00Z',teams:copy(army.teams)};
   navy.teams[0][8]='2426';
   assert.ok(canonicalResearchGame(navy,Date.parse('2026-12-10T00:00Z')));
-  navy.teams[0][8]='9999';assert.equal(canonicalResearchGame(navy,Date.parse('2026-12-10T00:00Z')),null);
+  // The unreviewed opponent can be explored without pretending to have an
+  // established rivalry or receiving any of the reviewed source credit.
+  navy.teams[0][8]='9999';
+  const discovery=canonicalResearchGame(navy,Date.parse('2026-12-10T00:00Z'));
+  assert.equal(discovery?.verifiedContext,false);assert.equal(discovery?.exploratory,true);
 });
 test('registry facts reach the feed even with an empty news database and no research allocation',async()=>{
   const game=gameFor(row('401856849'),{reviewed:false});
@@ -133,13 +137,17 @@ test('browser and Worker agree with reviewed context, and completed games cannot
     assert.equal(completed.score,original.score);assert.deepEqual(completed.factors,original.factors);
   }
 });
-test('Game Center rivalry claims require a scored factor; historical links use the same validated evidence',()=>{
+test('Game Center outlook names scored qualitative stakes and linked stories preserve their sources',()=>{
   const source=fs.readFileSync('app.js','utf8');class FixedDate extends Date{static now(){return now;}}
   const api=vm.runInNewContext(source.slice(source.indexOf('function explainRating('),source.indexOf('function trendFor('))+';({explainRating,upcomingLinkedStories,publicStorySentence})',{Date:FixedDate,Intl,SportsRadarScore:runtime});
-  // The existing Game Center presents linked context beside its main narrative.
   const displayed=g=>[api.explainRating(g),...api.upcomingLinkedStories(g).map(s=>api.publicStorySentence(s))].join(' ');
   const before=gameFor(row('401856849'),{reviewed:false}),after=gameFor(row('401856849'));
-  assert.doesNotMatch(api.explainRating(before),/rivalry|bragging rights/i);assert.match(displayed(after),/first matchup|rivalry/i);
+  assert.doesNotMatch(api.explainRating(before),/holy war|rivalry|bragging rights/i);
+  assert.match(api.explainRating(after),/Holy War.*first time.*top ten/i);
+  assert.match(api.explainRating(gameFor(row('401856741'))),/playoff run.*quarterfinal/i);
+  assert.match(api.explainRating(gameFor(row('401858291'))),/CFP selection debate/i);
+  assert.match(displayed(after),/Holy War/i);
+  assert.equal(api.upcomingLinkedStories(after).length,1);
   assert.match(displayed(gameFor(row('401856740'))),/Kiffin.*Alabama/);
   assert.match(displayed(gameFor(row('401856743'))),/Columbia.*2011/);
   assert.equal(api.upcomingLinkedStories(gameFor(row('401862823'))).length,1);
