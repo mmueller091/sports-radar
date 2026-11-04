@@ -669,4 +669,80 @@ button.team-spotlight-matchup, button.team-schedule-opponent { position:relative
   .game-card .short-team-name { display: inline; }
 }
 .game-card .card-team-link { display: grid; }
-.game-card .team-name-text, .detail-team-copy strong, .section-label { font-family: 'Barlow Condensed', var(--font-sans); }
+.detail-team-copy strong, .section-label { font-family: 'Barlow Condensed', var(--font-sans); }
+
+/* Card presentation: keep these shared rules after the historical mobile layers.
+   Natural-width type and separate records let the matchup grow without squeezing. */
+.game-card { font-family: Arial, Helvetica, sans-serif; }
+.game-card .team-name { min-width:0; gap:8px; align-items:center; }
+.game-card .team-name-copy { display:block; flex:1 1 auto; min-width:0; white-space:normal; overflow:visible; }
+.game-card .team-name-copy .team-name-text {
+  display:inline; overflow:visible; white-space:normal; overflow-wrap:break-word;
+  font:600 15px/1.25 Arial, Helvetica, sans-serif; letter-spacing:0;
+}
+.game-card .full-team-name { display:inline; }
+.game-card .short-team-name { display:none; }
+.game-card .team-record { display:block; margin-top:3px; color:var(--muted); font:400 11px/1.25 Arial, Helvetica, sans-serif; white-space:normal; }
+.game-card .team-rank { margin-right:4px; font:400 11px/1.25 Arial, Helvetica, sans-serif; }
+.game-card .team-row { min-height:42px; margin:0; padding-block:3px; }
+.game-card .team-column.pregame .team-row { padding-right:0; }
+.game-card .pregame-versus { display:none; }
+.game-card .card-team-link, .game-card .team-logo-shell {
+  flex:0 0 28px; width:28px; height:28px; min-height:0;
+  background:transparent; border-radius:3px; box-shadow:none;
+}
+.game-card .team-logo {
+  flex:0 0 26px; width:26px !important; height:26px !important;
+  /* A fine contour follows the artwork instead of a large solid logo tile. */
+  filter:drop-shadow(0 0 1px #f0e8d4) drop-shadow(0 0 1px #f0e8d4);
+}
+.game-card .team-logo-fallback { width:26px; height:26px; border-radius:3px; }
+.game-card .excitement {
+  width:84px; min-height:0; padding:4px 0; gap:4px; align-self:center;
+  background:transparent; border:0; border-radius:0; box-shadow:none;
+}
+.game-card .excitement::before { font:400 10px/1.2 Arial, Helvetica, sans-serif; letter-spacing:0; }
+.game-card .score-circle, .game-card .score-circle.warm, .game-card .score-circle.hot,
+.game-card .score-circle.very-hot, .game-card .score-circle.extreme {
+  width:auto; height:auto; min-width:0; min-height:0; padding:0;
+  font:700 38px/1 Arial, Helvetica, sans-serif; letter-spacing:0;
+  color:hsl(var(--score-hue,190) 92% 64%);
+  -webkit-text-fill-color:hsl(var(--score-hue,190) 92% 64%);
+  -webkit-text-stroke:1px var(--brand-charcoal); paint-order:stroke fill;
+  background:transparent; border:0; border-radius:0; box-shadow:none; text-shadow:0 1px 0 #000;
+}
+.game-card .channel-context { display:grid; grid-template-columns:minmax(0,1fr) auto; gap:5px 12px; padding-top:7px; margin-top:4px; }
+.game-card .line-inline { grid-column:1 / -1; }
+.game-card .channel-context .detail-inline { min-width:0; align-items:baseline; gap:6px; }
+.game-card .channel-context .detail-inline > span,
+.game-card .channel-context .detail-inline > .broadcast-labels {
+  overflow:visible; white-space:normal; text-overflow:clip; overflow-wrap:break-word;
+  font:400 11px/1.5 Arial, Helvetica, sans-serif;
+}
+.game-card .channel-context .detail-inline strong { font:400 10px/1.5 Arial, Helvetica, sans-serif; color:var(--muted); text-transform:none; }
+.game-card .broadcast-watch-link { font-weight:400; white-space:normal; }
+.game-card .stats-cue { grid-column:2; grid-row:1; align-self:start; color:var(--ink-secondary); font:400 11px/1.5 Arial, Helvetica, sans-serif; }
+@media (min-width:601px) {
+  .game-card { grid-template-columns:36px minmax(0,1fr) 84px; }
+}
+@media (max-width:600px) {
+  /* A scrollbar must not push a 320px viewport wider than its content area. */
+  body { min-width:0; }
+  .game-card, .game-card.favorite, .game-card.completed-card {
+    grid-template-columns:minmax(0,1fr) 66px; padding:9px 10px; gap:0 8px;
+  }
+  .game-card .match-meta { flex-wrap:wrap; min-height:24px; gap:4px 6px; margin-bottom:3px; font:500 11px/1.35 Arial, Helvetica, sans-serif; }
+  .game-card .status-upcoming, .game-card .status-completed { font-weight:600; }
+  .game-card .card-clock { min-height:24px; padding:0; border:0; background:transparent; }
+  .game-card .card-clock strong { font-size:17px; }
+  .game-card .team-score { font:600 21px/1.2 Arial, Helvetica, sans-serif; }
+  .game-card .team-row:has(.team-score:empty) { grid-template-columns:minmax(0,1fr); }
+  .game-card .team-score:empty { display:none; }
+  .game-card .excitement { width:66px; }
+  .game-card .score-circle, .game-card .score-circle.warm, .game-card .score-circle.hot,
+  .game-card .score-circle.very-hot, .game-card .score-circle.extreme { font-size:34px; }
+  .game-card .channel-context { grid-template-columns:minmax(0,1fr) auto; gap:4px 8px; }
+  .game-card .channel-context .detail-inline { flex-wrap:wrap; gap:1px 6px; }
+  .game-card .line-inline { grid-column:1 / -1; }
+  .game-card .card-rating-change .score-trend { overflow:visible; white-space:normal; }
+}
