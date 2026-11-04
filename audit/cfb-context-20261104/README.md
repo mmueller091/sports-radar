@@ -1,7 +1,13 @@
 # CFB verified-context correction — November 4, 2026
 
-Release status: all predeployment checks passed; approved candidate for the
-user-authorized production release. Postdeployment evidence is recorded separately.
+Release status: **published and verified** at 19:55 UTC on November 4.
+Code commit: `ad117501bf57d527c539ecd78708e93d58977706`.
+Worker version: `a7c4bd32-9cd5-4c2c-be60-b795dcf5c3ae`.
+Model: `2026-11-04.cfb-context.1`.
+The existing [Pages workflow](https://github.com/mmueller091/sports-radar/actions/runs/41901211733)
+succeeded. See [production verification](production-verification.json) for the
+actual public ledgers, displayed explanations and asset hashes. This report is
+updated after the code release; the Worker source remains the code commit above.
 
 ## Baseline and scope
 
@@ -76,6 +82,16 @@ Calibration: Miami (88), BYU and Georgia (87) move above Alabama (83) and Texas
 unranked game without being promoted to the top tier. Oregon receives only two
 points. No score reaches the existing 90-point pregame cap. These differences
 come from the established weights, not target scores or new ranking multipliers.
+
+Production verification found the same ratings above except Miami-Notre Dame,
+which was **86**. Before deployment, its spread moved from 6 to 6.5 and its
+ranked-team factor declined from 22 to 21. Together these input changes reduced
+its existing quantitative rating from **79 to 77**. The correction
+still contributes exactly nine points: **77 to 86** with current inputs, versus
+**79 to 88** with the frozen audit inputs. All eight production factor ledgers
+match their game-detail responses. The deployed browser bundle uses the same
+model, and its actual explanation functions accept every reviewed source and
+display the expected context. Miami's Purdue/Illinois story is absent.
 
 ## Evidence for each new award and explanation
 
@@ -182,12 +198,28 @@ Exact files changed:
   (remove the old identity-only rivalry expectation)
 - `scripts/cfb-context-report.mjs` (reproducible audit)
 - `audit/cfb-context-20261104/README.md`, `scoring-comparison.json` and
-  `replay-verification.json` (this report and its evidence)
+  `replay-verification.json` (this report and its evidence), plus
+  `production-verification.json` added after deployment
 
-The original main revision and complete source archive are retained locally in
+The remote tag `checkpoint/cfb-context-before-20261104` preserves original main.
+The original main revision and complete source archive are also retained locally in
 `work/cfb-context/verification-source.tar`; the original Worker version above is
 the recoverable deployment checkpoint. No database migration is needed. Release
 must use the existing GitHub Pages workflow and `sports-radar-alerts` Worker only.
 The audit Worker, database, cron, notification configuration and all protected
-visual assets remain unchanged. Production verification and final commit/version
-identifiers are recorded here after a successful release.
+visual assets remain unchanged.
+
+Postdeployment checks compared 278 other upcoming games: every score and factor
+ledger remained identical to the immediate pre-release feed. Notifications retain
+version `2026-11-03.cross-model-dedupe.1` and identical delivery safeguards.
+Research health reports no last error and unchanged limits; its latest scheduled
+AI pass was 18:17 UTC, before this release. A later scheduled AI pass has not yet
+been observed; reviewed facts are already verified in the production feed and
+do not depend on that pass.
+
+No Worker exceptions appeared during error-tail monitoring. All checked public
+endpoints returned HTTP 200. Existing ESPN summary freshness/fetch warnings
+fluctuated from 82 at the original baseline to 61 before deployment, zero on the
+first new-model feed and 76 on the final read. These are not a claim of an
+error-free upstream provider; all final entries are summary URLs and the
+provider/network code is unchanged. No new application error was observed.

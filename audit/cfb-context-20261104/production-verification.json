@@ -1,0 +1,471 @@
+{
+  "verifiedAt": "2026-11-04T19:55:00.818Z",
+  "commit": "ad117501bf57d527c539ecd78708e93d58977706",
+  "workerModel": "2026-11-04.cfb-context.1",
+  "workerVersion": "a7c4bd32-9cd5-4c2c-be60-b795dcf5c3ae",
+  "workflow": {
+    "id": 41901211733,
+    "url": "https://github.com/mmueller091/sports-radar/actions/runs/41901211733",
+    "conclusion": "success"
+  },
+  "siteRevision": "ad117501bf57d527c539ecd78708e93d58977706",
+  "feedUpdatedAt": "2026-11-04T19:54:55.478Z",
+  "sourceErrors": [
+    "https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401873023",
+    "https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401873026",
+    "https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401873031",
+    "https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401873024",
+    "https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401873030",
+    "https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401873029",
+    "https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401873027",
+    "https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401873025",
+    "https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401873028",
+    "https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401873032",
+    "https://site.api.espn.com/apis/site/v2/sports/baseball/mlb/summary?event=401908046",
+    "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892635",
+    "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892637",
+    "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892638",
+    "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892639",
+    "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892640",
+    "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892641",
+    "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892642",
+    "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892643",
+    "https://site.api.espn.com/apis/site/v2/sports/football/college-football/summary?event=401866453",
+    "https://site.api.espn.com/apis/site/v2/sports/football/college-football/summary?event=401866454",
+    "https://site.api.espn.com/apis/site/v2/sports/soccer/uefa.champions/summary?event=401915383",
+    "https://site.api.espn.com/apis/site/v2/sports/soccer/uefa.champions/summary?event=401915382",
+    "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892659",
+    "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892662",
+    "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892664",
+    "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892665",
+    "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892666",
+    "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892668",
+    "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892671",
+    "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892674",
+    "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892677",
+    "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892681",
+    "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892682",
+    "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892683",
+    "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892685",
+    "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892690",
+    "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892692",
+    "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892693",
+    "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892694",
+    "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892695",
+    "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909289",
+    "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909294",
+    "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909940",
+    "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909947",
+    "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909949",
+    "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909951",
+    "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909952",
+    "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909953",
+    "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909954",
+    "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909957",
+    "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909958",
+    "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909959",
+    "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909960",
+    "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909963",
+    "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909966",
+    "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909967",
+    "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909968",
+    "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909969",
+    "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909971",
+    "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909972",
+    "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909973",
+    "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909975",
+    "https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/summary?event=401920232",
+    "https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/summary?event=401929450",
+    "https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/summary?event=401929438",
+    "https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/summary?event=401928853",
+    "https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/summary?event=401926142",
+    "https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/summary?event=401922290",
+    "https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/summary?event=401927361",
+    "https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/summary?event=401926214",
+    "https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/summary?event=401926151",
+    "https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/summary?event=401926111",
+    "https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/summary?event=401917977",
+    "https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/summary?event=401929171",
+    "https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/summary?event=401922030"
+  ],
+  "previousSourceErrorCount": 61,
+  "notificationVersion": "2026-11-03.cross-model-dedupe.1",
+  "notificationConfigurationUnchanged": true,
+  "research": {
+    "lastError": null,
+    "lastRun": "2026-11-04T18:17:42.000Z",
+    "limits": {
+      "days": 7,
+      "games": 30,
+      "articles": 60,
+      "perGame": 4,
+      "editorialItems": 8,
+      "providerRequests": 6,
+      "aiRequests": 3
+    }
+  },
+  "targets": [
+    {
+      "id": "401856849",
+      "game": "BYU at Utah",
+      "originalAuditRating": 80,
+      "fixedInputProposedRating": 87,
+      "immediatePreReleaseRating": 80,
+      "productionRating": 87,
+      "factors": [
+        {
+          "label": "Rivalry context",
+          "points": 7,
+          "contextType": "rivalry",
+          "contextText": "BYU and Utah renew their rivalry in its first matchup with both teams ranked in the top ten.",
+          "sourceUrl": "https://byucougars.com/news/2026/11/2/byu-football-game-week-2026-at-utah",
+          "evidence": [
+            {
+              "url": "https://byucougars.com/news/2026/11/2/byu-football-game-week-2026-at-utah",
+              "title": "BYU game week at Utah",
+              "publishedAt": "2026-11-02",
+              "evidence": "The November 7 visit to Utah is the first meeting of these rivals with both teams in the top ten.",
+              "reviewedAt": "2026-11-04T19:00:00Z"
+            }
+          ],
+          "eventId": "401856849",
+          "factKey": "first-top-ten-holy-war"
+        }
+      ],
+      "explanation": "No. 9 BYU (7-1) and No. 3 Utah (8-0) meet in a top-10 matchup, with Utah's unbeaten season on the line. Utah is a clear favorite by 5.5 points.",
+      "links": [
+        {
+          "text": "BYU and Utah renew their rivalry in its first matchup with both teams ranked in the top ten.",
+          "url": "https://byucougars.com/news/2026/11/2/byu-football-game-week-2026-at-utah",
+          "type": "rivalry"
+        }
+      ],
+      "detailMatchesFeed": true,
+      "verifiedFacts": 1,
+      "quantitativeFactorChanges": false
+    },
+    {
+      "id": "401856741",
+      "game": "Georgia at Ole Miss",
+      "originalAuditRating": 81,
+      "fixedInputProposedRating": 87,
+      "immediatePreReleaseRating": 81,
+      "productionRating": 87,
+      "factors": [
+        {
+          "label": "Playoff rematch",
+          "points": 6,
+          "contextType": "playoff_rematch",
+          "contextText": "Georgia faces Ole Miss again after the Rebels ended its playoff run with a 39-34 CFP quarterfinal win in January 2026.",
+          "sourceUrl": "https://georgiadogs.com/news/2026/11/2/football-georgia-travels-to-oxford-to-take-on-ole-miss",
+          "evidence": [
+            {
+              "url": "https://georgiadogs.com/news/2026/11/2/football-georgia-travels-to-oxford-to-take-on-ole-miss",
+              "title": "Georgia travels to Oxford",
+              "publishedAt": "2026-11-02",
+              "evidence": "The upcoming opponents last met in the January 2026 CFP quarterfinal; Ole Miss won 39-34.",
+              "reviewedAt": "2026-11-04T19:00:00Z"
+            }
+          ],
+          "eventId": "401856741",
+          "factKey": "sugar-bowl-rematch"
+        }
+      ],
+      "explanation": "No. 2 Georgia and No. 10 Ole Miss meet with postseason stakes. Georgia is a slight favorite with a 3.5-point spread; the line points to a close contest. Both teams have winning records (7-1 and 6-2).",
+      "links": [
+        {
+          "text": "Georgia faces Ole Miss again after the Rebels ended its playoff run with a 39-34 CFP quarterfinal win in January 2026.",
+          "url": "https://georgiadogs.com/news/2026/11/2/football-georgia-travels-to-oxford-to-take-on-ole-miss",
+          "type": "playoff_rematch"
+        }
+      ],
+      "detailMatchesFeed": true,
+      "verifiedFacts": 1,
+      "quantitativeFactorChanges": false
+    },
+    {
+      "id": "401858291",
+      "game": "Miami at Notre Dame",
+      "originalAuditRating": 79,
+      "fixedInputProposedRating": 88,
+      "immediatePreReleaseRating": 77,
+      "productionRating": 86,
+      "factors": [
+        {
+          "label": "Rivalry context",
+          "points": 7,
+          "contextType": "rivalry",
+          "contextText": "Miami and Notre Dame renew their longstanding rivalry.",
+          "sourceUrl": "https://miamihurricanes.com/news/2026/11/2/canes-rewind-a-look-back-at-the-win-over-north-carolina",
+          "evidence": [
+            {
+              "url": "https://miamihurricanes.com/news/2026/11/2/canes-rewind-a-look-back-at-the-win-over-north-carolina",
+              "title": "Miami: Up Next, Notre Dame",
+              "publishedAt": "2026-11-02",
+              "evidence": "The Up Next section identifies the longtime rivalry and the coming South Bend game. Miami won the 2025 meeting 27-24 and later received the final CFP at-large place ahead of Notre Dame.",
+              "reviewedAt": "2026-11-04T19:00:00Z"
+            }
+          ],
+          "eventId": "401858291",
+          "factKey": "miami-notre-dame"
+        },
+        {
+          "label": "Verified rematch context",
+          "points": 2,
+          "contextType": "meaningful_rematch",
+          "contextText": "Miami's 27-24 win over Notre Dame in 2025 became central to the CFP selection debate when Miami took the final at-large berth ahead of the Irish.",
+          "sourceUrl": "https://miamihurricanes.com/news/2026/11/2/canes-rewind-a-look-back-at-the-win-over-north-carolina",
+          "evidence": [
+            {
+              "url": "https://miamihurricanes.com/news/2026/11/2/canes-rewind-a-look-back-at-the-win-over-north-carolina",
+              "title": "Miami: Up Next, Notre Dame",
+              "publishedAt": "2026-11-02",
+              "evidence": "The Up Next section identifies the longtime rivalry and the coming South Bend game. Miami won the 2025 meeting 27-24 and later received the final CFP at-large place ahead of Notre Dame.",
+              "reviewedAt": "2026-11-04T19:00:00Z"
+            }
+          ],
+          "eventId": "401858291",
+          "factKey": "selection-rematch"
+        }
+      ],
+      "explanation": "No. 1 Miami (8-0) and No. 11 Notre Dame (7-1) meet in a ranked matchup, with Miami's unbeaten season on the line. Miami and Notre Dame renew their longstanding rivalry. Notre Dame is a clear favorite by 6.5 points.",
+      "links": [
+        {
+          "text": "Miami's 27-24 win over Notre Dame in 2025 became central to the CFP selection debate when Miami took the final at-large berth ahead of the Irish.",
+          "url": "https://miamihurricanes.com/news/2026/11/2/canes-rewind-a-look-back-at-the-win-over-north-carolina",
+          "type": "meaningful_rematch"
+        }
+      ],
+      "detailMatchesFeed": true,
+      "verifiedFacts": 2,
+      "quantitativeFactorChanges": false
+    },
+    {
+      "id": "401856745",
+      "game": "Kentucky at Tennessee",
+      "originalAuditRating": 73,
+      "fixedInputProposedRating": 80,
+      "immediatePreReleaseRating": 73,
+      "productionRating": 80,
+      "factors": [
+        {
+          "label": "Rivalry context",
+          "points": 7,
+          "contextType": "rivalry",
+          "contextText": "Kentucky and Tennessee meet for the 122nd time and only the fourth with both ranked; Kentucky enters with its best-ever CFP ranking at No. 6.",
+          "sourceUrl": "https://utsports.com/news/2026/11/2/football-16-16-vols-ramping-up-for-rivalry-showdown-against-8-7-kentucky",
+          "evidence": [
+            {
+              "url": "https://utsports.com/news/2026/11/2/football-16-16-vols-ramping-up-for-rivalry-showdown-against-8-7-kentucky",
+              "title": "Tennessee prepares for Kentucky rivalry",
+              "publishedAt": "2026-11-02",
+              "evidence": "The November 7 rivalry game is meeting 122; only three previous meetings featured two ranked teams.",
+              "reviewedAt": "2026-11-04T19:00:00Z"
+            },
+            {
+              "url": "https://collegefootballplayoff.com/news/2026/11/3/rankings",
+              "title": "First CFP rankings of 2026",
+              "publishedAt": "2026-11-03",
+              "evidence": "Kentucky is sixth, its highest position in CFP ranking history.",
+              "reviewedAt": "2026-11-04T19:00:00Z"
+            }
+          ],
+          "eventId": "401856745",
+          "factKey": "rare-ranked-border-rivalry"
+        }
+      ],
+      "explanation": "No. 6 Kentucky (7-1) and No. 13 Tennessee (6-2) meet in a ranked matchup. Tennessee is a clear favorite by 6.5 points.",
+      "links": [
+        {
+          "text": "Kentucky and Tennessee meet for the 122nd time and only the fourth with both ranked; Kentucky enters with its best-ever CFP ranking at No. 6.",
+          "url": "https://utsports.com/news/2026/11/2/football-16-16-vols-ramping-up-for-rivalry-showdown-against-8-7-kentucky",
+          "type": "rivalry"
+        }
+      ],
+      "detailMatchesFeed": true,
+      "verifiedFacts": 1,
+      "quantitativeFactorChanges": false
+    },
+    {
+      "id": "401862823",
+      "game": "Air Force at Army",
+      "originalAuditRating": 44,
+      "fixedInputProposedRating": 51,
+      "immediatePreReleaseRating": 44,
+      "productionRating": 51,
+      "factors": [
+        {
+          "label": "Rivalry context",
+          "points": 7,
+          "contextType": "rivalry",
+          "contextText": "Army and Air Force renew a service-academy rivalry played annually since 1971, with a result in the Commander-in-Chief's Trophy series at stake.",
+          "sourceUrl": "https://goarmywestpoint.com/news/2025/12/17/army-football-to-open-2026-vs-bryant-all-12-opponents-set",
+          "evidence": [
+            {
+              "url": "https://goarmywestpoint.com/news/2025/12/17/army-football-to-open-2026-vs-bryant-all-12-opponents-set",
+              "title": "Army announces 2026 opponents",
+              "publishedAt": "2025-12-17",
+              "evidence": "Army hosts service-academy rival Air Force on November 7. The series has been annual since 1971. Army meets Navy on December 12.",
+              "reviewedAt": "2026-11-04T19:00:00Z"
+            },
+            {
+              "url": "https://goarmywestpoint.com/documents/download/2025/10/28/Army_2025_Game_Notes__8__at_Air_Force.pdf",
+              "title": "Army game notes: Commander-in-Chief's Trophy",
+              "publishedAt": "2025-10-28",
+              "evidence": "Army, Navy and Air Force compete for the trophy in a round robin each season; Army-Navy is an established rivalry.",
+              "reviewedAt": "2026-11-04T19:00:00Z"
+            }
+          ],
+          "eventId": "401862823",
+          "factKey": "army-air-force"
+        }
+      ],
+      "explanation": "Air Force (6-2) and Army (5-3) bring winning records into this matchup. Army is a slight favorite with a 3-point spread; the line points to a close contest.",
+      "links": [
+        {
+          "text": "Army and Air Force renew a service-academy rivalry played annually since 1971, with a result in the Commander-in-Chief's Trophy series at stake.",
+          "url": "https://goarmywestpoint.com/news/2025/12/17/army-football-to-open-2026-vs-bryant-all-12-opponents-set",
+          "type": "rivalry"
+        }
+      ],
+      "detailMatchesFeed": true,
+      "verifiedFacts": 1,
+      "quantitativeFactorChanges": false
+    },
+    {
+      "id": "401858514",
+      "game": "Oregon at Ohio State",
+      "originalAuditRating": 64,
+      "fixedInputProposedRating": 66,
+      "immediatePreReleaseRating": 64,
+      "productionRating": 66,
+      "factors": [
+        {
+          "label": "Verified rematch context",
+          "points": 2,
+          "contextType": "meaningful_rematch",
+          "contextText": "Oregon and Ohio State meet for the first time since the Buckeyes won their January 2025 CFP quarterfinal, following Oregon's October 2024 victory.",
+          "sourceUrl": "https://goducks.com/news/2026/11/2/football-ducks-buckeyes-clash-in-columbus",
+          "evidence": [
+            {
+              "url": "https://goducks.com/news/2026/11/2/football-ducks-buckeyes-clash-in-columbus",
+              "title": "Oregon visits Ohio State",
+              "publishedAt": "2026-11-02",
+              "evidence": "The preview connects this meeting to Oregon's October 2024 win and Ohio State's January 2025 CFP quarterfinal victory, the most recent meeting.",
+              "reviewedAt": "2026-11-04T19:00:00Z"
+            }
+          ],
+          "eventId": "401858514",
+          "factKey": "older-rose-bowl-rematch"
+        }
+      ],
+      "explanation": "No. 23 Oregon (5-3) and No. 12 Ohio State (6-2) meet in a ranked matchup. Ohio State is a clear favorite by 7.5 points.",
+      "links": [
+        {
+          "text": "Oregon and Ohio State meet for the first time since the Buckeyes won their January 2025 CFP quarterfinal, following Oregon's October 2024 victory.",
+          "url": "https://goducks.com/news/2026/11/2/football-ducks-buckeyes-clash-in-columbus",
+          "type": "meaningful_rematch"
+        },
+        {
+          "text": "Ohio State to stick with Luke Fahey at quarterback vs. Oregon.",
+          "url": "https://www.espn.com/college-football/story/_/id/50370894/ohio-state-stick-luke-fahey-quarterback-vs-oregon",
+          "type": "editorial_storyline"
+        }
+      ],
+      "detailMatchesFeed": true,
+      "verifiedFacts": 1,
+      "quantitativeFactorChanges": false
+    },
+    {
+      "id": "401856740",
+      "game": "Alabama at LSU",
+      "originalAuditRating": 83,
+      "fixedInputProposedRating": 83,
+      "immediatePreReleaseRating": 83,
+      "productionRating": 83,
+      "factors": [
+        {
+          "label": "Rivalry context",
+          "points": 7,
+          "contextType": "rivalry",
+          "contextText": "Lane Kiffin gives perspective on LSU vs Bama then challenges fans",
+          "sourceUrl": "https://www.espn.com/video/clip/_/id/50362283/lane-kiffin-gives-perspective-lsu-vs-bama-challenges-fans"
+        }
+      ],
+      "explanation": "No. 5 Alabama (6-2) and No. 14 LSU (6-2) meet in a ranked matchup. LSU is a clear favorite by 5.5 points. Their records are similar, even though the market gives one side a clear advantage.",
+      "links": [
+        {
+          "text": "Kiffin discusses a common misconception about playing after a bye week as he shares his perspective on the Alabama vs LSU rivalry, then challenges fans to set a new energy record.",
+          "url": "https://www.espn.com/video/clip/_/id/50362283/lane-kiffin-gives-perspective-lsu-vs-bama-challenges-fans",
+          "type": "rivalry"
+        },
+        {
+          "text": "LSU head coach Lane Kiffin previously served as Alabama's offensive coordinator from 2014 to 2016.",
+          "url": "https://lsusports.net/sports/fb/roster/season/2026/staff/lane-kiffin",
+          "type": "editorial_storyline"
+        }
+      ],
+      "detailMatchesFeed": true,
+      "verifiedFacts": 1,
+      "quantitativeFactorChanges": false
+    },
+    {
+      "id": "401856743",
+      "game": "Texas at Missouri",
+      "originalAuditRating": 82,
+      "fixedInputProposedRating": 82,
+      "immediatePreReleaseRating": 82,
+      "productionRating": 82,
+      "factors": [],
+      "explanation": "No. 7 Texas and No. 18 Missouri bring matching 6-2 records to a ranked matchup with just a 2.5-point spread. That mix of quality and expected closeness makes this one worth circling.",
+      "links": [
+        {
+          "text": "Texas visits Missouri in Columbia for the first time since 2011.",
+          "url": "https://texaslonghorns.com/news/2025/12/11/footballs-2026-schedule-announced",
+          "type": "editorial_storyline"
+        }
+      ],
+      "detailMatchesFeed": true,
+      "verifiedFacts": 1,
+      "quantitativeFactorChanges": false
+    }
+  ],
+  "unaffectedUpcoming": {
+    "compared": 278,
+    "factorsAndScoresUnchanged": 278,
+    "changedInputs": []
+  },
+  "changedPaths": [
+    "alerts-worker/src/editorial-context.js",
+    "alerts-worker/src/game-model.js",
+    "alerts-worker/src/live-game-model.js",
+    "alerts-worker/src/research-allocation.js",
+    "alerts-worker/src/storylines.js",
+    "app.js",
+    "audit/cfb-context-20261104/README.md",
+    "audit/cfb-context-20261104/replay-verification.json",
+    "audit/cfb-context-20261104/scoring-comparison.json",
+    "scoring/cfb-verified-context.cjs",
+    "scoring/live-runtime.cjs",
+    "scoring/shared/context.js",
+    "scripts/cfb-context-report.mjs",
+    "test/cfb-verified-context.test.js",
+    "test/fixtures/cfb-context/slate-20261107.json",
+    "test/helpers/cfb-verified-context.mjs",
+    "test/pregame-editorial-pass.test.js",
+    "test/pregame-quality.test.js"
+  ],
+  "appSha256": "e358d95a70cb48d3fecb78fa55d3c24331b0f24ba68a990044ec257c7184f333",
+  "browserRuntimeSha256": "aea3909b1e190d8f57039a98423596c2dc23a272c3aa80f0cb00c18f54d51b69",
+  "visualBrowserQa": "Unavailable: browser tool could not confidently determine the URL; no further UI interaction attempted.",
+  "completedPublicGames": {
+    "compared": 30,
+    "allRatingsAndFactorsUnchanged": true
+  },
+  "errorMonitoring": {
+    "workerExceptionsObserved": 0,
+    "errorTailBytes": 0,
+    "publicRequests": "Health, feed, site assets and all eight game-detail requests returned HTTP 200.",
+    "sourceStatus": "Existing summary freshness/fetch warnings fluctuate by refresh; 82 at initial baseline, 61 immediately before release, 0 at first new-model feed, 76 at final verification. All final entries are ESPN summary URLs; no provider/network code changed."
+  }
+}
