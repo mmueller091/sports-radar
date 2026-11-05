@@ -9,6 +9,7 @@ import {contextsForGames} from './storylines.js';
 import {cachedNflPregame} from './nfl-pregame.js';
 import {fingerprint,summaryCandidate,reusable,refreshBudget,boundedFeedRefresh,REFRESH_LEASE_MS,MIGRATION_PUBLICATION_RESERVE_MS} from './refresh-policy.js';
 import {RETENTION_MS,recoverPregameRecords,recoverPregameBaselines,snapshotHistory,shouldSnapshot} from './snapshot-history.js';
+import {finalArchiveKey,finalArchivePrefix,eligibleFinalArchive,FINAL_ARCHIVE_PREFIX} from './finalized-game-cache.js';
 import {errorDetail,measuredDatabase} from './refresh-diagnostics.js';
 
 const STALE_MS = 120000;
@@ -1966,6 +1967,22 @@ export async function gameDetails(env,sport,id,now=Date.now()) {
   const feed = await readFeed(env,now);
   let game = feed?.games.find(game => game.sport === sport && String(game.id) === id);
   const archived=!game;
+  const activeArchiveKey=finalArchiveKey(game);
+  const archiveRow = activeArchiveKey
+    ? await env.DB.prepare('SELECT key,payload,updated_at FROM sports_resources WHERE key=?').bind(activeArchiveKey).first()
+    : !game ? await env.DB.prepare(`SELECT key,payload,updated_at FROM sports_resources
+      WHERE key LIKE ? ORDER BY updated_at DESC LIMIT 1`).bind(finalArchivePrefix(sport,id)+'%').first() : null;
+  let finalArchive=null;
+  if (archiveRow) {
+    try {
+      const candidate=JSON.parse(archiveRow.payload);
+      if(candidate.game?.sport===sport && String(candidate.game.id)===id &&
+          finalArchiveKey(candidate.game)===archiveRow.key &&
+          (!game || finalArchiveKey(game)===archiveRow.key) &&
+          candidate.summary?.header?.competitions?.[0]?.status?.type?.state==='post') finalArchive=candidate;
+    } catch {}
+  }
+  if(!game && finalArchive) game=finalArchive.game;
   if (!game) {
     const snapshot=await env.DB.prepare('SELECT normalized_state FROM sports_snapshots WHERE game_key=? ORDER BY observed_at DESC LIMIT 1').bind(`${sport}:${id}`).first();
     if (snapshot) {
@@ -1987,7 +2004,9 @@ export async function gameDetails(env,sport,id,now=Date.now()) {
   const errors = [];
   const url = summaryUrl(game);
   let resource;
-  try { resource=await providerJson(env,url,game.state==='live' ? LIVE_REFRESH_MS : 55000,now,errors,null,{status:game.liveRawStatus}); }
+  try { resource=finalArchive
+    ? {payload:finalArchive.summary,updatedAt:finalArchive.summaryUpdatedAt || finalArchive.archivedAt}
+    : await providerJson(env,url,game.state==='live' ? LIVE_REFRESH_MS : 55000,now,errors,null,{status:game.liveRawStatus}); }
   catch (error) {
     if (!archived) throw error;
     return {sportsRadarGame:game,sportsRadarArchived:true,sportsRadarFreshness:{stale:true,updatedAt:null,receivedAt:new Date(now).toISOString()}};
@@ -2020,7 +2039,7 @@ export async function gameDetails(env,sport,id,now=Date.now()) {
   }
   return runtime.canonicalDetailSummary(game,{...summary,...(nhlAdvanced ? {nhlAdvanced} : {}),...(['NBA','NCAAB'].includes(sport) ? {basketballBoxScore:basketballBoxScore(summary,sport)} : {}),
     sportsRadarGame:{...game,scoreCalculation:feed?.scoreCalculations?.[`${sport}:${id}`] || calculation.publicCalculation(game),scoreboard:undefined,basketballEvidence:undefined,liveInputEvidence:undefined,priorObservation:undefined,providerEventRevisions:undefined,observationEvidence:undefined},sportsRadarArchived:archived,
-    sportsRadarFreshness:{updatedAt:new Date(resource.updatedAt).toISOString(),canonicalUpdatedAt:feed?.updatedAt || null,canonicalRevision:feed?.revision || Date.parse(feed?.updatedAt) || null,receivedAt:new Date(now).toISOString(),stale:errors.length>0 || now-resource.updatedAt>STALE_MS}});
+    sportsRadarFreshness:{updatedAt:new Date(resource.updatedAt).toISOString(),canonicalUpdatedAt:feed?.updatedAt || null,canonicalRevision:feed?.revision || Date.parse(feed?.updatedAt) || null,receivedAt:new Date(now).toISOString(),stale:!finalArchive && (errors.length>0 || now-resource.updatedAt>STALE_MS)}});
 }
 
 // Owner-qualified revisions keep a late producer's parts separate, even when
@@ -2076,7 +2095,8 @@ export async function refreshSportsData(env,now=Date.now(),options={}) {
     outcome:'failed',lease:'pending',published:false,reusedPublication:false,
     candidates:0,liveCandidates:0,criticalCandidates:0,reusedGames:0,cachedEnrichments:0,cachedSummaryReads:0,
     deferredCandidates:0,deferredEnrichments:0,deferredValidations:0,migrationActive:false,revalidated:0,providerFailures:0,
-    stages:{lease:0,feedRead:0,collection:0,recordRecovery:0,contexts:0,liveSummary:0,summary:0,snapshotHistory:0,snapshots:0,calculations:0,feedWrites:0,publication:0,release:0,cleanup:0,maintenance:0}};
+    archivedFinalsReused:0,finalArchivesCreated:0,finalArchiveErrors:0,finalArchiveOversize:0,
+    stages:{lease:0,feedRead:0,collection:0,recordRecovery:0,contexts:0,liveSummary:0,summary:0,snapshotHistory:0,snapshots:0,calculations:0,feedWrites:0,publication:0,release:0,finalArchive:0,cleanup:0,maintenance:0}};
   let phase='initialization';
   budget.phase=()=>phase;
   env={...env,DB:measuredDatabase(env.DB,budget,metrics,()=>phase)};
@@ -2131,28 +2151,44 @@ export async function refreshSportsData(env,now=Date.now(),options={}) {
     // Do not publish a partial/failed scoreboard refresh as a fresh feed.
     if (errors.length) {metrics.reason='scoreboard_acquisition_failed';return null;}
     const priorGames = new Map((previous?.games || []).map(game=>[`${game.sport}:${game.id}`,game]));
-    games.forEach(game=>preservePregameRecords(game,priorGames.get(`${game.sport}:${game.id}`)));
-    games.forEach(game=>preserveFootballPregameMarket(game,priorGames.get(`${game.sport}:${game.id}`),now,previous?.updatedAt));
-    games.forEach(game=>preserveFootballContext(game,priorGames.get(`${game.sport}:${game.id}`)));
-    await stage('recordRecovery',()=>recoverPregameRecords(env,games,now,previous));
-    const contextGames = games.filter(game=>['NFL','MLB','NHL','CFB','NBA','NCAAB'].includes(game.sport));
+    const frozenFinals=new Set();
+    games.forEach((game,index)=>{
+      const key=`${game.sport}:${game.id}`,prior=priorGames.get(key);
+      const archiveKey=finalArchiveKey(game);
+      // A stable scoreboard result with a durable verified archive needs no
+      // repeated summary read, enrichment, context recovery or history write.
+      // Status, team or final-score corrections immediately leave this path.
+      if(archiveKey && archiveKey===finalArchiveKey(prior) && resources.dates.has(archiveKey) &&
+          previous?.enrichment?.[key]?.summaryHash && !prior.scoringPartial &&
+          !prior.summaryValidationPending && !prior.enrichmentPending){
+        games[index]=JSON.parse(JSON.stringify(prior));
+        frozenFinals.add(key);metrics.archivedFinalsReused++;
+      }
+    });
+    const unfrozen=games.filter(game=>!frozenFinals.has(`${game.sport}:${game.id}`));
+    unfrozen.forEach(game=>preservePregameRecords(game,priorGames.get(`${game.sport}:${game.id}`)));
+    unfrozen.forEach(game=>preserveFootballPregameMarket(game,priorGames.get(`${game.sport}:${game.id}`),now,previous?.updatedAt));
+    unfrozen.forEach(game=>preserveFootballContext(game,priorGames.get(`${game.sport}:${game.id}`)));
+    await stage('recordRecovery',()=>recoverPregameRecords(env,unfrozen,now,previous));
+    const contextGames = unfrozen.filter(game=>['NFL','MLB','NHL','CFB','NBA','NCAAB'].includes(game.sport));
     const nfl=await stage('contexts',()=>cachedNflPregame(env,contextGames,now));
     const contexts = await stage('contexts',()=>contextsForGames(env,contextGames.map(game=>`${game.sport}:${game.id}`),contextGames));
     contextGames.forEach(game=>applyContextsToGame(game,game.sport==='NFL' && game.state==='upcoming'
       ? [...(nfl.contexts[game.id] || []),...(contexts[`${game.sport}:${game.id}`] || [])]
       : contexts[`${game.sport}:${game.id}`]));
-    await stage('recordRecovery',()=>recoverPregameBaselines(env,games,now,previous));
+    await stage('recordRecovery',()=>recoverPregameBaselines(env,unfrozen,now,previous));
     games.filter(game=>game.state==='live')
       .forEach(game=>{runtime.preserveLiveEvidence(game,priorGames.get(`${game.sport}:${game.id}`));runtime.applyLiveSnapshot(game,game.sourceCompetition,null);});
 
     // The captured Tennis generic summary route returns HTTP 400. Its match
     // scoreboard already contains supported sets/status; do not manufacture
     // summary coverage or make one failing request per nested match.
-    const candidates = games.filter(game=>game.sport!=='Tennis' && summaryCandidate(game));
+    const candidates = games.filter(game=>game.sport!=='Tennis' && !frozenFinals.has(`${game.sport}:${game.id}`) && summaryCandidate(game));
     metrics.candidates=candidates.length;
     metrics.liveCandidates=candidates.filter(game=>game.state==='live').length;
     const scoreboardStates = new Map(candidates.map(game=>[game,JSON.parse(JSON.stringify({...game,liveInputEvidence:undefined,priorObservation:undefined,providerEventRevisions:undefined,observationEvidence:undefined}))]));
     const reusedGames = new Set(), enrichment={}, deferred=[],critical=[],validations=[];
+    for(const key of frozenFinals)enrichment[key]=previous.enrichment[key];
     deferred.push(...nfl.deferred);
     const copyPrior = (game,prior) => {
       // Input fingerprint includes all source and normalized/context fields. This
@@ -2233,7 +2269,7 @@ export async function refreshSportsData(env,now=Date.now(),options={}) {
     // Read audit history while its cost can still reduce optional enrichment.
     // The canonical lease is held throughout, and all snapshot writes still
     // precede the atomic header publication. No history is skipped or weakened.
-    const history=await stage('snapshotHistory',()=>snapshotHistory(env,games,now));
+    const history=await stage('snapshotHistory',()=>snapshotHistory(env,unfrozen,now));
     const imminent=game=>game.state==='upcoming'&&Date.parse(game.startTime)>=now&&Date.parse(game.startTime)<=now+2*3600000;
     const priority=(a,b)=>Number(imminent(b.game))-Number(imminent(a.game))||
       Number(Boolean(b.prior?.enrichmentPending||b.prior?.summaryValidationPending))-Number(Boolean(a.prior?.enrichmentPending||a.prior?.summaryValidationPending))||
@@ -2331,7 +2367,7 @@ export async function refreshSportsData(env,now=Date.now(),options={}) {
     // ordering depend on it. Do not let concurrent maintenance reorder snapshots.
     await stage('snapshots',async()=>{
       budget.check();
-      const writes=games.filter(game=>shouldSnapshot(game,history,now,MODEL_VERSION)).map(game=>env.DB.prepare(`INSERT OR IGNORE INTO sports_snapshots
+      const writes=games.filter(game=>!frozenFinals.has(`${game.sport}:${game.id}`) && shouldSnapshot(game,history,now,MODEL_VERSION)).map(game=>env.DB.prepare(`INSERT OR IGNORE INTO sports_snapshots
         (game_key,observed_at,sport,state,rating,score_a,score_b,phase,clock,normalized_state,model_version)
         SELECT ?,?,?,?,?,?,?,?,?,?,? WHERE EXISTS (SELECT 1 FROM sports_leases WHERE key='refresh' AND owner=? AND expires_at>?
       AND expires_at>CAST((julianday('now')-2440587.5)*86400000 AS INTEGER))`)
@@ -2346,10 +2382,47 @@ export async function refreshSportsData(env,now=Date.now(),options={}) {
     // No network maintenance holds the canonical lease. Per-resource ownership
     // still coordinates detail and canonical callers during revalidation.
     await stage('release',()=>release(env,'refresh',owner));released=true;
+    // Archive only finals already corroborated by a prior completed snapshot
+    // after a settlement window. This happens after publication and never
+    // consumes its reserve; interruptions simply retry on the next refresh.
+    await stage('finalArchive',async()=>{
+      let archived=0;
+      for(const game of games){
+        if(archived>=8 || budget.remaining()<1500)break;
+        const key=`${game.sport}:${game.id}`,prior=priorGames.get(key),meta=enrichment[key];
+        const archiveKey=finalArchiveKey(game);
+        if(!archiveKey || resources.dates.has(archiveKey) ||
+            !eligibleFinalArchive(game,prior,meta,history,now,MODEL_VERSION) ||
+            shouldSnapshot(game,history,now,MODEL_VERSION))continue;
+        try {
+          const cached=await resources.cached(summaryUrl(game));
+          if(!cached || cached.updatedAt!==meta.summaryVersion ||
+              !migrationSummaryMatches(cached.payload,game.sourceCompetition) ||
+              await hash(cached.payload)!==meta.summaryHash)continue;
+          const normalized={...game,scoreboard:undefined,verifiedLiveEvidence:undefined,
+            manpowerEvidence:undefined,basketballEvidence:undefined,liveInputEvidence:undefined,
+            priorObservation:undefined,providerEventRevisions:undefined,observationEvidence:undefined};
+          const payload=JSON.stringify({game:normalized,summary:cached.payload,
+            summaryUpdatedAt:cached.updatedAt,archivedAt:now,modelVersion:MODEL_VERSION});
+          // This is optional postpublication storage. A huge provider payload
+          // must never destabilize the next live scoring publication.
+          if(new TextEncoder().encode(payload).length>900000){metrics.finalArchiveOversize++;continue;}
+          const result=await env.DB.prepare('INSERT OR IGNORE INTO sports_resources (key,payload,updated_at) VALUES (?,?,?)')
+            .bind(archiveKey,payload,now).run();
+          if(result.meta?.changes){resources.dates.set(archiveKey,now);metrics.finalArchivesCreated++;}
+        } catch(error) {
+          metrics.finalArchiveErrors++;
+          if(metrics.finalArchiveErrors<=3)(metrics.finalArchiveErrorDetails ||= []).push(errorDetail(error));
+          if(budget.signal.aborted)break;
+        }
+        archived++;
+      }
+    });
     await stage('cleanup',async()=>{
       await env.DB.prepare('DELETE FROM sports_feed_parts WHERE CAST(revision AS INTEGER) < ?').bind(now-600000).run();
       await env.DB.prepare('DELETE FROM sports_snapshots WHERE observed_at < ?').bind(now-RETENTION_MS).run();
-      await env.DB.prepare('DELETE FROM sports_resources WHERE updated_at < ?').bind(now-7*86400000).run();
+      await env.DB.prepare('DELETE FROM sports_resources WHERE updated_at < ? AND key NOT LIKE ?')
+        .bind(now-7*86400000,FINAL_ARCHIVE_PREFIX+'%').run();
       await env.DB.prepare('DELETE FROM sports_leases WHERE expires_at < ?').bind(now).run();
     });
     if (deferred.length) await stage('maintenance',async()=>{
