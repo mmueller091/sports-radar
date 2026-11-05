@@ -9,6 +9,7 @@ import {contextsForGames} from './storylines.js';
 import {cachedNflPregame} from './nfl-pregame.js';
 import {fingerprint,summaryCandidate,reusable,refreshBudget,boundedFeedRefresh,REFRESH_LEASE_MS,MIGRATION_PUBLICATION_RESERVE_MS} from './refresh-policy.js';
 import {RETENTION_MS,recoverPregameRecords,recoverPregameBaselines,snapshotHistory,shouldSnapshot} from './snapshot-history.js';
+import {errorDetail,measuredDatabase} from './refresh-diagnostics.js';
 
 const STALE_MS = 120000;
 const LIVE_REFRESH_MS = 12000;
@@ -58,6 +59,10 @@ async function release(env,key,owner) {
 async function fetchSourceJson(url,ttl,budget) {
   budget?.check();
   if (budget) budget.stats.providerRequests++;
+  const started=budget?.elapsed();
+  const phase=budget?.phase?.() || 'other';
+  const timing=budget ? ((budget.stats.providerByPhase ||= {})[phase] ||= {requests:0,failures:0,elapsedMs:0}) : null;
+  if(timing)timing.requests++;
   try {
     const response = await fetch(url,{headers:{Accept:'application/json'},signal:budget ? AbortSignal.any([budget.signal,AbortSignal.timeout(7000)]) : AbortSignal.timeout(7000),cf:{cacheTtl:Math.floor(ttl/1000),cacheEverything:true}});
     if (!response.ok) throw new Error(`Source HTTP ${response.status}`);
@@ -67,7 +72,16 @@ async function fetchSourceJson(url,ttl,budget) {
   } catch(error) {
     if (budget) budget.stats.providerFailures++;
     if (budget && (error?.name==='TimeoutError' || error?.name==='AbortError' || budget.signal.aborted)) budget.stats.providerTimeouts++;
+    if(budget){
+      timing.failures++;
+      const failures=budget.stats.providerErrors ||= [];
+      if(failures.length<20)failures.push({url,stage:phase,startedAt:new Date(budget.time()-(budget.elapsed()-started)).toISOString(),
+        elapsedMs:budget.elapsed()-started,refreshAborted:budget.signal.aborted,...errorDetail(error)});
+    }
     throw error;
+  } finally {
+    if(budget)budget.stats.providerElapsedMs=(budget.stats.providerElapsedMs||0)+budget.elapsed()-started;
+    if(timing)timing.elapsedMs+=budget.elapsed()-started;
   }
 }
 
@@ -2014,7 +2028,9 @@ export async function gameDetails(env,sport,id,now=Date.now()) {
 // INTEGER-affinity revision column also accepts these text keys (no migration).
 export async function publishFeed(env,feed,owner,at,stage=async(name,fn)=>fn()) {
   feed={...feed,games:feed.games.filter(game=>currentGameAllowed(game,Date.parse(feed.updatedAt)))};
-  feed.scoreCalculations=Object.fromEntries(feed.games.map(game=>[`${game.sport}:${game.id}`,calculation.publicCalculation(game,feed.scoreCalculations?.[`${game.sport}:${game.id}`])]).filter(([,value])=>value));
+  await stage('calculations',()=>{
+    feed.scoreCalculations=Object.fromEntries(feed.games.map(game=>[`${game.sport}:${game.id}`,calculation.publicCalculation(game,feed.scoreCalculations?.[`${game.sport}:${game.id}`])]).filter(([,value])=>value));
+  });
   const revision = `${Date.parse(feed.updatedAt)}:${owner}`;
   const parts=[];
   await stage('feedWrites',async()=>{
@@ -2060,21 +2076,35 @@ export async function refreshSportsData(env,now=Date.now(),options={}) {
     outcome:'failed',lease:'pending',published:false,reusedPublication:false,
     candidates:0,liveCandidates:0,criticalCandidates:0,reusedGames:0,cachedEnrichments:0,cachedSummaryReads:0,
     deferredCandidates:0,deferredEnrichments:0,deferredValidations:0,migrationActive:false,revalidated:0,providerFailures:0,
-    stages:{collection:0,recordRecovery:0,contexts:0,summary:0,snapshots:0,feedWrites:0,publication:0,cleanup:0,maintenance:0}};
-  const stage = async (name,fn) => {
-    budget.check();
+    stages:{lease:0,feedRead:0,collection:0,recordRecovery:0,contexts:0,liveSummary:0,summary:0,snapshotHistory:0,snapshots:0,calculations:0,feedWrites:0,publication:0,release:0,cleanup:0,maintenance:0}};
+  let phase='initialization';
+  budget.phase=()=>phase;
+  env={...env,DB:measuredDatabase(env.DB,budget,metrics,()=>phase)};
+  metrics.computation={fingerprintMs:0,enrichmentMs:0};
+  const hash=async value=>{
     const start=budget.elapsed();
-    try { return await fn(); } finally { metrics.stages[name]+=budget.elapsed()-start; }
+    try{return await fingerprint(value);}finally{metrics.computation.fingerprintMs+=budget.elapsed()-start;}
+  };
+  const enrich=(...args)=>{
+    const start=budget.elapsed();
+    try{return enrichGame(...args);}finally{metrics.computation.enrichmentMs+=budget.elapsed()-start;}
+  };
+  const stage = async (name,fn) => {
+    phase=name;
+    const start=budget.elapsed();
+    try { budget.check();return await fn(); }
+    catch(error){metrics.failure ||= {stage:name,elapsedMs:budget.elapsed(),...errorDetail(error)};throw error;}
+    finally { metrics.stages[name]+=budget.elapsed()-start; }
   };
   let owner,resources,committed=null,released=false;
   const errors=[];
   try {
     const acquisitionStart=budget.elapsed();
-    owner = await acquire(env,'refresh',now,REFRESH_LEASE_MS);
+    owner = await stage('lease',()=>acquire(env,'refresh',now,REFRESH_LEASE_MS));
     metrics.leaseAcquisitionMs=budget.elapsed()-acquisitionStart;
     if (!owner) {metrics.lease='lost';metrics.outcome='contended';metrics.reusedPublication=true;return null;}
     metrics.lease='acquired';metrics.owner=owner;
-    const previous = await readFeed(env,now);
+    const previous = await stage('feedRead',()=>readFeed(env,now));
     if (previous && !refreshDue(previous,now)) {metrics.outcome='not_due';metrics.reusedPublication=true;return previous;}
     const migration = !previous || previous.modelVersion!==MODEL_VERSION || previous.games?.some(game=>game.enrichmentPending||game.summaryValidationPending);
     metrics.migrationActive=Boolean(migration);
@@ -2099,7 +2129,7 @@ export async function refreshSportsData(env,now=Date.now(),options={}) {
       return collected;
     });
     // Do not publish a partial/failed scoreboard refresh as a fresh feed.
-    if (errors.length) return null;
+    if (errors.length) {metrics.reason='scoreboard_acquisition_failed';return null;}
     const priorGames = new Map((previous?.games || []).map(game=>[`${game.sport}:${game.id}`,game]));
     games.forEach(game=>preservePregameRecords(game,priorGames.get(`${game.sport}:${game.id}`)));
     games.forEach(game=>preserveFootballPregameMarket(game,priorGames.get(`${game.sport}:${game.id}`),now,previous?.updatedAt));
@@ -2140,7 +2170,7 @@ export async function refreshSportsData(env,now=Date.now(),options={}) {
       }
       metrics.deferredEnrichments++;
     };
-    const acquireCritical=async (entries,bounded=false)=>{
+    const acquireCritical=async (entries,bounded=false,useCached=bounded)=>{
       for (let start=0;start<entries.length;start+=6) {
         budget.check();
         if(bounded&&budget.remaining()<=MIGRATION_PUBLICATION_RESERVE_MS){
@@ -2150,7 +2180,7 @@ export async function refreshSportsData(env,now=Date.now(),options={}) {
           const detailErrors=[];
           try {
             let resource,usedCached=false,forceRevalidation=false;
-            if(bounded){
+            if(useCached){
               // A model change invalidates computed ratings, not provider facts.
               // Recompute from a compatible cached summary, retaining its age;
               // revalidation can follow publication under the ordinary policy.
@@ -2164,19 +2194,24 @@ export async function refreshSportsData(env,now=Date.now(),options={}) {
                 if(budget.remaining()<=MIGRATION_PUBLICATION_RESERVE_MS+7000){deferEnrichment({game});return;}
               }
             }
+            // Ordinary nonlive input changes need the same publication reserve
+            // as migrations. Do not start a possible 7s request inside it.
+            if(bounded&&!resource&&budget.remaining()<=MIGRATION_PUBLICATION_RESERVE_MS+7000){deferEnrichment({game});return;}
             resource ||= await providerJson(env,url,forceRevalidation?0:game.state==='live'?LIVE_REFRESH_MS:55000,now,detailErrors,budget,game.sourceCompetition);
             budget.check();
-            if(bounded&&!migrationSummaryMatches(resource.payload,game.sourceCompetition)){
+            if(useCached&&!migrationSummaryMatches(resource.payload,game.sourceCompetition)){
               deferEnrichment({game});errors.push(url);return;
             }
-            enrichGame(game,resource.payload,prior);
+            enrich(game,resource.payload,prior);
             game.detailStale=detailErrors.length>0;
             // Failed acquisitions are retried, not certified as reusable inputs.
             // A stale cached resource still establishes which facts were used;
             // its age remains visible and ordinary maintenance refreshes it.
             if (!detailErrors.length||usedCached) enrichment[key]={input,model:MODEL_VERSION,
-              summaryHash:await fingerprint(resource.payload),summaryVersion:resource.updatedAt};
-          } catch {
+              summaryHash:await hash(resource.payload),summaryVersion:resource.updatedAt};
+          } catch(error) {
+            const failures=metrics.summaryErrors ||= [];
+            if(failures.length<20)failures.push({url,elapsedMs:budget.elapsed(),...errorDetail(error)});
             runtime.applyLiveSnapshot(game,game.sourceCompetition,null);
             if(bounded)deferEnrichment({game});
             else {game.detailStale=true;if(game.state==='completed')game.scoringPartial=true;}
@@ -2186,14 +2221,24 @@ export async function refreshSportsData(env,now=Date.now(),options={}) {
         }));
       }
     };
-    await stage('summary',async()=>{
+    await stage('liveSummary',async()=>{
       const live=[];
       for (const game of candidates.filter(game=>game.state==='live')) {
         const key=`${game.sport}:${game.id}`;
-        live.push({game,key,input:await fingerprint({game,source:game.sourceEvent,model:MODEL_VERSION}),url:summaryUrl(game),prior:priorGames.get(key)});
+        live.push({game,key,input:await hash({game,source:game.sourceEvent,model:MODEL_VERSION}),url:summaryUrl(game),prior:priorGames.get(key)});
       }
       metrics.criticalCandidates=live.length;
       await acquireCritical(live);
+    });
+    // Read audit history while its cost can still reduce optional enrichment.
+    // The canonical lease is held throughout, and all snapshot writes still
+    // precede the atomic header publication. No history is skipped or weakened.
+    const history=await stage('snapshotHistory',()=>snapshotHistory(env,games,now));
+    const imminent=game=>game.state==='upcoming'&&Date.parse(game.startTime)>=now&&Date.parse(game.startTime)<=now+2*3600000;
+    const priority=(a,b)=>Number(imminent(b.game))-Number(imminent(a.game))||
+      Number(Boolean(b.prior?.enrichmentPending||b.prior?.summaryValidationPending))-Number(Boolean(a.prior?.enrichmentPending||a.prior?.summaryValidationPending))||
+      (a.game.state==='completed'?0:1)-(b.game.state==='completed'?0:1);
+    await stage('summary',async()=>{
       const nonlive=candidates.filter(game=>game.state!=='live').sort((a,b)=>(a.state==='completed'?0:1)-(b.state==='completed'?0:1));
       // Resource versions can advance during maintenance without changing their
       // content. Bound concurrency, but do not serialize every D1 payload read.
@@ -2201,7 +2246,7 @@ export async function refreshSportsData(env,now=Date.now(),options={}) {
         const results=await Promise.allSettled(nonlive.slice(start,start+6).map(async game=>{
           budget.check();
           const key=`${game.sport}:${game.id}`, prior=priorGames.get(key), meta=previous?.enrichment?.[key];
-          const input=await fingerprint({game,source:game.sourceEvent,model:MODEL_VERSION});
+          const input=await hash({game,source:game.sourceEvent,model:MODEL_VERSION});
           const url=summaryUrl(game);
           if (!reusable(game,prior,meta,input,MODEL_VERSION)) {
             critical.push({game,key,input,url,prior});return;
@@ -2223,10 +2268,9 @@ export async function refreshSportsData(env,now=Date.now(),options={}) {
         const failure=results.find(result=>result.status==='rejected');
         if (failure) throw failure.reason;
       }
-      critical.sort((a,b)=>Number(Boolean(b.prior?.enrichmentPending))-Number(Boolean(a.prior?.enrichmentPending))||
-        (a.game.state==='completed'?0:1)-(b.game.state==='completed'?0:1));
+      critical.sort(priority);
       metrics.criticalCandidates+=critical.length;
-      await acquireCritical(critical,Boolean(migration));
+      await acquireCritical(critical,true,Boolean(migration));
       // Already-computed current-model rows must not consume the migration
       // budget before untouched rows. A newer cache timestamp can be checked
       // later without pretending the prior computation used that newer input.
@@ -2239,7 +2283,7 @@ export async function refreshSportsData(env,now=Date.now(),options={}) {
         }
         metrics.deferredValidations++;errors.push(url);
       };
-      validations.sort((a,b)=>Number(Boolean(b.prior.summaryValidationPending))-Number(Boolean(a.prior.summaryValidationPending)));
+      validations.sort(priority);
       for(let start=0;start<validations.length;start+=6){
         if(budget.remaining()<=MIGRATION_PUBLICATION_RESERVE_MS){validations.slice(start).forEach(retainUnvalidated);break;}
         await Promise.all(validations.slice(start,start+6).map(async entry=>{
@@ -2249,9 +2293,9 @@ export async function refreshSportsData(env,now=Date.now(),options={}) {
           if(!cached||!migrationSummaryMatches(cached.payload,game.sourceCompetition)){
             await acquireCritical([entry],true);return;
           }
-          const summaryHash=await fingerprint(cached.payload);
+          const summaryHash=await hash(cached.payload);
           if(summaryHash===meta.summaryHash&&!prior.summaryValidationPending)copyPrior(game,prior);
-          else {enrichGame(game,cached.payload,prior);metrics.cachedEnrichments++;}
+          else {enrich(game,cached.payload,prior);metrics.cachedEnrichments++;}
           delete game.staleEnrichment;
           delete game.summaryValidationPending;
           if(game.scoreboard)delete game.scoreboard.staleEnrichment;
@@ -2286,7 +2330,6 @@ export async function refreshSportsData(env,now=Date.now(),options={}) {
     // History remains before publication: future NFL record recovery and audit
     // ordering depend on it. Do not let concurrent maintenance reorder snapshots.
     await stage('snapshots',async()=>{
-      const history=await snapshotHistory(env,games,now);
       budget.check();
       const writes=games.filter(game=>shouldSnapshot(game,history,now,MODEL_VERSION)).map(game=>env.DB.prepare(`INSERT OR IGNORE INTO sports_snapshots
         (game_key,observed_at,sport,state,rating,score_a,score_b,phase,clock,normalized_state,model_version)
@@ -2302,7 +2345,7 @@ export async function refreshSportsData(env,now=Date.now(),options={}) {
     options.onPublished?.(withFreshness(committed,budget.time()));
     // No network maintenance holds the canonical lease. Per-resource ownership
     // still coordinates detail and canonical callers during revalidation.
-    await release(env,'refresh',owner);released=true;
+    await stage('release',()=>release(env,'refresh',owner));released=true;
     await stage('cleanup',async()=>{
       await env.DB.prepare('DELETE FROM sports_feed_parts WHERE CAST(revision AS INTEGER) < ?').bind(now-600000).run();
       await env.DB.prepare('DELETE FROM sports_snapshots WHERE observed_at < ?').bind(now-RETENTION_MS).run();
@@ -2333,13 +2376,17 @@ export async function refreshSportsData(env,now=Date.now(),options={}) {
   } catch(error) {
     metrics.outcome=committed?'published_maintenance_incomplete':'failed';
     metrics.reason=budget.signal.aborted || String(error).includes('Refresh deadline')?'deadline':'refresh_error';
+    metrics.failure ||= {stage:phase,elapsedMs:budget.elapsed(),...errorDetail(error)};
     return committed ? withFreshness(committed,budget.time()) : null;
   } finally {
     budget.close();
     // A scoreboard Promise.all may reject before sibling fetches settle. Abort
     // and drain them while still owned by waitUntil, rather than orphaning work.
     await resources?.settle();
-    if (owner && !released) await release(env,'refresh',owner).catch(()=>{metrics.lease='release_failed';});
+    if (owner && !released) {
+      phase='release';
+      await release(env,'refresh',owner).catch(error=>{metrics.lease='release_failed';metrics.releaseError=errorDetail(error);});
+    }
     metrics.reusedPublication ||= !metrics.published;
     metrics.degradedResources=new Set(errors).size;
     Object.assign(metrics,budget.stats);
