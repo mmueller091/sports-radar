@@ -16,7 +16,7 @@ body { min-width: 0; }
 .brand .brand-wordmark { font-size: 25px; }
 .brand-logo { width: 42px; height: 42px; flex-basis: 42px; }
 .topbar .main-nav { flex: 1; min-width: 0; align-items: center; }
-.support-link { display: inline-flex; flex: none; align-items: center; justify-content: center; min-height: 44px; box-sizing: border-box; margin-left: auto; padding: 0 12px; border: 1px solid color-mix(in srgb, var(--brand-red) 65%, var(--line)); border-radius: 5px; background: transparent; color: var(--brand-cream); font: 600 12px var(--font-sans); white-space: nowrap; text-decoration: none; }
+.support-link { display: inline-flex; flex: none; align-items: center; justify-content: center; min-height: 44px; box-sizing: border-box; margin-left: auto; padding: 0 9px; border: 1px solid color-mix(in srgb, var(--brand-red) 65%, var(--line)); border-radius: 5px; background: transparent; color: var(--brand-cream); font: 600 12px var(--font-sans); white-space: nowrap; text-decoration: none; }
 .support-link:hover { border-color: var(--brand-red); background: color-mix(in srgb, var(--brand-red) 8%, transparent); }
 .support-link:active { background: color-mix(in srgb, var(--brand-red) 15%, transparent); }
 .support-link:focus-visible { outline: 2px solid var(--brand-cream); outline-offset: 2px; }
@@ -151,7 +151,7 @@ body { min-width: 0; }
   .app-shell { padding-inline: 10px; }
   .topbar { min-width: 0; max-width: 100%; min-height: 60px; padding-block: 8px; height: auto; grid-template-rows: auto; row-gap: 2px; }
   .topbar .main-nav { display: flex; height: 44px; gap: 8px; }
-  .support-link { padding-inline: 10px; }
+  .support-link { padding-inline: 7px; }
   .brand-logo { width: 34px; height: 34px; flex-basis: 34px; }
   .brand .brand-wordmark { font-size: 21px; }
   .top-actions { gap: 6px; }
@@ -190,7 +190,7 @@ body { min-width: 0; }
   .search-result-leading.search-game-logos { width: 30px; flex-basis: 30px; }
   .search-game-result { grid-template-columns: 30px minmax(0,1fr) auto; }
 }
-@media (max-width: 360px) { .support-link { padding-inline: 8px; font-size: 11px; } }
+@media (max-width: 360px) { .support-link { padding-inline: 6px; font-size: 11px; } }
 
 /* Info shares the Slate header, fonts and palette; the article stays unboxed. */
 .info-page {
