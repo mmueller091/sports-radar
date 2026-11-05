@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
+import vm from 'node:vm';
 import {execFileSync} from 'node:child_process';
 import {browser} from './helpers/overtime-terminology.mjs';
 
@@ -8,7 +9,11 @@ const source=fs.readFileSync('app.js','utf8');
 const baseline=execFileSync('git',['show','e62015cd791dccbf714cfc8b8728e9ad68c0f8d0:app.js'],{encoding:'utf8',maxBuffer:4*1024*1024});
 const fixture=JSON.parse(fs.readFileSync('test/fixtures/storyline-significance-20261104.json'));
 class FixedDate extends Date{static now(){return Date.parse(fixture.capturedAt);}}
-const ui=text=>{const b=browser(text);b.Date=FixedDate;return b;};
+const ui=text=>{
+  const b=browser(text);Object.assign(b,{Date:FixedDate,URL});
+  vm.runInContext(text.slice(text.indexOf('function safeStoryUrl('),text.indexOf('const DETAIL_TAB_CONFIG')),b);
+  return b;
+};
 const target=(sport='NFL')=>({...structuredClone(fixture.game),sport,score:40,qualitativeContexts:structuredClone(fixture.contexts),pregameContextSummary:fixture.contexts[0].publicText});
 const paragraph=html=>html.match(/<p class="detail-explanation detail-why-text">([\s\S]*?)<\/p>/)?.[1];
 
