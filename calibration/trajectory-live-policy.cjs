@@ -52,7 +52,16 @@ function endgameFloorBudget(game,base,live,owned) {
   // including ordinary earlier regulation. It has no separate late-regulation
   // activation to reuse safely. Keep NHL unchanged rather than add a time gate
   // (or alter only OT and create a new regulation-to-OT allocation boundary).
-  if (game.sport!=='NFL' || !(live.sportImpact?.competitiveFloor>0)) return null;
+  if (!['NFL','CFB'].includes(game.sport) || !(live.sportImpact?.competitiveFloor>0)) return null;
+  const positiveHistory=owned.historyOwnership.combinedFactors
+    .reduce((sum,f)=>sum+Math.max(0,f.points),0);
+  // CFB's decisive floor already scales from the remaining score headroom.
+  // Count earned positive history in that headroom so the same competitive
+  // sequence cannot both raise the floor and stack on top of it.
+  if (game.sport==='CFB' && positiveHistory<=0) return null;
+  if (game.sport==='CFB') return {positiveHistory,
+    floorBaseScore:Math.min(99,base.baseScore+positiveHistory),
+    originalFloor:live.sportImpact.competitiveFloor};
   const points=label=>base.state.factors.find(f=>f.label===label)?.points||0;
   // Preserve only context already carried by stateRating, above ordinary sport
   // baseline/scarcity. No new context weights or evidence inference.
@@ -64,8 +73,6 @@ function endgameFloorBudget(game,base,live,owned) {
   const matchupContext=Math.max(0,points('Pregame context carried into play')-ordinaryContext);
   const stakes=Math.max(0,points('Persistent postseason stakes'));
   const retainedContext=matchupContext+stakes;
-  const positiveHistory=owned.historyOwnership.combinedFactors
-    .reduce((sum,f)=>sum+Math.max(0,f.points),0);
   return {positiveHistory,matchupContext,stakes,retainedContext,
     floorBaseScore:base.baseScore+positiveHistory-retainedContext,
     originalFloor:live.sportImpact.competitiveFloor};
