@@ -13,8 +13,21 @@ const shadow=require('../calibration/shadow-candidate.cjs');
 const historical=require('./helpers/audited-scoring.cjs');
 const {LIVE_HISTORY_RELEVANCE_POLICY:baseline,LIVE_ENDGAME_ALLOCATION_POLICY:policy}=require('../calibration/trajectory-live-policy.cjs');
 const {fixture:hockeyFixture}=require('./helpers/nhl-calibration.cjs');
+const {endgameFloorBudget}=require('../calibration/trajectory-live-policy.cjs');
 const fixtures=loadFixtures(),cache=new Map();
 const cases=JSON.parse(readFileSync(new URL('../calibration/trajectory-diagnostic-key.replay-v2.json',import.meta.url))).cases;
+
+test('CFB decisive headroom includes already earned positive history',()=>{
+  const base={baseScore:48,state:{factors:[]}},live={sportImpact:{competitiveFloor:37}};
+  const owned={historyOwnership:{combinedFactors:[{label:'Competitive game',points:11},{label:'Trajectory',points:3}]},
+    momentumPoints:11,trajectoryScoring:{adjustment:3}};
+  const budget=endgameFloorBudget({sport:'CFB'},base,live,owned);
+  assert.ok(budget);
+  assert.equal(budget.floorBaseScore,62);
+  assert.equal(budget.positiveHistory,14);
+  assert.equal(budget.originalFloor,37);
+  assert.equal(endgameFloorBudget({sport:'CFB'},base,{sportImpact:{competitiveFloor:0}},owned),null);
+});
 function archived(eventId,playId) {
   const f=fixtures.find(f=>String(f.eventId)===eventId);
   if(!cache.has(eventId))cache.set(eventId,replayCheckpoints(f).checkpoints);
