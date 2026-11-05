@@ -87,6 +87,7 @@ test('official profile proof requires both matching handle and visible hashtag',
   const html='<meta property="og:title" content="Baltimore Ravens (@Ravens) / X"><meta name="description" content="The #RavensFlock"><a href="/hashtag/FlyEaglesFly">';
   assert.deepEqual(verifyFromXHtml(html,'Ravens',['#RavensFlock']),{primary:'#RavensFlock',verification:'official-bio'});
   assert.equal(verifyFromXHtml(html,'Eagles',['#RavensFlock']),null);
+  assert.equal(verifyFromXHtml(html.replace('(@Ravens)','(@RavensFanHQ)'),'Ravens',['#RavensFlock']),null);
   assert.deepEqual(verifyFromXHtml(html,'Ravens',['#FlyEaglesFly']),{primary:'#FlyEaglesFly',verification:'official-post'});
   assert.equal(verifyFromXHtml(html,'Ravens',['#NotThere']),null);
 });

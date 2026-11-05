@@ -21,7 +21,7 @@ export function verifyFromXHtml(html,handle,candidates){
   // Require an official account match. Generic login/error HTML cannot
   // accidentally approve a third-party suggested tag.
   const title=htmlText(html.match(/<meta[^>]+property="og:title"[^>]+content="([^"]*)"/)?.[1]);
-  if(!title.toLowerCase().includes(`@${handle}`.toLowerCase()))return null;
+  if(!title.toLowerCase().includes(`(@${handle.toLowerCase()})`))return null;
   const bio=htmlText(html.match(/<meta[^>]+(?:name="description"|property="og:description")[^>]+content="([^"]*)"/)?.[1]);
   const bioTags=unique([...bio.matchAll(/#[A-Za-z0-9_]+/g)].map(m=>m[0].toLowerCase()));
   const renderedTags=unique([...html.matchAll(/href="\/hashtag\/([^"/?]+)[^\"]*"/g)]
