@@ -53,6 +53,7 @@ test('uses ESPNs tuple field eight for team ID, never abbreviation field one',()
   assert.deepEqual(gameHashtags(game),['#RavensFlock','#FlyEaglesFly','#NFL']);
   const draft=draftExcitementPost(game,{reason:'A late fourth-quarter lead change.'});
   assert.ok(draft.eligible);
+  assert.ok(draft.text.startsWith("This one's worth watching. Baltimore Ravens vs. Philadelphia Eagles just hit 91/99 on SlateMeter."));
   assert.ok(draft.text.includes('https://slatemeter.app/#game/NFL/401873024'));
   assert.ok(draft.text.includes('A late fourth-quarter lead change.'));
   assert.equal(draft.missingTeamHashtags.length,0);
@@ -76,6 +77,16 @@ test('never makes a malformed or oversized draft',()=>{
   assert.ok(output.text.length<=280);
   assert.throws(()=>draftExcitementPost({...game,id:'../../secrets'}),/Invalid/);
   assert.throws(()=>draftExcitementPost({...game,score:Infinity}),/Invalid/);
+});
+
+test('Wake Forest vs Vanderbilt crossing uses the approved wording',()=>{
+  const game={sport:'NCAAB',id:'401909726',score:86,teams:[
+    {id:'154',name:'Wake Forest Demon Deacons'},
+    {id:'238',name:'Vanderbilt Commodores'}]};
+  const draft=draftExcitementPost(game,{reason:'A close finish.'});
+  assert.ok(draft.text.startsWith("This one's worth watching. Wake Forest Demon Deacons vs. Vanderbilt Commodores just hit 86/99 on SlateMeter."));
+  assert.ok(draft.text.includes('A close finish.'));
+  assert.ok(draft.text.endsWith('#NCAAM\nhttps://slatemeter.app/#game/NCAAB/401909726'));
 });
 
 test('extracts team IDs and candidate hashtags from public directory table',()=>{

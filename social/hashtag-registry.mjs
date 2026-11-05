@@ -46,7 +46,7 @@ export function draftExcitementPost(game,{reason='',registry=data}={}){
   if(sides.some(x=>typeof x.name!=='string'||!x.name.trim()))throw new Error('Missing team name');
   const tags=gameHashtags(game,{registry});
   const link=`https://slatemeter.app/#game/${sport}/${id}`;
-  const opening=`${sides[0].name} vs. ${sides[1].name} is at ${rating}/99 on SlateMeter.`;
+  const opening=`This one's worth watching. ${sides[0].name} vs. ${sides[1].name} just hit ${rating}/99 on SlateMeter.`;
   // Reason comes from existing game-specific evidence; never synthesize one.
   const cleanReason=String(reason||'').replace(/[\r\n\t]+/g,' ').replace(/\s+/g,' ').trim();
   const suffix=`${tags.join(' ')}\n${link}`;
