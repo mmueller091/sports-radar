@@ -6027,6 +6027,23 @@ function storylineDetails(game) {
   const factors = game.state==='upcoming' ? upcomingLinkedStories(game) : [...(game.verifiedDevelopments||[]).filter(d=>d.verified),
     ...(Array.isArray(game.qualitativeContexts) ? game.qualitativeContexts : []).filter(f=>!game.suppressedContextTypes?.includes(f.type))];
   if (!factors.length) return '';
+  if(game.state==='upcoming') {
+    const seen=new Set(),links=[];
+    for(const factor of factors) {
+      const sources=(factor.sources?.length?factor.sources:[{url:factor.sourceUrl,title:factor.sourceTitle}]).slice(0,6);
+      const significance=factor.injuryEvidence?.playerSignificance;
+      if(game.sport==='NFL'&&significance?.verified)sources.push({url:significance.sourceUrl,title:significance.fact});
+      for(const source of sources) {
+        const href=safeStoryUrl(source?.url);if(!href)continue;
+        const url=new URL(href);if(url.username||url.password)continue;
+        url.hash='';if(seen.has(url.href))continue;seen.add(url.href);
+        const publication=source.publisher?.name||source.publisher||source.publication;
+        const label=typeof publication==='string'&&publication.trim()&&publication.trim()!=='?'?publication.trim():url.hostname.replace(/^www\./,'');
+        links.push(`<a href="${safeText(href)}" target="_blank" rel="noopener noreferrer" title="${safeText(source.title||label)}">${safeText(label)}</a>`);
+      }
+    }
+    return links.length?`<div class="storyline-section"><p class="detail-empty">Sources: ${links.join(' · ')}</p></div>`:'';
+  }
   const seen=new Set();
   const normalized=text=>String(text||'').toLocaleLowerCase().replace(/[^\p{L}\p{N}]+/gu,' ').trim();
   const outlook=game.state==='upcoming'?` ${normalized(explainRating(game))} `:'';
@@ -6045,7 +6062,7 @@ function storylineDetails(game) {
     return `<li><span>${safeText(text)}</span>${source}${proof}</li>`;
   }).filter(Boolean).slice(0,3).join('');
   if(!rows)return '';
-  return `<section class="detail-section storyline-section"><h3>${game.state==='upcoming'?'Key storylines':'Game storylines'}</h3><ul>${rows}</ul></section>`;
+  return `<section class="detail-section storyline-section"><h3>Game storylines</h3><ul>${rows}</ul></section>`;
 }
 
 const DETAIL_TAB_CONFIG = {
@@ -6118,7 +6135,7 @@ function detailPlayerBrowser(game,summary) {
 function detailTabSections(game,summary) {
   const overviewParts = [
     renderExcitementTimeline(game,summary),
-    storylineDetails(game),
+    game.state==='upcoming'?'':storylineDetails(game),
     detailScoring(summary,game.sport),
     detailLeaders(summary)
   ].filter(Boolean);
@@ -6328,7 +6345,7 @@ function renderDetailContent(
   const scoreColorStyle = `--score-hue:${scoreHueFor(game.score)};`;
 
   $('#game-detail-content').innerHTML =
-    `<header class="detail-header"><div class="detail-kicker">${safeText(labelForSport(game.sport))} · ${safeText(status)}${detailClock}</div><h2>${safeText(title)}</h2><button type="button" class="detail-watch ${isWatched(game) ? 'active' : ''}" data-watch-id="${safeText(watchKey(game))}" aria-pressed="${isWatched(game)}">${isWatched(game) ? '★ Watching this game' : '☆ Add to watchlist'}</button><div class="detail-scoreboard${game.state === 'upcoming' ? ' pregame' : ''}">${scores}</div>${detailSituation ? `<div class="detail-situation">${detailSituation}</div>` : ''}<div class="detail-meta"><span><strong>Venue</strong> ${safeText(venue)}</span><span><strong>Broadcast</strong> ${safeText(game.channel || 'Channel not listed')}</span>${lineMeta}</div>${broadcastWatchMarkup(game,summary)}${game.moment ? `<section class="detail-moment"><strong>${safeText(game.momentLabel || 'Notable play')}</strong><span>${safeText(displayMoment(game))}</span></section>` : ''}</header><section class="detail-radar" style="${scoreColorStyle}"><div class="detail-excitement-head"><span class="detail-excitement-score ${scoreClass}" style="${scoreColorStyle}">${safeText(game.score)}</span><span class="detail-excitement-copy"><small>${game.state==='live'?'Watch now':game.state==='completed'?'Game quality':'Pregame rating'}</small><strong>${safeText(ratingContext)}</strong>${trendFor(game)}</span></div><div class="detail-radar-why"><h3>${game.state==='upcoming'?'Pregame outlook':`Why ${safeText(game.score)}?`}</h3><p class="detail-explanation detail-why-text">${safeText(explainRating(game,summary))}</p></div></section>${detailTabsMarkup(game,summary)}`;
+    `<header class="detail-header"><div class="detail-kicker">${safeText(labelForSport(game.sport))} · ${safeText(status)}${detailClock}</div><h2>${safeText(title)}</h2><button type="button" class="detail-watch ${isWatched(game) ? 'active' : ''}" data-watch-id="${safeText(watchKey(game))}" aria-pressed="${isWatched(game)}">${isWatched(game) ? '★ Watching this game' : '☆ Add to watchlist'}</button><div class="detail-scoreboard${game.state === 'upcoming' ? ' pregame' : ''}">${scores}</div>${detailSituation ? `<div class="detail-situation">${detailSituation}</div>` : ''}<div class="detail-meta"><span><strong>Venue</strong> ${safeText(venue)}</span><span><strong>Broadcast</strong> ${safeText(game.channel || 'Channel not listed')}</span>${lineMeta}</div>${broadcastWatchMarkup(game,summary)}${game.moment ? `<section class="detail-moment"><strong>${safeText(game.momentLabel || 'Notable play')}</strong><span>${safeText(displayMoment(game))}</span></section>` : ''}</header><section class="detail-radar" style="${scoreColorStyle}"><div class="detail-excitement-head"><span class="detail-excitement-score ${scoreClass}" style="${scoreColorStyle}">${safeText(game.score)}</span><span class="detail-excitement-copy"><small>${game.state==='live'?'Watch now':game.state==='completed'?'Game quality':'Pregame rating'}</small><strong>${safeText(ratingContext)}</strong>${trendFor(game)}</span></div><div class="detail-radar-why"><h3>${game.state==='upcoming'?'Pregame outlook':`Why ${safeText(game.score)}?`}</h3><p class="detail-explanation detail-why-text">${safeText(explainRating(game,summary))}</p>${game.state==='upcoming'?storylineDetails(game):''}</div></section>${detailTabsMarkup(game,summary)}`;
 }
 
 async function fetchGameSummary(game,controller=new AbortController()) {

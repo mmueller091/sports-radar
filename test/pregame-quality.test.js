@@ -65,5 +65,6 @@ test('empty Game Center story and summary sections disappear',()=>{
   const tabs=vm.runInNewContext(section+';detailTabSections',context);
   assert.deepEqual(Array.from(tabs({sport:'NHL',state:'upcoming'},null)),[]);
   context.storylineDetails=()=>'<section>Linked story</section>';
-  assert.equal(tabs({sport:'NHL',state:'upcoming'},null).length,1);
+  assert.equal(tabs({sport:'NHL',state:'upcoming'},null).length,0,'sources belong in the outlook card, not an Overview container');
+  assert.equal(tabs({sport:'NHL',state:'live'},null).length,1,'live storyline presentation is unchanged');
 });

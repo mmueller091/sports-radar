@@ -25,7 +25,7 @@ test('neutral forced start reaches the outlook; duplicate reports retain every s
  assert.doesNotMatch(text,/We'll|\[Fagnano\]|\+4|bonus|modifier|more exciting|injured reserve/);
  assert.equal(stories.length,1);assert.equal(stories[0].sources.length,3);
  for(const url of [data.game.qualitativeContexts[0].sourceUrl,data.game.editorialStorylines[0].sourceUrl,data.contexts[0].contextEvidence.sourceUrl])assert.ok(html.includes(url));
- assert.equal((html.match(/<li>/g)||[]).length,1);assert.equal(JSON.stringify(g),before);
+ assert.match(html,/Sources:/);assert.equal((html.match(/<a /g)||[]).length,3);assert.doesNotMatch(html,/Key storylines|<li>/);assert.equal(JSON.stringify(g),before);
 });
 const competition={competitors:[{homeAway:'away',team:{id:'a'}},{homeAway:'home',team:{id:'b'}}]};
 for(const sport of ['NFL','CFB','NHL','MLB','NBA','NCAAB']){

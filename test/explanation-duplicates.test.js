@@ -53,15 +53,15 @@ test('qualifying attribution and a conditional source headline cannot become a d
  g.qualitativeContexts=[{type:'star_injury_return',text:g.factors[0].contextText,sourceTitle:headline}];
  assert.match(explain(g),/could return if cleared/);assert.doesNotMatch(explain(g),/will return on Sunday/);
 });
-test('the source-story list uses the same renderer and suppresses repeated entries without changing evidence',()=>{
+test('the source area suppresses repeated links without repeating story text or changing evidence',()=>{
  const context=vm.createContext({URL,safeText:String});
  vm.runInContext(source.slice(source.indexOf('function explainRating('),source.indexOf('\nfunction trendFor(')),context);
  vm.runInContext(source.slice(source.indexOf('function safeStoryUrl('),source.indexOf('const DETAIL_TAB_CONFIG')),context);
  const story={type:'star_injury_return',text:title+'. '+description,sourceTitle:title,sourceUrl:'https://example.com/story',publishedAt:new Date().toISOString()};
  const g={...base(),qualitativeContexts:[story,{...story}],factors:[{contextType:'star_injury_return',points:5}]},original=JSON.stringify(g);
- const html=context.storylineDetails(g),text=html.match(/<span>(.*?)<\/span>/)?.[1];
- assert.equal((text.match(/\breturn\b/gi)||[]).length,1);assert.doesNotMatch(text,/bearable/);assert.equal((html.match(/<li>/g)||[]).length,1);
- assert.doesNotMatch(html,/\(\+5\)|rating contribution|background context/);assert.match(html,/Read source/);assert.match(html,/https:\/\/example.com\/story/);assert.equal(JSON.stringify(g),original);
+ const html=context.storylineDetails(g);
+ assert.equal((html.match(/<a /g)||[]).length,1);assert.doesNotMatch(html,/Key storylines|<li>|<span>/);
+ assert.doesNotMatch(html,/\(\+5\)|rating contribution|background context/);assert.match(html,/Sources:/);assert.match(html,/https:\/\/example.com\/story/);assert.equal(JSON.stringify(g),original);
 });
 test('missing or partial source metadata still produces one safe statement',()=>{
  for(const metadata of [undefined,null,{},[null]]){

@@ -147,12 +147,13 @@ test('Game Center keeps scored stakes in the outlook and removes duplicate Key s
   assert.match(api.explainRating(gameFor(row('401856741'))),/playoff run.*quarterfinal/i);
   assert.match(api.explainRating(gameFor(row('401858291'))),/CFP selection debate/i);
   assert.match(displayed(after),/Holy War/i);
-  assert.match(api.storylineDetails(after),/Read source/,'outlook context retains its source link');
-  assert.equal((api.storylineDetails(after).match(/Holy War/g)||[]).length,1);
+  assert.match(api.storylineDetails(after),/Sources:.*href=/,'outlook context retains its source link');
+  assert.doesNotMatch(api.storylineDetails(after),/Key storylines|<li>/);
   assert.equal(after.qualitativeContexts.length,1,'evidence remains intact');
   assert.equal(api.storylineDetails({...after,state:'live'}).includes('Holy War'),true,'live storylines retain their existing behavior');
   assert.match(displayed(gameFor(row('401856740'))),/Kiffin.*Alabama/);
-  assert.match(displayed(gameFor(row('401856743'))),/Columbia.*2011/);
-  assert.match(api.storylineDetails(gameFor(row('401862823'))),/Read source/);
-  assert.match(api.storylineDetails(gameFor(row('401856743'))),/Read source/,'a distinct informational story keeps its source link');
+  const texas=gameFor(row('401856743'));
+  assert.match([...(texas.qualitativeContexts||[]),...(texas.editorialStorylines||[])].map(f=>f.text).join(' '),/Columbia.*2011/,'removing standalone story text preserves underlying evidence');
+  assert.match(api.storylineDetails(gameFor(row('401862823'))),/Sources:.*href=/);
+  assert.match(api.storylineDetails(gameFor(row('401856743'))),/Sources:.*href=/,'a distinct informational story keeps its source link');
 });
