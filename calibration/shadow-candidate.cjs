@@ -231,6 +231,9 @@ function candidateLiveSnapshot(core,game,competition,summary,floorBudget=null,nh
     eventShockPoints:components.eventShock,
     sportImpact,
     decisiveFloorEnabled:Boolean(SPORT_MODELS[game.sport]?.decisiveFloor),
+    // A history-adjusted floor can round to zero. Keep its ownership of the
+    // competitive bonus; zero headroom must not reactivate ordinary support.
+    preserveDecisiveAllocation:game.sport==='CFB' && Boolean(floorBudget?.originalFloor>0),
     preserveCompetitiveSupport:game.sport==='NHL' && Boolean(nhlAllocation),
     nfl:game.sport === 'NFL'
   });

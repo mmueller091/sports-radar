@@ -2341,7 +2341,7 @@ function globalSearchGameMarkup(game) {
           .join(' – ');
 
   const logos = (game.teams || []).slice(0,2).map(team => `<span>${teamLogoWithFallback(team[4] || teamLogoUrl(game.sport,team[1]),team[1] || team[0])}</span>`).join('');
-  return `<button type="button" class="search-result search-game-result" data-search-game="${safeText(game.sport)}" data-search-game-id="${safeText(game.id)}"><span class="search-result-leading search-game-logos">${logos}</span><span class="search-result-copy"><strong>${safeText(matchup || 'Game')}</strong><span>${safeText(globalSearchGameMeta(game))}${scores ? ` · ${safeText(scores)}` : ''}</span></span><span class="search-result-rating" style="--score-hue:${scoreHueFor(game.score)}"><small>${game.timingUncertain ? 'Last confirmed' : game.scoringPartial ? 'Provisional' : 'Excitement'}</small><b class="${scoreHeatClass(game.score)}">${safeText(game.score ?? '—')}</b></span></button>`;
+  return `<button type="button" class="search-result search-game-result" data-search-game="${safeText(game.sport)}" data-search-game-id="${safeText(game.id)}"><span class="search-result-leading search-game-logos">${logos}</span><span class="search-result-copy"><strong>${safeText(matchup || 'Game')}</strong><span>${safeText(globalSearchGameMeta(game))}${scores ? ` · ${safeText(scores)}` : ''}</span></span><span class="search-result-rating" style="--score-hue:${scoreHueFor(game.score)}"><small>${game.timingUncertain ? game.heldRatingProvisional ? 'Last observed' : 'Last confirmed' : game.scoringPartial ? 'Provisional' : 'Excitement'}</small><b class="${scoreHeatClass(game.score)}">${safeText(game.score ?? '—')}</b></span></button>`;
 }
 
 function renderGlobalSearch() {
@@ -2619,7 +2619,9 @@ function nhlPowerPlayMarkup(game,team) {
 }
 
 function explainRating(game,summary=null) {
-  if(game.timingUncertain)return 'The clock is updating. This rating was last confirmed before the latest plays.';
+  if(game.timingUncertain)return game.heldRatingProvisional
+    ? 'The clock is updating. This is the latest observed rating, pending confirmation.'
+    : 'The clock is updating. This rating was last confirmed before the latest plays.';
   // Keep feed and evidence diagnostics out of the public game explanation.
   const evidenceNote='';
   const scoresKnown=game.teams?.length===2&&game.teams.every(t=>t[2]!=null&&String(t[2]).trim()!==''&&Number.isFinite(Number(t[2])));
@@ -3193,7 +3195,7 @@ function gameCard(game) {
           .map(([base]) => base)
           .join(' and ')
       : '',
-    `${game.timingUncertain?'last confirmed rating, clock updating':game.state==='live'&&game.scoringPartial?'provisional watch now rating':game.state==='live'?'watch now rating':game.state==='completed'?'game quality':'pregame rating'} ${game.score==null?'pending':game.score}`,
+    `${game.timingUncertain?game.heldRatingProvisional?'last observed rating, clock updating':'last confirmed rating, clock updating':game.state==='live'&&game.scoringPartial?'provisional watch now rating':game.state==='live'?'watch now rating':game.state==='completed'?'game quality':'pregame rating'} ${game.score==null?'pending':game.score}`,
     'Open game details'
   ]
     .filter(Boolean)
@@ -6333,7 +6335,7 @@ function renderDetailContent(
       : null;
 
   const ratingContext = game.timingUncertain
-    ? `Last confirmed rating ${game.score==null?'pending':safeText(game.score)} · Clock updating`
+    ? `${game.heldRatingProvisional?'Last observed rating':'Last confirmed rating'} ${game.score==null?'pending':safeText(game.score)} · Clock updating`
     : game.state==='live'&&game.scoringPartial
       ? `Provisional rating ${game.score==null?'pending':safeText(game.score)} · Awaiting confirmation`
     : game.state === 'upcoming'

@@ -116,6 +116,11 @@ test('all eight games preserve pregame credit through kickoff, early WP and mean
       const repeated=copy(game);active.enrichGame(game,summary(game,{wp}),repeated);assert.equal(game.score,repeated.score);
       previous=copy(game);
     }
+    // The earlier checkpoints are evaluated immediately in this test. Allow
+    // the intervening real match time to pass before evaluating the 8:00 play.
+    // The production clock-integrity guard must still reject genuinely
+    // impossible jumps when provider observations arrive seconds apart.
+    if(previous.priorObservation)previous.priorObservation.observedAt=Date.now()-15*60000;
     const game=gameFor(r,{state:'in',clock:'8:00',scores:[7,0],at:kickoff+15*60000});
     const plays=[{id:'td',period:{number:1},clock:{displayValue:'8:00'},awayScore:7,homeScore:0,scoringPlay:true,type:{text:'Passing Touchdown'},text:'Away passing touchdown',team:{id:r.event.competitions[0].competitors[0].team.id}}];
     active.enrichGame(game,summary(game,{wp:.4,plays}),previous);

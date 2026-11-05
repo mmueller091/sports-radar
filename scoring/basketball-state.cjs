@@ -28,6 +28,16 @@ function preserveBasketballState(game,previous) {
   if(previous.basketballEvidence?.identity===identity(game))game.basketballEvidence=clone(previous.basketballEvidence);
   game.basketballLastTrusted=clone(previous.basketballLastTrusted || (!previous.timingUncertain && !previous.scoringPartial && Number.isFinite(previous.score) ?
    Object.fromEntries(['score','baseScore','openingScore','rawPregameScore','factors','live','momentumPoints','trajectoryScoring','historyOwnership','why','upsetText','upsetPoints','modelVersion','scoringPolicy'].map(key=>[key,previous[key]]).filter(([,value])=>value!==undefined)) : null));
+  // A valid current scoreboard with incomplete play history is still more
+  // recent display evidence than a fully verified rating from earlier periods.
+  // Retain it separately: it must never become authoritative for notifications.
+  const displayEligible=!previous.timingUncertain&&!previous.basketballUpdateRejected&&!previous.liveUpdateRejected&&
+   !previous.summaryLifecycleRejected&&!previous.scoringHistoryRejected&&previous.score!=null&&Number.isFinite(Number(previous.score))&&
+   previous.liveRawStatus&&position(previous,{status:previous.liveRawStatus})!==null&&
+   previous.evidenceQuality!=='invalid';
+  game.basketballLastDisplayed=clone(displayEligible ? {provisional:Boolean(previous.scoringPartial||previous.evidenceQuality==='partial'),
+   state:Object.fromEntries(['score','baseScore','openingScore','rawPregameScore','factors','live','momentumPoints','trajectoryScoring','historyOwnership','why','upsetText','upsetPoints','modelVersion','scoringPolicy']
+    .map(key=>[key,previous[key]]).filter(([,value])=>value!==undefined))} : previous.basketballLastDisplayed||null);
   if(previous.recoveredCollegeUnderdog)game.recoveredCollegeUnderdog=clone(previous.recoveredCollegeUnderdog);
  }
 }
@@ -78,7 +88,10 @@ function reconcileBasketball(game,c,summary) {
   game.timingUncertain=true;game.scoringPartial=true;game.evidenceQuality='partial';
   game.evidenceReasons=[...new Set([...(game.evidenceReasons||[]),'unconfirmed-clock'])];
   game.liveRawStatus={...c.status,displayClock:'',timingUncertain:true};
-  if(game.basketballLastTrusted)Object.assign(game,clone(game.basketballLastTrusted));
+  if(game.basketballLastDisplayed){
+   Object.assign(game,clone(game.basketballLastDisplayed.state));
+   game.heldRatingProvisional=game.basketballLastDisplayed.provisional;
+  }else if(game.basketballLastTrusted)Object.assign(game,clone(game.basketballLastTrusted));
   else game.score=null;
   return {competition:c,summary:null,history:null,rawCurrent:false,timingUncertain:true};
  }
