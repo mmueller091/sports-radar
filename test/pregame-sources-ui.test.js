@@ -17,8 +17,10 @@ const ui=text=>{
 const target=(sport='NFL')=>({...structuredClone(fixture.game),sport,score:40,qualitativeContexts:structuredClone(fixture.contexts),pregameContextSummary:fixture.contexts[0].publicText});
 const paragraph=html=>html.match(/<p class="detail-explanation detail-why-text">([\s\S]*?)<\/p>/)?.[1];
 
-test('outlook construction and storyline selection are byte-for-byte unchanged',()=>{
-  const block=s=>s.slice(s.indexOf('function explainRating('),s.indexOf('function trendFor(')).replaceAll('\r\n','\n');
+test('outlook construction and storyline selection remain unchanged except held-clock copy',()=>{
+  const block=s=>s.slice(s.indexOf('function explainRating('),s.indexOf('function trendFor('))
+    .replaceAll('\r\n','\n')
+    .replace(/^  if\(game\.timingUncertain\)return[\s\S]*?(?=\n  \/\/ Keep feed)/m,'  /* held clock text */');
   assert.equal(block(source),block(baseline));
 });
 
