@@ -17,8 +17,13 @@ function stateKey(c){
 function sequence(p,event){const id=String(p?.id||'');return /^\d+$/.test(id)&&id.startsWith(String(event))?Number(id.slice(String(event).length)):null;}
 function preserveObservation(game,previous){
  if(!reconciles(game)||game.state!=='live'||previous?.state!=='live'||identity(game)!==identity(previous))return;
+ const previousCompetition=competitionFor(previous);
+ const sameAcceptedState=previous.priorObservation?.identity===identity(game)&&
+  stateKey(previous.priorObservation.competition)===stateKey(previousCompetition);
  game.priorObservation=previous.timingUncertain&&previous.priorObservation?.identity===identity(game)?clone(previous.priorObservation):
-  {identity:identity(game),competition:competitionFor(previous)};
+  {identity:identity(game),competition:previousCompetition,
+   observedAt:sameAcceptedState&&Number.isFinite(previous.priorObservation.observedAt)
+    ?previous.priorObservation.observedAt:Date.now()};
  game.timedLastTrusted=clone(previous.timedLastTrusted || (!previous.timingUncertain&&!previous.scoringPartial&&Number.isFinite(previous.score)?
   Object.fromEntries(['score','baseScore','openingScore','rawPregameScore','factors','live','momentumPoints','trajectoryScoring','historyOwnership','why','upsetText','upsetPoints','modelVersion','scoringPolicy'].map(key=>[key,previous[key]]).filter(([,value])=>value!==undefined)):null));
  if(previous.observationEvidence)game.observationEvidence=clone(previous.observationEvidence);
@@ -70,6 +75,23 @@ function reconcileObservation(game,c,summary){
  delete game.timingUncertain;
  if(!prior)return c;
  const at=normalizedTime(game.sport,c).elapsedSeconds,before=normalizedTime(game.sport,prior).elapsedSeconds;
+ // Game time cannot advance faster than real elapsed time. A provider's
+ // premature "End of 4th Quarter" is not proof of a completed live game.
+ const priorObservedAt=game.priorObservation?.observedAt;
+ const elapsedWallSeconds=Number.isFinite(priorObservedAt)?(Date.now()-priorObservedAt)/1000:null;
+ const fastForward=Number(status.period)===Number(prior.status?.period)&&
+  at!==null&&before!==null&&elapsedWallSeconds!==null&&elapsedWallSeconds>=0&&
+  elapsedWallSeconds<=3600&&at-before>Math.max(180,elapsedWallSeconds+90)&&
+  status.type?.completed!==true&&status.type?.state!=='post';
+ if(fastForward){
+  game.timingUncertain=true;game.scoringPartial=true;game.evidenceQuality='partial';
+  game.liveUpdateRejected=true;
+  game.observationIntegrity={status:'rejected',reason:'implausible-clock-advance'};
+  game.evidenceReasons=[...new Set([...(game.evidenceReasons||[]),'implausible-clock-advance'])];
+  game.liveRawStatus={...status,displayClock:'',timingUncertain:true};
+  if(game.timedLastTrusted)Object.assign(game,clone(game.timedLastTrusted));else game.score=null;
+  return c;
+ }
  const seq=sequence(c.situation?.lastPlay,game.id),old=sequence(prior.situation?.lastPlay,game.id);
  const older=seq!==null&&old!==null&&seq<old,newer=seq!==null&&old!==null&&seq>old;
  const header=summary?.header?.competitions?.[0];
@@ -101,7 +123,7 @@ function reconcileObservation(game,c,summary){
  game.liveRawStatus=c.status;game.liveRawSituation=c.situation;
  for(const t of game.teams){const score=c.competitors?.find(x=>String(x.team?.id)===String(t[8]))?.score;if(score!=null)t[2]=String(score);}
  if(!rejected&&at!==null&&before!==null&&at<before)delete game.summaryState;
- game.priorObservation={identity:identity(game),competition:clone(c)};
+ game.priorObservation={identity:identity(game),competition:clone(c),observedAt:Date.now()};
  return c;
 }
 function compactSummary(summary,c){
