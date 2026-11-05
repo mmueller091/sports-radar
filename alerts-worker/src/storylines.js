@@ -606,7 +606,7 @@ export async function contextsForGames(env,keys,games=[],now=Date.now()) {
     if(row.factor_type!==EDITORIAL_TYPE){
       sourceDocuments??=(await readOpenNewsState(env,now)).documents;
       const proof=verifiedEvidenceFactors(game,sourceDocuments,deterministicFactor,now,games).find(f=>f.type===expected);
-      const checked=proof&&validatedScoringFactor(proof,game,now,games);
+      const checked=proof&&validatedScoringFactor(proof,game,now,games,sourceDocuments);
       if(checked){(output[key]||=[]).push(checked);continue;}
     }
     const story=singleSourceDiscovery(article,game,now,expected);

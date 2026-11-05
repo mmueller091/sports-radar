@@ -36,6 +36,22 @@ function game(sport='NFL'){
     competitors:[{homeAway:'away',team:{id:'30',displayName:'Jacksonville Jaguars',abbreviation:'JAX'},score:'0'},
       {homeAway:'home',team:{id:'33',displayName:'Baltimore Ravens',abbreviation:'BAL'},score:'0'}]}]},sport);
 }
+
+test('legacy and current starter rows retain fresh neutral injury context through read-time revalidation',async t=>{
+  for(const legacy of [true,false]){
+    const g=game(),baseline=g.score,{db,env}=database(t),starter=factors(g,[transcript()])[0];
+    await saveFactors(env,[{key:'NFL:'+g.id,start:Date.parse(g.startTime)}],[legacy?{...starter,evidence:undefined}:starter],now);
+    const injury=doc('https://www.baltimoreravens.com/news/quarterback-update',
+      'Alex Smith and John Jones are injured and even No. 3 quarterback, Joe Fagnano, is dealing with an ankle injury, but that will not stop him from making his first career start Thursday night against the Jacksonville Jaguars.');
+    db.prepare('INSERT INTO sports_resources(key,payload,updated_at) VALUES (?,?,?)').run(OPEN_NEWS_KEY,JSON.stringify({documents:[transcript(),injury]}),now);
+    const restored=(await contextsForGames(env,['NFL:'+g.id],[g],now))['NFL:'+g.id];
+    assert.equal(restored.length,1);assert.equal(restored[0].scoringEligible,false);
+    assert.match(restored[0].publicText,/following injuries to Alex Smith and John Jones/);
+    assert.ok(restored[0].sources.some(s=>s.url===injury.url));
+    applyContextsToGame(g,restored,now);assert.equal(g.score,baseline);
+    assert.match(g.pregameContextSummary,/following injuries to Alex Smith and John Jones/);
+  }
+});
 const doc=(url,body,extra={})=>({version:1,url,title:'Official release',body,published:now-DAY,retrievedAt:now,authors:['League Communications'],section:'Official release',links:[],...extra});
 const transcript=()=>doc('https://www.baltimoreravens.com/news/transcript-press-conferences-11-3-26',
   "HEAD COACH JESSE MINTER\nWe'll be starting Joe [Fagnano] at quarterback this week on Thursday.\nQB JOE FAGNANO\nI will be ready.",
