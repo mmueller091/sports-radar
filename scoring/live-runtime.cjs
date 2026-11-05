@@ -19,7 +19,7 @@ const footballMarket=require('./football-market.cjs');
 const integrity=require('./snapshot-integrity.cjs');
 const gameFacts=require('./game-facts.cjs');
 const PRODUCTION_POLICY = Object.freeze({...LIVE_POLICY,id:LIVE_POLICY.id+'-opening-transition',footballTransition:true,openingTransition:true});
-const MODEL_VERSION = '2026-11-04.storyline-significance.1';
+const MODEL_VERSION = '2026-11-05.live-integrity.1';
 
 function describeCfbQualitySoFar(game,current,summary) {
   delete game.gameQualitySoFar;

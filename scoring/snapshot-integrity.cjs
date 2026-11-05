@@ -7,6 +7,12 @@ const reconciles=g=>supported(g)||g.sport==='NHL';
 const identity=g=>`${g.sport}:${g.id}:${g.teams.map(t=>String(t[8])).sort().join(',')}`;
 function competitionFor(g){return {status:g.liveRawStatus,situation:g.liveRawSituation,
  competitors:g.teams.map((t,i)=>({team:{id:String(t[8])},homeAway:i?'home':'away',score:t[2]}))};}
+function sameClockState(a,b){
+ return Number(a?.status?.period)===Number(b?.status?.period)&&
+  String(a?.status?.displayClock)===String(b?.status?.displayClock)&&
+  a?.competitors?.length===2&&b?.competitors?.length===2&&a.competitors.every(t=>
+   String(t.score)===String(b.competitors.find(x=>String(x.team?.id)===String(t.team?.id))?.score));
+}
 function stateKey(c){
  const s=c?.situation||{},p=s.lastPlay;
  return JSON.stringify({period:c?.status?.period,clock:c?.status?.displayClock,state:c?.status?.type?.state,
@@ -19,11 +25,11 @@ function preserveObservation(game,previous){
  if(!reconciles(game)||game.state!=='live'||previous?.state!=='live'||identity(game)!==identity(previous))return;
  const previousCompetition=competitionFor(previous);
  const sameAcceptedState=previous.priorObservation?.identity===identity(game)&&
-  stateKey(previous.priorObservation.competition)===stateKey(previousCompetition);
+  sameClockState(previous.priorObservation.competition,previousCompetition);
  game.priorObservation=previous.timingUncertain&&previous.priorObservation?.identity===identity(game)?clone(previous.priorObservation):
   {identity:identity(game),competition:previousCompetition,
    observedAt:sameAcceptedState&&Number.isFinite(previous.priorObservation.observedAt)
-    ?previous.priorObservation.observedAt:Date.now()};
+    ?previous.priorObservation.observedAt:null};
  game.timedLastTrusted=clone(previous.timedLastTrusted || (!previous.timingUncertain&&!previous.scoringPartial&&Number.isFinite(previous.score)?
   Object.fromEntries(['score','baseScore','openingScore','rawPregameScore','factors','live','momentumPoints','trajectoryScoring','historyOwnership','why','upsetText','upsetPoints','modelVersion','scoringPolicy'].map(key=>[key,previous[key]]).filter(([,value])=>value!==undefined)):null));
  if(previous.observationEvidence)game.observationEvidence=clone(previous.observationEvidence);
@@ -73,16 +79,23 @@ function reconcileObservation(game,c,summary){
   return c;
  }
  delete game.timingUncertain;
- if(!prior)return c;
+ if(!prior){
+  // Timestamp the first observation when it arrives, not at the next refresh.
+  game.priorObservation={identity:identity(game),competition:clone(c),observedAt:Date.now()};
+  return c;
+ }
  const at=normalizedTime(game.sport,c).elapsedSeconds,before=normalizedTime(game.sport,prior).elapsedSeconds;
  // Game time cannot advance faster than real elapsed time. A provider's
  // premature "End of 4th Quarter" is not proof of a completed live game.
  const priorObservedAt=game.priorObservation?.observedAt;
  const elapsedWallSeconds=Number.isFinite(priorObservedAt)?(Date.now()-priorObservedAt)/1000:null;
+ const explicitClockCorrection=/\b(clock correction|official review|clock reset)\b/i.test(String(c.situation?.lastPlay?.text||''))&&
+  sameClockState(c,summary?.header?.competitions?.[0])&&
+  corroboratedRevision(c,prior,summary.header.competitions[0],at,before);
  const fastForward=Number(status.period)===Number(prior.status?.period)&&
   at!==null&&before!==null&&elapsedWallSeconds!==null&&elapsedWallSeconds>=0&&
   elapsedWallSeconds<=3600&&at-before>Math.max(180,elapsedWallSeconds+90)&&
-  status.type?.completed!==true&&status.type?.state!=='post';
+  status.type?.completed!==true&&status.type?.state!=='post'&&!explicitClockCorrection;
  if(fastForward){
   game.timingUncertain=true;game.scoringPartial=true;game.evidenceQuality='partial';
   game.liveUpdateRejected=true;
@@ -123,7 +136,11 @@ function reconcileObservation(game,c,summary){
  game.liveRawStatus=c.status;game.liveRawSituation=c.situation;
  for(const t of game.teams){const score=c.competitors?.find(x=>String(x.team?.id)===String(t[8]))?.score;if(score!=null)t[2]=String(score);}
  if(!rejected&&at!==null&&before!==null&&at<before)delete game.summaryState;
- game.priorObservation={identity:identity(game),competition:clone(c),observedAt:Date.now()};
+ // Repeated polls and rejected older inputs do not refresh the age of the
+ // accepted provider state. A delayed catch-up can legitimately consume the
+ // real time since that state was first observed.
+ game.priorObservation={identity:identity(game),competition:clone(c),
+  observedAt:(rejected||sameClockState(c,prior))&&Number.isFinite(priorObservedAt)?priorObservedAt:Date.now()};
  return c;
 }
 function compactSummary(summary,c){

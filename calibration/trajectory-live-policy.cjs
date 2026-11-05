@@ -17,7 +17,7 @@ const LIVE_HISTORY_RELEVANCE_POLICY = Object.freeze({...LIVE_TRAJECTORY_POLICIES
   description:'Current relevance before history caps; supported recovery shares the decisive-state discount taper.'});
 const LIVE_ENDGAME_ALLOCATION_POLICY = Object.freeze({...LIVE_HISTORY_RELEVANCE_POLICY,
   id:'live-owned-45-95-relevant-history-endgame-allocation',endgameAllocation:true,
-  description:'NFL floors consume earned positive history; retain existing context outside floor headroom. NHL unchanged.'});
+  description:'NFL/CFB floors consume earned positive history; NFL retains existing context outside floor headroom. NHL unchanged.'});
 const LIVE_NHL_ALLOCATION_POLICY = Object.freeze({...LIVE_ENDGAME_ALLOCATION_POLICY,
   id:'live-owned-45-95-relevant-history-nhl-allocation',nhlAllocation:true,
   description:'NHL normalized clocks, context-preserving targets and independent bounded history; NFL allocation unchanged.'});

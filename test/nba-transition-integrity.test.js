@@ -241,6 +241,7 @@ test('same-period false game endings cannot advance twelve minutes in one refres
   const id='401866457',start=competition(sport==='NHL'?3:4,'12:52',17,10);
   const previous={...game(id,start,67),sport,liveRawStatus:start.status,liveRawSituation:start.situation,
    baseScore:52,evidenceQuality:'complete'};
+  observationIntegrity.reconcileObservation(previous,start,null);
   const falseEnd=competition(sport==='NHL'?3:4,'0:00',17,10,'End of 4th Quarter');
   const pending={...game(id,falseEnd,21),sport};
   observationIntegrity.preserveObservation(pending,previous);

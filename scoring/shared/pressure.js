@@ -11,6 +11,7 @@
     eventShockPoints=0,
     sportImpact={},
     decisiveFloorEnabled=false,
+    preserveDecisiveAllocation=false,
     preserveCompetitiveSupport=false,
     nfl=false
   }={}) {
@@ -23,7 +24,8 @@
     const decisiveFloor = nfl || decisiveFloorEnabled
       ? Math.max(0,Number(sportImpact.competitiveFloor) || 0)
       : 0;
-    const competitiveSituation = decisiveFloorEnabled && decisiveFloor > 0 && !preserveCompetitiveSupport
+    const decisiveAllocation = decisiveFloor > 0 || decisiveFloorEnabled && preserveDecisiveAllocation;
+    const competitiveSituation = decisiveFloorEnabled && decisiveAllocation && !preserveCompetitiveSupport
       ? decisiveFloor
       : Math.min(Math.max(20,decisiveFloor),Math.max(
           driveFloor,
@@ -35,7 +37,7 @@
       competitiveSituation + milestonePoints + eventShockPoints
     );
     const negativeBonus = Math.max(-8,probabilityNegative);
-    const bonus = decisiveFloor > 0
+    const bonus = decisiveAllocation
       ? Math.max(decisiveFloor,positiveBonus + negativeBonus)
       : positiveBonus + negativeBonus;
 
@@ -49,7 +51,7 @@
       const rawSituation=probabilityPositive+situationPoints+pressurePoints;
       // These are the exact competing floor/cap operands of the calculation above.
       const support=Math.max(driveFloor,Number(sportImpact.competitiveFloor)||0,rawSituation);
-      if(decisiveFloorEnabled&&decisiveFloor>0&&!preserveCompetitiveSupport){
+      if(decisiveFloorEnabled&&decisiveAllocation&&!preserveCompetitiveSupport){
         row('Decisive situation replaces ordinary live support',calculation.difference(competitiveSituation,rawSituation),'floor');
       }else{
         row('Competitive situation floor',calculation.difference(support,rawSituation),'floor');
