@@ -2743,8 +2743,7 @@ function explainRating(game,summary=null) {
 
 function upcomingLinkedStories(game,now=Date.now()) {
   if(game.state!=='upcoming')return [];
-  const seen=new Set();
-  return [...(game.verifiedDevelopments||[]).filter(d=>d?.verified),...(Array.isArray(game.qualitativeContexts)?game.qualitativeContexts:[]),...(game.editorialStorylines||[])]
+  const candidates=[...(game.verifiedDevelopments||[]).filter(d=>d?.verified),...(Array.isArray(game.qualitativeContexts)?game.qualitativeContexts:[]),...(game.editorialStorylines||[])]
     .filter(story=>{
       if(!story||story.verified===false||game.suppressedContextTypes?.includes(story.type))return false;
       const at=story.publishedAt?Date.parse(story.publishedAt):Number(story.sourcePublished)*1000;
@@ -2754,14 +2753,31 @@ function upcomingLinkedStories(game,now=Date.now()) {
       if(/\/(?:recap|preview)(?:[/?]|$)/i.test(story.sourceUrl))return false;
       if(story.type==='notable_recent_performance')return false;
       const text=publicStorySentence(story),key=text.toLowerCase().replace(/[^\p{L}\p{N}]+/gu,' ').trim();
-      const url=String(story.sourceUrl).replace(/[?#].*$/,'');
-      if(!key||seen.has(key)||seen.has(url))return false;
-      seen.add(key);seen.add(url);return true;
-    }).slice(0,3);
+      return Boolean(key);
+    });
+  const normalize=s=>String(s||'').toLowerCase().replace(/[^a-z0-9]+/g,' ').trim();
+  const groups=[];
+  for(const story of candidates){
+    const key=normalize(publicStorySentence(story));
+    const same=groups.find(prior=>{
+      if(key===normalize(publicStorySentence(prior)))return true;
+      if(prior.eventKey&&story.eventKey)return prior.eventKey===story.eventKey;
+      const e=prior.evidence,subject=e?.subject;
+      if(!subject || !e.owner || prior.type!==(story.discoveredType||story.type))return false;
+      if(story.evidence?.subject)return subject===story.evidence.subject&&e.owner===story.evidence.owner;
+      const text=normalize(story.sourceDescription||story.text);
+      return (story.sourceTeamIds||[]).map(String).includes(String(e.owner)) && text.includes(normalize(subject)+' will start');
+    });
+    const links=[{url:story.sourceUrl,title:story.sourceTitle,verification:story.verification},...(story.sources||[])];
+    if(same) same.sources=[...new Map([...same.sources,...links].map(s=>[s.url,s])).values()];
+    else groups.push({...story,sources:[...new Map(links.map(s=>[s.url,s])).values()]});
+  }
+  return groups.slice(0,3);
 }
 
 function publicStorySentence(factor,stories=[]) {
   const clean=s=>String(s || '').trim().replace(/\s+/g,' ');
+  if(factor.publicText&&['authoritative-primary','independently-corroborated'].includes(factor.verification))return clean(factor.publicText);
   let text=clean(factor.contextText || factor.text);
   const story=(Array.isArray(stories)?stories:[]).find(item=>item?.type===(factor.contextType || factor.type)&&
     (item.text===(factor.contextText || factor.text) || (item.sourceUrl&&item.sourceUrl===factor.sourceUrl)));
@@ -2926,6 +2942,9 @@ function pregameExplanation(game,verified=[]) {
   } else {add(`${recordPair} meet`);recordsUsed=true;}
 
   const linked=upcomingLinkedStories(game);
+  const factualStories=linked.filter(s=>s.publicText && ['authoritative-primary','independently-corroborated'].includes(s.verification));
+  if(game.pregameContextSummary)add(game.pregameContextSummary);
+  else for(const story of factualStories.slice(0,2))add(publicStorySentence(story));
   // A verified scoring reason belongs in the outlook even when the same
   // evidence also earns a separate source link under Key storylines.
   // Keeping this ledger-driven avoids a special-case rivalry narrative.
@@ -6013,12 +6032,12 @@ function storylineDetails(game) {
   const outlook=game.state==='upcoming'?` ${normalized(explainRating(game))} `:'';
   const rows = factors.slice(0,6).map(factor => {
     const text=publicStorySentence(factor),key=text.toLocaleLowerCase().replace(/[^\p{L}\p{N}]+/gu,' ').trim();
-    if(!key||seen.has(key)||outlook.includes(` ${key} `))return '';
+    if(!key||seen.has(key))return '';
     seen.add(key);
-    const url = safeStoryUrl(factor.sourceUrl);
-    const source = url
-      ? `<a href="${safeText(url)}" target="_blank" rel="noopener noreferrer" title="${safeText(factor.sourceTitle || 'Read source')}">Read source ↗</a>`
-      : '';
+    const links=factor.sources?.length?factor.sources:[{url:factor.sourceUrl,title:factor.sourceTitle}];
+    const source=[...new Map(links.map(s=>[safeStoryUrl(s.url),s])).values()].slice(0,6).map((s,i)=>{
+      const url=safeStoryUrl(s.url);return url?`<a href="${safeText(url)}" target="_blank" rel="noopener noreferrer" title="${safeText(s.title || 'Read source')}">${i?'Additional source':'Read source'} ?</a>`:'';
+    }).join('');
     const significance=factor.injuryEvidence?.playerSignificance;
     const proofUrl=safeStoryUrl(significance?.sourceUrl);
     const proof=game.sport==='NFL' && proofUrl && significance.verified

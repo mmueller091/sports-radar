@@ -166,6 +166,6 @@ test('source-backed quality and starter factors flow into pregame scoring', () =
   ]};
   const factors = core.pregameContextFactors(event,{});
   assert.equal(factors.find(factor => factor.contextType === 'elite_efficiency_profile')?.points,4);
-  assert.equal(factors.find(factor => factor.contextType === 'confirmed_key_starters')?.points,4);
+  assert.equal(factors.find(factor => factor.contextType === 'confirmed_key_starters')?.points,undefined);
   assert.ok(!factors.some(factor => factor.contextType === 'strength_of_schedule'));
 });

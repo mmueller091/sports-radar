@@ -1,0 +1,2283 @@
+{
+  "provenance": {
+    "kind": "exact-subset-of-retained-audit-export",
+    "slateDate": "2026-11-03",
+    "sourceSha256": "568031c5a0239d736dff062190faebc12aa672cde1bafdba2f74ad7e06b4c467",
+    "note": "Selected original observations only; no timestamp or scoring reconstruction. Sparse subset does not establish full-game coverage."
+  },
+  "games": [
+    {
+      "gameKey": "NHL:401892634",
+      "sport": "NHL",
+      "matchup": "Winnipeg Jets vs Montreal Canadiens",
+      "observations": [
+        {
+          "runId": 248,
+          "observedAt": 1793760175518,
+          "slateDate": "2026-11-03",
+          "rating": 1,
+          "ratingChange": 0,
+          "scores": [
+            0,
+            4
+          ],
+          "period": 3,
+          "clockSeconds": 272,
+          "stateBucket": "late:wide",
+          "state": {
+            "id": "401892634",
+            "sport": "NHL",
+            "state": "live",
+            "score": 1,
+            "baseScore": 1,
+            "openingScore": 40,
+            "teams": [
+              [
+                "Winnipeg Jets",
+                "WPG",
+                "0",
+                "white",
+                "[EXTERNAL_URL_REDACTED]",
+                "4-8-3",
+                null,
+                "Jets",
+                "28"
+              ],
+              [
+                "Montreal Canadiens",
+                "MTL",
+                "4",
+                "white",
+                "[EXTERNAL_URL_REDACTED]",
+                "9-3-2",
+                null,
+                "Canadiens",
+                "10"
+              ]
+            ],
+            "startTime": "2026-11-04T00:00Z",
+            "context": "Winnipeg Jets at Montreal Canadiens",
+            "line": {
+              "spread": "MTL -1.5",
+              "moneyline": "MTL -175",
+              "total": 5.5,
+              "provider": "DraftKings",
+              "verifiedClose": false
+            },
+            "why": "Game in progress · 92% elapsed",
+            "moment": "3rd 0:46 · Cole Caufield Goal (10) Snap Shot, assists: Lane Hutson (11), Juraj Slafkovský (9)",
+            "momentumText": "",
+            "upsetText": "",
+            "factors": [
+              {
+                "label": "Wide margin",
+                "points": -14
+              },
+              {
+                "label": "Game-state baseline",
+                "points": 12
+              },
+              {
+                "label": "Pregame context carried into play",
+                "points": 3
+              },
+              {
+                "label": "History relevance and trajectory",
+                "points": -3.481576908368042
+              }
+            ],
+            "detailStale": false,
+            "liveRawStatus": {
+              "clock": 272,
+              "displayClock": "4:32",
+              "period": 3,
+              "type": {
+                "id": "2",
+                "name": "STATUS_IN_PROGRESS",
+                "state": "in",
+                "completed": false,
+                "description": "In Progress",
+                "detail": "4:32 - 3rd Period",
+                "shortDetail": "4:32 - 3rd"
+              }
+            },
+            "live": {
+              "phase": "4:32 · 3rd period",
+              "note": "Winnipeg Jets power play",
+              "reasons": [
+                "Winnipeg Jets power play",
+                "Cole Caufield has 2 goals and is one away from a hat trick"
+              ],
+              "bonus": 0,
+              "bases": null,
+              "winProbability": null,
+              "components": {
+                "probability": 0,
+                "situation": 0,
+                "pressure": 0,
+                "milestone": 0,
+                "eventShock": 0
+              },
+              "probabilityTelemetry": {
+                "points": 0,
+                "text": "",
+                "probability": null,
+                "uncertainty": null,
+                "awardedPoints": 0
+              },
+              "aggregation": {
+                "bonus": 0,
+                "probabilityPositive": 0,
+                "probabilityNegative": 0,
+                "driveFloor": 0,
+                "decisiveFloor": 0,
+                "competitiveSituation": 0,
+                "positiveBonus": 0,
+                "negativeBonus": 0
+              },
+              "sportImpact": {
+                "points": 0,
+                "note": "Winnipeg Jets power play",
+                "reasons": [
+                  "Winnipeg Jets power play"
+                ],
+                "competitiveFloor": 0,
+                "competitiveTarget": 0,
+                "manpower": {
+                  "pulled": false,
+                  "powerPlay": true,
+                  "advantage": 1
+                },
+                "overtime": {
+                  "shootout": false,
+                  "depth": 0,
+                  "postseason": false,
+                  "deciding": false,
+                  "final": false,
+                  "source": "structured-period",
+                  "formatKnown": true,
+                  "regulation": 3,
+                  "period": 3,
+                  "issues": [],
+                  "seconds": 272,
+                  "elapsed": 3328,
+                  "periodLength": 1200,
+                  "clockMode": "remaining"
+                },
+                "allocation": {
+                  "context": 0,
+                  "floorBase": 1,
+                  "timing": {
+                    "shootout": false,
+                    "depth": 0,
+                    "postseason": false,
+                    "deciding": false,
+                    "final": false,
+                    "source": "structured-period",
+                    "formatKnown": true,
+                    "regulation": 3,
+                    "period": 3,
+                    "issues": [],
+                    "seconds": 272,
+                    "elapsed": 3328,
+                    "periodLength": 1200,
+                    "clockMode": "remaining"
+                  }
+                }
+              }
+            },
+            "status": "4:32 - 3rd"
+          },
+          "scoringVersion": "2026-11-03.live-underdog.1",
+          "auditVersion": "2026-11-03.1",
+          "feedRevision": "1793760168718:d7efd779-e989-4b9b-a0a0-7fd9a34308f9",
+          "qualityEvidence": null,
+          "feedUpdatedAt": "2026-11-04T02:42:48.718Z",
+          "sourceFreshnessMs": 6800,
+          "rawInputReferences": [
+            {
+              "feedGame": "NHL:401892634",
+              "providerPath": "hockey/nhl",
+              "priorSnapshot": {
+                "gameKey": "NHL:401892634",
+                "observedAt": 1793760135000,
+                "modelVersion": "2026-11-03.live-underdog.1"
+              }
+            },
+            {
+              "source": "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892634",
+              "updatedAt": 1793760168718
+            }
+          ],
+          "auditCandidates": []
+        },
+        {
+          "runId": 250,
+          "observedAt": 1793760536431,
+          "slateDate": "2026-11-03",
+          "rating": 11,
+          "ratingChange": 10,
+          "scores": [
+            2,
+            4
+          ],
+          "period": 3,
+          "clockSeconds": 117,
+          "stateBucket": "late:middle",
+          "state": {
+            "id": "401892634",
+            "sport": "NHL",
+            "state": "live",
+            "score": 11,
+            "baseScore": 15,
+            "openingScore": 40,
+            "teams": [
+              [
+                "Winnipeg Jets",
+                "WPG",
+                "2",
+                "white",
+                "[EXTERNAL_URL_REDACTED]",
+                "4-8-3",
+                null,
+                "Jets",
+                "28"
+              ],
+              [
+                "Montreal Canadiens",
+                "MTL",
+                "4",
+                "white",
+                "[EXTERNAL_URL_REDACTED]",
+                "9-3-2",
+                null,
+                "Canadiens",
+                "10"
+              ]
+            ],
+            "startTime": "2026-11-04T00:00Z",
+            "context": "Winnipeg Jets at Montreal Canadiens",
+            "line": {
+              "spread": "MTL -1.5",
+              "moneyline": "MTL -175",
+              "total": 5.5,
+              "provider": "DraftKings",
+              "verifiedClose": false
+            },
+            "why": "2-goal game late",
+            "moment": "3rd 0:46 · Cole Caufield Goal (10) Snap Shot, assists: Lane Hutson (11), Juraj Slafkovský (9)",
+            "momentumText": "",
+            "upsetText": "",
+            "factors": [
+              {
+                "label": "Generic Leverage",
+                "points": 1
+              },
+              {
+                "label": "Wide margin",
+                "points": -4
+              },
+              {
+                "label": "Game-state baseline",
+                "points": 12
+              },
+              {
+                "label": "Pregame context carried into play",
+                "points": 3
+              },
+              {
+                "label": "Current Tension",
+                "points": 3
+              },
+              {
+                "label": "History relevance and trajectory",
+                "points": -3.6361840538527614
+              }
+            ],
+            "detailStale": false,
+            "liveRawStatus": {
+              "clock": 117,
+              "displayClock": "1:57",
+              "period": 3,
+              "type": {
+                "id": "2",
+                "name": "STATUS_IN_PROGRESS",
+                "state": "in",
+                "completed": false,
+                "description": "In Progress",
+                "detail": "1:57 - 3rd Period",
+                "shortDetail": "1:57 - 3rd"
+              }
+            },
+            "live": {
+              "phase": "1:57 · 3rd period",
+              "note": "",
+              "reasons": [
+                "Cole Caufield has 2 goals and is one away from a hat trick"
+              ],
+              "bonus": 0,
+              "bases": null,
+              "winProbability": null,
+              "components": {
+                "probability": 0,
+                "situation": 0,
+                "pressure": 0,
+                "milestone": 0,
+                "eventShock": 0
+              },
+              "probabilityTelemetry": {
+                "points": 0,
+                "text": "",
+                "probability": null,
+                "uncertainty": null,
+                "awardedPoints": 0
+              },
+              "aggregation": {
+                "bonus": 0,
+                "probabilityPositive": 0,
+                "probabilityNegative": 0,
+                "driveFloor": 0,
+                "decisiveFloor": 0,
+                "competitiveSituation": 0,
+                "positiveBonus": 0,
+                "negativeBonus": 0
+              },
+              "sportImpact": {
+                "points": 0,
+                "note": "",
+                "reasons": [],
+                "competitiveFloor": 0,
+                "competitiveTarget": 0,
+                "manpower": {
+                  "pulled": false,
+                  "powerPlay": false,
+                  "advantage": 0
+                },
+                "overtime": {
+                  "shootout": false,
+                  "depth": 0,
+                  "postseason": false,
+                  "deciding": false,
+                  "final": false,
+                  "source": "structured-period",
+                  "formatKnown": true,
+                  "regulation": 3,
+                  "period": 3,
+                  "issues": [],
+                  "seconds": 117,
+                  "elapsed": 3483,
+                  "periodLength": 1200,
+                  "clockMode": "remaining"
+                },
+                "allocation": {
+                  "context": 0,
+                  "floorBase": 15,
+                  "timing": {
+                    "shootout": false,
+                    "depth": 0,
+                    "postseason": false,
+                    "deciding": false,
+                    "final": false,
+                    "source": "structured-period",
+                    "formatKnown": true,
+                    "regulation": 3,
+                    "period": 3,
+                    "issues": [],
+                    "seconds": 117,
+                    "elapsed": 3483,
+                    "periodLength": 1200,
+                    "clockMode": "remaining"
+                  }
+                }
+              }
+            },
+            "status": "1:57 - 3rd"
+          },
+          "scoringVersion": "2026-11-03.live-underdog.1",
+          "auditVersion": "2026-11-03.1",
+          "feedRevision": "1793760488122:f6a23b27-691a-48e3-9be1-1b472d3de61b",
+          "qualityEvidence": null,
+          "feedUpdatedAt": "2026-11-04T02:48:08.122Z",
+          "sourceFreshnessMs": 48309,
+          "rawInputReferences": [
+            {
+              "feedGame": "NHL:401892634",
+              "providerPath": "hockey/nhl",
+              "priorSnapshot": {
+                "gameKey": "NHL:401892634",
+                "observedAt": 1793760450000,
+                "modelVersion": "2026-11-03.live-underdog.1"
+              }
+            },
+            {
+              "source": "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892634",
+              "updatedAt": 1793760488122
+            }
+          ],
+          "auditCandidates": []
+        },
+        {
+          "runId": 251,
+          "observedAt": 1793760715684,
+          "slateDate": "2026-11-03",
+          "rating": 88,
+          "ratingChange": 77,
+          "scores": [
+            3,
+            4
+          ],
+          "period": 3,
+          "clockSeconds": 59,
+          "stateBucket": "late:close",
+          "state": {
+            "id": "401892634",
+            "sport": "NHL",
+            "state": "live",
+            "score": 88,
+            "baseScore": 53,
+            "openingScore": 40,
+            "teams": [
+              [
+                "Winnipeg Jets",
+                "WPG",
+                "3",
+                "white",
+                "[EXTERNAL_URL_REDACTED]",
+                "4-8-3",
+                null,
+                "Jets",
+                "28"
+              ],
+              [
+                "Montreal Canadiens",
+                "MTL",
+                "4",
+                "white",
+                "[EXTERNAL_URL_REDACTED]",
+                "9-3-2",
+                null,
+                "Canadiens",
+                "10"
+              ]
+            ],
+            "startTime": "2026-11-04T00:00Z",
+            "context": "Winnipeg Jets at Montreal Canadiens",
+            "line": {
+              "spread": "MTL -1.5",
+              "moneyline": "MTL -175",
+              "total": 5.5,
+              "provider": "DraftKings",
+              "verifiedClose": false
+            },
+            "why": "1-goal game late",
+            "moment": "3rd 0:46 · Cole Caufield Goal (10) Snap Shot, assists: Lane Hutson (11), Juraj Slafkovský (9)",
+            "momentumText": "",
+            "upsetText": "",
+            "factors": [
+              {
+                "label": "Generic Leverage",
+                "points": 7
+              },
+              {
+                "label": "Game-state baseline",
+                "points": 12
+              },
+              {
+                "label": "Pregame context carried into play",
+                "points": 3
+              },
+              {
+                "label": "Current Tension",
+                "points": 31
+              }
+            ],
+            "detailStale": false,
+            "liveRawStatus": {
+              "clock": 59,
+              "displayClock": "0:59",
+              "period": 3,
+              "type": {
+                "id": "2",
+                "name": "STATUS_IN_PROGRESS",
+                "state": "in",
+                "completed": false,
+                "description": "In Progress",
+                "detail": "0:59 - 3rd Period",
+                "shortDetail": "0:59 - 3rd"
+              }
+            },
+            "live": {
+              "phase": "0:59 · 3rd period",
+              "note": "Pulled the goalie",
+              "reasons": [
+                "Pulled the goalie",
+                "3 dangerous chances in the last 90 seconds, led by the trailing team",
+                "Cole Caufield has 2 goals and is one away from a hat trick"
+              ],
+              "bonus": 35,
+              "bases": null,
+              "winProbability": null,
+              "components": {
+                "probability": 0,
+                "situation": 3,
+                "pressure": 3,
+                "milestone": 3,
+                "eventShock": 0
+              },
+              "probabilityTelemetry": {
+                "points": 0,
+                "text": "",
+                "probability": null,
+                "uncertainty": null,
+                "awardedPoints": 0
+              },
+              "aggregation": {
+                "bonus": 35,
+                "probabilityPositive": 0,
+                "probabilityNegative": 0,
+                "driveFloor": 0,
+                "decisiveFloor": 35,
+                "competitiveSituation": 35,
+                "positiveBonus": 35,
+                "negativeBonus": 0
+              },
+              "sportImpact": {
+                "points": 3,
+                "note": "Pulled the goalie",
+                "reasons": [
+                  "Pulled the goalie"
+                ],
+                "competitiveFloor": 35,
+                "competitiveTarget": 87,
+                "manpower": {
+                  "pulled": true,
+                  "powerPlay": false,
+                  "advantage": 0
+                },
+                "overtime": {
+                  "shootout": false,
+                  "depth": 0,
+                  "postseason": false,
+                  "deciding": false,
+                  "final": false,
+                  "source": "structured-period",
+                  "formatKnown": true,
+                  "regulation": 3,
+                  "period": 3,
+                  "issues": [],
+                  "seconds": 59,
+                  "elapsed": 3541,
+                  "periodLength": 1200,
+                  "clockMode": "remaining"
+                },
+                "allocation": {
+                  "context": 1,
+                  "floorBase": 52,
+                  "timing": {
+                    "shootout": false,
+                    "depth": 0,
+                    "postseason": false,
+                    "deciding": false,
+                    "final": false,
+                    "source": "structured-period",
+                    "formatKnown": true,
+                    "regulation": 3,
+                    "period": 3,
+                    "issues": [],
+                    "seconds": 59,
+                    "elapsed": 3541,
+                    "periodLength": 1200,
+                    "clockMode": "remaining"
+                  }
+                }
+              }
+            },
+            "status": "0:59 - 3rd"
+          },
+          "scoringVersion": "2026-11-03.live-underdog.1",
+          "auditVersion": "2026-11-03.1",
+          "feedRevision": "1793760676575:8b85ebc1-211f-40c6-82dc-4be44076fddc",
+          "qualityEvidence": null,
+          "feedUpdatedAt": "2026-11-04T02:51:16.575Z",
+          "sourceFreshnessMs": 39109,
+          "rawInputReferences": [
+            {
+              "feedGame": "NHL:401892634",
+              "providerPath": "hockey/nhl",
+              "priorSnapshot": {
+                "gameKey": "NHL:401892634",
+                "observedAt": 1793760645000,
+                "modelVersion": "2026-11-03.live-underdog.1"
+              }
+            },
+            {
+              "source": "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892634",
+              "updatedAt": 1793760676575
+            }
+          ],
+          "auditCandidates": []
+        },
+        {
+          "runId": 252,
+          "observedAt": 1793760895871,
+          "slateDate": "2026-11-03",
+          "rating": 87,
+          "ratingChange": -1,
+          "scores": [
+            4,
+            4
+          ],
+          "period": 3,
+          "clockSeconds": 31,
+          "stateBucket": "late:tied",
+          "state": {
+            "id": "401892634",
+            "sport": "NHL",
+            "state": "live",
+            "score": 87,
+            "baseScore": 56,
+            "openingScore": 40,
+            "teams": [
+              [
+                "Winnipeg Jets",
+                "WPG",
+                "4",
+                "white",
+                "[EXTERNAL_URL_REDACTED]",
+                "4-8-3",
+                null,
+                "Jets",
+                "28"
+              ],
+              [
+                "Montreal Canadiens",
+                "MTL",
+                "4",
+                "white",
+                "[EXTERNAL_URL_REDACTED]",
+                "9-3-2",
+                null,
+                "Canadiens",
+                "10"
+              ]
+            ],
+            "startTime": "2026-11-04T00:00Z",
+            "context": "Winnipeg Jets at Montreal Canadiens",
+            "line": {
+              "spread": "MTL -1.5",
+              "moneyline": "MTL -175",
+              "total": 5.5,
+              "provider": "DraftKings",
+              "verifiedClose": false
+            },
+            "why": "Tied 4–4 late",
+            "moment": "3rd 0:46 · Cole Caufield Goal (10) Snap Shot, assists: Lane Hutson (11), Juraj Slafkovský (9)",
+            "momentumText": "",
+            "upsetText": "",
+            "factors": [
+              {
+                "label": "Generic Leverage",
+                "points": 8
+              },
+              {
+                "label": "Game-state baseline",
+                "points": 12
+              },
+              {
+                "label": "Pregame context carried into play",
+                "points": 2
+              },
+              {
+                "label": "Current Tension",
+                "points": 34
+              }
+            ],
+            "detailStale": false,
+            "liveRawStatus": {
+              "clock": 31,
+              "displayClock": "0:31",
+              "period": 3,
+              "type": {
+                "id": "2",
+                "name": "STATUS_IN_PROGRESS",
+                "state": "in",
+                "completed": false,
+                "description": "In Progress",
+                "detail": "0:31 - 3rd Period",
+                "shortDetail": "0:31 - 3rd"
+              }
+            },
+            "live": {
+              "phase": "0:31 · 3rd period",
+              "note": "Winnipeg Jets power play",
+              "reasons": [
+                "Winnipeg Jets power play",
+                "3 dangerous chances in the last 90 seconds",
+                "Cole Caufield has 2 goals and is one away from a hat trick"
+              ],
+              "bonus": 30.95001851851852,
+              "bases": null,
+              "winProbability": null,
+              "components": {
+                "probability": 0,
+                "situation": 4,
+                "pressure": 2,
+                "milestone": 3,
+                "eventShock": 0
+              },
+              "probabilityTelemetry": {
+                "points": 0,
+                "text": "",
+                "probability": null,
+                "uncertainty": null,
+                "awardedPoints": 0
+              },
+              "aggregation": {
+                "bonus": 30.95001851851852,
+                "probabilityPositive": 0,
+                "probabilityNegative": 0,
+                "driveFloor": 0,
+                "decisiveFloor": 30.95001851851852,
+                "competitiveSituation": 30.95001851851852,
+                "positiveBonus": 30.95001851851852,
+                "negativeBonus": 0
+              },
+              "sportImpact": {
+                "points": 4,
+                "note": "Winnipeg Jets power play",
+                "reasons": [
+                  "Winnipeg Jets power play"
+                ],
+                "competitiveFloor": 30.95001851851852,
+                "competitiveTarget": 86.95001851851852,
+                "manpower": {
+                  "pulled": false,
+                  "powerPlay": false,
+                  "advantage": 1
+                },
+                "overtime": {
+                  "shootout": false,
+                  "depth": 0,
+                  "postseason": false,
+                  "deciding": false,
+                  "final": false,
+                  "source": "structured-period",
+                  "formatKnown": true,
+                  "regulation": 3,
+                  "period": 3,
+                  "issues": [],
+                  "seconds": 31,
+                  "elapsed": 3569,
+                  "periodLength": 1200,
+                  "clockMode": "remaining"
+                },
+                "allocation": {
+                  "context": 0,
+                  "floorBase": 56,
+                  "timing": {
+                    "shootout": false,
+                    "depth": 0,
+                    "postseason": false,
+                    "deciding": false,
+                    "final": false,
+                    "source": "structured-period",
+                    "formatKnown": true,
+                    "regulation": 3,
+                    "period": 3,
+                    "issues": [],
+                    "seconds": 31,
+                    "elapsed": 3569,
+                    "periodLength": 1200,
+                    "clockMode": "remaining"
+                  }
+                }
+              }
+            },
+            "status": "0:31 - 3rd"
+          },
+          "scoringVersion": "2026-11-03.live-underdog.1",
+          "auditVersion": "2026-11-03.1",
+          "feedRevision": "1793760878128:4bd2183d-dcf3-4783-8f67-4593ed2effa4",
+          "qualityEvidence": null,
+          "feedUpdatedAt": "2026-11-04T02:54:38.128Z",
+          "sourceFreshnessMs": 17743,
+          "rawInputReferences": [
+            {
+              "feedGame": "NHL:401892634",
+              "providerPath": "hockey/nhl",
+              "priorSnapshot": {
+                "gameKey": "NHL:401892634",
+                "observedAt": 1793760810000,
+                "modelVersion": "2026-11-03.live-underdog.1"
+              }
+            },
+            {
+              "source": "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892634",
+              "updatedAt": 1793760878128
+            }
+          ],
+          "auditCandidates": []
+        },
+        {
+          "runId": 253,
+          "observedAt": 1793761075610,
+          "slateDate": "2026-11-03",
+          "rating": 93,
+          "ratingChange": 6,
+          "scores": [
+            4,
+            4
+          ],
+          "period": 3,
+          "clockSeconds": 0,
+          "stateBucket": "late:tied",
+          "state": {
+            "id": "401892634",
+            "sport": "NHL",
+            "state": "live",
+            "score": 93,
+            "baseScore": 56,
+            "openingScore": 40,
+            "teams": [
+              [
+                "Winnipeg Jets",
+                "WPG",
+                "4",
+                "white",
+                "[EXTERNAL_URL_REDACTED]",
+                "4-8-3",
+                null,
+                "Jets",
+                "28"
+              ],
+              [
+                "Montreal Canadiens",
+                "MTL",
+                "4",
+                "white",
+                "[EXTERNAL_URL_REDACTED]",
+                "9-3-2",
+                null,
+                "Canadiens",
+                "10"
+              ]
+            ],
+            "startTime": "2026-11-04T00:00Z",
+            "context": "Winnipeg Jets at Montreal Canadiens",
+            "line": {
+              "spread": "MTL -1.5",
+              "moneyline": "MTL -175",
+              "total": 5.5,
+              "provider": "DraftKings",
+              "verifiedClose": false
+            },
+            "why": "Tied 4–4 late",
+            "moment": "3rd 0:46 · Cole Caufield Goal (10) Snap Shot, assists: Lane Hutson (11), Juraj Slafkovský (9)",
+            "momentumText": "Late tying goal",
+            "upsetText": "",
+            "factors": [
+              {
+                "label": "Generic Leverage",
+                "points": 8
+              },
+              {
+                "label": "Game-state baseline",
+                "points": 12
+              },
+              {
+                "label": "Pregame context carried into play",
+                "points": 2
+              },
+              {
+                "label": "Current Tension",
+                "points": 34
+              },
+              {
+                "label": "Late tying goal",
+                "points": 6
+              },
+              {
+                "label": "History relevance and trajectory",
+                "points": -0.9029579102746322
+              }
+            ],
+            "detailStale": false,
+            "liveRawStatus": {
+              "clock": 0,
+              "displayClock": "0:00",
+              "period": 3,
+              "type": {
+                "id": "2",
+                "name": "STATUS_IN_PROGRESS",
+                "state": "in",
+                "completed": false,
+                "description": "In Progress",
+                "detail": "End of 3rd Period",
+                "shortDetail": "End of 3rd"
+              }
+            },
+            "live": {
+              "phase": "End of 3rd Period",
+              "note": "Montreal Canadiens pulled the goalie",
+              "reasons": [
+                "Montreal Canadiens pulled the goalie",
+                "1 dangerous chances in the last 90 seconds",
+                "Kyle Connor has 2 goals and is one away from a hat trick"
+              ],
+              "bonus": 32,
+              "bases": null,
+              "winProbability": null,
+              "components": {
+                "probability": 0,
+                "situation": 0,
+                "pressure": 1,
+                "milestone": 3,
+                "eventShock": 0
+              },
+              "probabilityTelemetry": {
+                "points": 0,
+                "text": "",
+                "probability": null,
+                "uncertainty": null,
+                "awardedPoints": 0
+              },
+              "aggregation": {
+                "bonus": 32,
+                "probabilityPositive": 0,
+                "probabilityNegative": 0,
+                "driveFloor": 0,
+                "decisiveFloor": 32,
+                "competitiveSituation": 32,
+                "positiveBonus": 32,
+                "negativeBonus": 0
+              },
+              "sportImpact": {
+                "points": 0,
+                "note": "Montreal Canadiens pulled the goalie",
+                "reasons": [
+                  "Montreal Canadiens pulled the goalie"
+                ],
+                "competitiveFloor": 32,
+                "competitiveTarget": 88,
+                "manpower": {
+                  "pulled": false,
+                  "powerPlay": false,
+                  "advantage": 0
+                },
+                "overtime": {
+                  "shootout": false,
+                  "depth": 0,
+                  "postseason": false,
+                  "deciding": false,
+                  "final": false,
+                  "source": "structured-period",
+                  "formatKnown": true,
+                  "regulation": 3,
+                  "period": 3,
+                  "issues": [],
+                  "seconds": 0,
+                  "elapsed": 3600,
+                  "periodLength": 1200,
+                  "clockMode": "remaining"
+                },
+                "allocation": {
+                  "context": 0,
+                  "floorBase": 56,
+                  "timing": {
+                    "shootout": false,
+                    "depth": 0,
+                    "postseason": false,
+                    "deciding": false,
+                    "final": false,
+                    "source": "structured-period",
+                    "formatKnown": true,
+                    "regulation": 3,
+                    "period": 3,
+                    "issues": [],
+                    "seconds": 0,
+                    "elapsed": 3600,
+                    "periodLength": 1200,
+                    "clockMode": "remaining"
+                  }
+                }
+              }
+            },
+            "status": "End of 3rd"
+          },
+          "scoringVersion": "2026-11-03.live-underdog.1",
+          "auditVersion": "2026-11-03.1",
+          "feedRevision": "1793761036972:56671c17-b9a4-4545-9072-29781d2160bc",
+          "qualityEvidence": null,
+          "feedUpdatedAt": "2026-11-04T02:57:16.972Z",
+          "sourceFreshnessMs": 38638,
+          "rawInputReferences": [
+            {
+              "feedGame": "NHL:401892634",
+              "providerPath": "hockey/nhl",
+              "priorSnapshot": {
+                "gameKey": "NHL:401892634",
+                "observedAt": 1793760975000,
+                "modelVersion": "2026-11-03.live-underdog.1"
+              }
+            },
+            {
+              "source": "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892634",
+              "updatedAt": 1793761075988
+            }
+          ],
+          "auditCandidates": []
+        },
+        {
+          "runId": 254,
+          "observedAt": 1793761255831,
+          "slateDate": "2026-11-03",
+          "rating": 94,
+          "ratingChange": 1,
+          "scores": [
+            4,
+            4
+          ],
+          "period": 4,
+          "clockSeconds": 211,
+          "stateBucket": "ot:tied",
+          "state": {
+            "id": "401892634",
+            "sport": "NHL",
+            "state": "live",
+            "score": 94,
+            "baseScore": 56,
+            "openingScore": 40,
+            "teams": [
+              [
+                "Winnipeg Jets",
+                "WPG",
+                "4",
+                "white",
+                "[EXTERNAL_URL_REDACTED]",
+                "4-8-3",
+                null,
+                "Jets",
+                "28"
+              ],
+              [
+                "Montreal Canadiens",
+                "MTL",
+                "4",
+                "white",
+                "[EXTERNAL_URL_REDACTED]",
+                "9-3-2",
+                null,
+                "Canadiens",
+                "10"
+              ]
+            ],
+            "startTime": "2026-11-04T00:00Z",
+            "context": "Winnipeg Jets at Montreal Canadiens",
+            "line": {
+              "spread": "MTL -1.5",
+              "moneyline": "MTL -175",
+              "total": 5.5,
+              "provider": "DraftKings",
+              "verifiedClose": false
+            },
+            "why": "Tied 4–4 late",
+            "momentumText": "Late tying goal",
+            "upsetText": "",
+            "factors": [
+              {
+                "label": "Generic Leverage",
+                "points": 8
+              },
+              {
+                "label": "Game-state baseline",
+                "points": 12
+              },
+              {
+                "label": "Pregame context carried into play",
+                "points": 2
+              },
+              {
+                "label": "Current Tension",
+                "points": 34
+              },
+              {
+                "label": "Late tying goal",
+                "points": 6
+              },
+              {
+                "label": "History relevance and trajectory",
+                "points": -0.4833898408480707
+              }
+            ],
+            "detailStale": false,
+            "liveRawStatus": {
+              "clock": 211,
+              "displayClock": "3:31",
+              "period": 4,
+              "type": {
+                "id": "2",
+                "name": "STATUS_IN_PROGRESS",
+                "state": "in",
+                "completed": false,
+                "description": "In Progress",
+                "detail": "3:31 - OT",
+                "shortDetail": "3:31 - OT"
+              }
+            },
+            "live": {
+              "phase": "3:31 · OT",
+              "note": "3-on-3 overtime",
+              "reasons": [
+                "3-on-3 overtime",
+                "Kyle Connor has 2 goals and is one away from a hat trick"
+              ],
+              "bonus": 32,
+              "bases": null,
+              "winProbability": null,
+              "components": {
+                "probability": 0,
+                "situation": 0,
+                "pressure": 0,
+                "milestone": 3,
+                "eventShock": 0
+              },
+              "probabilityTelemetry": {
+                "points": 0,
+                "text": "",
+                "probability": null,
+                "uncertainty": null,
+                "awardedPoints": 0
+              },
+              "aggregation": {
+                "bonus": 32,
+                "probabilityPositive": 0,
+                "probabilityNegative": 0,
+                "driveFloor": 0,
+                "decisiveFloor": 32,
+                "competitiveSituation": 32,
+                "positiveBonus": 32,
+                "negativeBonus": 0
+              },
+              "sportImpact": {
+                "points": 0,
+                "note": "3-on-3 overtime",
+                "reasons": [
+                  "3-on-3 overtime"
+                ],
+                "competitiveFloor": 32,
+                "competitiveTarget": 88,
+                "manpower": {
+                  "pulled": false,
+                  "powerPlay": false,
+                  "advantage": 0
+                },
+                "overtime": {
+                  "shootout": false,
+                  "depth": 1,
+                  "postseason": false,
+                  "deciding": false,
+                  "final": false,
+                  "source": "structured-period",
+                  "formatKnown": true,
+                  "regulation": 3,
+                  "period": 4,
+                  "issues": [],
+                  "seconds": 211,
+                  "elapsed": 3689,
+                  "periodLength": 300,
+                  "clockMode": "remaining"
+                },
+                "allocation": {
+                  "context": 0,
+                  "floorBase": 56,
+                  "timing": {
+                    "shootout": false,
+                    "depth": 1,
+                    "postseason": false,
+                    "deciding": false,
+                    "final": false,
+                    "source": "structured-period",
+                    "formatKnown": true,
+                    "regulation": 3,
+                    "period": 4,
+                    "issues": [],
+                    "seconds": 211,
+                    "elapsed": 3689,
+                    "periodLength": 300,
+                    "clockMode": "remaining"
+                  }
+                }
+              }
+            },
+            "status": "3:31 - OT"
+          },
+          "scoringVersion": "2026-11-03.live-underdog.1",
+          "auditVersion": "2026-11-03.1",
+          "feedRevision": "1793761207153:8db0eb11-ee93-4972-bf29-fd782e05745c",
+          "qualityEvidence": null,
+          "feedUpdatedAt": "2026-11-04T03:00:07.153Z",
+          "sourceFreshnessMs": 48678,
+          "rawInputReferences": [
+            {
+              "feedGame": "NHL:401892634",
+              "providerPath": "hockey/nhl",
+              "priorSnapshot": {
+                "gameKey": "NHL:401892634",
+                "observedAt": 1793761155000,
+                "modelVersion": "2026-11-03.live-underdog.1"
+              }
+            },
+            {
+              "source": "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892634",
+              "updatedAt": 1793761207153
+            }
+          ],
+          "auditCandidates": []
+        },
+        {
+          "runId": 255,
+          "observedAt": 1793761435623,
+          "slateDate": "2026-11-03",
+          "rating": 95,
+          "ratingChange": 1,
+          "scores": [
+            4,
+            4
+          ],
+          "period": 4,
+          "clockSeconds": 117,
+          "stateBucket": "ot:tied",
+          "state": {
+            "id": "401892634",
+            "sport": "NHL",
+            "state": "live",
+            "score": 95,
+            "baseScore": 56,
+            "openingScore": 40,
+            "teams": [
+              [
+                "Winnipeg Jets",
+                "WPG",
+                "4",
+                "white",
+                "[EXTERNAL_URL_REDACTED]",
+                "4-8-3",
+                null,
+                "Jets",
+                "28"
+              ],
+              [
+                "Montreal Canadiens",
+                "MTL",
+                "4",
+                "white",
+                "[EXTERNAL_URL_REDACTED]",
+                "9-3-2",
+                null,
+                "Canadiens",
+                "10"
+              ]
+            ],
+            "startTime": "2026-11-04T00:00Z",
+            "context": "Winnipeg Jets at Montreal Canadiens",
+            "line": {
+              "spread": "MTL -1.5",
+              "moneyline": "MTL -175",
+              "total": 5.5,
+              "provider": "DraftKings",
+              "verifiedClose": false
+            },
+            "why": "Tied 4–4 late",
+            "momentumText": "Erased a multi-goal deficit",
+            "upsetText": "",
+            "factors": [
+              {
+                "label": "Generic Leverage",
+                "points": 8
+              },
+              {
+                "label": "Game-state baseline",
+                "points": 12
+              },
+              {
+                "label": "Pregame context carried into play",
+                "points": 2
+              },
+              {
+                "label": "Current Tension",
+                "points": 34
+              },
+              {
+                "label": "Erased a multi-goal deficit",
+                "points": 6
+              },
+              {
+                "label": "History relevance and trajectory",
+                "points": -0.43355959269508043
+              }
+            ],
+            "detailStale": false,
+            "liveRawStatus": {
+              "clock": 117,
+              "displayClock": "1:57",
+              "period": 4,
+              "type": {
+                "id": "2",
+                "name": "STATUS_IN_PROGRESS",
+                "state": "in",
+                "completed": false,
+                "description": "In Progress",
+                "detail": "1:57 - OT",
+                "shortDetail": "1:57 - OT"
+              }
+            },
+            "live": {
+              "phase": "1:57 · OT",
+              "note": "3-on-3 overtime",
+              "reasons": [
+                "3-on-3 overtime",
+                "3 dangerous chances in the last 90 seconds",
+                "Kyle Connor has 2 goals and is one away from a hat trick"
+              ],
+              "bonus": 33,
+              "bases": null,
+              "winProbability": null,
+              "components": {
+                "probability": 0,
+                "situation": 0,
+                "pressure": 2,
+                "milestone": 3,
+                "eventShock": 0
+              },
+              "probabilityTelemetry": {
+                "points": 0,
+                "text": "",
+                "probability": null,
+                "uncertainty": null,
+                "awardedPoints": 0
+              },
+              "aggregation": {
+                "bonus": 33,
+                "probabilityPositive": 0,
+                "probabilityNegative": 0,
+                "driveFloor": 0,
+                "decisiveFloor": 33,
+                "competitiveSituation": 33,
+                "positiveBonus": 33,
+                "negativeBonus": 0
+              },
+              "sportImpact": {
+                "points": 0,
+                "note": "3-on-3 overtime",
+                "reasons": [
+                  "3-on-3 overtime"
+                ],
+                "competitiveFloor": 33,
+                "competitiveTarget": 89,
+                "manpower": {
+                  "pulled": false,
+                  "powerPlay": false,
+                  "advantage": 0
+                },
+                "overtime": {
+                  "shootout": false,
+                  "depth": 1,
+                  "postseason": false,
+                  "deciding": false,
+                  "final": false,
+                  "source": "structured-period",
+                  "formatKnown": true,
+                  "regulation": 3,
+                  "period": 4,
+                  "issues": [],
+                  "seconds": 117,
+                  "elapsed": 3783,
+                  "periodLength": 300,
+                  "clockMode": "remaining"
+                },
+                "allocation": {
+                  "context": 0,
+                  "floorBase": 56,
+                  "timing": {
+                    "shootout": false,
+                    "depth": 1,
+                    "postseason": false,
+                    "deciding": false,
+                    "final": false,
+                    "source": "structured-period",
+                    "formatKnown": true,
+                    "regulation": 3,
+                    "period": 4,
+                    "issues": [],
+                    "seconds": 117,
+                    "elapsed": 3783,
+                    "periodLength": 300,
+                    "clockMode": "remaining"
+                  }
+                }
+              }
+            },
+            "status": "1:57 - OT"
+          },
+          "scoringVersion": "2026-11-03.live-underdog.1",
+          "auditVersion": "2026-11-03.1",
+          "feedRevision": "1793761396951:7cf175b7-d12a-452c-9892-cc197bcf76fd",
+          "qualityEvidence": null,
+          "feedUpdatedAt": "2026-11-04T03:03:16.951Z",
+          "sourceFreshnessMs": 38672,
+          "rawInputReferences": [
+            {
+              "feedGame": "NHL:401892634",
+              "providerPath": "hockey/nhl",
+              "priorSnapshot": {
+                "gameKey": "NHL:401892634",
+                "observedAt": 1793761335000,
+                "modelVersion": "2026-11-03.live-underdog.1"
+              }
+            },
+            {
+              "source": "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892634",
+              "updatedAt": 1793761396951
+            }
+          ],
+          "auditCandidates": []
+        },
+        {
+          "runId": 256,
+          "observedAt": 1793761615436,
+          "slateDate": "2026-11-03",
+          "rating": 59,
+          "ratingChange": -36,
+          "scores": [
+            5,
+            4
+          ],
+          "period": 4,
+          "clockSeconds": 0,
+          "stateBucket": "ot:close",
+          "state": {
+            "id": "401892634",
+            "sport": "NHL",
+            "state": "live",
+            "score": 59,
+            "baseScore": 52,
+            "openingScore": 40,
+            "teams": [
+              [
+                "Winnipeg Jets",
+                "WPG",
+                "5",
+                "white",
+                "[EXTERNAL_URL_REDACTED]",
+                "4-8-3",
+                null,
+                "Jets",
+                "28"
+              ],
+              [
+                "Montreal Canadiens",
+                "MTL",
+                "4",
+                "white",
+                "[EXTERNAL_URL_REDACTED]",
+                "9-3-2",
+                null,
+                "Canadiens",
+                "10"
+              ]
+            ],
+            "startTime": "2026-11-04T00:00Z",
+            "context": "Winnipeg Jets at Montreal Canadiens",
+            "line": {
+              "spread": "MTL -1.5",
+              "moneyline": "MTL -175",
+              "total": 5.5,
+              "provider": "DraftKings",
+              "verifiedClose": false
+            },
+            "why": "1-goal game late",
+            "moment": "OT 3:30 · Dylan Samberg Goal (2) Snap Shot, assists: Adam Lowry (4), Gabriel Vilardi (6)",
+            "momentumText": "Erased a multi-goal deficit",
+            "upsetText": "",
+            "factors": [
+              {
+                "label": "Generic Leverage",
+                "points": 7
+              },
+              {
+                "label": "Game-state baseline",
+                "points": 12
+              },
+              {
+                "label": "Pregame context carried into play",
+                "points": 2
+              },
+              {
+                "label": "Current Tension",
+                "points": 31
+              },
+              {
+                "label": "Erased a multi-goal deficit",
+                "points": 6
+              },
+              {
+                "label": "History relevance and trajectory",
+                "points": -1.797764610958431
+              }
+            ],
+            "detailStale": false,
+            "liveRawStatus": {
+              "clock": 0,
+              "displayClock": "0:00",
+              "period": 4,
+              "type": {
+                "id": "22",
+                "name": "STATUS_END_PERIOD",
+                "state": "in",
+                "completed": false,
+                "description": "End of Period",
+                "detail": "End of OT",
+                "shortDetail": "End of OT"
+              }
+            },
+            "live": {
+              "phase": "End of OT",
+              "note": "",
+              "reasons": [
+                "Kyle Connor has 2 goals and is one away from a hat trick"
+              ],
+              "bonus": 3,
+              "bases": null,
+              "winProbability": null,
+              "components": {
+                "probability": 0,
+                "situation": 0,
+                "pressure": 0,
+                "milestone": 3,
+                "eventShock": 0
+              },
+              "probabilityTelemetry": {
+                "points": 0,
+                "text": "",
+                "probability": null,
+                "uncertainty": null,
+                "awardedPoints": 0
+              },
+              "aggregation": {
+                "bonus": 3,
+                "probabilityPositive": 0,
+                "probabilityNegative": 0,
+                "driveFloor": 0,
+                "decisiveFloor": 0,
+                "competitiveSituation": 0,
+                "positiveBonus": 3,
+                "negativeBonus": 0
+              },
+              "sportImpact": {
+                "points": 0,
+                "note": "",
+                "reasons": [],
+                "competitiveFloor": 0,
+                "competitiveTarget": 0,
+                "manpower": {
+                  "pulled": false,
+                  "powerPlay": false,
+                  "advantage": 0
+                },
+                "overtime": {
+                  "shootout": false,
+                  "depth": 1,
+                  "postseason": false,
+                  "deciding": false,
+                  "final": false,
+                  "source": "structured-period",
+                  "formatKnown": true,
+                  "regulation": 3,
+                  "period": 4,
+                  "issues": [],
+                  "seconds": 0,
+                  "elapsed": 3900,
+                  "periodLength": 300,
+                  "clockMode": "remaining"
+                },
+                "allocation": {
+                  "context": 0,
+                  "floorBase": 52,
+                  "timing": {
+                    "shootout": false,
+                    "depth": 1,
+                    "postseason": false,
+                    "deciding": false,
+                    "final": false,
+                    "source": "structured-period",
+                    "formatKnown": true,
+                    "regulation": 3,
+                    "period": 4,
+                    "issues": [],
+                    "seconds": 0,
+                    "elapsed": 3900,
+                    "periodLength": 300,
+                    "clockMode": "remaining"
+                  }
+                }
+              }
+            },
+            "status": "End of OT"
+          },
+          "scoringVersion": "2026-11-03.live-underdog.1",
+          "auditVersion": "2026-11-03.1",
+          "feedRevision": "1793761577344:0fab7b31-66ed-49a8-9bc0-22e6e932a4b8",
+          "qualityEvidence": null,
+          "feedUpdatedAt": "2026-11-04T03:06:17.344Z",
+          "sourceFreshnessMs": 38092,
+          "rawInputReferences": [
+            {
+              "feedGame": "NHL:401892634",
+              "providerPath": "hockey/nhl",
+              "priorSnapshot": {
+                "gameKey": "NHL:401892634",
+                "observedAt": 1793761515000,
+                "modelVersion": "2026-11-03.live-underdog.1"
+              }
+            },
+            {
+              "source": "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892634",
+              "updatedAt": 1793761577344
+            }
+          ],
+          "auditCandidates": []
+        }
+      ]
+    },
+    {
+      "gameKey": "NHL:401892640",
+      "sport": "NHL",
+      "matchup": "Dallas Stars vs Washington Capitals",
+      "observations": [
+        {
+          "runId": 246,
+          "observedAt": 1793759815502,
+          "slateDate": "2026-11-03",
+          "rating": 82,
+          "ratingChange": 66,
+          "scores": [
+            6,
+            5
+          ],
+          "period": 3,
+          "clockSeconds": 62,
+          "stateBucket": "late:close",
+          "state": {
+            "id": "401892640",
+            "sport": "NHL",
+            "state": "live",
+            "score": 82,
+            "baseScore": 54,
+            "openingScore": 54,
+            "teams": [
+              [
+                "Dallas Stars",
+                "DAL",
+                "6",
+                "white",
+                "[EXTERNAL_URL_REDACTED]",
+                "8-5-1",
+                null,
+                "Stars",
+                "9"
+              ],
+              [
+                "Washington Capitals",
+                "WSH",
+                "5",
+                "white",
+                "[EXTERNAL_URL_REDACTED]",
+                "8-5-0",
+                null,
+                "Capitals",
+                "23"
+              ]
+            ],
+            "startTime": "2026-11-04T00:00Z",
+            "context": "Dallas Stars at Washington Capitals",
+            "line": {
+              "spread": "WSH -1.5",
+              "moneyline": "WSH -118",
+              "total": 5.5,
+              "provider": "Draft Kings",
+              "verifiedClose": false
+            },
+            "why": "1-goal game late",
+            "momentumText": "",
+            "upsetText": "",
+            "factors": [
+              {
+                "label": "Generic Leverage",
+                "points": 7
+              },
+              {
+                "label": "Game-state baseline",
+                "points": 12
+              },
+              {
+                "label": "Pregame context carried into play",
+                "points": 4
+              },
+              {
+                "label": "Current Tension",
+                "points": 31
+              }
+            ],
+            "detailStale": false,
+            "liveRawStatus": {
+              "clock": 62,
+              "displayClock": "1:02",
+              "period": 3,
+              "type": {
+                "id": "2",
+                "name": "STATUS_IN_PROGRESS",
+                "state": "in",
+                "completed": false,
+                "description": "In Progress",
+                "detail": "1:02 - 3rd Period",
+                "shortDetail": "1:02 - 3rd"
+              }
+            },
+            "live": {
+              "phase": "1:02 · 3rd period",
+              "note": "",
+              "reasons": [],
+              "bonus": 27.99348148148148,
+              "bases": null,
+              "winProbability": null,
+              "components": {
+                "probability": 0,
+                "situation": 0,
+                "pressure": 0,
+                "milestone": 0,
+                "eventShock": 0
+              },
+              "probabilityTelemetry": {
+                "points": 0,
+                "text": "",
+                "probability": null,
+                "uncertainty": null,
+                "awardedPoints": 0
+              },
+              "aggregation": {
+                "bonus": 27.99348148148148,
+                "probabilityPositive": 0,
+                "probabilityNegative": 0,
+                "driveFloor": 0,
+                "decisiveFloor": 27.99348148148148,
+                "competitiveSituation": 27.99348148148148,
+                "positiveBonus": 27.99348148148148,
+                "negativeBonus": 0
+              },
+              "sportImpact": {
+                "points": 0,
+                "note": "",
+                "reasons": [],
+                "competitiveFloor": 27.99348148148148,
+                "competitiveTarget": 79.99348148148148,
+                "manpower": {
+                  "pulled": false,
+                  "powerPlay": false,
+                  "advantage": 0
+                },
+                "overtime": {
+                  "shootout": false,
+                  "depth": 0,
+                  "postseason": false,
+                  "deciding": false,
+                  "final": false,
+                  "source": "structured-period",
+                  "formatKnown": false,
+                  "regulation": 3,
+                  "period": 3,
+                  "issues": [],
+                  "seconds": 62,
+                  "elapsed": 3538,
+                  "periodLength": 1200,
+                  "clockMode": "remaining"
+                },
+                "allocation": {
+                  "context": 2,
+                  "floorBase": 52,
+                  "timing": {
+                    "shootout": false,
+                    "depth": 0,
+                    "postseason": false,
+                    "deciding": false,
+                    "final": false,
+                    "source": "structured-period",
+                    "formatKnown": false,
+                    "regulation": 3,
+                    "period": 3,
+                    "issues": [],
+                    "seconds": 62,
+                    "elapsed": 3538,
+                    "periodLength": 1200,
+                    "clockMode": "remaining"
+                  }
+                }
+              }
+            },
+            "status": "1:02 - 3rd"
+          },
+          "scoringVersion": "2026-11-03.live-underdog.1",
+          "auditVersion": "2026-11-03.1",
+          "feedRevision": "1793759795584:1cfd3a28-461b-49a6-97e3-23959a896fbe",
+          "qualityEvidence": null,
+          "feedUpdatedAt": "2026-11-04T02:36:35.584Z",
+          "sourceFreshnessMs": 19918,
+          "rawInputReferences": [
+            {
+              "feedGame": "NHL:401892640",
+              "providerPath": "hockey/nhl",
+              "priorSnapshot": {
+                "gameKey": "NHL:401892640",
+                "observedAt": 1793759745000,
+                "modelVersion": "2026-11-03.live-underdog.1"
+              }
+            },
+            {
+              "source": "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892640",
+              "updatedAt": 1793759815016
+            }
+          ],
+          "auditCandidates": []
+        },
+        {
+          "runId": 247,
+          "observedAt": 1793759995435,
+          "slateDate": "2026-11-03",
+          "rating": 87,
+          "ratingChange": 5,
+          "scores": [
+            6,
+            5
+          ],
+          "period": 3,
+          "clockSeconds": 7,
+          "stateBucket": "late:close",
+          "state": {
+            "id": "401892640",
+            "sport": "NHL",
+            "state": "live",
+            "score": 87,
+            "baseScore": 53,
+            "openingScore": 54,
+            "teams": [
+              [
+                "Dallas Stars",
+                "DAL",
+                "6",
+                "white",
+                "[EXTERNAL_URL_REDACTED]",
+                "8-5-1",
+                null,
+                "Stars",
+                "9"
+              ],
+              [
+                "Washington Capitals",
+                "WSH",
+                "5",
+                "white",
+                "[EXTERNAL_URL_REDACTED]",
+                "8-5-0",
+                null,
+                "Capitals",
+                "23"
+              ]
+            ],
+            "startTime": "2026-11-04T00:00Z",
+            "context": "Dallas Stars at Washington Capitals",
+            "line": {
+              "spread": "WSH -1.5",
+              "moneyline": "WSH -118",
+              "total": 5.5,
+              "provider": "DraftKings",
+              "verifiedClose": false
+            },
+            "why": "1-goal game late",
+            "moment": "3rd 1:23 · Roope Hintz Goal (6) Backhand, assists: Esa Lindell (1), Jason Robertson (10)",
+            "momentumText": "",
+            "upsetText": "",
+            "factors": [
+              {
+                "label": "Generic Leverage",
+                "points": 7
+              },
+              {
+                "label": "Game-state baseline",
+                "points": 12
+              },
+              {
+                "label": "Pregame context carried into play",
+                "points": 3
+              },
+              {
+                "label": "Current Tension",
+                "points": 31
+              }
+            ],
+            "detailStale": false,
+            "liveRawStatus": {
+              "clock": 7,
+              "displayClock": "0:07",
+              "period": 3,
+              "type": {
+                "id": "2",
+                "name": "STATUS_IN_PROGRESS",
+                "state": "in",
+                "completed": false,
+                "description": "In Progress",
+                "detail": "0:07 - 3rd Period",
+                "shortDetail": "0:07 - 3rd"
+              }
+            },
+            "live": {
+              "phase": "0:07 · 3rd period",
+              "note": "Pulled the goalie",
+              "reasons": [
+                "Pulled the goalie",
+                "2 dangerous chances in the last 90 seconds, led by the trailing team",
+                "Jason Robertson has a hat trick (3 goals)"
+              ],
+              "bonus": 34,
+              "bases": null,
+              "winProbability": null,
+              "components": {
+                "probability": 0,
+                "situation": 3,
+                "pressure": 2,
+                "milestone": 0,
+                "eventShock": 0
+              },
+              "probabilityTelemetry": {
+                "points": 0,
+                "text": "",
+                "probability": null,
+                "uncertainty": null,
+                "awardedPoints": 0
+              },
+              "aggregation": {
+                "bonus": 34,
+                "probabilityPositive": 0,
+                "probabilityNegative": 0,
+                "driveFloor": 0,
+                "decisiveFloor": 34,
+                "competitiveSituation": 34,
+                "positiveBonus": 34,
+                "negativeBonus": 0
+              },
+              "sportImpact": {
+                "points": 3,
+                "note": "Pulled the goalie",
+                "reasons": [
+                  "Pulled the goalie"
+                ],
+                "competitiveFloor": 34,
+                "competitiveTarget": 86,
+                "manpower": {
+                  "pulled": true,
+                  "powerPlay": false,
+                  "advantage": 0
+                },
+                "overtime": {
+                  "shootout": false,
+                  "depth": 0,
+                  "postseason": false,
+                  "deciding": false,
+                  "final": false,
+                  "source": "structured-period",
+                  "formatKnown": true,
+                  "regulation": 3,
+                  "period": 3,
+                  "issues": [],
+                  "seconds": 7,
+                  "elapsed": 3593,
+                  "periodLength": 1200,
+                  "clockMode": "remaining"
+                },
+                "allocation": {
+                  "context": 1,
+                  "floorBase": 52,
+                  "timing": {
+                    "shootout": false,
+                    "depth": 0,
+                    "postseason": false,
+                    "deciding": false,
+                    "final": false,
+                    "source": "structured-period",
+                    "formatKnown": true,
+                    "regulation": 3,
+                    "period": 3,
+                    "issues": [],
+                    "seconds": 7,
+                    "elapsed": 3593,
+                    "periodLength": 1200,
+                    "clockMode": "remaining"
+                  }
+                }
+              }
+            },
+            "status": "0:07 - 3rd"
+          },
+          "scoringVersion": "2026-11-03.live-underdog.1",
+          "auditVersion": "2026-11-03.1",
+          "feedRevision": "1793759979991:49975422-c207-4de3-bb57-f36d05f9269e",
+          "qualityEvidence": null,
+          "feedUpdatedAt": "2026-11-04T02:39:39.991Z",
+          "sourceFreshnessMs": 15444,
+          "rawInputReferences": [
+            {
+              "feedGame": "NHL:401892640",
+              "providerPath": "hockey/nhl",
+              "priorSnapshot": {
+                "gameKey": "NHL:401892640",
+                "observedAt": 1793759895000,
+                "modelVersion": "2026-11-03.live-underdog.1"
+              }
+            },
+            {
+              "source": "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892640",
+              "updatedAt": 1793759979991
+            },
+            {
+              "source": "https://api-web.nhle.com/v1/gamecenter/2026020243/play-by-play",
+              "ageMs": 95467
+            }
+          ],
+          "auditCandidates": []
+        }
+      ]
+    },
+    {
+      "gameKey": "NHL:401892642",
+      "sport": "NHL",
+      "matchup": "Carolina Hurricanes vs Nashville Predators",
+      "observations": [
+        {
+          "runId": 255,
+          "observedAt": 1793761435623,
+          "slateDate": "2026-11-03",
+          "rating": 61,
+          "ratingChange": 0,
+          "scores": [
+            1,
+            2
+          ],
+          "period": 3,
+          "clockSeconds": 1200,
+          "stateBucket": "late:close",
+          "state": {
+            "id": "401892642",
+            "sport": "NHL",
+            "state": "live",
+            "score": 61,
+            "baseScore": 56,
+            "openingScore": 57,
+            "teams": [
+              [
+                "Carolina Hurricanes",
+                "CAR",
+                "1",
+                "white",
+                "[EXTERNAL_URL_REDACTED]",
+                "12-2-2",
+                null,
+                "Hurricanes",
+                "7"
+              ],
+              [
+                "Nashville Predators",
+                "NSH",
+                "2",
+                "white",
+                "[EXTERNAL_URL_REDACTED]",
+                "5-4-5",
+                null,
+                "Predators",
+                "27"
+              ]
+            ],
+            "startTime": "2026-11-04T01:00Z",
+            "context": "Carolina Hurricanes at Nashville Predators",
+            "line": {
+              "spread": "CAR -1.5",
+              "moneyline": "CAR -198",
+              "total": 6.5,
+              "provider": "DraftKings",
+              "verifiedClose": false
+            },
+            "why": "1-goal game",
+            "moment": "2nd 3:29 · Roman Josi Goal (2) Snap Shot, assists: Filip Forsberg (14)",
+            "momentumText": "",
+            "upsetText": "",
+            "factors": [
+              {
+                "label": "Generic Leverage",
+                "points": 1
+              },
+              {
+                "label": "Game-state baseline",
+                "points": 12
+              },
+              {
+                "label": "Pregame context carried into play",
+                "points": 12
+              },
+              {
+                "label": "Current Tension",
+                "points": 31
+              },
+              {
+                "label": "History relevance and trajectory",
+                "points": 4.983593007390849
+              }
+            ],
+            "detailStale": false,
+            "liveRawStatus": {
+              "clock": 1200,
+              "displayClock": "20:00",
+              "period": 3,
+              "type": {
+                "id": "2",
+                "name": "STATUS_IN_PROGRESS",
+                "state": "in",
+                "completed": false,
+                "description": "In Progress",
+                "detail": "20:00 - 3rd Period",
+                "shortDetail": "20:00 - 3rd"
+              }
+            },
+            "live": {
+              "phase": "20:00 · 3rd period",
+              "note": "",
+              "reasons": [
+                ""
+              ],
+              "bonus": 0,
+              "bases": null,
+              "winProbability": null,
+              "components": {
+                "probability": 0,
+                "situation": 0,
+                "pressure": 0,
+                "milestone": 0,
+                "eventShock": 0
+              },
+              "probabilityTelemetry": {
+                "points": 0,
+                "text": "",
+                "probability": null,
+                "uncertainty": null,
+                "awardedPoints": 0
+              },
+              "aggregation": {
+                "bonus": 0,
+                "probabilityPositive": 0,
+                "probabilityNegative": 0,
+                "driveFloor": 0,
+                "decisiveFloor": 0,
+                "competitiveSituation": 0,
+                "positiveBonus": 0,
+                "negativeBonus": 0
+              },
+              "sportImpact": {
+                "points": 0,
+                "note": "",
+                "reasons": [],
+                "competitiveFloor": 0,
+                "competitiveTarget": 52,
+                "manpower": {
+                  "pulled": false,
+                  "powerPlay": false,
+                  "advantage": 0
+                },
+                "overtime": {
+                  "shootout": false,
+                  "depth": 0,
+                  "postseason": false,
+                  "deciding": false,
+                  "final": false,
+                  "source": "structured-period",
+                  "formatKnown": true,
+                  "regulation": 3,
+                  "period": 3,
+                  "issues": [],
+                  "seconds": 1200,
+                  "elapsed": 2400,
+                  "periodLength": 1200,
+                  "clockMode": "remaining"
+                },
+                "allocation": {
+                  "context": 4,
+                  "floorBase": 52,
+                  "timing": {
+                    "shootout": false,
+                    "depth": 0,
+                    "postseason": false,
+                    "deciding": false,
+                    "final": false,
+                    "source": "structured-period",
+                    "formatKnown": true,
+                    "regulation": 3,
+                    "period": 3,
+                    "issues": [],
+                    "seconds": 1200,
+                    "elapsed": 2400,
+                    "periodLength": 1200,
+                    "clockMode": "remaining"
+                  }
+                }
+              }
+            },
+            "status": "20:00 - 3rd"
+          },
+          "scoringVersion": "2026-11-03.live-underdog.1",
+          "auditVersion": "2026-11-03.1",
+          "feedRevision": "1793761396951:7cf175b7-d12a-452c-9892-cc197bcf76fd",
+          "qualityEvidence": null,
+          "feedUpdatedAt": "2026-11-04T03:03:16.951Z",
+          "sourceFreshnessMs": 38672,
+          "rawInputReferences": [
+            {
+              "feedGame": "NHL:401892642",
+              "providerPath": "hockey/nhl",
+              "priorSnapshot": {
+                "gameKey": "NHL:401892642",
+                "observedAt": 1793761335000,
+                "modelVersion": "2026-11-03.live-underdog.1"
+              }
+            },
+            {
+              "source": "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892642",
+              "updatedAt": 1793761396951
+            }
+          ],
+          "auditCandidates": [
+            {
+              "reasonCode": "SIMILAR_STATE_OUTLIER",
+              "severity": "low",
+              "confidence": 0.54,
+              "failureLayer": "scoring model",
+              "observed": {
+                "rating": 61,
+                "bucket": "late:close",
+                "peerMedian": 88,
+                "peerCount": 7
+              },
+              "expected": "inspect stakes and events before interpreting peer spread",
+              "detail": "Rating differs substantially from similar observed states",
+              "deterministic": false
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

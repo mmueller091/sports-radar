@@ -90,7 +90,7 @@ test('rivalry/rematch/standings share a cap; news cannot stack over measured str
   assert.ok(points<=12);assert.ok(!g.factors.some(f=>f.contextType==='team_win_streak'));
   assert.ok(g.factors.filter(f=>f.contextType).reduce((n,f)=>n+Math.max(0,f.points),0)<=6);
   const returning=score(source('401873026'));
-  applyContextsToGame(returning,[...returning.qualitativeContexts,{type:'former_star_return',text:'Same return covered again',confidence:.9,verified:true}]);
+  applyContextsToGame(returning,[...returning.qualitativeContexts,{type:'former_star_return',text:'All-Pro player returns for his first game against his former team',confidence:.9,verified:true}]);
   assert.equal(returning.factors.filter(f=>['star_injury_return','former_star_return'].includes(f.contextType)).length,1,'overlapping return coverage earns one award');
 });
 

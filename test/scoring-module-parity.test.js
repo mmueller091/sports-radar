@@ -26,7 +26,7 @@ test('public scoring API preserves keys, constants, signatures and browser expor
       assert.equal(current[key].length, before[key].length, key);
       assert.equal(browser[key].length, before[key].length, key);
     } else {
-      const expected=key==='CONTEXT_WEIGHTS' ? {...before[key],meaningful_rematch:2,rivalry_development:2} : before[key];
+      const expected=key==='CONTEXT_WEIGHTS' ? {...before[key],meaningful_rematch:2,rivalry_development:2,confirmed_key_starters:0,player_injury_return:0} : key==='CONTEXT_LABELS'?{...before[key],player_injury_return:'Confirmed player return'}:before[key];
       same(current[key], expected, key);
       same(browser[key], expected, key);
     }

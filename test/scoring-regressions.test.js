@@ -98,7 +98,7 @@ for (const sport of ['CFB','NCAAB']) {
   test(`${sport} ranking attenuation leaves context factors intact`,()=>{
     const input=rankedMatchup(sport,[1,null],21);
     input.detail='rivalry';
-    input.event.sportsRadarContext=[{type:'playoff_rematch',text:'Verified rematch'}];
+    input.event.sportsRadarContext=[{type:'playoff_rematch',verified:true,text:'Verified rematch'}];
     const rating=pregame(input);
     assert.equal(points(rating,'Rivalry'),7);
     assert.equal(points(rating,'Playoff rematch'),6);
@@ -192,7 +192,7 @@ for (const sport of ['NFL','MLB','NHL','NBA','CFB','NCAAB']) {
 }
 test('postseason preserves rivalry, rematch and return context',()=>{
   const input=matchup('CFB','CFP semifinal rivalry',true);
-  input.event.sportsRadarContext=[{type:'playoff_rematch',text:'Rematch'},{type:'former_star_return',text:'Player returns'},{type:'coach_return',text:'Coach returns'}];
+  input.event.sportsRadarContext=[{type:'playoff_rematch',verified:true,text:'Rematch'},{type:'former_star_return',verified:true,text:'All-Pro player returns for his first game against his former team'},{type:'coach_return',verified:true,text:'Coach returns for his first game against his former team'}];
   const regular=structuredClone(input);regular.event.season.type=2;regular.detail='rivalry';regular.competition.notes=[{headline:'rivalry'}];
   const independent=rating=>rating.factors.filter(item=>item.label==='Rivalry'||item.contextType);
   assert.deepEqual(independent(pregame(input)),independent(pregame(regular)));

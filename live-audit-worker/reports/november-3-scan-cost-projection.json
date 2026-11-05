@@ -1,0 +1,1835 @@
+{
+  "kind": "offline-storage-projection-not-observed-live-latency",
+  "capturedAt": "2026-11-04T12:37:35.942933+00:00",
+  "captureSha256": "cbf8fa33da2b90847e31a85c2ef389c0aa42af1431c66593ec06e0ee7e6fd869",
+  "baselineSha256": "12261ce76efcbf5bbe91ea1b60a2abd68d6f0c8fb578b00355a8e1ba1ce72956",
+  "indexSourceSha256": "05c1d1b6b99d51e3da3eb1ccb39a2aeb50dc646e1741ece45601a643ba709b87",
+  "method": "One genuine live snapshot per 27 games: chronological middle retained live state. Compare exact deployed baseline and upgraded scan with isolated in-memory SQLite. Feed refresh/scan times are simulated for byte measurement only. No providers, AI, network, new production data, or production writes.",
+  "quantiles": "Nearest-rank p95; upper middle median for even count. Bytes are UTF-8 JSON; no invoice or deployed latency claim.",
+  "cachedSummaryMethod": "For each existing NHL cached summary, use the genuine last retained live game state and its existing providerPath; source acquisition is aligned to simulated scan time solely to measure bounded event storage. Cached final revisions are not represented as original live revisions. No event time is invented.",
+  "representative": {
+    "games": 27,
+    "baseline": {
+      "stateBytes": {
+        "count": 27,
+        "min": 1464,
+        "median": 1801,
+        "p95": 2433,
+        "max": 2450,
+        "total": 52280
+      },
+      "qualityEvidenceBytes": {
+        "count": 27,
+        "min": 795,
+        "median": 797,
+        "p95": 877,
+        "max": 882,
+        "total": 21733
+      },
+      "observationBytes": {
+        "count": 27,
+        "min": 2634,
+        "median": 3024,
+        "p95": 3606,
+        "max": 3608,
+        "total": 84040
+      },
+      "eventBytes": {
+        "count": 27,
+        "min": 0,
+        "median": 0,
+        "p95": 0,
+        "max": 0,
+        "total": 0
+      },
+      "readQueries": {
+        "count": 27,
+        "min": 7,
+        "median": 7,
+        "p95": 8,
+        "max": 8,
+        "total": 200
+      },
+      "writeStatements": {
+        "count": 27,
+        "min": 3,
+        "median": 3,
+        "p95": 3,
+        "max": 3,
+        "total": 81
+      },
+      "bindBytes": {
+        "count": 27,
+        "min": 3393,
+        "median": 3803,
+        "p95": 4453,
+        "max": 4461,
+        "total": 105680
+      }
+    },
+    "upgraded": {
+      "stateBytes": {
+        "count": 27,
+        "min": 3393,
+        "median": 4707,
+        "p95": 5743,
+        "max": 6346,
+        "total": 122176
+      },
+      "qualityEvidenceBytes": {
+        "count": 27,
+        "min": 2642,
+        "median": 3342,
+        "p95": 3946,
+        "max": 4166,
+        "total": 89347
+      },
+      "observationBytes": {
+        "count": 27,
+        "min": 6997,
+        "median": 9007,
+        "p95": 10857,
+        "max": 10922,
+        "total": 237378
+      },
+      "eventBytes": {
+        "count": 27,
+        "min": 2,
+        "median": 2,
+        "p95": 2,
+        "max": 411,
+        "total": 463
+      },
+      "readQueries": {
+        "count": 27,
+        "min": 7,
+        "median": 7,
+        "p95": 8,
+        "max": 8,
+        "total": 200
+      },
+      "writeStatements": {
+        "count": 27,
+        "min": 3,
+        "median": 3,
+        "p95": 3,
+        "max": 3,
+        "total": 81
+      },
+      "bindBytes": {
+        "count": 27,
+        "min": 8151,
+        "median": 10346,
+        "p95": 12408,
+        "max": 12459,
+        "total": 273268
+      }
+    },
+    "rows": [
+      {
+        "gameKey": "CFB:401866453",
+        "snapshotObservedAt": 1793758065000,
+        "modelVersion": "2026-11-02.clock-integrity.2",
+        "rawNormalizedStateBytes": 18521,
+        "summaryAcquiredAt": null,
+        "runs": [
+          {
+            "version": "baseline",
+            "readQueries": 7,
+            "writeStatements": 3,
+            "observationRows": 1,
+            "observationBytes": 3195,
+            "bindBytes": 3994,
+            "stateBytes": 1942,
+            "qualityEvidenceBytes": 877,
+            "retainedEvents": 0,
+            "availableEvents": 0,
+            "eventBytes": 0,
+            "largestRetainedEventBytes": 0,
+            "providerRequests": 0,
+            "notifications": 0
+          },
+          {
+            "version": "upgraded",
+            "readQueries": 7,
+            "writeStatements": 3,
+            "observationRows": 1,
+            "observationBytes": 10922,
+            "bindBytes": 12459,
+            "stateBytes": 6346,
+            "qualityEvidenceBytes": 3613,
+            "retainedEvents": 0,
+            "availableEvents": 0,
+            "eventBytes": 2,
+            "largestRetainedEventBytes": 0,
+            "providerRequests": 0,
+            "notifications": 0
+          }
+        ]
+      },
+      {
+        "gameKey": "CFB:401866454",
+        "snapshotObservedAt": 1793760555000,
+        "modelVersion": "2026-11-03.live-underdog.1",
+        "rawNormalizedStateBytes": 17064,
+        "summaryAcquiredAt": null,
+        "runs": [
+          {
+            "version": "baseline",
+            "readQueries": 7,
+            "writeStatements": 3,
+            "observationRows": 1,
+            "observationBytes": 3024,
+            "bindBytes": 3803,
+            "stateBytes": 1768,
+            "qualityEvidenceBytes": 882,
+            "retainedEvents": 0,
+            "availableEvents": 0,
+            "eventBytes": 0,
+            "largestRetainedEventBytes": 0,
+            "providerRequests": 0,
+            "notifications": 0
+          },
+          {
+            "version": "upgraded",
+            "readQueries": 7,
+            "writeStatements": 3,
+            "observationRows": 1,
+            "observationBytes": 9967,
+            "bindBytes": 11430,
+            "stateBytes": 5543,
+            "qualityEvidenceBytes": 3468,
+            "retainedEvents": 0,
+            "availableEvents": 0,
+            "eventBytes": 2,
+            "largestRetainedEventBytes": 0,
+            "providerRequests": 0,
+            "notifications": 0
+          }
+        ]
+      },
+      {
+        "gameKey": "NCAAB:401906757",
+        "snapshotObservedAt": 1793756685000,
+        "modelVersion": "2026-11-02.clock-integrity.2",
+        "rawNormalizedStateBytes": 10215,
+        "summaryAcquiredAt": null,
+        "runs": [
+          {
+            "version": "baseline",
+            "readQueries": 7,
+            "writeStatements": 3,
+            "observationRows": 1,
+            "observationBytes": 3132,
+            "bindBytes": 3919,
+            "stateBytes": 1947,
+            "qualityEvidenceBytes": 798,
+            "retainedEvents": 0,
+            "availableEvents": 0,
+            "eventBytes": 0,
+            "largestRetainedEventBytes": 0,
+            "providerRequests": 0,
+            "notifications": 0
+          },
+          {
+            "version": "upgraded",
+            "readQueries": 7,
+            "writeStatements": 3,
+            "observationRows": 1,
+            "observationBytes": 8813,
+            "bindBytes": 10114,
+            "stateBytes": 4892,
+            "qualityEvidenceBytes": 2947,
+            "retainedEvents": 0,
+            "availableEvents": 0,
+            "eventBytes": 2,
+            "largestRetainedEventBytes": 0,
+            "providerRequests": 0,
+            "notifications": 0
+          }
+        ]
+      },
+      {
+        "gameKey": "NCAAB:401906848",
+        "snapshotObservedAt": 1793749965000,
+        "modelVersion": "2026-11-02.clock-integrity.2",
+        "rawNormalizedStateBytes": 15368,
+        "summaryAcquiredAt": null,
+        "runs": [
+          {
+            "version": "baseline",
+            "readQueries": 7,
+            "writeStatements": 3,
+            "observationRows": 1,
+            "observationBytes": 2913,
+            "bindBytes": 3699,
+            "stateBytes": 1729,
+            "qualityEvidenceBytes": 797,
+            "retainedEvents": 0,
+            "availableEvents": 0,
+            "eventBytes": 0,
+            "largestRetainedEventBytes": 0,
+            "providerRequests": 0,
+            "notifications": 0
+          },
+          {
+            "version": "upgraded",
+            "readQueries": 7,
+            "writeStatements": 3,
+            "observationRows": 1,
+            "observationBytes": 7850,
+            "bindBytes": 9086,
+            "stateBytes": 3964,
+            "qualityEvidenceBytes": 2913,
+            "retainedEvents": 0,
+            "availableEvents": 0,
+            "eventBytes": 2,
+            "largestRetainedEventBytes": 0,
+            "providerRequests": 0,
+            "notifications": 0
+          }
+        ]
+      },
+      {
+        "gameKey": "NCAAB:401920422",
+        "snapshotObservedAt": 1793757000000,
+        "modelVersion": "2026-11-02.clock-integrity.2",
+        "rawNormalizedStateBytes": 15220,
+        "summaryAcquiredAt": null,
+        "runs": [
+          {
+            "version": "baseline",
+            "readQueries": 7,
+            "writeStatements": 3,
+            "observationRows": 1,
+            "observationBytes": 2940,
+            "bindBytes": 3721,
+            "stateBytes": 1758,
+            "qualityEvidenceBytes": 795,
+            "retainedEvents": 0,
+            "availableEvents": 0,
+            "eventBytes": 0,
+            "largestRetainedEventBytes": 0,
+            "providerRequests": 0,
+            "notifications": 0
+          },
+          {
+            "version": "upgraded",
+            "readQueries": 7,
+            "writeStatements": 3,
+            "observationRows": 1,
+            "observationBytes": 9007,
+            "bindBytes": 10346,
+            "stateBytes": 4691,
+            "qualityEvidenceBytes": 3342,
+            "retainedEvents": 1,
+            "availableEvents": 1,
+            "eventBytes": 411,
+            "largestRetainedEventBytes": 409,
+            "providerRequests": 0,
+            "notifications": 0
+          }
+        ]
+      },
+      {
+        "gameKey": "NCAAB:401921801",
+        "snapshotObservedAt": 1793754180000,
+        "modelVersion": "2026-11-02.clock-integrity.2",
+        "rawNormalizedStateBytes": 15349,
+        "summaryAcquiredAt": null,
+        "runs": [
+          {
+            "version": "baseline",
+            "readQueries": 7,
+            "writeStatements": 3,
+            "observationRows": 1,
+            "observationBytes": 2973,
+            "bindBytes": 3759,
+            "stateBytes": 1791,
+            "qualityEvidenceBytes": 795,
+            "retainedEvents": 0,
+            "availableEvents": 0,
+            "eventBytes": 0,
+            "largestRetainedEventBytes": 0,
+            "providerRequests": 0,
+            "notifications": 0
+          },
+          {
+            "version": "upgraded",
+            "readQueries": 7,
+            "writeStatements": 3,
+            "observationRows": 1,
+            "observationBytes": 8554,
+            "bindBytes": 9858,
+            "stateBytes": 4618,
+            "qualityEvidenceBytes": 2963,
+            "retainedEvents": 0,
+            "availableEvents": 0,
+            "eventBytes": 2,
+            "largestRetainedEventBytes": 0,
+            "providerRequests": 0,
+            "notifications": 0
+          }
+        ]
+      },
+      {
+        "gameKey": "NCAAB:401929372",
+        "snapshotObservedAt": 1793758140000,
+        "modelVersion": "2026-11-02.clock-integrity.2",
+        "rawNormalizedStateBytes": 14286,
+        "summaryAcquiredAt": null,
+        "runs": [
+          {
+            "version": "baseline",
+            "readQueries": 7,
+            "writeStatements": 3,
+            "observationRows": 1,
+            "observationBytes": 2985,
+            "bindBytes": 3775,
+            "stateBytes": 1801,
+            "qualityEvidenceBytes": 797,
+            "retainedEvents": 0,
+            "availableEvents": 0,
+            "eventBytes": 0,
+            "largestRetainedEventBytes": 0,
+            "providerRequests": 0,
+            "notifications": 0
+          },
+          {
+            "version": "upgraded",
+            "readQueries": 7,
+            "writeStatements": 3,
+            "observationRows": 1,
+            "observationBytes": 7940,
+            "bindBytes": 9180,
+            "stateBytes": 4041,
+            "qualityEvidenceBytes": 2926,
+            "retainedEvents": 0,
+            "availableEvents": 0,
+            "eventBytes": 2,
+            "largestRetainedEventBytes": 0,
+            "providerRequests": 0,
+            "notifications": 0
+          }
+        ]
+      },
+      {
+        "gameKey": "NHL:401892633",
+        "snapshotObservedAt": 1793756925000,
+        "modelVersion": "2026-11-02.clock-integrity.2",
+        "rawNormalizedStateBytes": 16790,
+        "summaryAcquiredAt": null,
+        "runs": [
+          {
+            "version": "baseline",
+            "readQueries": 8,
+            "writeStatements": 3,
+            "observationRows": 1,
+            "observationBytes": 3449,
+            "bindBytes": 4294,
+            "stateBytes": 2285,
+            "qualityEvidenceBytes": 803,
+            "retainedEvents": 0,
+            "availableEvents": 0,
+            "eventBytes": 0,
+            "largestRetainedEventBytes": 0,
+            "providerRequests": 0,
+            "notifications": 0
+          },
+          {
+            "version": "upgraded",
+            "readQueries": 8,
+            "writeStatements": 3,
+            "observationRows": 1,
+            "observationBytes": 9749,
+            "bindBytes": 11186,
+            "stateBytes": 4908,
+            "qualityEvidenceBytes": 3894,
+            "retainedEvents": 0,
+            "availableEvents": 0,
+            "eventBytes": 2,
+            "largestRetainedEventBytes": 0,
+            "providerRequests": 0,
+            "notifications": 0
+          }
+        ]
+      },
+      {
+        "gameKey": "NHL:401892634",
+        "snapshotObservedAt": 1793757360000,
+        "modelVersion": "2026-11-02.clock-integrity.2",
+        "rawNormalizedStateBytes": 16257,
+        "summaryAcquiredAt": null,
+        "runs": [
+          {
+            "version": "baseline",
+            "readQueries": 8,
+            "writeStatements": 3,
+            "observationRows": 1,
+            "observationBytes": 3544,
+            "bindBytes": 4391,
+            "stateBytes": 2386,
+            "qualityEvidenceBytes": 797,
+            "retainedEvents": 0,
+            "availableEvents": 0,
+            "eventBytes": 0,
+            "largestRetainedEventBytes": 0,
+            "providerRequests": 0,
+            "notifications": 0
+          },
+          {
+            "version": "upgraded",
+            "readQueries": 8,
+            "writeStatements": 3,
+            "observationRows": 1,
+            "observationBytes": 9494,
+            "bindBytes": 10893,
+            "stateBytes": 4836,
+            "qualityEvidenceBytes": 3711,
+            "retainedEvents": 0,
+            "availableEvents": 0,
+            "eventBytes": 2,
+            "largestRetainedEventBytes": 0,
+            "providerRequests": 0,
+            "notifications": 0
+          }
+        ]
+      },
+      {
+        "gameKey": "NHL:401892635",
+        "snapshotObservedAt": 1793755935000,
+        "modelVersion": "2026-11-02.clock-integrity.2",
+        "rawNormalizedStateBytes": 17570,
+        "summaryAcquiredAt": null,
+        "runs": [
+          {
+            "version": "baseline",
+            "readQueries": 8,
+            "writeStatements": 3,
+            "observationRows": 1,
+            "observationBytes": 3608,
+            "bindBytes": 4461,
+            "stateBytes": 2450,
+            "qualityEvidenceBytes": 797,
+            "retainedEvents": 0,
+            "availableEvents": 0,
+            "eventBytes": 0,
+            "largestRetainedEventBytes": 0,
+            "providerRequests": 0,
+            "notifications": 0
+          },
+          {
+            "version": "upgraded",
+            "readQueries": 8,
+            "writeStatements": 3,
+            "observationRows": 1,
+            "observationBytes": 9857,
+            "bindBytes": 11318,
+            "stateBytes": 5221,
+            "qualityEvidenceBytes": 3688,
+            "retainedEvents": 0,
+            "availableEvents": 0,
+            "eventBytes": 2,
+            "largestRetainedEventBytes": 0,
+            "providerRequests": 0,
+            "notifications": 0
+          }
+        ]
+      },
+      {
+        "gameKey": "NHL:401892636",
+        "snapshotObservedAt": 1793757465000,
+        "modelVersion": "2026-11-02.clock-integrity.2",
+        "rawNormalizedStateBytes": 17881,
+        "summaryAcquiredAt": null,
+        "runs": [
+          {
+            "version": "baseline",
+            "readQueries": 8,
+            "writeStatements": 3,
+            "observationRows": 1,
+            "observationBytes": 3571,
+            "bindBytes": 4422,
+            "stateBytes": 2397,
+            "qualityEvidenceBytes": 813,
+            "retainedEvents": 0,
+            "availableEvents": 0,
+            "eventBytes": 0,
+            "largestRetainedEventBytes": 0,
+            "providerRequests": 0,
+            "notifications": 0
+          },
+          {
+            "version": "upgraded",
+            "readQueries": 8,
+            "writeStatements": 3,
+            "observationRows": 1,
+            "observationBytes": 10857,
+            "bindBytes": 12408,
+            "stateBytes": 5743,
+            "qualityEvidenceBytes": 4166,
+            "retainedEvents": 0,
+            "availableEvents": 0,
+            "eventBytes": 2,
+            "largestRetainedEventBytes": 0,
+            "providerRequests": 0,
+            "notifications": 0
+          }
+        ]
+      },
+      {
+        "gameKey": "NHL:401892637",
+        "snapshotObservedAt": 1793755395000,
+        "modelVersion": "2026-11-02.clock-integrity.2",
+        "rawNormalizedStateBytes": 17340,
+        "summaryAcquiredAt": null,
+        "runs": [
+          {
+            "version": "baseline",
+            "readQueries": 8,
+            "writeStatements": 3,
+            "observationRows": 1,
+            "observationBytes": 3606,
+            "bindBytes": 4453,
+            "stateBytes": 2433,
+            "qualityEvidenceBytes": 812,
+            "retainedEvents": 0,
+            "availableEvents": 0,
+            "eventBytes": 0,
+            "largestRetainedEventBytes": 0,
+            "providerRequests": 0,
+            "notifications": 0
+          },
+          {
+            "version": "upgraded",
+            "readQueries": 8,
+            "writeStatements": 3,
+            "observationRows": 1,
+            "observationBytes": 10413,
+            "bindBytes": 11902,
+            "stateBytes": 5520,
+            "qualityEvidenceBytes": 3945,
+            "retainedEvents": 0,
+            "availableEvents": 0,
+            "eventBytes": 2,
+            "largestRetainedEventBytes": 0,
+            "providerRequests": 0,
+            "notifications": 0
+          }
+        ]
+      },
+      {
+        "gameKey": "NHL:401892638",
+        "snapshotObservedAt": 1793756055000,
+        "modelVersion": "2026-11-02.clock-integrity.2",
+        "rawNormalizedStateBytes": 16654,
+        "summaryAcquiredAt": null,
+        "runs": [
+          {
+            "version": "baseline",
+            "readQueries": 8,
+            "writeStatements": 3,
+            "observationRows": 1,
+            "observationBytes": 3528,
+            "bindBytes": 4380,
+            "stateBytes": 2370,
+            "qualityEvidenceBytes": 797,
+            "retainedEvents": 0,
+            "availableEvents": 0,
+            "eventBytes": 0,
+            "largestRetainedEventBytes": 0,
+            "providerRequests": 0,
+            "notifications": 0
+          },
+          {
+            "version": "upgraded",
+            "readQueries": 8,
+            "writeStatements": 3,
+            "observationRows": 1,
+            "observationBytes": 9861,
+            "bindBytes": 11321,
+            "stateBytes": 5205,
+            "qualityEvidenceBytes": 3709,
+            "retainedEvents": 0,
+            "availableEvents": 0,
+            "eventBytes": 2,
+            "largestRetainedEventBytes": 0,
+            "providerRequests": 0,
+            "notifications": 0
+          }
+        ]
+      },
+      {
+        "gameKey": "NHL:401892639",
+        "snapshotObservedAt": 1793756025000,
+        "modelVersion": "2026-11-02.clock-integrity.2",
+        "rawNormalizedStateBytes": 16746,
+        "summaryAcquiredAt": null,
+        "runs": [
+          {
+            "version": "baseline",
+            "readQueries": 8,
+            "writeStatements": 3,
+            "observationRows": 1,
+            "observationBytes": 3494,
+            "bindBytes": 4337,
+            "stateBytes": 2320,
+            "qualityEvidenceBytes": 813,
+            "retainedEvents": 0,
+            "availableEvents": 0,
+            "eventBytes": 0,
+            "largestRetainedEventBytes": 0,
+            "providerRequests": 0,
+            "notifications": 0
+          },
+          {
+            "version": "upgraded",
+            "readQueries": 8,
+            "writeStatements": 3,
+            "observationRows": 1,
+            "observationBytes": 9921,
+            "bindBytes": 11350,
+            "stateBytes": 5035,
+            "qualityEvidenceBytes": 3938,
+            "retainedEvents": 0,
+            "availableEvents": 0,
+            "eventBytes": 2,
+            "largestRetainedEventBytes": 0,
+            "providerRequests": 0,
+            "notifications": 0
+          }
+        ]
+      },
+      {
+        "gameKey": "NHL:401892640",
+        "snapshotObservedAt": 1793756040000,
+        "modelVersion": "2026-11-02.clock-integrity.2",
+        "rawNormalizedStateBytes": 16302,
+        "summaryAcquiredAt": null,
+        "runs": [
+          {
+            "version": "baseline",
+            "readQueries": 8,
+            "writeStatements": 3,
+            "observationRows": 1,
+            "observationBytes": 3496,
+            "bindBytes": 4333,
+            "stateBytes": 2338,
+            "qualityEvidenceBytes": 797,
+            "retainedEvents": 0,
+            "availableEvents": 0,
+            "eventBytes": 0,
+            "largestRetainedEventBytes": 0,
+            "providerRequests": 0,
+            "notifications": 0
+          },
+          {
+            "version": "upgraded",
+            "readQueries": 8,
+            "writeStatements": 3,
+            "observationRows": 1,
+            "observationBytes": 9239,
+            "bindBytes": 10616,
+            "stateBytes": 4707,
+            "qualityEvidenceBytes": 3585,
+            "retainedEvents": 0,
+            "availableEvents": 0,
+            "eventBytes": 2,
+            "largestRetainedEventBytes": 0,
+            "providerRequests": 0,
+            "notifications": 0
+          }
+        ]
+      },
+      {
+        "gameKey": "NHL:401892641",
+        "snapshotObservedAt": 1793756775000,
+        "modelVersion": "2026-11-02.clock-integrity.2",
+        "rawNormalizedStateBytes": 16280,
+        "summaryAcquiredAt": null,
+        "runs": [
+          {
+            "version": "baseline",
+            "readQueries": 8,
+            "writeStatements": 3,
+            "observationRows": 1,
+            "observationBytes": 3556,
+            "bindBytes": 4397,
+            "stateBytes": 2398,
+            "qualityEvidenceBytes": 797,
+            "retainedEvents": 0,
+            "availableEvents": 0,
+            "eventBytes": 0,
+            "largestRetainedEventBytes": 0,
+            "providerRequests": 0,
+            "notifications": 0
+          },
+          {
+            "version": "upgraded",
+            "readQueries": 8,
+            "writeStatements": 3,
+            "observationRows": 1,
+            "observationBytes": 9476,
+            "bindBytes": 10863,
+            "stateBytes": 4854,
+            "qualityEvidenceBytes": 3675,
+            "retainedEvents": 0,
+            "availableEvents": 0,
+            "eventBytes": 2,
+            "largestRetainedEventBytes": 0,
+            "providerRequests": 0,
+            "notifications": 0
+          }
+        ]
+      },
+      {
+        "gameKey": "NHL:401892642",
+        "snapshotObservedAt": 1793758815000,
+        "modelVersion": "2026-11-03.live-underdog.1",
+        "rawNormalizedStateBytes": 17678,
+        "summaryAcquiredAt": null,
+        "runs": [
+          {
+            "version": "baseline",
+            "readQueries": 8,
+            "writeStatements": 3,
+            "observationRows": 1,
+            "observationBytes": 3493,
+            "bindBytes": 4338,
+            "stateBytes": 2337,
+            "qualityEvidenceBytes": 797,
+            "retainedEvents": 0,
+            "availableEvents": 0,
+            "eventBytes": 0,
+            "largestRetainedEventBytes": 0,
+            "providerRequests": 0,
+            "notifications": 0
+          },
+          {
+            "version": "upgraded",
+            "readQueries": 8,
+            "writeStatements": 3,
+            "observationRows": 1,
+            "observationBytes": 9655,
+            "bindBytes": 11102,
+            "stateBytes": 5076,
+            "qualityEvidenceBytes": 3637,
+            "retainedEvents": 0,
+            "availableEvents": 0,
+            "eventBytes": 2,
+            "largestRetainedEventBytes": 0,
+            "providerRequests": 0,
+            "notifications": 0
+          }
+        ]
+      },
+      {
+        "gameKey": "NHL:401892643",
+        "snapshotObservedAt": 1793762850000,
+        "modelVersion": "2026-11-03.live-underdog.1",
+        "rawNormalizedStateBytes": 17003,
+        "summaryAcquiredAt": null,
+        "runs": [
+          {
+            "version": "baseline",
+            "readQueries": 8,
+            "writeStatements": 3,
+            "observationRows": 1,
+            "observationBytes": 3529,
+            "bindBytes": 4372,
+            "stateBytes": 2356,
+            "qualityEvidenceBytes": 814,
+            "retainedEvents": 0,
+            "availableEvents": 0,
+            "eventBytes": 0,
+            "largestRetainedEventBytes": 0,
+            "providerRequests": 0,
+            "notifications": 0
+          },
+          {
+            "version": "upgraded",
+            "readQueries": 8,
+            "writeStatements": 3,
+            "observationRows": 1,
+            "observationBytes": 9976,
+            "bindBytes": 11405,
+            "stateBytes": 5088,
+            "qualityEvidenceBytes": 3946,
+            "retainedEvents": 0,
+            "availableEvents": 0,
+            "eventBytes": 2,
+            "largestRetainedEventBytes": 0,
+            "providerRequests": 0,
+            "notifications": 0
+          }
+        ]
+      },
+      {
+        "gameKey": "Soccer:401915307",
+        "snapshotObservedAt": 1793740860000,
+        "modelVersion": "2026-11-02.clock-integrity.2",
+        "rawNormalizedStateBytes": 9997,
+        "summaryAcquiredAt": null,
+        "runs": [
+          {
+            "version": "baseline",
+            "readQueries": 7,
+            "writeStatements": 3,
+            "observationRows": 1,
+            "observationBytes": 2676,
+            "bindBytes": 3430,
+            "stateBytes": 1506,
+            "qualityEvidenceBytes": 795,
+            "retainedEvents": 0,
+            "availableEvents": 0,
+            "eventBytes": 0,
+            "largestRetainedEventBytes": 0,
+            "providerRequests": 0,
+            "notifications": 0
+          },
+          {
+            "version": "upgraded",
+            "readQueries": 7,
+            "writeStatements": 3,
+            "observationRows": 1,
+            "observationBytes": 7320,
+            "bindBytes": 8494,
+            "stateBytes": 3562,
+            "qualityEvidenceBytes": 2796,
+            "retainedEvents": 0,
+            "availableEvents": 0,
+            "eventBytes": 2,
+            "largestRetainedEventBytes": 0,
+            "providerRequests": 0,
+            "notifications": 0
+          }
+        ]
+      },
+      {
+        "gameKey": "Soccer:401915308",
+        "snapshotObservedAt": 1793740830000,
+        "modelVersion": "2026-11-02.clock-integrity.2",
+        "rawNormalizedStateBytes": 7899,
+        "summaryAcquiredAt": null,
+        "runs": [
+          {
+            "version": "baseline",
+            "readQueries": 7,
+            "writeStatements": 3,
+            "observationRows": 1,
+            "observationBytes": 2679,
+            "bindBytes": 3442,
+            "stateBytes": 1509,
+            "qualityEvidenceBytes": 795,
+            "retainedEvents": 0,
+            "availableEvents": 0,
+            "eventBytes": 0,
+            "largestRetainedEventBytes": 0,
+            "providerRequests": 0,
+            "notifications": 0
+          },
+          {
+            "version": "upgraded",
+            "readQueries": 7,
+            "writeStatements": 3,
+            "observationRows": 1,
+            "observationBytes": 7434,
+            "bindBytes": 8623,
+            "stateBytes": 3598,
+            "qualityEvidenceBytes": 2874,
+            "retainedEvents": 0,
+            "availableEvents": 0,
+            "eventBytes": 2,
+            "largestRetainedEventBytes": 0,
+            "providerRequests": 0,
+            "notifications": 0
+          }
+        ]
+      },
+      {
+        "gameKey": "Soccer:401915309",
+        "snapshotObservedAt": 1793740665000,
+        "modelVersion": "2026-11-02.clock-integrity.2",
+        "rawNormalizedStateBytes": 9827,
+        "summaryAcquiredAt": null,
+        "runs": [
+          {
+            "version": "baseline",
+            "readQueries": 7,
+            "writeStatements": 3,
+            "observationRows": 1,
+            "observationBytes": 2662,
+            "bindBytes": 3416,
+            "stateBytes": 1492,
+            "qualityEvidenceBytes": 795,
+            "retainedEvents": 0,
+            "availableEvents": 0,
+            "eventBytes": 0,
+            "largestRetainedEventBytes": 0,
+            "providerRequests": 0,
+            "notifications": 0
+          },
+          {
+            "version": "upgraded",
+            "readQueries": 7,
+            "writeStatements": 3,
+            "observationRows": 1,
+            "observationBytes": 6997,
+            "bindBytes": 8151,
+            "stateBytes": 3393,
+            "qualityEvidenceBytes": 2642,
+            "retainedEvents": 0,
+            "availableEvents": 0,
+            "eventBytes": 2,
+            "largestRetainedEventBytes": 0,
+            "providerRequests": 0,
+            "notifications": 0
+          }
+        ]
+      },
+      {
+        "gameKey": "Soccer:401915310",
+        "snapshotObservedAt": 1793732355000,
+        "modelVersion": "2026-11-02.clock-integrity.2",
+        "rawNormalizedStateBytes": 7849,
+        "summaryAcquiredAt": null,
+        "runs": [
+          {
+            "version": "baseline",
+            "readQueries": 7,
+            "writeStatements": 3,
+            "observationRows": 1,
+            "observationBytes": 2687,
+            "bindBytes": 3448,
+            "stateBytes": 1517,
+            "qualityEvidenceBytes": 795,
+            "retainedEvents": 0,
+            "availableEvents": 0,
+            "eventBytes": 0,
+            "largestRetainedEventBytes": 0,
+            "providerRequests": 0,
+            "notifications": 0
+          },
+          {
+            "version": "upgraded",
+            "readQueries": 7,
+            "writeStatements": 3,
+            "observationRows": 1,
+            "observationBytes": 7320,
+            "bindBytes": 8503,
+            "stateBytes": 3545,
+            "qualityEvidenceBytes": 2813,
+            "retainedEvents": 0,
+            "availableEvents": 0,
+            "eventBytes": 2,
+            "largestRetainedEventBytes": 0,
+            "providerRequests": 0,
+            "notifications": 0
+          }
+        ]
+      },
+      {
+        "gameKey": "Soccer:401915311",
+        "snapshotObservedAt": 1793732415000,
+        "modelVersion": "2026-11-02.clock-integrity.2",
+        "rawNormalizedStateBytes": 8040,
+        "summaryAcquiredAt": null,
+        "runs": [
+          {
+            "version": "baseline",
+            "readQueries": 7,
+            "writeStatements": 3,
+            "observationRows": 1,
+            "observationBytes": 2643,
+            "bindBytes": 3402,
+            "stateBytes": 1473,
+            "qualityEvidenceBytes": 795,
+            "retainedEvents": 0,
+            "availableEvents": 0,
+            "eventBytes": 0,
+            "largestRetainedEventBytes": 0,
+            "providerRequests": 0,
+            "notifications": 0
+          },
+          {
+            "version": "upgraded",
+            "readQueries": 7,
+            "writeStatements": 3,
+            "observationRows": 1,
+            "observationBytes": 7347,
+            "bindBytes": 8526,
+            "stateBytes": 3549,
+            "qualityEvidenceBytes": 2836,
+            "retainedEvents": 0,
+            "availableEvents": 0,
+            "eventBytes": 2,
+            "largestRetainedEventBytes": 0,
+            "providerRequests": 0,
+            "notifications": 0
+          }
+        ]
+      },
+      {
+        "gameKey": "Soccer:401915384",
+        "snapshotObservedAt": 1793740515000,
+        "modelVersion": "2026-11-02.clock-integrity.2",
+        "rawNormalizedStateBytes": 9939,
+        "summaryAcquiredAt": null,
+        "runs": [
+          {
+            "version": "baseline",
+            "readQueries": 7,
+            "writeStatements": 3,
+            "observationRows": 1,
+            "observationBytes": 2666,
+            "bindBytes": 3427,
+            "stateBytes": 1496,
+            "qualityEvidenceBytes": 795,
+            "retainedEvents": 0,
+            "availableEvents": 0,
+            "eventBytes": 0,
+            "largestRetainedEventBytes": 0,
+            "providerRequests": 0,
+            "notifications": 0
+          },
+          {
+            "version": "upgraded",
+            "readQueries": 7,
+            "writeStatements": 3,
+            "observationRows": 1,
+            "observationBytes": 7299,
+            "bindBytes": 8482,
+            "stateBytes": 3524,
+            "qualityEvidenceBytes": 2813,
+            "retainedEvents": 0,
+            "availableEvents": 0,
+            "eventBytes": 2,
+            "largestRetainedEventBytes": 0,
+            "providerRequests": 0,
+            "notifications": 0
+          }
+        ]
+      },
+      {
+        "gameKey": "Soccer:401915385",
+        "snapshotObservedAt": 1793740725000,
+        "modelVersion": "2026-11-02.clock-integrity.2",
+        "rawNormalizedStateBytes": 9996,
+        "summaryAcquiredAt": null,
+        "runs": [
+          {
+            "version": "baseline",
+            "readQueries": 7,
+            "writeStatements": 3,
+            "observationRows": 1,
+            "observationBytes": 2666,
+            "bindBytes": 3420,
+            "stateBytes": 1496,
+            "qualityEvidenceBytes": 795,
+            "retainedEvents": 0,
+            "availableEvents": 0,
+            "eventBytes": 0,
+            "largestRetainedEventBytes": 0,
+            "providerRequests": 0,
+            "notifications": 0
+          },
+          {
+            "version": "upgraded",
+            "readQueries": 7,
+            "writeStatements": 3,
+            "observationRows": 1,
+            "observationBytes": 7311,
+            "bindBytes": 8485,
+            "stateBytes": 3552,
+            "qualityEvidenceBytes": 2797,
+            "retainedEvents": 0,
+            "availableEvents": 0,
+            "eventBytes": 2,
+            "largestRetainedEventBytes": 0,
+            "providerRequests": 0,
+            "notifications": 0
+          }
+        ]
+      },
+      {
+        "gameKey": "Soccer:401915386",
+        "snapshotObservedAt": 1793740695000,
+        "modelVersion": "2026-11-02.clock-integrity.2",
+        "rawNormalizedStateBytes": 8118,
+        "summaryAcquiredAt": null,
+        "runs": [
+          {
+            "version": "baseline",
+            "readQueries": 7,
+            "writeStatements": 3,
+            "observationRows": 1,
+            "observationBytes": 2691,
+            "bindBytes": 3454,
+            "stateBytes": 1521,
+            "qualityEvidenceBytes": 795,
+            "retainedEvents": 0,
+            "availableEvents": 0,
+            "eventBytes": 0,
+            "largestRetainedEventBytes": 0,
+            "providerRequests": 0,
+            "notifications": 0
+          },
+          {
+            "version": "upgraded",
+            "readQueries": 7,
+            "writeStatements": 3,
+            "observationRows": 1,
+            "observationBytes": 7446,
+            "bindBytes": 8635,
+            "stateBytes": 3610,
+            "qualityEvidenceBytes": 2874,
+            "retainedEvents": 0,
+            "availableEvents": 0,
+            "eventBytes": 2,
+            "largestRetainedEventBytes": 0,
+            "providerRequests": 0,
+            "notifications": 0
+          }
+        ]
+      },
+      {
+        "gameKey": "Soccer:401915387",
+        "snapshotObservedAt": 1793740785000,
+        "modelVersion": "2026-11-02.clock-integrity.2",
+        "rawNormalizedStateBytes": 9978,
+        "summaryAcquiredAt": null,
+        "runs": [
+          {
+            "version": "baseline",
+            "readQueries": 7,
+            "writeStatements": 3,
+            "observationRows": 1,
+            "observationBytes": 2634,
+            "bindBytes": 3393,
+            "stateBytes": 1464,
+            "qualityEvidenceBytes": 795,
+            "retainedEvents": 0,
+            "availableEvents": 0,
+            "eventBytes": 0,
+            "largestRetainedEventBytes": 0,
+            "providerRequests": 0,
+            "notifications": 0
+          },
+          {
+            "version": "upgraded",
+            "readQueries": 7,
+            "writeStatements": 3,
+            "observationRows": 1,
+            "observationBytes": 7353,
+            "bindBytes": 8532,
+            "stateBytes": 3555,
+            "qualityEvidenceBytes": 2836,
+            "retainedEvents": 0,
+            "availableEvents": 0,
+            "eventBytes": 2,
+            "largestRetainedEventBytes": 0,
+            "providerRequests": 0,
+            "notifications": 0
+          }
+        ]
+      }
+    ]
+  },
+  "cachedSummaries": {
+    "games": 11,
+    "upgraded": {
+      "stateBytes": {
+        "count": 11,
+        "min": 4881,
+        "median": 5291,
+        "p95": 5722,
+        "max": 5722,
+        "total": 58472
+      },
+      "qualityEvidenceBytes": {
+        "count": 11,
+        "min": 6177,
+        "median": 7932,
+        "p95": 10757,
+        "max": 10757,
+        "total": 93659
+      },
+      "observationBytes": {
+        "count": 11,
+        "min": 12779,
+        "median": 15201,
+        "p95": 18332,
+        "max": 18332,
+        "total": 169731
+      },
+      "eventBytes": {
+        "count": 11,
+        "min": 2536,
+        "median": 3797,
+        "p95": 6987,
+        "max": 6987,
+        "total": 50844
+      },
+      "readQueries": {
+        "count": 11,
+        "min": 8,
+        "median": 8,
+        "p95": 8,
+        "max": 8,
+        "total": 88
+      },
+      "writeStatements": {
+        "count": 11,
+        "min": 3,
+        "median": 3,
+        "p95": 3,
+        "max": 3,
+        "total": 33
+      },
+      "bindBytes": {
+        "count": 11,
+        "min": 14541,
+        "median": 17170,
+        "p95": 20687,
+        "max": 20687,
+        "total": 191840
+      }
+    },
+    "retainedEvents": {
+      "count": 11,
+      "min": 4,
+      "median": 6,
+      "p95": 12,
+      "max": 12,
+      "total": 82
+    },
+    "largestRetainedEventBytes": 647,
+    "bounded48EventsObservedRecordEnvelopeBytes": 31105,
+    "bounded48EventsMethod": "Storage arithmetic only: 48 copies of the largest serialized real event record seen in the 11 cached summaries, plus JSON array commas/brackets. This is an observed-record-size envelope, not an observed 48-event game or a global maximum for all possible provider fields.",
+    "rows": [
+      {
+        "gameKey": "NHL:401892633",
+        "snapshotObservedAt": 1793760120000,
+        "modelVersion": "2026-11-03.live-underdog.1",
+        "rawNormalizedStateBytes": 17604,
+        "summaryAcquiredAt": 1793795775835,
+        "runs": [
+          {
+            "version": "baseline",
+            "readQueries": 8,
+            "writeStatements": 3,
+            "observationRows": 1,
+            "observationBytes": 3765,
+            "bindBytes": 4618,
+            "stateBytes": 2489,
+            "qualityEvidenceBytes": 797,
+            "retainedEvents": 0,
+            "availableEvents": 0,
+            "eventBytes": 0,
+            "largestRetainedEventBytes": 0,
+            "providerRequests": 0,
+            "notifications": 0
+          },
+          {
+            "version": "upgraded",
+            "readQueries": 8,
+            "writeStatements": 3,
+            "observationRows": 1,
+            "observationBytes": 14193,
+            "bindBytes": 16070,
+            "stateBytes": 5522,
+            "qualityEvidenceBytes": 7124,
+            "retainedEvents": 5,
+            "availableEvents": 5,
+            "eventBytes": 3181,
+            "largestRetainedEventBytes": 643,
+            "providerRequests": 0,
+            "notifications": 0
+          }
+        ]
+      },
+      {
+        "gameKey": "NHL:401892634",
+        "snapshotObservedAt": 1793761890000,
+        "modelVersion": "2026-11-03.live-underdog.1",
+        "rawNormalizedStateBytes": 17152,
+        "summaryAcquiredAt": 1793795831307,
+        "runs": [
+          {
+            "version": "baseline",
+            "readQueries": 8,
+            "writeStatements": 3,
+            "observationRows": 1,
+            "observationBytes": 3781,
+            "bindBytes": 4634,
+            "stateBytes": 2505,
+            "qualityEvidenceBytes": 797,
+            "retainedEvents": 0,
+            "availableEvents": 0,
+            "eventBytes": 0,
+            "largestRetainedEventBytes": 0,
+            "providerRequests": 0,
+            "notifications": 0
+          },
+          {
+            "version": "upgraded",
+            "readQueries": 8,
+            "writeStatements": 3,
+            "observationRows": 1,
+            "observationBytes": 17348,
+            "bindBytes": 19549,
+            "stateBytes": 5291,
+            "qualityEvidenceBytes": 10367,
+            "retainedEvents": 10,
+            "availableEvents": 10,
+            "eventBytes": 6273,
+            "largestRetainedEventBytes": 638,
+            "providerRequests": 0,
+            "notifications": 0
+          }
+        ]
+      },
+      {
+        "gameKey": "NHL:401892635",
+        "snapshotObservedAt": 1793759970000,
+        "modelVersion": "2026-11-03.live-underdog.1",
+        "rawNormalizedStateBytes": 18576,
+        "summaryAcquiredAt": 1793795775835,
+        "runs": [
+          {
+            "version": "baseline",
+            "readQueries": 8,
+            "writeStatements": 3,
+            "observationRows": 1,
+            "observationBytes": 4003,
+            "bindBytes": 4872,
+            "stateBytes": 2711,
+            "qualityEvidenceBytes": 813,
+            "retainedEvents": 0,
+            "availableEvents": 0,
+            "eventBytes": 0,
+            "largestRetainedEventBytes": 0,
+            "providerRequests": 0,
+            "notifications": 0
+          },
+          {
+            "version": "upgraded",
+            "readQueries": 8,
+            "writeStatements": 3,
+            "observationRows": 1,
+            "observationBytes": 15201,
+            "bindBytes": 17170,
+            "stateBytes": 5722,
+            "qualityEvidenceBytes": 7932,
+            "retainedEvents": 6,
+            "availableEvents": 6,
+            "eventBytes": 3772,
+            "largestRetainedEventBytes": 647,
+            "providerRequests": 0,
+            "notifications": 0
+          }
+        ]
+      },
+      {
+        "gameKey": "NHL:401892636",
+        "snapshotObservedAt": 1793762190000,
+        "modelVersion": "2026-11-03.live-underdog.1",
+        "rawNormalizedStateBytes": 17854,
+        "summaryAcquiredAt": 1793795831307,
+        "runs": [
+          {
+            "version": "baseline",
+            "readQueries": 8,
+            "writeStatements": 4,
+            "observationRows": 1,
+            "observationBytes": 3988,
+            "bindBytes": 9858,
+            "stateBytes": 2422,
+            "qualityEvidenceBytes": 797,
+            "retainedEvents": 0,
+            "availableEvents": 0,
+            "eventBytes": 0,
+            "largestRetainedEventBytes": 0,
+            "providerRequests": 0,
+            "notifications": 0
+          },
+          {
+            "version": "upgraded",
+            "readQueries": 8,
+            "writeStatements": 3,
+            "observationRows": 1,
+            "observationBytes": 18332,
+            "bindBytes": 20687,
+            "stateBytes": 5717,
+            "qualityEvidenceBytes": 10630,
+            "retainedEvents": 12,
+            "availableEvents": 12,
+            "eventBytes": 6543,
+            "largestRetainedEventBytes": 645,
+            "providerRequests": 0,
+            "notifications": 0
+          }
+        ]
+      },
+      {
+        "gameKey": "NHL:401892637",
+        "snapshotObservedAt": 1793760675000,
+        "modelVersion": "2026-11-03.live-underdog.1",
+        "rawNormalizedStateBytes": 16378,
+        "summaryAcquiredAt": 1793795832472,
+        "runs": [
+          {
+            "version": "baseline",
+            "readQueries": 8,
+            "writeStatements": 3,
+            "observationRows": 1,
+            "observationBytes": 3498,
+            "bindBytes": 4340,
+            "stateBytes": 2222,
+            "qualityEvidenceBytes": 797,
+            "retainedEvents": 0,
+            "availableEvents": 0,
+            "eventBytes": 0,
+            "largestRetainedEventBytes": 0,
+            "providerRequests": 0,
+            "notifications": 0
+          },
+          {
+            "version": "upgraded",
+            "readQueries": 8,
+            "writeStatements": 3,
+            "observationRows": 1,
+            "observationBytes": 12779,
+            "bindBytes": 14541,
+            "stateBytes": 5053,
+            "qualityEvidenceBytes": 6177,
+            "retainedEvents": 4,
+            "availableEvents": 4,
+            "eventBytes": 2536,
+            "largestRetainedEventBytes": 638,
+            "providerRequests": 0,
+            "notifications": 0
+          }
+        ]
+      },
+      {
+        "gameKey": "NHL:401892638",
+        "snapshotObservedAt": 1793759745000,
+        "modelVersion": "2026-11-03.live-underdog.1",
+        "rawNormalizedStateBytes": 16357,
+        "summaryAcquiredAt": 1793795832472,
+        "runs": [
+          {
+            "version": "baseline",
+            "readQueries": 8,
+            "writeStatements": 3,
+            "observationRows": 1,
+            "observationBytes": 3795,
+            "bindBytes": 4652,
+            "stateBytes": 2519,
+            "qualityEvidenceBytes": 797,
+            "retainedEvents": 0,
+            "availableEvents": 0,
+            "eventBytes": 0,
+            "largestRetainedEventBytes": 0,
+            "providerRequests": 0,
+            "notifications": 0
+          },
+          {
+            "version": "upgraded",
+            "readQueries": 8,
+            "writeStatements": 3,
+            "observationRows": 1,
+            "observationBytes": 13955,
+            "bindBytes": 15804,
+            "stateBytes": 4881,
+            "qualityEvidenceBytes": 7527,
+            "retainedEvents": 6,
+            "availableEvents": 6,
+            "eventBytes": 3797,
+            "largestRetainedEventBytes": 637,
+            "providerRequests": 0,
+            "notifications": 0
+          }
+        ]
+      },
+      {
+        "gameKey": "NHL:401892639",
+        "snapshotObservedAt": 1793760045000,
+        "modelVersion": "2026-11-03.live-underdog.1",
+        "rawNormalizedStateBytes": 17140,
+        "summaryAcquiredAt": 1793795832785,
+        "runs": [
+          {
+            "version": "baseline",
+            "readQueries": 8,
+            "writeStatements": 3,
+            "observationRows": 1,
+            "observationBytes": 3747,
+            "bindBytes": 4598,
+            "stateBytes": 2471,
+            "qualityEvidenceBytes": 797,
+            "retainedEvents": 0,
+            "availableEvents": 0,
+            "eventBytes": 0,
+            "largestRetainedEventBytes": 0,
+            "providerRequests": 0,
+            "notifications": 0
+          },
+          {
+            "version": "upgraded",
+            "readQueries": 8,
+            "writeStatements": 3,
+            "observationRows": 1,
+            "observationBytes": 14137,
+            "bindBytes": 16022,
+            "stateBytes": 5291,
+            "qualityEvidenceBytes": 7299,
+            "retainedEvents": 5,
+            "availableEvents": 5,
+            "eventBytes": 3159,
+            "largestRetainedEventBytes": 637,
+            "providerRequests": 0,
+            "notifications": 0
+          }
+        ]
+      },
+      {
+        "gameKey": "NHL:401892640",
+        "snapshotObservedAt": 1793760015000,
+        "modelVersion": "2026-11-03.live-underdog.1",
+        "rawNormalizedStateBytes": 17277,
+        "summaryAcquiredAt": 1793795777292,
+        "runs": [
+          {
+            "version": "baseline",
+            "readQueries": 8,
+            "writeStatements": 3,
+            "observationRows": 1,
+            "observationBytes": 3782,
+            "bindBytes": 4633,
+            "stateBytes": 2506,
+            "qualityEvidenceBytes": 797,
+            "retainedEvents": 0,
+            "availableEvents": 0,
+            "eventBytes": 0,
+            "largestRetainedEventBytes": 0,
+            "providerRequests": 0,
+            "notifications": 0
+          },
+          {
+            "version": "upgraded",
+            "readQueries": 8,
+            "writeStatements": 3,
+            "observationRows": 1,
+            "observationBytes": 17705,
+            "bindBytes": 19946,
+            "stateBytes": 5401,
+            "qualityEvidenceBytes": 10757,
+            "retainedEvents": 11,
+            "availableEvents": 11,
+            "eventBytes": 6987,
+            "largestRetainedEventBytes": 640,
+            "providerRequests": 0,
+            "notifications": 0
+          }
+        ]
+      },
+      {
+        "gameKey": "NHL:401892641",
+        "snapshotObservedAt": 1793759775000,
+        "modelVersion": "2026-11-03.live-underdog.1",
+        "rawNormalizedStateBytes": 16565,
+        "summaryAcquiredAt": 1793795832785,
+        "runs": [
+          {
+            "version": "baseline",
+            "readQueries": 8,
+            "writeStatements": 3,
+            "observationRows": 1,
+            "observationBytes": 3618,
+            "bindBytes": 4456,
+            "stateBytes": 2342,
+            "qualityEvidenceBytes": 797,
+            "retainedEvents": 0,
+            "availableEvents": 0,
+            "eventBytes": 0,
+            "largestRetainedEventBytes": 0,
+            "providerRequests": 0,
+            "notifications": 0
+          },
+          {
+            "version": "upgraded",
+            "readQueries": 8,
+            "writeStatements": 3,
+            "observationRows": 1,
+            "observationBytes": 16125,
+            "bindBytes": 18195,
+            "stateBytes": 5152,
+            "qualityEvidenceBytes": 9426,
+            "retainedEvents": 9,
+            "availableEvents": 9,
+            "eventBytes": 5725,
+            "largestRetainedEventBytes": 641,
+            "providerRequests": 0,
+            "notifications": 0
+          }
+        ]
+      },
+      {
+        "gameKey": "NHL:401892642",
+        "snapshotObservedAt": 1793763630000,
+        "modelVersion": "2026-11-03.live-underdog.1",
+        "rawNormalizedStateBytes": 17641,
+        "summaryAcquiredAt": 1793795830975,
+        "runs": [
+          {
+            "version": "baseline",
+            "readQueries": 8,
+            "writeStatements": 3,
+            "observationRows": 1,
+            "observationBytes": 3479,
+            "bindBytes": 4309,
+            "stateBytes": 2205,
+            "qualityEvidenceBytes": 795,
+            "retainedEvents": 0,
+            "availableEvents": 0,
+            "eventBytes": 0,
+            "largestRetainedEventBytes": 0,
+            "providerRequests": 0,
+            "notifications": 0
+          },
+          {
+            "version": "upgraded",
+            "readQueries": 8,
+            "writeStatements": 3,
+            "observationRows": 1,
+            "observationBytes": 13113,
+            "bindBytes": 14901,
+            "stateBytes": 4918,
+            "qualityEvidenceBytes": 6648,
+            "retainedEvents": 5,
+            "availableEvents": 5,
+            "eventBytes": 3135,
+            "largestRetainedEventBytes": 643,
+            "providerRequests": 0,
+            "notifications": 0
+          }
+        ]
+      },
+      {
+        "gameKey": "NHL:401892643",
+        "snapshotObservedAt": 1793767395000,
+        "modelVersion": "2026-11-03.live-underdog.1",
+        "rawNormalizedStateBytes": 17790,
+        "summaryAcquiredAt": 1793795777559,
+        "runs": [
+          {
+            "version": "baseline",
+            "readQueries": 8,
+            "writeStatements": 3,
+            "observationRows": 1,
+            "observationBytes": 3692,
+            "bindBytes": 4538,
+            "stateBytes": 2402,
+            "qualityEvidenceBytes": 811,
+            "retainedEvents": 0,
+            "availableEvents": 0,
+            "eventBytes": 0,
+            "largestRetainedEventBytes": 0,
+            "providerRequests": 0,
+            "notifications": 0
+          },
+          {
+            "version": "upgraded",
+            "readQueries": 8,
+            "writeStatements": 3,
+            "observationRows": 1,
+            "observationBytes": 16843,
+            "bindBytes": 18955,
+            "stateBytes": 5524,
+            "qualityEvidenceBytes": 9772,
+            "retainedEvents": 9,
+            "availableEvents": 9,
+            "eventBytes": 5736,
+            "largestRetainedEventBytes": 643,
+            "providerRequests": 0,
+            "notifications": 0
+          }
+        ]
+      }
+    ]
+  },
+  "allRetainedLiveStateProjection": {
+    "count": 6293,
+    "stateBytes": {
+      "count": 6293,
+      "min": 3358,
+      "median": 4847,
+      "p95": 6387,
+      "max": 7634,
+      "total": 30100286
+    },
+    "qualityEvidenceBytes": {
+      "count": 6293,
+      "min": 2641,
+      "median": 3442,
+      "p95": 4095,
+      "max": 4847,
+      "total": 21279774
+    },
+    "combinedBytes": {
+      "count": 6293,
+      "min": 6009,
+      "median": 8393,
+      "p95": 10327,
+      "max": 12255,
+      "total": 51380060
+    },
+    "worst": [
+      {
+        "gameKey": "CFB:401866453",
+        "observedAt": 1793762085000,
+        "stateBytes": 7408,
+        "qualityEvidenceBytes": 4847,
+        "combinedBytes": 12255
+      },
+      {
+        "gameKey": "CFB:401866454",
+        "observedAt": 1793767005000,
+        "stateBytes": 7634,
+        "qualityEvidenceBytes": 4600,
+        "combinedBytes": 12234
+      },
+      {
+        "gameKey": "CFB:401866454",
+        "observedAt": 1793767020000,
+        "stateBytes": 7634,
+        "qualityEvidenceBytes": 4527,
+        "combinedBytes": 12161
+      },
+      {
+        "gameKey": "CFB:401866454",
+        "observedAt": 1793767035000,
+        "stateBytes": 7634,
+        "qualityEvidenceBytes": 4527,
+        "combinedBytes": 12161
+      },
+      {
+        "gameKey": "CFB:401866454",
+        "observedAt": 1793767065000,
+        "stateBytes": 7633,
+        "qualityEvidenceBytes": 4526,
+        "combinedBytes": 12159
+      }
+    ]
+  },
+  "limitations": [
+    "Ledger absent in retained snapshot; actual future exact canonical ledger rows can add bytes.",
+    "Retained final summaries permit a bounded event payload estimate, not an actual contemporary cache replay.",
+    "Finding evidence duplicates observation details when a finding is persisted; byte distributions include per-observation JSON, with bindBytes reporting all bound statements.",
+    "Peer SELECT count is unchanged, but upgraded query returns up to 100 full evidence rows per sport/bucket instead of the baseline two-field rows.",
+    "NHL, CFB, NCAAB and hidden Soccer only; no observed NFL/NBA/MLB/Tennis storage sample.",
+    "In-memory SQLite counts statements; Cloudflare billed rows, network transfer, CPU time and invoices are not inferred."
+  ]
+}

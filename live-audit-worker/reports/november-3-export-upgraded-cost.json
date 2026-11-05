@@ -1,0 +1,1391 @@
+{
+  "version": "upgraded",
+  "route": "/export?date=2026-11-03",
+  "status": 200,
+  "node": "v22.17.1",
+  "database": "offline-replay.sqlite",
+  "databaseSha256": "f1c405bc266ec23236e78ad5dad2e096f3480f502f4223229c4807cc89351c2b",
+  "sourceSha256": {
+    "audit.js": "456a61ac445b4d79a0aa0bcd77ff5360246aef5091c0b06f7f26ef08bbf654b8",
+    "comparison.js": "6a1776c08dee5cb14a30de1379fbefab9ba98ac2a1561e295e18fc795b02edcb",
+    "dashboard-client.generated.js": "d5fadbabfe012a9c105e7d96b83e1afc3d6e339f3b7afa409990a483a3d24528",
+    "dashboard.js": "6a5fabcd97a08c6984c5bcd6467fdc9221994de9077cc4981e5ce135ab3056f4",
+    "event-response.js": "d33e6318295afbd98025612b4e8ded6546994bb8fcf0d61ba8104dc3de5b82de",
+    "evidence.js": "d4b45cdd90d4fd2ba0fc97d051d216ff37bd0c43cab3f186de556014637f434e",
+    "export.js": "daeaf73a17d5ae472b71018d6285e1db6019b37777fe6ee15d9fa6fb4cd9dfea",
+    "historical-review.js": "2a2b3647606833d358ddf1ce30c21a72f76a4cf6f0c510efc0550692cf389248",
+    "index.js": "05c1d1b6b99d51e3da3eb1ccb39a2aeb50dc646e1741ece45601a643ba709b87",
+    "quality.js": "83634419d32802b8329c3d46e887e315fb640ef7472e01a9c0f76b792d3a99d0",
+    "trajectory-quality.js": "b5fb2af4badbd9033e9cacadaaf150d6a64513c3487e0c6cb5effe0f49474260",
+    "zip.js": "031a7ac4755fe1e448adbe28c82073b3d4af32660ebe3a12bfa473fb1919236c"
+  },
+  "queryCount": 161,
+  "sqliteQueryCount": 160,
+  "stubFeedQueries": 1,
+  "returnedRows": 7674,
+  "returnedJsonBytes": 113743845,
+  "sqliteReturnedRows": 7673,
+  "sqliteReturnedJsonBytes": 113743778,
+  "sqliteElapsedMs": 240.43910000000014,
+  "elapsedMs": 3361.1908,
+  "cpu": {
+    "user": 4000000,
+    "system": 375000
+  },
+  "output": {
+    "zipBytes": 21280507,
+    "chunks": 1193,
+    "sha256": "3efbfc64c25eda2c9248c6eececec4dd04cf6265b959f6dcd07a44e94be23216"
+  },
+  "initialMemory": {
+    "rss": 48742400,
+    "heapTotal": 7929856,
+    "heapUsed": 5332280,
+    "external": 2043919,
+    "arrayBuffers": 19659
+  },
+  "sampledPeakMemory": {
+    "rss": 234782720,
+    "heapUsed": 151726368,
+    "external": 4485769,
+    "arrayBuffers": 862711
+  },
+  "externalRequests": 0,
+  "aiRequests": 0,
+  "writes": 0,
+  "byTable": {
+    "sports_feed": {
+      "queries": 1,
+      "rows": 1,
+      "returnedJsonBytes": 67
+    },
+    "live_audit_observations": {
+      "queries": 28,
+      "rows": 1283,
+      "returnedJsonBytes": 4228343
+    },
+    "live_audit_findings": {
+      "queries": 28,
+      "rows": 7,
+      "returnedJsonBytes": 55323
+    },
+    "live_audit_events": {
+      "queries": 28,
+      "rows": 32,
+      "returnedJsonBytes": 47675
+    },
+    "sports_resources": {
+      "queries": 27,
+      "rows": 11,
+      "returnedJsonBytes": 6100352
+    },
+    "sports_snapshots": {
+      "queries": 48,
+      "rows": 6340,
+      "returnedJsonBytes": 103312083
+    },
+    "live_audit_runs": {
+      "queries": 1,
+      "rows": 0,
+      "returnedJsonBytes": 2
+    }
+  },
+  "limitations": [
+    "Offline Node/SQLite measurement, not Cloudflare billed rows, CPU, deployed latency, or invoice prediction.",
+    "The captured database has no sports_feed table; both versions receive the same documented empty-feed stub, counted separately.",
+    "Retained game/audit rows and cached final summaries are identical across versions. Individual scheduled run rows were absent from capture, so that table is empty.",
+    "Query response bytes count JSON-serialized returned rows and exclude D1 transport metadata.",
+    "ZIP output is consumed and counted without retaining another complete output buffer. Original baseline may buffer internally.",
+    "Sampled process memory is not an absolute V8 isolate peak; module/database setup is excluded from timed export."
+  ],
+  "queries": [
+    {
+      "table": "sports_feed",
+      "sql": "SELECT payload FROM sports_feed WHERE id=1",
+      "rows": 1,
+      "returnedJsonBytes": 67,
+      "sqlElapsedMs": 0.046699999999987085,
+      "stub": true
+    },
+    {
+      "table": "live_audit_observations",
+      "sql": "SELECT DISTINCT game_key FROM live_audit_observations WHERE slate_date=? AND game_key>? ORDER BY game_key LIMIT 100",
+      "rows": 27,
+      "returnedJsonBytes": 821,
+      "sqlElapsedMs": 0.903899999999993,
+      "stub": false
+    },
+    {
+      "table": "live_audit_observations",
+      "sql": "SELECT run_id,game_key,observed_at,slate_date,sport,state_bucket,rating, score_a,score_b,period,clock_seconds,evidence FROM live_audit_observations WHERE slate_date=? AND game_key=? AND observed_at>? ORDER BY observed_at LIMIT 100",
+      "rows": 67,
+      "returnedJsonBytes": 216386,
+      "sqlElapsedMs": 0.6557999999999993,
+      "stub": false
+    },
+    {
+      "table": "live_audit_findings",
+      "sql": "SELECT * FROM live_audit_findings WHERE game_key=?",
+      "rows": 0,
+      "returnedJsonBytes": 2,
+      "sqlElapsedMs": 0.3423999999999978,
+      "stub": false
+    },
+    {
+      "table": "live_audit_events",
+      "sql": "SELECT * FROM live_audit_events WHERE game_key=? ORDER BY at",
+      "rows": 0,
+      "returnedJsonBytes": 2,
+      "sqlElapsedMs": 0.19460000000000832,
+      "stub": false
+    },
+    {
+      "table": "sports_resources",
+      "sql": "SELECT payload,updated_at FROM sports_resources WHERE key=?",
+      "rows": 0,
+      "returnedJsonBytes": 4,
+      "sqlElapsedMs": 0.2565999999999917,
+      "stub": false
+    },
+    {
+      "table": "sports_snapshots",
+      "sql": "SELECT game_key,observed_at,state,rating,score_a,score_b,phase,clock, normalized_state,model_version FROM sports_snapshots WHERE game_key=? AND observed_at>? AND observed_at<=? ORDER BY observed_at LIMIT ?",
+      "rows": 200,
+      "returnedJsonBytes": 3883719,
+      "sqlElapsedMs": 10.47569999999999,
+      "stub": false
+    },
+    {
+      "table": "sports_snapshots",
+      "sql": "SELECT game_key,observed_at,state,rating,score_a,score_b,phase,clock, normalized_state,model_version FROM sports_snapshots WHERE game_key=? AND observed_at>? AND observed_at<=? ORDER BY observed_at LIMIT ?",
+      "rows": 123,
+      "returnedJsonBytes": 2640706,
+      "sqlElapsedMs": 4.033500000000004,
+      "stub": false
+    },
+    {
+      "table": "live_audit_observations",
+      "sql": "SELECT run_id,game_key,observed_at,slate_date,sport,state_bucket,rating, score_a,score_b,period,clock_seconds,evidence FROM live_audit_observations WHERE slate_date=? AND game_key=? AND observed_at>? ORDER BY observed_at LIMIT 100",
+      "rows": 76,
+      "returnedJsonBytes": 280518,
+      "sqlElapsedMs": 0.8930000000000291,
+      "stub": false
+    },
+    {
+      "table": "live_audit_findings",
+      "sql": "SELECT * FROM live_audit_findings WHERE game_key=?",
+      "rows": 0,
+      "returnedJsonBytes": 2,
+      "sqlElapsedMs": 0.23399999999998045,
+      "stub": false
+    },
+    {
+      "table": "live_audit_events",
+      "sql": "SELECT * FROM live_audit_events WHERE game_key=? ORDER BY at",
+      "rows": 0,
+      "returnedJsonBytes": 2,
+      "sqlElapsedMs": 0.2185999999999808,
+      "stub": false
+    },
+    {
+      "table": "sports_resources",
+      "sql": "SELECT payload,updated_at FROM sports_resources WHERE key=?",
+      "rows": 0,
+      "returnedJsonBytes": 4,
+      "sqlElapsedMs": 0.1379000000000019,
+      "stub": false
+    },
+    {
+      "table": "sports_snapshots",
+      "sql": "SELECT game_key,observed_at,state,rating,score_a,score_b,phase,clock, normalized_state,model_version FROM sports_snapshots WHERE game_key=? AND observed_at>? AND observed_at<=? ORDER BY observed_at LIMIT ?",
+      "rows": 200,
+      "returnedJsonBytes": 3933967,
+      "sqlElapsedMs": 12.040900000000022,
+      "stub": false
+    },
+    {
+      "table": "sports_snapshots",
+      "sql": "SELECT game_key,observed_at,state,rating,score_a,score_b,phase,clock, normalized_state,model_version FROM sports_snapshots WHERE game_key=? AND observed_at>? AND observed_at<=? ORDER BY observed_at LIMIT ?",
+      "rows": 200,
+      "returnedJsonBytes": 4102314,
+      "sqlElapsedMs": 6.15930000000003,
+      "stub": false
+    },
+    {
+      "table": "sports_snapshots",
+      "sql": "SELECT game_key,observed_at,state,rating,score_a,score_b,phase,clock, normalized_state,model_version FROM sports_snapshots WHERE game_key=? AND observed_at>? AND observed_at<=? ORDER BY observed_at LIMIT ?",
+      "rows": 14,
+      "returnedJsonBytes": 266196,
+      "sqlElapsedMs": 0.7258999999999673,
+      "stub": false
+    },
+    {
+      "table": "live_audit_observations",
+      "sql": "SELECT run_id,game_key,observed_at,slate_date,sport,state_bucket,rating, score_a,score_b,period,clock_seconds,evidence FROM live_audit_observations WHERE slate_date=? AND game_key=? AND observed_at>? ORDER BY observed_at LIMIT 100",
+      "rows": 37,
+      "returnedJsonBytes": 116453,
+      "sqlElapsedMs": 0.4796000000000049,
+      "stub": false
+    },
+    {
+      "table": "live_audit_findings",
+      "sql": "SELECT * FROM live_audit_findings WHERE game_key=?",
+      "rows": 0,
+      "returnedJsonBytes": 2,
+      "sqlElapsedMs": 0.21989999999999554,
+      "stub": false
+    },
+    {
+      "table": "live_audit_events",
+      "sql": "SELECT * FROM live_audit_events WHERE game_key=? ORDER BY at",
+      "rows": 0,
+      "returnedJsonBytes": 2,
+      "sqlElapsedMs": 0.13559999999995398,
+      "stub": false
+    },
+    {
+      "table": "sports_resources",
+      "sql": "SELECT payload,updated_at FROM sports_resources WHERE key=?",
+      "rows": 0,
+      "returnedJsonBytes": 4,
+      "sqlElapsedMs": 0.11249999999995453,
+      "stub": false
+    },
+    {
+      "table": "sports_snapshots",
+      "sql": "SELECT game_key,observed_at,state,rating,score_a,score_b,phase,clock, normalized_state,model_version FROM sports_snapshots WHERE game_key=? AND observed_at>? AND observed_at<=? ORDER BY observed_at LIMIT ?",
+      "rows": 200,
+      "returnedJsonBytes": 2236674,
+      "sqlElapsedMs": 3.5312999999999874,
+      "stub": false
+    },
+    {
+      "table": "sports_snapshots",
+      "sql": "SELECT game_key,observed_at,state,rating,score_a,score_b,phase,clock, normalized_state,model_version FROM sports_snapshots WHERE game_key=? AND observed_at>? AND observed_at<=? ORDER BY observed_at LIMIT ?",
+      "rows": 21,
+      "returnedJsonBytes": 261208,
+      "sqlElapsedMs": 0.7487999999999602,
+      "stub": false
+    },
+    {
+      "table": "live_audit_observations",
+      "sql": "SELECT run_id,game_key,observed_at,slate_date,sport,state_bucket,rating, score_a,score_b,period,clock_seconds,evidence FROM live_audit_observations WHERE slate_date=? AND game_key=? AND observed_at>? ORDER BY observed_at LIMIT 100",
+      "rows": 39,
+      "returnedJsonBytes": 121410,
+      "sqlElapsedMs": 0.6176999999999566,
+      "stub": false
+    },
+    {
+      "table": "live_audit_findings",
+      "sql": "SELECT * FROM live_audit_findings WHERE game_key=?",
+      "rows": 0,
+      "returnedJsonBytes": 2,
+      "sqlElapsedMs": 0.1632000000000744,
+      "stub": false
+    },
+    {
+      "table": "live_audit_events",
+      "sql": "SELECT * FROM live_audit_events WHERE game_key=? ORDER BY at",
+      "rows": 0,
+      "returnedJsonBytes": 2,
+      "sqlElapsedMs": 0.19139999999993051,
+      "stub": false
+    },
+    {
+      "table": "sports_resources",
+      "sql": "SELECT payload,updated_at FROM sports_resources WHERE key=?",
+      "rows": 0,
+      "returnedJsonBytes": 4,
+      "sqlElapsedMs": 0.11270000000001801,
+      "stub": false
+    },
+    {
+      "table": "sports_snapshots",
+      "sql": "SELECT game_key,observed_at,state,rating,score_a,score_b,phase,clock, normalized_state,model_version FROM sports_snapshots WHERE game_key=? AND observed_at>? AND observed_at<=? ORDER BY observed_at LIMIT ?",
+      "rows": 200,
+      "returnedJsonBytes": 3600862,
+      "sqlElapsedMs": 5.120499999999993,
+      "stub": false
+    },
+    {
+      "table": "sports_snapshots",
+      "sql": "SELECT game_key,observed_at,state,rating,score_a,score_b,phase,clock, normalized_state,model_version FROM sports_snapshots WHERE game_key=? AND observed_at>? AND observed_at<=? ORDER BY observed_at LIMIT ?",
+      "rows": 26,
+      "returnedJsonBytes": 469180,
+      "sqlElapsedMs": 0.9729000000000951,
+      "stub": false
+    },
+    {
+      "table": "live_audit_observations",
+      "sql": "SELECT run_id,game_key,observed_at,slate_date,sport,state_bucket,rating, score_a,score_b,period,clock_seconds,evidence FROM live_audit_observations WHERE slate_date=? AND game_key=? AND observed_at>? ORDER BY observed_at LIMIT 100",
+      "rows": 43,
+      "returnedJsonBytes": 134878,
+      "sqlElapsedMs": 0.46499999999991815,
+      "stub": false
+    },
+    {
+      "table": "live_audit_findings",
+      "sql": "SELECT * FROM live_audit_findings WHERE game_key=?",
+      "rows": 0,
+      "returnedJsonBytes": 2,
+      "sqlElapsedMs": 0.36099999999999,
+      "stub": false
+    },
+    {
+      "table": "live_audit_events",
+      "sql": "SELECT * FROM live_audit_events WHERE game_key=? ORDER BY at",
+      "rows": 0,
+      "returnedJsonBytes": 2,
+      "sqlElapsedMs": 0.20330000000001291,
+      "stub": false
+    },
+    {
+      "table": "sports_resources",
+      "sql": "SELECT payload,updated_at FROM sports_resources WHERE key=?",
+      "rows": 0,
+      "returnedJsonBytes": 4,
+      "sqlElapsedMs": 0.2901000000000522,
+      "stub": false
+    },
+    {
+      "table": "sports_snapshots",
+      "sql": "SELECT game_key,observed_at,state,rating,score_a,score_b,phase,clock, normalized_state,model_version FROM sports_snapshots WHERE game_key=? AND observed_at>? AND observed_at<=? ORDER BY observed_at LIMIT ?",
+      "rows": 200,
+      "returnedJsonBytes": 3399016,
+      "sqlElapsedMs": 7.508699999999976,
+      "stub": false
+    },
+    {
+      "table": "sports_snapshots",
+      "sql": "SELECT game_key,observed_at,state,rating,score_a,score_b,phase,clock, normalized_state,model_version FROM sports_snapshots WHERE game_key=? AND observed_at>? AND observed_at<=? ORDER BY observed_at LIMIT ?",
+      "rows": 52,
+      "returnedJsonBytes": 974247,
+      "sqlElapsedMs": 1.713700000000017,
+      "stub": false
+    },
+    {
+      "table": "live_audit_observations",
+      "sql": "SELECT run_id,game_key,observed_at,slate_date,sport,state_bucket,rating, score_a,score_b,period,clock_seconds,evidence FROM live_audit_observations WHERE slate_date=? AND game_key=? AND observed_at>? ORDER BY observed_at LIMIT 100",
+      "rows": 39,
+      "returnedJsonBytes": 123914,
+      "sqlElapsedMs": 0.551900000000046,
+      "stub": false
+    },
+    {
+      "table": "live_audit_findings",
+      "sql": "SELECT * FROM live_audit_findings WHERE game_key=?",
+      "rows": 0,
+      "returnedJsonBytes": 2,
+      "sqlElapsedMs": 0.1975999999999658,
+      "stub": false
+    },
+    {
+      "table": "live_audit_events",
+      "sql": "SELECT * FROM live_audit_events WHERE game_key=? ORDER BY at",
+      "rows": 0,
+      "returnedJsonBytes": 2,
+      "sqlElapsedMs": 0.19479999999998654,
+      "stub": false
+    },
+    {
+      "table": "sports_resources",
+      "sql": "SELECT payload,updated_at FROM sports_resources WHERE key=?",
+      "rows": 0,
+      "returnedJsonBytes": 4,
+      "sqlElapsedMs": 0.34600000000000364,
+      "stub": false
+    },
+    {
+      "table": "sports_snapshots",
+      "sql": "SELECT game_key,observed_at,state,rating,score_a,score_b,phase,clock, normalized_state,model_version FROM sports_snapshots WHERE game_key=? AND observed_at>? AND observed_at<=? ORDER BY observed_at LIMIT ?",
+      "rows": 200,
+      "returnedJsonBytes": 3448159,
+      "sqlElapsedMs": 5.079800000000091,
+      "stub": false
+    },
+    {
+      "table": "sports_snapshots",
+      "sql": "SELECT game_key,observed_at,state,rating,score_a,score_b,phase,clock, normalized_state,model_version FROM sports_snapshots WHERE game_key=? AND observed_at>? AND observed_at<=? ORDER BY observed_at LIMIT ?",
+      "rows": 2,
+      "returnedJsonBytes": 18821,
+      "sqlElapsedMs": 0.3885999999999967,
+      "stub": false
+    },
+    {
+      "table": "live_audit_observations",
+      "sql": "SELECT run_id,game_key,observed_at,slate_date,sport,state_bucket,rating, score_a,score_b,period,clock_seconds,evidence FROM live_audit_observations WHERE slate_date=? AND game_key=? AND observed_at>? ORDER BY observed_at LIMIT 100",
+      "rows": 46,
+      "returnedJsonBytes": 146815,
+      "sqlElapsedMs": 0.4411999999999807,
+      "stub": false
+    },
+    {
+      "table": "live_audit_findings",
+      "sql": "SELECT * FROM live_audit_findings WHERE game_key=?",
+      "rows": 0,
+      "returnedJsonBytes": 2,
+      "sqlElapsedMs": 0.17579999999998108,
+      "stub": false
+    },
+    {
+      "table": "live_audit_events",
+      "sql": "SELECT * FROM live_audit_events WHERE game_key=? ORDER BY at",
+      "rows": 0,
+      "returnedJsonBytes": 2,
+      "sqlElapsedMs": 0.1268000000000029,
+      "stub": false
+    },
+    {
+      "table": "sports_resources",
+      "sql": "SELECT payload,updated_at FROM sports_resources WHERE key=?",
+      "rows": 0,
+      "returnedJsonBytes": 4,
+      "sqlElapsedMs": 0.09819999999990614,
+      "stub": false
+    },
+    {
+      "table": "sports_snapshots",
+      "sql": "SELECT game_key,observed_at,state,rating,score_a,score_b,phase,clock, normalized_state,model_version FROM sports_snapshots WHERE game_key=? AND observed_at>? AND observed_at<=? ORDER BY observed_at LIMIT ?",
+      "rows": 200,
+      "returnedJsonBytes": 3469008,
+      "sqlElapsedMs": 4.9973999999999705,
+      "stub": false
+    },
+    {
+      "table": "sports_snapshots",
+      "sql": "SELECT game_key,observed_at,state,rating,score_a,score_b,phase,clock, normalized_state,model_version FROM sports_snapshots WHERE game_key=? AND observed_at>? AND observed_at<=? ORDER BY observed_at LIMIT ?",
+      "rows": 65,
+      "returnedJsonBytes": 1209769,
+      "sqlElapsedMs": 2.065399999999954,
+      "stub": false
+    },
+    {
+      "table": "live_audit_observations",
+      "sql": "SELECT run_id,game_key,observed_at,slate_date,sport,state_bucket,rating, score_a,score_b,period,clock_seconds,evidence FROM live_audit_observations WHERE slate_date=? AND game_key=? AND observed_at>? ORDER BY observed_at LIMIT 100",
+      "rows": 50,
+      "returnedJsonBytes": 183228,
+      "sqlElapsedMs": 0.6032000000000153,
+      "stub": false
+    },
+    {
+      "table": "live_audit_findings",
+      "sql": "SELECT * FROM live_audit_findings WHERE game_key=?",
+      "rows": 0,
+      "returnedJsonBytes": 2,
+      "sqlElapsedMs": 0.2824999999999136,
+      "stub": false
+    },
+    {
+      "table": "live_audit_events",
+      "sql": "SELECT * FROM live_audit_events WHERE game_key=? ORDER BY at",
+      "rows": 0,
+      "returnedJsonBytes": 2,
+      "sqlElapsedMs": 0.15480000000002292,
+      "stub": false
+    },
+    {
+      "table": "sports_resources",
+      "sql": "SELECT payload,updated_at FROM sports_resources WHERE key=?",
+      "rows": 1,
+      "returnedJsonBytes": 568141,
+      "sqlElapsedMs": 0.8018999999999323,
+      "stub": false
+    },
+    {
+      "table": "sports_snapshots",
+      "sql": "SELECT game_key,observed_at,state,rating,score_a,score_b,phase,clock, normalized_state,model_version FROM sports_snapshots WHERE game_key=? AND observed_at>? AND observed_at<=? ORDER BY observed_at LIMIT ?",
+      "rows": 200,
+      "returnedJsonBytes": 3583462,
+      "sqlElapsedMs": 5.93139999999994,
+      "stub": false
+    },
+    {
+      "table": "sports_snapshots",
+      "sql": "SELECT game_key,observed_at,state,rating,score_a,score_b,phase,clock, normalized_state,model_version FROM sports_snapshots WHERE game_key=? AND observed_at>? AND observed_at<=? ORDER BY observed_at LIMIT ?",
+      "rows": 42,
+      "returnedJsonBytes": 822144,
+      "sqlElapsedMs": 1.5572000000000799,
+      "stub": false
+    },
+    {
+      "table": "live_audit_observations",
+      "sql": "SELECT run_id,game_key,observed_at,slate_date,sport,state_bucket,rating, score_a,score_b,period,clock_seconds,evidence FROM live_audit_observations WHERE slate_date=? AND game_key=? AND observed_at>? ORDER BY observed_at LIMIT 100",
+      "rows": 61,
+      "returnedJsonBytes": 227158,
+      "sqlElapsedMs": 0.72300000000007,
+      "stub": false
+    },
+    {
+      "table": "live_audit_findings",
+      "sql": "SELECT * FROM live_audit_findings WHERE game_key=?",
+      "rows": 0,
+      "returnedJsonBytes": 2,
+      "sqlElapsedMs": 0.1993999999999687,
+      "stub": false
+    },
+    {
+      "table": "live_audit_events",
+      "sql": "SELECT * FROM live_audit_events WHERE game_key=? ORDER BY at",
+      "rows": 0,
+      "returnedJsonBytes": 2,
+      "sqlElapsedMs": 0.10370000000000346,
+      "stub": false
+    },
+    {
+      "table": "sports_resources",
+      "sql": "SELECT payload,updated_at FROM sports_resources WHERE key=?",
+      "rows": 1,
+      "returnedJsonBytes": 633535,
+      "sqlElapsedMs": 1.0293000000000347,
+      "stub": false
+    },
+    {
+      "table": "sports_snapshots",
+      "sql": "SELECT game_key,observed_at,state,rating,score_a,score_b,phase,clock, normalized_state,model_version FROM sports_snapshots WHERE game_key=? AND observed_at>? AND observed_at<=? ORDER BY observed_at LIMIT ?",
+      "rows": 200,
+      "returnedJsonBytes": 3662379,
+      "sqlElapsedMs": 6.394800000000032,
+      "stub": false
+    },
+    {
+      "table": "sports_snapshots",
+      "sql": "SELECT game_key,observed_at,state,rating,score_a,score_b,phase,clock, normalized_state,model_version FROM sports_snapshots WHERE game_key=? AND observed_at>? AND observed_at<=? ORDER BY observed_at LIMIT ?",
+      "rows": 82,
+      "returnedJsonBytes": 1550986,
+      "sqlElapsedMs": 2.4663000000000466,
+      "stub": false
+    },
+    {
+      "table": "live_audit_observations",
+      "sql": "SELECT run_id,game_key,observed_at,slate_date,sport,state_bucket,rating, score_a,score_b,period,clock_seconds,evidence FROM live_audit_observations WHERE slate_date=? AND game_key=? AND observed_at>? ORDER BY observed_at LIMIT 100",
+      "rows": 51,
+      "returnedJsonBytes": 192903,
+      "sqlElapsedMs": 0.6429000000000542,
+      "stub": false
+    },
+    {
+      "table": "live_audit_findings",
+      "sql": "SELECT * FROM live_audit_findings WHERE game_key=?",
+      "rows": 0,
+      "returnedJsonBytes": 2,
+      "sqlElapsedMs": 0.20310000000006312,
+      "stub": false
+    },
+    {
+      "table": "live_audit_events",
+      "sql": "SELECT * FROM live_audit_events WHERE game_key=? ORDER BY at",
+      "rows": 0,
+      "returnedJsonBytes": 2,
+      "sqlElapsedMs": 0.13240000000007512,
+      "stub": false
+    },
+    {
+      "table": "sports_resources",
+      "sql": "SELECT payload,updated_at FROM sports_resources WHERE key=?",
+      "rows": 1,
+      "returnedJsonBytes": 547101,
+      "sqlElapsedMs": 0.8331000000000586,
+      "stub": false
+    },
+    {
+      "table": "sports_snapshots",
+      "sql": "SELECT game_key,observed_at,state,rating,score_a,score_b,phase,clock, normalized_state,model_version FROM sports_snapshots WHERE game_key=? AND observed_at>? AND observed_at<=? ORDER BY observed_at LIMIT ?",
+      "rows": 200,
+      "returnedJsonBytes": 3784086,
+      "sqlElapsedMs": 5.658500000000004,
+      "stub": false
+    },
+    {
+      "table": "sports_snapshots",
+      "sql": "SELECT game_key,observed_at,state,rating,score_a,score_b,phase,clock, normalized_state,model_version FROM sports_snapshots WHERE game_key=? AND observed_at>? AND observed_at<=? ORDER BY observed_at LIMIT ?",
+      "rows": 76,
+      "returnedJsonBytes": 1543039,
+      "sqlElapsedMs": 2.5167999999999893,
+      "stub": false
+    },
+    {
+      "table": "live_audit_observations",
+      "sql": "SELECT run_id,game_key,observed_at,slate_date,sport,state_bucket,rating, score_a,score_b,period,clock_seconds,evidence FROM live_audit_observations WHERE slate_date=? AND game_key=? AND observed_at>? ORDER BY observed_at LIMIT 100",
+      "rows": 53,
+      "returnedJsonBytes": 200024,
+      "sqlElapsedMs": 0.6617000000001099,
+      "stub": false
+    },
+    {
+      "table": "live_audit_findings",
+      "sql": "SELECT * FROM live_audit_findings WHERE game_key=?",
+      "rows": 1,
+      "returnedJsonBytes": 5268,
+      "sqlElapsedMs": 0.2919999999999163,
+      "stub": false
+    },
+    {
+      "table": "live_audit_events",
+      "sql": "SELECT * FROM live_audit_events WHERE game_key=? ORDER BY at",
+      "rows": 1,
+      "returnedJsonBytes": 4146,
+      "sqlElapsedMs": 0.16330000000016298,
+      "stub": false
+    },
+    {
+      "table": "sports_resources",
+      "sql": "SELECT payload,updated_at FROM sports_resources WHERE key=?",
+      "rows": 1,
+      "returnedJsonBytes": 544083,
+      "sqlElapsedMs": 0.7910999999999149,
+      "stub": false
+    },
+    {
+      "table": "sports_snapshots",
+      "sql": "SELECT game_key,observed_at,state,rating,score_a,score_b,phase,clock, normalized_state,model_version FROM sports_snapshots WHERE game_key=? AND observed_at>? AND observed_at<=? ORDER BY observed_at LIMIT ?",
+      "rows": 200,
+      "returnedJsonBytes": 3815890,
+      "sqlElapsedMs": 9.240099999999984,
+      "stub": false
+    },
+    {
+      "table": "sports_snapshots",
+      "sql": "SELECT game_key,observed_at,state,rating,score_a,score_b,phase,clock, normalized_state,model_version FROM sports_snapshots WHERE game_key=? AND observed_at>? AND observed_at<=? ORDER BY observed_at LIMIT ?",
+      "rows": 33,
+      "returnedJsonBytes": 639346,
+      "sqlElapsedMs": 1.3379999999999654,
+      "stub": false
+    },
+    {
+      "table": "live_audit_observations",
+      "sql": "SELECT run_id,game_key,observed_at,slate_date,sport,state_bucket,rating, score_a,score_b,period,clock_seconds,evidence FROM live_audit_observations WHERE slate_date=? AND game_key=? AND observed_at>? ORDER BY observed_at LIMIT 100",
+      "rows": 55,
+      "returnedJsonBytes": 202986,
+      "sqlElapsedMs": 0.6977999999999156,
+      "stub": false
+    },
+    {
+      "table": "live_audit_findings",
+      "sql": "SELECT * FROM live_audit_findings WHERE game_key=?",
+      "rows": 1,
+      "returnedJsonBytes": 1175,
+      "sqlElapsedMs": 0.23899999999980537,
+      "stub": false
+    },
+    {
+      "table": "live_audit_events",
+      "sql": "SELECT * FROM live_audit_events WHERE game_key=? ORDER BY at",
+      "rows": 0,
+      "returnedJsonBytes": 2,
+      "sqlElapsedMs": 0.1228000000000975,
+      "stub": false
+    },
+    {
+      "table": "sports_resources",
+      "sql": "SELECT payload,updated_at FROM sports_resources WHERE key=?",
+      "rows": 1,
+      "returnedJsonBytes": 580833,
+      "sqlElapsedMs": 0.9688999999998487,
+      "stub": false
+    },
+    {
+      "table": "sports_snapshots",
+      "sql": "SELECT game_key,observed_at,state,rating,score_a,score_b,phase,clock, normalized_state,model_version FROM sports_snapshots WHERE game_key=? AND observed_at>? AND observed_at<=? ORDER BY observed_at LIMIT ?",
+      "rows": 200,
+      "returnedJsonBytes": 3498802,
+      "sqlElapsedMs": 8.157500000000027,
+      "stub": false
+    },
+    {
+      "table": "sports_snapshots",
+      "sql": "SELECT game_key,observed_at,state,rating,score_a,score_b,phase,clock, normalized_state,model_version FROM sports_snapshots WHERE game_key=? AND observed_at>? AND observed_at<=? ORDER BY observed_at LIMIT ?",
+      "rows": 34,
+      "returnedJsonBytes": 621493,
+      "sqlElapsedMs": 1.3170000000000073,
+      "stub": false
+    },
+    {
+      "table": "live_audit_observations",
+      "sql": "SELECT run_id,game_key,observed_at,slate_date,sport,state_bucket,rating, score_a,score_b,period,clock_seconds,evidence FROM live_audit_observations WHERE slate_date=? AND game_key=? AND observed_at>? ORDER BY observed_at LIMIT 100",
+      "rows": 49,
+      "returnedJsonBytes": 181201,
+      "sqlElapsedMs": 0.6244000000001506,
+      "stub": false
+    },
+    {
+      "table": "live_audit_findings",
+      "sql": "SELECT * FROM live_audit_findings WHERE game_key=?",
+      "rows": 0,
+      "returnedJsonBytes": 2,
+      "sqlElapsedMs": 0.24049999999988358,
+      "stub": false
+    },
+    {
+      "table": "live_audit_events",
+      "sql": "SELECT * FROM live_audit_events WHERE game_key=? ORDER BY at",
+      "rows": 0,
+      "returnedJsonBytes": 2,
+      "sqlElapsedMs": 0.11359999999990578,
+      "stub": false
+    },
+    {
+      "table": "sports_resources",
+      "sql": "SELECT payload,updated_at FROM sports_resources WHERE key=?",
+      "rows": 1,
+      "returnedJsonBytes": 526245,
+      "sqlElapsedMs": 0.7708999999999833,
+      "stub": false
+    },
+    {
+      "table": "sports_snapshots",
+      "sql": "SELECT game_key,observed_at,state,rating,score_a,score_b,phase,clock, normalized_state,model_version FROM sports_snapshots WHERE game_key=? AND observed_at>? AND observed_at<=? ORDER BY observed_at LIMIT ?",
+      "rows": 200,
+      "returnedJsonBytes": 3641988,
+      "sqlElapsedMs": 10.544100000000071,
+      "stub": false
+    },
+    {
+      "table": "sports_snapshots",
+      "sql": "SELECT game_key,observed_at,state,rating,score_a,score_b,phase,clock, normalized_state,model_version FROM sports_snapshots WHERE game_key=? AND observed_at>? AND observed_at<=? ORDER BY observed_at LIMIT ?",
+      "rows": 66,
+      "returnedJsonBytes": 1235005,
+      "sqlElapsedMs": 2.9346999999997934,
+      "stub": false
+    },
+    {
+      "table": "live_audit_observations",
+      "sql": "SELECT run_id,game_key,observed_at,slate_date,sport,state_bucket,rating, score_a,score_b,period,clock_seconds,evidence FROM live_audit_observations WHERE slate_date=? AND game_key=? AND observed_at>? ORDER BY observed_at LIMIT 100",
+      "rows": 51,
+      "returnedJsonBytes": 189800,
+      "sqlElapsedMs": 0.6567999999999756,
+      "stub": false
+    },
+    {
+      "table": "live_audit_findings",
+      "sql": "SELECT * FROM live_audit_findings WHERE game_key=?",
+      "rows": 1,
+      "returnedJsonBytes": 1200,
+      "sqlElapsedMs": 0.30569999999988795,
+      "stub": false
+    },
+    {
+      "table": "live_audit_events",
+      "sql": "SELECT * FROM live_audit_events WHERE game_key=? ORDER BY at",
+      "rows": 0,
+      "returnedJsonBytes": 2,
+      "sqlElapsedMs": 0.14160000000015316,
+      "stub": false
+    },
+    {
+      "table": "sports_resources",
+      "sql": "SELECT payload,updated_at FROM sports_resources WHERE key=?",
+      "rows": 1,
+      "returnedJsonBytes": 514175,
+      "sqlElapsedMs": 0.7384999999999309,
+      "stub": false
+    },
+    {
+      "table": "sports_snapshots",
+      "sql": "SELECT game_key,observed_at,state,rating,score_a,score_b,phase,clock, normalized_state,model_version FROM sports_snapshots WHERE game_key=? AND observed_at>? AND observed_at<=? ORDER BY observed_at LIMIT ?",
+      "rows": 200,
+      "returnedJsonBytes": 3586123,
+      "sqlElapsedMs": 5.1901000000000295,
+      "stub": false
+    },
+    {
+      "table": "sports_snapshots",
+      "sql": "SELECT game_key,observed_at,state,rating,score_a,score_b,phase,clock, normalized_state,model_version FROM sports_snapshots WHERE game_key=? AND observed_at>? AND observed_at<=? ORDER BY observed_at LIMIT ?",
+      "rows": 83,
+      "returnedJsonBytes": 1633025,
+      "sqlElapsedMs": 2.570500000000038,
+      "stub": false
+    },
+    {
+      "table": "live_audit_observations",
+      "sql": "SELECT run_id,game_key,observed_at,slate_date,sport,state_bucket,rating, score_a,score_b,period,clock_seconds,evidence FROM live_audit_observations WHERE slate_date=? AND game_key=? AND observed_at>? ORDER BY observed_at LIMIT 100",
+      "rows": 51,
+      "returnedJsonBytes": 189183,
+      "sqlElapsedMs": 0.6735999999998512,
+      "stub": false
+    },
+    {
+      "table": "live_audit_findings",
+      "sql": "SELECT * FROM live_audit_findings WHERE game_key=?",
+      "rows": 0,
+      "returnedJsonBytes": 2,
+      "sqlElapsedMs": 0.2237999999999829,
+      "stub": false
+    },
+    {
+      "table": "live_audit_events",
+      "sql": "SELECT * FROM live_audit_events WHERE game_key=? ORDER BY at",
+      "rows": 0,
+      "returnedJsonBytes": 2,
+      "sqlElapsedMs": 0.11969999999996617,
+      "stub": false
+    },
+    {
+      "table": "sports_resources",
+      "sql": "SELECT payload,updated_at FROM sports_resources WHERE key=?",
+      "rows": 1,
+      "returnedJsonBytes": 549674,
+      "sqlElapsedMs": 0.754799999999932,
+      "stub": false
+    },
+    {
+      "table": "sports_snapshots",
+      "sql": "SELECT game_key,observed_at,state,rating,score_a,score_b,phase,clock, normalized_state,model_version FROM sports_snapshots WHERE game_key=? AND observed_at>? AND observed_at<=? ORDER BY observed_at LIMIT ?",
+      "rows": 200,
+      "returnedJsonBytes": 3687428,
+      "sqlElapsedMs": 8.229399999999941,
+      "stub": false
+    },
+    {
+      "table": "sports_snapshots",
+      "sql": "SELECT game_key,observed_at,state,rating,score_a,score_b,phase,clock, normalized_state,model_version FROM sports_snapshots WHERE game_key=? AND observed_at>? AND observed_at<=? ORDER BY observed_at LIMIT ?",
+      "rows": 78,
+      "returnedJsonBytes": 1462374,
+      "sqlElapsedMs": 2.582400000000007,
+      "stub": false
+    },
+    {
+      "table": "live_audit_observations",
+      "sql": "SELECT run_id,game_key,observed_at,slate_date,sport,state_bucket,rating, score_a,score_b,period,clock_seconds,evidence FROM live_audit_observations WHERE slate_date=? AND game_key=? AND observed_at>? ORDER BY observed_at LIMIT 100",
+      "rows": 50,
+      "returnedJsonBytes": 185796,
+      "sqlElapsedMs": 0.6622999999999593,
+      "stub": false
+    },
+    {
+      "table": "live_audit_findings",
+      "sql": "SELECT * FROM live_audit_findings WHERE game_key=?",
+      "rows": 1,
+      "returnedJsonBytes": 1202,
+      "sqlElapsedMs": 0.20339999999987413,
+      "stub": false
+    },
+    {
+      "table": "live_audit_events",
+      "sql": "SELECT * FROM live_audit_events WHERE game_key=? ORDER BY at",
+      "rows": 0,
+      "returnedJsonBytes": 2,
+      "sqlElapsedMs": 0.12090000000011969,
+      "stub": false
+    },
+    {
+      "table": "sports_resources",
+      "sql": "SELECT payload,updated_at FROM sports_resources WHERE key=?",
+      "rows": 1,
+      "returnedJsonBytes": 521691,
+      "sqlElapsedMs": 0.7057999999999538,
+      "stub": false
+    },
+    {
+      "table": "sports_snapshots",
+      "sql": "SELECT game_key,observed_at,state,rating,score_a,score_b,phase,clock, normalized_state,model_version FROM sports_snapshots WHERE game_key=? AND observed_at>? AND observed_at<=? ORDER BY observed_at LIMIT ?",
+      "rows": 200,
+      "returnedJsonBytes": 3703864,
+      "sqlElapsedMs": 7.9042000000001735,
+      "stub": false
+    },
+    {
+      "table": "sports_snapshots",
+      "sql": "SELECT game_key,observed_at,state,rating,score_a,score_b,phase,clock, normalized_state,model_version FROM sports_snapshots WHERE game_key=? AND observed_at>? AND observed_at<=? ORDER BY observed_at LIMIT ?",
+      "rows": 17,
+      "returnedJsonBytes": 299295,
+      "sqlElapsedMs": 0.7595000000001164,
+      "stub": false
+    },
+    {
+      "table": "live_audit_observations",
+      "sql": "SELECT run_id,game_key,observed_at,slate_date,sport,state_bucket,rating, score_a,score_b,period,clock_seconds,evidence FROM live_audit_observations WHERE slate_date=? AND game_key=? AND observed_at>? ORDER BY observed_at LIMIT 100",
+      "rows": 50,
+      "returnedJsonBytes": 188299,
+      "sqlElapsedMs": 0.5582999999999174,
+      "stub": false
+    },
+    {
+      "table": "live_audit_findings",
+      "sql": "SELECT * FROM live_audit_findings WHERE game_key=?",
+      "rows": 1,
+      "returnedJsonBytes": 1271,
+      "sqlElapsedMs": 0.2316000000000713,
+      "stub": false
+    },
+    {
+      "table": "live_audit_events",
+      "sql": "SELECT * FROM live_audit_events WHERE game_key=? ORDER BY at",
+      "rows": 0,
+      "returnedJsonBytes": 2,
+      "sqlElapsedMs": 0.14650000000006003,
+      "stub": false
+    },
+    {
+      "table": "sports_resources",
+      "sql": "SELECT payload,updated_at FROM sports_resources WHERE key=?",
+      "rows": 1,
+      "returnedJsonBytes": 537976,
+      "sqlElapsedMs": 0.7567999999998847,
+      "stub": false
+    },
+    {
+      "table": "sports_snapshots",
+      "sql": "SELECT game_key,observed_at,state,rating,score_a,score_b,phase,clock, normalized_state,model_version FROM sports_snapshots WHERE game_key=? AND observed_at>? AND observed_at<=? ORDER BY observed_at LIMIT ?",
+      "rows": 200,
+      "returnedJsonBytes": 3869798,
+      "sqlElapsedMs": 7.542400000000043,
+      "stub": false
+    },
+    {
+      "table": "sports_snapshots",
+      "sql": "SELECT game_key,observed_at,state,rating,score_a,score_b,phase,clock, normalized_state,model_version FROM sports_snapshots WHERE game_key=? AND observed_at>? AND observed_at<=? ORDER BY observed_at LIMIT ?",
+      "rows": 88,
+      "returnedJsonBytes": 1784681,
+      "sqlElapsedMs": 2.8810000000000855,
+      "stub": false
+    },
+    {
+      "table": "live_audit_observations",
+      "sql": "SELECT run_id,game_key,observed_at,slate_date,sport,state_bucket,rating, score_a,score_b,period,clock_seconds,evidence FROM live_audit_observations WHERE slate_date=? AND game_key=? AND observed_at>? ORDER BY observed_at LIMIT 100",
+      "rows": 52,
+      "returnedJsonBytes": 215434,
+      "sqlElapsedMs": 0.6966999999999643,
+      "stub": false
+    },
+    {
+      "table": "live_audit_findings",
+      "sql": "SELECT * FROM live_audit_findings WHERE game_key=?",
+      "rows": 1,
+      "returnedJsonBytes": 1175,
+      "sqlElapsedMs": 0.2807999999999993,
+      "stub": false
+    },
+    {
+      "table": "live_audit_events",
+      "sql": "SELECT * FROM live_audit_events WHERE game_key=? ORDER BY at",
+      "rows": 0,
+      "returnedJsonBytes": 2,
+      "sqlElapsedMs": 0.1328000000000884,
+      "stub": false
+    },
+    {
+      "table": "sports_resources",
+      "sql": "SELECT payload,updated_at FROM sports_resources WHERE key=?",
+      "rows": 1,
+      "returnedJsonBytes": 576834,
+      "sqlElapsedMs": 1.0966000000000804,
+      "stub": false
+    },
+    {
+      "table": "sports_snapshots",
+      "sql": "SELECT game_key,observed_at,state,rating,score_a,score_b,phase,clock, normalized_state,model_version FROM sports_snapshots WHERE game_key=? AND observed_at>? AND observed_at<=? ORDER BY observed_at LIMIT ?",
+      "rows": 200,
+      "returnedJsonBytes": 3690985,
+      "sqlElapsedMs": 5.495499999999993,
+      "stub": false
+    },
+    {
+      "table": "sports_snapshots",
+      "sql": "SELECT game_key,observed_at,state,rating,score_a,score_b,phase,clock, normalized_state,model_version FROM sports_snapshots WHERE game_key=? AND observed_at>? AND observed_at<=? ORDER BY observed_at LIMIT ?",
+      "rows": 38,
+      "returnedJsonBytes": 742854,
+      "sqlElapsedMs": 1.3583999999998468,
+      "stub": false
+    },
+    {
+      "table": "live_audit_observations",
+      "sql": "SELECT run_id,game_key,observed_at,slate_date,sport,state_bucket,rating, score_a,score_b,period,clock_seconds,evidence FROM live_audit_observations WHERE slate_date=? AND game_key=? AND observed_at>? ORDER BY observed_at LIMIT 100",
+      "rows": 38,
+      "returnedJsonBytes": 105595,
+      "sqlElapsedMs": 0.49749999999994543,
+      "stub": false
+    },
+    {
+      "table": "live_audit_findings",
+      "sql": "SELECT * FROM live_audit_findings WHERE game_key=?",
+      "rows": 0,
+      "returnedJsonBytes": 2,
+      "sqlElapsedMs": 0.17650000000003274,
+      "stub": false
+    },
+    {
+      "table": "live_audit_events",
+      "sql": "SELECT * FROM live_audit_events WHERE game_key=? ORDER BY at",
+      "rows": 0,
+      "returnedJsonBytes": 2,
+      "sqlElapsedMs": 0.10549999999989268,
+      "stub": false
+    },
+    {
+      "table": "sports_resources",
+      "sql": "SELECT payload,updated_at FROM sports_resources WHERE key=?",
+      "rows": 0,
+      "returnedJsonBytes": 4,
+      "sqlElapsedMs": 0.1089999999999236,
+      "stub": false
+    },
+    {
+      "table": "sports_snapshots",
+      "sql": "SELECT game_key,observed_at,state,rating,score_a,score_b,phase,clock, normalized_state,model_version FROM sports_snapshots WHERE game_key=? AND observed_at>? AND observed_at<=? ORDER BY observed_at LIMIT ?",
+      "rows": 175,
+      "returnedJsonBytes": 1989658,
+      "sqlElapsedMs": 3.1217999999998938,
+      "stub": false
+    },
+    {
+      "table": "live_audit_observations",
+      "sql": "SELECT run_id,game_key,observed_at,slate_date,sport,state_bucket,rating, score_a,score_b,period,clock_seconds,evidence FROM live_audit_observations WHERE slate_date=? AND game_key=? AND observed_at>? ORDER BY observed_at LIMIT 100",
+      "rows": 38,
+      "returnedJsonBytes": 105344,
+      "sqlElapsedMs": 0.5287000000000717,
+      "stub": false
+    },
+    {
+      "table": "live_audit_findings",
+      "sql": "SELECT * FROM live_audit_findings WHERE game_key=?",
+      "rows": 0,
+      "returnedJsonBytes": 2,
+      "sqlElapsedMs": 0.20239999999989777,
+      "stub": false
+    },
+    {
+      "table": "live_audit_events",
+      "sql": "SELECT * FROM live_audit_events WHERE game_key=? ORDER BY at",
+      "rows": 0,
+      "returnedJsonBytes": 2,
+      "sqlElapsedMs": 0.10570000000006985,
+      "stub": false
+    },
+    {
+      "table": "sports_resources",
+      "sql": "SELECT payload,updated_at FROM sports_resources WHERE key=?",
+      "rows": 0,
+      "returnedJsonBytes": 4,
+      "sqlElapsedMs": 0.12069999999994252,
+      "stub": false
+    },
+    {
+      "table": "sports_snapshots",
+      "sql": "SELECT game_key,observed_at,state,rating,score_a,score_b,phase,clock, normalized_state,model_version FROM sports_snapshots WHERE game_key=? AND observed_at>? AND observed_at<=? ORDER BY observed_at LIMIT ?",
+      "rows": 174,
+      "returnedJsonBytes": 1593909,
+      "sqlElapsedMs": 3.164600000000064,
+      "stub": false
+    },
+    {
+      "table": "live_audit_observations",
+      "sql": "SELECT run_id,game_key,observed_at,slate_date,sport,state_bucket,rating, score_a,score_b,period,clock_seconds,evidence FROM live_audit_observations WHERE slate_date=? AND game_key=? AND observed_at>? ORDER BY observed_at LIMIT 100",
+      "rows": 37,
+      "returnedJsonBytes": 102288,
+      "sqlElapsedMs": 0.6083000000000993,
+      "stub": false
+    },
+    {
+      "table": "live_audit_findings",
+      "sql": "SELECT * FROM live_audit_findings WHERE game_key=?",
+      "rows": 0,
+      "returnedJsonBytes": 2,
+      "sqlElapsedMs": 0.20219999999994798,
+      "stub": false
+    },
+    {
+      "table": "live_audit_events",
+      "sql": "SELECT * FROM live_audit_events WHERE game_key=? ORDER BY at",
+      "rows": 0,
+      "returnedJsonBytes": 2,
+      "sqlElapsedMs": 0.10920000000010077,
+      "stub": false
+    },
+    {
+      "table": "sports_resources",
+      "sql": "SELECT payload,updated_at FROM sports_resources WHERE key=?",
+      "rows": 0,
+      "returnedJsonBytes": 4,
+      "sqlElapsedMs": 0.12969999999995707,
+      "stub": false
+    },
+    {
+      "table": "sports_snapshots",
+      "sql": "SELECT game_key,observed_at,state,rating,score_a,score_b,phase,clock, normalized_state,model_version FROM sports_snapshots WHERE game_key=? AND observed_at>? AND observed_at<=? ORDER BY observed_at LIMIT ?",
+      "rows": 164,
+      "returnedJsonBytes": 1859397,
+      "sqlElapsedMs": 2.9035999999998694,
+      "stub": false
+    },
+    {
+      "table": "live_audit_observations",
+      "sql": "SELECT run_id,game_key,observed_at,slate_date,sport,state_bucket,rating, score_a,score_b,period,clock_seconds,evidence FROM live_audit_observations WHERE slate_date=? AND game_key=? AND observed_at>? ORDER BY observed_at LIMIT 100",
+      "rows": 37,
+      "returnedJsonBytes": 102586,
+      "sqlElapsedMs": 0.5287000000000717,
+      "stub": false
+    },
+    {
+      "table": "live_audit_findings",
+      "sql": "SELECT * FROM live_audit_findings WHERE game_key=?",
+      "rows": 0,
+      "returnedJsonBytes": 2,
+      "sqlElapsedMs": 0.1773000000000593,
+      "stub": false
+    },
+    {
+      "table": "live_audit_events",
+      "sql": "SELECT * FROM live_audit_events WHERE game_key=? ORDER BY at",
+      "rows": 0,
+      "returnedJsonBytes": 2,
+      "sqlElapsedMs": 0.10619999999994434,
+      "stub": false
+    },
+    {
+      "table": "sports_resources",
+      "sql": "SELECT payload,updated_at FROM sports_resources WHERE key=?",
+      "rows": 0,
+      "returnedJsonBytes": 4,
+      "sqlElapsedMs": 0.09360000000015134,
+      "stub": false
+    },
+    {
+      "table": "sports_snapshots",
+      "sql": "SELECT game_key,observed_at,state,rating,score_a,score_b,phase,clock, normalized_state,model_version FROM sports_snapshots WHERE game_key=? AND observed_at>? AND observed_at<=? ORDER BY observed_at LIMIT ?",
+      "rows": 200,
+      "returnedJsonBytes": 1829397,
+      "sqlElapsedMs": 2.937299999999823,
+      "stub": false
+    },
+    {
+      "table": "sports_snapshots",
+      "sql": "SELECT game_key,observed_at,state,rating,score_a,score_b,phase,clock, normalized_state,model_version FROM sports_snapshots WHERE game_key=? AND observed_at>? AND observed_at<=? ORDER BY observed_at LIMIT ?",
+      "rows": 14,
+      "returnedJsonBytes": 126187,
+      "sqlElapsedMs": 0.5907999999999447,
+      "stub": false
+    },
+    {
+      "table": "live_audit_observations",
+      "sql": "SELECT run_id,game_key,observed_at,slate_date,sport,state_bucket,rating, score_a,score_b,period,clock_seconds,evidence FROM live_audit_observations WHERE slate_date=? AND game_key=? AND observed_at>? ORDER BY observed_at LIMIT 100",
+      "rows": 39,
+      "returnedJsonBytes": 108121,
+      "sqlElapsedMs": 0.41229999999995925,
+      "stub": false
+    },
+    {
+      "table": "live_audit_findings",
+      "sql": "SELECT * FROM live_audit_findings WHERE game_key=?",
+      "rows": 0,
+      "returnedJsonBytes": 2,
+      "sqlElapsedMs": 0.23739999999997963,
+      "stub": false
+    },
+    {
+      "table": "live_audit_events",
+      "sql": "SELECT * FROM live_audit_events WHERE game_key=? ORDER BY at",
+      "rows": 0,
+      "returnedJsonBytes": 2,
+      "sqlElapsedMs": 0.12930000000005748,
+      "stub": false
+    },
+    {
+      "table": "sports_resources",
+      "sql": "SELECT payload,updated_at FROM sports_resources WHERE key=?",
+      "rows": 0,
+      "returnedJsonBytes": 4,
+      "sqlElapsedMs": 0.10090000000013788,
+      "stub": false
+    },
+    {
+      "table": "sports_snapshots",
+      "sql": "SELECT game_key,observed_at,state,rating,score_a,score_b,phase,clock, normalized_state,model_version FROM sports_snapshots WHERE game_key=? AND observed_at>? AND observed_at<=? ORDER BY observed_at LIMIT ?",
+      "rows": 200,
+      "returnedJsonBytes": 1875937,
+      "sqlElapsedMs": 3.2859000000000833,
+      "stub": false
+    },
+    {
+      "table": "sports_snapshots",
+      "sql": "SELECT game_key,observed_at,state,rating,score_a,score_b,phase,clock, normalized_state,model_version FROM sports_snapshots WHERE game_key=? AND observed_at>? AND observed_at<=? ORDER BY observed_at LIMIT ?",
+      "rows": 17,
+      "returnedJsonBytes": 157152,
+      "sqlElapsedMs": 0.5926999999999225,
+      "stub": false
+    },
+    {
+      "table": "live_audit_observations",
+      "sql": "SELECT run_id,game_key,observed_at,slate_date,sport,state_bucket,rating, score_a,score_b,period,clock_seconds,evidence FROM live_audit_observations WHERE slate_date=? AND game_key=? AND observed_at>? ORDER BY observed_at LIMIT 100",
+      "rows": 36,
+      "returnedJsonBytes": 100225,
+      "sqlElapsedMs": 0.39000000000010004,
+      "stub": false
+    },
+    {
+      "table": "live_audit_findings",
+      "sql": "SELECT * FROM live_audit_findings WHERE game_key=?",
+      "rows": 0,
+      "returnedJsonBytes": 2,
+      "sqlElapsedMs": 0.18270000000006803,
+      "stub": false
+    },
+    {
+      "table": "live_audit_events",
+      "sql": "SELECT * FROM live_audit_events WHERE game_key=? ORDER BY at",
+      "rows": 0,
+      "returnedJsonBytes": 2,
+      "sqlElapsedMs": 0.1226000000001477,
+      "stub": false
+    },
+    {
+      "table": "sports_resources",
+      "sql": "SELECT payload,updated_at FROM sports_resources WHERE key=?",
+      "rows": 0,
+      "returnedJsonBytes": 4,
+      "sqlElapsedMs": 0.10329999999999018,
+      "stub": false
+    },
+    {
+      "table": "sports_snapshots",
+      "sql": "SELECT game_key,observed_at,state,rating,score_a,score_b,phase,clock, normalized_state,model_version FROM sports_snapshots WHERE game_key=? AND observed_at>? AND observed_at<=? ORDER BY observed_at LIMIT ?",
+      "rows": 154,
+      "returnedJsonBytes": 1743959,
+      "sqlElapsedMs": 2.8858999999999924,
+      "stub": false
+    },
+    {
+      "table": "live_audit_observations",
+      "sql": "SELECT run_id,game_key,observed_at,slate_date,sport,state_bucket,rating, score_a,score_b,period,clock_seconds,evidence FROM live_audit_observations WHERE slate_date=? AND game_key=? AND observed_at>? ORDER BY observed_at LIMIT 100",
+      "rows": 37,
+      "returnedJsonBytes": 102462,
+      "sqlElapsedMs": 0.5438000000001466,
+      "stub": false
+    },
+    {
+      "table": "live_audit_findings",
+      "sql": "SELECT * FROM live_audit_findings WHERE game_key=?",
+      "rows": 0,
+      "returnedJsonBytes": 2,
+      "sqlElapsedMs": 0.18820000000005166,
+      "stub": false
+    },
+    {
+      "table": "live_audit_events",
+      "sql": "SELECT * FROM live_audit_events WHERE game_key=? ORDER BY at",
+      "rows": 0,
+      "returnedJsonBytes": 2,
+      "sqlElapsedMs": 0.10829999999987194,
+      "stub": false
+    },
+    {
+      "table": "sports_resources",
+      "sql": "SELECT payload,updated_at FROM sports_resources WHERE key=?",
+      "rows": 0,
+      "returnedJsonBytes": 4,
+      "sqlElapsedMs": 0.10100000000011278,
+      "stub": false
+    },
+    {
+      "table": "sports_snapshots",
+      "sql": "SELECT game_key,observed_at,state,rating,score_a,score_b,phase,clock, normalized_state,model_version FROM sports_snapshots WHERE game_key=? AND observed_at>? AND observed_at<=? ORDER BY observed_at LIMIT ?",
+      "rows": 168,
+      "returnedJsonBytes": 1906146,
+      "sqlElapsedMs": 5.040700000000015,
+      "stub": false
+    },
+    {
+      "table": "live_audit_observations",
+      "sql": "SELECT run_id,game_key,observed_at,slate_date,sport,state_bucket,rating, score_a,score_b,period,clock_seconds,evidence FROM live_audit_observations WHERE slate_date=? AND game_key=? AND observed_at>? ORDER BY observed_at LIMIT 100",
+      "rows": 37,
+      "returnedJsonBytes": 102723,
+      "sqlElapsedMs": 1.840900000000147,
+      "stub": false
+    },
+    {
+      "table": "live_audit_findings",
+      "sql": "SELECT * FROM live_audit_findings WHERE game_key=?",
+      "rows": 0,
+      "returnedJsonBytes": 2,
+      "sqlElapsedMs": 0.2218000000000302,
+      "stub": false
+    },
+    {
+      "table": "live_audit_events",
+      "sql": "SELECT * FROM live_audit_events WHERE game_key=? ORDER BY at",
+      "rows": 0,
+      "returnedJsonBytes": 2,
+      "sqlElapsedMs": 0.14899999999988722,
+      "stub": false
+    },
+    {
+      "table": "sports_resources",
+      "sql": "SELECT payload,updated_at FROM sports_resources WHERE key=?",
+      "rows": 0,
+      "returnedJsonBytes": 4,
+      "sqlElapsedMs": 0.1268999999999778,
+      "stub": false
+    },
+    {
+      "table": "sports_snapshots",
+      "sql": "SELECT game_key,observed_at,state,rating,score_a,score_b,phase,clock, normalized_state,model_version FROM sports_snapshots WHERE game_key=? AND observed_at>? AND observed_at<=? ORDER BY observed_at LIMIT ?",
+      "rows": 164,
+      "returnedJsonBytes": 1534233,
+      "sqlElapsedMs": 3.080400000000054,
+      "stub": false
+    },
+    {
+      "table": "live_audit_observations",
+      "sql": "SELECT run_id,game_key,observed_at,slate_date,sport,state_bucket,rating, score_a,score_b,period,clock_seconds,evidence FROM live_audit_observations WHERE slate_date=? AND game_key=? AND observed_at>? ORDER BY observed_at LIMIT 100",
+      "rows": 37,
+      "returnedJsonBytes": 101792,
+      "sqlElapsedMs": 1.819300000000112,
+      "stub": false
+    },
+    {
+      "table": "live_audit_findings",
+      "sql": "SELECT * FROM live_audit_findings WHERE game_key=?",
+      "rows": 0,
+      "returnedJsonBytes": 2,
+      "sqlElapsedMs": 0.21620000000007167,
+      "stub": false
+    },
+    {
+      "table": "live_audit_events",
+      "sql": "SELECT * FROM live_audit_events WHERE game_key=? ORDER BY at",
+      "rows": 0,
+      "returnedJsonBytes": 2,
+      "sqlElapsedMs": 0.1066000000000713,
+      "stub": false
+    },
+    {
+      "table": "sports_resources",
+      "sql": "SELECT payload,updated_at FROM sports_resources WHERE key=?",
+      "rows": 0,
+      "returnedJsonBytes": 4,
+      "sqlElapsedMs": 0.13210000000003674,
+      "stub": false
+    },
+    {
+      "table": "sports_snapshots",
+      "sql": "SELECT game_key,observed_at,state,rating,score_a,score_b,phase,clock, normalized_state,model_version FROM sports_snapshots WHERE game_key=? AND observed_at>? AND observed_at<=? ORDER BY observed_at LIMIT ?",
+      "rows": 170,
+      "returnedJsonBytes": 1923215,
+      "sqlElapsedMs": 3.0697999999999865,
+      "stub": false
+    },
+    {
+      "table": "live_audit_runs",
+      "sql": "SELECT * FROM live_audit_runs WHERE started_at>=? AND started_at<=? ORDER BY started_at LIMIT 1000",
+      "rows": 0,
+      "returnedJsonBytes": 2,
+      "sqlElapsedMs": 0.30349999999998545,
+      "stub": false
+    },
+    {
+      "table": "live_audit_findings",
+      "sql": "SELECT * FROM live_audit_findings WHERE game_key='feed' OR game_key LIKE 'sport:%'",
+      "rows": 1,
+      "returnedJsonBytes": 43990,
+      "sqlElapsedMs": 0.16679999999996653,
+      "stub": false
+    },
+    {
+      "table": "live_audit_events",
+      "sql": "SELECT * FROM live_audit_events WHERE at>=? AND at<=? AND (game_key='feed' OR game_key LIKE 'sport:%') ORDER BY at",
+      "rows": 31,
+      "returnedJsonBytes": 43477,
+      "sqlElapsedMs": 0.2058999999999287,
+      "stub": false
+    }
+  ]
+}

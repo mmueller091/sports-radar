@@ -1,0 +1,9 @@
+{
+  "source": "Captured deployed audit Worker index.js; all seven sourcemap sources match audit-release e3c6a6353eca2f7c97175cde799bbf3db8a67f61",
+  "auditVersion": "2026-11-03.quality.1",
+  "workerVersion": "89bf5142-f359-4d73-a9cd-8f7ae77dde36",
+  "sha256": "12261ce76efcbf5bbe91ea1b60a2abd68d6f0c8fb578b00355a8e1ba1ce72956",
+  "bytes": 110349,
+  "gzipBytes": 32295,
+  "purpose": "Offline scan cost/query/write and behavior baseline. No provider calls and no production scoring code."
+}

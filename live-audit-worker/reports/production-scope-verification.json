@@ -1,0 +1,13 @@
+{
+  "baseline": "42b09f6",
+  "branchHead": "ab6dcdc96fe38f102057f31217eb529de577e29b",
+  "baselineIsAncestor": true,
+  "outsideAuditFilesHashed": 1209,
+  "workingTreeBlobHashesMatchBaseline": true,
+  "filteredBlobMatches": 1144,
+  "rawBlobMatchesWhereFilteredDiffers": 65,
+  "mismatches": [],
+  "outsideAuditChangedPaths": [],
+  "hashMethod": "Compare git ls-tree baseline blob IDs against git hash-object --stdin-paths (read-only); for baseline blobs retaining CRLF, compare the raw working-file Git blob hash. Both checks are content hashing, without Git mutations.",
+  "digestOfSortedProductionPathAndBlobManifest": "0125dfb46585c509537a58f46edde73f487978eca08b260eea5fe726df726f4d"
+}

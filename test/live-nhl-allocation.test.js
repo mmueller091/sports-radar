@@ -105,7 +105,9 @@ test('regulation targets are smooth; fixed action has no activation or regulatio
 });
 
 test('context survives the floor, with quality, storyline and postseason kept distinct',()=>{
-  const inputs=nhlContextVariants(),results=Object.fromEntries(inputs.map(i=>[i.label,run(i)]));
+  const inputs=nhlContextVariants();
+  for(const input of inputs)for(const f of input.event.sportsRadarContextFactors||[])if(f.type==='former_captain_return')f.text='Former captain makes his first return against his former team';
+  const results=Object.fromEntries(inputs.map(i=>[i.label,run(i)]));
   assert.ok(results['strong-teams'].score>results.ordinary.score);
   assert.ok(results.rivalry.score>results.ordinary.score);
   assert.ok(results.storyline.score>results.ordinary.score);

@@ -11,6 +11,26 @@ import {OPEN_NEWS_KEY} from '../src/open-news-discovery.js';
 import cfbContext from '../../scoring/cfb-verified-context.cjs';
 const now=Date.parse('2026-11-04T22:30:00Z'),DAY=86400000;
 const paths={CFB:'https://www.ncaa.com/news/football/fbs/2026/11/03/history',NFL:'https://www.nfl.com/news/history',NHL:'https://www.nhl.com/news/history',NBA:'https://www.nba.com/news/history',NCAAB:'https://www.ncaa.com/news/basketball-men/d1/2026/11/03/history',MLB:'https://www.mlb.com/news/history'};
+
+test('distinct confirmed starters survive a single category row and remain neutral on read',async t=>{
+  const g=game(),{env}=database(t);
+  const docs=[doc(paths.NFL,'Baltimore Ravens announced quarterback Alex Smith will start on Thursday.'),doc(paths.NFL+'/second','Baltimore Ravens announced quarterback John Jones will start on Thursday.')];
+  const found=factors(g,docs);assert.equal(found.length,2);assert.notEqual(found[0].eventKey,found[1].eventKey);
+  await saveFactors(env,[{key:'NFL:'+g.id,start:Date.parse(g.startTime)}],found,now);
+  const read=(await contextsForGames(env,['NFL:'+g.id],[g],now))['NFL:'+g.id];
+  assert.equal(read.length,2);assert.ok(read.every(s=>s.scoringEligible===false));
+});
+test('a qualified star return is not downgraded to generic starter confirmation',()=>{
+  const g=game('NBA');
+  const d=doc(paths.NBA,'Baltimore Ravens announced All-Star Alex Smith returns from injury and will start at guard on Thursday.');
+  const found=factors(g,[d]);assert.equal(found[0]?.type,'star_injury_return');assert.equal(found[0].scoringEligible,true);
+});
+test('duplicate official announcements preserve links without duplicating context',async t=>{
+  const g=game(),one=transcript(),two={...one,url:one.url+'-second',published:one.published+1000};
+  const found=factors(g,[one,two]);assert.equal(found.length,1);assert.equal(found[0].sources.length,2);assert.equal(found[0].scoringEligible,false);
+  const {env}=database(t);await saveFactors(env,[{key:'NFL:'+g.id,start:Date.parse(g.startTime)}],found,now);
+  const checked=(await contextsForGames(env,['NFL:'+g.id],[g],now))['NFL:'+g.id];assert.equal(checked.length,1);assert.equal(checked[0].sources.length,2);
+});
 function game(sport='NFL'){
   return normalizeEvent({id:'evidence-test',date:'2026-11-06T01:15:00Z',season:{year:2026,type:2},competitions:[{status:{type:{state:'pre'}},
     competitors:[{homeAway:'away',team:{id:'30',displayName:'Jacksonville Jaguars',abbreviation:'JAX'},score:'0'},
@@ -37,13 +57,13 @@ for(const sport of Object.keys(paths))test(`${sport}: authoritative historical e
   assert.ok(g.qualitativeContexts[0].evidence.rationale);assert.equal(g.qualitativeContexts[0].evidence.documents[0].body,undefined,'full source bodies stay in research cache');
   assert.equal(g.factors.find(f=>f.contextType==='rivalry').sourceEvidence.documents[0].url,d.url);
 });
-test('coach confirmation earns existing starter points, with exact passage and read-time revalidation',async t=>{
+test('coach confirmation remains neutral, with exact passage and read-time revalidation',async t=>{
   const g=game(),before=g.score,{db,env}=database(t),found=factors(g,[transcript()]);assert.equal(found.length,1);
   assert.equal(found[0].type,'confirmed_key_starters');assert.equal(found[0].verification,'authoritative-primary');
   await saveFactors(env,[{key:'NFL:'+g.id,start:Date.parse(g.startTime)}],found,now);
   const read=()=>contextsForGames(env,['NFL:'+g.id],[g],now);
-  applyContextsToGame(g,(await read())['NFL:'+g.id],now);assert.equal(g.score-before,4);
-  assert.equal(g.factors.find(f=>f.contextType==='confirmed_key_starters').sourceEvidence.passage,found[0].text);
+  applyContextsToGame(g,(await read())['NFL:'+g.id],now);assert.equal(g.score,before);
+  assert.equal(g.qualitativeContexts[0].evidence.passage,found[0].text);assert.equal(g.qualitativeContexts[0].scoringEligible,false);
   const row=db.prepare('SELECT context_text FROM game_context').get(),saved=JSON.parse(row.context_text);
   for(const mutation of [s=>delete s.evidence,s=>s.evidence.documents[0].body='No starter confirmed.',s=>s.evidence.teamIds.reverse(),s=>s.evidence.documents[0].published=now-8*DAY,s=>s.evidence.documents[0].url='https://baltimoreravens.com.evil.test/news/fake']){
     const changed=structuredClone(saved);mutation(changed);db.prepare('UPDATE game_context SET context_text=?').run(JSON.stringify(changed));assert.deepEqual(await read(),{});
@@ -158,14 +178,14 @@ test('legacy facts can reuse independently acquired documents before the rotatin
   assert.ok(missing['NFL:'+g.id].every(f=>f.scoringEligible===false));
 });
 
-for(const sport of Object.keys(paths))test(`${sport}: a current official starter confirmation is game-bound and uses the existing sport rules`,async t=>{
+for(const sport of Object.keys(paths))test(`${sport}: a current official starter confirmation is game-bound and is scoring-neutral`,async t=>{
   const g=game(sport),{env}=database(t);
   const role=['NFL','CFB'].includes(sport)?'quarterback':sport==='NHL'?'goalie':'pitcher';
   const text=['NBA','NCAAB'].includes(sport)?'Starting lineup confirmed for Baltimore Ravens on Thursday: John Smith will start.':`Baltimore Ravens announced ${role} John Smith will start on Thursday.`;
   const found=factors(g,[doc(paths[sport],text)]);assert.equal(found[0]?.type,'confirmed_key_starters');
   await saveFactors(env,[{key:sport+':'+g.id,start:Date.parse(g.startTime)}],found,now);
   const checked=await contextsForGames(env,[sport+':'+g.id],[g],now);assert.equal(checked[sport+':'+g.id][0].verification,'authoritative-primary');
-  const before=g.score;applyContextsToGame(g,checked[sport+':'+g.id],now);assert.ok(g.score>before);
+  const before=g.score;applyContextsToGame(g,checked[sport+':'+g.id],now);assert.equal(g.score,before);
   assert.equal(factors({...g,startTime:'2026-11-07T01:15Z'},[doc(paths[sport],text)]).length,0);
 });
 test('quantified game-specific team records may score, while vague strength and generic player debuts do not',()=>{

@@ -9,15 +9,17 @@
   const {nflReturnPoints} = typeof module !== 'undefined' && module.exports
     ? require('./nfl-pregame.js') : root.SportsRadarScoring.shared_nfl_pregame;
 
-  function footballAbsencePoints(item,competition) {
+  function footballAbsencePoints(item,competition,sport='NFL') {
     const evidence = item.injuryEvidence;
     const competitors = competition?.competitors || [];
     const affected = competitors.find(team=>String(team.team?.id || team.id || '') === String(evidence?.affectedTeamId || ''));
     if (!evidence || !['star','starting-quarterback'].includes(evidence.importance) || !evidence.affectedTeamId || !affected) return 0;
+    if(item.type==='multiple_stars_out' && (!Array.isArray(evidence.players) || evidence.players.filter(p=>p.verified===true&&p.importance==='star').length<2))return 0;
     const spread = footballPregameSpread(competition);
-    if (spread === null) return evidence.importance === 'starting-quarterback' ? -5 : -3;
     const raw = competition?.odds?.[0];
     const odds = raw?.close || raw?.closing || raw;
+    const marketKnown=spread!==null || Boolean(odds && (/\b[+-]\d+/.test(String(odds.details||'')) || odds.moneyline || odds.moneyLine || odds.homeTeamOdds?.moneyLine || odds.awayTeamOdds?.moneyLine));
+    if(!marketKnown) return ['NFL','CFB'].includes(sport)?(evidence.importance==='starting-quarterback'?-5:-3):CONTEXT_WEIGHTS[item.type];
     const marketAt = Date.parse(odds?.lastUpdated || odds?.lastModified || '');
     const reportedAt = Date.parse(evidence.reportedAt || '');
     const side = affected.homeAway;
@@ -57,6 +59,43 @@
       );
   }
 
+  // Verification establishes truth, not direction or entertainment value.
+  // Source research and both production scorers use this separate gate.
+  function qualitativeAssessment(item) {
+    const type=normalizeContextType(item?.type);
+    const text=String(item?.text || item?.description || '').replace(/\s+/g,' ');
+    const neutral=reason=>({eligible:false,polarity:'neutral',reason});
+    if(item?.verified!==true || item.scoringEligible===false) return neutral('Context has no verified scoring eligibility');
+    if(type==='confirmed_key_starters') return neutral('A starter confirmation does not establish positive excitement significance');
+    if(type==='player_injury_return') return neutral('The return is verified; player significance is not established');
+    if(/\b(?:could|might|may|rumou?red|reportedly|questionable|doubtful|unconfirmed|not confirmed)\b/i.test(text)) return neutral('Availability or significance is uncertain');
+    if((CONTEXT_WEIGHTS[type] || 0)<0) return {eligible:true,polarity:'negative',reason:'Verified absence requires separate market reconciliation'};
+    const personnel=['former_captain_return','first_game_back','former_star_return','star_injury_return','season_debut','major_trade_storyline','coach_return','ace_pitching_matchup'];
+    if(personnel.includes(type)) {
+      if(/\b(?:ruled out|will miss|will not (?:play|start|return)|won't (?:play|start|return)|emergency|forced replacement|replaces? (?:an? )?injured|in place of|because .{0,55}(?:injur|out))\b/i.test(text)) return neutral('Absence or forced replacement is not a positive personnel development');
+      const star=/\b(?:star|superstar|all[- ]star|all[- ]pro|all[- ]american|MVP|Cy Young|Heisman|leading scorer)\b/i.test(text);
+      const first=/\bfirst (?:game|visit|meeting|return|time)|\b(?:team|club|season) debut\b/i.test(text);
+      const former=/\bformer (?:team|club)|\bagainst .{0,20}former|\bfaces? .{0,20}old team/i.test(text);
+      if(type==='star_injury_return') {
+        const injury=item.injuryEvidence;
+        if(!/return|back in|activated/i.test(text) || !(star || /starting quarterback/i.test(text) || ['starting-quarterback','key-player'].includes(injury?.importance) || injury?.playerSignificance?.verified===true)) return neutral('A significant returning player has not been established');
+      } else if(type==='coach_return') {
+        if(!first || !former || !/coach|manager/i.test(text)) return neutral('Routine coaching news does not establish a consequential reunion');
+      } else if(type==='ace_pitching_matchup') {
+        if(!/two aces|both aces|ace.{0,70}(?:faces|against|versus|vs\.?|duel).{0,70}(?:ace|Cy Young)/i.test(text)) return neutral('Both significant opposing pitchers must be established');
+      } else if(type==='former_captain_return') {
+        if(!first || !former || !/captain/i.test(text)) return neutral('A first captain reunion has not been established');
+      } else if(type==='former_star_return' || type==='first_game_back') {
+        if(!first || !former || !star) return neutral('A significant first reunion has not been established');
+      } else if(type==='season_debut') {
+        if(!star || !/debut/i.test(text)) return neutral('Rookie or draft status alone does not establish an exceptional debut');
+      } else if(type==='major_trade_storyline' && (!first || !star || !/debut|first game (?:with|for)/i.test(text))) return neutral('A trade or departure alone is not a positive development');
+    }
+    if(['star_hot_streak','team_win_streak','historic_streak','notable_recent_performance'].includes(type) && /losing streak|lost \d+|\d+ straight losses|scoreless|winless|slump|struggl|poor form/i.test(text)) return neutral('Poor form does not establish positive excitement significance');
+    if(type==='star_hot_streak' && !/\b(?:star|superstar|all[- ]star|MVP|leading scorer)\b/i.test(text)) return neutral('Player significance has not been established');
+    return {eligible:true,polarity:'positive',reason:'The specific verified category establishes significance beyond discovery'};
+  }
+
   function pregameContextFactors(event,competition,options={}) {
     const sources = [
       event?.sportsRadarContextFactors,
@@ -81,7 +120,7 @@
     const candidates = [];
     for (const item of items) {
       if (
-        item?.verified === false
+        item?.verified !== true || item?.scoringEligible === false
       ) {
         continue;
       }
@@ -103,8 +142,9 @@
           item?.type
         );
 
-      let points = options.calibratedPregame && type === 'star_absence'
-        ? footballAbsencePoints(item,competition)
+      if(!qualitativeAssessment(item).eligible) continue;
+      let points = ['star_absence','multiple_stars_out'].includes(type)
+        ? footballAbsencePoints(item,competition,options.sport)
         : CONTEXT_WEIGHTS[type];
       if (options.calibratedPregame && options.sport==='NFL' && points>0) points=Math.min(type==='rivalry'?2:4,points);
       if(options.calibratedPregame && options.sport==='NFL' && type==='star_injury_return') points=nflReturnPoints(item,competition);
@@ -140,6 +180,8 @@
         ...(item.sourceEvidence?{sourceEvidence:item.sourceEvidence}:{}),
         ...(item.registryVersion ? {evidence:item.evidence,eventId:item.eventId,factKey:item.factKey} : {}),
         returnSignificance:type==='star_injury_return' ? item.injuryEvidence?.playerSignificance : undefined,
+        eventKey:item.sourceEvidence?.subject && /return|debut|trade|starters/.test(type)
+          ? [item.sourceEvidence.eventId,item.sourceEvidence.owner,item.sourceEvidence.subject].join(':') : item.eventKey,
 
         dedupeKey:
           options.calibratedPregame && options.sport==='NFL' &&
@@ -174,6 +216,7 @@
 
     const factors = [];
     const seen = new Set();
+    const seenEvents = new Set();
 
     let positiveRemaining = options.calibratedPregame && options.sport==='NFL' ? 6 : 22;
     let negativeRemaining = 10;
@@ -181,12 +224,13 @@
     for (const item of candidates) {
       if (
         !item.label ||
-        seen.has(item.dedupeKey)
+        seen.has(item.dedupeKey) || item.eventKey && seenEvents.has(item.eventKey)
       ) {
         continue;
       }
 
       seen.add(item.dedupeKey);
+      if(item.eventKey) seenEvents.add(item.eventKey);
 
       let points =
         item.points;
@@ -615,7 +659,7 @@
     return .06;
   }
 
-  const api = {eventSignalText,normalizeContextType,pregameContextFactors,aggregateScoreFromText,specificStakesFactors,singleEliminationRound,isPostseasonGame,playoffSeriesLeverage,championshipSeriesFactors,completedStakesImpact,contextWeightFor};
+  const api = {qualitativeAssessment,eventSignalText,normalizeContextType,pregameContextFactors,aggregateScoreFromText,specificStakesFactors,singleEliminationRound,isPostseasonGame,playoffSeriesLeverage,championshipSeriesFactors,completedStakesImpact,contextWeightFor};
   if (typeof module !== 'undefined' && module.exports) {
     module.exports = api;
   } else {

@@ -149,13 +149,11 @@ function articleMatchesGame(article,game,now=Date.now()) {
 
 function meaningfulInjuryEvidence(article,type) {
   const text = `${article.headline || ''}. ${article.description || ''}`.replace(/\s+/g,' ').trim();
-  if(type==='star_injury_return' && /\bQB\s+[A-Z][a-z]+.{0,35}\b(?:to|will|set to) return\b/i.test(article.headline || '') &&
-      /ankle|knee|injur|hamstring/i.test(article.headline || '') && !/could|may|might|questionable/i.test(article.headline)) return {importance:'starting-quarterback'};
   const clauses = text.split(/[.!?;,]|\b(?:but|while|whereas|and)\b/i);
   for (const clause of clauses) {
     if (/\b(?:could|may|might|questionable|doubtful|uncertain|not ruled out|not sidelined|miss (?:a |the )?(?:practice|training))\b/i.test(clause)) continue;
     if (/\b(?:backup|reserve)\b/i.test(clause)) continue;
-    const importance = /\bstarting quarterback\b|\bstarting QB\b|\bQB\s+[A-Z][a-z]+/i.test(clause) ? 'starting-quarterback' :
+    const importance = /\bstarting quarterback\b|\bstarting QB\b/i.test(clause) ? 'starting-quarterback' :
       /\b(?:star|superstar|all[- ]american|all[- ]pro|pro bowler|pro bowl|heisman|reigning MVP|first[- ]team all[- ](?:conference|sec|big ten)|leading (?:scorer|receiver|rusher|passer))\b/i.test(clause) ? 'star' : '';
     const keyReturn=type!=='star_absence' && /\b(?:RB|running back|WR|wide receiver)\b/i.test(text) &&
       /miss(?:ing|ed).{0,15}(?:two|three|[2-9]) (?:games|weeks)/i.test(text);
@@ -181,6 +179,7 @@ function deterministicFactor(article) {
   let type = '';
   if (meaningfulInjuryEvidence(article,'star_injury_return')) type = 'star_injury_return';
   else if (meaningfulInjuryEvidence(article,'star_absence')) type = 'star_absence';
+  else if(!/\b(?:reserve|backup|minor)\b/i.test(text)&&/(?:return|activated|back in).{0,75}(?:injur|sidelined|ankle|knee|hamstring)|(?:injur|absence|ankle|knee|hamstring).{0,55}(?:return|back in)/i.test(text)) type='player_injury_return';
   else if (/captain/i.test(text) && /(former|traded|trade)/i.test(text)) type = 'former_captain_return';
   else if (/(coach|manager).{0,70}(return|former|faces old team)/i.test(text)) type = 'coach_return';
   else if (/(former team|against (his|her|their) former|traded from)/i.test(text)) type = 'former_star_return';
@@ -380,7 +379,7 @@ function mergeFactors(items,classified,editorial=[],now=Date.now(),verified=[],g
     const item=items.find(i=>i.sport===factor.sport&&i.eventId===factor.eventId);
     const game=item?.game||games.find(g=>g.sport===factor.sport&&String(g.eventId||g.id)===factor.eventId);
     const accepted=game&&validatedScoringFactor(factor,game,now,games.length?games:[game]);
-    if(accepted)deduped.set(`${factor.sport}:${factor.eventId}:${factor.type}`,accepted);
+    if(accepted)deduped.set(accepted.eventKey || `${factor.sport}:${factor.eventId}:${factor.type}`,accepted);
   }
   return distinctEvidenceFactors([...deduped.values()]);
 }
@@ -391,17 +390,24 @@ function validatedScoringFactor(factor,game,now,slate=[game],currentDocuments=[]
   const article={headline:checked.text,description:'',teamIds:new Set([checked.evidence.owner])};
   if(game.sport==='NFL'&&!nflMaterialFactor(article,checked.type))return null;
   if(['star_absence','star_injury_return'].includes(checked.type)){
-    const injury=meaningfulInjuryEvidence(article,checked.type);if(!injury)return null;
-    checked.injuryEvidence={...injury,affectedTeamId:checked.evidence.owner,reportedAt:checked.publishedAt};
+    const injury=meaningfulInjuryEvidence(article,checked.type);
+    if(injury) checked.injuryEvidence={...injury,affectedTeamId:checked.evidence.owner,reportedAt:checked.publishedAt};
+    else {checked.scoringEligible=false;checked.scoringAssessment={eligible:false,polarity:'neutral',reason:'Player significance is not established'};}
   }
   return checked;
 }
 
 async function saveFactors(env,games,factors,now) {
   const gameByKey = new Map(games.map(game => [game.key,game]));
-  const writes = factors.map(factor => {
+  // D1's existing category key remains intact. Multiple distinct events in a
+  // category share one bounded envelope, not one overwritten storyline.
+  const grouped=new Map();
+  for(const factor of factors){const key=`${factor.sport}:${factor.eventId}:${factor.type}`;const group=grouped.get(key)||[];group.push(factor);grouped.set(key,group);}
+  const savedContext=factor=>({version:factor.evidence?7:factor.discoveredType?6:5,verification:factor.verification,evidence:factor.evidence,expiresAt:factor.expiresAt,discoveredType:factor.discoveredType,text:factor.text,description:factor.sourceDescription||'',teamIds:factor.sourceTeamIds||[],eventIds:factor.sourceEventIds||[],affectedTeamId:factor.injuryEvidence?.affectedTeamId,editorialReview:factor.editorialReview,origin:factor.origin,sources:factor.openNewsSources});
+  const writes = [...grouped.values()].map(group => {
+    const factor=group[0];
     const game = gameByKey.get(`${factor.sport}:${factor.eventId}`);
-    const expires = Math.floor((factor.evidence?Date.parse(factor.expiresAt):(game?.start || now)+48*3600000)/1000);
+    const expires = Math.floor(Math.max(...group.map(f=>f.evidence?Date.parse(f.expiresAt):(game?.start || now)+48*3600000))/1000);
     return env.DB.prepare(`INSERT INTO game_context
       (event_id,sport,factor_type,context_text,confidence,source_title,source_url,source_published,expires_at,updated_at)
       VALUES (?,?,?,?,?,?,?,?,?,?)
@@ -418,9 +424,7 @@ async function saveFactors(env,games,factors,now) {
           THEN COALESCE(json_extract(game_context.context_text,'$.origin'),'')='open-news'
           ELSE 0 END`)
       .bind(factor.eventId,factor.sport,factor.type,
-        JSON.stringify({version:factor.evidence?7:factor.discoveredType?6:5,verification:factor.verification,evidence:factor.evidence,expiresAt:factor.expiresAt,discoveredType:factor.discoveredType,text:factor.text,description:factor.sourceDescription||'',teamIds:factor.sourceTeamIds||[],
-          eventIds:factor.sourceEventIds||[],affectedTeamId:factor.injuryEvidence?.affectedTeamId,editorialReview:factor.editorialReview,
-          origin:factor.origin,sources:factor.openNewsSources}),
+        JSON.stringify(group.length===1?savedContext(factor):{version:8,entries:group.slice(0,6).map(f=>({context_text:JSON.stringify(savedContext(f)),source_title:f.sourceTitle,source_url:f.sourceUrl,source_published:f.sourcePublished,confidence:f.confidence}))}),
         factor.confidence,factor.sourceTitle,factor.sourceUrl,factor.sourcePublished,expires,Math.floor(now / 1000));
   });
   for (let start=0;start<writes.length;start+=50) await env.DB.batch(writes.slice(start,start+50));
@@ -560,7 +564,8 @@ export async function contextsForGames(env,keys,games=[],now=Date.now()) {
   const allowed = new Set(parsed.map(item => `${item.sport}:${item.eventId}`));
   const output = {};
   let sourceDocuments;
-  for (const row of rows) {
+  const expanded=rows.flatMap(row=>{try{const saved=JSON.parse(row.context_text);if(saved?.version===8&&Array.isArray(saved.entries))return saved.entries.slice(0,6).map(entry=>({...row,...entry,event_id:row.event_id,sport:row.sport,factor_type:row.factor_type}));}catch{}return [row];});
+  for (const row of expanded) {
     const key = `${row.sport}:${row.event_id}`;
     if (!allowed.has(key)) continue;
     if(row.sport==='NFL' && /uniform|jerseys?|costumes?|fantasy/i.test(row.source_title || '')) continue;
@@ -613,8 +618,8 @@ export async function contextsForGames(env,keys,games=[],now=Date.now()) {
 
   for(const key of Object.keys(output)){
     output[key]=distinctEvidenceFactors(output[key]);
-    const scored=new Set(output[key].filter(f=>f.scoringEligible).map(f=>f.type));
-    output[key]=output[key].filter(f=>!f.editorialOnly||!scored.has(f.discoveredType));
+    // Public consolidation uses subject, owner and event identity. Sharing a
+    // category alone never makes two reports duplicates.
   }
 
   // The checked-in registry is an independent, reviewed evidence channel. It

@@ -270,20 +270,20 @@ function applyContextsToGame(game,factors) {
   if(game.state==='upcoming'&&editorial.length)game.editorialStorylines=editorial;
   else delete game.editorialStorylines;
   factors=factors.filter(f=>f?.type!=='editorial_storyline'&&!f?.editorialOnly);
-  const valid = factors.filter(factor => factor?.verified !== false && Number(factor?.confidence) >= .7 && factor?.type && factor?.text);
-  const accepted = (game.sport==='NFL' ? [...valid.reduce((byType,factor)=>{
-    if(!byType.has(factor.type))byType.set(factor.type,factor);return byType;
-  },new Map()).values()] : valid).slice(0,6);
+  const valid = factors.filter(factor => factor?.verified === true && Number(factor?.confidence) >= .7 && factor?.type && factor?.text);
+  const accepted = valid.slice(0,6);
   game.sourceEvent.sportsRadarContextFactors = accepted.map(factor => ({
     type:factor.type,
     text:factor.text,
     confidence:Number(factor.confidence),
     verified:true,
+    scoringEligible:factor.scoringEligible,
+    eventKey:factor.eventKey,
     sourceTitle:factor.sourceTitle,
     sourceUrl:factor.sourceUrl,
     ...(factor.registryVersion ? {registryVersion:factor.registryVersion,factKey:factor.factKey,eventId:factor.eventId,
       teamIds:factor.teamIds,eventDate:factor.eventDate,expiresAt:factor.expiresAt,evidence:factor.evidence} : {}),
-    ...(factor.scoringEligible&&factor.evidence?.documents?{sourceEvidence:publicEvidence(factor)}:{}),
+    ...(factor.evidence?.documents?{sourceEvidence:publicEvidence(factor)}:{}),
     ...(factor.injuryEvidence ? {injuryEvidence:factor.injuryEvidence} : {})
   }));
   const rating = rateGame(
@@ -307,7 +307,9 @@ function applyContextsToGame(game,factors) {
   game.underdog = rating.underdog;
   game.upsetText = rating.upsetText;
   game.upsetPoints = rating.upsetPoints;
-  game.qualitativeContexts = accepted.map(factor=>factor.scoringEligible&&factor.evidence?.documents?{...factor,evidence:publicEvidence(factor)}:factor);
+  game.qualitativeContexts = accepted.map(factor=>factor.evidence?.documents?{...factor,evidence:publicEvidence(factor)}:factor);
+  if(game.state==='upcoming')game.pregameContextSummary=accepted.filter(f=>f.publicText&&['authoritative-primary','independently-corroborated'].includes(f.verification)).slice(0,2).map(f=>f.publicText).join(' ');
+  else delete game.pregameContextSummary;
   applyLiveSnapshot(game,game.sourceCompetition,null);
   return true;
 }

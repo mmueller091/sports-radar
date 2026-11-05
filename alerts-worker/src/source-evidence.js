@@ -1,3 +1,4 @@
+import contextPolicy from '../../scoring/shared/context.js';
 // Publisher identities are configuration, never matchup facts or rating overrides.
 const TEAM_SITES={
   'baltimoreravens.com':{sport:'NFL',team:'33',index:'/news/transcripts'},
@@ -82,7 +83,7 @@ export function officialLinks(html,index,game,headline=''){
   return [...new Map(found.map(x=>[x.url,x])).values()].sort((a,b)=>b.priority-a.priority).slice(0,40);
 }
 const SPECULATION=/\b(?:could|might|may|would|should|hopes?|plans? to|thinks?|rumou?rs?|reportedly|possible|expected|expects?|questionable|doubtful|not confirmed|unconfirmed|denied|denies|false|incorrect|retracted|cancelled|no longer|never|if|not yet|will not|won't|isn't|is not)\b|\?/i;
-function clauses(doc){return doc.body.split(/\n+|(?<=[.!?])\s+/).map(clean).filter(s=>s.length>=12&&s.length<=1000).slice(0,SOURCE_LIMITS.clauses);}
+function clauses(doc){return doc.body.replace(/\b(No|Jr|Sr|St|Dr)\./g,'$1\uE000').split(/\n+|(?<=[.!?])\s+/).map(s=>clean(s.replaceAll('\uE000','.'))).filter(s=>s.length>=12&&s.length<=1000).slice(0,SOURCE_LIMITS.clauses);}
 function dayBound(text,doc,game,slate){
   const start=gameStart(game),date=localDate(start),pubDate=localDate(doc.published);
   const dates=[...text.matchAll(/\b(20\d{2}-\d{2}-\d{2})\b/g)].map(m=>m[1]);
@@ -156,7 +157,9 @@ export function evidenceClaims(doc,game,classify,now=Date.now(),slate=[game]){
     const previousYear=Number(text.match(/\b(20\d{2})\b/)?.[1]);
     const historicRematch=authority&&pair&&previousYear===season-1&&/\b(?:beat|defeated|eliminated)\b/i.test(text)&&
       /\b(?:playoff|CFP|Super Bowl|World Series|NBA Finals|Stanley Cup Final|national championship)\b/i.test(text);
-    let type=historicRematch?(/Super Bowl|World Series|NBA Finals|Stanley Cup Final|national championship/i.test(text)?'championship_rematch':'playoff_rematch'):starter?'confirmed_key_starters':classified?.type;
+    const assessment=classified&&contextPolicy.qualitativeAssessment({...classified,text,verified:true});
+    const qualified=classified?.type!=='confirmed_key_starters'&&assessment?.eligible&&assessment.polarity==='positive';
+    let type=historicRematch?(/Super Bowl|World Series|NBA Finals|Stanley Cup Final|national championship/i.test(text)?'championship_rematch':'playoff_rematch'):starter&&!qualified?'confirmed_key_starters':classified?.type;
     if(!type)continue;
     if(type==='confirmed_key_starters'&&!(
       ['NFL','CFB'].includes(game.sport)&&/quarterback|\bQB\b/i.test(text)||
@@ -171,7 +174,7 @@ export function evidenceClaims(doc,game,classify,now=Date.now(),slate=[game]){
     else{
       if(now-doc.published>7*DAY||!dayBound(text,doc,game,slate)||!owner)continue;
       if(['rivalry_development','coach_return','former_star_return','former_captain_return','playoff_rematch','championship_rematch','meaningful_rematch'].includes(type)&&!pair)continue;
-      if(/return/.test(type)&&type!=='star_injury_return'&&!/first (?:time|return|meeting)|first game (?:back|against)/i.test(text))continue;
+      if(/return/.test(type)&&!['star_injury_return','player_injury_return'].includes(type)&&!/first (?:time|return|meeting)|first game (?:back|against)/i.test(text))continue;
       if(/rematch/.test(type)){
         const year=Number(text.match(/\b(20\d{2})\b/)?.[1]),season=Number(localDate(start).slice(0,4));
         if(!year||season-year<1||season-year>(type==='meaningful_rematch'?2:1))continue;
@@ -227,8 +230,40 @@ export function verifiedEvidenceFactors(game,documents,classify,now=Date.now(),s
       sourcePublished:Math.floor(claim.source.published/1000),publishedAt:new Date(claim.source.published).toISOString(),
       expiresAt:new Date(claim.expiresAt).toISOString(),evidence:{version:EVIDENCE_VERSION,kind,rationale:kind==='independently-corroborated'?'Two distinct publishers identify different named reporting sources for the same subject, team and game date; syndication and repeated originals excluded.':claim.rationale,subject:claim.subject,owner:claim.owner,
         eventId:gameId(game),startTime:new Date(gameStart(game)).toISOString(),teamIds:gameTeams(game).map(t=>t.id),documents:supporting}};
-    const prior=accepted.get(factor.type);
-    if(!prior||factor.sourcePublished>prior.sourcePublished)accepted.set(factor.type,factor);
+    const assessment=contextPolicy.qualitativeAssessment(factor);
+    factor.scoringEligible=assessment.eligible;
+    factor.scoringAssessment=assessment;
+    factor.eventKey=[factor.sport,factor.eventId,claim.owner,claim.subject,claim.type].join(':');
+    factor.sources=supporting.map(d=>({url:d.url,title:d.title,verification:kind}));
+    if(!/\b(?:I|we|our|my)\b|["\u201c\u201d]/i.test(claim.text))factor.publicText=claim.text;
+    if(claim.type==='confirmed_key_starters') {
+      const sentence=claim.text.replace(/[\[\]]/g,'');
+      const player=sentence.match(new RegExp('\\b'+reEscape(claim.subject).replace(/ /g,'\\s+')+'\\b','i'))?.[0];
+      const team=gameTeams(game).find(t=>t.id===claim.owner);
+      const role=sentence.match(/quarterback|goalie|goaltender|pitcher|starting (?:guard|center|forward)/i)?.[0];
+      if(player && team && role) factor.publicText=`${team.name} will start ${player} at ${role.toLowerCase()}.`;
+      // Optional injury context is informational only. It must be a direct
+      // club report naming this starter and this game's date, never a question,
+      // forecast, reporter's transcript prompt, or a roster-quality inference.
+      for(const doc of documents) {
+        if(!validDocument(doc,now) || sourceAuthority(doc.url,game)?.team!==claim.owner || /transcript|press conference/i.test(doc.title+' '+doc.section) || doc.published>=claim.start || now-doc.published>7*DAY) continue;
+        const detail=clauses(doc).find(s=>normalize(s).includes(claim.subject) && dayBound(s,doc,game,slate) && !/\?|could|might|may |reportedly|according to/i.test(s) && /^([A-Z][a-zA-Z'-]+ [A-Z][a-zA-Z'-]+) and ([A-Z][a-zA-Z'-]+ [A-Z][a-zA-Z'-]+) are injured\b/.test(s));
+        const injured=detail?.match(/^(.+?) and (.+?) are injured\b/);
+        if(!injured || !player || !team || !role) continue;
+        factor.publicText=`${team.name} turn to ${player} at ${role.toLowerCase()} following injuries to ${injured[1]} and ${injured[2]}.`;
+        factor.contextEvidence={sourceUrl:doc.url,passage:detail,verification:'authoritative-primary'};
+        factor.sources.push({url:doc.url,title:doc.title,verification:'authoritative-primary'});
+        break;
+      }
+    }
+    const prior=accepted.get(factor.eventKey);
+    if(!prior) accepted.set(factor.eventKey,factor);
+    else {
+      const newer=factor.sourcePublished>prior.sourcePublished?factor:prior;
+      newer.sources=[...new Map([...prior.sources,...factor.sources].map(s=>[s.url,s])).values()];
+      newer.evidence={...newer.evidence,documents:[...new Map([...prior.evidence.documents,...factor.evidence.documents].map(d=>[d.url,d])).values()].sort((a,b)=>a.url.localeCompare(b.url))};
+      accepted.set(factor.eventKey,newer);
+    }
   }
   return [...accepted.values()].slice(0,4);
 }
@@ -242,7 +277,7 @@ export function revalidateEvidence(factor,game,classify,now=Date.now(),slate=[ga
     if(!prior||doc.retrievedAt>prior.retrievedAt&&(doc.body!==prior.body||doc.published!==prior.published||doc.title!==prior.title))documents.set(doc.url,doc);
   }
   const checked=verifiedEvidenceFactors(game,[...documents.values()].slice(0,SOURCE_LIMITS.documents),classify,now,slate);
-  return checked.find(f=>f.type===factor.type&&f.text===factor.text&&f.sourceUrl===factor.sourceUrl&&f.verification===factor.verification&&f.expiresAt===factor.expiresAt&&
+  return checked.find(f=>(f.type===factor.type||factor.type==='star_injury_return'&&f.type==='player_injury_return')&&f.text===factor.text&&f.sourceUrl===factor.sourceUrl&&f.verification===factor.verification&&f.expiresAt===factor.expiresAt&&
     JSON.stringify(f.evidence)===JSON.stringify(e))||null;
 }
 
@@ -251,10 +286,10 @@ export function revalidateEvidence(factor,game,classify,now=Date.now(),slate=[ga
 // equal-time contradictions fail closed. Scoring weights and caps remain in the
 // existing scorer, after this evidence-level de-duplication.
 export function distinctEvidenceFactors(factors){
-  const personnel=new Set(['star_absence','star_injury_return','confirmed_key_starters','major_trade_storyline','former_star_return','former_captain_return','coach_return','season_debut']);
+  const personnel=new Set(['star_absence','star_injury_return','player_injury_return','confirmed_key_starters','major_trade_storyline','former_star_return','former_captain_return','coach_return','season_debut']);
   const accepted=[],groups=new Map();
   for(const f of factors){
-    if(!f.scoringEligible||!f.evidence?.subject||!personnel.has(f.type)){accepted.push(f);continue;}
+    if(!f.evidence?.subject||!personnel.has(f.type)){accepted.push(f);continue;}
     const key=[f.sport,f.eventId,f.evidence.owner,f.evidence.subject].join(':');
     const group=groups.get(key)||[];group.push(f);groups.set(key,group);
   }
@@ -262,7 +297,8 @@ export function distinctEvidenceFactors(factors){
     group.sort((a,b)=>b.sourcePublished-a.sourcePublished||Number(a.type==='confirmed_key_starters')-Number(b.type==='confirmed_key_starters')||a.type.localeCompare(b.type));
     const latest=group.filter(f=>f.sourcePublished===group[0].sourcePublished);
     if(latest.some(f=>f.type==='star_absence')&&latest.some(f=>['star_injury_return','confirmed_key_starters'].includes(f.type)))continue;
-    accepted.push(group[0]);
+    const selected=group[0],sources=[...new Map(group.flatMap(f=>f.sources||[]).map(s=>[s.url,s])).values()];
+    accepted.push(sources.length?{...selected,sources}:selected);
   }
   return accepted;
 }

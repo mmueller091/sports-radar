@@ -1,0 +1,3081 @@
+{
+  "capturedAt": "2026-11-05T01:23:43.284Z",
+  "sourceCommit": "227981d6a30ebc8477fb2ebcca0cea4429399f80",
+  "event": {
+    "id": "401873037",
+    "uid": "s:20~l:28~e:401873037",
+    "season": {
+      "year": 2026,
+      "current": true,
+      "type": 2
+    },
+    "timeValid": true,
+    "competitions": [
+      {
+        "id": "401873037",
+        "uid": "s:20~l:28~e:401873037~c:401873037",
+        "date": "2026-11-06T01:15Z",
+        "neutralSite": false,
+        "conferenceCompetition": false,
+        "boxscoreAvailable": false,
+        "commentaryAvailable": false,
+        "liveAvailable": false,
+        "onWatchESPN": false,
+        "recent": false,
+        "wallclockAvailable": false,
+        "boxscoreSource": "none",
+        "playByPlaySource": "none",
+        "competitors": [
+          {
+            "id": "33",
+            "uid": "s:20~l:28~t:33",
+            "order": 0,
+            "homeAway": "home",
+            "team": {
+              "id": "33",
+              "guid": "38248455-3da4-84e4-8090-98b5cc38ffdc",
+              "uid": "s:20~l:28~t:33",
+              "location": "Baltimore",
+              "name": "Ravens",
+              "nickname": "Ravens",
+              "abbreviation": "BAL",
+              "displayName": "Baltimore Ravens",
+              "color": "29126f",
+              "alternateColor": "000000"
+            },
+            "record": [
+              {
+                "type": "total",
+                "summary": "4-4",
+                "displayValue": "4-4"
+              },
+              {
+                "type": "home",
+                "summary": "1-2",
+                "displayValue": "1-2"
+              },
+              {
+                "type": "vsconf",
+                "summary": "2-3",
+                "displayValue": "2-3"
+              }
+            ],
+            "possession": false,
+            "records": [
+              {
+                "type": "total",
+                "summary": "4-4",
+                "displayValue": "4-4"
+              },
+              {
+                "type": "home",
+                "summary": "1-2",
+                "displayValue": "1-2"
+              },
+              {
+                "type": "vsconf",
+                "summary": "2-3",
+                "displayValue": "2-3"
+              }
+            ],
+            "score": "0"
+          },
+          {
+            "id": "30",
+            "uid": "s:20~l:28~t:30",
+            "order": 1,
+            "homeAway": "away",
+            "team": {
+              "id": "30",
+              "guid": "ca6fb778-cbf6-d9a3-3e93-01230335fcab",
+              "uid": "s:20~l:28~t:30",
+              "location": "Jacksonville",
+              "name": "Jaguars",
+              "nickname": "Jaguars",
+              "abbreviation": "JAX",
+              "displayName": "Jacksonville Jaguars",
+              "color": "007487",
+              "alternateColor": "d7a22a"
+            },
+            "record": [
+              {
+                "type": "total",
+                "summary": "5-2",
+                "displayValue": "5-2"
+              },
+              {
+                "type": "road",
+                "summary": "1-1",
+                "displayValue": "1-1"
+              },
+              {
+                "type": "vsconf",
+                "summary": "4-2",
+                "displayValue": "4-2"
+              }
+            ],
+            "possession": false,
+            "records": [
+              {
+                "type": "total",
+                "summary": "5-2",
+                "displayValue": "5-2"
+              },
+              {
+                "type": "road",
+                "summary": "1-1",
+                "displayValue": "1-1"
+              },
+              {
+                "type": "vsconf",
+                "summary": "4-2",
+                "displayValue": "4-2"
+              }
+            ],
+            "score": "0"
+          }
+        ],
+        "status": {
+          "type": {
+            "id": "1",
+            "name": "STATUS_SCHEDULED",
+            "state": "pre",
+            "completed": false,
+            "description": "Scheduled",
+            "detail": "Thu, November 5th at 8:15 PM EST",
+            "shortDetail": "11/5 - 8:15 PM EST"
+          },
+          "isTBDFlex": false
+        },
+        "odds": [
+          {
+            "provider": {
+              "id": "100",
+              "name": "DraftKings",
+              "priority": 1,
+              "displayName": "DraftKings"
+            },
+            "details": "JAX -10",
+            "overUnder": 39.5,
+            "spread": 10,
+            "awayTeamOdds": {
+              "favorite": true,
+              "underdog": false,
+              "team": {
+                "id": "30",
+                "uid": "s:20~l:28~t:30",
+                "abbreviation": "JAX",
+                "name": "Jaguars",
+                "displayName": "Jacksonville Jaguars",
+                "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/jax.png"
+              },
+              "favoriteAtOpen": false
+            },
+            "homeTeamOdds": {
+              "favorite": false,
+              "underdog": true,
+              "team": {
+                "id": "33",
+                "uid": "s:20~l:28~t:33",
+                "abbreviation": "BAL",
+                "name": "Ravens",
+                "displayName": "Baltimore Ravens",
+                "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/bal.png"
+              },
+              "favoriteAtOpen": true
+            },
+            "moneyline": {
+              "displayName": "Moneyline",
+              "shortDisplayName": "ML",
+              "home": {
+                "close": {
+                  "odds": "+390",
+                  "link": {
+                    "language": "en-US",
+                    "rel": [
+                      "home",
+                      "desktop",
+                      "bets",
+                      "draftkings"
+                    ],
+                    "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F34118164%3Foutcomes%3D0ML84695597_1",
+                    "text": "Home Bet",
+                    "shortText": "Home Bet",
+                    "isExternal": true,
+                    "isPremium": false,
+                    "tracking": {
+                      "campaign": "betting-integrations",
+                      "tags": {
+                        "league": "nfl",
+                        "sport": "football",
+                        "gameId": 401873037,
+                        "betSide": "home",
+                        "betType": "straight"
+                      }
+                    }
+                  }
+                },
+                "open": {
+                  "odds": "-218"
+                }
+              },
+              "away": {
+                "close": {
+                  "odds": "-520",
+                  "link": {
+                    "language": "en-US",
+                    "rel": [
+                      "away",
+                      "desktop",
+                      "bets",
+                      "draftkings"
+                    ],
+                    "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F34118164%3Foutcomes%3D0ML84695597_3",
+                    "text": "Away Bet",
+                    "shortText": "Away Bet",
+                    "isExternal": true,
+                    "isPremium": false,
+                    "tracking": {
+                      "campaign": "betting-integrations",
+                      "tags": {
+                        "league": "nfl",
+                        "sport": "football",
+                        "gameId": 401873037,
+                        "betSide": "away",
+                        "betType": "straight"
+                      }
+                    }
+                  }
+                },
+                "open": {
+                  "odds": "+180"
+                }
+              }
+            },
+            "pointSpread": {
+              "displayName": "Spread",
+              "shortDisplayName": "Spread",
+              "home": {
+                "close": {
+                  "line": "+10",
+                  "odds": "-115",
+                  "link": {
+                    "language": "en-US",
+                    "rel": [
+                      "homeSpread",
+                      "desktop",
+                      "bets"
+                    ],
+                    "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F34118164%3Foutcomes%3D0HC84695597P1000_1",
+                    "text": "Home Point Spread",
+                    "shortText": "Home Point Spread",
+                    "isExternal": true,
+                    "isPremium": false,
+                    "tracking": {
+                      "campaign": "betting-integrations",
+                      "tags": {
+                        "league": "nfl",
+                        "sport": "football",
+                        "gameId": 401873037,
+                        "betSide": "none",
+                        "betType": "straight",
+                        "betDetails": "Spread:BAL+10"
+                      }
+                    }
+                  }
+                },
+                "open": {
+                  "line": "-4.5",
+                  "odds": "-110"
+                }
+              },
+              "away": {
+                "close": {
+                  "line": "-10",
+                  "odds": "-105",
+                  "link": {
+                    "language": "en-US",
+                    "rel": [
+                      "awaySpread",
+                      "desktop",
+                      "bets"
+                    ],
+                    "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F34118164%3Foutcomes%3D0HC84695597N1000_3",
+                    "text": "Away Point Spread",
+                    "shortText": "Away Point Spread",
+                    "isExternal": true,
+                    "isPremium": false,
+                    "tracking": {
+                      "campaign": "betting-integrations",
+                      "tags": {
+                        "league": "nfl",
+                        "sport": "football",
+                        "gameId": 401873037,
+                        "betSide": "none",
+                        "betType": "straight",
+                        "betDetails": "Spread:JAX-10"
+                      }
+                    }
+                  }
+                },
+                "open": {
+                  "line": "+4.5",
+                  "odds": "-110"
+                }
+              }
+            },
+            "total": {
+              "displayName": "Total",
+              "shortDisplayName": "Total",
+              "over": {
+                "close": {
+                  "line": "o39.5",
+                  "odds": "-112",
+                  "link": {
+                    "language": "en-US",
+                    "rel": [
+                      "over",
+                      "desktop",
+                      "bets"
+                    ],
+                    "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F34118164%3Foutcomes%3D0OU84695597O3950_1",
+                    "text": "Over Odds",
+                    "shortText": "Over Odds",
+                    "isExternal": true,
+                    "isPremium": false,
+                    "tracking": {
+                      "campaign": "betting-integrations",
+                      "tags": {
+                        "league": "nfl",
+                        "sport": "football",
+                        "gameId": 401873037,
+                        "betSide": "over",
+                        "betType": "straight",
+                        "betDetails": "Over:39.5"
+                      }
+                    }
+                  }
+                },
+                "open": {
+                  "line": "o49.5",
+                  "odds": "-110"
+                }
+              },
+              "under": {
+                "close": {
+                  "line": "u39.5",
+                  "odds": "-108",
+                  "link": {
+                    "language": "en-US",
+                    "rel": [
+                      "under",
+                      "desktop",
+                      "bets"
+                    ],
+                    "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F34118164%3Foutcomes%3D0OU84695597U3950_3",
+                    "text": "Under Odds",
+                    "shortText": "Under Odds",
+                    "isExternal": true,
+                    "isPremium": false,
+                    "tracking": {
+                      "campaign": "betting-integrations",
+                      "tags": {
+                        "league": "nfl",
+                        "sport": "football",
+                        "gameId": 401873037,
+                        "betSide": "under",
+                        "betType": "straight",
+                        "betDetails": "Under:39.5"
+                      }
+                    }
+                  }
+                },
+                "open": {
+                  "line": "u49.5",
+                  "odds": "-110"
+                }
+              }
+            },
+            "link": {
+              "language": "en-US",
+              "rel": [
+                "game",
+                "desktop",
+                "bets"
+              ],
+              "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F34118164",
+              "text": "See More Odds",
+              "shortText": "Game",
+              "isExternal": true,
+              "isPremium": false,
+              "tracking": {
+                "campaign": "betting-integrations",
+                "tags": {
+                  "league": "nfl",
+                  "sport": "football",
+                  "gameId": 401873037,
+                  "betSide": "none",
+                  "betType": "straight"
+                }
+              }
+            },
+            "header": {
+              "logo": {
+                "dark": "https://a.espncdn.com/i/espnbet/dark/espn-bet-square-off.svg",
+                "light": "https://a.espncdn.com/i/espnbet/espn-bet-square-off.svg",
+                "exclusivesLogoDark": "https://a.espncdn.com/i/espnbet/espn-bet-square-mint.svg",
+                "exclusivesLogoLight": "https://a.espncdn.com/i/espnbet/espn-bet-square-mint.svg"
+              },
+              "text": "Game Odds"
+            },
+            "footer": {
+              "disclaimer": "GAMBLING PROBLEM? CALL 1-800-GAMBLER or 1-800-MY-RESET, (800) 327-5050 or visit gamblinghelplinema.org (MA). Call 877-8-HOPENY/text HOPENY (467369) (NY). Call 888-789-7777/visit ccpg.org (CT), or visit www.mdgamblinghelp.org (MD), 1-800-981-0023 (PR). 21+ and present in most states. (18+ DC/KY/NH/PR/WY). Void in ONT. Eligibility restrictions apply. Terms: draftkings.com/sportsbook. On behalf of Boot Hill Casino (KS). Pass-thru of per wager tax may apply in IL."
+            }
+          }
+        ],
+        "broadcasts": [
+          {
+            "type": {
+              "id": "4",
+              "shortName": "Streaming"
+            },
+            "market": {
+              "id": "1",
+              "type": "National"
+            },
+            "media": {
+              "shortName": "Prime Video"
+            },
+            "lang": "en",
+            "region": "us",
+            "isNational": true
+          }
+        ],
+        "boxscoreMinutes": false
+      }
+    ],
+    "week": 9,
+    "league": {
+      "id": "28",
+      "uid": "s:20~l:28",
+      "name": "National Football League",
+      "abbreviation": "NFL",
+      "shortName": "NFL",
+      "slug": "nfl",
+      "isTournament": false
+    },
+    "date": "2026-11-06T01:15Z",
+    "name": "Jacksonville Jaguars at Baltimore Ravens"
+  },
+  "summary": {
+    "header": {
+      "id": "401873037",
+      "uid": "s:20~l:28~e:401873037",
+      "season": {
+        "year": 2026,
+        "current": true,
+        "type": 2
+      },
+      "timeValid": true,
+      "competitions": [
+        {
+          "id": "401873037",
+          "uid": "s:20~l:28~e:401873037~c:401873037",
+          "date": "2026-11-06T01:15Z",
+          "neutralSite": false,
+          "conferenceCompetition": false,
+          "boxscoreAvailable": false,
+          "commentaryAvailable": false,
+          "liveAvailable": false,
+          "onWatchESPN": false,
+          "recent": false,
+          "wallclockAvailable": false,
+          "boxscoreSource": "none",
+          "playByPlaySource": "none",
+          "competitors": [
+            {
+              "id": "33",
+              "uid": "s:20~l:28~t:33",
+              "order": 0,
+              "homeAway": "home",
+              "team": {
+                "id": "33",
+                "guid": "38248455-3da4-84e4-8090-98b5cc38ffdc",
+                "uid": "s:20~l:28~t:33",
+                "location": "Baltimore",
+                "name": "Ravens",
+                "nickname": "Ravens",
+                "abbreviation": "BAL",
+                "displayName": "Baltimore Ravens",
+                "color": "29126f",
+                "alternateColor": "000000"
+              },
+              "record": [
+                {
+                  "type": "total",
+                  "summary": "4-4",
+                  "displayValue": "4-4"
+                },
+                {
+                  "type": "home",
+                  "summary": "1-2",
+                  "displayValue": "1-2"
+                },
+                {
+                  "type": "vsconf",
+                  "summary": "2-3",
+                  "displayValue": "2-3"
+                }
+              ],
+              "possession": false,
+              "records": [
+                {
+                  "type": "total",
+                  "summary": "4-4",
+                  "displayValue": "4-4"
+                },
+                {
+                  "type": "home",
+                  "summary": "1-2",
+                  "displayValue": "1-2"
+                },
+                {
+                  "type": "vsconf",
+                  "summary": "2-3",
+                  "displayValue": "2-3"
+                }
+              ],
+              "score": "0"
+            },
+            {
+              "id": "30",
+              "uid": "s:20~l:28~t:30",
+              "order": 1,
+              "homeAway": "away",
+              "team": {
+                "id": "30",
+                "guid": "ca6fb778-cbf6-d9a3-3e93-01230335fcab",
+                "uid": "s:20~l:28~t:30",
+                "location": "Jacksonville",
+                "name": "Jaguars",
+                "nickname": "Jaguars",
+                "abbreviation": "JAX",
+                "displayName": "Jacksonville Jaguars",
+                "color": "007487",
+                "alternateColor": "d7a22a"
+              },
+              "record": [
+                {
+                  "type": "total",
+                  "summary": "5-2",
+                  "displayValue": "5-2"
+                },
+                {
+                  "type": "road",
+                  "summary": "1-1",
+                  "displayValue": "1-1"
+                },
+                {
+                  "type": "vsconf",
+                  "summary": "4-2",
+                  "displayValue": "4-2"
+                }
+              ],
+              "possession": false,
+              "records": [
+                {
+                  "type": "total",
+                  "summary": "5-2",
+                  "displayValue": "5-2"
+                },
+                {
+                  "type": "road",
+                  "summary": "1-1",
+                  "displayValue": "1-1"
+                },
+                {
+                  "type": "vsconf",
+                  "summary": "4-2",
+                  "displayValue": "4-2"
+                }
+              ],
+              "score": "0"
+            }
+          ],
+          "status": {
+            "type": {
+              "id": "1",
+              "name": "STATUS_SCHEDULED",
+              "state": "pre",
+              "completed": false,
+              "description": "Scheduled",
+              "detail": "Thu, November 5th at 8:15 PM EST",
+              "shortDetail": "11/5 - 8:15 PM EST"
+            },
+            "isTBDFlex": false
+          },
+          "odds": [
+            {
+              "provider": {
+                "id": "100",
+                "name": "DraftKings",
+                "priority": 1,
+                "displayName": "DraftKings"
+              },
+              "details": "JAX -10",
+              "overUnder": 39.5,
+              "spread": 10,
+              "awayTeamOdds": {
+                "favorite": true,
+                "underdog": false,
+                "team": {
+                  "id": "30",
+                  "uid": "s:20~l:28~t:30",
+                  "abbreviation": "JAX",
+                  "name": "Jaguars",
+                  "displayName": "Jacksonville Jaguars",
+                  "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/jax.png"
+                },
+                "favoriteAtOpen": false
+              },
+              "homeTeamOdds": {
+                "favorite": false,
+                "underdog": true,
+                "team": {
+                  "id": "33",
+                  "uid": "s:20~l:28~t:33",
+                  "abbreviation": "BAL",
+                  "name": "Ravens",
+                  "displayName": "Baltimore Ravens",
+                  "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/bal.png"
+                },
+                "favoriteAtOpen": true
+              },
+              "moneyline": {
+                "displayName": "Moneyline",
+                "shortDisplayName": "ML",
+                "home": {
+                  "close": {
+                    "odds": "+390",
+                    "link": {
+                      "language": "en-US",
+                      "rel": [
+                        "home",
+                        "desktop",
+                        "bets",
+                        "draftkings"
+                      ],
+                      "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F34118164%3Foutcomes%3D0ML84695597_1",
+                      "text": "Home Bet",
+                      "shortText": "Home Bet",
+                      "isExternal": true,
+                      "isPremium": false,
+                      "tracking": {
+                        "campaign": "betting-integrations",
+                        "tags": {
+                          "league": "nfl",
+                          "sport": "football",
+                          "gameId": 401873037,
+                          "betSide": "home",
+                          "betType": "straight"
+                        }
+                      }
+                    }
+                  },
+                  "open": {
+                    "odds": "-218"
+                  }
+                },
+                "away": {
+                  "close": {
+                    "odds": "-520",
+                    "link": {
+                      "language": "en-US",
+                      "rel": [
+                        "away",
+                        "desktop",
+                        "bets",
+                        "draftkings"
+                      ],
+                      "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F34118164%3Foutcomes%3D0ML84695597_3",
+                      "text": "Away Bet",
+                      "shortText": "Away Bet",
+                      "isExternal": true,
+                      "isPremium": false,
+                      "tracking": {
+                        "campaign": "betting-integrations",
+                        "tags": {
+                          "league": "nfl",
+                          "sport": "football",
+                          "gameId": 401873037,
+                          "betSide": "away",
+                          "betType": "straight"
+                        }
+                      }
+                    }
+                  },
+                  "open": {
+                    "odds": "+180"
+                  }
+                }
+              },
+              "pointSpread": {
+                "displayName": "Spread",
+                "shortDisplayName": "Spread",
+                "home": {
+                  "close": {
+                    "line": "+10",
+                    "odds": "-115",
+                    "link": {
+                      "language": "en-US",
+                      "rel": [
+                        "homeSpread",
+                        "desktop",
+                        "bets"
+                      ],
+                      "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F34118164%3Foutcomes%3D0HC84695597P1000_1",
+                      "text": "Home Point Spread",
+                      "shortText": "Home Point Spread",
+                      "isExternal": true,
+                      "isPremium": false,
+                      "tracking": {
+                        "campaign": "betting-integrations",
+                        "tags": {
+                          "league": "nfl",
+                          "sport": "football",
+                          "gameId": 401873037,
+                          "betSide": "none",
+                          "betType": "straight",
+                          "betDetails": "Spread:BAL+10"
+                        }
+                      }
+                    }
+                  },
+                  "open": {
+                    "line": "-4.5",
+                    "odds": "-110"
+                  }
+                },
+                "away": {
+                  "close": {
+                    "line": "-10",
+                    "odds": "-105",
+                    "link": {
+                      "language": "en-US",
+                      "rel": [
+                        "awaySpread",
+                        "desktop",
+                        "bets"
+                      ],
+                      "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F34118164%3Foutcomes%3D0HC84695597N1000_3",
+                      "text": "Away Point Spread",
+                      "shortText": "Away Point Spread",
+                      "isExternal": true,
+                      "isPremium": false,
+                      "tracking": {
+                        "campaign": "betting-integrations",
+                        "tags": {
+                          "league": "nfl",
+                          "sport": "football",
+                          "gameId": 401873037,
+                          "betSide": "none",
+                          "betType": "straight",
+                          "betDetails": "Spread:JAX-10"
+                        }
+                      }
+                    }
+                  },
+                  "open": {
+                    "line": "+4.5",
+                    "odds": "-110"
+                  }
+                }
+              },
+              "total": {
+                "displayName": "Total",
+                "shortDisplayName": "Total",
+                "over": {
+                  "close": {
+                    "line": "o39.5",
+                    "odds": "-112",
+                    "link": {
+                      "language": "en-US",
+                      "rel": [
+                        "over",
+                        "desktop",
+                        "bets"
+                      ],
+                      "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F34118164%3Foutcomes%3D0OU84695597O3950_1",
+                      "text": "Over Odds",
+                      "shortText": "Over Odds",
+                      "isExternal": true,
+                      "isPremium": false,
+                      "tracking": {
+                        "campaign": "betting-integrations",
+                        "tags": {
+                          "league": "nfl",
+                          "sport": "football",
+                          "gameId": 401873037,
+                          "betSide": "over",
+                          "betType": "straight",
+                          "betDetails": "Over:39.5"
+                        }
+                      }
+                    }
+                  },
+                  "open": {
+                    "line": "o49.5",
+                    "odds": "-110"
+                  }
+                },
+                "under": {
+                  "close": {
+                    "line": "u39.5",
+                    "odds": "-108",
+                    "link": {
+                      "language": "en-US",
+                      "rel": [
+                        "under",
+                        "desktop",
+                        "bets"
+                      ],
+                      "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F34118164%3Foutcomes%3D0OU84695597U3950_3",
+                      "text": "Under Odds",
+                      "shortText": "Under Odds",
+                      "isExternal": true,
+                      "isPremium": false,
+                      "tracking": {
+                        "campaign": "betting-integrations",
+                        "tags": {
+                          "league": "nfl",
+                          "sport": "football",
+                          "gameId": 401873037,
+                          "betSide": "under",
+                          "betType": "straight",
+                          "betDetails": "Under:39.5"
+                        }
+                      }
+                    }
+                  },
+                  "open": {
+                    "line": "u49.5",
+                    "odds": "-110"
+                  }
+                }
+              },
+              "link": {
+                "language": "en-US",
+                "rel": [
+                  "game",
+                  "desktop",
+                  "bets"
+                ],
+                "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F34118164",
+                "text": "See More Odds",
+                "shortText": "Game",
+                "isExternal": true,
+                "isPremium": false,
+                "tracking": {
+                  "campaign": "betting-integrations",
+                  "tags": {
+                    "league": "nfl",
+                    "sport": "football",
+                    "gameId": 401873037,
+                    "betSide": "none",
+                    "betType": "straight"
+                  }
+                }
+              },
+              "header": {
+                "logo": {
+                  "dark": "https://a.espncdn.com/i/espnbet/dark/espn-bet-square-off.svg",
+                  "light": "https://a.espncdn.com/i/espnbet/espn-bet-square-off.svg",
+                  "exclusivesLogoDark": "https://a.espncdn.com/i/espnbet/espn-bet-square-mint.svg",
+                  "exclusivesLogoLight": "https://a.espncdn.com/i/espnbet/espn-bet-square-mint.svg"
+                },
+                "text": "Game Odds"
+              },
+              "footer": {
+                "disclaimer": "GAMBLING PROBLEM? CALL 1-800-GAMBLER or 1-800-MY-RESET, (800) 327-5050 or visit gamblinghelplinema.org (MA). Call 877-8-HOPENY/text HOPENY (467369) (NY). Call 888-789-7777/visit ccpg.org (CT), or visit www.mdgamblinghelp.org (MD), 1-800-981-0023 (PR). 21+ and present in most states. (18+ DC/KY/NH/PR/WY). Void in ONT. Eligibility restrictions apply. Terms: draftkings.com/sportsbook. On behalf of Boot Hill Casino (KS). Pass-thru of per wager tax may apply in IL."
+              }
+            }
+          ],
+          "broadcasts": [
+            {
+              "type": {
+                "id": "4",
+                "shortName": "Streaming"
+              },
+              "market": {
+                "id": "1",
+                "type": "National"
+              },
+              "media": {
+                "shortName": "Prime Video"
+              },
+              "lang": "en",
+              "region": "us",
+              "isNational": true
+            }
+          ],
+          "boxscoreMinutes": false
+        }
+      ],
+      "week": 9,
+      "league": {
+        "id": "28",
+        "uid": "s:20~l:28",
+        "name": "National Football League",
+        "abbreviation": "NFL",
+        "shortName": "NFL",
+        "slug": "nfl",
+        "isTournament": false
+      }
+    },
+    "standings": {
+      "fullViewLink": {
+        "text": "Full Standings",
+        "href": "https://www.espn.com/nfl/standings"
+      },
+      "header": "2026 Standings",
+      "groups": [
+        {
+          "standings": {
+            "entries": [
+              {
+                "team": "Jacksonville",
+                "link": "https://www.espn.com/nfl/team/_/name/jax/jacksonville-jaguars",
+                "id": "30",
+                "uid": "s:20~l:28~t:30",
+                "stats": [
+                  {
+                    "name": "losses",
+                    "displayName": "Losses",
+                    "shortDisplayName": "L",
+                    "description": "Losses",
+                    "abbreviation": "L",
+                    "type": "losses",
+                    "value": 2,
+                    "displayValue": "2"
+                  },
+                  {
+                    "name": "pointsAgainst",
+                    "displayName": "Points Against",
+                    "shortDisplayName": "PA",
+                    "description": "Total Points Against",
+                    "abbreviation": "PA",
+                    "type": "pointsagainst",
+                    "value": 111,
+                    "displayValue": "111"
+                  },
+                  {
+                    "name": "pointsFor",
+                    "displayName": "Points For",
+                    "shortDisplayName": "PF",
+                    "description": "Total Points For",
+                    "abbreviation": "PF",
+                    "type": "pointsfor",
+                    "value": 196,
+                    "displayValue": "196"
+                  },
+                  {
+                    "name": "ties",
+                    "displayName": "Ties",
+                    "shortDisplayName": "T",
+                    "description": "Ties",
+                    "abbreviation": "T",
+                    "type": "ties",
+                    "value": 0,
+                    "displayValue": "0"
+                  },
+                  {
+                    "name": "winPercent",
+                    "displayName": "Win Percentage",
+                    "shortDisplayName": "PCT",
+                    "description": "Winning Percentage",
+                    "abbreviation": "PCT",
+                    "type": "winpercent",
+                    "value": 0.71428573,
+                    "displayValue": ".714"
+                  },
+                  {
+                    "name": "wins",
+                    "displayName": "Wins",
+                    "shortDisplayName": "W",
+                    "description": "Wins",
+                    "abbreviation": "W",
+                    "type": "wins",
+                    "value": 5,
+                    "displayValue": "5"
+                  },
+                  {
+                    "id": "0",
+                    "name": "overall",
+                    "abbreviation": "Any",
+                    "type": "total",
+                    "summary": "5-2",
+                    "displayValue": "5-2"
+                  }
+                ],
+                "logo": [
+                  {
+                    "href": "https://a.espncdn.com/i/teamlogos/nfl/500/jax.png",
+                    "width": 500,
+                    "height": 500,
+                    "alt": "",
+                    "rel": [
+                      "full",
+                      "default"
+                    ],
+                    "lastUpdated": "2024-06-25T18:50Z"
+                  },
+                  {
+                    "href": "https://a.espncdn.com/i/teamlogos/nfl/500-dark/scoreboard/jax.png",
+                    "width": 500,
+                    "height": 500,
+                    "alt": "",
+                    "rel": [
+                      "full",
+                      "scoreboard",
+                      "dark"
+                    ],
+                    "lastUpdated": "2024-06-25T18:50Z"
+                  }
+                ]
+              },
+              {
+                "team": "Houston",
+                "link": "https://www.espn.com/nfl/team/_/name/hou/houston-texans",
+                "id": "34",
+                "uid": "s:20~l:28~t:34",
+                "stats": [
+                  {
+                    "name": "losses",
+                    "displayName": "Losses",
+                    "shortDisplayName": "L",
+                    "description": "Losses",
+                    "abbreviation": "L",
+                    "type": "losses",
+                    "value": 5,
+                    "displayValue": "5"
+                  },
+                  {
+                    "name": "pointsAgainst",
+                    "displayName": "Points Against",
+                    "shortDisplayName": "PA",
+                    "description": "Total Points Against",
+                    "abbreviation": "PA",
+                    "type": "pointsagainst",
+                    "value": 170,
+                    "displayValue": "170"
+                  },
+                  {
+                    "name": "pointsFor",
+                    "displayName": "Points For",
+                    "shortDisplayName": "PF",
+                    "description": "Total Points For",
+                    "abbreviation": "PF",
+                    "type": "pointsfor",
+                    "value": 165,
+                    "displayValue": "165"
+                  },
+                  {
+                    "name": "ties",
+                    "displayName": "Ties",
+                    "shortDisplayName": "T",
+                    "description": "Ties",
+                    "abbreviation": "T",
+                    "type": "ties",
+                    "value": 0,
+                    "displayValue": "0"
+                  },
+                  {
+                    "name": "winPercent",
+                    "displayName": "Win Percentage",
+                    "shortDisplayName": "PCT",
+                    "description": "Winning Percentage",
+                    "abbreviation": "PCT",
+                    "type": "winpercent",
+                    "value": 0.2857143,
+                    "displayValue": ".286"
+                  },
+                  {
+                    "name": "wins",
+                    "displayName": "Wins",
+                    "shortDisplayName": "W",
+                    "description": "Wins",
+                    "abbreviation": "W",
+                    "type": "wins",
+                    "value": 2,
+                    "displayValue": "2"
+                  },
+                  {
+                    "id": "0",
+                    "name": "overall",
+                    "abbreviation": "Any",
+                    "type": "total",
+                    "summary": "2-5",
+                    "displayValue": "2-5"
+                  }
+                ],
+                "logo": [
+                  {
+                    "href": "https://a.espncdn.com/i/teamlogos/nfl/500/hou.png",
+                    "width": 500,
+                    "height": 500,
+                    "alt": "",
+                    "rel": [
+                      "full",
+                      "default"
+                    ],
+                    "lastUpdated": "2024-06-25T18:50Z"
+                  },
+                  {
+                    "href": "https://a.espncdn.com/i/teamlogos/nfl/500-dark/scoreboard/hou.png",
+                    "width": 500,
+                    "height": 500,
+                    "alt": "",
+                    "rel": [
+                      "full",
+                      "scoreboard",
+                      "dark"
+                    ],
+                    "lastUpdated": "2024-06-25T18:49Z"
+                  }
+                ]
+              },
+              {
+                "team": "Indianapolis",
+                "link": "https://www.espn.com/nfl/team/_/name/ind/indianapolis-colts",
+                "id": "11",
+                "uid": "s:20~l:28~t:11",
+                "stats": [
+                  {
+                    "name": "losses",
+                    "displayName": "Losses",
+                    "shortDisplayName": "L",
+                    "description": "Losses",
+                    "abbreviation": "L",
+                    "type": "losses",
+                    "value": 6,
+                    "displayValue": "6"
+                  },
+                  {
+                    "name": "pointsAgainst",
+                    "displayName": "Points Against",
+                    "shortDisplayName": "PA",
+                    "description": "Total Points Against",
+                    "abbreviation": "PA",
+                    "type": "pointsagainst",
+                    "value": 222,
+                    "displayValue": "222"
+                  },
+                  {
+                    "name": "pointsFor",
+                    "displayName": "Points For",
+                    "shortDisplayName": "PF",
+                    "description": "Total Points For",
+                    "abbreviation": "PF",
+                    "type": "pointsfor",
+                    "value": 161,
+                    "displayValue": "161"
+                  },
+                  {
+                    "name": "ties",
+                    "displayName": "Ties",
+                    "shortDisplayName": "T",
+                    "description": "Ties",
+                    "abbreviation": "T",
+                    "type": "ties",
+                    "value": 0,
+                    "displayValue": "0"
+                  },
+                  {
+                    "name": "winPercent",
+                    "displayName": "Win Percentage",
+                    "shortDisplayName": "PCT",
+                    "description": "Winning Percentage",
+                    "abbreviation": "PCT",
+                    "type": "winpercent",
+                    "value": 0.25,
+                    "displayValue": ".250"
+                  },
+                  {
+                    "name": "wins",
+                    "displayName": "Wins",
+                    "shortDisplayName": "W",
+                    "description": "Wins",
+                    "abbreviation": "W",
+                    "type": "wins",
+                    "value": 2,
+                    "displayValue": "2"
+                  },
+                  {
+                    "id": "0",
+                    "name": "overall",
+                    "abbreviation": "Any",
+                    "type": "total",
+                    "summary": "2-6",
+                    "displayValue": "2-6"
+                  }
+                ],
+                "logo": [
+                  {
+                    "href": "https://a.espncdn.com/i/teamlogos/nfl/500/ind.png",
+                    "width": 500,
+                    "height": 500,
+                    "alt": "",
+                    "rel": [
+                      "full",
+                      "default"
+                    ],
+                    "lastUpdated": "2024-06-25T18:50Z"
+                  },
+                  {
+                    "href": "https://a.espncdn.com/i/teamlogos/nfl/500-dark/scoreboard/ind.png",
+                    "width": 500,
+                    "height": 500,
+                    "alt": "",
+                    "rel": [
+                      "full",
+                      "scoreboard",
+                      "dark"
+                    ],
+                    "lastUpdated": "2024-06-25T18:50Z"
+                  }
+                ]
+              },
+              {
+                "team": "Tennessee",
+                "link": "https://www.espn.com/nfl/team/_/name/ten/tennessee-titans",
+                "id": "10",
+                "uid": "s:20~l:28~t:10",
+                "stats": [
+                  {
+                    "name": "losses",
+                    "displayName": "Losses",
+                    "shortDisplayName": "L",
+                    "description": "Losses",
+                    "abbreviation": "L",
+                    "type": "losses",
+                    "value": 7,
+                    "displayValue": "7"
+                  },
+                  {
+                    "name": "pointsAgainst",
+                    "displayName": "Points Against",
+                    "shortDisplayName": "PA",
+                    "description": "Total Points Against",
+                    "abbreviation": "PA",
+                    "type": "pointsagainst",
+                    "value": 199,
+                    "displayValue": "199"
+                  },
+                  {
+                    "name": "pointsFor",
+                    "displayName": "Points For",
+                    "shortDisplayName": "PF",
+                    "description": "Total Points For",
+                    "abbreviation": "PF",
+                    "type": "pointsfor",
+                    "value": 144,
+                    "displayValue": "144"
+                  },
+                  {
+                    "name": "ties",
+                    "displayName": "Ties",
+                    "shortDisplayName": "T",
+                    "description": "Ties",
+                    "abbreviation": "T",
+                    "type": "ties",
+                    "value": 0,
+                    "displayValue": "0"
+                  },
+                  {
+                    "name": "winPercent",
+                    "displayName": "Win Percentage",
+                    "shortDisplayName": "PCT",
+                    "description": "Winning Percentage",
+                    "abbreviation": "PCT",
+                    "type": "winpercent",
+                    "value": 0.125,
+                    "displayValue": ".125"
+                  },
+                  {
+                    "name": "wins",
+                    "displayName": "Wins",
+                    "shortDisplayName": "W",
+                    "description": "Wins",
+                    "abbreviation": "W",
+                    "type": "wins",
+                    "value": 1,
+                    "displayValue": "1"
+                  },
+                  {
+                    "id": "0",
+                    "name": "overall",
+                    "abbreviation": "Any",
+                    "type": "total",
+                    "summary": "1-7",
+                    "displayValue": "1-7"
+                  }
+                ],
+                "logo": [
+                  {
+                    "href": "https://a.espncdn.com/i/teamlogos/nfl/500/ten.png",
+                    "width": 500,
+                    "height": 500,
+                    "alt": "",
+                    "rel": [
+                      "full",
+                      "default"
+                    ],
+                    "lastUpdated": "2026-03-20T19:56Z"
+                  },
+                  {
+                    "href": "https://a.espncdn.com/i/teamlogos/nfl/500-dark/scoreboard/ten.png",
+                    "width": 500,
+                    "height": 500,
+                    "alt": "",
+                    "rel": [
+                      "full",
+                      "scoreboard",
+                      "dark"
+                    ],
+                    "lastUpdated": "2026-03-20T19:56Z"
+                  }
+                ]
+              }
+            ]
+          },
+          "header": "2026 AFC South Standings",
+          "href": "https://www.espn.com/nfl/standings/_/group/13",
+          "conferenceHeader": "American Football Conference",
+          "divisionHeader": "AFC South"
+        },
+        {
+          "standings": {
+            "entries": [
+              {
+                "team": "Pittsburgh",
+                "link": "https://www.espn.com/nfl/team/_/name/pit/pittsburgh-steelers",
+                "id": "23",
+                "uid": "s:20~l:28~t:23",
+                "stats": [
+                  {
+                    "name": "losses",
+                    "displayName": "Losses",
+                    "shortDisplayName": "L",
+                    "description": "Losses",
+                    "abbreviation": "L",
+                    "type": "losses",
+                    "value": 2,
+                    "displayValue": "2"
+                  },
+                  {
+                    "name": "pointsAgainst",
+                    "displayName": "Points Against",
+                    "shortDisplayName": "PA",
+                    "description": "Total Points Against",
+                    "abbreviation": "PA",
+                    "type": "pointsagainst",
+                    "value": 144,
+                    "displayValue": "144"
+                  },
+                  {
+                    "name": "pointsFor",
+                    "displayName": "Points For",
+                    "shortDisplayName": "PF",
+                    "description": "Total Points For",
+                    "abbreviation": "PF",
+                    "type": "pointsfor",
+                    "value": 180,
+                    "displayValue": "180"
+                  },
+                  {
+                    "name": "ties",
+                    "displayName": "Ties",
+                    "shortDisplayName": "T",
+                    "description": "Ties",
+                    "abbreviation": "T",
+                    "type": "ties",
+                    "value": 0,
+                    "displayValue": "0"
+                  },
+                  {
+                    "name": "winPercent",
+                    "displayName": "Win Percentage",
+                    "shortDisplayName": "PCT",
+                    "description": "Winning Percentage",
+                    "abbreviation": "PCT",
+                    "type": "winpercent",
+                    "value": 0.75,
+                    "displayValue": ".750"
+                  },
+                  {
+                    "name": "wins",
+                    "displayName": "Wins",
+                    "shortDisplayName": "W",
+                    "description": "Wins",
+                    "abbreviation": "W",
+                    "type": "wins",
+                    "value": 6,
+                    "displayValue": "6"
+                  },
+                  {
+                    "id": "0",
+                    "name": "overall",
+                    "abbreviation": "Any",
+                    "type": "total",
+                    "summary": "6-2",
+                    "displayValue": "6-2"
+                  }
+                ],
+                "logo": [
+                  {
+                    "href": "https://a.espncdn.com/i/teamlogos/nfl/500/pit.png",
+                    "width": 500,
+                    "height": 500,
+                    "alt": "",
+                    "rel": [
+                      "full",
+                      "default"
+                    ],
+                    "lastUpdated": "2024-06-25T18:56Z"
+                  },
+                  {
+                    "href": "https://a.espncdn.com/i/teamlogos/nfl/500-dark/scoreboard/pit.png",
+                    "width": 500,
+                    "height": 500,
+                    "alt": "",
+                    "rel": [
+                      "full",
+                      "scoreboard",
+                      "dark"
+                    ],
+                    "lastUpdated": "2024-06-25T18:56Z"
+                  }
+                ]
+              },
+              {
+                "team": "Cincinnati",
+                "link": "https://www.espn.com/nfl/team/_/name/cin/cincinnati-bengals",
+                "id": "4",
+                "uid": "s:20~l:28~t:4",
+                "stats": [
+                  {
+                    "name": "losses",
+                    "displayName": "Losses",
+                    "shortDisplayName": "L",
+                    "description": "Losses",
+                    "abbreviation": "L",
+                    "type": "losses",
+                    "value": 2,
+                    "displayValue": "2"
+                  },
+                  {
+                    "name": "pointsAgainst",
+                    "displayName": "Points Against",
+                    "shortDisplayName": "PA",
+                    "description": "Total Points Against",
+                    "abbreviation": "PA",
+                    "type": "pointsagainst",
+                    "value": 158,
+                    "displayValue": "158"
+                  },
+                  {
+                    "name": "pointsFor",
+                    "displayName": "Points For",
+                    "shortDisplayName": "PF",
+                    "description": "Total Points For",
+                    "abbreviation": "PF",
+                    "type": "pointsfor",
+                    "value": 206,
+                    "displayValue": "206"
+                  },
+                  {
+                    "name": "ties",
+                    "displayName": "Ties",
+                    "shortDisplayName": "T",
+                    "description": "Ties",
+                    "abbreviation": "T",
+                    "type": "ties",
+                    "value": 0,
+                    "displayValue": "0"
+                  },
+                  {
+                    "name": "winPercent",
+                    "displayName": "Win Percentage",
+                    "shortDisplayName": "PCT",
+                    "description": "Winning Percentage",
+                    "abbreviation": "PCT",
+                    "type": "winpercent",
+                    "value": 0.71428573,
+                    "displayValue": ".714"
+                  },
+                  {
+                    "name": "wins",
+                    "displayName": "Wins",
+                    "shortDisplayName": "W",
+                    "description": "Wins",
+                    "abbreviation": "W",
+                    "type": "wins",
+                    "value": 5,
+                    "displayValue": "5"
+                  },
+                  {
+                    "id": "0",
+                    "name": "overall",
+                    "abbreviation": "Any",
+                    "type": "total",
+                    "summary": "5-2",
+                    "displayValue": "5-2"
+                  }
+                ],
+                "logo": [
+                  {
+                    "href": "https://a.espncdn.com/i/teamlogos/nfl/500/cin.png",
+                    "width": 500,
+                    "height": 500,
+                    "alt": "",
+                    "rel": [
+                      "full",
+                      "default"
+                    ],
+                    "lastUpdated": "2024-06-25T18:46Z"
+                  },
+                  {
+                    "href": "https://a.espncdn.com/i/teamlogos/nfl/500-dark/scoreboard/cin.png",
+                    "width": 500,
+                    "height": 500,
+                    "alt": "",
+                    "rel": [
+                      "full",
+                      "scoreboard",
+                      "dark"
+                    ],
+                    "lastUpdated": "2024-06-25T18:46Z"
+                  }
+                ]
+              },
+              {
+                "team": "Cleveland",
+                "link": "https://www.espn.com/nfl/team/_/name/cle/cleveland-browns",
+                "id": "5",
+                "uid": "s:20~l:28~t:5",
+                "stats": [
+                  {
+                    "name": "losses",
+                    "displayName": "Losses",
+                    "shortDisplayName": "L",
+                    "description": "Losses",
+                    "abbreviation": "L",
+                    "type": "losses",
+                    "value": 3,
+                    "displayValue": "3"
+                  },
+                  {
+                    "name": "pointsAgainst",
+                    "displayName": "Points Against",
+                    "shortDisplayName": "PA",
+                    "description": "Total Points Against",
+                    "abbreviation": "PA",
+                    "type": "pointsagainst",
+                    "value": 173,
+                    "displayValue": "173"
+                  },
+                  {
+                    "name": "pointsFor",
+                    "displayName": "Points For",
+                    "shortDisplayName": "PF",
+                    "description": "Total Points For",
+                    "abbreviation": "PF",
+                    "type": "pointsfor",
+                    "value": 139,
+                    "displayValue": "139"
+                  },
+                  {
+                    "name": "ties",
+                    "displayName": "Ties",
+                    "shortDisplayName": "T",
+                    "description": "Ties",
+                    "abbreviation": "T",
+                    "type": "ties",
+                    "value": 0,
+                    "displayValue": "0"
+                  },
+                  {
+                    "name": "winPercent",
+                    "displayName": "Win Percentage",
+                    "shortDisplayName": "PCT",
+                    "description": "Winning Percentage",
+                    "abbreviation": "PCT",
+                    "type": "winpercent",
+                    "value": 0.625,
+                    "displayValue": ".625"
+                  },
+                  {
+                    "name": "wins",
+                    "displayName": "Wins",
+                    "shortDisplayName": "W",
+                    "description": "Wins",
+                    "abbreviation": "W",
+                    "type": "wins",
+                    "value": 5,
+                    "displayValue": "5"
+                  },
+                  {
+                    "id": "0",
+                    "name": "overall",
+                    "abbreviation": "Any",
+                    "type": "total",
+                    "summary": "5-3",
+                    "displayValue": "5-3"
+                  }
+                ],
+                "logo": [
+                  {
+                    "href": "https://a.espncdn.com/i/teamlogos/nfl/500/cle.png",
+                    "width": 500,
+                    "height": 500,
+                    "alt": "",
+                    "rel": [
+                      "full",
+                      "default"
+                    ],
+                    "lastUpdated": "2024-06-25T18:47Z"
+                  },
+                  {
+                    "href": "https://a.espncdn.com/i/teamlogos/nfl/500-dark/scoreboard/cle.png",
+                    "width": 500,
+                    "height": 500,
+                    "alt": "",
+                    "rel": [
+                      "full",
+                      "scoreboard",
+                      "dark"
+                    ],
+                    "lastUpdated": "2024-06-25T18:47Z"
+                  }
+                ]
+              },
+              {
+                "team": "Baltimore",
+                "link": "https://www.espn.com/nfl/team/_/name/bal/baltimore-ravens",
+                "id": "33",
+                "uid": "s:20~l:28~t:33",
+                "stats": [
+                  {
+                    "name": "losses",
+                    "displayName": "Losses",
+                    "shortDisplayName": "L",
+                    "description": "Losses",
+                    "abbreviation": "L",
+                    "type": "losses",
+                    "value": 4,
+                    "displayValue": "4"
+                  },
+                  {
+                    "name": "pointsAgainst",
+                    "displayName": "Points Against",
+                    "shortDisplayName": "PA",
+                    "description": "Total Points Against",
+                    "abbreviation": "PA",
+                    "type": "pointsagainst",
+                    "value": 203,
+                    "displayValue": "203"
+                  },
+                  {
+                    "name": "pointsFor",
+                    "displayName": "Points For",
+                    "shortDisplayName": "PF",
+                    "description": "Total Points For",
+                    "abbreviation": "PF",
+                    "type": "pointsfor",
+                    "value": 179,
+                    "displayValue": "179"
+                  },
+                  {
+                    "name": "ties",
+                    "displayName": "Ties",
+                    "shortDisplayName": "T",
+                    "description": "Ties",
+                    "abbreviation": "T",
+                    "type": "ties",
+                    "value": 0,
+                    "displayValue": "0"
+                  },
+                  {
+                    "name": "winPercent",
+                    "displayName": "Win Percentage",
+                    "shortDisplayName": "PCT",
+                    "description": "Winning Percentage",
+                    "abbreviation": "PCT",
+                    "type": "winpercent",
+                    "value": 0.5,
+                    "displayValue": ".500"
+                  },
+                  {
+                    "name": "wins",
+                    "displayName": "Wins",
+                    "shortDisplayName": "W",
+                    "description": "Wins",
+                    "abbreviation": "W",
+                    "type": "wins",
+                    "value": 4,
+                    "displayValue": "4"
+                  },
+                  {
+                    "id": "0",
+                    "name": "overall",
+                    "abbreviation": "Any",
+                    "type": "total",
+                    "summary": "4-4",
+                    "displayValue": "4-4"
+                  }
+                ],
+                "logo": [
+                  {
+                    "href": "https://a.espncdn.com/i/teamlogos/nfl/500/bal.png",
+                    "width": 500,
+                    "height": 500,
+                    "alt": "",
+                    "rel": [
+                      "full",
+                      "default"
+                    ],
+                    "lastUpdated": "2024-06-25T18:44Z"
+                  },
+                  {
+                    "href": "https://a.espncdn.com/i/teamlogos/nfl/500-dark/scoreboard/bal.png",
+                    "width": 500,
+                    "height": 500,
+                    "alt": "",
+                    "rel": [
+                      "full",
+                      "scoreboard",
+                      "dark"
+                    ],
+                    "lastUpdated": "2024-06-25T18:44Z"
+                  }
+                ]
+              }
+            ]
+          },
+          "header": "2026 AFC North Standings",
+          "href": "https://www.espn.com/nfl/standings/_/group/12",
+          "conferenceHeader": "American Football Conference",
+          "divisionHeader": "AFC North"
+        }
+      ],
+      "isSameConference": true
+    },
+    "lastFiveGames": [
+      {
+        "displayOrder": 2,
+        "team": {
+          "id": "33",
+          "uid": "s:20~l:28~t:33",
+          "displayName": "Baltimore Ravens",
+          "abbreviation": "BAL",
+          "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/bal.png"
+        },
+        "events": [
+          {
+            "id": "401872973",
+            "week": 4,
+            "atVs": "vs",
+            "gameDate": "2026-10-04T17:00Z",
+            "score": "24-18",
+            "homeTeamId": "33",
+            "awayTeamId": "10",
+            "homeTeamScore": "24",
+            "awayTeamScore": "18",
+            "homeAggregateScore": "0",
+            "awayAggregateScore": "0",
+            "homeShootoutScore": "0",
+            "awayShootoutScore": "0",
+            "gameResult": "W",
+            "opponent": {
+              "id": "10",
+              "uid": "s:20~l:28~t:10",
+              "displayName": "Tennessee Titans",
+              "abbreviation": "TEN",
+              "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/ten.png"
+            },
+            "opponentLogo": "https://a.espncdn.com/i/teamlogos/nfl/500/ten.png",
+            "leagueName": "National Football League",
+            "leagueAbbreviation": "NFL"
+          },
+          {
+            "id": "401872993",
+            "week": 5,
+            "atVs": "@",
+            "gameDate": "2026-10-12T00:20Z",
+            "score": "30-23 OT",
+            "homeTeamId": "1",
+            "awayTeamId": "33",
+            "homeTeamScore": "23",
+            "awayTeamScore": "30",
+            "homeAggregateScore": "0",
+            "awayAggregateScore": "0",
+            "homeShootoutScore": "0",
+            "awayShootoutScore": "0",
+            "gameResult": "W",
+            "opponent": {
+              "id": "1",
+              "uid": "s:20~l:28~t:1",
+              "displayName": "Atlanta Falcons",
+              "abbreviation": "ATL",
+              "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/atl.png"
+            },
+            "opponentLogo": "https://a.espncdn.com/i/teamlogos/nfl/500/atl.png",
+            "leagueName": "National Football League",
+            "leagueAbbreviation": "NFL"
+          },
+          {
+            "id": "401872997",
+            "week": 6,
+            "atVs": "@",
+            "gameDate": "2026-10-18T17:00Z",
+            "score": "13-10",
+            "homeTeamId": "5",
+            "awayTeamId": "33",
+            "homeTeamScore": "13",
+            "awayTeamScore": "10",
+            "homeAggregateScore": "0",
+            "awayAggregateScore": "0",
+            "homeShootoutScore": "0",
+            "awayShootoutScore": "0",
+            "gameResult": "L",
+            "opponent": {
+              "id": "5",
+              "uid": "s:20~l:28~t:5",
+              "displayName": "Cleveland Browns",
+              "abbreviation": "CLE",
+              "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/cle.png"
+            },
+            "opponentLogo": "https://a.espncdn.com/i/teamlogos/nfl/500/cle.png",
+            "leagueName": "National Football League",
+            "leagueAbbreviation": "NFL"
+          },
+          {
+            "id": "401873012",
+            "week": 7,
+            "atVs": "vs",
+            "gameDate": "2026-10-25T17:00Z",
+            "score": "35-13",
+            "homeTeamId": "33",
+            "awayTeamId": "4",
+            "homeTeamScore": "13",
+            "awayTeamScore": "35",
+            "homeAggregateScore": "0",
+            "awayAggregateScore": "0",
+            "homeShootoutScore": "0",
+            "awayShootoutScore": "0",
+            "gameResult": "L",
+            "opponent": {
+              "id": "4",
+              "uid": "s:20~l:28~t:4",
+              "displayName": "Cincinnati Bengals",
+              "abbreviation": "CIN",
+              "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/cin.png"
+            },
+            "opponentLogo": "https://a.espncdn.com/i/teamlogos/nfl/500/cin.png",
+            "leagueName": "National Football League",
+            "leagueAbbreviation": "NFL"
+          },
+          {
+            "id": "401873026",
+            "week": 8,
+            "atVs": "@",
+            "gameDate": "2026-11-01T18:00Z",
+            "score": "36-10",
+            "homeTeamId": "2",
+            "awayTeamId": "33",
+            "homeTeamScore": "36",
+            "awayTeamScore": "10",
+            "homeAggregateScore": "0",
+            "awayAggregateScore": "0",
+            "homeShootoutScore": "0",
+            "awayShootoutScore": "0",
+            "gameResult": "L",
+            "opponent": {
+              "id": "2",
+              "uid": "s:20~l:28~t:2",
+              "displayName": "Buffalo Bills",
+              "abbreviation": "BUF",
+              "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/buf.png"
+            },
+            "opponentLogo": "https://a.espncdn.com/i/teamlogos/nfl/500/buf.png",
+            "leagueName": "National Football League",
+            "leagueAbbreviation": "NFL"
+          }
+        ]
+      },
+      {
+        "displayOrder": 1,
+        "team": {
+          "id": "30",
+          "uid": "s:20~l:28~t:30",
+          "displayName": "Jacksonville Jaguars",
+          "abbreviation": "JAX",
+          "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/jax.png"
+        },
+        "events": [
+          {
+            "id": "401872957",
+            "week": 3,
+            "atVs": "vs",
+            "gameDate": "2026-09-27T17:00Z",
+            "score": "35-6",
+            "homeTeamId": "30",
+            "awayTeamId": "17",
+            "homeTeamScore": "35",
+            "awayTeamScore": "6",
+            "homeAggregateScore": "0",
+            "awayAggregateScore": "0",
+            "homeShootoutScore": "0",
+            "awayShootoutScore": "0",
+            "gameResult": "W",
+            "opponent": {
+              "id": "17",
+              "uid": "s:20~l:28~t:17",
+              "displayName": "New England Patriots",
+              "abbreviation": "NE",
+              "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/ne.png"
+            },
+            "opponentLogo": "https://a.espncdn.com/i/teamlogos/nfl/500/ne.png",
+            "leagueName": "National Football League",
+            "leagueAbbreviation": "NFL"
+          },
+          {
+            "id": "401872969",
+            "week": 4,
+            "atVs": "@",
+            "gameDate": "2026-10-04T17:00Z",
+            "score": "22-17",
+            "homeTeamId": "4",
+            "awayTeamId": "30",
+            "homeTeamScore": "17",
+            "awayTeamScore": "22",
+            "homeAggregateScore": "0",
+            "awayAggregateScore": "0",
+            "homeShootoutScore": "0",
+            "awayShootoutScore": "0",
+            "gameResult": "W",
+            "opponent": {
+              "id": "4",
+              "uid": "s:20~l:28~t:4",
+              "displayName": "Cincinnati Bengals",
+              "abbreviation": "CIN",
+              "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/cin.png"
+            },
+            "opponentLogo": "https://a.espncdn.com/i/teamlogos/nfl/500/cin.png",
+            "leagueName": "National Football League",
+            "leagueAbbreviation": "NFL"
+          },
+          {
+            "id": "401872981",
+            "week": 5,
+            "atVs": "vs",
+            "gameDate": "2026-10-11T13:30Z",
+            "score": "19-17",
+            "homeTeamId": "30",
+            "awayTeamId": "21",
+            "homeTeamScore": "19",
+            "awayTeamScore": "17",
+            "homeAggregateScore": "0",
+            "awayAggregateScore": "0",
+            "homeShootoutScore": "0",
+            "awayShootoutScore": "0",
+            "gameResult": "W",
+            "opponent": {
+              "id": "21",
+              "uid": "s:20~l:28~t:21",
+              "displayName": "Philadelphia Eagles",
+              "abbreviation": "PHI",
+              "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/phi.png"
+            },
+            "opponentLogo": "https://a.espncdn.com/i/teamlogos/nfl/500/phi.png",
+            "leagueName": "National Football League",
+            "leagueAbbreviation": "NFL"
+          },
+          {
+            "id": "401872996",
+            "week": 6,
+            "atVs": "vs",
+            "gameDate": "2026-10-18T13:30Z",
+            "score": "34-31",
+            "homeTeamId": "30",
+            "awayTeamId": "34",
+            "homeTeamScore": "31",
+            "awayTeamScore": "34",
+            "homeAggregateScore": "0",
+            "awayAggregateScore": "0",
+            "homeShootoutScore": "0",
+            "awayShootoutScore": "0",
+            "gameResult": "L",
+            "opponent": {
+              "id": "34",
+              "uid": "s:20~l:28~t:34",
+              "displayName": "Houston Texans",
+              "abbreviation": "HOU",
+              "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/hou.png"
+            },
+            "opponentLogo": "https://a.espncdn.com/i/teamlogos/nfl/500/hou.png",
+            "leagueName": "National Football League",
+            "leagueAbbreviation": "NFL"
+          },
+          {
+            "id": "401873028",
+            "week": 8,
+            "atVs": "vs",
+            "gameDate": "2026-11-01T18:00Z",
+            "score": "42-7",
+            "homeTeamId": "30",
+            "awayTeamId": "11",
+            "homeTeamScore": "42",
+            "awayTeamScore": "7",
+            "homeAggregateScore": "0",
+            "awayAggregateScore": "0",
+            "homeShootoutScore": "0",
+            "awayShootoutScore": "0",
+            "gameResult": "W",
+            "opponent": {
+              "id": "11",
+              "uid": "s:20~l:28~t:11",
+              "displayName": "Indianapolis Colts",
+              "abbreviation": "IND",
+              "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/ind.png"
+            },
+            "opponentLogo": "https://a.espncdn.com/i/teamlogos/nfl/500/ind.png",
+            "leagueName": "National Football League",
+            "leagueAbbreviation": "NFL"
+          }
+        ]
+      }
+    ]
+  },
+  "contexts": [
+    {
+      "eventId": "401873037",
+      "sport": "NFL",
+      "type": "confirmed_key_starters",
+      "text": "We'll be starting Joe [Fagnano] at quarterback this week on Thursday.",
+      "confidence": 1,
+      "verified": true,
+      "scoringEligible": false,
+      "verification": "authoritative-primary",
+      "sourceTitle": "Transcript: Press Conferences (11/3/26)",
+      "sourceUrl": "https://www.baltimoreravens.com/news/transcript-press-conferences-11-3-26",
+      "sourceDescription": "We'll be starting Joe [Fagnano] at quarterback this week on Thursday.",
+      "sourcePublished": 1793745426,
+      "publishedAt": "2026-11-03T22:37:06.153Z",
+      "expiresAt": "2026-11-06T13:15:00.000Z",
+      "evidence": {
+        "version": 1,
+        "kind": "authoritative-primary",
+        "rationale": "Explicit confirmation of the named subject, matched to this team and game date; source statement and expiration revalidated.",
+        "subject": "joe fagnano",
+        "owner": "33",
+        "eventId": "401873037",
+        "startTime": "2026-11-06T01:15:00.000Z",
+        "teamIds": [
+          "30",
+          "33"
+        ],
+        "documents": [
+          {
+            "version": 1,
+            "url": "https://www.baltimoreravens.com/news/transcript-press-conferences-11-3-26",
+            "title": "Transcript: Press Conferences (11/3/26)",
+            "published": 1793745426153,
+            "retrievedAt": 1793838151325,
+            "authors": [
+              "Baltimore Ravens"
+            ],
+            "section": "Transcripts"
+          }
+        ]
+      },
+      "scoringAssessment": {
+        "eligible": false,
+        "polarity": "neutral",
+        "reason": "A starter confirmation does not establish positive excitement significance"
+      },
+      "eventKey": "NFL:401873037:33:joe fagnano:confirmed_key_starters",
+      "sources": [
+        {
+          "url": "https://www.baltimoreravens.com/news/transcript-press-conferences-11-3-26",
+          "title": "Transcript: Press Conferences (11/3/26)",
+          "verification": "authoritative-primary"
+        },
+        {
+          "url": "https://www.baltimoreravens.com/news/joe-fagnano-ravens-quarterbacks-practice-report-tyler-huntley",
+          "title": "Banged Up Joe Fagnano Set to Start vs. Jaguars",
+          "verification": "authoritative-primary"
+        }
+      ],
+      "publicText": "Baltimore Ravens turn to Joe Fagnano at quarterback following injuries to Lamar Jackson and Tyler Huntley.",
+      "contextEvidence": {
+        "sourceUrl": "https://www.baltimoreravens.com/news/joe-fagnano-ravens-quarterbacks-practice-report-tyler-huntley",
+        "passage": "Lamar Jackson and Tyler Huntley are injured and even No. 3 quarterback, Joe Fagnano, is dealing with an ankle injury, but that won't stop the undrafted rookie from making his first career start Thursday night against the Jacksonville Jaguars.",
+        "verification": "authoritative-primary"
+      }
+    }
+  ],
+  "game": {
+    "id": "401873037",
+    "favorite": false,
+    "sport": "NFL",
+    "icon": "◈",
+    "leagueLogo": "https://a.espncdn.com/i/teamlogos/leagues/500/nfl.png",
+    "startTime": "2026-11-06T01:15Z",
+    "state": "upcoming",
+    "status": "11/5 - 8:15 PM EST",
+    "channel": "Prime Video · Streaming",
+    "teams": [
+      [
+        "Jacksonville Jaguars",
+        "JAX",
+        "0",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/jax.png",
+        "5-2",
+        null,
+        "Jaguars",
+        "30"
+      ],
+      [
+        "Baltimore Ravens",
+        "BAL",
+        "0",
+        "white",
+        "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/bal.png",
+        "4-4",
+        null,
+        "Ravens",
+        "33"
+      ]
+    ],
+    "pregameRecords": [
+      "5-2",
+      "4-4"
+    ],
+    "line": {
+      "spread": "JAX -10",
+      "moneyline": "",
+      "total": 39.5,
+      "provider": "DraftKings",
+      "verifiedClose": false
+    },
+    "context": "Jacksonville Jaguars at Baltimore Ravens",
+    "why": "Single winning-team interest; capped at two before market scaling · Listed 10-point spread; projected mismatch lowers excitement · Season scoring margins provide a small quality adjustment · Scoring margins over each team’s last three games; individual margins capped at 21 · Verified consecutive wins or losses, limited to the available five-game history · We'll be starting Joe [Fagnano] at quarterback this week on Thursday.",
+    "sub": "M&T Bank Stadium",
+    "score": 44,
+    "baseScore": 44,
+    "openingScore": 44,
+    "rawPregameScore": 43.99,
+    "factors": [
+      {
+        "label": "Sport baseline",
+        "points": 32
+      },
+      {
+        "label": "Schedule scarcity",
+        "points": 10
+      },
+      {
+        "label": "Winning team quality",
+        "points": 1.79,
+        "detail": "Single winning-team interest; capped at two before market scaling"
+      },
+      {
+        "label": "Projected spread mismatch",
+        "points": -4,
+        "detail": "Listed 10-point spread; projected mismatch lowers excitement"
+      },
+      {
+        "label": "Season point differential",
+        "points": 1.14,
+        "detail": "Season scoring margins provide a small quality adjustment",
+        "sourceUrl": "https://www.espn.com/nfl/preview?gameId=401873037"
+      },
+      {
+        "label": "Recent performance",
+        "points": -0.69,
+        "detail": "Scoring margins over each team’s last three games; individual margins capped at 21",
+        "sourceUrl": "https://www.espn.com/nfl/preview?gameId=401873037"
+      },
+      {
+        "label": "Sustained recent form",
+        "points": -0.25,
+        "detail": "Verified consecutive wins or losses, limited to the available five-game history",
+        "sourceUrl": "https://www.espn.com/nfl/preview?gameId=401873037"
+      },
+      {
+        "label": "Confirmed key starters",
+        "points": 4,
+        "contextType": "confirmed_key_starters",
+        "contextText": "We'll be starting Joe [Fagnano] at quarterback this week on Thursday.",
+        "sourceUrl": "https://www.baltimoreravens.com/news/transcript-press-conferences-11-3-26",
+        "sourceEvidence": {
+          "version": 1,
+          "kind": "authoritative-primary",
+          "rationale": "Explicit confirmation of the named subject, matched to this team and game date; source statement and expiration revalidated.",
+          "subject": "joe fagnano",
+          "owner": "33",
+          "eventId": "401873037",
+          "startTime": "2026-11-06T01:15:00.000Z",
+          "teamIds": [
+            "30",
+            "33"
+          ],
+          "documents": [
+            {
+              "url": "https://www.baltimoreravens.com/news/transcript-press-conferences-11-3-26",
+              "title": "Transcript: Press Conferences (11/3/26)",
+              "published": 1793745426153,
+              "retrievedAt": 1793838151325,
+              "authors": [
+                "Baltimore Ravens"
+              ]
+            }
+          ],
+          "passage": "We'll be starting Joe [Fagnano] at quarterback this week on Thursday."
+        }
+      }
+    ],
+    "underdog": null,
+    "upsetText": "",
+    "upsetPoints": 0,
+    "liveRawStatus": {
+      "clock": 0,
+      "displayClock": "0:00",
+      "period": 0,
+      "type": {
+        "id": "1",
+        "name": "STATUS_SCHEDULED",
+        "state": "pre",
+        "completed": false,
+        "description": "Scheduled",
+        "detail": "Thu, November 5th at 8:15 PM EST",
+        "shortDetail": "11/5 - 8:15 PM EST"
+      },
+      "isTBDFlex": false
+    },
+    "footballSituation": null,
+    "pregameMarketQuote": {
+      "raw": {
+        "provider": {
+          "id": "100",
+          "name": "DraftKings",
+          "priority": 1,
+          "displayName": "DraftKings"
+        },
+        "details": "JAX -10",
+        "overUnder": 39.5,
+        "spread": 10,
+        "awayTeamOdds": {
+          "favorite": true,
+          "underdog": false,
+          "team": {
+            "id": "30",
+            "uid": "s:20~l:28~t:30",
+            "abbreviation": "JAX",
+            "name": "Jaguars",
+            "displayName": "Jacksonville Jaguars",
+            "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/jax.png"
+          },
+          "favoriteAtOpen": false
+        },
+        "homeTeamOdds": {
+          "favorite": false,
+          "underdog": true,
+          "team": {
+            "id": "33",
+            "uid": "s:20~l:28~t:33",
+            "abbreviation": "BAL",
+            "name": "Ravens",
+            "displayName": "Baltimore Ravens",
+            "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/bal.png"
+          },
+          "favoriteAtOpen": true
+        },
+        "moneyline": {
+          "displayName": "Moneyline",
+          "shortDisplayName": "ML",
+          "home": {
+            "close": {
+              "odds": "+390",
+              "link": {
+                "language": "en-US",
+                "rel": [
+                  "home",
+                  "desktop",
+                  "bets",
+                  "draftkings"
+                ],
+                "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F34118164%3Foutcomes%3D0ML84695597_1",
+                "text": "Home Bet",
+                "shortText": "Home Bet",
+                "isExternal": true,
+                "isPremium": false,
+                "tracking": {
+                  "campaign": "betting-integrations",
+                  "tags": {
+                    "league": "nfl",
+                    "sport": "football",
+                    "gameId": 401873037,
+                    "betSide": "home",
+                    "betType": "straight"
+                  }
+                }
+              }
+            },
+            "open": {
+              "odds": "-218"
+            }
+          },
+          "away": {
+            "close": {
+              "odds": "-520",
+              "link": {
+                "language": "en-US",
+                "rel": [
+                  "away",
+                  "desktop",
+                  "bets",
+                  "draftkings"
+                ],
+                "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F34118164%3Foutcomes%3D0ML84695597_3",
+                "text": "Away Bet",
+                "shortText": "Away Bet",
+                "isExternal": true,
+                "isPremium": false,
+                "tracking": {
+                  "campaign": "betting-integrations",
+                  "tags": {
+                    "league": "nfl",
+                    "sport": "football",
+                    "gameId": 401873037,
+                    "betSide": "away",
+                    "betType": "straight"
+                  }
+                }
+              }
+            },
+            "open": {
+              "odds": "+180"
+            }
+          }
+        },
+        "pointSpread": {
+          "displayName": "Spread",
+          "shortDisplayName": "Spread",
+          "home": {
+            "close": {
+              "line": "+10",
+              "odds": "-115",
+              "link": {
+                "language": "en-US",
+                "rel": [
+                  "homeSpread",
+                  "desktop",
+                  "bets"
+                ],
+                "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F34118164%3Foutcomes%3D0HC84695597P1000_1",
+                "text": "Home Point Spread",
+                "shortText": "Home Point Spread",
+                "isExternal": true,
+                "isPremium": false,
+                "tracking": {
+                  "campaign": "betting-integrations",
+                  "tags": {
+                    "league": "nfl",
+                    "sport": "football",
+                    "gameId": 401873037,
+                    "betSide": "none",
+                    "betType": "straight",
+                    "betDetails": "Spread:BAL+10"
+                  }
+                }
+              }
+            },
+            "open": {
+              "line": "-4.5",
+              "odds": "-110"
+            }
+          },
+          "away": {
+            "close": {
+              "line": "-10",
+              "odds": "-105",
+              "link": {
+                "language": "en-US",
+                "rel": [
+                  "awaySpread",
+                  "desktop",
+                  "bets"
+                ],
+                "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F34118164%3Foutcomes%3D0HC84695597N1000_3",
+                "text": "Away Point Spread",
+                "shortText": "Away Point Spread",
+                "isExternal": true,
+                "isPremium": false,
+                "tracking": {
+                  "campaign": "betting-integrations",
+                  "tags": {
+                    "league": "nfl",
+                    "sport": "football",
+                    "gameId": 401873037,
+                    "betSide": "none",
+                    "betType": "straight",
+                    "betDetails": "Spread:JAX-10"
+                  }
+                }
+              }
+            },
+            "open": {
+              "line": "+4.5",
+              "odds": "-110"
+            }
+          }
+        },
+        "total": {
+          "displayName": "Total",
+          "shortDisplayName": "Total",
+          "over": {
+            "close": {
+              "line": "o39.5",
+              "odds": "-112",
+              "link": {
+                "language": "en-US",
+                "rel": [
+                  "over",
+                  "desktop",
+                  "bets"
+                ],
+                "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F34118164%3Foutcomes%3D0OU84695597O3950_1",
+                "text": "Over Odds",
+                "shortText": "Over Odds",
+                "isExternal": true,
+                "isPremium": false,
+                "tracking": {
+                  "campaign": "betting-integrations",
+                  "tags": {
+                    "league": "nfl",
+                    "sport": "football",
+                    "gameId": 401873037,
+                    "betSide": "over",
+                    "betType": "straight",
+                    "betDetails": "Over:39.5"
+                  }
+                }
+              }
+            },
+            "open": {
+              "line": "o49.5",
+              "odds": "-110"
+            }
+          },
+          "under": {
+            "close": {
+              "line": "u39.5",
+              "odds": "-108",
+              "link": {
+                "language": "en-US",
+                "rel": [
+                  "under",
+                  "desktop",
+                  "bets"
+                ],
+                "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F34118164%3Foutcomes%3D0OU84695597U3950_3",
+                "text": "Under Odds",
+                "shortText": "Under Odds",
+                "isExternal": true,
+                "isPremium": false,
+                "tracking": {
+                  "campaign": "betting-integrations",
+                  "tags": {
+                    "league": "nfl",
+                    "sport": "football",
+                    "gameId": 401873037,
+                    "betSide": "under",
+                    "betType": "straight",
+                    "betDetails": "Under:39.5"
+                  }
+                }
+              }
+            },
+            "open": {
+              "line": "u49.5",
+              "odds": "-110"
+            }
+          }
+        },
+        "link": {
+          "language": "en-US",
+          "rel": [
+            "game",
+            "desktop",
+            "bets"
+          ],
+          "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F34118164",
+          "text": "See More Odds",
+          "shortText": "Game",
+          "isExternal": true,
+          "isPremium": false,
+          "tracking": {
+            "campaign": "betting-integrations",
+            "tags": {
+              "league": "nfl",
+              "sport": "football",
+              "gameId": 401873037,
+              "betSide": "none",
+              "betType": "straight"
+            }
+          }
+        },
+        "header": {
+          "logo": {
+            "dark": "https://a.espncdn.com/i/espnbet/dark/espn-bet-square-off.svg",
+            "light": "https://a.espncdn.com/i/espnbet/espn-bet-square-off.svg",
+            "exclusivesLogoDark": "https://a.espncdn.com/i/espnbet/espn-bet-square-mint.svg",
+            "exclusivesLogoLight": "https://a.espncdn.com/i/espnbet/espn-bet-square-mint.svg"
+          },
+          "text": "Game Odds"
+        },
+        "footer": {
+          "disclaimer": "GAMBLING PROBLEM? CALL 1-800-GAMBLER or 1-800-MY-RESET, (800) 327-5050 or visit gamblinghelplinema.org (MA). Call 877-8-HOPENY/text HOPENY (467369) (NY). Call 888-789-7777/visit ccpg.org (CT), or visit www.mdgamblinghelp.org (MD), 1-800-981-0023 (PR). 21+ and present in most states. (18+ DC/KY/NH/PR/WY). Void in ONT. Eligibility restrictions apply. Terms: draftkings.com/sportsbook. On behalf of Boot Hill Casino (KS). Pass-thru of per wager tax may apply in IL."
+        }
+      },
+      "observedAt": 1793841437437,
+      "source": "provider"
+    },
+    "pregameBaseline": {
+      "calibration": "2026-10-31.football-pregame.1",
+      "source": "observed",
+      "score": 44,
+      "rawPregameScore": 43.99,
+      "factors": [
+        {
+          "label": "Sport baseline",
+          "points": 32
+        },
+        {
+          "label": "Schedule scarcity",
+          "points": 10
+        },
+        {
+          "label": "Winning team quality",
+          "points": 1.79,
+          "detail": "Single winning-team interest; capped at two before market scaling"
+        },
+        {
+          "label": "Projected spread mismatch",
+          "points": -4,
+          "detail": "Listed 10-point spread; projected mismatch lowers excitement"
+        },
+        {
+          "label": "Season point differential",
+          "points": 1.14,
+          "detail": "Season scoring margins provide a small quality adjustment",
+          "sourceUrl": "https://www.espn.com/nfl/preview?gameId=401873037"
+        },
+        {
+          "label": "Recent performance",
+          "points": -0.69,
+          "detail": "Scoring margins over each team’s last three games; individual margins capped at 21",
+          "sourceUrl": "https://www.espn.com/nfl/preview?gameId=401873037"
+        },
+        {
+          "label": "Sustained recent form",
+          "points": -0.25,
+          "detail": "Verified consecutive wins or losses, limited to the available five-game history",
+          "sourceUrl": "https://www.espn.com/nfl/preview?gameId=401873037"
+        },
+        {
+          "label": "Confirmed key starters",
+          "points": 4,
+          "contextType": "confirmed_key_starters",
+          "contextText": "We'll be starting Joe [Fagnano] at quarterback this week on Thursday.",
+          "sourceUrl": "https://www.baltimoreravens.com/news/transcript-press-conferences-11-3-26",
+          "sourceEvidence": {
+            "version": 1,
+            "kind": "authoritative-primary",
+            "rationale": "Explicit confirmation of the named subject, matched to this team and game date; source statement and expiration revalidated.",
+            "subject": "joe fagnano",
+            "owner": "33",
+            "eventId": "401873037",
+            "startTime": "2026-11-06T01:15:00.000Z",
+            "teamIds": [
+              "30",
+              "33"
+            ],
+            "documents": [
+              {
+                "url": "https://www.baltimoreravens.com/news/transcript-press-conferences-11-3-26",
+                "title": "Transcript: Press Conferences (11/3/26)",
+                "published": 1793745426153,
+                "retrievedAt": 1793838151325,
+                "authors": [
+                  "Baltimore Ravens"
+                ]
+              }
+            ],
+            "passage": "We'll be starting Joe [Fagnano] at quarterback this week on Thursday."
+          }
+        }
+      ],
+      "odds": [
+        {
+          "provider": {
+            "id": "100",
+            "name": "DraftKings",
+            "priority": 1,
+            "displayName": "DraftKings"
+          },
+          "details": "JAX -10",
+          "overUnder": 39.5,
+          "spread": 10,
+          "awayTeamOdds": {
+            "favorite": true,
+            "underdog": false,
+            "team": {
+              "id": "30",
+              "uid": "s:20~l:28~t:30",
+              "abbreviation": "JAX",
+              "name": "Jaguars",
+              "displayName": "Jacksonville Jaguars",
+              "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/jax.png"
+            },
+            "favoriteAtOpen": false
+          },
+          "homeTeamOdds": {
+            "favorite": false,
+            "underdog": true,
+            "team": {
+              "id": "33",
+              "uid": "s:20~l:28~t:33",
+              "abbreviation": "BAL",
+              "name": "Ravens",
+              "displayName": "Baltimore Ravens",
+              "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/bal.png"
+            },
+            "favoriteAtOpen": true
+          },
+          "moneyline": {
+            "displayName": "Moneyline",
+            "shortDisplayName": "ML",
+            "home": {
+              "close": {
+                "odds": "+390",
+                "link": {
+                  "language": "en-US",
+                  "rel": [
+                    "home",
+                    "desktop",
+                    "bets",
+                    "draftkings"
+                  ],
+                  "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F34118164%3Foutcomes%3D0ML84695597_1",
+                  "text": "Home Bet",
+                  "shortText": "Home Bet",
+                  "isExternal": true,
+                  "isPremium": false,
+                  "tracking": {
+                    "campaign": "betting-integrations",
+                    "tags": {
+                      "league": "nfl",
+                      "sport": "football",
+                      "gameId": 401873037,
+                      "betSide": "home",
+                      "betType": "straight"
+                    }
+                  }
+                }
+              },
+              "open": {
+                "odds": "-218"
+              }
+            },
+            "away": {
+              "close": {
+                "odds": "-520",
+                "link": {
+                  "language": "en-US",
+                  "rel": [
+                    "away",
+                    "desktop",
+                    "bets",
+                    "draftkings"
+                  ],
+                  "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F34118164%3Foutcomes%3D0ML84695597_3",
+                  "text": "Away Bet",
+                  "shortText": "Away Bet",
+                  "isExternal": true,
+                  "isPremium": false,
+                  "tracking": {
+                    "campaign": "betting-integrations",
+                    "tags": {
+                      "league": "nfl",
+                      "sport": "football",
+                      "gameId": 401873037,
+                      "betSide": "away",
+                      "betType": "straight"
+                    }
+                  }
+                }
+              },
+              "open": {
+                "odds": "+180"
+              }
+            }
+          },
+          "pointSpread": {
+            "displayName": "Spread",
+            "shortDisplayName": "Spread",
+            "home": {
+              "close": {
+                "line": "+10",
+                "odds": "-115",
+                "link": {
+                  "language": "en-US",
+                  "rel": [
+                    "homeSpread",
+                    "desktop",
+                    "bets"
+                  ],
+                  "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F34118164%3Foutcomes%3D0HC84695597P1000_1",
+                  "text": "Home Point Spread",
+                  "shortText": "Home Point Spread",
+                  "isExternal": true,
+                  "isPremium": false,
+                  "tracking": {
+                    "campaign": "betting-integrations",
+                    "tags": {
+                      "league": "nfl",
+                      "sport": "football",
+                      "gameId": 401873037,
+                      "betSide": "none",
+                      "betType": "straight",
+                      "betDetails": "Spread:BAL+10"
+                    }
+                  }
+                }
+              },
+              "open": {
+                "line": "-4.5",
+                "odds": "-110"
+              }
+            },
+            "away": {
+              "close": {
+                "line": "-10",
+                "odds": "-105",
+                "link": {
+                  "language": "en-US",
+                  "rel": [
+                    "awaySpread",
+                    "desktop",
+                    "bets"
+                  ],
+                  "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F34118164%3Foutcomes%3D0HC84695597N1000_3",
+                  "text": "Away Point Spread",
+                  "shortText": "Away Point Spread",
+                  "isExternal": true,
+                  "isPremium": false,
+                  "tracking": {
+                    "campaign": "betting-integrations",
+                    "tags": {
+                      "league": "nfl",
+                      "sport": "football",
+                      "gameId": 401873037,
+                      "betSide": "none",
+                      "betType": "straight",
+                      "betDetails": "Spread:JAX-10"
+                    }
+                  }
+                }
+              },
+              "open": {
+                "line": "+4.5",
+                "odds": "-110"
+              }
+            }
+          },
+          "total": {
+            "displayName": "Total",
+            "shortDisplayName": "Total",
+            "over": {
+              "close": {
+                "line": "o39.5",
+                "odds": "-112",
+                "link": {
+                  "language": "en-US",
+                  "rel": [
+                    "over",
+                    "desktop",
+                    "bets"
+                  ],
+                  "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F34118164%3Foutcomes%3D0OU84695597O3950_1",
+                  "text": "Over Odds",
+                  "shortText": "Over Odds",
+                  "isExternal": true,
+                  "isPremium": false,
+                  "tracking": {
+                    "campaign": "betting-integrations",
+                    "tags": {
+                      "league": "nfl",
+                      "sport": "football",
+                      "gameId": 401873037,
+                      "betSide": "over",
+                      "betType": "straight",
+                      "betDetails": "Over:39.5"
+                    }
+                  }
+                }
+              },
+              "open": {
+                "line": "o49.5",
+                "odds": "-110"
+              }
+            },
+            "under": {
+              "close": {
+                "line": "u39.5",
+                "odds": "-108",
+                "link": {
+                  "language": "en-US",
+                  "rel": [
+                    "under",
+                    "desktop",
+                    "bets"
+                  ],
+                  "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F34118164%3Foutcomes%3D0OU84695597U3950_3",
+                  "text": "Under Odds",
+                  "shortText": "Under Odds",
+                  "isExternal": true,
+                  "isPremium": false,
+                  "tracking": {
+                    "campaign": "betting-integrations",
+                    "tags": {
+                      "league": "nfl",
+                      "sport": "football",
+                      "gameId": 401873037,
+                      "betSide": "under",
+                      "betType": "straight",
+                      "betDetails": "Under:39.5"
+                    }
+                  }
+                }
+              },
+              "open": {
+                "line": "u49.5",
+                "odds": "-110"
+              }
+            }
+          },
+          "link": {
+            "language": "en-US",
+            "rel": [
+              "game",
+              "desktop",
+              "bets"
+            ],
+            "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F34118164",
+            "text": "See More Odds",
+            "shortText": "Game",
+            "isExternal": true,
+            "isPremium": false,
+            "tracking": {
+              "campaign": "betting-integrations",
+              "tags": {
+                "league": "nfl",
+                "sport": "football",
+                "gameId": 401873037,
+                "betSide": "none",
+                "betType": "straight"
+              }
+            }
+          },
+          "header": {
+            "logo": {
+              "dark": "https://a.espncdn.com/i/espnbet/dark/espn-bet-square-off.svg",
+              "light": "https://a.espncdn.com/i/espnbet/espn-bet-square-off.svg",
+              "exclusivesLogoDark": "https://a.espncdn.com/i/espnbet/espn-bet-square-mint.svg",
+              "exclusivesLogoLight": "https://a.espncdn.com/i/espnbet/espn-bet-square-mint.svg"
+            },
+            "text": "Game Odds"
+          },
+          "footer": {
+            "disclaimer": "GAMBLING PROBLEM? CALL 1-800-GAMBLER or 1-800-MY-RESET, (800) 327-5050 or visit gamblinghelplinema.org (MA). Call 877-8-HOPENY/text HOPENY (467369) (NY). Call 888-789-7777/visit ccpg.org (CT), or visit www.mdgamblinghelp.org (MD), 1-800-981-0023 (PR). 21+ and present in most states. (18+ DC/KY/NH/PR/WY). Void in ONT. Eligibility restrictions apply. Terms: draftkings.com/sportsbook. On behalf of Boot Hill Casino (KS). Pass-thru of per wager tax may apply in IL."
+          }
+        }
+      ],
+      "spread": 10,
+      "underdog": {
+        "side": "home",
+        "teamId": "33",
+        "teamIndex": 0,
+        "teamName": "Baltimore Ravens",
+        "type": "spread",
+        "value": 10,
+        "strength": 0.42857142857142855,
+        "activation": 1,
+        "description": "10-point underdog"
+      }
+    },
+    "openingFactors": [
+      {
+        "label": "Sport baseline",
+        "points": 32
+      },
+      {
+        "label": "Schedule scarcity",
+        "points": 10
+      },
+      {
+        "label": "Winning team quality",
+        "points": 1.79,
+        "detail": "Single winning-team interest; capped at two before market scaling"
+      },
+      {
+        "label": "Projected spread mismatch",
+        "points": -4,
+        "detail": "Listed 10-point spread; projected mismatch lowers excitement"
+      },
+      {
+        "label": "Season point differential",
+        "points": 1.14,
+        "detail": "Season scoring margins provide a small quality adjustment",
+        "sourceUrl": "https://www.espn.com/nfl/preview?gameId=401873037"
+      },
+      {
+        "label": "Recent performance",
+        "points": -0.69,
+        "detail": "Scoring margins over each team’s last three games; individual margins capped at 21",
+        "sourceUrl": "https://www.espn.com/nfl/preview?gameId=401873037"
+      },
+      {
+        "label": "Sustained recent form",
+        "points": -0.25,
+        "detail": "Verified consecutive wins or losses, limited to the available five-game history",
+        "sourceUrl": "https://www.espn.com/nfl/preview?gameId=401873037"
+      },
+      {
+        "label": "Confirmed key starters",
+        "points": 4,
+        "contextType": "confirmed_key_starters",
+        "contextText": "We'll be starting Joe [Fagnano] at quarterback this week on Thursday.",
+        "sourceUrl": "https://www.baltimoreravens.com/news/transcript-press-conferences-11-3-26",
+        "sourceEvidence": {
+          "version": 1,
+          "kind": "authoritative-primary",
+          "rationale": "Explicit confirmation of the named subject, matched to this team and game date; source statement and expiration revalidated.",
+          "subject": "joe fagnano",
+          "owner": "33",
+          "eventId": "401873037",
+          "startTime": "2026-11-06T01:15:00.000Z",
+          "teamIds": [
+            "30",
+            "33"
+          ],
+          "documents": [
+            {
+              "url": "https://www.baltimoreravens.com/news/transcript-press-conferences-11-3-26",
+              "title": "Transcript: Press Conferences (11/3/26)",
+              "published": 1793745426153,
+              "retrievedAt": 1793838151325,
+              "authors": [
+                "Baltimore Ravens"
+              ]
+            }
+          ],
+          "passage": "We'll be starting Joe [Fagnano] at quarterback this week on Thursday."
+        }
+      }
+    ],
+    "modelVersion": "2026-11-04.cfb-context.1",
+    "providerPath": "football/nfl",
+    "nflWeek": 2026209,
+    "livePregameMarket": {
+      "teamId": "33",
+      "teamName": "Baltimore Ravens",
+      "side": "home",
+      "spread": 10,
+      "probability": 0.19570707070707072,
+      "source": "pregame market",
+      "reportedAt": null
+    },
+    "editorialStorylines": [
+      {
+        "type": "editorial_storyline",
+        "discoveredType": "confirmed_key_starters",
+        "verification": "single-source",
+        "scoringEligible": false,
+        "editorialOnly": true,
+        "verified": true,
+        "confidence": 0.95,
+        "text": "Rookie Joe Fagnano to start Thursday night vs. Jaguars, Jesse Minter says",
+        "sourceTitle": "Rookie Joe Fagnano to start Thursday night vs. Jaguars, Jesse Minter says",
+        "sourceDescription": "Ravens rookie quarterback Joe Fagnano will start Thursday night's game against the Jaguars, coach Jesse Minter announced Tuesday.",
+        "sourceUrl": "https://www.espn.com/nfl/story/_/id/50371730/rookie-joe-fagnano-start-thursday-night-vs-jaguars",
+        "sourcePublished": 1793793094,
+        "publishedAt": "2026-11-04T11:51:34.000Z",
+        "sourceTeamIds": [
+          "33",
+          "30"
+        ],
+        "sourceEventIds": [],
+        "eventId": "401873037",
+        "sport": "NFL"
+      }
+    ],
+    "qualitativeContexts": [
+      {
+        "eventId": "401873037",
+        "sport": "NFL",
+        "type": "confirmed_key_starters",
+        "text": "We'll be starting Joe [Fagnano] at quarterback this week on Thursday.",
+        "confidence": 1,
+        "verified": true,
+        "scoringEligible": true,
+        "verification": "authoritative-primary",
+        "sourceTitle": "Transcript: Press Conferences (11/3/26)",
+        "sourceUrl": "https://www.baltimoreravens.com/news/transcript-press-conferences-11-3-26",
+        "sourceDescription": "We'll be starting Joe [Fagnano] at quarterback this week on Thursday.",
+        "sourcePublished": 1793745426,
+        "publishedAt": "2026-11-03T22:37:06.153Z",
+        "expiresAt": "2026-11-06T13:15:00.000Z",
+        "evidence": {
+          "version": 1,
+          "kind": "authoritative-primary",
+          "rationale": "Explicit confirmation of the named subject, matched to this team and game date; source statement and expiration revalidated.",
+          "subject": "joe fagnano",
+          "owner": "33",
+          "eventId": "401873037",
+          "startTime": "2026-11-06T01:15:00.000Z",
+          "teamIds": [
+            "30",
+            "33"
+          ],
+          "documents": [
+            {
+              "url": "https://www.baltimoreravens.com/news/transcript-press-conferences-11-3-26",
+              "title": "Transcript: Press Conferences (11/3/26)",
+              "published": 1793745426153,
+              "retrievedAt": 1793838151325,
+              "authors": [
+                "Baltimore Ravens"
+              ]
+            }
+          ],
+          "passage": "We'll be starting Joe [Fagnano] at quarterback this week on Thursday."
+        }
+      }
+    ]
+  }
+}

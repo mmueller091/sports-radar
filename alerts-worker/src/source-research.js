@@ -22,7 +22,7 @@ export function selectOfficialTarget(items,state,classify,now=Date.now()){
   const candidates=new Map();
   for(const item of items){
     const factor=classify(item.article),g=item.game;
-    if(!factor||!g||!['confirmed_key_starters','star_absence','star_injury_return','rivalry','coach_return','former_star_return','former_captain_return','playoff_rematch','championship_rematch','meaningful_rematch','milestone_chase','major_trade_storyline','team_win_streak','ace_pitching_matchup','notable_recent_performance','star_hot_streak','elite_efficiency_profile','strength_of_schedule','playoff_race','season_debut','rivalry_development'].includes(factor.type))continue;
+    if(!factor||!g||!['confirmed_key_starters','star_absence','star_injury_return','player_injury_return','rivalry','coach_return','former_star_return','former_captain_return','playoff_rematch','championship_rematch','meaningful_rematch','milestone_chase','major_trade_storyline','team_win_streak','ace_pitching_matchup','notable_recent_performance','star_hot_streak','elite_efficiency_profile','strength_of_schedule','playoff_race','season_debut','rivalry_development'].includes(factor.type))continue;
     if(g.publicGame?.qualitativeContexts?.some(f=>f.registryVersion&&f.type===factor.type))continue;
     const key=g.key||`${g.sport}:${g.eventId||g.id}`;
     if(Number(state.sourceFailureUntil?.[key])>now)continue;
@@ -31,7 +31,7 @@ export function selectOfficialTarget(items,state,classify,now=Date.now()){
     if(!indexes.length)continue;
     const previous=Number(state.lastVerified?.[key])||0;
     if(previous>now-2*3600000)continue;
-    const urgency=Number(['confirmed_key_starters','star_absence','star_injury_return'].includes(factor.type));
+    const urgency=Number(['confirmed_key_starters','star_absence','star_injury_return','player_injury_return'].includes(factor.type));
     const ranked=Number(['CFB','NCAAB'].includes(g.sport)&&g.teams.some(t=>Number(t.rank)>=1&&Number(t.rank)<=25));
     const candidate={key,game:g,item,indexes,previous,urgency,ranked};
     const prior=candidates.get(key);if(!prior||urgency>prior.urgency)candidates.set(key,candidate);

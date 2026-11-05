@@ -84,7 +84,8 @@
     team_win_streak:3,
     elite_efficiency_profile:4,
     strength_of_schedule:3,
-    confirmed_key_starters:4,
+    confirmed_key_starters:0,
+    player_injury_return:0,
     ace_pitching_matchup:5,
     star_absence:-5,
     multiple_stars_out:-8
@@ -112,6 +113,7 @@
     elite_efficiency_profile:'Elite efficiency profile',
     strength_of_schedule:'Battle-tested schedule',
     confirmed_key_starters:'Confirmed key starters',
+    player_injury_return:'Confirmed player return',
     ace_pitching_matchup:'Confirmed ace pitching matchup',
     star_absence:'Notable star absence',
     multiple_stars_out:'Multiple major absences'
