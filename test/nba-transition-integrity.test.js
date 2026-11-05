@@ -214,6 +214,8 @@ test('provisional and held ratings agree between the headline and timeline',()=>
  const held=center.timeline({...g,timingUncertain:true,score:63},detail);
  assert.match(held,/Last confirmed rating<\/span><strong>63/);
  assert.match(held,/Clock updating/);
+  const provisionalHeld=center.timeline({...g,timingUncertain:true,heldRatingProvisional:true,score:11},detail);
+  assert.match(provisionalHeld,/Last observed rating<\/span><strong>11/);
 });
 
 test('football and hockey also reject uncorroborated transition zeros and large clock rollbacks',()=>{
@@ -232,6 +234,70 @@ test('football and hockey also reject uncorroborated transition zeros and large 
   observationIntegrity.reconcileObservation(current,rollback,null);
   assert.equal(current.liveUpdateRejected,true,`${sport} rollback`);
  }
+});
+
+test('same-period false game endings cannot advance twelve minutes in one refresh',()=>{
+ for(const sport of ['CFB','NFL','NHL']){
+  const id='401866457',start=competition(sport==='NHL'?3:4,'12:52',17,10);
+  const previous={...game(id,start,67),sport,liveRawStatus:start.status,liveRawSituation:start.situation,
+   baseScore:52,evidenceQuality:'complete'};
+  const falseEnd=competition(sport==='NHL'?3:4,'0:00',17,10,'End of 4th Quarter');
+  const pending={...game(id,falseEnd,21),sport};
+  observationIntegrity.preserveObservation(pending,previous);
+  observationIntegrity.reconcileObservation(pending,falseEnd,null);
+  assert.equal(pending.timingUncertain,true,`${sport} implausible jump`);
+  assert.equal(pending.score,67,`${sport} preserves the last trustworthy rating`);
+  assert.equal(pending.liveRawStatus.displayClock,'');
+  assert.ok(pending.evidenceReasons.includes('implausible-clock-advance'));
+  assert.equal(pending.scoringPartial,true);
+ }
+});
+
+test('legitimate same-period progress and genuine terminal observations remain accepted',()=>{
+ const id='401866457',start=competition(4,'12:52',17,10,'12:52 - 4th Quarter');
+ const previous={...game(id,start,67),sport:'CFB',liveRawStatus:start.status,liveRawSituation:start.situation,
+  evidenceQuality:'complete'};
+ const normal=competition(4,'11:51',17,10,'11:51 - 4th Quarter');
+ const next={...game(id,normal,67),sport:'CFB'};
+ observationIntegrity.preserveObservation(next,previous);
+ observationIntegrity.reconcileObservation(next,normal,null);
+ assert.notEqual(next.timingUncertain,true);
+ const old=competition(4,'12:52',17,10,'12:52 - 4th Quarter');
+ const knownElapsed={...game(id,old,67),sport:'CFB',liveRawStatus:old.status,liveRawSituation:old.situation,
+  evidenceQuality:'complete'};
+ const enoughTime=competition(4,'0:00',17,10,'End of 4th Quarter');
+ const end={...game(id,enoughTime,21),sport:'CFB'};
+ observationIntegrity.preserveObservation(end,knownElapsed);
+ end.priorObservation.observedAt=Date.now()-14*60*1000;
+ observationIntegrity.reconcileObservation(end,enoughTime,null);
+ assert.notEqual(end.timingUncertain,true,'sufficiently elapsed real time can support an end-of-quarter clock');
+ const final=competition(4,'0:00',20,17,'Final');final.status.type.completed=true;
+ const completed={...game(id,final,69),sport:'CFB',state:'completed'};
+ observationIntegrity.preserveObservation(completed,previous);
+ observationIntegrity.reconcileObservation(completed,final,null);
+ assert.notEqual(completed.timingUncertain,true,'completed games bypass live timing guard');
+});
+
+test('basketball unconfirmed zeros hold the most recent valid display state, not a distant period',()=>{
+ const id='401909922',recentClock=competition(4,'6.7',112,106,'6.7 - 4th Quarter');
+ const recent={...prior(id,recentClock),score:11,baseScore:14,
+  liveRawStatus:recentClock.status,live:{phase:'6.7 · 4th quarter',bonus:0},
+  scoringPartial:true,evidenceQuality:'partial',evidenceReasons:['scoring-ledger-coverage-gap']};
+ recent.basketballLastTrusted={score:43,baseScore:43,live:{phase:'1:25 · 2nd quarter'},factors:[]};
+ const zero=competition(4,'0.0',112,106,'0.0 - 4th Quarter');
+ const pending=game(id,zero,43);
+ preserveBasketballState(pending,recent);
+ reconcileBasketball(pending,zero,null);
+ assert.equal(pending.timingUncertain,true);
+ assert.equal(pending.scoringPartial,true);
+ assert.equal(pending.score,11,'partial scoring history does not require using a stale second-quarter rating');
+ assert.equal(pending.live.phase,'6.7 · 4th quarter');
+ assert.equal(pending.basketballLastTrusted.score,43,'verified history remains separately available');
+ const unsafe={...recent,timingUncertain:true,score:99};
+ const another=game(id,zero,15);
+ preserveBasketballState(another,unsafe);
+ reconcileBasketball(another,zero,null);
+ assert.equal(another.score,43,'an uncertain prior rating is never promoted to a display fallback');
 });
 
 test('both captured production histories replay without a backward chart segment',()=>{
