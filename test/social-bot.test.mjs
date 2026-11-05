@@ -173,6 +173,35 @@ test('read-only Buffer channel discovery identifies one X account and caches its
   assert.equal(postCalls[0].channelId,'channel99');
 });
 
+test('disabled bot verifies one X channel once and never posts',async()=>{
+  const f=fixture({enabled:false}),queries=[],posts=[];
+  delete f.env.BUFFER_X_CHANNEL_ID;
+  const fetchImpl=async(url,options)=>{
+    const body=JSON.parse(options.body);
+    if(body.query?.includes('organizations')){
+      queries.push('organizations');
+      return {ok:true,status:200,json:async()=>({data:{account:{organizations:[{id:'org1'}]}}})};
+    }
+    if(body.query?.includes('channels(')){
+      queries.push('channels');
+      return {ok:true,status:200,json:async()=>({data:{channels:[
+        {id:'channel99',name:'SlateMeter',service:'twitter'}]}})};
+    }
+    posts.push(body);
+    throw Error('Disabled bot attempted to post');
+  };
+  f.publish(84,started);
+  await runCycle(f.env,{now:started+100,fetchImpl,log:silence});
+  f.publish(85,started+60_000);
+  await runCycle(f.env,{now:started+60_100,fetchImpl,log:silence});
+  assert.deepEqual(queries,['organizations','channels']);
+  assert.deepEqual(posts,[]);
+  const settings=(await f.env.BOT_DB.prepare('SELECT key,value FROM social_settings').all()).results;
+  assert.deepEqual(Object.fromEntries(settings.map(row=>[row.key,row.value])),{
+    buffer_x_channel_id:'channel99',buffer_x_channel_name:'SlateMeter'});
+  assert.equal((await f.statuses()).length,0);
+});
+
 test('multiple matching Buffer X channels fail closed',async()=>{
   const fetchImpl=async(url,options)=>{
     const q=JSON.parse(options.body).query;

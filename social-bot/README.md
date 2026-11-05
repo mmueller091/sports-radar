@@ -49,8 +49,9 @@ production scoring Worker configuration or its D1 schema.
 5. From Buffer Settings > API, create a personal API key. Store it under
    `BUFFER_API_KEY` as a **Secret** on the separate Worker. Never paste it into
    chat, commit it, or set it as a plaintext Wrangler variable.
-6. On activation, the bot makes two read-only Buffer queries to identify its
-   single connected X channel and caches that channel ID in BOT_DB. If more
+6. The disabled bot makes read-only Buffer queries to identify its single
+   connected X channel and caches that channel ID and name in BOT_DB. It does
+   not create a post while disabled. If more
    than one X channel is linked, set a specific `BUFFER_X_HANDLE` or
    `BUFFER_X_CHANNEL_ID` instead, after verifying the exact account.
 7. Review the format and dry-run crossings, then explicitly approve changing

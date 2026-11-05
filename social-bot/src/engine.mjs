@@ -25,6 +25,8 @@ async function channelIdFor(env,fetchImpl,log){
   if(stored?.value)return stored.value;
   const channel=await discoverXChannel(env.BUFFER_API_KEY,{fetchImpl,
     expectedHandle:env.BUFFER_X_HANDLE||''});
+  await env.BOT_DB.prepare("INSERT OR IGNORE INTO social_settings(key,value) VALUES('buffer_x_channel_name',?)")
+    .bind(channel.name).run();
   await env.BOT_DB.prepare("INSERT OR IGNORE INTO social_settings(key,value) VALUES('buffer_x_channel_id',?)")
     .bind(channel.id).run();
   logCycle(log,{event:'buffer-channel-selected',channelName:channel.name});
@@ -44,6 +46,9 @@ export async function runCycle(env,{now=Date.now(),fetchImpl=fetch,log=console.l
   live.sort((a,b)=>Number(b.score)-Number(a.score));
   const maxPerRun=positiveInt(env.MAX_POSTS_PER_RUN,3,20);
   const maxPerDay=positiveInt(env.MAX_POSTS_PER_DAY,20,100);
+  // A disabled Worker may verify its Buffer connection, but cannot send a post.
+  // The resolved channel is cached so subsequent cron runs need no Buffer API calls.
+  if(!enabled&&env.BUFFER_API_KEY)await channelIdFor(env,fetchImpl,log);
   const channelId=enabled?await channelIdFor(env,fetchImpl,log):null;
   const summary={outcome:'ok',enabled,eligible:live.length,observed:0,crossings:0,
     claimed:0,accepted:0,rejected:0,deliveryUnknown:0,skippedByLimit:0};
