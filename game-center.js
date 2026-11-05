@@ -290,7 +290,7 @@
     const edges=connections(game,summary,data),edgeByEnd=new Map(edges.map(edge=>[edge.to,edge]));
     const pending=game.score==null||!Number.isFinite(Number(game.score));
     const heading=`<div class="timeline-heading"><h3>Excitement timeline</h3><span class="timeline-key"><i></i> Recorded ratings <span class="timeline-key-line"></span> Estimated line</span></div>`;
-    const currentLabel=game.timingUncertain?'Last confirmed rating':game.scoringPartial?'Provisional live rating':game.state==='completed'?'Final rating':'Current live rating';
+    const currentLabel=game.timingUncertain?(game.heldRatingProvisional?'Last observed rating':'Last confirmed rating'):game.scoringPartial?'Provisional live rating':game.state==='completed'?'Final rating':'Current live rating';
     const opening=game.pregameBaseline?.source==='observed'&&Number.isFinite(game.pregameBaseline.score)?game.pregameBaseline.score:null;
     const openingCard=opening===null?'':`<div class="timeline-rating-opening"><span>Opening rating</span><strong>${opening}</strong><small>Before play</small></div>`;
     const currentCard=game.state==='completed'?'':`<div class="timeline-rating-current"><span>${currentLabel}</span><strong>${pending?'Pending':escape(game.score)}</strong><small>${game.timingUncertain?'Clock updating':game.scoringPartial?'Awaiting confirmation':'Watchability now'}</small></div>`;
