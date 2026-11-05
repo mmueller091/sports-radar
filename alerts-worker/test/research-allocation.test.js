@@ -64,7 +64,7 @@ test('unreviewed CFB rivalry articles must identify both actual opponents',()=>{
   assert.equal(articleMatchesGame({...article,headline:'Away prepares for rivalry with Other',description:'Away meets Other this weekend.',teamIds:new Set(['1'])},game,now),false);
   assert.equal(articleMatchesGame({...article,headline:'Away and Home plan future rivalry for 2028',description:'The two schools announce a future series in 2028.',teamIds:new Set(['1','2'])},game,now),false);
 });
-test('team-specific CFB news automatically contributes a grounded fact for an unseen game',async t=>{
+test('team-specific CFB news discovers an informational rivalry for an unseen game',async t=>{
   const unseen=raw('unseen-game',80,'CFB');
   const {env,db}=database(t,{updatedAt:new Date(now).toISOString(),games:[unseen]});
   const original=globalThis.fetch,calls=[];t.after(()=>{globalThis.fetch=original;});
@@ -75,10 +75,11 @@ test('team-specific CFB news automatically contributes a grounded fact for an un
   const result=await refreshStorylines(env,now);
   assert.equal(result.diagnostics.savedFactors,1);
   assert.equal(result.diagnostics.readAccepted,1);
-  assert.equal(db.prepare('SELECT factor_type AS type FROM game_context').get().type,'rivalry');
+  assert.equal(db.prepare('SELECT factor_type AS type FROM game_context').get().type,'editorial_storyline');
   assert.deepEqual(result.diagnostics.teamNews.queried,['1','2']);
-  assert.equal(calls.length,3);
-  assert.ok(calls.every(url=>url.includes('/news?')));
+  assert.equal(calls.length,4);
+  assert.equal(result.diagnostics.sourceVerification.failed,true);
+  assert.equal(calls.filter(url=>url.includes('/news?')).length,3);
   assert.ok(!JSON.stringify(unseen).includes('new-rivalry'));
 });
 test('only upcoming identified games within seven days enter the pool',()=>{
@@ -112,7 +113,7 @@ test('a research run stays inside the existing request, item, AI and quota limit
   const original=globalThis.fetch,calls=[];t.after(()=>{globalThis.fetch=original;});
   globalThis.fetch=async url=>{calls.push(url);return Response.json({articles:[]});};
   const result=await refreshStorylines(env,now);
-  assert.ok(calls.length<=6);assert.ok(calls.every(url=>url.includes('/news?')));assert.equal(result.candidates,30);
+  assert.ok(calls.length<=6);assert.ok(calls.every(url=>url.includes('/news?')||url.includes('api.gdeltproject.org/api/v2/doc/doc')));assert.equal(result.candidates,30);
   assert.equal(result.diagnostics.savedFactors,0);assert.equal(result.diagnostics.readAccepted,0);assert.equal(result.aiUsed,false);
   assert.equal((await researchDiagnostics(env)).candidatePool,result.diagnostics.candidatePool);
   assert.equal(db.prepare('SELECT count(*) AS n FROM research_ai_budget').get().n,0);
@@ -150,7 +151,7 @@ test('a saturated six-sport pass respects every bound, and exhausted quota preve
     return {response:JSON.stringify(response),usage:{prompt_tokens:100,completion_tokens:50,neurons:1}};
   }};
   const result=await refreshStorylines(env,now);
-  assert.equal(requests.length,6);assert.ok(requests.every(url=>url.includes('/news?')));
+  assert.equal(requests.length,4,'two slots reserved for source verification; unused slots make no requests');assert.ok(requests.every(url=>url.includes('/news?')));
   assert.equal(result.candidates,30);assert.equal(result.articles,60);assert.equal(inferences.length,3);
   assert.equal(result.diagnostics.usage.length,3);
   assert.ok(db.prepare('SELECT reserved_neurons n FROM research_ai_budget').get().n<=8000);

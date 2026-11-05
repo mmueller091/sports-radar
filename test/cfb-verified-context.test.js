@@ -137,18 +137,22 @@ test('browser and Worker agree with reviewed context, and completed games cannot
     assert.equal(completed.score,original.score);assert.deepEqual(completed.factors,original.factors);
   }
 });
-test('Game Center outlook names scored qualitative stakes and linked stories preserve their sources',()=>{
+test('Game Center keeps scored stakes in the outlook and removes duplicate Key storylines',()=>{
   const source=fs.readFileSync('app.js','utf8');class FixedDate extends Date{static now(){return now;}}
-  const api=vm.runInNewContext(source.slice(source.indexOf('function explainRating('),source.indexOf('function trendFor('))+';({explainRating,upcomingLinkedStories,publicStorySentence})',{Date:FixedDate,Intl,SportsRadarScore:runtime});
-  const displayed=g=>[api.explainRating(g),...api.upcomingLinkedStories(g).map(s=>api.publicStorySentence(s))].join(' ');
+  const api=vm.runInNewContext(source.slice(source.indexOf('function explainRating('),source.indexOf('function trendFor('))+source.slice(source.indexOf('function safeStoryUrl('),source.indexOf('const DETAIL_TAB_CONFIG'))+';({explainRating,upcomingLinkedStories,publicStorySentence,storylineDetails})',{Date:FixedDate,Intl,URL,safeText:String,SportsRadarScore:runtime});
+  const displayed=g=>api.explainRating(g)+' '+api.storylineDetails(g);
   const before=gameFor(row('401856849'),{reviewed:false}),after=gameFor(row('401856849'));
   assert.doesNotMatch(api.explainRating(before),/holy war|rivalry|bragging rights/i);
   assert.match(api.explainRating(after),/Holy War.*first time.*top ten/i);
   assert.match(api.explainRating(gameFor(row('401856741'))),/playoff run.*quarterfinal/i);
   assert.match(api.explainRating(gameFor(row('401858291'))),/CFP selection debate/i);
   assert.match(displayed(after),/Holy War/i);
-  assert.equal(api.upcomingLinkedStories(after).length,1);
+  assert.equal(api.storylineDetails(after),'','the duplicate story leaves no empty heading');
+  assert.equal((displayed(after).match(/Holy War/g)||[]).length,1);
+  assert.equal(after.qualitativeContexts.length,1,'evidence remains intact');
+  assert.equal(api.storylineDetails({...after,state:'live'}).includes('Holy War'),true,'live storylines retain their existing behavior');
   assert.match(displayed(gameFor(row('401856740'))),/Kiffin.*Alabama/);
   assert.match(displayed(gameFor(row('401856743'))),/Columbia.*2011/);
-  assert.equal(api.upcomingLinkedStories(gameFor(row('401862823'))).length,1);
+  assert.equal(api.storylineDetails(gameFor(row('401862823'))),'');
+  assert.match(api.storylineDetails(gameFor(row('401856743'))),/Read source/,'a distinct informational story keeps its source link');
 });

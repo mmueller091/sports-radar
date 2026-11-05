@@ -134,7 +134,7 @@ test('completed NFL refresh recovers the latest valid pre-final records by team 
   assert.equal(recovered.game.factors.filter(f=>f.label==='Ended unbeaten start').length,1);
   assert.equal(recovered.game.factors.find(f=>f.label==='Ended unbeaten start').points,6);
   assert.equal(recovered.game.factors.find(f=>f.label==='Underdog won outright').points,18);
-  assert.ok(recovered.game.qualitativeContexts?.length,'context rerating retains the bonus');
+  assert.ok(!recovered.game.qualitativeContexts?.length,'unsupported news cannot enter completed context; recovered scoring is unchanged');
   const again=await refreshSportsData(recovered.env,now+60000);
   assert.equal(again.games[0].score,54);
   assert.equal(again.games[0].factors.filter(f=>f.label==='Ended unbeaten start').length,1);

@@ -24,7 +24,7 @@ export function nflPregameContext(game,summary,news=[],opposition=[],now=Date.no
   }
   const metadata=articles.map(articleMetadata).filter(a=>articleMatchesGame(a,identity,now));
   const factors=mergeFactors(metadata.map((article,i)=>({id:String(i),eventId:String(game.id),sport:'NFL',article,game:identity,
-    affectedTeamId:affectedInjuryTeam(article,identity)})),[]);
+    affectedTeamId:affectedInjuryTeam(article,identity)})),[],[],now);
   return factors.map(f=>{
     if(f.type==='star_injury_return') {
       const article=metadata.find(a=>a.url===f.sourceUrl),proof=article && nflReturnSignificance(article,preview,f.injuryEvidence?.importance);

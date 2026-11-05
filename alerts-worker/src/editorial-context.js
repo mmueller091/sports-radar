@@ -1,4 +1,5 @@
 import {reserveResearchAi,measuredResearchInference} from './ai-budget.js';
+import {identifiesMatchup} from './open-news-discovery.js';
 
 // Editorial discoveries never become scoring factors. Facts remain the source's
 // own complete snippet; the model only selects which linked story to show.
@@ -35,12 +36,16 @@ export function cfbArticleRelevant(article,game) {
 
 export function editorialArticleEligible(article,game,now=Date.now()) {
   if(!article?.headline||!game||game.state&&game.state!=='upcoming')return false;
+  // Keep complete source headlines inside the existing storage/prompt bounds;
+  // truncation could drop a qualification and change the supported claim.
+  if(article.headline.length>260||String(article.url||'').length>1000)return false;
+  if(/\b(?:could|might|may|rumou?rs?|reportedly|speculat\w*|possible|expected|questionable|doubtful|not confirmed)\b|\?/i.test(`${article.headline} ${article.description||''}`))return false;
   if(!cfbArticleRelevant(article,game))return false;
   if(!Number.isFinite(article.published)||article.published>now+60000||now-article.published>7*DAY)return false;
   let url;try{url=new URL(article.url);}catch{return false;}
   if(!['http:','https:'].includes(url.protocol)||url.username||url.password)return false;
   const official={NFL:'nfl.com',NBA:'nba.com',NHL:'nhl.com'}[game.sport];
-  const espnPath={NFL:'nfl',CFB:'college-football',NBA:'nba',NHL:'nhl',NCAAB:'mens-college-basketball'}[game.sport];
+  const espnPath={NFL:'nfl',CFB:'college-football',NBA:'nba',NHL:'nhl',NCAAB:'mens-college-basketball',MLB:'mlb'}[game.sport];
   const domain=name=>url.hostname===name||url.hostname.endsWith('.'+name);
   if(!(domain('espn.com')&&url.pathname.startsWith('/'+espnPath+'/story/')||official&&domain(official)))return false;
   if(/recap|preview|highlights|fantasy|betting tips|prop plays|power rankings|mock draft|trade rumors?|uniform|jerseys?|costumes?/i.test(`${article.type||''} ${article.headline} ${article.description||''}`))return false;
@@ -61,6 +66,12 @@ export function groundedEditorialCandidate(item,classification,now=Date.now()) {
   // Do not accept fragments that could omit negation, qualification or attribution.
   if(clean(classification.evidence)!==sourceText(item.article))return null;
   if(clean(classification.matchupEvidence)!==clean(item.article.headline)&&clean(classification.matchupEvidence)!==sourceText(item.article))return null;
+  if(classification.kind==='rivalry'){
+    const pairing={sport:item.game.sport,teams:(item.game.teams||[]).map(t=>({name:t.name||t[0],abbr:t.abbr||t[1]}))};
+    const text=`${item.article.headline} ${sourceText(item.article)}`;
+    if(pairing.teams.length!==2||!identifiesMatchup(text,pairing)||
+      /\b(?:after|following|prior to)\b.{0,80}\b(?:rivalry|rematch|playoff|championship)\b/i.test(text))return null;
+  }
   if(classification.kind==='player_return'&&/\b(?:expected|could|may|might|questionable|doubtful|hope\w*|optimis\w*|uncertain|if|not yet)\b/i.test(`${item.article.headline} ${sourceText(item.article)}`))return null;
   return {id:item.id,type:EDITORIAL_TYPE,kind:classification.kind,evidence:sourceText(item.article),
     matchupEvidence:clean(classification.matchupEvidence),confidence:classification.confidence};

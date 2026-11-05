@@ -3,6 +3,11 @@ import {reserveResearchAi,measuredResearchInference} from './ai-budget.js';
 import {EDITORIAL_TYPE,editorialArticleEligible,acceptEditorialReview,discoverEditorialStories,cfbArticleRelevant} from './editorial-context.js';
 import cfbContext from '../../scoring/cfb-verified-context.cjs';
 import {RESEARCH_LIMITS,DIAGNOSTIC_KEY,cachedResearchSlate,selectResearchGames,selectCfbTeamNews,researchDiagnostics,publicLinkEligible} from './research-allocation.js';
+import {selectOpenNewsGames,historicalSearchUrl,historicalRivalry,identifiesMatchup,
+  readOpenNewsState,writeOpenNewsState} from './open-news-discovery.js';
+
+import {verifiedEvidenceFactors,revalidateEvidence,distinctEvidenceFactors} from './source-evidence.js';
+import {researchOfficialSources} from './source-research.js';
 
 const {
   rateGame,
@@ -27,9 +32,9 @@ const RESEARCH_FEEDS = [
   {sport:'NCAAB',scoreboard:'basketball/mens-college-basketball/scoreboard',news:'basketball/mens-college-basketball/news'}
 ];
 
-async function fetchJson(url) {
+async function fetchJson(url,headers={}) {
   const response = await fetch(url,{
-    headers:{Accept:'application/json'},
+    headers:{Accept:'application/json',...headers},
     signal:AbortSignal.timeout(7000),
     cf:{cacheTtl:300,cacheEverything:true}
   });
@@ -325,66 +330,78 @@ async function aiFactors(env,items,now=Date.now(),usage) {
   }
 }
 
-function mergeFactors(items,classified,editorial=[],now=Date.now()) {
-  const byItem = new Map(classified
-    .filter(item => item && ALLOWED_TYPES.has(item.type) && Number(item.confidence) >= .7)
-    .map(item => [String(item.id),item]));
-  const deduped = new Map();
-  for (const item of items) {
-    const ai = byItem.get(item.id);
-    const fallback = deterministicFactor(item.article);
-    const chosen = ai && evidenceSupportsType(item.article,ai.type) ? ai : fallback;
-    if (!chosen || (item.game && !achievementMatchesGame(item.article,item.game,chosen.type))) continue;
-    if(item.sport==='NFL' && !nflMaterialFactor(item.article,chosen.type)) continue;
-    const confidence = Math.min(.99,Math.max(.7,Number(chosen.confidence) || .7));
-    const groundedText = item.article.headline;
-    const factor = {
-      eventId:item.eventId,
-      sport:item.sport,
-      type:chosen.type,
-      text:groundedText.slice(0,260),
-      confidence,
-      sourceDescription:String(item.article.description||'').slice(0,1000),
-      sourceTeamIds:[...(item.article.teamIds||[])],sourceEventIds:[...(item.article.eventIds||[])],
-      sourceTitle:item.article.headline.slice(0,260),
-      sourceUrl:item.article.url.slice(0,1000),
-      sourcePublished:Math.floor(item.article.published / 1000)
-    };
-    if (['star_absence','star_injury_return'].includes(factor.type)) {
-      // Injury evidence comes from the provider snippet, never AI-added claims.
-      factor.text = `${item.article.headline}. ${item.article.description || ''}`.trim().slice(0,260);
-      factor.injuryEvidence = {...meaningfulInjuryEvidence(item.article,factor.type),affectedTeamId:item.affectedTeamId || '',reportedAt:new Date(item.article.published).toISOString()};
-      factor.sourceDescription = String(item.article.description || '').slice(0,1000);
-    }
-    if (ACHIEVEMENTS.has(factor.type)) {factor.sourceDescription=String(item.article.description || '').slice(0,1000);factor.sourceTeamIds=[...(item.article.teamIds || [])];}
-    if (factor.sport==='NFL') {
-      factor.sourceDescription=String(item.article.description || '').slice(0,1000);
-      factor.sourceTeamIds=[...(item.article.teamIds || [])];factor.sourceEventIds=[...(item.article.eventIds || [])];
-    }
-    const key = `${factor.sport}:${factor.eventId}:${factor.type}`;
-    const prior = deduped.get(key);
-    if (!prior || factor.confidence > prior.confidence || factor.sourcePublished > prior.sourcePublished) deduped.set(key,factor);
+// The active feeds do not establish independent reporting provenance. A second
+// headline, a different byline, Wikipedia or an AI verdict is not corroboration.
+// A snippet is informational until a retained source document passes verification.
+function singleSourceDiscovery(article,game,now=Date.now(),expectedType) {
+  if(!editorialArticleEligible(article,game,now)||!articleMatchesGame(article,game,now))return null;
+  const text=`${article.headline} ${article.description||''}`;
+  if(/\b(?:could|might|may|rumou?rs?|reportedly|speculat\w*|possible|expected|questionable|doubtful|not confirmed)\b|\?/i.test(text))return null;
+  const grounded=deterministicFactor(article);
+  if(!grounded||(expectedType&&grounded.type!==expectedType)||!achievementMatchesGame(article,game,grounded.type))return null;
+  if(['rivalry','rivalry_development','championship_rematch','playoff_rematch','meaningful_rematch'].includes(grounded.type)){
+    const pairing={sport:game.sport,teams:(game.teams||[]).map(t=>({name:t.name||t[0],abbr:t.abbr||t[1]}))};
+    if(pairing.teams.length!==2||!identifiesMatchup(text,pairing)||
+      /\b(?:after|following|prior to)\b.{0,80}\b(?:rivalry|rematch|playoff|championship)\b/i.test(text))return null;
   }
-  for(const candidate of editorial) {
+  if(game.sport==='NFL'&&!nflMaterialFactor(article,grounded.type))return null;
+  const start=Number(game.start)||Date.parse(game.startTime||'');
+  if(start-now>42*3600000&&!article.eventIds?.has(String(game.eventId||game.id))&&
+    /injur|return|ruled out|sidelined|activated|debut|streak|will start|confirmed starter/i.test(text))return null;
+  return {type:EDITORIAL_TYPE,discoveredType:grounded.type,verification:'single-source',scoringEligible:false,
+    editorialOnly:true,verified:true,confidence:.95,text:article.headline,
+    sourceTitle:article.headline,sourceDescription:article.description||'',sourceUrl:article.url,
+    sourcePublished:Math.floor(article.published/1000),publishedAt:new Date(article.published).toISOString(),
+    sourceTeamIds:[...(article.teamIds||[])],sourceEventIds:[...(article.eventIds||[])]};
+}
+
+function mergeFactors(items,classified,editorial=[],now=Date.now(),verified=[],games=[]) {
+  const deduped=new Map();
+  for(const item of items){
+    // AI classifications cannot promote single-source discoveries into points.
+    const story=singleSourceDiscovery(item.article,item.game,now);
+    if(!story)continue;
+    const key=`${item.sport}:${item.eventId}:${EDITORIAL_TYPE}`;
+    const prior=deduped.get(key);
+    if(!prior||story.sourcePublished>prior.sourcePublished)
+      deduped.set(key,{...story,eventId:item.eventId,sport:item.sport});
+  }
+  for(const candidate of editorial){
     const item=items.find(item=>item.id===candidate.id);
     if(!item||!acceptEditorialReview(item,candidate,candidate.review,now))continue;
-    // An article already contributing a grounded factor needs only one link.
-    if([...deduped.values()].some(f=>f.eventId===item.eventId&&f.sport===item.sport&&f.sourceUrl===item.article.url))continue;
-    const factor={eventId:item.eventId,sport:item.sport,type:EDITORIAL_TYPE,text:item.article.headline,
-      confidence:candidate.confidence,sourceTitle:item.article.headline,sourceUrl:item.article.url,
+    const story={eventId:item.eventId,sport:item.sport,type:EDITORIAL_TYPE,text:item.article.headline,
+      confidence:candidate.confidence,verified:true,editorialOnly:true,verification:'single-source',scoringEligible:false,
+      sourceTitle:item.article.headline,sourceUrl:item.article.url,publishedAt:new Date(item.article.published).toISOString(),
       sourcePublished:Math.floor(item.article.published/1000),sourceDescription:item.article.description||'',
       sourceTeamIds:[...(item.article.teamIds||[])],sourceEventIds:[...(item.article.eventIds||[])],editorialReview:candidate};
-    // One exceptional story per game keeps the existing bounded D1 key shape.
-    deduped.set(`${factor.sport}:${factor.eventId}:${EDITORIAL_TYPE}`,factor);
+    deduped.set(`${item.sport}:${item.eventId}:${EDITORIAL_TYPE}`,story);
   }
-  return [...deduped.values()];
+  for(const factor of verified){
+    const item=items.find(i=>i.sport===factor.sport&&i.eventId===factor.eventId);
+    const game=item?.game||games.find(g=>g.sport===factor.sport&&String(g.eventId||g.id)===factor.eventId);
+    const accepted=game&&validatedScoringFactor(factor,game,now,games.length?games:[game]);
+    if(accepted)deduped.set(`${factor.sport}:${factor.eventId}:${factor.type}`,accepted);
+  }
+  return distinctEvidenceFactors([...deduped.values()]);
+}
+
+function validatedScoringFactor(factor,game,now,slate=[game],currentDocuments=[]){
+  const checked=revalidateEvidence(factor,game,deterministicFactor,now,slate,currentDocuments);
+  if(!checked||!ALLOWED_TYPES.has(checked.type))return null;
+  const article={headline:checked.text,description:'',teamIds:new Set([checked.evidence.owner])};
+  if(game.sport==='NFL'&&!nflMaterialFactor(article,checked.type))return null;
+  if(['star_absence','star_injury_return'].includes(checked.type)){
+    const injury=meaningfulInjuryEvidence(article,checked.type);if(!injury)return null;
+    checked.injuryEvidence={...injury,affectedTeamId:checked.evidence.owner,reportedAt:checked.publishedAt};
+  }
+  return checked;
 }
 
 async function saveFactors(env,games,factors,now) {
   const gameByKey = new Map(games.map(game => [game.key,game]));
   const writes = factors.map(factor => {
     const game = gameByKey.get(`${factor.sport}:${factor.eventId}`);
-    const expires = Math.floor(((game?.start || now) + 48 * 60 * 60 * 1000) / 1000);
+    const expires = Math.floor((factor.evidence?Date.parse(factor.expiresAt):(game?.start || now)+48*3600000)/1000);
     return env.DB.prepare(`INSERT INTO game_context
       (event_id,sport,factor_type,context_text,confidence,source_title,source_url,source_published,expires_at,updated_at)
       VALUES (?,?,?,?,?,?,?,?,?,?)
@@ -395,10 +412,15 @@ async function saveFactors(env,games,factors,now) {
         source_url=excluded.source_url,
         source_published=excluded.source_published,
         expires_at=excluded.expires_at,
-        updated_at=excluded.updated_at`)
+        updated_at=excluded.updated_at
+      WHERE COALESCE(json_extract(excluded.context_text,'$.origin'),'')!='open-news'
+        OR CASE WHEN json_valid(game_context.context_text)
+          THEN COALESCE(json_extract(game_context.context_text,'$.origin'),'')='open-news'
+          ELSE 0 END`)
       .bind(factor.eventId,factor.sport,factor.type,
-        JSON.stringify({version:5,text:factor.text,description:factor.sourceDescription||'',teamIds:factor.sourceTeamIds||[],
-          eventIds:factor.sourceEventIds||[],affectedTeamId:factor.injuryEvidence?.affectedTeamId,editorialReview:factor.editorialReview}),
+        JSON.stringify({version:factor.evidence?7:factor.discoveredType?6:5,verification:factor.verification,evidence:factor.evidence,expiresAt:factor.expiresAt,discoveredType:factor.discoveredType,text:factor.text,description:factor.sourceDescription||'',teamIds:factor.sourceTeamIds||[],
+          eventIds:factor.sourceEventIds||[],affectedTeamId:factor.injuryEvidence?.affectedTeamId,editorialReview:factor.editorialReview,
+          origin:factor.origin,sources:factor.openNewsSources}),
         factor.confidence,factor.sourceTitle,factor.sourceUrl,factor.sourcePublished,expires,Math.floor(now / 1000));
   });
   for (let start=0;start<writes.length;start+=50) await env.DB.batch(writes.slice(start,start+50));
@@ -406,12 +428,34 @@ async function saveFactors(env,games,factors,now) {
 }
 
 export async function refreshStorylines(env,now=Date.now()) {
-  const [slate,previous]=await Promise.all([cachedResearchSlate(env,now),researchDiagnostics(env)]);
+  const [slate,previous,openState]=await Promise.all([cachedResearchSlate(env,now),researchDiagnostics(env),readOpenNewsState(env,now)]);
   const games=selectResearchGames(slate.games,previous?.lastResearched||{},now);
   const neededSports = new Set(games.map(game => game.sport));
-  const remainingRequests=Math.max(0,RESEARCH_LIMITS.providerRequests-neededSports.size);
+  // GDELT is dormant: no flag, scheduled requests or cached scoring promotion.
+  // A periodic Wikipedia lookup supplies hints only and shares the six slots.
+  const researchCycle=Math.floor(now/(2*3600000));
+  const historicalPass=researchCycle%4===0&&now>=openState.historyFailureUntil;
+  const missingHistory=slate.games.filter(g=>!openState.history.some(item=>
+    item.pairKey===`${g.sport}:${g.teams.map(t=>String(t.id)).sort().join(':')}`));
+  const historicalGame=historicalPass?selectOpenNewsGames(missingHistory,openState.lastHistoryResearched,now,1)[0]:null;
+  const historyUrl=historicalGame?historicalSearchUrl(historicalGame):null;
+  const externalUrl=historyUrl;
+  const allFeeds=RESEARCH_FEEDS.filter(feed=>neededSports.has(feed.sport));
+  // Two of the same six slots verify observed source documents. Rotate skipped
+  // league feeds; the periodic Wikipedia pass continues to use just one slot.
+  const sourceSlots=externalUrl?0:2;
+  const feedLimit=RESEARCH_LIMITS.providerRequests-sourceSlots-Number(Boolean(externalUrl));
+  const offset=allFeeds.length?researchCycle%allFeeds.length:0;
+  const requestedFeeds=[...allFeeds.slice(offset),...allFeeds.slice(0,offset)].slice(0,feedLimit);
+  const remainingRequests=Math.max(0,feedLimit-requestedFeeds.length);
   const teamNewsIds=selectCfbTeamNews(games,previous?.lastTeamResearch||{},remainingRequests,now);
-  const newsEntries = await Promise.all(RESEARCH_FEEDS.filter(feed => neededSports.has(feed.sport)).map(async feed => {
+  const openRequest=externalUrl?fetchJson(externalUrl,historyUrl?{'User-Agent':'SlateMeter/1.0 (https://slatemeter.app)'}:{})
+    .then(payload=>{
+      if(!Array.isArray(historyUrl?payload?.pages:payload?.articles))throw Error('Invalid public research response');
+      return {articles:[],history:historyUrl?historicalRivalry(payload,historicalGame,now):null,failed:false};
+    })
+    .catch(()=>({articles:[],history:null,failed:true})):Promise.resolve({articles:[],history:null,failed:false});
+  const newsEntries = await Promise.all(requestedFeeds.map(async feed => {
     try {
       const payload = await fetchJson(`${ESPN}/${feed.news}?limit=100`);
       return [feed.sport,(payload.articles || []).map(articleMetadata)];
@@ -425,6 +469,7 @@ export async function refreshStorylines(env,now=Date.now()) {
       return {id,articles:(payload.articles||[]).map(articleMetadata).filter(a=>a.teamIds.has(id))};
     }catch{return {id,articles:[]};}
   }));
+  const openResponse=await openRequest;
   const articlesBySport=new Map(newsEntries);
   if(teamEntries.length){
     const cfb=articlesBySport.get('CFB')||[],seen=new Set(cfb.map(a=>a.id||a.url));
@@ -434,13 +479,33 @@ export async function refreshStorylines(env,now=Date.now()) {
     }
     articlesBySport.set('CFB',cfb);
   }
+  // Reuse previously captured source snippets when the rolling feed has moved
+  // on. They remain discovery hints and receive no grandfathered scoring trust.
+  for(const game of games)for(const story of [...(game.publicGame?.qualitativeContexts||[]),...(game.publicGame?.editorialStorylines||[])]){
+    if(story.registryVersion||!story.sourceUrl)continue;
+    const articles=articlesBySport.get(game.sport)||[];
+    if(articles.some(a=>a.url===story.sourceUrl))continue;
+    articles.push({id:story.sourceUrl,headline:story.sourceTitle||story.text,description:story.sourceDescription||'',url:story.sourceUrl,
+      published:Date.parse(story.publishedAt||'')||Number(story.sourcePublished)*1000,
+      teamIds:new Set(story.sourceTeamIds||[]),eventIds:new Set(story.sourceEventIds||[])});
+    articlesBySport.set(game.sport,articles);
+  }
   const items = buildResearchItems(games,articlesBySport,now);
   const usage=[];
-  // NFL scoring context stays deterministic. Editorial discovery is separate.
+  // Existing classification/review calls may select stories, never certify
+  // independent reporting or promote automatic scoring evidence.
   const classified = await aiFactors(env,items.filter(item=>item.sport!=='NFL'),now,usage);
   const editorial = await discoverEditorialStories(env,items,now,usage);
-  const factors = mergeFactors(items,classified,editorial,now);
+  const sourceResearch=sourceSlots?await researchOfficialSources(items,openState,deterministicFactor,now):
+    {documents:openState.documents||[],diagnostics:{requests:0},lastVerified:openState.lastVerified,sourceFailureUntil:openState.sourceFailureUntil,sourceIndex:openState.sourceIndex};
+  const verified=games.flatMap(g=>verifiedEvidenceFactors(g,sourceResearch.documents,deterministicFactor,now,slate.games));
+  const factors = mergeFactors(items,classified,editorial,now,verified,games);
   await saveFactors(env,games,factors,now);
+  const newOpenState={documents:sourceResearch.documents,lastVerified:sourceResearch.lastVerified,sourceFailureUntil:sourceResearch.sourceFailureUntil,sourceIndex:sourceResearch.sourceIndex,evidence:[],failureUntil:0,lastResearched:{},
+    history:[...openState.history,...(openResponse.history?[openResponse.history]:[])],
+    historyFailureUntil:historyUrl&&openResponse.failed?now+6*3600000:openState.historyFailureUntil,
+    lastHistoryResearched:{...openState.lastHistoryResearched,...(historicalGame?{[historicalGame.key]:now}:{})}};
+  try{await writeOpenNewsState(env,newOpenState,now);}catch{}
   const revalidated=await contextsForGames(env,games.map(g=>g.key),games.map(g=>g.publicGame),now);
   const counts=games.map(g=>{
     const accepted=revalidated[g.key]||[];
@@ -454,8 +519,13 @@ export async function refreshStorylines(env,now=Date.now()) {
     automaticAccepted:counts.reduce((n,g)=>n+g.automatic,0),reviewedAccepted:counts.reduce((n,g)=>n+g.reviewed,0),
     exploratoryGames:games.filter(g=>g.exploratory).length,
     eligiblePublicLinks:counts.reduce((n,g)=>n+g.publicLinkEligible,0),gamesWithEligibleLinks:counts.filter(g=>g.publicLinkEligible).length,
-    counts,usage,providerRequests:neededSports.size+teamNewsIds.length,
+    counts,usage,providerRequests:requestedFeeds.length+teamNewsIds.length+Number(Boolean(externalUrl))+sourceResearch.diagnostics.requests,
+    sourceVerification:{...sourceResearch.diagnostics,cachedDocuments:sourceResearch.documents.length,verifiedFactors:factors.filter(f=>f.evidence).length},
     teamNews:{queried:teamNewsIds,eligibleArticles:teamEntries.reduce((total,entry)=>total+entry.articles.length,0)},
+    openNews:{enabled:false,queried:[],attempted:false,failed:false,articles:0,candidates:0,corroborated:0,
+      historicalLookup:historyUrl?historicalGame.key:null,historicalFound:Boolean(openResponse.history),
+      historicalFailed:Boolean(historyUrl&&openResponse.failed),historicalCached:newOpenState.history.length,
+      source:'GDELT disabled; Wikipedia search hints only; source documents required for automatic scoring'},
     lastTeamResearch:Object.fromEntries([
       ...Object.entries(previous?.lastTeamResearch||{}).filter(([id,at])=>/^[1-9]\d{0,7}$/.test(id)&&Number.isFinite(at)&&at>now-8*86400000&&at<=now),
       ...teamNewsIds.map(id=>[id,now])
@@ -489,6 +559,7 @@ export async function contextsForGames(env,keys,games=[],now=Date.now()) {
   }
   const allowed = new Set(parsed.map(item => `${item.sport}:${item.eventId}`));
   const output = {};
+  let sourceDocuments;
   for (const row of rows) {
     const key = `${row.sport}:${row.event_id}`;
     if (!allowed.has(key)) continue;
@@ -496,60 +567,56 @@ export async function contextsForGames(env,keys,games=[],now=Date.now()) {
     let text = row.context_text;
     let saved;
     try {saved=JSON.parse(text);} catch {}
-    if ([3,4,5].includes(saved?.version)) text=saved.text;
+    if ([3,4,5,6,7].includes(saved?.version)) text=saved.text;
     const game=games.find(g=>g.sport===row.sport && String(g.id)===String(row.event_id));
-    if(row.factor_type===EDITORIAL_TYPE) {
-      if(!game||game.state!=='upcoming'||saved?.version!==5)continue;
-      const candidate=saved.editorialReview;
-      const article={headline:row.source_title,description:saved.description||'',url:row.source_url,published:Number(row.source_published)*1000,
-        teamIds:new Set(saved.teamIds||[]),eventIds:new Set(saved.eventIds||[])};
-      const item={id:candidate?.id,game,article};
-      if(!acceptEditorialReview(item,candidate,candidate?.review,now))continue;
-      (output[key]||=[]).push({type:EDITORIAL_TYPE,text:row.source_title,confidence:Number(row.confidence),verified:true,editorialOnly:true,
-        sourceTitle:row.source_title,sourceDescription:saved.description||'',sourceUrl:row.source_url,publishedAt:new Date(article.published).toISOString()});
+    const article={headline:row.source_title,description:saved?.description||'',url:row.source_url,
+      published:Number(row.source_published)*1000,teamIds:new Set((saved?.teamIds||[]).map(String)),
+      eventIds:new Set((saved?.eventIds||[]).map(String))};
+    // No cached automatic factor is grandfathered into scoring. Read-time checks
+    // cover old ESPN rows, summary news, AI verdicts and dormant GDELT evidence.
+    if(!game||saved?.origin==='open-news')continue;
+    if(saved?.version===7){
+      sourceDocuments??=(await readOpenNewsState(env,now)).documents;
+      const candidate={type:row.factor_type,text:saved.text,verification:saved.verification,sourceUrl:row.source_url,expiresAt:saved.expiresAt,evidence:saved.evidence};
+      const checked=validatedScoringFactor(candidate,game,now,games,sourceDocuments);
+      if(checked&&checked.sourceTitle===row.source_title&&checked.sourcePublished===Number(row.source_published))
+        (output[key]||=[]).push(checked);
       continue;
     }
-    if (game?.state==='upcoming' && !pregameStoryEligible(row,saved,now)) continue;
-    if(game?.sport==='CFB'&&game.state==='upcoming'&&saved?.version===5){
-      const article={headline:row.source_title,description:saved.description||'',published:Number(row.source_published)*1000,
-        url:row.source_url,teamIds:new Set((saved.teamIds||[]).map(String)),eventIds:new Set((saved.eventIds||[]).map(String))};
-      if(!articleMatchesGame(article,game,now))continue;
+    if(game.state!=='upcoming')continue;
+    if(row.factor_type===EDITORIAL_TYPE&&saved?.version===5){
+      const candidate=saved.editorialReview,item={id:candidate?.id,game,article};
+      if(!acceptEditorialReview(item,candidate,candidate?.review,now))continue;
+      (output[key]||=[]).push({type:EDITORIAL_TYPE,text:row.source_title,confidence:Number(row.confidence),verified:true,
+        editorialOnly:true,verification:'single-source',scoringEligible:false,
+        sourceTitle:row.source_title,sourceDescription:article.description,sourceUrl:row.source_url,
+        publishedAt:new Date(article.published).toISOString()});
+      continue;
     }
-    if (row.sport==='NFL' && (!game || game.state==='upcoming')) {
-      const article={headline:row.source_title,description:saved?.description || '',published:Number(row.source_published)*1000,
-        teamIds:new Set(saved?.teamIds || []),eventIds:new Set(saved?.eventIds || [])};
-      if (/uniform|jerseys?|costume|fantasy/i.test(article.headline) ||
-          !evidenceSupportsType(article,row.factor_type) || !nflMaterialFactor(article,row.factor_type) || (game && !articleMatchesGame(article,game,now))) continue;
+    const expected=row.factor_type===EDITORIAL_TYPE?saved?.discoveredType:row.factor_type;
+    if(!ALLOWED_TYPES.has(expected))continue;
+    // Reuse independently acquired source documents, not the old row's verdict.
+    // This also lets an existing fact retain its points while its scored row is
+    // waiting for the rotating research writer to upgrade it to version 7.
+    if(row.factor_type!==EDITORIAL_TYPE){
+      sourceDocuments??=(await readOpenNewsState(env,now)).documents;
+      const proof=verifiedEvidenceFactors(game,sourceDocuments,deterministicFactor,now,games).find(f=>f.type===expected);
+      const checked=proof&&validatedScoringFactor(proof,game,now,games);
+      if(checked){(output[key]||=[]).push(checked);continue;}
     }
-    if (ACHIEVEMENTS.has(row.factor_type)) {
-      const article={headline:row.source_title,description:saved?.description || '',teamIds:new Set(saved?.teamIds || [])};
-      if (!evidenceSupportsType(article,row.factor_type) || (game && !achievementMatchesGame(article,game,row.factor_type))) continue;
+    const story=singleSourceDiscovery(article,game,now,expected);
+    if(story){
+      const stories=output[key]||=[];
+      if(!stories.some(s=>s.sourceUrl===story.sourceUrl))stories.push(story);
     }
-    let injuryEvidence;
-    if (['star_absence','star_injury_return'].includes(row.factor_type)) {
-      let stored;
-      try { stored = JSON.parse(row.context_text); } catch {}
-      const versioned = [2,4,5].includes(stored?.version) && typeof stored.text === 'string';
-      const article = {headline:row.source_title,description:versioned ? String(stored.description || '') : ''};
-      const evidence = meaningfulInjuryEvidence(article,row.factor_type);
-      // Revalidate legacy injury rows on every read. Unrelated cached storylines
-      // and historical snapshots are untouched; no production DELETE is needed.
-      if (!evidence) continue;
-      text = versioned ? stored.text : row.context_text;
-      injuryEvidence = {...evidence,affectedTeamId:versioned ? String(stored.affectedTeamId || '') : '',reportedAt:row.source_published ? new Date(Number(row.source_published)*1000).toISOString() : ''};
-    }
-    (output[key] ||= []).push({
-      type:row.factor_type,
-      text,
-      confidence:Number(row.confidence),
-      verified:true,
-      sourceTitle:row.source_title,
-      sourceDescription:saved?.description||'',
-      sourceUrl:row.source_url,
-      publishedAt:row.source_published ? new Date(Number(row.source_published) * 1000).toISOString() : null,
-      ...(injuryEvidence ? {injuryEvidence} : {})
-    });
   }
+
+  for(const key of Object.keys(output)){
+    output[key]=distinctEvidenceFactors(output[key]);
+    const scored=new Set(output[key].filter(f=>f.scoringEligible).map(f=>f.type));
+    output[key]=output[key].filter(f=>!f.editorialOnly||!scored.has(f.discoveredType));
+  }
+
   // The checked-in registry is an independent, reviewed evidence channel. It
   // cannot be populated by an editorial verdict and does not need AI/news slots.
   for(const game of games.filter(Boolean)) {
@@ -561,4 +628,4 @@ export async function contextsForGames(env,keys,games=[],now=Date.now()) {
   return output;
 }
 
-export {articleMetadata,buildResearchItems,achievementMatchesGame,researchGame,deterministicFactor,evidenceSupportsType,articleMatchesGame,mergeFactors,saveFactors,meaningfulInjuryEvidence,affectedInjuryTeam,pregameStoryEligible};
+export {articleMetadata,buildResearchItems,achievementMatchesGame,researchGame,deterministicFactor,evidenceSupportsType,articleMatchesGame,mergeFactors,saveFactors,meaningfulInjuryEvidence,affectedInjuryTeam,pregameStoryEligible,singleSourceDiscovery};

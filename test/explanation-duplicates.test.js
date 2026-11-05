@@ -10,8 +10,8 @@ const base=(sport='NFL')=>({sport,state:'upcoming',score:75,teams:[['Away','AWAY
 test('captured Ravens source produces one return sentence and preserves the exact game and rating',()=>{
  const game=refinementGames().find(g=>g.teams.some(t=>t[1]==='BAL')),original=JSON.stringify(game),text=explain(game);
  const stories=api.upcomingLinkedStories(game).map(s=>api.publicStorySentence(s)).join(' ');
- assert.equal((text.match(/\breturn\b/gi)||[]).length,0,text);assert.match(stories,/Lamar Jackson.*return/);assert.match(text,/3-point spread/);
- assert.doesNotMatch(text+stories,/Ravens QB Jackson to return|bearable|[.!?]["”][.!?]/);assert.equal(JSON.stringify(game),original);
+ assert.equal((text.match(/\breturn\b/gi)||[]).length,0,text);assert.equal(stories,title+'.');assert.ok(game.editorialStorylines.every(s=>s.scoringEligible===false));assert.match(text,/3-point spread/);
+ assert.doesNotMatch(text,/Ravens QB Jackson to return|bearable/);assert.equal(JSON.stringify(game),original);
 });
 for(const sport of ['NFL','CFB','NBA','NCAAB','MLB','NHL','Soccer','Tennis'])test(`${sport}: headline plus description is one public storyline`,()=>{
  const headline='Jordan Smith returns from injury',body='Jordan Smith will return from injury for the season opener.';

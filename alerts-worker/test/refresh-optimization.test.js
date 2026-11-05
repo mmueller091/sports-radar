@@ -137,7 +137,7 @@ test('lower-priority provider failure leaves the already published canonical val
   assert.deepEqual(result.sourceErrors,stored.sourceErrors,'maintenance does not mutate published errors');
 });
 
-for(const kind of ['summary','context','model','scoreboard','transition']) test(`${kind} change invalidates nonlive reuse`,async t=>{
+for(const kind of ['summary','context','model','scoreboard','transition']) test(`${kind} change revalidates nonlive reuse`,async t=>{
   const env=database(t),events=[event('done','post'),event('up')],f=fixture(t,events),now=Date.now();
   await refreshSportsData(env,now,silent);
   if(kind==='summary'){
@@ -155,6 +155,11 @@ for(const kind of ['summary','context','model','scoreboard','transition']) test(
   if(kind==='transition')events[1].competitions[0].status.type.state='in';
   let stats;const result=await refreshSportsData(env,now+60000,{log:m=>{stats=m;}});
   assert.ok(result);
+  if(kind==='context'){
+    assert.equal(stats.reusedGames,2,'unsupported cached news does not invalidate completed scoring');
+    assert.ok(result.games.every(g=>!g.qualitativeContexts?.length));
+    return;
+  }
   if(kind==='summary')assert.equal(stats.cachedEnrichments,1);
   else assert.ok(stats.criticalCandidates>=1,JSON.stringify(stats));
   assert.equal(stats.reusedGames,1);

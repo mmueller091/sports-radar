@@ -6009,9 +6009,11 @@ function storylineDetails(game) {
     ...(Array.isArray(game.qualitativeContexts) ? game.qualitativeContexts : []).filter(f=>!game.suppressedContextTypes?.includes(f.type))];
   if (!factors.length) return '';
   const seen=new Set();
+  const normalized=text=>String(text||'').toLocaleLowerCase().replace(/[^\p{L}\p{N}]+/gu,' ').trim();
+  const outlook=game.state==='upcoming'?` ${normalized(explainRating(game))} `:'';
   const rows = factors.slice(0,6).map(factor => {
     const text=publicStorySentence(factor),key=text.toLocaleLowerCase().replace(/[^\p{L}\p{N}]+/gu,' ').trim();
-    if(!key||seen.has(key))return '';
+    if(!key||seen.has(key)||outlook.includes(` ${key} `))return '';
     seen.add(key);
     const url = safeStoryUrl(factor.sourceUrl);
     const source = url

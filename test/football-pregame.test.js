@@ -125,25 +125,25 @@ test('cached legacy injuries are revalidated immediately without deleting unrela
   const statements=[];
   const env={DB:{prepare(sql){statements.push(sql);return {bind(){return {async all(){return {results:rows};}};}}}}};
   const result=await contextsForGames(env,['CFB:1','NFL:2']);
-  assert.deepEqual(result['CFB:1'].map(f=>f.type),['rivalry']);
-  assert.equal(result['NFL:2'][0].injuryEvidence.affectedTeamId,'away');
+  assert.deepEqual(result,{},'legacy automatic factors without current matchup evidence do not score');
   assert.ok(statements.every(sql=>sql.startsWith('SELECT')));
 });
 
 test('new significant-injury evidence survives storage and revalidation with plain text returned to clients',async()=>{
-  const now=Date.now(),key='NFL:1',game={key,eventId:'1',sport:'NFL',start:now+3600000};
-  const factors=mergeFactors([{id:'i',eventId:'1',sport:'NFL',affectedTeamId:'away',article:{headline:'Jones ruled out for Sunday',description:'Starting quarterback Jones will miss the game.',published:now,url:'https://www.espn.com/story'}}],[]);
+  const now=Date.now(),key='NFL:1',game={key,id:'1',eventId:'1',sport:'NFL',state:'upcoming',start:now+3600000,teams:[{id:'away',name:'Away Hawks'},{id:'home',name:'Home Bears'}],teamIds:new Set(['away','home'])};
+  const factors=mergeFactors([{id:'i',eventId:'1',sport:'NFL',game,affectedTeamId:'away',article:{teamIds:new Set(['away']),eventIds:new Set(['1']),headline:'Jones ruled out for Sunday',description:'Starting quarterback Jones will miss the game.',published:now,url:'https://www.espn.com/nfl/story/1'}}],[],[],now);
   assert.equal(factors.length,1);let row;
   const env={DB:{prepare(sql){return {bind(...args){
     if(sql.startsWith('INSERT INTO game_context'))row={event_id:args[0],sport:args[1],factor_type:args[2],context_text:args[3],confidence:args[4],source_title:args[5],source_url:args[6],source_published:args[7]};
     return {async run(){},async all(){return {results:[row]};}};
   }};},async batch(){}}};
   await saveFactors(env,[game],factors,now);
-  assert.equal(JSON.parse(row.context_text).version,5);
-  const result=await contextsForGames(env,[key]);
+  assert.equal(JSON.parse(row.context_text).version,6);
+  const result=await contextsForGames(env,[key],[game],now);
   assert.equal(result[key][0].text,factors[0].text);
-  assert.equal(result[key][0].injuryEvidence.importance,'starting-quarterback');
-  assert.equal(result[key][0].injuryEvidence.affectedTeamId,'away');
+  assert.equal(result[key][0].editorialOnly,true);
+  assert.equal(result[key][0].scoringEligible,false);
+  assert.equal(result[key][0].discoveredType,'star_absence');
 });
 
 test('browser bundle and active Worker agree on calibrated upcoming ratings and model version',()=>{

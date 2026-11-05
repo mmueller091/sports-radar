@@ -6,6 +6,10 @@ const REVIEWED_AT='2026-11-04T19:00:00Z';
 const EFFECTIVE_FROM='2026-11-04T00:00:00Z';
 const source=(url,title,publishedAt,evidence)=>({url,title,publishedAt,evidence,reviewedAt:REVIEWED_AT});
 const sources={
+  alabamaHistory:{...source('https://rolltide.com/documents/download/2021/11/1/11_6_LSU.pdf','Alabama football game notes: LSU series history','2021-11-01',
+    'Alabama Athletics identifies Alabama and LSU as rivals, describes their series as a rivalry and records its first meeting in 1895.'),reviewedAt:'2026-11-04T22:10:00Z'},
+  lsuHistory:{...source('https://lsusports.net/news/2013/11/08/209302124','LSU: Alabama annual rivalry','2013-11-08',
+    'LSU Athletics explicitly describes its Alabama game as a renewal of the annual rivalry.'),reviewedAt:'2026-11-04T22:10:00Z'},
   byu:source('https://byucougars.com/news/2026/11/2/byu-football-game-week-2026-at-utah','BYU game week at Utah','2026-11-02',
     'The November 7 visit to Utah is the first meeting of these rivals with both teams in the top ten.'),
   holyWar:source('https://byucougars.com/news/2000/11/22/the-holy-war-a-historical-look-at-the-76th-meeting-between-utah-and-byu','The Holy War: a historical look at Utah and BYU','2000-11-22',
@@ -32,6 +36,7 @@ const sources={
 // Team IDs are ESPN CFB identities. Historical membership alone can establish
 // a rivalry; rankings, trophy-clinching scenarios and current personnel cannot.
 const rivalries=[
+  {key:'alabama-lsu',teams:['333','99'],sources:['alabamaHistory','lsuHistory'],text:'Alabama and LSU renew their longstanding rivalry, first played in 1895.'},
   {key:'byu-utah',teams:['252','254'],sources:['holyWar'],text:'BYU and Utah renew the Holy War rivalry.'},
   {key:'miami-notre-dame',teams:['2390','87'],sources:['miami'],text:'Miami and Notre Dame renew their longstanding rivalry.'},
   {key:'kentucky-tennessee',teams:['96','2633'],sources:['tennessee'],text:'Kentucky and Tennessee renew their border rivalry.'},
@@ -57,7 +62,7 @@ const events=[
     {key:'columbia-return',type:'editorial_storyline',sources:['texas'],text:'Texas visits Missouri in Columbia for the first time since 2011.'}]}
 ].map(event=>({...event,expiresAt:'2026-11-08T12:30:00Z'}));
 const REGISTRY={version:VERSION,effectiveFrom:EFFECTIVE_FROM,sources,rivalries,events};
-const HOSTS=new Set(['byucougars.com','georgiadogs.com','miamihurricanes.com','utsports.com','collegefootballplayoff.com','goarmywestpoint.com','goducks.com','lsusports.net','texaslonghorns.com']);
+const HOSTS=new Set(['rolltide.com','byucougars.com','georgiadogs.com','miamihurricanes.com','utsports.com','collegefootballplayoff.com','goarmywestpoint.com','goducks.com','lsusports.net','texaslonghorns.com']);
 const TYPES=new Set(['rivalry','playoff_rematch','meaningful_rematch','editorial_storyline']);
 const pair=ids=>[...ids].map(String).sort().join(':');
 const localDate=time=>new Intl.DateTimeFormat('en-CA',{timeZone:'America/New_York',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date(time));

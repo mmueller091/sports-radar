@@ -259,6 +259,11 @@ function preservePregameRecords(game,previousGame) {
   game.score=nextScore;calculation.set(game,ledger);
 }
 
+function publicEvidence(factor){
+  const evidence=factor.evidence;
+  return {...evidence,documents:evidence.documents.map(({url,title,published,retrievedAt,authors})=>({url,title,published,retrievedAt,authors})),passage:factor.text};
+}
+
 function applyContextsToGame(game,factors) {
   if (!game.sourceEvent || !game.sourceCompetition || !Array.isArray(factors)) return false;
   const editorial=factors.filter(f=>f?.type==='editorial_storyline'&&f.editorialOnly===true&&f.verified===true&&Number(f.confidence)>=.9);
@@ -278,6 +283,7 @@ function applyContextsToGame(game,factors) {
     sourceUrl:factor.sourceUrl,
     ...(factor.registryVersion ? {registryVersion:factor.registryVersion,factKey:factor.factKey,eventId:factor.eventId,
       teamIds:factor.teamIds,eventDate:factor.eventDate,expiresAt:factor.expiresAt,evidence:factor.evidence} : {}),
+    ...(factor.scoringEligible&&factor.evidence?.documents?{sourceEvidence:publicEvidence(factor)}:{}),
     ...(factor.injuryEvidence ? {injuryEvidence:factor.injuryEvidence} : {})
   }));
   const rating = rateGame(
@@ -301,7 +307,7 @@ function applyContextsToGame(game,factors) {
   game.underdog = rating.underdog;
   game.upsetText = rating.upsetText;
   game.upsetPoints = rating.upsetPoints;
-  game.qualitativeContexts = accepted;
+  game.qualitativeContexts = accepted.map(factor=>factor.scoringEligible&&factor.evidence?.documents?{...factor,evidence:publicEvidence(factor)}:factor);
   applyLiveSnapshot(game,game.sourceCompetition,null);
   return true;
 }

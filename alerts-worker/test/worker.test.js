@@ -149,7 +149,7 @@ test('context lookup batches a full 100-game request within D1 parameter limits'
   const result = await contextsForGames(env,keys);
   assert.equal(calls.length,2);
   assert.ok(calls.every(params => params.length <= 91));
-  assert.equal(result['NHL:401892551'][0].type,'former_star_return');
+  assert.deepEqual(result,{},'missing matchup and provenance cannot grandfather a cached bonus');
 });
 
 test('storyline refresh preserves valid context when the current news pass finds nothing',async () => {

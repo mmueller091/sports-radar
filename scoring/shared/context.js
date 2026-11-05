@@ -137,6 +137,7 @@
 
         points,
         sourceUrl:item.sourceUrl,
+        ...(item.sourceEvidence?{sourceEvidence:item.sourceEvidence}:{}),
         ...(item.registryVersion ? {evidence:item.evidence,eventId:item.eventId,factKey:item.factKey} : {}),
         returnSignificance:type==='star_injury_return' ? item.injuryEvidence?.playerSignificance : undefined,
 
@@ -220,6 +221,7 @@
         contextType:item.type,
         contextText:item.text,
         ...(item.sourceUrl ? {sourceUrl:item.sourceUrl} : {}),
+        ...(item.sourceEvidence?{sourceEvidence:item.sourceEvidence}:{}),
         ...(item.evidence ? {evidence:item.evidence,eventId:item.eventId,factKey:item.factKey} : {}),
         ...(item.returnSignificance ? {returnSignificance:item.returnSignificance} : {})
       });

@@ -52,14 +52,14 @@ export function selectCfbTeamNews(games,lastTeamResearch={},slots=0,now=Date.now
       const id=String(team.id||'');
       if(!/^[1-9]\d{0,7}$/.test(id))continue;
       const existing=candidates.get(id);
-      if(!existing||game.score>existing.score)candidates.set(id,{id,score:game.score,start:game.start,exploratory:Boolean(game.exploratory)});
+      if(!existing||game.score>existing.score)candidates.set(id,{id,score:game.score,start:game.start,exploratory:Boolean(game.exploratory),ranked:game.teams.some(t=>Number(t.rank)>=1&&Number(t.rank)<=25)});
     }
   }
   const last=id=>{
     const at=Number(lastTeamResearch?.[id]);
     return Number.isFinite(at)&&at>0&&at<=now?at:0;
   };
-  const order=(a,b)=>last(a.id)-last(b.id)||b.score-a.score||a.start-b.start||a.id.localeCompare(b.id);
+  const order=(a,b)=>last(a.id)-last(b.id)||Number(b.ranked)-Number(a.ranked)||b.score-a.score||a.start-b.start||a.id.localeCompare(b.id);
   const ordered=[...candidates.values()].sort(order);
   // Reserve one of multiple spare lookups for a low-rated discovery candidate.
   // Otherwise highly rated programs can use every source request indefinitely.

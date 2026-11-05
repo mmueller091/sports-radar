@@ -23,10 +23,10 @@ const rating=f=>core.rateGame('NFL','upcoming',[],f.event,f.competition,'');
 test('fresh production baseline is captured and all twelve recalculations meet independent sanity ranges',()=>{
   assert.equal(data.baselineModel,'2026-11-01.nfl-pregame.1');assert.equal(data.baselineGames.length,12);
   assert.deepEqual(data.baselineGames.map(g=>g.score),[72,42,47,79,41,75,54,48,39,76,49,43]);
-  // Seven-point favorites now lose the former +3 market award.
-  const ranges={'401873026':[75,77],'401873029':[44,45],'401873025':[55,58],'401873024':[45,47]};
+  // Existing market calibration is unchanged; single-source return bonuses are omitted.
+  const ranges={'401873026':[69,69],'401873029':[44,45],'401873025':[55,58],'401873024':[43,43]};
   for(const [id,[min,max]]of Object.entries(ranges)){const g=games.find(g=>g.id===id);assert.ok(g.score>=min&&g.score<=max,`${id}: ${g.score}`);}
-  for(const id of ['401873030','401873033','401873027'])assert.equal(games.find(g=>g.id===id).score,data.baselineGames.find(g=>g.id===id).score);
+  for(const [id,expected] of [['401873030',79],['401873033',75],['401873027',75]])assert.equal(games.find(g=>g.id===id).score,expected,'fixed quantitative inputs with no automatic news bonus');
   assert.ok(games.find(g=>g.id==='401873031').score<=43);
 });
 
@@ -91,7 +91,7 @@ test('return tiers use role/accomplishment proof rather than player names and ke
   assert.equal(nflReturnPoints({...base,injuryEvidence:{...base.injuryEvidence,playerSignificance:{...proof,verified:false}}},competition),3);
   for(const g of games)assert.ok(g.factors.filter(f=>f.contextType).reduce((n,f)=>n+Math.max(0,f.points),0)<=6);
   const major=games.find(g=>g.id==='401873026').factors.find(f=>f.contextType==='star_injury_return'),regular=games.find(g=>g.id==='401873024').factors.find(f=>f.contextType==='star_injury_return');
-  assert.equal(major.points,5);assert.equal(regular.points,2);assert.ok(major.returnSignificance.sourceUrl);
+  assert.equal(major,undefined);assert.equal(regular,undefined,'automatic articles cannot satisfy independently verified return tiers');
 });
 
 test('honor attribution rejects an opponent, ambiguous surname, speculation, college awards and missing identity',()=>{
@@ -114,11 +114,11 @@ test('honor attribution rejects an opponent, ambiguous surname, speculation, col
   assert.equal(deterministicFactor({headline:'Reserve tackle returns after minor ankle soreness',description:''}),null);
 });
 
-test('fresh source proof survives context deduplication against older cached coverage',()=>{
-  const g=refinementGames(data).find(g=>g.id==='401873026'),fresh=g.qualitativeContexts.find(f=>f.type==='star_injury_return');
-  applyContextsToGame(g,[fresh,{...fresh,injuryEvidence:{...fresh.injuryEvidence,playerSignificance:undefined}}]);
-  assert.equal(g.factors.find(f=>f.contextType==='star_injury_return').points,5);
-  assert.equal(g.factors.filter(f=>f.contextType==='star_injury_return').length,1);
+test('duplicate single-source return coverage remains informational with no scoring bonus',()=>{
+  const g=refinementGames(data).find(g=>g.id==='401873026'),story=g.editorialStorylines[0],before=g.score;
+  applyContextsToGame(g,[story,{...story}]);
+  assert.equal(g.score,before);assert.equal(g.qualitativeContexts.length,0);
+  assert.equal(g.factors.filter(f=>f.contextType==='star_injury_return').length,0);
 });
 
 test('historical NFL pregame inputs cover defensive, high-total, divisional and large-spread cases',()=>{

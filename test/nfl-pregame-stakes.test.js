@@ -21,7 +21,8 @@ test('captured November 1 baseline and all five abnormalities improve without pe
   // Updated market downside: CIN -13.5 and DAL -7 are less competitive.
   const ranges={'401873025':[54,59],'401873027':[71,76],'401873033':[72,78],'401873031':[37,42],'401873024':[43,49]};
   for(const [id,[min,max]] of Object.entries(ranges)){const g=rows.find(g=>g.id===id);assert.ok(g.score>=min && g.score<=max,`${id}: ${g.score}`);}
-  for(const id of ['401873026','401873030'])assert.ok(rows.find(g=>g.id===id).score>=70);
+  assert.equal(rows.find(g=>g.id==='401873026').score,69,'single-source return bonus removed');
+  assert.ok(rows.find(g=>g.id==='401873030').score>=70);
   for(const g of rows){assert.equal(g.score,core.clampScore(g.factors.reduce((n,f)=>n+f.points,0)));assert.ok(g.score<85);assert.ok(!g.qualitativeContexts.some(f=>/uniform/i.test(f.text)));}
 });
 
@@ -70,8 +71,8 @@ test('spread effects stay continuous; seven points is neutral and wider lines ne
 test('returns are directly relevant, source-linked and deduplicated; uniform roundups never match',()=>{
   for(const id of ['401873024','401873026']){
     const g=rows.find(g=>g.id===id),f=g.factors.find(f=>f.contextType==='star_injury_return');
-    assert.equal(f.points,id==='401873026'?5:2);assert.match(f.sourceUrl,/espn.com/);
-    assert.equal(g.factors.filter(f=>f.contextType==='star_injury_return').length,1);
+    assert.equal(f,undefined,'single-source return does not score');
+    if(id==='401873026'){assert.equal(g.editorialStorylines.length,1);assert.match(g.editorialStorylines[0].sourceUrl,/espn.com/);}
   }
   const game={eventId:'test',teams:[{id:'33',name:'Baltimore Ravens',abbr:'BAL'},{id:'2',name:'Buffalo Bills',abbr:'BUF'}],teamIds:new Set(['33','2'])};
   const uniform=articleMetadata(data.news.articles.find(a=>/uniforms/.test(a.headline)));uniform.eventIds.add('test');
@@ -102,7 +103,7 @@ test('six-hour context cache consumes existing summaries/news with no fetches or
   const g=normalizeEvent(source('401873024'),'NFL'),now=Date.parse('2026-11-01T14:00Z'),urls=[summaryUrl(g),...g.teams.map(t=>nflTeamNewsUrl(t[8]))];
   const payloads=[data.summaries[g.id],...g.teams.map(t=>data.teamNews[t[8]])];let reads=0;
   const env={DB:{prepare(sql){assert.ok(sql.startsWith('SELECT'));reads++;return{bind(){return{async all(){return{results:urls.map((key,i)=>({key,payload:JSON.stringify(payloads[i]),updated_at:now-1000}))};}};}};}}};
-  const result=await cachedNflPregame(env,[g],now);assert.equal(reads,1);assert.deepEqual(result.deferred,[]);assert.ok(result.contexts[g.id].length);
+  const result=await cachedNflPregame(env,[g],now);assert.equal(reads,1);assert.deepEqual(result.deferred,[]);assert.ok(result.contexts[g.id].every(s=>s.editorialOnly&&s.scoringEligible===false));assert.ok(g.sourceCompetition.sportsRadarNflPregame,'quantitative summary evidence is still reused');
   const expired=await cachedNflPregame(env,[g],now+NFL_CONTEXT_TTL);assert.equal(expired.deferred.length,3);
 });
 
