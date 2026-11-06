@@ -21,6 +21,7 @@ const sourcePages={
 };
 const nhlSeasonSource='https://puckbeat.com/story/nhl-teams-reveal-2026-27-social-media-hashtags';
 const today=new Date().toISOString().slice(0,10);
+const verifiedLabels=new Set(['official-bio','official-post','official-site']);
 
 function unique(items){return [...new Set(items.filter(Boolean))];}
 function tag(value){return /^#[A-Za-z0-9_]{2,48}$/.test(value||'')?value:null;}
@@ -45,16 +46,22 @@ async function download(url){
 
 const index=Object.fromEntries(Object.entries(teams).map(([sport,items])=>
   [sport,new Map(items.map(item=>[String(item.id),item]))]));
-const registry={schemaVersion:1,generatedAt:today,meaning:'Verified tags appear on an official team X profile. Other entries are discovery leads and are not eligible for automatic posting.',
-  teams:Object.fromEntries(['NFL','NBA','NHL','CFB','NCAAB'].map(sport=>[sport,{}]))};
+// Never discard a manually verified record when an incomplete external
+// directory is refreshed. Official-site research is not in the directories.
+const existing=JSON.parse(readFileSync(resolve(root,'social/hashtags.json'),'utf8'));
+if(existing.schemaVersion!==1)throw new Error('Unsupported existing hashtag registry schema');
+const registry={schemaVersion:1,generatedAt:today,
+  meaning:'First-party confirmed tags may be used in posts. Other entries are discovery leads only.',
+  teams:Object.fromEntries(['NFL','NBA','NHL','CFB','NCAAB'].map(sport=>
+    [sport,{...(existing.teams?.[sport]||{})}]))};
 
 function put(sport,id,{primary=null,aliases=[],account=null,sourceUrls=[],verification='candidate'}={}){
   const team=index[sport].get(String(id));if(!team)return false;
   const previous=registry.teams[sport][id]||{};
-  const suggestions=uniqueTags([primary,...(previous.aliases||[]),...aliases]);
+  const suggestions=uniqueTags([previous.primary,primary,...(previous.aliases||[]),...aliases]);
   registry.teams[sport][id]={name:team.name,primary:suggestions[0]||null,
-    aliases:suggestions,account:account||previous.account||null,
-    verification:previous.verification?.startsWith('official-')?previous.verification:verification,
+    aliases:suggestions,account:previous.account||account||null,
+    verification:verifiedLabels.has(previous.verification)?previous.verification:previous.verification||verification,
     sourceUrls:unique([...(previous.sourceUrls||[]),...sourceUrls]),
     lastVerifiedAt:previous.lastVerifiedAt||null};
   return true;
@@ -110,6 +117,7 @@ if(verifyX){
   const jobs=[];
   for(const [sport,entries] of Object.entries(registry.teams)){
     for(const [id,entry] of Object.entries(entries)){
+      if(verifiedLabels.has(entry.verification))continue;
       if(!entry.account||!entry.aliases.length)continue;
       jobs.push({sport,id,entry});
     }

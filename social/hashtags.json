@@ -1133,12 +1133,13 @@
           "#NYR"
         ],
         "account": "NYRangers",
-        "verification": "seasonal-report",
+        "verification": "official-site",
         "sourceUrls": [
           "https://puckbeat.com/story/nhl-teams-reveal-2026-27-social-media-hashtags",
-          "https://x.com/NYRangers"
+          "https://x.com/NYRangers",
+          "https://www.nhl.com/news/new-york-rangers-unveil-centennial-year-logo"
         ],
-        "lastVerifiedAt": null
+        "lastVerifiedAt": "2026-11-05"
       },
       "14": {
         "name": "Ottawa Senators",
@@ -2447,19 +2448,21 @@
     "NCAAB": {
       "12": {
         "name": "Arizona Wildcats",
-        "primary": "#APlayersProgram",
+        "primary": "#BearDown",
         "aliases": [
+          "#BearDown",
           "#APlayersProgram",
           "#ArizonaWildcats"
         ],
         "account": "ArizonaMBB",
-        "verification": "candidate",
+        "verification": "official-site",
         "sourceUrls": [
           "https://www.blinkfire.com/publisher/leaguehashtags/mens_college_basketball",
           "https://www.blinkfire.com/publisher/team/mens_college_basketball_12/arizona-wildcats-m-basketball",
-          "https://x.com/ArizonaMBB"
+          "https://x.com/ArizonaMBB",
+          "https://arizonawildcats.com/news/2026/6/24/mens-basketball-burries-peat-see-nba-dreams-come-true-in-first-round-of-nba-draft"
         ],
-        "lastVerifiedAt": null
+        "lastVerifiedAt": "2026-11-05"
       },
       "24": {
         "name": "Stanford Cardinal",
@@ -2477,6 +2480,18 @@
         ],
         "lastVerifiedAt": null
       },
+      "57": {
+        "name": "Florida Gators",
+        "primary": "#GoGators",
+        "aliases": ["#GoGators"],
+        "account": "GatorsMBK",
+        "verification": "official-site",
+        "sourceUrls": [
+          "https://x.com/GatorsMBK",
+          "https://floridagators.com/news/2026/2/1/mens-basketball-gators-bludgeon-bama-again-feb-1-2026"
+        ],
+        "lastVerifiedAt": "2026-11-05"
+      },
       "77": {
         "name": "Northwestern Wildcats",
         "primary": "#B1GCATS",
@@ -2491,6 +2506,18 @@
           "https://x.com/NUMensBball"
         ],
         "lastVerifiedAt": null
+      },
+      "127": {
+        "name": "Michigan State Spartans",
+        "primary": "#GoGreen",
+        "aliases": ["#GoGreen"],
+        "account": "MSU_Basketball",
+        "verification": "official-site",
+        "sourceUrls": [
+          "https://x.com/MSU_Basketball",
+          "https://msuspartans.com/news/2019/4/4/m-basketball-spartan-basketball-final-four-daily-update"
+        ],
+        "lastVerifiedAt": "2026-11-05"
       },
       "130": {
         "name": "Michigan Wolverines",
@@ -2513,13 +2540,15 @@
         "aliases": [
           "#GoDuke"
         ],
-        "account": null,
-        "verification": "candidate",
+        "account": "DukeMBB",
+        "verification": "official-site",
         "sourceUrls": [
           "https://www.blinkfire.com/publisher/leaguehashtags/mens_college_basketball",
-          "https://www.blinkfire.com/publisher/team/mens_college_basketball_150/duke-blue-devils-m-basketball"
+          "https://www.blinkfire.com/publisher/team/mens_college_basketball_150/duke-blue-devils-m-basketball",
+          "https://x.com/DukeMBB",
+          "https://goduke.com/news/2016/10/17/211233890"
         ],
-        "lastVerifiedAt": null
+        "lastVerifiedAt": "2026-11-05"
       },
       "153": {
         "name": "North Carolina Tar Heels",
@@ -2536,20 +2565,72 @@
         ],
         "lastVerifiedAt": null
       },
+      "154": {
+        "name": "Wake Forest Demon Deacons",
+        "primary": "#GoDeacs",
+        "aliases": ["#GoDeacs"],
+        "account": "WakeMBB",
+        "verification": "official-site",
+        "sourceUrls": [
+          "https://x.com/WakeMBB",
+          "https://linktr.ee/wakeforestmbb",
+          "https://godeacs.com/documents/download/2022/9/30/roster_coaches.pdf"
+        ],
+        "lastVerifiedAt": "2026-11-05"
+      },
+      "219": {
+        "name": "Pennsylvania Quakers",
+        "primary": "#FightOnPenn",
+        "aliases": ["#FightOnPenn"],
+        "account": "PennMBB",
+        "verification": "official-site",
+        "sourceUrls": [
+          "https://x.com/PennMBB",
+          "https://pennathletics.com/news/2026/2/28/mens-basketball-comes-back-on-harvard-64-61-clinches-ivy-madness-bid.aspx"
+        ],
+        "lastVerifiedAt": "2026-11-05"
+      },
+      "238": {
+        "name": "Vanderbilt Commodores",
+        "primary": "#AnchorDown",
+        "aliases": ["#AnchorDown"],
+        "account": "VandyMBB",
+        "verification": "official-site",
+        "sourceUrls": [
+          "https://x.com/VandyMBB",
+          "https://vucommodores.com/social-media/",
+          "https://vucommodores.com/wp-content/uploads/2026/02/26_atMizzou.pdf"
+        ],
+        "lastVerifiedAt": "2026-11-05"
+      },
       "251": {
         "name": "Texas Longhorns",
-        "primary": "#TexasMBB",
+        "primary": "#HookEm",
         "aliases": [
+          "#HookEm",
           "#TexasMBB"
         ],
         "account": "TexasMBB",
-        "verification": "candidate",
+        "verification": "official-site",
         "sourceUrls": [
           "https://www.blinkfire.com/publisher/leaguehashtags/mens_college_basketball",
           "https://www.blinkfire.com/publisher/team/mens_college_basketball_251/texas-longhorns-basketball",
-          "https://x.com/TexasMBB"
+          "https://x.com/TexasMBB",
+          "https://texaslonghorns.com/news/2026/11/3/forty-acres-insider-november-3"
         ],
-        "lastVerifiedAt": null
+        "lastVerifiedAt": "2026-11-05"
+      },
+      "356": {
+        "name": "Illinois Fighting Illini",
+        "primary": "#Illini",
+        "aliases": ["#Illini"],
+        "account": "IlliniMBB",
+        "verification": "official-site",
+        "sourceUrls": [
+          "https://x.com/IlliniMBB",
+          "https://fightingillini.com/news/2026/3/11/mens-basketball-9-illinois-opens-big-ten-tournament-friday-at-united-center"
+        ],
+        "lastVerifiedAt": "2026-11-05"
       },
       "2099": {
         "name": "Canisius Golden Griffins",
@@ -2610,6 +2691,18 @@
           "https://www.blinkfire.com/publisher/leaguehashtags/mens_college_basketball",
           "https://www.blinkfire.com/publisher/team/mens_college_basketball_2390/miami-fl-hurricanes-m-basketball",
           "https://x.com/CanesHoops"
+        ],
+        "lastVerifiedAt": "2026-11-05"
+      },
+      "2641": {
+        "name": "Texas Tech Red Raiders",
+        "primary": "#WreckEm",
+        "aliases": ["#WreckEm"],
+        "account": "TexasTechMBB",
+        "verification": "official-site",
+        "sourceUrls": [
+          "https://x.com/TexasTechMBB",
+          "https://texastech.com/news/2024/6/3/mens-basketball-red-raiders-begin-summer-workouts"
         ],
         "lastVerifiedAt": "2026-11-05"
       }

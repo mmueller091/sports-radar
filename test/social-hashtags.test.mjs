@@ -61,7 +61,7 @@ test('uses ESPNs tuple field eight for team ID, never abbreviation field one',()
 
 test('handles missing coverage and de-duplicates hashtags without invention',()=>{
   const blank={teams:{CFB:{}}};
-  assert.deepEqual(gameHashtags({sport:'CFB',teams:[{id:12},{id:13}]},{registry:blank}),['#CFB']);
+  assert.deepEqual(gameHashtags({sport:'CFB',teams:[{id:12},{id:13}]},{registry:blank}),['#NCAAFB']);
   const duplicate={teams:{NBA:{'1':{primary:'#Hawks',verification:'official-bio'},'2':{primary:'#hawks',verification:'official-post'}}}};
   assert.deepEqual(gameHashtags({sport:'NBA',teams:[{id:1},{id:2}]},{registry:duplicate}),['#hawks','#NBA']);
   assert.deepEqual(gameHashtags({sport:'Soccer',teams:[{id:1},{id:2}]}),[]);
@@ -86,7 +86,21 @@ test('Wake Forest vs Vanderbilt crossing uses the approved wording',()=>{
   const draft=draftExcitementPost(game,{reason:'A close finish.'});
   assert.ok(draft.text.startsWith("This one's worth watching. Wake Forest Demon Deacons vs. Vanderbilt Commodores just hit 86/99 on SlateMeter."));
   assert.ok(draft.text.includes('A close finish.'));
-  assert.ok(draft.text.endsWith('#NCAAM\nhttps://slatemeter.app/#game/NCAAB/401909726'));
+  assert.ok(draft.text.endsWith('#GoDeacs #AnchorDown #CBB\nhttps://slatemeter.app/#game/NCAAB/401909726'));
+  assert.deepEqual(draft.missingTeamHashtags,[]);
+});
+
+test('official team tags on current college-basketball slate use the canonical IDs',()=>{
+  const expected={
+    '12':'#BearDown','57':'#GoGators','127':'#GoGreen','150':'#GoDuke',
+    '154':'#GoDeacs','219':'#FightOnPenn','238':'#AnchorDown',
+    '251':'#HookEm','356':'#Illini','2641':'#WreckEm'
+  };
+  for(const [id,hashtag] of Object.entries(expected)){
+    assert.equal(teamHashtag('NCAAB',id)?.primary,hashtag);
+    assert.equal(teamHashtag('NCAAM',id)?.primary,hashtag);
+  }
+  assert.equal(teamHashtag('NHL','13')?.primary,'#NYR');
 });
 
 test('extracts team IDs and candidate hashtags from public directory table',()=>{

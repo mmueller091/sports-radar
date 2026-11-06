@@ -1,9 +1,9 @@
 import data from './hashtags.json' with {type:'json'};
 
-export const HASHTAG_SPORTS=Object.freeze({NFL:'#NFL',NBA:'#NBA',NHL:'#NHL',CFB:'#CFB',NCAAB:'#NCAAM'});
+export const HASHTAG_SPORTS=Object.freeze({NFL:'#NFL',NBA:'#NBA',NHL:'#NHL',CFB:'#NCAAFB',NCAAB:'#CBB'});
 export const DEFAULT_POST_THRESHOLD=85;
 
-const VERIFIED=new Set(['official-bio','official-post']);
+const VERIFIED=new Set(['official-bio','official-post','official-site']);
 const safeId=value=>/^\d{1,18}$/.test(String(value||''))?String(value):null;
 const safeTag=value=>/^#[A-Za-z0-9_]{2,48}$/.test(value||'')?value:null;
 const asSport=value=>value==='NCAAM'?'NCAAB':value;

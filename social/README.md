@@ -16,12 +16,15 @@ identified, source URLs, verification category, and verification date.
 - `official-post`: a candidate hashtag appears among hashtag links rendered on
   the team's official X profile, with a matching handle. Treat it as a weaker
   confirmation than the bio and recheck before a fully automated rollout.
+- `official-site`: the team or its governing league publishes the hashtag with
+  the official team account on its own athletics website, current game notes,
+  or an embedded post by that account. The original source URL is recorded.
 - `candidate`: a hashtag listed by a secondary directory or manually researched
   seed, but not corroborated on the official team profile.
 - `seasonal-report`: an NHL season-specific hashtag reported by PuckBeat, but
   not corroborated on the official team profile.
 
-Only `official-bio` and `official-post` tags enter the draft formatter. Missing
+Only `official-bio`, `official-post`, and `official-site` tags enter the draft formatter. Missing
 or unverified team tags are omitted, with a review warning. The generic league
 tag is still included. No tag is guessed from a team's abbreviation.
 
@@ -38,6 +41,21 @@ list of every official team hashtag. It is an evidence-labeled starting point.
 Official X hashtag **emoji/brand hashflags** are seasonal and are not verified by
 this registry; do not assume these hashtags display a team logo on X.
 
+Generic college tags are `#NCAAFB` for football and `#CBB` for men's basketball.
+The game links still use internal sport IDs `CFB` and `NCAAB`. Do not change
+those identifiers to match social hashtags.
+
+Run the offline coverage audit to see verified, candidate, and missing teams:
+
+```sh
+node scripts/audit-social-hashtags.mjs
+node scripts/audit-social-hashtags.mjs --json > /tmp/slatemeter-hashtags-audit.json
+```
+
+The audit reads only local canonical teams and the registry, without calling
+ESPN, X, Buffer, Cloudflare, or AI APIs. Use an optional saved feed JSON file
+with `--feed path/to/feed.json` to prioritize games currently live or upcoming.
+
 ## Refresh research data
 
 From the repository root, on a machine permitted to fetch public web pages:
@@ -50,6 +68,8 @@ node --test test/social-hashtags.test.mjs
 The generator reads public directories and public team X profiles with bounded
 concurrency. Review the diff before committing: the remote pages can change,
 the generator does not authenticate, and some X profiles may be unavailable.
+It starts with the existing reviewed registry, preserving first-party verified
+entries and source links even if a discovery directory omits those teams.
 **Never run the generator from the production Worker, cron, or bot posting path.**
 
 ## Use from a human-reviewed posting flow
