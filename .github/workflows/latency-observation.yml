@@ -1,0 +1,56 @@
+name: One-night SlateMeter latency observation
+
+on:
+  schedule:
+    # 7:37 p.m. EST on November 6, 2026. Date gate prevents future annual repeats.
+    - cron: '37 0 7 11 *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: slatemeter-one-night-latency
+  cancel-in-progress: false
+
+jobs:
+  observe:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 35
+    steps:
+      - name: Check one-night schedule
+        id: gate
+        shell: bash
+        run: |
+          if [[ "${GITHUB_EVENT_NAME}" == "workflow_dispatch" || "$(TZ=America/New_York date +%F)" == "2026-11-06" ]]; then
+            echo 'enabled=true' >> "$GITHUB_OUTPUT"
+          else
+            echo 'enabled=false' >> "$GITHUB_OUTPUT"
+            echo 'The one-night observation window has passed.'
+          fi
+      - uses: actions/checkout@v4
+        if: steps.gate.outputs.enabled == 'true'
+      - uses: actions/setup-node@v4
+        if: steps.gate.outputs.enabled == 'true'
+        with:
+          node-version: '22'
+      - name: Collect actual ESPN and SlateMeter observations
+        if: steps.gate.outputs.enabled == 'true'
+        run: node scripts/measure-live-latency.mjs
+      - name: Add report to workflow summary
+        if: always() && steps.gate.outputs.enabled == 'true'
+        shell: bash
+        run: |
+          if [[ -f "$RUNNER_TEMP/latency-observation/report.md" ]]; then
+            cat "$RUNNER_TEMP/latency-observation/report.md" >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo 'The observation did not produce a report.' >> "$GITHUB_STEP_SUMMARY"
+          fi
+      - name: Retain evidence for review
+        if: always() && steps.gate.outputs.enabled == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: slatemeter-latency-2026-11-06
+          path: ${{ runner.temp }}/latency-observation/
+          retention-days: 14
+          if-no-files-found: warn
