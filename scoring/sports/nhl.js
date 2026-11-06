@@ -213,6 +213,41 @@
     );
   }
 
+  // ESPN's on-ice roster can briefly retain the extra attacker from a delayed
+  // call after the whistle, even after the penalty ledger shows a power play.
+  // A six-skater lineup alone does not prove a tactical goalie pull.
+  function hockeyGoaliePullClassification(summary,status,state) {
+    const teamId=state?.pulledGoalieTeamId || null;
+    if (!teamId) return {teamId:null,delayedPenaltyExtraAttacker:false};
+    const side=state.sides?.find(entry=>entry.id===teamId);
+    if (!side || side.skaters!==6) return {teamId,delayedPenaltyExtraAttacker:false};
+    const now=hockeyElapsed(status,false);
+    if (now===null) return {teamId,delayedPenaltyExtraAttacker:false};
+    const period=Number(status?.period?.number ?? status?.period);
+    const remaining=clockSeconds(status);
+    const mode=hockeyPlayClockMode(summary || {});
+    const delayed=(summary?.plays || []).some(play=>{
+      const eventPeriod=Number(play.period?.number ?? play.period);
+      if (eventPeriod!==period) return false;
+      const eventTime=hockeyElapsed({period:eventPeriod,
+        displayClock:play.clock?.displayValue || play.timeInPeriod,
+        clock:play.clock?.value,
+        clockMode:play.timeInPeriod ? 'elapsed' : mode},false);
+      const age=eventTime===null ? Infinity : now-eventTime;
+      if (age<0 || age>120) return false;
+      const offending=String(play.team?.id || play.teamId || play.details?.eventOwnerTeamId || '');
+      if (offending && offending===teamId) return false;
+      const description=[play.type?.text,play.typeDescKey,play.text,play.shortText].filter(Boolean).join(' ');
+      if (/delayed[ -]?penalty/i.test(description) && age<=45) return true;
+      const penaltyMinutes=Number(play.type?.penaltyMinutes || play.details?.duration);
+      // In the last three minutes an actual six-on-four tactical pull is
+      // credible even shortly after a penalty. Do not erase that leverage.
+      return period===3 && remaining!==null && remaining>180 && offending &&
+        penaltyMinutes>0 && age<=Math.min(120,penaltyMinutes*60);
+    });
+    return {teamId:delayed ? null : teamId,delayedPenaltyExtraAttacker:delayed};
+  }
+
   function hockeyOvertime(event,competition,summary,context='',normalized=false) {
     const status = competition?.status || summary?.header?.competitions?.[0]?.status || {};
     const summaryStatus=summary?.header?.competitions?.[0]?.status;
@@ -278,10 +313,11 @@
 
   function hockeySituationImpact(game,competition,summary,status,progress,scoreGap,allocation=null) {
     const state = summary ? hockeyOnIceState(summary,game.teams) : null;
+    const goaliePull=hockeyGoaliePullClassification(summary,status,state);
     const scores = game.teams.map(team => Number(team[2]));
     const trailing = scores.length === 2 && scores.every(Number.isFinite) && scores[0] !== scores[1]
       ? String(game.teams[scores[0] < scores[1] ? 0 : 1][8] || '') : '';
-    const pulled = Boolean(trailing && state?.pulledGoalieTeamId === trailing);
+    const pulled = Boolean(trailing && goaliePull.teamId === trailing);
     const powerPlay = Boolean(trailing && state?.powerPlayTeamId === trailing);
     const advantage = powerPlay || scoreGap === 0 ? state?.powerPlayAdvantage || 0 : 0;
     const timing=allocation ? hockeyLiveTiming(game.sourceEvent,{...competition,status},summary) : null;
@@ -327,7 +363,7 @@
       target=Math.min(96,target+Math.round(hockeyPressure(summary,progress,scoreGap,competition,allocation).points/2));
     }
     if (!note && state?.powerPlayTeam) note=`${state.powerPlayTeam} power play`;
-    if (!note && state?.pulledGoalieTeam) note=`${state.pulledGoalieTeam} pulled the goalie`;
+    if (!note && goaliePull.teamId && state?.pulledGoalieTeam) note=`${state.pulledGoalieTeam} pulled the goalie`;
     const viability=nhlLiveMarginCloseness(scoreGap,progress,{trailingGoaliePulled:pulled,trailingPowerPlay:powerPlay});
     const points=Math.round((powerPlay ? 5 : pulled ? 3 : state?.powerPlayTeam ? (scoreGap === 0 ? 4 : 1) : 0)*viability);
     const base=Number(game.baseScore);
@@ -336,7 +372,8 @@
     const floorBase=base-(allocation?.context || 0);
     return {points,note,reasons:note ? [note] : [],
       competitiveFloor:Number.isFinite(base) && target ? Math.max(0,target-floorBase) : 0,
-      competitiveTarget:target,manpower:{pulled,powerPlay,advantage},overtime:ot,
+      competitiveTarget:target,manpower:{pulled,powerPlay,advantage,
+        ...(goaliePull.delayedPenaltyExtraAttacker ? {goaliePullSuppressed:'probable-delayed-penalty'} : {})},overtime:ot,
       ...(allocation ? {allocation:{context:allocation.context || 0,floorBase,timing}} : {})};
   }
 
@@ -420,11 +457,12 @@
     const teams = context?.teams?.[0]?.[0] ? context.teams :
       (context?.competition?.competitors || []).map(item => [item.team?.displayName || '', '', item.score, '', '', '', null, '', String(item.team?.id || '')]);
     const state = context?.summary ? hockeyOnIceState(context.summary,teams) : null;
+    const goaliePull=hockeyGoaliePullClassification(context?.summary,context?.competition?.status,state);
     const scores = teams.map(team => Number(team[2]));
     const trailing = scores.length === 2 && scores[0] !== scores[1]
       ? String(teams[scores[0] < scores[1] ? 0 : 1][8] || '') : '';
     const marginClose=nhlLiveMarginCloseness(gap,progress,{
-      trailingGoaliePulled:Boolean(trailing && state?.pulledGoalieTeamId === trailing),
+      trailingGoaliePulled:Boolean(trailing && goaliePull.teamId === trailing),
       trailingPowerPlay:Boolean(trailing && state?.powerPlayTeamId === trailing)
     });
     const seconds=context?.nhlAllocation ? hockeyLiveTiming(null,context.competition,context.summary).seconds
@@ -746,7 +784,7 @@
     history:{threshold:2,units:'goals'}
   };
 
-  const api = {nhlLiveMarginCloseness,hockeyOnIceState,hockeyPowerPlay,hockeySituationImpact,hockeyGoalMilestone,hockeyGameState,hockeyEventShock,hockeyOvertime,hockeyLiveTiming,hockeyPlayClockMode,hockeyHistory,hockeyCompletedHistory,hockeyPressure,hockeyUpset,hockeyElapsed,nhlModel};
+  const api = {nhlLiveMarginCloseness,hockeyOnIceState,hockeyPowerPlay,hockeyGoaliePullClassification,hockeySituationImpact,hockeyGoalMilestone,hockeyGameState,hockeyEventShock,hockeyOvertime,hockeyLiveTiming,hockeyPlayClockMode,hockeyHistory,hockeyCompletedHistory,hockeyPressure,hockeyUpset,hockeyElapsed,nhlModel};
   if (typeof module !== 'undefined' && module.exports) {
     module.exports = api;
   } else {

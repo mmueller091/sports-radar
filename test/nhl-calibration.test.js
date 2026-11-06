@@ -6,7 +6,7 @@ import source from './helpers/scoring-source.cjs';
 import {normalizeEvent,enrichGame} from '../alerts-worker/src/game-model.js';
 const require=createRequire(import.meta.url),core=require('../rating-core.js');
 const {fixture,evaluate,cases,goal}=require('./helpers/nhl-calibration.cjs');
-const {hockeyOvertime,hockeyHistory,hockeyPressure}=require('../scoring/sports/nhl.js');
+const {hockeyOvertime,hockeyHistory,hockeyPressure,hockeyGoaliePullClassification}=require('../scoring/sports/nhl.js');
 const score=input=>evaluate(core,input).score;
 
 test('NHL margin/runway grid is continuous, monotone, and bounded even with extra manpower',()=>{
@@ -59,6 +59,62 @@ test('NHL late decisive states use one combined competitive floor',()=>{
   assert.equal(state.pulledGoalieTeamId,'a');assert.equal(state.powerPlayTeamId,'a');assert.equal(state.powerPlayAdvantage,1);
   delete f.summary.boxscore;
   assert.equal(core.hockeyOnIceState(f.summary,teams).pulledGoalieTeam,null,'missing goalie roster is not evidence of a pull');
+});
+
+test('NHL delayed penalty does not turn an extra attacker into a tactical goalie pull',()=>{
+  const penalty={sequenceNumber:243,period:{number:3},clock:{displayValue:'13:13'},team:{id:'h'},
+    type:{text:'Slashing',penaltyMinutes:2},text:'Slashing by the leading team'};
+  const before={sequenceNumber:242,period:{number:3},clock:{displayValue:'12:55'},team:{id:'a'},
+    type:{text:'Blocked'},text:'Shot blocked'};
+  const scoring=(input)=>{
+    const f=fixture(input);
+    const teams=f.competition.competitors.map(c=>[c.team.displayName,'',c.score,'','','','','',c.team.id]);
+    const state=core.hockeyOnIceState(f.summary,teams);
+    const classified=hockeyGoaliePullClassification(f.summary,f.competition.status,state);
+    const game={sport:'NHL',teams,baseScore:53,sourceEvent:f.event};
+    const impact=core.hockeySituationImpact(game,f.competition,f.summary,f.competition.status,.887,1,{context:1});
+    return {classified,impact,state};
+  };
+  const ordinary=scoring({gap:1,clock:'6:47',manpower:'trailingPP',plays:[before,penalty]});
+  const stale=scoring({gap:1,clock:'6:47',manpower:'sixOnFour',plays:[before,penalty]});
+  assert.equal(stale.state.pulledGoalieTeamId,'a','raw six-on-four lineup still identifies the absent goalie');
+  assert.equal(stale.classified.teamId,null,'penalty whistle invalidates delayed extra-attacker credit');
+  assert.equal(stale.impact.manpower.pulled,false);
+  assert.equal(stale.impact.manpower.powerPlay,true);
+  assert.equal(stale.impact.manpower.goaliePullSuppressed,'probable-delayed-penalty');
+  assert.equal(stale.impact.competitiveTarget,ordinary.impact.competitiveTarget);
+  assert.doesNotMatch(stale.impact.note,/pulled the goalie/i);
+
+  const lingering=scoring({gap:1,clock:'6:08',manpower:'sixOnFour',plays:[before,penalty]});
+  assert.equal(lingering.impact.manpower.pulled,false,'stale six-on-four must not survive into the power play');
+  const unverified=scoring({gap:1,clock:'6:08',manpower:'sixOnFour',plays:[before]});
+  assert.equal(unverified.impact.manpower.pulled,true,'unrelated lineups are not suppressed without penalty evidence');
+  assert.ok(unverified.impact.competitiveTarget>lingering.impact.competitiveTarget);
+
+  const delayedCall=scoring({gap:1,clock:'7:02',manpower:'pulled',plays:[before,
+    {sequenceNumber:243,period:{number:3},clock:{displayValue:'12:56'},team:{id:'h'},type:{text:'Delayed Penalty'}}]});
+  assert.equal(delayedCall.impact.manpower.pulled,false,'explicit delayed calls are recognized before the whistle');
+  assert.equal(delayedCall.impact.manpower.powerPlay,false);
+});
+
+test('NHL confirmed late tactical pulls and unrelated penalties keep their urgency',()=>{
+  const recent={period:{number:3},clock:{displayValue:'18:30'},team:{id:'h'},
+    type:{text:'Holding',penaltyMinutes:2}};
+  const early={period:{number:3},clock:{displayValue:'17:45'},team:{id:'h'},
+    type:{text:'Shot'}};
+  const f=fixture({gap:1,clock:'1:10',manpower:'sixOnFour',plays:[early,recent]});
+  const teams=f.competition.competitors.map(c=>[c.team.displayName,'',c.score,'','','','','',c.team.id]);
+  const game={sport:'NHL',teams,baseScore:53,sourceEvent:f.event};
+  const impact=core.hockeySituationImpact(game,f.competition,f.summary,f.competition.status,.98,1,{context:1});
+  assert.equal(impact.manpower.pulled,true,'a real late six-on-four is not erased by a recent penalty');
+  assert.equal(impact.manpower.powerPlay,true);
+  assert.match(impact.note,/pulled the goalie/i);
+
+  const unrelated=fixture({gap:1,clock:'6:47',manpower:'pulled',plays:[early,
+    {...recent,clock:{displayValue:'13:13'},team:{id:'a'}}]});
+  const other=core.hockeyOnIceState(unrelated.summary,teams);
+  assert.equal(hockeyGoaliePullClassification(unrelated.summary,unrelated.competition.status,other).teamId,'a',
+    'a penalty by the team with the extra attacker is not a delayed-penalty explanation');
 });
 
 test('NHL two-goal third-period runway stays viable while three-goal deficits remain remote',()=>{
