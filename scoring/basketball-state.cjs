@@ -13,6 +13,24 @@ const seq=(p,eventId='')=>{
 const compare=(a,b)=>a.length-b.length || a.localeCompare(b);
 const scoreMap=c=>Object.fromEntries((c?.competitors||[]).map(t=>[String(t.team?.id || t.id),Number(t.score)]));
 const sameScores=(a,b)=>Object.keys(a).length===2&&Object.keys(b).length===2&&Object.keys(a).every(id=>a[id]===b[id]);
+function compatibleHeaderIdentity(game,c,summary){
+ const header=summary?.header?.competitions?.[0],ids=new Set(game.teams.map(t=>String(t[8])));
+ return Boolean(header&&(summary.header.id==null||String(summary.header.id)===String(game.id))&&
+  c.competitors?.length===2&&header.competitors?.length===2&&
+  c.competitors.every(t=>ids.has(String(t.team?.id||t.id)))&&header.competitors.every(t=>{
+   const match=c.competitors.find(p=>String(p.team?.id||p.id)===String(t.team?.id||t.id));
+   return match&&(!t.homeAway||!match.homeAway||t.homeAway===match.homeAway);
+  }));
+}
+function synchronizedHeader(game,c,summary){
+ const header=summary?.header?.competitions?.[0],at=position(game,c),other=header&&position(game,header);
+ // normalizeSummary can replace an ahead header with the scoreboard boundary.
+ // That synthetic agreement is not independent evidence of a new observation.
+ return Boolean(compatibleHeaderIdentity(game,c,summary)&&!summary.sportsRadarEvidence?.summaryAhead&&!summary.sportsRadarEvidence?.aggregateEvidenceDeferred&&
+  header.status?.type?.state==='in'&&header.status.type.completed!==true&&
+  sameScores(scoreMap(header),scoreMap(c))&&Number(header.status?.period)===Number(c.status?.period)&&
+  at!==null&&other!==null&&Math.abs(at-other)<=2);
+}
 const fingerprint=c=>{
  const {lastPlay,...situation}=c.situation||{};
  return JSON.stringify({period:c.status?.period,clock:c.status?.displayClock,
@@ -101,7 +119,11 @@ function reconcileBasketball(game,c,summary) {
  const lowerScore=prior&&Object.keys(scoreMap(c)).some(id=>scoreMap(c)[id]<scoreMap(prior)[id]);
  const corroboratedCorrection=summary?.header?.competitions?.[0]&&sameScores(scoreMap(summary.header.competitions[0]),scoreMap(c));
  const explicitScoreCorrection=lowerScore&&corroboratedCorrection&&at!==null&&before!==null&&Math.abs(at-before)<=2;
- const stale=prior&&(olderEvent&&!explicitScoreCorrection||(backward&&before-at>2&&!newerEvent)||lowerScore&&!newerEvent&&!corroboratedCorrection);
+ // ESPN can finalize a newer event under a lower identifier. IDs alone must
+ // not freeze a forward-moving clock that an independent live header confirms.
+ // A clock rollback, lower score or synthesized header cannot use this escape.
+ const corroboratedAdvance=prior&&at!==null&&before!==null&&at>before&&!lowerScore&&synchronizedHeader(game,c,summary);
+ const stale=prior&&(olderEvent&&!explicitScoreCorrection&&!corroboratedAdvance||(backward&&before-at>2&&!newerEvent)||lowerScore&&!newerEvent&&!corroboratedCorrection);
  if(stale){c={...c,...clone(prior)};game.basketballUpdateRejected=true;}
  else delete game.basketballUpdateRejected;
  const explicitPossession=Object.prototype.hasOwnProperty.call(c.situation||{},'possession');
@@ -118,12 +140,13 @@ function reconcileBasketball(game,c,summary) {
  const holders=(c.competitors||[]).filter(t=>t.possession===true);
  if(!explicitPossession&&holders.length===1)c={...c,situation:{...c.situation,possession:String(holders[0].team?.id||holders[0].id)}};
  const header=summary?.header?.competitions?.[0];
- const headerMatches=header&&sameScores(scoreMap(header),totals)&&
+ const compatibleHeader=compatibleHeaderIdentity(game,c,summary);
+ const headerMatches=compatibleHeader&&sameScores(scoreMap(header),totals)&&
   Number(header.status?.period)===Number(c.status?.period)&&
   Math.abs((position(game,header)??-9999)-(position(game,c)??0))<=2;
- const ids=new Set(Object.keys(totals));
- const compatibleHeader=header&&(header.competitors||[]).length===2&&header.competitors.every(t=>ids.has(String(t.team?.id||t.id)));
  const currentKey=fingerprint(c);
+ const sameProbabilityContext=prior&&unchanged&&!newerEvent&&!olderEvent&&
+  fingerprint({...c,status:{...c.status,displayClock:prior.status?.displayClock}})===e.currentKey;
  const playerPoints=new Map((e?.playerPoints||[]).map(p=>[p.id,p]));
  if(headerMatches&&!stale)for(const block of summary?.boxscore?.players||[])for(const group of block.statistics||[]){
   const index=(group.labels||[]).findIndex(l=>/^PTS$|^POINTS$/i.test(l));if(index<0)continue;
@@ -152,11 +175,18 @@ function reconcileBasketball(game,c,summary) {
  });
  const known=new Set(plays.map(p=>String(p.id)));
  const priorById=new Map((e?.plays||[]).map(p=>[String(p.id),p]));
- const changedScoreIds=new Set(plays.filter(p=>{const old=priorById.get(String(p.id));return old&&(old.homeScore!==p.homeScore||old.awayScore!==p.awayScore);}).map(p=>String(p.id)));
- const probabilities=new Map((e?.probabilities||[]).filter(p=>known.has(String(p.playId))&&!changedScoreIds.has(String(p.playId))).map(p=>[String(p.playId),p]));
+ const changedProbabilityIds=new Set(plays.filter(p=>{const old=priorById.get(String(p.id));return old&&(
+  old.homeScore!==p.homeScore||old.awayScore!==p.awayScore||Number(old.period?.number)!==Number(p.period?.number)||
+  old.clock?.displayValue!==p.clock?.displayValue||old.type?.id!==p.type?.id||old.team?.id!==p.team?.id);
+ }).map(p=>String(p.id)));
+ const probabilities=new Map((e?.probabilities||[]).filter(p=>known.has(String(p.playId))&&!changedProbabilityIds.has(String(p.playId))).map(p=>[String(p.playId),p]));
+ const incomingProbabilities=new Set();
  if(compatibleHeader&&!stale)for(const p of summary?.winprobability||[]){
   const probability=normalizeWinProbability(p.homeWinPercentage??p.homeWinProbability??p.homeWinPct??p.value);
-  if(known.has(String(p.playId))&&probability!==null)probabilities.set(String(p.playId),{playId:p.playId,homeWinPercentage:probability});
+  if(known.has(String(p.playId))&&probability!==null&&(!probabilities.has(String(p.playId))||headerMatches)){
+   probabilities.set(String(p.playId),{playId:p.playId,homeWinPercentage:probability});
+   if(headerMatches)incomingProbabilities.add(String(p.playId));
+  }
  }
  // The scoreboard's last play can carry the same provider probability before
  // the detail probability array catches up. Use it only for that exact play,
@@ -164,26 +194,33 @@ function reconcileBasketball(game,c,summary) {
  const scoreboardPlay=c.situation?.lastPlay;
  const scoreboardProbability=normalizeWinProbability(scoreboardPlay?.probability?.homeWinPercentage);
  const anchored=plays.find(p=>String(p.id)===String(scoreboardPlay?.id));
- if(game.sport==='NCAAB'&&headerMatches&&!stale&&scoreboardProbability!==null&&anchored&&
-   !probabilities.has(String(scoreboardPlay.id))&&
-   Number(anchored.homeScore)===Number(c.competitors.find(t=>t.homeAway==='home')?.score)&&
-   Number(anchored.awayScore)===Number(c.competitors.find(t=>t.homeAway==='away')?.score)&&
-   Math.abs((playTime(anchored)??-9999)-(position(game,c)??0))<=2){
+ const anchoredCurrent=p=>p&&Number(p.period?.number)===Number(c.status?.period)&&
+   Number(p.homeScore)===Number(c.competitors.find(t=>t.homeAway==='home')?.score)&&
+   Number(p.awayScore)===Number(c.competitors.find(t=>t.homeAway==='away')?.score);
+ let scoreboardCurrent=false;
+ if(game.sport==='NCAAB'&&synchronizedHeader(game,c,summary)&&!stale&&!corrected&&scoreboardProbability!==null&&anchoredCurrent(anchored)&&
+   !changedProbabilityIds.has(String(scoreboardPlay.id))&&!incomingProbabilities.has(String(scoreboardPlay.id))&&
+   (!prior||String(scoreboardPlay.id)!==String(prior.situation?.lastPlay?.id)||sameProbabilityContext)&&
+   Math.abs(playTime(anchored)-(position(game,c)??-9999))<=2){
   probabilities.set(String(scoreboardPlay.id),{playId:scoreboardPlay.id,homeWinPercentage:scoreboardProbability});
+  scoreboardCurrent=true;
  }
  const orderedProbabilities=plays.flatMap(p=>probabilities.has(String(p.id))?[probabilities.get(String(p.id))]:[]);
  const historical={header:{competitions:[c]},plays,scoringPlays:plays.filter(p=>p.scoringPlay),winprobability:orderedProbabilities};
  // A probability for an unchanged, verified observation survives an optional
  // field omission. A new possession/foul/play invalidates that current estimate.
- const last=orderedProbabilities.at(-1),lastPlay=last&&plays.find(p=>String(p.id)===String(last.playId));
- const currentProbability=headerMatches&&lastPlay&&withinScore(lastPlay,c)&&
-  Number(lastPlay.homeScore)===Number(c.competitors.find(t=>t.homeAway==='home')?.score)&&
-  Number(lastPlay.awayScore)===Number(c.competitors.find(t=>t.homeAway==='away')?.score)&&
-  (!nextId||compare(seq(lastPlay,game.id),nextId)>=0);
- let current=headerMatches ? {...summary,header:{...summary.header,competitions:[c]},plays,scoringPlays:historical.scoringPlays,winprobability:currentProbability?orderedProbabilities:[]} : null;
- const correctedClockOnly=prior&&unchanged&&!newerEvent&&!olderEvent&&Math.abs((position(game,c)??0)-(before??0))<=2&&
-  fingerprint({...c,status:{...c.status,displayClock:prior.status?.displayClock}})===e.currentKey;
- if(!currentProbability&&(e?.currentKey===currentKey||correctedClockOnly)&&e.currentProbability){
+ // Same-clock substitutions/reviews can arrive out of numeric-ID order. The
+ // current estimate belongs to the canonical last play, not whichever numeric
+ // ID sorts last. Keep historical order separate from this current selection.
+ const last=scoreboardPlay?.id!=null?probabilities.get(String(scoreboardPlay.id)):orderedProbabilities.at(-1);
+ const lastPlay=last&&plays.find(p=>String(p.id)===String(last.playId));
+ const currentProbability=headerMatches&&!stale&&anchoredCurrent(lastPlay)&&
+  (incomingProbabilities.has(String(last.playId))||scoreboardCurrent||sameProbabilityContext&&e.currentProbability?.some(p=>String(p.playId)===String(last.playId)))&&
+  (!scoreboardPlay?.id||String(last.playId)===String(scoreboardPlay.id));
+ const currentProbabilities=currentProbability?[...orderedProbabilities.filter(p=>String(p.playId)!==String(last.playId)),last]:[];
+ let current=headerMatches ? {...summary,header:{...summary.header,competitions:[c]},plays,scoringPlays:historical.scoringPlays,winprobability:currentProbabilities} : null;
+ const correctedClockOnly=sameProbabilityContext&&Math.abs((position(game,c)??0)-(before??0))<=2;
+ if(!currentProbability&&!corrected&&!changedProbabilityIds.size&&(e?.currentKey===currentKey||correctedClockOnly)&&e.currentProbability){
   current={...current,header:{competitions:[c]},plays,scoringPlays:historical.scoringPlays,winprobability:clone(e.currentProbability)};
  }
  if(playerPoints.size){

@@ -14,8 +14,10 @@ const prior=(g,at=now-180000)=>({observed_at:at,state:g.state,normalized_state:J
 const codes=(g,p=null,peers=[],cross=null)=>auditGame(g,p?[p]:[],peers,now,cross).findings.map(f=>f.reasonCode);
 
 test('all supported sport keys are audited without sharing production scorer',()=>{
-  assert.deepEqual([...SPORTS].sort(),['CFB','MLB','NBA','NCAAB','NFL','NHL','Soccer','Tennis'].sort());
-  assert.equal(auditGame(game('Tennis'),[],[],now).checks>=10,true);
+  assert.deepEqual([...SPORTS].sort(),['CFB','MLB','NBA','NCAAB','NFL','NHL','Tennis'].sort());
+  assert.equal(auditGame(game('Tennis',{context:'Wimbledon'}),[],[],now).checks>=10,true);
+  assert.equal(auditGame(game('Tennis'),[],[],now).checks,0);
+  assert.equal(auditGame(game('Soccer'),[],[],now).checks,0);
 });
 test('kickoff jump is a hypothesis, but score-backed drama is allowed',()=>{
   const opening=prior(game('CFB',{state:'upcoming',score:35,period:0}),now-86400000);

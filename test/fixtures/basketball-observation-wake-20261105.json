@@ -1,0 +1,71 @@
+{
+  "capture": {
+    "gameKey": "NCAAB:401909726",
+    "modelVersion": "2026-11-05.live-integrity.1",
+    "observations": [
+      {"observedAt": 1793922060000, "rating": 49, "winProbability": null},
+      {"observedAt": 1793922075000, "rating": 42, "winProbability": 0.899}
+    ],
+    "limits": "Selected fields from retained normalized production observations. The raw provider summary and basketball event ledger were not archived. Integration-test detail plays are explicitly reconstructed, not a full provider replay."
+  },
+  "game": {
+    "id": "401909726",
+    "sport": "NCAAB",
+    "state": "live",
+    "teams": [
+      ["Wake Forest Demon Deacons", "WAKE", "25", "white", "", "1-0", null, "Wake Forest", "154"],
+      ["Vanderbilt Commodores", "VAN", "28", "white", "", "1-0", 24, "Vanderbilt", "238"]
+    ],
+    "liveRawStatus": {
+      "clock": 282,
+      "displayClock": "4:42",
+      "period": 1,
+      "type": {
+        "id": "2",
+        "name": "STATUS_IN_PROGRESS",
+        "state": "in",
+        "completed": false,
+        "description": "In Progress",
+        "detail": "4:42 - 1st Half",
+        "shortDetail": "4:42 - 1st"
+      }
+    },
+    "liveRawSituation": {
+      "lastPlay": {
+        "id": "401909726120720433",
+        "type": {"id": "584", "text": "Substitution"},
+        "text": "Jackson Sheffield subbing in for Vanderbilt",
+        "scoreValue": 0,
+        "team": {"id": "238"},
+        "probability": {"tiePercentage": 0, "homeWinPercentage": 0.899, "awayWinPercentage": 0.10099999999999998}
+      }
+    },
+    "openingScore": 37,
+    "rawPregameScore": 37,
+    "openingFactors": [
+      {"label": "Sport baseline", "points": 32},
+      {"label": "Schedule scarcity", "points": 3},
+      {"label": "Competitive projected spread", "points": 1},
+      {"label": "Ranked team", "points": 1}
+    ],
+    "liveOpeningContext": 0,
+    "pregameBaseline": {
+      "calibration": "2026-10-31.opening-transition.1",
+      "source": "observed",
+      "score": 37,
+      "rawPregameScore": 37,
+      "spread": 17.5,
+      "odds": [{"moneyline": {"home": {"close": {"odds": "-2400"}}, "away": {"close": {"odds": "+1200"}}}}]
+    },
+    "factors": [
+      {"label": "Underdog threatens upset", "points": 2, "liveUpset": true},
+      {"label": "Game-state baseline", "points": 10.3234},
+      {"label": "Pregame context carried into play", "points": 12.6342},
+      {"label": "Current Tension", "points": 24.9481},
+      {"label": "History relevance and trajectory", "points": -1.0999465940447424}
+    ],
+    "live": {"bonus": 0},
+    "momentumPoints": 0,
+    "trajectoryScoring": {"adjustment": -1.0999465940447424}
+  }
+}

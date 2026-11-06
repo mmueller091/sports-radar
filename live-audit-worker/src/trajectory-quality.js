@@ -1,4 +1,5 @@
 // Pure audit measurements. These functions never score or change a game.
+import {auditNumber} from './rating-evidence.js';
 const THRESHOLDS=[70,80,85,90,95];
 const regulation={NFL:4,CFB:4,NBA:4,NCAAB:2,NHL:3};
 const periodSeconds={NFL:900,CFB:900,NBA:720,NCAAB:1200,NHL:1200};
@@ -29,7 +30,7 @@ export function remainingTime(p){
 function fresh(p){return p.live&&!p.historical&&p.evidenceStatus!=='invalid'&&!p.integrity.length&&!p.q.rejected&&!p.q.scoringPartial&&Number.isFinite(p.rating)&&
   Number.isFinite(p.publishedAt)&&Number.isFinite(p.observedAt)&&p.observedAt>=p.publishedAt&&p.observedAt-p.publishedAt<=180000;}
 export function measurableInterval(a,b){
-  if(!a||!b||a.modelVersion!==b.modelVersion||a.segment!==b.segment||!fresh(a)||!fresh(b))return null;
+  if(!a||!b||a.modelVersion!==b.modelVersion||a.segment!==b.segment||b.sourceReference?.trajectoryGapBefore||!fresh(a)||!fresh(b))return null;
   const dt=(b.publishedAt-a.publishedAt)/1000;
   return dt>0&&dt<=360?dt:null;
 }
@@ -46,7 +47,11 @@ export function thresholdAnalysis(points){
     const episodes=[];
     for(const p of points){
       if(prior&&prior.segment!==p.segment){
-        if(episode){episode.uncertainContinuity=true;episode.censoredByModelBoundary=true;episode=null;}
+        if(episode){episode.uncertainContinuity=true;
+          if(prior.modelVersion!==p.modelVersion)episode.censoredByModelBoundary=true;
+          else if(p.sourceReference?.trajectoryGapBefore)episode.censoredByEvidenceGap=true;
+          else episode.censoredByModelBoundary=true;
+          episode=null;}
         prior=null;
       }
       if(!eligibleRating(p)){
@@ -97,26 +102,80 @@ export function thresholdAnalysis(points){
   });
 }
 function componentChanges(a,b){
-  const map=fs=>{const m=new Map();for(const f of fs||[]){if(!Number.isFinite(Number(f.points)))continue;const key=String(f.label||'unlabeled');m.set(key,(m.get(key)||0)+Number(f.points));}return m;};
+  const map=fs=>{const m=new Map();for(const f of fs||[]){const points=auditNumber(f.points);if(points===null)continue;const key=String(f.label||'unlabeled');m.set(key,(m.get(key)||0)+points);}return m;};
   const before=map(a.components),after=map(b.components);
   return [...new Set([...before.keys(),...after.keys()])].map(label=>({label,before:before.has(label)?before.get(label):null,
     after:after.has(label)?after.get(label):null,change:(after.get(label)||0)-(before.get(label)||0)})).filter(x=>x.change!==0);
+}
+const finite=auditNumber;
+function arithmeticLedger(point){
+  const captured=point.q.components?.calculation;
+  if(captured){
+    const rows=captured.rows||[],sum=rows.reduce((total,row)=>total+(finite(row.points)??NaN),0);
+    if(captured.modelVersion===point.modelVersion&&captured.total===point.rating&&rows.length&&Number.isFinite(sum)&&Math.abs(sum-point.rating)<1e-7)
+      return {status:'complete',source:'canonical-feed-calculation',total:point.rating,sum,rows};
+    return {status:'invalid',source:'canonical-feed-calculation',total:point.rating,sum:Number.isFinite(sum)?sum:null,rows:[],reason:'Retained additive ledger does not reconcile to the same model and rating'};
+  }
+  const scalars=point.scalarComponents||{},telemetry=point.q.components||{};
+  const fields=[['Base score','baseScore'],['Live bonus','liveBonus'],['Momentum','momentumPoints'],['Trajectory adjustment','trajectoryAdjustment']];
+  const rows=fields.map(([label,key])=>({label,points:finite(telemetry[key])??finite(scalars[key])}));
+  if(rows.some(row=>row.points===null))return {status:'unavailable',source:'retained-component-telemetry',total:point.rating,sum:null,rows:[],reason:'Not all additive scalar components were retained'};
+  const raw=rows.reduce((sum,row)=>sum+row.points,0),rounded=Math.round(raw),bounded=Math.min(99,Math.max(1,rounded));
+  // A residual is not arbitrarily assigned to rounding. The known arithmetic
+  // must reproduce this exact observed rating before it is called complete.
+  if(bounded!==point.rating)return {status:'unavailable',source:'retained-component-telemetry',total:point.rating,sum:raw,rows:[],reason:'Retained scalar components do not establish the complete additive policy'};
+  rows.push({label:'Rating rounding',points:rounded-raw});
+  if(bounded!==rounded)rows.push({label:'Scale bounds',points:bounded-rounded});
+  return {status:'complete',source:'validated-scalar-addition-and-rounding',total:point.rating,sum:bounded,rows};
+}
+function expectedHockeyBoundary(a,b,delta){
+  if(a.sport!=='NHL'||b.sport!=='NHL'||a.period!==3||b.period!==3||
+    !a.scores.every(Number.isFinite)||!b.scores.every(Number.isFinite)||a.clockSeconds===null||b.clockSeconds===null||
+    b.clockSeconds>a.clockSeconds||b.observedAt-a.observedAt>360000)return null;
+  const scores=b.scores.map((score,i)=>score-a.scores[i]);
+  if(scores.some(score=>score<0)||scores.reduce((sum,score)=>sum+score,0)!==1)return null;
+  const before=Math.abs(a.scores[0]-a.scores[1]),after=Math.abs(b.scores[0]-b.scores[1]);
+  if(delta<0&&before===1&&after===2&&a.clockSeconds<=120&&b.clockSeconds<=30)
+    return {kind:'late lead-widening goal',direction:'decrease_permitted',basis:'Verified score and remaining clock show a one-goal contest becoming a two-goal game in the final thirty seconds or at regulation end'};
+  if(delta>0&&before===2&&after===1&&a.clockSeconds<=120&&b.clockSeconds>0&&b.clockSeconds<=60)
+    return {kind:'late one-goal rally',direction:'increase_permitted',basis:'Verified score and remaining clock restore a one-goal opportunity in the final minute; no manpower observation is inferred'};
+  return null;
 }
 export function volatilityAnalysis(points){
   const changes=[];
   for(let i=1;i<points.length;i++){
     const a=points[i-1],b=points[i];
     if(a.segment!==b.segment||a.modelVersion!==b.modelVersion||!Number.isFinite(a.rating)||!Number.isFinite(b.rating))continue;
-    const delta=b.rating-a.rating,components=componentChanges(a,b),sum=components.reduce((s,c)=>s+c.change,0);
-    const eligibleForCalibration=eligibleRating(a)&&eligibleRating(b);
+    const delta=b.rating-a.rating,factors=componentChanges(a,b),factorSum=factors.reduce((s,c)=>s+c.change,0);
+    const beforeLedger=arithmeticLedger(a),afterLedger=arithmeticLedger(b);
+    const complete=beforeLedger.status==='complete'&&afterLedger.status==='complete';
+    // Different retained ledger groupings still reconcile exactly, but their
+    // individual row changes are allocation differences rather than attribution.
+    const sameBasis=beforeLedger.source===afterLedger.source;
+    const components=complete?componentChanges({components:beforeLedger.rows},{components:afterLedger.rows}):factors;
+    const sum=components.reduce((s,c)=>s+c.change,0);
+    const ledgerDelta=complete?afterLedger.sum-beforeLedger.sum:null;
+    const residual=ledgerDelta===null?null:Math.abs(delta-ledgerDelta)<1e-7?0:delta-ledgerDelta;
+    const ledgerInvalid=beforeLedger.status==='invalid'||afterLedger.status==='invalid';
+    const eligibleForCalibration=eligibleRating(a)&&eligibleRating(b)&&!ledgerInvalid;
     const scoreCorrection=a.scores.length===2&&b.scores.length===2&&b.scores.some((s,j)=>s<a.scores[j]);
     const clockCorrection=a.period===b.period&&Number.isFinite(a.clockSeconds)&&Number.isFinite(b.clockSeconds)&&b.clockSeconds>a.clockSeconds;
+    const eventTriage=!scoreCorrection&&!clockCorrection?expectedHockeyBoundary(a,b,delta):null;
+    const expected=eligibleForCalibration&&complete&&residual===0&&eventTriage;
+    const ledgerSummary=ledger=>({status:ledger.status,source:ledger.source,total:ledger.total,sum:ledger.sum,reason:ledger.reason??null});
     changes.push({from:observationReference(a),to:observationReference(b),beforeRating:a.rating,afterRating:b.rating,delta,
       before:{scores:a.scores,period:a.period,clockSeconds:a.clockSeconds},after:{scores:b.scores,period:b.period,clockSeconds:b.clockSeconds},
-      componentChanges:components,scoringTelemetry:{before:a.q.components??null,after:b.q.components??null},reportedComponentDelta:components.length?sum:null,
-      unexplainedByReportedComponents:components.length?delta-sum:null,scoreCorrection,clockCorrection,eligibleForCalibration,
-      modelPolicyAttribution:'Reported factors are explanatory, not a complete arithmetic ledger; floors, caps, rounding and interactions require replay',
-      classification:!eligibleForCalibration||scoreCorrection||clockCorrection?'data_quality_limitation':Math.abs(delta)>=24?'calibration_hypothesis':'expected_behavior'});
+      componentChanges:components,componentBasis:complete?(sameBasis?beforeLedger.source:'validated-ledgers-with-different-row-grouping'):'explanatory-factors-only',
+      explanatoryFactorChanges:factors,reportedFactorDelta:factors.length?factorSum:null,
+      scoringTelemetry:{before:a.q.components??null,after:b.q.components??null},reportedComponentDelta:complete?ledgerDelta:components.length?sum:null,
+      unexplainedByReportedComponents:residual,scoreCorrection,clockCorrection,eligibleForCalibration,
+      arithmeticReconciliation:{status:complete&&residual===0?'reconciled':beforeLedger.status==='invalid'||afterLedger.status==='invalid'?'invalid_ledger':'unavailable',
+        before:ledgerSummary(beforeLedger),after:ledgerSummary(afterLedger),observedDelta:delta,ledgerDelta,residual},
+      eventTriage,calibrationConcern:eligibleForCalibration&&!scoreCorrection&&!clockCorrection&&!expected&&Math.abs(delta)>=24,
+      evidenceQualification:a.q.scoringPartial||b.q.scoringPartial?'Partial situation evidence; score/clock response can be described but manpower and exact event attribution remain unverified':null,
+      modelPolicyAttribution:complete&&residual===0?'Complete retained arithmetic explains the change; whether the policy is desirable is a separate calibration question':
+        'Explanatory factors are incomplete arithmetic; an omitted live bonus, floor or rounding term is not an unexplained scoring defect',
+      classification:!eligibleForCalibration||scoreCorrection||clockCorrection?'data_quality_limitation':expected?'expected_behavior':Math.abs(delta)>=24?'calibration_hypothesis':'expected_behavior'});
   }
   const absolute=changes.filter(c=>c.eligibleForCalibration).map(c=>Math.abs(c.delta));
   return {observedChanges:changes.length,meanAbsoluteChange:absolute.length?absolute.reduce((a,b)=>a+b,0)/absolute.length:null,
@@ -138,7 +197,7 @@ export function comebackAnalysis(points){
       if(!largest[side]||p.segment!==largest[side].p.segment||deficit>=largest[side].deficit)largest[side]={p,deficit};
       const start=largest[side];
       if(start.deficit<=0||deficit>=start.deficit)continue;
-      const recovered=start.deficit-deficit;
+      const recovered=start.deficit-Math.max(0,deficit),marginSwing=start.deficit-deficit;
       if(recovered<({NHL:2,NBA:12,NCAAB:10,NFL:14,CFB:14,MLB:3,Tennis:1,Soccer:2}[p.sport]??Infinity))continue;
       const r0=remainingTime(start.p),r1=remainingTime(p),elapsed=start.p.period===p.period&&start.p.clockSeconds>=p.clockSeconds?start.p.clockSeconds-p.clockSeconds:
         p.period<=regulation[p.sport]&&r0.seconds!==null&&r1.seconds!==null&&r0.seconds>=r1.seconds?r0.seconds-r1.seconds:null;
@@ -150,7 +209,7 @@ export function comebackAnalysis(points){
         if(Number.isFinite(p.rating)){existing.ratingRange.min=Math.min(existing.ratingRange.min??p.rating,p.rating);existing.ratingRange.max=Math.max(existing.ratingRange.max??p.rating,p.rating);}
         continue;
       }
-      const record={teamIndex:side,maximumObservedDeficit:start.deficit,deficitAtObservation:deficit,deficitRecovered:recovered,
+      const record={teamIndex:side,maximumObservedDeficit:start.deficit,deficitAtObservation:deficit,deficitRecovered:recovered,marginSwing,
         tiedOrLed:deficit<=0,gameSecondsElapsed:elapsed,from:observationReference(start.p),to:observationReference(p),
         beforeRating:start.p.rating,rating:p.rating,period:p.period,clockSeconds:p.clockSeconds,
         supportingObservationCount:1,lastReference:observationReference(p),lastObservedRating:p.rating,lastObservedPeriod:p.period,lastObservedClockSeconds:p.clockSeconds,
@@ -165,4 +224,5 @@ export function comebackAnalysis(points){
 }
 export function observationSummary(p){return {...observationReference(p),rating:p.rating,scores:p.scores,period:p.period,
   clockSeconds:p.clockSeconds,lifecycle:p.lifecycle,evidenceStatus:p.evidenceStatus,
+  ...(p.ratingInterpretation?.legacyNullCoercion?{rawRating:p.rawRating,ratingInterpretation:p.ratingInterpretation}:{}),
   missingFieldCount:p.fieldCoverage?.missing.length??null,signals:p.assessment?.signals||[]};}

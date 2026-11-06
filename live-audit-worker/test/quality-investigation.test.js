@@ -156,7 +156,8 @@ test('hidden soccer is not prioritized and unverified tennis does not enter Gran
   const tennis=obs({sport:'Tennis',rating:98,period:3,scores:[1,1],quality:{grandSlam:false}});
   const q=buildScoringQuality([{gameKey:'Soccer:1',sport:'Soccer',observations:[soccer]},{gameKey:'Tennis:1',sport:'Tennis',observations:[tennis]}]);
   assert.ok(!q.recommendations.some(r=>r.sport==='Soccer'));assert.equal(q.calibration.find(c=>c.sport==='Tennis').gamesObserved,0);
-  assert.equal(q.calibration.find(c=>c.sport==='Soccer').publicRecommendation,false);
+  assert.equal(q.calibration.some(c=>c.sport==='Soccer'),false);
+  assert.equal(q.games.length,0,'excluded sports and unverified tennis do not consume audit analysis');
 });
 test('later cached provider events enrich retrospective response without backfilling historical availability',()=>{
   const observations=[obs({rating:60,scores:[1,2]}),obs({rating:70,scores:[2,2],offset:180000})];

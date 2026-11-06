@@ -1,0 +1,1037 @@
+{
+  "description": "Retained SC State-Howard and JMU-Southern Miss control states for the same conditional post-score runway change. Arithmetic/component replay only; original provider summary/event streams are not retained in these rows.",
+  "projection": "Omitted unrelated display/marketing/athlete fields. No missing possession, season, clock or historical events were filled in.",
+  "observations": [
+    {
+      "provenance": {
+        "table": "sports_snapshots",
+        "gameKey": "CFB:401867964",
+        "observedAt": 1793936190000,
+        "modelVersion": "2026-11-05.nhl-manpower.1",
+        "normalizedStateSha256": "a0a2e67413a48127f32ad95463b3ff8b1eb485c694481b8fff630dcda36dfa11"
+      },
+      "game": {
+        "id": "401867964",
+        "sport": "CFB",
+        "state": "live",
+        "score": 76,
+        "baseScore": 61,
+        "openingScore": 40,
+        "openingFactors": [
+          {
+            "label": "Sport baseline",
+            "points": 32
+          },
+          {
+            "label": "Schedule scarcity",
+            "points": 8
+          }
+        ],
+        "factors": [
+          {
+            "label": "Generic Leverage",
+            "points": 5
+          },
+          {
+            "label": "Underdog threatens upset",
+            "points": 4,
+            "liveSurprise": true
+          },
+          {
+            "label": "Game-state baseline",
+            "points": 12
+          },
+          {
+            "label": "Pregame context carried into play",
+            "points": 4
+          },
+          {
+            "label": "Current Tension",
+            "points": 36
+          },
+          {
+            "label": "2 lead changes",
+            "points": 2
+          },
+          {
+            "label": "Erased a large deficit",
+            "points": 6
+          },
+          {
+            "label": "Big win-chance swing",
+            "points": 7
+          }
+        ],
+        "modelVersion": "2026-11-05.nhl-manpower.1",
+        "evidenceQuality": "complete",
+        "scoringPartial": false,
+        "liveUpdateRejected": false,
+        "momentumPoints": 15,
+        "teams": [
+          [
+            "South Carolina State Bulldogs",
+            "SCST",
+            "27",
+            "",
+            "",
+            "7-2",
+            null,
+            "SC State",
+            "2569"
+          ],
+          [
+            "Howard Bison",
+            "HOW",
+            "21",
+            "",
+            "",
+            "4-5",
+            null,
+            "Howard",
+            "47"
+          ]
+        ],
+        "pregameBaseline": {
+          "calibration": "2026-10-31.football-pregame.1",
+          "source": "observed",
+          "score": 40,
+          "spread": null,
+          "underdog": null
+        },
+        "live": {
+          "bonus": 0,
+          "winProbability": 0.2167,
+          "components": {
+            "probability": 0,
+            "situation": 0,
+            "pressure": 0,
+            "milestone": 0,
+            "eventShock": 0
+          },
+          "aggregation": {
+            "bonus": 0,
+            "probabilityPositive": 0,
+            "probabilityNegative": 0,
+            "driveFloor": 0,
+            "decisiveFloor": 0,
+            "competitiveSituation": 0,
+            "positiveBonus": 0,
+            "negativeBonus": 0
+          },
+          "sportImpact": {
+            "points": 0,
+            "note": "",
+            "reasons": [],
+            "competitiveFloor": 0
+          }
+        },
+        "trajectoryScoring": {
+          "policyId": "live-owned-45-95-relevant-history-cfb-competition-opening-transition",
+          "adjustment": 0,
+          "effectivePositiveGate": 0.7012009046687439,
+          "decisiveStrength": 0,
+          "protectedRating": null,
+          "floorBonus": 0
+        },
+        "historyOwnership": {
+          "relevance": {
+            "eventRetention": 1,
+            "marginCloseness": 0.9589793294113971,
+            "comebackViability": 0.9986710018377566,
+            "ledgerMatches": true,
+            "recovery": null,
+            "recoveryStrength": 0,
+            "eventReason": "Current competition history retained",
+            "recoveryReason": "No supported recent material recovery with viable current runway"
+          },
+          "allocation": {
+            "retention": 1,
+            "cap": 15,
+            "bucketCap": null,
+            "factors": [
+              {
+                "label": "2 lead changes",
+                "rawPoints": 2,
+                "relevantPoints": 2,
+                "retainedPoints": 2,
+                "relevanceReduction": 0,
+                "capReduction": 0
+              },
+              {
+                "label": "Erased a large deficit",
+                "rawPoints": 6,
+                "relevantPoints": 6,
+                "retainedPoints": 6,
+                "relevanceReduction": 0,
+                "capReduction": 0
+              },
+              {
+                "label": "Big win-chance swing",
+                "rawPoints": 7,
+                "relevantPoints": 7,
+                "retainedPoints": 7,
+                "relevanceReduction": 0,
+                "capReduction": 0
+              },
+              {
+                "label": "Trajectory sustained history",
+                "rawPoints": 4.523026412408142,
+                "relevantPoints": 4.523026412408142,
+                "retainedPoints": 0,
+                "relevanceReduction": 0,
+                "capReduction": 4.523026412408142
+              }
+            ]
+          },
+          "combinedPoints": 15,
+          "eventFactors": [
+            {
+              "label": "2 lead changes",
+              "points": 2
+            },
+            {
+              "label": "Erased a large deficit",
+              "points": 6
+            },
+            {
+              "label": "Big win-chance swing",
+              "points": 7
+            }
+          ],
+          "positiveLimitedByCaps": 4.523026412408142
+        },
+        "liveSurprise": {
+          "points": 4,
+          "market": {
+            "teamId": "47",
+            "teamName": "Howard Bison",
+            "side": "home",
+            "spread": 21.5,
+            "probability": null,
+            "source": "pregame market",
+            "reportedAt": null
+          },
+          "margin": -6
+        },
+        "liveRawStatus": {
+          "clock": 621,
+          "displayClock": "10:21",
+          "period": 4,
+          "type": {
+            "id": "2",
+            "name": "STATUS_IN_PROGRESS",
+            "state": "in",
+            "completed": false,
+            "description": "In Progress",
+            "detail": "10:21 - 4th Quarter",
+            "shortDetail": "10:21 - 4th"
+          }
+        },
+        "liveRawSituation": {
+          "lastPlay": {
+            "id": "401867964678",
+            "type": {
+              "id": "68",
+              "text": "Rushing Touchdown",
+              "abbreviation": "TD"
+            },
+            "text": "No Huddle-Shotgun #30 R.Brown rush left for 9 yards gain to the HOW00 TOUCHDOWN, clock 00:00",
+            "scoreValue": 6,
+            "team": {
+              "id": "2569"
+            },
+            "probability": {
+              "tiePercentage": 0,
+              "homeWinPercentage": 0.2167,
+              "awayWinPercentage": 0.7833,
+              "secondsLeft": 675
+            }
+          },
+          "down": -1,
+          "yardLine": 0,
+          "distance": 0,
+          "isRedZone": true,
+          "homeTimeouts": 3,
+          "awayTimeouts": 0
+        }
+      },
+      "inputEvidence": {
+        "duplicatesRemoved": 0,
+        "conflictingEvents": 0,
+        "futureEventsExcluded": 0,
+        "staleEventRevisionsIgnored": 16,
+        "canonicalBoundary": {
+          "period": 4,
+          "clock": "10:21",
+          "playId": "401867964678"
+        }
+      }
+    },
+    {
+      "provenance": {
+        "table": "sports_snapshots",
+        "gameKey": "CFB:401867964",
+        "observedAt": 1793936385000,
+        "modelVersion": "2026-11-05.nhl-manpower.1",
+        "normalizedStateSha256": "ea042feb60e01164b92ee7565c28dc519c364256a5a129b8d6c215d6fda929a8"
+      },
+      "game": {
+        "id": "401867964",
+        "sport": "CFB",
+        "state": "live",
+        "score": 73,
+        "baseScore": 58,
+        "openingScore": 40,
+        "openingFactors": [
+          {
+            "label": "Sport baseline",
+            "points": 32
+          },
+          {
+            "label": "Schedule scarcity",
+            "points": 8
+          }
+        ],
+        "factors": [
+          {
+            "label": "Generic Leverage",
+            "points": 5
+          },
+          {
+            "label": "Underdog threatens upset",
+            "points": 3,
+            "liveSurprise": true
+          },
+          {
+            "label": "Game-state baseline",
+            "points": 12
+          },
+          {
+            "label": "Pregame context carried into play",
+            "points": 4
+          },
+          {
+            "label": "Current Tension",
+            "points": 34
+          },
+          {
+            "label": "2 lead changes",
+            "points": 2
+          },
+          {
+            "label": "Erased a large deficit",
+            "points": 6
+          },
+          {
+            "label": "Big win-chance swing",
+            "points": 7
+          }
+        ],
+        "modelVersion": "2026-11-05.nhl-manpower.1",
+        "evidenceQuality": "complete",
+        "scoringPartial": false,
+        "liveUpdateRejected": false,
+        "momentumPoints": 15,
+        "teams": [
+          [
+            "South Carolina State Bulldogs",
+            "SCST",
+            "28",
+            "",
+            "",
+            "7-2",
+            null,
+            "SC State",
+            "2569"
+          ],
+          [
+            "Howard Bison",
+            "HOW",
+            "21",
+            "",
+            "",
+            "4-5",
+            null,
+            "Howard",
+            "47"
+          ]
+        ],
+        "pregameBaseline": {
+          "calibration": "2026-10-31.football-pregame.1",
+          "source": "observed",
+          "score": 40,
+          "spread": null,
+          "underdog": null
+        },
+        "live": {
+          "bonus": 0,
+          "winProbability": 0.2007,
+          "components": {
+            "probability": 0,
+            "situation": 0,
+            "pressure": 0,
+            "milestone": 0,
+            "eventShock": 0
+          },
+          "aggregation": {
+            "bonus": 0,
+            "probabilityPositive": 0,
+            "probabilityNegative": 0,
+            "driveFloor": 0,
+            "decisiveFloor": 0,
+            "competitiveSituation": 0,
+            "positiveBonus": 0,
+            "negativeBonus": 0
+          },
+          "sportImpact": {
+            "points": 0,
+            "note": "",
+            "reasons": [],
+            "competitiveFloor": 0
+          }
+        },
+        "trajectoryScoring": {
+          "policyId": "live-owned-45-95-relevant-history-cfb-competition-opening-transition",
+          "adjustment": 0,
+          "effectivePositiveGate": 0.6484811077352639,
+          "decisiveStrength": 0,
+          "protectedRating": null,
+          "floorBonus": 0
+        },
+        "historyOwnership": {
+          "relevance": {
+            "eventRetention": 1,
+            "marginCloseness": 0.948989961396695,
+            "comebackViability": 0.9986710018377566,
+            "ledgerMatches": true,
+            "recovery": null,
+            "recoveryStrength": 0,
+            "eventReason": "Current competition history retained",
+            "recoveryReason": "No supported recent material recovery with viable current runway"
+          },
+          "allocation": {
+            "retention": 1,
+            "cap": 15,
+            "bucketCap": null,
+            "factors": [
+              {
+                "label": "2 lead changes",
+                "rawPoints": 2,
+                "relevantPoints": 2,
+                "retainedPoints": 2,
+                "relevanceReduction": 0,
+                "capReduction": 0
+              },
+              {
+                "label": "Erased a large deficit",
+                "rawPoints": 6,
+                "relevantPoints": 6,
+                "retainedPoints": 6,
+                "relevanceReduction": 0,
+                "capReduction": 0
+              },
+              {
+                "label": "Big win-chance swing",
+                "rawPoints": 7,
+                "relevantPoints": 7,
+                "retainedPoints": 7,
+                "relevanceReduction": 0,
+                "capReduction": 0
+              },
+              {
+                "label": "Trajectory sustained history",
+                "rawPoints": 4.183077705877049,
+                "relevantPoints": 4.183077705877049,
+                "retainedPoints": 0,
+                "relevanceReduction": 0,
+                "capReduction": 4.183077705877049
+              }
+            ]
+          },
+          "combinedPoints": 15,
+          "eventFactors": [
+            {
+              "label": "2 lead changes",
+              "points": 2
+            },
+            {
+              "label": "Erased a large deficit",
+              "points": 6
+            },
+            {
+              "label": "Big win-chance swing",
+              "points": 7
+            }
+          ],
+          "positiveLimitedByCaps": 4.183077705877049
+        },
+        "liveSurprise": {
+          "points": 3,
+          "market": {
+            "teamId": "47",
+            "teamName": "Howard Bison",
+            "side": "home",
+            "spread": 21.5,
+            "probability": null,
+            "source": "pregame market",
+            "reportedAt": null
+          },
+          "margin": -7
+        },
+        "liveRawStatus": {
+          "clock": 621,
+          "displayClock": "10:21",
+          "period": 4,
+          "type": {
+            "id": "2",
+            "name": "STATUS_IN_PROGRESS",
+            "state": "in",
+            "completed": false,
+            "description": "In Progress",
+            "detail": "10:21 - 4th Quarter",
+            "shortDetail": "10:21 - 4th"
+          }
+        },
+        "liveRawSituation": {
+          "lastPlay": {
+            "id": "-89633410",
+            "type": {
+              "id": "61",
+              "text": "Extra Point Good",
+              "abbreviation": "XP"
+            },
+            "text": "(J. Jackson KICK)",
+            "scoreValue": 1,
+            "team": {
+              "id": "2569"
+            }
+          },
+          "down": -1,
+          "yardLine": 65,
+          "distance": -1,
+          "isRedZone": false,
+          "homeTimeouts": 3,
+          "awayTimeouts": 0
+        }
+      },
+      "inputEvidence": {
+        "duplicatesRemoved": 0,
+        "conflictingEvents": 0,
+        "futureEventsExcluded": 0,
+        "staleEventRevisionsIgnored": 16,
+        "canonicalBoundary": {
+          "period": 4,
+          "clock": "10:21",
+          "playId": "-89633410"
+        }
+      }
+    },
+    {
+      "provenance": {
+        "table": "sports_snapshots",
+        "gameKey": "CFB:401869964",
+        "observedAt": 1793937615000,
+        "modelVersion": "2026-11-05.nhl-manpower.1",
+        "normalizedStateSha256": "339a19f4df9943f343613221e451a098ebdd7fd0d7515d0ff30998c5d80ebeb3"
+      },
+      "game": {
+        "id": "401869964",
+        "sport": "CFB",
+        "state": "live",
+        "score": 35,
+        "baseScore": 26,
+        "openingScore": 40,
+        "openingFactors": [
+          {
+            "label": "Sport baseline",
+            "points": 32
+          },
+          {
+            "label": "Schedule scarcity",
+            "points": 8
+          },
+          {
+            "label": "Competitive projected spread",
+            "points": 0.13
+          }
+        ],
+        "factors": [
+          {
+            "label": "Generic Leverage",
+            "points": 1
+          },
+          {
+            "label": "Limited comeback runway",
+            "points": -1
+          },
+          {
+            "label": "Game-state baseline",
+            "points": 12
+          },
+          {
+            "label": "Pregame context carried into play",
+            "points": 4
+          },
+          {
+            "label": "Current Tension",
+            "points": 10
+          },
+          {
+            "label": "2 lead changes",
+            "points": 2
+          },
+          {
+            "label": "Erased a large deficit",
+            "points": 6
+          },
+          {
+            "label": "Recent unanswered scoring run",
+            "points": 1
+          }
+        ],
+        "modelVersion": "2026-11-05.nhl-manpower.1",
+        "evidenceQuality": "complete",
+        "scoringPartial": false,
+        "liveUpdateRejected": false,
+        "momentumPoints": 9,
+        "teams": [
+          [
+            "James Madison Dukes",
+            "JMU",
+            "37",
+            "",
+            "",
+            "7-2",
+            null,
+            "James Madison",
+            "256"
+          ],
+          [
+            "Southern Miss Golden Eagles",
+            "USM",
+            "14",
+            "",
+            "",
+            "3-5",
+            null,
+            "Southern Miss",
+            "2572"
+          ]
+        ],
+        "pregameBaseline": {
+          "calibration": "2026-10-31.football-pregame.1",
+          "source": "observed",
+          "score": 40,
+          "spread": 13.5,
+          "underdog": {
+            "side": "home",
+            "teamId": "2572",
+            "teamIndex": 0,
+            "teamName": "Southern Miss Golden Eagles",
+            "type": "spread",
+            "value": 13.5,
+            "strength": 0.9285714285714286,
+            "activation": 1,
+            "description": "13.5-point underdog"
+          }
+        },
+        "live": {
+          "bonus": 0,
+          "winProbability": 0.0011,
+          "components": {
+            "probability": 0,
+            "situation": 0,
+            "pressure": 0,
+            "milestone": 0,
+            "eventShock": 0
+          },
+          "aggregation": {
+            "bonus": 0,
+            "probabilityPositive": 0,
+            "probabilityNegative": 0,
+            "driveFloor": 0,
+            "decisiveFloor": 0,
+            "competitiveSituation": 0,
+            "positiveBonus": 0,
+            "negativeBonus": 0
+          },
+          "sportImpact": {
+            "points": 0,
+            "note": "",
+            "reasons": [],
+            "competitiveFloor": 0
+          }
+        },
+        "trajectoryScoring": {
+          "policyId": "live-owned-45-95-relevant-history-cfb-competition-opening-transition",
+          "adjustment": 0,
+          "effectivePositiveGate": 0,
+          "decisiveStrength": 0,
+          "protectedRating": null,
+          "floorBonus": 0
+        },
+        "historyOwnership": {
+          "relevance": {
+            "eventRetention": 1,
+            "marginCloseness": 0.4013827625950706,
+            "comebackViability": 0.9168103563810193,
+            "ledgerMatches": true,
+            "recovery": null,
+            "recoveryStrength": 0,
+            "eventReason": "Current competition history retained",
+            "recoveryReason": "No supported recent material recovery with viable current runway"
+          },
+          "allocation": {
+            "retention": 1,
+            "cap": 12,
+            "bucketCap": null,
+            "factors": [
+              {
+                "label": "2 lead changes",
+                "rawPoints": 2,
+                "relevantPoints": 2,
+                "retainedPoints": 2,
+                "relevanceReduction": 0,
+                "capReduction": 0
+              },
+              {
+                "label": "Erased a large deficit",
+                "rawPoints": 6,
+                "relevantPoints": 6,
+                "retainedPoints": 6,
+                "relevanceReduction": 0,
+                "capReduction": 0
+              },
+              {
+                "label": "Recent unanswered scoring run",
+                "rawPoints": 1,
+                "relevantPoints": 1,
+                "retainedPoints": 1,
+                "relevanceReduction": 0,
+                "capReduction": 0
+              }
+            ]
+          },
+          "cfbRun": {
+            "side": "away",
+            "runPoints": 24,
+            "usefulPoints": 3,
+            "rawPoints": 4,
+            "points": 1,
+            "overlapDiscount": 3
+          },
+          "combinedPoints": 9,
+          "eventFactors": [
+            {
+              "label": "2 lead changes",
+              "points": 2
+            },
+            {
+              "label": "Erased a large deficit",
+              "points": 6
+            },
+            {
+              "label": "Recent unanswered scoring run",
+              "points": 1
+            }
+          ],
+          "positiveLimitedByCaps": 0
+        },
+        "liveSurprise": {
+          "points": 0,
+          "market": {
+            "teamId": "2572",
+            "teamName": "Southern Miss Golden Eagles",
+            "side": "home",
+            "spread": 13.5,
+            "probability": 0.18274111675126903,
+            "source": "pregame market",
+            "reportedAt": null
+          },
+          "margin": -23
+        },
+        "liveRawStatus": {
+          "clock": 821,
+          "displayClock": "13:41",
+          "period": 4,
+          "type": {
+            "id": "2",
+            "name": "STATUS_IN_PROGRESS",
+            "state": "in",
+            "completed": false,
+            "description": "In Progress",
+            "detail": "13:41 - 4th Quarter",
+            "shortDetail": "13:41 - 4th"
+          }
+        },
+        "liveRawSituation": {
+          "lastPlay": {
+            "id": "-89633728",
+            "type": {
+              "id": "61",
+              "text": "Extra Point Good",
+              "abbreviation": "XP"
+            },
+            "text": "(M. Suarez KICK)",
+            "scoreValue": 1,
+            "team": {
+              "id": "256"
+            }
+          },
+          "down": -1,
+          "yardLine": 65,
+          "distance": -1,
+          "isRedZone": false,
+          "homeTimeouts": 2,
+          "awayTimeouts": 1
+        }
+      },
+      "inputEvidence": {
+        "duplicatesRemoved": 0,
+        "conflictingEvents": 0,
+        "futureEventsExcluded": 0,
+        "staleEventRevisionsIgnored": 18,
+        "canonicalBoundary": {
+          "period": 4,
+          "clock": "13:41",
+          "playId": "-89633728"
+        }
+      }
+    },
+    {
+      "provenance": {
+        "table": "sports_snapshots",
+        "gameKey": "CFB:401869964",
+        "observedAt": 1793938515000,
+        "modelVersion": "2026-11-05.nhl-manpower.1",
+        "normalizedStateSha256": "a43c870120ab6e4367f05755561c56143953d5bb05305035c4f52647cce93e31"
+      },
+      "game": {
+        "id": "401869964",
+        "sport": "CFB",
+        "state": "live",
+        "score": 1,
+        "baseScore": 1,
+        "openingScore": 40,
+        "openingFactors": [
+          {
+            "label": "Sport baseline",
+            "points": 32
+          },
+          {
+            "label": "Schedule scarcity",
+            "points": 8
+          },
+          {
+            "label": "Competitive projected spread",
+            "points": 0.13
+          }
+        ],
+        "factors": [
+          {
+            "label": "Limited comeback runway",
+            "points": -18
+          },
+          {
+            "label": "Game-state baseline",
+            "points": 12
+          },
+          {
+            "label": "Pregame context carried into play",
+            "points": 1
+          },
+          {
+            "label": "Current Tension",
+            "points": 2
+          }
+        ],
+        "modelVersion": "2026-11-05.nhl-manpower.1",
+        "evidenceQuality": "complete",
+        "scoringPartial": false,
+        "liveUpdateRejected": false,
+        "momentumPoints": 0,
+        "teams": [
+          [
+            "James Madison Dukes",
+            "JMU",
+            "44",
+            "",
+            "",
+            "7-2",
+            null,
+            "James Madison",
+            "256"
+          ],
+          [
+            "Southern Miss Golden Eagles",
+            "USM",
+            "14",
+            "",
+            "",
+            "3-5",
+            null,
+            "Southern Miss",
+            "2572"
+          ]
+        ],
+        "pregameBaseline": {
+          "calibration": "2026-10-31.football-pregame.1",
+          "source": "observed",
+          "score": 40,
+          "spread": 13.5,
+          "underdog": {
+            "side": "home",
+            "teamId": "2572",
+            "teamIndex": 0,
+            "teamName": "Southern Miss Golden Eagles",
+            "type": "spread",
+            "value": 13.5,
+            "strength": 0.9285714285714286,
+            "activation": 1,
+            "description": "13.5-point underdog"
+          }
+        },
+        "live": {
+          "bonus": 0,
+          "winProbability": 0.001,
+          "components": {
+            "probability": 0,
+            "situation": 0,
+            "pressure": 0,
+            "milestone": 0,
+            "eventShock": 0
+          },
+          "aggregation": {
+            "bonus": 0,
+            "probabilityPositive": 0,
+            "probabilityNegative": 0,
+            "driveFloor": 0,
+            "decisiveFloor": 0,
+            "competitiveSituation": 0,
+            "positiveBonus": 0,
+            "negativeBonus": 0
+          },
+          "sportImpact": {
+            "points": 0,
+            "note": "",
+            "reasons": [],
+            "competitiveFloor": 0
+          }
+        },
+        "trajectoryScoring": {
+          "policyId": "live-owned-45-95-relevant-history-cfb-competition-opening-transition",
+          "adjustment": 0,
+          "effectivePositiveGate": 0,
+          "decisiveStrength": 0,
+          "protectedRating": null,
+          "floorBonus": 0
+        },
+        "historyOwnership": {
+          "relevance": {
+            "eventRetention": 0,
+            "marginCloseness": 0.0717866078394523,
+            "comebackViability": 0.14258301162200476,
+            "ledgerMatches": true,
+            "recovery": null,
+            "recoveryStrength": 0,
+            "eventReason": "Current sport margin/runway limits historical competition relevance",
+            "recoveryReason": "No supported recent material recovery with viable current runway"
+          },
+          "allocation": {
+            "retention": 0,
+            "cap": 15,
+            "bucketCap": null,
+            "factors": [
+              {
+                "label": "2 lead changes",
+                "rawPoints": 2,
+                "relevantPoints": 0,
+                "retainedPoints": 0,
+                "relevanceReduction": 2,
+                "capReduction": 0
+              },
+              {
+                "label": "Erased a large deficit",
+                "rawPoints": 6,
+                "relevantPoints": 0,
+                "retainedPoints": 0,
+                "relevanceReduction": 6,
+                "capReduction": 0
+              }
+            ]
+          },
+          "cfbRun": {
+            "side": "away",
+            "runPoints": 31,
+            "usefulPoints": 3,
+            "rawPoints": 4,
+            "points": 0,
+            "overlapDiscount": 4
+          },
+          "combinedPoints": 0,
+          "eventFactors": [],
+          "positiveLimitedByCaps": 0
+        },
+        "liveSurprise": {
+          "points": 0,
+          "market": {
+            "teamId": "2572",
+            "teamName": "Southern Miss Golden Eagles",
+            "side": "home",
+            "spread": 13.5,
+            "probability": 0.18274111675126903,
+            "source": "pregame market",
+            "reportedAt": null
+          },
+          "margin": -30
+        },
+        "liveRawStatus": {
+          "clock": 693,
+          "displayClock": "11:33",
+          "period": 4,
+          "type": {
+            "id": "2",
+            "name": "STATUS_IN_PROGRESS",
+            "state": "in",
+            "completed": false,
+            "description": "In Progress",
+            "detail": "11:33 - 4th Quarter",
+            "shortDetail": "11:33 - 4th"
+          }
+        },
+        "liveRawSituation": {
+          "lastPlay": {
+            "id": "-89633898",
+            "type": {
+              "id": "61",
+              "text": "Extra Point Good",
+              "abbreviation": "XP"
+            },
+            "text": "(M. Suarez KICK)",
+            "scoreValue": 1,
+            "team": {
+              "id": "256"
+            }
+          },
+          "down": -1,
+          "yardLine": 65,
+          "distance": -1,
+          "isRedZone": false,
+          "homeTimeouts": 1,
+          "awayTimeouts": 1
+        }
+      },
+      "inputEvidence": {
+        "duplicatesRemoved": 0,
+        "conflictingEvents": 0,
+        "futureEventsExcluded": 0,
+        "staleEventRevisionsIgnored": 20,
+        "canonicalBoundary": {
+          "period": 4,
+          "clock": "11:33",
+          "playId": "-89633898"
+        }
+      }
+    }
+  ]
+}

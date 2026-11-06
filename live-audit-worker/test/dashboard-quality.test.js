@@ -81,3 +81,27 @@ test('event previews prioritize timestamped brackets while labelling later-cache
   assert.match(summary,/Retrospective later-cache association; historical availability unknown/);
   assert.equal(eventResponses[0].event.id,'inferred-0','presentation ordering never reorders analysis evidence');
 });
+
+test('high-priority section uses actual priority and distinguishes usable ratings from complete context',async()=>{
+  const q=buildScoringQuality([]);
+  q.recommendations=[
+    {gameKey:'NHL:high',priority:'high',classification:'calibration_hypothesis',reason:'High concern'},
+    {gameKey:'NHL:medium',priority:'medium',classification:'calibration_hypothesis',reason:'Medium concern'},
+    {gameKey:'NHL:expected',priority:'high',classification:'expected_behavior',reason:'Expected game event'},
+    {gameKey:'NHL:unassigned',classification:'confirmed_defect',reason:'No assigned priority'}];
+  q.evidenceCoverage={totalObservations:100,usableScoringObservations:80,completeScoreProgressionObservations:70,completeContextualObservations:0};
+  const h=harness(async url=>({ok:true,status:200,json:async()=>url.includes('/quality')?{dateNewYork:'2026-11-05',scoringQuality:q}:url.includes('/export/dates')?{defaultDate:'2026-11-05'}:{}}));
+  await h.settle();await h.elements.get('quality-load').events.click();
+  const all=e=>[e,...e.children.flatMap(all)],elements=all(h.elements.get('quality'));
+  const priority=elements.find(e=>e.id==='quality-priority'),cards=priority.children.filter(e=>e.tag==='article');
+  assert.equal(cards.length,1);assert.ok(h.texts(cards[0]).some(text=>text.includes('NHL:high')));
+  assert.ok(h.texts(cards[0]).includes('HIGH PRIORITY'));
+  const investigations=elements.find(e=>e.id==='quality-recommendations');
+  assert.ok(h.texts(investigations).some(text=>text.includes('NHL:medium')),'lower-priority investigation remains visible');
+  const coverage=elements.find(e=>e.id==='quality-evidence');
+  assert.ok(h.texts(coverage).some(text=>text.includes('Usable scoring observations: 80 / 100')));
+  assert.ok(h.texts(coverage).some(text=>text.includes('Complete contextual observations: 0')));
+  const summary=qualitySummary(q).join('\n'),high=summary.split('### High-priority scoring-quality concerns')[1].split('### Potentially')[0];
+  assert.match(high,/NHL:high.*high priority/);assert.doesNotMatch(high,/NHL:medium|NHL:expected|NHL:unassigned/);
+  assert.match(summary,/Usable scoring observations: 80 \/ 100/);assert.match(summary,/Complete contextual observations: 0/);
+});

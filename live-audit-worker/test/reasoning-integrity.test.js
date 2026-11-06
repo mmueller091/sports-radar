@@ -41,7 +41,8 @@ test('active source errors separated from unrelated games and unknown request sc
 test('capture retains canonical component/manpower evidence and keeps timestamp semantics explicit',()=>{
   const g={...base,evidenceQuality:'invalid',live:{sportImpact:{manpower:{pulled:false,powerPlay:false,advantage:0}},aggregation:{decisiveFloor:30}}};
   const q=captureEvidenceDetails(g,{publishedAt:1700000000000,observedAt:1700000001000});
-  assert.equal(q.retainedEvidenceStatus,'invalid');assert.equal(q.goaliePulled,false);
+  assert.equal(q.retainedEvidenceStatus,'invalid');assert.equal(q.goaliePulled,null);
+  assert.equal(q.reportedManpower.pulled,false);assert.equal(q.manpowerEvidenceStatus,'unverified');
   assert.equal(q.providerPublication,null);assert.equal(q.canonicalPublishedAt,null);assert.equal(q.timestampKind,'canonical-refresh-start');
   assert.equal(q.components.aggregation.decisiveFloor,30);
 });
