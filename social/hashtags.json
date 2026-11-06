@@ -1,0 +1,3072 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-11-05",
+  "meaning": "Posting-eligible tags are verified against a first-party source or explicitly approved by the SlateMeter owner. Other entries are research candidates and are not eligible for automatic posting.",
+  "teams": {
+    "NFL": {
+      "1": {
+        "name": "Atlanta Falcons",
+        "primary": "#DirtyBirds",
+        "aliases": [
+          "#DirtyBirds",
+          "#RiseUp"
+        ],
+        "account": "AtlantaFalcons",
+        "verification": "owner-approved",
+        "sourceUrls": [
+          "https://x.com/AtlantaFalcons"
+        ],
+        "lastVerifiedAt": null
+      },
+      "2": {
+        "name": "Buffalo Bills",
+        "primary": "#BillsMafia",
+        "aliases": [
+          "#BillsMafia",
+          "#GoBills"
+        ],
+        "account": "BuffaloBills",
+        "verification": "owner-approved",
+        "sourceUrls": [
+          "https://x.com/BuffaloBills"
+        ],
+        "lastVerifiedAt": null
+      },
+      "3": {
+        "name": "Chicago Bears",
+        "primary": "#DaBears",
+        "aliases": [
+          "#DaBears"
+        ],
+        "account": "ChicagoBears",
+        "verification": "owner-approved",
+        "sourceUrls": [
+          "https://x.com/ChicagoBears"
+        ],
+        "lastVerifiedAt": null
+      },
+      "4": {
+        "name": "Cincinnati Bengals",
+        "primary": "#WhoDey",
+        "aliases": [
+          "#WhoDey"
+        ],
+        "account": "Bengals",
+        "verification": "official-bio",
+        "sourceUrls": [
+          "https://x.com/Bengals"
+        ],
+        "lastVerifiedAt": "2026-11-05"
+      },
+      "5": {
+        "name": "Cleveland Browns",
+        "primary": "#DawgPound",
+        "aliases": [
+          "#DawgPound"
+        ],
+        "account": "Browns",
+        "verification": "official-bio",
+        "sourceUrls": [
+          "https://x.com/Browns"
+        ],
+        "lastVerifiedAt": "2026-11-05"
+      },
+      "6": {
+        "name": "Dallas Cowboys",
+        "primary": "#DallasCowboys",
+        "aliases": [
+          "#DallasCowboys"
+        ],
+        "account": "dallascowboys",
+        "verification": "official-post",
+        "sourceUrls": [
+          "https://x.com/dallascowboys"
+        ],
+        "lastVerifiedAt": "2026-11-05"
+      },
+      "7": {
+        "name": "Denver Broncos",
+        "primary": "#BroncosCountry",
+        "aliases": [
+          "#BroncosCountry"
+        ],
+        "account": "Broncos",
+        "verification": "owner-approved",
+        "sourceUrls": [
+          "https://x.com/Broncos"
+        ],
+        "lastVerifiedAt": null
+      },
+      "8": {
+        "name": "Detroit Lions",
+        "primary": "#OnePride",
+        "aliases": [
+          "#OnePride"
+        ],
+        "account": "Lions",
+        "verification": "official-bio",
+        "sourceUrls": [
+          "https://x.com/Lions"
+        ],
+        "lastVerifiedAt": "2026-11-05"
+      },
+      "9": {
+        "name": "Green Bay Packers",
+        "primary": "#GoPackGo",
+        "aliases": [
+          "#GoPackGo"
+        ],
+        "account": "packers",
+        "verification": "owner-approved",
+        "sourceUrls": [
+          "https://x.com/packers"
+        ],
+        "lastVerifiedAt": null
+      },
+      "10": {
+        "name": "Tennessee Titans",
+        "primary": "#TitanUp",
+        "aliases": [
+          "#TitanUp"
+        ],
+        "account": "Titans",
+        "verification": "official-bio",
+        "sourceUrls": [
+          "https://x.com/Titans"
+        ],
+        "lastVerifiedAt": "2026-11-05"
+      },
+      "11": {
+        "name": "Indianapolis Colts",
+        "primary": "#ForTheShoe",
+        "aliases": [
+          "#ForTheShoe"
+        ],
+        "account": "Colts",
+        "verification": "official-bio",
+        "sourceUrls": [
+          "https://x.com/Colts"
+        ],
+        "lastVerifiedAt": "2026-11-05"
+      },
+      "12": {
+        "name": "Kansas City Chiefs",
+        "primary": "#ChiefsKingdom",
+        "aliases": [
+          "#ChiefsKingdom"
+        ],
+        "account": "Chiefs",
+        "verification": "owner-approved",
+        "sourceUrls": [
+          "https://x.com/Chiefs"
+        ],
+        "lastVerifiedAt": null
+      },
+      "13": {
+        "name": "Las Vegas Raiders",
+        "primary": "#RaiderNation",
+        "aliases": [
+          "#RaiderNation"
+        ],
+        "account": "Raiders",
+        "verification": "owner-approved",
+        "sourceUrls": [
+          "https://x.com/Raiders"
+        ],
+        "lastVerifiedAt": null
+      },
+      "14": {
+        "name": "Los Angeles Rams",
+        "primary": "#RamsHouse",
+        "aliases": [
+          "#RamsHouse"
+        ],
+        "account": "RamsNFL",
+        "verification": "owner-approved",
+        "sourceUrls": [
+          "https://x.com/RamsNFL"
+        ],
+        "lastVerifiedAt": null
+      },
+      "15": {
+        "name": "Miami Dolphins",
+        "primary": "#PhinsUp",
+        "aliases": [
+          "#PhinsUp",
+          "#FinsUp"
+        ],
+        "account": "MiamiDolphins",
+        "verification": "owner-approved",
+        "sourceUrls": [
+          "https://x.com/MiamiDolphins"
+        ],
+        "lastVerifiedAt": null
+      },
+      "16": {
+        "name": "Minnesota Vikings",
+        "primary": "#Skol",
+        "aliases": [
+          "#Skol"
+        ],
+        "account": "Vikings",
+        "verification": "owner-approved",
+        "sourceUrls": [
+          "https://x.com/Vikings"
+        ],
+        "lastVerifiedAt": null
+      },
+      "17": {
+        "name": "New England Patriots",
+        "primary": "#NEPats",
+        "aliases": [
+          "#NEPats",
+          "#ForeverNE"
+        ],
+        "account": "Patriots",
+        "verification": "owner-approved",
+        "sourceUrls": [
+          "https://x.com/Patriots"
+        ],
+        "lastVerifiedAt": null
+      },
+      "18": {
+        "name": "New Orleans Saints",
+        "primary": "#Saints",
+        "aliases": [
+          "#Saints"
+        ],
+        "account": "Saints",
+        "verification": "official-post",
+        "sourceUrls": [
+          "https://x.com/Saints"
+        ],
+        "lastVerifiedAt": "2026-11-05"
+      },
+      "19": {
+        "name": "New York Giants",
+        "primary": "#BigBlue",
+        "aliases": [
+          "#BigBlue",
+          "#TogetherBlue"
+        ],
+        "account": "Giants",
+        "verification": "owner-approved",
+        "sourceUrls": [
+          "https://x.com/Giants"
+        ],
+        "lastVerifiedAt": null
+      },
+      "20": {
+        "name": "New York Jets",
+        "primary": "#JetUp",
+        "aliases": [
+          "#JetUp",
+          "#TakeFlight"
+        ],
+        "account": "nyjets",
+        "verification": "owner-approved",
+        "sourceUrls": [
+          "https://x.com/nyjets"
+        ],
+        "lastVerifiedAt": null
+      },
+      "21": {
+        "name": "Philadelphia Eagles",
+        "primary": "#FlyEaglesFly",
+        "aliases": [
+          "#FlyEaglesFly"
+        ],
+        "account": "Eagles",
+        "verification": "official-bio",
+        "sourceUrls": [
+          "https://x.com/Eagles"
+        ],
+        "lastVerifiedAt": "2026-11-05"
+      },
+      "22": {
+        "name": "Arizona Cardinals",
+        "primary": "#RiseUpRedSea",
+        "aliases": [
+          "#RiseUpRedSea"
+        ],
+        "account": "AZCardinals",
+        "verification": "official-bio",
+        "sourceUrls": [
+          "https://x.com/AZCardinals"
+        ],
+        "lastVerifiedAt": "2026-11-05"
+      },
+      "23": {
+        "name": "Pittsburgh Steelers",
+        "primary": "#HereWeGo",
+        "aliases": [
+          "#HereWeGo"
+        ],
+        "account": "steelers",
+        "verification": "owner-approved",
+        "sourceUrls": [
+          "https://x.com/steelers"
+        ],
+        "lastVerifiedAt": null
+      },
+      "24": {
+        "name": "Los Angeles Chargers",
+        "primary": "#BoltUp",
+        "aliases": [
+          "#BoltUp"
+        ],
+        "account": "chargers",
+        "verification": "owner-approved",
+        "sourceUrls": [
+          "https://x.com/chargers"
+        ],
+        "lastVerifiedAt": null
+      },
+      "25": {
+        "name": "San Francisco 49ers",
+        "primary": "#FTTB",
+        "aliases": [
+          "#FTTB"
+        ],
+        "account": "49ers",
+        "verification": "official-post",
+        "sourceUrls": [
+          "https://x.com/49ers"
+        ],
+        "lastVerifiedAt": "2026-11-05"
+      },
+      "26": {
+        "name": "Seattle Seahawks",
+        "primary": "#Seahawks",
+        "aliases": [
+          "#Seahawks",
+          "#GoHawks"
+        ],
+        "account": "Seahawks",
+        "verification": "owner-approved",
+        "sourceUrls": [
+          "https://x.com/Seahawks"
+        ],
+        "lastVerifiedAt": null
+      },
+      "27": {
+        "name": "Tampa Bay Buccaneers",
+        "primary": "#WeAreTheKrewe",
+        "aliases": [
+          "#WeAreTheKrewe",
+          "#GoBucs"
+        ],
+        "account": "Buccaneers",
+        "verification": "owner-approved",
+        "sourceUrls": [
+          "https://x.com/Buccaneers"
+        ],
+        "lastVerifiedAt": null
+      },
+      "28": {
+        "name": "Washington Commanders",
+        "primary": "#RaiseHail",
+        "aliases": [
+          "#RaiseHail"
+        ],
+        "account": "Commanders",
+        "verification": "official-bio",
+        "sourceUrls": [
+          "https://x.com/Commanders"
+        ],
+        "lastVerifiedAt": "2026-11-05"
+      },
+      "29": {
+        "name": "Carolina Panthers",
+        "primary": "#KeepPounding",
+        "aliases": [
+          "#KeepPounding"
+        ],
+        "account": "Panthers",
+        "verification": "official-bio",
+        "sourceUrls": [
+          "https://x.com/Panthers"
+        ],
+        "lastVerifiedAt": "2026-11-05"
+      },
+      "30": {
+        "name": "Jacksonville Jaguars",
+        "primary": "#DUUUVAL",
+        "aliases": [
+          "#DUUUVAL"
+        ],
+        "account": "Jaguars",
+        "verification": "official-post",
+        "sourceUrls": [
+          "https://x.com/Jaguars"
+        ],
+        "lastVerifiedAt": "2026-11-05"
+      },
+      "33": {
+        "name": "Baltimore Ravens",
+        "primary": "#RavensFlock",
+        "aliases": [
+          "#RavensFlock"
+        ],
+        "account": "Ravens",
+        "verification": "official-bio",
+        "sourceUrls": [
+          "https://x.com/Ravens"
+        ],
+        "lastVerifiedAt": "2026-11-05"
+      },
+      "34": {
+        "name": "Houston Texans",
+        "primary": "#HTownMade",
+        "aliases": [
+          "#HTownMade",
+          "#WeAreTexans"
+        ],
+        "account": "HoustonTexans",
+        "verification": "owner-approved",
+        "sourceUrls": [
+          "https://x.com/HoustonTexans"
+        ],
+        "lastVerifiedAt": null
+      }
+    },
+    "NBA": {
+      "1": {
+        "name": "Atlanta Hawks",
+        "primary": "#TrueToAtlanta",
+        "aliases": [
+          "#TrueToAtlanta",
+          "#Hawks",
+          "#AtlantaHawks"
+        ],
+        "account": "ATLHawks",
+        "verification": "official-bio",
+        "sourceUrls": [
+          "https://x.com/ATLHawks",
+          "https://www.blinkfire.com/publisher/leaguehashtags/nba",
+          "https://www.blinkfire.com/publisher/team/basketball_1/atlanta-hawks"
+        ],
+        "lastVerifiedAt": "2026-11-05"
+      },
+      "2": {
+        "name": "Boston Celtics",
+        "primary": "#DifferentHere",
+        "aliases": [
+          "#DifferentHere",
+          "#Celtics",
+          "#bostonceltics",
+          "#CUsRise"
+        ],
+        "account": "celtics",
+        "verification": "owner-approved",
+        "sourceUrls": [
+          "https://x.com/celtics",
+          "https://www.blinkfire.com/publisher/leaguehashtags/nba",
+          "https://www.blinkfire.com/publisher/team/basketball_2/boston-celtics"
+        ],
+        "lastVerifiedAt": null
+      },
+      "3": {
+        "name": "New Orleans Pelicans",
+        "primary": "#Pelicans",
+        "aliases": [
+          "#Pelicans",
+          "#PelicansNBA",
+          "#DoItBig",
+          "#doitBIGGER",
+          "#NewOrleansPelicans"
+        ],
+        "account": "PelicansNBA",
+        "verification": "official-post",
+        "sourceUrls": [
+          "https://x.com/PelicansNBA",
+          "https://www.blinkfire.com/publisher/leaguehashtags/nba",
+          "https://www.blinkfire.com/publisher/team/basketball_3/new-orleans-pelicans"
+        ],
+        "lastVerifiedAt": "2026-11-05"
+      },
+      "4": {
+        "name": "Chicago Bulls",
+        "primary": "#SeeRed",
+        "aliases": [
+          "#SeeRed",
+          "#chicagobulls",
+          "#Bulls",
+          "#BullsNation"
+        ],
+        "account": "chicagobulls",
+        "verification": "owner-approved",
+        "sourceUrls": [
+          "https://x.com/chicagobulls",
+          "https://www.blinkfire.com/publisher/leaguehashtags/nba",
+          "https://www.blinkfire.com/publisher/team/basketball_4/chicago-bulls"
+        ],
+        "lastVerifiedAt": null
+      },
+      "5": {
+        "name": "Cleveland Cavaliers",
+        "primary": "#LetEmKnow",
+        "aliases": [
+          "#LetEmKnow",
+          "#cavs",
+          "#CavsSummer",
+          "#BlackOutTheQ",
+          "#ClevelandCavaliers",
+          "#BeTheFight",
+          "#Cavshion",
+          "#Cavs50",
+          "#FieldHouseHeat",
+          "#CavsDraft"
+        ],
+        "account": "cavs",
+        "verification": "official-bio",
+        "sourceUrls": [
+          "https://x.com/cavs",
+          "https://www.blinkfire.com/publisher/leaguehashtags/nba",
+          "https://www.blinkfire.com/publisher/team/basketball_5/cleveland-cavaliers"
+        ],
+        "lastVerifiedAt": "2026-11-05"
+      },
+      "6": {
+        "name": "Dallas Mavericks",
+        "primary": "#MFFL",
+        "aliases": [
+          "#MFFL",
+          "#dallasmavs",
+          "#GoMavs",
+          "#DallasMavericks",
+          "#LukaMagic"
+        ],
+        "account": "dallasmavs",
+        "verification": "official-bio",
+        "sourceUrls": [
+          "https://x.com/dallasmavs",
+          "https://www.blinkfire.com/publisher/leaguehashtags/nba",
+          "https://www.blinkfire.com/publisher/team/basketball_6/dallas-mavericks"
+        ],
+        "lastVerifiedAt": "2026-11-05"
+      },
+      "7": {
+        "name": "Denver Nuggets",
+        "primary": "#MileHighBasketball",
+        "aliases": [
+          "#MileHighBasketball",
+          "#denvernuggets",
+          "#Nuggets",
+          "#NuggetsNation"
+        ],
+        "account": "nuggets",
+        "verification": "owner-approved",
+        "sourceUrls": [
+          "https://x.com/nuggets",
+          "https://www.blinkfire.com/publisher/leaguehashtags/nba",
+          "https://www.blinkfire.com/publisher/team/basketball_7/denver-nuggets"
+        ],
+        "lastVerifiedAt": null
+      },
+      "8": {
+        "name": "Detroit Pistons",
+        "primary": "#DetroitBasketball",
+        "aliases": [
+          "#DetroitBasketball",
+          "#DetroitPistons",
+          "#Pistons"
+        ],
+        "account": "DetroitPistons",
+        "verification": "owner-approved",
+        "sourceUrls": [
+          "https://x.com/DetroitPistons",
+          "https://www.blinkfire.com/publisher/leaguehashtags/nba",
+          "https://www.blinkfire.com/publisher/team/basketball_8/detroit-pistons"
+        ],
+        "lastVerifiedAt": null
+      },
+      "9": {
+        "name": "Golden State Warriors",
+        "primary": "#DubNation",
+        "aliases": [
+          "#DubNation",
+          "#Warriors"
+        ],
+        "account": "warriors",
+        "verification": "official-bio",
+        "sourceUrls": [
+          "https://x.com/warriors",
+          "https://www.blinkfire.com/publisher/leaguehashtags/nba",
+          "https://www.blinkfire.com/publisher/team/basketball_9/golden-state-warriors"
+        ],
+        "lastVerifiedAt": "2026-11-05"
+      },
+      "10": {
+        "name": "Houston Rockets",
+        "primary": "#AllFire",
+        "aliases": [
+          "#AllFire",
+          "#RunAsOne",
+          "#houstonrockets",
+          "#HTOWN",
+          "#RedNation",
+          "#Rockets"
+        ],
+        "account": "HoustonRockets",
+        "verification": "owner-approved",
+        "sourceUrls": [
+          "https://x.com/HoustonRockets",
+          "https://www.blinkfire.com/publisher/leaguehashtags/nba",
+          "https://www.blinkfire.com/publisher/team/basketball_10/houston-rockets"
+        ],
+        "lastVerifiedAt": null
+      },
+      "11": {
+        "name": "Indiana Pacers",
+        "primary": "#Yescers",
+        "aliases": [
+          "#Yescers",
+          "#GoldDontQuit",
+          "#indianapacers",
+          "#pacers"
+        ],
+        "account": "Pacers",
+        "verification": "owner-approved",
+        "sourceUrls": [
+          "https://x.com/Pacers",
+          "https://www.blinkfire.com/publisher/leaguehashtags/nba",
+          "https://www.blinkfire.com/publisher/team/basketball_11/indiana-pacers"
+        ],
+        "lastVerifiedAt": null
+      },
+      "12": {
+        "name": "LA Clippers",
+        "primary": "#ClipperNation",
+        "aliases": [
+          "#ClipperNation",
+          "#LAClippers",
+          "#LACSummer",
+          "#Clippers",
+          "#ItTakesEverything"
+        ],
+        "account": "LAClippers",
+        "verification": "official-bio",
+        "sourceUrls": [
+          "https://x.com/LAClippers",
+          "https://www.blinkfire.com/publisher/leaguehashtags/nba",
+          "https://www.blinkfire.com/publisher/team/basketball_12/los-angeles-clippers"
+        ],
+        "lastVerifiedAt": "2026-11-05"
+      },
+      "13": {
+        "name": "Los Angeles Lakers",
+        "primary": "#LakeShow",
+        "aliases": [
+          "#LakeShow",
+          "#lakers",
+          "#LakersFamily",
+          "#LakerNation",
+          "#GoLakers",
+          "#losangeleslakers"
+        ],
+        "account": "Lakers",
+        "verification": "official-bio",
+        "sourceUrls": [
+          "https://x.com/Lakers",
+          "https://www.blinkfire.com/publisher/leaguehashtags/nba",
+          "https://www.blinkfire.com/publisher/team/basketball_13/los-angeles-lakers"
+        ],
+        "lastVerifiedAt": "2026-11-05"
+      },
+      "14": {
+        "name": "Miami Heat",
+        "primary": "#HeatNation",
+        "aliases": [
+          "#HeatNation",
+          "#MiamiHeat"
+        ],
+        "account": "MiamiHEAT",
+        "verification": "owner-approved",
+        "sourceUrls": [
+          "https://x.com/MiamiHEAT",
+          "https://www.blinkfire.com/publisher/leaguehashtags/nba",
+          "https://www.blinkfire.com/publisher/team/basketball_14/miami-heat"
+        ],
+        "lastVerifiedAt": null
+      },
+      "15": {
+        "name": "Milwaukee Bucks",
+        "primary": "#FearTheDeer",
+        "aliases": [
+          "#FearTheDeer",
+          "#ThisIsMyCrew"
+        ],
+        "account": "Bucks",
+        "verification": "owner-approved",
+        "sourceUrls": [
+          "https://x.com/Bucks",
+          "https://www.blinkfire.com/publisher/leaguehashtags/nba",
+          "https://www.blinkfire.com/publisher/team/basketball_15/milwaukee-bucks"
+        ],
+        "lastVerifiedAt": null
+      },
+      "16": {
+        "name": "Minnesota Timberwolves",
+        "primary": "#TakeRoot",
+        "aliases": [
+          "#TakeRoot",
+          "#AllEyesNorth",
+          "#mntimberwolves"
+        ],
+        "account": "Timberwolves",
+        "verification": "owner-approved",
+        "sourceUrls": [
+          "https://x.com/Timberwolves",
+          "https://www.blinkfire.com/publisher/leaguehashtags/nba",
+          "https://www.blinkfire.com/publisher/team/basketball_16/minnesota-timberwolves"
+        ],
+        "lastVerifiedAt": null
+      },
+      "17": {
+        "name": "Brooklyn Nets",
+        "primary": "#NetsWorld",
+        "aliases": [
+          "#NetsWorld",
+          "#WeGoHard",
+          "#BrooklynNets"
+        ],
+        "account": "BrooklynNets",
+        "verification": "owner-approved",
+        "sourceUrls": [
+          "https://x.com/BrooklynNets",
+          "https://www.blinkfire.com/publisher/leaguehashtags/nba",
+          "https://www.blinkfire.com/publisher/team/basketball_17/brooklyn-nets"
+        ],
+        "lastVerifiedAt": null
+      },
+      "18": {
+        "name": "New York Knicks",
+        "primary": "#NewYorkForever",
+        "aliases": [
+          "#NewYorkForever",
+          "#Knicks"
+        ],
+        "account": "nyknicks",
+        "verification": "official-bio",
+        "sourceUrls": [
+          "https://x.com/nyknicks",
+          "https://www.blinkfire.com/publisher/leaguehashtags/nba",
+          "https://www.blinkfire.com/publisher/team/basketball_18/new-york-knicks"
+        ],
+        "lastVerifiedAt": "2026-11-05"
+      },
+      "19": {
+        "name": "Orlando Magic",
+        "primary": "#MakeItMagic",
+        "aliases": [
+          "#MakeItMagic",
+          "#MagicTogether",
+          "#orlando_magic",
+          "#connectedbymagic",
+          "#Magic",
+          "#Orlandipo",
+          "#PureMagic"
+        ],
+        "account": "OrlandoMagic",
+        "verification": "owner-approved",
+        "sourceUrls": [
+          "https://x.com/OrlandoMagic",
+          "https://www.blinkfire.com/publisher/leaguehashtags/nba",
+          "https://www.blinkfire.com/publisher/team/basketball_19/orlando-magic"
+        ],
+        "lastVerifiedAt": null
+      },
+      "20": {
+        "name": "Philadelphia 76ers",
+        "primary": "#ThrowTheBallUp",
+        "aliases": [
+          "#ThrowTheBallUp",
+          "#HereTheyCome",
+          "#PhilaUnite",
+          "#Philadelphia76ers"
+        ],
+        "account": "sixers",
+        "verification": "owner-approved",
+        "sourceUrls": [
+          "https://x.com/sixers",
+          "https://www.blinkfire.com/publisher/leaguehashtags/nba",
+          "https://www.blinkfire.com/publisher/team/basketball_20/philadelphia-76ers"
+        ],
+        "lastVerifiedAt": null
+      },
+      "21": {
+        "name": "Phoenix Suns",
+        "primary": "#SunsUp",
+        "aliases": [
+          "#SunsUp",
+          "#ValleyTogether"
+        ],
+        "account": "Suns",
+        "verification": "official-bio",
+        "sourceUrls": [
+          "https://x.com/Suns",
+          "https://www.blinkfire.com/publisher/leaguehashtags/nba",
+          "https://www.blinkfire.com/publisher/team/basketball_21/phoenix-suns"
+        ],
+        "lastVerifiedAt": "2026-11-05"
+      },
+      "22": {
+        "name": "Portland Trail Blazers",
+        "primary": "#RipCity",
+        "aliases": [
+          "#RipCity",
+          "#trailblazers",
+          "#PortlandTrailBlazers"
+        ],
+        "account": "trailblazers",
+        "verification": "official-post",
+        "sourceUrls": [
+          "https://x.com/trailblazers",
+          "https://www.blinkfire.com/publisher/leaguehashtags/nba",
+          "https://www.blinkfire.com/publisher/team/basketball_22/portland-trail-blazers"
+        ],
+        "lastVerifiedAt": "2026-11-05"
+      },
+      "23": {
+        "name": "Sacramento Kings",
+        "primary": "#LightTheBeam",
+        "aliases": [
+          "#LightTheBeam",
+          "#SacramentoProud",
+          "#SacramentoKings"
+        ],
+        "account": "SacramentoKings",
+        "verification": "official-bio",
+        "sourceUrls": [
+          "https://x.com/SacramentoKings",
+          "https://www.blinkfire.com/publisher/leaguehashtags/nba",
+          "https://www.blinkfire.com/publisher/team/basketball_23/sacramento-kings"
+        ],
+        "lastVerifiedAt": "2026-11-05"
+      },
+      "24": {
+        "name": "San Antonio Spurs",
+        "primary": "#PorVida",
+        "aliases": [
+          "#PorVida",
+          "#spurs",
+          "#GoSpursGo",
+          "#SanAntonioSpurs"
+        ],
+        "account": "spurs",
+        "verification": "official-bio",
+        "sourceUrls": [
+          "https://x.com/spurs",
+          "https://www.blinkfire.com/publisher/leaguehashtags/nba",
+          "https://www.blinkfire.com/publisher/team/basketball_24/san-antonio-spurs"
+        ],
+        "lastVerifiedAt": "2026-11-05"
+      },
+      "25": {
+        "name": "Oklahoma City Thunder",
+        "primary": "#ThunderUp",
+        "aliases": [
+          "#ThunderUp",
+          "#okcthunder",
+          "#OklahomaCityThunder",
+          "#Thunder"
+        ],
+        "account": "okcthunder",
+        "verification": "official-bio",
+        "sourceUrls": [
+          "https://x.com/okcthunder",
+          "https://www.blinkfire.com/publisher/leaguehashtags/nba",
+          "https://www.blinkfire.com/publisher/team/basketball_25/oklahoma-city-thunder"
+        ],
+        "lastVerifiedAt": "2026-11-05"
+      },
+      "26": {
+        "name": "Utah Jazz",
+        "primary": "#TakeNote",
+        "aliases": [
+          "#TakeNote",
+          "#utahjazz",
+          "#WeAreUtahJazz",
+          "#jazznation"
+        ],
+        "account": "utahjazz",
+        "verification": "official-bio",
+        "sourceUrls": [
+          "https://x.com/utahjazz",
+          "https://www.blinkfire.com/publisher/leaguehashtags/nba",
+          "https://www.blinkfire.com/publisher/team/basketball_26/utah-jazz"
+        ],
+        "lastVerifiedAt": "2026-11-05"
+      },
+      "27": {
+        "name": "Washington Wizards",
+        "primary": "#ForTheDistrict",
+        "aliases": [
+          "#ForTheDistrict",
+          "#washwizards",
+          "#wizkids",
+          "#wizards",
+          "#Wiz50",
+          "#DCFamily"
+        ],
+        "account": "WashWizards",
+        "verification": "official-bio",
+        "sourceUrls": [
+          "https://x.com/WashWizards",
+          "https://www.blinkfire.com/publisher/leaguehashtags/nba",
+          "https://www.blinkfire.com/publisher/team/basketball_27/washington-wizards"
+        ],
+        "lastVerifiedAt": "2026-11-05"
+      },
+      "28": {
+        "name": "Toronto Raptors",
+        "primary": "#WeTheNorth",
+        "aliases": [
+          "#WeTheNorth",
+          "#TorontoRaptors"
+        ],
+        "account": "Raptors",
+        "verification": "official-bio",
+        "sourceUrls": [
+          "https://x.com/Raptors",
+          "https://www.blinkfire.com/publisher/leaguehashtags/nba",
+          "https://www.blinkfire.com/publisher/team/basketball_28/toronto-raptors"
+        ],
+        "lastVerifiedAt": "2026-11-05"
+      },
+      "29": {
+        "name": "Memphis Grizzlies",
+        "primary": "#GrindCity",
+        "aliases": [
+          "#GrindCity",
+          "#memgrizz",
+          "#Memphis",
+          "#GoGrizz",
+          "#memphisgrizzlies",
+          "#GrzNxtGen"
+        ],
+        "account": "memgrizz",
+        "verification": "owner-approved",
+        "sourceUrls": [
+          "https://x.com/memgrizz",
+          "https://www.blinkfire.com/publisher/leaguehashtags/nba",
+          "https://www.blinkfire.com/publisher/team/basketball_29/memphis-grizzlies"
+        ],
+        "lastVerifiedAt": null
+      },
+      "30": {
+        "name": "Charlotte Hornets",
+        "primary": "#BuzzCity",
+        "aliases": [
+          "#BuzzCity",
+          "#CharlotteHornets"
+        ],
+        "account": "hornets",
+        "verification": "owner-approved",
+        "sourceUrls": [
+          "https://x.com/hornets",
+          "https://www.blinkfire.com/publisher/leaguehashtags/nba",
+          "https://www.blinkfire.com/publisher/team/basketball_30/charlotte-hornets"
+        ],
+        "lastVerifiedAt": null
+      }
+    },
+    "NHL": {
+      "1": {
+        "name": "Boston Bruins",
+        "primary": "#NHLBruins",
+        "aliases": [
+          "#NHLBruins"
+        ],
+        "account": "NHLBruins",
+        "verification": "owner-approved",
+        "sourceUrls": [
+          "https://puckbeat.com/story/nhl-teams-reveal-2026-27-social-media-hashtags",
+          "https://x.com/NHLBruins"
+        ],
+        "lastVerifiedAt": null
+      },
+      "2": {
+        "name": "Buffalo Sabres",
+        "primary": "#LetsGoBuffalo",
+        "aliases": [
+          "#LetsGoBuffalo"
+        ],
+        "account": "BuffaloSabres",
+        "verification": "official-post",
+        "sourceUrls": [
+          "https://puckbeat.com/story/nhl-teams-reveal-2026-27-social-media-hashtags",
+          "https://x.com/BuffaloSabres"
+        ],
+        "lastVerifiedAt": "2026-11-05"
+      },
+      "3": {
+        "name": "Calgary Flames",
+        "primary": "#Flames",
+        "aliases": [
+          "#Flames"
+        ],
+        "account": "NHLFlames",
+        "verification": "official-bio",
+        "sourceUrls": [
+          "https://puckbeat.com/story/nhl-teams-reveal-2026-27-social-media-hashtags",
+          "https://x.com/NHLFlames"
+        ],
+        "lastVerifiedAt": "2026-11-05"
+      },
+      "4": {
+        "name": "Chicago Blackhawks",
+        "primary": "#Blackhawks",
+        "aliases": [
+          "#Blackhawks"
+        ],
+        "account": "NHLBlackhawks",
+        "verification": "owner-approved",
+        "sourceUrls": [
+          "https://puckbeat.com/story/nhl-teams-reveal-2026-27-social-media-hashtags",
+          "https://x.com/NHLBlackhawks"
+        ],
+        "lastVerifiedAt": null
+      },
+      "5": {
+        "name": "Detroit Red Wings",
+        "primary": "#LGRW",
+        "aliases": [
+          "#LGRW"
+        ],
+        "account": "DetroitRedWings",
+        "verification": "official-bio",
+        "sourceUrls": [
+          "https://puckbeat.com/story/nhl-teams-reveal-2026-27-social-media-hashtags",
+          "https://x.com/DetroitRedWings"
+        ],
+        "lastVerifiedAt": "2026-11-05"
+      },
+      "6": {
+        "name": "Edmonton Oilers",
+        "primary": "#LetsGoOilers",
+        "aliases": [
+          "#LetsGoOilers"
+        ],
+        "account": "EdmontonOilers",
+        "verification": "official-bio",
+        "sourceUrls": [
+          "https://puckbeat.com/story/nhl-teams-reveal-2026-27-social-media-hashtags",
+          "https://x.com/EdmontonOilers"
+        ],
+        "lastVerifiedAt": "2026-11-05"
+      },
+      "7": {
+        "name": "Carolina Hurricanes",
+        "primary": "#CarolinaCulture",
+        "aliases": [
+          "#CarolinaCulture"
+        ],
+        "account": "Canes",
+        "verification": "official-bio",
+        "sourceUrls": [
+          "https://puckbeat.com/story/nhl-teams-reveal-2026-27-social-media-hashtags",
+          "https://x.com/Canes"
+        ],
+        "lastVerifiedAt": "2026-11-05"
+      },
+      "8": {
+        "name": "Los Angeles Kings",
+        "primary": "#GoKingsGo",
+        "aliases": [
+          "#GoKingsGo"
+        ],
+        "account": "LAKings",
+        "verification": "owner-approved",
+        "sourceUrls": [
+          "https://puckbeat.com/story/nhl-teams-reveal-2026-27-social-media-hashtags",
+          "https://x.com/LAKings"
+        ],
+        "lastVerifiedAt": null
+      },
+      "9": {
+        "name": "Dallas Stars",
+        "primary": "#TexasHockey",
+        "aliases": [
+          "#TexasHockey"
+        ],
+        "account": "DallasStars",
+        "verification": "official-post",
+        "sourceUrls": [
+          "https://puckbeat.com/story/nhl-teams-reveal-2026-27-social-media-hashtags",
+          "https://x.com/DallasStars"
+        ],
+        "lastVerifiedAt": "2026-11-05"
+      },
+      "10": {
+        "name": "Montreal Canadiens",
+        "primary": "#GoHabsGo",
+        "aliases": [
+          "#GoHabsGo"
+        ],
+        "account": "CanadiensMTL",
+        "verification": "official-bio",
+        "sourceUrls": [
+          "https://puckbeat.com/story/nhl-teams-reveal-2026-27-social-media-hashtags",
+          "https://x.com/CanadiensMTL"
+        ],
+        "lastVerifiedAt": "2026-11-05"
+      },
+      "11": {
+        "name": "New Jersey Devils",
+        "primary": "#NJDevils",
+        "aliases": [
+          "#NJDevils"
+        ],
+        "account": "NJDevils",
+        "verification": "owner-approved",
+        "sourceUrls": [
+          "https://puckbeat.com/story/nhl-teams-reveal-2026-27-social-media-hashtags",
+          "https://x.com/NJDevils"
+        ],
+        "lastVerifiedAt": null
+      },
+      "12": {
+        "name": "New York Islanders",
+        "primary": "#Isles",
+        "aliases": [
+          "#Isles"
+        ],
+        "account": "NYIslanders",
+        "verification": "official-bio",
+        "sourceUrls": [
+          "https://puckbeat.com/story/nhl-teams-reveal-2026-27-social-media-hashtags",
+          "https://x.com/NYIslanders"
+        ],
+        "lastVerifiedAt": "2026-11-05"
+      },
+      "13": {
+        "name": "New York Rangers",
+        "primary": "#NYR",
+        "aliases": [
+          "#NYR"
+        ],
+        "account": "NYRangers",
+        "verification": "official-site",
+        "sourceUrls": [
+          "https://puckbeat.com/story/nhl-teams-reveal-2026-27-social-media-hashtags",
+          "https://x.com/NYRangers",
+          "https://www.nhl.com/news/new-york-rangers-unveil-centennial-year-logo"
+        ],
+        "lastVerifiedAt": "2026-11-05"
+      },
+      "14": {
+        "name": "Ottawa Senators",
+        "primary": "#GoSensGo",
+        "aliases": [
+          "#GoSensGo"
+        ],
+        "account": "Senators",
+        "verification": "official-post",
+        "sourceUrls": [
+          "https://puckbeat.com/story/nhl-teams-reveal-2026-27-social-media-hashtags",
+          "https://x.com/Senators"
+        ],
+        "lastVerifiedAt": "2026-11-05"
+      },
+      "15": {
+        "name": "Philadelphia Flyers",
+        "primary": "#LetsGoFlyers",
+        "aliases": [
+          "#LetsGoFlyers"
+        ],
+        "account": "NHLFlyers",
+        "verification": "official-post",
+        "sourceUrls": [
+          "https://puckbeat.com/story/nhl-teams-reveal-2026-27-social-media-hashtags",
+          "https://x.com/NHLFlyers"
+        ],
+        "lastVerifiedAt": "2026-11-05"
+      },
+      "16": {
+        "name": "Pittsburgh Penguins",
+        "primary": "#LetsGoPens",
+        "aliases": [
+          "#LetsGoPens"
+        ],
+        "account": "penguins",
+        "verification": "official-bio",
+        "sourceUrls": [
+          "https://puckbeat.com/story/nhl-teams-reveal-2026-27-social-media-hashtags",
+          "https://x.com/penguins"
+        ],
+        "lastVerifiedAt": "2026-11-05"
+      },
+      "17": {
+        "name": "Colorado Avalanche",
+        "primary": "#GoAvsGo",
+        "aliases": [
+          "#GoAvsGo"
+        ],
+        "account": "Avalanche",
+        "verification": "official-bio",
+        "sourceUrls": [
+          "https://puckbeat.com/story/nhl-teams-reveal-2026-27-social-media-hashtags",
+          "https://x.com/Avalanche"
+        ],
+        "lastVerifiedAt": "2026-11-05"
+      },
+      "18": {
+        "name": "San Jose Sharks",
+        "primary": "#TurnItAllTeal",
+        "aliases": [
+          "#TurnItAllTeal",
+          "#SJSharks"
+        ],
+        "account": "SanJoseSharks",
+        "verification": "owner-approved",
+        "sourceUrls": [
+          "https://puckbeat.com/story/nhl-teams-reveal-2026-27-social-media-hashtags",
+          "https://x.com/SanJoseSharks"
+        ],
+        "lastVerifiedAt": null
+      },
+      "19": {
+        "name": "St. Louis Blues",
+        "primary": "#STLBlues",
+        "aliases": [
+          "#STLBlues"
+        ],
+        "account": "StLouisBlues",
+        "verification": "official-bio",
+        "sourceUrls": [
+          "https://puckbeat.com/story/nhl-teams-reveal-2026-27-social-media-hashtags",
+          "https://x.com/StLouisBlues"
+        ],
+        "lastVerifiedAt": "2026-11-05"
+      },
+      "20": {
+        "name": "Tampa Bay Lightning",
+        "primary": "#GoBolts",
+        "aliases": [
+          "#GoBolts"
+        ],
+        "account": "TBLightning",
+        "verification": "official-bio",
+        "sourceUrls": [
+          "https://puckbeat.com/story/nhl-teams-reveal-2026-27-social-media-hashtags",
+          "https://x.com/TBLightning"
+        ],
+        "lastVerifiedAt": "2026-11-05"
+      },
+      "21": {
+        "name": "Toronto Maple Leafs",
+        "primary": "#Leafs",
+        "aliases": [
+          "#Leafs",
+          "#PassionNeverSleeps"
+        ],
+        "account": "MapleLeafs",
+        "verification": "owner-approved",
+        "sourceUrls": [
+          "https://puckbeat.com/story/nhl-teams-reveal-2026-27-social-media-hashtags",
+          "https://x.com/MapleLeafs"
+        ],
+        "lastVerifiedAt": null
+      },
+      "22": {
+        "name": "Vancouver Canucks",
+        "primary": "#Canucks",
+        "aliases": [
+          "#Canucks"
+        ],
+        "account": "Canucks",
+        "verification": "official-post",
+        "sourceUrls": [
+          "https://puckbeat.com/story/nhl-teams-reveal-2026-27-social-media-hashtags",
+          "https://x.com/Canucks"
+        ],
+        "lastVerifiedAt": "2026-11-05"
+      },
+      "23": {
+        "name": "Washington Capitals",
+        "primary": "#ALLCAPS",
+        "aliases": [
+          "#ALLCAPS"
+        ],
+        "account": "Capitals",
+        "verification": "official-bio",
+        "sourceUrls": [
+          "https://puckbeat.com/story/nhl-teams-reveal-2026-27-social-media-hashtags",
+          "https://x.com/Capitals"
+        ],
+        "lastVerifiedAt": "2026-11-05"
+      },
+      "25": {
+        "name": "Anaheim Ducks",
+        "primary": "#FlyTogether",
+        "aliases": [
+          "#FlyTogether"
+        ],
+        "account": "AnaheimDucks",
+        "verification": "official-bio",
+        "sourceUrls": [
+          "https://puckbeat.com/story/nhl-teams-reveal-2026-27-social-media-hashtags",
+          "https://x.com/AnaheimDucks"
+        ],
+        "lastVerifiedAt": "2026-11-05"
+      },
+      "26": {
+        "name": "Florida Panthers",
+        "primary": "#FlaPanthers",
+        "aliases": [
+          "#FlaPanthers"
+        ],
+        "account": "FlaPanthers",
+        "verification": "owner-approved",
+        "sourceUrls": [
+          "https://puckbeat.com/story/nhl-teams-reveal-2026-27-social-media-hashtags",
+          "https://x.com/FlaPanthers"
+        ],
+        "lastVerifiedAt": null
+      },
+      "27": {
+        "name": "Nashville Predators",
+        "primary": "#Preds",
+        "aliases": [
+          "#Preds"
+        ],
+        "account": "PredsNHL",
+        "verification": "official-post",
+        "sourceUrls": [
+          "https://puckbeat.com/story/nhl-teams-reveal-2026-27-social-media-hashtags",
+          "https://x.com/PredsNHL"
+        ],
+        "lastVerifiedAt": "2026-11-05"
+      },
+      "28": {
+        "name": "Winnipeg Jets",
+        "primary": "#GoJetsGo",
+        "aliases": [
+          "#GoJetsGo",
+          "#NHLJets"
+        ],
+        "account": "NHLJets",
+        "verification": "official-post",
+        "sourceUrls": [
+          "https://puckbeat.com/story/nhl-teams-reveal-2026-27-social-media-hashtags",
+          "https://x.com/NHLJets"
+        ],
+        "lastVerifiedAt": "2026-11-05"
+      },
+      "29": {
+        "name": "Columbus Blue Jackets",
+        "primary": "#CBJ",
+        "aliases": [
+          "#CBJ"
+        ],
+        "account": "BlueJacketsNHL",
+        "verification": "official-bio",
+        "sourceUrls": [
+          "https://puckbeat.com/story/nhl-teams-reveal-2026-27-social-media-hashtags",
+          "https://x.com/BlueJacketsNHL"
+        ],
+        "lastVerifiedAt": "2026-11-05"
+      },
+      "30": {
+        "name": "Minnesota Wild",
+        "primary": "#MNWild",
+        "aliases": [
+          "#MNWild"
+        ],
+        "account": "mnwild",
+        "verification": "official-bio",
+        "sourceUrls": [
+          "https://puckbeat.com/story/nhl-teams-reveal-2026-27-social-media-hashtags",
+          "https://x.com/mnwild"
+        ],
+        "lastVerifiedAt": "2026-11-05"
+      },
+      "37": {
+        "name": "Vegas Golden Knights",
+        "primary": "#VegasBorn",
+        "aliases": [
+          "#VegasBorn"
+        ],
+        "account": "GoldenKnights",
+        "verification": "official-bio",
+        "sourceUrls": [
+          "https://puckbeat.com/story/nhl-teams-reveal-2026-27-social-media-hashtags",
+          "https://x.com/GoldenKnights"
+        ],
+        "lastVerifiedAt": "2026-11-05"
+      },
+      "124292": {
+        "name": "Seattle Kraken",
+        "primary": "#SeaKraken",
+        "aliases": [
+          "#SeaKraken"
+        ],
+        "account": "SeattleKraken",
+        "verification": "official-bio",
+        "sourceUrls": [
+          "https://puckbeat.com/story/nhl-teams-reveal-2026-27-social-media-hashtags",
+          "https://x.com/SeattleKraken"
+        ],
+        "lastVerifiedAt": "2026-11-05"
+      },
+      "129764": {
+        "name": "Utah Mammoth",
+        "primary": "#TusksUp",
+        "aliases": [
+          "#TusksUp"
+        ],
+        "account": "UtahMammoth",
+        "verification": "owner-approved",
+        "sourceUrls": [
+          "https://puckbeat.com/story/nhl-teams-reveal-2026-27-social-media-hashtags",
+          "https://x.com/UtahMammoth"
+        ],
+        "lastVerifiedAt": null
+      }
+    },
+    "CFB": {
+      "2": {
+        "name": "Auburn Tigers",
+        "primary": "#WarEagle",
+        "aliases": [
+          "#WarEagle",
+          "#AUAthletics"
+        ],
+        "account": "FootballAU",
+        "verification": "owner-approved",
+        "sourceUrls": [
+          "https://www.blinkfire.com/publisher/leaguehashtags/college_football",
+          "https://www.blinkfire.com/publisher/team/college_football_football_2/auburn-tigers-football",
+          "https://x.com/FootballAU"
+        ],
+        "lastVerifiedAt": null
+      },
+      "6": {
+        "name": "South Alabama Jaguars",
+        "primary": "#JagNation",
+        "aliases": [
+          "#JagNation"
+        ],
+        "account": "USAJaguarSports",
+        "verification": "candidate",
+        "sourceUrls": [
+          "https://www.blinkfire.com/publisher/leaguehashtags/college_football",
+          "https://www.blinkfire.com/publisher/team/college_football_football_6/south-alabama-jaguars",
+          "https://x.com/USAJaguarSports"
+        ],
+        "lastVerifiedAt": null
+      },
+      "8": {
+        "name": "Arkansas Razorbacks",
+        "primary": "#WPS",
+        "aliases": [
+          "#WPS",
+          "#NeverYield"
+        ],
+        "account": "RazorbackFB",
+        "verification": "owner-approved",
+        "sourceUrls": [
+          "https://www.blinkfire.com/publisher/leaguehashtags/college_football",
+          "https://www.blinkfire.com/publisher/team/college_football_football_8/arkansas-razorbacks-football",
+          "https://x.com/RazorbackFB"
+        ],
+        "lastVerifiedAt": null
+      },
+      "9": {
+        "name": "Arizona State Sun Devils",
+        "primary": "#SunDevils",
+        "aliases": [
+          "#SunDevils",
+          "#ASUFootball",
+          "#Pac12",
+          "#PT42"
+        ],
+        "account": "FootballASU",
+        "verification": "candidate",
+        "sourceUrls": [
+          "https://www.blinkfire.com/publisher/leaguehashtags/college_football",
+          "https://www.blinkfire.com/publisher/team/college_football_football_9/arizona-state-football",
+          "https://x.com/FootballASU"
+        ],
+        "lastVerifiedAt": null
+      },
+      "12": {
+        "name": "Arizona Wildcats",
+        "primary": "#arizonawildcats",
+        "aliases": [
+          "#arizonawildcats"
+        ],
+        "account": "ArizonaFBall",
+        "verification": "candidate",
+        "sourceUrls": [
+          "https://www.blinkfire.com/publisher/leaguehashtags/college_football",
+          "https://www.blinkfire.com/publisher/team/college_football_football_12/arizona-wildcats-football",
+          "https://x.com/ArizonaFBall"
+        ],
+        "lastVerifiedAt": null
+      },
+      "21": {
+        "name": "San Diego State Aztecs",
+        "primary": "#goaztecs",
+        "aliases": [
+          "#goaztecs"
+        ],
+        "account": "Aztec_Football",
+        "verification": "candidate",
+        "sourceUrls": [
+          "https://www.blinkfire.com/publisher/leaguehashtags/college_football",
+          "https://www.blinkfire.com/publisher/team/college_football_football_21/san-diego-state-aztecs",
+          "https://x.com/Aztec_Football"
+        ],
+        "lastVerifiedAt": null
+      },
+      "23": {
+        "name": "San José State Spartans",
+        "primary": "#SpartanStrong",
+        "aliases": [
+          "#SpartanStrong"
+        ],
+        "account": "sjsuspartanfb",
+        "verification": "candidate",
+        "sourceUrls": [
+          "https://www.blinkfire.com/publisher/leaguehashtags/college_football",
+          "https://www.blinkfire.com/publisher/team/college_football_football_23/san-jose-state-spartans-football",
+          "https://x.com/sjsuspartanfb"
+        ],
+        "lastVerifiedAt": null
+      },
+      "24": {
+        "name": "Stanford Cardinal",
+        "primary": "#partyinthebackfield",
+        "aliases": [
+          "#partyinthebackfield"
+        ],
+        "account": "StanfordFball",
+        "verification": "candidate",
+        "sourceUrls": [
+          "https://www.blinkfire.com/publisher/leaguehashtags/college_football",
+          "https://www.blinkfire.com/publisher/team/college_football_football_24/stanford-cardinal-football",
+          "https://x.com/StanfordFball"
+        ],
+        "lastVerifiedAt": null
+      },
+      "25": {
+        "name": "California Golden Bears",
+        "primary": "#GoBears",
+        "aliases": [
+          "#GoBears",
+          "#CalFamily"
+        ],
+        "account": null,
+        "verification": "candidate",
+        "sourceUrls": [
+          "https://www.blinkfire.com/publisher/leaguehashtags/college_football",
+          "https://www.blinkfire.com/publisher/team/college_football_football_25/california-golden-bears-football"
+        ],
+        "lastVerifiedAt": null
+      },
+      "26": {
+        "name": "UCLA Bruins",
+        "primary": "#GoBruins",
+        "aliases": [
+          "#GoBruins"
+        ],
+        "account": "UCLAFootball",
+        "verification": "owner-approved",
+        "sourceUrls": [
+          "https://www.blinkfire.com/publisher/leaguehashtags/college_football",
+          "https://www.blinkfire.com/publisher/team/college_football_football_26/ucla-bruins-football",
+          "https://x.com/UCLAFootball"
+        ],
+        "lastVerifiedAt": null
+      },
+      "30": {
+        "name": "USC Trojans",
+        "primary": "#FightOn",
+        "aliases": [
+          "#FightOn",
+          "#TrojanFamily"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [
+          "https://www.blinkfire.com/publisher/leaguehashtags/college_football",
+          "https://www.blinkfire.com/publisher/team/college_football_football_30/usc-trojans-football"
+        ],
+        "lastVerifiedAt": null
+      },
+      "36": {
+        "name": "Colorado State Rams",
+        "primary": "#CSUFootball",
+        "aliases": [
+          "#CSUFootball"
+        ],
+        "account": "CSUFootball",
+        "verification": "candidate",
+        "sourceUrls": [
+          "https://www.blinkfire.com/publisher/leaguehashtags/college_football",
+          "https://www.blinkfire.com/publisher/team/college_football_football_36/colorado-state-rams-football",
+          "https://x.com/CSUFootball"
+        ],
+        "lastVerifiedAt": null
+      },
+      "38": {
+        "name": "Colorado Buffaloes",
+        "primary": "#gobuffs",
+        "aliases": [
+          "#gobuffs"
+        ],
+        "account": "CUBuffsFootball",
+        "verification": "official-post",
+        "sourceUrls": [
+          "https://www.blinkfire.com/publisher/leaguehashtags/college_football",
+          "https://www.blinkfire.com/publisher/team/college_football_football_38/colorado-buffaloes-football",
+          "https://x.com/CUBuffsFootball"
+        ],
+        "lastVerifiedAt": "2026-11-05"
+      },
+      "41": {
+        "name": "UConn Huskies",
+        "primary": "#bleedblue",
+        "aliases": [
+          "#bleedblue"
+        ],
+        "account": "UConnFootball",
+        "verification": "candidate",
+        "sourceUrls": [
+          "https://www.blinkfire.com/publisher/leaguehashtags/college_football",
+          "https://www.blinkfire.com/publisher/team/college_football_football_41/connecticut-huskies-football",
+          "https://x.com/UConnFootball"
+        ],
+        "lastVerifiedAt": null
+      },
+      "52": {
+        "name": "Florida State Seminoles",
+        "primary": "#FSU",
+        "aliases": [
+          "#FSU"
+        ],
+        "account": "FSU_Football",
+        "verification": "candidate",
+        "sourceUrls": [
+          "https://www.blinkfire.com/publisher/leaguehashtags/college_football",
+          "https://www.blinkfire.com/publisher/team/college_football_football_52/florida-state-seminoles-football",
+          "https://x.com/FSU_Football"
+        ],
+        "lastVerifiedAt": null
+      },
+      "57": {
+        "name": "Florida Gators",
+        "primary": "#GoGators",
+        "aliases": [
+          "#GoGators",
+          "#Gators"
+        ],
+        "account": "GatorsFB",
+        "verification": "owner-approved",
+        "sourceUrls": [
+          "https://www.blinkfire.com/publisher/leaguehashtags/college_football",
+          "https://www.blinkfire.com/publisher/team/college_football_football_57/florida-gators-football",
+          "https://x.com/GatorsFB"
+        ],
+        "lastVerifiedAt": null
+      },
+      "58": {
+        "name": "South Florida Bulls",
+        "primary": "#GoBulls",
+        "aliases": [
+          "#GoBulls"
+        ],
+        "account": "USFFootball",
+        "verification": "candidate",
+        "sourceUrls": [
+          "https://www.blinkfire.com/publisher/leaguehashtags/college_football",
+          "https://www.blinkfire.com/publisher/team/college_football_football_58/south-florida-bulls-football",
+          "https://x.com/USFFootball"
+        ],
+        "lastVerifiedAt": null
+      },
+      "59": {
+        "name": "Georgia Tech Yellow Jackets",
+        "primary": "#GaTech",
+        "aliases": [
+          "#GaTech"
+        ],
+        "account": null,
+        "verification": "candidate",
+        "sourceUrls": [
+          "https://www.blinkfire.com/publisher/leaguehashtags/college_football",
+          "https://www.blinkfire.com/publisher/team/college_football_football_59/georgia-tech-yellow-jackets-football"
+        ],
+        "lastVerifiedAt": null
+      },
+      "61": {
+        "name": "Georgia Bulldogs",
+        "primary": "#GoDawgs",
+        "aliases": [
+          "#GoDawgs",
+          "#CommitToTheG"
+        ],
+        "account": "footballuga",
+        "verification": "owner-approved",
+        "sourceUrls": [
+          "https://www.blinkfire.com/publisher/leaguehashtags/college_football",
+          "https://www.blinkfire.com/publisher/team/college_football_football_61/georgia-bulldogs-football",
+          "https://x.com/footballuga"
+        ],
+        "lastVerifiedAt": null
+      },
+      "62": {
+        "name": "Hawai'i Rainbow Warriors",
+        "primary": "#HawaiiFB",
+        "aliases": [
+          "#HawaiiFB"
+        ],
+        "account": null,
+        "verification": "candidate",
+        "sourceUrls": [
+          "https://www.blinkfire.com/publisher/leaguehashtags/college_football",
+          "https://www.blinkfire.com/publisher/team/college_football_football_62/hawaii-warriors"
+        ],
+        "lastVerifiedAt": null
+      },
+      "66": {
+        "name": "Iowa State Cyclones",
+        "primary": "#Cyclones",
+        "aliases": [
+          "#Cyclones"
+        ],
+        "account": "CycloneFB",
+        "verification": "candidate",
+        "sourceUrls": [
+          "https://www.blinkfire.com/publisher/leaguehashtags/college_football",
+          "https://www.blinkfire.com/publisher/team/college_football_football_66/iowa-state-football",
+          "https://x.com/CycloneFB"
+        ],
+        "lastVerifiedAt": null
+      },
+      "68": {
+        "name": "Boise State Broncos",
+        "primary": "#BroncoFootball",
+        "aliases": [
+          "#BroncoFootball"
+        ],
+        "account": "BroncoSportsFB",
+        "verification": "candidate",
+        "sourceUrls": [
+          "https://www.blinkfire.com/publisher/leaguehashtags/college_football",
+          "https://www.blinkfire.com/publisher/team/college_football_football_68/boise-state-broncos",
+          "https://x.com/BroncoSportsFB"
+        ],
+        "lastVerifiedAt": null
+      },
+      "70": {
+        "name": "Idaho Vandals",
+        "primary": "#govandals",
+        "aliases": [
+          "#govandals"
+        ],
+        "account": null,
+        "verification": "candidate",
+        "sourceUrls": [
+          "https://www.blinkfire.com/publisher/leaguehashtags/college_football",
+          "https://www.blinkfire.com/publisher/team/college_football_football_70/idaho-vandals"
+        ],
+        "lastVerifiedAt": null
+      },
+      "77": {
+        "name": "Northwestern Wildcats",
+        "primary": "#GoCats",
+        "aliases": [
+          "#GoCats",
+          "#B1GCats"
+        ],
+        "account": "NUFBFamily",
+        "verification": "owner-approved",
+        "sourceUrls": [
+          "https://www.blinkfire.com/publisher/leaguehashtags/college_football",
+          "https://www.blinkfire.com/publisher/team/college_football_football_77/northwestern-wildcats-football",
+          "https://x.com/NUFBFamily"
+        ],
+        "lastVerifiedAt": null
+      },
+      "84": {
+        "name": "Indiana Hoosiers",
+        "primary": "#GoIU",
+        "aliases": [
+          "#GoIU",
+          "#iufb"
+        ],
+        "account": "HoosierFootball",
+        "verification": "owner-approved",
+        "sourceUrls": [
+          "https://www.blinkfire.com/publisher/leaguehashtags/college_football",
+          "https://www.blinkfire.com/publisher/team/college_football_football_84/indiana-hoosiers-football",
+          "https://x.com/HoosierFootball"
+        ],
+        "lastVerifiedAt": null
+      },
+      "87": {
+        "name": "Notre Dame Fighting Irish",
+        "primary": "#FLirish",
+        "aliases": [
+          "#FLirish",
+          "#NDNation",
+          "#ProudToBeND"
+        ],
+        "account": "ndfootball",
+        "verification": "candidate",
+        "sourceUrls": [
+          "https://www.blinkfire.com/publisher/leaguehashtags/college_football",
+          "https://www.blinkfire.com/publisher/team/college_football_football_87/notre-dame-fighting-irish-football",
+          "https://x.com/ndfootball"
+        ],
+        "lastVerifiedAt": null
+      },
+      "96": {
+        "name": "Kentucky Wildcats",
+        "primary": "#BBN",
+        "aliases": [
+          "#BBN",
+          "#BrickByBrick",
+          "#StoopsTroops"
+        ],
+        "account": "UKFootball",
+        "verification": "owner-approved",
+        "sourceUrls": [
+          "https://www.blinkfire.com/publisher/leaguehashtags/college_football",
+          "https://www.blinkfire.com/publisher/team/college_football_football_96/kentucky-wildcats-football",
+          "https://x.com/UKFootball"
+        ],
+        "lastVerifiedAt": null
+      },
+      "97": {
+        "name": "Louisville Cardinals",
+        "primary": "#L1C4",
+        "aliases": [
+          "#L1C4"
+        ],
+        "account": "UofLFootball",
+        "verification": "candidate",
+        "sourceUrls": [
+          "https://www.blinkfire.com/publisher/leaguehashtags/college_football",
+          "https://www.blinkfire.com/publisher/team/college_football_football_97/louisville-cardinals-football",
+          "https://x.com/UofLFootball"
+        ],
+        "lastVerifiedAt": null
+      },
+      "98": {
+        "name": "Western Kentucky Hilltoppers",
+        "primary": "#WKUFootball",
+        "aliases": [
+          "#WKUFootball"
+        ],
+        "account": null,
+        "verification": "candidate",
+        "sourceUrls": [
+          "https://www.blinkfire.com/publisher/leaguehashtags/college_football",
+          "https://www.blinkfire.com/publisher/team/college_football_football_98/western-kentucky-hilltoppers"
+        ],
+        "lastVerifiedAt": null
+      },
+      "99": {
+        "name": "LSU Tigers",
+        "primary": "#GeauxTigers",
+        "aliases": [
+          "#GeauxTigers",
+          "#lsuwin",
+          "#lsu"
+        ],
+        "account": "LSUfootball",
+        "verification": "official-bio",
+        "sourceUrls": [
+          "https://www.blinkfire.com/publisher/leaguehashtags/college_football",
+          "https://www.blinkfire.com/publisher/team/college_football_football_99/lsu-tigers-football",
+          "https://x.com/LSUfootball"
+        ],
+        "lastVerifiedAt": "2026-11-05"
+      },
+      "120": {
+        "name": "Maryland Terrapins",
+        "primary": "#FearTheTurtle",
+        "aliases": [
+          "#FearTheTurtle",
+          "#GoTerps"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [
+          "https://www.blinkfire.com/publisher/leaguehashtags/college_football",
+          "https://www.blinkfire.com/publisher/team/college_football_football_120/maryland-terrapins-football"
+        ],
+        "lastVerifiedAt": null
+      },
+      "127": {
+        "name": "Michigan State Spartans",
+        "primary": "#GoGreen",
+        "aliases": [
+          "#GoGreen",
+          "#MSU_Football",
+          "#SpartyNation"
+        ],
+        "account": "MSU_Football",
+        "verification": "owner-approved",
+        "sourceUrls": [
+          "https://www.blinkfire.com/publisher/leaguehashtags/college_football",
+          "https://www.blinkfire.com/publisher/team/college_football_football_127/michigan-state-spartans-football",
+          "https://x.com/MSU_Football"
+        ],
+        "lastVerifiedAt": null
+      },
+      "130": {
+        "name": "Michigan Wolverines",
+        "primary": "#GoBlue",
+        "aliases": [
+          "#GoBlue"
+        ],
+        "account": "umichfootball",
+        "verification": "official-bio",
+        "sourceUrls": [
+          "https://www.blinkfire.com/publisher/leaguehashtags/college_football",
+          "https://www.blinkfire.com/publisher/team/college_football_football_130/michigan-wolverines-football",
+          "https://x.com/umichfootball"
+        ],
+        "lastVerifiedAt": "2026-11-05"
+      },
+      "135": {
+        "name": "Minnesota Golden Gophers",
+        "primary": "#SkiUMah",
+        "aliases": [
+          "#SkiUMah",
+          "#GopherSports"
+        ],
+        "account": "GopherFootball",
+        "verification": "owner-approved",
+        "sourceUrls": [
+          "https://www.blinkfire.com/publisher/leaguehashtags/college_football",
+          "https://www.blinkfire.com/publisher/team/college_football_football_135/minnesota-golden-gophers",
+          "https://x.com/GopherFootball"
+        ],
+        "lastVerifiedAt": null
+      },
+      "142": {
+        "name": "Missouri Tigers",
+        "primary": "#MIZ",
+        "aliases": [
+          "#MIZ",
+          "#Mizzou",
+          "#MIZZOUMADE"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [
+          "https://www.blinkfire.com/publisher/leaguehashtags/college_football",
+          "https://www.blinkfire.com/publisher/team/college_football_football_142/missouri-tigers"
+        ],
+        "lastVerifiedAt": null
+      },
+      "145": {
+        "name": "Ole Miss Rebels",
+        "primary": "#HottyToddy",
+        "aliases": [
+          "#HottyToddy",
+          "#OleMissFB"
+        ],
+        "account": "OleMissFB",
+        "verification": "owner-approved",
+        "sourceUrls": [
+          "https://www.blinkfire.com/publisher/leaguehashtags/college_football",
+          "https://www.blinkfire.com/publisher/team/college_football_football_145/ole-miss-rebels-football",
+          "https://x.com/OleMissFB"
+        ],
+        "lastVerifiedAt": null
+      },
+      "150": {
+        "name": "Duke Blue Devils",
+        "primary": "#Duke_FB",
+        "aliases": [
+          "#Duke_FB",
+          "#GoDuke"
+        ],
+        "account": "Duke_FB",
+        "verification": "candidate",
+        "sourceUrls": [
+          "https://www.blinkfire.com/publisher/leaguehashtags/college_football",
+          "https://www.blinkfire.com/publisher/team/college_football_football_150/duke-blue-devils-football",
+          "https://x.com/Duke_FB"
+        ],
+        "lastVerifiedAt": null
+      },
+      "158": {
+        "name": "Nebraska Cornhuskers",
+        "primary": "#GBR",
+        "aliases": [
+          "#GBR",
+          "#HUSKERS"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [
+          "https://www.blinkfire.com/publisher/leaguehashtags/college_football",
+          "https://www.blinkfire.com/publisher/team/college_football_football_158/nebraska-cornhuskers-football"
+        ],
+        "lastVerifiedAt": null
+      },
+      "164": {
+        "name": "Rutgers Scarlet Knights",
+        "primary": "#GoRU",
+        "aliases": [
+          "#GoRU",
+          "#RFootball"
+        ],
+        "account": "RFootball",
+        "verification": "owner-approved",
+        "sourceUrls": [
+          "https://www.blinkfire.com/publisher/leaguehashtags/college_football",
+          "https://www.blinkfire.com/publisher/team/college_football_football_164/rutgers-scarlet-knights-football",
+          "https://x.com/RFootball"
+        ],
+        "lastVerifiedAt": null
+      },
+      "194": {
+        "name": "Ohio State Buckeyes",
+        "primary": "#GoBucks",
+        "aliases": [
+          "#GoBucks",
+          "#BuckeyeNation"
+        ],
+        "account": "ohiostatefb",
+        "verification": "owner-approved",
+        "sourceUrls": [
+          "https://www.blinkfire.com/publisher/leaguehashtags/college_football",
+          "https://www.blinkfire.com/publisher/team/college_football_football_194/ohio-state-buckeyes-football",
+          "https://x.com/ohiostatefb"
+        ],
+        "lastVerifiedAt": null
+      },
+      "197": {
+        "name": "Oklahoma State Cowboys",
+        "primary": "#okstate",
+        "aliases": [
+          "#okstate"
+        ],
+        "account": null,
+        "verification": "candidate",
+        "sourceUrls": [
+          "https://www.blinkfire.com/publisher/leaguehashtags/college_football",
+          "https://www.blinkfire.com/publisher/team/college_football_football_197/oklahoma-state-cowboys-football"
+        ],
+        "lastVerifiedAt": null
+      },
+      "201": {
+        "name": "Oklahoma Sooners",
+        "primary": "#BoomerSooner",
+        "aliases": [
+          "#BoomerSooner",
+          "#OU_Football"
+        ],
+        "account": "OU_Football",
+        "verification": "owner-approved",
+        "sourceUrls": [
+          "https://www.blinkfire.com/publisher/leaguehashtags/college_football",
+          "https://www.blinkfire.com/publisher/team/college_football_football_201/oklahoma-sooners-football",
+          "https://x.com/OU_Football"
+        ],
+        "lastVerifiedAt": null
+      },
+      "204": {
+        "name": "Oregon State Beavers",
+        "primary": "#gobeavs",
+        "aliases": [
+          "#gobeavs"
+        ],
+        "account": "OSUBeaversFB",
+        "verification": "candidate",
+        "sourceUrls": [
+          "https://www.blinkfire.com/publisher/leaguehashtags/college_football",
+          "https://www.blinkfire.com/publisher/team/college_football_football_204/oregon-state-beavers",
+          "https://x.com/OSUBeaversFB"
+        ],
+        "lastVerifiedAt": null
+      },
+      "213": {
+        "name": "Penn State Nittany Lions",
+        "primary": "#WeAre",
+        "aliases": [
+          "#WeAre",
+          "#PennStateFball",
+          "#PennState"
+        ],
+        "account": "PennStateFball",
+        "verification": "owner-approved",
+        "sourceUrls": [
+          "https://www.blinkfire.com/publisher/leaguehashtags/college_football",
+          "https://www.blinkfire.com/publisher/team/college_football_football_213/penn-state-nittany-lions",
+          "https://x.com/PennStateFball"
+        ],
+        "lastVerifiedAt": null
+      },
+      "228": {
+        "name": "Clemson Tigers",
+        "primary": "#SolidOrange",
+        "aliases": [
+          "#SolidOrange"
+        ],
+        "account": "ClemsonFB",
+        "verification": "candidate",
+        "sourceUrls": [
+          "https://www.blinkfire.com/publisher/leaguehashtags/college_football",
+          "https://www.blinkfire.com/publisher/team/college_football_football_228/clemson-tigers-football",
+          "https://x.com/ClemsonFB"
+        ],
+        "lastVerifiedAt": null
+      },
+      "238": {
+        "name": "Vanderbilt Commodores",
+        "primary": "#AnchorDown",
+        "aliases": [
+          "#AnchorDown"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "239": {
+        "name": "Baylor Bears",
+        "primary": "#SicEm",
+        "aliases": [
+          "#BUFootball",
+          "#SicEm"
+        ],
+        "account": "BUFootball",
+        "verification": "official-bio",
+        "sourceUrls": [
+          "https://www.blinkfire.com/publisher/leaguehashtags/college_football",
+          "https://www.blinkfire.com/publisher/team/college_football_football_239/baylor-bears-football",
+          "https://x.com/BUFootball"
+        ],
+        "lastVerifiedAt": "2026-11-05"
+      },
+      "245": {
+        "name": "Texas A&M Aggies",
+        "primary": "#GigEm",
+        "aliases": [
+          "#GigEm",
+          "#TAMU",
+          "#12thMan"
+        ],
+        "account": "AggieFootball",
+        "verification": "owner-approved",
+        "sourceUrls": [
+          "https://www.blinkfire.com/publisher/leaguehashtags/college_football",
+          "https://www.blinkfire.com/publisher/team/college_football_football_245/texas-a-m-aggies",
+          "https://x.com/AggieFootball"
+        ],
+        "lastVerifiedAt": null
+      },
+      "251": {
+        "name": "Texas Longhorns",
+        "primary": "#HookEm",
+        "aliases": [
+          "#HookEm",
+          "#MBTexasFootball"
+        ],
+        "account": "TexasFootball",
+        "verification": "owner-approved",
+        "sourceUrls": [
+          "https://www.blinkfire.com/publisher/leaguehashtags/college_football",
+          "https://www.blinkfire.com/publisher/team/college_football_football_251/texas-longhorns-football",
+          "https://x.com/TexasFootball"
+        ],
+        "lastVerifiedAt": null
+      },
+      "254": {
+        "name": "Utah Utes",
+        "primary": "#Utah_Football",
+        "aliases": [
+          "#Utah_Football"
+        ],
+        "account": "Utah_Football",
+        "verification": "candidate",
+        "sourceUrls": [
+          "https://www.blinkfire.com/publisher/leaguehashtags/college_football",
+          "https://www.blinkfire.com/publisher/team/college_football_football_254/utah-utes-football",
+          "https://x.com/Utah_Football"
+        ],
+        "lastVerifiedAt": null
+      },
+      "258": {
+        "name": "Virginia Cavaliers",
+        "primary": "#UVa_Football",
+        "aliases": [
+          "#UVa_Football",
+          "#UVaFB"
+        ],
+        "account": "UVa_Football",
+        "verification": "candidate",
+        "sourceUrls": [
+          "https://www.blinkfire.com/publisher/leaguehashtags/college_football",
+          "https://www.blinkfire.com/publisher/team/college_football_football_258/virginia-cavaliers-football",
+          "https://x.com/UVa_Football"
+        ],
+        "lastVerifiedAt": null
+      },
+      "259": {
+        "name": "Virginia Tech Hokies",
+        "primary": "#VaTech_Football",
+        "aliases": [
+          "#VaTech_Football"
+        ],
+        "account": null,
+        "verification": "candidate",
+        "sourceUrls": [
+          "https://www.blinkfire.com/publisher/leaguehashtags/college_football",
+          "https://www.blinkfire.com/publisher/team/college_football_football_259/virginia-tech-hokies-football"
+        ],
+        "lastVerifiedAt": null
+      },
+      "264": {
+        "name": "Washington Huskies",
+        "primary": "#GoHuskies",
+        "aliases": [
+          "#GoHuskies",
+          "#UW_Football",
+          "#UDUB"
+        ],
+        "account": "UW_Football",
+        "verification": "owner-approved",
+        "sourceUrls": [
+          "https://www.blinkfire.com/publisher/leaguehashtags/college_football",
+          "https://www.blinkfire.com/publisher/team/college_football_football_264/washington-huskies-football",
+          "https://x.com/UW_Football"
+        ],
+        "lastVerifiedAt": null
+      },
+      "265": {
+        "name": "Washington State Cougars",
+        "primary": "#WSUCougars",
+        "aliases": [
+          "#WSUCougars",
+          "#GoCougs"
+        ],
+        "account": "wsucougfb",
+        "verification": "candidate",
+        "sourceUrls": [
+          "https://www.blinkfire.com/publisher/leaguehashtags/college_football",
+          "https://www.blinkfire.com/publisher/team/college_football_football_265/washington-state-cougars-football",
+          "https://x.com/wsucougfb"
+        ],
+        "lastVerifiedAt": null
+      },
+      "275": {
+        "name": "Wisconsin Badgers",
+        "primary": "#OnWisconsin",
+        "aliases": [
+          "#OnWisconsin",
+          "#Badgers"
+        ],
+        "account": "BadgerFootball",
+        "verification": "owner-approved",
+        "sourceUrls": [
+          "https://www.blinkfire.com/publisher/leaguehashtags/college_football",
+          "https://www.blinkfire.com/publisher/team/college_football_football_275/wisconsin-badgers-football",
+          "https://x.com/BadgerFootball"
+        ],
+        "lastVerifiedAt": null
+      },
+      "278": {
+        "name": "Fresno State Bulldogs",
+        "primary": "#BulldogBornBulldogBred",
+        "aliases": [
+          "#BulldogBornBulldogBred",
+          "#GoDogs",
+          "#RedWave"
+        ],
+        "account": null,
+        "verification": "candidate",
+        "sourceUrls": [
+          "https://www.blinkfire.com/publisher/leaguehashtags/college_football",
+          "https://www.blinkfire.com/publisher/team/college_football_football_278/fresno-state-bulldogs"
+        ],
+        "lastVerifiedAt": null
+      },
+      "333": {
+        "name": "Alabama Crimson Tide",
+        "primary": "#RollTide",
+        "aliases": [
+          "#RollTide"
+        ],
+        "account": "AlabamaFTBL",
+        "verification": "official-bio",
+        "sourceUrls": [
+          "https://www.blinkfire.com/publisher/leaguehashtags/college_football",
+          "https://www.blinkfire.com/publisher/team/college_football_football_333/alabama-crimson-tide",
+          "https://x.com/AlabamaFTBL"
+        ],
+        "lastVerifiedAt": "2026-11-05"
+      },
+      "344": {
+        "name": "Mississippi State Bulldogs",
+        "primary": "#HailState",
+        "aliases": [
+          "#HailState"
+        ],
+        "account": "HailStateFB",
+        "verification": "official-bio",
+        "sourceUrls": [
+          "https://www.blinkfire.com/publisher/leaguehashtags/college_football",
+          "https://www.blinkfire.com/publisher/team/college_football_football_344/mississippi-state-bulldogs",
+          "https://x.com/HailStateFB"
+        ],
+        "lastVerifiedAt": "2026-11-05"
+      },
+      "356": {
+        "name": "Illinois Fighting Illini",
+        "primary": "#Illini",
+        "aliases": [
+          "#Illini",
+          "#illinifootball"
+        ],
+        "account": "IlliniFootball",
+        "verification": "owner-approved",
+        "sourceUrls": [
+          "https://www.blinkfire.com/publisher/leaguehashtags/college_football",
+          "https://www.blinkfire.com/publisher/team/college_football_football_356/illinois-fighting-illini-football",
+          "https://x.com/IlliniFootball"
+        ],
+        "lastVerifiedAt": null
+      },
+      "2294": {
+        "name": "Iowa Hawkeyes",
+        "primary": "#FightForIowa",
+        "aliases": [
+          "#FightForIowa",
+          "#Hawkeyes"
+        ],
+        "account": "HawkeyeFootball",
+        "verification": "owner-approved",
+        "sourceUrls": [
+          "https://www.blinkfire.com/publisher/leaguehashtags/college_football",
+          "https://www.blinkfire.com/publisher/team/college_football_football_2294/iowa-hawkeyes-football",
+          "https://x.com/HawkeyeFootball"
+        ],
+        "lastVerifiedAt": null
+      },
+      "2305": {
+        "name": "Kansas Jayhawks",
+        "primary": "#KUAthletics",
+        "aliases": [
+          "#KUAthletics",
+          "#Jayhawks"
+        ],
+        "account": "ku_football",
+        "verification": "candidate",
+        "sourceUrls": [
+          "https://www.blinkfire.com/publisher/leaguehashtags/college_football",
+          "https://www.blinkfire.com/publisher/team/college_football_football_2305/kansas-jayhawks-football",
+          "https://x.com/ku_football"
+        ],
+        "lastVerifiedAt": null
+      },
+      "2390": {
+        "name": "Miami Hurricanes",
+        "primary": "#MiamiHurricanes",
+        "aliases": [
+          "#MiamiHurricanes"
+        ],
+        "account": "MiamiHurricanes",
+        "verification": "candidate",
+        "sourceUrls": [
+          "https://www.blinkfire.com/publisher/leaguehashtags/college_football",
+          "https://www.blinkfire.com/publisher/team/college_football_football_2390/miami-fl-hurricanes-football",
+          "https://x.com/MiamiHurricanes"
+        ],
+        "lastVerifiedAt": null
+      },
+      "2440": {
+        "name": "Nevada Wolf Pack",
+        "primary": "#WeAreNEVADA",
+        "aliases": [
+          "#WeAreNEVADA",
+          "#nevadawolfpack"
+        ],
+        "account": "NevadaFootball",
+        "verification": "candidate",
+        "sourceUrls": [
+          "https://www.blinkfire.com/publisher/leaguehashtags/college_football",
+          "https://www.blinkfire.com/publisher/team/college_football_football_2440/nevada-wolf-pack",
+          "https://x.com/NevadaFootball"
+        ],
+        "lastVerifiedAt": null
+      },
+      "2459": {
+        "name": "Northern Illinois Huskies",
+        "primary": "#NIUAthletics",
+        "aliases": [
+          "#NIUAthletics"
+        ],
+        "account": null,
+        "verification": "candidate",
+        "sourceUrls": [
+          "https://www.blinkfire.com/publisher/leaguehashtags/college_football",
+          "https://www.blinkfire.com/publisher/team/college_football_football_2459/northern-illinois-huskies"
+        ],
+        "lastVerifiedAt": null
+      },
+      "2483": {
+        "name": "Oregon Ducks",
+        "primary": "#GoDucks",
+        "aliases": [
+          "#GoDucks"
+        ],
+        "account": "WinTheDay",
+        "verification": "official-bio",
+        "sourceUrls": [
+          "https://www.blinkfire.com/publisher/leaguehashtags/college_football",
+          "https://www.blinkfire.com/publisher/team/college_football_football_2483/oregon-ducks-football",
+          "https://x.com/WinTheDay"
+        ],
+        "lastVerifiedAt": "2026-11-05"
+      },
+      "2509": {
+        "name": "Purdue Boilermakers",
+        "primary": "#BoilerUp",
+        "aliases": [
+          "#BoilerUp",
+          "#BoilerFootball"
+        ],
+        "account": "BoilerFootball",
+        "verification": "owner-approved",
+        "sourceUrls": [
+          "https://www.blinkfire.com/publisher/leaguehashtags/college_football",
+          "https://www.blinkfire.com/publisher/team/college_football_football_2509/purdue-boilermakers",
+          "https://x.com/BoilerFootball"
+        ],
+        "lastVerifiedAt": null
+      },
+      "2579": {
+        "name": "South Carolina Gamecocks",
+        "primary": "#Gamecocks",
+        "aliases": [
+          "#Gamecocks"
+        ],
+        "account": "GamecockFB",
+        "verification": "owner-approved",
+        "sourceUrls": [
+          "https://www.blinkfire.com/publisher/leaguehashtags/college_football",
+          "https://www.blinkfire.com/publisher/team/college_football_football_2579/south-carolina-gamecocks",
+          "https://x.com/GamecockFB"
+        ],
+        "lastVerifiedAt": null
+      },
+      "2628": {
+        "name": "TCU Horned Frogs",
+        "primary": "#FearTheFrog",
+        "aliases": [
+          "#FearTheFrog"
+        ],
+        "account": "TCUFootball",
+        "verification": "candidate",
+        "sourceUrls": [
+          "https://www.blinkfire.com/publisher/leaguehashtags/college_football",
+          "https://www.blinkfire.com/publisher/team/college_football_football_2628/tcu-horned-frogs-football",
+          "https://x.com/TCUFootball"
+        ],
+        "lastVerifiedAt": null
+      },
+      "2633": {
+        "name": "Tennessee Volunteers",
+        "primary": "#GBO",
+        "aliases": [
+          "#GBO"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2641": {
+        "name": "Texas Tech Red Raiders",
+        "primary": "#TexasTech",
+        "aliases": [
+          "#TexasTech"
+        ],
+        "account": "texastechfb",
+        "verification": "candidate",
+        "sourceUrls": [
+          "https://www.blinkfire.com/publisher/leaguehashtags/college_football",
+          "https://www.blinkfire.com/publisher/team/college_football_football_2641/texas-tech-red-raiders-football",
+          "https://x.com/texastechfb"
+        ],
+        "lastVerifiedAt": null
+      }
+    },
+    "NCAAB": {
+      "2": {
+        "name": "Auburn Tigers",
+        "primary": "#WarEagle",
+        "aliases": [
+          "#WarEagle"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "8": {
+        "name": "Arkansas Razorbacks",
+        "primary": "#WPS",
+        "aliases": [
+          "#WPS"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "12": {
+        "name": "Arizona Wildcats",
+        "primary": "#BearDown",
+        "aliases": [
+          "#BearDown",
+          "#APlayersProgram",
+          "#ArizonaWildcats"
+        ],
+        "account": "ArizonaMBB",
+        "verification": "official-site",
+        "sourceUrls": [
+          "https://www.blinkfire.com/publisher/leaguehashtags/mens_college_basketball",
+          "https://www.blinkfire.com/publisher/team/mens_college_basketball_12/arizona-wildcats-m-basketball",
+          "https://x.com/ArizonaMBB",
+          "https://arizonawildcats.com/news/2026/6/24/mens-basketball-burries-peat-see-nba-dreams-come-true-in-first-round-of-nba-draft"
+        ],
+        "lastVerifiedAt": "2026-11-05"
+      },
+      "24": {
+        "name": "Stanford Cardinal",
+        "primary": "#GoStanford",
+        "aliases": [
+          "#GoStanford",
+          "#nerdnation"
+        ],
+        "account": "stanfordbball",
+        "verification": "candidate",
+        "sourceUrls": [
+          "https://www.blinkfire.com/publisher/leaguehashtags/mens_college_basketball",
+          "https://www.blinkfire.com/publisher/team/mens_college_basketball_24/stanford-cardinal-m-basketball",
+          "https://x.com/stanfordbball"
+        ],
+        "lastVerifiedAt": null
+      },
+      "26": {
+        "name": "UCLA Bruins",
+        "primary": "#GoBruins",
+        "aliases": [
+          "#GoBruins"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "30": {
+        "name": "USC Trojans",
+        "primary": "#FightOn",
+        "aliases": [
+          "#FightOn"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "57": {
+        "name": "Florida Gators",
+        "primary": "#GoGators",
+        "aliases": [
+          "#GoGators"
+        ],
+        "account": "GatorsMBK",
+        "verification": "official-site",
+        "sourceUrls": [
+          "https://x.com/GatorsMBK",
+          "https://floridagators.com/news/2026/2/1/mens-basketball-gators-bludgeon-bama-again-feb-1-2026"
+        ],
+        "lastVerifiedAt": "2026-11-05"
+      },
+      "61": {
+        "name": "Georgia Bulldogs",
+        "primary": "#GoDawgs",
+        "aliases": [
+          "#GoDawgs"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "77": {
+        "name": "Northwestern Wildcats",
+        "primary": "#GoCats",
+        "aliases": [
+          "#GoCats",
+          "#B1GCATS"
+        ],
+        "account": "NUMensBball",
+        "verification": "owner-approved",
+        "sourceUrls": [
+          "https://www.blinkfire.com/publisher/leaguehashtags/mens_college_basketball",
+          "https://www.blinkfire.com/publisher/team/mens_college_basketball_77/northwestern-wildcats-m-basketball",
+          "https://x.com/NUMensBball"
+        ],
+        "lastVerifiedAt": null
+      },
+      "84": {
+        "name": "Indiana Hoosiers",
+        "primary": "#GoIU",
+        "aliases": [
+          "#GoIU"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "96": {
+        "name": "Kentucky Wildcats",
+        "primary": "#BBN",
+        "aliases": [
+          "#BBN"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "99": {
+        "name": "LSU Tigers",
+        "primary": "#GeauxTigers",
+        "aliases": [
+          "#GeauxTigers"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "120": {
+        "name": "Maryland Terrapins",
+        "primary": "#FearTheTurtle",
+        "aliases": [
+          "#FearTheTurtle"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "127": {
+        "name": "Michigan State Spartans",
+        "primary": "#GoGreen",
+        "aliases": [
+          "#GoGreen"
+        ],
+        "account": "MSU_Basketball",
+        "verification": "official-site",
+        "sourceUrls": [
+          "https://x.com/MSU_Basketball",
+          "https://msuspartans.com/news/2019/4/4/m-basketball-spartan-basketball-final-four-daily-update"
+        ],
+        "lastVerifiedAt": "2026-11-05"
+      },
+      "130": {
+        "name": "Michigan Wolverines",
+        "primary": "#GoBlue",
+        "aliases": [
+          "#GoBlue"
+        ],
+        "account": "umichbball",
+        "verification": "official-bio",
+        "sourceUrls": [
+          "https://www.blinkfire.com/publisher/leaguehashtags/mens_college_basketball",
+          "https://www.blinkfire.com/publisher/team/mens_college_basketball_130/michigan-wolverines-m-basketball",
+          "https://x.com/umichbball"
+        ],
+        "lastVerifiedAt": "2026-11-05"
+      },
+      "135": {
+        "name": "Minnesota Golden Gophers",
+        "primary": "#SkiUMah",
+        "aliases": [
+          "#SkiUMah"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "142": {
+        "name": "Missouri Tigers",
+        "primary": "#MIZ",
+        "aliases": [
+          "#MIZ"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "145": {
+        "name": "Ole Miss Rebels",
+        "primary": "#HottyToddy",
+        "aliases": [
+          "#HottyToddy"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "150": {
+        "name": "Duke Blue Devils",
+        "primary": "#GoDuke",
+        "aliases": [
+          "#GoDuke"
+        ],
+        "account": "DukeMBB",
+        "verification": "official-site",
+        "sourceUrls": [
+          "https://www.blinkfire.com/publisher/leaguehashtags/mens_college_basketball",
+          "https://www.blinkfire.com/publisher/team/mens_college_basketball_150/duke-blue-devils-m-basketball",
+          "https://x.com/DukeMBB",
+          "https://goduke.com/news/2016/10/17/211233890"
+        ],
+        "lastVerifiedAt": "2026-11-05"
+      },
+      "153": {
+        "name": "North Carolina Tar Heels",
+        "primary": "#GoHeels",
+        "aliases": [
+          "#GoHeels"
+        ],
+        "account": "UNC_Basketball",
+        "verification": "candidate",
+        "sourceUrls": [
+          "https://www.blinkfire.com/publisher/leaguehashtags/mens_college_basketball",
+          "https://www.blinkfire.com/publisher/team/mens_college_basketball_153/north-carolina-tar-heels-m-basketball",
+          "https://x.com/UNC_Basketball"
+        ],
+        "lastVerifiedAt": null
+      },
+      "154": {
+        "name": "Wake Forest Demon Deacons",
+        "primary": "#GoDeacs",
+        "aliases": [
+          "#GoDeacs"
+        ],
+        "account": "WakeMBB",
+        "verification": "official-site",
+        "sourceUrls": [
+          "https://x.com/WakeMBB",
+          "https://linktr.ee/wakeforestmbb",
+          "https://godeacs.com/documents/download/2022/9/30/roster_coaches.pdf"
+        ],
+        "lastVerifiedAt": "2026-11-05"
+      },
+      "158": {
+        "name": "Nebraska Cornhuskers",
+        "primary": "#GBR",
+        "aliases": [
+          "#GBR"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "164": {
+        "name": "Rutgers Scarlet Knights",
+        "primary": "#GoRU",
+        "aliases": [
+          "#GoRU"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "194": {
+        "name": "Ohio State Buckeyes",
+        "primary": "#GoBucks",
+        "aliases": [
+          "#GoBucks"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "201": {
+        "name": "Oklahoma Sooners",
+        "primary": "#BoomerSooner",
+        "aliases": [
+          "#BoomerSooner"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "213": {
+        "name": "Penn State Nittany Lions",
+        "primary": "#WeAre",
+        "aliases": [
+          "#WeAre"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "219": {
+        "name": "Pennsylvania Quakers",
+        "primary": "#FightOnPenn",
+        "aliases": [
+          "#FightOnPenn"
+        ],
+        "account": "PennMBB",
+        "verification": "official-site",
+        "sourceUrls": [
+          "https://x.com/PennMBB",
+          "https://pennathletics.com/news/2026/2/28/mens-basketball-comes-back-on-harvard-64-61-clinches-ivy-madness-bid.aspx"
+        ],
+        "lastVerifiedAt": "2026-11-05"
+      },
+      "238": {
+        "name": "Vanderbilt Commodores",
+        "primary": "#AnchorDown",
+        "aliases": [
+          "#AnchorDown"
+        ],
+        "account": "VandyMBB",
+        "verification": "official-site",
+        "sourceUrls": [
+          "https://x.com/VandyMBB",
+          "https://vucommodores.com/social-media/",
+          "https://vucommodores.com/wp-content/uploads/2026/02/26_atMizzou.pdf"
+        ],
+        "lastVerifiedAt": "2026-11-05"
+      },
+      "245": {
+        "name": "Texas A&M Aggies",
+        "primary": "#GigEm",
+        "aliases": [
+          "#GigEm"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "251": {
+        "name": "Texas Longhorns",
+        "primary": "#HookEm",
+        "aliases": [
+          "#HookEm",
+          "#TexasMBB"
+        ],
+        "account": "TexasMBB",
+        "verification": "official-site",
+        "sourceUrls": [
+          "https://www.blinkfire.com/publisher/leaguehashtags/mens_college_basketball",
+          "https://www.blinkfire.com/publisher/team/mens_college_basketball_251/texas-longhorns-basketball",
+          "https://x.com/TexasMBB",
+          "https://texaslonghorns.com/news/2026/11/3/forty-acres-insider-november-3"
+        ],
+        "lastVerifiedAt": "2026-11-05"
+      },
+      "264": {
+        "name": "Washington Huskies",
+        "primary": "#GoHuskies",
+        "aliases": [
+          "#GoHuskies"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "275": {
+        "name": "Wisconsin Badgers",
+        "primary": "#OnWisconsin",
+        "aliases": [
+          "#OnWisconsin"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "333": {
+        "name": "Alabama Crimson Tide",
+        "primary": "#RollTide",
+        "aliases": [
+          "#RollTide"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "344": {
+        "name": "Mississippi State Bulldogs",
+        "primary": "#HailState",
+        "aliases": [
+          "#HailState"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "356": {
+        "name": "Illinois Fighting Illini",
+        "primary": "#Illini",
+        "aliases": [
+          "#Illini"
+        ],
+        "account": "IlliniMBB",
+        "verification": "official-site",
+        "sourceUrls": [
+          "https://x.com/IlliniMBB",
+          "https://fightingillini.com/news/2026/3/11/mens-basketball-9-illinois-opens-big-ten-tournament-friday-at-united-center"
+        ],
+        "lastVerifiedAt": "2026-11-05"
+      },
+      "2099": {
+        "name": "Canisius Golden Griffins",
+        "primary": "#GRIFFS",
+        "aliases": [
+          "#GRIFFS"
+        ],
+        "account": "Griffs_MBB",
+        "verification": "official-bio",
+        "sourceUrls": [
+          "https://www.blinkfire.com/publisher/leaguehashtags/mens_college_basketball",
+          "https://www.blinkfire.com/publisher/team/mens_college_basketball_2099/canisius-golden-griffins",
+          "https://x.com/Griffs_MBB"
+        ],
+        "lastVerifiedAt": "2026-11-05"
+      },
+      "2275": {
+        "name": "Hofstra Pride",
+        "primary": "#hofmbb",
+        "aliases": [
+          "#hofmbb",
+          "#Hofstra",
+          "#GoPride"
+        ],
+        "account": "HofstraMBB",
+        "verification": "candidate",
+        "sourceUrls": [
+          "https://www.blinkfire.com/publisher/leaguehashtags/mens_college_basketball",
+          "https://www.blinkfire.com/publisher/team/mens_college_basketball_2275/hofstra-pride",
+          "https://x.com/HofstraMBB"
+        ],
+        "lastVerifiedAt": null
+      },
+      "2294": {
+        "name": "Iowa Hawkeyes",
+        "primary": "#FightForIowa",
+        "aliases": [
+          "#FightForIowa",
+          "#GoHawks"
+        ],
+        "account": "IowaHoops",
+        "verification": "owner-approved",
+        "sourceUrls": [
+          "https://www.blinkfire.com/publisher/leaguehashtags/mens_college_basketball",
+          "https://www.blinkfire.com/publisher/team/mens_college_basketball_2294/iowa-hawkeyes-m-basketball",
+          "https://x.com/IowaHoops"
+        ],
+        "lastVerifiedAt": null
+      },
+      "2390": {
+        "name": "Miami Hurricanes",
+        "primary": "#GoCanes",
+        "aliases": [
+          "#GoCanes"
+        ],
+        "account": "CanesHoops",
+        "verification": "official-post",
+        "sourceUrls": [
+          "https://www.blinkfire.com/publisher/leaguehashtags/mens_college_basketball",
+          "https://www.blinkfire.com/publisher/team/mens_college_basketball_2390/miami-fl-hurricanes-m-basketball",
+          "https://x.com/CanesHoops"
+        ],
+        "lastVerifiedAt": "2026-11-05"
+      },
+      "2483": {
+        "name": "Oregon Ducks",
+        "primary": "#GoDucks",
+        "aliases": [
+          "#GoDucks"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2509": {
+        "name": "Purdue Boilermakers",
+        "primary": "#BoilerUp",
+        "aliases": [
+          "#BoilerUp"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2579": {
+        "name": "South Carolina Gamecocks",
+        "primary": "#Gamecocks",
+        "aliases": [
+          "#Gamecocks"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2633": {
+        "name": "Tennessee Volunteers",
+        "primary": "#GBO",
+        "aliases": [
+          "#GBO"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2641": {
+        "name": "Texas Tech Red Raiders",
+        "primary": "#WreckEm",
+        "aliases": [
+          "#WreckEm"
+        ],
+        "account": "TexasTechMBB",
+        "verification": "official-site",
+        "sourceUrls": [
+          "https://x.com/TexasTechMBB",
+          "https://texastech.com/news/2024/6/3/mens-basketball-red-raiders-begin-summer-workouts"
+        ],
+        "lastVerifiedAt": "2026-11-05"
+      }
+    }
+  }
+}
