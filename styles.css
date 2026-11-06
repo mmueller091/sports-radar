@@ -5869,40 +5869,14 @@ body { background-image: none; }
   #game-detail-content > .detail-header { grid-column: 1; }
   #game-detail-content > .detail-radar { grid-column: 2; margin-top: 0; }
   #game-detail-content > .timeline-section, #game-detail-content > .detail-tab-shell { grid-column: 1 / -1; }
-  .detail-scoreboard { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); }
-  .detail-team { grid-template-columns: 34px minmax(0,1fr); grid-template-rows: auto auto; min-width: 0; }
-  .detail-team + .detail-team { border-top: 0; border-left: 1px solid var(--line); }
-  .detail-team-copy strong { white-space: normal; overflow: visible; overflow-wrap: anywhere; }
-  .detail-team > b { grid-column: 2; text-align: left; font-size: 25px; }
-  .detail-scoreboard.pregame .pregame-versus { right: auto; left: 50%; top: 50%; transform: translate(-50%,-50%); padding: 3px 5px; background: var(--surface); }
   .game-card .excitement { padding: 3px 2px; gap: 2px; }
   .game-card .excitement .score-trend { max-width: 100%; white-space: normal; text-align: center; text-transform: none; letter-spacing: 0; font-size: 11px; line-height: 1.05; font-weight: 700; }
 }
 @media (min-width: 601px) and (max-width: 1099px) { .footer { margin-inline: 0; box-sizing: border-box; } }
 
-/* Game Center scoreboard uses the panel width so names and scores can breathe. */
 @media (min-width: 601px) {
   #game-detail-content > .detail-header,
   #game-detail-content > .detail-radar { grid-column: 1 / -1; }
-  .detail-scoreboard { grid-template-columns: repeat(2,minmax(0,1fr)); }
-  .detail-team {
-    grid-template-columns: 50px minmax(0,1fr) minmax(64px,auto);
-    grid-template-rows: auto;
-    gap: 12px;
-    min-height: 84px;
-    padding: 13px 17px;
-  }
-  .detail-team img,
-  .detail-team .team-logo-fallback { grid-column: 1; grid-row: 1; width: 48px; height: 48px; object-fit: contain; }
-  .detail-team-copy { grid-column: 2; grid-row: 1; align-self: center; }
-  .detail-team-copy strong { overflow-wrap: normal; word-break: normal; hyphens: none; font-size: 19px; line-height: 1.1; }
-  .detail-team-copy small { font-size: 11px; }
-  .detail-team > b { grid-column: 3; grid-row: 1; align-self: center; text-align: center; font-size: 30px; line-height: 1; font-variant-numeric: tabular-nums; }
-  .detail-team:nth-child(2) { grid-template-columns: minmax(64px,auto) minmax(0,1fr) 50px; }
-  .detail-team:nth-child(2) > b { grid-column: 1; }
-  .detail-team:nth-child(2) .detail-team-copy { grid-column: 2; text-align: right; }
-  .detail-team:nth-child(2) img,
-  .detail-team:nth-child(2) .team-logo-fallback { grid-column: 3; }
 }
 
 /* Abbreviation fallbacks appear only when the official image cannot load. */

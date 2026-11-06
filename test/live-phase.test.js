@@ -103,9 +103,9 @@ function renderedGame(game,summary) {
     compactPlay:p=>p.text || '',$:()=>detail,labelForSport:s=>s,teamLogoUrl:()=>'',
     detailTabsMarkup:()=>'',storylineDetails:()=>'',detailScoring:()=>'',detailStats:()=>'',detailLeaders:()=>'',
     basketballBoxScoreMarkup:()=>'',detailPlayerStats:()=>'',detailPlays:()=>''});
-  for (const name of ['teamLogoWithFallback','halftimePriorityAdjustment','explainRating','publicStorySentence','compactClockPeriod','broadcastWatchMarkup','scoreHueFor','scoreHeatClass','gameCard','basesMarkup','trendFor','isWinningTeam','recordRatingSnapshot',
+  for (const name of ['normalizedTeamName','teamLogoWithFallback','halftimePriorityAdjustment','explainRating','publicStorySentence','compactClockPeriod','broadcastWatchMarkup','scoreHueFor','scoreHeatClass','gameCard','basesMarkup','trendFor','isWinningTeam','recordRatingSnapshot',
     'legacyPlayPosition','scoringEvents','estimatedEventRating','timelineFormat','timelineEventPosition',
-    'timelinePeriodLabel','timelineFinalScores','recordedTimelinePoints','timelinePoints','timelineComparable','timelinePresentation','timelineRatingSummary','timelineHistoryDetails','excitementTimeline','renderExcitementTimeline','renderDetailContent']) {
+    'timelinePeriodLabel','timelineFinalScores','recordedTimelinePoints','timelinePoints','timelineComparable','timelinePresentation','timelineRatingSummary','timelineHistoryDetails','excitementTimeline','renderExcitementTimeline','orderedDetailSummary','renderDetailContent']) {
     const start=source.indexOf(`function ${name}(`);
     assert.ok(start>=0,name);
     vm.runInContext(source.slice(start,source.indexOf('\n}',start)+2),context);

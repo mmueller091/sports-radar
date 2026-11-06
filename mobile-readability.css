@@ -470,22 +470,6 @@ button.team-spotlight-matchup, button.team-schedule-opponent { position:relative
   .detail-kicker > span:first-child { min-width:0; }
   .detail-live-clock { display:inline-flex; flex:0 0 auto; align-items:center; gap:6px; min-height:38px; padding:3px 8px; border:1px solid var(--surface-raised); border-radius:5px; background:var(--brand-charcoal); color:var(--brand-cream); font:700 12px Arial,Helvetica,sans-serif; }
   .detail-live-clock strong { font:700 25px/1.15 Arial,Helvetica,sans-serif; font-variant-numeric:tabular-nums; }
-  /* Shared tracks keep both logos, names and records aligned, with the score
-     centered independently of either team's name length. */
-  .detail-scoreboard { display:grid; grid-template-columns:minmax(0,1fr) auto auto minmax(0,1fr); grid-template-rows:44px auto auto; gap:4px 8px; padding:8px; background:var(--brand-charcoal); border:1px solid var(--surface-2); border-radius:7px; }
-  .detail-team { display:grid; grid-template-columns:subgrid; grid-template-rows:subgrid; grid-row:1 / -1; gap:4px 8px; align-items:start; min-width:0; min-height:0; padding:0; text-align:center; }
-  .detail-team:first-child { grid-column:1 / span 2; }
-  .detail-team:last-child { grid-column:3 / span 2; border-top:0; }
-  .detail-team img { grid-row:1; width:40px; height:40px; margin:auto; object-fit:contain; }
-  .detail-team:first-child img, .detail-team:first-child .detail-team-copy { grid-column:1; }
-  .detail-team:last-child img, .detail-team:last-child .detail-team-copy { grid-column:2; }
-  .detail-team-copy { display:grid; grid-template-rows:subgrid; grid-row:2 / span 2; text-align:center; }
-  .detail-team-copy strong { white-space:normal; overflow-wrap:anywhere; line-height:1.2; }
-  .detail-team-copy small { white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-  .detail-team > b { grid-row:1 / -1; align-self:center; font:700 30px/1.15 Arial,Helvetica,sans-serif; font-variant-numeric:tabular-nums; }
-  .detail-team:first-child > b { grid-column:2; }
-  .detail-team:last-child > b { grid-column:1; }
-  .detail-team:first-child > b::after { content:'–'; margin-left:3px; color:var(--muted); }
   .detail-tabs { display:grid; grid-auto-flow:column; grid-auto-columns:minmax(0,1fr); border-radius:0; border-bottom:1px solid var(--surface-2); background:transparent; }
   .detail-tab { min-width:0; min-height:44px; padding:0 2px; border-radius:0; white-space:nowrap; font:600 11px Arial,Helvetica,sans-serif; letter-spacing:-.15px; }
   .detail-tab.active { color:var(--brand-cream); border-bottom:2px solid var(--ink-secondary); background:transparent; }
@@ -645,14 +629,6 @@ button.team-spotlight-matchup, button.team-schedule-opponent { position:relative
   .game-card .team-name-text { font-size: 15px; }
   .game-card .team-logo-fallback { width: 24px; height: 24px; flex-basis: 24px; font-size: 9px; }
   .game-card .card-team-link, .game-card .team-logo-shell { display: grid; flex-basis: 24px; width: 24px; height: 24px; }
-  .detail-team .team-logo-fallback { grid-row: 1; margin: auto; width: 40px; height: 40px; }
-  .detail-team:first-child .team-logo-fallback { grid-column: 1; }
-  .detail-team:nth-child(2) .team-logo-fallback { grid-column: 2; }
-  .detail-team:nth-child(2) { grid-column: 3 / span 2; border-top: 0; }
-  .detail-team:nth-child(2) img, .detail-team:nth-child(2) .detail-team-copy { grid-column: 2; }
-  .detail-team:nth-child(2) > b { grid-column: 1; }
-  .detail-scoreboard.pregame .pregame-versus { right: auto; left: 50%; top: 16px; transform: translateX(-50%); }
-  .detail-scoreboard.pregame .detail-team:first-child > b::after { display: none; }
   .detail-radar + .timeline-section { margin-top: 10px; }
   .detail-radar { order: 1; }
   .timeline-section { order: 2; }

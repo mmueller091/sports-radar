@@ -2595,11 +2595,11 @@ function teamMarkup(game, team, cardTeamIndex = null) {
   const logoMarkup = canOpen
     ? `<button type="button" class="card-team-link" data-card-team-index="${cardTeamIndex}" aria-label="Open ${safeText(team[0])} team page">${image}</button>`
     : `<span class="team-logo-shell">${image}</span>`;
-  return `<span class="team-name">${logoMarkup}<span class="team-name-copy">${
+  return `<span class="team-name">${logoMarkup}<span class="team-name-copy"><span class="team-label">${
     team[6]
       ? `<b class="team-rank">#${safeText(team[6])}</b>`
       : ''
-  }<span class="team-name-text"><span class="full-team-name">${safeText(team[0])}</span><span class="short-team-name">${safeText(team[7] || team[0])}</span></span>${
+  }<span class="team-name-text"><span class="full-team-name">${safeText(team[0])}</span><span class="short-team-name">${safeText(team[7] || team[0])}</span></span></span>${
     team[5]
       ? `<small class="team-record">${safeText(team[5])}</small>`
       : ''
@@ -3739,6 +3739,35 @@ TEAM_STAT_CONFIG.CFB = TEAM_STAT_CONFIG.NFL;
 
 function detailCompetitors(summary) {
   return summary?.header?.competitions?.[0]?.competitors || [];
+}
+
+// The canonical scoreboard decides left/right order; provider detail arrays do not.
+function orderedDetailSummary(game,summary) {
+  if (!summary || !game?.teams?.length) return summary;
+  const position = entry => {
+    const team = entry?.team || entry;
+    const id = String(entry?.teamId || team?.id || '');
+    const byId = id ? game.teams.findIndex(item => item[8] && String(item[8]) === id) : -1;
+    if (byId >= 0) return byId;
+    const names = [team?.displayName,team?.shortDisplayName,team?.abbreviation]
+      .filter(Boolean).map(normalizedTeamName);
+    return game.teams.findIndex(item => [item[0],item[1]].some(name => names.includes(normalizedTeamName(name))));
+  };
+  const order = items => Array.isArray(items) ? items.map((item,index) => ({item,index,position:position(item)}))
+    .sort((a,b) => (a.position < 0 ? game.teams.length + a.index : a.position) -
+      (b.position < 0 ? game.teams.length + b.index : b.position))
+    .map(({item}) => item) : items;
+  const competitions = summary.header?.competitions;
+  return {
+    ...summary,
+    header:competitions?.length ? {...summary.header,competitions:[
+      {...competitions[0],competitors:order(competitions[0].competitors)},...competitions.slice(1)
+    ]} : summary.header,
+    boxscore:summary.boxscore ? {...summary.boxscore,
+      teams:order(summary.boxscore.teams),players:order(summary.boxscore.players)} : summary.boxscore,
+    basketballBoxScore:summary.basketballBoxScore ? {...summary.basketballBoxScore,
+      teams:order(summary.basketballBoxScore.teams)} : summary.basketballBoxScore
+  };
 }
 
 function detailScoring(summary,sport) {
@@ -6265,7 +6294,7 @@ function renderDetailContent(
   summary,
   loading=false
 ) {
-  summary=globalThis.SportsRadarScore?.canonicalDetailSummary?.(game,summary) || summary;
+  summary=orderedDetailSummary(game,globalThis.SportsRadarScore?.canonicalDetailSummary?.(game,summary) || summary);
   $('#game-detail-title').textContent =
     'Game Center';
 

@@ -7,9 +7,9 @@ export function browser(source=fs.readFileSync(new URL('../../app.js',import.met
  Object.assign(context,{SportsRadarScore:runtime,state:{source:'live'},HISTORY_KEY:'history',localStorage:{setItem:()=>{}},
   LEAGUE_LOGOS:{},displayLine:()=>({label:'Line',text:''}),isWatched:()=>false,teamMarkup:()=>'',possessionMarkup:()=>'',
   $:()=>detail,labelForSport:s=>s,teamLogoUrl:()=>'',detailTabsMarkup:()=>'',storylineDetails:()=>'',detail});
- for(const name of ['teamLogoWithFallback','halftimePriorityAdjustment','explainRating','narrativeMarket','pregameExplanation','upcomingLinkedStories','publicStorySentence','compactClockPeriod','broadcastWatchMarkup',
-  'scoreHueFor','scoreHeatClass','gameCard','basesMarkup','trendFor','isWinningTeam','footballSituationMarkup','baseballSituationMarkup','footballAccessibleSituation','detailPlays','detailCompetitors','detailScoring','playPosition','summarySpecificWhy','renderDetailContent']){
-  const start=source.indexOf('function '+name+'(');if(start<0)throw Error(name);
+ for(const name of ['normalizedTeamName','teamLogoWithFallback','halftimePriorityAdjustment','explainRating','narrativeMarket','pregameExplanation','upcomingLinkedStories','publicStorySentence','compactClockPeriod','broadcastWatchMarkup',
+  'scoreHueFor','scoreHeatClass','gameCard','basesMarkup','trendFor','isWinningTeam','footballSituationMarkup','baseballSituationMarkup','footballAccessibleSituation','detailPlays','detailCompetitors','orderedDetailSummary','detailScoring','playPosition','summarySpecificWhy','renderDetailContent']){
+  const start=source.indexOf('function '+name+'(');if(start<0){if(name==='orderedDetailSummary')continue;throw Error(name);}
   vm.runInContext(source.slice(start,source.indexOf('\n}',start)+2),context);
  }
  return context;

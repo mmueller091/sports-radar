@@ -69,7 +69,7 @@ test('provider timeout preserves rich data and retries at normal cadence while c
 test('detail markup always uses canonical score and phase even for behind/ahead/final summaries',()=>{
   const render=source.slice(source.indexOf('function renderDetailContent('),source.indexOf('async function fetchGameSummary'));
   let html='';const context=vm.createContext({SportsRadarGameCenter:gameCenter,renderExcitementTimeline:()=>'',$:()=>({set innerHTML(v){html=v;}}),safeText:String,teamLogoUrl:()=>'',labelForSport:x=>x,isWatched:()=>false,watchKey:()=>'',explainRating:g=>g.score,
-    displayLine:()=>({text:''}),detailTabsMarkup:()=>'',
+    displayLine:()=>({text:''}),detailTabsMarkup:()=>'',orderedDetailSummary:(_game,summary)=>summary,
     storylineDetails:()=>'',excitementTimeline:()=>'',detailScoring:()=>'',detailStats:()=>'',detailLeaders:()=>'',basketballBoxScoreMarkup:()=>'',detailPlayerStats:()=>'',detailPlays:()=>''});
   vm.runInContext(source.slice(source.indexOf('function compactClockPeriod('),source.indexOf('function gameCard(')),context);
   for(const name of ['scoreHueFor','scoreHeatClass','trendFor']) {

@@ -9,6 +9,25 @@ const start = source.indexOf('function basketballPeriodLabel(');
 const end = source.indexOf('function readRatingHistory(',start);
 const context = vm.createContext({...time,safeText:value => String(value).replaceAll('<','&lt;').replaceAll('"','&quot;')});
 vm.runInContext(source.slice(start,end),context);
+context.normalizedTeamName = value => String(value || '').toLowerCase().replace(/[^a-z0-9]+/g,' ').trim();
+
+test('Game Center detail arrays follow scoreboard order across six sports',() => {
+  for (const sport of ['NFL','CFB','MLB','NHL','NBA','NCAAB']) {
+    const game = {sport,teams:[['Miami Heat','MIA','120','','','12-2',null,'','left'],['Golden State Warriors','GS','115','','','11-3',null,'','right']]};
+    const payload = summary(sport,['totalYards','shotsTotal','runs','totalRebounds'],4);
+    payload.header.competitions[0].competitors.reverse();
+    payload.boxscore.players = [{team:{id:'right'}},{team:{id:'left'}}];
+    payload.basketballBoxScore = {teams:[{teamId:'right',displayName:'Golden State Warriors'},{teamId:'left',displayName:'Miami Heat'}]};
+    const original = structuredClone(payload);
+    const ordered = context.orderedDetailSummary(game,payload);
+    assert.deepEqual(Array.from(ordered.header.competitions[0].competitors,c => c.team.id),['left','right'],sport);
+    assert.deepEqual(Array.from(ordered.boxscore.teams,t => t.team.id),['left','right'],sport);
+    assert.deepEqual(Array.from(ordered.boxscore.players,t => t.team.id),['left','right'],sport);
+    assert.deepEqual(Array.from(ordered.basketballBoxScore.teams,t => t.teamId),['left','right'],sport);
+    assert.match(context.detailStats(ordered,sport),/LFT<\/span><span>RGT<\/span>/,sport);
+    assert.deepEqual(payload,original,'provider payload stays untouched');
+  }
+});
 
 function summary(sport,names,periods=4) {
   const competitors = ['left','right'].map((id,index) => ({

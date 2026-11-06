@@ -1,0 +1,8647 @@
+[
+  {
+    "width": 320,
+    "view": "cards",
+    "set": 0,
+    "logosLoaded": 8,
+    "logos": 8
+  },
+  {
+    "width": 320,
+    "view": "cards",
+    "set": 1,
+    "logosLoaded": 8,
+    "logos": 8
+  },
+  {
+    "width": 320,
+    "view": "cards",
+    "set": 2,
+    "logosLoaded": 8,
+    "logos": 8
+  },
+  {
+    "width": 320,
+    "view": "cards",
+    "set": 3,
+    "logosLoaded": 6,
+    "logos": 6
+  },
+  {
+    "width": 320,
+    "view": "detail",
+    "index": 0,
+    "id": "qa-nfl-possession",
+    "sport": "NFL",
+    "state": "live",
+    "scoreboard": [
+      {
+        "name": "Las Vegas Raiders",
+        "score": "24",
+        "logo": {
+          "x": 42.5,
+          "y": 162.09375,
+          "right": 82.5,
+          "bottom": 202.09375,
+          "width": 40,
+          "height": 40,
+          "centerY": 182.09375
+        },
+        "nameBox": {
+          "x": 25,
+          "y": 208.09375,
+          "right": 152,
+          "bottom": 226.09375,
+          "width": 127,
+          "height": 18,
+          "centerY": 217.09375
+        },
+        "record": {
+          "x": 25,
+          "y": 230.09375,
+          "right": 152,
+          "bottom": 244.390625,
+          "width": 127,
+          "height": 14.296875,
+          "centerY": 237.2421875
+        },
+        "scoreBox": {
+          "x": 104,
+          "y": 167.09375,
+          "right": 152,
+          "bottom": 197.09375,
+          "width": 48,
+          "height": 30,
+          "centerY": 182.09375
+        }
+      },
+      {
+        "name": "Baltimore Ravens",
+        "score": "21",
+        "logo": {
+          "x": 238,
+          "y": 162.09375,
+          "right": 278,
+          "bottom": 202.09375,
+          "width": 40,
+          "height": 40,
+          "centerY": 182.09375
+        },
+        "nameBox": {
+          "x": 169,
+          "y": 208.09375,
+          "right": 295,
+          "bottom": 226.09375,
+          "width": 126,
+          "height": 18,
+          "centerY": 217.09375
+        },
+        "record": {
+          "x": 169,
+          "y": 230.09375,
+          "right": 295,
+          "bottom": 244.390625,
+          "width": 126,
+          "height": 14.296875,
+          "centerY": 237.2421875
+        },
+        "scoreBox": {
+          "x": 169,
+          "y": 167.09375,
+          "right": 217,
+          "bottom": 197.09375,
+          "width": 48,
+          "height": 30,
+          "centerY": 182.09375
+        }
+      }
+    ],
+    "overflow": false,
+    "logosLoaded": true,
+    "stats": [
+      "LV",
+      "BAL"
+    ],
+    "bars": [
+      [
+        "rgb(152, 0, 46)",
+        "rgb(29, 66, 138)"
+      ]
+    ],
+    "values": [
+      [
+        "310",
+        "Total yards",
+        "350"
+      ]
+    ],
+    "boxTeams": [],
+    "recordFailures": 0,
+    "overlaps": 0,
+    "clipped": 0
+  },
+  {
+    "width": 320,
+    "view": "detail",
+    "index": 1,
+    "id": "qa-nhl-pp",
+    "sport": "NHL",
+    "state": "live",
+    "scoreboard": [
+      {
+        "name": "Detroit Red Wings",
+        "score": "2",
+        "logo": {
+          "x": 42.5,
+          "y": 162.09375,
+          "right": 82.5,
+          "bottom": 202.09375,
+          "width": 40,
+          "height": 40,
+          "centerY": 182.09375
+        },
+        "nameBox": {
+          "x": 25,
+          "y": 208.09375,
+          "right": 152,
+          "bottom": 226.09375,
+          "width": 127,
+          "height": 18,
+          "centerY": 217.09375
+        },
+        "record": {
+          "x": 25,
+          "y": 230.09375,
+          "right": 152,
+          "bottom": 244.390625,
+          "width": 127,
+          "height": 14.296875,
+          "centerY": 237.2421875
+        },
+        "scoreBox": {
+          "x": 104,
+          "y": 167.09375,
+          "right": 152,
+          "bottom": 197.09375,
+          "width": 48,
+          "height": 30,
+          "centerY": 182.09375
+        }
+      },
+      {
+        "name": "Tampa Bay Lightning",
+        "score": "3",
+        "logo": {
+          "x": 238,
+          "y": 162.09375,
+          "right": 278,
+          "bottom": 202.09375,
+          "width": 40,
+          "height": 40,
+          "centerY": 182.09375
+        },
+        "nameBox": {
+          "x": 169,
+          "y": 208.09375,
+          "right": 295,
+          "bottom": 226.09375,
+          "width": 126,
+          "height": 18,
+          "centerY": 217.09375
+        },
+        "record": {
+          "x": 169,
+          "y": 230.09375,
+          "right": 295,
+          "bottom": 244.390625,
+          "width": 126,
+          "height": 14.296875,
+          "centerY": 237.2421875
+        },
+        "scoreBox": {
+          "x": 169,
+          "y": 167.09375,
+          "right": 217,
+          "bottom": 197.09375,
+          "width": 48,
+          "height": 30,
+          "centerY": 182.09375
+        }
+      }
+    ],
+    "overflow": false,
+    "logosLoaded": true,
+    "stats": [
+      "DET",
+      "TB"
+    ],
+    "bars": [
+      [
+        "rgb(152, 0, 46)",
+        "rgb(29, 66, 138)"
+      ]
+    ],
+    "values": [
+      [
+        "21",
+        "Shots",
+        "30"
+      ]
+    ],
+    "boxTeams": [],
+    "recordFailures": 0,
+    "overlaps": 0,
+    "clipped": 0
+  },
+  {
+    "width": 320,
+    "view": "detail",
+    "index": 2,
+    "id": "qa-cfb-navy",
+    "sport": "CFB",
+    "state": "live",
+    "scoreboard": [
+      {
+        "name": "Penn State Nittany Lions",
+        "score": "24",
+        "logo": {
+          "x": 42.5,
+          "y": 162.09375,
+          "right": 82.5,
+          "bottom": 202.09375,
+          "width": 40,
+          "height": 40,
+          "centerY": 182.09375
+        },
+        "nameBox": {
+          "x": 25,
+          "y": 208.09375,
+          "right": 152,
+          "bottom": 244.09375,
+          "width": 127,
+          "height": 36,
+          "centerY": 226.09375
+        },
+        "record": {
+          "x": 25,
+          "y": 248.09375,
+          "right": 152,
+          "bottom": 262.390625,
+          "width": 127,
+          "height": 14.296875,
+          "centerY": 255.2421875
+        },
+        "scoreBox": {
+          "x": 104,
+          "y": 167.09375,
+          "right": 152,
+          "bottom": 197.09375,
+          "width": 48,
+          "height": 30,
+          "centerY": 182.09375
+        }
+      },
+      {
+        "name": "Washington Huskies",
+        "score": "21",
+        "logo": {
+          "x": 238,
+          "y": 162.09375,
+          "right": 278,
+          "bottom": 202.09375,
+          "width": 40,
+          "height": 40,
+          "centerY": 182.09375
+        },
+        "nameBox": {
+          "x": 169,
+          "y": 208.09375,
+          "right": 295,
+          "bottom": 226.09375,
+          "width": 126,
+          "height": 18,
+          "centerY": 217.09375
+        },
+        "record": {
+          "x": 169,
+          "y": 248.09375,
+          "right": 295,
+          "bottom": 262.390625,
+          "width": 126,
+          "height": 14.296875,
+          "centerY": 255.2421875
+        },
+        "scoreBox": {
+          "x": 169,
+          "y": 167.09375,
+          "right": 217,
+          "bottom": 197.09375,
+          "width": 48,
+          "height": 30,
+          "centerY": 182.09375
+        }
+      }
+    ],
+    "overflow": false,
+    "logosLoaded": true,
+    "stats": [
+      "PSU",
+      "WASH"
+    ],
+    "bars": [
+      [
+        "rgb(152, 0, 46)",
+        "rgb(29, 66, 138)"
+      ]
+    ],
+    "values": [
+      [
+        "310",
+        "Total yards",
+        "350"
+      ]
+    ],
+    "boxTeams": [],
+    "recordFailures": 0,
+    "overlaps": 0,
+    "clipped": 0
+  },
+  {
+    "width": 320,
+    "view": "detail",
+    "index": 3,
+    "id": "qa-nba-black",
+    "sport": "NBA",
+    "state": "live",
+    "scoreboard": [
+      {
+        "name": "Brooklyn Nets",
+        "score": "102",
+        "logo": {
+          "x": 42.5,
+          "y": 162.09375,
+          "right": 82.5,
+          "bottom": 202.09375,
+          "width": 40,
+          "height": 40,
+          "centerY": 182.09375
+        },
+        "nameBox": {
+          "x": 25,
+          "y": 208.09375,
+          "right": 152,
+          "bottom": 226.09375,
+          "width": 127,
+          "height": 18,
+          "centerY": 217.09375
+        },
+        "record": {
+          "x": 25,
+          "y": 230.09375,
+          "right": 152,
+          "bottom": 244.390625,
+          "width": 127,
+          "height": 14.296875,
+          "centerY": 237.2421875
+        },
+        "scoreBox": {
+          "x": 104,
+          "y": 167.09375,
+          "right": 152,
+          "bottom": 197.09375,
+          "width": 48,
+          "height": 30,
+          "centerY": 182.09375
+        }
+      },
+      {
+        "name": "San Antonio Spurs",
+        "score": "101",
+        "logo": {
+          "x": 238,
+          "y": 162.09375,
+          "right": 278,
+          "bottom": 202.09375,
+          "width": 40,
+          "height": 40,
+          "centerY": 182.09375
+        },
+        "nameBox": {
+          "x": 169,
+          "y": 208.09375,
+          "right": 295,
+          "bottom": 226.09375,
+          "width": 126,
+          "height": 18,
+          "centerY": 217.09375
+        },
+        "record": {
+          "x": 169,
+          "y": 230.09375,
+          "right": 295,
+          "bottom": 244.390625,
+          "width": 126,
+          "height": 14.296875,
+          "centerY": 237.2421875
+        },
+        "scoreBox": {
+          "x": 169,
+          "y": 167.09375,
+          "right": 217,
+          "bottom": 197.09375,
+          "width": 48,
+          "height": 30,
+          "centerY": 182.09375
+        }
+      }
+    ],
+    "overflow": false,
+    "logosLoaded": true,
+    "stats": [
+      "BKN",
+      "SA"
+    ],
+    "bars": [
+      [
+        "rgb(152, 0, 46)",
+        "rgb(29, 66, 138)"
+      ]
+    ],
+    "values": [
+      [
+        "38",
+        "Rebounds",
+        "44"
+      ]
+    ],
+    "boxTeams": [
+      "Brooklyn Nets",
+      "Brooklyn Nets",
+      "San Antonio Spurs"
+    ],
+    "recordFailures": 0,
+    "overlaps": 0,
+    "clipped": 0
+  },
+  {
+    "width": 320,
+    "view": "detail",
+    "index": 4,
+    "id": "qa-mlb-navy",
+    "sport": "MLB",
+    "state": "live",
+    "scoreboard": [
+      {
+        "name": "New York Yankees",
+        "score": "3",
+        "logo": {
+          "x": 42.5,
+          "y": 139.484375,
+          "right": 82.5,
+          "bottom": 179.484375,
+          "width": 40,
+          "height": 40,
+          "centerY": 159.484375
+        },
+        "nameBox": {
+          "x": 25,
+          "y": 185.484375,
+          "right": 152,
+          "bottom": 203.484375,
+          "width": 127,
+          "height": 18,
+          "centerY": 194.484375
+        },
+        "record": {
+          "x": 25,
+          "y": 207.484375,
+          "right": 152,
+          "bottom": 221.78125,
+          "width": 127,
+          "height": 14.296875,
+          "centerY": 214.6328125
+        },
+        "scoreBox": {
+          "x": 104,
+          "y": 144.484375,
+          "right": 152,
+          "bottom": 174.484375,
+          "width": 48,
+          "height": 30,
+          "centerY": 159.484375
+        }
+      },
+      {
+        "name": "Chicago White Sox",
+        "score": "3",
+        "logo": {
+          "x": 238,
+          "y": 139.484375,
+          "right": 278,
+          "bottom": 179.484375,
+          "width": 40,
+          "height": 40,
+          "centerY": 159.484375
+        },
+        "nameBox": {
+          "x": 169,
+          "y": 185.484375,
+          "right": 295,
+          "bottom": 203.484375,
+          "width": 126,
+          "height": 18,
+          "centerY": 194.484375
+        },
+        "record": {
+          "x": 169,
+          "y": 207.484375,
+          "right": 295,
+          "bottom": 221.78125,
+          "width": 126,
+          "height": 14.296875,
+          "centerY": 214.6328125
+        },
+        "scoreBox": {
+          "x": 169,
+          "y": 144.484375,
+          "right": 217,
+          "bottom": 174.484375,
+          "width": 48,
+          "height": 30,
+          "centerY": 159.484375
+        }
+      }
+    ],
+    "overflow": false,
+    "logosLoaded": true,
+    "stats": [
+      "NYY",
+      "CHW"
+    ],
+    "bars": [
+      [
+        "rgb(152, 0, 46)",
+        "rgb(29, 66, 138)"
+      ]
+    ],
+    "values": [
+      [
+        "3",
+        "Runs",
+        "4"
+      ]
+    ],
+    "boxTeams": [],
+    "recordFailures": 0,
+    "overlaps": 0,
+    "clipped": 0
+  },
+  {
+    "width": 320,
+    "view": "detail",
+    "index": 5,
+    "id": "qa-ncaam-shapes",
+    "sport": "NCAAB",
+    "state": "live",
+    "scoreboard": [
+      {
+        "name": "Wofford Terriers",
+        "score": "65",
+        "logo": {
+          "x": 42.5,
+          "y": 162.09375,
+          "right": 82.5,
+          "bottom": 202.09375,
+          "width": 40,
+          "height": 40,
+          "centerY": 182.09375
+        },
+        "nameBox": {
+          "x": 25,
+          "y": 208.09375,
+          "right": 152,
+          "bottom": 226.09375,
+          "width": 127,
+          "height": 18,
+          "centerY": 217.09375
+        },
+        "record": {
+          "x": 25,
+          "y": 230.09375,
+          "right": 152,
+          "bottom": 244.390625,
+          "width": 127,
+          "height": 14.296875,
+          "centerY": 237.2421875
+        },
+        "scoreBox": {
+          "x": 104,
+          "y": 167.09375,
+          "right": 152,
+          "bottom": 197.09375,
+          "width": 48,
+          "height": 30,
+          "centerY": 182.09375
+        }
+      },
+      {
+        "name": "Tennessee Volunteers",
+        "score": "65",
+        "logo": {
+          "x": 238,
+          "y": 162.09375,
+          "right": 278,
+          "bottom": 202.09375,
+          "width": 40,
+          "height": 40,
+          "centerY": 182.09375
+        },
+        "nameBox": {
+          "x": 169,
+          "y": 208.09375,
+          "right": 295,
+          "bottom": 226.09375,
+          "width": 126,
+          "height": 18,
+          "centerY": 217.09375
+        },
+        "record": {
+          "x": 169,
+          "y": 230.09375,
+          "right": 295,
+          "bottom": 244.390625,
+          "width": 126,
+          "height": 14.296875,
+          "centerY": 237.2421875
+        },
+        "scoreBox": {
+          "x": 169,
+          "y": 167.09375,
+          "right": 217,
+          "bottom": 197.09375,
+          "width": 48,
+          "height": 30,
+          "centerY": 182.09375
+        }
+      }
+    ],
+    "overflow": false,
+    "logosLoaded": true,
+    "stats": [
+      "WOF",
+      "TENN"
+    ],
+    "bars": [
+      [
+        "rgb(152, 0, 46)",
+        "rgb(29, 66, 138)"
+      ]
+    ],
+    "values": [
+      [
+        "38",
+        "Rebounds",
+        "44"
+      ]
+    ],
+    "boxTeams": [
+      "Wofford Terriers",
+      "Wofford Terriers",
+      "Tennessee Volunteers"
+    ],
+    "recordFailures": 0,
+    "overlaps": 0,
+    "clipped": 0
+  },
+  {
+    "width": 320,
+    "view": "detail",
+    "index": 6,
+    "id": "qa-cfb-red",
+    "sport": "CFB",
+    "state": "live",
+    "scoreboard": [
+      {
+        "name": "South Carolina Gamecocks",
+        "score": "10",
+        "logo": {
+          "x": 42.5,
+          "y": 162.09375,
+          "right": 82.5,
+          "bottom": 202.09375,
+          "width": 40,
+          "height": 40,
+          "centerY": 182.09375
+        },
+        "nameBox": {
+          "x": 25,
+          "y": 208.09375,
+          "right": 152,
+          "bottom": 244.09375,
+          "width": 127,
+          "height": 36,
+          "centerY": 226.09375
+        },
+        "record": {
+          "x": 25,
+          "y": 248.09375,
+          "right": 152,
+          "bottom": 262.390625,
+          "width": 127,
+          "height": 14.296875,
+          "centerY": 255.2421875
+        },
+        "scoreBox": {
+          "x": 104,
+          "y": 167.09375,
+          "right": 152,
+          "bottom": 197.09375,
+          "width": 48,
+          "height": 30,
+          "centerY": 182.09375
+        }
+      },
+      {
+        "name": "Alabama Crimson Tide",
+        "score": "14",
+        "logo": {
+          "x": 238,
+          "y": 162.09375,
+          "right": 278,
+          "bottom": 202.09375,
+          "width": 40,
+          "height": 40,
+          "centerY": 182.09375
+        },
+        "nameBox": {
+          "x": 169,
+          "y": 208.09375,
+          "right": 295,
+          "bottom": 226.09375,
+          "width": 126,
+          "height": 18,
+          "centerY": 217.09375
+        },
+        "record": {
+          "x": 169,
+          "y": 248.09375,
+          "right": 295,
+          "bottom": 262.390625,
+          "width": 126,
+          "height": 14.296875,
+          "centerY": 255.2421875
+        },
+        "scoreBox": {
+          "x": 169,
+          "y": 167.09375,
+          "right": 217,
+          "bottom": 197.09375,
+          "width": 48,
+          "height": 30,
+          "centerY": 182.09375
+        }
+      }
+    ],
+    "overflow": false,
+    "logosLoaded": true,
+    "stats": [
+      "SC",
+      "ALA"
+    ],
+    "bars": [
+      [
+        "rgb(152, 0, 46)",
+        "rgb(29, 66, 138)"
+      ]
+    ],
+    "values": [
+      [
+        "310",
+        "Total yards",
+        "350"
+      ]
+    ],
+    "boxTeams": [],
+    "recordFailures": 0,
+    "overlaps": 0,
+    "clipped": 0
+  },
+  {
+    "width": 320,
+    "view": "detail",
+    "index": 7,
+    "id": "qa-cfb-black",
+    "sport": "CFB",
+    "state": "live",
+    "scoreboard": [
+      {
+        "name": "Purdue Boilermakers",
+        "score": "7",
+        "logo": {
+          "x": 42.5,
+          "y": 162.09375,
+          "right": 82.5,
+          "bottom": 202.09375,
+          "width": 40,
+          "height": 40,
+          "centerY": 182.09375
+        },
+        "nameBox": {
+          "x": 25,
+          "y": 208.09375,
+          "right": 152,
+          "bottom": 226.09375,
+          "width": 127,
+          "height": 18,
+          "centerY": 217.09375
+        },
+        "record": {
+          "x": 25,
+          "y": 248.09375,
+          "right": 152,
+          "bottom": 262.390625,
+          "width": 127,
+          "height": 14.296875,
+          "centerY": 255.2421875
+        },
+        "scoreBox": {
+          "x": 104,
+          "y": 167.09375,
+          "right": 152,
+          "bottom": 197.09375,
+          "width": 48,
+          "height": 30,
+          "centerY": 182.09375
+        }
+      },
+      {
+        "name": "Vanderbilt Commodores",
+        "score": "10",
+        "logo": {
+          "x": 238,
+          "y": 162.09375,
+          "right": 278,
+          "bottom": 202.09375,
+          "width": 40,
+          "height": 40,
+          "centerY": 182.09375
+        },
+        "nameBox": {
+          "x": 169,
+          "y": 208.09375,
+          "right": 295,
+          "bottom": 244.09375,
+          "width": 126,
+          "height": 36,
+          "centerY": 226.09375
+        },
+        "record": {
+          "x": 169,
+          "y": 248.09375,
+          "right": 295,
+          "bottom": 262.390625,
+          "width": 126,
+          "height": 14.296875,
+          "centerY": 255.2421875
+        },
+        "scoreBox": {
+          "x": 169,
+          "y": 167.09375,
+          "right": 217,
+          "bottom": 197.09375,
+          "width": 48,
+          "height": 30,
+          "centerY": 182.09375
+        }
+      }
+    ],
+    "overflow": false,
+    "logosLoaded": true,
+    "stats": [
+      "PUR",
+      "VAN"
+    ],
+    "bars": [
+      [
+        "rgb(152, 0, 46)",
+        "rgb(29, 66, 138)"
+      ]
+    ],
+    "values": [
+      [
+        "310",
+        "Total yards",
+        "350"
+      ]
+    ],
+    "boxTeams": [],
+    "recordFailures": 0,
+    "overlaps": 0,
+    "clipped": 0
+  },
+  {
+    "width": 320,
+    "view": "detail",
+    "index": 8,
+    "id": "qa-nhl-final",
+    "sport": "NHL",
+    "state": "completed",
+    "scoreboard": [
+      {
+        "name": "Los Angeles Kings",
+        "score": "3",
+        "logo": {
+          "x": 42.5,
+          "y": 139.484375,
+          "right": 82.5,
+          "bottom": 179.484375,
+          "width": 40,
+          "height": 40,
+          "centerY": 159.484375
+        },
+        "nameBox": {
+          "x": 25,
+          "y": 185.484375,
+          "right": 152,
+          "bottom": 203.484375,
+          "width": 127,
+          "height": 18,
+          "centerY": 194.484375
+        },
+        "record": {
+          "x": 25,
+          "y": 207.484375,
+          "right": 152,
+          "bottom": 221.78125,
+          "width": 127,
+          "height": 14.296875,
+          "centerY": 214.6328125
+        },
+        "scoreBox": {
+          "x": 104,
+          "y": 144.484375,
+          "right": 152,
+          "bottom": 174.484375,
+          "width": 48,
+          "height": 30,
+          "centerY": 159.484375
+        }
+      },
+      {
+        "name": "Boston Bruins",
+        "score": "2",
+        "logo": {
+          "x": 238,
+          "y": 139.484375,
+          "right": 278,
+          "bottom": 179.484375,
+          "width": 40,
+          "height": 40,
+          "centerY": 159.484375
+        },
+        "nameBox": {
+          "x": 169,
+          "y": 185.484375,
+          "right": 295,
+          "bottom": 203.484375,
+          "width": 126,
+          "height": 18,
+          "centerY": 194.484375
+        },
+        "record": {
+          "x": 169,
+          "y": 207.484375,
+          "right": 295,
+          "bottom": 221.78125,
+          "width": 126,
+          "height": 14.296875,
+          "centerY": 214.6328125
+        },
+        "scoreBox": {
+          "x": 169,
+          "y": 144.484375,
+          "right": 217,
+          "bottom": 174.484375,
+          "width": 48,
+          "height": 30,
+          "centerY": 159.484375
+        }
+      }
+    ],
+    "overflow": false,
+    "logosLoaded": true,
+    "stats": [
+      "LA",
+      "BOS"
+    ],
+    "bars": [
+      [
+        "rgb(152, 0, 46)",
+        "rgb(29, 66, 138)"
+      ]
+    ],
+    "values": [
+      [
+        "21",
+        "Shots",
+        "30"
+      ]
+    ],
+    "boxTeams": [],
+    "recordFailures": 0,
+    "overlaps": 0,
+    "clipped": 0
+  },
+  {
+    "width": 320,
+    "view": "detail",
+    "index": 9,
+    "id": "qa-nba-pending",
+    "sport": "NBA",
+    "state": "live",
+    "scoreboard": [
+      {
+        "name": "Brooklyn Nets",
+        "score": "53",
+        "logo": {
+          "x": 42.5,
+          "y": 139.484375,
+          "right": 82.5,
+          "bottom": 179.484375,
+          "width": 40,
+          "height": 40,
+          "centerY": 159.484375
+        },
+        "nameBox": {
+          "x": 25,
+          "y": 185.484375,
+          "right": 152,
+          "bottom": 203.484375,
+          "width": 127,
+          "height": 18,
+          "centerY": 194.484375
+        },
+        "record": {
+          "x": 25,
+          "y": 207.484375,
+          "right": 152,
+          "bottom": 221.78125,
+          "width": 127,
+          "height": 14.296875,
+          "centerY": 214.6328125
+        },
+        "scoreBox": {
+          "x": 104,
+          "y": 144.484375,
+          "right": 152,
+          "bottom": 174.484375,
+          "width": 48,
+          "height": 30,
+          "centerY": 159.484375
+        }
+      },
+      {
+        "name": "New York Knicks",
+        "score": "49",
+        "logo": {
+          "x": 238,
+          "y": 139.484375,
+          "right": 278,
+          "bottom": 179.484375,
+          "width": 40,
+          "height": 40,
+          "centerY": 159.484375
+        },
+        "nameBox": {
+          "x": 169,
+          "y": 185.484375,
+          "right": 295,
+          "bottom": 203.484375,
+          "width": 126,
+          "height": 18,
+          "centerY": 194.484375
+        },
+        "record": {
+          "x": 169,
+          "y": 207.484375,
+          "right": 295,
+          "bottom": 221.78125,
+          "width": 126,
+          "height": 14.296875,
+          "centerY": 214.6328125
+        },
+        "scoreBox": {
+          "x": 169,
+          "y": 144.484375,
+          "right": 217,
+          "bottom": 174.484375,
+          "width": 48,
+          "height": 30,
+          "centerY": 159.484375
+        }
+      }
+    ],
+    "overflow": false,
+    "logosLoaded": true,
+    "stats": [
+      "BKN",
+      "NY"
+    ],
+    "bars": [
+      [
+        "rgb(152, 0, 46)",
+        "rgb(29, 66, 138)"
+      ]
+    ],
+    "values": [
+      [
+        "38",
+        "Rebounds",
+        "44"
+      ]
+    ],
+    "boxTeams": [
+      "Brooklyn Nets",
+      "Brooklyn Nets",
+      "New York Knicks"
+    ],
+    "recordFailures": 0,
+    "overlaps": 0,
+    "clipped": 0
+  },
+  {
+    "width": 320,
+    "view": "detail",
+    "index": 10,
+    "id": "qa-ncaam-upcoming",
+    "sport": "NCAAB",
+    "state": "upcoming",
+    "scoreboard": [
+      {
+        "name": "Texas A&M-Corpus Christi Islanders",
+        "score": "",
+        "logo": {
+          "x": 42.5,
+          "y": 139.484375,
+          "right": 82.5,
+          "bottom": 179.484375,
+          "width": 40,
+          "height": 40,
+          "centerY": 159.484375
+        },
+        "nameBox": {
+          "x": 25,
+          "y": 185.484375,
+          "right": 152,
+          "bottom": 221.484375,
+          "width": 127,
+          "height": 36,
+          "centerY": 203.484375
+        },
+        "record": {
+          "x": 25,
+          "y": 225.484375,
+          "right": 152,
+          "bottom": 239.78125,
+          "width": 127,
+          "height": 14.296875,
+          "centerY": 232.6328125
+        },
+        "scoreBox": {
+          "x": 104,
+          "y": 159.484375,
+          "right": 152,
+          "bottom": 159.484375,
+          "width": 48,
+          "height": 0,
+          "centerY": 159.484375
+        }
+      },
+      {
+        "name": "Kentucky Wildcats",
+        "score": "",
+        "logo": {
+          "x": 238,
+          "y": 139.484375,
+          "right": 278,
+          "bottom": 179.484375,
+          "width": 40,
+          "height": 40,
+          "centerY": 159.484375
+        },
+        "nameBox": {
+          "x": 169,
+          "y": 185.484375,
+          "right": 295,
+          "bottom": 203.484375,
+          "width": 126,
+          "height": 18,
+          "centerY": 194.484375
+        },
+        "record": {
+          "x": 169,
+          "y": 225.484375,
+          "right": 295,
+          "bottom": 239.78125,
+          "width": 126,
+          "height": 14.296875,
+          "centerY": 232.6328125
+        },
+        "scoreBox": {
+          "x": 169,
+          "y": 159.484375,
+          "right": 217,
+          "bottom": 159.484375,
+          "width": 48,
+          "height": 0,
+          "centerY": 159.484375
+        }
+      }
+    ],
+    "overflow": false,
+    "logosLoaded": true,
+    "stats": [],
+    "bars": [],
+    "values": [],
+    "boxTeams": [],
+    "recordFailures": 0,
+    "overlaps": 0,
+    "clipped": 0
+  },
+  {
+    "width": 320,
+    "view": "detail",
+    "index": 11,
+    "id": "qa-nhl-intermission",
+    "sport": "NHL",
+    "state": "live",
+    "scoreboard": [
+      {
+        "name": "Dallas Stars",
+        "score": "2",
+        "logo": {
+          "x": 42.5,
+          "y": 139.484375,
+          "right": 82.5,
+          "bottom": 179.484375,
+          "width": 40,
+          "height": 40,
+          "centerY": 159.484375
+        },
+        "nameBox": {
+          "x": 25,
+          "y": 185.484375,
+          "right": 152,
+          "bottom": 203.484375,
+          "width": 127,
+          "height": 18,
+          "centerY": 194.484375
+        },
+        "record": {
+          "x": 25,
+          "y": 207.484375,
+          "right": 152,
+          "bottom": 221.78125,
+          "width": 127,
+          "height": 14.296875,
+          "centerY": 214.6328125
+        },
+        "scoreBox": {
+          "x": 104,
+          "y": 144.484375,
+          "right": 152,
+          "bottom": 174.484375,
+          "width": 48,
+          "height": 30,
+          "centerY": 159.484375
+        }
+      },
+      {
+        "name": "Washington Capitals",
+        "score": "2",
+        "logo": {
+          "x": 238,
+          "y": 139.484375,
+          "right": 278,
+          "bottom": 179.484375,
+          "width": 40,
+          "height": 40,
+          "centerY": 159.484375
+        },
+        "nameBox": {
+          "x": 169,
+          "y": 185.484375,
+          "right": 295,
+          "bottom": 203.484375,
+          "width": 126,
+          "height": 18,
+          "centerY": 194.484375
+        },
+        "record": {
+          "x": 169,
+          "y": 207.484375,
+          "right": 295,
+          "bottom": 221.78125,
+          "width": 126,
+          "height": 14.296875,
+          "centerY": 214.6328125
+        },
+        "scoreBox": {
+          "x": 169,
+          "y": 144.484375,
+          "right": 217,
+          "bottom": 174.484375,
+          "width": 48,
+          "height": 30,
+          "centerY": 159.484375
+        }
+      }
+    ],
+    "overflow": false,
+    "logosLoaded": true,
+    "stats": [
+      "DAL",
+      "WSH"
+    ],
+    "bars": [
+      [
+        "rgb(152, 0, 46)",
+        "rgb(29, 66, 138)"
+      ]
+    ],
+    "values": [
+      [
+        "21",
+        "Shots",
+        "30"
+      ]
+    ],
+    "boxTeams": [],
+    "recordFailures": 0,
+    "overlaps": 0,
+    "clipped": 0
+  },
+  {
+    "width": 320,
+    "view": "detail",
+    "index": 12,
+    "id": "qa-heat-warriors",
+    "sport": "NBA",
+    "state": "completed",
+    "scoreboard": [
+      {
+        "name": "Miami Heat",
+        "score": "120",
+        "logo": {
+          "x": 42.5,
+          "y": 139.484375,
+          "right": 82.5,
+          "bottom": 179.484375,
+          "width": 40,
+          "height": 40,
+          "centerY": 159.484375
+        },
+        "nameBox": {
+          "x": 25,
+          "y": 185.484375,
+          "right": 152,
+          "bottom": 203.484375,
+          "width": 127,
+          "height": 18,
+          "centerY": 194.484375
+        },
+        "record": {
+          "x": 25,
+          "y": 207.484375,
+          "right": 152,
+          "bottom": 221.78125,
+          "width": 127,
+          "height": 14.296875,
+          "centerY": 214.6328125
+        },
+        "scoreBox": {
+          "x": 104,
+          "y": 144.484375,
+          "right": 152,
+          "bottom": 174.484375,
+          "width": 48,
+          "height": 30,
+          "centerY": 159.484375
+        }
+      },
+      {
+        "name": "Golden State Warriors",
+        "score": "115",
+        "logo": {
+          "x": 238,
+          "y": 139.484375,
+          "right": 278,
+          "bottom": 179.484375,
+          "width": 40,
+          "height": 40,
+          "centerY": 159.484375
+        },
+        "nameBox": {
+          "x": 169,
+          "y": 185.484375,
+          "right": 295,
+          "bottom": 203.484375,
+          "width": 126,
+          "height": 18,
+          "centerY": 194.484375
+        },
+        "record": {
+          "x": 169,
+          "y": 207.484375,
+          "right": 295,
+          "bottom": 221.78125,
+          "width": 126,
+          "height": 14.296875,
+          "centerY": 214.6328125
+        },
+        "scoreBox": {
+          "x": 169,
+          "y": 144.484375,
+          "right": 217,
+          "bottom": 174.484375,
+          "width": 48,
+          "height": 30,
+          "centerY": 159.484375
+        }
+      }
+    ],
+    "overflow": false,
+    "logosLoaded": true,
+    "stats": [
+      "MIA",
+      "GS"
+    ],
+    "bars": [
+      [
+        "rgb(152, 0, 46)",
+        "rgb(29, 66, 138)"
+      ]
+    ],
+    "values": [
+      [
+        "38",
+        "Rebounds",
+        "44"
+      ]
+    ],
+    "boxTeams": [
+      "Miami Heat",
+      "Miami Heat",
+      "Golden State Warriors"
+    ],
+    "recordFailures": 0,
+    "overlaps": 0,
+    "clipped": 0
+  },
+  {
+    "width": 320,
+    "view": "detail",
+    "index": 13,
+    "id": "qa-two-long-names",
+    "sport": "CFB",
+    "state": "completed",
+    "scoreboard": [
+      {
+        "name": "South Carolina Gamecocks",
+        "score": "9",
+        "logo": {
+          "x": 42.5,
+          "y": 139.484375,
+          "right": 82.5,
+          "bottom": 179.484375,
+          "width": 40,
+          "height": 40,
+          "centerY": 159.484375
+        },
+        "nameBox": {
+          "x": 25,
+          "y": 185.484375,
+          "right": 152,
+          "bottom": 221.484375,
+          "width": 127,
+          "height": 36,
+          "centerY": 203.484375
+        },
+        "record": {
+          "x": 25,
+          "y": 225.484375,
+          "right": 152,
+          "bottom": 239.78125,
+          "width": 127,
+          "height": 14.296875,
+          "centerY": 232.6328125
+        },
+        "scoreBox": {
+          "x": 104,
+          "y": 144.484375,
+          "right": 152,
+          "bottom": 174.484375,
+          "width": 48,
+          "height": 30,
+          "centerY": 159.484375
+        }
+      },
+      {
+        "name": "Penn State Nittany Lions",
+        "score": "10",
+        "logo": {
+          "x": 238,
+          "y": 139.484375,
+          "right": 278,
+          "bottom": 179.484375,
+          "width": 40,
+          "height": 40,
+          "centerY": 159.484375
+        },
+        "nameBox": {
+          "x": 169,
+          "y": 185.484375,
+          "right": 295,
+          "bottom": 221.484375,
+          "width": 126,
+          "height": 36,
+          "centerY": 203.484375
+        },
+        "record": {
+          "x": 169,
+          "y": 225.484375,
+          "right": 295,
+          "bottom": 239.78125,
+          "width": 126,
+          "height": 14.296875,
+          "centerY": 232.6328125
+        },
+        "scoreBox": {
+          "x": 169,
+          "y": 144.484375,
+          "right": 217,
+          "bottom": 174.484375,
+          "width": 48,
+          "height": 30,
+          "centerY": 159.484375
+        }
+      }
+    ],
+    "overflow": false,
+    "logosLoaded": true,
+    "stats": [
+      "SC",
+      "PSU"
+    ],
+    "bars": [
+      [
+        "rgb(152, 0, 46)",
+        "rgb(29, 66, 138)"
+      ]
+    ],
+    "values": [
+      [
+        "310",
+        "Total yards",
+        "350"
+      ]
+    ],
+    "boxTeams": [],
+    "recordFailures": 0,
+    "overlaps": 0,
+    "clipped": 0
+  },
+  {
+    "width": 320,
+    "view": "detail",
+    "index": 14,
+    "id": "qa-three-digit-swap",
+    "sport": "NBA",
+    "state": "live",
+    "scoreboard": [
+      {
+        "name": "Miami Heat",
+        "score": "100",
+        "logo": {
+          "x": 42.5,
+          "y": 162.09375,
+          "right": 82.5,
+          "bottom": 202.09375,
+          "width": 40,
+          "height": 40,
+          "centerY": 182.09375
+        },
+        "nameBox": {
+          "x": 25,
+          "y": 208.09375,
+          "right": 152,
+          "bottom": 226.09375,
+          "width": 127,
+          "height": 18,
+          "centerY": 217.09375
+        },
+        "record": {
+          "x": 25,
+          "y": 230.09375,
+          "right": 152,
+          "bottom": 244.390625,
+          "width": 127,
+          "height": 14.296875,
+          "centerY": 237.2421875
+        },
+        "scoreBox": {
+          "x": 104,
+          "y": 167.09375,
+          "right": 152,
+          "bottom": 197.09375,
+          "width": 48,
+          "height": 30,
+          "centerY": 182.09375
+        }
+      },
+      {
+        "name": "Golden State Warriors",
+        "score": "99",
+        "logo": {
+          "x": 238,
+          "y": 162.09375,
+          "right": 278,
+          "bottom": 202.09375,
+          "width": 40,
+          "height": 40,
+          "centerY": 182.09375
+        },
+        "nameBox": {
+          "x": 169,
+          "y": 208.09375,
+          "right": 295,
+          "bottom": 226.09375,
+          "width": 126,
+          "height": 18,
+          "centerY": 217.09375
+        },
+        "record": {
+          "x": 169,
+          "y": 230.09375,
+          "right": 295,
+          "bottom": 244.390625,
+          "width": 126,
+          "height": 14.296875,
+          "centerY": 237.2421875
+        },
+        "scoreBox": {
+          "x": 169,
+          "y": 167.09375,
+          "right": 217,
+          "bottom": 197.09375,
+          "width": 48,
+          "height": 30,
+          "centerY": 182.09375
+        }
+      }
+    ],
+    "overflow": false,
+    "logosLoaded": true,
+    "stats": [
+      "MIA",
+      "GS"
+    ],
+    "bars": [
+      [
+        "rgb(152, 0, 46)",
+        "rgb(29, 66, 138)"
+      ]
+    ],
+    "values": [
+      [
+        "38",
+        "Rebounds",
+        "44"
+      ]
+    ],
+    "boxTeams": [
+      "Miami Heat",
+      "Miami Heat",
+      "Golden State Warriors"
+    ],
+    "recordFailures": 0,
+    "overlaps": 0,
+    "clipped": 0
+  },
+  {
+    "width": 375,
+    "view": "cards",
+    "set": 0,
+    "logosLoaded": 8,
+    "logos": 8
+  },
+  {
+    "width": 375,
+    "view": "cards",
+    "set": 1,
+    "logosLoaded": 8,
+    "logos": 8
+  },
+  {
+    "width": 375,
+    "view": "cards",
+    "set": 2,
+    "logosLoaded": 8,
+    "logos": 8
+  },
+  {
+    "width": 375,
+    "view": "cards",
+    "set": 3,
+    "logosLoaded": 6,
+    "logos": 6
+  },
+  {
+    "width": 375,
+    "view": "detail",
+    "index": 0,
+    "id": "qa-nfl-possession",
+    "sport": "NFL",
+    "state": "live",
+    "scoreboard": [
+      {
+        "name": "Las Vegas Raiders",
+        "score": "24",
+        "logo": {
+          "x": 56.25,
+          "y": 162.09375,
+          "right": 96.25,
+          "bottom": 202.09375,
+          "width": 40,
+          "height": 40,
+          "centerY": 182.09375
+        },
+        "nameBox": {
+          "x": 25,
+          "y": 208.09375,
+          "right": 179.5,
+          "bottom": 226.09375,
+          "width": 154.5,
+          "height": 18,
+          "centerY": 217.09375
+        },
+        "record": {
+          "x": 25,
+          "y": 230.09375,
+          "right": 179.5,
+          "bottom": 244.390625,
+          "width": 154.5,
+          "height": 14.296875,
+          "centerY": 237.2421875
+        },
+        "scoreBox": {
+          "x": 131.5,
+          "y": 167.09375,
+          "right": 179.5,
+          "bottom": 197.09375,
+          "width": 48,
+          "height": 30,
+          "centerY": 182.09375
+        }
+      },
+      {
+        "name": "Baltimore Ravens",
+        "score": "21",
+        "logo": {
+          "x": 279.25,
+          "y": 162.09375,
+          "right": 319.25,
+          "bottom": 202.09375,
+          "width": 40,
+          "height": 40,
+          "centerY": 182.09375
+        },
+        "nameBox": {
+          "x": 196.5,
+          "y": 208.09375,
+          "right": 350,
+          "bottom": 226.09375,
+          "width": 153.5,
+          "height": 18,
+          "centerY": 217.09375
+        },
+        "record": {
+          "x": 196.5,
+          "y": 230.09375,
+          "right": 350,
+          "bottom": 244.390625,
+          "width": 153.5,
+          "height": 14.296875,
+          "centerY": 237.2421875
+        },
+        "scoreBox": {
+          "x": 196.5,
+          "y": 167.09375,
+          "right": 244.5,
+          "bottom": 197.09375,
+          "width": 48,
+          "height": 30,
+          "centerY": 182.09375
+        }
+      }
+    ],
+    "overflow": false,
+    "logosLoaded": true,
+    "stats": [
+      "LV",
+      "BAL"
+    ],
+    "bars": [
+      [
+        "rgb(152, 0, 46)",
+        "rgb(29, 66, 138)"
+      ]
+    ],
+    "values": [
+      [
+        "310",
+        "Total yards",
+        "350"
+      ]
+    ],
+    "boxTeams": [],
+    "recordFailures": 0,
+    "overlaps": 0,
+    "clipped": 0
+  },
+  {
+    "width": 375,
+    "view": "detail",
+    "index": 1,
+    "id": "qa-nhl-pp",
+    "sport": "NHL",
+    "state": "live",
+    "scoreboard": [
+      {
+        "name": "Detroit Red Wings",
+        "score": "2",
+        "logo": {
+          "x": 56.25,
+          "y": 162.09375,
+          "right": 96.25,
+          "bottom": 202.09375,
+          "width": 40,
+          "height": 40,
+          "centerY": 182.09375
+        },
+        "nameBox": {
+          "x": 25,
+          "y": 208.09375,
+          "right": 179.5,
+          "bottom": 226.09375,
+          "width": 154.5,
+          "height": 18,
+          "centerY": 217.09375
+        },
+        "record": {
+          "x": 25,
+          "y": 230.09375,
+          "right": 179.5,
+          "bottom": 244.390625,
+          "width": 154.5,
+          "height": 14.296875,
+          "centerY": 237.2421875
+        },
+        "scoreBox": {
+          "x": 131.5,
+          "y": 167.09375,
+          "right": 179.5,
+          "bottom": 197.09375,
+          "width": 48,
+          "height": 30,
+          "centerY": 182.09375
+        }
+      },
+      {
+        "name": "Tampa Bay Lightning",
+        "score": "3",
+        "logo": {
+          "x": 279.25,
+          "y": 162.09375,
+          "right": 319.25,
+          "bottom": 202.09375,
+          "width": 40,
+          "height": 40,
+          "centerY": 182.09375
+        },
+        "nameBox": {
+          "x": 196.5,
+          "y": 208.09375,
+          "right": 350,
+          "bottom": 226.09375,
+          "width": 153.5,
+          "height": 18,
+          "centerY": 217.09375
+        },
+        "record": {
+          "x": 196.5,
+          "y": 230.09375,
+          "right": 350,
+          "bottom": 244.390625,
+          "width": 153.5,
+          "height": 14.296875,
+          "centerY": 237.2421875
+        },
+        "scoreBox": {
+          "x": 196.5,
+          "y": 167.09375,
+          "right": 244.5,
+          "bottom": 197.09375,
+          "width": 48,
+          "height": 30,
+          "centerY": 182.09375
+        }
+      }
+    ],
+    "overflow": false,
+    "logosLoaded": true,
+    "stats": [
+      "DET",
+      "TB"
+    ],
+    "bars": [
+      [
+        "rgb(152, 0, 46)",
+        "rgb(29, 66, 138)"
+      ]
+    ],
+    "values": [
+      [
+        "21",
+        "Shots",
+        "30"
+      ]
+    ],
+    "boxTeams": [],
+    "recordFailures": 0,
+    "overlaps": 0,
+    "clipped": 0
+  },
+  {
+    "width": 375,
+    "view": "detail",
+    "index": 2,
+    "id": "qa-cfb-navy",
+    "sport": "CFB",
+    "state": "live",
+    "scoreboard": [
+      {
+        "name": "Penn State Nittany Lions",
+        "score": "24",
+        "logo": {
+          "x": 56.25,
+          "y": 162.09375,
+          "right": 96.25,
+          "bottom": 202.09375,
+          "width": 40,
+          "height": 40,
+          "centerY": 182.09375
+        },
+        "nameBox": {
+          "x": 25,
+          "y": 208.09375,
+          "right": 179.5,
+          "bottom": 226.09375,
+          "width": 154.5,
+          "height": 18,
+          "centerY": 217.09375
+        },
+        "record": {
+          "x": 25,
+          "y": 230.09375,
+          "right": 179.5,
+          "bottom": 244.390625,
+          "width": 154.5,
+          "height": 14.296875,
+          "centerY": 237.2421875
+        },
+        "scoreBox": {
+          "x": 131.5,
+          "y": 167.09375,
+          "right": 179.5,
+          "bottom": 197.09375,
+          "width": 48,
+          "height": 30,
+          "centerY": 182.09375
+        }
+      },
+      {
+        "name": "Washington Huskies",
+        "score": "21",
+        "logo": {
+          "x": 279.25,
+          "y": 162.09375,
+          "right": 319.25,
+          "bottom": 202.09375,
+          "width": 40,
+          "height": 40,
+          "centerY": 182.09375
+        },
+        "nameBox": {
+          "x": 196.5,
+          "y": 208.09375,
+          "right": 350,
+          "bottom": 226.09375,
+          "width": 153.5,
+          "height": 18,
+          "centerY": 217.09375
+        },
+        "record": {
+          "x": 196.5,
+          "y": 230.09375,
+          "right": 350,
+          "bottom": 244.390625,
+          "width": 153.5,
+          "height": 14.296875,
+          "centerY": 237.2421875
+        },
+        "scoreBox": {
+          "x": 196.5,
+          "y": 167.09375,
+          "right": 244.5,
+          "bottom": 197.09375,
+          "width": 48,
+          "height": 30,
+          "centerY": 182.09375
+        }
+      }
+    ],
+    "overflow": false,
+    "logosLoaded": true,
+    "stats": [
+      "PSU",
+      "WASH"
+    ],
+    "bars": [
+      [
+        "rgb(152, 0, 46)",
+        "rgb(29, 66, 138)"
+      ]
+    ],
+    "values": [
+      [
+        "310",
+        "Total yards",
+        "350"
+      ]
+    ],
+    "boxTeams": [],
+    "recordFailures": 0,
+    "overlaps": 0,
+    "clipped": 0
+  },
+  {
+    "width": 375,
+    "view": "detail",
+    "index": 3,
+    "id": "qa-nba-black",
+    "sport": "NBA",
+    "state": "live",
+    "scoreboard": [
+      {
+        "name": "Brooklyn Nets",
+        "score": "102",
+        "logo": {
+          "x": 56.25,
+          "y": 162.09375,
+          "right": 96.25,
+          "bottom": 202.09375,
+          "width": 40,
+          "height": 40,
+          "centerY": 182.09375
+        },
+        "nameBox": {
+          "x": 25,
+          "y": 208.09375,
+          "right": 179.5,
+          "bottom": 226.09375,
+          "width": 154.5,
+          "height": 18,
+          "centerY": 217.09375
+        },
+        "record": {
+          "x": 25,
+          "y": 230.09375,
+          "right": 179.5,
+          "bottom": 244.390625,
+          "width": 154.5,
+          "height": 14.296875,
+          "centerY": 237.2421875
+        },
+        "scoreBox": {
+          "x": 131.5,
+          "y": 167.09375,
+          "right": 179.5,
+          "bottom": 197.09375,
+          "width": 48,
+          "height": 30,
+          "centerY": 182.09375
+        }
+      },
+      {
+        "name": "San Antonio Spurs",
+        "score": "101",
+        "logo": {
+          "x": 279.25,
+          "y": 162.09375,
+          "right": 319.25,
+          "bottom": 202.09375,
+          "width": 40,
+          "height": 40,
+          "centerY": 182.09375
+        },
+        "nameBox": {
+          "x": 196.5,
+          "y": 208.09375,
+          "right": 350,
+          "bottom": 226.09375,
+          "width": 153.5,
+          "height": 18,
+          "centerY": 217.09375
+        },
+        "record": {
+          "x": 196.5,
+          "y": 230.09375,
+          "right": 350,
+          "bottom": 244.390625,
+          "width": 153.5,
+          "height": 14.296875,
+          "centerY": 237.2421875
+        },
+        "scoreBox": {
+          "x": 196.5,
+          "y": 167.09375,
+          "right": 244.5,
+          "bottom": 197.09375,
+          "width": 48,
+          "height": 30,
+          "centerY": 182.09375
+        }
+      }
+    ],
+    "overflow": false,
+    "logosLoaded": true,
+    "stats": [
+      "BKN",
+      "SA"
+    ],
+    "bars": [
+      [
+        "rgb(152, 0, 46)",
+        "rgb(29, 66, 138)"
+      ]
+    ],
+    "values": [
+      [
+        "38",
+        "Rebounds",
+        "44"
+      ]
+    ],
+    "boxTeams": [
+      "Brooklyn Nets",
+      "Brooklyn Nets",
+      "San Antonio Spurs"
+    ],
+    "recordFailures": 0,
+    "overlaps": 0,
+    "clipped": 0
+  },
+  {
+    "width": 375,
+    "view": "detail",
+    "index": 4,
+    "id": "qa-mlb-navy",
+    "sport": "MLB",
+    "state": "live",
+    "scoreboard": [
+      {
+        "name": "New York Yankees",
+        "score": "3",
+        "logo": {
+          "x": 56.25,
+          "y": 139.484375,
+          "right": 96.25,
+          "bottom": 179.484375,
+          "width": 40,
+          "height": 40,
+          "centerY": 159.484375
+        },
+        "nameBox": {
+          "x": 25,
+          "y": 185.484375,
+          "right": 179.5,
+          "bottom": 203.484375,
+          "width": 154.5,
+          "height": 18,
+          "centerY": 194.484375
+        },
+        "record": {
+          "x": 25,
+          "y": 207.484375,
+          "right": 179.5,
+          "bottom": 221.78125,
+          "width": 154.5,
+          "height": 14.296875,
+          "centerY": 214.6328125
+        },
+        "scoreBox": {
+          "x": 131.5,
+          "y": 144.484375,
+          "right": 179.5,
+          "bottom": 174.484375,
+          "width": 48,
+          "height": 30,
+          "centerY": 159.484375
+        }
+      },
+      {
+        "name": "Chicago White Sox",
+        "score": "3",
+        "logo": {
+          "x": 279.25,
+          "y": 139.484375,
+          "right": 319.25,
+          "bottom": 179.484375,
+          "width": 40,
+          "height": 40,
+          "centerY": 159.484375
+        },
+        "nameBox": {
+          "x": 196.5,
+          "y": 185.484375,
+          "right": 350,
+          "bottom": 203.484375,
+          "width": 153.5,
+          "height": 18,
+          "centerY": 194.484375
+        },
+        "record": {
+          "x": 196.5,
+          "y": 207.484375,
+          "right": 350,
+          "bottom": 221.78125,
+          "width": 153.5,
+          "height": 14.296875,
+          "centerY": 214.6328125
+        },
+        "scoreBox": {
+          "x": 196.5,
+          "y": 144.484375,
+          "right": 244.5,
+          "bottom": 174.484375,
+          "width": 48,
+          "height": 30,
+          "centerY": 159.484375
+        }
+      }
+    ],
+    "overflow": false,
+    "logosLoaded": true,
+    "stats": [
+      "NYY",
+      "CHW"
+    ],
+    "bars": [
+      [
+        "rgb(152, 0, 46)",
+        "rgb(29, 66, 138)"
+      ]
+    ],
+    "values": [
+      [
+        "3",
+        "Runs",
+        "4"
+      ]
+    ],
+    "boxTeams": [],
+    "recordFailures": 0,
+    "overlaps": 0,
+    "clipped": 0
+  },
+  {
+    "width": 375,
+    "view": "detail",
+    "index": 5,
+    "id": "qa-ncaam-shapes",
+    "sport": "NCAAB",
+    "state": "live",
+    "scoreboard": [
+      {
+        "name": "Wofford Terriers",
+        "score": "65",
+        "logo": {
+          "x": 56.25,
+          "y": 162.09375,
+          "right": 96.25,
+          "bottom": 202.09375,
+          "width": 40,
+          "height": 40,
+          "centerY": 182.09375
+        },
+        "nameBox": {
+          "x": 25,
+          "y": 208.09375,
+          "right": 179.5,
+          "bottom": 226.09375,
+          "width": 154.5,
+          "height": 18,
+          "centerY": 217.09375
+        },
+        "record": {
+          "x": 25,
+          "y": 230.09375,
+          "right": 179.5,
+          "bottom": 244.390625,
+          "width": 154.5,
+          "height": 14.296875,
+          "centerY": 237.2421875
+        },
+        "scoreBox": {
+          "x": 131.5,
+          "y": 167.09375,
+          "right": 179.5,
+          "bottom": 197.09375,
+          "width": 48,
+          "height": 30,
+          "centerY": 182.09375
+        }
+      },
+      {
+        "name": "Tennessee Volunteers",
+        "score": "65",
+        "logo": {
+          "x": 279.25,
+          "y": 162.09375,
+          "right": 319.25,
+          "bottom": 202.09375,
+          "width": 40,
+          "height": 40,
+          "centerY": 182.09375
+        },
+        "nameBox": {
+          "x": 196.5,
+          "y": 208.09375,
+          "right": 350,
+          "bottom": 226.09375,
+          "width": 153.5,
+          "height": 18,
+          "centerY": 217.09375
+        },
+        "record": {
+          "x": 196.5,
+          "y": 230.09375,
+          "right": 350,
+          "bottom": 244.390625,
+          "width": 153.5,
+          "height": 14.296875,
+          "centerY": 237.2421875
+        },
+        "scoreBox": {
+          "x": 196.5,
+          "y": 167.09375,
+          "right": 244.5,
+          "bottom": 197.09375,
+          "width": 48,
+          "height": 30,
+          "centerY": 182.09375
+        }
+      }
+    ],
+    "overflow": false,
+    "logosLoaded": true,
+    "stats": [
+      "WOF",
+      "TENN"
+    ],
+    "bars": [
+      [
+        "rgb(152, 0, 46)",
+        "rgb(29, 66, 138)"
+      ]
+    ],
+    "values": [
+      [
+        "38",
+        "Rebounds",
+        "44"
+      ]
+    ],
+    "boxTeams": [
+      "Wofford Terriers",
+      "Wofford Terriers",
+      "Tennessee Volunteers"
+    ],
+    "recordFailures": 0,
+    "overlaps": 0,
+    "clipped": 0
+  },
+  {
+    "width": 375,
+    "view": "detail",
+    "index": 6,
+    "id": "qa-cfb-red",
+    "sport": "CFB",
+    "state": "live",
+    "scoreboard": [
+      {
+        "name": "South Carolina Gamecocks",
+        "score": "10",
+        "logo": {
+          "x": 56.25,
+          "y": 162.09375,
+          "right": 96.25,
+          "bottom": 202.09375,
+          "width": 40,
+          "height": 40,
+          "centerY": 182.09375
+        },
+        "nameBox": {
+          "x": 25,
+          "y": 208.09375,
+          "right": 179.5,
+          "bottom": 226.09375,
+          "width": 154.5,
+          "height": 18,
+          "centerY": 217.09375
+        },
+        "record": {
+          "x": 25,
+          "y": 230.09375,
+          "right": 179.5,
+          "bottom": 244.390625,
+          "width": 154.5,
+          "height": 14.296875,
+          "centerY": 237.2421875
+        },
+        "scoreBox": {
+          "x": 131.5,
+          "y": 167.09375,
+          "right": 179.5,
+          "bottom": 197.09375,
+          "width": 48,
+          "height": 30,
+          "centerY": 182.09375
+        }
+      },
+      {
+        "name": "Alabama Crimson Tide",
+        "score": "14",
+        "logo": {
+          "x": 279.25,
+          "y": 162.09375,
+          "right": 319.25,
+          "bottom": 202.09375,
+          "width": 40,
+          "height": 40,
+          "centerY": 182.09375
+        },
+        "nameBox": {
+          "x": 196.5,
+          "y": 208.09375,
+          "right": 350,
+          "bottom": 226.09375,
+          "width": 153.5,
+          "height": 18,
+          "centerY": 217.09375
+        },
+        "record": {
+          "x": 196.5,
+          "y": 230.09375,
+          "right": 350,
+          "bottom": 244.390625,
+          "width": 153.5,
+          "height": 14.296875,
+          "centerY": 237.2421875
+        },
+        "scoreBox": {
+          "x": 196.5,
+          "y": 167.09375,
+          "right": 244.5,
+          "bottom": 197.09375,
+          "width": 48,
+          "height": 30,
+          "centerY": 182.09375
+        }
+      }
+    ],
+    "overflow": false,
+    "logosLoaded": true,
+    "stats": [
+      "SC",
+      "ALA"
+    ],
+    "bars": [
+      [
+        "rgb(152, 0, 46)",
+        "rgb(29, 66, 138)"
+      ]
+    ],
+    "values": [
+      [
+        "310",
+        "Total yards",
+        "350"
+      ]
+    ],
+    "boxTeams": [],
+    "recordFailures": 0,
+    "overlaps": 0,
+    "clipped": 0
+  },
+  {
+    "width": 375,
+    "view": "detail",
+    "index": 7,
+    "id": "qa-cfb-black",
+    "sport": "CFB",
+    "state": "live",
+    "scoreboard": [
+      {
+        "name": "Purdue Boilermakers",
+        "score": "7",
+        "logo": {
+          "x": 56.25,
+          "y": 162.09375,
+          "right": 96.25,
+          "bottom": 202.09375,
+          "width": 40,
+          "height": 40,
+          "centerY": 182.09375
+        },
+        "nameBox": {
+          "x": 25,
+          "y": 208.09375,
+          "right": 179.5,
+          "bottom": 226.09375,
+          "width": 154.5,
+          "height": 18,
+          "centerY": 217.09375
+        },
+        "record": {
+          "x": 25,
+          "y": 230.09375,
+          "right": 179.5,
+          "bottom": 244.390625,
+          "width": 154.5,
+          "height": 14.296875,
+          "centerY": 237.2421875
+        },
+        "scoreBox": {
+          "x": 131.5,
+          "y": 167.09375,
+          "right": 179.5,
+          "bottom": 197.09375,
+          "width": 48,
+          "height": 30,
+          "centerY": 182.09375
+        }
+      },
+      {
+        "name": "Vanderbilt Commodores",
+        "score": "10",
+        "logo": {
+          "x": 279.25,
+          "y": 162.09375,
+          "right": 319.25,
+          "bottom": 202.09375,
+          "width": 40,
+          "height": 40,
+          "centerY": 182.09375
+        },
+        "nameBox": {
+          "x": 196.5,
+          "y": 208.09375,
+          "right": 350,
+          "bottom": 226.09375,
+          "width": 153.5,
+          "height": 18,
+          "centerY": 217.09375
+        },
+        "record": {
+          "x": 196.5,
+          "y": 230.09375,
+          "right": 350,
+          "bottom": 244.390625,
+          "width": 153.5,
+          "height": 14.296875,
+          "centerY": 237.2421875
+        },
+        "scoreBox": {
+          "x": 196.5,
+          "y": 167.09375,
+          "right": 244.5,
+          "bottom": 197.09375,
+          "width": 48,
+          "height": 30,
+          "centerY": 182.09375
+        }
+      }
+    ],
+    "overflow": false,
+    "logosLoaded": true,
+    "stats": [
+      "PUR",
+      "VAN"
+    ],
+    "bars": [
+      [
+        "rgb(152, 0, 46)",
+        "rgb(29, 66, 138)"
+      ]
+    ],
+    "values": [
+      [
+        "310",
+        "Total yards",
+        "350"
+      ]
+    ],
+    "boxTeams": [],
+    "recordFailures": 0,
+    "overlaps": 0,
+    "clipped": 0
+  },
+  {
+    "width": 375,
+    "view": "detail",
+    "index": 8,
+    "id": "qa-nhl-final",
+    "sport": "NHL",
+    "state": "completed",
+    "scoreboard": [
+      {
+        "name": "Los Angeles Kings",
+        "score": "3",
+        "logo": {
+          "x": 56.25,
+          "y": 139.484375,
+          "right": 96.25,
+          "bottom": 179.484375,
+          "width": 40,
+          "height": 40,
+          "centerY": 159.484375
+        },
+        "nameBox": {
+          "x": 25,
+          "y": 185.484375,
+          "right": 179.5,
+          "bottom": 203.484375,
+          "width": 154.5,
+          "height": 18,
+          "centerY": 194.484375
+        },
+        "record": {
+          "x": 25,
+          "y": 207.484375,
+          "right": 179.5,
+          "bottom": 221.78125,
+          "width": 154.5,
+          "height": 14.296875,
+          "centerY": 214.6328125
+        },
+        "scoreBox": {
+          "x": 131.5,
+          "y": 144.484375,
+          "right": 179.5,
+          "bottom": 174.484375,
+          "width": 48,
+          "height": 30,
+          "centerY": 159.484375
+        }
+      },
+      {
+        "name": "Boston Bruins",
+        "score": "2",
+        "logo": {
+          "x": 279.25,
+          "y": 139.484375,
+          "right": 319.25,
+          "bottom": 179.484375,
+          "width": 40,
+          "height": 40,
+          "centerY": 159.484375
+        },
+        "nameBox": {
+          "x": 196.5,
+          "y": 185.484375,
+          "right": 350,
+          "bottom": 203.484375,
+          "width": 153.5,
+          "height": 18,
+          "centerY": 194.484375
+        },
+        "record": {
+          "x": 196.5,
+          "y": 207.484375,
+          "right": 350,
+          "bottom": 221.78125,
+          "width": 153.5,
+          "height": 14.296875,
+          "centerY": 214.6328125
+        },
+        "scoreBox": {
+          "x": 196.5,
+          "y": 144.484375,
+          "right": 244.5,
+          "bottom": 174.484375,
+          "width": 48,
+          "height": 30,
+          "centerY": 159.484375
+        }
+      }
+    ],
+    "overflow": false,
+    "logosLoaded": true,
+    "stats": [
+      "LA",
+      "BOS"
+    ],
+    "bars": [
+      [
+        "rgb(152, 0, 46)",
+        "rgb(29, 66, 138)"
+      ]
+    ],
+    "values": [
+      [
+        "21",
+        "Shots",
+        "30"
+      ]
+    ],
+    "boxTeams": [],
+    "recordFailures": 0,
+    "overlaps": 0,
+    "clipped": 0
+  },
+  {
+    "width": 375,
+    "view": "detail",
+    "index": 9,
+    "id": "qa-nba-pending",
+    "sport": "NBA",
+    "state": "live",
+    "scoreboard": [
+      {
+        "name": "Brooklyn Nets",
+        "score": "53",
+        "logo": {
+          "x": 56.25,
+          "y": 139.484375,
+          "right": 96.25,
+          "bottom": 179.484375,
+          "width": 40,
+          "height": 40,
+          "centerY": 159.484375
+        },
+        "nameBox": {
+          "x": 25,
+          "y": 185.484375,
+          "right": 179.5,
+          "bottom": 203.484375,
+          "width": 154.5,
+          "height": 18,
+          "centerY": 194.484375
+        },
+        "record": {
+          "x": 25,
+          "y": 207.484375,
+          "right": 179.5,
+          "bottom": 221.78125,
+          "width": 154.5,
+          "height": 14.296875,
+          "centerY": 214.6328125
+        },
+        "scoreBox": {
+          "x": 131.5,
+          "y": 144.484375,
+          "right": 179.5,
+          "bottom": 174.484375,
+          "width": 48,
+          "height": 30,
+          "centerY": 159.484375
+        }
+      },
+      {
+        "name": "New York Knicks",
+        "score": "49",
+        "logo": {
+          "x": 279.25,
+          "y": 139.484375,
+          "right": 319.25,
+          "bottom": 179.484375,
+          "width": 40,
+          "height": 40,
+          "centerY": 159.484375
+        },
+        "nameBox": {
+          "x": 196.5,
+          "y": 185.484375,
+          "right": 350,
+          "bottom": 203.484375,
+          "width": 153.5,
+          "height": 18,
+          "centerY": 194.484375
+        },
+        "record": {
+          "x": 196.5,
+          "y": 207.484375,
+          "right": 350,
+          "bottom": 221.78125,
+          "width": 153.5,
+          "height": 14.296875,
+          "centerY": 214.6328125
+        },
+        "scoreBox": {
+          "x": 196.5,
+          "y": 144.484375,
+          "right": 244.5,
+          "bottom": 174.484375,
+          "width": 48,
+          "height": 30,
+          "centerY": 159.484375
+        }
+      }
+    ],
+    "overflow": false,
+    "logosLoaded": true,
+    "stats": [
+      "BKN",
+      "NY"
+    ],
+    "bars": [
+      [
+        "rgb(152, 0, 46)",
+        "rgb(29, 66, 138)"
+      ]
+    ],
+    "values": [
+      [
+        "38",
+        "Rebounds",
+        "44"
+      ]
+    ],
+    "boxTeams": [
+      "Brooklyn Nets",
+      "Brooklyn Nets",
+      "New York Knicks"
+    ],
+    "recordFailures": 0,
+    "overlaps": 0,
+    "clipped": 0
+  },
+  {
+    "width": 375,
+    "view": "detail",
+    "index": 10,
+    "id": "qa-ncaam-upcoming",
+    "sport": "NCAAB",
+    "state": "upcoming",
+    "scoreboard": [
+      {
+        "name": "Texas A&M-Corpus Christi Islanders",
+        "score": "",
+        "logo": {
+          "x": 56.25,
+          "y": 139.484375,
+          "right": 96.25,
+          "bottom": 179.484375,
+          "width": 40,
+          "height": 40,
+          "centerY": 159.484375
+        },
+        "nameBox": {
+          "x": 25,
+          "y": 185.484375,
+          "right": 179.5,
+          "bottom": 221.484375,
+          "width": 154.5,
+          "height": 36,
+          "centerY": 203.484375
+        },
+        "record": {
+          "x": 25,
+          "y": 225.484375,
+          "right": 179.5,
+          "bottom": 239.78125,
+          "width": 154.5,
+          "height": 14.296875,
+          "centerY": 232.6328125
+        },
+        "scoreBox": {
+          "x": 131.5,
+          "y": 159.484375,
+          "right": 179.5,
+          "bottom": 159.484375,
+          "width": 48,
+          "height": 0,
+          "centerY": 159.484375
+        }
+      },
+      {
+        "name": "Kentucky Wildcats",
+        "score": "",
+        "logo": {
+          "x": 279.25,
+          "y": 139.484375,
+          "right": 319.25,
+          "bottom": 179.484375,
+          "width": 40,
+          "height": 40,
+          "centerY": 159.484375
+        },
+        "nameBox": {
+          "x": 196.5,
+          "y": 185.484375,
+          "right": 350,
+          "bottom": 203.484375,
+          "width": 153.5,
+          "height": 18,
+          "centerY": 194.484375
+        },
+        "record": {
+          "x": 196.5,
+          "y": 225.484375,
+          "right": 350,
+          "bottom": 239.78125,
+          "width": 153.5,
+          "height": 14.296875,
+          "centerY": 232.6328125
+        },
+        "scoreBox": {
+          "x": 196.5,
+          "y": 159.484375,
+          "right": 244.5,
+          "bottom": 159.484375,
+          "width": 48,
+          "height": 0,
+          "centerY": 159.484375
+        }
+      }
+    ],
+    "overflow": false,
+    "logosLoaded": true,
+    "stats": [],
+    "bars": [],
+    "values": [],
+    "boxTeams": [],
+    "recordFailures": 0,
+    "overlaps": 0,
+    "clipped": 0
+  },
+  {
+    "width": 375,
+    "view": "detail",
+    "index": 11,
+    "id": "qa-nhl-intermission",
+    "sport": "NHL",
+    "state": "live",
+    "scoreboard": [
+      {
+        "name": "Dallas Stars",
+        "score": "2",
+        "logo": {
+          "x": 56.25,
+          "y": 139.484375,
+          "right": 96.25,
+          "bottom": 179.484375,
+          "width": 40,
+          "height": 40,
+          "centerY": 159.484375
+        },
+        "nameBox": {
+          "x": 25,
+          "y": 185.484375,
+          "right": 179.5,
+          "bottom": 203.484375,
+          "width": 154.5,
+          "height": 18,
+          "centerY": 194.484375
+        },
+        "record": {
+          "x": 25,
+          "y": 207.484375,
+          "right": 179.5,
+          "bottom": 221.78125,
+          "width": 154.5,
+          "height": 14.296875,
+          "centerY": 214.6328125
+        },
+        "scoreBox": {
+          "x": 131.5,
+          "y": 144.484375,
+          "right": 179.5,
+          "bottom": 174.484375,
+          "width": 48,
+          "height": 30,
+          "centerY": 159.484375
+        }
+      },
+      {
+        "name": "Washington Capitals",
+        "score": "2",
+        "logo": {
+          "x": 279.25,
+          "y": 139.484375,
+          "right": 319.25,
+          "bottom": 179.484375,
+          "width": 40,
+          "height": 40,
+          "centerY": 159.484375
+        },
+        "nameBox": {
+          "x": 196.5,
+          "y": 185.484375,
+          "right": 350,
+          "bottom": 203.484375,
+          "width": 153.5,
+          "height": 18,
+          "centerY": 194.484375
+        },
+        "record": {
+          "x": 196.5,
+          "y": 207.484375,
+          "right": 350,
+          "bottom": 221.78125,
+          "width": 153.5,
+          "height": 14.296875,
+          "centerY": 214.6328125
+        },
+        "scoreBox": {
+          "x": 196.5,
+          "y": 144.484375,
+          "right": 244.5,
+          "bottom": 174.484375,
+          "width": 48,
+          "height": 30,
+          "centerY": 159.484375
+        }
+      }
+    ],
+    "overflow": false,
+    "logosLoaded": true,
+    "stats": [
+      "DAL",
+      "WSH"
+    ],
+    "bars": [
+      [
+        "rgb(152, 0, 46)",
+        "rgb(29, 66, 138)"
+      ]
+    ],
+    "values": [
+      [
+        "21",
+        "Shots",
+        "30"
+      ]
+    ],
+    "boxTeams": [],
+    "recordFailures": 0,
+    "overlaps": 0,
+    "clipped": 0
+  },
+  {
+    "width": 375,
+    "view": "detail",
+    "index": 12,
+    "id": "qa-heat-warriors",
+    "sport": "NBA",
+    "state": "completed",
+    "scoreboard": [
+      {
+        "name": "Miami Heat",
+        "score": "120",
+        "logo": {
+          "x": 56.25,
+          "y": 139.484375,
+          "right": 96.25,
+          "bottom": 179.484375,
+          "width": 40,
+          "height": 40,
+          "centerY": 159.484375
+        },
+        "nameBox": {
+          "x": 25,
+          "y": 185.484375,
+          "right": 179.5,
+          "bottom": 203.484375,
+          "width": 154.5,
+          "height": 18,
+          "centerY": 194.484375
+        },
+        "record": {
+          "x": 25,
+          "y": 207.484375,
+          "right": 179.5,
+          "bottom": 221.78125,
+          "width": 154.5,
+          "height": 14.296875,
+          "centerY": 214.6328125
+        },
+        "scoreBox": {
+          "x": 131.5,
+          "y": 144.484375,
+          "right": 179.5,
+          "bottom": 174.484375,
+          "width": 48,
+          "height": 30,
+          "centerY": 159.484375
+        }
+      },
+      {
+        "name": "Golden State Warriors",
+        "score": "115",
+        "logo": {
+          "x": 279.25,
+          "y": 139.484375,
+          "right": 319.25,
+          "bottom": 179.484375,
+          "width": 40,
+          "height": 40,
+          "centerY": 159.484375
+        },
+        "nameBox": {
+          "x": 196.5,
+          "y": 185.484375,
+          "right": 350,
+          "bottom": 203.484375,
+          "width": 153.5,
+          "height": 18,
+          "centerY": 194.484375
+        },
+        "record": {
+          "x": 196.5,
+          "y": 207.484375,
+          "right": 350,
+          "bottom": 221.78125,
+          "width": 153.5,
+          "height": 14.296875,
+          "centerY": 214.6328125
+        },
+        "scoreBox": {
+          "x": 196.5,
+          "y": 144.484375,
+          "right": 244.5,
+          "bottom": 174.484375,
+          "width": 48,
+          "height": 30,
+          "centerY": 159.484375
+        }
+      }
+    ],
+    "overflow": false,
+    "logosLoaded": true,
+    "stats": [
+      "MIA",
+      "GS"
+    ],
+    "bars": [
+      [
+        "rgb(152, 0, 46)",
+        "rgb(29, 66, 138)"
+      ]
+    ],
+    "values": [
+      [
+        "38",
+        "Rebounds",
+        "44"
+      ]
+    ],
+    "boxTeams": [
+      "Miami Heat",
+      "Miami Heat",
+      "Golden State Warriors"
+    ],
+    "recordFailures": 0,
+    "overlaps": 0,
+    "clipped": 0
+  },
+  {
+    "width": 375,
+    "view": "detail",
+    "index": 13,
+    "id": "qa-two-long-names",
+    "sport": "CFB",
+    "state": "completed",
+    "scoreboard": [
+      {
+        "name": "South Carolina Gamecocks",
+        "score": "9",
+        "logo": {
+          "x": 56.25,
+          "y": 139.484375,
+          "right": 96.25,
+          "bottom": 179.484375,
+          "width": 40,
+          "height": 40,
+          "centerY": 159.484375
+        },
+        "nameBox": {
+          "x": 25,
+          "y": 185.484375,
+          "right": 179.5,
+          "bottom": 203.484375,
+          "width": 154.5,
+          "height": 18,
+          "centerY": 194.484375
+        },
+        "record": {
+          "x": 25,
+          "y": 207.484375,
+          "right": 179.5,
+          "bottom": 221.78125,
+          "width": 154.5,
+          "height": 14.296875,
+          "centerY": 214.6328125
+        },
+        "scoreBox": {
+          "x": 131.5,
+          "y": 144.484375,
+          "right": 179.5,
+          "bottom": 174.484375,
+          "width": 48,
+          "height": 30,
+          "centerY": 159.484375
+        }
+      },
+      {
+        "name": "Penn State Nittany Lions",
+        "score": "10",
+        "logo": {
+          "x": 279.25,
+          "y": 139.484375,
+          "right": 319.25,
+          "bottom": 179.484375,
+          "width": 40,
+          "height": 40,
+          "centerY": 159.484375
+        },
+        "nameBox": {
+          "x": 196.5,
+          "y": 185.484375,
+          "right": 350,
+          "bottom": 203.484375,
+          "width": 153.5,
+          "height": 18,
+          "centerY": 194.484375
+        },
+        "record": {
+          "x": 196.5,
+          "y": 207.484375,
+          "right": 350,
+          "bottom": 221.78125,
+          "width": 153.5,
+          "height": 14.296875,
+          "centerY": 214.6328125
+        },
+        "scoreBox": {
+          "x": 196.5,
+          "y": 144.484375,
+          "right": 244.5,
+          "bottom": 174.484375,
+          "width": 48,
+          "height": 30,
+          "centerY": 159.484375
+        }
+      }
+    ],
+    "overflow": false,
+    "logosLoaded": true,
+    "stats": [
+      "SC",
+      "PSU"
+    ],
+    "bars": [
+      [
+        "rgb(152, 0, 46)",
+        "rgb(29, 66, 138)"
+      ]
+    ],
+    "values": [
+      [
+        "310",
+        "Total yards",
+        "350"
+      ]
+    ],
+    "boxTeams": [],
+    "recordFailures": 0,
+    "overlaps": 0,
+    "clipped": 0
+  },
+  {
+    "width": 375,
+    "view": "detail",
+    "index": 14,
+    "id": "qa-three-digit-swap",
+    "sport": "NBA",
+    "state": "live",
+    "scoreboard": [
+      {
+        "name": "Miami Heat",
+        "score": "100",
+        "logo": {
+          "x": 56.25,
+          "y": 162.09375,
+          "right": 96.25,
+          "bottom": 202.09375,
+          "width": 40,
+          "height": 40,
+          "centerY": 182.09375
+        },
+        "nameBox": {
+          "x": 25,
+          "y": 208.09375,
+          "right": 179.5,
+          "bottom": 226.09375,
+          "width": 154.5,
+          "height": 18,
+          "centerY": 217.09375
+        },
+        "record": {
+          "x": 25,
+          "y": 230.09375,
+          "right": 179.5,
+          "bottom": 244.390625,
+          "width": 154.5,
+          "height": 14.296875,
+          "centerY": 237.2421875
+        },
+        "scoreBox": {
+          "x": 131.5,
+          "y": 167.09375,
+          "right": 179.5,
+          "bottom": 197.09375,
+          "width": 48,
+          "height": 30,
+          "centerY": 182.09375
+        }
+      },
+      {
+        "name": "Golden State Warriors",
+        "score": "99",
+        "logo": {
+          "x": 279.25,
+          "y": 162.09375,
+          "right": 319.25,
+          "bottom": 202.09375,
+          "width": 40,
+          "height": 40,
+          "centerY": 182.09375
+        },
+        "nameBox": {
+          "x": 196.5,
+          "y": 208.09375,
+          "right": 350,
+          "bottom": 226.09375,
+          "width": 153.5,
+          "height": 18,
+          "centerY": 217.09375
+        },
+        "record": {
+          "x": 196.5,
+          "y": 230.09375,
+          "right": 350,
+          "bottom": 244.390625,
+          "width": 153.5,
+          "height": 14.296875,
+          "centerY": 237.2421875
+        },
+        "scoreBox": {
+          "x": 196.5,
+          "y": 167.09375,
+          "right": 244.5,
+          "bottom": 197.09375,
+          "width": 48,
+          "height": 30,
+          "centerY": 182.09375
+        }
+      }
+    ],
+    "overflow": false,
+    "logosLoaded": true,
+    "stats": [
+      "MIA",
+      "GS"
+    ],
+    "bars": [
+      [
+        "rgb(152, 0, 46)",
+        "rgb(29, 66, 138)"
+      ]
+    ],
+    "values": [
+      [
+        "38",
+        "Rebounds",
+        "44"
+      ]
+    ],
+    "boxTeams": [
+      "Miami Heat",
+      "Miami Heat",
+      "Golden State Warriors"
+    ],
+    "recordFailures": 0,
+    "overlaps": 0,
+    "clipped": 0
+  },
+  {
+    "width": 390,
+    "view": "cards",
+    "set": 0,
+    "logosLoaded": 8,
+    "logos": 8
+  },
+  {
+    "width": 390,
+    "view": "cards",
+    "set": 1,
+    "logosLoaded": 8,
+    "logos": 8
+  },
+  {
+    "width": 390,
+    "view": "cards",
+    "set": 2,
+    "logosLoaded": 8,
+    "logos": 8
+  },
+  {
+    "width": 390,
+    "view": "cards",
+    "set": 3,
+    "logosLoaded": 6,
+    "logos": 6
+  },
+  {
+    "width": 390,
+    "view": "detail",
+    "index": 0,
+    "id": "qa-nfl-possession",
+    "sport": "NFL",
+    "state": "live",
+    "scoreboard": [
+      {
+        "name": "Las Vegas Raiders",
+        "score": "24",
+        "logo": {
+          "x": 60,
+          "y": 162.09375,
+          "right": 100,
+          "bottom": 202.09375,
+          "width": 40,
+          "height": 40,
+          "centerY": 182.09375
+        },
+        "nameBox": {
+          "x": 25,
+          "y": 208.09375,
+          "right": 187,
+          "bottom": 226.09375,
+          "width": 162,
+          "height": 18,
+          "centerY": 217.09375
+        },
+        "record": {
+          "x": 25,
+          "y": 230.09375,
+          "right": 187,
+          "bottom": 244.390625,
+          "width": 162,
+          "height": 14.296875,
+          "centerY": 237.2421875
+        },
+        "scoreBox": {
+          "x": 139,
+          "y": 167.09375,
+          "right": 187,
+          "bottom": 197.09375,
+          "width": 48,
+          "height": 30,
+          "centerY": 182.09375
+        }
+      },
+      {
+        "name": "Baltimore Ravens",
+        "score": "21",
+        "logo": {
+          "x": 290.5,
+          "y": 162.09375,
+          "right": 330.5,
+          "bottom": 202.09375,
+          "width": 40,
+          "height": 40,
+          "centerY": 182.09375
+        },
+        "nameBox": {
+          "x": 204,
+          "y": 208.09375,
+          "right": 365,
+          "bottom": 226.09375,
+          "width": 161,
+          "height": 18,
+          "centerY": 217.09375
+        },
+        "record": {
+          "x": 204,
+          "y": 230.09375,
+          "right": 365,
+          "bottom": 244.390625,
+          "width": 161,
+          "height": 14.296875,
+          "centerY": 237.2421875
+        },
+        "scoreBox": {
+          "x": 204,
+          "y": 167.09375,
+          "right": 252,
+          "bottom": 197.09375,
+          "width": 48,
+          "height": 30,
+          "centerY": 182.09375
+        }
+      }
+    ],
+    "overflow": false,
+    "logosLoaded": true,
+    "stats": [
+      "LV",
+      "BAL"
+    ],
+    "bars": [
+      [
+        "rgb(152, 0, 46)",
+        "rgb(29, 66, 138)"
+      ]
+    ],
+    "values": [
+      [
+        "310",
+        "Total yards",
+        "350"
+      ]
+    ],
+    "boxTeams": [],
+    "recordFailures": 0,
+    "overlaps": 0,
+    "clipped": 0
+  },
+  {
+    "width": 390,
+    "view": "detail",
+    "index": 1,
+    "id": "qa-nhl-pp",
+    "sport": "NHL",
+    "state": "live",
+    "scoreboard": [
+      {
+        "name": "Detroit Red Wings",
+        "score": "2",
+        "logo": {
+          "x": 60,
+          "y": 162.09375,
+          "right": 100,
+          "bottom": 202.09375,
+          "width": 40,
+          "height": 40,
+          "centerY": 182.09375
+        },
+        "nameBox": {
+          "x": 25,
+          "y": 208.09375,
+          "right": 187,
+          "bottom": 226.09375,
+          "width": 162,
+          "height": 18,
+          "centerY": 217.09375
+        },
+        "record": {
+          "x": 25,
+          "y": 230.09375,
+          "right": 187,
+          "bottom": 244.390625,
+          "width": 162,
+          "height": 14.296875,
+          "centerY": 237.2421875
+        },
+        "scoreBox": {
+          "x": 139,
+          "y": 167.09375,
+          "right": 187,
+          "bottom": 197.09375,
+          "width": 48,
+          "height": 30,
+          "centerY": 182.09375
+        }
+      },
+      {
+        "name": "Tampa Bay Lightning",
+        "score": "3",
+        "logo": {
+          "x": 290.5,
+          "y": 162.09375,
+          "right": 330.5,
+          "bottom": 202.09375,
+          "width": 40,
+          "height": 40,
+          "centerY": 182.09375
+        },
+        "nameBox": {
+          "x": 204,
+          "y": 208.09375,
+          "right": 365,
+          "bottom": 226.09375,
+          "width": 161,
+          "height": 18,
+          "centerY": 217.09375
+        },
+        "record": {
+          "x": 204,
+          "y": 230.09375,
+          "right": 365,
+          "bottom": 244.390625,
+          "width": 161,
+          "height": 14.296875,
+          "centerY": 237.2421875
+        },
+        "scoreBox": {
+          "x": 204,
+          "y": 167.09375,
+          "right": 252,
+          "bottom": 197.09375,
+          "width": 48,
+          "height": 30,
+          "centerY": 182.09375
+        }
+      }
+    ],
+    "overflow": false,
+    "logosLoaded": true,
+    "stats": [
+      "DET",
+      "TB"
+    ],
+    "bars": [
+      [
+        "rgb(152, 0, 46)",
+        "rgb(29, 66, 138)"
+      ]
+    ],
+    "values": [
+      [
+        "21",
+        "Shots",
+        "30"
+      ]
+    ],
+    "boxTeams": [],
+    "recordFailures": 0,
+    "overlaps": 0,
+    "clipped": 0
+  },
+  {
+    "width": 390,
+    "view": "detail",
+    "index": 2,
+    "id": "qa-cfb-navy",
+    "sport": "CFB",
+    "state": "live",
+    "scoreboard": [
+      {
+        "name": "Penn State Nittany Lions",
+        "score": "24",
+        "logo": {
+          "x": 60,
+          "y": 162.09375,
+          "right": 100,
+          "bottom": 202.09375,
+          "width": 40,
+          "height": 40,
+          "centerY": 182.09375
+        },
+        "nameBox": {
+          "x": 25,
+          "y": 208.09375,
+          "right": 187,
+          "bottom": 226.09375,
+          "width": 162,
+          "height": 18,
+          "centerY": 217.09375
+        },
+        "record": {
+          "x": 25,
+          "y": 230.09375,
+          "right": 187,
+          "bottom": 244.390625,
+          "width": 162,
+          "height": 14.296875,
+          "centerY": 237.2421875
+        },
+        "scoreBox": {
+          "x": 139,
+          "y": 167.09375,
+          "right": 187,
+          "bottom": 197.09375,
+          "width": 48,
+          "height": 30,
+          "centerY": 182.09375
+        }
+      },
+      {
+        "name": "Washington Huskies",
+        "score": "21",
+        "logo": {
+          "x": 290.5,
+          "y": 162.09375,
+          "right": 330.5,
+          "bottom": 202.09375,
+          "width": 40,
+          "height": 40,
+          "centerY": 182.09375
+        },
+        "nameBox": {
+          "x": 204,
+          "y": 208.09375,
+          "right": 365,
+          "bottom": 226.09375,
+          "width": 161,
+          "height": 18,
+          "centerY": 217.09375
+        },
+        "record": {
+          "x": 204,
+          "y": 230.09375,
+          "right": 365,
+          "bottom": 244.390625,
+          "width": 161,
+          "height": 14.296875,
+          "centerY": 237.2421875
+        },
+        "scoreBox": {
+          "x": 204,
+          "y": 167.09375,
+          "right": 252,
+          "bottom": 197.09375,
+          "width": 48,
+          "height": 30,
+          "centerY": 182.09375
+        }
+      }
+    ],
+    "overflow": false,
+    "logosLoaded": true,
+    "stats": [
+      "PSU",
+      "WASH"
+    ],
+    "bars": [
+      [
+        "rgb(152, 0, 46)",
+        "rgb(29, 66, 138)"
+      ]
+    ],
+    "values": [
+      [
+        "310",
+        "Total yards",
+        "350"
+      ]
+    ],
+    "boxTeams": [],
+    "recordFailures": 0,
+    "overlaps": 0,
+    "clipped": 0
+  },
+  {
+    "width": 390,
+    "view": "detail",
+    "index": 3,
+    "id": "qa-nba-black",
+    "sport": "NBA",
+    "state": "live",
+    "scoreboard": [
+      {
+        "name": "Brooklyn Nets",
+        "score": "102",
+        "logo": {
+          "x": 60,
+          "y": 162.09375,
+          "right": 100,
+          "bottom": 202.09375,
+          "width": 40,
+          "height": 40,
+          "centerY": 182.09375
+        },
+        "nameBox": {
+          "x": 25,
+          "y": 208.09375,
+          "right": 187,
+          "bottom": 226.09375,
+          "width": 162,
+          "height": 18,
+          "centerY": 217.09375
+        },
+        "record": {
+          "x": 25,
+          "y": 230.09375,
+          "right": 187,
+          "bottom": 244.390625,
+          "width": 162,
+          "height": 14.296875,
+          "centerY": 237.2421875
+        },
+        "scoreBox": {
+          "x": 139,
+          "y": 167.09375,
+          "right": 187,
+          "bottom": 197.09375,
+          "width": 48,
+          "height": 30,
+          "centerY": 182.09375
+        }
+      },
+      {
+        "name": "San Antonio Spurs",
+        "score": "101",
+        "logo": {
+          "x": 290.5,
+          "y": 162.09375,
+          "right": 330.5,
+          "bottom": 202.09375,
+          "width": 40,
+          "height": 40,
+          "centerY": 182.09375
+        },
+        "nameBox": {
+          "x": 204,
+          "y": 208.09375,
+          "right": 365,
+          "bottom": 226.09375,
+          "width": 161,
+          "height": 18,
+          "centerY": 217.09375
+        },
+        "record": {
+          "x": 204,
+          "y": 230.09375,
+          "right": 365,
+          "bottom": 244.390625,
+          "width": 161,
+          "height": 14.296875,
+          "centerY": 237.2421875
+        },
+        "scoreBox": {
+          "x": 204,
+          "y": 167.09375,
+          "right": 252,
+          "bottom": 197.09375,
+          "width": 48,
+          "height": 30,
+          "centerY": 182.09375
+        }
+      }
+    ],
+    "overflow": false,
+    "logosLoaded": true,
+    "stats": [
+      "BKN",
+      "SA"
+    ],
+    "bars": [
+      [
+        "rgb(152, 0, 46)",
+        "rgb(29, 66, 138)"
+      ]
+    ],
+    "values": [
+      [
+        "38",
+        "Rebounds",
+        "44"
+      ]
+    ],
+    "boxTeams": [
+      "Brooklyn Nets",
+      "Brooklyn Nets",
+      "San Antonio Spurs"
+    ],
+    "recordFailures": 0,
+    "overlaps": 0,
+    "clipped": 0
+  },
+  {
+    "width": 390,
+    "view": "detail",
+    "index": 4,
+    "id": "qa-mlb-navy",
+    "sport": "MLB",
+    "state": "live",
+    "scoreboard": [
+      {
+        "name": "New York Yankees",
+        "score": "3",
+        "logo": {
+          "x": 60,
+          "y": 139.484375,
+          "right": 100,
+          "bottom": 179.484375,
+          "width": 40,
+          "height": 40,
+          "centerY": 159.484375
+        },
+        "nameBox": {
+          "x": 25,
+          "y": 185.484375,
+          "right": 187,
+          "bottom": 203.484375,
+          "width": 162,
+          "height": 18,
+          "centerY": 194.484375
+        },
+        "record": {
+          "x": 25,
+          "y": 207.484375,
+          "right": 187,
+          "bottom": 221.78125,
+          "width": 162,
+          "height": 14.296875,
+          "centerY": 214.6328125
+        },
+        "scoreBox": {
+          "x": 139,
+          "y": 144.484375,
+          "right": 187,
+          "bottom": 174.484375,
+          "width": 48,
+          "height": 30,
+          "centerY": 159.484375
+        }
+      },
+      {
+        "name": "Chicago White Sox",
+        "score": "3",
+        "logo": {
+          "x": 290.5,
+          "y": 139.484375,
+          "right": 330.5,
+          "bottom": 179.484375,
+          "width": 40,
+          "height": 40,
+          "centerY": 159.484375
+        },
+        "nameBox": {
+          "x": 204,
+          "y": 185.484375,
+          "right": 365,
+          "bottom": 203.484375,
+          "width": 161,
+          "height": 18,
+          "centerY": 194.484375
+        },
+        "record": {
+          "x": 204,
+          "y": 207.484375,
+          "right": 365,
+          "bottom": 221.78125,
+          "width": 161,
+          "height": 14.296875,
+          "centerY": 214.6328125
+        },
+        "scoreBox": {
+          "x": 204,
+          "y": 144.484375,
+          "right": 252,
+          "bottom": 174.484375,
+          "width": 48,
+          "height": 30,
+          "centerY": 159.484375
+        }
+      }
+    ],
+    "overflow": false,
+    "logosLoaded": true,
+    "stats": [
+      "NYY",
+      "CHW"
+    ],
+    "bars": [
+      [
+        "rgb(152, 0, 46)",
+        "rgb(29, 66, 138)"
+      ]
+    ],
+    "values": [
+      [
+        "3",
+        "Runs",
+        "4"
+      ]
+    ],
+    "boxTeams": [],
+    "recordFailures": 0,
+    "overlaps": 0,
+    "clipped": 0
+  },
+  {
+    "width": 390,
+    "view": "detail",
+    "index": 5,
+    "id": "qa-ncaam-shapes",
+    "sport": "NCAAB",
+    "state": "live",
+    "scoreboard": [
+      {
+        "name": "Wofford Terriers",
+        "score": "65",
+        "logo": {
+          "x": 60,
+          "y": 162.09375,
+          "right": 100,
+          "bottom": 202.09375,
+          "width": 40,
+          "height": 40,
+          "centerY": 182.09375
+        },
+        "nameBox": {
+          "x": 25,
+          "y": 208.09375,
+          "right": 187,
+          "bottom": 226.09375,
+          "width": 162,
+          "height": 18,
+          "centerY": 217.09375
+        },
+        "record": {
+          "x": 25,
+          "y": 230.09375,
+          "right": 187,
+          "bottom": 244.390625,
+          "width": 162,
+          "height": 14.296875,
+          "centerY": 237.2421875
+        },
+        "scoreBox": {
+          "x": 139,
+          "y": 167.09375,
+          "right": 187,
+          "bottom": 197.09375,
+          "width": 48,
+          "height": 30,
+          "centerY": 182.09375
+        }
+      },
+      {
+        "name": "Tennessee Volunteers",
+        "score": "65",
+        "logo": {
+          "x": 290.5,
+          "y": 162.09375,
+          "right": 330.5,
+          "bottom": 202.09375,
+          "width": 40,
+          "height": 40,
+          "centerY": 182.09375
+        },
+        "nameBox": {
+          "x": 204,
+          "y": 208.09375,
+          "right": 365,
+          "bottom": 226.09375,
+          "width": 161,
+          "height": 18,
+          "centerY": 217.09375
+        },
+        "record": {
+          "x": 204,
+          "y": 230.09375,
+          "right": 365,
+          "bottom": 244.390625,
+          "width": 161,
+          "height": 14.296875,
+          "centerY": 237.2421875
+        },
+        "scoreBox": {
+          "x": 204,
+          "y": 167.09375,
+          "right": 252,
+          "bottom": 197.09375,
+          "width": 48,
+          "height": 30,
+          "centerY": 182.09375
+        }
+      }
+    ],
+    "overflow": false,
+    "logosLoaded": true,
+    "stats": [
+      "WOF",
+      "TENN"
+    ],
+    "bars": [
+      [
+        "rgb(152, 0, 46)",
+        "rgb(29, 66, 138)"
+      ]
+    ],
+    "values": [
+      [
+        "38",
+        "Rebounds",
+        "44"
+      ]
+    ],
+    "boxTeams": [
+      "Wofford Terriers",
+      "Wofford Terriers",
+      "Tennessee Volunteers"
+    ],
+    "recordFailures": 0,
+    "overlaps": 0,
+    "clipped": 0
+  },
+  {
+    "width": 390,
+    "view": "detail",
+    "index": 6,
+    "id": "qa-cfb-red",
+    "sport": "CFB",
+    "state": "live",
+    "scoreboard": [
+      {
+        "name": "South Carolina Gamecocks",
+        "score": "10",
+        "logo": {
+          "x": 60,
+          "y": 162.09375,
+          "right": 100,
+          "bottom": 202.09375,
+          "width": 40,
+          "height": 40,
+          "centerY": 182.09375
+        },
+        "nameBox": {
+          "x": 25,
+          "y": 208.09375,
+          "right": 187,
+          "bottom": 226.09375,
+          "width": 162,
+          "height": 18,
+          "centerY": 217.09375
+        },
+        "record": {
+          "x": 25,
+          "y": 230.09375,
+          "right": 187,
+          "bottom": 244.390625,
+          "width": 162,
+          "height": 14.296875,
+          "centerY": 237.2421875
+        },
+        "scoreBox": {
+          "x": 139,
+          "y": 167.09375,
+          "right": 187,
+          "bottom": 197.09375,
+          "width": 48,
+          "height": 30,
+          "centerY": 182.09375
+        }
+      },
+      {
+        "name": "Alabama Crimson Tide",
+        "score": "14",
+        "logo": {
+          "x": 290.5,
+          "y": 162.09375,
+          "right": 330.5,
+          "bottom": 202.09375,
+          "width": 40,
+          "height": 40,
+          "centerY": 182.09375
+        },
+        "nameBox": {
+          "x": 204,
+          "y": 208.09375,
+          "right": 365,
+          "bottom": 226.09375,
+          "width": 161,
+          "height": 18,
+          "centerY": 217.09375
+        },
+        "record": {
+          "x": 204,
+          "y": 230.09375,
+          "right": 365,
+          "bottom": 244.390625,
+          "width": 161,
+          "height": 14.296875,
+          "centerY": 237.2421875
+        },
+        "scoreBox": {
+          "x": 204,
+          "y": 167.09375,
+          "right": 252,
+          "bottom": 197.09375,
+          "width": 48,
+          "height": 30,
+          "centerY": 182.09375
+        }
+      }
+    ],
+    "overflow": false,
+    "logosLoaded": true,
+    "stats": [
+      "SC",
+      "ALA"
+    ],
+    "bars": [
+      [
+        "rgb(152, 0, 46)",
+        "rgb(29, 66, 138)"
+      ]
+    ],
+    "values": [
+      [
+        "310",
+        "Total yards",
+        "350"
+      ]
+    ],
+    "boxTeams": [],
+    "recordFailures": 0,
+    "overlaps": 0,
+    "clipped": 0
+  },
+  {
+    "width": 390,
+    "view": "detail",
+    "index": 7,
+    "id": "qa-cfb-black",
+    "sport": "CFB",
+    "state": "live",
+    "scoreboard": [
+      {
+        "name": "Purdue Boilermakers",
+        "score": "7",
+        "logo": {
+          "x": 60,
+          "y": 162.09375,
+          "right": 100,
+          "bottom": 202.09375,
+          "width": 40,
+          "height": 40,
+          "centerY": 182.09375
+        },
+        "nameBox": {
+          "x": 25,
+          "y": 208.09375,
+          "right": 187,
+          "bottom": 226.09375,
+          "width": 162,
+          "height": 18,
+          "centerY": 217.09375
+        },
+        "record": {
+          "x": 25,
+          "y": 230.09375,
+          "right": 187,
+          "bottom": 244.390625,
+          "width": 162,
+          "height": 14.296875,
+          "centerY": 237.2421875
+        },
+        "scoreBox": {
+          "x": 139,
+          "y": 167.09375,
+          "right": 187,
+          "bottom": 197.09375,
+          "width": 48,
+          "height": 30,
+          "centerY": 182.09375
+        }
+      },
+      {
+        "name": "Vanderbilt Commodores",
+        "score": "10",
+        "logo": {
+          "x": 290.5,
+          "y": 162.09375,
+          "right": 330.5,
+          "bottom": 202.09375,
+          "width": 40,
+          "height": 40,
+          "centerY": 182.09375
+        },
+        "nameBox": {
+          "x": 204,
+          "y": 208.09375,
+          "right": 365,
+          "bottom": 226.09375,
+          "width": 161,
+          "height": 18,
+          "centerY": 217.09375
+        },
+        "record": {
+          "x": 204,
+          "y": 230.09375,
+          "right": 365,
+          "bottom": 244.390625,
+          "width": 161,
+          "height": 14.296875,
+          "centerY": 237.2421875
+        },
+        "scoreBox": {
+          "x": 204,
+          "y": 167.09375,
+          "right": 252,
+          "bottom": 197.09375,
+          "width": 48,
+          "height": 30,
+          "centerY": 182.09375
+        }
+      }
+    ],
+    "overflow": false,
+    "logosLoaded": true,
+    "stats": [
+      "PUR",
+      "VAN"
+    ],
+    "bars": [
+      [
+        "rgb(152, 0, 46)",
+        "rgb(29, 66, 138)"
+      ]
+    ],
+    "values": [
+      [
+        "310",
+        "Total yards",
+        "350"
+      ]
+    ],
+    "boxTeams": [],
+    "recordFailures": 0,
+    "overlaps": 0,
+    "clipped": 0
+  },
+  {
+    "width": 390,
+    "view": "detail",
+    "index": 8,
+    "id": "qa-nhl-final",
+    "sport": "NHL",
+    "state": "completed",
+    "scoreboard": [
+      {
+        "name": "Los Angeles Kings",
+        "score": "3",
+        "logo": {
+          "x": 60,
+          "y": 139.484375,
+          "right": 100,
+          "bottom": 179.484375,
+          "width": 40,
+          "height": 40,
+          "centerY": 159.484375
+        },
+        "nameBox": {
+          "x": 25,
+          "y": 185.484375,
+          "right": 187,
+          "bottom": 203.484375,
+          "width": 162,
+          "height": 18,
+          "centerY": 194.484375
+        },
+        "record": {
+          "x": 25,
+          "y": 207.484375,
+          "right": 187,
+          "bottom": 221.78125,
+          "width": 162,
+          "height": 14.296875,
+          "centerY": 214.6328125
+        },
+        "scoreBox": {
+          "x": 139,
+          "y": 144.484375,
+          "right": 187,
+          "bottom": 174.484375,
+          "width": 48,
+          "height": 30,
+          "centerY": 159.484375
+        }
+      },
+      {
+        "name": "Boston Bruins",
+        "score": "2",
+        "logo": {
+          "x": 290.5,
+          "y": 139.484375,
+          "right": 330.5,
+          "bottom": 179.484375,
+          "width": 40,
+          "height": 40,
+          "centerY": 159.484375
+        },
+        "nameBox": {
+          "x": 204,
+          "y": 185.484375,
+          "right": 365,
+          "bottom": 203.484375,
+          "width": 161,
+          "height": 18,
+          "centerY": 194.484375
+        },
+        "record": {
+          "x": 204,
+          "y": 207.484375,
+          "right": 365,
+          "bottom": 221.78125,
+          "width": 161,
+          "height": 14.296875,
+          "centerY": 214.6328125
+        },
+        "scoreBox": {
+          "x": 204,
+          "y": 144.484375,
+          "right": 252,
+          "bottom": 174.484375,
+          "width": 48,
+          "height": 30,
+          "centerY": 159.484375
+        }
+      }
+    ],
+    "overflow": false,
+    "logosLoaded": true,
+    "stats": [
+      "LA",
+      "BOS"
+    ],
+    "bars": [
+      [
+        "rgb(152, 0, 46)",
+        "rgb(29, 66, 138)"
+      ]
+    ],
+    "values": [
+      [
+        "21",
+        "Shots",
+        "30"
+      ]
+    ],
+    "boxTeams": [],
+    "recordFailures": 0,
+    "overlaps": 0,
+    "clipped": 0
+  },
+  {
+    "width": 390,
+    "view": "detail",
+    "index": 9,
+    "id": "qa-nba-pending",
+    "sport": "NBA",
+    "state": "live",
+    "scoreboard": [
+      {
+        "name": "Brooklyn Nets",
+        "score": "53",
+        "logo": {
+          "x": 60,
+          "y": 139.484375,
+          "right": 100,
+          "bottom": 179.484375,
+          "width": 40,
+          "height": 40,
+          "centerY": 159.484375
+        },
+        "nameBox": {
+          "x": 25,
+          "y": 185.484375,
+          "right": 187,
+          "bottom": 203.484375,
+          "width": 162,
+          "height": 18,
+          "centerY": 194.484375
+        },
+        "record": {
+          "x": 25,
+          "y": 207.484375,
+          "right": 187,
+          "bottom": 221.78125,
+          "width": 162,
+          "height": 14.296875,
+          "centerY": 214.6328125
+        },
+        "scoreBox": {
+          "x": 139,
+          "y": 144.484375,
+          "right": 187,
+          "bottom": 174.484375,
+          "width": 48,
+          "height": 30,
+          "centerY": 159.484375
+        }
+      },
+      {
+        "name": "New York Knicks",
+        "score": "49",
+        "logo": {
+          "x": 290.5,
+          "y": 139.484375,
+          "right": 330.5,
+          "bottom": 179.484375,
+          "width": 40,
+          "height": 40,
+          "centerY": 159.484375
+        },
+        "nameBox": {
+          "x": 204,
+          "y": 185.484375,
+          "right": 365,
+          "bottom": 203.484375,
+          "width": 161,
+          "height": 18,
+          "centerY": 194.484375
+        },
+        "record": {
+          "x": 204,
+          "y": 207.484375,
+          "right": 365,
+          "bottom": 221.78125,
+          "width": 161,
+          "height": 14.296875,
+          "centerY": 214.6328125
+        },
+        "scoreBox": {
+          "x": 204,
+          "y": 144.484375,
+          "right": 252,
+          "bottom": 174.484375,
+          "width": 48,
+          "height": 30,
+          "centerY": 159.484375
+        }
+      }
+    ],
+    "overflow": false,
+    "logosLoaded": true,
+    "stats": [
+      "BKN",
+      "NY"
+    ],
+    "bars": [
+      [
+        "rgb(152, 0, 46)",
+        "rgb(29, 66, 138)"
+      ]
+    ],
+    "values": [
+      [
+        "38",
+        "Rebounds",
+        "44"
+      ]
+    ],
+    "boxTeams": [
+      "Brooklyn Nets",
+      "Brooklyn Nets",
+      "New York Knicks"
+    ],
+    "recordFailures": 0,
+    "overlaps": 0,
+    "clipped": 0
+  },
+  {
+    "width": 390,
+    "view": "detail",
+    "index": 10,
+    "id": "qa-ncaam-upcoming",
+    "sport": "NCAAB",
+    "state": "upcoming",
+    "scoreboard": [
+      {
+        "name": "Texas A&M-Corpus Christi Islanders",
+        "score": "",
+        "logo": {
+          "x": 60,
+          "y": 139.484375,
+          "right": 100,
+          "bottom": 179.484375,
+          "width": 40,
+          "height": 40,
+          "centerY": 159.484375
+        },
+        "nameBox": {
+          "x": 25,
+          "y": 185.484375,
+          "right": 187,
+          "bottom": 221.484375,
+          "width": 162,
+          "height": 36,
+          "centerY": 203.484375
+        },
+        "record": {
+          "x": 25,
+          "y": 225.484375,
+          "right": 187,
+          "bottom": 239.78125,
+          "width": 162,
+          "height": 14.296875,
+          "centerY": 232.6328125
+        },
+        "scoreBox": {
+          "x": 139,
+          "y": 159.484375,
+          "right": 187,
+          "bottom": 159.484375,
+          "width": 48,
+          "height": 0,
+          "centerY": 159.484375
+        }
+      },
+      {
+        "name": "Kentucky Wildcats",
+        "score": "",
+        "logo": {
+          "x": 290.5,
+          "y": 139.484375,
+          "right": 330.5,
+          "bottom": 179.484375,
+          "width": 40,
+          "height": 40,
+          "centerY": 159.484375
+        },
+        "nameBox": {
+          "x": 204,
+          "y": 185.484375,
+          "right": 365,
+          "bottom": 203.484375,
+          "width": 161,
+          "height": 18,
+          "centerY": 194.484375
+        },
+        "record": {
+          "x": 204,
+          "y": 225.484375,
+          "right": 365,
+          "bottom": 239.78125,
+          "width": 161,
+          "height": 14.296875,
+          "centerY": 232.6328125
+        },
+        "scoreBox": {
+          "x": 204,
+          "y": 159.484375,
+          "right": 252,
+          "bottom": 159.484375,
+          "width": 48,
+          "height": 0,
+          "centerY": 159.484375
+        }
+      }
+    ],
+    "overflow": false,
+    "logosLoaded": true,
+    "stats": [],
+    "bars": [],
+    "values": [],
+    "boxTeams": [],
+    "recordFailures": 0,
+    "overlaps": 0,
+    "clipped": 0
+  },
+  {
+    "width": 390,
+    "view": "detail",
+    "index": 11,
+    "id": "qa-nhl-intermission",
+    "sport": "NHL",
+    "state": "live",
+    "scoreboard": [
+      {
+        "name": "Dallas Stars",
+        "score": "2",
+        "logo": {
+          "x": 60,
+          "y": 139.484375,
+          "right": 100,
+          "bottom": 179.484375,
+          "width": 40,
+          "height": 40,
+          "centerY": 159.484375
+        },
+        "nameBox": {
+          "x": 25,
+          "y": 185.484375,
+          "right": 187,
+          "bottom": 203.484375,
+          "width": 162,
+          "height": 18,
+          "centerY": 194.484375
+        },
+        "record": {
+          "x": 25,
+          "y": 207.484375,
+          "right": 187,
+          "bottom": 221.78125,
+          "width": 162,
+          "height": 14.296875,
+          "centerY": 214.6328125
+        },
+        "scoreBox": {
+          "x": 139,
+          "y": 144.484375,
+          "right": 187,
+          "bottom": 174.484375,
+          "width": 48,
+          "height": 30,
+          "centerY": 159.484375
+        }
+      },
+      {
+        "name": "Washington Capitals",
+        "score": "2",
+        "logo": {
+          "x": 290.5,
+          "y": 139.484375,
+          "right": 330.5,
+          "bottom": 179.484375,
+          "width": 40,
+          "height": 40,
+          "centerY": 159.484375
+        },
+        "nameBox": {
+          "x": 204,
+          "y": 185.484375,
+          "right": 365,
+          "bottom": 203.484375,
+          "width": 161,
+          "height": 18,
+          "centerY": 194.484375
+        },
+        "record": {
+          "x": 204,
+          "y": 207.484375,
+          "right": 365,
+          "bottom": 221.78125,
+          "width": 161,
+          "height": 14.296875,
+          "centerY": 214.6328125
+        },
+        "scoreBox": {
+          "x": 204,
+          "y": 144.484375,
+          "right": 252,
+          "bottom": 174.484375,
+          "width": 48,
+          "height": 30,
+          "centerY": 159.484375
+        }
+      }
+    ],
+    "overflow": false,
+    "logosLoaded": true,
+    "stats": [
+      "DAL",
+      "WSH"
+    ],
+    "bars": [
+      [
+        "rgb(152, 0, 46)",
+        "rgb(29, 66, 138)"
+      ]
+    ],
+    "values": [
+      [
+        "21",
+        "Shots",
+        "30"
+      ]
+    ],
+    "boxTeams": [],
+    "recordFailures": 0,
+    "overlaps": 0,
+    "clipped": 0
+  },
+  {
+    "width": 390,
+    "view": "detail",
+    "index": 12,
+    "id": "qa-heat-warriors",
+    "sport": "NBA",
+    "state": "completed",
+    "scoreboard": [
+      {
+        "name": "Miami Heat",
+        "score": "120",
+        "logo": {
+          "x": 60,
+          "y": 139.484375,
+          "right": 100,
+          "bottom": 179.484375,
+          "width": 40,
+          "height": 40,
+          "centerY": 159.484375
+        },
+        "nameBox": {
+          "x": 25,
+          "y": 185.484375,
+          "right": 187,
+          "bottom": 203.484375,
+          "width": 162,
+          "height": 18,
+          "centerY": 194.484375
+        },
+        "record": {
+          "x": 25,
+          "y": 207.484375,
+          "right": 187,
+          "bottom": 221.78125,
+          "width": 162,
+          "height": 14.296875,
+          "centerY": 214.6328125
+        },
+        "scoreBox": {
+          "x": 139,
+          "y": 144.484375,
+          "right": 187,
+          "bottom": 174.484375,
+          "width": 48,
+          "height": 30,
+          "centerY": 159.484375
+        }
+      },
+      {
+        "name": "Golden State Warriors",
+        "score": "115",
+        "logo": {
+          "x": 290.5,
+          "y": 139.484375,
+          "right": 330.5,
+          "bottom": 179.484375,
+          "width": 40,
+          "height": 40,
+          "centerY": 159.484375
+        },
+        "nameBox": {
+          "x": 204,
+          "y": 185.484375,
+          "right": 365,
+          "bottom": 203.484375,
+          "width": 161,
+          "height": 18,
+          "centerY": 194.484375
+        },
+        "record": {
+          "x": 204,
+          "y": 207.484375,
+          "right": 365,
+          "bottom": 221.78125,
+          "width": 161,
+          "height": 14.296875,
+          "centerY": 214.6328125
+        },
+        "scoreBox": {
+          "x": 204,
+          "y": 144.484375,
+          "right": 252,
+          "bottom": 174.484375,
+          "width": 48,
+          "height": 30,
+          "centerY": 159.484375
+        }
+      }
+    ],
+    "overflow": false,
+    "logosLoaded": true,
+    "stats": [
+      "MIA",
+      "GS"
+    ],
+    "bars": [
+      [
+        "rgb(152, 0, 46)",
+        "rgb(29, 66, 138)"
+      ]
+    ],
+    "values": [
+      [
+        "38",
+        "Rebounds",
+        "44"
+      ]
+    ],
+    "boxTeams": [
+      "Miami Heat",
+      "Miami Heat",
+      "Golden State Warriors"
+    ],
+    "recordFailures": 0,
+    "overlaps": 0,
+    "clipped": 0
+  },
+  {
+    "width": 390,
+    "view": "detail",
+    "index": 13,
+    "id": "qa-two-long-names",
+    "sport": "CFB",
+    "state": "completed",
+    "scoreboard": [
+      {
+        "name": "South Carolina Gamecocks",
+        "score": "9",
+        "logo": {
+          "x": 60,
+          "y": 139.484375,
+          "right": 100,
+          "bottom": 179.484375,
+          "width": 40,
+          "height": 40,
+          "centerY": 159.484375
+        },
+        "nameBox": {
+          "x": 25,
+          "y": 185.484375,
+          "right": 187,
+          "bottom": 203.484375,
+          "width": 162,
+          "height": 18,
+          "centerY": 194.484375
+        },
+        "record": {
+          "x": 25,
+          "y": 207.484375,
+          "right": 187,
+          "bottom": 221.78125,
+          "width": 162,
+          "height": 14.296875,
+          "centerY": 214.6328125
+        },
+        "scoreBox": {
+          "x": 139,
+          "y": 144.484375,
+          "right": 187,
+          "bottom": 174.484375,
+          "width": 48,
+          "height": 30,
+          "centerY": 159.484375
+        }
+      },
+      {
+        "name": "Penn State Nittany Lions",
+        "score": "10",
+        "logo": {
+          "x": 290.5,
+          "y": 139.484375,
+          "right": 330.5,
+          "bottom": 179.484375,
+          "width": 40,
+          "height": 40,
+          "centerY": 159.484375
+        },
+        "nameBox": {
+          "x": 204,
+          "y": 185.484375,
+          "right": 365,
+          "bottom": 203.484375,
+          "width": 161,
+          "height": 18,
+          "centerY": 194.484375
+        },
+        "record": {
+          "x": 204,
+          "y": 207.484375,
+          "right": 365,
+          "bottom": 221.78125,
+          "width": 161,
+          "height": 14.296875,
+          "centerY": 214.6328125
+        },
+        "scoreBox": {
+          "x": 204,
+          "y": 144.484375,
+          "right": 252,
+          "bottom": 174.484375,
+          "width": 48,
+          "height": 30,
+          "centerY": 159.484375
+        }
+      }
+    ],
+    "overflow": false,
+    "logosLoaded": true,
+    "stats": [
+      "SC",
+      "PSU"
+    ],
+    "bars": [
+      [
+        "rgb(152, 0, 46)",
+        "rgb(29, 66, 138)"
+      ]
+    ],
+    "values": [
+      [
+        "310",
+        "Total yards",
+        "350"
+      ]
+    ],
+    "boxTeams": [],
+    "recordFailures": 0,
+    "overlaps": 0,
+    "clipped": 0
+  },
+  {
+    "width": 390,
+    "view": "detail",
+    "index": 14,
+    "id": "qa-three-digit-swap",
+    "sport": "NBA",
+    "state": "live",
+    "scoreboard": [
+      {
+        "name": "Miami Heat",
+        "score": "100",
+        "logo": {
+          "x": 60,
+          "y": 162.09375,
+          "right": 100,
+          "bottom": 202.09375,
+          "width": 40,
+          "height": 40,
+          "centerY": 182.09375
+        },
+        "nameBox": {
+          "x": 25,
+          "y": 208.09375,
+          "right": 187,
+          "bottom": 226.09375,
+          "width": 162,
+          "height": 18,
+          "centerY": 217.09375
+        },
+        "record": {
+          "x": 25,
+          "y": 230.09375,
+          "right": 187,
+          "bottom": 244.390625,
+          "width": 162,
+          "height": 14.296875,
+          "centerY": 237.2421875
+        },
+        "scoreBox": {
+          "x": 139,
+          "y": 167.09375,
+          "right": 187,
+          "bottom": 197.09375,
+          "width": 48,
+          "height": 30,
+          "centerY": 182.09375
+        }
+      },
+      {
+        "name": "Golden State Warriors",
+        "score": "99",
+        "logo": {
+          "x": 290.5,
+          "y": 162.09375,
+          "right": 330.5,
+          "bottom": 202.09375,
+          "width": 40,
+          "height": 40,
+          "centerY": 182.09375
+        },
+        "nameBox": {
+          "x": 204,
+          "y": 208.09375,
+          "right": 365,
+          "bottom": 226.09375,
+          "width": 161,
+          "height": 18,
+          "centerY": 217.09375
+        },
+        "record": {
+          "x": 204,
+          "y": 230.09375,
+          "right": 365,
+          "bottom": 244.390625,
+          "width": 161,
+          "height": 14.296875,
+          "centerY": 237.2421875
+        },
+        "scoreBox": {
+          "x": 204,
+          "y": 167.09375,
+          "right": 252,
+          "bottom": 197.09375,
+          "width": 48,
+          "height": 30,
+          "centerY": 182.09375
+        }
+      }
+    ],
+    "overflow": false,
+    "logosLoaded": true,
+    "stats": [
+      "MIA",
+      "GS"
+    ],
+    "bars": [
+      [
+        "rgb(152, 0, 46)",
+        "rgb(29, 66, 138)"
+      ]
+    ],
+    "values": [
+      [
+        "38",
+        "Rebounds",
+        "44"
+      ]
+    ],
+    "boxTeams": [
+      "Miami Heat",
+      "Miami Heat",
+      "Golden State Warriors"
+    ],
+    "recordFailures": 0,
+    "overlaps": 0,
+    "clipped": 0
+  },
+  {
+    "width": 428,
+    "view": "cards",
+    "set": 0,
+    "logosLoaded": 8,
+    "logos": 8
+  },
+  {
+    "width": 428,
+    "view": "cards",
+    "set": 1,
+    "logosLoaded": 8,
+    "logos": 8
+  },
+  {
+    "width": 428,
+    "view": "cards",
+    "set": 2,
+    "logosLoaded": 8,
+    "logos": 8
+  },
+  {
+    "width": 428,
+    "view": "cards",
+    "set": 3,
+    "logosLoaded": 6,
+    "logos": 6
+  },
+  {
+    "width": 428,
+    "view": "detail",
+    "index": 0,
+    "id": "qa-nfl-possession",
+    "sport": "NFL",
+    "state": "live",
+    "scoreboard": [
+      {
+        "name": "Las Vegas Raiders",
+        "score": "24",
+        "logo": {
+          "x": 69.5,
+          "y": 162.09375,
+          "right": 109.5,
+          "bottom": 202.09375,
+          "width": 40,
+          "height": 40,
+          "centerY": 182.09375
+        },
+        "nameBox": {
+          "x": 25,
+          "y": 208.09375,
+          "right": 206,
+          "bottom": 226.09375,
+          "width": 181,
+          "height": 18,
+          "centerY": 217.09375
+        },
+        "record": {
+          "x": 25,
+          "y": 230.09375,
+          "right": 206,
+          "bottom": 244.390625,
+          "width": 181,
+          "height": 14.296875,
+          "centerY": 237.2421875
+        },
+        "scoreBox": {
+          "x": 158,
+          "y": 167.09375,
+          "right": 206,
+          "bottom": 197.09375,
+          "width": 48,
+          "height": 30,
+          "centerY": 182.09375
+        }
+      },
+      {
+        "name": "Baltimore Ravens",
+        "score": "21",
+        "logo": {
+          "x": 319,
+          "y": 162.09375,
+          "right": 359,
+          "bottom": 202.09375,
+          "width": 40,
+          "height": 40,
+          "centerY": 182.09375
+        },
+        "nameBox": {
+          "x": 223,
+          "y": 208.09375,
+          "right": 403,
+          "bottom": 226.09375,
+          "width": 180,
+          "height": 18,
+          "centerY": 217.09375
+        },
+        "record": {
+          "x": 223,
+          "y": 230.09375,
+          "right": 403,
+          "bottom": 244.390625,
+          "width": 180,
+          "height": 14.296875,
+          "centerY": 237.2421875
+        },
+        "scoreBox": {
+          "x": 223,
+          "y": 167.09375,
+          "right": 271,
+          "bottom": 197.09375,
+          "width": 48,
+          "height": 30,
+          "centerY": 182.09375
+        }
+      }
+    ],
+    "overflow": false,
+    "logosLoaded": true,
+    "stats": [
+      "LV",
+      "BAL"
+    ],
+    "bars": [
+      [
+        "rgb(152, 0, 46)",
+        "rgb(29, 66, 138)"
+      ]
+    ],
+    "values": [
+      [
+        "310",
+        "Total yards",
+        "350"
+      ]
+    ],
+    "boxTeams": [],
+    "recordFailures": 0,
+    "overlaps": 0,
+    "clipped": 0
+  },
+  {
+    "width": 428,
+    "view": "detail",
+    "index": 1,
+    "id": "qa-nhl-pp",
+    "sport": "NHL",
+    "state": "live",
+    "scoreboard": [
+      {
+        "name": "Detroit Red Wings",
+        "score": "2",
+        "logo": {
+          "x": 69.5,
+          "y": 162.09375,
+          "right": 109.5,
+          "bottom": 202.09375,
+          "width": 40,
+          "height": 40,
+          "centerY": 182.09375
+        },
+        "nameBox": {
+          "x": 25,
+          "y": 208.09375,
+          "right": 206,
+          "bottom": 226.09375,
+          "width": 181,
+          "height": 18,
+          "centerY": 217.09375
+        },
+        "record": {
+          "x": 25,
+          "y": 230.09375,
+          "right": 206,
+          "bottom": 244.390625,
+          "width": 181,
+          "height": 14.296875,
+          "centerY": 237.2421875
+        },
+        "scoreBox": {
+          "x": 158,
+          "y": 167.09375,
+          "right": 206,
+          "bottom": 197.09375,
+          "width": 48,
+          "height": 30,
+          "centerY": 182.09375
+        }
+      },
+      {
+        "name": "Tampa Bay Lightning",
+        "score": "3",
+        "logo": {
+          "x": 319,
+          "y": 162.09375,
+          "right": 359,
+          "bottom": 202.09375,
+          "width": 40,
+          "height": 40,
+          "centerY": 182.09375
+        },
+        "nameBox": {
+          "x": 223,
+          "y": 208.09375,
+          "right": 403,
+          "bottom": 226.09375,
+          "width": 180,
+          "height": 18,
+          "centerY": 217.09375
+        },
+        "record": {
+          "x": 223,
+          "y": 230.09375,
+          "right": 403,
+          "bottom": 244.390625,
+          "width": 180,
+          "height": 14.296875,
+          "centerY": 237.2421875
+        },
+        "scoreBox": {
+          "x": 223,
+          "y": 167.09375,
+          "right": 271,
+          "bottom": 197.09375,
+          "width": 48,
+          "height": 30,
+          "centerY": 182.09375
+        }
+      }
+    ],
+    "overflow": false,
+    "logosLoaded": true,
+    "stats": [
+      "DET",
+      "TB"
+    ],
+    "bars": [
+      [
+        "rgb(152, 0, 46)",
+        "rgb(29, 66, 138)"
+      ]
+    ],
+    "values": [
+      [
+        "21",
+        "Shots",
+        "30"
+      ]
+    ],
+    "boxTeams": [],
+    "recordFailures": 0,
+    "overlaps": 0,
+    "clipped": 0
+  },
+  {
+    "width": 428,
+    "view": "detail",
+    "index": 2,
+    "id": "qa-cfb-navy",
+    "sport": "CFB",
+    "state": "live",
+    "scoreboard": [
+      {
+        "name": "Penn State Nittany Lions",
+        "score": "24",
+        "logo": {
+          "x": 69.5,
+          "y": 162.09375,
+          "right": 109.5,
+          "bottom": 202.09375,
+          "width": 40,
+          "height": 40,
+          "centerY": 182.09375
+        },
+        "nameBox": {
+          "x": 25,
+          "y": 208.09375,
+          "right": 206,
+          "bottom": 226.09375,
+          "width": 181,
+          "height": 18,
+          "centerY": 217.09375
+        },
+        "record": {
+          "x": 25,
+          "y": 230.09375,
+          "right": 206,
+          "bottom": 244.390625,
+          "width": 181,
+          "height": 14.296875,
+          "centerY": 237.2421875
+        },
+        "scoreBox": {
+          "x": 158,
+          "y": 167.09375,
+          "right": 206,
+          "bottom": 197.09375,
+          "width": 48,
+          "height": 30,
+          "centerY": 182.09375
+        }
+      },
+      {
+        "name": "Washington Huskies",
+        "score": "21",
+        "logo": {
+          "x": 319,
+          "y": 162.09375,
+          "right": 359,
+          "bottom": 202.09375,
+          "width": 40,
+          "height": 40,
+          "centerY": 182.09375
+        },
+        "nameBox": {
+          "x": 223,
+          "y": 208.09375,
+          "right": 403,
+          "bottom": 226.09375,
+          "width": 180,
+          "height": 18,
+          "centerY": 217.09375
+        },
+        "record": {
+          "x": 223,
+          "y": 230.09375,
+          "right": 403,
+          "bottom": 244.390625,
+          "width": 180,
+          "height": 14.296875,
+          "centerY": 237.2421875
+        },
+        "scoreBox": {
+          "x": 223,
+          "y": 167.09375,
+          "right": 271,
+          "bottom": 197.09375,
+          "width": 48,
+          "height": 30,
+          "centerY": 182.09375
+        }
+      }
+    ],
+    "overflow": false,
+    "logosLoaded": true,
+    "stats": [
+      "PSU",
+      "WASH"
+    ],
+    "bars": [
+      [
+        "rgb(152, 0, 46)",
+        "rgb(29, 66, 138)"
+      ]
+    ],
+    "values": [
+      [
+        "310",
+        "Total yards",
+        "350"
+      ]
+    ],
+    "boxTeams": [],
+    "recordFailures": 0,
+    "overlaps": 0,
+    "clipped": 0
+  },
+  {
+    "width": 428,
+    "view": "detail",
+    "index": 3,
+    "id": "qa-nba-black",
+    "sport": "NBA",
+    "state": "live",
+    "scoreboard": [
+      {
+        "name": "Brooklyn Nets",
+        "score": "102",
+        "logo": {
+          "x": 69.5,
+          "y": 162.09375,
+          "right": 109.5,
+          "bottom": 202.09375,
+          "width": 40,
+          "height": 40,
+          "centerY": 182.09375
+        },
+        "nameBox": {
+          "x": 25,
+          "y": 208.09375,
+          "right": 206,
+          "bottom": 226.09375,
+          "width": 181,
+          "height": 18,
+          "centerY": 217.09375
+        },
+        "record": {
+          "x": 25,
+          "y": 230.09375,
+          "right": 206,
+          "bottom": 244.390625,
+          "width": 181,
+          "height": 14.296875,
+          "centerY": 237.2421875
+        },
+        "scoreBox": {
+          "x": 158,
+          "y": 167.09375,
+          "right": 206,
+          "bottom": 197.09375,
+          "width": 48,
+          "height": 30,
+          "centerY": 182.09375
+        }
+      },
+      {
+        "name": "San Antonio Spurs",
+        "score": "101",
+        "logo": {
+          "x": 319,
+          "y": 162.09375,
+          "right": 359,
+          "bottom": 202.09375,
+          "width": 40,
+          "height": 40,
+          "centerY": 182.09375
+        },
+        "nameBox": {
+          "x": 223,
+          "y": 208.09375,
+          "right": 403,
+          "bottom": 226.09375,
+          "width": 180,
+          "height": 18,
+          "centerY": 217.09375
+        },
+        "record": {
+          "x": 223,
+          "y": 230.09375,
+          "right": 403,
+          "bottom": 244.390625,
+          "width": 180,
+          "height": 14.296875,
+          "centerY": 237.2421875
+        },
+        "scoreBox": {
+          "x": 223,
+          "y": 167.09375,
+          "right": 271,
+          "bottom": 197.09375,
+          "width": 48,
+          "height": 30,
+          "centerY": 182.09375
+        }
+      }
+    ],
+    "overflow": false,
+    "logosLoaded": true,
+    "stats": [
+      "BKN",
+      "SA"
+    ],
+    "bars": [
+      [
+        "rgb(152, 0, 46)",
+        "rgb(29, 66, 138)"
+      ]
+    ],
+    "values": [
+      [
+        "38",
+        "Rebounds",
+        "44"
+      ]
+    ],
+    "boxTeams": [
+      "Brooklyn Nets",
+      "Brooklyn Nets",
+      "San Antonio Spurs"
+    ],
+    "recordFailures": 0,
+    "overlaps": 0,
+    "clipped": 0
+  },
+  {
+    "width": 428,
+    "view": "detail",
+    "index": 4,
+    "id": "qa-mlb-navy",
+    "sport": "MLB",
+    "state": "live",
+    "scoreboard": [
+      {
+        "name": "New York Yankees",
+        "score": "3",
+        "logo": {
+          "x": 69.5,
+          "y": 139.484375,
+          "right": 109.5,
+          "bottom": 179.484375,
+          "width": 40,
+          "height": 40,
+          "centerY": 159.484375
+        },
+        "nameBox": {
+          "x": 25,
+          "y": 185.484375,
+          "right": 206,
+          "bottom": 203.484375,
+          "width": 181,
+          "height": 18,
+          "centerY": 194.484375
+        },
+        "record": {
+          "x": 25,
+          "y": 207.484375,
+          "right": 206,
+          "bottom": 221.78125,
+          "width": 181,
+          "height": 14.296875,
+          "centerY": 214.6328125
+        },
+        "scoreBox": {
+          "x": 158,
+          "y": 144.484375,
+          "right": 206,
+          "bottom": 174.484375,
+          "width": 48,
+          "height": 30,
+          "centerY": 159.484375
+        }
+      },
+      {
+        "name": "Chicago White Sox",
+        "score": "3",
+        "logo": {
+          "x": 319,
+          "y": 139.484375,
+          "right": 359,
+          "bottom": 179.484375,
+          "width": 40,
+          "height": 40,
+          "centerY": 159.484375
+        },
+        "nameBox": {
+          "x": 223,
+          "y": 185.484375,
+          "right": 403,
+          "bottom": 203.484375,
+          "width": 180,
+          "height": 18,
+          "centerY": 194.484375
+        },
+        "record": {
+          "x": 223,
+          "y": 207.484375,
+          "right": 403,
+          "bottom": 221.78125,
+          "width": 180,
+          "height": 14.296875,
+          "centerY": 214.6328125
+        },
+        "scoreBox": {
+          "x": 223,
+          "y": 144.484375,
+          "right": 271,
+          "bottom": 174.484375,
+          "width": 48,
+          "height": 30,
+          "centerY": 159.484375
+        }
+      }
+    ],
+    "overflow": false,
+    "logosLoaded": true,
+    "stats": [
+      "NYY",
+      "CHW"
+    ],
+    "bars": [
+      [
+        "rgb(152, 0, 46)",
+        "rgb(29, 66, 138)"
+      ]
+    ],
+    "values": [
+      [
+        "3",
+        "Runs",
+        "4"
+      ]
+    ],
+    "boxTeams": [],
+    "recordFailures": 0,
+    "overlaps": 0,
+    "clipped": 0
+  },
+  {
+    "width": 428,
+    "view": "detail",
+    "index": 5,
+    "id": "qa-ncaam-shapes",
+    "sport": "NCAAB",
+    "state": "live",
+    "scoreboard": [
+      {
+        "name": "Wofford Terriers",
+        "score": "65",
+        "logo": {
+          "x": 69.5,
+          "y": 162.09375,
+          "right": 109.5,
+          "bottom": 202.09375,
+          "width": 40,
+          "height": 40,
+          "centerY": 182.09375
+        },
+        "nameBox": {
+          "x": 25,
+          "y": 208.09375,
+          "right": 206,
+          "bottom": 226.09375,
+          "width": 181,
+          "height": 18,
+          "centerY": 217.09375
+        },
+        "record": {
+          "x": 25,
+          "y": 230.09375,
+          "right": 206,
+          "bottom": 244.390625,
+          "width": 181,
+          "height": 14.296875,
+          "centerY": 237.2421875
+        },
+        "scoreBox": {
+          "x": 158,
+          "y": 167.09375,
+          "right": 206,
+          "bottom": 197.09375,
+          "width": 48,
+          "height": 30,
+          "centerY": 182.09375
+        }
+      },
+      {
+        "name": "Tennessee Volunteers",
+        "score": "65",
+        "logo": {
+          "x": 319,
+          "y": 162.09375,
+          "right": 359,
+          "bottom": 202.09375,
+          "width": 40,
+          "height": 40,
+          "centerY": 182.09375
+        },
+        "nameBox": {
+          "x": 223,
+          "y": 208.09375,
+          "right": 403,
+          "bottom": 226.09375,
+          "width": 180,
+          "height": 18,
+          "centerY": 217.09375
+        },
+        "record": {
+          "x": 223,
+          "y": 230.09375,
+          "right": 403,
+          "bottom": 244.390625,
+          "width": 180,
+          "height": 14.296875,
+          "centerY": 237.2421875
+        },
+        "scoreBox": {
+          "x": 223,
+          "y": 167.09375,
+          "right": 271,
+          "bottom": 197.09375,
+          "width": 48,
+          "height": 30,
+          "centerY": 182.09375
+        }
+      }
+    ],
+    "overflow": false,
+    "logosLoaded": true,
+    "stats": [
+      "WOF",
+      "TENN"
+    ],
+    "bars": [
+      [
+        "rgb(152, 0, 46)",
+        "rgb(29, 66, 138)"
+      ]
+    ],
+    "values": [
+      [
+        "38",
+        "Rebounds",
+        "44"
+      ]
+    ],
+    "boxTeams": [
+      "Wofford Terriers",
+      "Wofford Terriers",
+      "Tennessee Volunteers"
+    ],
+    "recordFailures": 0,
+    "overlaps": 0,
+    "clipped": 0
+  },
+  {
+    "width": 428,
+    "view": "detail",
+    "index": 6,
+    "id": "qa-cfb-red",
+    "sport": "CFB",
+    "state": "live",
+    "scoreboard": [
+      {
+        "name": "South Carolina Gamecocks",
+        "score": "10",
+        "logo": {
+          "x": 69.5,
+          "y": 162.09375,
+          "right": 109.5,
+          "bottom": 202.09375,
+          "width": 40,
+          "height": 40,
+          "centerY": 182.09375
+        },
+        "nameBox": {
+          "x": 25,
+          "y": 208.09375,
+          "right": 206,
+          "bottom": 226.09375,
+          "width": 181,
+          "height": 18,
+          "centerY": 217.09375
+        },
+        "record": {
+          "x": 25,
+          "y": 230.09375,
+          "right": 206,
+          "bottom": 244.390625,
+          "width": 181,
+          "height": 14.296875,
+          "centerY": 237.2421875
+        },
+        "scoreBox": {
+          "x": 158,
+          "y": 167.09375,
+          "right": 206,
+          "bottom": 197.09375,
+          "width": 48,
+          "height": 30,
+          "centerY": 182.09375
+        }
+      },
+      {
+        "name": "Alabama Crimson Tide",
+        "score": "14",
+        "logo": {
+          "x": 319,
+          "y": 162.09375,
+          "right": 359,
+          "bottom": 202.09375,
+          "width": 40,
+          "height": 40,
+          "centerY": 182.09375
+        },
+        "nameBox": {
+          "x": 223,
+          "y": 208.09375,
+          "right": 403,
+          "bottom": 226.09375,
+          "width": 180,
+          "height": 18,
+          "centerY": 217.09375
+        },
+        "record": {
+          "x": 223,
+          "y": 230.09375,
+          "right": 403,
+          "bottom": 244.390625,
+          "width": 180,
+          "height": 14.296875,
+          "centerY": 237.2421875
+        },
+        "scoreBox": {
+          "x": 223,
+          "y": 167.09375,
+          "right": 271,
+          "bottom": 197.09375,
+          "width": 48,
+          "height": 30,
+          "centerY": 182.09375
+        }
+      }
+    ],
+    "overflow": false,
+    "logosLoaded": true,
+    "stats": [
+      "SC",
+      "ALA"
+    ],
+    "bars": [
+      [
+        "rgb(152, 0, 46)",
+        "rgb(29, 66, 138)"
+      ]
+    ],
+    "values": [
+      [
+        "310",
+        "Total yards",
+        "350"
+      ]
+    ],
+    "boxTeams": [],
+    "recordFailures": 0,
+    "overlaps": 0,
+    "clipped": 0
+  },
+  {
+    "width": 428,
+    "view": "detail",
+    "index": 7,
+    "id": "qa-cfb-black",
+    "sport": "CFB",
+    "state": "live",
+    "scoreboard": [
+      {
+        "name": "Purdue Boilermakers",
+        "score": "7",
+        "logo": {
+          "x": 69.5,
+          "y": 162.09375,
+          "right": 109.5,
+          "bottom": 202.09375,
+          "width": 40,
+          "height": 40,
+          "centerY": 182.09375
+        },
+        "nameBox": {
+          "x": 25,
+          "y": 208.09375,
+          "right": 206,
+          "bottom": 226.09375,
+          "width": 181,
+          "height": 18,
+          "centerY": 217.09375
+        },
+        "record": {
+          "x": 25,
+          "y": 230.09375,
+          "right": 206,
+          "bottom": 244.390625,
+          "width": 181,
+          "height": 14.296875,
+          "centerY": 237.2421875
+        },
+        "scoreBox": {
+          "x": 158,
+          "y": 167.09375,
+          "right": 206,
+          "bottom": 197.09375,
+          "width": 48,
+          "height": 30,
+          "centerY": 182.09375
+        }
+      },
+      {
+        "name": "Vanderbilt Commodores",
+        "score": "10",
+        "logo": {
+          "x": 319,
+          "y": 162.09375,
+          "right": 359,
+          "bottom": 202.09375,
+          "width": 40,
+          "height": 40,
+          "centerY": 182.09375
+        },
+        "nameBox": {
+          "x": 223,
+          "y": 208.09375,
+          "right": 403,
+          "bottom": 226.09375,
+          "width": 180,
+          "height": 18,
+          "centerY": 217.09375
+        },
+        "record": {
+          "x": 223,
+          "y": 230.09375,
+          "right": 403,
+          "bottom": 244.390625,
+          "width": 180,
+          "height": 14.296875,
+          "centerY": 237.2421875
+        },
+        "scoreBox": {
+          "x": 223,
+          "y": 167.09375,
+          "right": 271,
+          "bottom": 197.09375,
+          "width": 48,
+          "height": 30,
+          "centerY": 182.09375
+        }
+      }
+    ],
+    "overflow": false,
+    "logosLoaded": true,
+    "stats": [
+      "PUR",
+      "VAN"
+    ],
+    "bars": [
+      [
+        "rgb(152, 0, 46)",
+        "rgb(29, 66, 138)"
+      ]
+    ],
+    "values": [
+      [
+        "310",
+        "Total yards",
+        "350"
+      ]
+    ],
+    "boxTeams": [],
+    "recordFailures": 0,
+    "overlaps": 0,
+    "clipped": 0
+  },
+  {
+    "width": 428,
+    "view": "detail",
+    "index": 8,
+    "id": "qa-nhl-final",
+    "sport": "NHL",
+    "state": "completed",
+    "scoreboard": [
+      {
+        "name": "Los Angeles Kings",
+        "score": "3",
+        "logo": {
+          "x": 69.5,
+          "y": 139.484375,
+          "right": 109.5,
+          "bottom": 179.484375,
+          "width": 40,
+          "height": 40,
+          "centerY": 159.484375
+        },
+        "nameBox": {
+          "x": 25,
+          "y": 185.484375,
+          "right": 206,
+          "bottom": 203.484375,
+          "width": 181,
+          "height": 18,
+          "centerY": 194.484375
+        },
+        "record": {
+          "x": 25,
+          "y": 207.484375,
+          "right": 206,
+          "bottom": 221.78125,
+          "width": 181,
+          "height": 14.296875,
+          "centerY": 214.6328125
+        },
+        "scoreBox": {
+          "x": 158,
+          "y": 144.484375,
+          "right": 206,
+          "bottom": 174.484375,
+          "width": 48,
+          "height": 30,
+          "centerY": 159.484375
+        }
+      },
+      {
+        "name": "Boston Bruins",
+        "score": "2",
+        "logo": {
+          "x": 319,
+          "y": 139.484375,
+          "right": 359,
+          "bottom": 179.484375,
+          "width": 40,
+          "height": 40,
+          "centerY": 159.484375
+        },
+        "nameBox": {
+          "x": 223,
+          "y": 185.484375,
+          "right": 403,
+          "bottom": 203.484375,
+          "width": 180,
+          "height": 18,
+          "centerY": 194.484375
+        },
+        "record": {
+          "x": 223,
+          "y": 207.484375,
+          "right": 403,
+          "bottom": 221.78125,
+          "width": 180,
+          "height": 14.296875,
+          "centerY": 214.6328125
+        },
+        "scoreBox": {
+          "x": 223,
+          "y": 144.484375,
+          "right": 271,
+          "bottom": 174.484375,
+          "width": 48,
+          "height": 30,
+          "centerY": 159.484375
+        }
+      }
+    ],
+    "overflow": false,
+    "logosLoaded": true,
+    "stats": [
+      "LA",
+      "BOS"
+    ],
+    "bars": [
+      [
+        "rgb(152, 0, 46)",
+        "rgb(29, 66, 138)"
+      ]
+    ],
+    "values": [
+      [
+        "21",
+        "Shots",
+        "30"
+      ]
+    ],
+    "boxTeams": [],
+    "recordFailures": 0,
+    "overlaps": 0,
+    "clipped": 0
+  },
+  {
+    "width": 428,
+    "view": "detail",
+    "index": 9,
+    "id": "qa-nba-pending",
+    "sport": "NBA",
+    "state": "live",
+    "scoreboard": [
+      {
+        "name": "Brooklyn Nets",
+        "score": "53",
+        "logo": {
+          "x": 69.5,
+          "y": 139.484375,
+          "right": 109.5,
+          "bottom": 179.484375,
+          "width": 40,
+          "height": 40,
+          "centerY": 159.484375
+        },
+        "nameBox": {
+          "x": 25,
+          "y": 185.484375,
+          "right": 206,
+          "bottom": 203.484375,
+          "width": 181,
+          "height": 18,
+          "centerY": 194.484375
+        },
+        "record": {
+          "x": 25,
+          "y": 207.484375,
+          "right": 206,
+          "bottom": 221.78125,
+          "width": 181,
+          "height": 14.296875,
+          "centerY": 214.6328125
+        },
+        "scoreBox": {
+          "x": 158,
+          "y": 144.484375,
+          "right": 206,
+          "bottom": 174.484375,
+          "width": 48,
+          "height": 30,
+          "centerY": 159.484375
+        }
+      },
+      {
+        "name": "New York Knicks",
+        "score": "49",
+        "logo": {
+          "x": 319,
+          "y": 139.484375,
+          "right": 359,
+          "bottom": 179.484375,
+          "width": 40,
+          "height": 40,
+          "centerY": 159.484375
+        },
+        "nameBox": {
+          "x": 223,
+          "y": 185.484375,
+          "right": 403,
+          "bottom": 203.484375,
+          "width": 180,
+          "height": 18,
+          "centerY": 194.484375
+        },
+        "record": {
+          "x": 223,
+          "y": 207.484375,
+          "right": 403,
+          "bottom": 221.78125,
+          "width": 180,
+          "height": 14.296875,
+          "centerY": 214.6328125
+        },
+        "scoreBox": {
+          "x": 223,
+          "y": 144.484375,
+          "right": 271,
+          "bottom": 174.484375,
+          "width": 48,
+          "height": 30,
+          "centerY": 159.484375
+        }
+      }
+    ],
+    "overflow": false,
+    "logosLoaded": true,
+    "stats": [
+      "BKN",
+      "NY"
+    ],
+    "bars": [
+      [
+        "rgb(152, 0, 46)",
+        "rgb(29, 66, 138)"
+      ]
+    ],
+    "values": [
+      [
+        "38",
+        "Rebounds",
+        "44"
+      ]
+    ],
+    "boxTeams": [
+      "Brooklyn Nets",
+      "Brooklyn Nets",
+      "New York Knicks"
+    ],
+    "recordFailures": 0,
+    "overlaps": 0,
+    "clipped": 0
+  },
+  {
+    "width": 428,
+    "view": "detail",
+    "index": 10,
+    "id": "qa-ncaam-upcoming",
+    "sport": "NCAAB",
+    "state": "upcoming",
+    "scoreboard": [
+      {
+        "name": "Texas A&M-Corpus Christi Islanders",
+        "score": "",
+        "logo": {
+          "x": 69.5,
+          "y": 139.484375,
+          "right": 109.5,
+          "bottom": 179.484375,
+          "width": 40,
+          "height": 40,
+          "centerY": 159.484375
+        },
+        "nameBox": {
+          "x": 25,
+          "y": 185.484375,
+          "right": 206,
+          "bottom": 221.484375,
+          "width": 181,
+          "height": 36,
+          "centerY": 203.484375
+        },
+        "record": {
+          "x": 25,
+          "y": 225.484375,
+          "right": 206,
+          "bottom": 239.78125,
+          "width": 181,
+          "height": 14.296875,
+          "centerY": 232.6328125
+        },
+        "scoreBox": {
+          "x": 158,
+          "y": 159.484375,
+          "right": 206,
+          "bottom": 159.484375,
+          "width": 48,
+          "height": 0,
+          "centerY": 159.484375
+        }
+      },
+      {
+        "name": "Kentucky Wildcats",
+        "score": "",
+        "logo": {
+          "x": 319,
+          "y": 139.484375,
+          "right": 359,
+          "bottom": 179.484375,
+          "width": 40,
+          "height": 40,
+          "centerY": 159.484375
+        },
+        "nameBox": {
+          "x": 223,
+          "y": 185.484375,
+          "right": 403,
+          "bottom": 203.484375,
+          "width": 180,
+          "height": 18,
+          "centerY": 194.484375
+        },
+        "record": {
+          "x": 223,
+          "y": 225.484375,
+          "right": 403,
+          "bottom": 239.78125,
+          "width": 180,
+          "height": 14.296875,
+          "centerY": 232.6328125
+        },
+        "scoreBox": {
+          "x": 223,
+          "y": 159.484375,
+          "right": 271,
+          "bottom": 159.484375,
+          "width": 48,
+          "height": 0,
+          "centerY": 159.484375
+        }
+      }
+    ],
+    "overflow": false,
+    "logosLoaded": true,
+    "stats": [],
+    "bars": [],
+    "values": [],
+    "boxTeams": [],
+    "recordFailures": 0,
+    "overlaps": 0,
+    "clipped": 0
+  },
+  {
+    "width": 428,
+    "view": "detail",
+    "index": 11,
+    "id": "qa-nhl-intermission",
+    "sport": "NHL",
+    "state": "live",
+    "scoreboard": [
+      {
+        "name": "Dallas Stars",
+        "score": "2",
+        "logo": {
+          "x": 69.5,
+          "y": 139.484375,
+          "right": 109.5,
+          "bottom": 179.484375,
+          "width": 40,
+          "height": 40,
+          "centerY": 159.484375
+        },
+        "nameBox": {
+          "x": 25,
+          "y": 185.484375,
+          "right": 206,
+          "bottom": 203.484375,
+          "width": 181,
+          "height": 18,
+          "centerY": 194.484375
+        },
+        "record": {
+          "x": 25,
+          "y": 207.484375,
+          "right": 206,
+          "bottom": 221.78125,
+          "width": 181,
+          "height": 14.296875,
+          "centerY": 214.6328125
+        },
+        "scoreBox": {
+          "x": 158,
+          "y": 144.484375,
+          "right": 206,
+          "bottom": 174.484375,
+          "width": 48,
+          "height": 30,
+          "centerY": 159.484375
+        }
+      },
+      {
+        "name": "Washington Capitals",
+        "score": "2",
+        "logo": {
+          "x": 319,
+          "y": 139.484375,
+          "right": 359,
+          "bottom": 179.484375,
+          "width": 40,
+          "height": 40,
+          "centerY": 159.484375
+        },
+        "nameBox": {
+          "x": 223,
+          "y": 185.484375,
+          "right": 403,
+          "bottom": 203.484375,
+          "width": 180,
+          "height": 18,
+          "centerY": 194.484375
+        },
+        "record": {
+          "x": 223,
+          "y": 207.484375,
+          "right": 403,
+          "bottom": 221.78125,
+          "width": 180,
+          "height": 14.296875,
+          "centerY": 214.6328125
+        },
+        "scoreBox": {
+          "x": 223,
+          "y": 144.484375,
+          "right": 271,
+          "bottom": 174.484375,
+          "width": 48,
+          "height": 30,
+          "centerY": 159.484375
+        }
+      }
+    ],
+    "overflow": false,
+    "logosLoaded": true,
+    "stats": [
+      "DAL",
+      "WSH"
+    ],
+    "bars": [
+      [
+        "rgb(152, 0, 46)",
+        "rgb(29, 66, 138)"
+      ]
+    ],
+    "values": [
+      [
+        "21",
+        "Shots",
+        "30"
+      ]
+    ],
+    "boxTeams": [],
+    "recordFailures": 0,
+    "overlaps": 0,
+    "clipped": 0
+  },
+  {
+    "width": 428,
+    "view": "detail",
+    "index": 12,
+    "id": "qa-heat-warriors",
+    "sport": "NBA",
+    "state": "completed",
+    "scoreboard": [
+      {
+        "name": "Miami Heat",
+        "score": "120",
+        "logo": {
+          "x": 69.5,
+          "y": 139.484375,
+          "right": 109.5,
+          "bottom": 179.484375,
+          "width": 40,
+          "height": 40,
+          "centerY": 159.484375
+        },
+        "nameBox": {
+          "x": 25,
+          "y": 185.484375,
+          "right": 206,
+          "bottom": 203.484375,
+          "width": 181,
+          "height": 18,
+          "centerY": 194.484375
+        },
+        "record": {
+          "x": 25,
+          "y": 207.484375,
+          "right": 206,
+          "bottom": 221.78125,
+          "width": 181,
+          "height": 14.296875,
+          "centerY": 214.6328125
+        },
+        "scoreBox": {
+          "x": 158,
+          "y": 144.484375,
+          "right": 206,
+          "bottom": 174.484375,
+          "width": 48,
+          "height": 30,
+          "centerY": 159.484375
+        }
+      },
+      {
+        "name": "Golden State Warriors",
+        "score": "115",
+        "logo": {
+          "x": 319,
+          "y": 139.484375,
+          "right": 359,
+          "bottom": 179.484375,
+          "width": 40,
+          "height": 40,
+          "centerY": 159.484375
+        },
+        "nameBox": {
+          "x": 223,
+          "y": 185.484375,
+          "right": 403,
+          "bottom": 203.484375,
+          "width": 180,
+          "height": 18,
+          "centerY": 194.484375
+        },
+        "record": {
+          "x": 223,
+          "y": 207.484375,
+          "right": 403,
+          "bottom": 221.78125,
+          "width": 180,
+          "height": 14.296875,
+          "centerY": 214.6328125
+        },
+        "scoreBox": {
+          "x": 223,
+          "y": 144.484375,
+          "right": 271,
+          "bottom": 174.484375,
+          "width": 48,
+          "height": 30,
+          "centerY": 159.484375
+        }
+      }
+    ],
+    "overflow": false,
+    "logosLoaded": true,
+    "stats": [
+      "MIA",
+      "GS"
+    ],
+    "bars": [
+      [
+        "rgb(152, 0, 46)",
+        "rgb(29, 66, 138)"
+      ]
+    ],
+    "values": [
+      [
+        "38",
+        "Rebounds",
+        "44"
+      ]
+    ],
+    "boxTeams": [
+      "Miami Heat",
+      "Miami Heat",
+      "Golden State Warriors"
+    ],
+    "recordFailures": 0,
+    "overlaps": 0,
+    "clipped": 0
+  },
+  {
+    "width": 428,
+    "view": "detail",
+    "index": 13,
+    "id": "qa-two-long-names",
+    "sport": "CFB",
+    "state": "completed",
+    "scoreboard": [
+      {
+        "name": "South Carolina Gamecocks",
+        "score": "9",
+        "logo": {
+          "x": 69.5,
+          "y": 139.484375,
+          "right": 109.5,
+          "bottom": 179.484375,
+          "width": 40,
+          "height": 40,
+          "centerY": 159.484375
+        },
+        "nameBox": {
+          "x": 25,
+          "y": 185.484375,
+          "right": 206,
+          "bottom": 203.484375,
+          "width": 181,
+          "height": 18,
+          "centerY": 194.484375
+        },
+        "record": {
+          "x": 25,
+          "y": 207.484375,
+          "right": 206,
+          "bottom": 221.78125,
+          "width": 181,
+          "height": 14.296875,
+          "centerY": 214.6328125
+        },
+        "scoreBox": {
+          "x": 158,
+          "y": 144.484375,
+          "right": 206,
+          "bottom": 174.484375,
+          "width": 48,
+          "height": 30,
+          "centerY": 159.484375
+        }
+      },
+      {
+        "name": "Penn State Nittany Lions",
+        "score": "10",
+        "logo": {
+          "x": 319,
+          "y": 139.484375,
+          "right": 359,
+          "bottom": 179.484375,
+          "width": 40,
+          "height": 40,
+          "centerY": 159.484375
+        },
+        "nameBox": {
+          "x": 223,
+          "y": 185.484375,
+          "right": 403,
+          "bottom": 203.484375,
+          "width": 180,
+          "height": 18,
+          "centerY": 194.484375
+        },
+        "record": {
+          "x": 223,
+          "y": 207.484375,
+          "right": 403,
+          "bottom": 221.78125,
+          "width": 180,
+          "height": 14.296875,
+          "centerY": 214.6328125
+        },
+        "scoreBox": {
+          "x": 223,
+          "y": 144.484375,
+          "right": 271,
+          "bottom": 174.484375,
+          "width": 48,
+          "height": 30,
+          "centerY": 159.484375
+        }
+      }
+    ],
+    "overflow": false,
+    "logosLoaded": true,
+    "stats": [
+      "SC",
+      "PSU"
+    ],
+    "bars": [
+      [
+        "rgb(152, 0, 46)",
+        "rgb(29, 66, 138)"
+      ]
+    ],
+    "values": [
+      [
+        "310",
+        "Total yards",
+        "350"
+      ]
+    ],
+    "boxTeams": [],
+    "recordFailures": 0,
+    "overlaps": 0,
+    "clipped": 0
+  },
+  {
+    "width": 428,
+    "view": "detail",
+    "index": 14,
+    "id": "qa-three-digit-swap",
+    "sport": "NBA",
+    "state": "live",
+    "scoreboard": [
+      {
+        "name": "Miami Heat",
+        "score": "100",
+        "logo": {
+          "x": 69.5,
+          "y": 162.09375,
+          "right": 109.5,
+          "bottom": 202.09375,
+          "width": 40,
+          "height": 40,
+          "centerY": 182.09375
+        },
+        "nameBox": {
+          "x": 25,
+          "y": 208.09375,
+          "right": 206,
+          "bottom": 226.09375,
+          "width": 181,
+          "height": 18,
+          "centerY": 217.09375
+        },
+        "record": {
+          "x": 25,
+          "y": 230.09375,
+          "right": 206,
+          "bottom": 244.390625,
+          "width": 181,
+          "height": 14.296875,
+          "centerY": 237.2421875
+        },
+        "scoreBox": {
+          "x": 158,
+          "y": 167.09375,
+          "right": 206,
+          "bottom": 197.09375,
+          "width": 48,
+          "height": 30,
+          "centerY": 182.09375
+        }
+      },
+      {
+        "name": "Golden State Warriors",
+        "score": "99",
+        "logo": {
+          "x": 319,
+          "y": 162.09375,
+          "right": 359,
+          "bottom": 202.09375,
+          "width": 40,
+          "height": 40,
+          "centerY": 182.09375
+        },
+        "nameBox": {
+          "x": 223,
+          "y": 208.09375,
+          "right": 403,
+          "bottom": 226.09375,
+          "width": 180,
+          "height": 18,
+          "centerY": 217.09375
+        },
+        "record": {
+          "x": 223,
+          "y": 230.09375,
+          "right": 403,
+          "bottom": 244.390625,
+          "width": 180,
+          "height": 14.296875,
+          "centerY": 237.2421875
+        },
+        "scoreBox": {
+          "x": 223,
+          "y": 167.09375,
+          "right": 271,
+          "bottom": 197.09375,
+          "width": 48,
+          "height": 30,
+          "centerY": 182.09375
+        }
+      }
+    ],
+    "overflow": false,
+    "logosLoaded": true,
+    "stats": [
+      "MIA",
+      "GS"
+    ],
+    "bars": [
+      [
+        "rgb(152, 0, 46)",
+        "rgb(29, 66, 138)"
+      ]
+    ],
+    "values": [
+      [
+        "38",
+        "Rebounds",
+        "44"
+      ]
+    ],
+    "boxTeams": [
+      "Miami Heat",
+      "Miami Heat",
+      "Golden State Warriors"
+    ],
+    "recordFailures": 0,
+    "overlaps": 0,
+    "clipped": 0
+  },
+  {
+    "width": 1440,
+    "view": "cards",
+    "set": 0,
+    "logosLoaded": 8,
+    "logos": 8
+  },
+  {
+    "width": 1440,
+    "view": "cards",
+    "set": 1,
+    "logosLoaded": 8,
+    "logos": 8
+  },
+  {
+    "width": 1440,
+    "view": "cards",
+    "set": 2,
+    "logosLoaded": 8,
+    "logos": 8
+  },
+  {
+    "width": 1440,
+    "view": "cards",
+    "set": 3,
+    "logosLoaded": 6,
+    "logos": 6
+  },
+  {
+    "width": 1440,
+    "view": "detail",
+    "index": 0,
+    "id": "qa-nfl-possession",
+    "sport": "NFL",
+    "state": "live",
+    "scoreboard": [
+      {
+        "name": "Las Vegas Raiders",
+        "score": "24",
+        "logo": {
+          "x": 227,
+          "y": 221.9375,
+          "right": 275,
+          "bottom": 269.9375,
+          "width": 48,
+          "height": 48,
+          "centerY": 245.9375
+        },
+        "nameBox": {
+          "x": 285,
+          "y": 235.484375,
+          "right": 634,
+          "bottom": 256.375,
+          "width": 349,
+          "height": 20.890625,
+          "centerY": 245.9296875
+        },
+        "record": {
+          "x": 285,
+          "y": 273.9375,
+          "right": 634,
+          "bottom": 288.234375,
+          "width": 349,
+          "height": 14.296875,
+          "centerY": 281.0859375
+        },
+        "scoreBox": {
+          "x": 644,
+          "y": 230.9375,
+          "right": 708,
+          "bottom": 260.9375,
+          "width": 64,
+          "height": 30,
+          "centerY": 245.9375
+        }
+      },
+      {
+        "name": "Baltimore Ravens",
+        "score": "21",
+        "logo": {
+          "x": 1165,
+          "y": 221.9375,
+          "right": 1213,
+          "bottom": 269.9375,
+          "width": 48,
+          "height": 48,
+          "centerY": 245.9375
+        },
+        "nameBox": {
+          "x": 807,
+          "y": 235.484375,
+          "right": 1155,
+          "bottom": 256.375,
+          "width": 348,
+          "height": 20.890625,
+          "centerY": 245.9296875
+        },
+        "record": {
+          "x": 807,
+          "y": 273.9375,
+          "right": 1155,
+          "bottom": 288.234375,
+          "width": 348,
+          "height": 14.296875,
+          "centerY": 281.0859375
+        },
+        "scoreBox": {
+          "x": 733,
+          "y": 230.9375,
+          "right": 797,
+          "bottom": 260.9375,
+          "width": 64,
+          "height": 30,
+          "centerY": 245.9375
+        }
+      }
+    ],
+    "overflow": false,
+    "logosLoaded": true,
+    "stats": [
+      "LV",
+      "BAL"
+    ],
+    "bars": [
+      [
+        "rgb(152, 0, 46)",
+        "rgb(29, 66, 138)"
+      ]
+    ],
+    "values": [
+      [
+        "310",
+        "Total yards",
+        "350"
+      ]
+    ],
+    "boxTeams": [],
+    "recordFailures": 0,
+    "overlaps": 0,
+    "clipped": 0
+  },
+  {
+    "width": 1440,
+    "view": "detail",
+    "index": 1,
+    "id": "qa-nhl-pp",
+    "sport": "NHL",
+    "state": "live",
+    "scoreboard": [
+      {
+        "name": "Detroit Red Wings",
+        "score": "2",
+        "logo": {
+          "x": 227,
+          "y": 221.9375,
+          "right": 275,
+          "bottom": 269.9375,
+          "width": 48,
+          "height": 48,
+          "centerY": 245.9375
+        },
+        "nameBox": {
+          "x": 285,
+          "y": 235.484375,
+          "right": 634,
+          "bottom": 256.375,
+          "width": 349,
+          "height": 20.890625,
+          "centerY": 245.9296875
+        },
+        "record": {
+          "x": 285,
+          "y": 273.9375,
+          "right": 634,
+          "bottom": 288.234375,
+          "width": 349,
+          "height": 14.296875,
+          "centerY": 281.0859375
+        },
+        "scoreBox": {
+          "x": 644,
+          "y": 230.9375,
+          "right": 708,
+          "bottom": 260.9375,
+          "width": 64,
+          "height": 30,
+          "centerY": 245.9375
+        }
+      },
+      {
+        "name": "Tampa Bay Lightning",
+        "score": "3",
+        "logo": {
+          "x": 1165,
+          "y": 221.9375,
+          "right": 1213,
+          "bottom": 269.9375,
+          "width": 48,
+          "height": 48,
+          "centerY": 245.9375
+        },
+        "nameBox": {
+          "x": 807,
+          "y": 235.484375,
+          "right": 1155,
+          "bottom": 256.375,
+          "width": 348,
+          "height": 20.890625,
+          "centerY": 245.9296875
+        },
+        "record": {
+          "x": 807,
+          "y": 273.9375,
+          "right": 1155,
+          "bottom": 288.234375,
+          "width": 348,
+          "height": 14.296875,
+          "centerY": 281.0859375
+        },
+        "scoreBox": {
+          "x": 733,
+          "y": 230.9375,
+          "right": 797,
+          "bottom": 260.9375,
+          "width": 64,
+          "height": 30,
+          "centerY": 245.9375
+        }
+      }
+    ],
+    "overflow": false,
+    "logosLoaded": true,
+    "stats": [
+      "DET",
+      "TB"
+    ],
+    "bars": [
+      [
+        "rgb(152, 0, 46)",
+        "rgb(29, 66, 138)"
+      ]
+    ],
+    "values": [
+      [
+        "21",
+        "Shots",
+        "30"
+      ]
+    ],
+    "boxTeams": [],
+    "recordFailures": 0,
+    "overlaps": 0,
+    "clipped": 0
+  },
+  {
+    "width": 1440,
+    "view": "detail",
+    "index": 2,
+    "id": "qa-cfb-navy",
+    "sport": "CFB",
+    "state": "live",
+    "scoreboard": [
+      {
+        "name": "Penn State Nittany Lions",
+        "score": "24",
+        "logo": {
+          "x": 227,
+          "y": 221.9375,
+          "right": 275,
+          "bottom": 269.9375,
+          "width": 48,
+          "height": 48,
+          "centerY": 245.9375
+        },
+        "nameBox": {
+          "x": 285,
+          "y": 235.484375,
+          "right": 634,
+          "bottom": 256.375,
+          "width": 349,
+          "height": 20.890625,
+          "centerY": 245.9296875
+        },
+        "record": {
+          "x": 285,
+          "y": 273.9375,
+          "right": 634,
+          "bottom": 288.234375,
+          "width": 349,
+          "height": 14.296875,
+          "centerY": 281.0859375
+        },
+        "scoreBox": {
+          "x": 644,
+          "y": 230.9375,
+          "right": 708,
+          "bottom": 260.9375,
+          "width": 64,
+          "height": 30,
+          "centerY": 245.9375
+        }
+      },
+      {
+        "name": "Washington Huskies",
+        "score": "21",
+        "logo": {
+          "x": 1165,
+          "y": 221.9375,
+          "right": 1213,
+          "bottom": 269.9375,
+          "width": 48,
+          "height": 48,
+          "centerY": 245.9375
+        },
+        "nameBox": {
+          "x": 807,
+          "y": 235.484375,
+          "right": 1155,
+          "bottom": 256.375,
+          "width": 348,
+          "height": 20.890625,
+          "centerY": 245.9296875
+        },
+        "record": {
+          "x": 807,
+          "y": 273.9375,
+          "right": 1155,
+          "bottom": 288.234375,
+          "width": 348,
+          "height": 14.296875,
+          "centerY": 281.0859375
+        },
+        "scoreBox": {
+          "x": 733,
+          "y": 230.9375,
+          "right": 797,
+          "bottom": 260.9375,
+          "width": 64,
+          "height": 30,
+          "centerY": 245.9375
+        }
+      }
+    ],
+    "overflow": false,
+    "logosLoaded": true,
+    "stats": [
+      "PSU",
+      "WASH"
+    ],
+    "bars": [
+      [
+        "rgb(152, 0, 46)",
+        "rgb(29, 66, 138)"
+      ]
+    ],
+    "values": [
+      [
+        "310",
+        "Total yards",
+        "350"
+      ]
+    ],
+    "boxTeams": [],
+    "recordFailures": 0,
+    "overlaps": 0,
+    "clipped": 0
+  },
+  {
+    "width": 1440,
+    "view": "detail",
+    "index": 3,
+    "id": "qa-nba-black",
+    "sport": "NBA",
+    "state": "live",
+    "scoreboard": [
+      {
+        "name": "Brooklyn Nets",
+        "score": "102",
+        "logo": {
+          "x": 267,
+          "y": 221.9375,
+          "right": 315,
+          "bottom": 269.9375,
+          "width": 48,
+          "height": 48,
+          "centerY": 245.9375
+        },
+        "nameBox": {
+          "x": 325,
+          "y": 235.484375,
+          "right": 634,
+          "bottom": 256.375,
+          "width": 309,
+          "height": 20.890625,
+          "centerY": 245.9296875
+        },
+        "record": {
+          "x": 325,
+          "y": 273.9375,
+          "right": 634,
+          "bottom": 288.234375,
+          "width": 309,
+          "height": 14.296875,
+          "centerY": 281.0859375
+        },
+        "scoreBox": {
+          "x": 644,
+          "y": 230.9375,
+          "right": 708,
+          "bottom": 260.9375,
+          "width": 64,
+          "height": 30,
+          "centerY": 245.9375
+        }
+      },
+      {
+        "name": "San Antonio Spurs",
+        "score": "101",
+        "logo": {
+          "x": 1125,
+          "y": 221.9375,
+          "right": 1173,
+          "bottom": 269.9375,
+          "width": 48,
+          "height": 48,
+          "centerY": 245.9375
+        },
+        "nameBox": {
+          "x": 807,
+          "y": 235.484375,
+          "right": 1115,
+          "bottom": 256.375,
+          "width": 308,
+          "height": 20.890625,
+          "centerY": 245.9296875
+        },
+        "record": {
+          "x": 807,
+          "y": 273.9375,
+          "right": 1115,
+          "bottom": 288.234375,
+          "width": 308,
+          "height": 14.296875,
+          "centerY": 281.0859375
+        },
+        "scoreBox": {
+          "x": 733,
+          "y": 230.9375,
+          "right": 797,
+          "bottom": 260.9375,
+          "width": 64,
+          "height": 30,
+          "centerY": 245.9375
+        }
+      }
+    ],
+    "overflow": false,
+    "logosLoaded": true,
+    "stats": [
+      "BKN",
+      "SA"
+    ],
+    "bars": [
+      [
+        "rgb(152, 0, 46)",
+        "rgb(29, 66, 138)"
+      ]
+    ],
+    "values": [
+      [
+        "38",
+        "Rebounds",
+        "44"
+      ]
+    ],
+    "boxTeams": [
+      "Brooklyn Nets",
+      "Brooklyn Nets",
+      "San Antonio Spurs"
+    ],
+    "recordFailures": 0,
+    "overlaps": 0,
+    "clipped": 0
+  },
+  {
+    "width": 1440,
+    "view": "detail",
+    "index": 4,
+    "id": "qa-mlb-navy",
+    "sport": "MLB",
+    "state": "live",
+    "scoreboard": [
+      {
+        "name": "New York Yankees",
+        "score": "3",
+        "logo": {
+          "x": 227,
+          "y": 221.9375,
+          "right": 275,
+          "bottom": 269.9375,
+          "width": 48,
+          "height": 48,
+          "centerY": 245.9375
+        },
+        "nameBox": {
+          "x": 285,
+          "y": 235.484375,
+          "right": 634,
+          "bottom": 256.375,
+          "width": 349,
+          "height": 20.890625,
+          "centerY": 245.9296875
+        },
+        "record": {
+          "x": 285,
+          "y": 273.9375,
+          "right": 634,
+          "bottom": 288.234375,
+          "width": 349,
+          "height": 14.296875,
+          "centerY": 281.0859375
+        },
+        "scoreBox": {
+          "x": 644,
+          "y": 230.9375,
+          "right": 708,
+          "bottom": 260.9375,
+          "width": 64,
+          "height": 30,
+          "centerY": 245.9375
+        }
+      },
+      {
+        "name": "Chicago White Sox",
+        "score": "3",
+        "logo": {
+          "x": 1165,
+          "y": 221.9375,
+          "right": 1213,
+          "bottom": 269.9375,
+          "width": 48,
+          "height": 48,
+          "centerY": 245.9375
+        },
+        "nameBox": {
+          "x": 807,
+          "y": 235.484375,
+          "right": 1155,
+          "bottom": 256.375,
+          "width": 348,
+          "height": 20.890625,
+          "centerY": 245.9296875
+        },
+        "record": {
+          "x": 807,
+          "y": 273.9375,
+          "right": 1155,
+          "bottom": 288.234375,
+          "width": 348,
+          "height": 14.296875,
+          "centerY": 281.0859375
+        },
+        "scoreBox": {
+          "x": 733,
+          "y": 230.9375,
+          "right": 797,
+          "bottom": 260.9375,
+          "width": 64,
+          "height": 30,
+          "centerY": 245.9375
+        }
+      }
+    ],
+    "overflow": false,
+    "logosLoaded": true,
+    "stats": [
+      "NYY",
+      "CHW"
+    ],
+    "bars": [
+      [
+        "rgb(152, 0, 46)",
+        "rgb(29, 66, 138)"
+      ]
+    ],
+    "values": [
+      [
+        "3",
+        "Runs",
+        "4"
+      ]
+    ],
+    "boxTeams": [],
+    "recordFailures": 0,
+    "overlaps": 0,
+    "clipped": 0
+  },
+  {
+    "width": 1440,
+    "view": "detail",
+    "index": 5,
+    "id": "qa-ncaam-shapes",
+    "sport": "NCAAB",
+    "state": "live",
+    "scoreboard": [
+      {
+        "name": "Wofford Terriers",
+        "score": "65",
+        "logo": {
+          "x": 267,
+          "y": 221.9375,
+          "right": 315,
+          "bottom": 269.9375,
+          "width": 48,
+          "height": 48,
+          "centerY": 245.9375
+        },
+        "nameBox": {
+          "x": 325,
+          "y": 235.484375,
+          "right": 634,
+          "bottom": 256.375,
+          "width": 309,
+          "height": 20.890625,
+          "centerY": 245.9296875
+        },
+        "record": {
+          "x": 325,
+          "y": 273.9375,
+          "right": 634,
+          "bottom": 288.234375,
+          "width": 309,
+          "height": 14.296875,
+          "centerY": 281.0859375
+        },
+        "scoreBox": {
+          "x": 644,
+          "y": 230.9375,
+          "right": 708,
+          "bottom": 260.9375,
+          "width": 64,
+          "height": 30,
+          "centerY": 245.9375
+        }
+      },
+      {
+        "name": "Tennessee Volunteers",
+        "score": "65",
+        "logo": {
+          "x": 1125,
+          "y": 221.9375,
+          "right": 1173,
+          "bottom": 269.9375,
+          "width": 48,
+          "height": 48,
+          "centerY": 245.9375
+        },
+        "nameBox": {
+          "x": 807,
+          "y": 235.484375,
+          "right": 1115,
+          "bottom": 256.375,
+          "width": 308,
+          "height": 20.890625,
+          "centerY": 245.9296875
+        },
+        "record": {
+          "x": 807,
+          "y": 273.9375,
+          "right": 1115,
+          "bottom": 288.234375,
+          "width": 308,
+          "height": 14.296875,
+          "centerY": 281.0859375
+        },
+        "scoreBox": {
+          "x": 733,
+          "y": 230.9375,
+          "right": 797,
+          "bottom": 260.9375,
+          "width": 64,
+          "height": 30,
+          "centerY": 245.9375
+        }
+      }
+    ],
+    "overflow": false,
+    "logosLoaded": true,
+    "stats": [
+      "WOF",
+      "TENN"
+    ],
+    "bars": [
+      [
+        "rgb(152, 0, 46)",
+        "rgb(29, 66, 138)"
+      ]
+    ],
+    "values": [
+      [
+        "38",
+        "Rebounds",
+        "44"
+      ]
+    ],
+    "boxTeams": [
+      "Wofford Terriers",
+      "Wofford Terriers",
+      "Tennessee Volunteers"
+    ],
+    "recordFailures": 0,
+    "overlaps": 0,
+    "clipped": 0
+  },
+  {
+    "width": 1440,
+    "view": "detail",
+    "index": 6,
+    "id": "qa-cfb-red",
+    "sport": "CFB",
+    "state": "live",
+    "scoreboard": [
+      {
+        "name": "South Carolina Gamecocks",
+        "score": "10",
+        "logo": {
+          "x": 227,
+          "y": 221.9375,
+          "right": 275,
+          "bottom": 269.9375,
+          "width": 48,
+          "height": 48,
+          "centerY": 245.9375
+        },
+        "nameBox": {
+          "x": 285,
+          "y": 235.484375,
+          "right": 634,
+          "bottom": 256.375,
+          "width": 349,
+          "height": 20.890625,
+          "centerY": 245.9296875
+        },
+        "record": {
+          "x": 285,
+          "y": 273.9375,
+          "right": 634,
+          "bottom": 288.234375,
+          "width": 349,
+          "height": 14.296875,
+          "centerY": 281.0859375
+        },
+        "scoreBox": {
+          "x": 644,
+          "y": 230.9375,
+          "right": 708,
+          "bottom": 260.9375,
+          "width": 64,
+          "height": 30,
+          "centerY": 245.9375
+        }
+      },
+      {
+        "name": "Alabama Crimson Tide",
+        "score": "14",
+        "logo": {
+          "x": 1165,
+          "y": 221.9375,
+          "right": 1213,
+          "bottom": 269.9375,
+          "width": 48,
+          "height": 48,
+          "centerY": 245.9375
+        },
+        "nameBox": {
+          "x": 807,
+          "y": 235.484375,
+          "right": 1155,
+          "bottom": 256.375,
+          "width": 348,
+          "height": 20.890625,
+          "centerY": 245.9296875
+        },
+        "record": {
+          "x": 807,
+          "y": 273.9375,
+          "right": 1155,
+          "bottom": 288.234375,
+          "width": 348,
+          "height": 14.296875,
+          "centerY": 281.0859375
+        },
+        "scoreBox": {
+          "x": 733,
+          "y": 230.9375,
+          "right": 797,
+          "bottom": 260.9375,
+          "width": 64,
+          "height": 30,
+          "centerY": 245.9375
+        }
+      }
+    ],
+    "overflow": false,
+    "logosLoaded": true,
+    "stats": [
+      "SC",
+      "ALA"
+    ],
+    "bars": [
+      [
+        "rgb(152, 0, 46)",
+        "rgb(29, 66, 138)"
+      ]
+    ],
+    "values": [
+      [
+        "310",
+        "Total yards",
+        "350"
+      ]
+    ],
+    "boxTeams": [],
+    "recordFailures": 0,
+    "overlaps": 0,
+    "clipped": 0
+  },
+  {
+    "width": 1440,
+    "view": "detail",
+    "index": 7,
+    "id": "qa-cfb-black",
+    "sport": "CFB",
+    "state": "live",
+    "scoreboard": [
+      {
+        "name": "Purdue Boilermakers",
+        "score": "7",
+        "logo": {
+          "x": 227,
+          "y": 226.65625,
+          "right": 275,
+          "bottom": 274.65625,
+          "width": 48,
+          "height": 48,
+          "centerY": 250.65625
+        },
+        "nameBox": {
+          "x": 285,
+          "y": 240.203125,
+          "right": 634,
+          "bottom": 261.09375,
+          "width": 349,
+          "height": 20.890625,
+          "centerY": 250.6484375
+        },
+        "record": {
+          "x": 285,
+          "y": 278.65625,
+          "right": 634,
+          "bottom": 292.953125,
+          "width": 349,
+          "height": 14.296875,
+          "centerY": 285.8046875
+        },
+        "scoreBox": {
+          "x": 644,
+          "y": 235.65625,
+          "right": 708,
+          "bottom": 265.65625,
+          "width": 64,
+          "height": 30,
+          "centerY": 250.65625
+        }
+      },
+      {
+        "name": "Vanderbilt Commodores",
+        "score": "10",
+        "logo": {
+          "x": 1165,
+          "y": 226.65625,
+          "right": 1213,
+          "bottom": 274.65625,
+          "width": 48,
+          "height": 48,
+          "centerY": 250.65625
+        },
+        "nameBox": {
+          "x": 807,
+          "y": 240.203125,
+          "right": 1155,
+          "bottom": 261.09375,
+          "width": 348,
+          "height": 20.890625,
+          "centerY": 250.6484375
+        },
+        "record": {
+          "x": 807,
+          "y": 278.65625,
+          "right": 1155,
+          "bottom": 292.953125,
+          "width": 348,
+          "height": 14.296875,
+          "centerY": 285.8046875
+        },
+        "scoreBox": {
+          "x": 733,
+          "y": 235.65625,
+          "right": 797,
+          "bottom": 265.65625,
+          "width": 64,
+          "height": 30,
+          "centerY": 250.65625
+        }
+      }
+    ],
+    "overflow": false,
+    "logosLoaded": true,
+    "stats": [
+      "PUR",
+      "VAN"
+    ],
+    "bars": [
+      [
+        "rgb(152, 0, 46)",
+        "rgb(29, 66, 138)"
+      ]
+    ],
+    "values": [
+      [
+        "310",
+        "Total yards",
+        "350"
+      ]
+    ],
+    "boxTeams": [],
+    "recordFailures": 0,
+    "overlaps": 0,
+    "clipped": 0
+  },
+  {
+    "width": 1440,
+    "view": "detail",
+    "index": 8,
+    "id": "qa-nhl-final",
+    "sport": "NHL",
+    "state": "completed",
+    "scoreboard": [
+      {
+        "name": "Los Angeles Kings",
+        "score": "3",
+        "logo": {
+          "x": 227,
+          "y": 221.9375,
+          "right": 275,
+          "bottom": 269.9375,
+          "width": 48,
+          "height": 48,
+          "centerY": 245.9375
+        },
+        "nameBox": {
+          "x": 285,
+          "y": 235.484375,
+          "right": 634,
+          "bottom": 256.375,
+          "width": 349,
+          "height": 20.890625,
+          "centerY": 245.9296875
+        },
+        "record": {
+          "x": 285,
+          "y": 273.9375,
+          "right": 634,
+          "bottom": 288.234375,
+          "width": 349,
+          "height": 14.296875,
+          "centerY": 281.0859375
+        },
+        "scoreBox": {
+          "x": 644,
+          "y": 230.9375,
+          "right": 708,
+          "bottom": 260.9375,
+          "width": 64,
+          "height": 30,
+          "centerY": 245.9375
+        }
+      },
+      {
+        "name": "Boston Bruins",
+        "score": "2",
+        "logo": {
+          "x": 1165,
+          "y": 221.9375,
+          "right": 1213,
+          "bottom": 269.9375,
+          "width": 48,
+          "height": 48,
+          "centerY": 245.9375
+        },
+        "nameBox": {
+          "x": 807,
+          "y": 235.484375,
+          "right": 1155,
+          "bottom": 256.375,
+          "width": 348,
+          "height": 20.890625,
+          "centerY": 245.9296875
+        },
+        "record": {
+          "x": 807,
+          "y": 273.9375,
+          "right": 1155,
+          "bottom": 288.234375,
+          "width": 348,
+          "height": 14.296875,
+          "centerY": 281.0859375
+        },
+        "scoreBox": {
+          "x": 733,
+          "y": 230.9375,
+          "right": 797,
+          "bottom": 260.9375,
+          "width": 64,
+          "height": 30,
+          "centerY": 245.9375
+        }
+      }
+    ],
+    "overflow": false,
+    "logosLoaded": true,
+    "stats": [
+      "LA",
+      "BOS"
+    ],
+    "bars": [
+      [
+        "rgb(152, 0, 46)",
+        "rgb(29, 66, 138)"
+      ]
+    ],
+    "values": [
+      [
+        "21",
+        "Shots",
+        "30"
+      ]
+    ],
+    "boxTeams": [],
+    "recordFailures": 0,
+    "overlaps": 0,
+    "clipped": 0
+  },
+  {
+    "width": 1440,
+    "view": "detail",
+    "index": 9,
+    "id": "qa-nba-pending",
+    "sport": "NBA",
+    "state": "live",
+    "scoreboard": [
+      {
+        "name": "Brooklyn Nets",
+        "score": "53",
+        "logo": {
+          "x": 267,
+          "y": 221.9375,
+          "right": 315,
+          "bottom": 269.9375,
+          "width": 48,
+          "height": 48,
+          "centerY": 245.9375
+        },
+        "nameBox": {
+          "x": 325,
+          "y": 235.484375,
+          "right": 634,
+          "bottom": 256.375,
+          "width": 309,
+          "height": 20.890625,
+          "centerY": 245.9296875
+        },
+        "record": {
+          "x": 325,
+          "y": 273.9375,
+          "right": 634,
+          "bottom": 288.234375,
+          "width": 309,
+          "height": 14.296875,
+          "centerY": 281.0859375
+        },
+        "scoreBox": {
+          "x": 644,
+          "y": 230.9375,
+          "right": 708,
+          "bottom": 260.9375,
+          "width": 64,
+          "height": 30,
+          "centerY": 245.9375
+        }
+      },
+      {
+        "name": "New York Knicks",
+        "score": "49",
+        "logo": {
+          "x": 1125,
+          "y": 221.9375,
+          "right": 1173,
+          "bottom": 269.9375,
+          "width": 48,
+          "height": 48,
+          "centerY": 245.9375
+        },
+        "nameBox": {
+          "x": 807,
+          "y": 235.484375,
+          "right": 1115,
+          "bottom": 256.375,
+          "width": 308,
+          "height": 20.890625,
+          "centerY": 245.9296875
+        },
+        "record": {
+          "x": 807,
+          "y": 273.9375,
+          "right": 1115,
+          "bottom": 288.234375,
+          "width": 308,
+          "height": 14.296875,
+          "centerY": 281.0859375
+        },
+        "scoreBox": {
+          "x": 733,
+          "y": 230.9375,
+          "right": 797,
+          "bottom": 260.9375,
+          "width": 64,
+          "height": 30,
+          "centerY": 245.9375
+        }
+      }
+    ],
+    "overflow": false,
+    "logosLoaded": true,
+    "stats": [
+      "BKN",
+      "NY"
+    ],
+    "bars": [
+      [
+        "rgb(152, 0, 46)",
+        "rgb(29, 66, 138)"
+      ]
+    ],
+    "values": [
+      [
+        "38",
+        "Rebounds",
+        "44"
+      ]
+    ],
+    "boxTeams": [
+      "Brooklyn Nets",
+      "Brooklyn Nets",
+      "New York Knicks"
+    ],
+    "recordFailures": 0,
+    "overlaps": 0,
+    "clipped": 0
+  },
+  {
+    "width": 1440,
+    "view": "detail",
+    "index": 10,
+    "id": "qa-ncaam-upcoming",
+    "sport": "NCAAB",
+    "state": "upcoming",
+    "scoreboard": [
+      {
+        "name": "Texas A&M-Corpus Christi Islanders",
+        "score": "",
+        "logo": {
+          "x": 227,
+          "y": 240.203125,
+          "right": 275,
+          "bottom": 288.203125,
+          "width": 48,
+          "height": 48,
+          "centerY": 264.203125
+        },
+        "nameBox": {
+          "x": 285,
+          "y": 253.75,
+          "right": 634,
+          "bottom": 274.640625,
+          "width": 349,
+          "height": 20.890625,
+          "centerY": 264.1953125
+        },
+        "record": {
+          "x": 285,
+          "y": 292.203125,
+          "right": 634,
+          "bottom": 306.5,
+          "width": 349,
+          "height": 14.296875,
+          "centerY": 299.3515625
+        },
+        "scoreBox": {
+          "x": 644,
+          "y": 264.203125,
+          "right": 708,
+          "bottom": 264.203125,
+          "width": 64,
+          "height": 0,
+          "centerY": 264.203125
+        }
+      },
+      {
+        "name": "Kentucky Wildcats",
+        "score": "",
+        "logo": {
+          "x": 1165,
+          "y": 240.203125,
+          "right": 1213,
+          "bottom": 288.203125,
+          "width": 48,
+          "height": 48,
+          "centerY": 264.203125
+        },
+        "nameBox": {
+          "x": 807,
+          "y": 253.75,
+          "right": 1155,
+          "bottom": 274.640625,
+          "width": 348,
+          "height": 20.890625,
+          "centerY": 264.1953125
+        },
+        "record": {
+          "x": 807,
+          "y": 292.203125,
+          "right": 1155,
+          "bottom": 306.5,
+          "width": 348,
+          "height": 14.296875,
+          "centerY": 299.3515625
+        },
+        "scoreBox": {
+          "x": 733,
+          "y": 264.203125,
+          "right": 797,
+          "bottom": 264.203125,
+          "width": 64,
+          "height": 0,
+          "centerY": 264.203125
+        }
+      }
+    ],
+    "overflow": false,
+    "logosLoaded": true,
+    "stats": [],
+    "bars": [],
+    "values": [],
+    "boxTeams": [],
+    "recordFailures": 0,
+    "overlaps": 0,
+    "clipped": 0
+  },
+  {
+    "width": 1440,
+    "view": "detail",
+    "index": 11,
+    "id": "qa-nhl-intermission",
+    "sport": "NHL",
+    "state": "live",
+    "scoreboard": [
+      {
+        "name": "Dallas Stars",
+        "score": "2",
+        "logo": {
+          "x": 227,
+          "y": 221.9375,
+          "right": 275,
+          "bottom": 269.9375,
+          "width": 48,
+          "height": 48,
+          "centerY": 245.9375
+        },
+        "nameBox": {
+          "x": 285,
+          "y": 235.484375,
+          "right": 634,
+          "bottom": 256.375,
+          "width": 349,
+          "height": 20.890625,
+          "centerY": 245.9296875
+        },
+        "record": {
+          "x": 285,
+          "y": 273.9375,
+          "right": 634,
+          "bottom": 288.234375,
+          "width": 349,
+          "height": 14.296875,
+          "centerY": 281.0859375
+        },
+        "scoreBox": {
+          "x": 644,
+          "y": 230.9375,
+          "right": 708,
+          "bottom": 260.9375,
+          "width": 64,
+          "height": 30,
+          "centerY": 245.9375
+        }
+      },
+      {
+        "name": "Washington Capitals",
+        "score": "2",
+        "logo": {
+          "x": 1165,
+          "y": 221.9375,
+          "right": 1213,
+          "bottom": 269.9375,
+          "width": 48,
+          "height": 48,
+          "centerY": 245.9375
+        },
+        "nameBox": {
+          "x": 807,
+          "y": 235.484375,
+          "right": 1155,
+          "bottom": 256.375,
+          "width": 348,
+          "height": 20.890625,
+          "centerY": 245.9296875
+        },
+        "record": {
+          "x": 807,
+          "y": 273.9375,
+          "right": 1155,
+          "bottom": 288.234375,
+          "width": 348,
+          "height": 14.296875,
+          "centerY": 281.0859375
+        },
+        "scoreBox": {
+          "x": 733,
+          "y": 230.9375,
+          "right": 797,
+          "bottom": 260.9375,
+          "width": 64,
+          "height": 30,
+          "centerY": 245.9375
+        }
+      }
+    ],
+    "overflow": false,
+    "logosLoaded": true,
+    "stats": [
+      "DAL",
+      "WSH"
+    ],
+    "bars": [
+      [
+        "rgb(152, 0, 46)",
+        "rgb(29, 66, 138)"
+      ]
+    ],
+    "values": [
+      [
+        "21",
+        "Shots",
+        "30"
+      ]
+    ],
+    "boxTeams": [],
+    "recordFailures": 0,
+    "overlaps": 0,
+    "clipped": 0
+  },
+  {
+    "width": 1440,
+    "view": "detail",
+    "index": 12,
+    "id": "qa-heat-warriors",
+    "sport": "NBA",
+    "state": "completed",
+    "scoreboard": [
+      {
+        "name": "Miami Heat",
+        "score": "120",
+        "logo": {
+          "x": 267,
+          "y": 221.9375,
+          "right": 315,
+          "bottom": 269.9375,
+          "width": 48,
+          "height": 48,
+          "centerY": 245.9375
+        },
+        "nameBox": {
+          "x": 325,
+          "y": 235.484375,
+          "right": 634,
+          "bottom": 256.375,
+          "width": 309,
+          "height": 20.890625,
+          "centerY": 245.9296875
+        },
+        "record": {
+          "x": 325,
+          "y": 273.9375,
+          "right": 634,
+          "bottom": 288.234375,
+          "width": 309,
+          "height": 14.296875,
+          "centerY": 281.0859375
+        },
+        "scoreBox": {
+          "x": 644,
+          "y": 230.9375,
+          "right": 708,
+          "bottom": 260.9375,
+          "width": 64,
+          "height": 30,
+          "centerY": 245.9375
+        }
+      },
+      {
+        "name": "Golden State Warriors",
+        "score": "115",
+        "logo": {
+          "x": 1125,
+          "y": 221.9375,
+          "right": 1173,
+          "bottom": 269.9375,
+          "width": 48,
+          "height": 48,
+          "centerY": 245.9375
+        },
+        "nameBox": {
+          "x": 807,
+          "y": 235.484375,
+          "right": 1115,
+          "bottom": 256.375,
+          "width": 308,
+          "height": 20.890625,
+          "centerY": 245.9296875
+        },
+        "record": {
+          "x": 807,
+          "y": 273.9375,
+          "right": 1115,
+          "bottom": 288.234375,
+          "width": 308,
+          "height": 14.296875,
+          "centerY": 281.0859375
+        },
+        "scoreBox": {
+          "x": 733,
+          "y": 230.9375,
+          "right": 797,
+          "bottom": 260.9375,
+          "width": 64,
+          "height": 30,
+          "centerY": 245.9375
+        }
+      }
+    ],
+    "overflow": false,
+    "logosLoaded": true,
+    "stats": [
+      "MIA",
+      "GS"
+    ],
+    "bars": [
+      [
+        "rgb(152, 0, 46)",
+        "rgb(29, 66, 138)"
+      ]
+    ],
+    "values": [
+      [
+        "38",
+        "Rebounds",
+        "44"
+      ]
+    ],
+    "boxTeams": [
+      "Miami Heat",
+      "Miami Heat",
+      "Golden State Warriors"
+    ],
+    "recordFailures": 0,
+    "overlaps": 0,
+    "clipped": 0
+  },
+  {
+    "width": 1440,
+    "view": "detail",
+    "index": 13,
+    "id": "qa-two-long-names",
+    "sport": "CFB",
+    "state": "completed",
+    "scoreboard": [
+      {
+        "name": "South Carolina Gamecocks",
+        "score": "9",
+        "logo": {
+          "x": 227,
+          "y": 221.9375,
+          "right": 275,
+          "bottom": 269.9375,
+          "width": 48,
+          "height": 48,
+          "centerY": 245.9375
+        },
+        "nameBox": {
+          "x": 285,
+          "y": 235.484375,
+          "right": 634,
+          "bottom": 256.375,
+          "width": 349,
+          "height": 20.890625,
+          "centerY": 245.9296875
+        },
+        "record": {
+          "x": 285,
+          "y": 273.9375,
+          "right": 634,
+          "bottom": 288.234375,
+          "width": 349,
+          "height": 14.296875,
+          "centerY": 281.0859375
+        },
+        "scoreBox": {
+          "x": 644,
+          "y": 230.9375,
+          "right": 708,
+          "bottom": 260.9375,
+          "width": 64,
+          "height": 30,
+          "centerY": 245.9375
+        }
+      },
+      {
+        "name": "Penn State Nittany Lions",
+        "score": "10",
+        "logo": {
+          "x": 1165,
+          "y": 221.9375,
+          "right": 1213,
+          "bottom": 269.9375,
+          "width": 48,
+          "height": 48,
+          "centerY": 245.9375
+        },
+        "nameBox": {
+          "x": 807,
+          "y": 235.484375,
+          "right": 1155,
+          "bottom": 256.375,
+          "width": 348,
+          "height": 20.890625,
+          "centerY": 245.9296875
+        },
+        "record": {
+          "x": 807,
+          "y": 273.9375,
+          "right": 1155,
+          "bottom": 288.234375,
+          "width": 348,
+          "height": 14.296875,
+          "centerY": 281.0859375
+        },
+        "scoreBox": {
+          "x": 733,
+          "y": 230.9375,
+          "right": 797,
+          "bottom": 260.9375,
+          "width": 64,
+          "height": 30,
+          "centerY": 245.9375
+        }
+      }
+    ],
+    "overflow": false,
+    "logosLoaded": true,
+    "stats": [
+      "SC",
+      "PSU"
+    ],
+    "bars": [
+      [
+        "rgb(152, 0, 46)",
+        "rgb(29, 66, 138)"
+      ]
+    ],
+    "values": [
+      [
+        "310",
+        "Total yards",
+        "350"
+      ]
+    ],
+    "boxTeams": [],
+    "recordFailures": 0,
+    "overlaps": 0,
+    "clipped": 0
+  },
+  {
+    "width": 1440,
+    "view": "detail",
+    "index": 14,
+    "id": "qa-three-digit-swap",
+    "sport": "NBA",
+    "state": "live",
+    "scoreboard": [
+      {
+        "name": "Miami Heat",
+        "score": "100",
+        "logo": {
+          "x": 267,
+          "y": 221.9375,
+          "right": 315,
+          "bottom": 269.9375,
+          "width": 48,
+          "height": 48,
+          "centerY": 245.9375
+        },
+        "nameBox": {
+          "x": 325,
+          "y": 235.484375,
+          "right": 634,
+          "bottom": 256.375,
+          "width": 309,
+          "height": 20.890625,
+          "centerY": 245.9296875
+        },
+        "record": {
+          "x": 325,
+          "y": 273.9375,
+          "right": 634,
+          "bottom": 288.234375,
+          "width": 309,
+          "height": 14.296875,
+          "centerY": 281.0859375
+        },
+        "scoreBox": {
+          "x": 644,
+          "y": 230.9375,
+          "right": 708,
+          "bottom": 260.9375,
+          "width": 64,
+          "height": 30,
+          "centerY": 245.9375
+        }
+      },
+      {
+        "name": "Golden State Warriors",
+        "score": "99",
+        "logo": {
+          "x": 1125,
+          "y": 221.9375,
+          "right": 1173,
+          "bottom": 269.9375,
+          "width": 48,
+          "height": 48,
+          "centerY": 245.9375
+        },
+        "nameBox": {
+          "x": 807,
+          "y": 235.484375,
+          "right": 1115,
+          "bottom": 256.375,
+          "width": 308,
+          "height": 20.890625,
+          "centerY": 245.9296875
+        },
+        "record": {
+          "x": 807,
+          "y": 273.9375,
+          "right": 1115,
+          "bottom": 288.234375,
+          "width": 308,
+          "height": 14.296875,
+          "centerY": 281.0859375
+        },
+        "scoreBox": {
+          "x": 733,
+          "y": 230.9375,
+          "right": 797,
+          "bottom": 260.9375,
+          "width": 64,
+          "height": 30,
+          "centerY": 245.9375
+        }
+      }
+    ],
+    "overflow": false,
+    "logosLoaded": true,
+    "stats": [
+      "MIA",
+      "GS"
+    ],
+    "bars": [
+      [
+        "rgb(152, 0, 46)",
+        "rgb(29, 66, 138)"
+      ]
+    ],
+    "values": [
+      [
+        "38",
+        "Rebounds",
+        "44"
+      ]
+    ],
+    "boxTeams": [
+      "Miami Heat",
+      "Miami Heat",
+      "Golden State Warriors"
+    ],
+    "recordFailures": 0,
+    "overlaps": 0,
+    "clipped": 0
+  }
+]
