@@ -13,33 +13,57 @@ export async function recoverPregameBaselines(env,games,now,previous) {
     if (runtime.preservePregameBaseline(game,prior) && game.pregameBaseline.source==='observed') continue;
     missing.push(game);
   }
-  for (let start=0;start<missing.length;start+=40) {
-    const group=missing.slice(start,start+40);
-    const rows=(await env.DB.prepare(`WITH keys(game_key) AS (VALUES ${group.map(()=> '(?)').join(',')})
-      SELECT s.game_key,s.normalized_state,s.model_version FROM keys k JOIN sports_snapshots s
-      ON s.game_key=k.game_key AND s.observed_at=(SELECT observed_at FROM sports_snapshots p
-        WHERE p.game_key=k.game_key AND p.state='upcoming' AND p.observed_at>=?
-        AND (p.model_version=? OR json_extract(p.normalized_state,'$.pregameBaseline.calibration') IN (?,?))
-        ORDER BY p.observed_at DESC LIMIT 1)`)
-      .bind(...group.map(g=>`${g.sport}:${g.id}`),now-RETENTION_MS,transition.CALIBRATION,transition.CALIBRATION,openingTransition.CALIBRATION).all()).results || [];
-    for (const row of rows) {
-      const game=group.find(g=>`${g.sport}:${g.id}`===row.game_key);
-      const snapshot=JSON.parse(row.normalized_state);
-      if (!snapshot.pregameBaseline && ['NFL','CFB'].includes(game.sport) && row.model_version===transition.CALIBRATION) {
-        // The preceding release already calibrated upcoming games. Its actual
-        // observed score is valid even though it did not serialize this structure.
-        const odds=snapshot.line?.spread ? [{details:snapshot.line.spread,overUnder:snapshot.line.total}] : [];
-        const competition={competitors:snapshot.teams.map((t,i)=>({homeAway:i?'home':'away',team:{id:t[8],abbreviation:t[1]},score:t[2]})),odds};
-        snapshot.pregameBaseline={calibration:transition.CALIBRATION,source:'observed',score:snapshot.score,
-          rawPregameScore:snapshot.rawPregameScore,factors:snapshot.factors,odds,
-          spread:market.footballPregameSpread(competition),underdog:market.underdogCandidate(game.sport,competition,odds[0])};
+  for (const retention of [RETENTION_MS,FOOTBALL_RETENTION_MS]) {
+    const eligible=missing.filter(game=>retentionMs(game.sport)===retention);
+    for (let start=0;start<eligible.length;start+=40) {
+      const group=eligible.slice(start,start+40);
+      const rows=(await env.DB.prepare(`WITH keys(game_key) AS (VALUES ${group.map(()=> '(?)').join(',')})
+        SELECT s.game_key,s.normalized_state,s.model_version FROM keys k JOIN sports_snapshots s
+        ON s.game_key=k.game_key AND s.observed_at=(SELECT observed_at FROM sports_snapshots p
+          WHERE p.game_key=k.game_key AND p.state='upcoming' AND p.observed_at>=?
+          AND (p.model_version=? OR json_extract(p.normalized_state,'$.pregameBaseline.calibration') IN (?,?))
+          ORDER BY p.observed_at DESC LIMIT 1)`)
+        .bind(...group.map(g=>`${g.sport}:${g.id}`),now-retention,transition.CALIBRATION,transition.CALIBRATION,openingTransition.CALIBRATION).all()).results || [];
+      for (const row of rows) {
+        const game=group.find(g=>`${g.sport}:${g.id}`===row.game_key);
+        const snapshot=JSON.parse(row.normalized_state);
+        if (!snapshot.pregameBaseline && ['NFL','CFB'].includes(game.sport) && row.model_version===transition.CALIBRATION) {
+          // The preceding release already calibrated upcoming games. Its actual
+          // observed score is valid even though it did not serialize this structure.
+          const odds=snapshot.line?.spread ? [{details:snapshot.line.spread,overUnder:snapshot.line.total}] : [];
+          const competition={competitors:snapshot.teams.map((t,i)=>({homeAway:i?'home':'away',team:{id:t[8],abbreviation:t[1]},score:t[2]})),odds};
+          snapshot.pregameBaseline={calibration:transition.CALIBRATION,source:'observed',score:snapshot.score,
+            rawPregameScore:snapshot.rawPregameScore,factors:snapshot.factors,odds,
+            spread:market.footballPregameSpread(competition),underdog:market.underdogCandidate(game.sport,competition,odds[0])};
+        }
+        runtime.preservePregameBaseline(game,snapshot);
       }
-      runtime.preservePregameBaseline(game,snapshot);
     }
   }
 }
 
-export const RETENTION_MS = 30 * 86400000;
+export const RETENTION_MS = 7 * 86400000;
+export const FOOTBALL_RETENTION_MS = 14 * 86400000;
+export const SNAPSHOT_CLEANUP_BATCH = 250;
+export const retentionMs = sport => sport==='NFL'||sport==='CFB' ? FOOTBALL_RETENTION_MS : RETENTION_MS;
+
+// Prune gradually after successful feed publication. Keep one final observation
+// per game for archived-score fallback, and retain evidence for unresolved audits.
+// The small batch prevents a one-time retention change from stalling live refreshes.
+export async function pruneSnapshots(env,now) {
+  const auditTable=await env.DB.prepare("SELECT 1 FROM sqlite_master WHERE type='table' AND name='live_audit_findings'").first();
+  const auditHold=auditTable ? `AND NOT EXISTS (SELECT 1 FROM live_audit_findings f
+    WHERE f.game_key=s.game_key AND f.status!='recovered')` : '';
+  const result=await env.DB.prepare(`DELETE FROM sports_snapshots WHERE rowid IN (
+    SELECT s.rowid FROM sports_snapshots s
+    WHERE s.observed_at < ? AND (s.sport NOT IN ('NFL','CFB') OR s.observed_at < ?)
+      ${auditHold}
+      AND (s.state!='completed' OR EXISTS (SELECT 1 FROM sports_snapshots newer
+        WHERE newer.game_key=s.game_key AND newer.state='completed' AND newer.observed_at>s.observed_at))
+    ORDER BY s.observed_at LIMIT ${SNAPSHOT_CLEANUP_BATCH}
+  )`).bind(now-RETENTION_MS,now-FOOTBALL_RETENTION_MS).run();
+  return result.meta?.changes || 0;
+}
 const RECORD = /^\d+-\d+(?:-\d+)?$/;
 // Keep this predicate identical to migration 0002 so SQLite can use the partial index.
 export const NFL_RECORD_PREDICATE = `sport='NFL' AND state IN ('upcoming','live') AND json_valid(normalized_state)
@@ -70,7 +94,7 @@ export async function recoverPregameRecords(env,games,now,previous) {
     const ids = (game.teams || []).map(team=>String(team[8] || '')).sort();
     if (ids.length!==2 || !ids[0] || ids[0]===ids[1]) continue;
     const key = `NFL:${game.id}`;
-    const row = await env.DB.prepare(NFL_RECORD_SQL).bind(key,...ids,now-RETENTION_MS,key,cutoff).first();
+    const row = await env.DB.prepare(NFL_RECORD_SQL).bind(key,...ids,now-FOOTBALL_RETENTION_MS,key,cutoff).first();
     if (!row) continue;
     const snapshot = JSON.parse(row.normalized_state);
     const records = snapshot.teams.map((team,index)=>snapshot.pregameRecords?.[index] || team[5]);
@@ -95,14 +119,16 @@ export function completedLookupSql(count) {
 export async function snapshotHistory(env,games,now) {
   const upcoming = new Set(), completed = new Map();
   for (const state of ['upcoming','completed']) {
-    const keys = games.filter(game=>game.state===state).map(game=>`${game.sport}:${game.id}`);
-    for (let start=0;start<keys.length;start+=40) {
-      const group = keys.slice(start,start+40);
-      const sql = state==='upcoming' ? upcomingLookupSql(group.length) : completedLookupSql(group.length);
-      const rows = (await env.DB.prepare(sql).bind(...group,now-RETENTION_MS).all()).results || [];
-      for (const row of rows) {
-        if (state==='upcoming') upcoming.add(row.game_key);
-        else completed.set(row.game_key,row);
+    for (const retention of [RETENTION_MS,FOOTBALL_RETENTION_MS]) {
+      const keys = games.filter(game=>game.state===state && retentionMs(game.sport)===retention).map(game=>`${game.sport}:${game.id}`);
+      for (let start=0;start<keys.length;start+=40) {
+        const group = keys.slice(start,start+40);
+        const sql = state==='upcoming' ? upcomingLookupSql(group.length) : completedLookupSql(group.length);
+        const rows = (await env.DB.prepare(sql).bind(...group,now-retention).all()).results || [];
+        for (const row of rows) {
+          if (state==='upcoming') upcoming.add(row.game_key);
+          else completed.set(row.game_key,row);
+        }
       }
     }
   }
@@ -138,7 +164,7 @@ export async function gameHistory(env,sport,id,now=Date.now()) {
     FROM sports_snapshots
     WHERE game_key=? AND observed_at>=?
     ORDER BY observed_at ASC`)
-    .bind(gameKey,now-RETENTION_MS)
+    .bind(gameKey,now-retentionMs(sport))
     .all()).results || [];
 
   const snapshots = rows.map(row => {

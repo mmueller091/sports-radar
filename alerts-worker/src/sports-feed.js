@@ -8,7 +8,7 @@ import runtime from '../../scoring/live-runtime.cjs';
 import {contextsForGames} from './storylines.js';
 import {cachedNflPregame} from './nfl-pregame.js';
 import {fingerprint,summaryCandidate,reusable,refreshBudget,boundedFeedRefresh,REFRESH_LEASE_MS,MIGRATION_PUBLICATION_RESERVE_MS} from './refresh-policy.js';
-import {RETENTION_MS,recoverPregameRecords,recoverPregameBaselines,snapshotHistory,shouldSnapshot} from './snapshot-history.js';
+import {pruneSnapshots,recoverPregameRecords,recoverPregameBaselines,snapshotHistory,shouldSnapshot} from './snapshot-history.js';
 import {finalArchiveKey,finalArchivePrefix,eligibleFinalArchive,FINAL_ARCHIVE_PREFIX} from './finalized-game-cache.js';
 import {errorDetail,measuredDatabase} from './refresh-diagnostics.js';
 
@@ -2420,7 +2420,9 @@ export async function refreshSportsData(env,now=Date.now(),options={}) {
     });
     await stage('cleanup',async()=>{
       await env.DB.prepare('DELETE FROM sports_feed_parts WHERE CAST(revision AS INTEGER) < ?').bind(now-600000).run();
-      await env.DB.prepare('DELETE FROM sports_snapshots WHERE observed_at < ?').bind(now-RETENTION_MS).run();
+      // Backfill expired history on scheduled refreshes, never on a visitor's
+      // latency-sensitive /feed request. Direct refreshes retain test behavior.
+      if(options.trigger!=='feed')await pruneSnapshots(env,now);
       await env.DB.prepare('DELETE FROM sports_resources WHERE updated_at < ? AND key NOT LIKE ?')
         .bind(now-7*86400000,FINAL_ARCHIVE_PREFIX+'%').run();
       await env.DB.prepare('DELETE FROM sports_leases WHERE expires_at < ?').bind(now).run();

@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import {DatabaseSync} from 'node:sqlite';
-import {RETENTION_MS,NFL_RECORD_SQL,NFL_RECORD_PREDICATE,upcomingLookupSql,completedLookupSql,snapshotHistory,recoverPregameRecords,finalContent,shouldSnapshot} from '../src/snapshot-history.js';
+import {RETENTION_MS,FOOTBALL_RETENTION_MS,SNAPSHOT_CLEANUP_BATCH,retentionMs,pruneSnapshots,NFL_RECORD_SQL,NFL_RECORD_PREDICATE,upcomingLookupSql,completedLookupSql,snapshotHistory,recoverPregameRecords,finalContent,shouldSnapshot} from '../src/snapshot-history.js';
 import {refreshSportsData,MODEL_VERSION} from '../src/sports-feed.js';
 import {createCollector} from '../src/providers/espn.js';
 import {normalizeEvent} from '../src/game-model.js';
@@ -48,26 +48,26 @@ test('additive migration indexes existing history; query plans bound all lookups
   for(let i=0;i<1000;i++) insert(env.db,{...live,pregameRecords:['invalid','invalid']},now-1500000+i*1000);
   env.db.exec('COMMIT');
   const old="SELECT DISTINCT game_key FROM sports_snapshots WHERE state='upcoming' AND observed_at>?";
-  assert.match(plan(env.db,old,[Math.floor(now/1000)-RETENTION_MS/1000]),/SCAN sports_snapshots/);
+  assert.match(plan(env.db,old,[Math.floor(now/1000)-FOOTBALL_RETENTION_MS/1000]),/SCAN sports_snapshots/);
   const count=env.db.prepare('SELECT count(*) n FROM sports_snapshots').get().n;
   env.db.exec(migration); env.db.exec(migration); // additive and idempotent
   assert.equal(env.db.prepare('SELECT count(*) n FROM sports_snapshots').get().n,count);
-  const upcoming=plan(env.db,upcomingLookupSql(1),['NFL:42',now-RETENTION_MS]);
-  const final=plan(env.db,completedLookupSql(1),['NFL:42',now-RETENTION_MS]);
-  const recovery=plan(env.db,NFL_RECORD_SQL,['NFL:42','1','25',now-RETENTION_MS,'NFL:42',now]);
+  const upcoming=plan(env.db,upcomingLookupSql(1),['NFL:42',now-FOOTBALL_RETENTION_MS]);
+  const final=plan(env.db,completedLookupSql(1),['NFL:42',now-FOOTBALL_RETENTION_MS]);
+  const recovery=plan(env.db,NFL_RECORD_SQL,['NFL:42','1','25',now-FOOTBALL_RETENTION_MS,'NFL:42',now]);
   assert.match(upcoming,/SEARCH s USING COVERING INDEX sports_snapshots_upcoming/);
   assert.match(final,/SEARCH f USING COVERING INDEX sports_snapshots_completed/);
   assert.match(recovery,/SEARCH sports_snapshots USING INDEX sports_snapshots_nfl_records.*game_key=\?.*<expr>=\?.*<expr>=\?/);
   assert.match(recovery,/SEARCH sports_snapshots USING COVERING INDEX sports_snapshots_completed/);
   assert.doesNotMatch(upcoming+'\n'+final+'\n'+recovery,/SCAN (sports_snapshots|s\b|f\b)|USE TEMP B-TREE/);
-  const row=env.db.prepare(NFL_RECORD_SQL).get('NFL:42','1','25',now-RETENTION_MS,'NFL:42',now);
+  const row=env.db.prepare(NFL_RECORD_SQL).get('NFL:42','1','25',now-FOOTBALL_RETENTION_MS,'NFL:42',now);
   assert.deepEqual(JSON.parse(row.normalized_state).pregameRecords,['6-0','3-3']);
 });
 
 test('upcoming existence checks use millisecond retention and only requested game keys',async t=>{
   const env=database(t), now=Date.now();
   const old=normalizeEvent(event('old','pre'),'NFL'), recent=normalizeEvent(event('recent','pre'),'NFL');
-  insert(env.db,old,now-RETENTION_MS-1); insert(env.db,recent,now-RETENTION_MS+1);
+  insert(env.db,old,now-FOOTBALL_RETENTION_MS-1); insert(env.db,recent,now-FOOTBALL_RETENTION_MS+1);
   insert(env.db,normalizeEvent(event('unrequested','pre'),'NFL'),now-1);
   const history=await snapshotHistory(env,[old,recent],now);
   assert.deepEqual([...history.upcoming],['NFL:recent']);
@@ -88,7 +88,7 @@ test('partial record index accepts the same record syntax as recovery validation
 
 test('indexed NFL recovery respects retention, first final, team order and invalid newer records',async t=>{
   const env=database(t),now=Date.now(),live=normalizeEvent(event(),'NFL');
-  insert(env.db,live,now-RETENTION_MS-1);
+  insert(env.db,live,now-FOOTBALL_RETENTION_MS-1);
   let final=normalizeEvent(event('42','post'),'NFL');
   await recoverPregameRecords(env,[final],now,null);
   assert.equal(final.pregameRecords,undefined,'expired pregame cannot supply records');
@@ -113,6 +113,36 @@ test('final comparison ignores acquisition metadata and object order, retains ca
     {...game,factors:[...game.factors,{label:'Corrected drama',points:1}]}]) {
     assert.notEqual(finalContent(game),finalContent(changed));
   }
+});
+
+test('retention distinguishes football from other sports and protects unresolved audit evidence and last finals',async t=>{
+  const env=database(t),now=Date.now(),day=86400000;
+  env.db.exec(`CREATE TABLE live_audit_findings (game_key TEXT,reason_code TEXT,status TEXT,
+    PRIMARY KEY(game_key,reason_code))`);
+  const add=(sport,id,age,state='live')=>insert(env.db,{sport,id,state,score:42,teams:[['Away','AWY','1'],['Home','HME','1']]},now-age*day);
+  add('NBA','old',8);add('NHL','recent',6);add('NCAAB','old',8);add('MLB','old',8);
+  add('NFL','recent',8);add('NFL','old',15);add('CFB','recent',13);add('CFB','old',15);
+  add('NBA','open',8);add('NBA','watch',8);add('NBA','recovered',8);
+  add('NBA','final',9,'completed');add('NBA','final',8,'completed');
+  env.db.prepare('INSERT INTO live_audit_findings VALUES (?,?,?)').run('NBA:open','clock','open');
+  env.db.prepare('INSERT INTO live_audit_findings VALUES (?,?,?)').run('NBA:watch','suspicious','watch');
+  env.db.prepare('INSERT INTO live_audit_findings VALUES (?,?,?)').run('NBA:recovered','resolved','recovered');
+  assert.equal(retentionMs('NFL'),14*day);assert.equal(retentionMs('CFB'),14*day);
+  for(const sport of ['NBA','NHL','MLB','NCAAB','Tennis','Soccer'])assert.equal(retentionMs(sport),7*day);
+  assert.equal(await pruneSnapshots(env,now),7);
+  const remaining=env.db.prepare('SELECT game_key,observed_at FROM sports_snapshots ORDER BY game_key,observed_at').all();
+  assert.deepEqual(remaining.map(row=>row.game_key),['CFB:recent','NBA:final','NBA:open','NBA:watch','NFL:recent','NHL:recent']);
+  assert.equal(remaining.find(row=>row.game_key==='NBA:final').observed_at,now-8*day);
+});
+
+test('large expired history is pruned in bounded batches',async t=>{
+  const env=database(t),now=Date.now();
+  const row={sport:'NBA',state:'live',score:20,teams:[['Away','AWY','1'],['Home','HME','1']]};
+  for(let i=0;i<SNAPSHOT_CLEANUP_BATCH+1;i++)insert(env.db,{...row,id:String(i)},now-RETENTION_MS-60000);
+  assert.equal(await pruneSnapshots(env,now),SNAPSHOT_CLEANUP_BATCH);
+  assert.equal(env.db.prepare('SELECT COUNT(*) n FROM sports_snapshots').get().n,1);
+  assert.equal(await pruneSnapshots(env,now),1);
+  assert.equal(env.db.prepare('SELECT COUNT(*) n FROM sports_snapshots').get().n,0);
 });
 
 test('final corrections are content-based, rate-bounded and eligible beyond a short post-final window',async t=>{

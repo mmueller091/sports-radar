@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import {DatabaseSync} from 'node:sqlite';
-import {gameHistory,RETENTION_MS} from '../src/snapshot-history.js';
+import {gameHistory,RETENTION_MS,FOOTBALL_RETENTION_MS} from '../src/snapshot-history.js';
 
 const schema =
   fs.readFileSync(
@@ -94,7 +94,7 @@ test(
     });
 
     insert(env.db,{
-      at:now - RETENTION_MS - 1,
+      at:now - FOOTBALL_RETENTION_MS - 1,
       rating:99,
       version:'expired'
     });
@@ -147,6 +147,16 @@ test(
     );
   }
 );
+
+test('nonfootball game history expires at seven days while football retains fourteen',async t=>{
+  const env=environment(t),now=Date.now(),day=86400000;
+  insert(env.db,{key:'NHL:week',at:now-RETENTION_MS+1,rating:42});
+  insert(env.db,{key:'NHL:week',at:now-RETENTION_MS-1,rating:75});
+  insert(env.db,{key:'CFB:week',at:now-8*day,rating:61});
+  insert(env.db,{key:'CFB:week',at:now-FOOTBALL_RETENTION_MS-1,rating:89});
+  assert.deepEqual((await gameHistory(env,'NHL','week',now)).snapshots.map(p=>p.rating),[42]);
+  assert.deepEqual((await gameHistory(env,'CFB','week',now)).snapshots.map(p=>p.rating),[61]);
+});
 
 
 test('game detail route attaches stored history without requiring a second browser request',()=>{
