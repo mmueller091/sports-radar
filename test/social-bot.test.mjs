@@ -6,7 +6,7 @@ import {runCycle} from '../social-bot/src/engine.mjs';
 import {sendToBuffer,discoverXChannel} from '../social-bot/src/buffer.mjs';
 import {readStoredFeed} from '../social-bot/src/logic.mjs';
 
-const model='2026-11-05.live-integrity.1';
+const model='2026-11-05.nhl-manpower.1';
 const started=Date.parse('2026-11-05T21:00:00Z');
 const silence=()=>{};
 

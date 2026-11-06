@@ -6,7 +6,7 @@
   "triggers": {"crons": ["* * * * *"]},
   "vars": {
     "POSTING_ENABLED": "false",
-    "EXPECTED_SCORING_MODEL": "2026-11-05.live-integrity.1",
+    "EXPECTED_SCORING_MODEL": "2026-11-05.nhl-manpower.1",
     "MAX_POSTS_PER_RUN": "3",
     "MAX_POSTS_PER_DAY": "20"
   },

@@ -49,5 +49,5 @@ test('the retained overtime-response fixture remains exceptional through the act
  const g=model.normalizeEvent(f.event,'CFB');model.enrichGame(g,f.summary);
  assert.equal(g.score,96);
  assert.match(g.live.note,/response pending/);
- assert.equal(g.modelVersion,'2026-11-05.live-integrity.1');
+ assert.equal(g.modelVersion,'2026-11-05.nhl-manpower.1');
 });
