@@ -42,10 +42,17 @@ Primary discovery sources:
 
 The directories are incomplete and can be stale. This file is not a complete
 list of every official team hashtag. It is an evidence-labeled starting point.
-All 32 NHL clubs have owner-approved primary tags. Alternate approved NHL tags
+All 94 NFL, NBA, and NHL clubs have posting-ready primary tags, based on
+first-party evidence or explicit SlateMeter owner approval. The owner-supplied
+November 5 NFL and NBA lists supersede older discovery candidates. Earlier
+primary tags can remain as research aliases, but automatic posts use only
+one approved primary tag per team.
+Alternate approved NHL tags
 are retained as aliases, but automatic posts use one primary tag per team.
 Utah is identified by its current name, Utah Mammoth, rather than its former
 Utah Hockey Club name, while retaining the `#TusksUp` tag.
+The Philadelphia 76ers use the owner's corrected `#ThrowTheBallUp` primary,
+not `#Sixers` or the older `#HereTheyCome`.
 Official X hashtag **emoji/brand hashflags** are seasonal and are not verified by
 this registry; do not assume these hashtags display a team logo on X.
 

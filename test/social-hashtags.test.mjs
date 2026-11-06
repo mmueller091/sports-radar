@@ -79,6 +79,77 @@ test('all 32 owner-approved NHL tags resolve and retain alternate tags without d
   assert.equal(registry.teams.NHL[byName('NHL','Utah Mammoth')].account,'UtahMammoth');
 });
 
+test('all 30 owner-approved NBA primary hashtags resolve by canonical ESPN ID',()=>{
+  const approved={
+    'Atlanta Hawks':'#TrueToAtlanta','Brooklyn Nets':'#NetsWorld',
+    'Boston Celtics':'#DifferentHere','Charlotte Hornets':'#BuzzCity',
+    'Chicago Bulls':'#SeeRed','Cleveland Cavaliers':'#LetEmKnow',
+    'Dallas Mavericks':'#MFFL','Denver Nuggets':'#MileHighBasketball',
+    'Detroit Pistons':'#DetroitBasketball','Golden State Warriors':'#DubNation',
+    'Houston Rockets':'#AllFire','Indiana Pacers':'#Yescers',
+    'LA Clippers':'#ClipperNation','Los Angeles Lakers':'#LakeShow',
+    'Memphis Grizzlies':'#GrindCity','Miami Heat':'#HeatNation',
+    'Milwaukee Bucks':'#FearTheDeer','Minnesota Timberwolves':'#TakeRoot',
+    'New Orleans Pelicans':'#Pelicans','New York Knicks':'#NewYorkForever',
+    'Oklahoma City Thunder':'#ThunderUp','Orlando Magic':'#MakeItMagic',
+    'Philadelphia 76ers':'#ThrowTheBallUp','Phoenix Suns':'#SunsUp',
+    'Portland Trail Blazers':'#RipCity','Sacramento Kings':'#LightTheBeam',
+    'San Antonio Spurs':'#PorVida','Toronto Raptors':'#WeTheNorth',
+    'Utah Jazz':'#TakeNote','Washington Wizards':'#ForTheDistrict'
+  };
+  assert.equal(Object.keys(approved).length,30);
+  for(const [name,tag] of Object.entries(approved)){
+    assert.equal(teamHashtag('NBA',byName('NBA',name))?.primary,tag,name);
+  }
+  assert.deepEqual(gameHashtags({sport:'NBA',teams:[
+    {id:byName('NBA','Philadelphia 76ers')},{id:byName('NBA','Boston Celtics')}
+  ]}),['#ThrowTheBallUp','#DifferentHere','#NBA']);
+});
+
+test('all 32 owner-approved NFL primary hashtags resolve by canonical ESPN ID',()=>{
+  const approved={
+    'Philadelphia Eagles':'#FlyEaglesFly','Dallas Cowboys':'#DallasCowboys',
+    'Washington Commanders':'#RaiseHail','New York Giants':'#BigBlue',
+    'San Francisco 49ers':'#FTTB','Seattle Seahawks':'#Seahawks',
+    'Arizona Cardinals':'#RiseUpRedSea','Los Angeles Rams':'#RamsHouse',
+    'Atlanta Falcons':'#DirtyBirds','Carolina Panthers':'#KeepPounding',
+    'New Orleans Saints':'#Saints','Tampa Bay Buccaneers':'#WeAreTheKrewe',
+    'Detroit Lions':'#OnePride','Chicago Bears':'#DaBears',
+    'Minnesota Vikings':'#Skol','Green Bay Packers':'#GoPackGo',
+    'New York Jets':'#JetUp','Miami Dolphins':'#PhinsUp',
+    'New England Patriots':'#NEPats','Buffalo Bills':'#BillsMafia',
+    'Kansas City Chiefs':'#ChiefsKingdom','Los Angeles Chargers':'#BoltUp',
+    'Las Vegas Raiders':'#RaiderNation','Denver Broncos':'#BroncosCountry',
+    'Jacksonville Jaguars':'#DUUUVAL','Indianapolis Colts':'#ForTheShoe',
+    'Tennessee Titans':'#TitanUp','Houston Texans':'#HTownMade',
+    'Cleveland Browns':'#DawgPound','Cincinnati Bengals':'#WhoDey',
+    'Pittsburgh Steelers':'#HereWeGo','Baltimore Ravens':'#RavensFlock'
+  };
+  assert.equal(Object.keys(approved).length,32);
+  for(const [name,tag] of Object.entries(approved)){
+    assert.equal(teamHashtag('NFL',byName('NFL',name))?.primary,tag,name);
+  }
+  assert.deepEqual(gameHashtags({sport:'NFL',teams:[
+    {id:byName('NFL','Buffalo Bills')},{id:byName('NFL','Miami Dolphins')}
+  ]}),['#BillsMafia','#PhinsUp','#NFL']);
+});
+
+test('every professional matchup drafts with both approved hashtags and fits within X limits',()=>{
+  for(const sport of ['NFL','NBA','NHL']){
+    for(let i=0;i<teams[sport].length;i++){
+      for(let j=i+1;j<teams[sport].length;j++){
+        const sides=[teams[sport][i],teams[sport][j]];
+        const game={sport,id:'401000999',score:85,teams:sides.map(team=>({name:team.name,id:team.id}))};
+        const draft=draftExcitementPost(game,{reason:'A close, late-game finish.'});
+        assert.deepEqual(draft.missingTeamHashtags,[],`${sport}: ${sides.map(x=>x.name).join(' vs ')}`);
+        assert.equal(draft.hashtags.length,3);
+        assert.equal(draft.hashtags[2],`#${sport}`);
+        assert.ok(draft.text.length<=280,`${sport}: ${sides.map(x=>x.name).join(' vs ')}`);
+      }
+    }
+  }
+});
+
 test('uses ESPNs tuple field eight for team ID, never abbreviation field one',()=>{
   const game={sport:'NFL',id:'401873024',score:91,teams:[
     ['Baltimore Ravens','BAL','27',null,null,null,null,null,byName('NFL','Baltimore Ravens')],

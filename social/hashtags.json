@@ -6,12 +6,13 @@
     "NFL": {
       "1": {
         "name": "Atlanta Falcons",
-        "primary": "#RiseUp",
+        "primary": "#DirtyBirds",
         "aliases": [
+          "#DirtyBirds",
           "#RiseUp"
         ],
         "account": "AtlantaFalcons",
-        "verification": "candidate",
+        "verification": "owner-approved",
         "sourceUrls": [
           "https://x.com/AtlantaFalcons"
         ],
@@ -19,16 +20,17 @@
       },
       "2": {
         "name": "Buffalo Bills",
-        "primary": "#GoBills",
+        "primary": "#BillsMafia",
         "aliases": [
+          "#BillsMafia",
           "#GoBills"
         ],
         "account": "BuffaloBills",
-        "verification": "official-post",
+        "verification": "owner-approved",
         "sourceUrls": [
           "https://x.com/BuffaloBills"
         ],
-        "lastVerifiedAt": "2026-11-05"
+        "lastVerifiedAt": null
       },
       "3": {
         "name": "Chicago Bears",
@@ -37,7 +39,7 @@
           "#DaBears"
         ],
         "account": "ChicagoBears",
-        "verification": "candidate",
+        "verification": "owner-approved",
         "sourceUrls": [
           "https://x.com/ChicagoBears"
         ],
@@ -89,7 +91,7 @@
           "#BroncosCountry"
         ],
         "account": "Broncos",
-        "verification": "candidate",
+        "verification": "owner-approved",
         "sourceUrls": [
           "https://x.com/Broncos"
         ],
@@ -115,7 +117,7 @@
           "#GoPackGo"
         ],
         "account": "packers",
-        "verification": "candidate",
+        "verification": "owner-approved",
         "sourceUrls": [
           "https://x.com/packers"
         ],
@@ -154,7 +156,7 @@
           "#ChiefsKingdom"
         ],
         "account": "Chiefs",
-        "verification": "candidate",
+        "verification": "owner-approved",
         "sourceUrls": [
           "https://x.com/Chiefs"
         ],
@@ -167,7 +169,7 @@
           "#RaiderNation"
         ],
         "account": "Raiders",
-        "verification": "candidate",
+        "verification": "owner-approved",
         "sourceUrls": [
           "https://x.com/Raiders"
         ],
@@ -180,7 +182,7 @@
           "#RamsHouse"
         ],
         "account": "RamsNFL",
-        "verification": "candidate",
+        "verification": "owner-approved",
         "sourceUrls": [
           "https://x.com/RamsNFL"
         ],
@@ -188,12 +190,13 @@
       },
       "15": {
         "name": "Miami Dolphins",
-        "primary": "#FinsUp",
+        "primary": "#PhinsUp",
         "aliases": [
+          "#PhinsUp",
           "#FinsUp"
         ],
         "account": "MiamiDolphins",
-        "verification": "candidate",
+        "verification": "owner-approved",
         "sourceUrls": [
           "https://x.com/MiamiDolphins"
         ],
@@ -206,7 +209,7 @@
           "#Skol"
         ],
         "account": "Vikings",
-        "verification": "candidate",
+        "verification": "owner-approved",
         "sourceUrls": [
           "https://x.com/Vikings"
         ],
@@ -214,12 +217,13 @@
       },
       "17": {
         "name": "New England Patriots",
-        "primary": "#ForeverNE",
+        "primary": "#NEPats",
         "aliases": [
+          "#NEPats",
           "#ForeverNE"
         ],
         "account": "Patriots",
-        "verification": "candidate",
+        "verification": "owner-approved",
         "sourceUrls": [
           "https://x.com/Patriots"
         ],
@@ -240,12 +244,13 @@
       },
       "19": {
         "name": "New York Giants",
-        "primary": "#TogetherBlue",
+        "primary": "#BigBlue",
         "aliases": [
+          "#BigBlue",
           "#TogetherBlue"
         ],
         "account": "Giants",
-        "verification": "candidate",
+        "verification": "owner-approved",
         "sourceUrls": [
           "https://x.com/Giants"
         ],
@@ -253,12 +258,13 @@
       },
       "20": {
         "name": "New York Jets",
-        "primary": "#TakeFlight",
+        "primary": "#JetUp",
         "aliases": [
+          "#JetUp",
           "#TakeFlight"
         ],
         "account": "nyjets",
-        "verification": "candidate",
+        "verification": "owner-approved",
         "sourceUrls": [
           "https://x.com/nyjets"
         ],
@@ -297,7 +303,7 @@
           "#HereWeGo"
         ],
         "account": "steelers",
-        "verification": "candidate",
+        "verification": "owner-approved",
         "sourceUrls": [
           "https://x.com/steelers"
         ],
@@ -310,7 +316,7 @@
           "#BoltUp"
         ],
         "account": "chargers",
-        "verification": "candidate",
+        "verification": "owner-approved",
         "sourceUrls": [
           "https://x.com/chargers"
         ],
@@ -331,12 +337,13 @@
       },
       "26": {
         "name": "Seattle Seahawks",
-        "primary": "#GoHawks",
+        "primary": "#Seahawks",
         "aliases": [
+          "#Seahawks",
           "#GoHawks"
         ],
         "account": "Seahawks",
-        "verification": "candidate",
+        "verification": "owner-approved",
         "sourceUrls": [
           "https://x.com/Seahawks"
         ],
@@ -344,12 +351,13 @@
       },
       "27": {
         "name": "Tampa Bay Buccaneers",
-        "primary": "#GoBucs",
+        "primary": "#WeAreTheKrewe",
         "aliases": [
+          "#WeAreTheKrewe",
           "#GoBucs"
         ],
         "account": "Buccaneers",
-        "verification": "candidate",
+        "verification": "owner-approved",
         "sourceUrls": [
           "https://x.com/Buccaneers"
         ],
@@ -409,12 +417,13 @@
       },
       "34": {
         "name": "Houston Texans",
-        "primary": "#WeAreTexans",
+        "primary": "#HTownMade",
         "aliases": [
+          "#HTownMade",
           "#WeAreTexans"
         ],
         "account": "HoustonTexans",
-        "verification": "candidate",
+        "verification": "owner-approved",
         "sourceUrls": [
           "https://x.com/HoustonTexans"
         ],
@@ -441,14 +450,15 @@
       },
       "2": {
         "name": "Boston Celtics",
-        "primary": "#Celtics",
+        "primary": "#DifferentHere",
         "aliases": [
+          "#DifferentHere",
           "#Celtics",
           "#bostonceltics",
           "#CUsRise"
         ],
         "account": "celtics",
-        "verification": "candidate",
+        "verification": "owner-approved",
         "sourceUrls": [
           "https://x.com/celtics",
           "https://www.blinkfire.com/publisher/leaguehashtags/nba",
@@ -485,7 +495,7 @@
           "#BullsNation"
         ],
         "account": "chicagobulls",
-        "verification": "candidate",
+        "verification": "owner-approved",
         "sourceUrls": [
           "https://x.com/chicagobulls",
           "https://www.blinkfire.com/publisher/leaguehashtags/nba",
@@ -546,7 +556,7 @@
           "#NuggetsNation"
         ],
         "account": "nuggets",
-        "verification": "candidate",
+        "verification": "owner-approved",
         "sourceUrls": [
           "https://x.com/nuggets",
           "https://www.blinkfire.com/publisher/leaguehashtags/nba",
@@ -563,7 +573,7 @@
           "#Pistons"
         ],
         "account": "DetroitPistons",
-        "verification": "candidate",
+        "verification": "owner-approved",
         "sourceUrls": [
           "https://x.com/DetroitPistons",
           "https://www.blinkfire.com/publisher/leaguehashtags/nba",
@@ -589,8 +599,9 @@
       },
       "10": {
         "name": "Houston Rockets",
-        "primary": "#RunAsOne",
+        "primary": "#AllFire",
         "aliases": [
+          "#AllFire",
           "#RunAsOne",
           "#houstonrockets",
           "#HTOWN",
@@ -598,7 +609,7 @@
           "#Rockets"
         ],
         "account": "HoustonRockets",
-        "verification": "candidate",
+        "verification": "owner-approved",
         "sourceUrls": [
           "https://x.com/HoustonRockets",
           "https://www.blinkfire.com/publisher/leaguehashtags/nba",
@@ -608,14 +619,15 @@
       },
       "11": {
         "name": "Indiana Pacers",
-        "primary": "#GoldDontQuit",
+        "primary": "#Yescers",
         "aliases": [
+          "#Yescers",
           "#GoldDontQuit",
           "#indianapacers",
           "#pacers"
         ],
         "account": "Pacers",
-        "verification": "candidate",
+        "verification": "owner-approved",
         "sourceUrls": [
           "https://x.com/Pacers",
           "https://www.blinkfire.com/publisher/leaguehashtags/nba",
@@ -670,7 +682,7 @@
           "#MiamiHeat"
         ],
         "account": "MiamiHEAT",
-        "verification": "candidate",
+        "verification": "owner-approved",
         "sourceUrls": [
           "https://x.com/MiamiHEAT",
           "https://www.blinkfire.com/publisher/leaguehashtags/nba",
@@ -686,7 +698,7 @@
           "#ThisIsMyCrew"
         ],
         "account": "Bucks",
-        "verification": "candidate",
+        "verification": "owner-approved",
         "sourceUrls": [
           "https://x.com/Bucks",
           "https://www.blinkfire.com/publisher/leaguehashtags/nba",
@@ -696,13 +708,14 @@
       },
       "16": {
         "name": "Minnesota Timberwolves",
-        "primary": "#AllEyesNorth",
+        "primary": "#TakeRoot",
         "aliases": [
+          "#TakeRoot",
           "#AllEyesNorth",
           "#mntimberwolves"
         ],
         "account": "Timberwolves",
-        "verification": "candidate",
+        "verification": "owner-approved",
         "sourceUrls": [
           "https://x.com/Timberwolves",
           "https://www.blinkfire.com/publisher/leaguehashtags/nba",
@@ -712,13 +725,14 @@
       },
       "17": {
         "name": "Brooklyn Nets",
-        "primary": "#WeGoHard",
+        "primary": "#NetsWorld",
         "aliases": [
+          "#NetsWorld",
           "#WeGoHard",
           "#BrooklynNets"
         ],
         "account": "BrooklynNets",
-        "verification": "candidate",
+        "verification": "owner-approved",
         "sourceUrls": [
           "https://x.com/BrooklynNets",
           "https://www.blinkfire.com/publisher/leaguehashtags/nba",
@@ -744,8 +758,9 @@
       },
       "19": {
         "name": "Orlando Magic",
-        "primary": "#MagicTogether",
+        "primary": "#MakeItMagic",
         "aliases": [
+          "#MakeItMagic",
           "#MagicTogether",
           "#orlando_magic",
           "#connectedbymagic",
@@ -754,7 +769,7 @@
           "#PureMagic"
         ],
         "account": "OrlandoMagic",
-        "verification": "candidate",
+        "verification": "owner-approved",
         "sourceUrls": [
           "https://x.com/OrlandoMagic",
           "https://www.blinkfire.com/publisher/leaguehashtags/nba",
@@ -764,15 +779,15 @@
       },
       "20": {
         "name": "Philadelphia 76ers",
-        "primary": "#HereTheyCome",
+        "primary": "#ThrowTheBallUp",
         "aliases": [
+          "#ThrowTheBallUp",
           "#HereTheyCome",
-          "#Sixers",
           "#PhilaUnite",
           "#Philadelphia76ers"
         ],
         "account": "sixers",
-        "verification": "candidate",
+        "verification": "owner-approved",
         "sourceUrls": [
           "https://x.com/sixers",
           "https://www.blinkfire.com/publisher/leaguehashtags/nba",
@@ -932,7 +947,7 @@
           "#GrzNxtGen"
         ],
         "account": "memgrizz",
-        "verification": "candidate",
+        "verification": "owner-approved",
         "sourceUrls": [
           "https://x.com/memgrizz",
           "https://www.blinkfire.com/publisher/leaguehashtags/nba",
@@ -948,7 +963,7 @@
           "#CharlotteHornets"
         ],
         "account": "hornets",
-        "verification": "candidate",
+        "verification": "owner-approved",
         "sourceUrls": [
           "https://x.com/hornets",
           "https://www.blinkfire.com/publisher/leaguehashtags/nba",

@@ -10,12 +10,27 @@ node scripts/audit-social-hashtags.mjs
 
 | Sport | Canonical teams | Eligible for automatic posts | Unverified candidates | No entry |
 | --- | ---: | ---: | ---: | ---: |
-| NFL | 32 | 15 | 17 | 0 |
-| NBA | 30 | 16 | 14 | 0 |
+| NFL | 32 | 32 | 0 | 0 |
+| NBA | 30 | 30 | 0 | 0 |
 | NHL | 32 | 32 | 0 | 0 |
 | CFB | 761 | 8 | 60 | 693 |
 | Men's college basketball | 362 | 13 | 5 | 344 |
-| **Total** | **1,217** | **84** | **96** | **1,037** |
+| **Total** | **1,217** | **115** | **65** | **1,037** |
+
+**NFL and NBA owner approval:** The SlateMeter owner supplied full 32-team
+NFL and 30-team NBA tag sets. The previously held 17 NFL and 14 NBA
+entries now qualify for automatic posts. Teams with an already verified
+matching tag retain first-party verification; new and changed tags are
+marked `owner-approved`, not falsely described as independent first-party
+confirmations. Notable new primaries include NFL Bills `#BillsMafia`,
+Dolphins `#PhinsUp`, Jets `#JetUp`, Texans `#HTownMade`, and NBA Rockets
+`#AllFire`, Pacers `#Yescers`, Celtics `#DifferentHere`, Nets `#NetsWorld`,
+Timberwolves `#TakeRoot`, and 76ers `#ThrowTheBallUp`. The owner clarified
+that the Sixers tag is `#ThrowTheBallUp`, superseding an initial note that
+`#Sixers` was not available as an official branded tag.
+
+Every NFL, NBA, and NHL team has one posting-ready primary tag. Alternate
+tags are not automatically appended to posts.
 
 **NHL owner approval:** On November 5, the SlateMeter owner supplied all
 32 NHL team hashtags. The eight NHL entries previously labeled
@@ -57,8 +72,8 @@ All NHL teams now have a posting-eligible primary tag.
 
 1. Verify official team accounts and primary hashtags for active/upcoming
    games first, then current FBS and Division I basketball teams.
-2. Confirm remaining NFL and NBA team tags marked `candidate` against
-   first-party posts, official team bios, or explicit owner approval.
+2. Continue independent first-party spot checks of the owner-approved NFL,
+   NBA, and NHL tags when possible, without blocking their approved use.
 3. Re-run the local coverage audit, optionally with `--feed saved-feed.json`,
    after each evidence batch. Do not automate scraping in the scoring Worker.
 4. Preserve one claim per game at an 85-point crossing, the per-day rate limit,

@@ -19,6 +19,10 @@ test('offline audit accounts for every canonical team and separates candidate fr
   assert.match(formatSocialAudit(report),/Only first-party verified or owner-approved tags are auto-posted/);
   assert.equal(report.bySport.NHL.verified,32);
   assert.equal(report.bySport.NHL.candidate,0);
+  for(const sport of ['NFL','NBA']){
+    assert.equal(report.bySport[sport].verified,teams[sport].length);
+    assert.equal(report.bySport[sport].candidate,0);
+  }
 });
 
 test('live/upcoming feed audit prioritizes all game teams without double-counting repeat opponents',()=>{
