@@ -251,7 +251,13 @@
       return period===3 && remaining!==null && remaining>180 && offending &&
         penaltyMinutes>0 && age<=Math.min(120,penaltyMinutes*60);
     });
-    return {teamId:delayed ? null : teamId,delayedPenaltyExtraAttacker:delayed};
+    // Before the usual tactical-pull window, an unmarked six-on-five is not
+    // proof of an intentional pull. ESPN may publish onIce before the call.
+    const other=state.sides?.find(entry=>entry.id!==teamId);
+    const unconfirmedEarlySixOnFive=!delayed && other?.hasGoalie && other.skaters===5 &&
+      (period<3 || (period===3 && remaining!==null && remaining>180));
+    return {teamId:delayed || unconfirmedEarlySixOnFive ? null : teamId,
+      delayedPenaltyExtraAttacker:delayed,unconfirmedEarlySixOnFive};
   }
 
   function hockeyOvertime(event,competition,summary,context='',normalized=false) {
@@ -379,7 +385,8 @@
     return {points,note,reasons:note ? [note] : [],
       competitiveFloor:Number.isFinite(base) && target ? Math.max(0,target-floorBase) : 0,
       competitiveTarget:target,manpower:{pulled,powerPlay,advantage,
-        ...(goaliePull.delayedPenaltyExtraAttacker ? {goaliePullSuppressed:'probable-delayed-penalty'} : {})},overtime:ot,
+        ...(goaliePull.delayedPenaltyExtraAttacker ? {goaliePullSuppressed:'probable-delayed-penalty'} :
+          goaliePull.unconfirmedEarlySixOnFive ? {goaliePullSuppressed:'unconfirmed-early-six-on-five'} : {})},overtime:ot,
       ...(allocation ? {allocation:{context:allocation.context || 0,floorBase,timing}} : {})};
   }
 

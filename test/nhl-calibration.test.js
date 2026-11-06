@@ -97,6 +97,31 @@ test('NHL delayed penalty does not turn an extra attacker into a tactical goalie
   assert.equal(delayedCall.impact.manpower.powerPlay,false);
 });
 
+test('NHL unmarked early six-on-five does not get tactical-pull credit before ESPN records a penalty',()=>{
+  const unmarked=(period,clock,manpower='pulled')=>{
+    const f=fixture({gap:1,period,clock,manpower,plays:[]});
+    const teams=f.competition.competitors.map(c=>[c.team.displayName,'',c.score,'','','','','',c.team.id]);
+    const state=core.hockeyOnIceState(f.summary,teams);
+    const classified=hockeyGoaliePullClassification(f.summary,f.competition.status,state);
+    const impact=core.hockeySituationImpact({sport:'NHL',teams,baseScore:53,sourceEvent:f.event},
+      f.competition,f.summary,f.competition.status,.887,1,{context:1});
+    return {state,classified,impact};
+  };
+  for(const [period,clock] of [[1,'6:08'],[2,'6:08'],[3,'6:08']]) {
+    const result=unmarked(period,clock);
+    assert.equal(result.state.pulledGoalieTeamId,'a','the raw lineup still shows six attackers');
+    assert.equal(result.classified.teamId,null,'an early six-on-five is ambiguous without a penalty event');
+    assert.equal(result.impact.manpower.pulled,false);
+    assert.equal(result.impact.manpower.powerPlay,false);
+    assert.equal(result.impact.manpower.goaliePullSuppressed,'unconfirmed-early-six-on-five');
+  }
+  assert.equal(unmarked(3,'1:10').impact.manpower.pulled,true,'genuine late six-on-five still counts');
+  assert.equal(unmarked(3,'1:10','sixOnFour').impact.manpower.pulled,true,'genuine late six-on-four still counts');
+  assert.equal(unmarked(3,'6:08','sixOnFour').impact.manpower.pulled,true,'six-on-four is unchanged');
+  assert.equal(score({gap:1,clock:'6:08',manpower:'pulled'}),score({gap:1,clock:'6:08'}),
+    'unmarked early six-on-five cannot inflate the overall rating');
+});
+
 test('NHL confirmed late tactical pulls and unrelated penalties keep their urgency',()=>{
   const recent={period:{number:3},clock:{displayValue:'18:30'},team:{id:'h'},
     type:{text:'Holding',penaltyMinutes:2}};
@@ -113,8 +138,10 @@ test('NHL confirmed late tactical pulls and unrelated penalties keep their urgen
   const unrelated=fixture({gap:1,clock:'6:47',manpower:'pulled',plays:[early,
     {...recent,clock:{displayValue:'13:13'},team:{id:'a'}}]});
   const other=core.hockeyOnIceState(unrelated.summary,teams);
-  assert.equal(hockeyGoaliePullClassification(unrelated.summary,unrelated.competition.status,other).teamId,'a',
+  const classified=hockeyGoaliePullClassification(unrelated.summary,unrelated.competition.status,other);
+  assert.equal(classified.delayedPenaltyExtraAttacker,false,
     'a penalty by the team with the extra attacker is not a delayed-penalty explanation');
+  assert.equal(classified.unconfirmedEarlySixOnFive,true,'early six-on-five is unconfirmed regardless of unrelated penalties');
 });
 
 test('NHL two-goal third-period runway stays viable while three-goal deficits remain remote',()=>{
