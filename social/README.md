@@ -97,6 +97,33 @@ To reapply the spreadsheet approvals after a registry refresh, run:
 node scripts/approve-college-hashtags-batch1-20261105.mjs
 ```
 
+The owner's `batch 2.csv` adds 277 source rows representing 272 distinct
+schools. `owner-college-hashtags-batch2-20261105.json` archives every row and
+the reviewed canonical team IDs. It now covers 269 basketball teams and 187
+football teams. The other schools lack a canonical ID in one or both sports;
+Queens and Southern Indiana are absent from both current sport catalogs.
+No school is associated with a guessed ESPN team ID.
+
+Batch 2 supersedes batch 1 only for the same school and sport. Previous primary
+tags remain as non-posting research aliases. Where the source CSV gives two
+different primary tags for the same school, the sport-appropriate selection is:
+
+- Navy: CFB `#GoNavy`, NCAAB `#Navy`
+- Northern Illinois: CFB `#USvsthem`, NCAAB `#NIU`
+- North Dakota State: CFB `#GoBison`, NCAAB `#NDSU`
+
+Repeat Army and Sacramento State rows agree in both conferences, so they each
+use one tag in both sports. Run this offline importer after batch 1 when
+rebuilding the registry:
+
+```sh
+node scripts/approve-college-hashtags-batch2-20261105.mjs
+```
+
+It refuses to apply if the reviewed ID map drifts from `teams.json`. For a new
+source file, rerun with `--source-csv` only after reviewing all names and
+conference-specific conflicts. The import has no live network side effects.
+
 Run the offline coverage audit to see posting-ready, candidate, and missing teams:
 
 ```sh

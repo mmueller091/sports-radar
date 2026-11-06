@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import teams from '../teams.json' with {type:'json'};
 import registry from '../social/hashtags.json' with {type:'json'};
 import batch1 from '../social/owner-college-hashtags-batch1-20261105.json' with {type:'json'};
+import batch2 from '../social/owner-college-hashtags-batch2-20261105.json' with {type:'json'};
 import {parseBlinkfire,verifyFromXHtml} from '../scripts/hashtag-parsers.mjs';
 import {teamHashtag,gameHashtags,draftExcitementPost} from '../social/hashtag-registry.mjs';
 
@@ -196,7 +197,7 @@ test('all 18 owner-approved Big Ten primary hashtags resolve in football and men
   }
 });
 
-test('all 107 spreadsheet-approved schools use their primary hashtag in every available college sport',()=>{
+test('all 107 batch1 schools retain their approval unless superseded by batch2',()=>{
   const aliases=new Map([
     ['Appalachian State Mountaineers','App State Mountaineers'],
     ['Louisiana Monroe Warhawks','UL Monroe Warhawks'],
@@ -218,13 +219,17 @@ test('all 107 spreadsheet-approved schools use their primary hashtag in every av
         continue;
       }
       const entry=teamHashtag(sport,team.id);
-      assert.equal(entry?.primary,tag,`${sport}: ${name}`);
-      assert.equal(registry.teams[sport][team.id].aliases[0],tag,`${sport}: ${name}`);
+      const newPrimary=batch2.mappings.find(x=>x.teams[sport]?.id===String(team.id))
+        ?.teams[sport]?.primary;
+      const expected=newPrimary||tag;
+      assert.equal(entry?.primary,expected,`${sport}: ${name}`);
+      assert.equal(registry.teams[sport][team.id].aliases[0],expected,`${sport}: ${name}`);
+      assert.ok(registry.teams[sport][team.id].aliases.includes(tag),`${sport}: ${name} old tag preserved`);
       const preview=draftExcitementPost({sport,id:'401987654',score:86,teams:[
         {id:team.id,name:team.name},{id:'999999999',name:'Unknown Opponent'}
       ]});
-      assert.ok(preview.hashtags.includes(tag),`${sport}: ${name}`);
-      assert.ok(preview.text.includes(tag),`${sport}: ${name}`);
+      assert.ok(preview.hashtags.includes(expected),`${sport}: ${name}`);
+      assert.ok(preview.text.includes(expected),`${sport}: ${name}`);
       assert.ok(preview.text.length<=280,`${sport}: ${name}`);
       assert.equal(preview.hashtags.at(-1),sport==='CFB'?'#NCAAFB':'#CBB');
       covered++;
@@ -239,6 +244,53 @@ test('all 107 spreadsheet-approved schools use their primary hashtag in every av
   assert.equal(teamHashtag('NCAAM','2250').primary,'#GoZags');
   assert.deepEqual(gameHashtags({sport:'CFB',teams:[{id:'252'},{id:'265'}]}),
     ['#GoCougs','#NCAAFB']);
+});
+
+test('batch2 owner primary hashtags appear in real tweet drafts for every available college team',()=>{
+  assert.equal(batch2.records.length,277);
+  assert.equal(batch2.mappings.length,272);
+  const unique=Array.from(new Set(batch2.records.map(x=>x.school)));
+  assert.equal(unique.length,272);
+  const applied={CFB:0,NCAAB:0};
+  const missing=[];
+  for(const {school,teams:covered} of batch2.mappings){
+    if(!Object.keys(covered).length)missing.push(school);
+    for(const sport of ['CFB','NCAAB']){
+      const mapped=covered[sport];
+      if(!mapped)continue;
+      const canonical=teams[sport].find(x=>x.id===mapped.id);
+      assert.ok(canonical,`${sport}: ${school} canonical ID missing`);
+      const current=teamHashtag(sport,mapped.id);
+      assert.equal(current?.primary,mapped.primary,`${sport}: ${school}`);
+      assert.equal(registry.teams[sport][mapped.id].aliases[0],mapped.primary);
+      const draft=draftExcitementPost({sport,id:'401988888',score:86,teams:[
+        {id:mapped.id,name:canonical.name},{id:'999999999',name:'Other Team'}
+      ]});
+      assert.ok(draft.hashtags.includes(mapped.primary),`${sport}: ${school}`);
+      assert.ok(draft.text.includes(mapped.primary),`${sport}: ${school}`);
+      assert.equal(draft.hashtags.at(-1),sport==='CFB'?'#NCAAFB':'#CBB');
+      assert.ok(draft.text.length<=280,`${sport}: ${school}`);
+      applied[sport]++;
+    }
+  }
+  assert.deepEqual(applied,{CFB:187,NCAAB:269});
+  assert.deepEqual(missing,['Queens','Southern Indiana']);
+  const bySchool=new Map(batch2.mappings.map(x=>[x.school,x.teams]));
+  for(const [school,football,basketball] of [
+    ['Navy','#GoNavy','#Navy'],
+    ['Northern Illinois','#USvsthem','#NIU'],
+    ['North Dakota State','#GoBison','#NDSU']
+  ]){
+    const mapped=bySchool.get(school);
+    assert.equal(teamHashtag('CFB',mapped.CFB.id).primary,football);
+    assert.equal(teamHashtag('NCAAB',mapped.NCAAB.id).primary,basketball);
+  }
+  assert.equal(bySchool.get('LIU').CFB.id,'2341');
+  assert.equal(bySchool.get('LIU').NCAAB.id,'112358');
+  assert.equal(bySchool.get('UMass').NCAAB.id,'113');
+  assert.equal(bySchool.get('UMass Lowell').NCAAB.id,'2349');
+  assert.equal(bySchool.get('Jacksonville').NCAAB.id,'294');
+  assert.equal(bySchool.get('Jacksonville State').NCAAB.id,'55');
 });
 
 test('every professional matchup drafts with both approved hashtags and fits within X limits',()=>{
@@ -297,14 +349,14 @@ test('Wake Forest vs Vanderbilt crossing uses the approved wording',()=>{
   const draft=draftExcitementPost(game,{reason:'A close finish.'});
   assert.ok(draft.text.startsWith("This one's worth watching. Wake Forest Demon Deacons vs. Vanderbilt Commodores just hit 86/99 on SlateMeter."));
   assert.ok(draft.text.includes('A close finish.'));
-  assert.ok(draft.text.endsWith('#GoDeacs #AnchorDown #CBB\nhttps://slatemeter.app/#game/NCAAB/401909726'));
+  assert.ok(draft.text.endsWith('#WakeForest #AnchorDown #CBB\nhttps://slatemeter.app/#game/NCAAB/401909726'));
   assert.deepEqual(draft.missingTeamHashtags,[]);
 });
 
 test('official team tags on current college-basketball slate use the canonical IDs',()=>{
   const expected={
     '12':'#BearDown','57':'#GoGators','127':'#GoGreen','150':'#GoDuke',
-    '154':'#GoDeacs','219':'#FightOnPenn','238':'#AnchorDown',
+    '154':'#WakeForest','219':'#Penn','238':'#AnchorDown',
     '251':'#HookEm','356':'#Illini','2641':'#WreckEm'
   };
   for(const [id,hashtag] of Object.entries(expected)){

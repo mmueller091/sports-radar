@@ -35,17 +35,17 @@ test('live/upcoming feed audit prioritizes all game teams without double-countin
   const report=auditSocialHashtags({feed});
   assert.equal(report.priority.games,3);
   assert.equal(report.priority.teams,4);
-  assert.equal(report.priority.verified,3);
-  assert.equal(report.priority.missing,1);
+  assert.equal(report.priority.verified,4);
+  assert.equal(report.priority.missing,0);
   assert.equal(report.priority.items[0].name,'Vanderbilt Commodores');
-  assert.match(formatSocialAudit(report),/Jacksonville Dolphins/);
+  assert.equal(report.priority.items.find(x=>x.name==='Jacksonville Dolphins').status,'verified');
 });
 
 test('audit rejects invalid feed format without fetching anything',()=>{
   assert.throws(()=>auditSocialHashtags({feed:{games:null}}),/games array/);
 });
 
-test('November 5 basketball slate reflects batch1 approvals and four remaining unverified teams',()=>{
+test('November 5 basketball slate reflects batch2 approval of the four previously missing teams',()=>{
   const games=[
     ['154','238'],['294','57'],['324','150'],['2649','127'],
     ['2241','251'],['219','356'],['2065','2641'],['13','12']
@@ -53,12 +53,9 @@ test('November 5 basketball slate reflects batch1 approvals and four remaining u
     teams:[{id:a},{id:b}]}));
   const priority=auditSocialHashtags({feed:{games}}).priority;
   assert.equal(priority.teams,16);
-  assert.equal(priority.verified,12);
-  assert.equal(priority.missing,4);
-  assert.deepEqual(priority.items.filter(x=>x.status==='missing').map(x=>x.name).sort(),[
-    'Bethune-Cookman Wildcats','Cal Poly Mustangs',
-    "Gardner-Webb Runnin' Bulldogs",'Jacksonville Dolphins'
-  ]);
+  assert.equal(priority.verified,16);
+  assert.equal(priority.missing,0);
+  assert.deepEqual(priority.items.filter(x=>x.status==='missing'),[]);
 });
 
 test('verified entries contain official handles and attributable first-party proof',()=>{

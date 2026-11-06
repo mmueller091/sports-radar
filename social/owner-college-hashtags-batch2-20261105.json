@@ -1,0 +1,4576 @@
+{
+  "schemaVersion": 1,
+  "source": "Owner-provided batch 2.csv",
+  "approvedAt": "2026-11-05",
+  "records": [
+    {
+      "conference": "America East Conference",
+      "school": "Binghamton",
+      "primaryHashtag": "#Binghamton"
+    },
+    {
+      "conference": "America East Conference",
+      "school": "Bryant",
+      "primaryHashtag": "#GoBryant"
+    },
+    {
+      "conference": "America East Conference",
+      "school": "Maine",
+      "primaryHashtag": "#BlackBearNation"
+    },
+    {
+      "conference": "America East Conference",
+      "school": "New Hampshire",
+      "primaryHashtag": "#BeTheRoar"
+    },
+    {
+      "conference": "America East Conference",
+      "school": "NJIT",
+      "primaryHashtag": "#NJIT"
+    },
+    {
+      "conference": "America East Conference",
+      "school": "UAlbany",
+      "primaryHashtag": "#GreatDanes"
+    },
+    {
+      "conference": "America East Conference",
+      "school": "UMass Lowell",
+      "primaryHashtag": "#RiverHawks"
+    },
+    {
+      "conference": "America East Conference",
+      "school": "UMBC",
+      "primaryHashtag": "#RetrieverNation"
+    },
+    {
+      "conference": "America East Conference",
+      "school": "Vermont",
+      "primaryHashtag": "#VCats"
+    },
+    {
+      "conference": "American Athletic Conference",
+      "school": "Charlotte",
+      "primaryHashtag": "#NinerNation"
+    },
+    {
+      "conference": "American Athletic Conference",
+      "school": "East Carolina",
+      "primaryHashtag": "#GoPirates"
+    },
+    {
+      "conference": "American Athletic Conference",
+      "school": "Florida Atlantic",
+      "primaryHashtag": "#WIP"
+    },
+    {
+      "conference": "American Athletic Conference",
+      "school": "Memphis",
+      "primaryHashtag": "#GoTigersGo"
+    },
+    {
+      "conference": "American Athletic Conference",
+      "school": "North Texas",
+      "primaryHashtag": "#MeanGreen"
+    },
+    {
+      "conference": "American Athletic Conference",
+      "school": "Rice",
+      "primaryHashtag": "#GoOwls"
+    },
+    {
+      "conference": "American Athletic Conference",
+      "school": "Temple",
+      "primaryHashtag": "#TempleTUFF"
+    },
+    {
+      "conference": "American Athletic Conference",
+      "school": "Tulane",
+      "primaryHashtag": "#RollWave"
+    },
+    {
+      "conference": "American Athletic Conference",
+      "school": "Tulsa",
+      "primaryHashtag": "#ReignCane"
+    },
+    {
+      "conference": "American Athletic Conference",
+      "school": "UAB",
+      "primaryHashtag": "#WinAsOne"
+    },
+    {
+      "conference": "American Athletic Conference",
+      "school": "USF",
+      "primaryHashtag": "#GoBulls"
+    },
+    {
+      "conference": "American Athletic Conference",
+      "school": "UTSA",
+      "primaryHashtag": "#BirdsUp"
+    },
+    {
+      "conference": "American Athletic Conference",
+      "school": "Wichita State",
+      "primaryHashtag": "#FearTheWheat"
+    },
+    {
+      "conference": "American Athletic Conference",
+      "school": "Army",
+      "primaryHashtag": "#GoArmy"
+    },
+    {
+      "conference": "American Athletic Conference",
+      "school": "Navy",
+      "primaryHashtag": "#GoNavy"
+    },
+    {
+      "conference": "Atlantic 10 Conference (A-10)",
+      "school": "Davidson",
+      "primaryHashtag": "#Davidson"
+    },
+    {
+      "conference": "Atlantic 10 Conference (A-10)",
+      "school": "Dayton",
+      "primaryHashtag": "#GoFlyers"
+    },
+    {
+      "conference": "Atlantic 10 Conference (A-10)",
+      "school": "Duquesne",
+      "primaryHashtag": "#Duquesne"
+    },
+    {
+      "conference": "Atlantic 10 Conference (A-10)",
+      "school": "Fordham",
+      "primaryHashtag": "#Fordham"
+    },
+    {
+      "conference": "Atlantic 10 Conference (A-10)",
+      "school": "George Mason",
+      "primaryHashtag": "#MasonNation"
+    },
+    {
+      "conference": "Atlantic 10 Conference (A-10)",
+      "school": "George Washington",
+      "primaryHashtag": "#GWU"
+    },
+    {
+      "conference": "Atlantic 10 Conference (A-10)",
+      "school": "La Salle",
+      "primaryHashtag": "#LaSalle"
+    },
+    {
+      "conference": "Atlantic 10 Conference (A-10)",
+      "school": "Loyola Chicago",
+      "primaryHashtag": "#LoyolaChicago"
+    },
+    {
+      "conference": "Atlantic 10 Conference (A-10)",
+      "school": "Rhode Island",
+      "primaryHashtag": "#URI"
+    },
+    {
+      "conference": "Atlantic 10 Conference (A-10)",
+      "school": "Richmond",
+      "primaryHashtag": "#Spiders"
+    },
+    {
+      "conference": "Atlantic 10 Conference (A-10)",
+      "school": "Saint Joseph's",
+      "primaryHashtag": "#StJoes"
+    },
+    {
+      "conference": "Atlantic 10 Conference (A-10)",
+      "school": "Saint Louis",
+      "primaryHashtag": "#Billikens"
+    },
+    {
+      "conference": "Atlantic 10 Conference (A-10)",
+      "school": "St. Bonaventure",
+      "primaryHashtag": "#Bonnies"
+    },
+    {
+      "conference": "Atlantic 10 Conference (A-10)",
+      "school": "VCU",
+      "primaryHashtag": "#VCU"
+    },
+    {
+      "conference": "Atlantic Coast Conference (ACC)",
+      "school": "Boston College",
+      "primaryHashtag": "#WeAreBC"
+    },
+    {
+      "conference": "Atlantic Coast Conference (ACC)",
+      "school": "California",
+      "primaryHashtag": "#GoBears"
+    },
+    {
+      "conference": "Atlantic Coast Conference (ACC)",
+      "school": "Clemson",
+      "primaryHashtag": "#Clemson"
+    },
+    {
+      "conference": "Atlantic Coast Conference (ACC)",
+      "school": "Duke",
+      "primaryHashtag": "#GoDuke"
+    },
+    {
+      "conference": "Atlantic Coast Conference (ACC)",
+      "school": "Florida State",
+      "primaryHashtag": "#Noles"
+    },
+    {
+      "conference": "Atlantic Coast Conference (ACC)",
+      "school": "Georgia Tech",
+      "primaryHashtag": "#GATech"
+    },
+    {
+      "conference": "Atlantic Coast Conference (ACC)",
+      "school": "Louisville",
+      "primaryHashtag": "#GoCards"
+    },
+    {
+      "conference": "Atlantic Coast Conference (ACC)",
+      "school": "Miami (Florida)",
+      "primaryHashtag": "#GoCanes"
+    },
+    {
+      "conference": "Atlantic Coast Conference (ACC)",
+      "school": "NC State",
+      "primaryHashtag": "#Wolfpack"
+    },
+    {
+      "conference": "Atlantic Coast Conference (ACC)",
+      "school": "North Carolina",
+      "primaryHashtag": "#GoHeels"
+    },
+    {
+      "conference": "Atlantic Coast Conference (ACC)",
+      "school": "Notre Dame",
+      "primaryHashtag": "#NotreDame"
+    },
+    {
+      "conference": "Atlantic Coast Conference (ACC)",
+      "school": "Pittsburgh",
+      "primaryHashtag": "#H2P"
+    },
+    {
+      "conference": "Atlantic Coast Conference (ACC)",
+      "school": "SMU",
+      "primaryHashtag": "#SMU"
+    },
+    {
+      "conference": "Atlantic Coast Conference (ACC)",
+      "school": "Stanford",
+      "primaryHashtag": "#GoStanford"
+    },
+    {
+      "conference": "Atlantic Coast Conference (ACC)",
+      "school": "Syracuse",
+      "primaryHashtag": "#Syracuse"
+    },
+    {
+      "conference": "Atlantic Coast Conference (ACC)",
+      "school": "Virginia",
+      "primaryHashtag": "#GoHoos"
+    },
+    {
+      "conference": "Atlantic Coast Conference (ACC)",
+      "school": "Virginia Tech",
+      "primaryHashtag": "#Hokies"
+    },
+    {
+      "conference": "Atlantic Coast Conference (ACC)",
+      "school": "Wake Forest",
+      "primaryHashtag": "#WakeForest"
+    },
+    {
+      "conference": "ASUN Conference",
+      "school": "Bellarmine",
+      "primaryHashtag": "#Bellarmine"
+    },
+    {
+      "conference": "ASUN Conference",
+      "school": "FGCU",
+      "primaryHashtag": "#FGCU"
+    },
+    {
+      "conference": "ASUN Conference",
+      "school": "Jacksonville",
+      "primaryHashtag": "#JUDolphins"
+    },
+    {
+      "conference": "ASUN Conference",
+      "school": "Lipscomb",
+      "primaryHashtag": "#Lipscomb"
+    },
+    {
+      "conference": "ASUN Conference",
+      "school": "North Florida",
+      "primaryHashtag": "#UNF"
+    },
+    {
+      "conference": "ASUN Conference",
+      "school": "Queens",
+      "primaryHashtag": "#RoyalsRise"
+    },
+    {
+      "conference": "ASUN Conference",
+      "school": "Stetson",
+      "primaryHashtag": "#Stetson"
+    },
+    {
+      "conference": "ASUN Conference",
+      "school": "West Florida",
+      "primaryHashtag": "#GoArgos"
+    },
+    {
+      "conference": "Big Sky Conference",
+      "school": "Eastern Washington",
+      "primaryHashtag": "#EWU"
+    },
+    {
+      "conference": "Big Sky Conference",
+      "school": "Idaho",
+      "primaryHashtag": "#Vandals"
+    },
+    {
+      "conference": "Big Sky Conference",
+      "school": "Idaho State",
+      "primaryHashtag": "#IdahoState"
+    },
+    {
+      "conference": "Big Sky Conference",
+      "school": "Montana",
+      "primaryHashtag": "#GrizHoops"
+    },
+    {
+      "conference": "Big Sky Conference",
+      "school": "Montana State",
+      "primaryHashtag": "#MSUBobcats"
+    },
+    {
+      "conference": "Big Sky Conference",
+      "school": "Northern Arizona",
+      "primaryHashtag": "#NAU"
+    },
+    {
+      "conference": "Big Sky Conference",
+      "school": "Northern Colorado",
+      "primaryHashtag": "#UNCBears"
+    },
+    {
+      "conference": "Big Sky Conference",
+      "school": "Portland State",
+      "primaryHashtag": "#GoViks"
+    },
+    {
+      "conference": "Big Sky Conference",
+      "school": "Southern Utah",
+      "primaryHashtag": "#SUU"
+    },
+    {
+      "conference": "Big Sky Conference",
+      "school": "Utah Tech",
+      "primaryHashtag": "#UtahTechisHere"
+    },
+    {
+      "conference": "Big Sky Conference",
+      "school": "Weber State",
+      "primaryHashtag": "#WeberState"
+    },
+    {
+      "conference": "Big South Conference",
+      "school": "Charleston Southern",
+      "primaryHashtag": "#CSUBucs"
+    },
+    {
+      "conference": "Big South Conference",
+      "school": "Gardner-Webb",
+      "primaryHashtag": "#GardnerWebb"
+    },
+    {
+      "conference": "Big South Conference",
+      "school": "High Point",
+      "primaryHashtag": "#HighPoint"
+    },
+    {
+      "conference": "Big South Conference",
+      "school": "Longwood",
+      "primaryHashtag": "#Longwood"
+    },
+    {
+      "conference": "Big South Conference",
+      "school": "Presbyterian",
+      "primaryHashtag": "#Presbyterian"
+    },
+    {
+      "conference": "Big South Conference",
+      "school": "Radford",
+      "primaryHashtag": "#Radford"
+    },
+    {
+      "conference": "Big South Conference",
+      "school": "UNC Asheville",
+      "primaryHashtag": "#UNCAsheville"
+    },
+    {
+      "conference": "Big South Conference",
+      "school": "USC Upstate",
+      "primaryHashtag": "#USCUpstate"
+    },
+    {
+      "conference": "Big South Conference",
+      "school": "Winthrop",
+      "primaryHashtag": "#Winthrop"
+    },
+    {
+      "conference": "Big West Conference",
+      "school": "Cal Poly",
+      "primaryHashtag": "#CalPoly"
+    },
+    {
+      "conference": "Big West Conference",
+      "school": "Cal State Bakersfield",
+      "primaryHashtag": "#CSUB"
+    },
+    {
+      "conference": "Big West Conference",
+      "school": "Cal State Fullerton",
+      "primaryHashtag": "#CalStateFullerton"
+    },
+    {
+      "conference": "Big West Conference",
+      "school": "Cal State Northridge",
+      "primaryHashtag": "#CSUN"
+    },
+    {
+      "conference": "Big West Conference",
+      "school": "California Baptist",
+      "primaryHashtag": "#CalBaptist"
+    },
+    {
+      "conference": "Big West Conference",
+      "school": "Long Beach State",
+      "primaryHashtag": "#LBSU"
+    },
+    {
+      "conference": "Big West Conference",
+      "school": "Sacramento State",
+      "primaryHashtag": "#StingersUp"
+    },
+    {
+      "conference": "Big West Conference",
+      "school": "UC Irvine",
+      "primaryHashtag": "#UCIrvine"
+    },
+    {
+      "conference": "Big West Conference",
+      "school": "UC Riverside",
+      "primaryHashtag": "#UCRiverside"
+    },
+    {
+      "conference": "Big West Conference",
+      "school": "UC San Diego",
+      "primaryHashtag": "#GoTritons"
+    },
+    {
+      "conference": "Big West Conference",
+      "school": "UC Santa Barbara",
+      "primaryHashtag": "#UCSB"
+    },
+    {
+      "conference": "Big West Conference",
+      "school": "Utah Valley",
+      "primaryHashtag": "#UVU"
+    },
+    {
+      "conference": "Coastal Athletic Association (CAA)",
+      "school": "Campbell",
+      "primaryHashtag": "#Campbell"
+    },
+    {
+      "conference": "Coastal Athletic Association (CAA)",
+      "school": "Charleston",
+      "primaryHashtag": "#CofC"
+    },
+    {
+      "conference": "Coastal Athletic Association (CAA)",
+      "school": "Drexel",
+      "primaryHashtag": "#Drexel"
+    },
+    {
+      "conference": "Coastal Athletic Association (CAA)",
+      "school": "Elon",
+      "primaryHashtag": "#Elon"
+    },
+    {
+      "conference": "Coastal Athletic Association (CAA)",
+      "school": "Hampton",
+      "primaryHashtag": "#Hampton"
+    },
+    {
+      "conference": "Coastal Athletic Association (CAA)",
+      "school": "Hofstra",
+      "primaryHashtag": "#Hofstra"
+    },
+    {
+      "conference": "Coastal Athletic Association (CAA)",
+      "school": "Monmouth",
+      "primaryHashtag": "#Monmouth"
+    },
+    {
+      "conference": "Coastal Athletic Association (CAA)",
+      "school": "North Carolina A&T",
+      "primaryHashtag": "#NCAT"
+    },
+    {
+      "conference": "Coastal Athletic Association (CAA)",
+      "school": "Northeastern",
+      "primaryHashtag": "#Northeastern"
+    },
+    {
+      "conference": "Coastal Athletic Association (CAA)",
+      "school": "Stony Brook",
+      "primaryHashtag": "#StonyBrook"
+    },
+    {
+      "conference": "Coastal Athletic Association (CAA)",
+      "school": "Towson",
+      "primaryHashtag": "#Towson"
+    },
+    {
+      "conference": "Coastal Athletic Association (CAA)",
+      "school": "UNC Wilmington",
+      "primaryHashtag": "#UNCW"
+    },
+    {
+      "conference": "Coastal Athletic Association (CAA)",
+      "school": "William & Mary",
+      "primaryHashtag": "#GoTribe"
+    },
+    {
+      "conference": "Conference USA (CUSA)",
+      "school": "Delaware",
+      "primaryHashtag": "#BlueHens"
+    },
+    {
+      "conference": "Conference USA (CUSA)",
+      "school": "FIU",
+      "primaryHashtag": "#PawsUp"
+    },
+    {
+      "conference": "Conference USA (CUSA)",
+      "school": "Jacksonville State",
+      "primaryHashtag": "#StayCocky"
+    },
+    {
+      "conference": "Conference USA (CUSA)",
+      "school": "Kennesaw State",
+      "primaryHashtag": "#HootyHoo"
+    },
+    {
+      "conference": "Conference USA (CUSA)",
+      "school": "Liberty",
+      "primaryHashtag": "#RiseWithUs"
+    },
+    {
+      "conference": "Conference USA (CUSA)",
+      "school": "Middle Tennessee",
+      "primaryHashtag": "#BlueRaiders"
+    },
+    {
+      "conference": "Conference USA (CUSA)",
+      "school": "Missouri State",
+      "primaryHashtag": "#GoBears"
+    },
+    {
+      "conference": "Conference USA (CUSA)",
+      "school": "New Mexico State",
+      "primaryHashtag": "#AggieUp"
+    },
+    {
+      "conference": "Conference USA (CUSA)",
+      "school": "Sam Houston",
+      "primaryHashtag": "#EatEmUpKats"
+    },
+    {
+      "conference": "Conference USA (CUSA)",
+      "school": "Western Kentucky",
+      "primaryHashtag": "#GoTops"
+    },
+    {
+      "conference": "Horizon League",
+      "school": "Cleveland State",
+      "primaryHashtag": "#ClevelandState"
+    },
+    {
+      "conference": "Horizon League",
+      "school": "Detroit Mercy",
+      "primaryHashtag": "#DetroitU"
+    },
+    {
+      "conference": "Horizon League",
+      "school": "Green Bay",
+      "primaryHashtag": "#GBPhoenix"
+    },
+    {
+      "conference": "Horizon League",
+      "school": "IU Indy",
+      "primaryHashtag": "#LetsGoJags"
+    },
+    {
+      "conference": "Horizon League",
+      "school": "Milwaukee",
+      "primaryHashtag": "#MilwaukeePanthers"
+    },
+    {
+      "conference": "Horizon League",
+      "school": "Northern Illinois",
+      "primaryHashtag": "#NIU"
+    },
+    {
+      "conference": "Horizon League",
+      "school": "Northern Kentucky",
+      "primaryHashtag": "#NKU"
+    },
+    {
+      "conference": "Horizon League",
+      "school": "Oakland",
+      "primaryHashtag": "#OaklandMBB"
+    },
+    {
+      "conference": "Horizon League",
+      "school": "Purdue Fort Wayne",
+      "primaryHashtag": "#Mastodons"
+    },
+    {
+      "conference": "Horizon League",
+      "school": "Robert Morris",
+      "primaryHashtag": "#RMU"
+    },
+    {
+      "conference": "Horizon League",
+      "school": "Wright State",
+      "primaryHashtag": "#WrightState"
+    },
+    {
+      "conference": "Horizon League",
+      "school": "Youngstown State",
+      "primaryHashtag": "#YSU"
+    },
+    {
+      "conference": "Ivy League",
+      "school": "Brown",
+      "primaryHashtag": "#Brown"
+    },
+    {
+      "conference": "Ivy League",
+      "school": "Columbia",
+      "primaryHashtag": "#Columbia"
+    },
+    {
+      "conference": "Ivy League",
+      "school": "Cornell",
+      "primaryHashtag": "#Cornell"
+    },
+    {
+      "conference": "Ivy League",
+      "school": "Dartmouth",
+      "primaryHashtag": "#Dartmouth"
+    },
+    {
+      "conference": "Ivy League",
+      "school": "Harvard",
+      "primaryHashtag": "#Harvard"
+    },
+    {
+      "conference": "Ivy League",
+      "school": "Penn",
+      "primaryHashtag": "#Penn"
+    },
+    {
+      "conference": "Ivy League",
+      "school": "Princeton",
+      "primaryHashtag": "#Princeton"
+    },
+    {
+      "conference": "Ivy League",
+      "school": "Yale",
+      "primaryHashtag": "#Yale"
+    },
+    {
+      "conference": "Metro Conference (formerly MAAC)",
+      "school": "Canisius",
+      "primaryHashtag": "#Canisius"
+    },
+    {
+      "conference": "Metro Conference (formerly MAAC)",
+      "school": "Fairfield",
+      "primaryHashtag": "#Fairfield"
+    },
+    {
+      "conference": "Metro Conference (formerly MAAC)",
+      "school": "Iona",
+      "primaryHashtag": "#Iona"
+    },
+    {
+      "conference": "Metro Conference (formerly MAAC)",
+      "school": "Manhattan",
+      "primaryHashtag": "#Jaspers"
+    },
+    {
+      "conference": "Metro Conference (formerly MAAC)",
+      "school": "Marist",
+      "primaryHashtag": "#Marist"
+    },
+    {
+      "conference": "Metro Conference (formerly MAAC)",
+      "school": "Merrimack",
+      "primaryHashtag": "#GoMack"
+    },
+    {
+      "conference": "Metro Conference (formerly MAAC)",
+      "school": "Mount St. Mary's",
+      "primaryHashtag": "#TheMount"
+    },
+    {
+      "conference": "Metro Conference (formerly MAAC)",
+      "school": "Niagara",
+      "primaryHashtag": "#Niagara"
+    },
+    {
+      "conference": "Metro Conference (formerly MAAC)",
+      "school": "Quinnipiac",
+      "primaryHashtag": "#Quinnipiac"
+    },
+    {
+      "conference": "Metro Conference (formerly MAAC)",
+      "school": "Rider",
+      "primaryHashtag": "#Rider"
+    },
+    {
+      "conference": "Metro Conference (formerly MAAC)",
+      "school": "Sacred Heart",
+      "primaryHashtag": "#SacredHeart"
+    },
+    {
+      "conference": "Metro Conference (formerly MAAC)",
+      "school": "Saint Peter's",
+      "primaryHashtag": "#Peacocks"
+    },
+    {
+      "conference": "Metro Conference (formerly MAAC)",
+      "school": "Siena",
+      "primaryHashtag": "#Siena"
+    },
+    {
+      "conference": "Mid-American Conference (MAC)",
+      "school": "Akron",
+      "primaryHashtag": "#GoZips"
+    },
+    {
+      "conference": "Mid-American Conference (MAC)",
+      "school": "Ball State",
+      "primaryHashtag": "#ChirpChirp"
+    },
+    {
+      "conference": "Mid-American Conference (MAC)",
+      "school": "Bowling Green",
+      "primaryHashtag": "#AyZiggy"
+    },
+    {
+      "conference": "Mid-American Conference (MAC)",
+      "school": "Buffalo",
+      "primaryHashtag": "#UBhornsUP"
+    },
+    {
+      "conference": "Mid-American Conference (MAC)",
+      "school": "Central Michigan",
+      "primaryHashtag": "#FireUpChips"
+    },
+    {
+      "conference": "Mid-American Conference (MAC)",
+      "school": "Eastern Michigan",
+      "primaryHashtag": "#EMUEagles"
+    },
+    {
+      "conference": "Mid-American Conference (MAC)",
+      "school": "Kent State",
+      "primaryHashtag": "#GoFlashes"
+    },
+    {
+      "conference": "Mid-American Conference (MAC)",
+      "school": "Miami (Ohio)",
+      "primaryHashtag": "#RiseUpRedHawks"
+    },
+    {
+      "conference": "Mid-American Conference (MAC)",
+      "school": "Ohio",
+      "primaryHashtag": "#OUohyeah"
+    },
+    {
+      "conference": "Mid-American Conference (MAC)",
+      "school": "Toledo",
+      "primaryHashtag": "#TeamToledo"
+    },
+    {
+      "conference": "Mid-American Conference (MAC)",
+      "school": "UMass",
+      "primaryHashtag": "#Flagship"
+    },
+    {
+      "conference": "Mid-American Conference (MAC)",
+      "school": "Western Michigan",
+      "primaryHashtag": "#BroncosReign"
+    },
+    {
+      "conference": "Mid-American Conference (MAC)",
+      "school": "Sacramento State",
+      "primaryHashtag": "#StingersUp"
+    },
+    {
+      "conference": "Mid-Eastern Athletic Conference (MEAC)",
+      "school": "Coppin State",
+      "primaryHashtag": "#CoppinState"
+    },
+    {
+      "conference": "Mid-Eastern Athletic Conference (MEAC)",
+      "school": "Delaware State",
+      "primaryHashtag": "#DelState"
+    },
+    {
+      "conference": "Mid-Eastern Athletic Conference (MEAC)",
+      "school": "Howard",
+      "primaryHashtag": "#Howard"
+    },
+    {
+      "conference": "Mid-Eastern Athletic Conference (MEAC)",
+      "school": "Maryland Eastern Shore",
+      "primaryHashtag": "#UMES"
+    },
+    {
+      "conference": "Mid-Eastern Athletic Conference (MEAC)",
+      "school": "Morgan State",
+      "primaryHashtag": "#MorganState"
+    },
+    {
+      "conference": "Mid-Eastern Athletic Conference (MEAC)",
+      "school": "NC Central",
+      "primaryHashtag": "#NCCU"
+    },
+    {
+      "conference": "Mid-Eastern Athletic Conference (MEAC)",
+      "school": "Norfolk State",
+      "primaryHashtag": "#NSU"
+    },
+    {
+      "conference": "Mid-Eastern Athletic Conference (MEAC)",
+      "school": "South Carolina State",
+      "primaryHashtag": "#SCState"
+    },
+    {
+      "conference": "Missouri Valley Conference (MVC)",
+      "school": "Belmont",
+      "primaryHashtag": "#Belmont"
+    },
+    {
+      "conference": "Missouri Valley Conference (MVC)",
+      "school": "Bradley",
+      "primaryHashtag": "#Bradley"
+    },
+    {
+      "conference": "Missouri Valley Conference (MVC)",
+      "school": "Drake",
+      "primaryHashtag": "#Drake"
+    },
+    {
+      "conference": "Missouri Valley Conference (MVC)",
+      "school": "Evansville",
+      "primaryHashtag": "#Evansville"
+    },
+    {
+      "conference": "Missouri Valley Conference (MVC)",
+      "school": "Illinois State",
+      "primaryHashtag": "#IllinoisState"
+    },
+    {
+      "conference": "Missouri Valley Conference (MVC)",
+      "school": "Indiana State",
+      "primaryHashtag": "#IndianaState"
+    },
+    {
+      "conference": "Missouri Valley Conference (MVC)",
+      "school": "Murray State",
+      "primaryHashtag": "#Racers"
+    },
+    {
+      "conference": "Missouri Valley Conference (MVC)",
+      "school": "Northern Iowa",
+      "primaryHashtag": "#UNI"
+    },
+    {
+      "conference": "Missouri Valley Conference (MVC)",
+      "school": "Southern Illinois",
+      "primaryHashtag": "#SIU"
+    },
+    {
+      "conference": "Missouri Valley Conference (MVC)",
+      "school": "UIC",
+      "primaryHashtag": "#UIC"
+    },
+    {
+      "conference": "Missouri Valley Conference (MVC)",
+      "school": "Valparaiso",
+      "primaryHashtag": "#Valpo"
+    },
+    {
+      "conference": "Mountain West Conference",
+      "school": "Air Force",
+      "primaryHashtag": "#FlyFightWin"
+    },
+    {
+      "conference": "Mountain West Conference",
+      "school": "Grand Canyon",
+      "primaryHashtag": "#LopesUp"
+    },
+    {
+      "conference": "Mountain West Conference",
+      "school": "Hawai'i",
+      "primaryHashtag": "#GoBows"
+    },
+    {
+      "conference": "Mountain West Conference",
+      "school": "Nevada",
+      "primaryHashtag": "#BattleBorn"
+    },
+    {
+      "conference": "Mountain West Conference",
+      "school": "New Mexico",
+      "primaryHashtag": "#GoLobos"
+    },
+    {
+      "conference": "Mountain West Conference",
+      "school": "San José State",
+      "primaryHashtag": "#AllSpartans"
+    },
+    {
+      "conference": "Mountain West Conference",
+      "school": "UC Davis",
+      "primaryHashtag": "#GoAgs"
+    },
+    {
+      "conference": "Mountain West Conference",
+      "school": "UNLV",
+      "primaryHashtag": "#BEaREBEL"
+    },
+    {
+      "conference": "Mountain West Conference",
+      "school": "UTEP",
+      "primaryHashtag": "#PicksUp"
+    },
+    {
+      "conference": "Mountain West Conference",
+      "school": "Wyoming",
+      "primaryHashtag": "#GoWyo"
+    },
+    {
+      "conference": "Mountain West Conference",
+      "school": "Northern Illinois",
+      "primaryHashtag": "#USvsthem"
+    },
+    {
+      "conference": "Mountain West Conference",
+      "school": "North Dakota State",
+      "primaryHashtag": "#GoBison"
+    },
+    {
+      "conference": "Northeast Conference (NEC)",
+      "school": "Central Connecticut State",
+      "primaryHashtag": "#CCSU"
+    },
+    {
+      "conference": "Northeast Conference (NEC)",
+      "school": "Chicago State",
+      "primaryHashtag": "#ChicagoState"
+    },
+    {
+      "conference": "Northeast Conference (NEC)",
+      "school": "FDU",
+      "primaryHashtag": "#FDU"
+    },
+    {
+      "conference": "Northeast Conference (NEC)",
+      "school": "Le Moyne",
+      "primaryHashtag": "#PhinsUp"
+    },
+    {
+      "conference": "Northeast Conference (NEC)",
+      "school": "LIU",
+      "primaryHashtag": "#LIUBB"
+    },
+    {
+      "conference": "Northeast Conference (NEC)",
+      "school": "Mercyhurst",
+      "primaryHashtag": "#HurstAthletics"
+    },
+    {
+      "conference": "Northeast Conference (NEC)",
+      "school": "New Haven",
+      "primaryHashtag": "#GoChargers"
+    },
+    {
+      "conference": "Northeast Conference (NEC)",
+      "school": "Stonehill",
+      "primaryHashtag": "#GoHill"
+    },
+    {
+      "conference": "Northeast Conference (NEC)",
+      "school": "Wagner",
+      "primaryHashtag": "#Wagner"
+    },
+    {
+      "conference": "Ohio Valley Conference (OVC)",
+      "school": "Eastern Illinois",
+      "primaryHashtag": "#EIU"
+    },
+    {
+      "conference": "Ohio Valley Conference (OVC)",
+      "school": "Lindenwood",
+      "primaryHashtag": "#OnTheHunt"
+    },
+    {
+      "conference": "Ohio Valley Conference (OVC)",
+      "school": "Morehead State",
+      "primaryHashtag": "#MSUEagles"
+    },
+    {
+      "conference": "Ohio Valley Conference (OVC)",
+      "school": "Southeast Missouri",
+      "primaryHashtag": "#SeMO"
+    },
+    {
+      "conference": "Ohio Valley Conference (OVC)",
+      "school": "SIUE",
+      "primaryHashtag": "#SIUE"
+    },
+    {
+      "conference": "Ohio Valley Conference (OVC)",
+      "school": "Southern Indiana",
+      "primaryHashtag": "#GoUSIEagles"
+    },
+    {
+      "conference": "Ohio Valley Conference (OVC)",
+      "school": "Tennessee State",
+      "primaryHashtag": "#TSUTigers"
+    },
+    {
+      "conference": "Ohio Valley Conference (OVC)",
+      "school": "UT Martin",
+      "primaryHashtag": "#UTMartin"
+    },
+    {
+      "conference": "Ohio Valley Conference (OVC)",
+      "school": "Western Illinois",
+      "primaryHashtag": "#WIU"
+    },
+    {
+      "conference": "Patriot League",
+      "school": "American",
+      "primaryHashtag": "#AmericanUni"
+    },
+    {
+      "conference": "Patriot League",
+      "school": "Army",
+      "primaryHashtag": "#GoArmy"
+    },
+    {
+      "conference": "Patriot League",
+      "school": "Boston University",
+      "primaryHashtag": "#GoBU"
+    },
+    {
+      "conference": "Patriot League",
+      "school": "Bucknell",
+      "primaryHashtag": "#Bucknell"
+    },
+    {
+      "conference": "Patriot League",
+      "school": "Colgate",
+      "primaryHashtag": "#Colgate"
+    },
+    {
+      "conference": "Patriot League",
+      "school": "Holy Cross",
+      "primaryHashtag": "#HolyCross"
+    },
+    {
+      "conference": "Patriot League",
+      "school": "Lafayette",
+      "primaryHashtag": "#LafayetteLeopards"
+    },
+    {
+      "conference": "Patriot League",
+      "school": "Lehigh",
+      "primaryHashtag": "#Lehigh"
+    },
+    {
+      "conference": "Patriot League",
+      "school": "Loyola Maryland",
+      "primaryHashtag": "#GoHounds"
+    },
+    {
+      "conference": "Patriot League",
+      "school": "Navy",
+      "primaryHashtag": "#Navy"
+    },
+    {
+      "conference": "Southern Conference (SoCon)",
+      "school": "Chattanooga",
+      "primaryHashtag": "#GoMocs"
+    },
+    {
+      "conference": "Southern Conference (SoCon)",
+      "school": "The Citadel",
+      "primaryHashtag": "#Citadel"
+    },
+    {
+      "conference": "Southern Conference (SoCon)",
+      "school": "East Tennessee State",
+      "primaryHashtag": "#ETSU"
+    },
+    {
+      "conference": "Southern Conference (SoCon)",
+      "school": "Furman",
+      "primaryHashtag": "#Furman"
+    },
+    {
+      "conference": "Southern Conference (SoCon)",
+      "school": "Mercer",
+      "primaryHashtag": "#Mercer"
+    },
+    {
+      "conference": "Southern Conference (SoCon)",
+      "school": "Samford",
+      "primaryHashtag": "#Samford"
+    },
+    {
+      "conference": "Southern Conference (SoCon)",
+      "school": "Tennessee Tech",
+      "primaryHashtag": "#TNTech"
+    },
+    {
+      "conference": "Southern Conference (SoCon)",
+      "school": "UNC Greensboro",
+      "primaryHashtag": "#UNCG"
+    },
+    {
+      "conference": "Southern Conference (SoCon)",
+      "school": "VMI",
+      "primaryHashtag": "#VMI"
+    },
+    {
+      "conference": "Southern Conference (SoCon)",
+      "school": "Western Carolina",
+      "primaryHashtag": "#WCU"
+    },
+    {
+      "conference": "Southern Conference (SoCon)",
+      "school": "Wofford",
+      "primaryHashtag": "#Wofford"
+    },
+    {
+      "conference": "Southland Conference",
+      "school": "East Texas A&M",
+      "primaryHashtag": "#GoLions"
+    },
+    {
+      "conference": "Southland Conference",
+      "school": "Houston Christian",
+      "primaryHashtag": "#DawgsUp"
+    },
+    {
+      "conference": "Southland Conference",
+      "school": "Lamar",
+      "primaryHashtag": "#Lamar"
+    },
+    {
+      "conference": "Southland Conference",
+      "school": "LSU New Orleans",
+      "primaryHashtag": "#Privateers"
+    },
+    {
+      "conference": "Southland Conference",
+      "school": "McNeese",
+      "primaryHashtag": "#McNeese"
+    },
+    {
+      "conference": "Southland Conference",
+      "school": "Nicholls",
+      "primaryHashtag": "#GeauxColonels"
+    },
+    {
+      "conference": "Southland Conference",
+      "school": "Northwestern State",
+      "primaryHashtag": "#NorthwesternState"
+    },
+    {
+      "conference": "Southland Conference",
+      "school": "Southeastern Louisiana",
+      "primaryHashtag": "#LionUp"
+    },
+    {
+      "conference": "Southland Conference",
+      "school": "Stephen F. Austin",
+      "primaryHashtag": "#SFA"
+    },
+    {
+      "conference": "Southland Conference",
+      "school": "Texas A&M-Corpus Christi",
+      "primaryHashtag": "#TAMUCC"
+    },
+    {
+      "conference": "Southland Conference",
+      "school": "UIW",
+      "primaryHashtag": "#UIW"
+    },
+    {
+      "conference": "Southland Conference",
+      "school": "UTRGV",
+      "primaryHashtag": "#UTRGV"
+    },
+    {
+      "conference": "Southwestern Athletic Conference (SWAC)",
+      "school": "Alabama A&M",
+      "primaryHashtag": "#AAMU"
+    },
+    {
+      "conference": "Southwestern Athletic Conference (SWAC)",
+      "school": "Alabama State",
+      "primaryHashtag": "#myASU"
+    },
+    {
+      "conference": "Southwestern Athletic Conference (SWAC)",
+      "school": "Alcorn State",
+      "primaryHashtag": "#AlcornState"
+    },
+    {
+      "conference": "Southwestern Athletic Conference (SWAC)",
+      "school": "Arkansas-Pine Bluff",
+      "primaryHashtag": "#UAPB"
+    },
+    {
+      "conference": "Southwestern Athletic Conference (SWAC)",
+      "school": "Bethune-Cookman",
+      "primaryHashtag": "#BCU"
+    },
+    {
+      "conference": "Southwestern Athletic Conference (SWAC)",
+      "school": "Florida A&M",
+      "primaryHashtag": "#FAMU"
+    },
+    {
+      "conference": "Southwestern Athletic Conference (SWAC)",
+      "school": "Grambling",
+      "primaryHashtag": "#Grambling"
+    },
+    {
+      "conference": "Southwestern Athletic Conference (SWAC)",
+      "school": "Jackson State",
+      "primaryHashtag": "#JacksonState"
+    },
+    {
+      "conference": "Southwestern Athletic Conference (SWAC)",
+      "school": "Mississippi Valley State",
+      "primaryHashtag": "#MVSU"
+    },
+    {
+      "conference": "Southwestern Athletic Conference (SWAC)",
+      "school": "Prairie View A&M",
+      "primaryHashtag": "#PVAMU"
+    },
+    {
+      "conference": "Southwestern Athletic Conference (SWAC)",
+      "school": "Southern",
+      "primaryHashtag": "#SouthernU"
+    },
+    {
+      "conference": "Southwestern Athletic Conference (SWAC)",
+      "school": "Texas Southern",
+      "primaryHashtag": "#TexasSouthern"
+    },
+    {
+      "conference": "Summit League",
+      "school": "Kansas City",
+      "primaryHashtag": "#UMKC"
+    },
+    {
+      "conference": "Summit League",
+      "school": "North Dakota",
+      "primaryHashtag": "#UND"
+    },
+    {
+      "conference": "Summit League",
+      "school": "North Dakota State",
+      "primaryHashtag": "#NDSU"
+    },
+    {
+      "conference": "Summit League",
+      "school": "Omaha",
+      "primaryHashtag": "#Omavs"
+    },
+    {
+      "conference": "Summit League",
+      "school": "Oral Roberts",
+      "primaryHashtag": "#ORU"
+    },
+    {
+      "conference": "Summit League",
+      "school": "South Dakota",
+      "primaryHashtag": "#SDCoyotes"
+    },
+    {
+      "conference": "Summit League",
+      "school": "South Dakota State",
+      "primaryHashtag": "#GoJacks"
+    },
+    {
+      "conference": "Summit League",
+      "school": "St. Thomas",
+      "primaryHashtag": "#RollToms"
+    },
+    {
+      "conference": "West Coast Conference (WCC)",
+      "school": "Denver",
+      "primaryHashtag": "#DenverU"
+    },
+    {
+      "conference": "West Coast Conference (WCC)",
+      "school": "Loyola Marymount",
+      "primaryHashtag": "#LMU"
+    },
+    {
+      "conference": "West Coast Conference (WCC)",
+      "school": "Pacific",
+      "primaryHashtag": "#Pacific"
+    },
+    {
+      "conference": "West Coast Conference (WCC)",
+      "school": "Pepperdine",
+      "primaryHashtag": "#Pepperdine"
+    },
+    {
+      "conference": "West Coast Conference (WCC)",
+      "school": "Portland",
+      "primaryHashtag": "#GoPilots"
+    },
+    {
+      "conference": "West Coast Conference (WCC)",
+      "school": "Saint Mary's",
+      "primaryHashtag": "#Gaels"
+    },
+    {
+      "conference": "West Coast Conference (WCC)",
+      "school": "San Diego",
+      "primaryHashtag": "#USD"
+    },
+    {
+      "conference": "West Coast Conference (WCC)",
+      "school": "San Francisco",
+      "primaryHashtag": "#USFDons"
+    },
+    {
+      "conference": "West Coast Conference (WCC)",
+      "school": "Santa Clara",
+      "primaryHashtag": "#SantaClara"
+    },
+    {
+      "conference": "West Coast Conference (WCC)",
+      "school": "Seattle",
+      "primaryHashtag": "#SeattleU"
+    }
+  ],
+  "mappings": [
+    {
+      "school": "Binghamton",
+      "teams": {
+        "NCAAB": {
+          "id": "2066",
+          "primary": "#Binghamton"
+        }
+      }
+    },
+    {
+      "school": "Bryant",
+      "teams": {
+        "CFB": {
+          "id": "2803",
+          "primary": "#GoBryant"
+        },
+        "NCAAB": {
+          "id": "2803",
+          "primary": "#GoBryant"
+        }
+      }
+    },
+    {
+      "school": "Maine",
+      "teams": {
+        "CFB": {
+          "id": "311",
+          "primary": "#BlackBearNation"
+        },
+        "NCAAB": {
+          "id": "311",
+          "primary": "#BlackBearNation"
+        }
+      }
+    },
+    {
+      "school": "New Hampshire",
+      "teams": {
+        "CFB": {
+          "id": "160",
+          "primary": "#BeTheRoar"
+        },
+        "NCAAB": {
+          "id": "160",
+          "primary": "#BeTheRoar"
+        }
+      }
+    },
+    {
+      "school": "NJIT",
+      "teams": {
+        "NCAAB": {
+          "id": "2885",
+          "primary": "#NJIT"
+        }
+      }
+    },
+    {
+      "school": "UAlbany",
+      "teams": {
+        "CFB": {
+          "id": "399",
+          "primary": "#GreatDanes"
+        },
+        "NCAAB": {
+          "id": "399",
+          "primary": "#GreatDanes"
+        }
+      }
+    },
+    {
+      "school": "UMass Lowell",
+      "teams": {
+        "NCAAB": {
+          "id": "2349",
+          "primary": "#RiverHawks"
+        }
+      }
+    },
+    {
+      "school": "UMBC",
+      "teams": {
+        "NCAAB": {
+          "id": "2378",
+          "primary": "#RetrieverNation"
+        }
+      }
+    },
+    {
+      "school": "Vermont",
+      "teams": {
+        "CFB": {
+          "id": "293",
+          "primary": "#VCats"
+        },
+        "NCAAB": {
+          "id": "261",
+          "primary": "#VCats"
+        }
+      }
+    },
+    {
+      "school": "Charlotte",
+      "teams": {
+        "CFB": {
+          "id": "2429",
+          "primary": "#NinerNation"
+        },
+        "NCAAB": {
+          "id": "2429",
+          "primary": "#NinerNation"
+        }
+      }
+    },
+    {
+      "school": "East Carolina",
+      "teams": {
+        "CFB": {
+          "id": "151",
+          "primary": "#GoPirates"
+        },
+        "NCAAB": {
+          "id": "151",
+          "primary": "#GoPirates"
+        }
+      }
+    },
+    {
+      "school": "Florida Atlantic",
+      "teams": {
+        "CFB": {
+          "id": "2226",
+          "primary": "#WIP"
+        },
+        "NCAAB": {
+          "id": "2226",
+          "primary": "#WIP"
+        }
+      }
+    },
+    {
+      "school": "Memphis",
+      "teams": {
+        "CFB": {
+          "id": "235",
+          "primary": "#GoTigersGo"
+        },
+        "NCAAB": {
+          "id": "235",
+          "primary": "#GoTigersGo"
+        }
+      }
+    },
+    {
+      "school": "North Texas",
+      "teams": {
+        "CFB": {
+          "id": "249",
+          "primary": "#MeanGreen"
+        },
+        "NCAAB": {
+          "id": "249",
+          "primary": "#MeanGreen"
+        }
+      }
+    },
+    {
+      "school": "Rice",
+      "teams": {
+        "CFB": {
+          "id": "242",
+          "primary": "#GoOwls"
+        },
+        "NCAAB": {
+          "id": "242",
+          "primary": "#GoOwls"
+        }
+      }
+    },
+    {
+      "school": "Temple",
+      "teams": {
+        "CFB": {
+          "id": "218",
+          "primary": "#TempleTUFF"
+        },
+        "NCAAB": {
+          "id": "218",
+          "primary": "#TempleTUFF"
+        }
+      }
+    },
+    {
+      "school": "Tulane",
+      "teams": {
+        "CFB": {
+          "id": "2655",
+          "primary": "#RollWave"
+        },
+        "NCAAB": {
+          "id": "2655",
+          "primary": "#RollWave"
+        }
+      }
+    },
+    {
+      "school": "Tulsa",
+      "teams": {
+        "CFB": {
+          "id": "202",
+          "primary": "#ReignCane"
+        },
+        "NCAAB": {
+          "id": "202",
+          "primary": "#ReignCane"
+        }
+      }
+    },
+    {
+      "school": "UAB",
+      "teams": {
+        "CFB": {
+          "id": "5",
+          "primary": "#WinAsOne"
+        },
+        "NCAAB": {
+          "id": "5",
+          "primary": "#WinAsOne"
+        }
+      }
+    },
+    {
+      "school": "USF",
+      "teams": {
+        "CFB": {
+          "id": "58",
+          "primary": "#GoBulls"
+        },
+        "NCAAB": {
+          "id": "58",
+          "primary": "#GoBulls"
+        }
+      }
+    },
+    {
+      "school": "UTSA",
+      "teams": {
+        "CFB": {
+          "id": "2636",
+          "primary": "#BirdsUp"
+        },
+        "NCAAB": {
+          "id": "2636",
+          "primary": "#BirdsUp"
+        }
+      }
+    },
+    {
+      "school": "Wichita State",
+      "teams": {
+        "NCAAB": {
+          "id": "2724",
+          "primary": "#FearTheWheat"
+        }
+      }
+    },
+    {
+      "school": "Army",
+      "teams": {
+        "CFB": {
+          "id": "349",
+          "primary": "#GoArmy"
+        },
+        "NCAAB": {
+          "id": "349",
+          "primary": "#GoArmy"
+        }
+      }
+    },
+    {
+      "school": "Navy",
+      "teams": {
+        "CFB": {
+          "id": "2426",
+          "primary": "#GoNavy"
+        },
+        "NCAAB": {
+          "id": "2426",
+          "primary": "#Navy"
+        }
+      }
+    },
+    {
+      "school": "Davidson",
+      "teams": {
+        "CFB": {
+          "id": "2166",
+          "primary": "#Davidson"
+        },
+        "NCAAB": {
+          "id": "2166",
+          "primary": "#Davidson"
+        }
+      }
+    },
+    {
+      "school": "Dayton",
+      "teams": {
+        "CFB": {
+          "id": "2168",
+          "primary": "#GoFlyers"
+        },
+        "NCAAB": {
+          "id": "2168",
+          "primary": "#GoFlyers"
+        }
+      }
+    },
+    {
+      "school": "Duquesne",
+      "teams": {
+        "CFB": {
+          "id": "2184",
+          "primary": "#Duquesne"
+        },
+        "NCAAB": {
+          "id": "2184",
+          "primary": "#Duquesne"
+        }
+      }
+    },
+    {
+      "school": "Fordham",
+      "teams": {
+        "CFB": {
+          "id": "2230",
+          "primary": "#Fordham"
+        },
+        "NCAAB": {
+          "id": "2230",
+          "primary": "#Fordham"
+        }
+      }
+    },
+    {
+      "school": "George Mason",
+      "teams": {
+        "CFB": {
+          "id": "2244",
+          "primary": "#MasonNation"
+        },
+        "NCAAB": {
+          "id": "2244",
+          "primary": "#MasonNation"
+        }
+      }
+    },
+    {
+      "school": "George Washington",
+      "teams": {
+        "NCAAB": {
+          "id": "45",
+          "primary": "#GWU"
+        }
+      }
+    },
+    {
+      "school": "La Salle",
+      "teams": {
+        "NCAAB": {
+          "id": "2325",
+          "primary": "#LaSalle"
+        }
+      }
+    },
+    {
+      "school": "Loyola Chicago",
+      "teams": {
+        "NCAAB": {
+          "id": "2350",
+          "primary": "#LoyolaChicago"
+        }
+      }
+    },
+    {
+      "school": "Rhode Island",
+      "teams": {
+        "CFB": {
+          "id": "227",
+          "primary": "#URI"
+        },
+        "NCAAB": {
+          "id": "227",
+          "primary": "#URI"
+        }
+      }
+    },
+    {
+      "school": "Richmond",
+      "teams": {
+        "CFB": {
+          "id": "257",
+          "primary": "#Spiders"
+        },
+        "NCAAB": {
+          "id": "257",
+          "primary": "#Spiders"
+        }
+      }
+    },
+    {
+      "school": "Saint Joseph's",
+      "teams": {
+        "NCAAB": {
+          "id": "2603",
+          "primary": "#StJoes"
+        }
+      }
+    },
+    {
+      "school": "Saint Louis",
+      "teams": {
+        "NCAAB": {
+          "id": "139",
+          "primary": "#Billikens"
+        }
+      }
+    },
+    {
+      "school": "St. Bonaventure",
+      "teams": {
+        "NCAAB": {
+          "id": "179",
+          "primary": "#Bonnies"
+        }
+      }
+    },
+    {
+      "school": "VCU",
+      "teams": {
+        "NCAAB": {
+          "id": "2670",
+          "primary": "#VCU"
+        }
+      }
+    },
+    {
+      "school": "Boston College",
+      "teams": {
+        "CFB": {
+          "id": "103",
+          "primary": "#WeAreBC"
+        },
+        "NCAAB": {
+          "id": "103",
+          "primary": "#WeAreBC"
+        }
+      }
+    },
+    {
+      "school": "California",
+      "teams": {
+        "CFB": {
+          "id": "25",
+          "primary": "#GoBears"
+        },
+        "NCAAB": {
+          "id": "25",
+          "primary": "#GoBears"
+        }
+      }
+    },
+    {
+      "school": "Clemson",
+      "teams": {
+        "CFB": {
+          "id": "228",
+          "primary": "#Clemson"
+        },
+        "NCAAB": {
+          "id": "228",
+          "primary": "#Clemson"
+        }
+      }
+    },
+    {
+      "school": "Duke",
+      "teams": {
+        "CFB": {
+          "id": "150",
+          "primary": "#GoDuke"
+        },
+        "NCAAB": {
+          "id": "150",
+          "primary": "#GoDuke"
+        }
+      }
+    },
+    {
+      "school": "Florida State",
+      "teams": {
+        "CFB": {
+          "id": "52",
+          "primary": "#Noles"
+        },
+        "NCAAB": {
+          "id": "52",
+          "primary": "#Noles"
+        }
+      }
+    },
+    {
+      "school": "Georgia Tech",
+      "teams": {
+        "CFB": {
+          "id": "59",
+          "primary": "#GATech"
+        },
+        "NCAAB": {
+          "id": "59",
+          "primary": "#GATech"
+        }
+      }
+    },
+    {
+      "school": "Louisville",
+      "teams": {
+        "CFB": {
+          "id": "97",
+          "primary": "#GoCards"
+        },
+        "NCAAB": {
+          "id": "97",
+          "primary": "#GoCards"
+        }
+      }
+    },
+    {
+      "school": "Miami (Florida)",
+      "teams": {
+        "CFB": {
+          "id": "2390",
+          "primary": "#GoCanes"
+        },
+        "NCAAB": {
+          "id": "2390",
+          "primary": "#GoCanes"
+        }
+      }
+    },
+    {
+      "school": "NC State",
+      "teams": {
+        "CFB": {
+          "id": "152",
+          "primary": "#Wolfpack"
+        },
+        "NCAAB": {
+          "id": "152",
+          "primary": "#Wolfpack"
+        }
+      }
+    },
+    {
+      "school": "North Carolina",
+      "teams": {
+        "CFB": {
+          "id": "153",
+          "primary": "#GoHeels"
+        },
+        "NCAAB": {
+          "id": "153",
+          "primary": "#GoHeels"
+        }
+      }
+    },
+    {
+      "school": "Notre Dame",
+      "teams": {
+        "CFB": {
+          "id": "87",
+          "primary": "#NotreDame"
+        },
+        "NCAAB": {
+          "id": "87",
+          "primary": "#NotreDame"
+        }
+      }
+    },
+    {
+      "school": "Pittsburgh",
+      "teams": {
+        "CFB": {
+          "id": "221",
+          "primary": "#H2P"
+        },
+        "NCAAB": {
+          "id": "221",
+          "primary": "#H2P"
+        }
+      }
+    },
+    {
+      "school": "SMU",
+      "teams": {
+        "CFB": {
+          "id": "2567",
+          "primary": "#SMU"
+        },
+        "NCAAB": {
+          "id": "2567",
+          "primary": "#SMU"
+        }
+      }
+    },
+    {
+      "school": "Stanford",
+      "teams": {
+        "CFB": {
+          "id": "24",
+          "primary": "#GoStanford"
+        },
+        "NCAAB": {
+          "id": "24",
+          "primary": "#GoStanford"
+        }
+      }
+    },
+    {
+      "school": "Syracuse",
+      "teams": {
+        "CFB": {
+          "id": "183",
+          "primary": "#Syracuse"
+        },
+        "NCAAB": {
+          "id": "183",
+          "primary": "#Syracuse"
+        }
+      }
+    },
+    {
+      "school": "Virginia",
+      "teams": {
+        "CFB": {
+          "id": "258",
+          "primary": "#GoHoos"
+        },
+        "NCAAB": {
+          "id": "258",
+          "primary": "#GoHoos"
+        }
+      }
+    },
+    {
+      "school": "Virginia Tech",
+      "teams": {
+        "CFB": {
+          "id": "259",
+          "primary": "#Hokies"
+        },
+        "NCAAB": {
+          "id": "259",
+          "primary": "#Hokies"
+        }
+      }
+    },
+    {
+      "school": "Wake Forest",
+      "teams": {
+        "CFB": {
+          "id": "154",
+          "primary": "#WakeForest"
+        },
+        "NCAAB": {
+          "id": "154",
+          "primary": "#WakeForest"
+        }
+      }
+    },
+    {
+      "school": "Bellarmine",
+      "teams": {
+        "NCAAB": {
+          "id": "91",
+          "primary": "#Bellarmine"
+        }
+      }
+    },
+    {
+      "school": "FGCU",
+      "teams": {
+        "NCAAB": {
+          "id": "526",
+          "primary": "#FGCU"
+        }
+      }
+    },
+    {
+      "school": "Jacksonville",
+      "teams": {
+        "NCAAB": {
+          "id": "294",
+          "primary": "#JUDolphins"
+        }
+      }
+    },
+    {
+      "school": "Lipscomb",
+      "teams": {
+        "NCAAB": {
+          "id": "288",
+          "primary": "#Lipscomb"
+        }
+      }
+    },
+    {
+      "school": "North Florida",
+      "teams": {
+        "NCAAB": {
+          "id": "2454",
+          "primary": "#UNF"
+        }
+      }
+    },
+    {
+      "school": "Queens",
+      "teams": {}
+    },
+    {
+      "school": "Stetson",
+      "teams": {
+        "CFB": {
+          "id": "56",
+          "primary": "#Stetson"
+        },
+        "NCAAB": {
+          "id": "56",
+          "primary": "#Stetson"
+        }
+      }
+    },
+    {
+      "school": "West Florida",
+      "teams": {
+        "CFB": {
+          "id": "110242",
+          "primary": "#GoArgos"
+        },
+        "NCAAB": {
+          "id": "2697",
+          "primary": "#GoArgos"
+        }
+      }
+    },
+    {
+      "school": "Eastern Washington",
+      "teams": {
+        "CFB": {
+          "id": "331",
+          "primary": "#EWU"
+        },
+        "NCAAB": {
+          "id": "331",
+          "primary": "#EWU"
+        }
+      }
+    },
+    {
+      "school": "Idaho",
+      "teams": {
+        "CFB": {
+          "id": "70",
+          "primary": "#Vandals"
+        },
+        "NCAAB": {
+          "id": "70",
+          "primary": "#Vandals"
+        }
+      }
+    },
+    {
+      "school": "Idaho State",
+      "teams": {
+        "CFB": {
+          "id": "304",
+          "primary": "#IdahoState"
+        },
+        "NCAAB": {
+          "id": "304",
+          "primary": "#IdahoState"
+        }
+      }
+    },
+    {
+      "school": "Montana",
+      "teams": {
+        "CFB": {
+          "id": "149",
+          "primary": "#GrizHoops"
+        },
+        "NCAAB": {
+          "id": "149",
+          "primary": "#GrizHoops"
+        }
+      }
+    },
+    {
+      "school": "Montana State",
+      "teams": {
+        "CFB": {
+          "id": "147",
+          "primary": "#MSUBobcats"
+        },
+        "NCAAB": {
+          "id": "147",
+          "primary": "#MSUBobcats"
+        }
+      }
+    },
+    {
+      "school": "Northern Arizona",
+      "teams": {
+        "CFB": {
+          "id": "2464",
+          "primary": "#NAU"
+        },
+        "NCAAB": {
+          "id": "2464",
+          "primary": "#NAU"
+        }
+      }
+    },
+    {
+      "school": "Northern Colorado",
+      "teams": {
+        "CFB": {
+          "id": "2458",
+          "primary": "#UNCBears"
+        },
+        "NCAAB": {
+          "id": "2458",
+          "primary": "#UNCBears"
+        }
+      }
+    },
+    {
+      "school": "Portland State",
+      "teams": {
+        "CFB": {
+          "id": "2502",
+          "primary": "#GoViks"
+        },
+        "NCAAB": {
+          "id": "2502",
+          "primary": "#GoViks"
+        }
+      }
+    },
+    {
+      "school": "Southern Utah",
+      "teams": {
+        "CFB": {
+          "id": "253",
+          "primary": "#SUU"
+        },
+        "NCAAB": {
+          "id": "253",
+          "primary": "#SUU"
+        }
+      }
+    },
+    {
+      "school": "Utah Tech",
+      "teams": {
+        "CFB": {
+          "id": "3101",
+          "primary": "#UtahTechisHere"
+        },
+        "NCAAB": {
+          "id": "3101",
+          "primary": "#UtahTechisHere"
+        }
+      }
+    },
+    {
+      "school": "Weber State",
+      "teams": {
+        "CFB": {
+          "id": "2692",
+          "primary": "#WeberState"
+        },
+        "NCAAB": {
+          "id": "2692",
+          "primary": "#WeberState"
+        }
+      }
+    },
+    {
+      "school": "Charleston Southern",
+      "teams": {
+        "CFB": {
+          "id": "2127",
+          "primary": "#CSUBucs"
+        },
+        "NCAAB": {
+          "id": "2127",
+          "primary": "#CSUBucs"
+        }
+      }
+    },
+    {
+      "school": "Gardner-Webb",
+      "teams": {
+        "CFB": {
+          "id": "2241",
+          "primary": "#GardnerWebb"
+        },
+        "NCAAB": {
+          "id": "2241",
+          "primary": "#GardnerWebb"
+        }
+      }
+    },
+    {
+      "school": "High Point",
+      "teams": {
+        "NCAAB": {
+          "id": "2272",
+          "primary": "#HighPoint"
+        }
+      }
+    },
+    {
+      "school": "Longwood",
+      "teams": {
+        "NCAAB": {
+          "id": "2344",
+          "primary": "#Longwood"
+        }
+      }
+    },
+    {
+      "school": "Presbyterian",
+      "teams": {
+        "CFB": {
+          "id": "2506",
+          "primary": "#Presbyterian"
+        },
+        "NCAAB": {
+          "id": "2506",
+          "primary": "#Presbyterian"
+        }
+      }
+    },
+    {
+      "school": "Radford",
+      "teams": {
+        "NCAAB": {
+          "id": "2515",
+          "primary": "#Radford"
+        }
+      }
+    },
+    {
+      "school": "UNC Asheville",
+      "teams": {
+        "NCAAB": {
+          "id": "2427",
+          "primary": "#UNCAsheville"
+        }
+      }
+    },
+    {
+      "school": "USC Upstate",
+      "teams": {
+        "NCAAB": {
+          "id": "2908",
+          "primary": "#USCUpstate"
+        }
+      }
+    },
+    {
+      "school": "Winthrop",
+      "teams": {
+        "NCAAB": {
+          "id": "2737",
+          "primary": "#Winthrop"
+        }
+      }
+    },
+    {
+      "school": "Cal Poly",
+      "teams": {
+        "CFB": {
+          "id": "13",
+          "primary": "#CalPoly"
+        },
+        "NCAAB": {
+          "id": "13",
+          "primary": "#CalPoly"
+        }
+      }
+    },
+    {
+      "school": "Cal State Bakersfield",
+      "teams": {
+        "NCAAB": {
+          "id": "2934",
+          "primary": "#CSUB"
+        }
+      }
+    },
+    {
+      "school": "Cal State Fullerton",
+      "teams": {
+        "NCAAB": {
+          "id": "2239",
+          "primary": "#CalStateFullerton"
+        }
+      }
+    },
+    {
+      "school": "Cal State Northridge",
+      "teams": {
+        "NCAAB": {
+          "id": "2463",
+          "primary": "#CSUN"
+        }
+      }
+    },
+    {
+      "school": "California Baptist",
+      "teams": {
+        "NCAAB": {
+          "id": "2856",
+          "primary": "#CalBaptist"
+        }
+      }
+    },
+    {
+      "school": "Long Beach State",
+      "teams": {
+        "NCAAB": {
+          "id": "299",
+          "primary": "#LBSU"
+        }
+      }
+    },
+    {
+      "school": "Sacramento State",
+      "teams": {
+        "CFB": {
+          "id": "16",
+          "primary": "#StingersUp"
+        },
+        "NCAAB": {
+          "id": "16",
+          "primary": "#StingersUp"
+        }
+      }
+    },
+    {
+      "school": "UC Irvine",
+      "teams": {
+        "NCAAB": {
+          "id": "300",
+          "primary": "#UCIrvine"
+        }
+      }
+    },
+    {
+      "school": "UC Riverside",
+      "teams": {
+        "NCAAB": {
+          "id": "27",
+          "primary": "#UCRiverside"
+        }
+      }
+    },
+    {
+      "school": "UC San Diego",
+      "teams": {
+        "NCAAB": {
+          "id": "28",
+          "primary": "#GoTritons"
+        }
+      }
+    },
+    {
+      "school": "UC Santa Barbara",
+      "teams": {
+        "NCAAB": {
+          "id": "2540",
+          "primary": "#UCSB"
+        }
+      }
+    },
+    {
+      "school": "Utah Valley",
+      "teams": {
+        "NCAAB": {
+          "id": "3084",
+          "primary": "#UVU"
+        }
+      }
+    },
+    {
+      "school": "Campbell",
+      "teams": {
+        "CFB": {
+          "id": "2097",
+          "primary": "#Campbell"
+        },
+        "NCAAB": {
+          "id": "2097",
+          "primary": "#Campbell"
+        }
+      }
+    },
+    {
+      "school": "Charleston",
+      "teams": {
+        "NCAAB": {
+          "id": "232",
+          "primary": "#CofC"
+        }
+      }
+    },
+    {
+      "school": "Drexel",
+      "teams": {
+        "NCAAB": {
+          "id": "2182",
+          "primary": "#Drexel"
+        }
+      }
+    },
+    {
+      "school": "Elon",
+      "teams": {
+        "CFB": {
+          "id": "2210",
+          "primary": "#Elon"
+        },
+        "NCAAB": {
+          "id": "2210",
+          "primary": "#Elon"
+        }
+      }
+    },
+    {
+      "school": "Hampton",
+      "teams": {
+        "CFB": {
+          "id": "2261",
+          "primary": "#Hampton"
+        },
+        "NCAAB": {
+          "id": "2261",
+          "primary": "#Hampton"
+        }
+      }
+    },
+    {
+      "school": "Hofstra",
+      "teams": {
+        "NCAAB": {
+          "id": "2275",
+          "primary": "#Hofstra"
+        }
+      }
+    },
+    {
+      "school": "Monmouth",
+      "teams": {
+        "CFB": {
+          "id": "2405",
+          "primary": "#Monmouth"
+        },
+        "NCAAB": {
+          "id": "2405",
+          "primary": "#Monmouth"
+        }
+      }
+    },
+    {
+      "school": "North Carolina A&T",
+      "teams": {
+        "CFB": {
+          "id": "2448",
+          "primary": "#NCAT"
+        },
+        "NCAAB": {
+          "id": "2448",
+          "primary": "#NCAT"
+        }
+      }
+    },
+    {
+      "school": "Northeastern",
+      "teams": {
+        "CFB": {
+          "id": "196",
+          "primary": "#Northeastern"
+        },
+        "NCAAB": {
+          "id": "111",
+          "primary": "#Northeastern"
+        }
+      }
+    },
+    {
+      "school": "Stony Brook",
+      "teams": {
+        "CFB": {
+          "id": "2619",
+          "primary": "#StonyBrook"
+        },
+        "NCAAB": {
+          "id": "2619",
+          "primary": "#StonyBrook"
+        }
+      }
+    },
+    {
+      "school": "Towson",
+      "teams": {
+        "CFB": {
+          "id": "119",
+          "primary": "#Towson"
+        },
+        "NCAAB": {
+          "id": "119",
+          "primary": "#Towson"
+        }
+      }
+    },
+    {
+      "school": "UNC Wilmington",
+      "teams": {
+        "NCAAB": {
+          "id": "350",
+          "primary": "#UNCW"
+        }
+      }
+    },
+    {
+      "school": "William & Mary",
+      "teams": {
+        "CFB": {
+          "id": "2729",
+          "primary": "#GoTribe"
+        },
+        "NCAAB": {
+          "id": "2729",
+          "primary": "#GoTribe"
+        }
+      }
+    },
+    {
+      "school": "Delaware",
+      "teams": {
+        "CFB": {
+          "id": "48",
+          "primary": "#BlueHens"
+        },
+        "NCAAB": {
+          "id": "48",
+          "primary": "#BlueHens"
+        }
+      }
+    },
+    {
+      "school": "FIU",
+      "teams": {
+        "CFB": {
+          "id": "2229",
+          "primary": "#PawsUp"
+        },
+        "NCAAB": {
+          "id": "2229",
+          "primary": "#PawsUp"
+        }
+      }
+    },
+    {
+      "school": "Jacksonville State",
+      "teams": {
+        "CFB": {
+          "id": "55",
+          "primary": "#StayCocky"
+        },
+        "NCAAB": {
+          "id": "55",
+          "primary": "#StayCocky"
+        }
+      }
+    },
+    {
+      "school": "Kennesaw State",
+      "teams": {
+        "CFB": {
+          "id": "338",
+          "primary": "#HootyHoo"
+        },
+        "NCAAB": {
+          "id": "338",
+          "primary": "#HootyHoo"
+        }
+      }
+    },
+    {
+      "school": "Liberty",
+      "teams": {
+        "CFB": {
+          "id": "2335",
+          "primary": "#RiseWithUs"
+        },
+        "NCAAB": {
+          "id": "2335",
+          "primary": "#RiseWithUs"
+        }
+      }
+    },
+    {
+      "school": "Middle Tennessee",
+      "teams": {
+        "CFB": {
+          "id": "2393",
+          "primary": "#BlueRaiders"
+        },
+        "NCAAB": {
+          "id": "2393",
+          "primary": "#BlueRaiders"
+        }
+      }
+    },
+    {
+      "school": "Missouri State",
+      "teams": {
+        "CFB": {
+          "id": "2623",
+          "primary": "#GoBears"
+        },
+        "NCAAB": {
+          "id": "2623",
+          "primary": "#GoBears"
+        }
+      }
+    },
+    {
+      "school": "New Mexico State",
+      "teams": {
+        "CFB": {
+          "id": "166",
+          "primary": "#AggieUp"
+        },
+        "NCAAB": {
+          "id": "166",
+          "primary": "#AggieUp"
+        }
+      }
+    },
+    {
+      "school": "Sam Houston",
+      "teams": {
+        "CFB": {
+          "id": "2534",
+          "primary": "#EatEmUpKats"
+        },
+        "NCAAB": {
+          "id": "2534",
+          "primary": "#EatEmUpKats"
+        }
+      }
+    },
+    {
+      "school": "Western Kentucky",
+      "teams": {
+        "CFB": {
+          "id": "98",
+          "primary": "#GoTops"
+        },
+        "NCAAB": {
+          "id": "98",
+          "primary": "#GoTops"
+        }
+      }
+    },
+    {
+      "school": "Cleveland State",
+      "teams": {
+        "NCAAB": {
+          "id": "325",
+          "primary": "#ClevelandState"
+        }
+      }
+    },
+    {
+      "school": "Detroit Mercy",
+      "teams": {
+        "NCAAB": {
+          "id": "2174",
+          "primary": "#DetroitU"
+        }
+      }
+    },
+    {
+      "school": "Green Bay",
+      "teams": {
+        "NCAAB": {
+          "id": "2739",
+          "primary": "#GBPhoenix"
+        }
+      }
+    },
+    {
+      "school": "IU Indy",
+      "teams": {
+        "NCAAB": {
+          "id": "85",
+          "primary": "#LetsGoJags"
+        }
+      }
+    },
+    {
+      "school": "Milwaukee",
+      "teams": {
+        "NCAAB": {
+          "id": "270",
+          "primary": "#MilwaukeePanthers"
+        }
+      }
+    },
+    {
+      "school": "Northern Illinois",
+      "teams": {
+        "CFB": {
+          "id": "2459",
+          "primary": "#USvsthem"
+        },
+        "NCAAB": {
+          "id": "2459",
+          "primary": "#NIU"
+        }
+      }
+    },
+    {
+      "school": "Northern Kentucky",
+      "teams": {
+        "NCAAB": {
+          "id": "94",
+          "primary": "#NKU"
+        }
+      }
+    },
+    {
+      "school": "Oakland",
+      "teams": {
+        "NCAAB": {
+          "id": "2473",
+          "primary": "#OaklandMBB"
+        }
+      }
+    },
+    {
+      "school": "Purdue Fort Wayne",
+      "teams": {
+        "NCAAB": {
+          "id": "2870",
+          "primary": "#Mastodons"
+        }
+      }
+    },
+    {
+      "school": "Robert Morris",
+      "teams": {
+        "CFB": {
+          "id": "2523",
+          "primary": "#RMU"
+        },
+        "NCAAB": {
+          "id": "2523",
+          "primary": "#RMU"
+        }
+      }
+    },
+    {
+      "school": "Wright State",
+      "teams": {
+        "NCAAB": {
+          "id": "2750",
+          "primary": "#WrightState"
+        }
+      }
+    },
+    {
+      "school": "Youngstown State",
+      "teams": {
+        "CFB": {
+          "id": "2754",
+          "primary": "#YSU"
+        },
+        "NCAAB": {
+          "id": "2754",
+          "primary": "#YSU"
+        }
+      }
+    },
+    {
+      "school": "Brown",
+      "teams": {
+        "CFB": {
+          "id": "225",
+          "primary": "#Brown"
+        },
+        "NCAAB": {
+          "id": "225",
+          "primary": "#Brown"
+        }
+      }
+    },
+    {
+      "school": "Columbia",
+      "teams": {
+        "CFB": {
+          "id": "171",
+          "primary": "#Columbia"
+        },
+        "NCAAB": {
+          "id": "171",
+          "primary": "#Columbia"
+        }
+      }
+    },
+    {
+      "school": "Cornell",
+      "teams": {
+        "CFB": {
+          "id": "172",
+          "primary": "#Cornell"
+        },
+        "NCAAB": {
+          "id": "172",
+          "primary": "#Cornell"
+        }
+      }
+    },
+    {
+      "school": "Dartmouth",
+      "teams": {
+        "CFB": {
+          "id": "159",
+          "primary": "#Dartmouth"
+        },
+        "NCAAB": {
+          "id": "159",
+          "primary": "#Dartmouth"
+        }
+      }
+    },
+    {
+      "school": "Harvard",
+      "teams": {
+        "CFB": {
+          "id": "108",
+          "primary": "#Harvard"
+        },
+        "NCAAB": {
+          "id": "108",
+          "primary": "#Harvard"
+        }
+      }
+    },
+    {
+      "school": "Penn",
+      "teams": {
+        "CFB": {
+          "id": "219",
+          "primary": "#Penn"
+        },
+        "NCAAB": {
+          "id": "219",
+          "primary": "#Penn"
+        }
+      }
+    },
+    {
+      "school": "Princeton",
+      "teams": {
+        "CFB": {
+          "id": "163",
+          "primary": "#Princeton"
+        },
+        "NCAAB": {
+          "id": "163",
+          "primary": "#Princeton"
+        }
+      }
+    },
+    {
+      "school": "Yale",
+      "teams": {
+        "CFB": {
+          "id": "43",
+          "primary": "#Yale"
+        },
+        "NCAAB": {
+          "id": "43",
+          "primary": "#Yale"
+        }
+      }
+    },
+    {
+      "school": "Canisius",
+      "teams": {
+        "NCAAB": {
+          "id": "2099",
+          "primary": "#Canisius"
+        }
+      }
+    },
+    {
+      "school": "Fairfield",
+      "teams": {
+        "NCAAB": {
+          "id": "2217",
+          "primary": "#Fairfield"
+        }
+      }
+    },
+    {
+      "school": "Iona",
+      "teams": {
+        "NCAAB": {
+          "id": "314",
+          "primary": "#Iona"
+        }
+      }
+    },
+    {
+      "school": "Manhattan",
+      "teams": {
+        "NCAAB": {
+          "id": "2363",
+          "primary": "#Jaspers"
+        }
+      }
+    },
+    {
+      "school": "Marist",
+      "teams": {
+        "CFB": {
+          "id": "2368",
+          "primary": "#Marist"
+        },
+        "NCAAB": {
+          "id": "2368",
+          "primary": "#Marist"
+        }
+      }
+    },
+    {
+      "school": "Merrimack",
+      "teams": {
+        "CFB": {
+          "id": "2771",
+          "primary": "#GoMack"
+        },
+        "NCAAB": {
+          "id": "2771",
+          "primary": "#GoMack"
+        }
+      }
+    },
+    {
+      "school": "Mount St. Mary's",
+      "teams": {
+        "NCAAB": {
+          "id": "116",
+          "primary": "#TheMount"
+        }
+      }
+    },
+    {
+      "school": "Niagara",
+      "teams": {
+        "NCAAB": {
+          "id": "315",
+          "primary": "#Niagara"
+        }
+      }
+    },
+    {
+      "school": "Quinnipiac",
+      "teams": {
+        "NCAAB": {
+          "id": "2514",
+          "primary": "#Quinnipiac"
+        }
+      }
+    },
+    {
+      "school": "Rider",
+      "teams": {
+        "NCAAB": {
+          "id": "2520",
+          "primary": "#Rider"
+        }
+      }
+    },
+    {
+      "school": "Sacred Heart",
+      "teams": {
+        "CFB": {
+          "id": "2529",
+          "primary": "#SacredHeart"
+        },
+        "NCAAB": {
+          "id": "2529",
+          "primary": "#SacredHeart"
+        }
+      }
+    },
+    {
+      "school": "Saint Peter's",
+      "teams": {
+        "NCAAB": {
+          "id": "2612",
+          "primary": "#Peacocks"
+        }
+      }
+    },
+    {
+      "school": "Siena",
+      "teams": {
+        "CFB": {
+          "id": "2562",
+          "primary": "#Siena"
+        },
+        "NCAAB": {
+          "id": "2561",
+          "primary": "#Siena"
+        }
+      }
+    },
+    {
+      "school": "Akron",
+      "teams": {
+        "CFB": {
+          "id": "2006",
+          "primary": "#GoZips"
+        },
+        "NCAAB": {
+          "id": "2006",
+          "primary": "#GoZips"
+        }
+      }
+    },
+    {
+      "school": "Ball State",
+      "teams": {
+        "CFB": {
+          "id": "2050",
+          "primary": "#ChirpChirp"
+        },
+        "NCAAB": {
+          "id": "2050",
+          "primary": "#ChirpChirp"
+        }
+      }
+    },
+    {
+      "school": "Bowling Green",
+      "teams": {
+        "CFB": {
+          "id": "189",
+          "primary": "#AyZiggy"
+        },
+        "NCAAB": {
+          "id": "189",
+          "primary": "#AyZiggy"
+        }
+      }
+    },
+    {
+      "school": "Buffalo",
+      "teams": {
+        "CFB": {
+          "id": "2084",
+          "primary": "#UBhornsUP"
+        },
+        "NCAAB": {
+          "id": "2084",
+          "primary": "#UBhornsUP"
+        }
+      }
+    },
+    {
+      "school": "Central Michigan",
+      "teams": {
+        "CFB": {
+          "id": "2117",
+          "primary": "#FireUpChips"
+        },
+        "NCAAB": {
+          "id": "2117",
+          "primary": "#FireUpChips"
+        }
+      }
+    },
+    {
+      "school": "Eastern Michigan",
+      "teams": {
+        "CFB": {
+          "id": "2199",
+          "primary": "#EMUEagles"
+        },
+        "NCAAB": {
+          "id": "2199",
+          "primary": "#EMUEagles"
+        }
+      }
+    },
+    {
+      "school": "Kent State",
+      "teams": {
+        "CFB": {
+          "id": "2309",
+          "primary": "#GoFlashes"
+        },
+        "NCAAB": {
+          "id": "2309",
+          "primary": "#GoFlashes"
+        }
+      }
+    },
+    {
+      "school": "Miami (Ohio)",
+      "teams": {
+        "CFB": {
+          "id": "193",
+          "primary": "#RiseUpRedHawks"
+        },
+        "NCAAB": {
+          "id": "193",
+          "primary": "#RiseUpRedHawks"
+        }
+      }
+    },
+    {
+      "school": "Ohio",
+      "teams": {
+        "CFB": {
+          "id": "195",
+          "primary": "#OUohyeah"
+        },
+        "NCAAB": {
+          "id": "195",
+          "primary": "#OUohyeah"
+        }
+      }
+    },
+    {
+      "school": "Toledo",
+      "teams": {
+        "CFB": {
+          "id": "2649",
+          "primary": "#TeamToledo"
+        },
+        "NCAAB": {
+          "id": "2649",
+          "primary": "#TeamToledo"
+        }
+      }
+    },
+    {
+      "school": "UMass",
+      "teams": {
+        "CFB": {
+          "id": "113",
+          "primary": "#Flagship"
+        },
+        "NCAAB": {
+          "id": "113",
+          "primary": "#Flagship"
+        }
+      }
+    },
+    {
+      "school": "Western Michigan",
+      "teams": {
+        "CFB": {
+          "id": "2711",
+          "primary": "#BroncosReign"
+        },
+        "NCAAB": {
+          "id": "2711",
+          "primary": "#BroncosReign"
+        }
+      }
+    },
+    {
+      "school": "Coppin State",
+      "teams": {
+        "NCAAB": {
+          "id": "2154",
+          "primary": "#CoppinState"
+        }
+      }
+    },
+    {
+      "school": "Delaware State",
+      "teams": {
+        "CFB": {
+          "id": "2169",
+          "primary": "#DelState"
+        },
+        "NCAAB": {
+          "id": "2169",
+          "primary": "#DelState"
+        }
+      }
+    },
+    {
+      "school": "Howard",
+      "teams": {
+        "CFB": {
+          "id": "47",
+          "primary": "#Howard"
+        },
+        "NCAAB": {
+          "id": "47",
+          "primary": "#Howard"
+        }
+      }
+    },
+    {
+      "school": "Maryland Eastern Shore",
+      "teams": {
+        "NCAAB": {
+          "id": "2379",
+          "primary": "#UMES"
+        }
+      }
+    },
+    {
+      "school": "Morgan State",
+      "teams": {
+        "CFB": {
+          "id": "2415",
+          "primary": "#MorganState"
+        },
+        "NCAAB": {
+          "id": "2415",
+          "primary": "#MorganState"
+        }
+      }
+    },
+    {
+      "school": "NC Central",
+      "teams": {
+        "CFB": {
+          "id": "2428",
+          "primary": "#NCCU"
+        },
+        "NCAAB": {
+          "id": "2428",
+          "primary": "#NCCU"
+        }
+      }
+    },
+    {
+      "school": "Norfolk State",
+      "teams": {
+        "CFB": {
+          "id": "2450",
+          "primary": "#NSU"
+        },
+        "NCAAB": {
+          "id": "2450",
+          "primary": "#NSU"
+        }
+      }
+    },
+    {
+      "school": "South Carolina State",
+      "teams": {
+        "CFB": {
+          "id": "2569",
+          "primary": "#SCState"
+        },
+        "NCAAB": {
+          "id": "2569",
+          "primary": "#SCState"
+        }
+      }
+    },
+    {
+      "school": "Belmont",
+      "teams": {
+        "NCAAB": {
+          "id": "2057",
+          "primary": "#Belmont"
+        }
+      }
+    },
+    {
+      "school": "Bradley",
+      "teams": {
+        "NCAAB": {
+          "id": "71",
+          "primary": "#Bradley"
+        }
+      }
+    },
+    {
+      "school": "Drake",
+      "teams": {
+        "CFB": {
+          "id": "2181",
+          "primary": "#Drake"
+        },
+        "NCAAB": {
+          "id": "2181",
+          "primary": "#Drake"
+        }
+      }
+    },
+    {
+      "school": "Evansville",
+      "teams": {
+        "NCAAB": {
+          "id": "339",
+          "primary": "#Evansville"
+        }
+      }
+    },
+    {
+      "school": "Illinois State",
+      "teams": {
+        "CFB": {
+          "id": "2287",
+          "primary": "#IllinoisState"
+        },
+        "NCAAB": {
+          "id": "2287",
+          "primary": "#IllinoisState"
+        }
+      }
+    },
+    {
+      "school": "Indiana State",
+      "teams": {
+        "CFB": {
+          "id": "282",
+          "primary": "#IndianaState"
+        },
+        "NCAAB": {
+          "id": "282",
+          "primary": "#IndianaState"
+        }
+      }
+    },
+    {
+      "school": "Murray State",
+      "teams": {
+        "CFB": {
+          "id": "93",
+          "primary": "#Racers"
+        },
+        "NCAAB": {
+          "id": "93",
+          "primary": "#Racers"
+        }
+      }
+    },
+    {
+      "school": "Northern Iowa",
+      "teams": {
+        "CFB": {
+          "id": "2460",
+          "primary": "#UNI"
+        },
+        "NCAAB": {
+          "id": "2460",
+          "primary": "#UNI"
+        }
+      }
+    },
+    {
+      "school": "Southern Illinois",
+      "teams": {
+        "CFB": {
+          "id": "79",
+          "primary": "#SIU"
+        },
+        "NCAAB": {
+          "id": "79",
+          "primary": "#SIU"
+        }
+      }
+    },
+    {
+      "school": "UIC",
+      "teams": {
+        "NCAAB": {
+          "id": "82",
+          "primary": "#UIC"
+        }
+      }
+    },
+    {
+      "school": "Valparaiso",
+      "teams": {
+        "CFB": {
+          "id": "2674",
+          "primary": "#Valpo"
+        },
+        "NCAAB": {
+          "id": "2674",
+          "primary": "#Valpo"
+        }
+      }
+    },
+    {
+      "school": "Air Force",
+      "teams": {
+        "CFB": {
+          "id": "2005",
+          "primary": "#FlyFightWin"
+        },
+        "NCAAB": {
+          "id": "2005",
+          "primary": "#FlyFightWin"
+        }
+      }
+    },
+    {
+      "school": "Grand Canyon",
+      "teams": {
+        "NCAAB": {
+          "id": "2253",
+          "primary": "#LopesUp"
+        }
+      }
+    },
+    {
+      "school": "Hawai'i",
+      "teams": {
+        "CFB": {
+          "id": "62",
+          "primary": "#GoBows"
+        },
+        "NCAAB": {
+          "id": "62",
+          "primary": "#GoBows"
+        }
+      }
+    },
+    {
+      "school": "Nevada",
+      "teams": {
+        "CFB": {
+          "id": "2440",
+          "primary": "#BattleBorn"
+        },
+        "NCAAB": {
+          "id": "2440",
+          "primary": "#BattleBorn"
+        }
+      }
+    },
+    {
+      "school": "New Mexico",
+      "teams": {
+        "CFB": {
+          "id": "167",
+          "primary": "#GoLobos"
+        },
+        "NCAAB": {
+          "id": "167",
+          "primary": "#GoLobos"
+        }
+      }
+    },
+    {
+      "school": "San José State",
+      "teams": {
+        "CFB": {
+          "id": "23",
+          "primary": "#AllSpartans"
+        },
+        "NCAAB": {
+          "id": "23",
+          "primary": "#AllSpartans"
+        }
+      }
+    },
+    {
+      "school": "UC Davis",
+      "teams": {
+        "CFB": {
+          "id": "302",
+          "primary": "#GoAgs"
+        },
+        "NCAAB": {
+          "id": "302",
+          "primary": "#GoAgs"
+        }
+      }
+    },
+    {
+      "school": "UNLV",
+      "teams": {
+        "CFB": {
+          "id": "2439",
+          "primary": "#BEaREBEL"
+        },
+        "NCAAB": {
+          "id": "2439",
+          "primary": "#BEaREBEL"
+        }
+      }
+    },
+    {
+      "school": "UTEP",
+      "teams": {
+        "CFB": {
+          "id": "2638",
+          "primary": "#PicksUp"
+        },
+        "NCAAB": {
+          "id": "2638",
+          "primary": "#PicksUp"
+        }
+      }
+    },
+    {
+      "school": "Wyoming",
+      "teams": {
+        "CFB": {
+          "id": "2751",
+          "primary": "#GoWyo"
+        },
+        "NCAAB": {
+          "id": "2751",
+          "primary": "#GoWyo"
+        }
+      }
+    },
+    {
+      "school": "North Dakota State",
+      "teams": {
+        "CFB": {
+          "id": "2449",
+          "primary": "#GoBison"
+        },
+        "NCAAB": {
+          "id": "2449",
+          "primary": "#NDSU"
+        }
+      }
+    },
+    {
+      "school": "Central Connecticut State",
+      "teams": {
+        "CFB": {
+          "id": "2115",
+          "primary": "#CCSU"
+        },
+        "NCAAB": {
+          "id": "2115",
+          "primary": "#CCSU"
+        }
+      }
+    },
+    {
+      "school": "Chicago State",
+      "teams": {
+        "CFB": {
+          "id": "2130",
+          "primary": "#ChicagoState"
+        },
+        "NCAAB": {
+          "id": "2130",
+          "primary": "#ChicagoState"
+        }
+      }
+    },
+    {
+      "school": "FDU",
+      "teams": {
+        "NCAAB": {
+          "id": "161",
+          "primary": "#FDU"
+        }
+      }
+    },
+    {
+      "school": "Le Moyne",
+      "teams": {
+        "NCAAB": {
+          "id": "2330",
+          "primary": "#PhinsUp"
+        }
+      }
+    },
+    {
+      "school": "LIU",
+      "teams": {
+        "CFB": {
+          "id": "2341",
+          "primary": "#LIUBB"
+        },
+        "NCAAB": {
+          "id": "112358",
+          "primary": "#LIUBB"
+        }
+      }
+    },
+    {
+      "school": "Mercyhurst",
+      "teams": {
+        "CFB": {
+          "id": "2385",
+          "primary": "#HurstAthletics"
+        },
+        "NCAAB": {
+          "id": "2385",
+          "primary": "#HurstAthletics"
+        }
+      }
+    },
+    {
+      "school": "New Haven",
+      "teams": {
+        "CFB": {
+          "id": "2441",
+          "primary": "#GoChargers"
+        },
+        "NCAAB": {
+          "id": "2441",
+          "primary": "#GoChargers"
+        }
+      }
+    },
+    {
+      "school": "Stonehill",
+      "teams": {
+        "CFB": {
+          "id": "284",
+          "primary": "#GoHill"
+        },
+        "NCAAB": {
+          "id": "284",
+          "primary": "#GoHill"
+        }
+      }
+    },
+    {
+      "school": "Wagner",
+      "teams": {
+        "CFB": {
+          "id": "2681",
+          "primary": "#Wagner"
+        },
+        "NCAAB": {
+          "id": "2681",
+          "primary": "#Wagner"
+        }
+      }
+    },
+    {
+      "school": "Eastern Illinois",
+      "teams": {
+        "CFB": {
+          "id": "2197",
+          "primary": "#EIU"
+        },
+        "NCAAB": {
+          "id": "2197",
+          "primary": "#EIU"
+        }
+      }
+    },
+    {
+      "school": "Lindenwood",
+      "teams": {
+        "CFB": {
+          "id": "2815",
+          "primary": "#OnTheHunt"
+        }
+      }
+    },
+    {
+      "school": "Morehead State",
+      "teams": {
+        "CFB": {
+          "id": "2413",
+          "primary": "#MSUEagles"
+        },
+        "NCAAB": {
+          "id": "2413",
+          "primary": "#MSUEagles"
+        }
+      }
+    },
+    {
+      "school": "Southeast Missouri",
+      "teams": {
+        "CFB": {
+          "id": "2546",
+          "primary": "#SeMO"
+        },
+        "NCAAB": {
+          "id": "2546",
+          "primary": "#SeMO"
+        }
+      }
+    },
+    {
+      "school": "SIUE",
+      "teams": {
+        "NCAAB": {
+          "id": "2565",
+          "primary": "#SIUE"
+        }
+      }
+    },
+    {
+      "school": "Southern Indiana",
+      "teams": {}
+    },
+    {
+      "school": "Tennessee State",
+      "teams": {
+        "CFB": {
+          "id": "2634",
+          "primary": "#TSUTigers"
+        },
+        "NCAAB": {
+          "id": "2634",
+          "primary": "#TSUTigers"
+        }
+      }
+    },
+    {
+      "school": "UT Martin",
+      "teams": {
+        "CFB": {
+          "id": "2630",
+          "primary": "#UTMartin"
+        },
+        "NCAAB": {
+          "id": "2630",
+          "primary": "#UTMartin"
+        }
+      }
+    },
+    {
+      "school": "Western Illinois",
+      "teams": {
+        "CFB": {
+          "id": "2710",
+          "primary": "#WIU"
+        },
+        "NCAAB": {
+          "id": "2710",
+          "primary": "#WIU"
+        }
+      }
+    },
+    {
+      "school": "American",
+      "teams": {
+        "CFB": {
+          "id": "2022",
+          "primary": "#AmericanUni"
+        },
+        "NCAAB": {
+          "id": "44",
+          "primary": "#AmericanUni"
+        }
+      }
+    },
+    {
+      "school": "Boston University",
+      "teams": {
+        "NCAAB": {
+          "id": "104",
+          "primary": "#GoBU"
+        }
+      }
+    },
+    {
+      "school": "Bucknell",
+      "teams": {
+        "CFB": {
+          "id": "2083",
+          "primary": "#Bucknell"
+        },
+        "NCAAB": {
+          "id": "2083",
+          "primary": "#Bucknell"
+        }
+      }
+    },
+    {
+      "school": "Colgate",
+      "teams": {
+        "CFB": {
+          "id": "2142",
+          "primary": "#Colgate"
+        },
+        "NCAAB": {
+          "id": "2142",
+          "primary": "#Colgate"
+        }
+      }
+    },
+    {
+      "school": "Holy Cross",
+      "teams": {
+        "CFB": {
+          "id": "107",
+          "primary": "#HolyCross"
+        },
+        "NCAAB": {
+          "id": "107",
+          "primary": "#HolyCross"
+        }
+      }
+    },
+    {
+      "school": "Lafayette",
+      "teams": {
+        "CFB": {
+          "id": "322",
+          "primary": "#LafayetteLeopards"
+        },
+        "NCAAB": {
+          "id": "322",
+          "primary": "#LafayetteLeopards"
+        }
+      }
+    },
+    {
+      "school": "Lehigh",
+      "teams": {
+        "CFB": {
+          "id": "2329",
+          "primary": "#Lehigh"
+        },
+        "NCAAB": {
+          "id": "2329",
+          "primary": "#Lehigh"
+        }
+      }
+    },
+    {
+      "school": "Loyola Maryland",
+      "teams": {
+        "NCAAB": {
+          "id": "2352",
+          "primary": "#GoHounds"
+        }
+      }
+    },
+    {
+      "school": "Chattanooga",
+      "teams": {
+        "CFB": {
+          "id": "236",
+          "primary": "#GoMocs"
+        },
+        "NCAAB": {
+          "id": "236",
+          "primary": "#GoMocs"
+        }
+      }
+    },
+    {
+      "school": "The Citadel",
+      "teams": {
+        "CFB": {
+          "id": "2643",
+          "primary": "#Citadel"
+        },
+        "NCAAB": {
+          "id": "2643",
+          "primary": "#Citadel"
+        }
+      }
+    },
+    {
+      "school": "East Tennessee State",
+      "teams": {
+        "CFB": {
+          "id": "2193",
+          "primary": "#ETSU"
+        },
+        "NCAAB": {
+          "id": "2193",
+          "primary": "#ETSU"
+        }
+      }
+    },
+    {
+      "school": "Furman",
+      "teams": {
+        "CFB": {
+          "id": "231",
+          "primary": "#Furman"
+        },
+        "NCAAB": {
+          "id": "231",
+          "primary": "#Furman"
+        }
+      }
+    },
+    {
+      "school": "Mercer",
+      "teams": {
+        "CFB": {
+          "id": "2382",
+          "primary": "#Mercer"
+        },
+        "NCAAB": {
+          "id": "2382",
+          "primary": "#Mercer"
+        }
+      }
+    },
+    {
+      "school": "Samford",
+      "teams": {
+        "CFB": {
+          "id": "2535",
+          "primary": "#Samford"
+        },
+        "NCAAB": {
+          "id": "2535",
+          "primary": "#Samford"
+        }
+      }
+    },
+    {
+      "school": "Tennessee Tech",
+      "teams": {
+        "CFB": {
+          "id": "2635",
+          "primary": "#TNTech"
+        },
+        "NCAAB": {
+          "id": "2635",
+          "primary": "#TNTech"
+        }
+      }
+    },
+    {
+      "school": "UNC Greensboro",
+      "teams": {
+        "NCAAB": {
+          "id": "2430",
+          "primary": "#UNCG"
+        }
+      }
+    },
+    {
+      "school": "VMI",
+      "teams": {
+        "CFB": {
+          "id": "2678",
+          "primary": "#VMI"
+        },
+        "NCAAB": {
+          "id": "2678",
+          "primary": "#VMI"
+        }
+      }
+    },
+    {
+      "school": "Western Carolina",
+      "teams": {
+        "CFB": {
+          "id": "2717",
+          "primary": "#WCU"
+        },
+        "NCAAB": {
+          "id": "2717",
+          "primary": "#WCU"
+        }
+      }
+    },
+    {
+      "school": "Wofford",
+      "teams": {
+        "CFB": {
+          "id": "2747",
+          "primary": "#Wofford"
+        },
+        "NCAAB": {
+          "id": "2747",
+          "primary": "#Wofford"
+        }
+      }
+    },
+    {
+      "school": "East Texas A&M",
+      "teams": {
+        "CFB": {
+          "id": "2837",
+          "primary": "#GoLions"
+        },
+        "NCAAB": {
+          "id": "2837",
+          "primary": "#GoLions"
+        }
+      }
+    },
+    {
+      "school": "Houston Christian",
+      "teams": {
+        "CFB": {
+          "id": "2277",
+          "primary": "#DawgsUp"
+        },
+        "NCAAB": {
+          "id": "2277",
+          "primary": "#DawgsUp"
+        }
+      }
+    },
+    {
+      "school": "Lamar",
+      "teams": {
+        "CFB": {
+          "id": "2320",
+          "primary": "#Lamar"
+        },
+        "NCAAB": {
+          "id": "2320",
+          "primary": "#Lamar"
+        }
+      }
+    },
+    {
+      "school": "LSU New Orleans",
+      "teams": {
+        "NCAAB": {
+          "id": "2443",
+          "primary": "#Privateers"
+        }
+      }
+    },
+    {
+      "school": "McNeese",
+      "teams": {
+        "CFB": {
+          "id": "2377",
+          "primary": "#McNeese"
+        },
+        "NCAAB": {
+          "id": "2377",
+          "primary": "#McNeese"
+        }
+      }
+    },
+    {
+      "school": "Nicholls",
+      "teams": {
+        "CFB": {
+          "id": "2447",
+          "primary": "#GeauxColonels"
+        },
+        "NCAAB": {
+          "id": "2447",
+          "primary": "#GeauxColonels"
+        }
+      }
+    },
+    {
+      "school": "Northwestern State",
+      "teams": {
+        "CFB": {
+          "id": "2466",
+          "primary": "#NorthwesternState"
+        },
+        "NCAAB": {
+          "id": "2466",
+          "primary": "#NorthwesternState"
+        }
+      }
+    },
+    {
+      "school": "Southeastern Louisiana",
+      "teams": {
+        "CFB": {
+          "id": "2545",
+          "primary": "#LionUp"
+        },
+        "NCAAB": {
+          "id": "2545",
+          "primary": "#LionUp"
+        }
+      }
+    },
+    {
+      "school": "Stephen F. Austin",
+      "teams": {
+        "CFB": {
+          "id": "2617",
+          "primary": "#SFA"
+        },
+        "NCAAB": {
+          "id": "2617",
+          "primary": "#SFA"
+        }
+      }
+    },
+    {
+      "school": "Texas A&M-Corpus Christi",
+      "teams": {
+        "NCAAB": {
+          "id": "357",
+          "primary": "#TAMUCC"
+        }
+      }
+    },
+    {
+      "school": "UIW",
+      "teams": {
+        "CFB": {
+          "id": "2916",
+          "primary": "#UIW"
+        },
+        "NCAAB": {
+          "id": "2916",
+          "primary": "#UIW"
+        }
+      }
+    },
+    {
+      "school": "UTRGV",
+      "teams": {
+        "NCAAB": {
+          "id": "292",
+          "primary": "#UTRGV"
+        }
+      }
+    },
+    {
+      "school": "Alabama A&M",
+      "teams": {
+        "CFB": {
+          "id": "2010",
+          "primary": "#AAMU"
+        },
+        "NCAAB": {
+          "id": "2010",
+          "primary": "#AAMU"
+        }
+      }
+    },
+    {
+      "school": "Alabama State",
+      "teams": {
+        "CFB": {
+          "id": "2011",
+          "primary": "#myASU"
+        },
+        "NCAAB": {
+          "id": "2011",
+          "primary": "#myASU"
+        }
+      }
+    },
+    {
+      "school": "Alcorn State",
+      "teams": {
+        "CFB": {
+          "id": "2016",
+          "primary": "#AlcornState"
+        },
+        "NCAAB": {
+          "id": "2016",
+          "primary": "#AlcornState"
+        }
+      }
+    },
+    {
+      "school": "Arkansas-Pine Bluff",
+      "teams": {
+        "CFB": {
+          "id": "2029",
+          "primary": "#UAPB"
+        },
+        "NCAAB": {
+          "id": "2029",
+          "primary": "#UAPB"
+        }
+      }
+    },
+    {
+      "school": "Bethune-Cookman",
+      "teams": {
+        "CFB": {
+          "id": "2065",
+          "primary": "#BCU"
+        },
+        "NCAAB": {
+          "id": "2065",
+          "primary": "#BCU"
+        }
+      }
+    },
+    {
+      "school": "Florida A&M",
+      "teams": {
+        "CFB": {
+          "id": "50",
+          "primary": "#FAMU"
+        },
+        "NCAAB": {
+          "id": "50",
+          "primary": "#FAMU"
+        }
+      }
+    },
+    {
+      "school": "Grambling",
+      "teams": {
+        "CFB": {
+          "id": "2755",
+          "primary": "#Grambling"
+        },
+        "NCAAB": {
+          "id": "2755",
+          "primary": "#Grambling"
+        }
+      }
+    },
+    {
+      "school": "Jackson State",
+      "teams": {
+        "CFB": {
+          "id": "2296",
+          "primary": "#JacksonState"
+        },
+        "NCAAB": {
+          "id": "2296",
+          "primary": "#JacksonState"
+        }
+      }
+    },
+    {
+      "school": "Mississippi Valley State",
+      "teams": {
+        "CFB": {
+          "id": "2400",
+          "primary": "#MVSU"
+        },
+        "NCAAB": {
+          "id": "2400",
+          "primary": "#MVSU"
+        }
+      }
+    },
+    {
+      "school": "Prairie View A&M",
+      "teams": {
+        "CFB": {
+          "id": "2504",
+          "primary": "#PVAMU"
+        },
+        "NCAAB": {
+          "id": "2504",
+          "primary": "#PVAMU"
+        }
+      }
+    },
+    {
+      "school": "Southern",
+      "teams": {
+        "CFB": {
+          "id": "2582",
+          "primary": "#SouthernU"
+        },
+        "NCAAB": {
+          "id": "2582",
+          "primary": "#SouthernU"
+        }
+      }
+    },
+    {
+      "school": "Texas Southern",
+      "teams": {
+        "CFB": {
+          "id": "2640",
+          "primary": "#TexasSouthern"
+        },
+        "NCAAB": {
+          "id": "2640",
+          "primary": "#TexasSouthern"
+        }
+      }
+    },
+    {
+      "school": "Kansas City",
+      "teams": {
+        "NCAAB": {
+          "id": "140",
+          "primary": "#UMKC"
+        }
+      }
+    },
+    {
+      "school": "North Dakota",
+      "teams": {
+        "CFB": {
+          "id": "155",
+          "primary": "#UND"
+        },
+        "NCAAB": {
+          "id": "155",
+          "primary": "#UND"
+        }
+      }
+    },
+    {
+      "school": "Omaha",
+      "teams": {
+        "NCAAB": {
+          "id": "2437",
+          "primary": "#Omavs"
+        }
+      }
+    },
+    {
+      "school": "Oral Roberts",
+      "teams": {
+        "NCAAB": {
+          "id": "198",
+          "primary": "#ORU"
+        }
+      }
+    },
+    {
+      "school": "South Dakota",
+      "teams": {
+        "CFB": {
+          "id": "233",
+          "primary": "#SDCoyotes"
+        },
+        "NCAAB": {
+          "id": "233",
+          "primary": "#SDCoyotes"
+        }
+      }
+    },
+    {
+      "school": "South Dakota State",
+      "teams": {
+        "CFB": {
+          "id": "2571",
+          "primary": "#GoJacks"
+        },
+        "NCAAB": {
+          "id": "2571",
+          "primary": "#GoJacks"
+        }
+      }
+    },
+    {
+      "school": "St. Thomas",
+      "teams": {
+        "CFB": {
+          "id": "2900",
+          "primary": "#RollToms"
+        },
+        "NCAAB": {
+          "id": "2900",
+          "primary": "#RollToms"
+        }
+      }
+    },
+    {
+      "school": "Denver",
+      "teams": {
+        "NCAAB": {
+          "id": "2172",
+          "primary": "#DenverU"
+        }
+      }
+    },
+    {
+      "school": "Loyola Marymount",
+      "teams": {
+        "NCAAB": {
+          "id": "2351",
+          "primary": "#LMU"
+        }
+      }
+    },
+    {
+      "school": "Pacific",
+      "teams": {
+        "NCAAB": {
+          "id": "279",
+          "primary": "#Pacific"
+        }
+      }
+    },
+    {
+      "school": "Pepperdine",
+      "teams": {
+        "NCAAB": {
+          "id": "2492",
+          "primary": "#Pepperdine"
+        }
+      }
+    },
+    {
+      "school": "Portland",
+      "teams": {
+        "NCAAB": {
+          "id": "2501",
+          "primary": "#GoPilots"
+        }
+      }
+    },
+    {
+      "school": "Saint Mary's",
+      "teams": {
+        "NCAAB": {
+          "id": "2608",
+          "primary": "#Gaels"
+        }
+      }
+    },
+    {
+      "school": "San Diego",
+      "teams": {
+        "CFB": {
+          "id": "301",
+          "primary": "#USD"
+        },
+        "NCAAB": {
+          "id": "301",
+          "primary": "#USD"
+        }
+      }
+    },
+    {
+      "school": "San Francisco",
+      "teams": {
+        "NCAAB": {
+          "id": "2539",
+          "primary": "#USFDons"
+        }
+      }
+    },
+    {
+      "school": "Santa Clara",
+      "teams": {
+        "NCAAB": {
+          "id": "2541",
+          "primary": "#SantaClara"
+        }
+      }
+    },
+    {
+      "school": "Seattle",
+      "teams": {
+        "NCAAB": {
+          "id": "2547",
+          "primary": "#SeattleU"
+        }
+      }
+    }
+  ]
+}

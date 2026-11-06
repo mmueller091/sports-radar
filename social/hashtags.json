@@ -1521,6 +1521,17 @@
         ],
         "lastVerifiedAt": null
       },
+      "13": {
+        "name": "Cal Poly Mustangs",
+        "primary": "#CalPoly",
+        "aliases": [
+          "#CalPoly"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
       "16": {
         "name": "Sacramento State Hornets",
         "primary": "#StingersUp",
@@ -1670,6 +1681,28 @@
         ],
         "lastVerifiedAt": null
       },
+      "43": {
+        "name": "Yale Bulldogs",
+        "primary": "#Yale",
+        "aliases": [
+          "#Yale"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "47": {
+        "name": "Howard Bison",
+        "primary": "#Howard",
+        "aliases": [
+          "#Howard"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
       "48": {
         "name": "Delaware Blue Hens",
         "primary": "#BlueHens",
@@ -1681,10 +1714,22 @@
         "sourceUrls": [],
         "lastVerifiedAt": null
       },
+      "50": {
+        "name": "Florida A&M Rattlers",
+        "primary": "#FAMU",
+        "aliases": [
+          "#FAMU"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
       "52": {
         "name": "Florida State Seminoles",
-        "primary": "#GoNoles",
+        "primary": "#Noles",
         "aliases": [
+          "#Noles",
           "#GoNoles",
           "#FSU"
         ],
@@ -1702,6 +1747,17 @@
         "primary": "#StayCocky",
         "aliases": [
           "#StayCocky"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "56": {
+        "name": "Stetson Hatters",
+        "primary": "#Stetson",
+        "aliases": [
+          "#Stetson"
         ],
         "account": null,
         "verification": "owner-approved",
@@ -1741,10 +1797,10 @@
       },
       "59": {
         "name": "Georgia Tech Yellow Jackets",
-        "primary": "#StingEm",
+        "primary": "#GATech",
         "aliases": [
-          "#StingEm",
-          "#GaTech"
+          "#GATech",
+          "#StingEm"
         ],
         "account": null,
         "verification": "owner-approved",
@@ -1819,12 +1875,13 @@
       },
       "70": {
         "name": "Idaho Vandals",
-        "primary": "#govandals",
+        "primary": "#Vandals",
         "aliases": [
+          "#Vandals",
           "#govandals"
         ],
         "account": null,
-        "verification": "candidate",
+        "verification": "owner-approved",
         "sourceUrls": [
           "https://www.blinkfire.com/publisher/leaguehashtags/college_football",
           "https://www.blinkfire.com/publisher/team/college_football_football_70/idaho-vandals"
@@ -1847,6 +1904,17 @@
         ],
         "lastVerifiedAt": null
       },
+      "79": {
+        "name": "Southern Illinois Salukis",
+        "primary": "#SIU",
+        "aliases": [
+          "#SIU"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
       "84": {
         "name": "Indiana Hoosiers",
         "primary": "#GoIU",
@@ -1865,8 +1933,9 @@
       },
       "87": {
         "name": "Notre Dame Fighting Irish",
-        "primary": "#GoIrish",
+        "primary": "#NotreDame",
         "aliases": [
+          "#NotreDame",
           "#GoIrish",
           "#FLirish",
           "#NDNation",
@@ -1879,6 +1948,17 @@
           "https://www.blinkfire.com/publisher/team/college_football_football_87/notre-dame-fighting-irish-football",
           "https://x.com/ndfootball"
         ],
+        "lastVerifiedAt": null
+      },
+      "93": {
+        "name": "Murray State Racers",
+        "primary": "#Racers",
+        "aliases": [
+          "#Racers"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
         "lastVerifiedAt": null
       },
       "96": {
@@ -1948,9 +2028,32 @@
       },
       "103": {
         "name": "Boston College Eagles",
-        "primary": "#ForBoston",
+        "primary": "#WeAreBC",
         "aliases": [
+          "#WeAreBC",
           "#ForBoston"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "107": {
+        "name": "Holy Cross Crusaders",
+        "primary": "#HolyCross",
+        "aliases": [
+          "#HolyCross"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "108": {
+        "name": "Harvard Crimson",
+        "primary": "#Harvard",
+        "aliases": [
+          "#Harvard"
         ],
         "account": null,
         "verification": "owner-approved",
@@ -1962,6 +2065,17 @@
         "primary": "#Flagship",
         "aliases": [
           "#Flagship"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "119": {
+        "name": "Towson Tigers",
+        "primary": "#Towson",
+        "aliases": [
+          "#Towson"
         ],
         "account": null,
         "verification": "owner-approved",
@@ -2063,6 +2177,28 @@
         ],
         "lastVerifiedAt": null
       },
+      "147": {
+        "name": "Montana State Bobcats",
+        "primary": "#MSUBobcats",
+        "aliases": [
+          "#MSUBobcats"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "149": {
+        "name": "Montana Grizzlies",
+        "primary": "#GrizHoops",
+        "aliases": [
+          "#GrizHoops"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
       "150": {
         "name": "Duke Blue Devils",
         "primary": "#GoDuke",
@@ -2092,8 +2228,9 @@
       },
       "152": {
         "name": "NC State Wolfpack",
-        "primary": "#GoPack",
+        "primary": "#Wolfpack",
         "aliases": [
+          "#Wolfpack",
           "#GoPack"
         ],
         "account": null,
@@ -2114,9 +2251,21 @@
       },
       "154": {
         "name": "Wake Forest Demon Deacons",
-        "primary": "#GoDeacs",
+        "primary": "#WakeForest",
         "aliases": [
+          "#WakeForest",
           "#GoDeacs"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "155": {
+        "name": "North Dakota Fighting Hawks",
+        "primary": "#UND",
+        "aliases": [
+          "#UND"
         ],
         "account": null,
         "verification": "owner-approved",
@@ -2136,6 +2285,39 @@
           "https://www.blinkfire.com/publisher/leaguehashtags/college_football",
           "https://www.blinkfire.com/publisher/team/college_football_football_158/nebraska-cornhuskers-football"
         ],
+        "lastVerifiedAt": null
+      },
+      "159": {
+        "name": "Dartmouth Big Green",
+        "primary": "#Dartmouth",
+        "aliases": [
+          "#Dartmouth"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "160": {
+        "name": "New Hampshire Wildcats",
+        "primary": "#BeTheRoar",
+        "aliases": [
+          "#BeTheRoar"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "163": {
+        "name": "Princeton Tigers",
+        "primary": "#Princeton",
+        "aliases": [
+          "#Princeton"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
         "lastVerifiedAt": null
       },
       "164": {
@@ -2176,10 +2358,33 @@
         "sourceUrls": [],
         "lastVerifiedAt": null
       },
+      "171": {
+        "name": "Columbia Lions",
+        "primary": "#Columbia",
+        "aliases": [
+          "#Columbia"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "172": {
+        "name": "Cornell Big Red",
+        "primary": "#Cornell",
+        "aliases": [
+          "#Cornell"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
       "183": {
         "name": "Syracuse Orange",
-        "primary": "#OrangeNation",
+        "primary": "#Syracuse",
         "aliases": [
+          "#Syracuse",
           "#OrangeNation"
         ],
         "account": null,
@@ -2230,6 +2435,17 @@
         "primary": "#OUohyeah",
         "aliases": [
           "#OUohyeah"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "196": {
+        "name": "Northeastern State RiverHawks",
+        "primary": "#Northeastern",
+        "aliases": [
+          "#Northeastern"
         ],
         "account": null,
         "verification": "owner-approved",
@@ -2321,6 +2537,17 @@
         "sourceUrls": [],
         "lastVerifiedAt": null
       },
+      "219": {
+        "name": "Pennsylvania Quakers",
+        "primary": "#Penn",
+        "aliases": [
+          "#Penn"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
       "221": {
         "name": "Pittsburgh Panthers",
         "primary": "#H2P",
@@ -2332,10 +2559,33 @@
         "sourceUrls": [],
         "lastVerifiedAt": null
       },
+      "225": {
+        "name": "Brown Bears",
+        "primary": "#Brown",
+        "aliases": [
+          "#Brown"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "227": {
+        "name": "Rhode Island Rams",
+        "primary": "#URI",
+        "aliases": [
+          "#URI"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
       "228": {
         "name": "Clemson Tigers",
-        "primary": "#GoTigers",
+        "primary": "#Clemson",
         "aliases": [
+          "#Clemson",
           "#GoTigers",
           "#SolidOrange"
         ],
@@ -2348,11 +2598,44 @@
         ],
         "lastVerifiedAt": null
       },
+      "231": {
+        "name": "Furman Paladins",
+        "primary": "#Furman",
+        "aliases": [
+          "#Furman"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "233": {
+        "name": "South Dakota Coyotes",
+        "primary": "#SDCoyotes",
+        "aliases": [
+          "#SDCoyotes"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
       "235": {
         "name": "Memphis Tigers",
         "primary": "#GoTigersGo",
         "aliases": [
           "#GoTigersGo"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "236": {
+        "name": "Chattanooga Mocs",
+        "primary": "#GoMocs",
+        "aliases": [
+          "#GoMocs"
         ],
         "account": null,
         "verification": "owner-approved",
@@ -2463,6 +2746,17 @@
         "sourceUrls": [],
         "lastVerifiedAt": null
       },
+      "253": {
+        "name": "Southern Utah Thunderbirds",
+        "primary": "#SUU",
+        "aliases": [
+          "#SUU"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
       "254": {
         "name": "Utah Utes",
         "primary": "#GoUtes",
@@ -2490,6 +2784,17 @@
         "sourceUrls": [],
         "lastVerifiedAt": null
       },
+      "257": {
+        "name": "Richmond Spiders",
+        "primary": "#Spiders",
+        "aliases": [
+          "#Spiders"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
       "258": {
         "name": "Virginia Cavaliers",
         "primary": "#GoHoos",
@@ -2509,8 +2814,9 @@
       },
       "259": {
         "name": "Virginia Tech Hokies",
-        "primary": "#LetsGoHokies",
+        "primary": "#Hokies",
         "aliases": [
+          "#Hokies",
           "#LetsGoHokies",
           "#VaTech_Football"
         ],
@@ -2609,11 +2915,44 @@
         ],
         "lastVerifiedAt": null
       },
+      "282": {
+        "name": "Indiana State Sycamores",
+        "primary": "#IndianaState",
+        "aliases": [
+          "#IndianaState"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "284": {
+        "name": "Stonehill Skyhawks",
+        "primary": "#GoHill",
+        "aliases": [
+          "#GoHill"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
       "290": {
         "name": "Georgia Southern Eagles",
         "primary": "#HailSouthern",
         "aliases": [
           "#HailSouthern"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "293": {
+        "name": "Vermont State Castleton Spartans",
+        "primary": "#VCats",
+        "aliases": [
+          "#VCats"
         ],
         "account": null,
         "verification": "owner-approved",
@@ -2631,6 +2970,17 @@
         "sourceUrls": [],
         "lastVerifiedAt": null
       },
+      "301": {
+        "name": "San Diego Toreros",
+        "primary": "#USD",
+        "aliases": [
+          "#USD"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
       "302": {
         "name": "UC Davis Aggies",
         "primary": "#GoAgs",
@@ -2642,11 +2992,44 @@
         "sourceUrls": [],
         "lastVerifiedAt": null
       },
+      "304": {
+        "name": "Idaho State Bengals",
+        "primary": "#IdahoState",
+        "aliases": [
+          "#IdahoState"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
       "309": {
         "name": "Louisiana Ragin' Cajuns",
         "primary": "#GeauxCajuns",
         "aliases": [
           "#GeauxCajuns"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "311": {
+        "name": "Maine Black Bears",
+        "primary": "#BlackBearNation",
+        "aliases": [
+          "#BlackBearNation"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "322": {
+        "name": "Lafayette Leopards",
+        "primary": "#LafayetteLeopards",
+        "aliases": [
+          "#LafayetteLeopards"
         ],
         "account": null,
         "verification": "owner-approved",
@@ -2680,6 +3063,17 @@
         "primary": "#AggiesAllTheWay",
         "aliases": [
           "#AggiesAllTheWay"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "331": {
+        "name": "Eastern Washington Eagles",
+        "primary": "#EWU",
+        "aliases": [
+          "#EWU"
         ],
         "account": null,
         "verification": "owner-approved",
@@ -2754,6 +3148,17 @@
         ],
         "lastVerifiedAt": null
       },
+      "399": {
+        "name": "UAlbany Great Danes",
+        "primary": "#GreatDanes",
+        "aliases": [
+          "#GreatDanes"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
       "2005": {
         "name": "Air Force Falcons",
         "primary": "#FlyFightWin",
@@ -2776,11 +3181,66 @@
         "sourceUrls": [],
         "lastVerifiedAt": null
       },
+      "2010": {
+        "name": "Alabama A&M Bulldogs",
+        "primary": "#AAMU",
+        "aliases": [
+          "#AAMU"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2011": {
+        "name": "Alabama State Hornets",
+        "primary": "#myASU",
+        "aliases": [
+          "#myASU"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2016": {
+        "name": "Alcorn State Braves",
+        "primary": "#AlcornState",
+        "aliases": [
+          "#AlcornState"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2022": {
+        "name": "American International Yellow Jackets",
+        "primary": "#AmericanUni",
+        "aliases": [
+          "#AmericanUni"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
       "2026": {
         "name": "App State Mountaineers",
         "primary": "#GoApp",
         "aliases": [
           "#GoApp"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2029": {
+        "name": "Arkansas-Pine Bluff Golden Lions",
+        "primary": "#UAPB",
+        "aliases": [
+          "#UAPB"
         ],
         "account": null,
         "verification": "owner-approved",
@@ -2809,11 +3269,55 @@
         "sourceUrls": [],
         "lastVerifiedAt": null
       },
+      "2065": {
+        "name": "Bethune-Cookman Wildcats",
+        "primary": "#BCU",
+        "aliases": [
+          "#BCU"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2083": {
+        "name": "Bucknell Bison",
+        "primary": "#Bucknell",
+        "aliases": [
+          "#Bucknell"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
       "2084": {
         "name": "Buffalo Bulls",
         "primary": "#UBhornsUP",
         "aliases": [
           "#UBhornsUP"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2097": {
+        "name": "Campbell Fighting Camels",
+        "primary": "#Campbell",
+        "aliases": [
+          "#Campbell"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2115": {
+        "name": "Central Connecticut Blue Devils",
+        "primary": "#CCSU",
+        "aliases": [
+          "#CCSU"
         ],
         "account": null,
         "verification": "owner-approved",
@@ -2842,6 +3346,28 @@
         "sourceUrls": [],
         "lastVerifiedAt": null
       },
+      "2127": {
+        "name": "Charleston Southern Buccaneers",
+        "primary": "#CSUBucs",
+        "aliases": [
+          "#CSUBucs"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2130": {
+        "name": "Chicago State Cougars",
+        "primary": "#ChicagoState",
+        "aliases": [
+          "#ChicagoState"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
       "2132": {
         "name": "Cincinnati Bearcats",
         "primary": "#Bearcats",
@@ -2853,11 +3379,110 @@
         "sourceUrls": [],
         "lastVerifiedAt": null
       },
+      "2142": {
+        "name": "Colgate Raiders",
+        "primary": "#Colgate",
+        "aliases": [
+          "#Colgate"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2166": {
+        "name": "Davidson Wildcats",
+        "primary": "#Davidson",
+        "aliases": [
+          "#Davidson"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2168": {
+        "name": "Dayton Flyers",
+        "primary": "#GoFlyers",
+        "aliases": [
+          "#GoFlyers"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2169": {
+        "name": "Delaware State Hornets",
+        "primary": "#DelState",
+        "aliases": [
+          "#DelState"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2181": {
+        "name": "Drake Bulldogs",
+        "primary": "#Drake",
+        "aliases": [
+          "#Drake"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2184": {
+        "name": "Duquesne Dukes",
+        "primary": "#Duquesne",
+        "aliases": [
+          "#Duquesne"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2193": {
+        "name": "East Tennessee State Buccaneers",
+        "primary": "#ETSU",
+        "aliases": [
+          "#ETSU"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2197": {
+        "name": "Eastern Illinois Panthers",
+        "primary": "#EIU",
+        "aliases": [
+          "#EIU"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
       "2199": {
         "name": "Eastern Michigan Eagles",
         "primary": "#EMUEagles",
         "aliases": [
           "#EMUEagles"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2210": {
+        "name": "Elon Phoenix",
+        "primary": "#Elon",
+        "aliases": [
+          "#Elon"
         ],
         "account": null,
         "verification": "owner-approved",
@@ -2886,11 +3511,77 @@
         "sourceUrls": [],
         "lastVerifiedAt": null
       },
+      "2230": {
+        "name": "Fordham Rams",
+        "primary": "#Fordham",
+        "aliases": [
+          "#Fordham"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2241": {
+        "name": "Gardner-Webb Runnin' Bulldogs",
+        "primary": "#GardnerWebb",
+        "aliases": [
+          "#GardnerWebb"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2244": {
+        "name": "George Mason University Patriots",
+        "primary": "#MasonNation",
+        "aliases": [
+          "#MasonNation"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
       "2247": {
         "name": "Georgia State Panthers",
         "primary": "#LightItBlue",
         "aliases": [
           "#LightItBlue"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2261": {
+        "name": "Hampton Pirates",
+        "primary": "#Hampton",
+        "aliases": [
+          "#Hampton"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2277": {
+        "name": "Houston Christian Huskies",
+        "primary": "#DawgsUp",
+        "aliases": [
+          "#DawgsUp"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2287": {
+        "name": "Illinois State Redbirds",
+        "primary": "#IllinoisState",
+        "aliases": [
+          "#IllinoisState"
         ],
         "account": null,
         "verification": "owner-approved",
@@ -2911,6 +3602,17 @@
           "https://www.blinkfire.com/publisher/team/college_football_football_2294/iowa-hawkeyes-football",
           "https://x.com/HawkeyeFootball"
         ],
+        "lastVerifiedAt": null
+      },
+      "2296": {
+        "name": "Jackson State Tigers",
+        "primary": "#JacksonState",
+        "aliases": [
+          "#JacksonState"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
         "lastVerifiedAt": null
       },
       "2305": {
@@ -2952,6 +3654,28 @@
         "sourceUrls": [],
         "lastVerifiedAt": null
       },
+      "2320": {
+        "name": "Lamar Cardinals",
+        "primary": "#Lamar",
+        "aliases": [
+          "#Lamar"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2329": {
+        "name": "Lehigh Mountain Hawks",
+        "primary": "#Lehigh",
+        "aliases": [
+          "#Lehigh"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
       "2335": {
         "name": "Liberty Flames",
         "primary": "#RiseWithUs",
@@ -2963,11 +3687,66 @@
         "sourceUrls": [],
         "lastVerifiedAt": null
       },
+      "2341": {
+        "name": "Long Island University Sharks",
+        "primary": "#LIUBB",
+        "aliases": [
+          "#LIUBB"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
       "2348": {
         "name": "Louisiana Tech Bulldogs",
         "primary": "#BarkLouder",
         "aliases": [
           "#BarkLouder"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2368": {
+        "name": "Marist Red Foxes",
+        "primary": "#Marist",
+        "aliases": [
+          "#Marist"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2377": {
+        "name": "McNeese Cowboys",
+        "primary": "#McNeese",
+        "aliases": [
+          "#McNeese"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2382": {
+        "name": "Mercer Bears",
+        "primary": "#Mercer",
+        "aliases": [
+          "#Mercer"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2385": {
+        "name": "Mercyhurst Lakers",
+        "primary": "#HurstAthletics",
+        "aliases": [
+          "#HurstAthletics"
         ],
         "account": null,
         "verification": "owner-approved",
@@ -3001,11 +3780,66 @@
         "sourceUrls": [],
         "lastVerifiedAt": null
       },
+      "2400": {
+        "name": "Mississippi Valley State Delta Devils",
+        "primary": "#MVSU",
+        "aliases": [
+          "#MVSU"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2405": {
+        "name": "Monmouth Hawks",
+        "primary": "#Monmouth",
+        "aliases": [
+          "#Monmouth"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2413": {
+        "name": "Morehead State Eagles",
+        "primary": "#MSUEagles",
+        "aliases": [
+          "#MSUEagles"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2415": {
+        "name": "Morgan State Bears",
+        "primary": "#MorganState",
+        "aliases": [
+          "#MorganState"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
       "2426": {
         "name": "Navy Midshipmen",
         "primary": "#GoNavy",
         "aliases": [
           "#GoNavy"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2428": {
+        "name": "North Carolina Central Eagles",
+        "primary": "#NCCU",
+        "aliases": [
+          "#NCCU"
         ],
         "account": null,
         "verification": "owner-approved",
@@ -3062,11 +3896,66 @@
         ],
         "lastVerifiedAt": null
       },
+      "2441": {
+        "name": "New Haven Chargers",
+        "primary": "#GoChargers",
+        "aliases": [
+          "#GoChargers"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2447": {
+        "name": "Nicholls Colonels",
+        "primary": "#GeauxColonels",
+        "aliases": [
+          "#GeauxColonels"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2448": {
+        "name": "North Carolina A&T Aggies",
+        "primary": "#NCAT",
+        "aliases": [
+          "#NCAT"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
       "2449": {
         "name": "North Dakota State Bison",
         "primary": "#GoBison",
         "aliases": [
           "#GoBison"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2450": {
+        "name": "Norfolk State Spartans",
+        "primary": "#NSU",
+        "aliases": [
+          "#NSU"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2458": {
+        "name": "Northern Colorado Bears",
+        "primary": "#UNCBears",
+        "aliases": [
+          "#UNCBears"
         ],
         "account": null,
         "verification": "owner-approved",
@@ -3088,6 +3977,39 @@
         ],
         "lastVerifiedAt": null
       },
+      "2460": {
+        "name": "Northern Iowa Panthers",
+        "primary": "#UNI",
+        "aliases": [
+          "#UNI"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2464": {
+        "name": "Northern Arizona Lumberjacks",
+        "primary": "#NAU",
+        "aliases": [
+          "#NAU"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2466": {
+        "name": "Northwestern State Demons",
+        "primary": "#NorthwesternState",
+        "aliases": [
+          "#NorthwesternState"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
       "2483": {
         "name": "Oregon Ducks",
         "primary": "#GoDucks",
@@ -3102,6 +4024,39 @@
           "https://x.com/WinTheDay"
         ],
         "lastVerifiedAt": "2026-11-05"
+      },
+      "2502": {
+        "name": "Portland State Vikings",
+        "primary": "#GoViks",
+        "aliases": [
+          "#GoViks"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2504": {
+        "name": "Prairie View A&M Panthers",
+        "primary": "#PVAMU",
+        "aliases": [
+          "#PVAMU"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2506": {
+        "name": "Presbyterian Blue Hose",
+        "primary": "#Presbyterian",
+        "aliases": [
+          "#Presbyterian"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
       },
       "2509": {
         "name": "Purdue Boilermakers",
@@ -3119,6 +4074,28 @@
         ],
         "lastVerifiedAt": null
       },
+      "2523": {
+        "name": "Robert Morris Colonials",
+        "primary": "#RMU",
+        "aliases": [
+          "#RMU"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2529": {
+        "name": "Sacred Heart Pioneers",
+        "primary": "#SacredHeart",
+        "aliases": [
+          "#SacredHeart"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
       "2534": {
         "name": "Sam Houston Bearkats",
         "primary": "#EatEmUpKats",
@@ -3130,11 +4107,78 @@
         "sourceUrls": [],
         "lastVerifiedAt": null
       },
+      "2535": {
+        "name": "Samford Bulldogs",
+        "primary": "#Samford",
+        "aliases": [
+          "#Samford"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2545": {
+        "name": "SE Louisiana Lions",
+        "primary": "#LionUp",
+        "aliases": [
+          "#LionUp"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2546": {
+        "name": "Southeast Missouri State Redhawks",
+        "primary": "#SeMO",
+        "aliases": [
+          "#SeMO"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2562": {
+        "name": "Siena Heights Saints",
+        "primary": "#Siena",
+        "aliases": [
+          "#Siena"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
       "2567": {
         "name": "SMU Mustangs",
-        "primary": "#PonyUp",
+        "primary": "#SMU",
         "aliases": [
+          "#SMU",
           "#PonyUp"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2569": {
+        "name": "South Carolina State Bulldogs",
+        "primary": "#SCState",
+        "aliases": [
+          "#SCState"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2571": {
+        "name": "South Dakota State Jackrabbits",
+        "primary": "#GoJacks",
+        "aliases": [
+          "#GoJacks"
         ],
         "account": null,
         "verification": "owner-approved",
@@ -3167,6 +4211,39 @@
         ],
         "lastVerifiedAt": null
       },
+      "2582": {
+        "name": "Southern Jaguars",
+        "primary": "#SouthernU",
+        "aliases": [
+          "#SouthernU"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2617": {
+        "name": "Stephen F. Austin Lumberjacks",
+        "primary": "#SFA",
+        "aliases": [
+          "#SFA"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2619": {
+        "name": "Stony Brook Seawolves",
+        "primary": "#StonyBrook",
+        "aliases": [
+          "#StonyBrook"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
       "2623": {
         "name": "Missouri State Bears",
         "primary": "#GoBears",
@@ -3194,11 +4271,44 @@
         ],
         "lastVerifiedAt": null
       },
+      "2630": {
+        "name": "UT Martin Skyhawks",
+        "primary": "#UTMartin",
+        "aliases": [
+          "#UTMartin"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
       "2633": {
         "name": "Tennessee Volunteers",
         "primary": "#GBO",
         "aliases": [
           "#GBO"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2634": {
+        "name": "Tennessee State Tigers",
+        "primary": "#TSUTigers",
+        "aliases": [
+          "#TSUTigers"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2635": {
+        "name": "Tennessee Tech Golden Eagles",
+        "primary": "#TNTech",
+        "aliases": [
+          "#TNTech"
         ],
         "account": null,
         "verification": "owner-approved",
@@ -3227,6 +4337,17 @@
         "sourceUrls": [],
         "lastVerifiedAt": null
       },
+      "2640": {
+        "name": "Texas Southern Tigers",
+        "primary": "#TexasSouthern",
+        "aliases": [
+          "#TexasSouthern"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
       "2641": {
         "name": "Texas Tech Red Raiders",
         "primary": "#WreckEm",
@@ -3241,6 +4362,17 @@
           "https://www.blinkfire.com/publisher/team/college_football_football_2641/texas-tech-red-raiders-football",
           "https://x.com/texastechfb"
         ],
+        "lastVerifiedAt": null
+      },
+      "2643": {
+        "name": "The Citadel Bulldogs",
+        "primary": "#Citadel",
+        "aliases": [
+          "#Citadel"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
         "lastVerifiedAt": null
       },
       "2649": {
@@ -3276,6 +4408,61 @@
         "sourceUrls": [],
         "lastVerifiedAt": null
       },
+      "2674": {
+        "name": "Valparaiso Beacons",
+        "primary": "#Valpo",
+        "aliases": [
+          "#Valpo"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2678": {
+        "name": "VMI Keydets",
+        "primary": "#VMI",
+        "aliases": [
+          "#VMI"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2681": {
+        "name": "Wagner Seahawks",
+        "primary": "#Wagner",
+        "aliases": [
+          "#Wagner"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2692": {
+        "name": "Weber State Wildcats",
+        "primary": "#WeberState",
+        "aliases": [
+          "#WeberState"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2710": {
+        "name": "Western Illinois Leathernecks",
+        "primary": "#WIU",
+        "aliases": [
+          "#WIU"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
       "2711": {
         "name": "Western Michigan Broncos",
         "primary": "#BroncosReign",
@@ -3287,11 +4474,154 @@
         "sourceUrls": [],
         "lastVerifiedAt": null
       },
+      "2717": {
+        "name": "Western Carolina Catamounts",
+        "primary": "#WCU",
+        "aliases": [
+          "#WCU"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2729": {
+        "name": "William & Mary Tribe",
+        "primary": "#GoTribe",
+        "aliases": [
+          "#GoTribe"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2747": {
+        "name": "Wofford Terriers",
+        "primary": "#Wofford",
+        "aliases": [
+          "#Wofford"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
       "2751": {
         "name": "Wyoming Cowboys",
         "primary": "#GoWyo",
         "aliases": [
           "#GoWyo"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2754": {
+        "name": "Youngstown State Penguins",
+        "primary": "#YSU",
+        "aliases": [
+          "#YSU"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2755": {
+        "name": "Grambling Tigers",
+        "primary": "#Grambling",
+        "aliases": [
+          "#Grambling"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2771": {
+        "name": "Merrimack Warriors",
+        "primary": "#GoMack",
+        "aliases": [
+          "#GoMack"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2803": {
+        "name": "Bryant Bulldogs",
+        "primary": "#GoBryant",
+        "aliases": [
+          "#GoBryant"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2815": {
+        "name": "Lindenwood Lions",
+        "primary": "#OnTheHunt",
+        "aliases": [
+          "#OnTheHunt"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2837": {
+        "name": "East Texas A&M Lions",
+        "primary": "#GoLions",
+        "aliases": [
+          "#GoLions"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2900": {
+        "name": "St. Thomas Tommies",
+        "primary": "#RollToms",
+        "aliases": [
+          "#RollToms"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2916": {
+        "name": "Incarnate Word Cardinals",
+        "primary": "#UIW",
+        "aliases": [
+          "#UIW"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "3101": {
+        "name": "Utah Tech Trailblazers",
+        "primary": "#UtahTechisHere",
+        "aliases": [
+          "#UtahTechisHere"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "110242": {
+        "name": "West Florida Argonauts",
+        "primary": "#GoArgos",
+        "aliases": [
+          "#GoArgos"
         ],
         "account": null,
         "verification": "owner-approved",
@@ -3373,6 +4703,17 @@
         ],
         "lastVerifiedAt": "2026-11-05"
       },
+      "13": {
+        "name": "Cal Poly Mustangs",
+        "primary": "#CalPoly",
+        "aliases": [
+          "#CalPoly"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
       "16": {
         "name": "Sacramento State Hornets",
         "primary": "#StingersUp",
@@ -3444,6 +4785,28 @@
         "sourceUrls": [],
         "lastVerifiedAt": null
       },
+      "27": {
+        "name": "UC Riverside Highlanders",
+        "primary": "#UCRiverside",
+        "aliases": [
+          "#UCRiverside"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "28": {
+        "name": "UC San Diego Tritons",
+        "primary": "#GoTritons",
+        "aliases": [
+          "#GoTritons"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
       "30": {
         "name": "USC Trojans",
         "primary": "#FightOn",
@@ -3477,6 +4840,50 @@
         "sourceUrls": [],
         "lastVerifiedAt": null
       },
+      "43": {
+        "name": "Yale Bulldogs",
+        "primary": "#Yale",
+        "aliases": [
+          "#Yale"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "44": {
+        "name": "American University Eagles",
+        "primary": "#AmericanUni",
+        "aliases": [
+          "#AmericanUni"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "45": {
+        "name": "George Washington Revolutionaries",
+        "primary": "#GWU",
+        "aliases": [
+          "#GWU"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "47": {
+        "name": "Howard Bison",
+        "primary": "#Howard",
+        "aliases": [
+          "#Howard"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
       "48": {
         "name": "Delaware Blue Hens",
         "primary": "#BlueHens",
@@ -3488,10 +4895,22 @@
         "sourceUrls": [],
         "lastVerifiedAt": null
       },
+      "50": {
+        "name": "Florida A&M Rattlers",
+        "primary": "#FAMU",
+        "aliases": [
+          "#FAMU"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
       "52": {
         "name": "Florida State Seminoles",
-        "primary": "#GoNoles",
+        "primary": "#Noles",
         "aliases": [
+          "#Noles",
           "#GoNoles"
         ],
         "account": null,
@@ -3504,6 +4923,17 @@
         "primary": "#StayCocky",
         "aliases": [
           "#StayCocky"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "56": {
+        "name": "Stetson Hatters",
+        "primary": "#Stetson",
+        "aliases": [
+          "#Stetson"
         ],
         "account": null,
         "verification": "owner-approved",
@@ -3537,8 +4967,9 @@
       },
       "59": {
         "name": "Georgia Tech Yellow Jackets",
-        "primary": "#StingEm",
+        "primary": "#GATech",
         "aliases": [
+          "#GATech",
           "#StingEm"
         ],
         "account": null,
@@ -3590,6 +5021,28 @@
         "sourceUrls": [],
         "lastVerifiedAt": null
       },
+      "70": {
+        "name": "Idaho Vandals",
+        "primary": "#Vandals",
+        "aliases": [
+          "#Vandals"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "71": {
+        "name": "Bradley Braves",
+        "primary": "#Bradley",
+        "aliases": [
+          "#Bradley"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
       "77": {
         "name": "Northwestern Wildcats",
         "primary": "#GoCats",
@@ -3606,6 +5059,28 @@
         ],
         "lastVerifiedAt": null
       },
+      "79": {
+        "name": "Southern Illinois Salukis",
+        "primary": "#SIU",
+        "aliases": [
+          "#SIU"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "82": {
+        "name": "UIC Flames",
+        "primary": "#UIC",
+        "aliases": [
+          "#UIC"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
       "84": {
         "name": "Indiana Hoosiers",
         "primary": "#GoIU",
@@ -3617,11 +5092,56 @@
         "sourceUrls": [],
         "lastVerifiedAt": null
       },
+      "85": {
+        "name": "IU Indianapolis Jaguars",
+        "primary": "#LetsGoJags",
+        "aliases": [
+          "#LetsGoJags"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
       "87": {
         "name": "Notre Dame Fighting Irish",
-        "primary": "#GoIrish",
+        "primary": "#NotreDame",
         "aliases": [
+          "#NotreDame",
           "#GoIrish"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "91": {
+        "name": "Bellarmine Knights",
+        "primary": "#Bellarmine",
+        "aliases": [
+          "#Bellarmine"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "93": {
+        "name": "Murray State Racers",
+        "primary": "#Racers",
+        "aliases": [
+          "#Racers"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "94": {
+        "name": "Northern Kentucky Norse",
+        "primary": "#NKU",
+        "aliases": [
+          "#NKU"
         ],
         "account": null,
         "verification": "owner-approved",
@@ -3674,9 +5194,54 @@
       },
       "103": {
         "name": "Boston College Eagles",
-        "primary": "#ForBoston",
+        "primary": "#WeAreBC",
         "aliases": [
+          "#WeAreBC",
           "#ForBoston"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "104": {
+        "name": "Boston University Terriers",
+        "primary": "#GoBU",
+        "aliases": [
+          "#GoBU"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "107": {
+        "name": "Holy Cross Crusaders",
+        "primary": "#HolyCross",
+        "aliases": [
+          "#HolyCross"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "108": {
+        "name": "Harvard Crimson",
+        "primary": "#Harvard",
+        "aliases": [
+          "#Harvard"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "111": {
+        "name": "Northeastern Huskies",
+        "primary": "#Northeastern",
+        "aliases": [
+          "#Northeastern"
         ],
         "account": null,
         "verification": "owner-approved",
@@ -3688,6 +5253,28 @@
         "primary": "#Flagship",
         "aliases": [
           "#Flagship"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "116": {
+        "name": "Mount St. Mary's Mountaineers",
+        "primary": "#TheMount",
+        "aliases": [
+          "#TheMount"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "119": {
+        "name": "Towson Tigers",
+        "primary": "#Towson",
+        "aliases": [
+          "#Towson"
         ],
         "account": null,
         "verification": "owner-approved",
@@ -3745,6 +5332,28 @@
         "sourceUrls": [],
         "lastVerifiedAt": null
       },
+      "139": {
+        "name": "Saint Louis Billikens",
+        "primary": "#Billikens",
+        "aliases": [
+          "#Billikens"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "140": {
+        "name": "Kansas City Roos",
+        "primary": "#UMKC",
+        "aliases": [
+          "#UMKC"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
       "142": {
         "name": "Missouri Tigers",
         "primary": "#MIZ",
@@ -3761,6 +5370,28 @@
         "primary": "#HottyToddy",
         "aliases": [
           "#HottyToddy"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "147": {
+        "name": "Montana State Bobcats",
+        "primary": "#MSUBobcats",
+        "aliases": [
+          "#MSUBobcats"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "149": {
+        "name": "Montana Grizzlies",
+        "primary": "#GrizHoops",
+        "aliases": [
+          "#GrizHoops"
         ],
         "account": null,
         "verification": "owner-approved",
@@ -3796,8 +5427,9 @@
       },
       "152": {
         "name": "NC State Wolfpack",
-        "primary": "#GoPack",
+        "primary": "#Wolfpack",
         "aliases": [
+          "#Wolfpack",
           "#GoPack"
         ],
         "account": null,
@@ -3822,24 +5454,80 @@
       },
       "154": {
         "name": "Wake Forest Demon Deacons",
-        "primary": "#GoDeacs",
+        "primary": "#WakeForest",
         "aliases": [
+          "#WakeForest",
           "#GoDeacs"
         ],
         "account": "WakeMBB",
-        "verification": "official-site",
+        "verification": "owner-approved",
         "sourceUrls": [
           "https://x.com/WakeMBB",
           "https://linktr.ee/wakeforestmbb",
           "https://godeacs.com/documents/download/2022/9/30/roster_coaches.pdf"
         ],
-        "lastVerifiedAt": "2026-11-05"
+        "lastVerifiedAt": null
+      },
+      "155": {
+        "name": "North Dakota Fighting Hawks",
+        "primary": "#UND",
+        "aliases": [
+          "#UND"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
       },
       "158": {
         "name": "Nebraska Cornhuskers",
         "primary": "#GBR",
         "aliases": [
           "#GBR"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "159": {
+        "name": "Dartmouth Big Green",
+        "primary": "#Dartmouth",
+        "aliases": [
+          "#Dartmouth"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "160": {
+        "name": "New Hampshire Wildcats",
+        "primary": "#BeTheRoar",
+        "aliases": [
+          "#BeTheRoar"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "161": {
+        "name": "Fairleigh Dickinson Knights",
+        "primary": "#FDU",
+        "aliases": [
+          "#FDU"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "163": {
+        "name": "Princeton Tigers",
+        "primary": "#Princeton",
+        "aliases": [
+          "#Princeton"
         ],
         "account": null,
         "verification": "owner-approved",
@@ -3879,10 +5567,44 @@
         "sourceUrls": [],
         "lastVerifiedAt": null
       },
+      "171": {
+        "name": "Columbia Lions",
+        "primary": "#Columbia",
+        "aliases": [
+          "#Columbia"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "172": {
+        "name": "Cornell Big Red",
+        "primary": "#Cornell",
+        "aliases": [
+          "#Cornell"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "179": {
+        "name": "St. Bonaventure Bonnies",
+        "primary": "#Bonnies",
+        "aliases": [
+          "#Bonnies"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
       "183": {
         "name": "Syracuse Orange",
-        "primary": "#OrangeNation",
+        "primary": "#Syracuse",
         "aliases": [
+          "#Syracuse",
           "#OrangeNation"
         ],
         "account": null,
@@ -3939,6 +5661,17 @@
         "primary": "#GoPokes",
         "aliases": [
           "#GoPokes"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "198": {
+        "name": "Oral Roberts Golden Eagles",
+        "primary": "#ORU",
+        "aliases": [
+          "#ORU"
         ],
         "account": null,
         "verification": "owner-approved",
@@ -4002,17 +5735,18 @@
       },
       "219": {
         "name": "Pennsylvania Quakers",
-        "primary": "#FightOnPenn",
+        "primary": "#Penn",
         "aliases": [
+          "#Penn",
           "#FightOnPenn"
         ],
         "account": "PennMBB",
-        "verification": "official-site",
+        "verification": "owner-approved",
         "sourceUrls": [
           "https://x.com/PennMBB",
           "https://pennathletics.com/news/2026/2/28/mens-basketball-comes-back-on-harvard-64-61-clinches-ivy-madness-bid.aspx"
         ],
-        "lastVerifiedAt": "2026-11-05"
+        "lastVerifiedAt": null
       },
       "221": {
         "name": "Pittsburgh Panthers",
@@ -4025,11 +5759,67 @@
         "sourceUrls": [],
         "lastVerifiedAt": null
       },
+      "225": {
+        "name": "Brown Bears",
+        "primary": "#Brown",
+        "aliases": [
+          "#Brown"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "227": {
+        "name": "Rhode Island Rams",
+        "primary": "#URI",
+        "aliases": [
+          "#URI"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
       "228": {
         "name": "Clemson Tigers",
-        "primary": "#GoTigers",
+        "primary": "#Clemson",
         "aliases": [
+          "#Clemson",
           "#GoTigers"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "231": {
+        "name": "Furman Paladins",
+        "primary": "#Furman",
+        "aliases": [
+          "#Furman"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "232": {
+        "name": "Charleston Cougars",
+        "primary": "#CofC",
+        "aliases": [
+          "#CofC"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "233": {
+        "name": "South Dakota Coyotes",
+        "primary": "#SDCoyotes",
+        "aliases": [
+          "#SDCoyotes"
         ],
         "account": null,
         "verification": "owner-approved",
@@ -4041,6 +5831,17 @@
         "primary": "#GoTigersGo",
         "aliases": [
           "#GoTigersGo"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "236": {
+        "name": "Chattanooga Mocs",
+        "primary": "#GoMocs",
+        "aliases": [
+          "#GoMocs"
         ],
         "account": null,
         "verification": "owner-approved",
@@ -4145,6 +5946,17 @@
         "sourceUrls": [],
         "lastVerifiedAt": null
       },
+      "253": {
+        "name": "Southern Utah Thunderbirds",
+        "primary": "#SUU",
+        "aliases": [
+          "#SUU"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
       "254": {
         "name": "Utah Utes",
         "primary": "#GoUtes",
@@ -4167,6 +5979,17 @@
         "sourceUrls": [],
         "lastVerifiedAt": null
       },
+      "257": {
+        "name": "Richmond Spiders",
+        "primary": "#Spiders",
+        "aliases": [
+          "#Spiders"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
       "258": {
         "name": "Virginia Cavaliers",
         "primary": "#GoHoos",
@@ -4180,9 +6003,21 @@
       },
       "259": {
         "name": "Virginia Tech Hokies",
-        "primary": "#LetsGoHokies",
+        "primary": "#Hokies",
         "aliases": [
+          "#Hokies",
           "#LetsGoHokies"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "261": {
+        "name": "Vermont Catamounts",
+        "primary": "#VCats",
+        "aliases": [
+          "#VCats"
         ],
         "account": null,
         "verification": "owner-approved",
@@ -4205,6 +6040,17 @@
         "primary": "#GoCougs",
         "aliases": [
           "#GoCougs"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "270": {
+        "name": "Milwaukee Panthers",
+        "primary": "#MilwaukeePanthers",
+        "aliases": [
+          "#MilwaukeePanthers"
         ],
         "account": null,
         "verification": "owner-approved",
@@ -4255,11 +6101,77 @@
         "sourceUrls": [],
         "lastVerifiedAt": null
       },
+      "279": {
+        "name": "Pacific Tigers",
+        "primary": "#Pacific",
+        "aliases": [
+          "#Pacific"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "282": {
+        "name": "Indiana State Sycamores",
+        "primary": "#IndianaState",
+        "aliases": [
+          "#IndianaState"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "284": {
+        "name": "Stonehill Skyhawks",
+        "primary": "#GoHill",
+        "aliases": [
+          "#GoHill"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "288": {
+        "name": "Lipscomb Bisons",
+        "primary": "#Lipscomb",
+        "aliases": [
+          "#Lipscomb"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
       "290": {
         "name": "Georgia Southern Eagles",
         "primary": "#HailSouthern",
         "aliases": [
           "#HailSouthern"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "292": {
+        "name": "UT Rio Grande Valley Vaqueros",
+        "primary": "#UTRGV",
+        "aliases": [
+          "#UTRGV"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "294": {
+        "name": "Jacksonville Dolphins",
+        "primary": "#JUDolphins",
+        "aliases": [
+          "#JUDolphins"
         ],
         "account": null,
         "verification": "owner-approved",
@@ -4277,11 +6189,55 @@
         "sourceUrls": [],
         "lastVerifiedAt": null
       },
+      "299": {
+        "name": "Long Beach State Beach",
+        "primary": "#LBSU",
+        "aliases": [
+          "#LBSU"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "300": {
+        "name": "UC Irvine Anteaters",
+        "primary": "#UCIrvine",
+        "aliases": [
+          "#UCIrvine"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "301": {
+        "name": "San Diego Toreros",
+        "primary": "#USD",
+        "aliases": [
+          "#USD"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
       "302": {
         "name": "UC Davis Aggies",
         "primary": "#GoAgs",
         "aliases": [
           "#GoAgs"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "304": {
+        "name": "Idaho State Bengals",
+        "primary": "#IdahoState",
+        "aliases": [
+          "#IdahoState"
         ],
         "account": null,
         "verification": "owner-approved",
@@ -4299,11 +6255,66 @@
         "sourceUrls": [],
         "lastVerifiedAt": null
       },
+      "311": {
+        "name": "Maine Black Bears",
+        "primary": "#BlackBearNation",
+        "aliases": [
+          "#BlackBearNation"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "314": {
+        "name": "Iona Gaels",
+        "primary": "#Iona",
+        "aliases": [
+          "#Iona"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "315": {
+        "name": "Niagara Purple Eagles",
+        "primary": "#Niagara",
+        "aliases": [
+          "#Niagara"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "322": {
+        "name": "Lafayette Leopards",
+        "primary": "#LafayetteLeopards",
+        "aliases": [
+          "#LafayetteLeopards"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
       "324": {
         "name": "Coastal Carolina Chanticleers",
         "primary": "#ChantsUp",
         "aliases": [
           "#ChantsUp"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "325": {
+        "name": "Cleveland State Vikings",
+        "primary": "#ClevelandState",
+        "aliases": [
+          "#ClevelandState"
         ],
         "account": null,
         "verification": "owner-approved",
@@ -4332,6 +6343,17 @@
         "sourceUrls": [],
         "lastVerifiedAt": null
       },
+      "331": {
+        "name": "Eastern Washington Eagles",
+        "primary": "#EWU",
+        "aliases": [
+          "#EWU"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
       "333": {
         "name": "Alabama Crimson Tide",
         "primary": "#RollTide",
@@ -4348,6 +6370,17 @@
         "primary": "#HootyHoo",
         "aliases": [
           "#HootyHoo"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "339": {
+        "name": "Evansville Purple Aces",
+        "primary": "#Evansville",
+        "aliases": [
+          "#Evansville"
         ],
         "account": null,
         "verification": "owner-approved",
@@ -4376,6 +6409,17 @@
         "sourceUrls": [],
         "lastVerifiedAt": null
       },
+      "350": {
+        "name": "UNC Wilmington Seahawks",
+        "primary": "#UNCW",
+        "aliases": [
+          "#UNCW"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
       "356": {
         "name": "Illinois Fighting Illini",
         "primary": "#Illini",
@@ -4389,6 +6433,39 @@
           "https://fightingillini.com/news/2026/3/11/mens-basketball-9-illinois-opens-big-ten-tournament-friday-at-united-center"
         ],
         "lastVerifiedAt": "2026-11-05"
+      },
+      "357": {
+        "name": "Texas A&M-Corpus Christi Islanders",
+        "primary": "#TAMUCC",
+        "aliases": [
+          "#TAMUCC"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "399": {
+        "name": "UAlbany Great Danes",
+        "primary": "#GreatDanes",
+        "aliases": [
+          "#GreatDanes"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "526": {
+        "name": "Florida Gulf Coast Eagles",
+        "primary": "#FGCU",
+        "aliases": [
+          "#FGCU"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
       },
       "2005": {
         "name": "Air Force Falcons",
@@ -4412,11 +6489,55 @@
         "sourceUrls": [],
         "lastVerifiedAt": null
       },
+      "2010": {
+        "name": "Alabama A&M Bulldogs",
+        "primary": "#AAMU",
+        "aliases": [
+          "#AAMU"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2011": {
+        "name": "Alabama State Hornets",
+        "primary": "#myASU",
+        "aliases": [
+          "#myASU"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2016": {
+        "name": "Alcorn State Braves",
+        "primary": "#AlcornState",
+        "aliases": [
+          "#AlcornState"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
       "2026": {
         "name": "App State Mountaineers",
         "primary": "#GoApp",
         "aliases": [
           "#GoApp"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2029": {
+        "name": "Arkansas-Pine Bluff Golden Lions",
+        "primary": "#UAPB",
+        "aliases": [
+          "#UAPB"
         ],
         "account": null,
         "verification": "owner-approved",
@@ -4445,6 +6566,50 @@
         "sourceUrls": [],
         "lastVerifiedAt": null
       },
+      "2057": {
+        "name": "Belmont Bruins",
+        "primary": "#Belmont",
+        "aliases": [
+          "#Belmont"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2065": {
+        "name": "Bethune-Cookman Wildcats",
+        "primary": "#BCU",
+        "aliases": [
+          "#BCU"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2066": {
+        "name": "Binghamton Bearcats",
+        "primary": "#Binghamton",
+        "aliases": [
+          "#Binghamton"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2083": {
+        "name": "Bucknell Bison",
+        "primary": "#Bucknell",
+        "aliases": [
+          "#Bucknell"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
       "2084": {
         "name": "Buffalo Bulls",
         "primary": "#UBhornsUP",
@@ -4456,20 +6621,43 @@
         "sourceUrls": [],
         "lastVerifiedAt": null
       },
+      "2097": {
+        "name": "Campbell Fighting Camels",
+        "primary": "#Campbell",
+        "aliases": [
+          "#Campbell"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
       "2099": {
         "name": "Canisius Golden Griffins",
-        "primary": "#GRIFFS",
+        "primary": "#Canisius",
         "aliases": [
+          "#Canisius",
           "#GRIFFS"
         ],
         "account": "Griffs_MBB",
-        "verification": "official-bio",
+        "verification": "owner-approved",
         "sourceUrls": [
           "https://www.blinkfire.com/publisher/leaguehashtags/mens_college_basketball",
           "https://www.blinkfire.com/publisher/team/mens_college_basketball_2099/canisius-golden-griffins",
           "https://x.com/Griffs_MBB"
         ],
-        "lastVerifiedAt": "2026-11-05"
+        "lastVerifiedAt": null
+      },
+      "2115": {
+        "name": "Central Connecticut Blue Devils",
+        "primary": "#CCSU",
+        "aliases": [
+          "#CCSU"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
       },
       "2116": {
         "name": "UCF Knights",
@@ -4493,6 +6681,28 @@
         "sourceUrls": [],
         "lastVerifiedAt": null
       },
+      "2127": {
+        "name": "Charleston Southern Buccaneers",
+        "primary": "#CSUBucs",
+        "aliases": [
+          "#CSUBucs"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2130": {
+        "name": "Chicago State Cougars",
+        "primary": "#ChicagoState",
+        "aliases": [
+          "#ChicagoState"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
       "2132": {
         "name": "Cincinnati Bearcats",
         "primary": "#Bearcats",
@@ -4504,11 +6714,165 @@
         "sourceUrls": [],
         "lastVerifiedAt": null
       },
+      "2142": {
+        "name": "Colgate Raiders",
+        "primary": "#Colgate",
+        "aliases": [
+          "#Colgate"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2154": {
+        "name": "Coppin State Eagles",
+        "primary": "#CoppinState",
+        "aliases": [
+          "#CoppinState"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2166": {
+        "name": "Davidson Wildcats",
+        "primary": "#Davidson",
+        "aliases": [
+          "#Davidson"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2168": {
+        "name": "Dayton Flyers",
+        "primary": "#GoFlyers",
+        "aliases": [
+          "#GoFlyers"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2169": {
+        "name": "Delaware State Hornets",
+        "primary": "#DelState",
+        "aliases": [
+          "#DelState"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2172": {
+        "name": "Denver Pioneers",
+        "primary": "#DenverU",
+        "aliases": [
+          "#DenverU"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2174": {
+        "name": "Detroit Mercy Titans",
+        "primary": "#DetroitU",
+        "aliases": [
+          "#DetroitU"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2181": {
+        "name": "Drake Bulldogs",
+        "primary": "#Drake",
+        "aliases": [
+          "#Drake"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2182": {
+        "name": "Drexel Dragons",
+        "primary": "#Drexel",
+        "aliases": [
+          "#Drexel"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2184": {
+        "name": "Duquesne Dukes",
+        "primary": "#Duquesne",
+        "aliases": [
+          "#Duquesne"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2193": {
+        "name": "East Tennessee State Buccaneers",
+        "primary": "#ETSU",
+        "aliases": [
+          "#ETSU"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2197": {
+        "name": "Eastern Illinois Panthers",
+        "primary": "#EIU",
+        "aliases": [
+          "#EIU"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
       "2199": {
         "name": "Eastern Michigan Eagles",
         "primary": "#EMUEagles",
         "aliases": [
           "#EMUEagles"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2210": {
+        "name": "Elon Phoenix",
+        "primary": "#Elon",
+        "aliases": [
+          "#Elon"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2217": {
+        "name": "Fairfield Stags",
+        "primary": "#Fairfield",
+        "aliases": [
+          "#Fairfield"
         ],
         "account": null,
         "verification": "owner-approved",
@@ -4531,6 +6895,50 @@
         "primary": "#PawsUp",
         "aliases": [
           "#PawsUp"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2230": {
+        "name": "Fordham Rams",
+        "primary": "#Fordham",
+        "aliases": [
+          "#Fordham"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2239": {
+        "name": "Cal State Fullerton Titans",
+        "primary": "#CalStateFullerton",
+        "aliases": [
+          "#CalStateFullerton"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2241": {
+        "name": "Gardner-Webb Runnin' Bulldogs",
+        "primary": "#GardnerWebb",
+        "aliases": [
+          "#GardnerWebb"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2244": {
+        "name": "George Mason Patriots",
+        "primary": "#MasonNation",
+        "aliases": [
+          "#MasonNation"
         ],
         "account": null,
         "verification": "owner-approved",
@@ -4570,21 +6978,65 @@
         "sourceUrls": [],
         "lastVerifiedAt": null
       },
+      "2261": {
+        "name": "Hampton Pirates",
+        "primary": "#Hampton",
+        "aliases": [
+          "#Hampton"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2272": {
+        "name": "High Point Panthers",
+        "primary": "#HighPoint",
+        "aliases": [
+          "#HighPoint"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
       "2275": {
         "name": "Hofstra Pride",
-        "primary": "#hofmbb",
+        "primary": "#Hofstra",
         "aliases": [
-          "#hofmbb",
           "#Hofstra",
+          "#hofmbb",
           "#GoPride"
         ],
         "account": "HofstraMBB",
-        "verification": "candidate",
+        "verification": "owner-approved",
         "sourceUrls": [
           "https://www.blinkfire.com/publisher/leaguehashtags/mens_college_basketball",
           "https://www.blinkfire.com/publisher/team/mens_college_basketball_2275/hofstra-pride",
           "https://x.com/HofstraMBB"
         ],
+        "lastVerifiedAt": null
+      },
+      "2277": {
+        "name": "Houston Christian Huskies",
+        "primary": "#DawgsUp",
+        "aliases": [
+          "#DawgsUp"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2287": {
+        "name": "Illinois State Redbirds",
+        "primary": "#IllinoisState",
+        "aliases": [
+          "#IllinoisState"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
         "lastVerifiedAt": null
       },
       "2294": {
@@ -4601,6 +7053,17 @@
           "https://www.blinkfire.com/publisher/team/mens_college_basketball_2294/iowa-hawkeyes-m-basketball",
           "https://x.com/IowaHoops"
         ],
+        "lastVerifiedAt": null
+      },
+      "2296": {
+        "name": "Jackson State Tigers",
+        "primary": "#JacksonState",
+        "aliases": [
+          "#JacksonState"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
         "lastVerifiedAt": null
       },
       "2305": {
@@ -4636,6 +7099,50 @@
         "sourceUrls": [],
         "lastVerifiedAt": null
       },
+      "2320": {
+        "name": "Lamar Cardinals",
+        "primary": "#Lamar",
+        "aliases": [
+          "#Lamar"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2325": {
+        "name": "La Salle Explorers",
+        "primary": "#LaSalle",
+        "aliases": [
+          "#LaSalle"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2329": {
+        "name": "Lehigh Mountain Hawks",
+        "primary": "#Lehigh",
+        "aliases": [
+          "#Lehigh"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2330": {
+        "name": "Le Moyne Dolphins",
+        "primary": "#PhinsUp",
+        "aliases": [
+          "#PhinsUp"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
       "2335": {
         "name": "Liberty Flames",
         "primary": "#RiseWithUs",
@@ -4647,11 +7154,143 @@
         "sourceUrls": [],
         "lastVerifiedAt": null
       },
+      "2344": {
+        "name": "Longwood Lancers",
+        "primary": "#Longwood",
+        "aliases": [
+          "#Longwood"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
       "2348": {
         "name": "Louisiana Tech Bulldogs",
         "primary": "#BarkLouder",
         "aliases": [
           "#BarkLouder"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2349": {
+        "name": "UMass Lowell River Hawks",
+        "primary": "#RiverHawks",
+        "aliases": [
+          "#RiverHawks"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2350": {
+        "name": "Loyola Chicago Ramblers",
+        "primary": "#LoyolaChicago",
+        "aliases": [
+          "#LoyolaChicago"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2351": {
+        "name": "Loyola Marymount Lions",
+        "primary": "#LMU",
+        "aliases": [
+          "#LMU"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2352": {
+        "name": "Loyola Maryland Greyhounds",
+        "primary": "#GoHounds",
+        "aliases": [
+          "#GoHounds"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2363": {
+        "name": "Manhattan Jaspers",
+        "primary": "#Jaspers",
+        "aliases": [
+          "#Jaspers"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2368": {
+        "name": "Marist Red Foxes",
+        "primary": "#Marist",
+        "aliases": [
+          "#Marist"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2377": {
+        "name": "McNeese Cowboys",
+        "primary": "#McNeese",
+        "aliases": [
+          "#McNeese"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2378": {
+        "name": "UMBC Retrievers",
+        "primary": "#RetrieverNation",
+        "aliases": [
+          "#RetrieverNation"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2379": {
+        "name": "Maryland Eastern Shore Hawks",
+        "primary": "#UMES",
+        "aliases": [
+          "#UMES"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2382": {
+        "name": "Mercer Bears",
+        "primary": "#Mercer",
+        "aliases": [
+          "#Mercer"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2385": {
+        "name": "Mercyhurst Lakers",
+        "primary": "#HurstAthletics",
+        "aliases": [
+          "#HurstAthletics"
         ],
         "account": null,
         "verification": "owner-approved",
@@ -4684,11 +7323,78 @@
         "sourceUrls": [],
         "lastVerifiedAt": null
       },
+      "2400": {
+        "name": "Mississippi Valley State Delta Devils",
+        "primary": "#MVSU",
+        "aliases": [
+          "#MVSU"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2405": {
+        "name": "Monmouth Hawks",
+        "primary": "#Monmouth",
+        "aliases": [
+          "#Monmouth"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2413": {
+        "name": "Morehead State Eagles",
+        "primary": "#MSUEagles",
+        "aliases": [
+          "#MSUEagles"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2415": {
+        "name": "Morgan State Bears",
+        "primary": "#MorganState",
+        "aliases": [
+          "#MorganState"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
       "2426": {
         "name": "Navy Midshipmen",
-        "primary": "#GoNavy",
+        "primary": "#Navy",
         "aliases": [
+          "#Navy",
           "#GoNavy"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2427": {
+        "name": "UNC Asheville Bulldogs",
+        "primary": "#UNCAsheville",
+        "aliases": [
+          "#UNCAsheville"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2428": {
+        "name": "North Carolina Central Eagles",
+        "primary": "#NCCU",
+        "aliases": [
+          "#NCCU"
         ],
         "account": null,
         "verification": "owner-approved",
@@ -4706,11 +7412,33 @@
         "sourceUrls": [],
         "lastVerifiedAt": null
       },
+      "2430": {
+        "name": "UNC Greensboro Spartans",
+        "primary": "#UNCG",
+        "aliases": [
+          "#UNCG"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
       "2433": {
         "name": "UL Monroe Warhawks",
         "primary": "#TheBestIsOnTheBayou",
         "aliases": [
           "#TheBestIsOnTheBayou"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2437": {
+        "name": "Omaha Mavericks",
+        "primary": "#Omavs",
+        "aliases": [
+          "#Omavs"
         ],
         "account": null,
         "verification": "owner-approved",
@@ -4739,11 +7467,89 @@
         "sourceUrls": [],
         "lastVerifiedAt": null
       },
+      "2441": {
+        "name": "New Haven Chargers",
+        "primary": "#GoChargers",
+        "aliases": [
+          "#GoChargers"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2443": {
+        "name": "LSU New Orleans Privateers",
+        "primary": "#Privateers",
+        "aliases": [
+          "#Privateers"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2447": {
+        "name": "Nicholls Colonels",
+        "primary": "#GeauxColonels",
+        "aliases": [
+          "#GeauxColonels"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2448": {
+        "name": "North Carolina A&T Aggies",
+        "primary": "#NCAT",
+        "aliases": [
+          "#NCAT"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
       "2449": {
         "name": "North Dakota State Bison",
-        "primary": "#GoBison",
+        "primary": "#NDSU",
         "aliases": [
+          "#NDSU",
           "#GoBison"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2450": {
+        "name": "Norfolk State Spartans",
+        "primary": "#NSU",
+        "aliases": [
+          "#NSU"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2454": {
+        "name": "North Florida Ospreys",
+        "primary": "#UNF",
+        "aliases": [
+          "#UNF"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2458": {
+        "name": "Northern Colorado Bears",
+        "primary": "#UNCBears",
+        "aliases": [
+          "#UNCBears"
         ],
         "account": null,
         "verification": "owner-approved",
@@ -4752,9 +7558,65 @@
       },
       "2459": {
         "name": "Northern Illinois Huskies",
-        "primary": "#USvsthem",
+        "primary": "#NIU",
         "aliases": [
+          "#NIU",
           "#USvsthem"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2460": {
+        "name": "Northern Iowa Panthers",
+        "primary": "#UNI",
+        "aliases": [
+          "#UNI"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2463": {
+        "name": "Cal State Northridge Matadors",
+        "primary": "#CSUN",
+        "aliases": [
+          "#CSUN"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2464": {
+        "name": "Northern Arizona Lumberjacks",
+        "primary": "#NAU",
+        "aliases": [
+          "#NAU"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2466": {
+        "name": "Northwestern State Demons",
+        "primary": "#NorthwesternState",
+        "aliases": [
+          "#NorthwesternState"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2473": {
+        "name": "Oakland Golden Grizzlies",
+        "primary": "#OaklandMBB",
+        "aliases": [
+          "#OaklandMBB"
         ],
         "account": null,
         "verification": "owner-approved",
@@ -4772,11 +7634,121 @@
         "sourceUrls": [],
         "lastVerifiedAt": null
       },
+      "2492": {
+        "name": "Pepperdine Waves",
+        "primary": "#Pepperdine",
+        "aliases": [
+          "#Pepperdine"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2501": {
+        "name": "Portland Pilots",
+        "primary": "#GoPilots",
+        "aliases": [
+          "#GoPilots"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2502": {
+        "name": "Portland State Vikings",
+        "primary": "#GoViks",
+        "aliases": [
+          "#GoViks"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2504": {
+        "name": "Prairie View A&M Panthers",
+        "primary": "#PVAMU",
+        "aliases": [
+          "#PVAMU"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2506": {
+        "name": "Presbyterian Blue Hose",
+        "primary": "#Presbyterian",
+        "aliases": [
+          "#Presbyterian"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
       "2509": {
         "name": "Purdue Boilermakers",
         "primary": "#BoilerUp",
         "aliases": [
           "#BoilerUp"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2514": {
+        "name": "Quinnipiac Bobcats",
+        "primary": "#Quinnipiac",
+        "aliases": [
+          "#Quinnipiac"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2515": {
+        "name": "Radford Highlanders",
+        "primary": "#Radford",
+        "aliases": [
+          "#Radford"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2520": {
+        "name": "Rider Broncs",
+        "primary": "#Rider",
+        "aliases": [
+          "#Rider"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2523": {
+        "name": "Robert Morris Colonials",
+        "primary": "#RMU",
+        "aliases": [
+          "#RMU"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2529": {
+        "name": "Sacred Heart Pioneers",
+        "primary": "#SacredHeart",
+        "aliases": [
+          "#SacredHeart"
         ],
         "account": null,
         "verification": "owner-approved",
@@ -4794,11 +7766,133 @@
         "sourceUrls": [],
         "lastVerifiedAt": null
       },
+      "2535": {
+        "name": "Samford Bulldogs",
+        "primary": "#Samford",
+        "aliases": [
+          "#Samford"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2539": {
+        "name": "San Francisco Dons",
+        "primary": "#USFDons",
+        "aliases": [
+          "#USFDons"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2540": {
+        "name": "UC Santa Barbara Gauchos",
+        "primary": "#UCSB",
+        "aliases": [
+          "#UCSB"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2541": {
+        "name": "Santa Clara Broncos",
+        "primary": "#SantaClara",
+        "aliases": [
+          "#SantaClara"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2545": {
+        "name": "SE Louisiana Lions",
+        "primary": "#LionUp",
+        "aliases": [
+          "#LionUp"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2546": {
+        "name": "Southeast Missouri State Redhawks",
+        "primary": "#SeMO",
+        "aliases": [
+          "#SeMO"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2547": {
+        "name": "Seattle U Redhawks",
+        "primary": "#SeattleU",
+        "aliases": [
+          "#SeattleU"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2561": {
+        "name": "Siena Saints",
+        "primary": "#Siena",
+        "aliases": [
+          "#Siena"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2565": {
+        "name": "SIU Edwardsville Cougars",
+        "primary": "#SIUE",
+        "aliases": [
+          "#SIUE"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
       "2567": {
         "name": "SMU Mustangs",
-        "primary": "#PonyUp",
+        "primary": "#SMU",
         "aliases": [
+          "#SMU",
           "#PonyUp"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2569": {
+        "name": "South Carolina State Bulldogs",
+        "primary": "#SCState",
+        "aliases": [
+          "#SCState"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2571": {
+        "name": "South Dakota State Jackrabbits",
+        "primary": "#GoJacks",
+        "aliases": [
+          "#GoJacks"
         ],
         "account": null,
         "verification": "owner-approved",
@@ -4827,6 +7921,72 @@
         "sourceUrls": [],
         "lastVerifiedAt": null
       },
+      "2582": {
+        "name": "Southern Jaguars",
+        "primary": "#SouthernU",
+        "aliases": [
+          "#SouthernU"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2603": {
+        "name": "Saint Joseph's Hawks",
+        "primary": "#StJoes",
+        "aliases": [
+          "#StJoes"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2608": {
+        "name": "Saint Mary's Gaels",
+        "primary": "#Gaels",
+        "aliases": [
+          "#Gaels"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2612": {
+        "name": "Saint Peter's Peacocks",
+        "primary": "#Peacocks",
+        "aliases": [
+          "#Peacocks"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2617": {
+        "name": "Stephen F. Austin Lumberjacks",
+        "primary": "#SFA",
+        "aliases": [
+          "#SFA"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2619": {
+        "name": "Stony Brook Seawolves",
+        "primary": "#StonyBrook",
+        "aliases": [
+          "#StonyBrook"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
       "2623": {
         "name": "Missouri State Bears",
         "primary": "#GoBears",
@@ -4849,11 +8009,44 @@
         "sourceUrls": [],
         "lastVerifiedAt": null
       },
+      "2630": {
+        "name": "UT Martin Skyhawks",
+        "primary": "#UTMartin",
+        "aliases": [
+          "#UTMartin"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
       "2633": {
         "name": "Tennessee Volunteers",
         "primary": "#GBO",
         "aliases": [
           "#GBO"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2634": {
+        "name": "Tennessee State Tigers",
+        "primary": "#TSUTigers",
+        "aliases": [
+          "#TSUTigers"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2635": {
+        "name": "Tennessee Tech Golden Eagles",
+        "primary": "#TNTech",
+        "aliases": [
+          "#TNTech"
         ],
         "account": null,
         "verification": "owner-approved",
@@ -4882,6 +8075,17 @@
         "sourceUrls": [],
         "lastVerifiedAt": null
       },
+      "2640": {
+        "name": "Texas Southern Tigers",
+        "primary": "#TexasSouthern",
+        "aliases": [
+          "#TexasSouthern"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
       "2641": {
         "name": "Texas Tech Red Raiders",
         "primary": "#WreckEm",
@@ -4895,6 +8099,17 @@
           "https://texastech.com/news/2024/6/3/mens-basketball-red-raiders-begin-summer-workouts"
         ],
         "lastVerifiedAt": "2026-11-05"
+      },
+      "2643": {
+        "name": "The Citadel Bulldogs",
+        "primary": "#Citadel",
+        "aliases": [
+          "#Citadel"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
       },
       "2649": {
         "name": "Toledo Rockets",
@@ -4929,11 +8144,99 @@
         "sourceUrls": [],
         "lastVerifiedAt": null
       },
+      "2670": {
+        "name": "VCU Rams",
+        "primary": "#VCU",
+        "aliases": [
+          "#VCU"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2674": {
+        "name": "Valparaiso Beacons",
+        "primary": "#Valpo",
+        "aliases": [
+          "#Valpo"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2678": {
+        "name": "VMI Keydets",
+        "primary": "#VMI",
+        "aliases": [
+          "#VMI"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2681": {
+        "name": "Wagner Seahawks",
+        "primary": "#Wagner",
+        "aliases": [
+          "#Wagner"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2692": {
+        "name": "Weber State Wildcats",
+        "primary": "#WeberState",
+        "aliases": [
+          "#WeberState"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2697": {
+        "name": "West Florida Argonauts",
+        "primary": "#GoArgos",
+        "aliases": [
+          "#GoArgos"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2710": {
+        "name": "Western Illinois Leathernecks",
+        "primary": "#WIU",
+        "aliases": [
+          "#WIU"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
       "2711": {
         "name": "Western Michigan Broncos",
         "primary": "#BroncosReign",
         "aliases": [
           "#BroncosReign"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2717": {
+        "name": "Western Carolina Catamounts",
+        "primary": "#WCU",
+        "aliases": [
+          "#WCU"
         ],
         "account": null,
         "verification": "owner-approved",
@@ -4951,11 +8254,231 @@
         "sourceUrls": [],
         "lastVerifiedAt": null
       },
+      "2729": {
+        "name": "William & Mary Tribe",
+        "primary": "#GoTribe",
+        "aliases": [
+          "#GoTribe"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2737": {
+        "name": "Winthrop Eagles",
+        "primary": "#Winthrop",
+        "aliases": [
+          "#Winthrop"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2739": {
+        "name": "Green Bay Phoenix",
+        "primary": "#GBPhoenix",
+        "aliases": [
+          "#GBPhoenix"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2747": {
+        "name": "Wofford Terriers",
+        "primary": "#Wofford",
+        "aliases": [
+          "#Wofford"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2750": {
+        "name": "Wright State Raiders",
+        "primary": "#WrightState",
+        "aliases": [
+          "#WrightState"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
       "2751": {
         "name": "Wyoming Cowboys",
         "primary": "#GoWyo",
         "aliases": [
           "#GoWyo"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2754": {
+        "name": "Youngstown State Penguins",
+        "primary": "#YSU",
+        "aliases": [
+          "#YSU"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2755": {
+        "name": "Grambling Tigers",
+        "primary": "#Grambling",
+        "aliases": [
+          "#Grambling"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2771": {
+        "name": "Merrimack Warriors",
+        "primary": "#GoMack",
+        "aliases": [
+          "#GoMack"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2803": {
+        "name": "Bryant Bulldogs",
+        "primary": "#GoBryant",
+        "aliases": [
+          "#GoBryant"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2837": {
+        "name": "East Texas A&M Lions",
+        "primary": "#GoLions",
+        "aliases": [
+          "#GoLions"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2856": {
+        "name": "California Baptist Lancers",
+        "primary": "#CalBaptist",
+        "aliases": [
+          "#CalBaptist"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2870": {
+        "name": "Purdue Fort Wayne Mastodons",
+        "primary": "#Mastodons",
+        "aliases": [
+          "#Mastodons"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2885": {
+        "name": "NJIT Highlanders",
+        "primary": "#NJIT",
+        "aliases": [
+          "#NJIT"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2900": {
+        "name": "St. Thomas Tommies",
+        "primary": "#RollToms",
+        "aliases": [
+          "#RollToms"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2908": {
+        "name": "South Carolina Upstate Spartans",
+        "primary": "#USCUpstate",
+        "aliases": [
+          "#USCUpstate"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2916": {
+        "name": "Incarnate Word Cardinals",
+        "primary": "#UIW",
+        "aliases": [
+          "#UIW"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "2934": {
+        "name": "Cal State Bakersfield Roadrunners",
+        "primary": "#CSUB",
+        "aliases": [
+          "#CSUB"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "3084": {
+        "name": "Utah Valley Wolverines",
+        "primary": "#UVU",
+        "aliases": [
+          "#UVU"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "3101": {
+        "name": "Utah Tech Trailblazers",
+        "primary": "#UtahTechisHere",
+        "aliases": [
+          "#UtahTechisHere"
+        ],
+        "account": null,
+        "verification": "owner-approved",
+        "sourceUrls": [],
+        "lastVerifiedAt": null
+      },
+      "112358": {
+        "name": "Long Island University Sharks",
+        "primary": "#LIUBB",
+        "aliases": [
+          "#LIUBB"
         ],
         "account": null,
         "verification": "owner-approved",
