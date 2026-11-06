@@ -4,7 +4,12 @@ import fs from 'node:fs';
 import vm from 'node:vm';
 import {buildScoringQuality,captureQualityEvidence} from '../src/quality.js';
 import {dashboardHtml} from '../src/dashboard.js';
+import {AUDIT_VERSION} from '../src/audit.js';
 import {qualitySummary} from '../src/export.js';
+
+test('dashboard script URL advances with the audit release instead of reusing a cached client',()=>{
+  assert.ok(dashboardHtml.includes(`src="/dashboard.js?v=${encodeURIComponent(AUDIT_VERSION)}"`));
+});
 
 function harness(fetch){
   class Element{

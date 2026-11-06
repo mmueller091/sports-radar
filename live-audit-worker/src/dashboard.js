@@ -1,3 +1,5 @@
+import {AUDIT_VERSION} from './audit.js';
+
 const head=`<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#202526"><title>SlateMeter · Live Audit</title>
 <style>
@@ -23,4 +25,4 @@ export const dashboardHtml=`${head}<form method="post" action="/logout"><button 
 <section class="panel"><div class="sectionhead"><div><h2>Scoring Quality</h2><p>Trajectory evidence, event responses, alert usefulness, and separate model cohorts for this slate.</p></div><button class="primary" id="quality-load" type="button">Load Scoring Quality</button></div><p class="sub" id="quality-status" role="status">Computed on demand from retained observations. No provider requests or scoring changes.</p><div class="list" id="quality"></div></section>
 <section class="panel"><h2>Finding history</h2><div class="list" id="history"></div></section>
 <p class="footer">Checks use observed score, clock, period, source freshness, earlier snapshots, and comparable states. Plausibility findings are review prompts; this monitor never changes production ratings. The report refreshes every minute while this page is open.</p>
-</main><script src="/dashboard.js" defer></script>${end}`;
+</main><script src="/dashboard.js?v=${encodeURIComponent(AUDIT_VERSION)}" defer></script>${end}`;
