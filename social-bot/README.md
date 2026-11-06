@@ -28,6 +28,11 @@ explicitly changed to `true` and the Worker is deployed again.
    Acceptance by Buffer is not proof of successful delivery to X.
 7. Defaults limit sends to 3 per cron run and 20 per rolling 24-hour period.
    No posts can occur while the publishing switch is off.
+8. Tweets announce the 85+ excitement threshold crossing, not the precise
+   excitement rating or a potentially stale game score. They include the two
+   approved team hashtags when available, the sport hashtag, a Game Center
+   link, and an existing game-specific explanation when it does not contain a
+   scoreboard snapshot. No explanation is invented when evidence is missing.
 
 This is deliberately at-most-once, not guaranteed-delivery, behavior. If
 delivery is uncertain, investigate the Buffer channel and claim before any

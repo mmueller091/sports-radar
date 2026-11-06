@@ -74,6 +74,11 @@ test('84, 85, 84, 86 posts once across repeated and restarted cron runs',async()
   assert.equal((await f.statuses())[0].buffer_post_id,'buffer-123');
   assert.equal(JSON.parse(calls[0].options.body).variables.input.mode,'shareNow');
   assert.ok(calls[0].options.body.includes('#RavensFlock'));
+  const publishedText=JSON.parse(calls[0].options.body).variables.input.text;
+  assert.match(publishedText,/just crossed SlateMeter's 85\+ excitement threshold/);
+  assert.ok(!publishedText.includes('85/99'));
+  assert.ok(publishedText.includes('#RavensFlock #FlyEaglesFly #NFL'));
+  assert.ok(publishedText.includes('https://slatemeter.app/#game/NFL/401873024'));
 });
 
 test('simultaneous cycles cannot claim or send the same threshold twice',async()=>{

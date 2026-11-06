@@ -46,12 +46,16 @@ export function draftExcitementPost(game,{reason='',registry=data}={}){
   if(sides.some(x=>typeof x.name!=='string'||!x.name.trim()))throw new Error('Missing team name');
   const tags=gameHashtags(game,{registry});
   const link=`https://slatemeter.app/#game/${sport}/${id}`;
-  const opening=`This one's worth watching. ${sides[0].name} vs. ${sides[1].name} just hit ${rating}/99 on SlateMeter.`;
-  // Reason comes from existing game-specific evidence; never synthesize one.
+  const opening=rating>=DEFAULT_POST_THRESHOLD
+    ?`This one's worth watching.\n\n${sides[0].name} vs. ${sides[1].name} just crossed SlateMeter's 85+ excitement threshold.`
+    :`${sides[0].name} vs. ${sides[1].name} is being tracked by SlateMeter.`;
+  // Reason comes from existing game-specific evidence. Do not repeat a live scoreboard
+  // snapshot that may be obsolete when someone follows the Game Center link.
   const cleanReason=String(reason||'').replace(/[\r\n\t]+/g,' ').replace(/\s+/g,' ').trim();
-  const suffix=`${tags.join(' ')}\n${link}`;
+  const snapshotScore=/\b\d{1,3}\s*(?:[-\u2013:]|to)\s*\d{1,3}\b/i.test(cleanReason);
+  const suffix=`${tags.join(' ')}\n\n${link}`;
   const budget=270-opening.length-suffix.length-4;
-  const note=budget>10&&cleanReason?cleanReason.slice(0,budget).trimEnd():'';
+  const note=budget>10&&cleanReason&&!snapshotScore?cleanReason.slice(0,budget).trimEnd():'';
   const text=[opening,note,suffix].filter(Boolean).join('\n\n');
   if(text.length>280)throw new Error('Draft exceeds X character limit');
   const unverifiedTeamTags=sides.map(team=>({team:team.name,entry:teamHashtag(sport,team.id,{registry})}))
