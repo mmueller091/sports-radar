@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import teams from '../teams.json' with {type:'json'};
 import registry from '../social/hashtags.json' with {type:'json'};
+import batch1 from '../social/owner-college-hashtags-batch1-20261105.json' with {type:'json'};
 import {parseBlinkfire,verifyFromXHtml} from '../scripts/hashtag-parsers.mjs';
 import {teamHashtag,gameHashtags,draftExcitementPost} from '../social/hashtag-registry.mjs';
 
@@ -193,6 +194,51 @@ test('all 18 owner-approved Big Ten primary hashtags resolve in football and men
     assert.deepEqual(draft.missingTeamHashtags,[]);
     assert.ok(draft.text.length<=280);
   }
+});
+
+test('all 107 spreadsheet-approved schools use their primary hashtag in every available college sport',()=>{
+  const aliases=new Map([
+    ['Appalachian State Mountaineers','App State Mountaineers'],
+    ['Louisiana Monroe Warhawks','UL Monroe Warhawks'],
+    ['FIU Panthers','Florida International Panthers']
+  ]);
+  const noFootball=new Set(['Wichita State Shockers','Grand Canyon Lopes','Gonzaga Bulldogs']);
+  assert.equal(batch1.schoolTags.length,107);
+  for(const sport of ['CFB','NCAAB']){
+    let covered=0;
+    for(const [name,tag] of batch1.schoolTags){
+      const canonicalName=aliases.get(name)||name;
+      const team=teams[sport].find(x=>x.name===canonicalName)
+        ||teams[sport].find(x=>x.name.normalize('NFKD').replace(/[\u0300-\u036f]/g,'')
+          .toLowerCase().replace(/[^a-z0-9]/g,'')===canonicalName.normalize('NFKD')
+          .replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]/g,''));
+      if(!team){
+        assert.equal(sport,'CFB',`${sport}: ${name} is unexpectedly missing`);
+        assert.ok(noFootball.has(name),`${sport}: ${name} is unexpectedly missing`);
+        continue;
+      }
+      const entry=teamHashtag(sport,team.id);
+      assert.equal(entry?.primary,tag,`${sport}: ${name}`);
+      assert.equal(registry.teams[sport][team.id].aliases[0],tag,`${sport}: ${name}`);
+      const preview=draftExcitementPost({sport,id:'401987654',score:86,teams:[
+        {id:team.id,name:team.name},{id:'999999999',name:'Unknown Opponent'}
+      ]});
+      assert.ok(preview.hashtags.includes(tag),`${sport}: ${name}`);
+      assert.ok(preview.text.includes(tag),`${sport}: ${name}`);
+      assert.ok(preview.text.length<=280,`${sport}: ${name}`);
+      assert.equal(preview.hashtags.at(-1),sport==='CFB'?'#NCAAFB':'#CBB');
+      covered++;
+    }
+    assert.equal(covered,sport==='CFB'?104:107);
+  }
+  for(const sport of ['CFB','NCAAB']){
+    assert.equal(teamHashtag(sport,'2026').primary,'#GoApp');
+    assert.equal(teamHashtag(sport,'2433').primary,'#TheBestIsOnTheBayou');
+    assert.equal(teamHashtag(sport,'2229').primary,'#PawsUp');
+  }
+  assert.equal(teamHashtag('NCAAM','2250').primary,'#GoZags');
+  assert.deepEqual(gameHashtags({sport:'CFB',teams:[{id:'252'},{id:'265'}]}),
+    ['#GoCougs','#NCAAFB']);
 });
 
 test('every professional matchup drafts with both approved hashtags and fits within X limits',()=>{

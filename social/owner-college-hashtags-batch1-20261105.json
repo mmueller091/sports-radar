@@ -1,0 +1,435 @@
+{
+  "schemaVersion": 1,
+  "source": "Owner-provided batch1.xlsx",
+  "approvedAt": "2026-11-05",
+  "schoolTags": [
+    [
+      "Arizona Wildcats",
+      "#BearDown"
+    ],
+    [
+      "Arizona State Sun Devils",
+      "#ForksUp"
+    ],
+    [
+      "Baylor Bears",
+      "#SicEm"
+    ],
+    [
+      "BYU Cougars",
+      "#GoCougs"
+    ],
+    [
+      "Cincinnati Bearcats",
+      "#Bearcats"
+    ],
+    [
+      "Colorado Buffaloes",
+      "#GoBuffs"
+    ],
+    [
+      "Houston Cougars",
+      "#GoCoogs"
+    ],
+    [
+      "Iowa State Cyclones",
+      "#cyclONEnation"
+    ],
+    [
+      "Kansas Jayhawks",
+      "#RockChalk"
+    ],
+    [
+      "Kansas State Wildcats",
+      "#EMAW"
+    ],
+    [
+      "Oklahoma State Cowboys",
+      "#GoPokes"
+    ],
+    [
+      "TCU Horned Frogs",
+      "#GoFrogs"
+    ],
+    [
+      "Texas Tech Red Raiders",
+      "#WreckEm"
+    ],
+    [
+      "UCF Knights",
+      "#ChargeOn"
+    ],
+    [
+      "Utah Utes",
+      "#GoUtes"
+    ],
+    [
+      "West Virginia Mountaineers",
+      "#HailWV"
+    ],
+    [
+      "Boston College Eagles",
+      "#ForBoston"
+    ],
+    [
+      "California Golden Bears",
+      "#GoBears"
+    ],
+    [
+      "Clemson Tigers",
+      "#GoTigers"
+    ],
+    [
+      "Duke Blue Devils",
+      "#GoDuke"
+    ],
+    [
+      "Florida State Seminoles",
+      "#GoNoles"
+    ],
+    [
+      "Georgia Tech Yellow Jackets",
+      "#StingEm"
+    ],
+    [
+      "Louisville Cardinals",
+      "#GoCards"
+    ],
+    [
+      "Miami Hurricanes",
+      "#GoCanes"
+    ],
+    [
+      "NC State Wolfpack",
+      "#GoPack"
+    ],
+    [
+      "North Carolina Tar Heels",
+      "#GoHeels"
+    ],
+    [
+      "Notre Dame Fighting Irish",
+      "#GoIrish"
+    ],
+    [
+      "Pittsburgh Panthers",
+      "#H2P"
+    ],
+    [
+      "SMU Mustangs",
+      "#PonyUp"
+    ],
+    [
+      "Stanford Cardinal",
+      "#GoStanford"
+    ],
+    [
+      "Syracuse Orange",
+      "#OrangeNation"
+    ],
+    [
+      "Virginia Cavaliers",
+      "#GoHoos"
+    ],
+    [
+      "Virginia Tech Hokies",
+      "#LetsGoHokies"
+    ],
+    [
+      "Wake Forest Demon Deacons",
+      "#GoDeacs"
+    ],
+    [
+      "Appalachian State Mountaineers",
+      "#GoApp"
+    ],
+    [
+      "Arkansas State Red Wolves",
+      "#WolvesUp"
+    ],
+    [
+      "Coastal Carolina Chanticleers",
+      "#ChantsUp"
+    ],
+    [
+      "Georgia Southern Eagles",
+      "#HailSouthern"
+    ],
+    [
+      "Georgia State Panthers",
+      "#LightItBlue"
+    ],
+    [
+      "James Madison Dukes",
+      "#GoDukes"
+    ],
+    [
+      "Louisiana Ragin' Cajuns",
+      "#GeauxCajuns"
+    ],
+    [
+      "Louisiana Tech Bulldogs",
+      "#BarkLouder"
+    ],
+    [
+      "Louisiana Monroe Warhawks",
+      "#TheBestIsOnTheBayou"
+    ],
+    [
+      "Marshall Thundering Herd",
+      "#WeAreMarshall"
+    ],
+    [
+      "Old Dominion Monarchs",
+      "#ReignOn"
+    ],
+    [
+      "South Alabama Jaguars",
+      "#LSF"
+    ],
+    [
+      "Southern Miss Golden Eagles",
+      "#SMTTT"
+    ],
+    [
+      "Troy Trojans",
+      "#OneTROY"
+    ],
+    [
+      "Army Black Knights",
+      "#GoArmy"
+    ],
+    [
+      "Charlotte 49ers",
+      "#NinerNation"
+    ],
+    [
+      "East Carolina Pirates",
+      "#GoPirates"
+    ],
+    [
+      "Florida Atlantic Owls",
+      "#WIP"
+    ],
+    [
+      "Memphis Tigers",
+      "#GoTigersGo"
+    ],
+    [
+      "Navy Midshipmen",
+      "#GoNavy"
+    ],
+    [
+      "North Texas Mean Green",
+      "#MeanGreen"
+    ],
+    [
+      "Rice Owls",
+      "#GoOwls"
+    ],
+    [
+      "South Florida Bulls",
+      "#GoBulls"
+    ],
+    [
+      "Temple Owls",
+      "#TempleTUFF"
+    ],
+    [
+      "Tulane Green Wave",
+      "#RollWave"
+    ],
+    [
+      "Tulsa Golden Hurricane",
+      "#ReignCane"
+    ],
+    [
+      "UAB Blazers",
+      "#WinAsOne"
+    ],
+    [
+      "UTSA Roadrunners",
+      "#BirdsUp"
+    ],
+    [
+      "Wichita State Shockers",
+      "#FearTheWheat"
+    ],
+    [
+      "Delaware Blue Hens",
+      "#BlueHens"
+    ],
+    [
+      "FIU Panthers",
+      "#PawsUp"
+    ],
+    [
+      "Jacksonville State Gamecocks",
+      "#StayCocky"
+    ],
+    [
+      "Kennesaw State Owls",
+      "#HootyHoo"
+    ],
+    [
+      "Liberty Flames",
+      "#RiseWithUs"
+    ],
+    [
+      "Middle Tennessee Blue Raiders",
+      "#BlueRaiders"
+    ],
+    [
+      "Missouri State Bears",
+      "#GoBears"
+    ],
+    [
+      "New Mexico State Aggies",
+      "#AggieUp"
+    ],
+    [
+      "Sam Houston Bearkats",
+      "#EatEmUpKats"
+    ],
+    [
+      "Western Kentucky Hilltoppers",
+      "#GoTops"
+    ],
+    [
+      "Akron Zips",
+      "#GoZips"
+    ],
+    [
+      "Ball State Cardinals",
+      "#ChirpChirp"
+    ],
+    [
+      "Bowling Green Falcons",
+      "#AyZiggy"
+    ],
+    [
+      "Buffalo Bulls",
+      "#UBhornsUP"
+    ],
+    [
+      "Central Michigan Chippewas",
+      "#FireUpChips"
+    ],
+    [
+      "Eastern Michigan Eagles",
+      "#EMUEagles"
+    ],
+    [
+      "Kent State Golden Flashes",
+      "#GoFlashes"
+    ],
+    [
+      "Massachusetts Minutemen",
+      "#Flagship"
+    ],
+    [
+      "Miami (OH) RedHawks",
+      "#RiseUpRedHawks"
+    ],
+    [
+      "Ohio Bobcats",
+      "#OUohyeah"
+    ],
+    [
+      "Sacramento State Hornets",
+      "#StingersUp"
+    ],
+    [
+      "Toledo Rockets",
+      "#TeamToledo"
+    ],
+    [
+      "Western Michigan Broncos",
+      "#BroncosReign"
+    ],
+    [
+      "Air Force Falcons",
+      "#FlyFightWin"
+    ],
+    [
+      "Grand Canyon Lopes",
+      "#LopesUp"
+    ],
+    [
+      "Hawai‘i Rainbow Warriors",
+      "#GoBows"
+    ],
+    [
+      "Nevada Wolf Pack",
+      "#BattleBorn"
+    ],
+    [
+      "New Mexico Lobos",
+      "#GoLobos"
+    ],
+    [
+      "Northern Illinois Huskies",
+      "#USvsthem"
+    ],
+    [
+      "North Dakota State Bison",
+      "#GoBison"
+    ],
+    [
+      "San José State Spartans",
+      "#AllSpartans"
+    ],
+    [
+      "UC Davis Aggies",
+      "#GoAgs"
+    ],
+    [
+      "UNLV Rebels",
+      "#BEaREBEL"
+    ],
+    [
+      "UTEP Miners",
+      "#PicksUp"
+    ],
+    [
+      "Wyoming Cowboys",
+      "#GoWyo"
+    ],
+    [
+      "Boise State Broncos",
+      "#BleedBlue"
+    ],
+    [
+      "Colorado State Rams",
+      "#Stalwart"
+    ],
+    [
+      "Fresno State Bulldogs",
+      "#GoDogs"
+    ],
+    [
+      "Gonzaga Bulldogs",
+      "#GoZags"
+    ],
+    [
+      "Oregon State Beavers",
+      "#GoBeavs"
+    ],
+    [
+      "San Diego State Aztecs",
+      "#GoAztecs"
+    ],
+    [
+      "Texas State Bobcats",
+      "#EatEmUp"
+    ],
+    [
+      "Utah State Aggies",
+      "#AggiesAllTheWay"
+    ],
+    [
+      "Washington State Cougars",
+      "#GoCougs"
+    ]
+  ]
+}

@@ -45,7 +45,7 @@ test('audit rejects invalid feed format without fetching anything',()=>{
   assert.throws(()=>auditSocialHashtags({feed:{games:null}}),/games array/);
 });
 
-test('November 5 basketball slate exposes the remaining six unverified teams',()=>{
+test('November 5 basketball slate reflects batch1 approvals and four remaining unverified teams',()=>{
   const games=[
     ['154','238'],['294','57'],['324','150'],['2649','127'],
     ['2241','251'],['219','356'],['2065','2641'],['13','12']
@@ -53,11 +53,11 @@ test('November 5 basketball slate exposes the remaining six unverified teams',()
     teams:[{id:a},{id:b}]}));
   const priority=auditSocialHashtags({feed:{games}}).priority;
   assert.equal(priority.teams,16);
-  assert.equal(priority.verified,10);
-  assert.equal(priority.missing,6);
+  assert.equal(priority.verified,12);
+  assert.equal(priority.missing,4);
   assert.deepEqual(priority.items.filter(x=>x.status==='missing').map(x=>x.name).sort(),[
-    'Bethune-Cookman Wildcats','Cal Poly Mustangs','Coastal Carolina Chanticleers',
-    "Gardner-Webb Runnin' Bulldogs",'Jacksonville Dolphins','Toledo Rockets'
+    'Bethune-Cookman Wildcats','Cal Poly Mustangs',
+    "Gardner-Webb Runnin' Bulldogs",'Jacksonville Dolphins'
   ]);
 });
 

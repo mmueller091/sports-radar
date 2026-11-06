@@ -81,6 +81,22 @@ Washington `#GoHuskies`, and Wisconsin `#OnWisconsin`. These are also
 owner-approved editorial selections. They do not change other conferences
 or override sport-specific internal team IDs.
 
+The owner's `batch1.xlsx` spreadsheet adds 107 more school primaries, retained
+in `owner-college-hashtags-batch1-20261105.json`. All 107 are approved for men's
+basketball and 104 for college football. Gonzaga, Grand Canyon, and Wichita
+State are absent from the current football directory; their tags are applied
+only to basketball. Appalachian State, Louisiana Monroe, and FIU are matched
+to the canonical ESPN names App State, UL Monroe, and Florida International.
+Each eligible college game uses the supplied primary for either team, plus
+the sport-specific `#NCAAFB` or `#CBB` tag. These are owner-approved choices,
+not independent claims of current official team hashtag verification.
+
+To reapply the spreadsheet approvals after a registry refresh, run:
+
+```sh
+node scripts/approve-college-hashtags-batch1-20261105.mjs
+```
+
 Run the offline coverage audit to see posting-ready, candidate, and missing teams:
 
 ```sh
