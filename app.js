@@ -664,8 +664,17 @@ function displayLine(game) {
 
 
 
-function liveRefreshDelay(hasLiveGames,isHidden) {
-  return hasLiveGames && !isHidden ? 15000 : 60000;
+function gameStartingSoon(game,now=Date.now()) {
+  if (game?.state !== 'upcoming' || !publicSport(game.sport)) return false;
+  const type = game.liveRawStatus?.type || {};
+  if (/postpon|cancel|suspend|(?:^|[\s_])(?:tbd|tba)(?:$|[\s_])|time to be determined/i.test([game.status,type.name,type.detail,type.shortDetail].join(' '))) return false;
+  const untilStart = Date.parse(game.startTime || '') - now;
+  // Keep briefly delayed starts responsive without polling stale fixtures forever.
+  return Number.isFinite(untilStart) && untilStart <= 15*60000 && untilStart >= -30*60000;
+}
+
+function liveRefreshDelay(hasLiveGames,isHidden,hasStartingGames=false) {
+  return isHidden ? 60000 : hasLiveGames ? 7000 : hasStartingGames ? 10000 : 60000;
 }
 
 let liveRefreshTimer = null;
@@ -675,7 +684,7 @@ let recentLiveChanges = new Map();
 
 function scheduleLiveRefresh() {
   clearTimeout(liveRefreshTimer);
-  liveRefreshTimer = setTimeout(loadLiveGames,liveRefreshDelay(feedHasLiveGames,document.hidden));
+  liveRefreshTimer = setTimeout(loadLiveGames,liveRefreshDelay(feedHasLiveGames,document.hidden,games.some(game=>gameStartingSoon(game))));
 }
 
 function canonicalFeedGames(items) {
@@ -707,7 +716,7 @@ async function loadLiveGames() {
       const ratingChanged = Number(game.score) !== Number(before.score);
       if (scoreChanged || ratingChanged) recentLiveChanges.set(`${game.sport}:${game.id}`,{scoreChanged,ratingChanged,previousScore:before.score});
     }
-    feedHasLiveGames = games.some(game => game.state === 'live');
+    feedHasLiveGames = games.some(game => game.state === 'live' && publicSport(game.sport));
     state.source = 'live';
     games.forEach(recordRatingSnapshot);
     state.updatedAt = feed.updatedAt;

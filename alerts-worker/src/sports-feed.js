@@ -14,15 +14,27 @@ import {errorDetail,measuredDatabase} from './refresh-diagnostics.js';
 
 const STALE_MS = 120000;
 const LIVE_REFRESH_MS = 12000;
+const NEAR_START_REFRESH_MS = 10000;
 const IDLE_REFRESH_MS = 60000;
+const ACCELERATED_SPORTS = new Set(['NFL','CFB','NCAAB','NHL','MLB','NBA']);
 export const MODEL_VERSION = runtime.MODEL_VERSION;
+
+export function gameStartingSoon(game,now=Date.now()) {
+  if (game?.state !== 'upcoming' || !ACCELERATED_SPORTS.has(game.sport)) return false;
+  const type = game.liveRawStatus?.type || {};
+  if (/postpon|cancel|suspend|(?:^|[\s_])(?:tbd|tba)(?:$|[\s_])|time to be determined/i.test([game.status,type.name,type.detail,type.shortDetail].join(' '))) return false;
+  const untilStart = Date.parse(game.startTime || '') - now;
+  // Keep briefly delayed starts responsive without polling stale fixtures forever.
+  return Number.isFinite(untilStart) && untilStart <= 15*60000 && untilStart >= -30*60000;
+}
 
 export function refreshDue(feed,now=Date.now()) {
   if (!feed || feed.modelVersion !== MODEL_VERSION) return true;
   const updatedAt = Date.parse(feed.updatedAt || '');
   if (!Number.isFinite(updatedAt)) return true;
   const live = (feed.games || []).some(game=>game.state==='live');
-  return now-updatedAt >= (live ? LIVE_REFRESH_MS : IDLE_REFRESH_MS);
+  const starting = (feed.games || []).some(game=>gameStartingSoon(game,now));
+  return now-updatedAt >= (live ? LIVE_REFRESH_MS : starting ? NEAR_START_REFRESH_MS : IDLE_REFRESH_MS);
 }
 
 export function withFreshness(feed,now=Date.now()) {
@@ -2130,17 +2142,25 @@ export async function refreshSportsData(env,now=Date.now(),options={}) {
     metrics.migrationActive=Boolean(migration);
     resources = await stage('collection',()=>refreshReader(env,now,budget));
     const liveSports = new Set((previous?.games || []).filter(game=>game.state==='live').map(game=>game.sport));
+    const startingGames = (previous?.games || []).filter(game=>gameStartingSoon(game,now));
+    const dateFormatter = new Intl.DateTimeFormat('en-CA',{timeZone:'America/New_York',year:'numeric',month:'2-digit',day:'2-digit'});
+    const today = dateFormatter.format(now).replaceAll('-','');
     const readJson = (url,{purpose}={}) => {
       const parsed = new URL(url);
       const dates = parsed.searchParams.get('dates');
-      const today = new Intl.DateTimeFormat('en-CA',{timeZone:'America/New_York',year:'numeric',month:'2-digit',day:'2-digit'}).format(now).replaceAll('-','');
       const path = parsed.pathname;
       const sport = path.includes('/football/nfl/') ? 'NFL' : path.includes('/baseball/mlb/') ? 'MLB' : path.includes('/hockey/nhl/') ? 'NHL' : path.includes('/football/college-football/') ? 'CFB' : path.includes('/basketball/nba/') ? 'NBA' : path.includes('/basketball/mens-college-basketball/') ? 'NCAAB' : path.includes('/soccer/') ? 'Soccer' : path.includes('/tennis/') ? 'Tennis' : '';
       const futureSchedule = dates?.length === 8 && dates > today;
       const liveScoreboard = path.endsWith('/scoreboard') && liveSports.has(sport);
       const weekKey = Number(dates)*1000 + Number(parsed.searchParams.get('seasontype'))*100 + Number(parsed.searchParams.get('week'));
       const adjacentLive = purpose==='adjacent-schedule' && (previous?.games || []).some(game=>game.sport==='NFL' && game.state==='live' && game.nflWeek===weekKey);
-      const ttl = (futureSchedule || (purpose==='adjacent-schedule' && !adjacentLive)) ? 900000 : liveScoreboard ? LIVE_REFRESH_MS : 55000;
+      const startingScoreboard = path.endsWith('/scoreboard') && startingGames.some(game=>game.sport===sport &&
+        (!game.providerPath || path.endsWith(`/sports/${game.providerPath}/scoreboard`)) &&
+        (dates?.length!==8 || dates===dateFormatter.format(Date.parse(game.startTime)).replaceAll('-','')) &&
+        (sport!=='CFB' || !game.division || parsed.searchParams.get('groups')===({FBS:'80',FCS:'81'})[game.division]) &&
+        (purpose!=='adjacent-schedule' || game.nflWeek===weekKey));
+      const ttl = startingScoreboard ? (liveScoreboard ? LIVE_REFRESH_MS : NEAR_START_REFRESH_MS)
+        : (futureSchedule || (purpose==='adjacent-schedule' && !adjacentLive)) ? 900000 : liveScoreboard ? LIVE_REFRESH_MS : 55000;
       return resources.read(url,ttl,errors);
     };
     const games = await stage('collection',async()=>{

@@ -8,7 +8,7 @@ import sourceHelper from './helpers/scoring-source.cjs';
 const source = fs.readFileSync(new URL('../app.js',import.meta.url),'utf8');
 const ratingCore = sourceHelper.scoringSource();
 
-function startApp(production=false) {
+function startApp(production=false,now) {
   const elements = new Map();
   const element = selector => {
     if (!elements.has(selector)) {
@@ -33,21 +33,28 @@ function startApp(production=false) {
   });
   let nextFeed = feedRequest;
   let fetchCount = 0;
+  let timerId = 0;
+  const timers = new Map(),listeners = new Map(),clock = {now};
+  class Clock extends Date {
+    constructor(...args) {super(...(args.length ? args : [clock.now]));}
+    static now() {return clock.now;}
+  }
   const context = vm.createContext({
-    document:{body:element('body'),querySelector:element,querySelectorAll:() => [],addEventListener(){},hidden:false,
+    ...(now === undefined ? {} : {Date:Clock}),
+    document:{body:element('body'),querySelector:element,querySelectorAll:() => [],addEventListener:(name,fn)=>listeners.set(name,fn),hidden:false,
       createElement:slateTemplate},
     window:{addEventListener(){}},
     navigator:{},location:{hash:''},
     localStorage:{getItem:() => null,setItem(){}},
     fetch:() => { fetchCount++; return nextFeed; },
-    AbortSignal,setTimeout:() => 1,clearTimeout(){},setInterval(){}
+    AbortSignal,setTimeout:(fn,delay)=>{const id=++timerId;timers.set(id,{fn,delay});return id;},clearTimeout:id=>timers.delete(id),setInterval(){}
   });
   vm.runInContext(ratingCore,context);
   vm.runInContext(fs.readFileSync(new URL('../tennis-coverage.js',import.meta.url),'utf8'),context);
   if (production) vm.runInContext(fs.readFileSync(new URL('../dist/scoring-runtime.js',import.meta.url),'utf8'),context);
   vm.runInContext(source,context);
   return {
-    element,resolveFeed,rejectFeed,context,
+    element,resolveFeed,rejectFeed,context,timers,listeners,clock,
     refreshWith:response => {
       nextFeed = Promise.resolve(response);
       return vm.runInContext('loadLiveGames()',context);
@@ -62,6 +69,68 @@ const realGame = {
     ['Seattle Seahawks','SEA','—'],['Arizona Cardinals','ARI','—']
   ],score:72
 };
+
+test('near-start browser eligibility has bounded windows and rejects non-starting fixtures',()=>{
+  const now=Date.parse('2026-11-06T23:00:00Z'),app=startApp(false,now);
+  const starting=patch=>({...realGame,startTime:new Date(now).toISOString(),...patch});
+  for (const [offset,expected] of [[900001,false],[900000,true],[1,true],[0,true],[-1800000,true],[-1800001,false]]) {
+    assert.equal(app.context.gameStartingSoon(starting({startTime:new Date(now+offset).toISOString()}),now),expected,`offset ${offset}`);
+  }
+  for (const patch of [{state:'live'},{state:'completed'},{startTime:undefined},{startTime:'invalid'},
+    {status:'Postponed'},{status:'Canceled'},{status:'Suspended'},{status:'Time TBD'},
+    {liveRawStatus:{type:{name:'STATUS_POSTPONED',shortDetail:'Tonight'}}}]) {
+    assert.equal(app.context.gameStartingSoon(starting(patch),now),false,JSON.stringify(patch));
+  }
+  for(const sport of ['NFL','CFB','NCAAB','NHL','MLB','NBA'])
+    assert.equal(app.context.gameStartingSoon(starting({sport}),now),true,`${sport} remains enabled`);
+  for(const sport of ['Soccer','Tennis'])
+    assert.equal(app.context.gameStartingSoon(starting({sport}),now),false,`${sport} cannot accelerate the site`);
+});
+
+test('hidden soccer alone cannot trigger rapid browser polling, but enabled sports still can',async()=>{
+  const now=Date.parse('2026-11-06T19:50:00Z'),app=startApp(false,now);
+  const soccer={...realGame,sport:'Soccer',startTime:new Date(now+600000).toISOString()};
+  const enabled={...realGame,id:'enabled',sport:'NCAAB',startTime:new Date(now+600000).toISOString()};
+  const feed=games=>({ok:true,json:async()=>({updatedAt:new Date(app.clock.now).toISOString(),games})});
+  const delay=()=>[...app.timers.values()].find(timer=>timer.fn===app.context.loadLiveGames)?.delay;
+  app.resolveFeed(feed([soccer]));
+  await new Promise(resolve=>setImmediate(resolve));
+  assert.equal(delay(),60000,'hidden soccer pregame stays idle');
+  await app.refreshWith(feed([{...soccer,state:'live'}]));
+  assert.equal(delay(),60000,'hidden soccer live cannot trigger 7-second browser polling');
+  await app.refreshWith(feed([{...soccer,state:'live'},enabled]));
+  assert.equal(delay(),10000,'an enabled sport near start activates 10-second polling');
+  await app.refreshWith(feed([{...soccer,state:'live'},{...enabled,state:'live'}]));
+  assert.equal(delay(),7000,'an enabled live game activates 7-second polling');
+});
+
+test('actual browser scheduling uses 7-second live and 10-second near-start polling without overlapping requests',async()=>{
+  const now=Date.parse('2026-11-06T23:00:00Z'),app=startApp(false,now);
+  const near={...realGame,startTime:new Date(now+900000).toISOString()};
+  const feed=games=>({ok:true,json:async()=>({updatedAt:new Date(app.clock.now).toISOString(),games})});
+  const delay=()=>[...app.timers.values()].find(timer=>timer.fn===app.context.loadLiveGames)?.delay;
+  await vm.runInContext('loadLiveGames()',app.context);
+  assert.equal(app.fetchCount,1,'initial pending request cannot overlap');
+  app.resolveFeed(feed([near]));
+  await new Promise(resolve=>setImmediate(resolve));
+  assert.equal(delay(),10000);
+  app.context.document.hidden=true;
+  app.listeners.get('visibilitychange')();
+  assert.equal(delay(),60000);
+  await app.refreshWith(feed([{...near,state:'live',live:{phase:'Q1'}}]));
+  assert.equal(delay(),60000,'live games do not speed up a hidden tab');
+  app.context.document.hidden=false;
+  app.listeners.get('visibilitychange')();
+  await new Promise(resolve=>setImmediate(resolve));
+  assert.equal(delay(),7000,'returning to the tab refreshes immediately then uses the live interval');
+  assert.equal(app.timers.size,1,'only one refresh timer remains');
+  await app.refreshWith(feed([near]));
+  assert.equal(delay(),10000);
+  app.clock.now=Date.parse(near.startTime)+1800001;
+  await app.refreshWith({ok:false,status:503});
+  assert.equal(delay(),60000,'a failed fetch cannot keep an expired upcoming fixture on rapid polling');
+  assert.equal(vm.runInContext('games.length',app.context),1,'last verified feed remains visible');
+});
 
 test('production normal URL rejects old-model scores and keeps cards ordering and detail on the canonical new score',async()=>{
   const app=startApp(true),version=app.context.SportsRadarScore.MODEL_VERSION;
