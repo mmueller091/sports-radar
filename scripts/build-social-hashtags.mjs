@@ -21,7 +21,7 @@ const sourcePages={
 };
 const nhlSeasonSource='https://puckbeat.com/story/nhl-teams-reveal-2026-27-social-media-hashtags';
 const today=new Date().toISOString().slice(0,10);
-const verifiedLabels=new Set(['official-bio','official-post','official-site']);
+const verifiedLabels=new Set(['official-bio','official-post','official-site','owner-approved']);
 
 function unique(items){return [...new Set(items.filter(Boolean))];}
 function tag(value){return /^#[A-Za-z0-9_]{2,48}$/.test(value||'')?value:null;}

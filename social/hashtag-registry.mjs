@@ -3,14 +3,14 @@ import data from './hashtags.json' with {type:'json'};
 export const HASHTAG_SPORTS=Object.freeze({NFL:'#NFL',NBA:'#NBA',NHL:'#NHL',CFB:'#NCAAFB',NCAAB:'#CBB'});
 export const DEFAULT_POST_THRESHOLD=85;
 
-const VERIFIED=new Set(['official-bio','official-post','official-site']);
+const VERIFIED=new Set(['official-bio','official-post','official-site','owner-approved']);
 const safeId=value=>/^\d{1,18}$/.test(String(value||''))?String(value):null;
 const safeTag=value=>/^#[A-Za-z0-9_]{2,48}$/.test(value||'')?value:null;
 const asSport=value=>value==='NCAAM'?'NCAAB':value;
 
 /**
- * Resolve one ESPN team ID. Candidate and seasonal-directory tags are returned
- * for editorial review only, never for an automatic post.
+ * Resolve one ESPN team ID. Officially confirmed or explicitly owner-approved
+ * tags are eligible for automatic posts. Candidates are excluded.
  */
 export function teamHashtag(sport,teamId,{registry=data}={}){
   const entry=registry.teams?.[asSport(sport)]?.[safeId(teamId)];

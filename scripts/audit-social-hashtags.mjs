@@ -85,13 +85,13 @@ export function auditSocialHashtags({catalog=teams,hashtags=registry,feed=null}=
 }
 
 export function formatSocialAudit(report){
-  const rows=['Sport  Total  Verified  Candidate  Missing'];
+  const rows=['Sport  Total  Ready     Candidate  Missing'];
   for(const sport of SPORTS){
     const r=report.bySport[sport];
     rows.push(`${sport.padEnd(6)} ${String(r.total).padStart(5)}  ${String(r.verified).padStart(8)}  ${String(r.candidate).padStart(9)}  ${String(r.missing).padStart(7)}`);
   }
   rows.push(`TOTAL  ${String(report.total.total).padStart(5)}  ${String(report.total.verified).padStart(8)}  ${String(report.total.candidate).padStart(9)}  ${String(report.total.missing).padStart(7)}`);
-  rows.push('Only first-party verified tags are auto-posted; candidate and missing tags are omitted.');
+  rows.push('Only first-party verified or owner-approved tags are auto-posted; candidate and missing tags are omitted.');
   if(report.priority.games){
     const p=report.priority;
     rows.push(`Live/upcoming feed: ${p.games} games, ${p.teams} unique teams, ${p.verified} verified, ${p.candidate} candidate, ${p.missing} missing.`);

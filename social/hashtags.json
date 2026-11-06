@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "generatedAt": "2026-11-05",
-  "meaning": "Verified tags appear on an official team X profile. Other entries are discovery leads and are not eligible for automatic posting.",
+  "meaning": "Posting-eligible tags are verified against a first-party source or explicitly approved by the SlateMeter owner. Other entries are research candidates and are not eligible for automatic posting.",
   "teams": {
     "NFL": {
       "1": {
@@ -965,7 +965,7 @@
           "#NHLBruins"
         ],
         "account": "NHLBruins",
-        "verification": "seasonal-report",
+        "verification": "owner-approved",
         "sourceUrls": [
           "https://puckbeat.com/story/nhl-teams-reveal-2026-27-social-media-hashtags",
           "https://x.com/NHLBruins"
@@ -1007,7 +1007,7 @@
           "#Blackhawks"
         ],
         "account": "NHLBlackhawks",
-        "verification": "seasonal-report",
+        "verification": "owner-approved",
         "sourceUrls": [
           "https://puckbeat.com/story/nhl-teams-reveal-2026-27-social-media-hashtags",
           "https://x.com/NHLBlackhawks"
@@ -1063,7 +1063,7 @@
           "#GoKingsGo"
         ],
         "account": "LAKings",
-        "verification": "seasonal-report",
+        "verification": "owner-approved",
         "sourceUrls": [
           "https://puckbeat.com/story/nhl-teams-reveal-2026-27-social-media-hashtags",
           "https://x.com/LAKings"
@@ -1105,7 +1105,7 @@
           "#NJDevils"
         ],
         "account": "NJDevils",
-        "verification": "seasonal-report",
+        "verification": "owner-approved",
         "sourceUrls": [
           "https://puckbeat.com/story/nhl-teams-reveal-2026-27-social-media-hashtags",
           "https://x.com/NJDevils"
@@ -1201,10 +1201,11 @@
         "name": "San Jose Sharks",
         "primary": "#TurnItAllTeal",
         "aliases": [
-          "#TurnItAllTeal"
+          "#TurnItAllTeal",
+          "#SJSharks"
         ],
         "account": "SanJoseSharks",
-        "verification": "seasonal-report",
+        "verification": "owner-approved",
         "sourceUrls": [
           "https://puckbeat.com/story/nhl-teams-reveal-2026-27-social-media-hashtags",
           "https://x.com/SanJoseSharks"
@@ -1213,9 +1214,9 @@
       },
       "19": {
         "name": "St. Louis Blues",
-        "primary": "#stlblues",
+        "primary": "#STLBlues",
         "aliases": [
-          "#stlblues"
+          "#STLBlues"
         ],
         "account": "StLouisBlues",
         "verification": "official-bio",
@@ -1243,10 +1244,11 @@
         "name": "Toronto Maple Leafs",
         "primary": "#Leafs",
         "aliases": [
-          "#Leafs"
+          "#Leafs",
+          "#PassionNeverSleeps"
         ],
         "account": "MapleLeafs",
-        "verification": "seasonal-report",
+        "verification": "owner-approved",
         "sourceUrls": [
           "https://puckbeat.com/story/nhl-teams-reveal-2026-27-social-media-hashtags",
           "https://x.com/MapleLeafs"
@@ -1302,7 +1304,7 @@
           "#FlaPanthers"
         ],
         "account": "FlaPanthers",
-        "verification": "seasonal-report",
+        "verification": "owner-approved",
         "sourceUrls": [
           "https://puckbeat.com/story/nhl-teams-reveal-2026-27-social-media-hashtags",
           "https://x.com/FlaPanthers"
@@ -1327,7 +1329,8 @@
         "name": "Winnipeg Jets",
         "primary": "#GoJetsGo",
         "aliases": [
-          "#GoJetsGo"
+          "#GoJetsGo",
+          "#NHLJets"
         ],
         "account": "NHLJets",
         "verification": "official-post",
@@ -1353,9 +1356,9 @@
       },
       "30": {
         "name": "Minnesota Wild",
-        "primary": "#mnwild",
+        "primary": "#MNWild",
         "aliases": [
-          "#mnwild"
+          "#MNWild"
         ],
         "account": "mnwild",
         "verification": "official-bio",
@@ -1400,7 +1403,7 @@
           "#TusksUp"
         ],
         "account": "UtahMammoth",
-        "verification": "seasonal-report",
+        "verification": "owner-approved",
         "sourceUrls": [
           "https://puckbeat.com/story/nhl-teams-reveal-2026-27-social-media-hashtags",
           "https://x.com/UtahMammoth"

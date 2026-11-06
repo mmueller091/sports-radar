@@ -19,13 +19,17 @@ identified, source URLs, verification category, and verification date.
 - `official-site`: the team or its governing league publishes the hashtag with
   the official team account on its own athletics website, current game notes,
   or an embedded post by that account. The original source URL is recorded.
+- `owner-approved`: the SlateMeter owner explicitly supplied and approved the
+  hashtag for posting. This is an editorial approval, **not** a claim of
+  independent first-party verification. `lastVerifiedAt` remains unset until
+  official evidence is checked.
 - `candidate`: a hashtag listed by a secondary directory or manually researched
   seed, but not corroborated on the official team profile.
 - `seasonal-report`: an NHL season-specific hashtag reported by PuckBeat, but
   not corroborated on the official team profile.
 
-Only `official-bio`, `official-post`, and `official-site` tags enter the draft formatter. Missing
-or unverified team tags are omitted, with a review warning. The generic league
+Only `official-bio`, `official-post`, `official-site`, and `owner-approved` tags
+enter the draft formatter. Missing or unapproved team tags are omitted, with a review warning. The generic league
 tag is still included. No tag is guessed from a team's abbreviation.
 
 Primary discovery sources:
@@ -38,6 +42,10 @@ Primary discovery sources:
 
 The directories are incomplete and can be stale. This file is not a complete
 list of every official team hashtag. It is an evidence-labeled starting point.
+All 32 NHL clubs have owner-approved primary tags. Alternate approved NHL tags
+are retained as aliases, but automatic posts use one primary tag per team.
+Utah is identified by its current name, Utah Mammoth, rather than its former
+Utah Hockey Club name, while retaining the `#TusksUp` tag.
 Official X hashtag **emoji/brand hashflags** are seasonal and are not verified by
 this registry; do not assume these hashtags display a team logo on X.
 
@@ -45,7 +53,7 @@ Generic college tags are `#NCAAFB` for football and `#CBB` for men's basketball.
 The game links still use internal sport IDs `CFB` and `NCAAB`. Do not change
 those identifiers to match social hashtags.
 
-Run the offline coverage audit to see verified, candidate, and missing teams:
+Run the offline coverage audit to see posting-ready, candidate, and missing teams:
 
 ```sh
 node scripts/audit-social-hashtags.mjs

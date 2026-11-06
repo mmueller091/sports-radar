@@ -16,7 +16,9 @@ test('offline audit accounts for every canonical team and separates candidate fr
     assert.deepEqual(counts.unknownRegistryIds,[]);
   }
   assert.deepEqual(report.problems,[]);
-  assert.match(formatSocialAudit(report),/Only first-party verified tags are auto-posted/);
+  assert.match(formatSocialAudit(report),/Only first-party verified or owner-approved tags are auto-posted/);
+  assert.equal(report.bySport.NHL.verified,32);
+  assert.equal(report.bySport.NHL.candidate,0);
 });
 
 test('live/upcoming feed audit prioritizes all game teams without double-counting repeat opponents',()=>{
