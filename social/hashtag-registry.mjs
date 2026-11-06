@@ -1,16 +1,16 @@
 import data from './hashtags.json' with {type:'json'};
 
-export const HASHTAG_SPORTS=Object.freeze({NFL:'#NFL',NBA:'#NBA',NHL:'#NHL',CFB:'#CFB',NCAAB:'#NCAAM'});
+export const HASHTAG_SPORTS=Object.freeze({NFL:'#NFL',NBA:'#NBA',NHL:'#NHL',CFB:'#NCAAFB',NCAAB:'#CBB'});
 export const DEFAULT_POST_THRESHOLD=85;
 
-const VERIFIED=new Set(['official-bio','official-post']);
+const VERIFIED=new Set(['official-bio','official-post','official-site','owner-approved']);
 const safeId=value=>/^\d{1,18}$/.test(String(value||''))?String(value):null;
 const safeTag=value=>/^#[A-Za-z0-9_]{2,48}$/.test(value||'')?value:null;
 const asSport=value=>value==='NCAAM'?'NCAAB':value;
 
 /**
- * Resolve one ESPN team ID. Candidate and seasonal-directory tags are returned
- * for editorial review only, never for an automatic post.
+ * Resolve one ESPN team ID. Officially confirmed or explicitly owner-approved
+ * tags are eligible for automatic posts. Candidates are excluded.
  */
 export function teamHashtag(sport,teamId,{registry=data}={}){
   const entry=registry.teams?.[asSport(sport)]?.[safeId(teamId)];
@@ -46,7 +46,7 @@ export function draftExcitementPost(game,{reason='',registry=data}={}){
   if(sides.some(x=>typeof x.name!=='string'||!x.name.trim()))throw new Error('Missing team name');
   const tags=gameHashtags(game,{registry});
   const link=`https://slatemeter.app/#game/${sport}/${id}`;
-  const opening=`${sides[0].name} vs. ${sides[1].name} is at ${rating}/99 on SlateMeter.`;
+  const opening=`This one's worth watching. ${sides[0].name} vs. ${sides[1].name} just hit ${rating}/99 on SlateMeter.`;
   // Reason comes from existing game-specific evidence; never synthesize one.
   const cleanReason=String(reason||'').replace(/[\r\n\t]+/g,' ').replace(/\s+/g,' ').trim();
   const suffix=`${tags.join(' ')}\n${link}`;

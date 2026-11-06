@@ -1,0 +1,30 @@
+{
+  "name": "slatemeter-social-bot",
+  "main": "src/index.mjs",
+  "compatibility_date": "2026-11-05",
+  "workers_dev": true,
+  "triggers": {"crons": ["* * * * *"]},
+  "vars": {
+    "POSTING_ENABLED": "false",
+    "EXPECTED_SCORING_MODEL": "2026-11-05.live-integrity.1",
+    "MAX_POSTS_PER_RUN": "3",
+    "MAX_POSTS_PER_DAY": "20"
+  },
+  "d1_databases": [
+    {
+      "binding": "SOURCE_DB",
+      "database_name": "sports-radar-alerts",
+      "database_id": "a46d8205-8e2c-44c2-8e90-fef74acfd99b"
+    },
+    {
+      "binding": "BOT_DB",
+      "database_name": "slatemeter-social-bot",
+      "database_id": "917a3752-b701-4e42-b408-52d721dbb026"
+    }
+  ],
+  "observability": {
+    "enabled": true,
+    "logs": {"enabled": true,"head_sampling_rate": 1},
+    "traces": {"enabled": true,"head_sampling_rate": 0.05}
+  }
+}
