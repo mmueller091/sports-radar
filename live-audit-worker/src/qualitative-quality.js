@@ -1,7 +1,9 @@
+import {auditGameAllowed} from './scope.js';
 // Independent semantic audit over the existing canonical feed. No provider,
 // inference, scoring or database calls. Certainty is explicit per finding.
 const norm=s=>String(s||'').toLowerCase().replace(/[^a-z0-9]+/g,' ').trim();
 export function auditQualitativeContext(game) {
+  if(!auditGameAllowed(game)) return {checks:0,findings:[]};
   const findings=[],stories=game.qualitativeContexts||[],factors=game.factors||[],seen=new Set();
   const add=(reasonCode,detail,observed,definite=false)=>findings.push({reasonCode,detail,observed,
     expected:'Verified facts require separate causal significance; one event earns at most one adjustment',

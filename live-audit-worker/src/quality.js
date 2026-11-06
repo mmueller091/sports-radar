@@ -1,18 +1,20 @@
+import {AUDIT_SCOPE_VERSION,AUDIT_SPORTS,auditAnalysisGameAllowed,grandSlam} from './scope.js';
 // Observation-only diagnostics. No scorer, provider, AI, alert or database imports.
 import {captureEvidenceDetails} from './evidence.js';
 import {auditQualitativeContext} from './qualitative-quality.js';
 import {buildEventResponses} from './event-response.js';
+import {auditNumber,normalizeAuditRating} from './rating-evidence.js';
 import {lifecycleOf,observationReference,remainingTime,measurableInterval,thresholdAnalysis,volatilityAnalysis,comebackAnalysis,observationSummary,eligibleRating} from './trajectory-quality.js';
-export const QUALITY_VERSION = '2026-11-04.quality.3';
-export const QUALITY_SPORTS = ['NFL','CFB','NBA','NCAAB','NHL','MLB','Tennis','Soccer'];
+export const QUALITY_VERSION = '2026-11-06.audit-quality.1';
+export const QUALITY_SPORTS = AUDIT_SPORTS;
 export const THRESHOLDS = [70,80,85,90,95];
-const number=v=>v===null||v===undefined||v===''||!Number.isFinite(Number(v))?null:Number(v);
-const time=v=>typeof v==='number'?number(v):Number.isFinite(Date.parse(v))?Date.parse(v):null;
+const number=auditNumber;
+const time=v=>typeof v==='number'?number(v):typeof v==='string'&&Number.isFinite(Date.parse(v))?Date.parse(v):null;
 const bool=v=>typeof v==='boolean'?v:null;
 const pick=(o,keys)=>Object.fromEntries(keys.filter(k=>o?.[k]!==undefined).map(k=>[k,o[k]]));
 const reg={NFL:4,CFB:4,NBA:4,NCAAB:2,NHL:3};
-const wide={NFL:17,CFB:21,NBA:20,NCAAB:18,NHL:3,MLB:5,Soccer:3};
-const comeback={NFL:14,CFB:14,NBA:15,NCAAB:12,NHL:2,MLB:3,Soccer:2};
+const wide={NFL:17,CFB:21,NBA:20,NCAAB:18,NHL:3,MLB:5};
+const comeback={NFL:14,CFB:14,NBA:15,NCAAB:12,NHL:2,MLB:3};
 export function clockSeconds(value){
   const s=String(value??'');
   const m=/^(\d+):(\d{2})(?:\.(\d+))?$/.exec(s);
@@ -22,6 +24,22 @@ export function clockSeconds(value){
 const factorPoints=(g,re)=>(g.factors||[]).filter(f=>re.test(f.label||'')).reduce((sum,f)=>sum+(number(f.points)||0),0);
 const historyPoints=g=>(g.factors||[]).filter(f=>/history|comeback|recovery|erased.*deficit|lead change|trajectory|sustained|win.chance swing/i.test(f.label||''))
   .reduce((sum,f)=>sum+Math.max(0,number(f.points)||0),0);
+const probability=value=>{const n=typeof value==='boolean'?null:number(value);return n!==null&&n>=0&&n<=1?n:null;};
+function marketEvidence(market){
+  if(!market)return null;
+  const quotedAt=time(market.quotedAt),reportedAt=time(market.reportedAt);
+  return {...pick(market,['teamId','teamName','side','spread','probability','source','observed']),
+    quotedAt:quotedAt??reportedAt,reportedAt,
+    timestampSource:quotedAt!==null?(market.timestampSource||'quotedAt'):reportedAt!==null?'reportedAt':null};
+}
+function underdogProbability(game,market){
+  const ids=(game.teams||[]).map(t=>String(t?.[8]??'')),side=ids.indexOf(String(market?.teamId??''));
+  if(!market||side<0||side>1)return {value:null,source:null};
+  const supplied=probability(game.liveUpset?.currentProbability??game.liveSurprise?.currentProbability);
+  if(supplied!==null)return {value:supplied,source:'producer-underdog-probability'};
+  const home=probability(game.live?.winProbability);
+  return home===null?{value:null,source:null}:{value:side===1?home:1-home,source:'canonical-home-win-probability; team-mapped'};
+}
 function eventAtState(game,p,publishedAt){
   if(!p?.id)return null;
   const status=game.liveRawStatus||{},scores=(game.teams||[]).map(t=>number(t[2]));
@@ -46,6 +64,7 @@ export function captureQualityEvidence(game,options={}){
   const market=g.liveUpset?.market||g.liveSurprise?.market||null;
   const sides=(g.teams||[]).map(t=>number(t?.[2]));
   const dogIndex=market?ids.indexOf(String(market.teamId)): -1;
+  const dogProbability=underdogProbability(g,market);
   const context=String(g.context||'');
   const publication=time(publishedAt);
   const batting=String(r.battingTeamId??(['away','home'].includes(r.battingSide)?ids[r.battingSide==='away'?0:1]:'')??'');
@@ -61,13 +80,13 @@ export function captureQualityEvidence(game,options={}){
     noHitBid:bool(r.noHitBid),bestOf:number(c.format?.regulation?.periods??c.format?.bestOf),
     matchPoint:bool(r.matchPoint??r.isMatchPoint),breakPoint:bool(r.breakPoint??r.isBreakPoint),
     breakOfServe:bool(r.breakOfServe),tiebreak:bool(r.tiebreak??r.isTiebreak),
-    grandSlam:/wimbledon|australian open|french open|roland garros|us open/i.test(context),
+    grandSlam:grandSlam(g),
     stakes:/playoff|postseason|elite (?:8|eight)|sweet (?:16|sixteen)|final four|world series|super bowl|stanley cup final|nba finals|national championship/i.test(context),
     championship:/world series|super bowl|stanley cup final|nba finals|national championship|grand slam final/i.test(context),
-    market:market?pick(market,['teamId','teamName','spread','source','quotedAt']):null,
+    market:marketEvidence(market),
     underdogMargin:dogIndex>=0&&sides.every(x=>x!==null)?sides[dogIndex]-sides[1-dogIndex]:null,
-    underdogProbability:number(g.liveUpset?.currentProbability??g.liveSurprise?.currentProbability),
-    winProbability:number(g.live?.winProbability),
+    underdogProbability:dogProbability.value,underdogProbabilitySource:dogProbability.source,
+    winProbability:probability(g.live?.winProbability),
     historyPoints:historyPoints(g),
     stakesPoints:factorPoints(g,/postseason|championship|final round/i),
     event:eventAtState(g,r.lastPlay,publication),
@@ -82,24 +101,40 @@ function point(observation,game){
   const g=observation.state||{},raw=g.liveRawStatus||{},at=time(observation.observedAt);
   const fallback=captureQualityEvidence(g,{publishedAt:observation.feedUpdatedAt,observedAt:at});
   const q={...fallback,...(observation.qualityEvidence||{})};
+  // Legacy capture fields may omit information present in the same retained
+  // canonical state. Recover only that state, never a later provider revision.
+  q.market=marketEvidence(q.market?{...(fallback.market||{}),...q.market}:fallback.market);
+  q.underdogProbability=probability(q.underdogProbability)??fallback.underdogProbability;
+  if(probability(observation.qualityEvidence?.underdogProbability)===null)q.underdogProbabilitySource=fallback.underdogProbabilitySource;
+  q.winProbability=probability(q.winProbability);
+  if(g.sport==='NHL'&&(fallback.manpowerEvidenceStatus==='unverified'||q.rejected||q.scoringPartial||q.evidenceQuality==='invalid')){
+    q.reportedManpower=q.reportedManpower??q.manpower??fallback.reportedManpower;
+    q.manpower=null;q.goaliePulled=null;q.powerPlayTeamId=null;q.manpowerEvidenceStatus='unverified';
+    q.goalieEvidenceSource=fallback.goalieEvidenceSource;q.goalieEvidenceScope=fallback.goalieEvidenceScope;
+  }
   q.timeouts=Array.isArray(q.timeouts)&&q.timeouts.length===2?q.timeouts.map(number):[null,null];
   q.bases=Array.isArray(q.bases)&&q.bases.length===3?q.bases.map(bool):[null,null,null];
   if(g.factors)q.historyPoints=historyPoints(g);
   const sourceScores=observation.scores||g.teams?.map(t=>t[2])||[];
   const scores=Array.isArray(sourceScores)?sourceScores.map(number):[];
   const period=number(observation.period??raw.period),clock=number(observation.clockSeconds)??clockSeconds(raw.displayClock);
-  const rating=number(observation.rating),sport=game.sport==='NCAAM'?'NCAAB':game.sport;
+  const ratingInterpretation=normalizeAuditRating(Object.hasOwn(observation,'rawRating')?observation.rawRating:observation.rating,g);
+  const rating=ratingInterpretation.rating,sport=game.sport==='NCAAM'?'NCAAB':game.sport;
   const publication=q.publishedAt??time(observation.feedUpdatedAt),modelVersion=observation.scoringVersion||'unknown';
   const lifecycle=lifecycleOf(g,sport,period,scores),gaps=[];
   gaps.push(...(observation.sourceReference?.missingSituationFields||[]));
+  if(observation.sourceReference?.trajectoryGapBefore)gaps.push('Retained trajectory gap before this observation; continuity and response claims do not cross the gap');
   if(observation.sourceReference?.excludedHistory?.length)gaps.push(`${observation.sourceReference.excludedHistory.length} earlier contradictory archive events excluded`);
   if(!observation.qualityEvidence)gaps.push('Legacy observation lacks structured quality evidence; only retained fields are recovered');
   if(publication===null)gaps.push('Canonical refresh reference unavailable; snapshot acquisition is not publication');
   if(modelVersion==='unknown')gaps.push('Scoring model attribution unavailable');
   if(q.evidenceQuality!=='complete')gaps.push('Complete scoring progression evidence not established');
-  const integrity=(observation.auditCandidates||[]).filter(f=>f.deterministic).map(f=>f.reasonCode);
+  if(ratingInterpretation.unavailable)gaps.push('Canonical rating unavailable; numeric change and threshold claims withheld');
+  if(ratingInterpretation.legacyNullCoercion)gaps.push(ratingInterpretation.reason);
+  const integrity=(observation.auditCandidates||[]).filter(f=>f.deterministic&&
+    !(ratingInterpretation.legacyNullCoercion&&f.reasonCode==='RATING_OUT_OF_RANGE')).map(f=>f.reasonCode);
   if(observation.sourceReference?.normalizedStateValid===false)integrity.push('NORMALIZED_STATE_INVALID');
-  if(rating!==null&&(!Number.isInteger(rating)||rating<1||rating>99))integrity.push('INVALID_RATING');
+  if(ratingInterpretation.malformed)integrity.push('INVALID_RATING');
   if(scores.length!==2||scores.some(n=>n===null||n<0||!Number.isInteger(n)))integrity.push('INVALID_SCORE');
   if(period!==null&&(!Number.isInteger(period)||period<1||period>20))integrity.push('INVALID_PERIOD');
   if(clock!==null&&clock<0)integrity.push('INVALID_CLOCK');
@@ -127,10 +162,11 @@ function point(observation,game){
   return {gameKey:game.gameKey,matchup:game.matchup||game.gameKey,sport,observedAt:at,publishedAt:publication,
     timestampKind:'canonical-refresh-start reference; not provider publication',
     modelVersion,feedRevision:observation.feedRevision||null,runId:observation.runId??null,
-    rating,scores,period,clockSeconds:clock,phase:g.live?.phase||g.status||null,
+    rating,rawRating:ratingInterpretation.rawRating,ratingInterpretation,scores,period,clockSeconds:clock,phase:g.live?.phase||g.status||null,
     margin:scores.length===2&&scores.every(x=>x!==null)?Math.abs(scores[0]-scores[1]):null,
     q,gaps,integrity,live:lifecycle==='live',lifecycle,evidenceStatus,fieldCoverage,structuredEvidence:Boolean(observation.qualityEvidence),
     components:g.factors||[],baseScore:number(g.baseScore),openingScore:number(g.openingScore),
+    scalarComponents:{baseScore:number(g.baseScore),liveBonus:number(g.live?.bonus),momentumPoints:number(g.momentumPoints),trajectoryAdjustment:number(g.trajectoryScoring?.adjustment)},
     pregameQuality:q.pregameTeamQuality??null,
     historical:observation.provenance==='causal-reconstruction',provenance:observation.provenance||'audit-observation',
     event:observation.sourceEvent||q.event,
@@ -170,21 +206,21 @@ function inspect(p,history){
     if(q.tiebreak===true)signals.push('Verified tiebreak');
     if(q.breakOfServe===true)signals.push('Verified break of serve');
     if(q.grandSlam&&signals.length)signals.push('Grand Slam stakes');
-  }else if(sport==='Soccer'){
-    need(q.possession,'Possession unavailable');gaps.push('Aggregate, red-card and shot-pressure coverage not established');
-    if(period>=2&&t!==null&&t>=80*60&&m<=1)signals.push('Late close soccer game');
   }
-  const elapsedLate=sport==='MLB'?period>=7:sport==='Soccer'?period>=2&&t>=80*60:late;
+  const elapsedLate=sport==='MLB'?period>=7:late;
   const impossible=['NBA','NCAAB'].includes(sport)&&late&&t!==null&&t<=5&&m>=7;
-  if(q.market&&q.underdogMargin!==null&&q.underdogMargin>=-3&&q.underdogMargin<=(['NFL','CFB'].includes(sport)?8:6)&&!impossible&&
-    (q.underdogProbability===null||q.underdogProbability>=.05)&&
+  const pregameProbability=probability(q.market?.probability),currentDogProbability=probability(q.underdogProbability);
+  if(q.market?.source&&q.underdogMargin!==null&&q.underdogMargin>=-3&&q.underdogMargin<=(['NFL','CFB'].includes(sport)?8:6)&&!impossible&&
+    currentDogProbability!==null&&currentDogProbability>=.05&&currentDogProbability<.995&&
+    (pregameProbability===null||currentDogProbability>pregameProbability)&&
     ((sport==='NCAAB'&&period>=2)||(['NBA','NFL','CFB'].includes(sport)&&period>=3)))signals.push('Credible observed underdog threat');
   if(!q.market)gaps.push('Verified pregame underdog expectation unavailable');
+  else if(currentDogProbability===null)gaps.push('Current team-mapped underdog probability unavailable; threat inference withheld');
   if(q.championship&&signals.length)signals.push('Championship stakes with current leverage');
   const prior=history.filter(x=>x.modelVersion===p.modelVersion&&x.margin!==null);
   const deficits=[0,1].map(i=>Math.max(0,...prior.map(x=>x.scores[1-i]-x.scores[i])));
-  if(comeback[sport]&&m<=({NFL:8,CFB:8,NBA:3,NCAAB:3,NHL:1,MLB:1,Soccer:1}[sport])&&p.scores.length===2&&p.scores.every(Number.isFinite)&&deficits.some((d,i)=>
-    d>=comeback[sport]&&d-(p.scores[1-i]-p.scores[i])>=.75*comeback[sport]))signals.push('Substantial comeback observed so far');
+  if(comeback[sport]&&m<=({NFL:8,CFB:8,NBA:3,NCAAB:3,NHL:1,MLB:1}[sport])&&p.scores.length===2&&p.scores.every(Number.isFinite)&&deficits.some((d,i)=>
+    d>=comeback[sport]&&d-Math.max(0,p.scores[1-i]-p.scores[i])>=.75*comeback[sport]))signals.push('Substantial comeback observed so far');
   const leader=x=>x.scores?.length===2?Math.sign(x.scores[0]-x.scores[1]):0;
   const previousLeader=[...prior].reverse().find(x=>leader(x)!==0);
   if(previousLeader&&leader(p)!==0&&leader(p)!==leader(previousLeader))signals.push('Observed lead change');
@@ -206,11 +242,24 @@ function inspect(p,history){
     ['NFL','CFB'].includes(sport)&&!q.possession||
     ['NBA','NCAAB'].includes(sport)&&m>3&&(q.winProbability===null||q.winProbability<.1||q.winProbability>.9));
   if(lateRunwayUnknown)gaps.push('Late comeback feasibility not established; withhold underrated classification');
-  return {signals,gaps,wideLate,impossible,settled,high,extraordinary,
-    low:!intermissionSoon&&!lateRunwayUnknown&&!impossible&&!settled&&p.rating!==null&&p.rating<85&&(
-      signals.some(s=>/Decisive|Meaningful|overtime|Late tying|no-hit|match point|Credible|Substantial|Championship/.test(s))||
-      sport==='Tennis'&&signals.includes('Verified deciding set')&&(q.tiebreak===true||q.grandSlam)||
-      sport==='NHL'&&signals.includes('Late one-goal opportunity')&&(q.goaliePulled===true||q.powerPlayTeamId!==null))};
+  const underdogWindow=ot||late&&t!==null&&t<=(['NFL','CFB'].includes(sport)?300:120);
+  const actionableLeverage=signals.some(s=>/Decisive|Meaningful|overtime|Late tying|no-hit|match point/.test(s))||
+    underdogWindow&&signals.includes('Credible observed underdog threat')||
+    sport==='Tennis'&&signals.includes('Verified deciding set')&&(q.tiebreak===true||q.grandSlam)||
+    sport==='NHL'&&signals.includes('Late one-goal opportunity')&&(q.goaliePulled===true||q.powerPlayTeamId!==null);
+  const previous=prior.at(-1),reliable=x=>x&&eligibleRating(x)&&!x.q.rejected&&!x.q.scoringPartial&&x.q.evidenceQuality==='complete';
+  const improvingCompetition=previous&&previous.scores.every(Number.isFinite)&&p.scores.every(Number.isFinite)&&
+    p.scores.every((score,i)=>score>=previous.scores[i])&&
+    (m<previous.margin||ot&&previous.period<=reg[sport])&&
+    (period>previous.period||period===previous.period&&t!==null&&previous.clockSeconds!==null&&t<=previous.clockSeconds);
+  const responseEvidence=actionableLeverage&&reliable(previous)&&reliable(p)&&improvingCompetition&&
+    p.observedAt>previous.observedAt&&p.observedAt-previous.observedAt<=360000&&p.rating-previous.rating < -2?
+    {kind:'opposite-direction observed response',before:observationReference(previous),after:observationReference(p),
+      beforeRating:previous.rating,afterRating:p.rating,delta:p.rating-previous.rating,
+      basis:'Verified competition became closer in a sport-specific high-leverage phase while its rating declined; matched replay is still required'}:null;
+  return {signals,gaps,wideLate,impossible,settled,high,extraordinary,actionableLeverage,responseEvidence,
+    low:!intermissionSoon&&!lateRunwayUnknown&&!impossible&&!settled&&p.rating!==null&&
+      (actionableLeverage||signals.includes('Substantial comeback observed so far'))};
 }
 function comparableSituations(p,points){
   const window=p.clockSeconds<=120?20:p.clockSeconds<=300?45:120;
@@ -253,20 +302,29 @@ function comparableSituations(p,points){
 function finding(p,a,direction,points){
   const comparisons=comparableSituations(p,points),blocked=p.integrity.length>0||p.evidenceStatus==='invalid'||p.q.scoringPartial;
   const missing=a.gaps.length>0||p.evidenceStatus!=='complete';
+  const peerUnder=direction==='underrated'&&comparisons.sampleGames>=comparisons.minimumGames&&
+    comparisons.median!==null&&comparisons.median-p.rating>=27;
+  // An observed comeback, upset or late opportunity does not impose an 85-point
+  // target. A low-rating concern needs matched evidence or a failed direction
+  // response. Unreliable high-leverage evidence remains a separate review.
+  if(direction==='underrated'&&!peerUnder&&!a.responseEvidence&&!(blocked&&a.actionableLeverage))return null;
   const strong=!blocked&&!missing&&comparisons.sampleGames>=5&&comparisons.meanMatchCoverage>=.8&&Math.abs(p.rating-comparisons.median)>=27;
   const classification=p.integrity.length?'confirmed_defect':blocked?'data_quality_limitation':strong?'strong_calibration_concern':'calibration_hypothesis';
-  const cause=direction==='overrated'?(p.q.historyPoints>0?'Past excitement may be retained after current leverage fades':'High current rating despite verified low current comeback feasibility'):'Current leverage or underdog threat may be recognized weakly or late';
+  const cause=direction==='overrated'?(p.q.historyPoints>0?'Past excitement may be retained after current leverage fades':'High current rating despite verified low current comeback feasibility'):
+    peerUnder?'Rating is materially below at least five matched same-model games':a.responseEvidence?'Rating moved opposite to a verified late competitive opportunity':'Unreliable evidence prevents a scoring-quality judgment';
   const correction=blocked?'Repair evidence before calibrating; replay the accepted observations':direction==='overrated'?'Replay current feasibility and historical drama separately; require high-leverage controls':'Replay causal event response and sport scale against matched games before selecting any scoring adjustment';
-  return {id:`quality|${p.gameKey}|${p.modelVersion}|${p.observedAt}|${direction}`,gameKey:p.gameKey,matchup:p.matchup,sport:p.sport,direction,
+  return {id:`quality|${p.gameKey}|${p.modelVersion}|${p.observedAt}|${direction}`,gameKey:p.gameKey,matchup:p.matchup,sport:p.sport,
+    direction:blocked&&direction==='underrated'?'evidence':direction,
     classification,legacyClassification:p.integrity.length?'confirmed_integrity_failure':blocked?'missing_or_unreliable_evidence':'calibration_hypothesis',
     confidence:p.integrity.length?'high':blocked?'low':strong?'high':missing?'low':'medium',priority:p.integrity.length||strong?'high':blocked?'evidence':'medium',
     modelVersion:p.modelVersion,observedAt:p.observedAt,publishedAt:p.publishedAt,
     period:p.period,clockSeconds:p.clockSeconds,scores:p.scores,rating:p.rating,signals:a.signals,
     verifiedSituation:{scores:p.scores,period:p.period,clockSeconds:p.clockSeconds,lifecycle:p.lifecycle,signals:a.signals},
-    whyInvestigate:direction==='overrated'?'Verified current leverage is low while the observed rating remains high; exceptional context must still be checked':'The observation contains a specific high-leverage opportunity; sparse evidence does not establish a required score',
+    whyInvestigate:direction==='overrated'?'Verified current leverage is low while the observed rating remains high; exceptional context must still be checked':cause+'; no fixed target rating is implied',
     evidence:{margin:p.margin,...p.q},sourceReference:p.sourceReference,sourceEvent:p.event,missingEvidence:[...new Set([...a.gaps,...(comparisons.sampleGames<5?['Fewer than five matched comparison games']:[])])],integrityProblems:p.integrity,
     scoringComponents:p.components,suspectedCause:cause,suspectedCausalMechanism:cause,
-    supportingObservations:[observationReference(p)],comparableSituations:comparisons,
+    supportingObservations:a.responseEvidence?[a.responseEvidence.before,a.responseEvidence.after]:[observationReference(p)],comparableSituations:comparisons,
+    underratingBasis:direction==='underrated'?{matchedPeerDeficit:peerUnder?comparisons.median-p.rating:null,response:a.responseEvidence,requiredRating:null}:null,
     potentialUserImpact:direction==='overrated'?'A decided or low-leverage game could displace a better live viewing opportunity':'A worthwhile live opportunity may become visible too late',
     recommendedCorrection:correction,proposedInvestigation:correction,
     expectedEffectsOnOtherScenarios:'Test ordinary close games, legitimate overtime peaks, blowouts, late decided states and completed-game ratings in the same model cohort; direction and magnitude remain unknown',
@@ -281,7 +339,7 @@ function calibration(games,sport,model){
   const models=[...new Set(group.map(g=>g.modelVersion))],mixed=model===undefined&&models.length>1;
   const unique=new Set(group.map(g=>g.gameKey));
   const peaks=mixed?[]:group.map(g=>g.peakRating).filter(Number.isFinite);
-  const publicRecommendation=sport!=='Soccer';
+  const publicRecommendation=true;
   return {sport,displaySport:sport==='NCAAB'?'NCAAM':sport==='Tennis'?'Grand Slam tennis':sport,publicRecommendation,
     modelVersion:model??(mixed?'separate model cohorts required':models[0]||'no evidence'),modelVersions:models,
     mixedModelsSuppressed:mixed,gamesObserved:unique.size,gamesWithRating:mixed?null:peaks.length,
@@ -304,12 +362,13 @@ function calibration(games,sport,model){
 function discontinuityRecommendation(game,change){
   return {id:`volatility|${game.gameKey}|${game.modelVersion}|${change.to.observedAt}`,gameKey:game.gameKey,matchup:game.matchup,sport:game.sport,
     modelVersion:game.modelVersion,observedAt:change.to.observedAt,rating:change.afterRating,classification:change.classification,
-    confidence:change.componentChanges.length?'medium':'low',priority:Math.abs(change.delta)>=50?'high':'medium',direction:'discontinuity',
+    confidence:change.arithmeticReconciliation?.status==='reconciled'?'medium':'low',priority:change.classification==='data_quality_limitation'?'evidence':Math.abs(change.delta)>=50?'high':'medium',direction:'discontinuity',
     verifiedSituation:change.after,whyInvestigate:`Observed ${change.delta>0?'+':''}${change.delta}-point change; examine event and component interactions before calling it incorrect`,
-    scoringComponents:change.componentChanges,suspectedCausalMechanism:change.componentChanges.length?'Reported component changes may interact with competitiveness floors, caps and rounding':'Retained components cannot attribute the change',
+    scoringComponents:change.componentChanges,arithmeticReconciliation:change.arithmeticReconciliation,eventTriage:change.eventTriage,
+    suspectedCausalMechanism:change.arithmeticReconciliation?.status==='reconciled'?'The retained ledger explains the arithmetic; inspect the desirability of its margin/runway interactions':'Retained components cannot fully attribute the change',
     suspectedCause:change.modelPolicyAttribution,supportingObservations:[change.from,change.to],
     comparableSituations:{status:'insufficient_evidence',sampleGames:0,minimumGames:5,matches:[],reason:'A comparable trajectory replay is required; single states do not explain a discontinuity'},
-    missingEvidence:['Complete arithmetic ledger and interaction order','Counterfactual replay under the same model','Comparable event trajectories'],
+    missingEvidence:[...(change.arithmeticReconciliation?.status==='reconciled'?[]:['Complete arithmetic ledger and interaction order']),'Counterfactual replay under the same model','Comparable event trajectories'],
     potentialUserImpact:'A large step can delay useful discovery or create a short-lived high rating',
     proposedInvestigation:'Replay the observed boundary with component tracing; vary only the suspected competitiveness gate in an offline bounded experiment',
     recommendedCorrection:'Inspect the boundary and verify intended policy; do not smooth a justified decisive-event response automatically',
@@ -318,6 +377,7 @@ function discontinuityRecommendation(game,change){
     estimatedImpact:{productionScoreDelta:0,productionAlertsDelta:0,candidateScoreDelta:null}};
 }
 export function buildScoringQuality(inputGames=[]){
+  inputGames=inputGames.filter(auditAnalysisGameAllowed);
   const qualitativeFindings=[];
   for(const game of inputGames)for(const observation of [...(game.observations||[]),...(game.retainedScoringObservations||[])]){
     for(const finding of auditQualitativeContext(observation.state||{}).findings)qualitativeFindings.push({...finding,gameKey:game.gameKey,observedAt:observation.observedAt,modelVersion:observation.scoringVersion||observation.state?.modelVersion});
@@ -332,7 +392,7 @@ export function buildScoringQuality(inputGames=[]){
       if(!QUALITY_SPORTS.includes(p.sport))continue;
       const key=p.feedRevision&&p.provenance!=='retained-scoring-snapshot'?`${p.modelVersion}|${p.feedRevision}|${p.lifecycle}`:`${p.modelVersion}|${p.observedAt}|${p.rating}|${p.scores.join(':')}|${p.lifecycle}`;
       if(seen.has(key))continue;seen.add(key);
-      if(previousModel!==null&&previousModel!==p.modelVersion)segment++;
+      if(previousModel!==null&&(previousModel!==p.modelVersion||p.sourceReference.trajectoryGapBefore))segment++;
       p.segment=segment;previousModel=p.modelVersion;ps.push(p);allPoints.push(p);
     }
     for(const modelVersion of new Set(ps.map(p=>p.modelVersion))){
@@ -368,6 +428,10 @@ export function buildScoringQuality(inputGames=[]){
         decided:modelPoints.filter(p=>p.lifecycle==='decided').map(observationSummary),peakLive:peakPoint?observationSummary(peakPoint):null,
         overallWatchability:'Unavailable as a separate objective label; peak, decisive moments, duration and completed rating are reported independently'};
       const eventResponses=buildEventResponses(modelPoints,sport,game.retainedProviderEvents||[]);
+      for(const change of volatility.majorChanges.filter(c=>c.classification==='expected_behavior'&&c.eventTriage))expected.push({
+        gameKey:game.gameKey,modelVersion,observedAt:change.to.observedAt,rating:change.afterRating,classification:'expected_behavior',
+        reason:change.eventTriage.basis,arithmeticReconciliation:change.arithmeticReconciliation,
+        evidenceQualification:change.evidenceQualification,supportingObservations:[change.from,change.to]});
       for(const p of modelPoints.filter(p=>p.lifecycle==='decided'))expected.push({gameKey:p.gameKey,modelVersion,observedAt:p.observedAt,rating:p.rating,
         classification:'expected_behavior',reason:'Decided sudden-death state is excluded from live underrating and calibration; lower post-decision rating is not evidence of live failure',reference:observationReference(p)});
       games.push({gameKey:game.gameKey,matchup:game.matchup,sport,modelVersion,observations:history.length,retainedObservations:modelPoints.length,
@@ -383,7 +447,11 @@ export function buildScoringQuality(inputGames=[]){
     }
   }
   const over=[],under=[];
-  for(const {p,a,direction} of candidatePoints){const f=finding(p,a,direction,points);(direction==='overrated'?over:under).push(f);}
+  for(const {p,a,direction} of candidatePoints){
+    const f=finding(p,a,direction,points);
+    if(direction==='underrated')a.low=Boolean(f&&['calibration_hypothesis','strong_calibration_concern'].includes(f.classification));
+    if(f)(direction==='overrated'?over:under).push(f);
+  }
   const top=(rows,dir)=>{const sorted=[...rows].sort((a,b)=>(dir==='overrated'?b.rating-a.rating:a.rating-b.rating)||String(a.gameKey).localeCompare(String(b.gameKey)));
     const unique=new Map();for(const r of sorted)if(!unique.has(r.gameKey))unique.set(r.gameKey,r);return [...unique.values()].slice(0,10);};
   const concurrent=new Map();
@@ -407,26 +475,33 @@ export function buildScoringQuality(inputGames=[]){
       reason:'Empirical rank in selected retained games only; not all-time rarity and not a scoring target'};
   }
   const supported=r=>['calibration_hypothesis','strong_calibration_concern'].includes(r.classification);
-  const evidenceReview=[...top(over.filter(r=>!supported(r)),'overrated'),...top(under.filter(r=>!supported(r)),'underrated')].filter(r=>r.sport!=='Soccer');
+  const evidenceReview=[...top(over.filter(r=>!supported(r)),'overrated'),...top(under.filter(r=>!supported(r)),'underrated')];
   const recommendations=[...top(over.filter(supported),'overrated'),...top(under.filter(supported),'underrated'),...evidenceReview,...games.flatMap(g=>{
-    const major=[...g.volatility.majorChanges].sort((a,b)=>Math.abs(b.delta)-Math.abs(a.delta));return major.length?[discontinuityRecommendation(g,major[0])]:[];
-  })].filter(r=>r.sport!=='Soccer').sort((a,b)=>({high:0,medium:1,evidence:2}[a.priority]??3)-({high:0,medium:1,evidence:2}[b.priority]??3));
+    const major=g.volatility.majorChanges.filter(c=>c.classification!=='expected_behavior').sort((a,b)=>Math.abs(b.delta)-Math.abs(a.delta));return major.length?[discontinuityRecommendation(g,major[0])]:[];
+  })].sort((a,b)=>({high:0,medium:1,evidence:2}[a.priority]??3)-({high:0,medium:1,evidence:2}[b.priority]??3));
   const evidenceCoverage={totalObservations:allPoints.length,structuredEvidence:allPoints.filter(p=>p.structuredEvidence).length,
+    usableScoringObservations:allPoints.filter(eligibleRating).length,
+    completeScoreProgressionObservations:allPoints.filter(p=>p.q.scoreProgressionQuality==='complete'||p.q.evidenceQuality==='complete').length,
+    completeContextualObservations:allPoints.filter(p=>p.evidenceStatus==='complete').length,
+    invalidOrUnavailableScoringObservations:allPoints.filter(p=>!eligibleRating(p)).length,
     byStatus:Object.fromEntries(['complete','partial','invalid','unavailable'].map(s=>[s,allPoints.filter(p=>p.evidenceStatus===s).length])),
     legacyRecoveredFromRetainedState:allPoints.filter(p=>!p.structuredEvidence&&p.evidenceStatus==='partial').length,
     missingEventTimestamps:allPoints.filter(p=>!Number.isFinite(time(p.event?.occurredAt))&&!(p.q.canonicalEvents||[]).some(e=>Number.isFinite(time(e.occurredAt)))).length,
     modelAttributionMissing:allPoints.filter(p=>p.modelVersion==='unknown').length,
     missingFieldCounts:Object.fromEntries([...new Set(allPoints.flatMap(p=>p.fieldCoverage.missing))].map(field=>[field,allPoints.filter(p=>p.fieldCoverage.missing.includes(field)).length])),
-    completenessMeaning:'Audit field coverage, independent of production scoring progression evidenceQuality; no missing values fabricated'};
-  return {version:QUALITY_VERSION,mode:'observation-only',methodology:{denominator:'Unique observed live games within each model cohort; never completed or decided ratings; multi-model overview distributions withheld',
+    completenessMeaning:'Complete contextual coverage requires all audit situation/expectation fields. Usable scoring observations retain a valid rating with no known integrity rejection; production complete concerns score progression only. These are separate measures; no missing values fabricated'};
+  const ratingInterpretations=allPoints.filter(p=>p.ratingInterpretation.legacyNullCoercion).map(p=>({
+    gameKey:p.gameKey,observedAt:p.observedAt,modelVersion:p.modelVersion,...p.ratingInterpretation,
+    reference:observationReference(p),rawEvidencePreserved:true}));
+  return {version:QUALITY_VERSION,scopeVersion:AUDIT_SCOPE_VERSION,mode:'observation-only',methodology:{denominator:'Unique observed live games within each model cohort; never completed or decided ratings; multi-model overview distributions withheld',
     timeAbove85:'Legacy >85 field is a left-held canonical refresh-reference estimate, not publication duration; threshold metrics are inclusive >=70/80/85/90/95',
     reaction:'Both directions and unchanged ratings around verified events or observed intervals; event, provider publication, refresh reference, acquisition and polling remain separate. Later-revision cached provider events support retrospective associations only; their availability to the live scorer is unknown and they do not backfill historical observations',
     provenance:'Observed production and causal reconstructions are labeled; retained snapshot acquisition never becomes a provider publication timestamp',providerToPublicationLatency:'Unavailable unless verified provider publication timestamps exist; no acquisition-time substitution',
     costs:'No added provider/AI requests, schedules, storage rows or notifications'},
-    topOverrated:top(over.filter(r=>supported(r)&&r.sport!=='Soccer'),'overrated'),topUnderrated:top(under.filter(r=>supported(r)&&r.sport!=='Soccer'),'underrated'),evidenceReview,
+    topOverrated:top(over.filter(r=>supported(r)),'overrated'),topUnderrated:top(under.filter(r=>supported(r)),'underrated'),evidenceReview,
     calibration:QUALITY_SPORTS.map(s=>calibration(games,s)),modelCohorts:[...new Set(games.map(g=>g.modelVersion))].map(model=>({modelVersion:model,
-      sports:QUALITY_SPORTS.map(s=>calibration(games,s,model)),topOverrated:top(over.filter(r=>supported(r)&&r.modelVersion===model&&r.sport!=='Soccer'),'overrated'),topUnderrated:top(under.filter(r=>supported(r)&&r.modelVersion===model&&r.sport!=='Soccer'),'underrated'),evidenceReview:evidenceReview.filter(r=>r.modelVersion===model)})),
-    games,simultaneousPriorityConflicts:simultaneous,integrityProblems:integrity,missingEvidence:missing,evidenceCoverage,recommendations,expectedBehavior:expected,
+      sports:QUALITY_SPORTS.map(s=>calibration(games,s,model)),topOverrated:top(over.filter(r=>supported(r)&&r.modelVersion===model),'overrated'),topUnderrated:top(under.filter(r=>supported(r)&&r.modelVersion===model),'underrated'),evidenceReview:evidenceReview.filter(r=>r.modelVersion===model)})),
+    games,simultaneousPriorityConflicts:simultaneous,integrityProblems:integrity,ratingInterpretations,missingEvidence:missing,evidenceCoverage,recommendations,expectedBehavior:expected,
     executiveSummary:{gameModelCohorts:games.length,confirmedDefects:integrity.length,strongCalibrationConcerns:recommendations.filter(r=>r.classification==='strong_calibration_concern').length,
       evidenceReviewGroups:evidenceReview.length,blockedScoringCandidateObservations:[...over,...under].filter(r=>!supported(r)).length,
       hypotheses:recommendations.filter(r=>r.classification==='calibration_hypothesis').length,expectedBehavior:expected.length,
@@ -436,5 +511,5 @@ export function buildScoringQuality(inputGames=[]){
     qualitativeFindings,confirmedScoringDefects:qualitativeFindings.filter(f=>f.classification==='definite_scoring_defect'),limitations:['Candidate lists are review prompts, not objective labels or evidence of delivered alerts.',
       'Final closeness never establishes earlier live excitement. Missing states do not establish uneventful play.',
       'Exact real-world threshold crossings, provider latency and continuous time above thresholds are not established by sparse samples.',
-      'A single slate cannot establish sport calibration or an equivalent 85. Grand Slam tennis requires verified event context; hidden soccer is excluded from public recommendations.']};
+      'A single slate cannot establish sport calibration or an equivalent 85. Grand Slam tennis requires verified event context; soccer is excluded from the entire audit.']};
 }

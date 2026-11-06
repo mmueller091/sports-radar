@@ -4,6 +4,7 @@ import fs from 'node:fs';
 import {createRequire} from 'node:module';
 import * as model from '../alerts-worker/src/live-game-model.js';
 const require=createRequire(import.meta.url),core=require('../rating-core.js');
+const {MODEL_VERSION}=require('../scoring/live-runtime.cjs');
 const {candidateLiveSnapshot}=require('../calibration/shadow-candidate.cjs');
 const {endgameFloorBudget}=require('../calibration/trajectory-live-policy.cjs');
 const {fixture,cases}=require('./helpers/cfb-calibration.cjs');
@@ -49,5 +50,5 @@ test('the retained overtime-response fixture remains exceptional through the act
  const g=model.normalizeEvent(f.event,'CFB');model.enrichGame(g,f.summary);
  assert.equal(g.score,96);
  assert.match(g.live.note,/response pending/);
- assert.equal(g.modelVersion,'2026-11-05.nhl-manpower.1');
+ assert.equal(g.modelVersion,MODEL_VERSION);
 });

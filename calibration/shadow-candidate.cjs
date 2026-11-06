@@ -342,9 +342,10 @@ function finishCandidateGameRating(core,game,prepared,base,live,trajectoryPolicy
       prepared.context.competition,prepared.context.summary);
   }
   if (game.sport==='NHL' && trajectoryPolicy?.nhlAllocation) {
-    // Reuse the state model with its opt-in clock interpretation; Current
-    // Tension/Generic Leverage and context weights are not changed.
-    base=candidateBaseForPolicy(core,game,{...prepared,context:{...prepared.context,nhlAllocation:true}},currentTensionPolicy);
+    // Historical allocation policies keep their reviewed margin curve. Only
+    // the production policy opts into the midgame two-goal runway correction.
+    base=candidateBaseForPolicy(core,game,{...prepared,context:{...prepared.context,nhlAllocation:true,
+      nhlMidgameRunway:trajectoryPolicy.nhlMidgameRunway === true}},currentTensionPolicy);
     const ordinary=(game.openingFactors||[]).filter(f=>['Sport baseline','Schedule scarcity'].includes(f.label))
       .reduce((sum,f)=>sum+Math.max(0,Number(f.points)||0),0);
     const ordinaryCarry=Math.round(Math.min(ordinary,Math.max(0,game.openingScore-base.state.persistentStakes))*base.state.retainedContextWeight);

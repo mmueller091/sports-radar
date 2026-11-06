@@ -1,0 +1,748 @@
+{
+  "description": "Retained UTSA-FAU production states projected to current-state scoring inputs and recorded arithmetic. These rows do not contain the original provider summary/history event stream; replay is component-scoped, not a full provider replay.",
+  "projection": "Omitted logos, links, athlete lists, provider promotional metadata and unneeded display fields. No missing possession, season, clock or historical events were filled in.",
+  "observations": [
+    {
+      "provenance": {
+        "table": "sports_snapshots",
+        "gameKey": "CFB:401862817",
+        "observedAt": 1793937615000,
+        "modelVersion": "2026-11-05.nhl-manpower.1",
+        "normalizedStateSha256": "6794aecab743d9e05676fd95e189c44b75e13d14d6f38fd77f0f53dbc2d02ea9"
+      },
+      "game": {
+        "id": "401862817",
+        "sport": "CFB",
+        "state": "live",
+        "score": 52,
+        "baseScore": 40,
+        "openingScore": 42,
+        "openingFactors": [
+          {
+            "label": "Sport baseline",
+            "points": 32
+          },
+          {
+            "label": "Schedule scarcity",
+            "points": 8
+          },
+          {
+            "label": "Competitive projected spread",
+            "points": 2
+          }
+        ],
+        "factors": [
+          {
+            "label": "Generic Leverage",
+            "points": 2
+          },
+          {
+            "label": "Limited comeback runway",
+            "points": -2
+          },
+          {
+            "label": "Underdog threatens upset",
+            "points": 13,
+            "liveSurprise": true
+          },
+          {
+            "label": "Game-state baseline",
+            "points": 12
+          },
+          {
+            "label": "Pregame context carried into play",
+            "points": 4
+          },
+          {
+            "label": "Current Tension",
+            "points": 11
+          },
+          {
+            "label": "Big win-chance swing",
+            "points": 4
+          }
+        ],
+        "modelVersion": "2026-11-05.nhl-manpower.1",
+        "evidenceQuality": "complete",
+        "scoringPartial": false,
+        "liveUpdateRejected": false,
+        "momentumPoints": 4,
+        "teams": [
+          [
+            "UTSA Roadrunners",
+            "UTSA",
+            "29",
+            "",
+            "",
+            "7-1",
+            null,
+            "UTSA",
+            "2636"
+          ],
+          [
+            "Florida Atlantic Owls",
+            "FAU",
+            "50",
+            "",
+            "",
+            "5-3",
+            null,
+            "FAU",
+            "2226"
+          ]
+        ],
+        "pregameBaseline": {
+          "calibration": "2026-10-31.football-pregame.1",
+          "source": "observed",
+          "score": 42,
+          "spread": 7,
+          "underdog": {
+            "side": "home",
+            "teamId": "2226",
+            "teamIndex": 0,
+            "teamName": "Florida Atlantic Owls",
+            "type": "spread",
+            "value": 7,
+            "strength": 0,
+            "activation": 0,
+            "description": "7-point underdog"
+          }
+        },
+        "live": {
+          "bonus": 8,
+          "winProbability": 0.9975,
+          "components": {
+            "probability": 0,
+            "situation": 3,
+            "pressure": 0,
+            "milestone": 5,
+            "eventShock": 0
+          },
+          "aggregation": {
+            "bonus": 8,
+            "probabilityPositive": 0,
+            "probabilityNegative": 0,
+            "driveFloor": 0,
+            "decisiveFloor": 0,
+            "competitiveSituation": 3,
+            "positiveBonus": 8,
+            "negativeBonus": 0
+          },
+          "sportImpact": {
+            "points": 3,
+            "note": "FAU ball · 4th & 2 at UTSA 11 · UTSA 11",
+            "reasons": [],
+            "competitiveFloor": 0
+          }
+        },
+        "trajectoryScoring": {
+          "policyId": "live-owned-45-95-relevant-history-cfb-competition-opening-transition",
+          "adjustment": 0,
+          "effectivePositiveGate": 0,
+          "decisiveStrength": 0,
+          "protectedRating": null,
+          "floorBonus": 0
+        },
+        "historyOwnership": {
+          "relevance": {
+            "eventRetention": 1,
+            "marginCloseness": 0.4481324332616231,
+            "comebackViability": 0.8931949828102629,
+            "ledgerMatches": true,
+            "recovery": null,
+            "recoveryStrength": 0,
+            "eventReason": "Current competition history retained",
+            "recoveryReason": "No supported recent material recovery with viable current runway"
+          },
+          "allocation": {
+            "retention": 1,
+            "cap": 15,
+            "bucketCap": null,
+            "factors": [
+              {
+                "label": "Big win-chance swing",
+                "rawPoints": 4,
+                "relevantPoints": 4,
+                "retainedPoints": 4,
+                "relevanceReduction": 0,
+                "capReduction": 0
+              }
+            ]
+          },
+          "combinedPoints": 4,
+          "eventFactors": [
+            {
+              "label": "Big win-chance swing",
+              "points": 4
+            }
+          ],
+          "positiveLimitedByCaps": 0
+        },
+        "liveSurprise": {
+          "points": 13,
+          "market": {
+            "teamId": "2226",
+            "teamName": "Florida Atlantic Owls",
+            "side": "home",
+            "spread": 7,
+            "probability": 0.2949668357393679,
+            "source": "pregame market",
+            "reportedAt": null
+          },
+          "margin": 21
+        },
+        "liveRawStatus": {
+          "clock": 713,
+          "displayClock": "11:53",
+          "period": 4,
+          "type": {
+            "id": "2",
+            "name": "STATUS_IN_PROGRESS",
+            "state": "in",
+            "completed": false,
+            "description": "In Progress",
+            "detail": "11:53 - 4th Quarter",
+            "shortDetail": "11:53 - 4th"
+          }
+        },
+        "liveRawSituation": {
+          "lastPlay": {
+            "id": "401862817824",
+            "type": {
+              "id": "3",
+              "text": "Pass Incompletion"
+            },
+            "text": "(11:53) No Huddle-Shotgun #10 C.Veltkamp pass incomplete short right to #5 L.Farrow thrown to UTS00",
+            "scoreValue": 0,
+            "team": {
+              "id": "2226"
+            },
+            "probability": {
+              "tiePercentage": 0,
+              "homeWinPercentage": 0.9975,
+              "awayWinPercentage": 0.0024999999999999467,
+              "secondsLeft": 713
+            }
+          },
+          "down": 4,
+          "yardLine": 89,
+          "distance": 2,
+          "downDistanceText": "4th & 2 at UTSA 11",
+          "shortDownDistanceText": "4th & 2",
+          "possessionText": "UTSA 11",
+          "isRedZone": true,
+          "homeTimeouts": 0,
+          "awayTimeouts": 1,
+          "possession": "2226"
+        }
+      },
+      "inputEvidence": {
+        "duplicatesRemoved": 0,
+        "conflictingEvents": 0,
+        "futureEventsExcluded": 0,
+        "staleEventRevisionsIgnored": 24,
+        "canonicalBoundary": {
+          "period": 4,
+          "clock": "11:53",
+          "playId": "401862817824"
+        }
+      }
+    },
+    {
+      "provenance": {
+        "table": "sports_snapshots",
+        "gameKey": "CFB:401862817",
+        "observedAt": 1793937795000,
+        "modelVersion": "2026-11-05.nhl-manpower.1",
+        "normalizedStateSha256": "c0d9c204d78ad1362d73ec0265b914606a8a3c27ec80139b47bd498ca9241967"
+      },
+      "game": {
+        "id": "401862817",
+        "sport": "CFB",
+        "state": "live",
+        "score": 21,
+        "baseScore": 14,
+        "openingScore": 42,
+        "openingFactors": [
+          {
+            "label": "Sport baseline",
+            "points": 32
+          },
+          {
+            "label": "Schedule scarcity",
+            "points": 8
+          },
+          {
+            "label": "Competitive projected spread",
+            "points": 2
+          }
+        ],
+        "factors": [
+          {
+            "label": "Limited comeback runway",
+            "points": -15
+          },
+          {
+            "label": "Underdog threatens upset",
+            "points": 12,
+            "liveSurprise": true
+          },
+          {
+            "label": "Game-state baseline",
+            "points": 12
+          },
+          {
+            "label": "Pregame context carried into play",
+            "points": 2
+          },
+          {
+            "label": "Current Tension",
+            "points": 3
+          },
+          {
+            "label": "Big win-chance swing",
+            "points": 1.6591705045477116
+          }
+        ],
+        "modelVersion": "2026-11-05.nhl-manpower.1",
+        "evidenceQuality": "complete",
+        "scoringPartial": false,
+        "liveUpdateRejected": false,
+        "momentumPoints": 1.6591705045477116,
+        "teams": [
+          [
+            "UTSA Roadrunners",
+            "UTSA",
+            "29",
+            "",
+            "",
+            "7-1",
+            null,
+            "UTSA",
+            "2636"
+          ],
+          [
+            "Florida Atlantic Owls",
+            "FAU",
+            "57",
+            "",
+            "",
+            "5-3",
+            null,
+            "FAU",
+            "2226"
+          ]
+        ],
+        "pregameBaseline": {
+          "calibration": "2026-10-31.football-pregame.1",
+          "source": "observed",
+          "score": 42,
+          "spread": 7,
+          "underdog": {
+            "side": "home",
+            "teamId": "2226",
+            "teamIndex": 0,
+            "teamName": "Florida Atlantic Owls",
+            "type": "spread",
+            "value": 7,
+            "strength": 0,
+            "activation": 0,
+            "description": "7-point underdog"
+          }
+        },
+        "live": {
+          "bonus": 5,
+          "winProbability": 0.9985,
+          "components": {
+            "probability": 0,
+            "situation": 0,
+            "pressure": 0,
+            "milestone": 5,
+            "eventShock": 0
+          },
+          "aggregation": {
+            "bonus": 5,
+            "probabilityPositive": 0,
+            "probabilityNegative": 0,
+            "driveFloor": 0,
+            "decisiveFloor": 0,
+            "competitiveSituation": 0,
+            "positiveBonus": 5,
+            "negativeBonus": 0
+          },
+          "sportImpact": {
+            "points": 0,
+            "note": "",
+            "reasons": [],
+            "competitiveFloor": 0
+          }
+        },
+        "trajectoryScoring": {
+          "policyId": "live-owned-45-95-relevant-history-cfb-competition-opening-transition",
+          "adjustment": 0,
+          "effectivePositiveGate": 0,
+          "decisiveStrength": 0,
+          "protectedRating": null,
+          "floorBonus": 0
+        },
+        "historyOwnership": {
+          "relevance": {
+            "eventRetention": 0.4147926261369279,
+            "marginCloseness": 0.11747406447640157,
+            "comebackViability": 0.27443778784107836,
+            "ledgerMatches": true,
+            "recovery": null,
+            "recoveryStrength": 0,
+            "eventReason": "Current sport margin/runway limits historical competition relevance",
+            "recoveryReason": "No supported recent material recovery with viable current runway"
+          },
+          "allocation": {
+            "retention": 0.4147926261369279,
+            "cap": 13.340829495452288,
+            "bucketCap": null,
+            "factors": [
+              {
+                "label": "Big win-chance swing",
+                "rawPoints": 4,
+                "relevantPoints": 1.6591705045477116,
+                "retainedPoints": 1.6591705045477116,
+                "relevanceReduction": 2.3408294954522884,
+                "capReduction": 0
+              }
+            ]
+          },
+          "cfbRun": {
+            "side": "home",
+            "runPoints": 14,
+            "usefulPoints": 0,
+            "rawPoints": 4,
+            "points": 0,
+            "overlapDiscount": 4
+          },
+          "combinedPoints": 1.6591705045477116,
+          "eventFactors": [
+            {
+              "label": "Big win-chance swing",
+              "points": 1.6591705045477116
+            }
+          ],
+          "positiveLimitedByCaps": 0
+        },
+        "liveSurprise": {
+          "points": 12,
+          "market": {
+            "teamId": "2226",
+            "teamName": "Florida Atlantic Owls",
+            "side": "home",
+            "spread": 7,
+            "probability": 0.2949668357393679,
+            "source": "pregame market",
+            "reportedAt": null
+          },
+          "margin": 28
+        },
+        "liveRawStatus": {
+          "clock": 695,
+          "displayClock": "11:35",
+          "period": 4,
+          "type": {
+            "id": "2",
+            "name": "STATUS_IN_PROGRESS",
+            "state": "in",
+            "completed": false,
+            "description": "In Progress",
+            "detail": "11:35 - 4th Quarter",
+            "shortDetail": "11:35 - 4th"
+          }
+        },
+        "liveRawSituation": {
+          "lastPlay": {
+            "id": "-89633761",
+            "type": {
+              "id": "61",
+              "text": "Extra Point Good",
+              "abbreviation": "XP"
+            },
+            "text": "(C. Rogers KICK)",
+            "scoreValue": 1,
+            "team": {
+              "id": "2226"
+            }
+          },
+          "down": -1,
+          "yardLine": 65,
+          "distance": -1,
+          "isRedZone": false,
+          "homeTimeouts": 0,
+          "awayTimeouts": 1
+        }
+      },
+      "inputEvidence": {
+        "duplicatesRemoved": 0,
+        "conflictingEvents": 0,
+        "futureEventsExcluded": 0,
+        "staleEventRevisionsIgnored": 26,
+        "canonicalBoundary": {
+          "period": 4,
+          "clock": "11:35",
+          "playId": "-89633761"
+        }
+      }
+    },
+    {
+      "provenance": {
+        "table": "sports_snapshots",
+        "gameKey": "CFB:401862817",
+        "observedAt": 1793937975000,
+        "modelVersion": "2026-11-05.nhl-manpower.1",
+        "normalizedStateSha256": "6d8f96a81817455a436eeade274188f9ed814600a3193f2a2058f753d303465f"
+      },
+      "game": {
+        "id": "401862817",
+        "sport": "CFB",
+        "state": "live",
+        "score": 30,
+        "baseScore": 26,
+        "openingScore": 42,
+        "openingFactors": [
+          {
+            "label": "Sport baseline",
+            "points": 32
+          },
+          {
+            "label": "Schedule scarcity",
+            "points": 8
+          },
+          {
+            "label": "Competitive projected spread",
+            "points": 2
+          }
+        ],
+        "factors": [
+          {
+            "label": "Generic Leverage",
+            "points": 1
+          },
+          {
+            "label": "Limited comeback runway",
+            "points": -7
+          },
+          {
+            "label": "Underdog threatens upset",
+            "points": 12,
+            "liveSurprise": true
+          },
+          {
+            "label": "Game-state baseline",
+            "points": 12
+          },
+          {
+            "label": "Pregame context carried into play",
+            "points": 3
+          },
+          {
+            "label": "Current Tension",
+            "points": 5
+          },
+          {
+            "label": "Big win-chance swing",
+            "points": 4
+          }
+        ],
+        "modelVersion": "2026-11-05.nhl-manpower.1",
+        "evidenceQuality": "partial",
+        "scoringPartial": true,
+        "liveUpdateRejected": false,
+        "momentumPoints": 4,
+        "teams": [
+          [
+            "UTSA Roadrunners",
+            "UTSA",
+            "29",
+            "",
+            "",
+            "7-1",
+            null,
+            "UTSA",
+            "2636"
+          ],
+          [
+            "Florida Atlantic Owls",
+            "FAU",
+            "57",
+            "",
+            "",
+            "5-3",
+            null,
+            "FAU",
+            "2226"
+          ]
+        ],
+        "pregameBaseline": {
+          "calibration": "2026-10-31.football-pregame.1",
+          "source": "observed",
+          "score": 42,
+          "spread": 7,
+          "underdog": {
+            "side": "home",
+            "teamId": "2226",
+            "teamIndex": 0,
+            "teamName": "Florida Atlantic Owls",
+            "type": "spread",
+            "value": 7,
+            "strength": 0,
+            "activation": 0,
+            "description": "7-point underdog"
+          }
+        },
+        "live": {
+          "bonus": 0,
+          "winProbability": null,
+          "components": {
+            "probability": 0,
+            "situation": 0,
+            "pressure": 0,
+            "milestone": 0,
+            "eventShock": 0
+          },
+          "aggregation": {
+            "bonus": 0,
+            "probabilityPositive": 0,
+            "probabilityNegative": 0,
+            "driveFloor": 0,
+            "decisiveFloor": 0,
+            "competitiveSituation": 0,
+            "positiveBonus": 0,
+            "negativeBonus": 0
+          },
+          "sportImpact": {
+            "points": 0,
+            "note": "UTSA ball · 1st & 10 at UTSA 38 · UTSA 38",
+            "reasons": [],
+            "competitiveFloor": 0
+          }
+        },
+        "trajectoryScoring": {
+          "policyId": "live-owned-45-95-relevant-history-cfb-competition-opening-transition",
+          "adjustment": 0,
+          "effectivePositiveGate": 0,
+          "decisiveStrength": 0,
+          "protectedRating": null,
+          "floorBonus": 0
+        },
+        "historyOwnership": {
+          "relevance": {
+            "eventRetention": 1,
+            "marginCloseness": 0.19767645870489342,
+            "comebackViability": 0.6324841906468455,
+            "ledgerMatches": true,
+            "recovery": null,
+            "recoveryStrength": 0,
+            "eventReason": "Current competition history retained",
+            "recoveryReason": "No supported recent material recovery with viable current runway"
+          },
+          "allocation": {
+            "retention": 1,
+            "cap": 11,
+            "bucketCap": null,
+            "factors": [
+              {
+                "label": "Big win-chance swing",
+                "rawPoints": 4,
+                "relevantPoints": 4,
+                "retainedPoints": 4,
+                "relevanceReduction": 0,
+                "capReduction": 0
+              }
+            ]
+          },
+          "cfbRun": {
+            "side": "home",
+            "runPoints": 14,
+            "usefulPoints": 0,
+            "rawPoints": 4,
+            "points": 0,
+            "overlapDiscount": 4
+          },
+          "combinedPoints": 4,
+          "eventFactors": [
+            {
+              "label": "Big win-chance swing",
+              "points": 4
+            }
+          ],
+          "positiveLimitedByCaps": 0
+        },
+        "liveSurprise": {
+          "points": 12,
+          "market": {
+            "teamId": "2226",
+            "teamName": "Florida Atlantic Owls",
+            "side": "home",
+            "spread": 7,
+            "probability": 0.2949668357393679,
+            "source": "pregame market",
+            "reportedAt": null
+          },
+          "margin": 28
+        },
+        "liveRawStatus": {
+          "clock": 577,
+          "displayClock": "9:37",
+          "period": 4,
+          "type": {
+            "id": "2",
+            "name": "STATUS_IN_PROGRESS",
+            "state": "in",
+            "completed": false,
+            "description": "In Progress",
+            "detail": "9:37 - 4th Quarter",
+            "shortDetail": "9:37 - 4th"
+          }
+        },
+        "liveRawSituation": {
+          "lastPlay": {
+            "id": "401862817852",
+            "type": {
+              "id": "24",
+              "text": "Pass Reception",
+              "abbreviation": "REC"
+            },
+            "text": "(10:15) Shotgun #11 B.Tennison pass complete short middle to #86 I.Butler-Tanner caught at UTS38, for 7 yards to the UTS38 (#18 J.Sipp Jr.), 1ST DOWN",
+            "scoreValue": 0,
+            "team": {
+              "id": "2636"
+            },
+            "probability": {
+              "tiePercentage": 0,
+              "homeWinPercentage": 0.9983,
+              "awayWinPercentage": 0.0017000000000000348,
+              "secondsLeft": 607
+            }
+          },
+          "down": 1,
+          "yardLine": 62,
+          "distance": 10,
+          "downDistanceText": "1st & 10 at UTSA 38",
+          "shortDownDistanceText": "1st & 10",
+          "possessionText": "UTSA 38",
+          "isRedZone": false,
+          "homeTimeouts": 0,
+          "awayTimeouts": 1,
+          "possession": "2636"
+        }
+      },
+      "inputEvidence": {
+        "duplicatesRemoved": 0,
+        "conflictingEvents": 0,
+        "futureEventsExcluded": 0,
+        "staleEventRevisionsIgnored": 26,
+        "canonicalBoundary": {
+          "period": 4,
+          "clock": "9:37",
+          "playId": "401862817852"
+        }
+      }
+    }
+  ]
+}

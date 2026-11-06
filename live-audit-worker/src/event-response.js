@@ -1,6 +1,7 @@
 // Observed event/rating associations only: no synthetic event or publication times.
 import {eventKinds} from './evidence.js';
-const number=v=>v===null||v===undefined||v===''||!Number.isFinite(Number(v))?null:Number(v);
+import {auditNumber} from './rating-evidence.js';
+const number=auditNumber;
 const stamp=v=>typeof v==='number'?number(v):typeof v==='string'&&Number.isFinite(Date.parse(v))?Date.parse(v):null;
 const reg={NFL:4,CFB:4,NBA:4,NCAAB:2,NHL:3,MLB:9};
 const margin=p=>p?.scores?.length===2&&p.scores.every(Number.isFinite)?Math.abs(p.scores[0]-p.scores[1]):null;

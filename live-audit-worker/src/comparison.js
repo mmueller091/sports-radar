@@ -1,5 +1,6 @@
 // Comparisons require observed context, distinct games and one model version.
-const n=v=>v===null||v===undefined||v===''||!Number.isFinite(Number(v))?null:Number(v);
+import {auditNumber,normalizeAuditRating} from './rating-evidence.js';
+const n=auditNumber;
 const parse=v=>{try{return typeof v==='string'?JSON.parse(v):v||{};}catch{return {};}};
 const seconds=v=>{const m=/^(\d+):(\d{2})(?:\.\d+)?$/.exec(String(v??''));return m&&+m[2]<60?+m[1]*60+ +m[2]:null;};
 function context(game,quality={}){
@@ -44,7 +45,8 @@ export function compareGameStates(game,peers=[],modelVersion=game.modelVersion){
     }
     if(mismatch){reject('context-mismatch');continue;}
     if(dimensions.length<2){reject('context-unavailable');continue;}
-    const rating=n(row.rating??g.score);if(rating===null){reject('rating');continue;}
+    const normalizedRating=normalizeAuditRating(row.rating??g.score,g),rating=normalizedRating.rating;
+    if(rating===null||normalizedRating.malformed){reject('rating');continue;}
     const candidate={gameKey:key,rating,observedAt:row.observed_at??row.observedAt??null,modelVersion:model,period:pp,clockSeconds:pc,
       clockDistanceSeconds:Math.abs(pc-clock),margin:pm,matchedDimensions:['sport','model','lifecycle','period','clock','margin',...dimensions],
       matchQuality:dimensions.length>=5?'close':'partial',missingDimensions:[...missing]};

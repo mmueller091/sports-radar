@@ -22,6 +22,7 @@ function gameCard(g,findings) {
   left.append(node('div','sub',`${g.sport} · ${g.observations} observations · ${fmt(g.first_seen)} to ${fmt(g.last_seen)}`));
   row.append(left,node('span',associated.length?'badge medium':'badge',associated.length?`${associated.length} finding${associated.length===1?'':'s'}`:'No findings'));
   card.append(row,node('div','detail',`Rating range ${g.min_rating}–${g.peak_rating} · Latest recorded ${s.score ?? '—'} · ${(s.teams || []).map(t=>t?.[2] ?? '—').join('–')}`));
+  if(g.legacy_unavailable_rating_rows>0)card.append(node('div','evidence',`${g.legacy_unavailable_rating_rows} legacy unavailable rating row(s) excluded from this range; original row values remain retained.`));
   if(associated.length)card.append(node('div','evidence',associated.map(f=>String(f.reason_code || '').replaceAll('_',' ')).join(' · ')));
   return card;
 }
@@ -42,7 +43,7 @@ async function refresh() {
     $('games-checked').textContent=run.games_checked ?? '—';$('checks-completed').textContent=run.checks_completed ?? '—';
     $('clean-games').textContent=run.clean_games ?? '—';$('active-findings').textContent=data.activeUnresolvedCount ?? 0;
     clear($('findings'));if(active.length)active.forEach(f=>$('findings').append(findingCard(f)));else empty($('findings'),'No active anomalies.');
-    $('night-summary').textContent=`${post.distinctGames || 0} distinct games · ${post.scans || 0} scheduled scans · ${post.checksCompleted || 0} checks · ${history.filter(f=>f.status==='opened').length} findings opened`;
+    $('night-summary').textContent=`${post.distinctGames || 0} distinct games · ${post.scans || 0} scheduled scans · ${post.checksCompleted ?? 'unavailable'} checks · ${history.filter(f=>f.status==='opened').length} findings opened`;
     clear($('games'));if(post.gameSummaries?.length)post.gameSummaries.forEach(g=>$('games').append(gameCard(g,[...byReason.values()])));else empty($('games'),'No live games have been audited on this night yet. Inactive slates are skipped.');
     clear($('history'));if(history.length)history.forEach(f=>$('history').append(findingCard(f)));else empty($('history'),'No confirmed finding events recorded on this night.');
   } catch(error){$('status-dot').classList.add('warn');$('status').textContent='Dashboard data unavailable';$('updated').textContent=String(error)}
@@ -65,6 +66,7 @@ function observationLink(key,model,text='Supporting observations'){
 }
 function qualityCard(r){
   const card=node('article','finding');
+  if(r.priority)card.append(node('span',`badge ${['critical','high','medium','low'].includes(r.priority)?r.priority:'low'}`,`${String(r.priority).toUpperCase()} PRIORITY`));
   card.append(node('div','title',`${r.matchup||r.gameKey} \u00b7 rating ${r.rating??'unavailable'} \u00b7 ${(r.scores||[]).join('-')}`));
   card.append(node('div','sub',`${r.gameKey} \u00b7 ${fmt(r.observedAt)} \u00b7 period ${r.period??'?'}, ${r.clockSeconds??'?'}s \u00b7 ${r.modelVersion}`));
   card.append(node('div','detail',`${label(r.classification)} \u00b7 ${r.confidence||'unknown'} confidence. ${r.suspectedCause||r.whyInvestigate||r.reason||''}`));
@@ -97,8 +99,10 @@ function renderQuality(q,el,date){
     for(const r of q.historicalFindingReview){const card=node('article','finding');card.append(node('div','title',`${r.gameKey} \u00b7 ${r.reasonCode}`),node('div','detail',`${label(r.classification)}. ${r.reason||r.detail||''}`),evidenceDetails('Supporting evidence',r));history.append(card);}
   }
   const priorities=qualitySection(el,'quality-priority','High-priority scoring-quality concerns');
-  const priority=recommendations.filter(r=>['confirmed_defect','strong_calibration_concern','calibration_hypothesis'].includes(r.classification));
-  if(priority.length)priority.slice(0,10).forEach(r=>priorities.append(qualityCard(r)));else empty(priorities,'No supported high-priority scoring change. Evidence gaps and investigation tasks remain below.');
+  const concerns=recommendations.filter(r=>['confirmed_defect','strong_calibration_concern','calibration_hypothesis'].includes(r.classification));
+  const priority=concerns.filter(r=>['critical','high'].includes(r.priority));
+  if(priority.length)priority.slice(0,10).forEach(r=>priorities.append(qualityCard(r)));else empty(priorities,'No critical/high-priority scoring concerns in retained evidence. Other investigations and evidence gaps remain below.');
+  if(concerns.length>priority.length)priorities.append(node('p','evidence',`${concerns.length-priority.length} additional scoring concerns have medium/low or unassigned priority and remain in Recommended investigations.`));
   for(const [id,title,items] of [['quality-over','Potentially overrated games',q.topOverrated||[]],['quality-under','Potentially underrated games',q.topUnderrated||[]]]){
     const section=qualitySection(el,id,title);if(items.length)items.forEach(r=>section.append(qualityCard(r)));else empty(section,'No supported candidates; coverage may be incomplete.');
   }
@@ -135,7 +139,9 @@ function renderQuality(q,el,date){
   }
   if(!(q.modelCohorts||[]).length)empty(calibration,'No retained live observations. All sport calibration metrics are unavailable.');
   const evidence=qualitySection(el,'quality-evidence','Evidence coverage and limitations');
-  evidence.append(node('p','evidence','Complete, partial, invalid and unavailable describe the retained evidence. Legacy snapshots are not relabeled as complete. Refresh start and acquisition timestamps do not establish provider publication latency.'),evidenceDetails('Coverage counts',q.evidenceCoverage||{unavailable:'No structured coverage report'}),evidenceDetails('Missing evidence by game and model',q.missingEvidence||[]));
+  const coverage=q.evidenceCoverage||{};
+  evidence.append(node('p','detail',`Usable scoring observations: ${valueText(coverage.usableScoringObservations)} / ${valueText(coverage.totalObservations)}. Complete score-progression evidence: ${valueText(coverage.completeScoreProgressionObservations)}. Complete contextual observations: ${valueText(coverage.completeContextualObservations)}.`));
+  evidence.append(node('p','evidence','Complete contextual evidence requires the stricter situation, market and team-quality fields. A partial context record can still have a usable rating and score progression. Lightweight trajectory completeness and flagged diagnostic detail are separate export coverage measures. Refresh start and acquisition timestamps do not establish provider publication latency.'),evidenceDetails('Contextual and usable evidence counts',coverage),evidenceDetails('Missing evidence by game and model',q.missingEvidence||[]));
   const retrospectiveResponses=responses.filter(e=>e.event?.retrospective);
   evidence.append(node('p','evidence',`Retrospective event associations: ${retrospectiveResponses.length}; with provider event wallclock: ${retrospectiveResponses.filter(e=>Number.isFinite(e.eventTimestamp??e.event?.occurredAt)).length}. Missing-timestamp counts describe original historical observations. Later-cache events are separate evidence and never backfill those observations.`));
   const investigation=qualitySection(el,'quality-recommendations','Recommended investigations');

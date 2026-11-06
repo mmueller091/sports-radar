@@ -39,7 +39,13 @@
     const secondsRemaining = Math.max(0,(1-p)*3600);
     const twoGoalRunway = 1.6*(1-Math.exp(-Math.pow(secondsRemaining/500,1.8))) *
       Math.exp(-Math.pow(Math.max(0,goals-2)/.32,2)) * thirdRamp;
-    const runway = 2.1 - 1.85 * p + extra + twoGoalRunway;
+    // Production-only carry into the existing third-period runway. A two-goal
+    // lead with a full period left is not already a late, decided game. The
+    // compact margin window leaves tied/one-goal and three-plus-goal states
+    // exact; the time fade is gone well before endgame manpower urgency.
+    const midgameRunway = situation.midgameRunway === true
+      ? 1.5*(1-thirdRamp)*Math.pow(Math.max(0,1-Math.pow(goals-2,2)),2) : 0;
+    const runway = 2.1 - 1.85 * p + extra + twoGoalRunway + midgameRunway;
     return .9 * Math.exp(-Math.pow(goals - 1,1.35) / runway);
   }
 
@@ -461,10 +467,12 @@
     const scores = teams.map(team => Number(team[2]));
     const trailing = scores.length === 2 && scores[0] !== scores[1]
       ? String(teams[scores[0] < scores[1] ? 0 : 1][8] || '') : '';
-    const marginClose=nhlLiveMarginCloseness(gap,progress,{
+    const manpower={
       trailingGoaliePulled:Boolean(trailing && goaliePull.teamId === trailing),
       trailingPowerPlay:Boolean(trailing && state?.powerPlayTeamId === trailing)
-    });
+    };
+    const midgameRunway=context?.nhlMidgameRunway === true;
+    const marginClose=nhlLiveMarginCloseness(gap,progress,{...manpower,midgameRunway});
     const seconds=context?.nhlAllocation ? hockeyLiveTiming(null,context.competition,context.summary).seconds
       : clockSeconds(context?.competition?.status);
     const finalMinute=Number(context?.competition?.status?.period) === 3 && seconds !== null
@@ -472,6 +480,10 @@
     const twoGoalWeight=Math.exp(-Math.pow((Number(gap)-2)/.32,2));
     const lateTwoGoalPenalty=Math.round(3*finalMinute*finalMinute*(3-2*finalMinute)*twoGoalWeight);
     return gameState === 'live' ? {marginClose,minimumComebackViability:gap === 1 ? .82 : 0,
+      // This changes present competition, not the already-calibrated retained
+      // postseason-stakes budget. Do not spend the improved curve twice.
+      ...(midgameRunway ? {comebackViability:Math.max(
+        Math.sqrt(nhlLiveMarginCloseness(gap,progress,manpower)),gap === 1 ? .82 : 0)} : {}),
       // Avoid the generic integer-margin penalty reintroducing a cliff at 3.
       widePenalty:gap == null || !Number.isFinite(gap) ? 0 :
         Math.round(20*progress*(1-marginClose)*Math.min(1,Math.max(0,gap-1)/4))+lateTwoGoalPenalty}

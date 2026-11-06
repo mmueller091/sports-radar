@@ -73,14 +73,10 @@
     return {offense,defense,deficit:Number(defense.score)-Number(offense.score),position};
   }
 
-  function cfbClockRunway(competition,situation=competition?.situation) {
-    const seconds = clockSeconds(competition?.status);
-    const possession = cfbPossession(competition,situation);
-    if (Number(competition?.status?.period) !== 4 || seconds === null || seconds < 0 || seconds > 900 || !possession) return null;
+  function cfbRunwayForPossession(competition,situation,seconds,possession,down=Number(situation?.down)) {
     const {offense,defense,deficit,position} = possession;
     const trailing = deficit >= 0 ? offense : defense;
     const timeouts = footballTimeouts(competition,situation,trailing);
-    const down = Number(situation?.down);
     let remaining = seconds;
     let offensiveTimeouts = timeouts ?? 0;
     if (deficit < 0) {
@@ -106,6 +102,61 @@
     const expectedPossessions = remaining <= 0 ? 0 : Math.min(paceBudget,
       Math.min(1,usable/driveSeconds) + Math.max(0,usable-driveSeconds)/145);
     return {remaining,timeouts,offensiveTimeouts,expectedPossessions:expectedPossessions*(deficit < 0 ? .78 : 1),driveSeconds};
+  }
+
+  function cfbPostScoreRunway(competition,situation,seconds) {
+    const status=competition?.status || {},play=situation?.lastPlay,teams=competition?.competitors || [];
+    // A cleared possession during a structured scoring/kickoff transition is
+    // not evidence that the opponent lost a scoring opportunity. Ordinary
+    // missing possession still supplies no drive or conditional-runway credit.
+    if (seconds <= 0 || status.timingUncertain || status.type?.state !== 'in' || status.type?.completed ||
+        situation?.possession != null && situation.possession !== '' || Number(situation?.down) !== -1 ||
+        teams.length !== 2 || teams.some(t=>t.score == null || t.score === '' || typeof t.score === 'boolean' ||
+          !Number.isInteger(Number(t.score)) || Number(t.score)<0) || !play?.id) return null;
+    const kind=String(play.type?.text || play.scoringType?.name || ''),value=play.scoreValue;
+    const points=value == null || value === '' || typeof value === 'boolean' ? null : Number(value);
+    const touchdown=points===6 && /touchdown|^td$/i.test(kind);
+    const tryAttempt=(/extra[ -]point|\bpat\b/i.test(kind) && [0,1].includes(points)) ||
+      (/two[ -]point|2[ -]point/i.test(kind) && [0,2].includes(points));
+    const kickoff=points===0 && /^kickoff$/i.test(kind);
+    if (!(touchdown || tryAttempt || kickoff) ||
+        tryAttempt && /missed|failed|blocked|unsuccessful/i.test(kind) && points!==0 ||
+        tryAttempt && /\bgood\b|\bsuccessful\b/i.test(kind) && points===0 ||
+        tryAttempt && /defensive|intercept|return/i.test(`${kind} ${play.text || ''}`) ||
+        /on[ -]?side|recover|fumble|muff|overturn|nullif|no play|no touchdown|safety/i.test(`${kind} ${play.text || ''}`)) return null;
+    const scorer=teams.find(t=>footballCompetitorId(t)===String(play.team?.id || ''));
+    const opponent=teams.find(t=>t!==scorer);
+    // A trailing scorer is about to kick. Do not silently grant it an onside
+    // recovery or a new offensive possession. The tied-game model is unchanged.
+    if (!scorer || !opponent || !footballCompetitorId(scorer) || !footballCompetitorId(opponent) ||
+        footballCompetitorId(scorer)===footballCompetitorId(opponent) || Number(scorer.score)<=Number(opponent.score) ||
+        footballTimeouts(competition,situation,opponent)===null) return null;
+    if ((touchdown || tryAttempt) && Number(scorer.score)<6+(tryAttempt?points:0)) return null;
+    if (play.period != null && Number(play.period?.number ?? play.period)!==Number(status.period)) return null;
+    if (play.clock != null && clockSeconds({displayClock:play.clock?.displayValue,clock:play.clock?.value})!==seconds) return null;
+    const namedClock=String(play.text || '').match(/^\((\d{1,2}):(\d{2})\)/);
+    if (namedClock && Number(namedClock[1])*60+Number(namedClock[2])!==seconds) return null;
+    if (teams.some(t=>play[`${t.homeAway}Score`] != null && Number(play[`${t.homeAway}Score`])!==Number(t.score))) return null;
+    // Bound unknown kickoff control with the existing first-down runway model.
+    // Neither case is an observed possession or field position. The neutral
+    // midpoint avoids treating missing data as either a stop or a guaranteed
+    // receiving drive; known leader/trailer states retain their exact formulas.
+    const gap=Number(scorer.score)-Number(opponent.score);
+    const leader=cfbRunwayForPossession(competition,situation,seconds,{offense:scorer,defense:opponent,deficit:-gap,position:null},1);
+    const trailer=cfbRunwayForPossession(competition,situation,seconds,{offense:opponent,defense:scorer,deficit:gap,position:null},1);
+    return {expectedPossessions:(leader.expectedPossessions+trailer.expectedPossessions)/2,
+      source:'conditional-post-score',possessionKnown:false,
+      opportunityBounds:{leaderNext:leader.expectedPossessions,trailerNext:trailer.expectedPossessions},
+      evidence:{playId:String(play.id),...(kickoff?{kickingTeamId:footballCompetitorId(scorer)}:{scoringTeamId:footballCompetitorId(scorer)}),
+        period:Number(status.period),clockSeconds:seconds}};
+  }
+
+  function cfbClockRunway(competition,situation=competition?.situation) {
+    const seconds = clockSeconds(competition?.status);
+    if (Number(competition?.status?.period) !== 4 || seconds === null || seconds < 0 || seconds > 900) return null;
+    const possession = cfbPossession(competition,situation);
+    return possession ? cfbRunwayForPossession(competition,situation,seconds,possession)
+      : cfbPostScoreRunway(competition,situation,seconds);
   }
 
   function cfbDriveFeasibility(competition,situation=competition?.situation) {

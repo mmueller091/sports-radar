@@ -1,10 +1,12 @@
+import {auditAnalysisGameAllowed,auditKeyAllowed} from './scope.js';
 import {compareGameStates,classifySourceErrors} from './comparison.js';
+import {normalizeAuditRating} from './rating-evidence.js';
 // Reinterpretation is additive: original findings and recovery events are immutable.
 export function reviewHistoricalFindings(data){
-  const games=data.games||[],byKey=new Map(games.map(g=>[g.gameKey,g]));
+  const games=(data.games||[]).filter(auditAnalysisGameAllowed),byKey=new Map(games.map(g=>[g.gameKey,g]));
   const peerRows=games.flatMap(g=>(g.observations||[]).map(o=>({game_key:g.gameKey,rating:o.rating,observed_at:o.observedAt,
     evidence:{state:o.state,scoringVersion:o.scoringVersion,qualityEvidence:o.qualityEvidence}})));
-  return (data.findings||[]).map(f=>{
+  return (data.findings||[]).filter(f=>auditKeyAllowed(f.gameKey)).map(f=>{
     const game=byKey.get(f.gameKey),at=f.firstSeen,obs=game?.observations?.find(o=>o.observedAt===at)||
       game?.observations?.find(o=>o.auditCandidates?.some(c=>c.reasonCode===f.reasonCode));
     const result={gameKey:f.gameKey,reasonCode:f.reasonCode,originalClassification:f.classification,originalStatus:f.status,
@@ -12,7 +14,16 @@ export function reviewHistoricalFindings(data){
       reason:f.deterministic?'Deterministic integrity failure remains actionable':'Historical heuristic retained; its original evidence is not proof of a scoring defect',
       supportingObservations:obs?[{gameKey:f.gameKey,observedAt:obs.observedAt,modelVersion:obs.scoringVersion}]:[],
       evidence:null};
-    if(f.reasonCode==='SIMILAR_STATE_OUTLIER'&&obs?.state){
+    const current=obs?normalizeAuditRating(Object.hasOwn(obs,'rawRating')?obs.rawRating:obs.rating,obs.state):null;
+    const preceding=obs?(game.observations||[]).filter(o=>o.observedAt<obs.observedAt).sort((a,b)=>b.observedAt-a.observedAt)[0]:null;
+    const previous=preceding?normalizeAuditRating(Object.hasOwn(preceding,'rawRating')?preceding.rawRating:preceding.rating,preceding.state):null;
+    const coercion=f.reasonCode==='RATING_OUT_OF_RANGE'?current?.legacyNullCoercion:
+      ['UNEXPLAINED_DROP','UNEXPLAINED_RISE'].includes(f.reasonCode)&&(current?.legacyNullCoercion||previous?.legacyNullCoercion);
+    if(coercion){
+      result.classification='audit_collection_error';
+      result.reason='Legacy audit coerced an unavailable canonical rating to zero. No numeric rating change across the unavailable state is established; original finding and raw evidence are preserved.';
+      result.evidence={current,previous,rawEvidencePreserved:true,productionZeroEstablished:false};
+    }else if(f.reasonCode==='SIMILAR_STATE_OUTLIER'&&obs?.state){
       const comparison=compareGameStates({...obs.state,modelVersion:obs.scoringVersion},peerRows,obs.scoringVersion);
       result.evidence=comparison;result.classification=comparison.available?'calibration_hypothesis':'insufficient_evidence';
       result.reason=comparison.available?'Matched peers are available; investigate context before inferring over/underrating':
@@ -32,7 +43,9 @@ export function reviewHistoricalFindings(data){
       if(review){
         result.evidence=review;
         if(review.findings?.some(x=>x.reasonCode===f.reasonCode)){
-          result.classification='data_quality_limitation';result.reason='The later retained provider revision still exhibits this anomaly; inspect source corrections and ordering before blaming scoring.';
+          result.classification='data_quality_limitation';result.reason=f.reasonCode==='TIMELINE_SCORE_ROLLBACK'&&review.diagnostics?.nonScoringScoreInconsistencies?.length?
+            'Later cached non-scoring play metadata contains decreasing totals. This is not evidence that the canonical scoreboard or rating rolled backward; original warnings remain retained.':
+            'The later retained provider revision still exhibits this anomaly; inspect source corrections and ordering before blaming scoring.';
         }else if(f.reasonCode==='TIMELINE_SCORE_ROLLBACK'&&review.diagnostics?.shootoutTransitions?.length){
           result.classification='expected_behavior';result.reason='Later retained provider plays explicitly switch from regulation/OT totals to shootout attempt totals. This explains the observed warning pattern; the exact original cached revision is unavailable.';
         }else if(f.reasonCode==='TIMELINE_CLOCK_ORDER'&&Object.values(review.diagnostics?.clockEvidence||{}).some(e=>e.mode==='elapsed')){

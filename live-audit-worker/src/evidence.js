@@ -1,8 +1,16 @@
 // Audit-only extraction from already retained canonical data. No I/O or scoring.
-const number=v=>v===null||v===undefined||v===''||!Number.isFinite(Number(v))?null:Number(v);
+import {auditNumber} from './rating-evidence.js';
+const number=auditNumber;
 const time=v=>typeof v==='number'?number(v):typeof v==='string'&&Number.isFinite(Date.parse(v))?Date.parse(v):null;
 const pick=(o,keys)=>Object.fromEntries(keys.filter(k=>o?.[k]!==undefined).map(k=>[k,o[k]]));
 const clock=v=>{const m=/^(\d+):(\d{2})(?:\.\d+)?$/.exec(String(v??''));return m&&+m[2]<60?+m[1]*60+ +m[2]:null;};
+export function shootoutPeriodsFor(plays=[],sport){
+  // A period explicitly identified anywhere in this same retained provider
+  // revision supplies context to ordinary shot rows that omit the phase label.
+  // Never infer a shootout from period number alone: playoff 2OT is period five.
+  return new Set(sport==='NHL'?plays.filter(p=>/shootout|\bSO\b/i.test(JSON.stringify([p.period,p.type,p.text])))
+    .map(p=>number(p.period?.number)).filter(p=>p!==null&&p>3):[]);
+}
 export function timelineClockEvidence(plays=[],sport){
   const counts=new Map();
   for(let i=1;i<plays.length;i++){
@@ -31,7 +39,7 @@ export function eventKinds(play,sport){
 }
 export function extractRetainedProviderEvents(summary={},sport,{source=null,cachedAt=null,reviewedAt=null}={}){
   const plays=Array.isArray(summary?.plays)?summary.plays:[],clocks=timelineClockEvidence(plays,sport),byId=new Map();
-  const shootoutPeriods=new Set(sport==='NHL'?plays.filter(p=>/shootout|\bSO\b/i.test(JSON.stringify([p.period,p.type,p.text]))).map(p=>number(p.period?.number)):[]);
+  const shootoutPeriods=shootoutPeriodsFor(plays,sport);
   for(const play of plays){
     if(!play?.id)continue;
     const kinds=eventKinds(play,sport);if(!kinds.length)continue;
@@ -92,14 +100,20 @@ export function captureEvidenceDetails(game={},options={}){
     {total:calculation.total,modelVersion:calculation.modelVersion,rows:calculation.rows?.slice(0,80),source:'canonical-feed-calculation'}:null;
   const structured=Boolean(game.evidenceQuality||game.liveRawSituation||game.inputEvidence||game.live?.aggregation);
   const invalid=Boolean(game.evidenceQuality==='invalid'||game.detailStale||game.timingUncertain||game.liveUpdateRejected||game.basketballUpdateRejected||game.summaryLifecycleRejected||game.scoringHistoryRejected);
+  const manpowerUnverified=sport==='NHL'&&(invalid||game.scoringPartial===true||
+    (game.evidenceReasons||[]).some(reason=>/summary.unavailable|summary.*(?:reject|stale|mismatch)/i.test(String(reason))));
   return {timestampKind:'canonical-refresh-start',canonicalRefreshStartedAt:reference,canonicalPublishedAt:null,
     providerPublication:null,providerPublicationLatencyMs:null,
     scoreProgressionQuality:game.evidenceQuality??null,
     retainedEvidenceStatus:invalid?'invalid':structured?'partial':'unavailable',
     completenessScope:'Producer complete describes score progression; it does not certify event, possession, market or pressure coverage',
     evidenceReasons:game.evidenceReasons?.slice?.(0,12)??null,evidenceCoverage:game.evidenceCoverage??null,
-    ...(typeof manpower?.pulled==='boolean'&&scores.length===2&&scores[0]!==scores[1]?{goaliePulled:manpower.pulled,goalieEvidenceSource:'canonical-scoring-manpower',goalieEvidenceScope:'trailing-team only; other goalie status unknown'}:{}),
-    manpower:manpower?pick(manpower,['pulled','powerPlay','advantage']):null,
+    ...(manpowerUnverified?{goaliePulled:null,powerPlayTeamId:null,goalieEvidenceSource:'unverified-summary',
+      goalieEvidenceScope:'Scorer fallback is not an observation that a goalie returned'}:
+      typeof manpower?.pulled==='boolean'&&scores.length===2&&scores[0]!==scores[1]?{goaliePulled:manpower.pulled,goalieEvidenceSource:'canonical-scoring-manpower',goalieEvidenceScope:'trailing-team only; other goalie status unknown'}:{}),
+    manpower:manpower&&!manpowerUnverified?pick(manpower,['pulled','powerPlay','advantage']):null,
+    manpowerEvidenceStatus:manpowerUnverified?'unverified':manpower?'retained-canonical':'unavailable',
+    reportedManpower:manpower?pick(manpower,['pulled','powerPlay','advantage']):null,
     components:{baseScore:number(game.baseScore),openingScore:number(game.openingScore),liveBonus:number(game.live?.bonus),
       momentumPoints:number(game.momentumPoints),trajectoryAdjustment:number(game.trajectoryScoring?.adjustment),
       aggregation:game.live?.aggregation??null,sportImpact:game.live?.sportImpact??null,

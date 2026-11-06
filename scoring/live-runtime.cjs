@@ -18,8 +18,8 @@ const footballLive=require('./football-live.cjs');
 const footballMarket=require('./football-market.cjs');
 const integrity=require('./snapshot-integrity.cjs');
 const gameFacts=require('./game-facts.cjs');
-const PRODUCTION_POLICY = Object.freeze({...LIVE_POLICY,id:LIVE_POLICY.id+'-opening-transition',footballTransition:true,openingTransition:true});
-const MODEL_VERSION = '2026-11-05.nhl-manpower.1';
+const PRODUCTION_POLICY = Object.freeze({...LIVE_POLICY,id:LIVE_POLICY.id+'-opening-transition',footballTransition:true,openingTransition:true,nhlMidgameRunway:true});
+const MODEL_VERSION = '2026-11-06.scoring-audit.1';
 
 function describeCfbQualitySoFar(game,current,summary) {
   delete game.gameQualitySoFar;

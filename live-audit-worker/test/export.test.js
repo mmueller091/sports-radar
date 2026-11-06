@@ -4,6 +4,7 @@ import fs from 'node:fs';
 import worker from '../src/index.js';
 import {buildNightlyExport,defaultSlateDate,slateDateNY,retainedObservation,qualitySummary} from '../src/export.js';
 import {zipEntries} from '../src/zip.js';
+import {AUDIT_SPORTS} from '../src/scope.js';
 
 const date='2026-11-03';
 const a=Date.parse('2026-11-03T21:03:00Z'),b=Date.parse('2026-11-04T05:03:00Z');
@@ -96,6 +97,8 @@ test('nightly ZIP contains clean and flagged games, history, and no secrets',asy
   assert.equal((await worker.fetch(new Request(`https://audit.example/export?date=${date}`),env)).status,401);
   const quality=await worker.fetch(new Request(`https://audit.example/quality?date=${date}`,{headers:{Authorization:'Bearer fixture-password'}}),env);
   assert.equal(quality.status,200);
-  const result=await quality.json();assert.equal(result.dateNewYork,date);assert.equal(result.scoringQuality.calibration.length,8);
+  const result=await quality.json();assert.equal(result.dateNewYork,date);
+  assert.deepEqual(new Set(result.scoringQuality.calibration.map(row=>row.sport)),new Set(AUDIT_SPORTS));
+  assert.ok(!result.scoringQuality.calibration.some(row=>row.sport==='Soccer'),'excluded sport never reappears in export calibration');
   assert.ok(data.scoringQuality);assert.match(summary,/## Scoring Quality/);
 });

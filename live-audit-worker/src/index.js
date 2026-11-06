@@ -1,3 +1,4 @@
+import {AUDIT_SCOPE_VERSION,auditGameAllowed,auditKeySql,observationScopeSql,auditSourceErrors,scopeEvidence,scopeFindingRows,scopedRunsSql,scopeRun} from './scope.js';
 import {auditGame,gameState,stateBucket,SPORTS,AUDIT_VERSION} from './audit.js';
 import {dashboardHtml,loginHtml} from './dashboard.js';
 import dashboardClient from './dashboard-client.generated.js';
@@ -124,8 +125,9 @@ export async function scan(env,now=Date.now()) {
   const runId=inserted.meta.last_row_id;
   try {
     const feed=await feedFromD1(env), feedAt=Date.parse(feed?.updatedAt || ''),age=now-feedAt;
-    const games=(feed?.games || []).filter(game=>game?.state==='live' && SPORTS.has(game.sport));
-    const active=new Map((await rows(env.DB.prepare("SELECT * FROM live_audit_findings WHERE status!='recovered' LIMIT 2000")))
+    const scopedGames=(feed?.games || []).filter(auditGameAllowed);
+    const games=scopedGames.filter(game=>game?.state==='live' && auditGameAllowed(game));
+    const active=new Map((await rows(env.DB.prepare(`SELECT * FROM live_audit_findings WHERE ${auditKeySql('game_key',true)} AND status!='recovered' LIMIT 2000`)))
       .map(row=>[`${row.game_key}|${row.reason_code}`,row]));
     const nhlResources=games.some(game=>game.sport==='NHL') ?
       (await rows(env.DB.prepare("SELECT key,payload,updated_at FROM sports_resources WHERE updated_at>? AND key LIKE '%/gamecenter/%/play-by-play' LIMIT 40")
@@ -134,7 +136,7 @@ export async function scan(env,now=Date.now()) {
     let checks=0;
     // Reuse the feed already read by this scan. Only findings are written;
     // pregame games do not enter live observations or calibration cohorts.
-    for(const game of (feed?.games||[]).filter(g=>['upcoming','live'].includes(g.state)&&SPORTS.has(g.sport))){
+    for(const game of (feed?.games||[]).filter(g=>['upcoming','live'].includes(g.state)&&auditGameAllowed(g))){
       const result=auditQualitativeContext(game),key=`${game.sport}:${game.id}`;
       scannedKeys.add(key);checks+=result.checks;
       for(const finding of result.findings)candidates.push({gameKey:key,finding,evidence:{state:compact(game),scoringVersion:game.modelVersion||feed.modelVersion,feedRevision:feed.revision,rawInputReferences:['sports_feed:1'],classification:finding.classification}});
@@ -143,7 +145,7 @@ export async function scan(env,now=Date.now()) {
       candidates.push({gameKey:'feed',finding:watchCandidate('FEED_STALE',{updatedAt:feed?.updatedAt || null,ageMs:age},
         'canonical feed refreshed within 9 minutes','Source publication is delayed'),
         evidence:{scoringVersion:feed?.modelVersion || null,rawInputReferences:['sports_feed:1']}});
-    const sourceErrorAssessment=classifySourceErrors(feed?.sourceErrors||[],feed?.games||[]);
+    const sourceErrorAssessment=classifySourceErrors(auditSourceErrors(feed?.sourceErrors||[]),scopedGames);
     if (games.length && (sourceErrorAssessment.active.length||sourceErrorAssessment.unknown.length))
       candidates.push({gameKey:'feed',finding:{...watchCandidate('SOURCE_ERRORS',{
         count:sourceErrorAssessment.total,active:sourceErrorAssessment.active.length,inactive:sourceErrorAssessment.inactive.length,
@@ -180,7 +182,7 @@ export async function scan(env,now=Date.now()) {
       const scoringVersion=game.modelVersion||feed?.modelVersion||null;
       const result=auditGame({...game,modelVersion:scoringVersion},prior?[prior]:[],peers,now,cross,summary);
       checks+=result.checks;
-      const evidence={at:now,state:compact(game),auditVersion:AUDIT_VERSION,
+      const evidence={at:now,state:compact(game),auditVersion:AUDIT_VERSION,auditScopeVersion:AUDIT_SCOPE_VERSION,
         qualityEvidence:captureQualityEvidence(game,{publishedAt:feedAt,observedAt:now,summary,summaryUpdatedAt:summaryRow?.updated_at,
           calculation:feed?.scoreCalculations?.[key],modelVersion:scoringVersion}),
         scoringVersion,modelAttribution:game.modelVersion?'canonical-game':'canonical-feed-fallback',
@@ -221,8 +223,8 @@ export async function scan(env,now=Date.now()) {
     // Bound per-scan observations; preserve finding and recovery events indefinitely.
     const clock=new Date(now);
     if (clock.getUTCHours()===0 && clock.getUTCMinutes()<3) {
-      await env.DB.prepare('DELETE FROM live_audit_observations WHERE observed_at<?').bind(now-14*86400000).run();
-      await env.DB.prepare('DELETE FROM live_audit_runs WHERE started_at<?').bind(now-14*86400000).run();
+      await env.DB.prepare(`DELETE FROM live_audit_observations WHERE ${observationScopeSql()} AND observed_at<?`).bind(now-14*86400000).run();
+      await env.DB.prepare('DELETE FROM live_audit_runs WHERE started_at<? AND NOT EXISTS (SELECT 1 FROM live_audit_observations o WHERE o.run_id=live_audit_runs.id)').bind(now-14*86400000).run();
     }
     return {runId,gamesChecked:games.length,checksCompleted:checks,cleanGames:games.length-flagged.size,
       flaggedGames:flagged.size,sourceFreshnessMs:age,alertsOpened:applied.events.filter(e=>e.event==='opened').length,
@@ -234,41 +236,47 @@ export async function scan(env,now=Date.now()) {
   }
 }
 async function report(env,date) {
-  const latest=await env.DB.prepare('SELECT * FROM live_audit_runs ORDER BY id DESC LIMIT 1').first();
+  const latest=await env.DB.prepare(`${scopedRunsSql()} ORDER BY r.id DESC LIMIT 1`).first();
   const lastSuccessful=await env.DB.prepare('SELECT finished_at FROM live_audit_runs WHERE error IS NULL AND finished_at IS NOT NULL ORDER BY id DESC LIMIT 1').first();
-  const unresolved=await rows(env.DB.prepare("SELECT * FROM live_audit_findings WHERE status IN ('open','recovering') ORDER BY last_seen DESC LIMIT 200"));
-  const games=latest?.id ? await rows(env.DB.prepare('SELECT game_key,evidence FROM live_audit_observations WHERE run_id=? ORDER BY game_key LIMIT 300').bind(latest.id)) : [];
-  const events=await rows(env.DB.prepare('SELECT at,game_key,reason_code,event,evidence FROM live_audit_events ORDER BY at DESC LIMIT 100'));
-  const output={latestRun:latest,lastSuccessfulScan:lastSuccessful?.finished_at || null,
+  const unresolved=scopeFindingRows(await rows(env.DB.prepare(`SELECT * FROM live_audit_findings WHERE ${auditKeySql('game_key',true)} AND status IN ('open','recovering') ORDER BY last_seen DESC LIMIT 200`)));
+  const games=latest?.id ? await rows(env.DB.prepare(`SELECT game_key,evidence FROM live_audit_observations WHERE ${observationScopeSql()} AND run_id=? ORDER BY game_key LIMIT 300`).bind(latest.id)) : [];
+  const events=scopeFindingRows(await rows(env.DB.prepare(`SELECT at,game_key,reason_code,event,evidence FROM live_audit_events WHERE ${auditKeySql('game_key',true)} ORDER BY at DESC LIMIT 100`)));
+  const output={latestRun:scopeRun(latest),lastSuccessfulScan:lastSuccessful?.finished_at || null,
     sourceFreshnessMs:latest?.feed_updated_at ? Date.now()-latest.feed_updated_at : null,
     activeUnresolvedCount:unresolved.length,
-    activeUnresolvedFindings:unresolved.map(row=>({...row,evidence:JSON.parse(row.evidence)})),
-    games:games.map(row=>({gameKey:row.game_key,evidence:JSON.parse(row.evidence)})),
-    recentAlertEvents:events.map(row=>({...row,evidence:JSON.parse(row.evidence)}))};
+    activeUnresolvedFindings:unresolved.map(row=>({...row,evidence:scopeEvidence(JSON.parse(row.evidence))})),
+    games:games.map(row=>({gameKey:row.game_key,evidence:scopeEvidence(JSON.parse(row.evidence))})),
+    recentAlertEvents:events.map(row=>({...row,evidence:scopeEvidence(JSON.parse(row.evidence))}))};
   if (date) {
     const next=new Date(Date.parse(`${date}T12:00:00Z`)+86400000).toISOString().slice(0,10);
     const start=newYorkMidnight(date),end=newYorkMidnight(next);
-    const runs=await rows(env.DB.prepare('SELECT * FROM live_audit_runs WHERE started_at>=? AND started_at<? ORDER BY id LIMIT 500').bind(start,end));
-    const dailyEvents=await rows(env.DB.prepare('SELECT at,game_key,reason_code,event,evidence FROM live_audit_events WHERE at>=? AND at<? ORDER BY at LIMIT 300').bind(start,end));
-    const gameSummaries=await rows(env.DB.prepare(`SELECT game_key,sport,COUNT(*) observations,MIN(rating) min_rating,
-      MAX(rating) peak_rating,MIN(observed_at) first_seen,MAX(observed_at) last_seen
-      FROM live_audit_observations WHERE observed_at>=? AND observed_at<? GROUP BY game_key,sport ORDER BY game_key LIMIT 300`)
+    const runs=await rows(env.DB.prepare(`${scopedRunsSql()} WHERE started_at>=? AND started_at<? ORDER BY r.id LIMIT 500`).bind(start,end));
+    const dailyEvents=scopeFindingRows(await rows(env.DB.prepare(`SELECT at,game_key,reason_code,event,evidence FROM live_audit_events WHERE ${auditKeySql('game_key',true)} AND at>=? AND at<? ORDER BY at LIMIT 300`).bind(start,end)));
+    // Interpret legacy collector coercion without rewriting retained rows. A
+    // genuine canonical numeric zero remains visible as an integrity failure.
+    const canonicalUnavailable="(json_type(evidence,'$.state.score')='null' OR (json_type(evidence,'$.state.score')='text' AND TRIM(json_extract(evidence,'$.state.score'))=''))";
+    const interpretedRating=`CASE WHEN ${canonicalUnavailable} THEN NULL ELSE rating END`;
+    const gameSummaries=await rows(env.DB.prepare(`SELECT game_key,sport,COUNT(*) observations,MIN(${interpretedRating}) min_rating,
+      MAX(${interpretedRating}) peak_rating,MIN(rating) raw_min_rating,MAX(rating) raw_peak_rating,
+      SUM(CASE WHEN rating=0 AND ${canonicalUnavailable} THEN 1 ELSE 0 END) legacy_unavailable_rating_rows,
+      MIN(observed_at) first_seen,MAX(observed_at) last_seen
+      FROM live_audit_observations WHERE ${observationScopeSql()} AND observed_at>=? AND observed_at<? GROUP BY game_key,sport ORDER BY game_key LIMIT 300`)
       .bind(start,end));
     const latestEvidence=await rows(env.DB.prepare(`SELECT o.game_key,o.evidence FROM live_audit_observations o
       JOIN (SELECT game_key,MAX(observed_at) last_at FROM live_audit_observations
-        WHERE observed_at>=? AND observed_at<? GROUP BY game_key) last
+        WHERE ${observationScopeSql()} AND observed_at>=? AND observed_at<? GROUP BY game_key) last
       ON last.game_key=o.game_key AND last.last_at=o.observed_at ORDER BY o.game_key LIMIT 300`).bind(start,end));
-    const evidenceByGame=new Map(latestEvidence.map(row=>[row.game_key,JSON.parse(row.evidence)]));
-    const historicalFindings=await rows(env.DB.prepare(`SELECT f.* FROM live_audit_findings f
-      WHERE f.first_seen<? AND f.last_seen>=? AND
+    const evidenceByGame=new Map(latestEvidence.map(row=>[row.game_key,scopeEvidence(JSON.parse(row.evidence))]));
+    const historicalFindings=scopeFindingRows(await rows(env.DB.prepare(`SELECT f.* FROM live_audit_findings f
+      WHERE ${auditKeySql('f.game_key',true)} AND f.first_seen<? AND f.last_seen>=? AND
       (f.status IN ('open','recovering') OR EXISTS
         (SELECT 1 FROM live_audit_events e WHERE e.game_key=f.game_key AND e.reason_code=f.reason_code AND e.event='opened'))
-      ORDER BY f.last_seen DESC LIMIT 300`).bind(end,start));
-    output.postSlate={dateNewYork:date,scans:runs.length,gamesChecked:runs.reduce((n,r)=>n+r.games_checked,0),
-      checksCompleted:runs.reduce((n,r)=>n+r.checks_completed,0),scanErrors:runs.filter(r=>r.error).map(r=>r.error),
+      ORDER BY f.last_seen DESC LIMIT 300`).bind(end,start)));
+    output.postSlate={dateNewYork:date,scans:runs.length,gamesChecked:runs.reduce((n,r)=>n+scopeRun(r).games_checked,0),
+      checksCompleted:runs.every(r=>scopeRun(r).checks_completed!==null)?runs.reduce((n,r)=>n+scopeRun(r).checks_completed,0):null,scanErrors:runs.filter(r=>r.error).map(r=>r.error),
       distinctGames:gameSummaries.length,gameSummaries:gameSummaries.map(row=>({...row,latestEvidence:evidenceByGame.get(row.game_key) || null})),
-      findings:historicalFindings.map(row=>({...row,evidence:JSON.parse(row.evidence)})),
-      events:dailyEvents.map(row=>({...row,evidence:JSON.parse(row.evidence)}))};
+      findings:historicalFindings.map(row=>({...row,evidence:scopeEvidence(JSON.parse(row.evidence))})),
+      events:dailyEvents.map(row=>({...row,evidence:scopeEvidence(JSON.parse(row.evidence))}))};
   }
   return output;
 }
@@ -296,8 +304,10 @@ export default {
     if (url.pathname==='/dashboard.js') return new Response(dashboardClient,{headers:{'content-type':'text/javascript; charset=utf-8',
       'cache-control':'public, max-age=3600','x-content-type-options':'nosniff'}});
     if (url.pathname==='/health') {
-      const latest=await env.DB.prepare('SELECT started_at,finished_at,error,games_checked,checks_completed FROM live_audit_runs ORDER BY id DESC LIMIT 1').first().catch(()=>null);
-      return json({ok:Boolean(latest?.finished_at && !latest.error),scheduledCron:'*/3 * * * *',latestRun:latest});
+      const latest=await env.DB.prepare(`${scopedRunsSql()} ORDER BY r.id DESC LIMIT 1`).first().catch(()=>null);
+      const scoped=scopeRun(latest);
+      const healthRun=scoped?Object.fromEntries(['started_at','finished_at','error','games_checked','checks_completed','countScope'].map(key=>[key,scoped[key]])):null;
+      return json({ok:Boolean(latest?.finished_at && !latest.error),auditVersion:AUDIT_VERSION,scheduledCron:'*/3 * * * *',latestRun:healthRun});
     }
     if (!['/report','/export','/export/dates','/quality'].includes(url.pathname)) return json({error:'Not found'},404);
     if (!await authorized(request,env))

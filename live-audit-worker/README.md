@@ -145,21 +145,46 @@ filenames and entries are preserved:
   recovery events, retained snapshot projections, scoring quality and coverage.
 
 The export is read-only, authenticated and secret-scrubbed. It does not rescore a
-game or update old findings. Every read snapshot retains its identity, row model,
-refresh bucket, rating, scores, period/clock, lifecycle and concise diagnostics.
-Quality analysis uses richer retained component evidence before archive
-compaction. Investigated changes retain before/after telemetry; exact D1 row
-references connect back to full `normalized_state` while it remains retained.
-The archive explicitly describes this projection: it is not a full raw-state
-dump. No rating row is removed by that compaction.
+game or update old findings. Lightweight SQL projections of all games' audit
+observations and scoring snapshots are read first. Each point retains its exact
+source timestamp, row model, rating, scores, period/clock, lifecycle, evidence
+flags and scalar scoring ledger. Large histories and duplicate event/component
+arrays cannot consume the budget before later-game trajectory points are read.
+Flagged observations, large changes and 85-crossing endpoints then receive
+bounded detailed projections. `diagnosticDetailCoverage` records requested,
+read, included and omitted detail rows separately from lightweight coverage.
+At most 100 requested detail rows per source/game are selected across their full
+time span, including the first/last requested endpoints when the cap permits.
+Full raw `normalized_state` remains in the exact referenced D1 row while retained.
+This is not a full raw-state dump. Archive compaction removes no included rating
+rows, and a missing detailed projection is not a missing collection observation.
 
 Snapshot reads have row and projected-byte budgets, including per-game limits.
-Current row ceilings are 2,000 per game and 20,000 per export; actual limits and
-reads appear in `sourceHealth.onDemandSnapshotReads`. Any exhausted bound is
-reported in `snapshotCoverage` and `coverageGaps`. Cached timeline reviews also
+The unchanged shared input ceiling is 36 MiB. Snapshot row ceilings remain 2,000
+per game and 20,000 per export, including additional snapshot detail reads;
+actual limits and reads appear in `sourceHealth.onDemandSnapshotReads`. The audit
+trajectory is also bounded to 2,000 rows per game. When a row/byte cap prevents
+complete lightweight coverage, the export preserves the retained time span and
+first/last endpoints when they fit, rather than returning an early-game prefix.
+`availableRows`, `rows`, `fullSpanPreserved`, `sampling` and `complete` make the
+difference explicit in `observationCoverage` and `snapshotCoverage`. A sampled
+trajectory is never called complete, and its intentionally omitted intervals
+are not reported as collector outages. Exported audit deltas and quality
+continuity are unavailable across omitted source rows; detailed upgrades retain
+those gap markers rather than reconnecting sampled endpoints.
+`metadata.trajectoryCoverageComplete`
+and `metadata.diagnosticDetailCoverageComplete` are separate measures. Cached
+timeline reviews also
 identify their revision/acquisition time; a later cache revision cannot prove the
 exact earlier provider payload. After retention expires, an export may preserve
 finding history without reconstructing the lost trajectory.
+
+The dashboard and summary reserve the high-priority scoring section for actual
+`critical`/`high` recommendations, excluding expected behavior. Medium/low and
+unassigned concerns remain in investigations with their real priority labels.
+Evidence counts distinguish usable scoring observations, complete producer
+score-progression evidence and the much stricter complete contextual evidence.
+Zero fully contextual records does not mean zero usable ratings.
 
 ## Local validation
 

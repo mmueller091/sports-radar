@@ -1,6 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {buildNightlyExport,retainedObservation,qualitySummary} from '../src/export.js';
+import {AUDIT_VERSION} from '../src/audit.js';
+import {AUDIT_SCOPE_VERSION} from '../src/scope.js';
 
 const at=Date.parse('2026-11-03T23:00:00Z');
 const snapshot=(i,model='a')=>({game_key:'NHL:test',observed_at:at+i*15000,state:i===449?'completed':'live',rating:70,
@@ -65,14 +67,16 @@ test('projection preserves exact audit diagnostics while archive compaction keep
  assert.match(data.metadata.retainedSnapshotProjection.limits,/no rating row is removed/);
 });
 
-test('projected byte budget bounds accumulated diagnostics and reports incomplete trajectories',async()=>{
+test('large unflagged diagnostics cannot displace the end of a lightweight trajectory',async()=>{
  const source=snapshot(0),raw=JSON.parse(source.normalized_state);raw.factors=[{label:'large retained factor '+ 'x'.repeat(8000),points:1}];
  const normalized_state=JSON.stringify(raw),snapshots=Array.from({length:1200},(_,i)=>({...snapshot(i),normalized_state}));
  const {data}=await buildNightlyExport({DB:db(snapshots)},'2026-11-03',{now:at+24*3600000});
- const game=data.games[0];assert.ok(game.retainedScoringObservations.length<1200);
- assert.ok(game.snapshotCoverage.projectedBytes<=8*1024*1024);assert.equal(game.snapshotCoverage.truncated,true);
- assert.match(game.snapshotCoverage.detail,/projected-byte/);assert.equal(data.metadata.complete,false);
- assert.ok(data.coverageGaps.some(g=>g.code==='SNAPSHOT_READ_LIMIT'));
+ const game=data.games[0];assert.equal(game.retainedScoringObservations.length,1200);
+ assert.ok(game.snapshotCoverage.projectedBytes<=8*1024*1024);assert.equal(game.snapshotCoverage.truncated,false);
+ assert.equal(game.retainedScoringObservations.at(-1).observedAt,at+1199*15000);
+ assert.equal(game.diagnosticDetailCoverage.snapshots.requestedRows,0);
+ assert.ok(!data.coverageGaps.some(g=>g.code==='SNAPSHOT_READ_LIMIT'));
+ assert.ok(!JSON.stringify(game.retainedScoringObservations).includes('x'.repeat(8000)));
 });
 
 test('shared input byte guard bounds paged audit evidence and snapshots without losing game keys',async()=>{
@@ -94,13 +98,13 @@ test('shared input byte guard bounds paged audit evidence and snapshots without 
  const budget=data.sourceHealth.onDemandInputReads;
  assert.deepEqual(data.games.map(g=>g.gameKey),keys);assert.equal(data.games[0].observations.length,300);
  assert.equal(data.games[0].retainedScoringObservations.length,500);
- assert.ok(data.games[1].observations.length<200);assert.equal(data.games[1].observationCoverage.truncated,true);
- assert.ok(data.games[1].observationCoverage.nextOmittedAt>=at);assert.equal(data.games[2].observations.length,1);
+ assert.equal(data.games[1].observations.length,200);assert.equal(data.games[1].observationCoverage.truncated,false);
+ assert.equal(data.games[1].observations.at(-1).observedAt,at+199*15000);assert.equal(data.games[2].observations.length,1);
  assert.ok(reads.every(n=>n<=100));assert.ok(budget.projectedBytes<=36*1024*1024);
  assert.equal(budget.projectedBytes,budget.auditObservationProjectedBytes+budget.scoringSnapshotProjectedBytes);
  assert.ok(budget.scoringSnapshotProjectedBytes>0);assert.equal(data.metadata.complete,false);
- assert.ok(data.coverageGaps.some(g=>g.gameKey===keys[1]&&g.code==='AUDIT_OBSERVATION_READ_LIMIT'));
- assert.match(data.games[1].observationCoverage.detail,/remain in D1/);assert.equal(observations[keys[1]].length,200);
+ assert.ok(!data.coverageGaps.some(g=>g.code==='AUDIT_OBSERVATION_READ_LIMIT'));
+ assert.equal(observations[keys[1]].length,200);assert.ok(!JSON.stringify(data.games[1].observations).includes('x'.repeat(80000)));
 });
 test('nightly summary exposes investigation sections and separate model calibration only',()=>{
  const text=qualitySummary({games:[],modelCohorts:[{modelVersion:'a',sports:[]},{modelVersion:'b',sports:[]}],
@@ -122,7 +126,7 @@ test('zero and invalid timestamp evidence stays explicit without fabricated publ
 });
 test('export suppresses cross-model deltas and preserves evidence interpretation fields',async()=>{
  const observations=[0,1].map(i=>({run_id:i+1,game_key:'NHL:test',observed_at:at+i*180000,slate_date:'2026-11-03',sport:'NHL',rating:50+i*40,
-  score_a:2,score_b:2,period:3,clock_seconds:60,evidence:JSON.stringify({scoringVersion:i?'new':'old',sourceFreshnessMs:0,feedUpdatedAt:0,
+  score_a:2,score_b:2,period:3,clock_seconds:60,evidence:JSON.stringify({auditVersion:AUDIT_VERSION,auditScopeVersion:AUDIT_SCOPE_VERSION,scoringVersion:i?'new':'old',sourceFreshnessMs:0,feedUpdatedAt:0,
   comparison:{sampleGames:3},timelineDiagnostics:{scoreRollbacks:0},modelAttribution:{kind:'game'},feedModelVersion:'feed',sourceErrorScope:{active:[]},
   state:{sport:'NHL',state:'live',id:'test',startTime:'2026-11-03T23:00:00Z'}})}));
  const {data}=await buildNightlyExport({DB:db([],{observations})},'2026-11-03',{now:at+3600000});
