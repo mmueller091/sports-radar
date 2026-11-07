@@ -3143,7 +3143,15 @@ function broadcastWatchMarkup(game,summary=null,inline=false) {
 }
 
 function gameCard(game) {
-  const liveNote=game.timingUncertain||game.manpowerQuality?.state==='conflict' ? '' : game.live?.note;
+  const rawLiveNote=game.timingUncertain || game.manpowerQuality?.state==='conflict' ? '' : String(game.live?.note || '');
+  // NHL power plays use the verified team badge, not a separate situation sentence.
+  // An unconfirmed early extra attacker is not a tactical goalie pull.
+  const liveNote=game.sport!=='NHL' ? rawLiveNote
+    : /power play/i.test(rawLiveNote)
+      ? /pulled the goalie/i.test(rawLiveNote) ? rawLiveNote.replace(/\s+with a power play\b/i,'') : ''
+      : /pulled the goalie/i.test(rawLiveNote) &&
+        (Number(game.liveRawStatus?.period)<3 || /^(1st|2nd)\b/i.test(game.live?.phase || '')) &&
+        game.live?.sportImpact?.manpower?.pulled!==true ? '' : rawLiveNote;
   const phase = String(game.live?.phase || game.status || '');
   const clock = game.timingUncertain ? '' : String(game.liveRawStatus?.displayClock || phase.match(/\b\d{1,2}:\d{2}\b/)?.[0] || '');
   const period = compactClockPeriod(game);
