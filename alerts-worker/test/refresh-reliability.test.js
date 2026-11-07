@@ -126,6 +126,21 @@ test('deadline during required D1 writes retains old header and diagnoses origin
   f.reset();assert.ok(await f.run(f.now+60001));
 });
 
+test('scheduled refresh can publish a crowded slate after the unchanged HTTP deadline',async t=>{
+  const f=fixture(t,1);const old=await f.run(f.now);
+  f.hook=sql=>{if(sql.startsWith('INSERT OR IGNORE INTO sports_feed_parts'))f.elapsed=32000;};
+  assert.equal(await f.run(f.now+60000,{trigger:'feed'}),null);
+  assert.equal((await readFeed(f.env)).revision,old.revision);
+  f.reset();
+  f.hook=sql=>{if(sql.startsWith('INSERT OR IGNORE INTO sports_feed_parts'))f.elapsed=32000;};
+  const fresh=await f.run(f.now+60001,{trigger:'cron'});
+  assert.ok(fresh);
+  assert.equal(f.metrics.outcome,'published');
+  assert.ok(f.metrics.publicationMs>=32000);
+  assert.notEqual((await readFeed(f.env)).revision,old.revision);
+  assert.equal(f.db.prepare("SELECT COUNT(*) n FROM sports_leases WHERE key='refresh'").get().n,0);
+});
+
 test('primary D1 exception survives a separate lease release exception',async t=>{
   const f=fixture(t,1);await f.run(f.now);
   f.hook=(sql,args)=>{

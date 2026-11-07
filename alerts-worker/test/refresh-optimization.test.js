@@ -201,6 +201,18 @@ test('readers retain a coherent old revision while a new multipart revision is p
   assert.equal(env.db.prepare('SELECT COUNT(*) n FROM sports_feed_parts WHERE revision=?').get(old.revision).n,1);
 });
 
+test('large feed publications split D1 part writes into batches below the RPC size limit',async t=>{
+  const env=database(t),now=Date.now(),sizes=[];
+  env.db.prepare('INSERT INTO sports_leases VALUES (?,?,?)').run('refresh','owner',now+60000);
+  const batch=env.DB.batch.bind(env.DB);
+  env.DB.batch=async statements=>{sizes.push(statements.length);return batch(statements);};
+  const published=await publishFeed(env,{updatedAt:new Date(now).toISOString(),games:Array.from({length:251},(_,id)=>({id}))},'owner',()=>now);
+  assert.ok(published);
+  assert.equal(published.parts,6);
+  assert.deepEqual(sizes,[4,2]);
+  assert.equal((await readFeed(env)).games.length,251);
+});
+
 test('cron/feed lease contention creates one collector and release cannot delete a successor lease',async t=>{
   const env=database(t),f=fixture(t,[event('live','in')]),now=Date.now(),blocked=gate(),entered=gate();
   f.hook=async()=>{entered.resolve();await blocked.promise;};
