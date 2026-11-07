@@ -194,13 +194,19 @@ export async function gameHistory(env,sport,id,now=Date.now()) {
   // at read time so an old "verified" flag cannot make Q4 0.0 a game-end fact.
   if(['NBA','NCAAB','CFB'].includes(sport)){
     const finalPeriod=sport==='NCAAB'?2:4;
+    let unconfirmedCfbFourthRun=false;
     for(let i=0;i<snapshots.length;i++){
       const point=snapshots[i],previous=snapshots[i-1];
-      if(point.state!=='live'||point.period!==finalPeriod||!/^0+(?:(?::0+(?:\.0+)?)|(?:\.0+))?$/.test(point.clock))continue;
+      if(point.state!=='live'||point.period!==finalPeriod||!/^0+(?:(?::0+(?:\.0+)?)|(?:\.0+))?$/.test(point.clock)){
+        if(sport==='CFB')unconfirmedCfbFourthRun=false;
+        continue;
+      }
       const followedByPlay=snapshots.slice(i+1).some(next=>next.state==='live'&&next.period===point.period&&
         /^(?:\d+):(?:\d+(?:\.\d+)?)$/.test(next.clock)&&Number(next.clock.split(':')[0])*60+Number(next.clock.split(':')[1])>2);
       const atTransition=previous?.period<point.period && previous?.state==='live';
-      if(followedByPlay||atTransition){point.evidenceQuality='invalid';point.integrityIssue=true;point.timingIssue='unconfirmed-period-transition';}
+      const invalid=followedByPlay||atTransition||sport==='CFB'&&unconfirmedCfbFourthRun;
+      if(invalid){point.evidenceQuality='invalid';point.integrityIssue=true;point.timingIssue='unconfirmed-period-transition';}
+      if(sport==='CFB')unconfirmedCfbFourthRun=invalid;
     }
   }
 

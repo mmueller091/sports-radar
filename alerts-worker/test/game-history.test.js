@@ -160,17 +160,22 @@ test('nonfootball game history expires at seven days while football retains four
 
 test('CFB history retains but invalidates false fourth-quarter zeroes without changing scores',async t=>{
   const env=environment(t),now=Date.now();
-  insert(env.db,{key:'CFB:usf-ecu',at:now-60000,rating:67,period:'3',clock:'0:00',phaseLabel:'End of 3rd Quarter'});
-  insert(env.db,{key:'CFB:usf-ecu',at:now-40000,rating:24,period:'4',clock:'0:00',phaseLabel:'End of 4th Quarter'});
-  insert(env.db,{key:'CFB:usf-ecu',at:now-20000,rating:81,period:'4',clock:'0:33',phaseLabel:'0:33 - 4th Quarter'});
+  insert(env.db,{key:'CFB:usf-ecu',at:now-120000,rating:67,period:'3',clock:'0:00',phaseLabel:'End of 3rd Quarter'});
+  for(let i=0;i<6;i++)insert(env.db,{key:'CFB:usf-ecu',at:now-105000+i*15000,
+    rating:24,period:'4',clock:'0:00',phaseLabel:'End of 4th Quarter'});
+  insert(env.db,{key:'CFB:usf-ecu',at:now-15000,rating:71,period:'4',clock:'0:02',phaseLabel:'0:02 - 4th Quarter'});
+  insert(env.db,{key:'CFB:usf-ecu',at:now-10000,rating:43,period:'4',clock:'0:00',phaseLabel:'End of 4th Quarter'});
   insert(env.db,{key:'CFB:actual-end',at:now-60000,rating:67,period:'4',clock:'0:33',phaseLabel:'0:33 - 4th Quarter'});
   insert(env.db,{key:'CFB:actual-end',at:now-40000,rating:82,period:'4',clock:'0:00',phaseLabel:'End of 4th Quarter'});
   const history=await gameHistory(env,'CFB','usf-ecu',now);
-  assert.deepEqual(history.snapshots.map(p=>p.rating),[67,24,81]);
-  assert.equal(history.snapshots[1].evidenceQuality,'invalid');
-  assert.equal(history.snapshots[1].integrityIssue,true);
-  assert.equal(history.snapshots[1].timingIssue,'unconfirmed-period-transition');
-  assert.notEqual(history.snapshots[2].evidenceQuality,'invalid');
+  assert.deepEqual(history.snapshots.map(p=>p.rating),[67,24,24,24,24,24,24,71,43]);
+  for(const point of history.snapshots.slice(1,7)){
+    assert.equal(point.evidenceQuality,'invalid');
+    assert.equal(point.integrityIssue,true);
+    assert.equal(point.timingIssue,'unconfirmed-period-transition');
+  }
+  assert.ok(history.snapshots.slice(7).every(point=>point.evidenceQuality!=='invalid'),
+    'the 0:02 recovery clears the false run and the real ending remains intact');
   const final=await gameHistory(env,'CFB','actual-end',now);
   assert.notEqual(final.snapshots[1].evidenceQuality,'invalid');
   assert.equal(env.db.prepare("SELECT rating FROM sports_snapshots WHERE game_key='CFB:usf-ecu' ORDER BY observed_at LIMIT 1 OFFSET 1").get().rating,24);
