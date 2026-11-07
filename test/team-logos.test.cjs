@@ -28,6 +28,19 @@ test('white and cream artwork retain their original clean edges', () => {
   assert.equal(classify([240, 232, 212]), 'none');
 });
 
+test('the dark Capitals scoreboard artwork gets a backing before it loads', () => {
+  const official = 'https://a.espncdn.com/i/teamlogos/nhl/500/scoreboard/wsh.png';
+  assert.match(logos.attributes(official), /data-logo-contrast="backing"/);
+  assert.equal(logos.modeFor(official), 'backing');
+  assert.equal(logos.modeFor('https://a.espncdn.com/i/teamlogos/nhl/500/wsh.png'), 'pending');
+  const image = {src:official, dataset:{logoContrast:'backing'}, naturalWidth:500, naturalHeight:500};
+  logos.loaded(image);
+  assert.equal(image.dataset.logoContrast, 'backing');
+  const css = fs.readFileSync(require.resolve('../team-logos.css'), 'utf8');
+  assert.match(css, /\.game-card \.team-name img\[data-team-logo\]\[data-logo-contrast="backing"\]/);
+  assert.ok(css.indexOf('data-logo-contrast="backing"') > css.indexOf('.game-card .team-name img[data-team-logo][data-logo-contrast]'));
+});
+
 test('an authentic pale outline protects dark artwork without another outline', () => {
   assert.equal(classify([0, 0, 0], [255, 255, 255]), 'none');
   assert.equal(classify([102, 0, 20], [240, 232, 212]), 'none');

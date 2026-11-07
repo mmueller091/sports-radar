@@ -31,6 +31,14 @@ test('absent records are omitted, with no invented or duplicate placeholders', (
   }
 });
 
+test('verified NHL power-play badge stays beside the team name on game cards', () => {
+  const team=['Florida Panthers','FLA','1','','official.png','9-5-2',null,'Panthers','26'];
+  const game={sport:'NHL',state:'live',live:{phase:'1st',note:'Florida Panthers power play'},manpowerQuality:{state:'consistent'}};
+  const html=context.teamMarkup(game,team,0);
+  assert.match(html, /class="team-name-text"[\s\S]*?class="team-power-play"[\s\S]*?<\/span><small class="team-record">9-5-2<\/small>/);
+  assert.equal((html.match(/class="team-power-play"/g)||[]).length,1);
+});
+
 test('card moment classification separates Last score from meaningful context without mutating the game', () => {
   const start = source.indexOf('  const momentMarkup =', source.indexOf('function gameCard('));
   const end = source.indexOf('\n  const accessibility =', start);
