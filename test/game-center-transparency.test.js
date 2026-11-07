@@ -67,7 +67,7 @@ test('actual overtime history preserves every rating, timestamp, model, evidence
   const html=center.timeline(g,detail);
   assert.match(html,/OT 2:53: Chad Ryland 42 Yd Field Goal/);
   assert.match(html,/data-timeline-range="late"/);assert.match(html,/data-timeline-range="ot"/);
-  assert.match(html,/timeline-event-strip/);assert.match(html,/Gaps are left open/);assert.doesNotMatch(html,/Original observation history|evidenceQuality/);
+  assert.match(html,/timeline-event-strip/);assert.doesNotMatch(html,/Gaps are left open|Original observation history|evidenceQuality/);
   assert.doesNotMatch(html,/Final assessment|Opening estimate/);
   assert.equal(JSON.stringify(detail),before);
 });

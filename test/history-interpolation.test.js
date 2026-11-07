@@ -34,14 +34,14 @@ for(const sport of ['NFL','CFB','NBA','NCAAB','NHL']){
     const start=sport==='NCAAB'?'19:55':sport==='NHL'?'19:55':sport==='NBA'?'11:55':'14:55';
     allow(sport,[p(0,{clock:'0:00',phaseLabel:'End of 1st '+(sport==='NHL'?'period':sport==='NCAAB'?'half':'quarter')}),p(1,{period:2,clock:start})]);
   });
-  test(`${sport}: zero clock alone cannot establish a period transition`,()=>{
-    reject(sport,[p(0,{clock:'0:00'}),p(1,{period:2,clock:'8:00'})]);
+  test(`${sport}: verified early-period zero connects forward, not backward`,()=>{
+    allow(sport,[p(0,{clock:'0:00'}),p(1,{period:2,clock:'8:00'})]);
     reject(sport,[p(0,{period:2,clock:'0.0'}),p(1,{period:2,clock:'1:08'})]);
   });
-  test(`${sport}: verified repeated new-phase evidence establishes transition`,()=>{
+  test(`${sport}: a verified next-period endpoint establishes a visual connection`,()=>{
     const length=sport==='NBA'?12:sport==='NCAAB'||sport==='NHL'?20:15;
     allow(sport,[p(0,{clock:'0:03'}),p(1,{period:2,clock:`${length-1}:59`}),p(2,{period:2,clock:`${length-1}:55`})]);
-    reject(sport,[p(0,{clock:'0:03'}),p(1,{period:2,clock:`${length-1}:59`})]);
+    allow(sport,[p(0,{clock:'0:03'}),p(1,{period:2,clock:`${length-1}:59`})]);
   });
   test(`${sport}: no backward countdown or hidden partial clock reversal`,()=>{
     reject(sport,[p(0,{clock:'1:00'}),p(1,{clock:'1:08'})]);
@@ -110,15 +110,32 @@ for(const extra of [{gameId:'other'},{observedAt:p(0).observedAt},{clock:'12:00'
   const r=check('NBA',[p(0,{clock:'0:03'}),p(1,{period:2,clock:'11:59'}),p(2,{period:2,clock:'11:55',...extra})]);
   assert.ok(!r.edges[0]?.allowed);
 });
-test('sparse history and missing entire periods remain gaps',()=>{
-  reject('NBA',[p(0),p(1,{observedAt:p(0).observedAt+301000})]);
-  reject('NBA',[p(0),p(1,{clock:'4:00'})]);
+test('long elapsed gaps connect verified anchors; missing entire periods remain gaps',()=>{
+  allow('NBA',[p(0),p(1,{observedAt:p(0).observedAt+301000})]);
+  allow('NBA',[p(0),p(1,{clock:'4:00'})]);
   reject('NBA',[p(0),p(1,{period:3})]);
+});
+test('NBA final-quarter zero still requires confirmation',()=>{
+  reject('NBA',[p(0,{period:4,clock:'0.0'}),p(1,{period:5,clock:'4:59'})]);
+});
+test('CFB: recorded quarter-end dots connect across long gaps without repeated tooltip text',()=>{
+  const a=p(0,{period:1,clock:'4:00',rating:54,scoreA:'0',scoreB:'0'});
+  const b=p(1,{period:2,clock:'0:00',rating:64,scoreA:'7',scoreB:'0',observedAt:a.observedAt+30*60000});
+  const repeated={...b,observedAt:b.observedAt+15000};
+  const c=p(2,{period:3,clock:'0:00',rating:80,scoreA:'14',scoreB:'14',observedAt:b.observedAt+45*60000});
+  const points=[a,b,repeated,c],r=allow('CFB',points);
+  assert.equal(r.edges.length,3);
+  const html=center.timeline(game('CFB',{state:'live',score:70}),detail(points));
+  assert.equal((html.match(/<path class="timeline-line timeline-estimated/g)||[]).length,4,'both gaps are drawn on both chart sizes');
+  const explanations=[...html.matchAll(/<g class="timeline-point" data-timeline-explanation="([^"]+)"/g)].map(m=>m[1]);
+  assert.equal(explanations.filter(text=>text.includes('Recorded rating: 64')).length,2,'one concise description per SVG');
+  assert.ok(explanations.every(text=>text.length<150),'no concatenated recording history');
+  assert.doesNotMatch(html,/Lines between recorded ratings are estimated|Gaps are left open/);
 });
 test('renderer exposes real anchors and endpoint-only estimated tooltips',()=>{
   const s=detail([p(0),p(1,{evidenceQuality:'partial',rating:99}),p(2)]),html=center.timeline(game(),s);
   assert.match(html,/Estimated connection between recorded ratings: 60/);assert.match(html,/and 62/);
-  assert.match(html,/Lines between recorded ratings are estimated/);assert.match(html,/timeline-bridged/);
+  assert.doesNotMatch(html,/Lines between recorded ratings are estimated/);assert.match(html,/timeline-bridged/);
   assert.match(html,/Recorded rating: 60/);assert.match(html,/Score: 10–10/);assert.doesNotMatch(html,/Recorded rating: 99/);
   assert.match(html,/Retrospective final game quality/);assert.doesNotMatch(html.match(/<svg[\s\S]*?<\/svg>/)[0],/rating: 97/);
 });

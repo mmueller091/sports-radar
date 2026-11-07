@@ -112,7 +112,9 @@
     const elapsed=position(period,p.clock,f);
     if(elapsed===null)return {error:String(p.clock??'').trim()?'invalid-clock':'missing-clock',order:period,period};
     const zero=/^0+(?:(?::0+(?:\.0+)?)|(?:\.0+))?$/.test(String(p.clock));
-    if(zero&&!ended(p))return {error:'unconfirmed-zero-clock',order:period,period};
+    // Preserve the final-period zero safeguard; earlier verified quarter-end
+    // dots can connect when the surrounding chronology remains consistent.
+    if(zero&&!ended(p)&&period>=f.periods)return {error:'unconfirmed-zero-clock',order:period,period};
     return {order:period,period,elapsed,kind:'clock'};
   }
   function identityFailure(game,summary,p){
@@ -186,7 +188,7 @@
         if(next.order>previous.order){
           const setWon=f.sport==='Tennis'&&['scoreA','scoreB'].reduce((n,k)=>n+Number(p[k])-Number(previousPoint[k]),0)===1;
           const confirmedEnd=reliable(previousPoint)&&ended(previousPoint)&&!next.error;
-          if(next.kind!=='inning'&&!setWon&&!confirmedEnd&&!(reliable(p)&&establishedPhase(p,data,game,summary)))return 'unconfirmed-phase-transition';
+          if(next.kind!=='inning'&&!setWon&&!confirmedEnd&&!(reliable(p)&&(p===to||establishedPhase(p,data,game,summary))))return 'unconfirmed-phase-transition';
         }
       }
       previous=next;previousPoint=p;
@@ -198,10 +200,7 @@
     if(f.sport==='Tennis'&&['scoreA','scoreB'].reduce((n,k)=>n+Number(to[k])-Number(from[k]),0)!==b.period-a.period)return 'conflicting-set-score';
     if(to.x<from.x)return 'axis-reversal';
     if(to.x===from.x&&to.score!==from.score)return 'same-clock-changed-rating';
-    // Sparse intervals cannot imply a known trajectory through long unseen play.
-    const breakObserved=interval.some(p=>ended(p));
-    if(to.observedAt-from.observedAt>300000&&!breakObserved)return 'sparse-coverage';
-    if(a.elapsed!=null&&b.elapsed!=null&&b.elapsed-a.elapsed>180)return 'sparse-game-time';
+    // Long gaps are visual connections between recorded endpoints, never new history.
     return null;
   }
   function connections(game,summary,data=observations(game,summary)){
@@ -373,12 +372,12 @@
       }
       const groups=new Map();
       for(const [i,p]of visible.entries()){
-        // Identical geometry shares a control; every timestamp remains in its description and history.
+        // Identical geometry shares a control; the tooltip describes only the latest record.
         const key=p.x+':'+p.score;if(!groups.has(key))groups.set(key,[]);groups.get(key).push({p,i});
       }
       const dots=[...groups.values()].map(group=>{
         const {p}=group.at(-1);
-        const description=group.map(({p})=>`${p.label}. Recorded rating: ${p.score}. ${timestamp(p.observedAt)}.${numeric(p.scoreA)&&numeric(p.scoreB)?` Score: ${p.scoreA}–${p.scoreB}.`:''}`).join(' ');
+        const description=`${p.label}. Recorded rating: ${p.score}. ${timestamp(p.observedAt)}.${numeric(p.scoreA)&&numeric(p.scoreB)?` Score: ${p.scoreA}–${p.scoreB}.`:''}`;
         return marker(p,px(p),py(p),description);
       }).join('');
       const eventGroups=new Map(),spacing=mobile?26:24;
@@ -392,8 +391,7 @@
     };
     const playList=scoringPlays.length?`<details class="timeline-play-details"><summary>Browse scoring plays (${scoringPlays.length})</summary><ol>${scoringPlays.map(p=>
       `<li>${escape(phase(p.period?.number??p.period,p.clock?.displayValue,f,p.period?.displayValue))}: ${escape(p.text||p.shortText||p.type?.text||'Scoring play')}</li>`).join('')}</ol></details>`:'';
-    const coverage='Lines between recorded ratings are estimated. Actual ratings and game events are never invented.'+(edges.some(edge=>!edge.allowed)?' Gaps are left open where the sequence is uncertain.':'');
-    return `<section class="detail-section timeline-section">${heading}${ratings}<p class="timeline-note">${coverage}</p><div class="timeline-controls" role="group" aria-label="Timeline range">${views.map(v=>`<button type="button" data-timeline-range="${v.key}" aria-pressed="${v.key==='full'}">${v.label}</button>`).join('')}</div>${views.map(v=>`<div class="timeline-view" data-timeline-view="${v.key}"${v.key!=='full'?' hidden':''}>${chart(v)}${chart(v,true)}</div>`).join('')}<div class="timeline-point-help" id="${helpId}" role="status" aria-live="polite" aria-hidden="true"></div>${outcome}${playList}</section>`;
+    return `<section class="detail-section timeline-section">${heading}${ratings}<div class="timeline-controls" role="group" aria-label="Timeline range">${views.map(v=>`<button type="button" data-timeline-range="${v.key}" aria-pressed="${v.key==='full'}">${v.label}</button>`).join('')}</div>${views.map(v=>`<div class="timeline-view" data-timeline-view="${v.key}"${v.key!=='full'?' hidden':''}>${chart(v)}${chart(v,true)}</div>`).join('')}<div class="timeline-point-help" id="${helpId}" role="status" aria-live="polite" aria-hidden="true"></div>${outcome}${playList}</section>`;
   }
   const api={calculation,scoringMarkup,decimalSum,format,position,phase,reliable,curve,comparable,observations,progression,connections,timeline};
   if(typeof module!=='undefined'&&module.exports)module.exports=api;

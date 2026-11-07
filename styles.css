@@ -5619,7 +5619,7 @@ body.team-page-open .sport-specific-filters { display:none; }
 .timeline-section .timeline-chart { max-height:none; }
 .timeline-section .timeline-mobile { display:none; }
 .timeline-section .timeline-point-help[aria-hidden="true"] { display:none; }
-.timeline-section .timeline-point-help { min-height:0; height:auto; margin:8px 0; }
+.timeline-section .timeline-point-help { block-size:auto; min-height:0; height:auto; width:fit-content; max-width:min(100%,26rem); margin:8px 0; padding:7px 10px; background:var(--surface-2); border-color:var(--line); box-shadow:none; font:12px/1.4 var(--font-sans); overflow-wrap:anywhere; }
 @media (max-width:600px) {
   .timeline-section .timeline-desktop { display:none; }
   .timeline-section .timeline-mobile { display:block; }
