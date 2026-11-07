@@ -1,0 +1,20 @@
+{
+  "scope": "Controlled diagnostic only; no fixture or test file altered; original root timeout remains 120000 ms",
+  "results": [
+    {
+      "mode": "lf",
+      "status": 0,
+      "signal": null,
+      "stdout": "{\"stage\":\"before-original-assertion\",\"buildMs\":300.8,\"actualBytes\":1803650,\"expectedBytes\":1803650,\"equal\":true,\"jsonEqual\":true}\noriginal assertion passed\n",
+      "stderr": ""
+    },
+    {
+      "mode": "crlf",
+      "status": null,
+      "signal": "SIGTERM",
+      "error": "ETIMEDOUT",
+      "stdout": "{\"stage\":\"before-original-assertion\",\"buildMs\":304.45820000000003,\"actualBytes\":1803650,\"expectedBytes\":1857737,\"equal\":false,\"jsonEqual\":true}\n",
+      "stderr": ""
+    }
+  ]
+}

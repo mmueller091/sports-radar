@@ -1,0 +1,19 @@
+{
+  "failedAt": "2026-11-07T07:13:58Z",
+  "httpStatus": 500,
+  "code": 7500,
+  "rayId": "a56a89d76f5fa3fa-DFW",
+  "reference": "e_PVSMDp_f642f19e70f24c5383b45c79c94d8cba",
+  "sql": "SELECT state,COUNT(*) AS rows,SUM(rowid) AS rowids,SUM(observed_at) AS timestamps,SUM(rating) AS ratings,SUM(length(normalized_state)) AS payloadCharacters FROM sports_snapshots GROUP BY state; PRAGMA table_info(sports_snapshots); SELECT name,sql FROM sqlite_master WHERE type='trigger' AND tbl_name='sports_snapshots'",
+  "result": "Internal error; no migration attempted; lease released",
+  "earlierInputErrors": [
+    {
+      "query": "SELECT updated_at FROM sports_feed",
+      "reason": "No such column; correct schema stores updatedAt inside payload; corrected read passed."
+    },
+    {
+      "query": "Parameterized lease INSERT followed by SELECT in one SQL string",
+      "reason": "D1 API rejects params with multiple statements; rejected without mutation; separate single-statement acquire succeeded."
+    }
+  ]
+}

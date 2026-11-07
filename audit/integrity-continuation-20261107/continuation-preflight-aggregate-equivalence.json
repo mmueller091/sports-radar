@@ -1,0 +1,31 @@
+{
+  "equivalent": true,
+  "rows": [
+    [
+      "completed",
+      250791,
+      37545455359,
+      449666194546371701,
+      10639958,
+      603300117
+    ],
+    [
+      "live",
+      149645,
+      42683122824,
+      268382234102325000,
+      6850368,
+      1558381603
+    ],
+    [
+      "upcoming",
+      663,
+      211826267,
+      1189091075160000,
+      27540,
+      2702708
+    ]
+  ],
+  "seconds": 23.219483852386475,
+  "scope": "Read-only local backup diagnostic; production error cause remains unconfirmed"
+}

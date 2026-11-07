@@ -1,0 +1,7181 @@
+[
+  {
+    "sport": "CFB",
+    "id": "401856719",
+    "equal": true,
+    "before": {
+      "score": 99,
+      "baseScore": 62,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 19
+        },
+        {
+          "label": "Underdog won outright",
+          "points": 23
+        },
+        {
+          "label": "1 lead change",
+          "points": 3
+        },
+        {
+          "label": "Erased a large deficit",
+          "points": 6
+        },
+        {
+          "label": "Sustained competitive game",
+          "points": 7
+        },
+        {
+          "label": "Repeated swings in control",
+          "points": 6
+        },
+        {
+          "label": "Big win-chance swing",
+          "points": 3
+        },
+        {
+          "label": "Decisive last play",
+          "points": 14
+        }
+      ]
+    },
+    "after": {
+      "score": 99,
+      "baseScore": 62,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 19
+        },
+        {
+          "label": "Underdog won outright",
+          "points": 23
+        },
+        {
+          "label": "1 lead change",
+          "points": 3
+        },
+        {
+          "label": "Erased a large deficit",
+          "points": 6
+        },
+        {
+          "label": "Sustained competitive game",
+          "points": 7
+        },
+        {
+          "label": "Repeated swings in control",
+          "points": 6
+        },
+        {
+          "label": "Big win-chance swing",
+          "points": 3
+        },
+        {
+          "label": "Decisive last play",
+          "points": 14
+        }
+      ]
+    }
+  },
+  {
+    "sport": "CFB",
+    "id": "401856720",
+    "equal": true,
+    "before": {
+      "score": 1,
+      "baseScore": 1,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 3
+        },
+        {
+          "label": "Wide margin",
+          "points": -28
+        }
+      ]
+    },
+    "after": {
+      "score": 1,
+      "baseScore": 1,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 3
+        },
+        {
+          "label": "Wide margin",
+          "points": -28
+        }
+      ]
+    }
+  },
+  {
+    "sport": "CFB",
+    "id": "401856721",
+    "equal": true,
+    "before": {
+      "score": 4,
+      "baseScore": 1,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 4
+        },
+        {
+          "label": "Wide margin",
+          "points": -26
+        },
+        {
+          "label": "1 lead change",
+          "points": 3
+        }
+      ]
+    },
+    "after": {
+      "score": 4,
+      "baseScore": 1,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 4
+        },
+        {
+          "label": "Wide margin",
+          "points": -26
+        },
+        {
+          "label": "1 lead change",
+          "points": 3
+        }
+      ]
+    }
+  },
+  {
+    "sport": "CFB",
+    "id": "401856722",
+    "equal": true,
+    "before": {
+      "score": 72,
+      "baseScore": 35,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 10
+        },
+        {
+          "label": "Underdog won outright",
+          "points": 5
+        },
+        {
+          "label": "2 lead changes",
+          "points": 6
+        },
+        {
+          "label": "Sustained competitive game",
+          "points": 7
+        },
+        {
+          "label": "Big win-chance swing",
+          "points": 6
+        },
+        {
+          "label": "Competitive throughout",
+          "points": 6
+        },
+        {
+          "label": "Completed competitive path retention",
+          "points": 3
+        },
+        {
+          "label": "Decisive defensive finish",
+          "points": 9
+        }
+      ]
+    },
+    "after": {
+      "score": 72,
+      "baseScore": 35,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 10
+        },
+        {
+          "label": "Underdog won outright",
+          "points": 5
+        },
+        {
+          "label": "2 lead changes",
+          "points": 6
+        },
+        {
+          "label": "Sustained competitive game",
+          "points": 7
+        },
+        {
+          "label": "Big win-chance swing",
+          "points": 6
+        },
+        {
+          "label": "Competitive throughout",
+          "points": 6
+        },
+        {
+          "label": "Completed competitive path retention",
+          "points": 3
+        },
+        {
+          "label": "Decisive defensive finish",
+          "points": 9
+        }
+      ]
+    }
+  },
+  {
+    "sport": "CFB",
+    "id": "401856723",
+    "equal": true,
+    "before": {
+      "score": 28,
+      "baseScore": 11,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 4
+        },
+        {
+          "label": "Wide margin",
+          "points": -15
+        },
+        {
+          "label": "Underdog won outright",
+          "points": 4
+        },
+        {
+          "label": "Sustained competitive game",
+          "points": 7
+        },
+        {
+          "label": "Big win-chance swing",
+          "points": 4
+        },
+        {
+          "label": "Competitive throughout",
+          "points": 6
+        }
+      ]
+    },
+    "after": {
+      "score": 28,
+      "baseScore": 11,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 4
+        },
+        {
+          "label": "Wide margin",
+          "points": -15
+        },
+        {
+          "label": "Underdog won outright",
+          "points": 4
+        },
+        {
+          "label": "Sustained competitive game",
+          "points": 7
+        },
+        {
+          "label": "Big win-chance swing",
+          "points": 4
+        },
+        {
+          "label": "Competitive throughout",
+          "points": 6
+        }
+      ]
+    }
+  },
+  {
+    "sport": "CFB",
+    "id": "401856724",
+    "equal": true,
+    "before": {
+      "score": 86,
+      "baseScore": 53,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 19
+        },
+        {
+          "label": "Underdog won outright",
+          "points": 14
+        },
+        {
+          "label": "1 lead change",
+          "points": 3
+        },
+        {
+          "label": "Erased a large deficit",
+          "points": 6
+        },
+        {
+          "label": "Sustained competitive game",
+          "points": 7
+        },
+        {
+          "label": "Big win-chance swing",
+          "points": 8
+        },
+        {
+          "label": "Decisive defensive finish",
+          "points": 9
+        }
+      ]
+    },
+    "after": {
+      "score": 86,
+      "baseScore": 53,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 19
+        },
+        {
+          "label": "Underdog won outright",
+          "points": 14
+        },
+        {
+          "label": "1 lead change",
+          "points": 3
+        },
+        {
+          "label": "Erased a large deficit",
+          "points": 6
+        },
+        {
+          "label": "Sustained competitive game",
+          "points": 7
+        },
+        {
+          "label": "Big win-chance swing",
+          "points": 8
+        },
+        {
+          "label": "Decisive defensive finish",
+          "points": 9
+        }
+      ]
+    }
+  },
+  {
+    "sport": "CFB",
+    "id": "401856725",
+    "equal": true,
+    "before": {
+      "score": 1,
+      "baseScore": 1,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Wide margin",
+          "points": -28
+        }
+      ]
+    },
+    "after": {
+      "score": 1,
+      "baseScore": 1,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Wide margin",
+          "points": -28
+        }
+      ]
+    }
+  },
+  {
+    "sport": "CFB",
+    "id": "401856726",
+    "equal": true,
+    "before": {
+      "score": 61,
+      "baseScore": 27,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 7
+        },
+        {
+          "label": "1 lead change",
+          "points": 3
+        },
+        {
+          "label": "Sustained competitive game",
+          "points": 7
+        },
+        {
+          "label": "Big win-chance swing",
+          "points": 5
+        },
+        {
+          "label": "Competitive throughout",
+          "points": 6
+        },
+        {
+          "label": "Completed competitive path retention",
+          "points": 13
+        }
+      ]
+    },
+    "after": {
+      "score": 61,
+      "baseScore": 27,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 7
+        },
+        {
+          "label": "1 lead change",
+          "points": 3
+        },
+        {
+          "label": "Sustained competitive game",
+          "points": 7
+        },
+        {
+          "label": "Big win-chance swing",
+          "points": 5
+        },
+        {
+          "label": "Competitive throughout",
+          "points": 6
+        },
+        {
+          "label": "Completed competitive path retention",
+          "points": 13
+        }
+      ]
+    }
+  },
+  {
+    "sport": "CFB",
+    "id": "401856809",
+    "equal": true,
+    "before": {
+      "score": 82,
+      "baseScore": 48,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 4
+        },
+        {
+          "label": "Final margin",
+          "points": 17
+        },
+        {
+          "label": "Underdog won outright",
+          "points": 9
+        },
+        {
+          "label": "4 lead changes",
+          "points": 9
+        },
+        {
+          "label": "Erased a large deficit",
+          "points": 6
+        },
+        {
+          "label": "Recent late lead change",
+          "points": 5
+        },
+        {
+          "label": "Sustained competitive game",
+          "points": 5
+        },
+        {
+          "label": "Completed competitive path retention",
+          "points": 9
+        }
+      ]
+    },
+    "after": {
+      "score": 82,
+      "baseScore": 48,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 4
+        },
+        {
+          "label": "Final margin",
+          "points": 17
+        },
+        {
+          "label": "Underdog won outright",
+          "points": 9
+        },
+        {
+          "label": "4 lead changes",
+          "points": 9
+        },
+        {
+          "label": "Erased a large deficit",
+          "points": 6
+        },
+        {
+          "label": "Recent late lead change",
+          "points": 5
+        },
+        {
+          "label": "Sustained competitive game",
+          "points": 5
+        },
+        {
+          "label": "Completed competitive path retention",
+          "points": 9
+        }
+      ]
+    }
+  },
+  {
+    "sport": "CFB",
+    "id": "401856828",
+    "equal": true,
+    "before": {
+      "score": 1,
+      "baseScore": 1,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Wide margin",
+          "points": -26
+        }
+      ]
+    },
+    "after": {
+      "score": 1,
+      "baseScore": 1,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Wide margin",
+          "points": -26
+        }
+      ]
+    }
+  },
+  {
+    "sport": "CFB",
+    "id": "401856829",
+    "equal": true,
+    "before": {
+      "score": 78,
+      "baseScore": 39,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 19
+        },
+        {
+          "label": "1 lead change",
+          "points": 3
+        },
+        {
+          "label": "Recent late lead change",
+          "points": 5
+        },
+        {
+          "label": "Sustained competitive game",
+          "points": 7
+        },
+        {
+          "label": "Big win-chance swing",
+          "points": 9
+        },
+        {
+          "label": "Competitive throughout",
+          "points": 1
+        },
+        {
+          "label": "Decisive last play",
+          "points": 14
+        }
+      ]
+    },
+    "after": {
+      "score": 78,
+      "baseScore": 39,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 19
+        },
+        {
+          "label": "1 lead change",
+          "points": 3
+        },
+        {
+          "label": "Recent late lead change",
+          "points": 5
+        },
+        {
+          "label": "Sustained competitive game",
+          "points": 7
+        },
+        {
+          "label": "Big win-chance swing",
+          "points": 9
+        },
+        {
+          "label": "Competitive throughout",
+          "points": 1
+        },
+        {
+          "label": "Decisive last play",
+          "points": 14
+        }
+      ]
+    }
+  },
+  {
+    "sport": "CFB",
+    "id": "401856830",
+    "equal": true,
+    "before": {
+      "score": 74,
+      "baseScore": 25,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 5
+        },
+        {
+          "label": "4 lead changes",
+          "points": 9
+        },
+        {
+          "label": "Erased a large deficit",
+          "points": 6
+        },
+        {
+          "label": "Sustained competitive game",
+          "points": 7
+        },
+        {
+          "label": "Big win-chance swing",
+          "points": 3
+        },
+        {
+          "label": "Completed competitive path retention",
+          "points": 24
+        }
+      ]
+    },
+    "after": {
+      "score": 74,
+      "baseScore": 25,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 5
+        },
+        {
+          "label": "4 lead changes",
+          "points": 9
+        },
+        {
+          "label": "Erased a large deficit",
+          "points": 6
+        },
+        {
+          "label": "Sustained competitive game",
+          "points": 7
+        },
+        {
+          "label": "Big win-chance swing",
+          "points": 3
+        },
+        {
+          "label": "Completed competitive path retention",
+          "points": 24
+        }
+      ]
+    }
+  },
+  {
+    "sport": "CFB",
+    "id": "401856831",
+    "equal": true,
+    "before": {
+      "score": 61,
+      "baseScore": 40,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 3
+        },
+        {
+          "label": "Final margin",
+          "points": 19
+        },
+        {
+          "label": "1 lead change",
+          "points": 3
+        },
+        {
+          "label": "Sustained competitive game",
+          "points": 5
+        },
+        {
+          "label": "Big win-chance swing",
+          "points": 3
+        },
+        {
+          "label": "Completed competitive path retention",
+          "points": 10
+        }
+      ]
+    },
+    "after": {
+      "score": 61,
+      "baseScore": 40,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 3
+        },
+        {
+          "label": "Final margin",
+          "points": 19
+        },
+        {
+          "label": "1 lead change",
+          "points": 3
+        },
+        {
+          "label": "Sustained competitive game",
+          "points": 5
+        },
+        {
+          "label": "Big win-chance swing",
+          "points": 3
+        },
+        {
+          "label": "Completed competitive path retention",
+          "points": 10
+        }
+      ]
+    }
+  },
+  {
+    "sport": "CFB",
+    "id": "401856832",
+    "equal": true,
+    "before": {
+      "score": 38,
+      "baseScore": 25,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 5
+        },
+        {
+          "label": "Sustained competitive game",
+          "points": 5
+        },
+        {
+          "label": "Big win-chance swing",
+          "points": 4
+        },
+        {
+          "label": "Competitive for much of game",
+          "points": 4
+        }
+      ]
+    },
+    "after": {
+      "score": 38,
+      "baseScore": 25,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 5
+        },
+        {
+          "label": "Sustained competitive game",
+          "points": 5
+        },
+        {
+          "label": "Big win-chance swing",
+          "points": 4
+        },
+        {
+          "label": "Competitive for much of game",
+          "points": 4
+        }
+      ]
+    }
+  },
+  {
+    "sport": "CFB",
+    "id": "401856833",
+    "equal": true,
+    "before": {
+      "score": 78,
+      "baseScore": 39,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 19
+        },
+        {
+          "label": "2 lead changes",
+          "points": 6
+        },
+        {
+          "label": "Erased a large deficit",
+          "points": 6
+        },
+        {
+          "label": "Sustained competitive game",
+          "points": 7
+        },
+        {
+          "label": "Big win-chance swing",
+          "points": 4
+        },
+        {
+          "label": "Completed competitive path retention",
+          "points": 16
+        }
+      ]
+    },
+    "after": {
+      "score": 78,
+      "baseScore": 39,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 19
+        },
+        {
+          "label": "2 lead changes",
+          "points": 6
+        },
+        {
+          "label": "Erased a large deficit",
+          "points": 6
+        },
+        {
+          "label": "Sustained competitive game",
+          "points": 7
+        },
+        {
+          "label": "Big win-chance swing",
+          "points": 4
+        },
+        {
+          "label": "Completed competitive path retention",
+          "points": 16
+        }
+      ]
+    }
+  },
+  {
+    "sport": "CFB",
+    "id": "401858261",
+    "equal": true,
+    "before": {
+      "score": 1,
+      "baseScore": 1,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Wide margin",
+          "points": -28
+        }
+      ]
+    },
+    "after": {
+      "score": 1,
+      "baseScore": 1,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Wide margin",
+          "points": -28
+        }
+      ]
+    }
+  },
+  {
+    "sport": "CFB",
+    "id": "401858262",
+    "equal": true,
+    "before": {
+      "score": 1,
+      "baseScore": 1,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Wide margin",
+          "points": -25
+        }
+      ]
+    },
+    "after": {
+      "score": 1,
+      "baseScore": 1,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Wide margin",
+          "points": -25
+        }
+      ]
+    }
+  },
+  {
+    "sport": "CFB",
+    "id": "401858263",
+    "equal": true,
+    "before": {
+      "score": 88,
+      "baseScore": 43,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 10
+        },
+        {
+          "label": "Overtime",
+          "points": 13
+        },
+        {
+          "label": "4 lead changes",
+          "points": 9
+        },
+        {
+          "label": "Recent late lead change",
+          "points": 5
+        },
+        {
+          "label": "Sustained competitive game",
+          "points": 7
+        },
+        {
+          "label": "Big win-chance swing",
+          "points": 4
+        },
+        {
+          "label": "Completed 2OT depth retention",
+          "points": 11
+        },
+        {
+          "label": "Decisive defensive finish",
+          "points": 9
+        }
+      ]
+    },
+    "after": {
+      "score": 88,
+      "baseScore": 43,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 10
+        },
+        {
+          "label": "Overtime",
+          "points": 13
+        },
+        {
+          "label": "4 lead changes",
+          "points": 9
+        },
+        {
+          "label": "Recent late lead change",
+          "points": 5
+        },
+        {
+          "label": "Sustained competitive game",
+          "points": 7
+        },
+        {
+          "label": "Big win-chance swing",
+          "points": 4
+        },
+        {
+          "label": "Completed 2OT depth retention",
+          "points": 11
+        },
+        {
+          "label": "Decisive defensive finish",
+          "points": 9
+        }
+      ]
+    }
+  },
+  {
+    "sport": "CFB",
+    "id": "401858264",
+    "equal": true,
+    "before": {
+      "score": 27,
+      "baseScore": 27,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 7
+        }
+      ]
+    },
+    "after": {
+      "score": 27,
+      "baseScore": 27,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 7
+        }
+      ]
+    }
+  },
+  {
+    "sport": "CFB",
+    "id": "401858265",
+    "equal": true,
+    "before": {
+      "score": 82,
+      "baseScore": 30,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 10
+        },
+        {
+          "label": "5 lead changes",
+          "points": 9
+        },
+        {
+          "label": "Erased a large deficit",
+          "points": 6
+        },
+        {
+          "label": "Sustained competitive game",
+          "points": 7
+        },
+        {
+          "label": "Big win-chance swing",
+          "points": 3
+        },
+        {
+          "label": "Completed competitive path retention",
+          "points": 18
+        },
+        {
+          "label": "Decisive defensive finish",
+          "points": 9
+        }
+      ]
+    },
+    "after": {
+      "score": 82,
+      "baseScore": 30,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 10
+        },
+        {
+          "label": "5 lead changes",
+          "points": 9
+        },
+        {
+          "label": "Erased a large deficit",
+          "points": 6
+        },
+        {
+          "label": "Sustained competitive game",
+          "points": 7
+        },
+        {
+          "label": "Big win-chance swing",
+          "points": 3
+        },
+        {
+          "label": "Completed competitive path retention",
+          "points": 18
+        },
+        {
+          "label": "Decisive defensive finish",
+          "points": 9
+        }
+      ]
+    }
+  },
+  {
+    "sport": "CFB",
+    "id": "401858266",
+    "equal": true,
+    "before": {
+      "score": 81,
+      "baseScore": 37,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 17
+        },
+        {
+          "label": "2 lead changes",
+          "points": 6
+        },
+        {
+          "label": "Erased a large deficit",
+          "points": 6
+        },
+        {
+          "label": "Recent late lead change",
+          "points": 5
+        },
+        {
+          "label": "Sustained competitive game",
+          "points": 7
+        },
+        {
+          "label": "Big win-chance swing",
+          "points": 1
+        },
+        {
+          "label": "Completed competitive path retention",
+          "points": 10
+        },
+        {
+          "label": "Decisive defensive finish",
+          "points": 9
+        }
+      ]
+    },
+    "after": {
+      "score": 81,
+      "baseScore": 37,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 17
+        },
+        {
+          "label": "2 lead changes",
+          "points": 6
+        },
+        {
+          "label": "Erased a large deficit",
+          "points": 6
+        },
+        {
+          "label": "Recent late lead change",
+          "points": 5
+        },
+        {
+          "label": "Sustained competitive game",
+          "points": 7
+        },
+        {
+          "label": "Big win-chance swing",
+          "points": 1
+        },
+        {
+          "label": "Completed competitive path retention",
+          "points": 10
+        },
+        {
+          "label": "Decisive defensive finish",
+          "points": 9
+        }
+      ]
+    }
+  },
+  {
+    "sport": "CFB",
+    "id": "401858267",
+    "equal": true,
+    "before": {
+      "score": 71,
+      "baseScore": 34,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 14
+        },
+        {
+          "label": "1 lead change",
+          "points": 3
+        },
+        {
+          "label": "Erased a large deficit",
+          "points": 6
+        },
+        {
+          "label": "Sustained competitive game",
+          "points": 7
+        },
+        {
+          "label": "Big win-chance swing",
+          "points": 5
+        },
+        {
+          "label": "Completed competitive path retention",
+          "points": 7
+        },
+        {
+          "label": "Decisive defensive finish",
+          "points": 9
+        }
+      ]
+    },
+    "after": {
+      "score": 71,
+      "baseScore": 34,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 14
+        },
+        {
+          "label": "1 lead change",
+          "points": 3
+        },
+        {
+          "label": "Erased a large deficit",
+          "points": 6
+        },
+        {
+          "label": "Sustained competitive game",
+          "points": 7
+        },
+        {
+          "label": "Big win-chance swing",
+          "points": 5
+        },
+        {
+          "label": "Completed competitive path retention",
+          "points": 7
+        },
+        {
+          "label": "Decisive defensive finish",
+          "points": 9
+        }
+      ]
+    }
+  },
+  {
+    "sport": "CFB",
+    "id": "401858268",
+    "equal": true,
+    "before": {
+      "score": 50,
+      "baseScore": 27,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 7
+        },
+        {
+          "label": "2 lead changes",
+          "points": 6
+        },
+        {
+          "label": "Sustained competitive game",
+          "points": 7
+        },
+        {
+          "label": "Big win-chance swing",
+          "points": 3
+        },
+        {
+          "label": "Completed competitive path retention",
+          "points": 7
+        }
+      ]
+    },
+    "after": {
+      "score": 50,
+      "baseScore": 27,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 7
+        },
+        {
+          "label": "2 lead changes",
+          "points": 6
+        },
+        {
+          "label": "Sustained competitive game",
+          "points": 7
+        },
+        {
+          "label": "Big win-chance swing",
+          "points": 3
+        },
+        {
+          "label": "Completed competitive path retention",
+          "points": 7
+        }
+      ]
+    }
+  },
+  {
+    "sport": "CFB",
+    "id": "401858269",
+    "equal": true,
+    "before": {
+      "score": 1,
+      "baseScore": 1,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Wide margin",
+          "points": -28
+        }
+      ]
+    },
+    "after": {
+      "score": 1,
+      "baseScore": 1,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Wide margin",
+          "points": -28
+        }
+      ]
+    }
+  },
+  {
+    "sport": "CFB",
+    "id": "401858488",
+    "equal": true,
+    "before": {
+      "score": 72,
+      "baseScore": 39,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 4
+        },
+        {
+          "label": "Final margin",
+          "points": 17
+        },
+        {
+          "label": "2 lead changes",
+          "points": 6
+        },
+        {
+          "label": "Sustained competitive game",
+          "points": 7
+        },
+        {
+          "label": "Big win-chance swing",
+          "points": 5
+        },
+        {
+          "label": "Competitive throughout",
+          "points": 6
+        },
+        {
+          "label": "Decisive defensive finish",
+          "points": 9
+        }
+      ]
+    },
+    "after": {
+      "score": 72,
+      "baseScore": 39,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 4
+        },
+        {
+          "label": "Final margin",
+          "points": 17
+        },
+        {
+          "label": "2 lead changes",
+          "points": 6
+        },
+        {
+          "label": "Sustained competitive game",
+          "points": 7
+        },
+        {
+          "label": "Big win-chance swing",
+          "points": 5
+        },
+        {
+          "label": "Competitive throughout",
+          "points": 6
+        },
+        {
+          "label": "Decisive defensive finish",
+          "points": 9
+        }
+      ]
+    }
+  },
+  {
+    "sport": "CFB",
+    "id": "401858489",
+    "equal": true,
+    "before": {
+      "score": 69,
+      "baseScore": 32,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 12
+        },
+        {
+          "label": "1 lead change",
+          "points": 3
+        },
+        {
+          "label": "Erased a large deficit",
+          "points": 6
+        },
+        {
+          "label": "Sustained competitive game",
+          "points": 7
+        },
+        {
+          "label": "Big win-chance swing",
+          "points": 5
+        },
+        {
+          "label": "Competitive for much of game",
+          "points": 4
+        },
+        {
+          "label": "Decisive defensive finish",
+          "points": 12
+        }
+      ]
+    },
+    "after": {
+      "score": 69,
+      "baseScore": 32,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 12
+        },
+        {
+          "label": "1 lead change",
+          "points": 3
+        },
+        {
+          "label": "Erased a large deficit",
+          "points": 6
+        },
+        {
+          "label": "Sustained competitive game",
+          "points": 7
+        },
+        {
+          "label": "Big win-chance swing",
+          "points": 5
+        },
+        {
+          "label": "Competitive for much of game",
+          "points": 4
+        },
+        {
+          "label": "Decisive defensive finish",
+          "points": 12
+        }
+      ]
+    }
+  },
+  {
+    "sport": "CFB",
+    "id": "401858490",
+    "equal": true,
+    "before": {
+      "score": 63,
+      "baseScore": 39,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 19
+        },
+        {
+          "label": "1 lead change",
+          "points": 3
+        },
+        {
+          "label": "Sustained competitive game",
+          "points": 7
+        },
+        {
+          "label": "Big win-chance swing",
+          "points": 4
+        },
+        {
+          "label": "Competitive throughout",
+          "points": 6
+        },
+        {
+          "label": "Completed competitive path retention",
+          "points": 4
+        }
+      ]
+    },
+    "after": {
+      "score": 63,
+      "baseScore": 39,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 19
+        },
+        {
+          "label": "1 lead change",
+          "points": 3
+        },
+        {
+          "label": "Sustained competitive game",
+          "points": 7
+        },
+        {
+          "label": "Big win-chance swing",
+          "points": 4
+        },
+        {
+          "label": "Competitive throughout",
+          "points": 6
+        },
+        {
+          "label": "Completed competitive path retention",
+          "points": 4
+        }
+      ]
+    }
+  },
+  {
+    "sport": "CFB",
+    "id": "401858491",
+    "equal": true,
+    "before": {
+      "score": 81,
+      "baseScore": 39,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 19
+        },
+        {
+          "label": "4 lead changes",
+          "points": 9
+        },
+        {
+          "label": "Recent late lead change",
+          "points": 5
+        },
+        {
+          "label": "Sustained competitive game",
+          "points": 7
+        },
+        {
+          "label": "Big win-chance swing",
+          "points": 4
+        },
+        {
+          "label": "Completed competitive path retention",
+          "points": 17
+        }
+      ]
+    },
+    "after": {
+      "score": 81,
+      "baseScore": 39,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 19
+        },
+        {
+          "label": "4 lead changes",
+          "points": 9
+        },
+        {
+          "label": "Recent late lead change",
+          "points": 5
+        },
+        {
+          "label": "Sustained competitive game",
+          "points": 7
+        },
+        {
+          "label": "Big win-chance swing",
+          "points": 4
+        },
+        {
+          "label": "Completed competitive path retention",
+          "points": 17
+        }
+      ]
+    }
+  },
+  {
+    "sport": "CFB",
+    "id": "401858494",
+    "equal": true,
+    "before": {
+      "score": 43,
+      "baseScore": 27,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 7
+        },
+        {
+          "label": "Sustained competitive game",
+          "points": 7
+        },
+        {
+          "label": "Big win-chance swing",
+          "points": 4
+        },
+        {
+          "label": "Competitive for much of game",
+          "points": 4
+        },
+        {
+          "label": "Completed competitive path retention",
+          "points": 1
+        }
+      ]
+    },
+    "after": {
+      "score": 43,
+      "baseScore": 27,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 7
+        },
+        {
+          "label": "Sustained competitive game",
+          "points": 7
+        },
+        {
+          "label": "Big win-chance swing",
+          "points": 4
+        },
+        {
+          "label": "Competitive for much of game",
+          "points": 4
+        },
+        {
+          "label": "Completed competitive path retention",
+          "points": 1
+        }
+      ]
+    }
+  },
+  {
+    "sport": "CFB",
+    "id": "401860903",
+    "equal": true,
+    "before": {
+      "score": 3,
+      "baseScore": 3,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Wide margin",
+          "points": -17
+        }
+      ]
+    },
+    "after": {
+      "score": 3,
+      "baseScore": 3,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Wide margin",
+          "points": -17
+        }
+      ]
+    }
+  },
+  {
+    "sport": "CFB",
+    "id": "401860904",
+    "equal": true,
+    "before": {
+      "score": 79,
+      "baseScore": 39,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 19
+        },
+        {
+          "label": "2 lead changes",
+          "points": 6
+        },
+        {
+          "label": "Erased a large deficit",
+          "points": 6
+        },
+        {
+          "label": "Sustained competitive game",
+          "points": 7
+        },
+        {
+          "label": "Big win-chance swing",
+          "points": 6
+        },
+        {
+          "label": "Completed competitive path retention",
+          "points": 6
+        },
+        {
+          "label": "Decisive defensive finish",
+          "points": 9
+        }
+      ]
+    },
+    "after": {
+      "score": 79,
+      "baseScore": 39,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 19
+        },
+        {
+          "label": "2 lead changes",
+          "points": 6
+        },
+        {
+          "label": "Erased a large deficit",
+          "points": 6
+        },
+        {
+          "label": "Sustained competitive game",
+          "points": 7
+        },
+        {
+          "label": "Big win-chance swing",
+          "points": 6
+        },
+        {
+          "label": "Completed competitive path retention",
+          "points": 6
+        },
+        {
+          "label": "Decisive defensive finish",
+          "points": 9
+        }
+      ]
+    }
+  },
+  {
+    "sport": "CFB",
+    "id": "401862802",
+    "equal": true,
+    "before": {
+      "score": 1,
+      "baseScore": 1,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Wide margin",
+          "points": -28
+        }
+      ]
+    },
+    "after": {
+      "score": 1,
+      "baseScore": 1,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Wide margin",
+          "points": -28
+        }
+      ]
+    }
+  },
+  {
+    "sport": "CFB",
+    "id": "401862803",
+    "equal": true,
+    "before": {
+      "score": 71,
+      "baseScore": 48,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 12
+        },
+        {
+          "label": "Underdog won outright",
+          "points": 16
+        },
+        {
+          "label": "2 lead changes",
+          "points": 6
+        },
+        {
+          "label": "Sustained competitive game",
+          "points": 7
+        },
+        {
+          "label": "Big win-chance swing",
+          "points": 6
+        },
+        {
+          "label": "Completed competitive path retention",
+          "points": 4
+        }
+      ]
+    },
+    "after": {
+      "score": 71,
+      "baseScore": 48,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 12
+        },
+        {
+          "label": "Underdog won outright",
+          "points": 16
+        },
+        {
+          "label": "2 lead changes",
+          "points": 6
+        },
+        {
+          "label": "Sustained competitive game",
+          "points": 7
+        },
+        {
+          "label": "Big win-chance swing",
+          "points": 6
+        },
+        {
+          "label": "Completed competitive path retention",
+          "points": 4
+        }
+      ]
+    }
+  },
+  {
+    "sport": "CFB",
+    "id": "401862804",
+    "equal": true,
+    "before": {
+      "score": 86,
+      "baseScore": 37,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 17
+        },
+        {
+          "label": "5 lead changes",
+          "points": 9
+        },
+        {
+          "label": "Erased a large deficit",
+          "points": 6
+        },
+        {
+          "label": "Recent late lead change",
+          "points": 5
+        },
+        {
+          "label": "Sustained competitive game",
+          "points": 5
+        },
+        {
+          "label": "Completed competitive path retention",
+          "points": 24
+        }
+      ]
+    },
+    "after": {
+      "score": 86,
+      "baseScore": 37,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 17
+        },
+        {
+          "label": "5 lead changes",
+          "points": 9
+        },
+        {
+          "label": "Erased a large deficit",
+          "points": 6
+        },
+        {
+          "label": "Recent late lead change",
+          "points": 5
+        },
+        {
+          "label": "Sustained competitive game",
+          "points": 5
+        },
+        {
+          "label": "Completed competitive path retention",
+          "points": 24
+        }
+      ]
+    }
+  },
+  {
+    "sport": "CFB",
+    "id": "401862805",
+    "equal": true,
+    "before": {
+      "score": 26,
+      "baseScore": 1,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Wide margin",
+          "points": -20
+        },
+        {
+          "label": "1 lead change",
+          "points": 3
+        },
+        {
+          "label": "Erased a large deficit",
+          "points": 6
+        },
+        {
+          "label": "Sustained competitive game",
+          "points": 7
+        },
+        {
+          "label": "Repeated swings in control",
+          "points": 5
+        },
+        {
+          "label": "Big win-chance swing",
+          "points": 4
+        }
+      ]
+    },
+    "after": {
+      "score": 26,
+      "baseScore": 1,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Wide margin",
+          "points": -20
+        },
+        {
+          "label": "1 lead change",
+          "points": 3
+        },
+        {
+          "label": "Erased a large deficit",
+          "points": 6
+        },
+        {
+          "label": "Sustained competitive game",
+          "points": 7
+        },
+        {
+          "label": "Repeated swings in control",
+          "points": 5
+        },
+        {
+          "label": "Big win-chance swing",
+          "points": 4
+        }
+      ]
+    }
+  },
+  {
+    "sport": "CFB",
+    "id": "401862806",
+    "equal": true,
+    "before": {
+      "score": 9,
+      "baseScore": 1,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Wide margin",
+          "points": -25
+        },
+        {
+          "label": "1 lead change",
+          "points": 3
+        },
+        {
+          "label": "Sustained competitive game",
+          "points": 5
+        }
+      ]
+    },
+    "after": {
+      "score": 9,
+      "baseScore": 1,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Wide margin",
+          "points": -25
+        },
+        {
+          "label": "1 lead change",
+          "points": 3
+        },
+        {
+          "label": "Sustained competitive game",
+          "points": 5
+        }
+      ]
+    }
+  },
+  {
+    "sport": "CFB",
+    "id": "401864520",
+    "equal": true,
+    "before": {
+      "score": 39,
+      "baseScore": 7,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Wide margin",
+          "points": -13
+        },
+        {
+          "label": "1 lead change",
+          "points": 3
+        },
+        {
+          "label": "Erased a large deficit",
+          "points": 6
+        },
+        {
+          "label": "Sustained competitive game",
+          "points": 5
+        },
+        {
+          "label": "Big win-chance swing",
+          "points": 5
+        },
+        {
+          "label": "Completed competitive path retention",
+          "points": 13
+        }
+      ]
+    },
+    "after": {
+      "score": 39,
+      "baseScore": 7,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Wide margin",
+          "points": -13
+        },
+        {
+          "label": "1 lead change",
+          "points": 3
+        },
+        {
+          "label": "Erased a large deficit",
+          "points": 6
+        },
+        {
+          "label": "Sustained competitive game",
+          "points": 5
+        },
+        {
+          "label": "Big win-chance swing",
+          "points": 5
+        },
+        {
+          "label": "Completed competitive path retention",
+          "points": 13
+        }
+      ]
+    }
+  },
+  {
+    "sport": "CFB",
+    "id": "401864522",
+    "equal": true,
+    "before": {
+      "score": 3,
+      "baseScore": 3,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Wide margin",
+          "points": -17
+        }
+      ]
+    },
+    "after": {
+      "score": 3,
+      "baseScore": 3,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Wide margin",
+          "points": -17
+        }
+      ]
+    }
+  },
+  {
+    "sport": "CFB",
+    "id": "401864523",
+    "equal": true,
+    "before": {
+      "score": 22,
+      "baseScore": 22,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 2
+        }
+      ]
+    },
+    "after": {
+      "score": 22,
+      "baseScore": 22,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 2
+        }
+      ]
+    }
+  },
+  {
+    "sport": "CFB",
+    "id": "401864524",
+    "equal": true,
+    "before": {
+      "score": 64,
+      "baseScore": 27,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 7
+        },
+        {
+          "label": "6 lead changes",
+          "points": 9
+        },
+        {
+          "label": "Sustained competitive game",
+          "points": 7
+        },
+        {
+          "label": "Big win-chance swing",
+          "points": 7
+        },
+        {
+          "label": "Competitive throughout",
+          "points": 2
+        },
+        {
+          "label": "Completed competitive path retention",
+          "points": 12
+        }
+      ]
+    },
+    "after": {
+      "score": 64,
+      "baseScore": 27,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 7
+        },
+        {
+          "label": "6 lead changes",
+          "points": 9
+        },
+        {
+          "label": "Sustained competitive game",
+          "points": 7
+        },
+        {
+          "label": "Big win-chance swing",
+          "points": 7
+        },
+        {
+          "label": "Competitive throughout",
+          "points": 2
+        },
+        {
+          "label": "Completed competitive path retention",
+          "points": 12
+        }
+      ]
+    }
+  },
+  {
+    "sport": "CFB",
+    "id": "401866441",
+    "equal": true,
+    "before": {
+      "score": 80,
+      "baseScore": 55,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 22
+        },
+        {
+          "label": "Overtime",
+          "points": 13
+        },
+        {
+          "label": "2 lead changes",
+          "points": 6
+        },
+        {
+          "label": "Erased a large deficit",
+          "points": 6
+        },
+        {
+          "label": "Recent late lead change",
+          "points": 5
+        },
+        {
+          "label": "Sustained competitive game",
+          "points": 7
+        },
+        {
+          "label": "Big win-chance swing",
+          "points": 1
+        }
+      ]
+    },
+    "after": {
+      "score": 80,
+      "baseScore": 55,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 22
+        },
+        {
+          "label": "Overtime",
+          "points": 13
+        },
+        {
+          "label": "2 lead changes",
+          "points": 6
+        },
+        {
+          "label": "Erased a large deficit",
+          "points": 6
+        },
+        {
+          "label": "Recent late lead change",
+          "points": 5
+        },
+        {
+          "label": "Sustained competitive game",
+          "points": 7
+        },
+        {
+          "label": "Big win-chance swing",
+          "points": 1
+        }
+      ]
+    }
+  },
+  {
+    "sport": "CFB",
+    "id": "401866442",
+    "equal": true,
+    "before": {
+      "score": 80,
+      "baseScore": 45,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 12
+        },
+        {
+          "label": "Overtime",
+          "points": 13
+        },
+        {
+          "label": "3 lead changes",
+          "points": 9
+        },
+        {
+          "label": "Recent late lead change",
+          "points": 5
+        },
+        {
+          "label": "Sustained competitive game",
+          "points": 7
+        },
+        {
+          "label": "Big win-chance swing",
+          "points": 4
+        },
+        {
+          "label": "Completed competitive path retention",
+          "points": 1
+        },
+        {
+          "label": "Decisive defensive finish",
+          "points": 9
+        }
+      ]
+    },
+    "after": {
+      "score": 80,
+      "baseScore": 45,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 12
+        },
+        {
+          "label": "Overtime",
+          "points": 13
+        },
+        {
+          "label": "3 lead changes",
+          "points": 9
+        },
+        {
+          "label": "Recent late lead change",
+          "points": 5
+        },
+        {
+          "label": "Sustained competitive game",
+          "points": 7
+        },
+        {
+          "label": "Big win-chance swing",
+          "points": 4
+        },
+        {
+          "label": "Completed competitive path retention",
+          "points": 1
+        },
+        {
+          "label": "Decisive defensive finish",
+          "points": 9
+        }
+      ]
+    }
+  },
+  {
+    "sport": "CFB",
+    "id": "401866443",
+    "equal": true,
+    "before": {
+      "score": 55,
+      "baseScore": 32,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 12
+        },
+        {
+          "label": "Completed competitive path retention",
+          "points": 23
+        }
+      ]
+    },
+    "after": {
+      "score": 55,
+      "baseScore": 32,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 12
+        },
+        {
+          "label": "Completed competitive path retention",
+          "points": 23
+        }
+      ]
+    }
+  },
+  {
+    "sport": "CFB",
+    "id": "401866444",
+    "equal": true,
+    "before": {
+      "score": 1,
+      "baseScore": 1,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Wide margin",
+          "points": -19
+        }
+      ]
+    },
+    "after": {
+      "score": 1,
+      "baseScore": 1,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Wide margin",
+          "points": -19
+        }
+      ]
+    }
+  },
+  {
+    "sport": "CFB",
+    "id": "401866445",
+    "equal": true,
+    "before": {
+      "score": 1,
+      "baseScore": 1,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Wide margin",
+          "points": -28
+        }
+      ]
+    },
+    "after": {
+      "score": 1,
+      "baseScore": 1,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Wide margin",
+          "points": -28
+        }
+      ]
+    }
+  },
+  {
+    "sport": "CFB",
+    "id": "401866478",
+    "equal": true,
+    "before": {
+      "score": 9,
+      "baseScore": 1,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Wide margin",
+          "points": -19
+        },
+        {
+          "label": "1 lead change",
+          "points": 3
+        },
+        {
+          "label": "Sustained competitive game",
+          "points": 5
+        }
+      ]
+    },
+    "after": {
+      "score": 9,
+      "baseScore": 1,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Wide margin",
+          "points": -19
+        },
+        {
+          "label": "1 lead change",
+          "points": 3
+        },
+        {
+          "label": "Sustained competitive game",
+          "points": 5
+        }
+      ]
+    }
+  },
+  {
+    "sport": "CFB",
+    "id": "401869934",
+    "equal": true,
+    "before": {
+      "score": 37,
+      "baseScore": 27,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 7
+        },
+        {
+          "label": "Sustained competitive game",
+          "points": 7
+        },
+        {
+          "label": "Big win-chance swing",
+          "points": 3
+        }
+      ]
+    },
+    "after": {
+      "score": 37,
+      "baseScore": 27,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 7
+        },
+        {
+          "label": "Sustained competitive game",
+          "points": 7
+        },
+        {
+          "label": "Big win-chance swing",
+          "points": 3
+        }
+      ]
+    }
+  },
+  {
+    "sport": "CFB",
+    "id": "401869957",
+    "equal": true,
+    "before": {
+      "score": 1,
+      "baseScore": 1,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Wide margin",
+          "points": -25
+        }
+      ]
+    },
+    "after": {
+      "score": 1,
+      "baseScore": 1,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Wide margin",
+          "points": -25
+        }
+      ]
+    }
+  },
+  {
+    "sport": "CFB",
+    "id": "401869966",
+    "equal": true,
+    "before": {
+      "score": 1,
+      "baseScore": 1,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Wide margin",
+          "points": -25
+        }
+      ]
+    },
+    "after": {
+      "score": 1,
+      "baseScore": 1,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Wide margin",
+          "points": -25
+        }
+      ]
+    }
+  },
+  {
+    "sport": "CFB",
+    "id": "401871091",
+    "equal": true,
+    "before": {
+      "score": 6,
+      "baseScore": 1,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Wide margin",
+          "points": -22
+        },
+        {
+          "label": "Sustained competitive game",
+          "points": 5
+        }
+      ]
+    },
+    "after": {
+      "score": 6,
+      "baseScore": 1,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Wide margin",
+          "points": -22
+        },
+        {
+          "label": "Sustained competitive game",
+          "points": 5
+        }
+      ]
+    }
+  },
+  {
+    "sport": "MLB",
+    "id": "401908024",
+    "equal": true,
+    "before": {
+      "score": 56,
+      "baseScore": 39,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 3
+        },
+        {
+          "label": "Final margin",
+          "points": 8
+        },
+        {
+          "label": "Postseason stakes",
+          "points": 10
+        },
+        {
+          "label": "Sustained competitive game",
+          "points": 7
+        },
+        {
+          "label": "Big win-chance swing",
+          "points": 6
+        },
+        {
+          "label": "Competitive for much of game",
+          "points": 4
+        }
+      ]
+    },
+    "after": {
+      "score": 56,
+      "baseScore": 39,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 3
+        },
+        {
+          "label": "Final margin",
+          "points": 8
+        },
+        {
+          "label": "Postseason stakes",
+          "points": 10
+        },
+        {
+          "label": "Sustained competitive game",
+          "points": 7
+        },
+        {
+          "label": "Big win-chance swing",
+          "points": 6
+        },
+        {
+          "label": "Competitive for much of game",
+          "points": 4
+        }
+      ]
+    }
+  },
+  {
+    "sport": "MLB",
+    "id": "401930515",
+    "equal": true,
+    "before": {
+      "score": 55,
+      "baseScore": 40,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 4
+        },
+        {
+          "label": "Final margin",
+          "points": 8
+        },
+        {
+          "label": "Postseason stakes",
+          "points": 10
+        },
+        {
+          "label": "Sustained competitive game",
+          "points": 7
+        },
+        {
+          "label": "Big win-chance swing",
+          "points": 4
+        },
+        {
+          "label": "Competitive for much of game",
+          "points": 4
+        }
+      ]
+    },
+    "after": {
+      "score": 55,
+      "baseScore": 40,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 4
+        },
+        {
+          "label": "Final margin",
+          "points": 8
+        },
+        {
+          "label": "Postseason stakes",
+          "points": 10
+        },
+        {
+          "label": "Sustained competitive game",
+          "points": 7
+        },
+        {
+          "label": "Big win-chance swing",
+          "points": 4
+        },
+        {
+          "label": "Competitive for much of game",
+          "points": 4
+        }
+      ]
+    }
+  },
+  {
+    "sport": "NBA",
+    "id": "401909088",
+    "equal": true,
+    "before": {
+      "score": 73,
+      "baseScore": 48,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 23
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 23
+        },
+        {
+          "label": "1 late lead change",
+          "points": 2
+        },
+        {
+          "label": "Erased a large deficit",
+          "points": 8
+        },
+        {
+          "label": "Sustained competitive game",
+          "points": 7
+        },
+        {
+          "label": "Big win-chance swing",
+          "points": 6
+        },
+        {
+          "label": "Competitive for much of game",
+          "points": 2
+        }
+      ]
+    },
+    "after": {
+      "score": 73,
+      "baseScore": 48,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 23
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 23
+        },
+        {
+          "label": "1 late lead change",
+          "points": 2
+        },
+        {
+          "label": "Erased a large deficit",
+          "points": 8
+        },
+        {
+          "label": "Sustained competitive game",
+          "points": 7
+        },
+        {
+          "label": "Big win-chance swing",
+          "points": 6
+        },
+        {
+          "label": "Competitive for much of game",
+          "points": 2
+        }
+      ]
+    }
+  },
+  {
+    "sport": "NBA",
+    "id": "401909089",
+    "equal": true,
+    "before": {
+      "score": 76,
+      "baseScore": 51,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 23
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 26
+        },
+        {
+          "label": "Second-half lead changes",
+          "points": 2
+        },
+        {
+          "label": "Erased a large deficit",
+          "points": 6
+        },
+        {
+          "label": "Sustained competitive game",
+          "points": 7
+        },
+        {
+          "label": "Big win-chance swing",
+          "points": 5
+        },
+        {
+          "label": "Competitive throughout",
+          "points": 5
+        }
+      ]
+    },
+    "after": {
+      "score": 76,
+      "baseScore": 51,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 23
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 26
+        },
+        {
+          "label": "Second-half lead changes",
+          "points": 2
+        },
+        {
+          "label": "Erased a large deficit",
+          "points": 6
+        },
+        {
+          "label": "Sustained competitive game",
+          "points": 7
+        },
+        {
+          "label": "Big win-chance swing",
+          "points": 5
+        },
+        {
+          "label": "Competitive throughout",
+          "points": 5
+        }
+      ]
+    }
+  },
+  {
+    "sport": "NBA",
+    "id": "401909090",
+    "equal": true,
+    "before": {
+      "score": 47,
+      "baseScore": 43,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 23
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 18
+        },
+        {
+          "label": "Big win-chance swing",
+          "points": 4
+        }
+      ]
+    },
+    "after": {
+      "score": 47,
+      "baseScore": 43,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 23
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 18
+        },
+        {
+          "label": "Big win-chance swing",
+          "points": 4
+        }
+      ]
+    }
+  },
+  {
+    "sport": "NCAAB",
+    "id": "401856574",
+    "equal": true,
+    "before": {
+      "score": 52,
+      "baseScore": 27,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 4
+        },
+        {
+          "label": "Wide margin",
+          "points": -13
+        },
+        {
+          "label": "Postseason stakes",
+          "points": 10
+        },
+        {
+          "label": "Advancement or elimination decided",
+          "points": 8
+        },
+        {
+          "label": "4 late lead changes",
+          "points": 11
+        },
+        {
+          "label": "Erased a large deficit",
+          "points": 6
+        },
+        {
+          "label": "2 late ties",
+          "points": 2
+        },
+        {
+          "label": "Sustained competitive game",
+          "points": 6
+        }
+      ]
+    },
+    "after": {
+      "score": 52,
+      "baseScore": 27,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 4
+        },
+        {
+          "label": "Wide margin",
+          "points": -13
+        },
+        {
+          "label": "Postseason stakes",
+          "points": 10
+        },
+        {
+          "label": "Advancement or elimination decided",
+          "points": 8
+        },
+        {
+          "label": "4 late lead changes",
+          "points": 11
+        },
+        {
+          "label": "Erased a large deficit",
+          "points": 6
+        },
+        {
+          "label": "2 late ties",
+          "points": 2
+        },
+        {
+          "label": "Sustained competitive game",
+          "points": 6
+        }
+      ]
+    }
+  },
+  {
+    "sport": "NCAAB",
+    "id": "401856575",
+    "equal": true,
+    "before": {
+      "score": 41,
+      "baseScore": 24,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 4
+        },
+        {
+          "label": "Wide margin",
+          "points": -16
+        },
+        {
+          "label": "Postseason stakes",
+          "points": 10
+        },
+        {
+          "label": "Advancement or elimination decided",
+          "points": 8
+        },
+        {
+          "label": "Second-half lead changes",
+          "points": 1
+        },
+        {
+          "label": "Sustained competitive game",
+          "points": 7
+        },
+        {
+          "label": "Big win-chance swing",
+          "points": 5
+        },
+        {
+          "label": "Competitive for much of game",
+          "points": 4
+        }
+      ]
+    },
+    "after": {
+      "score": 41,
+      "baseScore": 24,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 4
+        },
+        {
+          "label": "Wide margin",
+          "points": -16
+        },
+        {
+          "label": "Postseason stakes",
+          "points": 10
+        },
+        {
+          "label": "Advancement or elimination decided",
+          "points": 8
+        },
+        {
+          "label": "Second-half lead changes",
+          "points": 1
+        },
+        {
+          "label": "Sustained competitive game",
+          "points": 7
+        },
+        {
+          "label": "Big win-chance swing",
+          "points": 5
+        },
+        {
+          "label": "Competitive for much of game",
+          "points": 4
+        }
+      ]
+    }
+  },
+  {
+    "sport": "NFL",
+    "id": "401872981",
+    "equal": true,
+    "before": {
+      "score": 80,
+      "baseScore": 41,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 21
+        },
+        {
+          "label": "4 lead changes",
+          "points": 9
+        },
+        {
+          "label": "Erased a large deficit",
+          "points": 6
+        },
+        {
+          "label": "Recent late lead change",
+          "points": 5
+        },
+        {
+          "label": "Sustained competitive game",
+          "points": 5
+        },
+        {
+          "label": "Decisive last play",
+          "points": 14
+        }
+      ]
+    },
+    "after": {
+      "score": 80,
+      "baseScore": 41,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 21
+        },
+        {
+          "label": "4 lead changes",
+          "points": 9
+        },
+        {
+          "label": "Erased a large deficit",
+          "points": 6
+        },
+        {
+          "label": "Recent late lead change",
+          "points": 5
+        },
+        {
+          "label": "Sustained competitive game",
+          "points": 5
+        },
+        {
+          "label": "Decisive last play",
+          "points": 14
+        }
+      ]
+    }
+  },
+  {
+    "sport": "NFL",
+    "id": "401872982",
+    "equal": true,
+    "before": {
+      "score": 41,
+      "baseScore": 32,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 12
+        },
+        {
+          "label": "Erased a large deficit",
+          "points": 6
+        },
+        {
+          "label": "Big win-chance swing",
+          "points": 3
+        }
+      ]
+    },
+    "after": {
+      "score": 41,
+      "baseScore": 32,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 12
+        },
+        {
+          "label": "Erased a large deficit",
+          "points": 6
+        },
+        {
+          "label": "Big win-chance swing",
+          "points": 3
+        }
+      ]
+    }
+  },
+  {
+    "sport": "NFL",
+    "id": "401872983",
+    "equal": true,
+    "before": {
+      "score": 69,
+      "baseScore": 35,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 15
+        },
+        {
+          "label": "2 lead changes",
+          "points": 6
+        },
+        {
+          "label": "Erased a large deficit",
+          "points": 6
+        },
+        {
+          "label": "Recent late lead change",
+          "points": 5
+        },
+        {
+          "label": "Sustained competitive game",
+          "points": 7
+        },
+        {
+          "label": "Big win-chance swing",
+          "points": 1
+        },
+        {
+          "label": "Decisive defensive finish",
+          "points": 9
+        }
+      ]
+    },
+    "after": {
+      "score": 69,
+      "baseScore": 35,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 15
+        },
+        {
+          "label": "2 lead changes",
+          "points": 6
+        },
+        {
+          "label": "Erased a large deficit",
+          "points": 6
+        },
+        {
+          "label": "Recent late lead change",
+          "points": 5
+        },
+        {
+          "label": "Sustained competitive game",
+          "points": 7
+        },
+        {
+          "label": "Big win-chance swing",
+          "points": 1
+        },
+        {
+          "label": "Decisive defensive finish",
+          "points": 9
+        }
+      ]
+    }
+  },
+  {
+    "sport": "NFL",
+    "id": "401872984",
+    "equal": true,
+    "before": {
+      "score": 4,
+      "baseScore": 1,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Wide margin",
+          "points": -21
+        },
+        {
+          "label": "1 lead change",
+          "points": 3
+        }
+      ]
+    },
+    "after": {
+      "score": 4,
+      "baseScore": 1,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Wide margin",
+          "points": -21
+        },
+        {
+          "label": "1 lead change",
+          "points": 3
+        }
+      ]
+    }
+  },
+  {
+    "sport": "NFL",
+    "id": "401872985",
+    "equal": true,
+    "before": {
+      "score": 41,
+      "baseScore": 23,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 3
+        },
+        {
+          "label": "1 lead change",
+          "points": 3
+        },
+        {
+          "label": "Sustained competitive game",
+          "points": 5
+        },
+        {
+          "label": "Big win-chance swing",
+          "points": 4
+        },
+        {
+          "label": "Competitive throughout",
+          "points": 6
+        }
+      ]
+    },
+    "after": {
+      "score": 41,
+      "baseScore": 23,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 3
+        },
+        {
+          "label": "1 lead change",
+          "points": 3
+        },
+        {
+          "label": "Sustained competitive game",
+          "points": 5
+        },
+        {
+          "label": "Big win-chance swing",
+          "points": 4
+        },
+        {
+          "label": "Competitive throughout",
+          "points": 6
+        }
+      ]
+    }
+  },
+  {
+    "sport": "NFL",
+    "id": "401872986",
+    "equal": true,
+    "before": {
+      "score": 7,
+      "baseScore": 1,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 3
+        },
+        {
+          "label": "Wide margin",
+          "points": -26
+        },
+        {
+          "label": "Erased a large deficit",
+          "points": 6
+        }
+      ]
+    },
+    "after": {
+      "score": 7,
+      "baseScore": 1,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 3
+        },
+        {
+          "label": "Wide margin",
+          "points": -26
+        },
+        {
+          "label": "Erased a large deficit",
+          "points": 6
+        }
+      ]
+    }
+  },
+  {
+    "sport": "NFL",
+    "id": "401872987",
+    "equal": true,
+    "before": {
+      "score": 49,
+      "baseScore": 27,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 7
+        },
+        {
+          "label": "2 lead changes",
+          "points": 6
+        },
+        {
+          "label": "Sustained competitive game",
+          "points": 7
+        },
+        {
+          "label": "Big win-chance swing",
+          "points": 5
+        },
+        {
+          "label": "Competitive for much of game",
+          "points": 4
+        }
+      ]
+    },
+    "after": {
+      "score": 49,
+      "baseScore": 27,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 7
+        },
+        {
+          "label": "2 lead changes",
+          "points": 6
+        },
+        {
+          "label": "Sustained competitive game",
+          "points": 7
+        },
+        {
+          "label": "Big win-chance swing",
+          "points": 5
+        },
+        {
+          "label": "Competitive for much of game",
+          "points": 4
+        }
+      ]
+    }
+  },
+  {
+    "sport": "NFL",
+    "id": "401872988",
+    "equal": true,
+    "before": {
+      "score": 82,
+      "baseScore": 57,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 24
+        },
+        {
+          "label": "Overtime",
+          "points": 13
+        },
+        {
+          "label": "Erased a large deficit",
+          "points": 8
+        },
+        {
+          "label": "Sustained competitive game",
+          "points": 5
+        },
+        {
+          "label": "Repeated swings in control",
+          "points": 7
+        },
+        {
+          "label": "Big win-chance swing",
+          "points": 5
+        }
+      ]
+    },
+    "after": {
+      "score": 82,
+      "baseScore": 57,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 24
+        },
+        {
+          "label": "Overtime",
+          "points": 13
+        },
+        {
+          "label": "Erased a large deficit",
+          "points": 8
+        },
+        {
+          "label": "Sustained competitive game",
+          "points": 5
+        },
+        {
+          "label": "Repeated swings in control",
+          "points": 7
+        },
+        {
+          "label": "Big win-chance swing",
+          "points": 5
+        }
+      ]
+    }
+  },
+  {
+    "sport": "NFL",
+    "id": "401872989",
+    "equal": true,
+    "before": {
+      "score": 59,
+      "baseScore": 34,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 14
+        },
+        {
+          "label": "2 lead changes",
+          "points": 6
+        },
+        {
+          "label": "Erased a large deficit",
+          "points": 6
+        },
+        {
+          "label": "Recent late lead change",
+          "points": 5
+        },
+        {
+          "label": "Sustained competitive game",
+          "points": 7
+        },
+        {
+          "label": "Big win-chance swing",
+          "points": 1
+        }
+      ]
+    },
+    "after": {
+      "score": 59,
+      "baseScore": 34,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 14
+        },
+        {
+          "label": "2 lead changes",
+          "points": 6
+        },
+        {
+          "label": "Erased a large deficit",
+          "points": 6
+        },
+        {
+          "label": "Recent late lead change",
+          "points": 5
+        },
+        {
+          "label": "Sustained competitive game",
+          "points": 7
+        },
+        {
+          "label": "Big win-chance swing",
+          "points": 1
+        }
+      ]
+    }
+  },
+  {
+    "sport": "NFL",
+    "id": "401872990",
+    "equal": true,
+    "before": {
+      "score": 4,
+      "baseScore": 1,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 3
+        },
+        {
+          "label": "Wide margin",
+          "points": -22
+        },
+        {
+          "label": "Big win-chance swing",
+          "points": 3
+        }
+      ]
+    },
+    "after": {
+      "score": 4,
+      "baseScore": 1,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 3
+        },
+        {
+          "label": "Wide margin",
+          "points": -22
+        },
+        {
+          "label": "Big win-chance swing",
+          "points": 3
+        }
+      ]
+    }
+  },
+  {
+    "sport": "NFL",
+    "id": "401872991",
+    "equal": true,
+    "before": {
+      "score": 14,
+      "baseScore": 1,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Wide margin",
+          "points": -22
+        },
+        {
+          "label": "1 lead change",
+          "points": 3
+        },
+        {
+          "label": "Erased a large deficit",
+          "points": 6
+        },
+        {
+          "label": "Big win-chance swing",
+          "points": 4
+        }
+      ]
+    },
+    "after": {
+      "score": 14,
+      "baseScore": 1,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Wide margin",
+          "points": -22
+        },
+        {
+          "label": "1 lead change",
+          "points": 3
+        },
+        {
+          "label": "Erased a large deficit",
+          "points": 6
+        },
+        {
+          "label": "Big win-chance swing",
+          "points": 4
+        }
+      ]
+    }
+  },
+  {
+    "sport": "NFL",
+    "id": "401872992",
+    "equal": true,
+    "before": {
+      "score": 66,
+      "baseScore": 41,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 4
+        },
+        {
+          "label": "Final margin",
+          "points": 19
+        },
+        {
+          "label": "4 lead changes",
+          "points": 9
+        },
+        {
+          "label": "Erased a large deficit",
+          "points": 6
+        },
+        {
+          "label": "Sustained competitive game",
+          "points": 7
+        },
+        {
+          "label": "Big win-chance swing",
+          "points": 3
+        }
+      ]
+    },
+    "after": {
+      "score": 66,
+      "baseScore": 41,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 4
+        },
+        {
+          "label": "Final margin",
+          "points": 19
+        },
+        {
+          "label": "4 lead changes",
+          "points": 9
+        },
+        {
+          "label": "Erased a large deficit",
+          "points": 6
+        },
+        {
+          "label": "Sustained competitive game",
+          "points": 7
+        },
+        {
+          "label": "Big win-chance swing",
+          "points": 3
+        }
+      ]
+    }
+  },
+  {
+    "sport": "NFL",
+    "id": "401872993",
+    "equal": true,
+    "before": {
+      "score": 79,
+      "baseScore": 45,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 12
+        },
+        {
+          "label": "Overtime",
+          "points": 13
+        },
+        {
+          "label": "2 lead changes",
+          "points": 6
+        },
+        {
+          "label": "Erased a large deficit",
+          "points": 6
+        },
+        {
+          "label": "Recent late lead change",
+          "points": 5
+        },
+        {
+          "label": "Sustained competitive game",
+          "points": 7
+        },
+        {
+          "label": "Big win-chance swing",
+          "points": 1
+        },
+        {
+          "label": "Decisive defensive finish",
+          "points": 9
+        }
+      ]
+    },
+    "after": {
+      "score": 79,
+      "baseScore": 45,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 12
+        },
+        {
+          "label": "Overtime",
+          "points": 13
+        },
+        {
+          "label": "2 lead changes",
+          "points": 6
+        },
+        {
+          "label": "Erased a large deficit",
+          "points": 6
+        },
+        {
+          "label": "Recent late lead change",
+          "points": 5
+        },
+        {
+          "label": "Sustained competitive game",
+          "points": 7
+        },
+        {
+          "label": "Big win-chance swing",
+          "points": 1
+        },
+        {
+          "label": "Decisive defensive finish",
+          "points": 9
+        }
+      ]
+    }
+  },
+  {
+    "sport": "NFL",
+    "id": "401872996",
+    "equal": true,
+    "before": {
+      "score": 78,
+      "baseScore": 39,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 19
+        },
+        {
+          "label": "2 lead changes",
+          "points": 6
+        },
+        {
+          "label": "Erased a large deficit",
+          "points": 6
+        },
+        {
+          "label": "Sustained competitive game",
+          "points": 7
+        },
+        {
+          "label": "Big win-chance swing",
+          "points": 6
+        },
+        {
+          "label": "Decisive last play",
+          "points": 14
+        }
+      ]
+    },
+    "after": {
+      "score": 78,
+      "baseScore": 39,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 19
+        },
+        {
+          "label": "2 lead changes",
+          "points": 6
+        },
+        {
+          "label": "Erased a large deficit",
+          "points": 6
+        },
+        {
+          "label": "Sustained competitive game",
+          "points": 7
+        },
+        {
+          "label": "Big win-chance swing",
+          "points": 6
+        },
+        {
+          "label": "Decisive last play",
+          "points": 14
+        }
+      ]
+    }
+  },
+  {
+    "sport": "NFL",
+    "id": "401872997",
+    "equal": true,
+    "before": {
+      "score": 79,
+      "baseScore": 40,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 3
+        },
+        {
+          "label": "Final margin",
+          "points": 19
+        },
+        {
+          "label": "1 lead change",
+          "points": 3
+        },
+        {
+          "label": "Erased a large deficit",
+          "points": 6
+        },
+        {
+          "label": "Recent late lead change",
+          "points": 5
+        },
+        {
+          "label": "Sustained competitive game",
+          "points": 5
+        },
+        {
+          "label": "Big win-chance swing",
+          "points": 6
+        },
+        {
+          "label": "Decisive last play",
+          "points": 14
+        }
+      ]
+    },
+    "after": {
+      "score": 79,
+      "baseScore": 40,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 3
+        },
+        {
+          "label": "Final margin",
+          "points": 19
+        },
+        {
+          "label": "1 lead change",
+          "points": 3
+        },
+        {
+          "label": "Erased a large deficit",
+          "points": 6
+        },
+        {
+          "label": "Recent late lead change",
+          "points": 5
+        },
+        {
+          "label": "Sustained competitive game",
+          "points": 5
+        },
+        {
+          "label": "Big win-chance swing",
+          "points": 6
+        },
+        {
+          "label": "Decisive last play",
+          "points": 14
+        }
+      ]
+    }
+  },
+  {
+    "sport": "NFL",
+    "id": "401872998",
+    "equal": true,
+    "before": {
+      "score": 40,
+      "baseScore": 25,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 5
+        },
+        {
+          "label": "Sustained competitive game",
+          "points": 7
+        },
+        {
+          "label": "Big win-chance swing",
+          "points": 4
+        },
+        {
+          "label": "Competitive for much of game",
+          "points": 4
+        }
+      ]
+    },
+    "after": {
+      "score": 40,
+      "baseScore": 25,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 5
+        },
+        {
+          "label": "Sustained competitive game",
+          "points": 7
+        },
+        {
+          "label": "Big win-chance swing",
+          "points": 4
+        },
+        {
+          "label": "Competitive for much of game",
+          "points": 4
+        }
+      ]
+    }
+  },
+  {
+    "sport": "NFL",
+    "id": "401872999",
+    "equal": true,
+    "before": {
+      "score": 30,
+      "baseScore": 30,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 10
+        }
+      ]
+    },
+    "after": {
+      "score": 30,
+      "baseScore": 30,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 10
+        }
+      ]
+    }
+  },
+  {
+    "sport": "NFL",
+    "id": "401873000",
+    "equal": true,
+    "before": {
+      "score": 63,
+      "baseScore": 32,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 12
+        },
+        {
+          "label": "1 lead change",
+          "points": 3
+        },
+        {
+          "label": "Erased a large deficit",
+          "points": 6
+        },
+        {
+          "label": "Sustained competitive game",
+          "points": 5
+        },
+        {
+          "label": "Big win-chance swing",
+          "points": 5
+        },
+        {
+          "label": "Decisive defensive finish",
+          "points": 12
+        }
+      ]
+    },
+    "after": {
+      "score": 63,
+      "baseScore": 32,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 12
+        },
+        {
+          "label": "1 lead change",
+          "points": 3
+        },
+        {
+          "label": "Erased a large deficit",
+          "points": 6
+        },
+        {
+          "label": "Sustained competitive game",
+          "points": 5
+        },
+        {
+          "label": "Big win-chance swing",
+          "points": 5
+        },
+        {
+          "label": "Decisive defensive finish",
+          "points": 12
+        }
+      ]
+    }
+  },
+  {
+    "sport": "NFL",
+    "id": "401873001",
+    "equal": true,
+    "before": {
+      "score": 42,
+      "baseScore": 32,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 12
+        },
+        {
+          "label": "1 lead change",
+          "points": 3
+        },
+        {
+          "label": "Sustained competitive game",
+          "points": 7
+        }
+      ]
+    },
+    "after": {
+      "score": 42,
+      "baseScore": 32,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 12
+        },
+        {
+          "label": "1 lead change",
+          "points": 3
+        },
+        {
+          "label": "Sustained competitive game",
+          "points": 7
+        }
+      ]
+    }
+  },
+  {
+    "sport": "NFL",
+    "id": "401873002",
+    "equal": true,
+    "before": {
+      "score": 79,
+      "baseScore": 45,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 12
+        },
+        {
+          "label": "Overtime",
+          "points": 13
+        },
+        {
+          "label": "1 lead change",
+          "points": 3
+        },
+        {
+          "label": "Erased a large deficit",
+          "points": 6
+        },
+        {
+          "label": "Recent late lead change",
+          "points": 5
+        },
+        {
+          "label": "Big win-chance swing",
+          "points": 9
+        },
+        {
+          "label": "Competitive for much of game",
+          "points": 2
+        },
+        {
+          "label": "Decisive defensive finish",
+          "points": 9
+        }
+      ]
+    },
+    "after": {
+      "score": 79,
+      "baseScore": 45,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 12
+        },
+        {
+          "label": "Overtime",
+          "points": 13
+        },
+        {
+          "label": "1 lead change",
+          "points": 3
+        },
+        {
+          "label": "Erased a large deficit",
+          "points": 6
+        },
+        {
+          "label": "Recent late lead change",
+          "points": 5
+        },
+        {
+          "label": "Big win-chance swing",
+          "points": 9
+        },
+        {
+          "label": "Competitive for much of game",
+          "points": 2
+        },
+        {
+          "label": "Decisive defensive finish",
+          "points": 9
+        }
+      ]
+    }
+  },
+  {
+    "sport": "NFL",
+    "id": "401873003",
+    "equal": true,
+    "before": {
+      "score": 68,
+      "baseScore": 34,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 14
+        },
+        {
+          "label": "1 lead change",
+          "points": 3
+        },
+        {
+          "label": "Erased a large deficit",
+          "points": 6
+        },
+        {
+          "label": "Sustained competitive game",
+          "points": 7
+        },
+        {
+          "label": "Repeated swings in control",
+          "points": 6
+        },
+        {
+          "label": "Big win-chance swing",
+          "points": 3
+        },
+        {
+          "label": "Decisive defensive finish",
+          "points": 9
+        }
+      ]
+    },
+    "after": {
+      "score": 68,
+      "baseScore": 34,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 14
+        },
+        {
+          "label": "1 lead change",
+          "points": 3
+        },
+        {
+          "label": "Erased a large deficit",
+          "points": 6
+        },
+        {
+          "label": "Sustained competitive game",
+          "points": 7
+        },
+        {
+          "label": "Repeated swings in control",
+          "points": 6
+        },
+        {
+          "label": "Big win-chance swing",
+          "points": 3
+        },
+        {
+          "label": "Decisive defensive finish",
+          "points": 9
+        }
+      ]
+    }
+  },
+  {
+    "sport": "NFL",
+    "id": "401873004",
+    "equal": true,
+    "before": {
+      "score": 99,
+      "baseScore": 63,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 21
+        },
+        {
+          "label": "Underdog won outright",
+          "points": 22
+        },
+        {
+          "label": "5 lead changes",
+          "points": 9
+        },
+        {
+          "label": "Recent late lead change",
+          "points": 5
+        },
+        {
+          "label": "Sustained competitive game",
+          "points": 7
+        },
+        {
+          "label": "Big win-chance swing",
+          "points": 4
+        },
+        {
+          "label": "Decisive last play",
+          "points": 14
+        }
+      ]
+    },
+    "after": {
+      "score": 99,
+      "baseScore": 63,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 21
+        },
+        {
+          "label": "Underdog won outright",
+          "points": 22
+        },
+        {
+          "label": "5 lead changes",
+          "points": 9
+        },
+        {
+          "label": "Recent late lead change",
+          "points": 5
+        },
+        {
+          "label": "Sustained competitive game",
+          "points": 7
+        },
+        {
+          "label": "Big win-chance swing",
+          "points": 4
+        },
+        {
+          "label": "Decisive last play",
+          "points": 14
+        }
+      ]
+    }
+  },
+  {
+    "sport": "NFL",
+    "id": "401873005",
+    "equal": true,
+    "before": {
+      "score": 63,
+      "baseScore": 39,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 19
+        },
+        {
+          "label": "2 lead changes",
+          "points": 6
+        },
+        {
+          "label": "Erased a large deficit",
+          "points": 6
+        },
+        {
+          "label": "Sustained competitive game",
+          "points": 7
+        },
+        {
+          "label": "Big win-chance swing",
+          "points": 5
+        }
+      ]
+    },
+    "after": {
+      "score": 63,
+      "baseScore": 39,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 19
+        },
+        {
+          "label": "2 lead changes",
+          "points": 6
+        },
+        {
+          "label": "Erased a large deficit",
+          "points": 6
+        },
+        {
+          "label": "Sustained competitive game",
+          "points": 7
+        },
+        {
+          "label": "Big win-chance swing",
+          "points": 5
+        }
+      ]
+    }
+  },
+  {
+    "sport": "NFL",
+    "id": "401873006",
+    "equal": true,
+    "before": {
+      "score": 5,
+      "baseScore": 5,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Wide margin",
+          "points": -15
+        }
+      ]
+    },
+    "after": {
+      "score": 5,
+      "baseScore": 5,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Wide margin",
+          "points": -15
+        }
+      ]
+    }
+  },
+  {
+    "sport": "NFL",
+    "id": "401873007",
+    "equal": true,
+    "before": {
+      "score": 27,
+      "baseScore": 27,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 7
+        }
+      ]
+    },
+    "after": {
+      "score": 27,
+      "baseScore": 27,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 7
+        }
+      ]
+    }
+  },
+  {
+    "sport": "NHL",
+    "id": "401892519",
+    "equal": true,
+    "before": {
+      "score": 34,
+      "baseScore": 28,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 8
+        },
+        {
+          "label": "1 lead change",
+          "points": 3
+        },
+        {
+          "label": "Time tied or within one goal",
+          "points": 3
+        }
+      ]
+    },
+    "after": {
+      "score": 34,
+      "baseScore": 28,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 8
+        },
+        {
+          "label": "1 lead change",
+          "points": 3
+        },
+        {
+          "label": "Time tied or within one goal",
+          "points": 3
+        }
+      ]
+    }
+  },
+  {
+    "sport": "NHL",
+    "id": "401892520",
+    "equal": true,
+    "before": {
+      "score": 63,
+      "baseScore": 36,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 16
+        },
+        {
+          "label": "1 lead change",
+          "points": 3
+        },
+        {
+          "label": "Time tied or within one goal",
+          "points": 7
+        },
+        {
+          "label": "Completed late competitive path floor",
+          "points": 17
+        }
+      ]
+    },
+    "after": {
+      "score": 63,
+      "baseScore": 36,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 16
+        },
+        {
+          "label": "1 lead change",
+          "points": 3
+        },
+        {
+          "label": "Time tied or within one goal",
+          "points": 7
+        },
+        {
+          "label": "Completed late competitive path floor",
+          "points": 17
+        }
+      ]
+    }
+  },
+  {
+    "sport": "NHL",
+    "id": "401892521",
+    "equal": true,
+    "before": {
+      "score": 43,
+      "baseScore": 28,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 8
+        },
+        {
+          "label": "Erased a multi-goal deficit",
+          "points": 6
+        },
+        {
+          "label": "1 lead change",
+          "points": 3
+        },
+        {
+          "label": "Time tied or within one goal",
+          "points": 6
+        }
+      ]
+    },
+    "after": {
+      "score": 43,
+      "baseScore": 28,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 8
+        },
+        {
+          "label": "Erased a multi-goal deficit",
+          "points": 6
+        },
+        {
+          "label": "1 lead change",
+          "points": 3
+        },
+        {
+          "label": "Time tied or within one goal",
+          "points": 6
+        }
+      ]
+    }
+  },
+  {
+    "sport": "NHL",
+    "id": "401892522",
+    "equal": true,
+    "before": {
+      "score": 3,
+      "baseScore": 1,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 3
+        },
+        {
+          "label": "Wide margin",
+          "points": -22
+        },
+        {
+          "label": "Time tied or within one goal",
+          "points": 2
+        }
+      ]
+    },
+    "after": {
+      "score": 3,
+      "baseScore": 1,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 3
+        },
+        {
+          "label": "Wide margin",
+          "points": -22
+        },
+        {
+          "label": "Time tied or within one goal",
+          "points": 2
+        }
+      ]
+    }
+  },
+  {
+    "sport": "NHL",
+    "id": "401892523",
+    "equal": true,
+    "before": {
+      "score": 12,
+      "baseScore": 7,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Wide margin",
+          "points": -13
+        },
+        {
+          "label": "Time tied or within one goal",
+          "points": 5
+        }
+      ]
+    },
+    "after": {
+      "score": 12,
+      "baseScore": 7,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Wide margin",
+          "points": -13
+        },
+        {
+          "label": "Time tied or within one goal",
+          "points": 5
+        }
+      ]
+    }
+  },
+  {
+    "sport": "NHL",
+    "id": "401892524",
+    "equal": true,
+    "before": {
+      "score": 70,
+      "baseScore": 50,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 3
+        },
+        {
+          "label": "Final margin",
+          "points": 16
+        },
+        {
+          "label": "Overtime winner",
+          "points": 13
+        },
+        {
+          "label": "Erased a multi-goal deficit",
+          "points": 6
+        },
+        {
+          "label": "1 lead change",
+          "points": 3
+        },
+        {
+          "label": "Time tied or within one goal",
+          "points": 6
+        },
+        {
+          "label": "Completed overtime floor",
+          "points": 5
+        }
+      ]
+    },
+    "after": {
+      "score": 70,
+      "baseScore": 50,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 3
+        },
+        {
+          "label": "Final margin",
+          "points": 16
+        },
+        {
+          "label": "Overtime winner",
+          "points": 13
+        },
+        {
+          "label": "Erased a multi-goal deficit",
+          "points": 6
+        },
+        {
+          "label": "1 lead change",
+          "points": 3
+        },
+        {
+          "label": "Time tied or within one goal",
+          "points": 6
+        },
+        {
+          "label": "Completed overtime floor",
+          "points": 5
+        }
+      ]
+    }
+  },
+  {
+    "sport": "NHL",
+    "id": "401892525",
+    "equal": true,
+    "before": {
+      "score": 69,
+      "baseScore": 45,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 16
+        },
+        {
+          "label": "Shootout finish",
+          "points": 9
+        },
+        {
+          "label": "Late tying goal",
+          "points": 9
+        },
+        {
+          "label": "Erased a multi-goal deficit",
+          "points": 6
+        },
+        {
+          "label": "1 lead change",
+          "points": 3
+        },
+        {
+          "label": "Time tied or within one goal",
+          "points": 6
+        }
+      ]
+    },
+    "after": {
+      "score": 69,
+      "baseScore": 45,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 16
+        },
+        {
+          "label": "Shootout finish",
+          "points": 9
+        },
+        {
+          "label": "Late tying goal",
+          "points": 9
+        },
+        {
+          "label": "Erased a multi-goal deficit",
+          "points": 6
+        },
+        {
+          "label": "1 lead change",
+          "points": 3
+        },
+        {
+          "label": "Time tied or within one goal",
+          "points": 6
+        }
+      ]
+    }
+  },
+  {
+    "sport": "NHL",
+    "id": "401892526",
+    "equal": true,
+    "before": {
+      "score": 38,
+      "baseScore": 28,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 8
+        },
+        {
+          "label": "1 lead change",
+          "points": 3
+        },
+        {
+          "label": "Time tied or within one goal",
+          "points": 7
+        }
+      ]
+    },
+    "after": {
+      "score": 38,
+      "baseScore": 28,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 8
+        },
+        {
+          "label": "1 lead change",
+          "points": 3
+        },
+        {
+          "label": "Time tied or within one goal",
+          "points": 7
+        }
+      ]
+    }
+  },
+  {
+    "sport": "NHL",
+    "id": "401892527",
+    "equal": true,
+    "before": {
+      "score": 64,
+      "baseScore": 49,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 16
+        },
+        {
+          "label": "Overtime winner",
+          "points": 13
+        },
+        {
+          "label": "Time tied or within one goal",
+          "points": 8
+        },
+        {
+          "label": "Completed overtime floor",
+          "points": 7
+        }
+      ]
+    },
+    "after": {
+      "score": 64,
+      "baseScore": 49,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 16
+        },
+        {
+          "label": "Overtime winner",
+          "points": 13
+        },
+        {
+          "label": "Time tied or within one goal",
+          "points": 8
+        },
+        {
+          "label": "Completed overtime floor",
+          "points": 7
+        }
+      ]
+    }
+  },
+  {
+    "sport": "NHL",
+    "id": "401892528",
+    "equal": true,
+    "before": {
+      "score": 7,
+      "baseScore": 3,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Wide margin",
+          "points": -17
+        },
+        {
+          "label": "Time tied or within one goal",
+          "points": 4
+        }
+      ]
+    },
+    "after": {
+      "score": 7,
+      "baseScore": 3,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Wide margin",
+          "points": -17
+        },
+        {
+          "label": "Time tied or within one goal",
+          "points": 4
+        }
+      ]
+    }
+  },
+  {
+    "sport": "NHL",
+    "id": "401892529",
+    "equal": true,
+    "before": {
+      "score": 14,
+      "baseScore": 7,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Wide margin",
+          "points": -13
+        },
+        {
+          "label": "1 lead change",
+          "points": 3
+        },
+        {
+          "label": "Time tied or within one goal",
+          "points": 4
+        }
+      ]
+    },
+    "after": {
+      "score": 14,
+      "baseScore": 7,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Wide margin",
+          "points": -13
+        },
+        {
+          "label": "1 lead change",
+          "points": 3
+        },
+        {
+          "label": "Time tied or within one goal",
+          "points": 4
+        }
+      ]
+    }
+  },
+  {
+    "sport": "NHL",
+    "id": "401892530",
+    "equal": true,
+    "before": {
+      "score": 17,
+      "baseScore": 7,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Wide margin",
+          "points": -13
+        },
+        {
+          "label": "1 lead change",
+          "points": 3
+        },
+        {
+          "label": "Time tied or within one goal",
+          "points": 7
+        }
+      ]
+    },
+    "after": {
+      "score": 17,
+      "baseScore": 7,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Wide margin",
+          "points": -13
+        },
+        {
+          "label": "1 lead change",
+          "points": 3
+        },
+        {
+          "label": "Time tied or within one goal",
+          "points": 7
+        }
+      ]
+    }
+  },
+  {
+    "sport": "NHL",
+    "id": "401892531",
+    "equal": true,
+    "before": {
+      "score": 4,
+      "baseScore": 3,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Wide margin",
+          "points": -17
+        },
+        {
+          "label": "Time tied or within one goal",
+          "points": 1
+        }
+      ]
+    },
+    "after": {
+      "score": 4,
+      "baseScore": 3,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Wide margin",
+          "points": -17
+        },
+        {
+          "label": "Time tied or within one goal",
+          "points": 1
+        }
+      ]
+    }
+  },
+  {
+    "sport": "NHL",
+    "id": "401892532",
+    "equal": true,
+    "before": {
+      "score": 3,
+      "baseScore": 3,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Wide margin",
+          "points": -17
+        }
+      ]
+    },
+    "after": {
+      "score": 3,
+      "baseScore": 3,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Wide margin",
+          "points": -17
+        }
+      ]
+    }
+  },
+  {
+    "sport": "NHL",
+    "id": "401892539",
+    "equal": true,
+    "before": {
+      "score": 71,
+      "baseScore": 53,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 16
+        },
+        {
+          "label": "Overtime winner",
+          "points": 13
+        },
+        {
+          "label": "Underdog won outright",
+          "points": 4
+        },
+        {
+          "label": "Erased a multi-goal deficit",
+          "points": 6
+        },
+        {
+          "label": "2 lead changes",
+          "points": 6
+        },
+        {
+          "label": "Time tied or within one goal",
+          "points": 6
+        }
+      ]
+    },
+    "after": {
+      "score": 71,
+      "baseScore": 53,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 16
+        },
+        {
+          "label": "Overtime winner",
+          "points": 13
+        },
+        {
+          "label": "Underdog won outright",
+          "points": 4
+        },
+        {
+          "label": "Erased a multi-goal deficit",
+          "points": 6
+        },
+        {
+          "label": "2 lead changes",
+          "points": 6
+        },
+        {
+          "label": "Time tied or within one goal",
+          "points": 6
+        }
+      ]
+    }
+  },
+  {
+    "sport": "NHL",
+    "id": "401892540",
+    "equal": true,
+    "before": {
+      "score": 41,
+      "baseScore": 36,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 16
+        },
+        {
+          "label": "Time tied or within one goal",
+          "points": 5
+        }
+      ]
+    },
+    "after": {
+      "score": 41,
+      "baseScore": 36,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 16
+        },
+        {
+          "label": "Time tied or within one goal",
+          "points": 5
+        }
+      ]
+    }
+  },
+  {
+    "sport": "NHL",
+    "id": "401892541",
+    "equal": true,
+    "before": {
+      "score": 38,
+      "baseScore": 36,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 16
+        },
+        {
+          "label": "Time tied or within one goal",
+          "points": 2
+        }
+      ]
+    },
+    "after": {
+      "score": 38,
+      "baseScore": 36,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 16
+        },
+        {
+          "label": "Time tied or within one goal",
+          "points": 2
+        }
+      ]
+    }
+  },
+  {
+    "sport": "NHL",
+    "id": "401892542",
+    "equal": true,
+    "before": {
+      "score": 22,
+      "baseScore": 7,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Wide margin",
+          "points": -13
+        },
+        {
+          "label": "Erased a multi-goal deficit",
+          "points": 6
+        },
+        {
+          "label": "1 lead change",
+          "points": 3
+        },
+        {
+          "label": "Time tied or within one goal",
+          "points": 6
+        }
+      ]
+    },
+    "after": {
+      "score": 22,
+      "baseScore": 7,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Wide margin",
+          "points": -13
+        },
+        {
+          "label": "Erased a multi-goal deficit",
+          "points": 6
+        },
+        {
+          "label": "1 lead change",
+          "points": 3
+        },
+        {
+          "label": "Time tied or within one goal",
+          "points": 6
+        }
+      ]
+    }
+  },
+  {
+    "sport": "NHL",
+    "id": "401892543",
+    "equal": true,
+    "before": {
+      "score": 9,
+      "baseScore": 3,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Wide margin",
+          "points": -17
+        },
+        {
+          "label": "1 lead change",
+          "points": 3
+        },
+        {
+          "label": "Time tied or within one goal",
+          "points": 3
+        }
+      ]
+    },
+    "after": {
+      "score": 9,
+      "baseScore": 3,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Wide margin",
+          "points": -17
+        },
+        {
+          "label": "1 lead change",
+          "points": 3
+        },
+        {
+          "label": "Time tied or within one goal",
+          "points": 3
+        }
+      ]
+    }
+  },
+  {
+    "sport": "NHL",
+    "id": "401892544",
+    "equal": true,
+    "before": {
+      "score": 63,
+      "baseScore": 36,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 16
+        },
+        {
+          "label": "Time tied or within one goal",
+          "points": 6
+        },
+        {
+          "label": "Completed late competitive path floor",
+          "points": 21
+        }
+      ]
+    },
+    "after": {
+      "score": 63,
+      "baseScore": 36,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 16
+        },
+        {
+          "label": "Time tied or within one goal",
+          "points": 6
+        },
+        {
+          "label": "Completed late competitive path floor",
+          "points": 21
+        }
+      ]
+    }
+  },
+  {
+    "sport": "NHL",
+    "id": "401892545",
+    "equal": true,
+    "before": {
+      "score": 65,
+      "baseScore": 49,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 16
+        },
+        {
+          "label": "Overtime winner",
+          "points": 13
+        },
+        {
+          "label": "1 lead change",
+          "points": 3
+        },
+        {
+          "label": "Time tied or within one goal",
+          "points": 6
+        },
+        {
+          "label": "Completed overtime floor",
+          "points": 7
+        }
+      ]
+    },
+    "after": {
+      "score": 65,
+      "baseScore": 49,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 16
+        },
+        {
+          "label": "Overtime winner",
+          "points": 13
+        },
+        {
+          "label": "1 lead change",
+          "points": 3
+        },
+        {
+          "label": "Time tied or within one goal",
+          "points": 6
+        },
+        {
+          "label": "Completed overtime floor",
+          "points": 7
+        }
+      ]
+    }
+  },
+  {
+    "sport": "NHL",
+    "id": "401892546",
+    "equal": true,
+    "before": {
+      "score": 68,
+      "baseScore": 50,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 3
+        },
+        {
+          "label": "Final margin",
+          "points": 16
+        },
+        {
+          "label": "Overtime winner",
+          "points": 13
+        },
+        {
+          "label": "Erased a multi-goal deficit",
+          "points": 6
+        },
+        {
+          "label": "1 lead change",
+          "points": 3
+        },
+        {
+          "label": "Time tied or within one goal",
+          "points": 4
+        },
+        {
+          "label": "Completed overtime floor",
+          "points": 5
+        }
+      ]
+    },
+    "after": {
+      "score": 68,
+      "baseScore": 50,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 3
+        },
+        {
+          "label": "Final margin",
+          "points": 16
+        },
+        {
+          "label": "Overtime winner",
+          "points": 13
+        },
+        {
+          "label": "Erased a multi-goal deficit",
+          "points": 6
+        },
+        {
+          "label": "1 lead change",
+          "points": 3
+        },
+        {
+          "label": "Time tied or within one goal",
+          "points": 4
+        },
+        {
+          "label": "Completed overtime floor",
+          "points": 5
+        }
+      ]
+    }
+  },
+  {
+    "sport": "NHL",
+    "id": "401892547",
+    "equal": true,
+    "before": {
+      "score": 66,
+      "baseScore": 45,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 16
+        },
+        {
+          "label": "Shootout finish",
+          "points": 9
+        },
+        {
+          "label": "Late tying goal",
+          "points": 9
+        },
+        {
+          "label": "Erased a multi-goal deficit",
+          "points": 8
+        },
+        {
+          "label": "Time tied or within one goal",
+          "points": 4
+        }
+      ]
+    },
+    "after": {
+      "score": 66,
+      "baseScore": 45,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Final margin",
+          "points": 16
+        },
+        {
+          "label": "Shootout finish",
+          "points": 9
+        },
+        {
+          "label": "Late tying goal",
+          "points": 9
+        },
+        {
+          "label": "Erased a multi-goal deficit",
+          "points": 8
+        },
+        {
+          "label": "Time tied or within one goal",
+          "points": 4
+        }
+      ]
+    }
+  },
+  {
+    "sport": "NHL",
+    "id": "401892548",
+    "equal": true,
+    "before": {
+      "score": 13,
+      "baseScore": 7,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Wide margin",
+          "points": -13
+        },
+        {
+          "label": "Time tied or within one goal",
+          "points": 6
+        }
+      ]
+    },
+    "after": {
+      "score": 13,
+      "baseScore": 7,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 2
+        },
+        {
+          "label": "Wide margin",
+          "points": -13
+        },
+        {
+          "label": "Time tied or within one goal",
+          "points": 6
+        }
+      ]
+    }
+  },
+  {
+    "sport": "NHL",
+    "id": "401892549",
+    "equal": true,
+    "before": {
+      "score": 7,
+      "baseScore": 4,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 3
+        },
+        {
+          "label": "Wide margin",
+          "points": -17
+        },
+        {
+          "label": "Time tied or within one goal",
+          "points": 3
+        }
+      ]
+    },
+    "after": {
+      "score": 7,
+      "baseScore": 4,
+      "factors": [
+        {
+          "label": "Game-state baseline",
+          "points": 18
+        },
+        {
+          "label": "Pregame context carried into play",
+          "points": 3
+        },
+        {
+          "label": "Wide margin",
+          "points": -17
+        },
+        {
+          "label": "Time tied or within one goal",
+          "points": 3
+        }
+      ]
+    }
+  }
+]

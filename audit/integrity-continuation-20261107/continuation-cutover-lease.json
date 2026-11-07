@@ -1,0 +1,65 @@
+{
+  "at": "2026-11-07T07:13:34.002Z",
+  "acquired": {
+    "result": [
+      {
+        "results": [],
+        "success": true,
+        "meta": {
+          "served_by": "v3-prod",
+          "served_by_region": "ENAM",
+          "served_by_colo": "EWR",
+          "served_by_primary": true,
+          "timings": {
+            "sql_duration_ms": 0.1731
+          },
+          "duration": 0.1731,
+          "changes": 1,
+          "last_row_id": 1,
+          "changed_db": true,
+          "size_after": 3041579008,
+          "rows_read": 0,
+          "rows_written": 2,
+          "total_attempts": 1
+        }
+      }
+    ],
+    "errors": [],
+    "messages": [],
+    "success": true
+  },
+  "lease": {
+    "result": [
+      {
+        "results": [
+          {
+            "key": "refresh",
+            "owner": "integrity-b47e47e-20261107",
+            "expires_at": 1794035914002
+          }
+        ],
+        "success": true,
+        "meta": {
+          "served_by": "v3-prod",
+          "served_by_region": "ENAM",
+          "served_by_colo": "EWR",
+          "served_by_primary": true,
+          "timings": {
+            "sql_duration_ms": 0.1619
+          },
+          "duration": 0.1619,
+          "changes": 0,
+          "last_row_id": 1,
+          "changed_db": false,
+          "size_after": 3041579008,
+          "rows_read": 1,
+          "rows_written": 0,
+          "total_attempts": 1
+        }
+      }
+    ],
+    "errors": [],
+    "messages": [],
+    "success": true
+  }
+}

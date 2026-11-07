@@ -1,0 +1,528 @@
+[
+  {
+    "worker": "alerts",
+    "bundleSha256": "cf2643d5ca6a815ef93f08dbc21fe3b29bf3753698646a9f4d12a6fbf4c6e00a",
+    "exactBundleMatch": true,
+    "sourceMapContentsMatch": true,
+    "sources": [
+      {
+        "source": "../../scoring/shared/time.js",
+        "resolved": "scoring/shared/time.js",
+        "matches": true
+      },
+      {
+        "source": "../../scoring/shared/probability.js",
+        "resolved": "scoring/shared/probability.js",
+        "matches": true
+      },
+      {
+        "source": "../../scoring/shared/trajectory.js",
+        "resolved": "scoring/shared/trajectory.js",
+        "matches": true
+      },
+      {
+        "source": "../../scoring/shared/config.js",
+        "resolved": "scoring/shared/config.js",
+        "matches": true
+      },
+      {
+        "source": "../../scoring/shared/records.js",
+        "resolved": "scoring/shared/records.js",
+        "matches": true
+      },
+      {
+        "source": "../../scoring/shared/nfl-pregame.js",
+        "resolved": "scoring/shared/nfl-pregame.js",
+        "matches": true
+      },
+      {
+        "source": "../../scoring/shared/market.js",
+        "resolved": "scoring/shared/market.js",
+        "matches": true
+      },
+      {
+        "source": "../../scoring/shared/football.js",
+        "resolved": "scoring/shared/football.js",
+        "matches": true
+      },
+      {
+        "source": "../../scoring/sports/nfl.js",
+        "resolved": "scoring/sports/nfl.js",
+        "matches": true
+      },
+      {
+        "source": "../../scoring/shared/pregame.js",
+        "resolved": "scoring/shared/pregame.js",
+        "matches": true
+      },
+      {
+        "source": "../../scoring/sports/mlb.js",
+        "resolved": "scoring/sports/mlb.js",
+        "matches": true
+      },
+      {
+        "source": "../../scoring/shared/context.js",
+        "resolved": "scoring/shared/context.js",
+        "matches": true
+      },
+      {
+        "source": "../../scoring/shared/upset.js",
+        "resolved": "scoring/shared/upset.js",
+        "matches": true
+      },
+      {
+        "source": "../../scoring/sports/nhl.js",
+        "resolved": "scoring/sports/nhl.js",
+        "matches": true
+      },
+      {
+        "source": "../../scoring/shared/college.js",
+        "resolved": "scoring/shared/college.js",
+        "matches": true
+      },
+      {
+        "source": "../../scoring/shared/basketball.js",
+        "resolved": "scoring/shared/basketball.js",
+        "matches": true
+      },
+      {
+        "source": "../../scoring/sports/basketball.js",
+        "resolved": "scoring/sports/basketball.js",
+        "matches": true
+      },
+      {
+        "source": "../../scoring/sports/cfb.js",
+        "resolved": "scoring/sports/cfb.js",
+        "matches": true
+      },
+      {
+        "source": "../../scoring/sports/tennis.js",
+        "resolved": "scoring/sports/tennis.js",
+        "matches": true
+      },
+      {
+        "source": "../../scoring/sports/soccer.js",
+        "resolved": "scoring/sports/soccer.js",
+        "matches": true
+      },
+      {
+        "source": "../../scoring/models.js",
+        "resolved": "scoring/models.js",
+        "matches": true
+      },
+      {
+        "source": "../../scoring/shared/history.js",
+        "resolved": "scoring/shared/history.js",
+        "matches": true
+      },
+      {
+        "source": "../../scoring/shared/events.js",
+        "resolved": "scoring/shared/events.js",
+        "matches": true
+      },
+      {
+        "source": "../../scoring/shared/calculation.js",
+        "resolved": "scoring/shared/calculation.js",
+        "matches": true
+      },
+      {
+        "source": "../../scoring/shared/pressure.js",
+        "resolved": "scoring/shared/pressure.js",
+        "matches": true
+      },
+      {
+        "source": "../../rating-core.js",
+        "resolved": "rating-core.js",
+        "matches": true
+      },
+      {
+        "source": "../../scoring/cfb-verified-context.cjs",
+        "resolved": "scoring/cfb-verified-context.cjs",
+        "matches": true
+      },
+      {
+        "source": "../../scoring/nhl-advanced.cjs",
+        "resolved": "scoring/nhl-advanced.cjs",
+        "matches": true
+      },
+      {
+        "source": "../../watch-links.js",
+        "resolved": "watch-links.js",
+        "matches": true
+      },
+      {
+        "source": "../../calibration/trajectory-policy.cjs",
+        "resolved": "calibration/trajectory-policy.cjs",
+        "matches": true
+      },
+      {
+        "source": "../../calibration/trajectory-live-policy.cjs",
+        "resolved": "calibration/trajectory-live-policy.cjs",
+        "matches": true
+      },
+      {
+        "source": "../../scoring/football-transition.cjs",
+        "resolved": "scoring/football-transition.cjs",
+        "matches": true
+      },
+      {
+        "source": "../../scoring/event-occasion.cjs",
+        "resolved": "scoring/event-occasion.cjs",
+        "matches": true
+      },
+      {
+        "source": "../../scoring/basketball-calibration.cjs",
+        "resolved": "scoring/basketball-calibration.cjs",
+        "matches": true
+      },
+      {
+        "source": "../../scoring/opening-transition.cjs",
+        "resolved": "scoring/opening-transition.cjs",
+        "matches": true
+      },
+      {
+        "source": "../../calibration/shadow-candidate.cjs",
+        "resolved": "calibration/shadow-candidate.cjs",
+        "matches": true
+      },
+      {
+        "source": "../../scoring/nhl-manpower-evidence.cjs",
+        "resolved": "scoring/nhl-manpower-evidence.cjs",
+        "matches": true
+      },
+      {
+        "source": "../../scoring/live-evidence.cjs",
+        "resolved": "scoring/live-evidence.cjs",
+        "matches": true
+      },
+      {
+        "source": "../../scoring/provider-evidence.cjs",
+        "resolved": "scoring/provider-evidence.cjs",
+        "matches": true
+      },
+      {
+        "source": "../../scoring/basketball-state.cjs",
+        "resolved": "scoring/basketball-state.cjs",
+        "matches": true
+      },
+      {
+        "source": "../../scoring/football-market.cjs",
+        "resolved": "scoring/football-market.cjs",
+        "matches": true
+      },
+      {
+        "source": "../../scoring/basketball-upset.cjs",
+        "resolved": "scoring/basketball-upset.cjs",
+        "matches": true
+      },
+      {
+        "source": "../../scoring/game-facts.cjs",
+        "resolved": "scoring/game-facts.cjs",
+        "matches": true
+      },
+      {
+        "source": "../../scoring/detail-state.cjs",
+        "resolved": "scoring/detail-state.cjs",
+        "matches": true
+      },
+      {
+        "source": "../../scoring/football-live.cjs",
+        "resolved": "scoring/football-live.cjs",
+        "matches": true
+      },
+      {
+        "source": "../../scoring/snapshot-integrity.cjs",
+        "resolved": "scoring/snapshot-integrity.cjs",
+        "matches": true
+      },
+      {
+        "source": "../../scoring/live-runtime.cjs",
+        "resolved": "scoring/live-runtime.cjs",
+        "matches": true
+      },
+      {
+        "source": "../../alerts-worker/node_modules/uint8array-extras/index.js",
+        "resolved": "alerts-worker/node_modules/uint8array-extras/index.js",
+        "matches": true
+      },
+      {
+        "source": "../../alerts-worker/node_modules/@block65/webcrypto-web-push/dist/lib/utils.js",
+        "resolved": "alerts-worker/node_modules/@block65/webcrypto-web-push/dist/lib/utils.js",
+        "matches": true
+      },
+      {
+        "source": "../../alerts-worker/node_modules/@block65/webcrypto-web-push/dist/lib/client-keys.js",
+        "resolved": "alerts-worker/node_modules/@block65/webcrypto-web-push/dist/lib/client-keys.js",
+        "matches": true
+      },
+      {
+        "source": "../../alerts-worker/node_modules/@block65/webcrypto-web-push/dist/lib/hkdf.js",
+        "resolved": "alerts-worker/node_modules/@block65/webcrypto-web-push/dist/lib/hkdf.js",
+        "matches": true
+      },
+      {
+        "source": "../../alerts-worker/node_modules/@block65/webcrypto-web-push/dist/lib/info.js",
+        "resolved": "alerts-worker/node_modules/@block65/webcrypto-web-push/dist/lib/info.js",
+        "matches": true
+      },
+      {
+        "source": "../../alerts-worker/node_modules/@block65/webcrypto-web-push/dist/lib/local-keys.js",
+        "resolved": "alerts-worker/node_modules/@block65/webcrypto-web-push/dist/lib/local-keys.js",
+        "matches": true
+      },
+      {
+        "source": "../../alerts-worker/node_modules/@block65/webcrypto-web-push/dist/lib/salt.js",
+        "resolved": "alerts-worker/node_modules/@block65/webcrypto-web-push/dist/lib/salt.js",
+        "matches": true
+      },
+      {
+        "source": "../../alerts-worker/node_modules/@block65/webcrypto-web-push/dist/lib/encrypt.js",
+        "resolved": "alerts-worker/node_modules/@block65/webcrypto-web-push/dist/lib/encrypt.js",
+        "matches": true
+      },
+      {
+        "source": "../../alerts-worker/node_modules/@block65/webcrypto-web-push/dist/lib/base64.js",
+        "resolved": "alerts-worker/node_modules/@block65/webcrypto-web-push/dist/lib/base64.js",
+        "matches": true
+      },
+      {
+        "source": "../../alerts-worker/node_modules/@block65/webcrypto-web-push/dist/lib/jwt.js",
+        "resolved": "alerts-worker/node_modules/@block65/webcrypto-web-push/dist/lib/jwt.js",
+        "matches": true
+      },
+      {
+        "source": "../../alerts-worker/node_modules/@block65/webcrypto-web-push/dist/lib/vapid.js",
+        "resolved": "alerts-worker/node_modules/@block65/webcrypto-web-push/dist/lib/vapid.js",
+        "matches": true
+      },
+      {
+        "source": "../../alerts-worker/node_modules/@block65/webcrypto-web-push/dist/lib/payload.js",
+        "resolved": "alerts-worker/node_modules/@block65/webcrypto-web-push/dist/lib/payload.js",
+        "matches": true
+      },
+      {
+        "source": "../../sport-visibility.js",
+        "resolved": "sport-visibility.js",
+        "matches": true
+      },
+      {
+        "source": "../../alerts-worker/src/index.js",
+        "resolved": "alerts-worker/src/index.js",
+        "matches": true
+      },
+      {
+        "source": "../../alerts-worker/src/storylines.js",
+        "resolved": "alerts-worker/src/storylines.js",
+        "matches": true
+      },
+      {
+        "source": "../../alerts-worker/src/ai-budget.js",
+        "resolved": "alerts-worker/src/ai-budget.js",
+        "matches": true
+      },
+      {
+        "source": "../../alerts-worker/src/source-evidence.js",
+        "resolved": "alerts-worker/src/source-evidence.js",
+        "matches": true
+      },
+      {
+        "source": "../../alerts-worker/src/source-research.js",
+        "resolved": "alerts-worker/src/source-research.js",
+        "matches": true
+      },
+      {
+        "source": "../../alerts-worker/src/open-news-discovery.js",
+        "resolved": "alerts-worker/src/open-news-discovery.js",
+        "matches": true
+      },
+      {
+        "source": "../../alerts-worker/src/editorial-context.js",
+        "resolved": "alerts-worker/src/editorial-context.js",
+        "matches": true
+      },
+      {
+        "source": "../../alerts-worker/src/research-allocation.js",
+        "resolved": "alerts-worker/src/research-allocation.js",
+        "matches": true
+      },
+      {
+        "source": "../../alerts-worker/src/sports-feed.js",
+        "resolved": "alerts-worker/src/sports-feed.js",
+        "matches": true
+      },
+      {
+        "source": "../../alerts-worker/src/providers/nhl.js",
+        "resolved": "alerts-worker/src/providers/nhl.js",
+        "matches": true
+      },
+      {
+        "source": "../../tennis-coverage.js",
+        "resolved": "tennis-coverage.js",
+        "matches": true
+      },
+      {
+        "source": "../../alerts-worker/src/providers/tennis.js",
+        "resolved": "alerts-worker/src/providers/tennis.js",
+        "matches": true
+      },
+      {
+        "source": "../../alerts-worker/src/display-model.js",
+        "resolved": "alerts-worker/src/display-model.js",
+        "matches": true
+      },
+      {
+        "source": "../../alerts-worker/src/game-model.js",
+        "resolved": "alerts-worker/src/game-model.js",
+        "matches": true
+      },
+      {
+        "source": "../../alerts-worker/src/live-game-model.js",
+        "resolved": "alerts-worker/src/live-game-model.js",
+        "matches": true
+      },
+      {
+        "source": "../../alerts-worker/src/providers/espn.js",
+        "resolved": "alerts-worker/src/providers/espn.js",
+        "matches": true
+      },
+      {
+        "source": "../../alerts-worker/src/nfl-pregame.js",
+        "resolved": "alerts-worker/src/nfl-pregame.js",
+        "matches": true
+      },
+      {
+        "source": "../../alerts-worker/src/nfl-return.js",
+        "resolved": "alerts-worker/src/nfl-return.js",
+        "matches": true
+      },
+      {
+        "source": "../../alerts-worker/src/refresh-policy.js",
+        "resolved": "alerts-worker/src/refresh-policy.js",
+        "matches": true
+      },
+      {
+        "source": "../../alerts-worker/src/snapshot-history.js",
+        "resolved": "alerts-worker/src/snapshot-history.js",
+        "matches": true
+      },
+      {
+        "source": "../../alerts-worker/src/snapshot-provenance.js",
+        "resolved": "alerts-worker/src/snapshot-provenance.js",
+        "matches": true
+      },
+      {
+        "source": "../../alerts-worker/src/finalized-game-cache.js",
+        "resolved": "alerts-worker/src/finalized-game-cache.js",
+        "matches": true
+      },
+      {
+        "source": "../../alerts-worker/src/refresh-diagnostics.js",
+        "resolved": "alerts-worker/src/refresh-diagnostics.js",
+        "matches": true
+      },
+      {
+        "source": "../../alerts-worker/src/cfb-metadata.js",
+        "resolved": "alerts-worker/src/cfb-metadata.js",
+        "matches": true
+      },
+      {
+        "source": "../../alerts-worker/src/notification-preferences.js",
+        "resolved": "alerts-worker/src/notification-preferences.js",
+        "matches": true
+      },
+      {
+        "source": "../../alerts-worker/src/alert-delivery.js",
+        "resolved": "alerts-worker/src/alert-delivery.js",
+        "matches": true
+      }
+    ]
+  },
+  {
+    "worker": "audit",
+    "bundleSha256": "006911f1dc385afac7e3a2f1ee5d6b17da9ee0009ad9c61d00008f6041a0a7dd",
+    "exactBundleMatch": true,
+    "sourceMapContentsMatch": true,
+    "sources": [
+      {
+        "source": "../../live-audit-worker/src/scope.js",
+        "resolved": "live-audit-worker/src/scope.js",
+        "matches": true
+      },
+      {
+        "source": "../../live-audit-worker/src/rating-evidence.js",
+        "resolved": "live-audit-worker/src/rating-evidence.js",
+        "matches": true
+      },
+      {
+        "source": "../../live-audit-worker/src/comparison.js",
+        "resolved": "live-audit-worker/src/comparison.js",
+        "matches": true
+      },
+      {
+        "source": "../../live-audit-worker/src/evidence.js",
+        "resolved": "live-audit-worker/src/evidence.js",
+        "matches": true
+      },
+      {
+        "source": "../../live-audit-worker/src/audit.js",
+        "resolved": "live-audit-worker/src/audit.js",
+        "matches": true
+      },
+      {
+        "source": "../../live-audit-worker/src/dashboard.js",
+        "resolved": "live-audit-worker/src/dashboard.js",
+        "matches": true
+      },
+      {
+        "source": "../../live-audit-worker/src/dashboard-client.generated.js",
+        "resolved": "live-audit-worker/src/dashboard-client.generated.js",
+        "matches": true
+      },
+      {
+        "source": "../../live-audit-worker/src/qualitative-quality.js",
+        "resolved": "live-audit-worker/src/qualitative-quality.js",
+        "matches": true
+      },
+      {
+        "source": "../../live-audit-worker/src/event-response.js",
+        "resolved": "live-audit-worker/src/event-response.js",
+        "matches": true
+      },
+      {
+        "source": "../../live-audit-worker/src/trajectory-quality.js",
+        "resolved": "live-audit-worker/src/trajectory-quality.js",
+        "matches": true
+      },
+      {
+        "source": "../../live-audit-worker/src/quality.js",
+        "resolved": "live-audit-worker/src/quality.js",
+        "matches": true
+      },
+      {
+        "source": "../../live-audit-worker/src/historical-review.js",
+        "resolved": "live-audit-worker/src/historical-review.js",
+        "matches": true
+      },
+      {
+        "source": "../../alerts-worker/src/snapshot-provenance.js",
+        "resolved": "alerts-worker/src/snapshot-provenance.js",
+        "matches": true
+      },
+      {
+        "source": "../../live-audit-worker/src/export.js",
+        "resolved": "live-audit-worker/src/export.js",
+        "matches": true
+      },
+      {
+        "source": "../../live-audit-worker/src/zip.js",
+        "resolved": "live-audit-worker/src/zip.js",
+        "matches": true
+      },
+      {
+        "source": "../../live-audit-worker/src/index.js",
+        "resolved": "live-audit-worker/src/index.js",
+        "matches": true
+      }
+    ]
+  }
+]

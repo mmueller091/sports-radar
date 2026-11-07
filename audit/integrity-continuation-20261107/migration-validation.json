@@ -1,0 +1,98 @@
+{
+  "passed": true,
+  "migrationSeconds": 20.346,
+  "statementSeconds": [
+    0.002,
+    8.234,
+    0.0,
+    5.145,
+    0.0,
+    1.447,
+    0.001,
+    1.116,
+    0.914,
+    1.185,
+    1.84
+  ],
+  "primaryKey": [
+    "game_key",
+    "observed_at",
+    "state"
+  ],
+  "integrityCheck": "ok",
+  "allTablesUnchanged": true,
+  "fingerprints": {
+    "alerts": {
+      "rows": 561,
+      "sha256": "f659bb9ba6fb3d37ef1cb0ec01f88ee7c1959c51f8dd9d9bc6743096224fe7b3"
+    },
+    "d1_migrations": {
+      "rows": 1,
+      "sha256": "3d00a7d5fc8ccd7992dfac703dc4683630635c6e6c749317744b23b6f44f1ca1"
+    },
+    "game_context": {
+      "rows": 18,
+      "sha256": "303efba056ca3234ef29abdc6fb7428ae245dd2241ea6bc660ce86eb810ce43a"
+    },
+    "game_state": {
+      "rows": 570,
+      "sha256": "46267683ab97e400e299996c7d75aaf3829de2abe76d967c4c7c5a7d9d8dcc64"
+    },
+    "live_audit_events": {
+      "rows": 97,
+      "sha256": "d9cd4e0a86215c5426c05b73346f2cf5ed8934f6a56d0ca386cb62e5e81b9426"
+    },
+    "live_audit_findings": {
+      "rows": 74,
+      "sha256": "fff53b00334c324ce5aafd6f03fc5cf2061052a6b33eed15eed5497de7a38478"
+    },
+    "live_audit_observations": {
+      "rows": 6258,
+      "sha256": "c2103ed0968b7d85284da2033cf734c5f0760a9032c20068b0ef923a103cf240"
+    },
+    "live_audit_runs": {
+      "rows": 1758,
+      "sha256": "c24f2c77b5e6300a4b1e88cc46dc0d367d45c3e40b79bbadb2b7f57f39deb7eb"
+    },
+    "notification_preferences": {
+      "rows": 1,
+      "sha256": "103b3cefca26359c75a3ed80ea2e983a3f23135694da66b6a793a840b3a783bc"
+    },
+    "research_ai_budget": {
+      "rows": 17,
+      "sha256": "ac15f06ade2ce8639c820ce3257d83d858aa11d23a6f437a0e2dcdf6773d2f71"
+    },
+    "research_status": {
+      "rows": 1,
+      "sha256": "7910cbfcb917ba34d168dadefb9cf959276b3d9c8dc8ca5d399ff897e04a6e8e"
+    },
+    "scoring_audit_labels": {
+      "rows": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "sports_feed": {
+      "rows": 1,
+      "sha256": "ebf593ca5e6598142e35aef18a2e8b5d10c4949e6339dc12078a8f9df235d0e7"
+    },
+    "sports_feed_parts": {
+      "rows": 70,
+      "sha256": "de497af2379905f82d4159ace47d9272854c786a1008255c711a80f8f752f08b"
+    },
+    "sports_leases": {
+      "rows": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "sports_resources": {
+      "rows": 782,
+      "sha256": "3d60731ea61c5a0bf845021c6c5d0e5d2c8e98de3a1f2d9c5cfda0ceabaf7ff7"
+    },
+    "sports_snapshots": {
+      "rows": 401099,
+      "sha256": "d93aa0f0487755b97f3fe0bd2a8fea5278763d16319f3149ac1aa651d82050ff"
+    },
+    "subscriptions": {
+      "rows": 5,
+      "sha256": "34aa3d9f4b0e0c1ac9d7637e8dfbea1567a06ffd2a192b52c2a368415af21c7c"
+    }
+  }
+}

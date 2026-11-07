@@ -1,0 +1,69 @@
+{
+  "result": [
+    {
+      "results": [
+        {
+          "id": 6,
+          "parent": 0,
+          "notused": 216,
+          "detail": "SCAN sports_snapshots"
+        },
+        {
+          "id": 8,
+          "parent": 0,
+          "notused": 0,
+          "detail": "USE TEMP B-TREE FOR GROUP BY"
+        }
+      ],
+      "success": true,
+      "meta": {
+        "served_by": "v3-prod",
+        "served_by_region": "ENAM",
+        "served_by_colo": "EWR",
+        "served_by_primary": true,
+        "timings": {
+          "sql_duration_ms": 0.1929
+        },
+        "duration": 0.1929,
+        "changes": 0,
+        "last_row_id": 7,
+        "changed_db": false,
+        "size_after": 3044200448,
+        "rows_read": 0,
+        "rows_written": 0,
+        "total_attempts": 1
+      }
+    },
+    {
+      "results": [
+        {
+          "id": 3,
+          "parent": 0,
+          "notused": 216,
+          "detail": "SCAN sports_snapshots"
+        }
+      ],
+      "success": true,
+      "meta": {
+        "served_by": "v3-prod",
+        "served_by_region": "ENAM",
+        "served_by_colo": "EWR",
+        "served_by_primary": true,
+        "timings": {
+          "sql_duration_ms": 0.0687
+        },
+        "duration": 0.0687,
+        "changes": 0,
+        "last_row_id": 7,
+        "changed_db": false,
+        "size_after": 3044200448,
+        "rows_read": 0,
+        "rows_written": 0,
+        "total_attempts": 1
+      }
+    }
+  ],
+  "errors": [],
+  "messages": [],
+  "success": true
+}

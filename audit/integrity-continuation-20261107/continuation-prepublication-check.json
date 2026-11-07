@@ -1,0 +1,121 @@
+{
+  "checkedAt": "2026-11-07T07:04:18.935Z",
+  "main": "6f39b7d53e0958aab6676d2960b795936f2a6dea",
+  "workers": [
+    {
+      "name": "sports-radar-alerts",
+      "deploymentId": "52661676-6208-4f43-a4a8-dd493a13393e",
+      "versions": [
+        {
+          "version_id": "06338921-4f22-4714-8f5f-762f87720d2e",
+          "percentage": 100
+        }
+      ],
+      "createdOn": "2026-11-07T05:03:56.199015Z"
+    },
+    {
+      "name": "slatemeter-live-audit",
+      "deploymentId": "9d4449d1-c42d-4b8d-aab4-61518ce7b46a",
+      "versions": [
+        {
+          "version_id": "8e0dab72-2d19-42d5-9a3c-f53e29ce2059",
+          "percentage": 100
+        }
+      ],
+      "createdOn": "2026-11-06T13:20:01.264885Z"
+    }
+  ],
+  "schema": {
+    "result": [
+      {
+        "results": [
+          {
+            "sql": "CREATE TABLE sports_snapshots (\r\n  game_key TEXT NOT NULL,\r\n  observed_at INTEGER NOT NULL,\r\n  sport TEXT NOT NULL,\r\n  state TEXT NOT NULL,\r\n  rating INTEGER NOT NULL,\r\n  score_a TEXT NOT NULL,\r\n  score_b TEXT NOT NULL,\r\n  phase TEXT NOT NULL,\r\n  clock TEXT NOT NULL,\r\n  normalized_state TEXT NOT NULL, model_version TEXT NOT NULL DEFAULT 'legacy',\r\n  PRIMARY KEY (game_key, observed_at)\r\n)"
+          }
+        ],
+        "success": true,
+        "meta": {
+          "served_by": "v3-prod",
+          "served_by_region": "ENAM",
+          "served_by_colo": "EWR",
+          "served_by_primary": true,
+          "timings": {
+            "sql_duration_ms": 0.1619
+          },
+          "duration": 0.1619,
+          "changes": 0,
+          "last_row_id": 6275,
+          "changed_db": false,
+          "size_after": 3066777600,
+          "rows_read": 48,
+          "rows_written": 0,
+          "total_attempts": 1
+        }
+      },
+      {
+        "results": [
+          {
+            "id": 1,
+            "name": "0001_scoring_audit.sql",
+            "applied_at": "2026-10-23 17:25:12"
+          }
+        ],
+        "success": true,
+        "meta": {
+          "served_by": "v3-prod",
+          "served_by_region": "ENAM",
+          "served_by_colo": "EWR",
+          "served_by_primary": true,
+          "timings": {
+            "sql_duration_ms": 0.2039
+          },
+          "duration": 0.2039,
+          "changes": 0,
+          "last_row_id": 6275,
+          "changed_db": false,
+          "size_after": 3066777600,
+          "rows_read": 1,
+          "rows_written": 0,
+          "total_attempts": 1
+        }
+      },
+      {
+        "results": [
+          {
+            "state": "completed",
+            "rows": 243462
+          },
+          {
+            "state": "live",
+            "rows": 148299
+          },
+          {
+            "state": "upcoming",
+            "rows": 663
+          }
+        ],
+        "success": true,
+        "meta": {
+          "served_by": "v3-prod",
+          "served_by_region": "ENAM",
+          "served_by_colo": "EWR",
+          "served_by_primary": true,
+          "timings": {
+            "sql_duration_ms": 8124.7456
+          },
+          "duration": 8124.7456,
+          "changes": 0,
+          "last_row_id": 6275,
+          "changed_db": false,
+          "size_after": 3066777600,
+          "rows_read": 784848,
+          "rows_written": 0,
+          "total_attempts": 1
+        }
+      }
+    ],
+    "errors": [],
+    "messages": [],
+    "success": true
+  }
+}

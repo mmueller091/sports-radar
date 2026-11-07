@@ -1,0 +1,597 @@
+{
+  "sourceCommit": "b47e47e6548e0c89cefc135c0179844c9bcfdf2c",
+  "sourceTree": "dcbdab619f75f203d9db0d29aed7560404e34a54",
+  "candidatePreserved": "427df34f70b7f967cc4e5aa4db0bee111fdb14b9",
+  "generatedAt": "2026-11-07T07:21:12.614Z",
+  "status": "BLOCKED: production D1 preflight HTTP 500/code 7500 is unresolved. No production migration, activation, push or site publication.",
+  "testEnvironment": {
+    "node": "v22.17.1",
+    "wrangler": "4.151.3",
+    "concurrency": "Node default; no serial workaround",
+    "rootFileTimeoutMs": 120000,
+    "notes": "Full gate runs tested these exact source bytes before the source commit was made. Documentation-only follow-up does not alter those bytes. Root includes .js, .cjs and .mjs tests."
+  },
+  "sourceManifest": {
+    "file": "work/continuation-source-manifest.json",
+    "sha256": "4fa6d981b5d486284163bcc5f52f1e5aff0e9ec58e017413aa6864be5ad6a8ae"
+  },
+  "logs": [
+    {
+      "file": "work/continuation-alerts-dry-run.log",
+      "sha256": "1eef76cc596a7673947b431df8d5749772d79a6249652b6979d8867512e75ac9",
+      "bytes": 766,
+      "hasTapSummary": false,
+      "cwd": "alerts-worker",
+      "command": "node node_modules/wrangler/bin/wrangler.js deploy --dry-run --outdir ../work/continuation-alerts-bundle",
+      "sourceCommit": "b47e47e6548e0c89cefc135c0179844c9bcfdf2c",
+      "requiredGate": true,
+      "exitCode": 0,
+      "result": "passed"
+    },
+    {
+      "file": "work/continuation-alerts-version-upload-verified.log",
+      "sha256": "8b93de7f2c5dc836f8b698a2dc451f60925a532c6db4c97576a618e8fd2ff666",
+      "bytes": 3068,
+      "hasTapSummary": false,
+      "explanation": "Uploaded inactive version d786b8ef-cb50-4f97-9389-8077fc7db5e2. Downloaded bundle and source-map contents subsequently verified; no activation."
+    },
+    {
+      "file": "work/continuation-alerts-version-upload.log",
+      "sha256": "1df40e58e21189f5fcc8021e078a43f7300a27deccf372599fb44a24e4980a70",
+      "bytes": 1946,
+      "hasTapSummary": false,
+      "explanation": "Strict upload aborted because the baseline Worker was API-deployed. Independently reconciled baseline source, active version and settings; subsequent upload succeeded without activation."
+    },
+    {
+      "file": "work/continuation-audit-1.log",
+      "sha256": "12e799cac40389b2af455bf1dc05bbde19d9a303b78a0d0fc1de82c84e333ed1",
+      "bytes": 84662,
+      "hasTapSummary": true,
+      "explanation": "Development run: three mocks still used the former time-only cursor/identity. Updated expected arguments and IDs for the authorized composite key; real SQLite pagination/detail tests added; complete Audit suite subsequently passed.",
+      "tests": 156,
+      "suites": 0,
+      "pass": 153,
+      "fail": 3,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0,
+      "duration_ms": 2309.647,
+      "failures": [
+        "retained snapshots preserve row model and acquisition provenance without publication fabrication",
+        "clean games export paginated retained trajectories with model cohorts and read accounting",
+        "snapshot budget reports truncation explicitly and never silently asserts complete coverage"
+      ]
+    },
+    {
+      "file": "work/continuation-audit-dry-run.log",
+      "sha256": "4ac572d6f1bde8e91838f1c4afdb15ce88bdf7b0433314b5520039c627d2c6c9",
+      "bytes": 658,
+      "hasTapSummary": false,
+      "cwd": "live-audit-worker",
+      "command": "node ../alerts-worker/node_modules/wrangler/bin/wrangler.js deploy --dry-run --outdir ../work/continuation-audit-bundle",
+      "sourceCommit": "b47e47e6548e0c89cefc135c0179844c9bcfdf2c",
+      "requiredGate": true,
+      "exitCode": 0,
+      "result": "passed"
+    },
+    {
+      "file": "work/continuation-audit-version-upload.log",
+      "sha256": "f0cbc8b6873742aa6324ad397b73356d0b5b412c2be899de68c5255c7a7eeec4",
+      "bytes": 2966,
+      "hasTapSummary": false,
+      "explanation": "Uploaded inactive version b0a3a4f9-f59e-4a73-81c9-e3d0bcb665d1. Downloaded bundle and source-map contents subsequently verified; no activation."
+    },
+    {
+      "file": "work/continuation-captured-comparison.log",
+      "sha256": "8be879618c803648e8acd1e83c9c6b73d2ca7ff90b56f013d5092d37269cc0ac",
+      "bytes": 356,
+      "hasTapSummary": false,
+      "cwd": ".",
+      "command": "node work/compare-captured.mjs",
+      "sourceCommit": "b47e47e6548e0c89cefc135c0179844c9bcfdf2c",
+      "requiredGate": true,
+      "exitCode": 0,
+      "result": "passed"
+    },
+    {
+      "file": "work/continuation-d1-copy-create.log",
+      "sha256": "b3effce26ad346e4449ec8c57ca04316eea4b53e2def8a8592e11a6146e4a1da",
+      "bytes": 4306,
+      "hasTapSummary": false,
+      "explanation": "Optional remote-copy provisioning failed with Cloudflare HTTP 401/code 10000 in both connector and Wrangler. No resource was created. Full production-copy migration and rollback were instead rehearsed successfully in the actual local D1 runtime; remote runtime timing remains unmeasured."
+    },
+    {
+      "file": "work/continuation-d1-runtime-deliberate-guard-failure.log",
+      "sha256": "00a1fe877a62d2d70710ffc8bf5b0edaaed8263f50e7e64ed76963c0d5c5a399",
+      "bytes": 652,
+      "hasTapSummary": false,
+      "explanation": "Expected failure injected only into a local production copy: corrupt one copied timestamp before the equality guard. CHECK must abort; full 18-table fingerprints subsequently confirmed rollback."
+    },
+    {
+      "file": "work/continuation-d1-runtime-init.log",
+      "sha256": "f4b670efcf870e225e214be6b3c62b185d453916fd6716180c2566f68fb49df6",
+      "bytes": 1170,
+      "hasTapSummary": false
+    },
+    {
+      "file": "work/continuation-d1-runtime-migration.log",
+      "sha256": "829f2afa80c19510bd41f3696d0dfcae0ff0f99f31093ea6ffdb94a732a2c8c4",
+      "bytes": 3062,
+      "hasTapSummary": false
+    },
+    {
+      "file": "work/continuation-d1-runtime-rollback-probe.log",
+      "sha256": "2e7c07caf9c45e7ba7e9fe654f8c81ed473a72f1a3b86dc83fd744642a824ecb",
+      "bytes": 166,
+      "hasTapSummary": false
+    },
+    {
+      "file": "work/continuation-d1-runtime-rollback-validation.log",
+      "sha256": "f0d35dd18efc469fe1a8412539b928513e4df2cdb3d21ac04ca1ed5f527e6901",
+      "bytes": 296,
+      "hasTapSummary": false
+    },
+    {
+      "file": "work/continuation-d1-runtime-seed.log",
+      "sha256": "8db8d90ecef7c557d8de7a0308756f9fd30bd57ff986d9d511d9eadacd9b081f",
+      "bytes": 142,
+      "hasTapSummary": false
+    },
+    {
+      "file": "work/continuation-d1-runtime-validation.log",
+      "sha256": "f0d35dd18efc469fe1a8412539b928513e4df2cdb3d21ac04ca1ed5f527e6901",
+      "bytes": 296,
+      "hasTapSummary": false
+    },
+    {
+      "file": "work/continuation-export-2.log",
+      "sha256": "9e4b73450cc65ab131a9809c7e8903c10153c5184b7c88d3d80a88a78445a79b",
+      "bytes": 10486,
+      "hasTapSummary": true,
+      "tests": 19,
+      "suites": 0,
+      "pass": 19,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0,
+      "duration_ms": 2053.4783,
+      "failures": []
+    },
+    {
+      "file": "work/continuation-final-alerts-1.log",
+      "sha256": "1a4327b61276564099fa39aa41f951e1038b056d3012ffc9875e8ee669b80fba",
+      "bytes": 401304,
+      "hasTapSummary": true,
+      "cwd": "alerts-worker",
+      "command": "node --test --test-reporter=tap test/*.test.js",
+      "sourceCommit": "b47e47e6548e0c89cefc135c0179844c9bcfdf2c",
+      "requiredGate": true,
+      "tests": 446,
+      "suites": 0,
+      "pass": 446,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0,
+      "duration_ms": 11717.3996,
+      "failures": [],
+      "exitCode": 0,
+      "result": "passed"
+    },
+    {
+      "file": "work/continuation-final-alerts-2.log",
+      "sha256": "6199ab68cdbd3f6e4f45955b241c7556ebf9e3388b59540d3f792a8156c116eb",
+      "bytes": 401476,
+      "hasTapSummary": true,
+      "cwd": "alerts-worker",
+      "command": "node --test --test-reporter=tap test/*.test.js",
+      "sourceCommit": "b47e47e6548e0c89cefc135c0179844c9bcfdf2c",
+      "requiredGate": true,
+      "tests": 446,
+      "suites": 0,
+      "pass": 446,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0,
+      "duration_ms": 9795.2015,
+      "failures": [],
+      "exitCode": 0,
+      "result": "passed"
+    },
+    {
+      "file": "work/continuation-final-audit.log",
+      "sha256": "5a17acef3c0c4a3938c5d313065000ea5e717abe378ea75f6bf467ea3a103a76",
+      "bytes": 80682,
+      "hasTapSummary": true,
+      "cwd": "live-audit-worker",
+      "command": "node --test --test-reporter=tap test/*.test.js",
+      "sourceCommit": "b47e47e6548e0c89cefc135c0179844c9bcfdf2c",
+      "requiredGate": true,
+      "tests": 158,
+      "suites": 0,
+      "pass": 158,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0,
+      "duration_ms": 6528.7477,
+      "failures": [],
+      "exitCode": 0,
+      "result": "passed"
+    },
+    {
+      "file": "work/continuation-final-root.log",
+      "sha256": "8b4ca0cdd659469bd40e086a86414f3d9cb5eaa313c79628b2bc7b9d433bde70",
+      "bytes": 946758,
+      "hasTapSummary": true,
+      "cwd": ".",
+      "command": "node --test --test-timeout=120000 --test-reporter=tap test/*.test.js test/*.test.cjs test/*.test.mjs",
+      "sourceCommit": "b47e47e6548e0c89cefc135c0179844c9bcfdf2c",
+      "requiredGate": true,
+      "tests": 1744,
+      "suites": 0,
+      "pass": 1744,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0,
+      "duration_ms": 67644.3292,
+      "failures": [],
+      "exitCode": 0,
+      "result": "passed"
+    },
+    {
+      "file": "work/continuation-final-source-build.log",
+      "sha256": "c71f2840bc31f8b475f927fb8174f91d802a8d57b876c1971ad61125dc3c381e",
+      "bytes": 212,
+      "hasTapSummary": false,
+      "cwd": ".",
+      "command": "node scripts/build-site.mjs",
+      "sourceCommit": "b47e47e6548e0c89cefc135c0179844c9bcfdf2c",
+      "requiredGate": true,
+      "exitCode": 0,
+      "result": "passed"
+    },
+    {
+      "file": "work/continuation-focused-1.log",
+      "sha256": "1a8f9bc87cd21e5844a05ce0a991987a8befaf0697267893e80d34617911481b",
+      "bytes": 90818,
+      "hasTapSummary": true,
+      "explanation": "Development run: two esbuild ancestor-directory permission failures; provenance fixture needed its original CRLF bytes preserved with -text. Corrected environment/attributes, then complete root suite passed.",
+      "tests": 164,
+      "suites": 0,
+      "pass": 161,
+      "fail": 3,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0,
+      "duration_ms": 5827.6166,
+      "failures": [
+        "flag defaults off; explicit false equals baseline; active production entry never imports experiment",
+        "production Worker graph includes display statistics but excludes the offline scoring experiment",
+        "bounded repaired comparison preserves policies and input/fixture provenance"
+      ]
+    },
+    {
+      "file": "work/continuation-focused-2.log",
+      "sha256": "f9ec35bb52211b039355c85fecf8948adfc749b8489cbe565701e9de499081cd",
+      "bytes": 79316,
+      "hasTapSummary": true,
+      "tests": 164,
+      "suites": 0,
+      "pass": 164,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0,
+      "duration_ms": 6240.537,
+      "failures": []
+    },
+    {
+      "file": "work/continuation-preflight-aggregate-equivalence.log",
+      "sha256": "8b3e15d28e2e6989f1fdc2e864ca3fca2314f6813d6caa9ae42bb7e7b8ec9403",
+      "bytes": 734,
+      "hasTapSummary": false
+    },
+    {
+      "file": "work/continuation-preflight-local-query.log",
+      "sha256": "86f77697555006e01e5a325965fbd8106ab24d711256996a2c4a6c470bd36c75",
+      "bytes": 514,
+      "hasTapSummary": false
+    },
+    {
+      "file": "work/continuation-provenance-assertion-diagnostic.log",
+      "sha256": "b3d1cf9b889714ff4acb11eebfc1ee38803bc25eb3bb18b6fce8ca60cad81c3b",
+      "bytes": 982,
+      "hasTapSummary": false,
+      "explanation": "Controlled in-memory diagnostic: original Git bytes pass the original Buffer assertion; an otherwise identical CRLF copy stalls assertion failure formatting and is intentionally terminated after 10 seconds. No test timeout or fixture was altered."
+    },
+    {
+      "file": "work/continuation-site-build.log",
+      "sha256": "28dbb6102c4d25ceb9dd85b1fdca0e79937c8a2bf40e65722605165be5c498aa",
+      "bytes": 212,
+      "hasTapSummary": false
+    },
+    {
+      "file": "work/continuation-snapshot-1.log",
+      "sha256": "d9b49892969539a884d92cafdf519d4bc71b8dc77f13cc92304e0005107fac9b",
+      "bytes": 86604,
+      "hasTapSummary": true,
+      "explanation": "Development run: query-plan test did not apply the new migration/index and reported a temporary sort. Updated that test to exercise the actual migrated schema; complete Alerts suite subsequently passed twice.",
+      "tests": 26,
+      "suites": 0,
+      "pass": 25,
+      "fail": 1,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0,
+      "duration_ms": 1413.7029,
+      "failures": [
+        "additive migration indexes existing history; query plans bound all lookups by game and team keys"
+      ]
+    },
+    {
+      "file": "work/continuation-snapshot-2.log",
+      "sha256": "2bb33850ae86194c5100cd17e1e6f1cabda94eaed28d59ad82913bebbce47ef2",
+      "bytes": 84970,
+      "hasTapSummary": true,
+      "tests": 32,
+      "suites": 0,
+      "pass": 32,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0,
+      "duration_ms": 1263.7648,
+      "failures": []
+    },
+    {
+      "file": "work/continuation-snapshot-3.log",
+      "sha256": "19a1ef1c1ff97795291d4cc7045691b42bbd7a1b3d1a39ce993a767a7db1b53f",
+      "bytes": 87036,
+      "hasTapSummary": true,
+      "tests": 36,
+      "suites": 0,
+      "pass": 36,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0,
+      "duration_ms": 1426.27,
+      "failures": []
+    },
+    {
+      "file": "work/continuation-staged-source-verification-2.log",
+      "sha256": "e6acf85770b39c70e352bb46254103c03031b37dc77363e9ce37c7e0bd8832d6",
+      "bytes": 706,
+      "hasTapSummary": false,
+      "explanation": "Both independently downloaded bundles match staged bytes exactly; all 86 Alerts and 16 Audit source-map contents match local source."
+    },
+    {
+      "file": "work/continuation-staged-source-verification.log",
+      "sha256": "e4f19d66ff686afeef03cc236c1b8be9fdf0f3ab9984b653fa30af626a547693",
+      "bytes": 33662,
+      "hasTapSummary": false,
+      "explanation": "Initial source-map path equality check failed because Wrangler rebases uploaded paths to the Worker directory with Windows separators. Exact JavaScript byte comparison passed. Resolving both path bases and comparing every source content passed in verification-2."
+    },
+    {
+      "file": "work/continuation-usf-ecu-replay.log",
+      "sha256": "4bceb5901008a017bfcf2eaf2812af352be8a0de9d5b0738e76cafe30ce448bc",
+      "bytes": 6814,
+      "hasTapSummary": true,
+      "cwd": ".",
+      "command": "node --test --test-reporter=tap test/terminal-integrity.test.js",
+      "sourceCommit": "b47e47e6548e0c89cefc135c0179844c9bcfdf2c",
+      "requiredGate": true,
+      "tests": 10,
+      "suites": 0,
+      "pass": 10,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0,
+      "duration_ms": 438.739,
+      "failures": [],
+      "exitCode": 0,
+      "result": "passed"
+    },
+    {
+      "file": "work/continuation-wrangler-identity.log",
+      "sha256": "ffb10cd97bb82f853d1e6c492d4f1926ff19c79c5db721a1827f86848f2bb0f8",
+      "bytes": 2664,
+      "hasTapSummary": false
+    }
+  ],
+  "evidence": [
+    {
+      "file": "work/validation-byte-evidence-after.json",
+      "sha256": "d6455e8d92995b675b6408a2438b7e103b92093c5dc960847c3226b8491df85c"
+    },
+    {
+      "file": "work/provenance-assertion-diagnostic.json",
+      "sha256": "8eb1cc6a92680fe74d1924215b000bb366badb07dfb4e76035f471707e7afe4f"
+    },
+    {
+      "file": "work/captured-baseline-comparison.json",
+      "sha256": "119547f9d0dc046806c4f989e7f061c44f6c2ded87311ac55662bdd9e2f8d70f"
+    },
+    {
+      "file": "work/production-backup/download.json",
+      "sha256": "1fce16eae00b6bf37fdff2144f182dab2310a171669a9d985ea2e43e897fb51f"
+    },
+    {
+      "file": "work/production-backup/migration-validation.json",
+      "sha256": "9b1e0acdb8a974f0c99ac72e1b1c29c6649c1126cfdc766dd1cae8a9f7f372ba"
+    },
+    {
+      "file": "work/production-backup/d1-runtime-validation.json",
+      "sha256": "5ee6bb6895bb3ad9d0b2c3ef50a904f241371ee6dd7bf5c23bef9afd8e1b1f1b"
+    },
+    {
+      "file": "work/continuation-prepublication-check.json",
+      "sha256": "b5c4bb0fdd08f028939c25ace0f8af1c64e99f136b472dacca5d26f171154624"
+    },
+    {
+      "file": "work/continuation-cutover-error.json",
+      "sha256": "c8c61a63206d1608f81691b670bd18c44596149a0645d9d61561146f2c7b36a5"
+    },
+    {
+      "file": "work/continuation-cutover-lease.json",
+      "sha256": "39979c7cf27e88d889cbab45ab269ce3801ca60ac28c1854165cbe40f7000e4e"
+    },
+    {
+      "file": "work/continuation-cutover-aborted.json",
+      "sha256": "6ad57c7f0777d1794edda574a94bfe42c97e570ccee62d9a935dea1200853296"
+    },
+    {
+      "file": "work/continuation-final-production-state.json",
+      "sha256": "1602db2863ed1dd78dd24c3da5071ab09455a168422b447e29366d04f1837dc8"
+    },
+    {
+      "file": "work/continuation-preflight-query-plan.json",
+      "sha256": "1cdf3c09fb4a3c5f2f4f7ec0362774f93c90350747db89fed8b56b48019410df"
+    },
+    {
+      "file": "work/continuation-preflight-vm.json",
+      "sha256": "ab29b8fba54c67152575405086b0b2826064a129e5fc3e65407dde6182b35e76"
+    },
+    {
+      "file": "work/continuation-preflight-aggregate-equivalence.json",
+      "sha256": "82f8f1c6dc13edef305dae86e9e7210e05f9552e1b95cb1dcfb08fc792fe3d42"
+    },
+    {
+      "file": "work/continuation-staged-source-verification.json",
+      "sha256": "c3887cb7de9e90439167f116ec369a07954669022f56bf68b8a248708b8f8513"
+    }
+  ],
+  "visualVerification": {
+    "status": "passed",
+    "browser": "Native Chrome on Windows",
+    "desktop": true,
+    "mobileCssViewport": {
+      "width": 390,
+      "height": 844
+    },
+    "surfaces": [
+      "Game cards",
+      "Game Center",
+      "Search",
+      "Player captions and team toggle",
+      "Uncertainty wording",
+      "Verified timeline connections and rejected interval gap",
+      "Chrome computed accessibility names/roles and keyboard focus"
+    ],
+    "limits": [
+      "390px iframe viewport in desktop Chrome, not physical iOS/Android hardware",
+      "Synthetic held-score feed and fixture player rows; actual retained USF history is unchanged",
+      "Chrome native accessibility bridge returned no tree; computed accessibility properties inspected in DevTools instead",
+      "Test-only preview /config and favicon 404s and wrapper service-worker warning; not production endpoint results"
+    ],
+    "artifacts": [
+      {
+        "file": "work/visual-continuation/desktop-card.png",
+        "sha256": "0931ce5faa6290b206ccb9d4d89886c8ba52a9d46eaf5cb015cf1e1740004849"
+      },
+      {
+        "file": "work/visual-continuation/desktop-center.png",
+        "sha256": "9a9a92c176ff792923d03d9620c99cb91ba8945fb730ec06adc3c082fddf1635"
+      },
+      {
+        "file": "work/visual-continuation/desktop-players.png",
+        "sha256": "17a8e984d3e080f40f89ce4d713fd6c6a406572d7266b73bebcf74d2c240848a"
+      },
+      {
+        "file": "work/visual-continuation/desktop-search.png",
+        "sha256": "4d7ebac60b85e4068271dfdf6a4fdb0485c99895818db14287171732a0dba739"
+      },
+      {
+        "file": "work/visual-continuation/desktop-timeline.png",
+        "sha256": "b237ac8890270779abc52cfec8c39e27a8bc7f9cabec2fd0788a752b9c57f5f7"
+      },
+      {
+        "file": "work/visual-continuation/mobile-card-accessibility.png",
+        "sha256": "3790850c9613b6cceb1833ea3b29096b3fc2a611d3e4bb4e474ebec5c8506a35"
+      },
+      {
+        "file": "work/visual-continuation/mobile-card.png",
+        "sha256": "6dd3e6b035b567ed675ff50ec5921b697a624cbf911f77deb7d92a8efde8e8d0"
+      },
+      {
+        "file": "work/visual-continuation/mobile-center.png",
+        "sha256": "a90f16bb989769479247ed34e7968a5b83d03f8441fbb9e41b4de981b5505a8b"
+      },
+      {
+        "file": "work/visual-continuation/mobile-connection-accessibility.png",
+        "sha256": "9f9668d0d7a21c3e95dba1608dfbb8d195d438616f4cc922a3114484a6c3ab32"
+      },
+      {
+        "file": "work/visual-continuation/mobile-final-source-b47e47e.png",
+        "sha256": "087ef14e1c37f7e76d3dcf76dbc24ce41892896c86a1d066ccbd6f91a82c50b1"
+      },
+      {
+        "file": "work/visual-continuation/mobile-players-ecu.png",
+        "sha256": "c236b3c8a2c5a305d9eead65368ea889d93c5866b40fccaf3bd47648648aedb0"
+      },
+      {
+        "file": "work/visual-continuation/mobile-players-usf.png",
+        "sha256": "2189758c83ce07afdd9731638449bc5f1c9e42ef4da785e9566c5114efc8749a"
+      },
+      {
+        "file": "work/visual-continuation/mobile-search-accessibility.png",
+        "sha256": "470315d4efe11bb011585296b009e17c2fedc5e1eb6a6cd65bdee7d286074f6b"
+      },
+      {
+        "file": "work/visual-continuation/mobile-search.png",
+        "sha256": "bd4f25837e69602e7ba4a81d9e3ba42436245f0f0bd280265d8df9bfd25fabb3"
+      },
+      {
+        "file": "work/visual-continuation/mobile-timeline-accessibility.png",
+        "sha256": "82f6718286d74130227552c4159cc208ee021b2b2515db0010fc4f14c4a6eeff"
+      },
+      {
+        "file": "work/visual-continuation/mobile-timeline.png",
+        "sha256": "56baed24e67477fe6da99467c133e2c9a6e49ce5fb6657290168a2936a6d687d"
+      }
+    ]
+  },
+  "production": {
+    "activeStateEvidence": "work/continuation-final-production-state.json",
+    "failure": {
+      "failedAt": "2026-11-07T07:13:58Z",
+      "httpStatus": 500,
+      "code": 7500,
+      "rayId": "a56a89d76f5fa3fa-DFW",
+      "reference": "e_PVSMDp_f642f19e70f24c5383b45c79c94d8cba",
+      "sql": "SELECT state,COUNT(*) AS rows,SUM(rowid) AS rowids,SUM(observed_at) AS timestamps,SUM(rating) AS ratings,SUM(length(normalized_state)) AS payloadCharacters FROM sports_snapshots GROUP BY state; PRAGMA table_info(sports_snapshots); SELECT name,sql FROM sqlite_master WHERE type='trigger' AND tbl_name='sports_snapshots'",
+      "result": "Internal error; no migration attempted; lease released",
+      "earlierInputErrors": [
+        {
+          "query": "SELECT updated_at FROM sports_feed",
+          "reason": "No such column; correct schema stores updatedAt inside payload; corrected read passed."
+        },
+        {
+          "query": "Parameterized lease INSERT followed by SELECT in one SQL string",
+          "reason": "D1 API rejects params with multiple statements; rejected without mutation; separate single-statement acquire succeeded."
+        }
+      ]
+    },
+    "stagedInactiveVersions": {
+      "alerts": "d786b8ef-cb50-4f97-9389-8077fc7db5e2",
+      "audit": "b0a3a4f9-f59e-4a73-81c9-e3d0bcb665d1"
+    },
+    "leaseHold": {
+      "acquiredAt": "2026-11-07T07:13:34.002Z",
+      "absenceVerifiedAt": "2026-11-07T07:14:30.620Z",
+      "owner": "integrity-b47e47e-20261107",
+      "released": true
+    },
+    "productionMigrationSubmitted": false,
+    "workersActivated": false,
+    "gitPushed": false,
+    "pagesPublished": false,
+    "postDeploymentVerification": "Not performed: no activation or publication"
+  },
+  "sourceManifestVerified": true
+}
