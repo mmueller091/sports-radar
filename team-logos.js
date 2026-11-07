@@ -7,10 +7,10 @@
 
   // Exact asset URLs only: an alternate/light logo must not inherit the treatment
   // of a different mark belonging to the same team. Add only after visual review.
-  // This official scoreboard mark uses dark navy lettering that remains
-  // illegible against charcoal even with the usual alpha contour.
+  // This official scoreboard mark needs a stronger pixel-following halo
+  // without a rectangular background or replacement artwork.
   const ARTWORK_OVERRIDES = Object.freeze({
-    'https://a.espncdn.com/i/teamlogos/nhl/500/scoreboard/wsh.png': 'backing'
+    'https://a.espncdn.com/i/teamlogos/nhl/500/scoreboard/wsh.png': 'halo'
   });
   const cache = new Map();
   const corsDenied = new Set();

@@ -28,17 +28,21 @@ test('white and cream artwork retain their original clean edges', () => {
   assert.equal(classify([240, 232, 212]), 'none');
 });
 
-test('the dark Capitals scoreboard artwork gets a backing before it loads', () => {
+test('the dark Capitals scoreboard artwork gets a transparent halo before it loads', () => {
   const official = 'https://a.espncdn.com/i/teamlogos/nhl/500/scoreboard/wsh.png';
-  assert.match(logos.attributes(official), /data-logo-contrast="backing"/);
-  assert.equal(logos.modeFor(official), 'backing');
+  assert.match(logos.attributes(official), /data-logo-contrast="halo"/);
+  assert.equal(logos.modeFor(official), 'halo');
   assert.equal(logos.modeFor('https://a.espncdn.com/i/teamlogos/nhl/500/wsh.png'), 'pending');
-  const image = {src:official, dataset:{logoContrast:'backing'}, naturalWidth:500, naturalHeight:500};
+  const image = {src:official, dataset:{logoContrast:'halo'}, naturalWidth:500, naturalHeight:500};
   logos.loaded(image);
-  assert.equal(image.dataset.logoContrast, 'backing');
+  assert.equal(image.dataset.logoContrast, 'halo');
   const css = fs.readFileSync(require.resolve('../team-logos.css'), 'utf8');
-  assert.match(css, /\.game-card \.team-name img\[data-team-logo\]\[data-logo-contrast="backing"\]/);
-  assert.ok(css.indexOf('data-logo-contrast="backing"') > css.indexOf('.game-card .team-name img[data-team-logo][data-logo-contrast]'));
+  assert.match(css, /\.game-card \.team-name img\[data-team-logo\]\[data-logo-contrast="halo"\]/);
+  assert.ok(css.indexOf('data-logo-contrast="halo"') > css.indexOf('.game-card .team-name img[data-team-logo][data-logo-contrast]'));
+  const treatment = css.slice(css.indexOf('img[data-team-logo][data-logo-contrast="halo"]'));
+  assert.match(treatment, /--team-logo-filter:\s*drop-shadow\(/);
+  assert.match(treatment, /background:\s*transparent/);
+  assert.doesNotMatch(treatment, /background:\s*(?:var\(|#[\da-fA-F]+)/);
 });
 
 test('an authentic pale outline protects dark artwork without another outline', () => {
