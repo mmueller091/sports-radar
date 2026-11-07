@@ -16,6 +16,14 @@ vm.runInContext(source.slice(source.indexOf('function detailPlayerBrowser('),sou
 const teams=[['Away Team','AWY','7','','away.png','','','','11'],['Home Team','HME','3','','home.png','','','','22']];
 const group=(type,name)=>({type,name:type,displayName:type,labels:['YDS'],athletes:[{athlete:{displayName:name},stats:['42']}]});
 const game=sport=>({sport,teams,state:'live',status:'Live'});
+test('mobile player caption conceals an unconfirmed phase and preserves real live phases',()=>{
+  const summary={boxscore:{players:[{team:{id:'11'},statistics:[group('passing','Passer')]}]}};
+  const g={...game('CFB'),status:'End of 4th Quarter',live:{phase:'End of 4th Quarter'},timingUncertain:true};
+  assert.match(context.detailPlayerBrowser(g,summary),/Clock updating/);
+  assert.doesNotMatch(context.detailPlayerBrowser(g,summary),/End of 4th Quarter/);
+  delete g.timingUncertain;
+  assert.match(context.detailPlayerBrowser(g,summary),/End of 4th Quarter/);
+});
 function select(team,category) {
   vm.runInContext(`activePlayerTeam=${JSON.stringify(team)};activePlayerCategory=${JSON.stringify(category)}`,context);
 }

@@ -50,7 +50,7 @@ function insert(
     period='4',
     clock='1:00',
     phaseLabel='Q4',
-    version='v1'
+    version='v1',lastPlay
   }
 ) {
   db.prepare(`INSERT INTO sports_snapshots
@@ -67,7 +67,7 @@ function insert(
       period,
       clock,
       JSON.stringify({
-        live:{phase:phaseLabel}
+        live:{phase:phaseLabel},...(lastPlay?{liveRawSituation:{lastPlay}}:{})
       }),
       version
     );
@@ -162,7 +162,7 @@ test('CFB history retains but invalidates false fourth-quarter zeroes without ch
   const env=environment(t),now=Date.now();
   insert(env.db,{key:'CFB:usf-ecu',at:now-120000,rating:67,period:'3',clock:'0:00',phaseLabel:'End of 3rd Quarter'});
   for(let i=0;i<6;i++)insert(env.db,{key:'CFB:usf-ecu',at:now-105000+i*15000,
-    rating:24,period:'4',clock:'0:00',phaseLabel:'End of 4th Quarter'});
+    rating:24,period:'4',clock:'0:00',phaseLabel:'End of 4th Quarter',lastPlay:{text:'End of 3rd quarter.'}});
   insert(env.db,{key:'CFB:usf-ecu',at:now-15000,rating:71,period:'4',clock:'0:02',phaseLabel:'0:02 - 4th Quarter'});
   insert(env.db,{key:'CFB:usf-ecu',at:now-10000,rating:43,period:'4',clock:'0:00',phaseLabel:'End of 4th Quarter'});
   insert(env.db,{key:'CFB:actual-end',at:now-60000,rating:67,period:'4',clock:'0:33',phaseLabel:'0:33 - 4th Quarter'});

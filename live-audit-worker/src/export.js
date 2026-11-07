@@ -4,6 +4,7 @@ import {buildScoringQuality} from './quality.js';
 import {reviewHistoricalFindings} from './historical-review.js';
 import {extractRetainedProviderEvents} from './evidence.js';
 import {normalizeAuditRating} from './rating-evidence.js';
+import {snapshotTimingIssue} from '../../alerts-worker/src/snapshot-provenance.js';
 
 const dateFormatter=new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',year:'numeric',month:'2-digit',day:'2-digit'});
 export function slateDateNY(value) {
@@ -67,7 +68,8 @@ const stateProjection={fields:['id','sport','state','score','baseScore','opening
   'evidenceQuality','evidenceReasons','scoringPartial','timingUncertain','detailStale','liveUpdateRejected','basketballUpdateRejected','summaryLifecycleRejected','scoringHistoryRejected','momentumPoints'],
   liveRawStatus:{fields:['period','displayClock','type','periodDescriptor']},
   liveRawSituation:{fields:['possession','down','distance','yardsToEndzone','awayTimeouts','homeTimeouts','fouls','bonus','shotClock','outs',
-    'onFirst','onSecond','onThird','battingTeamId','battingSide','powerPlayTeamId','goaliePulled','noHitBid','matchPoint','breakPoint','breakOfServe','tiebreak']},
+    'onFirst','onSecond','onThird','battingTeamId','battingSide','powerPlayTeamId','goaliePulled','noHitBid','matchPoint','breakPoint','breakOfServe','tiebreak'],
+    lastPlay:{fields:['period','text']}},
   live:{fields:['phase','bonus','winProbability'],sportImpact:{fields:['manpower','overtime']}},
   liveUpset:{fields:['market','currentProbability']},liveSurprise:{fields:['market','currentProbability']},
   inputEvidence:{fields:['clockMode']},trajectoryScoring:{fields:['adjustment']},historyOwnership:{fields:['combinedPoints']},
@@ -191,7 +193,9 @@ async function gameObservations(env,date,key,budget) {
 }
 function compactSnapshot(row) {
   const state=parse(row.normalized_state) || {};
+  const timingIssue=snapshotTimingIssue(row,state);
   return scrub({observedAt:row.observed_at,state:row.state,rating:row.rating,
+    ...(timingIssue?{evidenceQuality:'invalid',integrityIssue:true,timingIssue}:{}),
     scores:[row.score_a,row.score_b],period:Number(row.phase)||null,clock:row.clock,
     modelVersion:row.model_version,phaseLabel:state.live?.phase || state.status || null,
     explanation:state.why || null,moment:state.moment || null,
@@ -205,6 +209,7 @@ const snapshotFields=['id','sport','state','score','baseScore','openingScore','t
   'trajectoryScoring','historyOwnership','momentumPoints','evidenceReasons','evidenceCoverage','inputEvidence','scoringPolicy'];
 export function retainedObservation(row) {
   const decoded=parse(row.normalized_state);
+  const timingIssue=snapshotTimingIssue(row,decoded||{});
   const interpretation=normalizeAuditRating(row.rating,decoded),rating=interpretation.rating;
   const validState=row.normalized_state_valid===undefined?Boolean(decoded&&typeof decoded==='object'&&!Array.isArray(decoded)):Boolean(row.normalized_state_valid);
   const state=validState?Object.fromEntries(snapshotFields.filter(k=>decoded[k]!==undefined).map(k=>[k,decoded[k]])):{};
@@ -234,7 +239,8 @@ export function retainedObservation(row) {
   return scrub({observationId:`sports_snapshots:${row.game_key}:${row.observed_at}`,observedAt:row.observed_at,
     provenance:'retained-scoring-snapshot',timestampKind:'scoring-snapshot-refresh-bucket',rating,
     ...(rating!==row.rating?{rawRating:row.rating,ratingInterpretation:interpretation}:{}),
-    state:{...state,state:row.state},scores:[row.score_a,row.score_b],period:Number(row.phase)||null,clock:row.clock,
+    state:{...state,state:row.state,...(timingIssue?{evidenceQuality:'invalid',timingUncertain:true}: {})},
+    ...(timingIssue?{integrityIssue:true,timingIssue}:{}),scores:[row.score_a,row.score_b],period:Number(row.phase)||null,clock:row.clock,
     scoringVersion:row.model_version||null,qualityEvidence:null,feedUpdatedAt:null,feedRevision:null,
     sourceReference:{table:'sports_snapshots',gameKey:row.game_key,observedAt:row.observed_at,
       modelVersion:row.model_version||null,normalizedStateValid:validState},rawInputReferences:[{table:'sports_snapshots',gameKey:row.game_key,observedAt:row.observed_at}]});

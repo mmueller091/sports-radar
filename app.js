@@ -2308,7 +2308,7 @@ function globalSearchGameMeta(game) {
     return [
       labelForSport(game.sport),
       'LIVE',
-      game.live?.phase || game.status
+      game.timingUncertain ? 'Clock updating' : game.live?.phase || game.status
     ].filter(Boolean).join(' · ');
   }
 
@@ -3195,7 +3195,7 @@ function gameCard(game) {
     game.state === 'upcoming' ? 'versus' : game.teams[0][2],
     game.teams[1][0],
     game.state === 'upcoming' ? '' : game.teams[1][2],
-    game.live?.phase,
+    game.timingUncertain ? 'Clock updating' : game.live?.phase,
     ...(['NFL','CFB'].includes(game.sport) ? footballAccessibleSituation(game) : [liveNote]),
     ...(game.sport === 'MLB' ? [game.baseballSituation?.outs != null ? `${game.baseballSituation.outs} outs` : '',game.baseballSituation?.count ? `count ${game.baseballSituation.count}` : ''] : []),
     game.live?.bases
@@ -6169,7 +6169,7 @@ function detailPlayerBrowser(game,summary) {
   }).join('');
   const buttons = game.teams.slice(0,2).map((item,i) => `<button type="button" data-player-team="${i}" aria-pressed="${i === index}">${teamLogoWithFallback(item[4] || teamLogoUrl(game.sport,item[1]),item[1] || item[0])}<span>${safeText(item[0])}</span></button>`).join('');
   const options = [...categories].map(([key,label]) => `<option value="${safeText(key)}"${key === activePlayerCategory ? ' selected' : ''}>${safeText(label)}</option>`).join('');
-  return `<div class="mobile-player-browser"><div class="player-team-switch" role="group" aria-label="Team for player statistics">${buttons}</div><label class="player-category"><span>Category</span><span class="player-select-wrap"><select data-player-category aria-label="Player statistics category">${options}</select><span aria-hidden="true">⌄</span></span></label><p class="player-caption">${safeText(team[0])} · ${safeText(game.live?.phase || game.status || '')}</p>${table || '<p class="detail-empty">No player statistics are available for this team and category.</p>'}</div>`;
+  return `<div class="mobile-player-browser"><div class="player-team-switch" role="group" aria-label="Team for player statistics">${buttons}</div><label class="player-category"><span>Category</span><span class="player-select-wrap"><select data-player-category aria-label="Player statistics category">${options}</select><span aria-hidden="true">⌄</span></span></label><p class="player-caption">${safeText(team[0])} · ${safeText(game.timingUncertain ? 'Clock updating' : game.live?.phase || game.status || '')}</p>${table || '<p class="detail-empty">No player statistics are available for this team and category.</p>'}</div>`;
 }
 
 function detailTabSections(game,summary) {

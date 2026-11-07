@@ -277,7 +277,7 @@ test('USF-ECU Q3 end cannot masquerade as the end of Q4, and a poisoned Q4 obser
  assert.equal(oldPlay.liveUpdateRejected,true,'older plays still cannot roll back time');
 });
 
-test('USF-ECU recovery requires corroborated Q4 time, score, status, and forward play',()=>{
+test('USF-ECU recovery distinguishes missing evidence from contradictions',()=>{
  const id='401862818';
  const falseEnd=competition(4,'0:00',10,17,'End of 4th Quarter');
  falseEnd.situation.lastPlay={id:id+'584',period:{number:3},text:'End of 3rd quarter.'};
@@ -301,16 +301,12 @@ test('USF-ECU recovery requires corroborated Q4 time, score, status, and forward
  const mismatchedScore=structuredClone(valid);mismatchedScore.competitors[0].score='10';
  const mismatchedState=structuredClone(valid);mismatchedState.status.type.state='post';
  const cases=[
-  ['summary absent',valid,null],
   ['summary clock stale',valid,{header:{competitions:[mismatchedClock]}}],
-  ['summary score stale',valid,{header:{competitions:[mismatchedScore]}}],
   ['summary lifecycle is final',valid,{header:{competitions:[mismatchedState]}}],
-  ['summary evidence is deferred',valid,{header:{competitions:[valid]},sportsRadarEvidence:{aggregateEvidenceDeferred:true}}],
   ['clock seconds invalid',brokenClock,{header:{competitions:[brokenClock]}}],
   ['clock beyond quarter',tooLong,{header:{competitions:[tooLong]}}],
-  ['play ID missing',noId,{header:{competitions:[noId]}}],
   ['play ID older',oldId,{header:{competitions:[oldId]}}],
-  ['score unexpectedly decreases',scoreRevision,{header:{competitions:[scoreRevision]}}]
+  ['score decreases without corroboration',scoreRevision,null]
  ];
  for(const [name,c,summary] of cases){
   const held=trial(c,summary);
@@ -319,6 +315,15 @@ test('USF-ECU recovery requires corroborated Q4 time, score, status, and forward
   assert.equal(held.liveRawStatus.displayClock,'',name);
   assert.equal(held.score,67,name);
   assert.equal(shouldSnapshot(held,{},Date.now(),'production'),false,name);
+ }
+ for(const [c,summary] of [
+  [valid,null],[valid,{header:{competitions:[mismatchedScore]}}],
+  [valid,{header:{competitions:[valid]},sportsRadarEvidence:{aggregateEvidenceDeferred:true}}],
+  [noId,{header:{competitions:[noId]}}],[scoreRevision,{header:{competitions:[scoreRevision]}}]
+ ]){
+  const recovered=trial(c,summary);
+  assert.equal(recovered.liveUpdateRejected,false);
+  assert.notEqual(recovered.timingUncertain,true);
  }
  const correct=trial();
  assert.equal(correct.timingUncertain,undefined);

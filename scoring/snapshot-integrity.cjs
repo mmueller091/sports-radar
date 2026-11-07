@@ -5,6 +5,8 @@ const clone=x=>JSON.parse(JSON.stringify(x));
 const supported=g=>['NFL','CFB'].includes(g.sport);
 const reconciles=g=>supported(g)||g.sport==='NHL';
 const zeroClock=status=>/^0+(?:(?::0+(?:\.0+)?)|(?:\.0+))?$/.test(String(status?.displayClock||''));
+const playPeriod=play=>Number(play?.period?.number??play?.period)||
+ Number(String(play?.text||'').match(/end of (\d+)(?:st|nd|rd|th)? (?:quarter|period)/i)?.[1])||null;
 const identity=g=>`${g.sport}:${g.id}:${g.teams.map(t=>String(t[8])).sort().join(',')}`;
 function competitionFor(g){return {status:g.liveRawStatus,situation:g.liveRawSituation,
  competitors:g.teams.map((t,i)=>({team:{id:String(t[8])},homeAway:i?'home':'away',score:t[2]}))};}
@@ -68,21 +70,21 @@ function reconcileObservation(game,c,summary){
  // unplayed quarters "End of 4th" while its last actual play was still in Q3.
  const terminal=status.type?.completed===true||status.type?.state==='post';
  const play=c.situation?.lastPlay,lastId=String(play?.id||'');
- const zeroPlay=lastId&&[...(summary?.plays||[]),...(summary?.scoringPlays||[])].some(p=>
-  String(p.id||'')===lastId&&Number(p.period?.number)===period&&
+ const zeroPlay=[play,...(summary?.plays||[]),...(summary?.scoringPlays||[])].filter(Boolean).some(p=>
+  (p===play||lastId&&String(p.id||'')===lastId)&&Number(p.period?.number??p.period)===period&&
   /^0+(?:(?::0+(?:\.0+)?)|(?:\.0+))?$/.test(String(p.clock?.displayValue||''))&&
   (c.competitors||[]).every(t=>String(t.score)===String(p[t.homeAway==='home'?'homeScore':'awayScore'])));
  const transition=prior&&Number(prior.status?.period)<period&&
   (period===finalPeriod||game.sport==='NHL'&&period===4);
  // An unconfirmed live Q4 zero cannot establish the end of a game, especially
  // if its last actual play is still in Q3. ESPN mislabeled this transition.
- const lastPlayInThird=Number(play?.period?.number??play?.period)===3||/end of 3rd quarter/i.test(String(play?.text||''));
+ const lastPlayBeforeFinal=playPeriod(play)!==null&&playPeriod(play)<finalPeriod;
  // A touchdown with an unplayed conversion is a legitimate live 0:00 Q4.
  const pendingTouchdown=Number(play?.scoreValue)===6&&/\btouchdown\b/i.test(String(play?.text||''))&&
   Number(c.situation?.down)===-1&&lastId.startsWith(String(game.id));
- const unconfirmedFourthEnd=game.sport==='CFB'&&period===4&&zero&&
+ const unconfirmedFourthEnd=period===finalPeriod&&zero&&
   status.type?.state==='in'&&status.type?.completed!==true&&
-  (lastPlayInThird||(!prior||Number(prior.status?.period)<4)&&!zeroPlay&&!pendingTouchdown);
+  !zeroPlay&&(lastPlayBeforeFinal||!pendingTouchdown&&game.sport==='CFB'&&(!prior||Number(prior.status?.period)<4));
  if(unconfirmedFourthEnd||zero&&transition&&!terminal&&!zeroPlay){
   game.timingUncertain=true;game.scoringPartial=true;game.evidenceQuality='partial';
   game.liveUpdateRejected=true;
@@ -127,25 +129,27 @@ function reconcileObservation(game,c,summary){
  const revision=corroboratedRevision(c,prior,header,at,before);
  const samePlay=c.situation?.lastPlay?.id!=null&&String(c.situation.lastPlay.id)===String(prior.situation?.lastPlay?.id);
  const matchingClock=header&&String(header.status?.displayClock)===String(c.status?.displayClock)&&Number(header.status?.period)===Number(c.status?.period);
- // Recover a previously accepted false Q4 zero only when the separate summary
- // independently confirms the positive clock, period, and both scores.
- const poisonedFourthEnd=game.sport==='CFB'&&Number(prior.status?.period)===4&&zeroClock(prior.status)&&
+ // A rejected final-period zero is not a trusted chronology anchor. Recovery
+ // needs positive evidence of play, but not a perfectly synchronized summary.
+ const poisonedFourthEnd=Number(prior.status?.period)===finalPeriod&&zeroClock(prior.status)&&
   prior.status?.type?.state==='in'&&prior.status?.type?.completed!==true&&
   (game.priorObservation?.unconfirmedFinalZero===true||
-   Number(prior.situation?.lastPlay?.period?.number??prior.situation?.lastPlay?.period)===3||
-   /end of 3rd quarter/i.test(String(prior.situation?.lastPlay?.text||'')));
+   playPeriod(prior.situation?.lastPlay)!==null&&playPeriod(prior.situation.lastPlay)<finalPeriod);
  const clockMatch=String(status.displayClock||'').match(/^(\d{1,2}):(\d{2}(?:\.\d+)?)$/);
- const seconds=clockMatch?Number(clockMatch[1])*60+Number(clockMatch[2]):null;
- const positiveClock=seconds!==null&&Number(clockMatch[2])<60&&seconds>0&&seconds<=900;
- const independentFourthPlay=game.priorObservation?.unconfirmedFinalZero===true&&seq!==null&&
-  [...(summary?.plays||[]),...(summary?.scoringPlays||[])].some(p=>
-   String(p.id)===lastId&&Number(p.period?.number??p.period)===4&&
-   String(p.clock?.displayValue)===String(status.displayClock)&&
-   (c.competitors||[]).every(t=>String(t.score)===String(p[t.homeAway==='home'?'homeScore':'awayScore'])));
- const recoveredFourthQuarter=poisonedFourthEnd&&period===4&&status.type?.state==='in'&&status.type?.completed!==true&&
-  positiveClock&&(newer||independentFourthPlay)&&!lower&&agrees&&matchingClock&&header.status?.type?.state==='in'&&
-  header.status?.type?.completed!==true&&!summary?.sportsRadarEvidence?.aggregateEvidenceDeferred;
- if(poisonedFourthEnd&&period===4&&!zero&&status.type?.state==='in'&&!recoveredFourthQuarter){
+ const decimal=/^\d+\.\d+$/.test(String(status.displayClock||''));
+ const seconds=clockMatch?Number(clockMatch[1])*60+Number(clockMatch[2]):decimal?Number(status.displayClock):null;
+ const positiveClock=seconds!==null&&(!clockMatch||Number(clockMatch[2])<60)&&seconds>0&&seconds<=(game.sport==='NHL'?1200:900);
+ const matchingLiveHeader=agrees&&matchingClock&&header.status?.type?.state==='in'&&header.status?.type?.completed!==true;
+ const summaryAt=header?normalizedTime(game.sport,header).elapsedSeconds:null;
+ const stalePoisonedHeader=header&&sameClockState(header,prior);
+ const summaryContradicts=header&&(header.status?.type?.completed===true||header.status?.type?.state==='post'||
+  !stalePoisonedHeader&&(summaryAt!==null&&at!==null&&summaryAt>at||
+  (c.competitors||[]).some(t=>Number(header.competitors?.find(x=>String(x.team?.id)===String(t.team?.id))?.score)>Number(t.score))));
+ const currentPeriodPlay=playPeriod(play)===period&&(!samePlay||newer);
+ const recoveredFourthQuarter=poisonedFourthEnd&&period===finalPeriod&&status.type?.state==='in'&&status.type?.completed!==true&&
+  positiveClock&&!older&&!summaryContradicts&&
+  (matchingLiveHeader||!lower&&(newer&&(playPeriod(play)===null||playPeriod(play)===period)||currentPeriodPlay));
+ if(poisonedFourthEnd&&period===finalPeriod&&!zero&&status.type?.state==='in'&&!recoveredFourthQuarter){
   game.timingUncertain=true;game.scoringPartial=true;game.evidenceQuality='partial';
   game.liveUpdateRejected=true;
   game.observationIntegrity={status:'rejected',reason:'unconfirmed-fourth-quarter-recovery'};

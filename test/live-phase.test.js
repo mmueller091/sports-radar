@@ -103,7 +103,7 @@ function renderedGame(game,summary) {
     compactPlay:p=>p.text || '',$:()=>detail,labelForSport:s=>s,teamLogoUrl:()=>'',
     detailTabsMarkup:()=>'',storylineDetails:()=>'',detailScoring:()=>'',detailStats:()=>'',detailLeaders:()=>'',
     basketballBoxScoreMarkup:()=>'',detailPlayerStats:()=>'',detailPlays:()=>''});
-  for (const name of ['normalizedTeamName','teamLogoWithFallback','halftimePriorityAdjustment','explainRating','publicStorySentence','compactClockPeriod','broadcastWatchMarkup','scoreHueFor','scoreHeatClass','gameCard','basesMarkup','trendFor','isWinningTeam','recordRatingSnapshot',
+  for (const name of ['footballSituationMarkup','footballAccessibleSituation','globalSearchGameMeta','normalizedTeamName','teamLogoWithFallback','halftimePriorityAdjustment','explainRating','publicStorySentence','compactClockPeriod','broadcastWatchMarkup','scoreHueFor','scoreHeatClass','gameCard','basesMarkup','trendFor','isWinningTeam','recordRatingSnapshot',
     'legacyPlayPosition','scoringEvents','estimatedEventRating','timelineFormat','timelineEventPosition',
     'timelinePeriodLabel','timelineFinalScores','recordedTimelinePoints','timelinePoints','timelineComparable','timelinePresentation','timelineRatingSummary','timelineHistoryDetails','excitementTimeline','renderExcitementTimeline','orderedDetailSummary','renderDetailContent']) {
     const start=source.indexOf(`function ${name}(`);
@@ -115,8 +115,20 @@ function renderedGame(game,summary) {
   context.recordRatingSnapshot(game);
   context.renderDetailContent(game,summary);
   const timeline=context.timelinePoints(game,summary);
-  return {card,explanation,history,detail,timeline};
+  return {card,explanation,history,detail,timeline,search:context.globalSearchGameMeta(game)};
 }
+
+test('uncertain terminal labels are suppressed in search, cards, accessibility and Game Center',()=>{
+  const {game,competition}=fixture('CFB',4,'0:00');
+  game.status='End of 4th Quarter';game.live.phase='End of 4th Quarter';
+  game.timingUncertain=true;game.liveUpdateRejected=true;game.liveRawStatus.displayClock='';
+  const {card,detail,search}=renderedGame(game,{header:{competitions:[competition]}});
+  for(const text of [card,card.match(/aria-label="([^"]+)"/)[1],detail.innerHTML,search]){
+    assert.doesNotMatch(text,/End of 4th Quarter/);assert.match(text,/clock updating/i);
+  }
+  delete game.timingUncertain;
+  assert.match(renderedGame(game,{header:{competitions:[competition]}}).search,/End of 4th Quarter/);
+});
 
 test('NBA 2OT flows through card, accessibility, explanation, history, detail and timeline',()=>{
   const {game,competition} = fixture('NBA',6);

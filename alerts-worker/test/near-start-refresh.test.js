@@ -146,7 +146,10 @@ test('a live sport keeps its 12-second cache even when the same scoreboard has a
 });
 
 test('upcoming-to-live discovery uses the near-start cache, then restores 12-second live refresh and 15-second snapshot buckets',async t=>{
-  const now=Math.ceil(Date.now()/15000)*15000,f=fixture(t,[],now);
+  // Exercise the minute boundary deterministically. The upcoming minute bucket
+  // collides with the first live 15-second bucket; an isolated pass at another
+  // wall-clock alignment must not hide a missing persisted live observation.
+  const now=Math.ceil(Date.now()/60000)*60000,f=fixture(t,[],now);
   const event={id:'kickoff',name:'Away at Home',date:new Date(now+300000).toISOString(),competitions:[{
     status:{type:{state:'pre',completed:false,shortDetail:'Scheduled'},period:0,displayClock:'0:00'},
     competitors:[{homeAway:'away',team:{id:'1',displayName:'Away',abbreviation:'AWY'},score:'0'},
@@ -165,6 +168,6 @@ test('upcoming-to-live discovery uses the near-start cache, then restores 12-sec
   const next=await f.run(now+22000);assert.equal(next?.games[0].state,'live');
   assert.equal(f.boards('football/college-football').filter(c=>c.url.searchParams.get('groups')==='80').at(-1).ttl,12);
   const snapshots=f.db.prepare("SELECT observed_at FROM sports_snapshots WHERE state='live' ORDER BY observed_at").all();
-  assert.equal(snapshots.length,2);assert.equal(snapshots[1].observed_at-snapshots[0].observed_at,15000);
+  assert.equal(snapshots.length,2,JSON.stringify({now,snapshots,stored:f.db.prepare('SELECT state,observed_at FROM sports_snapshots ORDER BY observed_at').all()}));assert.equal(snapshots[1].observed_at-snapshots[0].observed_at,15000);
   assert.ok(snapshots.every(s=>s.observed_at%15000===0));
 });

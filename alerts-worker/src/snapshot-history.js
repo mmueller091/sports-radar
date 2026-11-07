@@ -3,6 +3,7 @@ import runtime from '../../scoring/live-runtime.cjs';
 import transition from '../../scoring/football-transition.cjs';
 import openingTransition from '../../scoring/opening-transition.cjs';
 import market from '../../scoring/shared/market.js';
+import {snapshotTimingIssue} from './snapshot-provenance.js';
 
 export async function recoverPregameBaselines(env,games,now,previous) {
   const missing=[];
@@ -183,7 +184,10 @@ export async function gameHistory(env,sport,id,now=Date.now()) {
       phaseLabel:String(normalized?.live?.phase || normalized?.status || ''),
       modelVersion:String(row.model_version || 'legacy'),
       ...snapshotEvidence(normalized,row.state),
-      ...(normalized.liveUpdateRejected || normalized.basketballUpdateRejected ? {integrityIssue:true} : {})
+      ...(normalized.liveUpdateRejected || normalized.basketballUpdateRejected ? {integrityIssue:true} : {}),
+      ...(snapshotTimingIssue({...row,game_key:gameKey},normalized)?{
+        evidenceQuality:'invalid',integrityIssue:true,timingIssue:snapshotTimingIssue({...row,game_key:gameKey},normalized)
+      }:{})
     };
   }).filter(point =>
     Number.isFinite(point.observedAt) &&
@@ -192,21 +196,18 @@ export async function gameHistory(env,sport,id,now=Date.now()) {
 
   // Historical provider transitions stay in the audit record. Classify them
   // at read time so an old "verified" flag cannot make Q4 0.0 a game-end fact.
-  if(['NBA','NCAAB','CFB'].includes(sport)){
+  if(['NBA','NCAAB'].includes(sport)){
     const finalPeriod=sport==='NCAAB'?2:4;
-    let unconfirmedCfbFourthRun=false;
     for(let i=0;i<snapshots.length;i++){
       const point=snapshots[i],previous=snapshots[i-1];
       if(point.state!=='live'||point.period!==finalPeriod||!/^0+(?:(?::0+(?:\.0+)?)|(?:\.0+))?$/.test(point.clock)){
-        if(sport==='CFB')unconfirmedCfbFourthRun=false;
         continue;
       }
       const followedByPlay=snapshots.slice(i+1).some(next=>next.state==='live'&&next.period===point.period&&
         /^(?:\d+):(?:\d+(?:\.\d+)?)$/.test(next.clock)&&Number(next.clock.split(':')[0])*60+Number(next.clock.split(':')[1])>2);
       const atTransition=previous?.period<point.period && previous?.state==='live';
-      const invalid=followedByPlay||atTransition||sport==='CFB'&&unconfirmedCfbFourthRun;
+      const invalid=followedByPlay||atTransition;
       if(invalid){point.evidenceQuality='invalid';point.integrityIssue=true;point.timingIssue='unconfirmed-period-transition';}
-      if(sport==='CFB')unconfirmedCfbFourthRun=invalid;
     }
   }
 
