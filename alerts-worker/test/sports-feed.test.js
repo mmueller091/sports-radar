@@ -20,7 +20,7 @@ function database() {
       return {bind(...args) {values=args;return this;},
         async first() {return db.prepare(sql).get(...values) || null;},
         async all() {return {results:db.prepare(sql).all(...values)};},
-        async run() {return {meta:{changes:db.prepare(sql).run(...values).changes}};}};
+        async run() {if(sql.startsWith('SELECT'))return {results:db.prepare(sql).all(...values),meta:{changes:0}};return {meta:{changes:db.prepare(sql).run(...values).changes}};}};
     },
     async batch(statements) {return Promise.all(statements.map(s=>s.run()));}
   }};

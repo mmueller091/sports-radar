@@ -97,7 +97,7 @@ test('snapshot ingestion keeps evidence caches out of the long-term rating histo
  const {DatabaseSync}=await import('node:sqlite'),{refreshSportsData}=await import('../alerts-worker/src/sports-feed.js');
  const db=new DatabaseSync(':memory:');db.exec(fs.readFileSync('alerts-worker/schema.sql','utf8'));
  const input=osu(),originalFetch=globalThis.fetch;
- const DB={prepare(sql){let args=[];return {bind(...values){args=values;return this;},async first(){return db.prepare(sql).get(...args)||null;},async all(){return {results:db.prepare(sql).all(...args)};},async run(){return {meta:{changes:db.prepare(sql).run(...args).changes}};}};},async batch(items){return Promise.all(items.map(i=>i.run()));}};
+ const DB={prepare(sql){let args=[];return {bind(...values){args=values;return this;},async first(){return db.prepare(sql).get(...args)||null;},async all(){return {results:db.prepare(sql).all(...args)};},async run(){if(sql.startsWith('SELECT'))return {results:db.prepare(sql).all(...args),meta:{changes:0}};return {meta:{changes:db.prepare(sql).run(...args).changes}};}};},async batch(items){return Promise.all(items.map(i=>i.run()));}};
  try{
   globalThis.fetch=async url=>{const u=String(url);if(u.includes('/summary'))return Response.json(input.summary);if(u.includes('/scoreboard'))return Response.json({events:u.includes('/college-football/')?[input.event]:[]});return Response.json({});};
   const feed=await refreshSportsData({DB},Date.now());assert.ok(feed);

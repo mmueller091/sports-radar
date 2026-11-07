@@ -14,7 +14,7 @@ function database(t) {
     bind(...values){args=values;return this;},
     async first(){await hooks.before?.(sql,args);statements.push(sql);return db.prepare(sql).get(...args)||null;},
     async all(){await hooks.before?.(sql,args);statements.push(sql);return {results:db.prepare(sql).all(...args)};},
-    async run(){await hooks.before?.(sql,args);statements.push(sql);return {meta:{changes:db.prepare(sql).run(...args).changes}};}
+    async run(){await hooks.before?.(sql,args);statements.push(sql);if(sql.startsWith('SELECT'))return {results:db.prepare(sql).all(...args),meta:{changes:0}};return {meta:{changes:db.prepare(sql).run(...args).changes}};}
   };},async batch(statements){const results=[];for(const statement of statements)results.push(await statement.run());return results;}}};
 }
 function event(id,state='pre',line=false) {return {id:String(id),name:'Away at Home',date:'2026-10-30T20:00:00Z',competitions:[{

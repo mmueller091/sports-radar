@@ -14,7 +14,12 @@ const SPORTS=[
   {sport:'NCAAB',path:'basketball/mens-college-basketball'}
 ];
 const SAMPLE_MS=5000;
-const DURATION_MS=20*60*1000;
+const durationArgIndex=process.argv.indexOf('--duration-minutes');
+const requestedMinutes=durationArgIndex>=0?Number(process.argv[durationArgIndex+1]):20;
+if(!Number.isInteger(requestedMinutes)||requestedMinutes<1||requestedMinutes>30) {
+  throw new Error('--duration-minutes must be an integer from 1 to 30');
+}
+const DURATION_MS=requestedMinutes*60*1000;
 const MAX_GAMES_PER_SPORT=3;
 const iso=ms=>new Date(ms).toISOString();
 const scoreValue=value=>String(value?.displayValue ?? value?.value ?? value ?? '');
@@ -178,7 +183,7 @@ const selectedList=[...selected].flatMap(([sport,ids])=>[...ids].map(id=>`${spor
 const lines=[
   '# SlateMeter live latency observation',
   '',
-  `- Window: ${iso(beganAt)} to ${iso(endedAt)} (20-minute target)`,
+  `- Window: ${iso(beganAt)} to ${iso(endedAt)} (${smoke?'smoke test':`${requestedMinutes}-minute target`})`,
   `- Poll interval: ${interval/1000} seconds; requests were simultaneous and non-overlapping`,
   `- Games: ${selectedList.join(', ')||'none live in sampled sports'}`,
   `- Successful fetches: ESPN ${counts.espn}; SlateMeter ${counts.worker}; errors ${errors.length}`,

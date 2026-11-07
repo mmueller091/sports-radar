@@ -13,7 +13,7 @@ function fixture(t) {
     bind(...values){args=values;return this;},
     async first(){return db.prepare(sql).get(...args)||null;},
     async all(){return {results:db.prepare(sql).all(...args)};},
-    async run(){return {meta:{changes:db.prepare(sql).run(...args).changes}};}
+    async run(){if(sql.startsWith('SELECT'))return {results:db.prepare(sql).all(...args),meta:{changes:0}};return {meta:{changes:db.prepare(sql).run(...args).changes}};}
   };},async batch(statements){return Promise.all(statements.map(s=>s.run()));}}};
   const event={id:'final-1',name:'Away at Home',date:new Date(Date.now()-86400000).toISOString(),competitions:[{
     status:{type:{state:'post',completed:true,shortDetail:'Final'},period:4,displayClock:'0:00'},

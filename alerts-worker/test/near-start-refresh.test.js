@@ -15,7 +15,7 @@ function fixture(t,games=[],now=Date.now()) {
     bind(...values){args=values;return this;},
     async first(){return db.prepare(sql).get(...args)||null;},
     async all(){return {results:db.prepare(sql).all(...args)};},
-    async run(){return {meta:{changes:db.prepare(sql).run(...args).changes}};}
+    async run(){if(sql.startsWith('SELECT'))return {results:db.prepare(sql).all(...args),meta:{changes:0}};return {meta:{changes:db.prepare(sql).run(...args).changes}};}
   };},async batch(statements){return Promise.all(statements.map(s=>s.run()));}}};
   if(games.length)db.prepare('INSERT INTO sports_feed (id,payload) VALUES (1,?)').run(JSON.stringify({modelVersion:MODEL_VERSION,updatedAt:new Date(now-60000).toISOString(),games}));
   const f={db,env,now,calls:[],events:[],nflMeta:null};

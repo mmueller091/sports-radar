@@ -7,7 +7,7 @@ import {normalizeEvent,preservePregameRecords,preserveFootballContext,preserveFo
 import runtime from '../../scoring/live-runtime.cjs';
 import {contextsForGames} from './storylines.js';
 import {cachedNflPregame} from './nfl-pregame.js';
-import {fingerprint,summaryCandidate,reusable,refreshBudget,boundedFeedRefresh,REFRESH_LEASE_MS,MIGRATION_PUBLICATION_RESERVE_MS} from './refresh-policy.js';
+import {fingerprint,summaryCandidate,reusable,refreshBudget,boundedFeedRefresh,REFRESH_LEASE_MS,FEED_WAIT_MS,LIVE_FEED_WAIT_MS,MIGRATION_PUBLICATION_RESERVE_MS} from './refresh-policy.js';
 import {pruneSnapshots,recoverPregameRecords,recoverPregameBaselines,snapshotHistory,shouldSnapshot} from './snapshot-history.js';
 import {finalArchiveKey,finalArchivePrefix,eligibleFinalArchive,FINAL_ARCHIVE_PREFIX} from './finalized-game-cache.js';
 import {errorDetail,measuredDatabase} from './refresh-diagnostics.js';
@@ -35,6 +35,15 @@ export function refreshDue(feed,now=Date.now()) {
   const live = (feed.games || []).some(game=>game.state==='live');
   const starting = (feed.games || []).some(game=>gameStartingSoon(game,now));
   return now-updatedAt >= (live ? LIVE_REFRESH_MS : starting ? NEAR_START_REFRESH_MS : IDLE_REFRESH_MS);
+}
+
+export function feedResponseWaitMs(feed,now=Date.now()) {
+  const updatedAt = Date.parse(feed?.updatedAt || '');
+  if (!feed || feed.modelVersion !== MODEL_VERSION || !Number.isFinite(updatedAt) ||
+      updatedAt > now || now-updatedAt > STALE_MS) return FEED_WAIT_MS;
+  const active = (feed.games || []).some(game =>
+    game.state === 'live' && ACCELERATED_SPORTS.has(game.sport) || gameStartingSoon(game,now));
+  return active ? LIVE_FEED_WAIT_MS : FEED_WAIT_MS;
 }
 
 export function withFreshness(feed,now=Date.now()) {
@@ -181,23 +190,37 @@ function migrationSummaryMatches(payload,competition) {
   });
 }
 
-async function providerJson(env,url,ttl,now,errors,budget,expectedCompetition=null) {
+export async function providerJson(env,url,ttl,now,errors,budget,expectedCompetition=null) {
   budget?.check();
-  const read = () => env.DB.prepare('SELECT payload,updated_at FROM sports_resources WHERE key=?').bind(url).first();
+  const readStatement = () => env.DB.prepare('SELECT payload,updated_at FROM sports_resources WHERE key=?').bind(url);
+  const read = () => readStatement().first();
   const unpack = row => ({payload:JSON.parse(row.payload),updatedAt:row.updated_at});
   let row = await read();
   const usable=row=>row && !prematchRegression(JSON.parse(row.payload),expectedCompetition);
   if (usable(row) && now-row.updated_at < ttl) return unpack(row);
-  const owner = await acquire(env,url,now,15000);
+  // Only the six public sports' canonical live-summary path batches round trips.
+  // All ownership checks and SQL statements remain; soccer and details keep
+  // their existing path. D1 batches execute sequentially in one transaction.
+  const batched = budget?.phase?.()==='liveSummary' && expectedCompetition?.status?.type?.state==='in' &&
+    /^https:\/\/site\.api\.espn\.com\/apis\/site\/v2\/sports\/(?:football\/(?:nfl|college-football)|basketball\/(?:nba|mens-college-basketball)|baseball\/mlb|hockey\/nhl)\/summary(?:\?|$)/.test(url);
+  const candidate = batched ? crypto.randomUUID() : null;
+  const claim = batched ? await env.DB.batch([
+    env.DB.prepare(`INSERT INTO sports_leases (key,owner,expires_at) VALUES (?,?,?)
+      ON CONFLICT(key) DO UPDATE SET owner=excluded.owner,expires_at=excluded.expires_at
+      WHERE sports_leases.expires_at <= ?`).bind(url,candidate,now+15000,now),
+    readStatement()
+  ]) : null;
+  const owner = batched ? (claim[0].meta?.changes ? candidate : null) : await acquire(env,url,now,15000);
   if (!owner) {
     errors.push(url);
-    row = await read();
+    row = batched ? claim[1].results[0] || null : await read();
     if (usable(row)) return unpack(row);
     throw new Error('Source refresh in progress');
   }
+  let released=false;
   try {
     // Another owner may have committed between our first read and acquisition.
-    row = await read();
+    row = batched ? claim[1].results[0] || null : await read();
     if (usable(row) && now-row.updated_at < ttl) return unpack(row);
     const payload = await fetchSourceJson(url,ttl,budget);
     budget?.check();
@@ -207,12 +230,21 @@ async function providerJson(env,url,ttl,now,errors,budget,expectedCompetition=nu
     }
     // Atomic owner fencing plus monotonic versions: an expired owner cannot write
     // after a successor, even if its provider request eventually completes.
-    await env.DB.prepare(`INSERT INTO sports_resources (key,payload,updated_at)
+    const write = env.DB.prepare(`INSERT INTO sports_resources (key,payload,updated_at)
       SELECT ?,?,? WHERE EXISTS (SELECT 1 FROM sports_leases WHERE key=? AND owner=?)
       ON CONFLICT(key) DO UPDATE SET payload=excluded.payload,updated_at=excluded.updated_at
       WHERE excluded.updated_at > sports_resources.updated_at`)
-      .bind(url,JSON.stringify(payload),now,url,owner).run();
-    const stored = await read();
+      .bind(url,JSON.stringify(payload),now,url,owner);
+    let stored;
+    if (batched) {
+      const result = await env.DB.batch([write,readStatement(),
+        env.DB.prepare('DELETE FROM sports_leases WHERE key=? AND owner=?').bind(url,owner)]);
+      released=true;
+      stored=result[1].results[0] || null;
+    } else {
+      await write.run();
+      stored=await read();
+    }
     if (!stored) throw new Error('Source lease lost');
     if (stored.updated_at !== now) errors.push(url);
     return unpack(stored);
@@ -222,7 +254,7 @@ async function providerJson(env,url,ttl,now,errors,budget,expectedCompetition=nu
     row = await read();
     if (usable(row)) return unpack(row);
     throw error;
-  } finally { await release(env,url,owner); }
+  } finally { if (!released) await release(env,url,owner); }
 }
 
 const TEAM_STATIC_TTL_MS = 6 * 60 * 60 * 1000;
@@ -2093,7 +2125,7 @@ export async function requestFeedRefresh(env,previous,ctx,options={}) {
   const publication = new Promise(resolve=>{published=resolve;});
   const work = refreshSportsData(env,Date.now(),{...options,trigger:'feed',onPublished:published});
   ctx?.waitUntil(work);
-  const result = await boundedFeedRefresh(Promise.race([work,publication]),previous,null,options.waitMs);
+  const result = await boundedFeedRefresh(Promise.race([work,publication]),previous,null,options.waitMs ?? feedResponseWaitMs(previous));
   const feed=withFreshness(result || previous);
   (options.log || (entry=>console.log(JSON.stringify(entry))))({event:'canonical_feed_response',
     reused:!feed || feed.updatedAt===previous?.updatedAt,stale:feed?.freshness.stale ?? true,

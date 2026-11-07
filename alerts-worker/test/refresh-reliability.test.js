@@ -17,7 +17,7 @@ function fixture(t,count=132) {
     bind(...values){args=values;return this;},
     async first(){await f.hook?.(sql,args);f.reads++;return db.prepare(sql).get(...args)||null;},
     async all(){await f.hook?.(sql,args);f.reads++;return {results:db.prepare(sql).all(...args)};},
-    async run(){await f.hook?.(sql,args);f.writes++;return {meta:{changes:db.prepare(sql).run(...args).changes}};}
+    async run(){await f.hook?.(sql,args);if(sql.startsWith('SELECT')){f.reads++;return {results:db.prepare(sql).all(...args),meta:{changes:0}};}f.writes++;return {meta:{changes:db.prepare(sql).run(...args).changes}};}
   };},async batch(statements){f.batches++;return Promise.all(statements.map(s=>s.run()));}}};
   const now=Date.now();
   f.events=Array.from({length:count},(_,i)=>({id:String(i),name:'Away at Home',date:new Date(now-86400000).toISOString(),competitions:[{

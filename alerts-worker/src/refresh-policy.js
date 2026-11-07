@@ -2,6 +2,9 @@
 export const REFRESH_DEADLINE_MS = 25000;
 export const REFRESH_LEASE_MS = 30000;
 export const FEED_WAIT_MS = 8000;
+// A usable live feed should not consume the browser's timeout waiting for a
+// refresh. Cold/stale feeds retain the longer recovery window above.
+export const LIVE_FEED_WAIT_MS = 2000;
 // Migration must leave time for history and atomic publication. This is a
 // scheduling reserve inside the existing deadline, not extra provider time.
 export const MIGRATION_PUBLICATION_RESERVE_MS = 7000;

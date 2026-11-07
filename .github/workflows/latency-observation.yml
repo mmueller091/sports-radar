@@ -5,6 +5,15 @@ on:
     # 7:37 p.m. EST on November 6, 2026. Date gate prevents future annual repeats.
     - cron: '37 0 7 11 *'
   workflow_dispatch:
+    inputs:
+      duration_minutes:
+        description: 'Observation duration in minutes (1-30)'
+        required: false
+        default: '20'
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/latency-observation.yml'
 
 permissions:
   contents: read
@@ -15,6 +24,7 @@ concurrency:
 
 jobs:
   observe:
+    if: github.event_name != 'push' || contains(github.event.head_commit.message, '[latency-10m-20261106]')
     runs-on: ubuntu-22.04
     timeout-minutes: 35
     steps:
@@ -22,7 +32,7 @@ jobs:
         id: gate
         shell: bash
         run: |
-          if [[ "${GITHUB_EVENT_NAME}" == "workflow_dispatch" || "$(TZ=America/New_York date +%F)" == "2026-11-06" ]]; then
+          if [[ "${GITHUB_EVENT_NAME}" == "workflow_dispatch" || "${GITHUB_EVENT_NAME}" == "push" || "$(TZ=America/New_York date +%F)" == "2026-11-06" ]]; then
             echo 'enabled=true' >> "$GITHUB_OUTPUT"
           else
             echo 'enabled=false' >> "$GITHUB_OUTPUT"
@@ -36,7 +46,7 @@ jobs:
           node-version: '22'
       - name: Collect actual ESPN and SlateMeter observations
         if: steps.gate.outputs.enabled == 'true'
-        run: node scripts/measure-live-latency.mjs
+        run: node scripts/measure-live-latency.mjs --duration-minutes "${{ github.event_name == 'push' && '10' || inputs.duration_minutes || '20' }}"
       - name: Add report to workflow summary
         if: always() && steps.gate.outputs.enabled == 'true'
         shell: bash
