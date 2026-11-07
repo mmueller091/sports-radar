@@ -55,6 +55,16 @@ img[data-logo-contrast="contour"],
    rather than guessing the artwork is light. No opaque backing is introduced. */
 img[data-logo-contrast="unreadable"] { --team-logo-filter: var(--logo-dark-edge); }
 
+/* The Capitals' dark-navy scoreboard wordmark is not legible with an edge
+   treatment alone. Give only explicitly reviewed artwork a neutral surface. */
+img[data-team-logo][data-logo-contrast="backing"],
+.game-card .team-name img[data-team-logo][data-logo-contrast="backing"] {
+  --team-logo-filter: none;
+  box-sizing: border-box;
+  background: var(--brand-cream, #f0e8d4);
+  border-radius: 5px;
+}
+
 /* The focus affordance belongs to the actionable link, not the artwork. */
 .card-team-link:focus-visible {
   outline: 2px solid var(--brand-cream, #f0e8d4);

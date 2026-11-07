@@ -36,6 +36,14 @@ test('PP is team-specific, expires with verified note, and suppresses stale/conf
   assert.match(ctx.nhlPowerPlayMarkup(game,home),/team-power-play.*>PP<\/span>/);
   assert.equal(ctx.nhlPowerPlayMarkup(game,away),'');
   assert.doesNotMatch(ctx.nhlPowerPlayMarkup(game,home),/\d:\d\d|\d-on-\d/,'no timer/strength is fabricated');
+  const trailing=['Vancouver Canucks','VAN',1,'','', '',null,'Canucks','23'];
+  const leading=['Seattle Kraken','SEA',2,'','', '',null,'Kraken','24'];
+  const structured={...game,teams:[trailing,leading],live:{phase:'3rd',note:'Trailing-team power play',sportImpact:{manpower:{powerPlay:true}}}};
+  assert.match(ctx.nhlPowerPlayMarkup(structured,trailing),/team-power-play.*>PP<\/span>/);
+  assert.equal(ctx.nhlPowerPlayMarkup(structured,leading),'');
+  assert.equal(ctx.nhlPowerPlayMarkup({...structured,live:{...structured.live,sportImpact:{manpower:{powerPlay:false}}}},trailing),'');
+  assert.equal(ctx.nhlPowerPlayMarkup({...structured,manpowerQuality:{state:'unknown'}},trailing),'');
+  assert.equal(ctx.nhlPowerPlayMarkup({...structured,manpowerQuality:{state:'conflict'}},trailing),'');
   for (const extra of [{state:'completed'},{state:'upcoming'},{timingUncertain:true},{staleEnrichment:true},{summaryValidationPending:true},{manpowerQuality:{state:'conflict'}},{manpowerQuality:{state:'unknown'}},{live:{phase:'Intermission',note:game.live.note}},{live:{note:'Even strength'}},{live:{note:'Vancouver Canucks extra attacker'}}]) assert.equal(ctx.nhlPowerPlayMarkup({...game,...extra},home),'');
 });
 

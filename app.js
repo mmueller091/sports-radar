@@ -2608,11 +2608,11 @@ function teamMarkup(game, team, cardTeamIndex = null) {
     team[6]
       ? `<b class="team-rank">#${safeText(team[6])}</b>`
       : ''
-  }<span class="team-name-text"><span class="full-team-name">${safeText(team[0])}</span><span class="short-team-name">${safeText(team[7] || team[0])}</span></span></span>${
+  }<span class="team-name-text"><span class="full-team-name">${safeText(team[0])}</span><span class="short-team-name">${safeText(team[7] || team[0])}</span></span>${nhlPowerPlayMarkup(game,team)}</span>${
     team[5]
       ? `<small class="team-record">${safeText(team[5])}</small>`
       : ''
-  }${nhlPowerPlayMarkup(game,team)}</span></span>`;
+  }</span></span>`;
 }
 
 function nhlPowerPlayMarkup(game,team) {
@@ -2620,10 +2620,20 @@ function nhlPowerPlayMarkup(game,team) {
       game.staleEnrichment || game.summaryValidationPending || game.summaryLifecycleRejected ||
       game.manpowerQuality?.state === 'conflict' || game.manpowerQuality?.state === 'unknown' ||
       /intermission|end of|break|shootout/i.test(game.live?.phase || game.status || '')) return '';
-  // The existing validated on-ice state emits this exact team-specific note.
-  // Never infer an advantage from a penalty play, score, or missing goalie.
-  // No verified timer/strength is serialized by the feed, so neither is invented.
-  if (String(game.live?.note || '').trim() !== `${team[0]} power play`) return '';
+  // An exact on-ice note identifies the beneficiary even when that team leads.
+  // Late-game scoring can replace it with a generic note; its structured
+  // trailing-team power-play flag is still team-specific current evidence.
+  const explicit = String(game.live?.note || '').trim() === `${team[0]} power play`;
+  const teams = game.teams || [];
+  const scores = teams.map(entry => Number(entry[2]));
+  const scoresKnown = teams.length === 2 && teams.every(entry =>
+    entry[2] != null && String(entry[2]).trim() !== '' && Number.isFinite(Number(entry[2])));
+  const trailing = scoresKnown && scores[0] !== scores[1]
+    ? teams[scores[0] < scores[1] ? 0 : 1] : null;
+  const verifiedTrailing = game.live?.sportImpact?.manpower?.powerPlay === true &&
+    trailing?.[8] && team[8] && String(trailing[8]) === String(team[8]);
+  // Never infer a penalty from the score alone or manufacture a PP timer.
+  if (!explicit && !verifiedTrailing) return '';
   return `<span class="team-power-play" aria-label="${safeText(team[0])} power play" title="${safeText(team[0])} power play">PP</span>`;
 }
 
