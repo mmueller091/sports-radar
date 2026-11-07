@@ -2112,7 +2112,9 @@ export async function publishFeed(env,feed,owner,at,stage=async(name,fn)=>fn()) 
       chunk.push(json);bytes+=size+1;
     }
     flush();
-    for (let start=0;start<parts.length;start+=50) await env.DB.batch(parts.slice(start,start+50));
+    // D1 serializes the entire batch into one RPC (32 MiB maximum). Each part
+    // is bounded separately, but a large Saturday slate can exceed that cap.
+    for (let start=0;start<parts.length;start+=4) await env.DB.batch(parts.slice(start,start+4));
   });
   const header = JSON.stringify({...feed,games:undefined,revision,parts:parts.length});
   const result = await stage('publication',()=>env.DB.prepare(`INSERT INTO sports_feed (id,payload)
