@@ -55,14 +55,16 @@ img[data-logo-contrast="contour"],
    rather than guessing the artwork is light. No opaque backing is introduced. */
 img[data-logo-contrast="unreadable"] { --team-logo-filter: var(--logo-dark-edge); }
 
-/* The Capitals' dark-navy scoreboard wordmark is not legible with an edge
-   treatment alone. Give only explicitly reviewed artwork a neutral surface. */
-img[data-team-logo][data-logo-contrast="backing"],
-.game-card .team-name img[data-team-logo][data-logo-contrast="backing"] {
-  --team-logo-filter: none;
-  box-sizing: border-box;
-  background: var(--brand-cream, #f0e8d4);
-  border-radius: 5px;
+/* The Capitals' dark-navy wordmark needs a stronger alpha-following edge.
+   Keep the original image transparent. Never add a rectangular plate. */
+img[data-team-logo][data-logo-contrast="halo"],
+.game-card .team-name img[data-team-logo][data-logo-contrast="halo"] {
+  --team-logo-filter:
+    drop-shadow(0 0 1.2px rgb(240 232 212 / .96))
+    drop-shadow(0 0 2px rgb(240 232 212 / .34));
+  background: transparent;
+  box-shadow: none;
+  border-radius: 0;
 }
 
 /* The focus affordance belongs to the actionable link, not the artwork. */
