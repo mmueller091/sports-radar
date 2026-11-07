@@ -58,3 +58,15 @@ test('cleanup rejects changed, missing, and wrong-identity authoritative rows be
   assert.throws(()=>atomic(db,snapshotCleanupSql(1,1000)+'CREATE TABLE fail(ok CHECK(ok=1)); INSERT INTO fail VALUES(0);'),/CHECK/);
   assert.deepEqual(rows(db),before);assert.equal(db.prepare('SELECT COUNT(*) AS n FROM sports_snapshots_pre_state_key').get().n,2);
 });
+
+test('atomic baseline preserves character counts and exact large sums and rejects unknown states',t=>{
+  const db=fixture(t);
+  db.exec("UPDATE sports_snapshots SET observed_at=5000000000000000,normalized_state='𝄞é'; INSERT INTO sports_snapshots(rowid,game_key,observed_at,sport,state,rating,score_a,score_b,phase,clock,normalized_state,model_version) SELECT 2,'CFB:c',observed_at,sport,state,rating,score_a,score_b,phase,clock,normalized_state,model_version FROM sports_snapshots WHERE rowid=1");
+  db.exec('SAVEPOINT unknown');db.exec("UPDATE sports_snapshots SET state='unknown' WHERE rowid=1");
+  assert.throws(()=>db.exec(boundedSnapshotMigration(template,1,5001).sql),/CHECK/);db.exec('ROLLBACK TO unknown; RELEASE unknown');
+  atomic(db,boundedSnapshotMigration(template,1,5001).sql);
+  const baseline=db.prepare('SELECT before_payload,after_payload FROM snapshot_key_release_baseline ORDER BY first_rowid').all();
+  assert.equal(baseline.length,2);for(const row of baseline)assert.equal(row.before_payload,row.after_payload);
+  const first=JSON.parse(baseline[0].before_payload);
+  assert.equal(first.upcoming_timestamps,'10000000000000000');assert.equal(first.upcoming_payloadCharacters,'4');assert.equal(first.upcoming_rows,2);assert.equal(first.unknownStates,0);
+});
