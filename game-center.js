@@ -188,7 +188,11 @@
         if(next.order>previous.order){
           const setWon=f.sport==='Tennis'&&['scoreA','scoreB'].reduce((n,k)=>n+Number(p[k])-Number(previousPoint[k]),0)===1;
           const confirmedEnd=reliable(previousPoint)&&ended(previousPoint)&&!next.error;
-          if(next.kind!=='inning'&&!setWon&&!confirmedEnd&&!(reliable(p)&&(p===to||establishedPhase(p,data,game,summary))))return 'unconfirmed-phase-transition';
+          const following=data.points[data.points.indexOf(p)+1];
+          // Missing coverage can connect verified anchors. Nearby evidence, when
+          // present, must agree; being the endpoint cannot bypass that check.
+          const endpointOnly=p===to&&(!following||following.observedAt-p.observedAt>180000);
+          if(next.kind!=='inning'&&!setWon&&!confirmedEnd&&!(reliable(p)&&(endpointOnly||establishedPhase(p,data,game,summary))))return 'unconfirmed-phase-transition';
         }
       }
       previous=next;previousPoint=p;

@@ -162,7 +162,7 @@ export async function scan(env,now=Date.now()) {
       const priorAudit=await env.DB.prepare(`SELECT observed_at,rating,evidence FROM live_audit_observations
         WHERE game_key=? ORDER BY observed_at DESC LIMIT 1`).bind(key).first();
       const snapshot=await env.DB.prepare(`SELECT observed_at,state,normalized_state,model_version FROM sports_snapshots
-        WHERE game_key=? AND observed_at<? ORDER BY observed_at DESC LIMIT 1`)
+        WHERE game_key=? AND observed_at<? ORDER BY observed_at DESC,state ASC LIMIT 1`)
         .bind(key,feedAt-30000).first();
       const prior=priorAudit && priorAudit.observed_at>=Number(snapshot?.observed_at || 0) ?
         {observed_at:priorAudit.observed_at,state:'live',model_version:JSON.parse(priorAudit.evidence).scoringVersion,

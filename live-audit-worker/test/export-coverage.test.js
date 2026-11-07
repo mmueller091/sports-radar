@@ -4,6 +4,7 @@ import {buildNightlyExport} from '../src/export.js';
 import {AUDIT_VERSION} from '../src/audit.js';
 import {AUDIT_SCOPE_VERSION} from '../src/scope.js';
 import {sqliteD1} from './helpers/sqlite-d1.js';
+import {observationReference} from '../src/trajectory-quality.js';
 
 const start=Date.parse('2026-11-05T23:00:00Z'),date='2026-11-05';
 const state=(id='coverage',rating=60)=>({id,sport:'NHL',state:'live',score:rating,baseScore:40,openingScore:40,
@@ -18,6 +19,52 @@ function audit(fixture,index,{id='coverage',rating=60,rawRating=rating,game=stat
   fixture.sqlite.prepare('INSERT INTO live_audit_observations VALUES (?,?,?,?,?,?,?,?,?,?,?,?)').run(index+1,'NHL:'+id,start+index*180000,date,'NHL','late:close',rawRating,2,1,3,60,JSON.stringify(evidence));
 }
 const run=fixture=>buildNightlyExport({DB:fixture.DB},date,{now:start+48*3600000});
+
+test('equal-time states survive a page boundary, detail upgrades and exact raw references',async()=>{
+  const f=sqliteD1();try{
+    audit(f,0);
+    for(let i=0;i<199;i++)f.snapshot(state(),start+i*15000);
+    const at=start+199*15000;
+    for(const [lifecycle,rating] of [['upcoming',35],['live',89],['completed',66]])
+      f.snapshot({...state('coverage',rating),state:lifecycle,factors:[{label:lifecycle,points:rating}]},at);
+    const before=f.sqlite.prepare('SELECT rowid,* FROM sports_snapshots ORDER BY rowid').all();
+    const {data}=await run(f),g=data.games[0],same=g.retainedScoringObservations.filter(p=>p.observedAt===at);
+    assert.equal(g.retainedScoringObservations.length,202);assert.equal(g.snapshotCoverage.complete,true);
+    assert.deepEqual(same.map(p=>[p.state.state,p.rating]),[['upcoming',35],['live',89],['completed',66]]);
+    assert.equal(new Set(same.map(p=>p.observationId)).size,3);
+    assert.ok(same.every(p=>p.evidenceProjection==='detailed'),'each state receives its own requested diagnostic detail');
+    assert.ok(same.every(p=>!p.sourceReference.trajectoryGapBefore),'page boundary does not invent a missing source observation');
+    for(const p of same){
+      for(const ref of [p.sourceReference,...p.rawInputReferences]){
+        const row=f.sqlite.prepare('SELECT rating FROM sports_snapshots WHERE game_key=? AND observed_at=? AND state=?').get(ref.gameKey,ref.observedAt,ref.state);
+        assert.equal(row.rating,p.rating);
+      }
+      const compact=g.surroundingScoringSnapshots.find(s=>s.observedAt===at&&s.state===p.state.state);
+      assert.equal(compact.factors[0].label,p.state.state);assert.equal(compact.rawInputReference.state,p.state.state);
+    }
+    const refs=same.map(p=>observationReference({gameKey:g.gameKey,modelVersion:p.scoringVersion,observedAt:at,provenance:p.provenance,snapshotState:p.state.state,sourceReference:p.sourceReference}));
+    assert.equal(new Set(refs.map(r=>r.referenceId)).size,3);assert.deepEqual(refs.map(r=>r.state),['upcoming','live','completed']);
+    assert.deepEqual(f.sqlite.prepare('SELECT rowid,* FROM sports_snapshots ORDER BY rowid').all(),before);
+    assert.ok(f.operations.every(o=>o.kind==='read'));
+  }finally{f.close();}
+});
+
+test('full-span sampling paginates equal-time states by complete identity within unchanged budgets',async()=>{
+  const f=sqliteD1();try{
+    audit(f,0);
+    for(let i=0;i<700;i++)for(const lifecycle of ['upcoming','live','completed'])f.snapshot({...state(),state:lifecycle},start+i*15000);
+    const all=f.sqlite.prepare('SELECT observed_at,state FROM sports_snapshots ORDER BY observed_at,state DESC').all();
+    const expected=all.filter((_,i)=>i===0||Math.floor(i*1999/2099)>Math.floor((i-1)*1999/2099));
+    const {data}=await run(f),g=data.games[0],points=g.retainedScoringObservations;
+    assert.deepEqual(points.map(p=>[p.observedAt,p.state.state]),expected.map(p=>[p.observed_at,p.state]));
+    assert.equal(points.length,2000);assert.equal(new Set(points.map(p=>p.observationId)).size,2000);
+    assert.equal(g.snapshotCoverage.availableRows,2100);assert.equal(g.snapshotCoverage.complete,false);
+    assert.equal(g.snapshotCoverage.fullSpanPreserved,true);assert.equal(g.snapshotCoverage.countMismatch,false);
+    assert.equal(data.sourceHealth.onDemandSnapshotReads.rows,2000);
+    assert.ok(data.sourceHealth.onDemandInputReads.projectedBytes<=36*1024*1024);
+    assert.ok(data.coverageGaps.some(g=>g.code==='SNAPSHOT_READ_LIMIT'));
+  }finally{f.close();}
+});
 
 test('real SQLite pages full audit and snapshot cores before diagnostic reads; late peak remains present',async()=>{
   const f=sqliteD1();try{

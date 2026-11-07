@@ -15,7 +15,7 @@ function db(snapshots,custom={}){
   if(sql.includes('run_id,game_key')&&custom.observations)return {results:custom.observations.filter(r=>r.observed_at>args[2])};
   if(sql.includes('FROM live_audit_findings'))return {results:args[0]==='NHL:test'?custom.findings||[]:[]};
   if(sql.includes('run_id,game_key'))return {results:args[2]>=at?[]:[{run_id:1,game_key:'NHL:test',observed_at:at,slate_date:'2026-11-03',sport:'NHL',rating:70,score_a:2,score_b:2,period:3,clock_seconds:60,evidence:JSON.stringify({scoringVersion:'audit-model',state:{sport:'NHL',state:'live',id:'test',startTime:'2026-11-03T23:00:00Z'}})}]};
-  if(sql.includes('FROM sports_snapshots'))return {results:snapshots.filter(r=>r.observed_at>args[1]&&r.observed_at<=args[2]).slice(0,args[3])};
+  if(sql.includes('FROM sports_snapshots'))return {results:snapshots.filter(r=>(r.observed_at>args[1]||r.observed_at===args[1]&&r.state<args[4])&&r.observed_at<=args[2]).slice(0,args[5])};
   return {results:[]};
  }}}};
 }
@@ -24,7 +24,8 @@ test('retained snapshots preserve row model and acquisition provenance without p
  assert.equal(r.scoringVersion,'historical-model');assert.equal(r.state.modelVersion,'nested-version');
  assert.equal(r.observedAt,at+15000);assert.equal(r.feedUpdatedAt,null);assert.equal(r.qualityEvidence,null);
  assert.equal(r.provenance,'retained-scoring-snapshot');assert.equal(r.timestampKind,'scoring-snapshot-refresh-bucket');
- assert.equal(r.observationId,'sports_snapshots:NHL:test:'+(at+15000));
+ assert.equal(r.observationId,'sports_snapshots:NHL:test:'+(at+15000)+':live');
+ assert.equal(r.sourceReference.state,'live');assert.equal(r.rawInputReferences[0].state,'live');
  assert.equal(r.state.factors[0].points,10);assert.ok(!JSON.stringify(r).includes('secret-value'));
 });
 test('clean games export paginated retained trajectories with model cohorts and read accounting',async()=>{

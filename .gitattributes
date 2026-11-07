@@ -1,0 +1,19 @@
+# These retained artifacts have exact-byte provenance. Preserve their recorded
+# formats on Windows and Unix; do not replace expected hashes or regenerate them.
+/test/fixtures/nhl-public/[0-9]*.json text eol=lf
+/calibration/trajectory-diagnostic-key.json text eol=lf
+/calibration/trajectory-reviewer-pack.md text eol=lf
+/calibration/trajectory-focused-validation.md text eol=lf
+/calibration/trajectory-checkpoint-manifest.json -text
+/calibration/trajectory-checkpoint-manifest.md -text
+/calibration/output/trajectory-calibration.json text eol=lf
+/calibration/output/trajectory-live-calibration.json text eol=lf
+/scripts/replay-inputs.mjs text eol=lf
+/calibration/trajectory-diagnostic-key.corrected.json text eol=lf
+/calibration/trajectory-reviewer-pack.corrected.md text eol=lf
+/calibration/output/replay-input-comparison.v2.json text eol=lf
+/calibration/output/replay-input-scope.v2.json text eol=lf
+/calibration/output/replay-input-provenance.v2.json -text
+/calibration/trajectory-diagnostic-key.replay-v2.json text eol=lf
+/calibration/trajectory-reviewer-pack.replay-v2.md text eol=lf
+/test/fixtures/provenance/replay-input-comparison.v2.mjs text eol=lf

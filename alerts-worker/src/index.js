@@ -166,7 +166,7 @@ export default {
       // sports_snapshots.observed_at is stored in milliseconds (same as Date.now()).
       const start = newYorkMidnight(date), end = newYorkMidnight(next);
       const rows = (await env.DB.prepare(`SELECT s.*,l.label FROM sports_snapshots s LEFT JOIN scoring_audit_labels l ON l.game_key=s.game_key
-        WHERE s.observed_at>=? AND s.observed_at<? ORDER BY s.game_key,s.observed_at`).bind(start,end).all()).results || [];
+        WHERE s.observed_at>=? AND s.observed_at<? ORDER BY s.game_key,s.observed_at,s.state DESC`).bind(start,end).all()).results || [];
       const groups = new Map();
       for (const row of rows) { if (!groups.has(row.game_key)) groups.set(row.game_key,[]); groups.get(row.game_key).push(row); }
       const games = [];

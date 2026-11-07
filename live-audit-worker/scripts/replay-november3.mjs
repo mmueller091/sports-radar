@@ -18,7 +18,7 @@ const localDbPath=existingDatabase?path.resolve(existingDatabase):path.join(out,
 if(fs.existsSync(localDbPath)&&!useExisting)throw Error('Output already contains offline-replay.sqlite; choose a new output directory to preserve prior evidence');
 const db=new DatabaseSync(localDbPath);
 if(!useExisting){
-db.exec(`CREATE TABLE sports_snapshots(game_key TEXT,observed_at INTEGER,sport TEXT,state TEXT,rating REAL,score_a TEXT,score_b TEXT,phase TEXT,clock TEXT,normalized_state TEXT,model_version TEXT,PRIMARY KEY(game_key,observed_at));
+db.exec(`CREATE TABLE sports_snapshots(game_key TEXT,observed_at INTEGER,sport TEXT,state TEXT,rating REAL,score_a TEXT,score_b TEXT,phase TEXT,clock TEXT,normalized_state TEXT,model_version TEXT,PRIMARY KEY(game_key,observed_at,state));
 CREATE TABLE sports_resources(key TEXT PRIMARY KEY,payload TEXT,updated_at INTEGER);
 CREATE TABLE live_audit_observations(run_id INTEGER,game_key TEXT,observed_at INTEGER,slate_date TEXT,sport TEXT,state_bucket TEXT,rating REAL,score_a INTEGER,score_b INTEGER,period INTEGER,clock_seconds REAL,evidence TEXT,PRIMARY KEY(game_key,observed_at));
 CREATE INDEX observation_slate ON live_audit_observations(slate_date,game_key,observed_at);

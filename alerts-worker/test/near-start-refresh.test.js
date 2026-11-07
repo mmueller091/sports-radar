@@ -170,4 +170,46 @@ test('upcoming-to-live discovery uses the near-start cache, then restores 12-sec
   const snapshots=f.db.prepare("SELECT observed_at FROM sports_snapshots WHERE state='live' ORDER BY observed_at").all();
   assert.equal(snapshots.length,2,JSON.stringify({now,snapshots,stored:f.db.prepare('SELECT state,observed_at FROM sports_snapshots ORDER BY observed_at').all()}));assert.equal(snapshots[1].observed_at-snapshots[0].observed_at,15000);
   assert.ok(snapshots.every(s=>s.observed_at%15000===0));
+  assert.equal(f.db.prepare("SELECT COUNT(*) n FROM sports_snapshots WHERE state='upcoming'").get().n,1);
+});
+
+for(const offset of [0,5000,14999,15000,30000,45000])test(`lifecycle persistence preserves observations, retries and concurrent refreshes at minute offset ${offset}`,async t=>{
+  const now=Math.ceil(Date.now()/60000)*60000+offset,f=fixture(t,[],now);
+  const event={id:'lifecycle',date:new Date(now+300000).toISOString(),competitions:[{
+    status:{type:{state:'pre',completed:false},period:0,displayClock:'0:00'},
+    competitors:[{homeAway:'away',team:{id:'1',displayName:'Away',abbreviation:'AWY'},score:'0'},
+      {homeAway:'home',team:{id:'2',displayName:'Home',abbreviation:'HME'},score:'0'}],
+    odds:[{details:'AWY -3',spread:3,overUnder:45,awayTeamOdds:{favorite:true}}]
+  }]};
+  f.events=[event];await f.run(now);
+  const opening=f.db.prepare("SELECT * FROM sports_snapshots WHERE state='upcoming'").get();assert.ok(opening);
+  event.competitions[0].status={type:{state:'in',completed:false},period:1,displayClock:'15:00'};
+  await Promise.all([f.run(now+10000),f.run(now+10000)]);
+  await f.run(now+10000);await f.run(now+22000);await f.run(now+34000);
+  const expected=[...new Set([10000,22000,34000].map(delta=>Math.floor((now+delta)/15000)*15000))];
+  assert.deepEqual(f.db.prepare("SELECT observed_at FROM sports_snapshots WHERE state='live' ORDER BY observed_at").all().map(r=>r.observed_at),expected);
+  assert.deepEqual(f.db.prepare("SELECT * FROM sports_snapshots WHERE state='upcoming'").get(),opening,'opening row is never overwritten');
+  event.competitions[0].status={type:{state:'post',completed:true,detail:'Final'},period:4,displayClock:'0:00'};
+  event.competitions[0].competitors[1].score='3';
+  await f.run(now+46000);await f.run(now+46000);
+  const finals=f.db.prepare("SELECT observed_at FROM sports_snapshots WHERE state='completed'").all();
+  assert.deepEqual(finals.map(r=>r.observed_at),[now+46000],'completed observation retains its actual refresh timestamp');
+  assert.deepEqual(f.db.prepare("SELECT * FROM sports_snapshots WHERE state='upcoming'").get(),opening);
+  assert.equal(f.db.prepare("SELECT COUNT(*) n FROM sports_snapshots WHERE state='live'").get().n,expected.length);
+});
+
+test('snapshot insertion failure is reported and cannot publish a feed without its history',async t=>{
+  const now=Math.ceil(Date.now()/60000)*60000,f=fixture(t,[],now);
+  f.events=[{id:'failure',date:new Date(now).toISOString(),competitions:[{
+    status:{type:{state:'in',completed:false},period:1,displayClock:'15:00'},
+    competitors:[{homeAway:'away',team:{id:'1',displayName:'Away'},score:'0'},{homeAway:'home',team:{id:'2',displayName:'Home'},score:'0'}]
+  }]}];
+  f.db.exec("CREATE TRIGGER fail_snapshot BEFORE INSERT ON sports_snapshots BEGIN SELECT RAISE(ABORT,'snapshot-storage-failure'); END");
+  assert.equal(await f.run(now),null);
+  assert.equal(f.metrics.outcome,'failed');assert.equal(f.metrics.failure.stage,'snapshots');
+  assert.match(JSON.stringify(f.metrics.failure),/snapshot-storage-failure/);
+  assert.equal(f.db.prepare('SELECT COUNT(*) n FROM sports_feed').get().n,0);
+  assert.equal(f.db.prepare('SELECT COUNT(*) n FROM sports_snapshots').get().n,0);
+  f.db.exec('DROP TRIGGER fail_snapshot');
+  assert.ok(await f.run(now));assert.equal(f.db.prepare('SELECT COUNT(*) n FROM sports_snapshots').get().n,1);
 });

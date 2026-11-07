@@ -115,6 +115,21 @@ test('long elapsed gaps connect verified anchors; missing entire periods remain 
   allow('NBA',[p(0),p(1,{clock:'4:00'})]);
   reject('NBA',[p(0),p(1,{period:3})]);
 });
+
+for(const sport of ['NFL','CFB','NBA','NCAAB','NHL'])test(`${sport}: missing coverage stays connected but contradictory transition evidence cannot be skipped`,()=>{
+  const length=sport==='NBA'?12:sport==='NCAAB'||sport==='NHL'?20:15;
+  const a=p(0,{clock:'0:03'}),b=p(1,{period:2,clock:`${length-1}:59`,observedAt:a.observedAt+3600000});
+  allow(sport,[a,b]);
+  allow(sport,[a,b,p(2,{period:2,clock:`${length-1}:55`,observedAt:b.observedAt+15000})]);
+  allow(sport,[a,b,p(3,{period:2,clock:'8:00',observedAt:b.observedAt+3600000})]);
+  for(const extra of [{gameId:'other'},{observedAt:a.observedAt},{clock:`${length}:00`},{scoreA:'9'},{modelVersion:'other'},{evidenceReasons:['unconfirmed-clock']}]){
+    const bad=p(2,{period:2,clock:`${length-1}:55`,observedAt:b.observedAt+15000,...extra});
+    const good=p(3,{period:2,clock:`${length-1}:50`,observedAt:b.observedAt+30000});
+    const r=check(sport,[a,b,bad,good]);
+    assert.equal(r.edges[0].allowed,false,JSON.stringify(extra));
+    assert.equal(r.edges[0].reason,'unconfirmed-phase-transition');
+  }
+});
 test('NBA final-quarter zero still requires confirmation',()=>{
   reject('NBA',[p(0,{period:4,clock:'0.0'}),p(1,{period:5,clock:'4:59'})]);
 });

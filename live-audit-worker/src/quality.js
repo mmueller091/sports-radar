@@ -170,7 +170,8 @@ function point(observation,game){
     pregameQuality:q.pregameTeamQuality??null,
     historical:observation.provenance==='causal-reconstruction',provenance:observation.provenance||'audit-observation',
     event:observation.sourceEvent||q.event,
-    sourceReference:observation.sourceReference||{rawInputReferences:observation.rawInputReferences||[]}};
+    sourceReference:observation.sourceReference||{rawInputReferences:observation.rawInputReferences||[]},
+    ...(observation.provenance==='retained-scoring-snapshot'?{snapshotState:g.state}:{})};
 }
 function inspect(p,history){
   const {sport,period,clockSeconds:t,margin:m,q}=p,signals=[],gaps=[...p.gaps];

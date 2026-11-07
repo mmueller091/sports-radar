@@ -6,7 +6,7 @@ const schema=`
 CREATE TABLE sports_feed(id INTEGER PRIMARY KEY,payload TEXT);
 CREATE TABLE sports_feed_parts(revision TEXT,part INTEGER,payload TEXT);
 CREATE TABLE sports_resources(key TEXT PRIMARY KEY,payload TEXT,updated_at INTEGER);
-CREATE TABLE sports_snapshots(game_key TEXT,observed_at INTEGER,sport TEXT,state TEXT,rating INTEGER,score_a TEXT,score_b TEXT,phase TEXT,clock TEXT,normalized_state TEXT,model_version TEXT);
+CREATE TABLE sports_snapshots(game_key TEXT,observed_at INTEGER,sport TEXT,state TEXT,rating INTEGER,score_a TEXT,score_b TEXT,phase TEXT,clock TEXT,normalized_state TEXT,model_version TEXT,PRIMARY KEY(game_key,observed_at,state));
 CREATE INDEX sports_snapshot_game_time ON sports_snapshots(game_key,observed_at);
 CREATE TABLE live_audit_runs(id INTEGER PRIMARY KEY AUTOINCREMENT,started_at INTEGER NOT NULL,finished_at INTEGER,feed_updated_at INTEGER,feed_revision TEXT,model_version TEXT,games_checked INTEGER DEFAULT 0,checks_completed INTEGER DEFAULT 0,clean_games INTEGER DEFAULT 0,flagged_games INTEGER DEFAULT 0,provider_requests INTEGER DEFAULT 0,storage_writes INTEGER DEFAULT 0,notifications INTEGER DEFAULT 0,error TEXT);
 CREATE TABLE live_audit_observations(run_id INTEGER,game_key TEXT,observed_at INTEGER,slate_date TEXT,sport TEXT,state_bucket TEXT,rating INTEGER,score_a INTEGER,score_b INTEGER,period INTEGER,clock_seconds INTEGER,evidence TEXT,PRIMARY KEY(run_id,game_key));

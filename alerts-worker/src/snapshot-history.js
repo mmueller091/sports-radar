@@ -20,7 +20,7 @@ export async function recoverPregameBaselines(env,games,now,previous) {
       const group=eligible.slice(start,start+40);
       const rows=(await env.DB.prepare(`WITH keys(game_key) AS (VALUES ${group.map(()=> '(?)').join(',')})
         SELECT s.game_key,s.normalized_state,s.model_version FROM keys k JOIN sports_snapshots s
-        ON s.game_key=k.game_key AND s.observed_at=(SELECT observed_at FROM sports_snapshots p
+        ON s.game_key=k.game_key AND s.state='upcoming' AND s.observed_at=(SELECT observed_at FROM sports_snapshots p
           WHERE p.game_key=k.game_key AND p.state='upcoming' AND p.observed_at>=?
           AND (p.model_version=? OR json_extract(p.normalized_state,'$.pregameBaseline.calibration') IN (?,?))
           ORDER BY p.observed_at DESC LIMIT 1)`)
@@ -61,7 +61,7 @@ export async function pruneSnapshots(env,now) {
       ${auditHold}
       AND (s.state!='completed' OR EXISTS (SELECT 1 FROM sports_snapshots newer
         WHERE newer.game_key=s.game_key AND newer.state='completed' AND newer.observed_at>s.observed_at))
-    ORDER BY s.observed_at LIMIT ${SNAPSHOT_CLEANUP_BATCH}
+    ORDER BY s.observed_at,s.state DESC,s.game_key LIMIT ${SNAPSHOT_CLEANUP_BATCH}
   )`).bind(now-RETENTION_MS,now-FOOTBALL_RETENTION_MS).run();
   return result.meta?.changes || 0;
 }
@@ -79,9 +79,11 @@ export const NFL_RECORD_SQL = `SELECT normalized_state FROM sports_snapshots
   WHERE ${NFL_RECORD_PREDICATE}
     AND game_key=? AND min(CAST(json_extract(normalized_state,'$.teams[0][8]') AS TEXT),CAST(json_extract(normalized_state,'$.teams[1][8]') AS TEXT))=?
     AND max(CAST(json_extract(normalized_state,'$.teams[0][8]') AS TEXT),CAST(json_extract(normalized_state,'$.teams[1][8]') AS TEXT))=? AND observed_at>=?
-    AND observed_at < COALESCE((SELECT MIN(observed_at) FROM sports_snapshots
-      WHERE game_key=? AND state='completed'),?)
-  ORDER BY observed_at DESC LIMIT 1`;
+    AND observed_at <= COALESCE((SELECT MIN(observed_at) FROM sports_snapshots
+      WHERE game_key=? AND state='completed'),? - 1)
+  ORDER BY observed_at DESC,state ASC LIMIT 1`;
+// Upcoming/live states at the first final's timestamp precede that final.
+// Without a retained final, the previous-feed cutoff remains strictly exclusive.
 
 function validPregameRecords(game) {
   return game.teams?.length === 2 && game.pregameRecords?.length === 2 &&
@@ -112,7 +114,7 @@ export function upcomingLookupSql(count) {
 export function completedLookupSql(count) {
   return `WITH keys(game_key) AS (VALUES ${Array(count).fill('(?)').join(',')})
     SELECT s.game_key,s.observed_at,s.normalized_state,s.model_version
-    FROM keys k JOIN sports_snapshots s ON s.game_key=k.game_key AND s.observed_at=(
+    FROM keys k JOIN sports_snapshots s ON s.game_key=k.game_key AND s.state='completed' AND s.observed_at=(
       SELECT observed_at FROM sports_snapshots f WHERE f.game_key=k.game_key
         AND f.state='completed' AND f.observed_at>=? ORDER BY observed_at DESC LIMIT 1)`;
 }
@@ -164,7 +166,7 @@ export async function gameHistory(env,sport,id,now=Date.now()) {
   const rows = (await env.DB.prepare(`SELECT observed_at,state,rating,score_a,score_b,phase,clock,normalized_state,model_version
     FROM sports_snapshots
     WHERE game_key=? AND observed_at>=?
-    ORDER BY observed_at ASC`)
+    ORDER BY observed_at ASC,state DESC`)
     .bind(gameKey,now-retentionMs(sport))
     .all()).results || [];
 

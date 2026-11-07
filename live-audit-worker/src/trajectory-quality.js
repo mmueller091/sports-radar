@@ -6,7 +6,8 @@ const periodSeconds={NFL:900,CFB:900,NBA:720,NCAAB:1200,NHL:1200};
 const quantile=(values,q)=>{const a=values.filter(Number.isFinite).sort((x,y)=>x-y);return a.length?a[Math.floor((a.length-1)*q)]:null;};
 export const eligibleRating=p=>p.evidenceStatus!=='invalid'&&!p.integrity?.length&&Number.isInteger(p.rating)&&p.rating>=1&&p.rating<=99;
 export const observationReference=p=>({gameKey:p.gameKey,modelVersion:p.modelVersion,observedAt:p.observedAt,
-  referenceId:`${p.gameKey}|${p.modelVersion}|${p.observedAt}`,source:{table:p.provenance==='retained-scoring-snapshot'?'sports_snapshots':'live_audit_observations'},
+  ...(p.provenance==='retained-scoring-snapshot'?{state:p.snapshotState}:{}),
+  referenceId:`${p.gameKey}|${p.modelVersion}|${p.observedAt}${p.provenance==='retained-scoring-snapshot'?'|'+p.snapshotState:''}`,source:{table:p.provenance==='retained-scoring-snapshot'?'sports_snapshots':'live_audit_observations'},
   timestampKind:p.provenance==='retained-scoring-snapshot'?'scoring-snapshot-refresh-start-bucket':'audit-observation'});
 export function lifecycleOf(g,sport,period,scores){
   const raw=g.liveRawStatus||{},label=[raw.type?.name,raw.type?.description,raw.type?.detail,raw.type?.shortDetail,g.status,g.live?.phase].filter(Boolean).join(' ');

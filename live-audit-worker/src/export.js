@@ -7,6 +7,7 @@ import {normalizeAuditRating} from './rating-evidence.js';
 import {snapshotTimingIssue} from '../../alerts-worker/src/snapshot-provenance.js';
 
 const dateFormatter=new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',year:'numeric',month:'2-digit',day:'2-digit'});
+const snapshotId=(key,at,state)=>`sports_snapshots:${key}:${at}:${state}`;
 export function slateDateNY(value) {
   const at=typeof value==='number'?value:Date.parse(String(value || ''));
   if (!Number.isFinite(at)) return null;
@@ -111,11 +112,13 @@ function finalizeTrajectory(points,predecessors,byteLimit,audit=false){
   for(;;){
     for(let i=0;i<selected.length;i++){
       const p=selected[i],before=selected[i-1],source=predecessors.get(p),omitted=Boolean(source?.omitted||
-        source?.at!==null&&source?.at!==undefined&&source.at!==(before?.observedAt??null));
+        source?.at!==null&&source?.at!==undefined&&source.at!==(before?.observedAt??null)||
+        source?.id!=null&&source.id!==before?.observationId);
       const staleInterval=Boolean(before&&p.observedAt-before.observedAt>360000),gap=omitted||staleInterval;
       if(gap)p.sourceReference={...p.sourceReference,trajectoryGapBefore:true,
         trajectoryGapReason:omitted?'Intervening source observations were omitted by export sampling':'More than six minutes between retained source observations',
-        previousIncludedObservedAt:before?.observedAt??null,sourcePredecessorObservedAt:source?.at??null};
+        previousIncludedObservedAt:before?.observedAt??null,sourcePredecessorObservedAt:source?.at??null,
+        ...(source?.id?{previousIncludedObservationId:before?.observationId??null,sourcePredecessorObservationId:source.id}:{})};
       if(audit){
         const reason=gap?p.sourceReference.trajectoryGapReason:!before?null:before.scoringVersion!==p.scoringVersion?'model version boundary':
           !p.scoringVersion?'scoring model attribution unavailable':!Number.isFinite(before.rating)||!Number.isFinite(p.rating)?'unavailable rating':null;
@@ -200,7 +203,7 @@ function compactSnapshot(row) {
     modelVersion:row.model_version,phaseLabel:state.live?.phase || state.status || null,
     explanation:state.why || null,moment:state.moment || null,
     factors:state.factors || [],momentumText:state.momentumText || null,
-    rawInputReference:{table:'sports_snapshots',gameKey:row.game_key,observedAt:row.observed_at}});
+    rawInputReference:{table:'sports_snapshots',gameKey:row.game_key,observedAt:row.observed_at,state:row.state}});
 }
 const snapshotFields=['id','sport','state','score','baseScore','openingScore','teams','startTime','context',
   'factors','detailStale','liveRawStatus','liveRawSituation',
@@ -236,14 +239,14 @@ export function retainedObservation(row) {
   if(decoded?.pregameBaseline&&typeof decoded.pregameBaseline==='object')state.pregameBaseline=select(decoded.pregameBaseline,
     ['source','score','rawPregameScore','spread','underdog']);
   // Stored refresh buckets are retained exactly. They are not publication times.
-  return scrub({observationId:`sports_snapshots:${row.game_key}:${row.observed_at}`,observedAt:row.observed_at,
+  return scrub({observationId:snapshotId(row.game_key,row.observed_at,row.state),observedAt:row.observed_at,
     provenance:'retained-scoring-snapshot',timestampKind:'scoring-snapshot-refresh-bucket',rating,
     ...(rating!==row.rating?{rawRating:row.rating,ratingInterpretation:interpretation}:{}),
     state:{...state,state:row.state,...(timingIssue?{evidenceQuality:'invalid',timingUncertain:true}: {})},
     ...(timingIssue?{integrityIssue:true,timingIssue}:{}),scores:[row.score_a,row.score_b],period:Number(row.phase)||null,clock:row.clock,
     scoringVersion:row.model_version||null,qualityEvidence:null,feedUpdatedAt:null,feedRevision:null,
-    sourceReference:{table:'sports_snapshots',gameKey:row.game_key,observedAt:row.observed_at,
-      modelVersion:row.model_version||null,normalizedStateValid:validState},rawInputReferences:[{table:'sports_snapshots',gameKey:row.game_key,observedAt:row.observed_at}]});
+    sourceReference:{table:'sports_snapshots',gameKey:row.game_key,observedAt:row.observed_at,state:row.state,
+      modelVersion:row.model_version||null,normalizedStateValid:validState},rawInputReferences:[{table:'sports_snapshots',gameKey:row.game_key,observedAt:row.observed_at,state:row.state}]});
 }
 function archiveSnapshot(observation){
   const s=observation.state||{},pick=(value,keys)=>Object.fromEntries(keys.filter(k=>value?.[k]!==undefined).map(k=>[k,value[k]]));
@@ -262,17 +265,17 @@ async function retainedTrajectory(env,key,{from,to,budget}) {
   budget.input.statisticsQueries++;
   const available=Number.isInteger(stats?.retained_rows)?stats.retained_rows:null,cap=Math.min(budget.perGameRowLimit,budget.remaining),sampling=available>cap;
   const ceiling=Math.max(0,Math.min(budget.perGameByteLimit,budget.input.byteLimit-budget.input.projectedBytes,budget.input.phaseCeiling-budget.input.projectedBytes));
-  let selected=[],after=from-1,readRows=0,exhausted=available===0,byteSampled=false,previousReadAt=null,previousReadRank=0;
+  let selected=[],after=from,afterState='\uffff',readRows=0,exhausted=available===0,byteSampled=false,previousReadAt=null,previousReadId=null,previousReadRank=0;
   const predecessors=new WeakMap();
   while(readRows<cap&&!exhausted) {
     const limit=Math.min(200,cap-readRows);
     const columns=`game_key,observed_at,state,rating,score_a,score_b,phase,clock,${projectedSnapshotSql} AS normalized_state,
       (json_valid(normalized_state) AND json_type(CASE WHEN json_valid(normalized_state) THEN normalized_state ELSE '{}' END)='object') AS normalized_state_valid,model_version`;
-    const sql=sampling&&cap>=2?`SELECT ${columns},export_rank FROM (SELECT *,ROW_NUMBER() OVER (ORDER BY observed_at) AS export_rank FROM sports_snapshots
-      WHERE game_key=? AND observed_at>=? AND observed_at<=?) WHERE observed_at>? AND
-      (export_rank=1 OR ((export_rank-1)*${cap-1})/${available-1}>((export_rank-2)*${cap-1})/${available-1}) ORDER BY observed_at LIMIT ?`:
-      `SELECT ${columns} FROM sports_snapshots WHERE game_key=? AND observed_at>? AND observed_at<=? ORDER BY observed_at LIMIT ?`;
-    const batch=await rows(env.DB.prepare(sql).bind(...(sampling&&cap>=2?[key,from,to,after,limit]:[key,after,to,limit])));
+    const sql=sampling&&cap>=2?`SELECT ${columns},export_rank FROM (SELECT *,ROW_NUMBER() OVER (ORDER BY observed_at,state DESC) AS export_rank FROM sports_snapshots
+      WHERE game_key=? AND observed_at>=? AND observed_at<=?) WHERE (observed_at>? OR observed_at=? AND state<?) AND
+      (export_rank=1 OR ((export_rank-1)*${cap-1})/${available-1}>((export_rank-2)*${cap-1})/${available-1}) ORDER BY observed_at,state DESC LIMIT ?`:
+      `SELECT ${columns} FROM sports_snapshots WHERE game_key=? AND observed_at>=? AND observed_at<=? AND (observed_at>? OR state<?) ORDER BY observed_at,state DESC LIMIT ?`;
+    const batch=await rows(env.DB.prepare(sql).bind(...(sampling&&cap>=2?[key,from,to,after,after,afterState,limit]:[key,after,to,after,afterState,limit])));
     budget.queries++;budget.rows+=batch.length;budget.remaining-=batch.length;
     readRows+=batch.length;
     if(!batch.length){exhausted=true;break;}
@@ -281,12 +284,12 @@ async function retainedTrajectory(env,key,{from,to,budget}) {
       const projected=retainedObservation({...row,normalized_state:JSON.stringify(projectObject(original,stateProjection)),normalized_state_valid:valid});
       projected.evidenceProjection='trajectory';selected.push(projected);
       const omitted=sampling&&row.export_rank>previousReadRank+1;
-      predecessors.set(projected,{at:omitted?null:previousReadAt,omitted});previousReadAt=row.observed_at;previousReadRank=row.export_rank??previousReadRank+1;
+      predecessors.set(projected,{at:omitted?null:previousReadAt,id:omitted?null:previousReadId,omitted});previousReadAt=row.observed_at;previousReadId=projected.observationId;previousReadRank=row.export_rank??previousReadRank+1;
     }
     const bounded=boundedPoints(selected,ceiling);byteSampled ||= bounded.rows.length<selected.length;selected=bounded.rows;
-    const cursor=Number(batch.at(-1).observed_at);
-    if(!Number.isFinite(cursor)||cursor<=after)break;
-    after=cursor;
+    const cursor=Number(batch.at(-1).observed_at),cursorState=batch.at(-1).state;
+    if(!Number.isFinite(cursor)||cursor<after||cursor===after&&cursorState>=afterState)break;
+    after=cursor;afterState=cursorState;
     if(batch.length<limit||available!==null&&readRows>=Math.min(available,cap)){exhausted=true;break;}
   }
   const finalized=finalizeTrajectory(selected,predecessors,ceiling);byteSampled ||= finalized.rows.length<selected.length;selected=finalized.rows;
@@ -330,9 +333,9 @@ async function retainedTimeline(env,key,observations,cost,reviewedAt,inputBudget
     evidenceScope:'Later cached provider revision used for retrospective event associations only. Availability to the scorer or audit at the historical observation time is unknown; historical observations are not backfilled.',
     limitation:'Later retained provider revision; not proof of the exact originally flagged payload. Cache acquisition is not provider publication time.'});
 }
-function detailTargets(game,observations){
+function detailTargets(game,observations,snapshots=false){
   const selected=new Set(),atTimes=game.findings.flatMap(f=>[f.firstSeen,f.lastSeen,...(f.events||[]).map(e=>e.at)]).filter(Number.isFinite);
-  const add=i=>{if(i>=0&&i<observations.length)selected.add(observations[i].observedAt);};
+  const add=i=>{if(i>=0&&i<observations.length)selected.add(snapshots?observations[i].observationId:observations[i].observedAt);};
   for(const at of atTimes){
     const next=observations.findIndex(o=>o.observedAt>=at);if(next>=0){add(next-1);add(next);add(next+1);}else add(observations.length-1);
   }
@@ -343,28 +346,28 @@ function detailTargets(game,observations){
       (Math.abs(p.rating-before.rating)>=24||before.rating<85&&p.rating>=85||before.rating>=85&&p.rating<85||
        p.scores?.some((score,j)=>Number.isFinite(score)&&Number.isFinite(before.scores?.[j])&&score<before.scores[j]))){add(i-1);add(i);}
   }
-  return [...selected].sort((a,b)=>a-b);
+  return snapshots?observations.filter(p=>selected.has(p.observationId)).map(p=>({at:p.observedAt,state:p.state.state})):[...selected].sort((a,b)=>a-b);
 }
 async function upgradeDetails(env,date,game,inputBudget,snapshotBudget){
   const coverage={projection:'Flagged observations, major-change and 85-crossing endpoints only; full raw histories stay in referenced D1 rows',audit:{},snapshots:{}};
   for(const kind of ['audit','snapshots']){
-    const list=kind==='audit'?game.observations:game.retainedScoringObservations,targetTimes=detailTargets(game,list);
+    const list=kind==='audit'?game.observations:game.retainedScoringObservations,targetTimes=detailTargets(game,list,kind==='snapshots');
     const cap=kind==='audit'?100:Math.max(0,Math.min(100,snapshotBudget.remaining,2000-game.snapshotCoverage.readRows));
     const detailTimes=targetTimes.length<=cap?targetTimes:cap<2?targetTimes.slice(0,cap):
       Array.from({length:cap},(_,i)=>targetTimes[Math.round(i*(targetTimes.length-1)/(cap-1))]);
-    const byTime=new Map(list.map((observation,i)=>[observation.observedAt,i]));
+    const byIdentity=new Map(list.map((observation,i)=>[kind==='audit'?observation.observedAt:observation.observationId,i]));
     let included=0,readRows=0,projectedBytes=0;
     for(let offset=0;offset<detailTimes.length;offset+=5){
       const times=detailTimes.slice(offset,offset+5),placeholders=times.map(()=>'?').join(',');
       const sql=kind==='audit'?`SELECT run_id,game_key,observed_at,slate_date,sport,state_bucket,rating,score_a,score_b,period,clock_seconds,evidence
         FROM live_audit_observations WHERE ${observationScopeSql()} AND slate_date=? AND game_key=? AND observed_at IN (${placeholders}) ORDER BY observed_at`:
-        `SELECT game_key,observed_at,state,rating,score_a,score_b,phase,clock,normalized_state,model_version FROM sports_snapshots WHERE game_key=? AND observed_at IN (${placeholders}) ORDER BY observed_at`;
-      const batch=await rows(env.DB.prepare(sql).bind(...(kind==='audit'?[date,game.gameKey,...times]:[game.gameKey,...times])));
+        `SELECT game_key,observed_at,state,rating,score_a,score_b,phase,clock,normalized_state,model_version FROM sports_snapshots WHERE game_key=? AND (${times.map(()=>'(observed_at=? AND state=?)').join(' OR ')}) ORDER BY observed_at,state DESC`;
+      const batch=await rows(env.DB.prepare(sql).bind(...(kind==='audit'?[date,game.gameKey,...times]:[game.gameKey,...times.flatMap(p=>[p.at,p.state])])));
       readRows+=batch.length;
       if(kind==='audit'){inputBudget.auditQueries++;inputBudget.auditReadRows+=batch.length;}
       else {snapshotBudget.queries++;snapshotBudget.rows+=batch.length;snapshotBudget.remaining-=batch.length;}
       for(const row of batch){
-        const index=byTime.get(row.observed_at);if(index===undefined)continue;
+        const index=byIdentity.get(kind==='audit'?row.observed_at:snapshotId(row.game_key,row.observed_at,row.state));if(index===undefined)continue;
         const detailed=kind==='audit'?auditObservation(row,game.gameKey,list[index-1]):retainedObservation(row);
         detailed.sourceReference={...detailed.sourceReference,...list[index].sourceReference};
         if(kind==='audit')for(const field of ['ratingChange','ratingChangeUnavailableReason','ratingChangeFromObservedAt'])detailed[field]=list[index][field];

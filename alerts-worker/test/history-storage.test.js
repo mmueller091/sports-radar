@@ -2,13 +2,14 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import {DatabaseSync} from 'node:sqlite';
-import {RETENTION_MS,FOOTBALL_RETENTION_MS,SNAPSHOT_CLEANUP_BATCH,retentionMs,pruneSnapshots,NFL_RECORD_SQL,NFL_RECORD_PREDICATE,upcomingLookupSql,completedLookupSql,snapshotHistory,recoverPregameRecords,finalContent,shouldSnapshot} from '../src/snapshot-history.js';
+import {RETENTION_MS,FOOTBALL_RETENTION_MS,SNAPSHOT_CLEANUP_BATCH,retentionMs,pruneSnapshots,NFL_RECORD_SQL,NFL_RECORD_PREDICATE,upcomingLookupSql,completedLookupSql,snapshotHistory,recoverPregameRecords,recoverPregameBaselines,gameHistory,finalContent,shouldSnapshot} from '../src/snapshot-history.js';
 import {refreshSportsData,MODEL_VERSION} from '../src/sports-feed.js';
 import {createCollector} from '../src/providers/espn.js';
 import {normalizeEvent} from '../src/game-model.js';
 
 const schema = fs.readFileSync(new URL('../schema.sql',import.meta.url),'utf8');
 const migration = fs.readFileSync(new URL('../migrations/0002_history_lookup_indexes.sql',import.meta.url),'utf8');
+const stateMigration = fs.readFileSync(new URL('../migrations/0003_snapshot_state_identity.sql',import.meta.url),'utf8');
 function database(t,sql=schema) {
   const db = new DatabaseSync(':memory:'); db.exec(sql); t.after(()=>db.close());
   return {db,DB:{prepare(sql) {
@@ -38,6 +39,57 @@ function insert(db,game,at,version=MODEL_VERSION) {
 }
 const plan = (db,sql,args) => db.prepare('EXPLAIN QUERY PLAN '+sql).all(...args).map(row=>row.detail).join('\n');
 
+test('state-key migration preserves every field and rowid; a failed equality guard rolls back the complete migration',t=>{
+  const old=schema.replace('PRIMARY KEY (game_key, observed_at, state)','PRIMARY KEY (game_key, observed_at)');
+  assert.notEqual(old,schema);
+  for(const corrupt of [false,true]){
+    const env=database(t,old),now=Date.now();
+    insert(env.db,{...normalizeEvent(event(),'NFL'),why:'Unicode: ✓ and preserved whitespace\r\n'},now);
+    const before=env.db.prepare('SELECT rowid,* FROM sports_snapshots').all();
+    env.db.exec('BEGIN');
+    if(corrupt){
+      const broken=stateMigration.replace('CREATE TABLE snapshot_key_migration_check',"UPDATE sports_snapshots_state_key SET observed_at=observed_at+1;\nCREATE TABLE snapshot_key_migration_check");
+      assert.notEqual(broken,stateMigration);
+      assert.throws(()=>env.db.exec(broken),/CHECK constraint failed/);env.db.exec('ROLLBACK');
+    }else{env.db.exec(stateMigration);env.db.exec('COMMIT');}
+    assert.deepEqual(env.db.prepare('SELECT rowid,* FROM sports_snapshots').all(),before);
+    assert.equal(env.db.prepare('PRAGMA integrity_check').get().integrity_check,'ok');
+    const pk=env.db.prepare('PRAGMA table_info(sports_snapshots)').all().filter(c=>c.pk).sort((a,b)=>a.pk-b.pk).map(c=>c.name);
+    assert.deepEqual(pk,corrupt?['game_key','observed_at']:['game_key','observed_at','state']);
+    assert.equal(env.db.prepare("SELECT count(*) n FROM sqlite_master WHERE name IN ('sports_snapshots_state_key','snapshot_key_migration_check')").get().n,0);
+  }
+});
+
+test('same-time lifecycle rows preserve pregame recovery, final lookup, record recovery and timeline ordering',async t=>{
+  const env=database(t),now=Date.now(),at=now-60000;
+  const pre=normalizeEvent(event('42','pre'),'NFL'),live=normalizeEvent(event(),'NFL'),final=normalizeEvent(event('42','post'),'NFL');
+  insert(env.db,pre,at);insert(env.db,{...live,pregameRecords:['5-0','2-3']},at);insert(env.db,final,at);
+  const original=env.db.prepare('SELECT rowid,* FROM sports_snapshots ORDER BY rowid').all();
+  const fresh=normalizeEvent(event(),'NFL');
+  await recoverPregameBaselines(env,[fresh],now,null);
+  assert.deepEqual(fresh.pregameBaseline,pre.pregameBaseline,'only the upcoming row can recover the observed baseline');
+  const completed=await snapshotHistory(env,[final],now);
+  assert.equal(completed.completed.size,1);
+  assert.equal(JSON.parse(completed.completed.get('NFL:42').normalized_state).state,'completed');
+  await recoverPregameRecords(env,[final],now,null);
+  assert.deepEqual(final.pregameRecords,['5-0','2-3'],'live at the final timestamp precedes the completed state');
+  const history=await gameHistory(env,'NFL','42',now);
+  assert.deepEqual(history.snapshots.map(p=>[p.observedAt,p.state]),[['upcoming'],['live'],['completed']].map(([s])=>[at,s]));
+  assert.deepEqual(env.db.prepare('SELECT rowid,* FROM sports_snapshots ORDER BY rowid').all(),original);
+  assert.throws(()=>insert(env.db,live,at),/UNIQUE constraint failed/,'same state and bucket remain unique');
+});
+
+test('same-time lifecycle retention keeps the last final and all rows under an unresolved audit hold',async t=>{
+  const env=database(t),now=Date.now(),at=now-RETENTION_MS-1000;
+  env.db.exec('CREATE TABLE live_audit_findings(game_key TEXT,status TEXT)');
+  for(const id of ['expired','held'])for(const state of ['upcoming','live','completed'])
+    insert(env.db,{sport:'NBA',id,state,score:42,teams:[['Away','AWY','1'],['Home','HME','1']]},at);
+  env.db.prepare('INSERT INTO live_audit_findings VALUES (?,?)').run('NBA:held','open');
+  assert.equal(await pruneSnapshots(env,now),2);
+  assert.deepEqual(env.db.prepare("SELECT state FROM sports_snapshots WHERE game_key='NBA:expired'").all().map(r=>r.state),['completed']);
+  assert.equal(env.db.prepare("SELECT count(*) n FROM sports_snapshots WHERE game_key='NBA:held'").get().n,3);
+});
+
 test('additive migration indexes existing history; query plans bound all lookups by game and team keys',t=>{
   const env=database(t,schema.slice(0,schema.indexOf('-- Targeted lookups')));
   const now=Date.now(), live=normalizeEvent(event(),'NFL');
@@ -51,6 +103,8 @@ test('additive migration indexes existing history; query plans bound all lookups
   assert.match(plan(env.db,old,[Math.floor(now/1000)-FOOTBALL_RETENTION_MS/1000]),/SCAN sports_snapshots/);
   const count=env.db.prepare('SELECT count(*) n FROM sports_snapshots').get().n;
   env.db.exec(migration); env.db.exec(migration); // additive and idempotent
+  assert.equal(env.db.prepare('SELECT count(*) n FROM sports_snapshots').get().n,count);
+  env.db.exec('BEGIN');env.db.exec(stateMigration);env.db.exec('COMMIT');
   assert.equal(env.db.prepare('SELECT count(*) n FROM sports_snapshots').get().n,count);
   const upcoming=plan(env.db,upcomingLookupSql(1),['NFL:42',now-FOOTBALL_RETENTION_MS]);
   const final=plan(env.db,completedLookupSql(1),['NFL:42',now-FOOTBALL_RETENTION_MS]);

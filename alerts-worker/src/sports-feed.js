@@ -2028,7 +2028,7 @@ export async function gameDetails(env,sport,id,now=Date.now()) {
   }
   if(!game && finalArchive) game=finalArchive.game;
   if (!game) {
-    const snapshot=await env.DB.prepare('SELECT normalized_state FROM sports_snapshots WHERE game_key=? ORDER BY observed_at DESC LIMIT 1').bind(`${sport}:${id}`).first();
+    const snapshot=await env.DB.prepare('SELECT normalized_state FROM sports_snapshots WHERE game_key=? ORDER BY observed_at DESC,state ASC LIMIT 1').bind(`${sport}:${id}`).first();
     if (snapshot) {
       const stored=JSON.parse(snapshot.normalized_state);
       if (stored.sport===sport && String(stored.id)===id && stored.teams?.length===2) game=stored;
@@ -2419,10 +2419,11 @@ export async function refreshSportsData(env,now=Date.now(),options={}) {
     // ordering depend on it. Do not let concurrent maintenance reorder snapshots.
     await stage('snapshots',async()=>{
       budget.check();
-      const writes=games.filter(game=>!frozenFinals.has(`${game.sport}:${game.id}`) && shouldSnapshot(game,history,now,MODEL_VERSION)).map(game=>env.DB.prepare(`INSERT OR IGNORE INTO sports_snapshots
+      const writes=games.filter(game=>!frozenFinals.has(`${game.sport}:${game.id}`) && shouldSnapshot(game,history,now,MODEL_VERSION)).map(game=>env.DB.prepare(`INSERT INTO sports_snapshots
         (game_key,observed_at,sport,state,rating,score_a,score_b,phase,clock,normalized_state,model_version)
         SELECT ?,?,?,?,?,?,?,?,?,?,? WHERE EXISTS (SELECT 1 FROM sports_leases WHERE key='refresh' AND owner=? AND expires_at>?
-      AND expires_at>CAST((julianday('now')-2440587.5)*86400000 AS INTEGER))`)
+      AND expires_at>CAST((julianday('now')-2440587.5)*86400000 AS INTEGER))
+        ON CONFLICT(game_key,observed_at,state) DO NOTHING`)
         .bind(`${game.sport}:${game.id}`,game.state==='completed'?now:Math.floor(now/(game.state==='live'?15000:60000))*(game.state==='live'?15000:60000),
           game.sport,game.state,game.score,String(game.teams[0][2]),String(game.teams[1][2]),String(game.liveRawStatus?.period ?? ''),String(game.liveRawStatus?.displayClock || ''),JSON.stringify({...game,scoreboard:undefined,verifiedLiveEvidence:undefined,manpowerEvidence:undefined,basketballEvidence:undefined,liveInputEvidence:undefined,priorObservation:undefined,providerEventRevisions:undefined,observationEvidence:undefined}),MODEL_VERSION,owner,budget.time()));
       for(let start=0;start<writes.length;start+=50){budget.check();await env.DB.batch(writes.slice(start,start+50));}

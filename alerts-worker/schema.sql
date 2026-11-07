@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS sports_snapshots (
   clock TEXT NOT NULL,
   normalized_state TEXT NOT NULL,
   model_version TEXT NOT NULL DEFAULT 'legacy',
-  PRIMARY KEY (game_key, observed_at)
+  PRIMARY KEY (game_key, observed_at, state)
 );
 CREATE TABLE IF NOT EXISTS scoring_audit_labels (
   game_key TEXT PRIMARY KEY,
@@ -93,7 +93,7 @@ CREATE INDEX IF NOT EXISTS sports_snapshots_upcoming ON sports_snapshots(game_ke
 CREATE INDEX IF NOT EXISTS sports_snapshots_completed ON sports_snapshots(game_key,observed_at DESC) WHERE state='completed';
 -- Only valid pre-final NFL records enter this index; team IDs avoid scanning mismatched records.
 CREATE INDEX IF NOT EXISTS sports_snapshots_nfl_records ON sports_snapshots(
-  game_key,min(CAST(json_extract(normalized_state,'$.teams[0][8]') AS TEXT),CAST(json_extract(normalized_state,'$.teams[1][8]') AS TEXT)),max(CAST(json_extract(normalized_state,'$.teams[0][8]') AS TEXT),CAST(json_extract(normalized_state,'$.teams[1][8]') AS TEXT)),observed_at DESC
+  game_key,min(CAST(json_extract(normalized_state,'$.teams[0][8]') AS TEXT),CAST(json_extract(normalized_state,'$.teams[1][8]') AS TEXT)),max(CAST(json_extract(normalized_state,'$.teams[0][8]') AS TEXT),CAST(json_extract(normalized_state,'$.teams[1][8]') AS TEXT)),observed_at DESC,state ASC
 ) WHERE sport='NFL' AND state IN ('upcoming','live') AND json_valid(normalized_state)
   AND json_extract(normalized_state,'$.sport')='NFL'
   AND json_extract(normalized_state,'$.state') IN ('upcoming','live')
