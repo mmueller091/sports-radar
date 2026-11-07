@@ -1,6 +1,18 @@
 import fs from 'node:fs';import {pathToFileURL} from 'node:url';
 import {snapshotRanges} from './snapshot-release-preflight.mjs';
 const columns=['rowid','game_key','observed_at','sport','state','rating','score_a','score_b','phase','clock','normalized_state','model_version'];
+const equality=columns.map(c=>`typeof(old.${c})=typeof(copy.${c}) AND old.${c} IS copy.${c}`).join(' AND ');
+export const retainedSnapshotTable='sports_snapshots_pre_state_key';
+// Each cleanup call is its own bounded, atomic REST request. The authoritative
+// table is never deleted or modified. A failed/unfinished cleanup leaves a
+// redundant recovery copy, and can be retried without affecting live history.
+export function snapshotCleanupSql(first,last){
+  const ranges=snapshotRanges(first,last);
+  if(ranges.length!==1)throw new Error('Cleanup must cover at most 5000 rowids');
+  const r=ranges[0],where=`old.rowid>=${r.first} AND old.rowid<=${r.last}`;
+  return `CREATE TABLE snapshot_key_cleanup_check(ok INTEGER NOT NULL CHECK(ok=1));\nINSERT INTO snapshot_key_cleanup_check SELECT NOT EXISTS (SELECT 1 FROM ${retainedSnapshotTable} old LEFT JOIN sports_snapshots copy ON copy.rowid=old.rowid WHERE ${where} AND (copy.rowid IS NULL OR NOT (${equality})));\nDELETE FROM ${retainedSnapshotTable} WHERE rowid>=${r.first} AND rowid<=${r.last};\nDROP TABLE snapshot_key_cleanup_check;\n`;
+}
+export const finishSnapshotCleanupSql=`CREATE TABLE snapshot_key_cleanup_check(ok INTEGER NOT NULL CHECK(ok=1));\nINSERT INTO snapshot_key_cleanup_check SELECT COUNT(*)=0 FROM ${retainedSnapshotTable};\nDROP TABLE ${retainedSnapshotTable};\nDROP TABLE snapshot_key_cleanup_check;\n`;
 export function boundedSnapshotMigration(template,first,last){
   // This is one asynchronous import, not a sequence of independent REST writes.
   // The import must block other database access and roll back the entire file on failure.
@@ -9,14 +21,18 @@ export function boundedSnapshotMigration(template,first,last){
   if(copyStart<0||copyEnd<=copyStart||guardStart<copyEnd||guardEnd<guardStart)throw new Error('Unexpected migration template');
   const copy=template.slice(copyStart,copyEnd).trim();
   if(!copy.endsWith('FROM sports_snapshots;')||!copy.includes('('+columns.join(',')+')'))throw new Error('Migration field list changed');
-  const equality=columns.map(c=>`typeof(old.${c})=typeof(copy.${c}) AND old.${c} IS copy.${c}`).join(' AND ');
   const ranges=snapshotRanges(first,last).flatMap(r=>{const out=[];for(let lo=BigInt(r.first);lo<=BigInt(r.last);lo+=1000n){const hi=lo+999n<BigInt(r.last)?lo+999n:BigInt(r.last);out.push({first:String(lo),last:String(hi)});}return out;});
   const parts=[template.slice(0,copyStart).trim()];
   for(const r of ranges)parts.push(copy.slice(0,-1)+` WHERE rowid>=${r.first} AND rowid<=${r.last};`);
   parts.push('CREATE TABLE snapshot_key_migration_check(ok INTEGER NOT NULL CHECK(ok=1));');
   parts.push('INSERT INTO snapshot_key_migration_check SELECT (SELECT COUNT(*) FROM sports_snapshots)=(SELECT COUNT(*) FROM sports_snapshots_state_key);');
   for(const r of ranges)parts.push(`INSERT INTO snapshot_key_migration_check SELECT NOT EXISTS (SELECT 1 FROM sports_snapshots old LEFT JOIN sports_snapshots_state_key copy ON copy.rowid=old.rowid WHERE old.rowid>=${r.first} AND old.rowid<=${r.last} AND (copy.rowid IS NULL OR NOT (${equality})));`);
-  parts.push(template.slice(guardEnd).trim());
+  const cutover=template.slice(guardEnd).trim();
+  if(cutover.split('DROP TABLE sports_snapshots;').length!==2)throw new Error('Unexpected source-table replacement');
+  // A full-copy D1 rehearsal proved that copying and deleting the multi-GB
+  // source in one successful import times out. Retaining it makes the atomic
+  // switch small enough to commit; remove only verified duplicates afterward.
+  parts.push(cutover.replace('DROP TABLE sports_snapshots;',`ALTER TABLE sports_snapshots RENAME TO ${retainedSnapshotTable};\nDROP INDEX sports_snapshots_age;\nDROP INDEX sports_snapshots_upcoming;\nDROP INDEX sports_snapshots_completed;\nDROP INDEX sports_snapshots_nfl_records;`));
   parts.push("INSERT INTO d1_migrations(name) VALUES('0003_snapshot_state_identity.sql');");
   const sql=parts.join('\n')+'\n';if(parts.some(p=>Buffer.byteLength(p)>=100000))throw new Error('Oversized migration statement');
   return {sql,ranges,recordGuard:'Counts plus exact SQLite type/value equality for every original rowid and all eleven fields',execution:'Single D1 asynchronous file import; never use REST /query for the whole file'};
