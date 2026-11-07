@@ -213,6 +213,39 @@ test('large feed publications split D1 part writes into batches below the RPC si
   assert.equal((await readFeed(env)).games.length,251);
 });
 
+test('production-sized live feed cannot submit an oversized D1 multipart batch',async t=>{
+  const env=database(t),now=Date.now(),batchBytes=[];
+  env.db.prepare('INSERT INTO sports_leases VALUES (?,?,?)').run('refresh','owner',now+60000);
+  const prepare=env.DB.prepare.bind(env.DB),batch=env.DB.batch.bind(env.DB);
+  env.DB.prepare=sql=>{
+    const statement=prepare(sql);
+    if(sql.startsWith('INSERT OR IGNORE INTO sports_feed_parts')){
+      const bind=statement.bind.bind(statement);
+      statement.bind=(...args)=>{statement.payloadBytes=Buffer.byteLength(args[2]);return bind(...args);};
+    }
+    return statement;
+  };
+  env.DB.batch=async statements=>{
+    const size=statements.reduce((sum,statement)=>sum+(statement.payloadBytes || 0),0);
+    if(statements.some(statement=>statement.payloadBytes)){
+      batchBytes.push(size);
+      // A conservative raw-payload ceiling leaves room for D1 RPC serialization.
+      if(size>8*1024*1024)throw new Error('Oversized D1 batch fixture');
+    }
+    return batch(statements);
+  };
+  // Roughly the 16 MB of feed parts observed in production on a crowded slate.
+  const filler='x'.repeat(40000);
+  const games=Array.from({length:400},(_,id)=>({id,sport:'CFB',state:'live',payload:filler}));
+  const published=await publishFeed(env,{updatedAt:new Date(now).toISOString(),games},'owner',()=>now);
+  assert.ok(published);
+  assert.ok(published.parts>=16);
+  assert.ok(batchBytes.length>=4);
+  assert.ok(batchBytes.reduce((sum,size)=>sum+size,0)>14*1024*1024);
+  assert.ok(batchBytes.every(size=>size<=8*1024*1024));
+  assert.equal((await readFeed(env)).games.length,games.length);
+});
+
 test('cron/feed lease contention creates one collector and release cannot delete a successor lease',async t=>{
   const env=database(t),f=fixture(t,[event('live','in')]),now=Date.now(),blocked=gate(),entered=gate();
   f.hook=async()=>{entered.resolve();await blocked.promise;};
