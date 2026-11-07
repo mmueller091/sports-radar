@@ -16,6 +16,10 @@ const STALE_MS = 120000;
 const LIVE_REFRESH_MS = 12000;
 const NEAR_START_REFRESH_MS = 10000;
 const IDLE_REFRESH_MS = 60000;
+// Crowded slates can exceed the HTTP refresh budget. Cron has a longer
+// execution lifetime and may finish the same verified publication safely.
+const CRON_REFRESH_DEADLINE_MS = 45000;
+const CRON_REFRESH_LEASE_MS = 50000;
 const ACCELERATED_SPORTS = new Set(['NFL','CFB','NCAAB','NHL','MLB','NBA']);
 export const MODEL_VERSION = runtime.MODEL_VERSION;
 
@@ -2134,7 +2138,9 @@ export async function requestFeedRefresh(env,previous,ctx,options={}) {
 }
 
 export async function refreshSportsData(env,now=Date.now(),options={}) {
-  const budget = refreshBudget(now,options);
+  const cron=options.trigger==='cron';
+  const budget = refreshBudget(now,cron && options.deadlineMs===undefined
+    ? {...options,deadlineMs:CRON_REFRESH_DEADLINE_MS} : options);
   const metrics = {event:'canonical_refresh',trigger:options.trigger || 'direct',startedAt:new Date(now).toISOString(),
     outcome:'failed',lease:'pending',published:false,reusedPublication:false,
     candidates:0,liveCandidates:0,criticalCandidates:0,reusedGames:0,cachedEnrichments:0,cachedSummaryReads:0,
@@ -2164,7 +2170,7 @@ export async function refreshSportsData(env,now=Date.now(),options={}) {
   const errors=[];
   try {
     const acquisitionStart=budget.elapsed();
-    owner = await stage('lease',()=>acquire(env,'refresh',now,REFRESH_LEASE_MS));
+    owner = await stage('lease',()=>acquire(env,'refresh',now,cron ? CRON_REFRESH_LEASE_MS : REFRESH_LEASE_MS));
     metrics.leaseAcquisitionMs=budget.elapsed()-acquisitionStart;
     if (!owner) {metrics.lease='lost';metrics.outcome='contended';metrics.reusedPublication=true;return null;}
     metrics.lease='acquired';metrics.owner=owner;
