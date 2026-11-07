@@ -349,20 +349,58 @@ test('an initial false Q4 end cannot become an accepted baseline before summary 
  assert.equal(next.liveRawStatus.displayClock,'14:55');
 });
 
-test('CFB end of a real Q4 and NFL/NHL end status retain existing handling',()=>{
+test('real fourth-period and NHL period endings remain valid with verified game-end status',()=>{
  const id='401862818';
- for(const [sport,priorPeriod,endPeriod,detail] of [
-  ['CFB',4,4,'End of 4th Quarter'],['NFL',3,4,'End of 4th Quarter'],['NHL',2,3,'Intermission']
+ for(const [sport,priorPeriod,endPeriod,detail,completed] of [
+  ['CFB',4,4,'End of 4th Quarter',false],
+  ['NFL',4,4,'End of 4th Quarter',false],
+  ['NHL',3,3,'Intermission',false],
+  ['NFL',3,4,'Final',true],
+  ['NHL',2,3,'Final',true]
  ]){
   const start=competition(priorPeriod,'0:00',10,17,'End of prior period');
   const priorGame={...game(id,start,67),sport,liveRawStatus:start.status,liveRawSituation:start.situation};
   const ending=competition(endPeriod,'0:00',10,17,detail);
+  if(completed)ending.status.type={state:'post',completed:true,detail};
   ending.situation.lastPlay={id:id+'800',period:{number:endPeriod},text:detail};
   const next={...game(id,ending,75),sport};
   observationIntegrity.preserveObservation(next,priorGame);
   observationIntegrity.reconcileObservation(next,ending,null);
   assert.notEqual(next.timingUncertain,true,`${sport} ${detail}`);
   assert.notEqual(next.liveUpdateRejected,true,`${sport} ${detail}`);
+ }
+});
+
+test('NFL and NHL misleading period-end labels cannot accept an impossible zero-clock transition',()=>{
+ const id='401862818';
+ for(const [sport,priorPeriod,endPeriod,detail] of [
+  ['NFL',3,4,'End of 4th Quarter'],['NHL',2,3,'Intermission']
+ ]){
+  const priorStatus=competition(priorPeriod,'0:00',10,17,'End of prior period');
+  priorStatus.situation.lastPlay={id:id+'584',period:{number:priorPeriod},text:'End of prior period.'};
+  const prev={...game(id,priorStatus,67),sport,liveRawStatus:priorStatus.status,
+   liveRawSituation:priorStatus.situation,baseScore:67,factors:[]};
+  const falseEnd=competition(endPeriod,'0:00',10,17,detail);
+  falseEnd.status.type.completed=false;
+  falseEnd.situation.lastPlay=structuredClone(priorStatus.situation.lastPlay);
+  const pending={...game(id,falseEnd,24),sport,modelVersion:'production'};
+  observationIntegrity.preserveObservation(pending,prev);
+  observationIntegrity.reconcileObservation(pending,falseEnd,null);
+  assert.equal(pending.timingUncertain,true,sport);
+  assert.equal(pending.liveUpdateRejected,true,sport);
+  assert.equal(pending.score,67,sport);
+  assert.equal(pending.liveRawStatus.displayClock,'',sport);
+  assert.equal(shouldSnapshot(pending,{},Date.now(),'production'),false,sport);
+  assert.equal(currentAlertGame({modelVersion:'production',updatedAt:new Date().toISOString()},pending),false,sport);
+  const clock=sport==='NHL'?'19:55':'14:55';
+  const resumed=competition(endPeriod,clock,10,17,`${clock} - ${endPeriod}`);
+  resumed.situation.lastPlay={id:id+'620',period:{number:endPeriod},text:'Play in progress.'};
+  const recovered={...game(id,resumed,73),sport};
+  observationIntegrity.preserveObservation(recovered,pending);
+  observationIntegrity.reconcileObservation(recovered,resumed,{header:{competitions:[resumed]},plays:[]});
+  assert.notEqual(recovered.timingUncertain,true,`${sport} recovery`);
+  assert.equal(recovered.liveUpdateRejected,false,`${sport} recovery`);
+  assert.equal(recovered.liveRawStatus.displayClock,clock,`${sport} recovery`);
  }
 });
 

@@ -64,7 +64,9 @@ function reconcileObservation(game,c,summary){
  const prior=game.priorObservation?.identity===identity(game)?game.priorObservation.competition:null;
  const status=c.status||{},period=Number(status.period),finalPeriod=game.sport==='NHL'?3:4;
  const zero=zeroClock(status);
- const terminal=status.type?.completed===true||status.type?.state==='post'||/\b(final|end of|intermission)\b/i.test(String(status.type?.detail||''));
+ // Display labels alone are not proof of a terminal state. ESPN has labeled
+ // unplayed quarters "End of 4th" while its last actual play was still in Q3.
+ const terminal=status.type?.completed===true||status.type?.state==='post';
  const play=c.situation?.lastPlay,lastId=String(play?.id||'');
  const zeroPlay=lastId&&[...(summary?.plays||[]),...(summary?.scoringPlays||[])].some(p=>
   String(p.id||'')===lastId&&Number(p.period?.number)===period&&
@@ -83,7 +85,7 @@ function reconcileObservation(game,c,summary){
   (lastPlayInThird||(!prior||Number(prior.status?.period)<4)&&!zeroPlay&&!pendingTouchdown);
  if(unconfirmedFourthEnd||zero&&transition&&!terminal&&!zeroPlay){
   game.timingUncertain=true;game.scoringPartial=true;game.evidenceQuality='partial';
-  if(game.sport==='CFB')game.liveUpdateRejected=true;
+  game.liveUpdateRejected=true;
   game.evidenceReasons=[...new Set([...(game.evidenceReasons||[]),'unconfirmed-clock'])];
   game.liveRawStatus={...status,displayClock:'',timingUncertain:true};
   if(!prior)game.priorObservation={identity:identity(game),competition:clone(c),observedAt:Date.now(),unconfirmedFinalZero:true};
