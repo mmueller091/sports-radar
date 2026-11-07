@@ -5,8 +5,8 @@
   "workers_dev": true,
   "triggers": {"crons": ["* * * * *"]},
   "vars": {
-    "POSTING_ENABLED": "false",
-    "EXPECTED_SCORING_MODEL": "2026-11-06.scoring-audit.1",
+    "POSTING_ENABLED": "true",
+    "EXPECTED_SCORING_MODEL": "2026-11-06.nhl-six-on-five.1",
     "MAX_POSTS_PER_RUN": "3",
     "MAX_POSTS_PER_DAY": "20"
   },
