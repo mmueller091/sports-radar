@@ -158,6 +158,24 @@ test('nonfootball game history expires at seven days while football retains four
   assert.deepEqual((await gameHistory(env,'CFB','week',now)).snapshots.map(p=>p.rating),[61]);
 });
 
+test('CFB history retains but invalidates false fourth-quarter zeroes without changing scores',async t=>{
+  const env=environment(t),now=Date.now();
+  insert(env.db,{key:'CFB:usf-ecu',at:now-60000,rating:67,period:'3',clock:'0:00',phaseLabel:'End of 3rd Quarter'});
+  insert(env.db,{key:'CFB:usf-ecu',at:now-40000,rating:24,period:'4',clock:'0:00',phaseLabel:'End of 4th Quarter'});
+  insert(env.db,{key:'CFB:usf-ecu',at:now-20000,rating:81,period:'4',clock:'0:33',phaseLabel:'0:33 - 4th Quarter'});
+  insert(env.db,{key:'CFB:actual-end',at:now-60000,rating:67,period:'4',clock:'0:33',phaseLabel:'0:33 - 4th Quarter'});
+  insert(env.db,{key:'CFB:actual-end',at:now-40000,rating:82,period:'4',clock:'0:00',phaseLabel:'End of 4th Quarter'});
+  const history=await gameHistory(env,'CFB','usf-ecu',now);
+  assert.deepEqual(history.snapshots.map(p=>p.rating),[67,24,81]);
+  assert.equal(history.snapshots[1].evidenceQuality,'invalid');
+  assert.equal(history.snapshots[1].integrityIssue,true);
+  assert.equal(history.snapshots[1].timingIssue,'unconfirmed-period-transition');
+  assert.notEqual(history.snapshots[2].evidenceQuality,'invalid');
+  const final=await gameHistory(env,'CFB','actual-end',now);
+  assert.notEqual(final.snapshots[1].evidenceQuality,'invalid');
+  assert.equal(env.db.prepare("SELECT rating FROM sports_snapshots WHERE game_key='CFB:usf-ecu' ORDER BY observed_at LIMIT 1 OFFSET 1").get().rating,24);
+});
+
 
 test('game detail route attaches stored history without requiring a second browser request',()=>{
   const source=fs.readFileSync(new URL('../src/index.js',import.meta.url),'utf8');

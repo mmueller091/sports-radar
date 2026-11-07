@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import {createRequire} from 'node:module';
 import {gameHistory,shouldSnapshot} from '../alerts-worker/src/snapshot-history.js';
+import {currentAlertGame} from '../alerts-worker/src/alert-delivery.js';
 import * as liveModel from '../alerts-worker/src/live-game-model.js';
 
 const require=createRequire(import.meta.url);
@@ -251,6 +252,10 @@ test('USF-ECU Q3 end cannot masquerade as the end of Q4, and a poisoned Q4 obser
  assert.equal(pending.timingUncertain,true);
  assert.equal(pending.score,67);
  assert.equal(pending.liveRawStatus.displayClock,'');
+ assert.equal(pending.liveUpdateRejected,true);
+ assert.equal(shouldSnapshot(pending,{},Date.now(),'production'),false);
+ assert.equal(currentAlertGame({modelVersion:'production',updatedAt:new Date().toISOString()},
+  {...pending,modelVersion:'production'}),false);
 
  // Production accepted this wrong zero before the guard ran. Its later
  // scoreboard play was 778, 194 plays after the Q3-ending play 584.
@@ -270,6 +275,127 @@ test('USF-ECU Q3 end cannot masquerade as the end of Q4, and a poisoned Q4 obser
  observationIntegrity.preserveObservation(oldPlay,poisoned);
  observationIntegrity.reconcileObservation(oldPlay,third,null);
  assert.equal(oldPlay.liveUpdateRejected,true,'older plays still cannot roll back time');
+});
+
+test('USF-ECU recovery requires corroborated Q4 time, score, status, and forward play',()=>{
+ const id='401862818';
+ const falseEnd=competition(4,'0:00',10,17,'End of 4th Quarter');
+ falseEnd.situation.lastPlay={id:id+'584',period:{number:3},text:'End of 3rd quarter.'};
+ const previous={...game(id,falseEnd,24),sport:'CFB',liveRawStatus:falseEnd.status,
+  liveRawSituation:falseEnd.situation,evidenceQuality:'complete',
+  timedLastTrusted:{score:67,baseScore:67,factors:[]}};
+ const valid=competition(4,'0:33',17,17,'0:33 - 4th Quarter');
+ valid.situation.lastPlay={id:id+'778',period:{number:4},text:'Penalty.'};
+ const trial=(observation=valid,summary={header:{competitions:[observation]}})=>{
+  const current={...game(id,observation,89),sport:'CFB'};
+  observationIntegrity.preserveObservation(current,previous);
+  observationIntegrity.reconcileObservation(current,observation,summary);
+  return current;
+ };
+ const brokenClock=structuredClone(valid);brokenClock.status.displayClock='14:99';
+ const tooLong=structuredClone(valid);tooLong.status.displayClock='16:00';
+ const noId=structuredClone(valid);delete noId.situation.lastPlay.id;
+ const oldId=structuredClone(valid);oldId.situation.lastPlay.id=id+'583';
+ const scoreRevision=structuredClone(valid);scoreRevision.competitors[0].score='9';
+ const mismatchedClock=structuredClone(valid);mismatchedClock.status.displayClock='0:32';
+ const mismatchedScore=structuredClone(valid);mismatchedScore.competitors[0].score='10';
+ const mismatchedState=structuredClone(valid);mismatchedState.status.type.state='post';
+ const cases=[
+  ['summary absent',valid,null],
+  ['summary clock stale',valid,{header:{competitions:[mismatchedClock]}}],
+  ['summary score stale',valid,{header:{competitions:[mismatchedScore]}}],
+  ['summary lifecycle is final',valid,{header:{competitions:[mismatchedState]}}],
+  ['summary evidence is deferred',valid,{header:{competitions:[valid]},sportsRadarEvidence:{aggregateEvidenceDeferred:true}}],
+  ['clock seconds invalid',brokenClock,{header:{competitions:[brokenClock]}}],
+  ['clock beyond quarter',tooLong,{header:{competitions:[tooLong]}}],
+  ['play ID missing',noId,{header:{competitions:[noId]}}],
+  ['play ID older',oldId,{header:{competitions:[oldId]}}],
+  ['score unexpectedly decreases',scoreRevision,{header:{competitions:[scoreRevision]}}]
+ ];
+ for(const [name,c,summary] of cases){
+  const held=trial(c,summary);
+  assert.equal(held.timingUncertain,true,name);
+  assert.equal(held.liveUpdateRejected,true,name);
+  assert.equal(held.liveRawStatus.displayClock,'',name);
+  assert.equal(held.score,67,name);
+  assert.equal(shouldSnapshot(held,{},Date.now(),'production'),false,name);
+ }
+ const correct=trial();
+ assert.equal(correct.timingUncertain,undefined);
+ assert.equal(correct.liveUpdateRejected,false);
+ assert.equal(correct.liveRawStatus.displayClock,'0:33');
+ assert.deepEqual(correct.teams.map(t=>t[2]),['17','17']);
+});
+
+test('an initial false Q4 end cannot become an accepted baseline before summary recovery',()=>{
+ const id='401862818';
+ const falseEnd=competition(4,'0:00',10,17,'End of 4th Quarter');
+ const first={...game(id,falseEnd,99),sport:'CFB'};
+ observationIntegrity.reconcileObservation(first,falseEnd,null);
+ assert.equal(first.timingUncertain,true);
+ assert.equal(first.liveUpdateRejected,true);
+ assert.equal(first.score,null);
+ assert.equal(first.liveRawStatus.displayClock,'');
+ assert.equal(shouldSnapshot(first,{},Date.now(),'production'),false);
+ const fourth=competition(4,'14:55',10,17,'14:55 - 4th Quarter');
+ fourth.situation.lastPlay={id:id+'620',period:{number:4},text:'Pass for five yards.'};
+ const next={...game(id,fourth,72),sport:'CFB'};
+ observationIntegrity.preserveObservation(next,first);
+ observationIntegrity.reconcileObservation(next,fourth,{header:{competitions:[fourth]},plays:[{
+  id:id+'620',period:{number:4},clock:{displayValue:'14:55'},awayScore:10,homeScore:17
+ }]});
+ assert.equal(next.timingUncertain,undefined);
+ assert.equal(next.liveUpdateRejected,false);
+ assert.equal(next.liveRawStatus.displayClock,'14:55');
+});
+
+test('CFB end of a real Q4 and NFL/NHL end status retain existing handling',()=>{
+ const id='401862818';
+ for(const [sport,priorPeriod,endPeriod,detail] of [
+  ['CFB',4,4,'End of 4th Quarter'],['NFL',3,4,'End of 4th Quarter'],['NHL',2,3,'Intermission']
+ ]){
+  const start=competition(priorPeriod,'0:00',10,17,'End of prior period');
+  const priorGame={...game(id,start,67),sport,liveRawStatus:start.status,liveRawSituation:start.situation};
+  const ending=competition(endPeriod,'0:00',10,17,detail);
+  ending.situation.lastPlay={id:id+'800',period:{number:endPeriod},text:detail};
+  const next={...game(id,ending,75),sport};
+  observationIntegrity.preserveObservation(next,priorGame);
+  observationIntegrity.reconcileObservation(next,ending,null);
+  assert.notEqual(next.timingUncertain,true,`${sport} ${detail}`);
+  assert.notEqual(next.liveUpdateRejected,true,`${sport} ${detail}`);
+ }
+});
+
+test('Worker ingestion quarantines the false CFB ending and accepts its confirmed recovery',()=>{
+ const fixture=JSON.parse(fs.readFileSync(new URL('./fixtures/real-games/CFB-20261017-401862804.json',import.meta.url)));
+ const event=fixture.event,id=String(event.id);
+ const make=(period,clock,scoreA,scoreB,detail,playId,playText)=>{
+  const e=structuredClone(event),c=e.competitions[0];
+  c.status={period,displayClock:clock,type:{state:'in',completed:false,detail,shortDetail:detail}};
+  c.competitors.find(t=>t.homeAway==='away').score=String(scoreA);
+  c.competitors.find(t=>t.homeAway==='home').score=String(scoreB);
+  c.situation={lastPlay:{id:id+playId,text:playText}};
+  e.status=structuredClone(c.status);
+  return e;
+ };
+ const q3=make(3,'0:00',10,17,'End of 3rd Quarter','584','End of 3rd quarter.');
+ const falseEnd=make(4,'0:00',10,17,'End of 4th Quarter','584','End of 3rd quarter.');
+ const real=make(4,'0:33',17,17,'0:33 - 4th Quarter','778','Pass incomplete.');
+ const before=liveModel.normalizeEvent(q3,'CFB');before.score=67;before.scoringPartial=false;
+ before.timedLastTrusted={score:67,baseScore:67,factors:[]};
+ const pending=liveModel.normalizeEvent(falseEnd,'CFB');
+ liveModel.enrichGame(pending,null,before);
+ assert.equal(pending.score,67);
+ assert.equal(pending.timingUncertain,true);
+ assert.equal(pending.liveRawStatus.displayClock,'');
+ assert.equal(pending.liveUpdateRejected,true);
+ assert.equal(shouldSnapshot(pending,{},Date.now(),pending.modelVersion),false);
+ const recovered=liveModel.normalizeEvent(real,'CFB');
+ liveModel.enrichGame(recovered,{header:{competitions:[real.competitions[0]]},plays:[]},pending);
+ assert.notEqual(recovered.timingUncertain,true);
+ assert.equal(recovered.liveUpdateRejected,false);
+ assert.equal(recovered.liveRawStatus.displayClock,'0:33');
+ assert.deepEqual(recovered.teams.map(t=>t[2]),['17','17']);
 });
 
 test('same-period false game endings cannot advance twelve minutes in one refresh',()=>{

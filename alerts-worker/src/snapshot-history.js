@@ -192,8 +192,8 @@ export async function gameHistory(env,sport,id,now=Date.now()) {
 
   // Historical provider transitions stay in the audit record. Classify them
   // at read time so an old "verified" flag cannot make Q4 0.0 a game-end fact.
-  if(['NBA','NCAAB'].includes(sport)){
-    const finalPeriod=sport==='NBA'?4:2;
+  if(['NBA','NCAAB','CFB'].includes(sport)){
+    const finalPeriod=sport==='NCAAB'?2:4;
     for(let i=0;i<snapshots.length;i++){
       const point=snapshots[i],previous=snapshots[i-1];
       if(point.state!=='live'||point.period!==finalPeriod||!/^0+(?:(?::0+(?:\.0+)?)|(?:\.0+))?$/.test(point.clock))continue;

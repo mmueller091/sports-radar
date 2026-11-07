@@ -64,9 +64,7 @@ function reconcileObservation(game,c,summary){
  const prior=game.priorObservation?.identity===identity(game)?game.priorObservation.competition:null;
  const status=c.status||{},period=Number(status.period),finalPeriod=game.sport==='NHL'?3:4;
  const zero=zeroClock(status);
- // ESPN can label an in-progress transition "End of 4th" while the last
- // actual play is only the end of the third. The label is not a final whistle.
- const terminal=status.type?.completed===true||status.type?.state==='post';
+ const terminal=status.type?.completed===true||status.type?.state==='post'||/\b(final|end of|intermission)\b/i.test(String(status.type?.detail||''));
  const play=c.situation?.lastPlay,lastId=String(play?.id||'');
  const zeroPlay=lastId&&[...(summary?.plays||[]),...(summary?.scoringPlays||[])].some(p=>
   String(p.id||'')===lastId&&Number(p.period?.number)===period&&
@@ -74,10 +72,21 @@ function reconcileObservation(game,c,summary){
   (c.competitors||[]).every(t=>String(t.score)===String(p[t.homeAway==='home'?'homeScore':'awayScore'])));
  const transition=prior&&Number(prior.status?.period)<period&&
   (period===finalPeriod||game.sport==='NHL'&&period===4);
- if(zero&&transition&&!terminal&&!zeroPlay){
+ // An unconfirmed live Q4 zero cannot establish the end of a game, especially
+ // if its last actual play is still in Q3. ESPN mislabeled this transition.
+ const lastPlayInThird=Number(play?.period?.number??play?.period)===3||/end of 3rd quarter/i.test(String(play?.text||''));
+ // A touchdown with an unplayed conversion is a legitimate live 0:00 Q4.
+ const pendingTouchdown=Number(play?.scoreValue)===6&&/\btouchdown\b/i.test(String(play?.text||''))&&
+  Number(c.situation?.down)===-1&&lastId.startsWith(String(game.id));
+ const unconfirmedFourthEnd=game.sport==='CFB'&&period===4&&zero&&
+  status.type?.state==='in'&&status.type?.completed!==true&&
+  (lastPlayInThird||(!prior||Number(prior.status?.period)<4)&&!zeroPlay&&!pendingTouchdown);
+ if(unconfirmedFourthEnd||zero&&transition&&!terminal&&!zeroPlay){
   game.timingUncertain=true;game.scoringPartial=true;game.evidenceQuality='partial';
+  if(game.sport==='CFB')game.liveUpdateRejected=true;
   game.evidenceReasons=[...new Set([...(game.evidenceReasons||[]),'unconfirmed-clock'])];
   game.liveRawStatus={...status,displayClock:'',timingUncertain:true};
+  if(!prior)game.priorObservation={identity:identity(game),competition:clone(c),observedAt:Date.now(),unconfirmedFinalZero:true};
   if(game.timedLastTrusted)Object.assign(game,clone(game.timedLastTrusted));else game.score=null;
   return c;
  }
@@ -116,13 +125,33 @@ function reconcileObservation(game,c,summary){
  const revision=corroboratedRevision(c,prior,header,at,before);
  const samePlay=c.situation?.lastPlay?.id!=null&&String(c.situation.lastPlay.id)===String(prior.situation?.lastPlay?.id);
  const matchingClock=header&&String(header.status?.displayClock)===String(c.status?.displayClock)&&Number(header.status?.period)===Number(c.status?.period);
- // Recover previously stored false Q4 zeroes without admitting ordinary clock
- // rollbacks. A later numbered play proves the game moved past the Q3 boundary.
- const recoveredFourthQuarter=supported(game)&&Number(prior.status?.period)===4&&zeroClock(prior.status)&&
+ // Recover a previously accepted false Q4 zero only when the separate summary
+ // independently confirms the positive clock, period, and both scores.
+ const poisonedFourthEnd=game.sport==='CFB'&&Number(prior.status?.period)===4&&zeroClock(prior.status)&&
   prior.status?.type?.state==='in'&&prior.status?.type?.completed!==true&&
-  /end of 4th/i.test(String(prior.status?.type?.detail||''))&&
-  /end of 3rd quarter/i.test(String(prior.situation?.lastPlay?.text||''))&&
-  period===4&&!zero&&status.type?.state==='in'&&newer&&!lower;
+  (game.priorObservation?.unconfirmedFinalZero===true||
+   Number(prior.situation?.lastPlay?.period?.number??prior.situation?.lastPlay?.period)===3||
+   /end of 3rd quarter/i.test(String(prior.situation?.lastPlay?.text||'')));
+ const clockMatch=String(status.displayClock||'').match(/^(\d{1,2}):(\d{2}(?:\.\d+)?)$/);
+ const seconds=clockMatch?Number(clockMatch[1])*60+Number(clockMatch[2]):null;
+ const positiveClock=seconds!==null&&Number(clockMatch[2])<60&&seconds>0&&seconds<=900;
+ const independentFourthPlay=game.priorObservation?.unconfirmedFinalZero===true&&seq!==null&&
+  [...(summary?.plays||[]),...(summary?.scoringPlays||[])].some(p=>
+   String(p.id)===lastId&&Number(p.period?.number??p.period)===4&&
+   String(p.clock?.displayValue)===String(status.displayClock)&&
+   (c.competitors||[]).every(t=>String(t.score)===String(p[t.homeAway==='home'?'homeScore':'awayScore'])));
+ const recoveredFourthQuarter=poisonedFourthEnd&&period===4&&status.type?.state==='in'&&status.type?.completed!==true&&
+  positiveClock&&(newer||independentFourthPlay)&&!lower&&agrees&&matchingClock&&header.status?.type?.state==='in'&&
+  header.status?.type?.completed!==true&&!summary?.sportsRadarEvidence?.aggregateEvidenceDeferred;
+ if(poisonedFourthEnd&&period===4&&!zero&&status.type?.state==='in'&&!recoveredFourthQuarter){
+  game.timingUncertain=true;game.scoringPartial=true;game.evidenceQuality='partial';
+  game.liveUpdateRejected=true;
+  game.observationIntegrity={status:'rejected',reason:'unconfirmed-fourth-quarter-recovery'};
+  game.evidenceReasons=[...new Set([...(game.evidenceReasons||[]),'unconfirmed-fourth-quarter-recovery'])];
+  game.liveRawStatus={...status,displayClock:'',timingUncertain:true};
+  if(game.timedLastTrusted)Object.assign(game,clone(game.timedLastTrusted));else game.score=null;
+  return c;
+ }
  const correction=lower&&agrees&&!older&&at!==null&&before!==null&&
   Number(c.status?.period)===Number(prior.status?.period)&&(Math.abs(at-before)<=2||samePlay&&matchingClock);
  const priorKey=stateKey(prior),nextKey=stateKey(c),e=game.observationEvidence;
