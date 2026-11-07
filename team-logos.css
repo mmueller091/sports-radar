@@ -1,6 +1,4 @@
-/* Load after the responsive styles. Treatments follow alpha, never the image
-   rectangle. No official pixels, colors, aspect ratios or transparent areas are
-   replaced. Dark artwork receives a half-pixel alpha contour, not a glow. */
+/* Restore the previously approved polished team-logo glow. */
 :root {
   --logo-soft-edge: drop-shadow(0 0 .55px rgb(240 232 212 / .68));
   --logo-dark-edge:
@@ -44,7 +42,11 @@ img[data-team-logo][data-logo-contrast],
   background: transparent;
   box-shadow: none;
   border-radius: 0;
-  filter: var(--team-logo-filter, none);
+  filter:
+    drop-shadow(0 0 .65px rgba(239,246,248,.95))
+    drop-shadow(0 0 1.6px rgba(239,246,248,.42))
+    drop-shadow(0 1px 1px rgba(0,0,0,.30));
+  background-image: radial-gradient(circle at center, rgba(235,242,245,.16) 0%, rgba(235,242,245,.075) 48%, transparent 74%);
   mix-blend-mode: normal;
 }
 img[data-logo-contrast="none"] { --team-logo-filter: none; }
@@ -60,8 +62,10 @@ img[data-logo-contrast="unreadable"] { --team-logo-filter: var(--logo-dark-edge)
 img[data-team-logo][data-logo-contrast="halo"],
 .game-card .team-name img[data-team-logo][data-logo-contrast="halo"] {
   --team-logo-filter:
-    drop-shadow(0 0 1.2px rgb(240 232 212 / .96))
-    drop-shadow(0 0 2px rgb(240 232 212 / .34));
+    drop-shadow(0 0 .7px rgba(244,249,250,1))
+    drop-shadow(0 0 1.7px rgba(244,249,250,.52))
+    drop-shadow(0 1px 1px rgba(0,0,0,.32));
+  filter: var(--team-logo-filter);
   background: transparent;
   box-shadow: none;
   border-radius: 0;
