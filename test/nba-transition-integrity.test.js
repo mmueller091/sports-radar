@@ -236,6 +236,42 @@ test('football and hockey also reject uncorroborated transition zeros and large 
  }
 });
 
+test('USF-ECU Q3 end cannot masquerade as the end of Q4, and a poisoned Q4 observation recovers',()=>{
+ const id='401862818';
+ const third=competition(3,'0:00',10,17,'End of 3rd Quarter');
+ third.situation.lastPlay={id:id+'584',text:'End of 3rd quarter.'};
+ const previous={...game(id,third,67),sport:'CFB',liveRawStatus:third.status,
+  liveRawSituation:third.situation,baseScore:67,evidenceQuality:'complete',
+  timedLastTrusted:{score:67,baseScore:67,factors:[]}};
+ const falseEnd=competition(4,'0:00',10,17,'End of 4th Quarter');
+ falseEnd.situation.lastPlay=structuredClone(third.situation.lastPlay);
+ const pending={...game(id,falseEnd,24),sport:'CFB'};
+ observationIntegrity.preserveObservation(pending,previous);
+ observationIntegrity.reconcileObservation(pending,falseEnd,null);
+ assert.equal(pending.timingUncertain,true);
+ assert.equal(pending.score,67);
+ assert.equal(pending.liveRawStatus.displayClock,'');
+
+ // Production accepted this wrong zero before the guard ran. Its later
+ // scoreboard play was 778, 194 plays after the Q3-ending play 584.
+ const poisoned={...game(id,falseEnd,24),sport:'CFB',liveRawStatus:falseEnd.status,
+  liveRawSituation:falseEnd.situation,baseScore:24,evidenceQuality:'complete'};
+ const fourth=competition(4,'0:33',17,17,'0:33 - 4th Quarter');
+ fourth.situation.lastPlay={id:id+'778',text:'No Huddle-Shotgun pass incomplete. Targeting penalty.'};
+ const corrected={...game(id,fourth,81),sport:'CFB'};
+ observationIntegrity.preserveObservation(corrected,poisoned);
+ observationIntegrity.reconcileObservation(corrected,fourth,{header:{competitions:[fourth]}});
+ assert.equal(corrected.liveUpdateRejected,false);
+ assert.equal(corrected.timingUncertain,undefined);
+ assert.equal(corrected.liveRawStatus.displayClock,'0:33');
+ assert.deepEqual(corrected.teams.map(t=>t[2]),['17','17']);
+
+ const oldPlay={...game(id,third,50),sport:'CFB'};
+ observationIntegrity.preserveObservation(oldPlay,poisoned);
+ observationIntegrity.reconcileObservation(oldPlay,third,null);
+ assert.equal(oldPlay.liveUpdateRejected,true,'older plays still cannot roll back time');
+});
+
 test('same-period false game endings cannot advance twelve minutes in one refresh',()=>{
  for(const sport of ['CFB','NFL','NHL']){
   const id='401866457',start=competition(sport==='NHL'?3:4,'12:52',17,10);

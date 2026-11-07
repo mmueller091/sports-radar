@@ -4,6 +4,7 @@ const {revisionTime}=require('./provider-evidence.cjs');
 const clone=x=>JSON.parse(JSON.stringify(x));
 const supported=g=>['NFL','CFB'].includes(g.sport);
 const reconciles=g=>supported(g)||g.sport==='NHL';
+const zeroClock=status=>/^0+(?:(?::0+(?:\.0+)?)|(?:\.0+))?$/.test(String(status?.displayClock||''));
 const identity=g=>`${g.sport}:${g.id}:${g.teams.map(t=>String(t[8])).sort().join(',')}`;
 function competitionFor(g){return {status:g.liveRawStatus,situation:g.liveRawSituation,
  competitors:g.teams.map((t,i)=>({team:{id:String(t[8])},homeAway:i?'home':'away',score:t[2]}))};}
@@ -62,8 +63,10 @@ function reconcileObservation(game,c,summary){
  if(!reconciles(game)||game.state!=='live'||!c)return c;
  const prior=game.priorObservation?.identity===identity(game)?game.priorObservation.competition:null;
  const status=c.status||{},period=Number(status.period),finalPeriod=game.sport==='NHL'?3:4;
- const zero=/^0+(?:(?::0+(?:\.0+)?)|(?:\.0+))?$/.test(String(status.displayClock||''));
- const terminal=status.type?.completed===true||status.type?.state==='post'||/\b(final|end of|intermission)\b/i.test(String(status.type?.detail||''));
+ const zero=zeroClock(status);
+ // ESPN can label an in-progress transition "End of 4th" while the last
+ // actual play is only the end of the third. The label is not a final whistle.
+ const terminal=status.type?.completed===true||status.type?.state==='post';
  const play=c.situation?.lastPlay,lastId=String(play?.id||'');
  const zeroPlay=lastId&&[...(summary?.plays||[]),...(summary?.scoringPlays||[])].some(p=>
   String(p.id||'')===lastId&&Number(p.period?.number)===period&&
@@ -113,6 +116,13 @@ function reconcileObservation(game,c,summary){
  const revision=corroboratedRevision(c,prior,header,at,before);
  const samePlay=c.situation?.lastPlay?.id!=null&&String(c.situation.lastPlay.id)===String(prior.situation?.lastPlay?.id);
  const matchingClock=header&&String(header.status?.displayClock)===String(c.status?.displayClock)&&Number(header.status?.period)===Number(c.status?.period);
+ // Recover previously stored false Q4 zeroes without admitting ordinary clock
+ // rollbacks. A later numbered play proves the game moved past the Q3 boundary.
+ const recoveredFourthQuarter=supported(game)&&Number(prior.status?.period)===4&&zeroClock(prior.status)&&
+  prior.status?.type?.state==='in'&&prior.status?.type?.completed!==true&&
+  /end of 4th/i.test(String(prior.status?.type?.detail||''))&&
+  /end of 3rd quarter/i.test(String(prior.situation?.lastPlay?.text||''))&&
+  period===4&&!zero&&status.type?.state==='in'&&newer&&!lower;
  const correction=lower&&agrees&&!older&&at!==null&&before!==null&&
   Number(c.status?.period)===Number(prior.status?.period)&&(Math.abs(at-before)<=2||samePlay&&matchingClock);
  const priorKey=stateKey(prior),nextKey=stateKey(c),e=game.observationEvidence;
@@ -125,7 +135,7 @@ function reconcileObservation(game,c,summary){
  const officialClockCorrection=at!==null&&before!==null&&before-at>2&&before-at<=120&&
   Number(c.status?.period)===Number(prior.status?.period)&&agrees&&matchingClock&&
   /\b(clock correction|official review|clock reset)\b/i.test(String(c.situation?.lastPlay?.text||''));
- const rejected=replay||olderRevision||!correction&&!revision&&((older&&at!==null&&before!==null&&at<=before)||
+ const rejected=replay||olderRevision||!correction&&!revision&&!recoveredFourthQuarter&&((older&&at!==null&&before!==null&&at<=before)||
   (at!==null&&before!==null&&before-at>2&&!officialClockCorrection));
  game.liveUpdateRejected=rejected;
  if(nextKey!==priorKey||rejected||!game.observationIntegrity)
