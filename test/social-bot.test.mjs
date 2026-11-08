@@ -91,6 +91,26 @@ test('simultaneous cycles cannot claim or send the same threshold twice',async()
   assert.equal((await f.statuses()).length,1);
 });
 
+test('a new crossing posts even after 20 accepted posts in the preceding day',async()=>{
+  const f=fixture(),calls=[],fetchImpl=successfulBuffer(calls);
+  f.env.MAX_POSTS_PER_DAY='1'; // A leftover legacy binding must not limit posts.
+  for(let i=0;i<20;i++){
+    await f.env.BOT_DB.prepare(`INSERT INTO social_post_claims
+      (sport,game_id,milestone,status,rating,feed_at,created_at,updated_at)
+      VALUES (?,?,?,?,?,?,?,?)`).bind('NFL',`prior-${i}`,85,'accepted',85,
+      started,started,started).run();
+  }
+  f.publish(84,started);
+  await runCycle(f.env,{now:started+100,fetchImpl,log:silence});
+  f.publish(85,started+60_000);
+  const outcome=await runCycle(f.env,{now:started+60_100,fetchImpl,log:silence});
+  assert.equal(outcome.claimed,1);
+  assert.equal(outcome.accepted,1);
+  assert.equal(outcome.skippedByLimit,0);
+  assert.equal(calls.length,1);
+  assert.equal((await f.statuses()).length,21);
+});
+
 test('unknown Buffer delivery is consumed and never automatically retried',async()=>{
   const f=fixture(),calls=[];
   const failed=async()=>{calls.push('attempt');throw Error('Connection lost after send');};

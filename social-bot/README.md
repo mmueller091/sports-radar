@@ -26,7 +26,7 @@ explicitly changed to `true` and the Worker is deployed again.
    manual reconciliation. It is **never retried blindly**.
 6. Buffer uses `createPost` with `mode: shareNow`, not its scheduled queue.
    Acceptance by Buffer is not proof of successful delivery to X.
-7. Defaults limit sends to 3 per cron run and 20 per rolling 24-hour period.
+7. Sends are limited to 3 per cron run, with no daily cap.
    No posts can occur while the publishing switch is off.
 8. Tweets announce the 85+ excitement threshold crossing, not the precise
    excitement rating or a potentially stale game score. They include the two

@@ -45,7 +45,6 @@ export async function runCycle(env,{now=Date.now(),fetchImpl=fetch,log=console.l
   const live=feed.games.filter(game=>eligibleLiveGame(feed,game,now,expected));
   live.sort((a,b)=>Number(b.score)-Number(a.score));
   const maxPerRun=positiveInt(env.MAX_POSTS_PER_RUN,3,20);
-  const maxPerDay=positiveInt(env.MAX_POSTS_PER_DAY,20,100);
   // A disabled Worker may verify its Buffer connection, but cannot send a post.
   // The resolved channel is cached so subsequent cron runs need no Buffer API calls.
   if(!enabled&&env.BUFFER_API_KEY)await channelIdFor(env,fetchImpl,log);
@@ -66,9 +65,7 @@ export async function runCycle(env,{now=Date.now(),fetchImpl=fetch,log=console.l
     }
     let claimWon=false;
     if(draft?.eligible){
-      const posted=await env.BOT_DB.prepare(`SELECT COUNT(*) AS count FROM social_post_claims
-        WHERE created_at>=?`).bind(now-86_400_000).first();
-      if(summary.claimed>=maxPerRun||Number(posted?.count||0)>=maxPerDay){
+      if(summary.claimed>=maxPerRun){
         summary.skippedByLimit++;
       }else{
         const result=await env.BOT_DB.prepare(insertClaim)
