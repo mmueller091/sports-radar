@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="mobile-readability.css?rev=slatemeter-rebrand" />
     <link rel="stylesheet" href="ui-overhaul.css?rev=ui-overhaul" />
     <link rel="stylesheet" href="team-logos.css?rev=logo-contrast" />
+    <link rel="stylesheet" href="league-standings.css?rev=standings-local" />
     <link rel="canonical" href="https://slatemeter.app/" />
     <meta property="og:site_name" content="SlateMeter" />
     <meta property="og:title" content="SlateMeter — Live sports, ranked by excitement." />
@@ -35,6 +36,7 @@
         <nav class="main-nav" aria-label="Primary navigation">
           <a class="nav-link active" href="#home" data-page="home">Slate</a>
           <a class="nav-link" href="#info" data-page="info">Info</a>
+          <a class="nav-link" id="standings-nav" href="#standings" data-page="standings">Standings</a>
           <a class="nav-link hidden" href="#soccer" data-page="soccer">Soccer</a>
           <a class="support-link" href="https://ko-fi.com/slatemeter" target="_blank" rel="noopener noreferrer" aria-label="Support SlateMeter on Ko-fi (opens in a new tab)">Support SlateMeter</a>
         </nav>
@@ -50,6 +52,12 @@
       </header>
 
       <main>
+        <section id="league-standings-page" class="hidden" aria-labelledby="ls-title">
+          <header><h1 id="ls-title" tabindex="-1">Standings</h1><p>Your selected leagues, with each team's live or next game.</p></header>
+          <div id="ls-controls"></div>
+          <p id="ls-freshness" role="status"></p>
+          <div id="ls-content"></div>
+        </section>
         <article id="info-page" class="info-page hidden" aria-labelledby="info-title">
           <header class="info-intro">
             <h1 id="info-title" tabindex="-1">About SlateMeter</h1>
@@ -205,6 +213,8 @@
     <script src="tennis-coverage.js?rev=grand-slams-1"></script>
     <script src="game-center.js?rev=20261102-transparency"></script>
     <script src="team-logos.js?rev=logo-contrast"></script>
+    <script src="league-standings-data.js?rev=standings-local"></script>
+    <script src="league-standings.js?rev=standings-local"></script>
   <script src="app.js?rev=20261029-history2"></script>
     <script>
       (() => {

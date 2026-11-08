@@ -148,7 +148,7 @@ function hiddenSportFromHash(hash=location.hash) {
 }
 
 const state = {
-  page:teamRouteFromHash(location.hash) ? 'team' : location.hash === '#info' ? 'info' : location.hash === '#soccer' && publicSport('Soccer') ? 'soccer' : 'home',
+  page:teamRouteFromHash(location.hash) ? 'team' : location.hash === '#standings' ? 'standings' : location.hash === '#info' ? 'info' : location.hash === '#soccer' && publicSport('Soccer') ? 'soccer' : 'home',
   teamRoute:teamRouteFromHash(location.hash),
   sport:'all',
   gameState:'all',
@@ -6192,7 +6192,7 @@ function detailPlayerBrowser(game,summary) {
 
 function detailTabSections(game,summary) {
   const overviewParts = [
-    renderExcitementTimeline(game,summary),
+    game.standingsUnrated ? '' : renderExcitementTimeline(game,summary),
     game.state==='upcoming'?'':storylineDetails(game),
     detailScoring(summary,game.sport),
     detailLeaders(summary)
@@ -6390,7 +6390,7 @@ function renderDetailContent(
       ? game.pregameBaseline.score
       : null;
 
-  const ratingContext = game.timingUncertain
+  const ratingContext = game.standingsUnrated ? 'Not yet rated' : game.timingUncertain
     ? `${game.heldRatingProvisional?'Last observed rating':'Last confirmed rating'} ${game.score==null?'pending':safeText(game.score)} · Clock updating`
     : game.state==='live'&&game.scoringPartial
       ? `Provisional rating ${game.score==null?'pending':safeText(game.score)} · Awaiting confirmation`
@@ -6403,7 +6403,7 @@ function renderDetailContent(
   const scoreColorStyle = `--score-hue:${scoreHueFor(game.score)};`;
 
   $('#game-detail-content').innerHTML =
-    `<header class="detail-header"><div class="detail-kicker">${safeText(labelForSport(game.sport))} · ${safeText(status)}${detailClock}</div><h2>${safeText(title)}</h2><button type="button" class="detail-watch ${isWatched(game) ? 'active' : ''}" data-watch-id="${safeText(watchKey(game))}" aria-pressed="${isWatched(game)}">${isWatched(game) ? '★ Watching this game' : '☆ Add to watchlist'}</button><div class="detail-scoreboard${game.state === 'upcoming' ? ' pregame' : ''}">${scores}</div>${detailSituation ? `<div class="detail-situation">${detailSituation}</div>` : ''}<div class="detail-meta"><span><strong>Venue</strong> ${safeText(venue)}</span><span><strong>Broadcast</strong> ${safeText(game.channel || 'Channel not listed')}</span>${lineMeta}</div>${broadcastWatchMarkup(game,summary)}${game.moment ? `<section class="detail-moment"><strong>${safeText(game.momentLabel || 'Notable play')}</strong><span>${safeText(displayMoment(game))}</span></section>` : ''}</header><section class="detail-radar" style="${scoreColorStyle}"><div class="detail-excitement-head"><span class="detail-excitement-score ${scoreClass}" style="${scoreColorStyle}">${safeText(game.score)}</span><span class="detail-excitement-copy"><small>${game.state==='live'?'Watch now':game.state==='completed'?'Game quality':'Pregame rating'}</small><strong>${safeText(ratingContext)}</strong>${trendFor(game)}</span></div><div class="detail-radar-why"><h3>${game.state==='upcoming'?'Pregame outlook':`Why ${safeText(game.score)}?`}</h3><p class="detail-explanation detail-why-text">${safeText(explainRating(game,summary))}</p>${game.state==='upcoming'?storylineDetails(game):''}</div></section>${detailTabsMarkup(game,summary)}`;
+    `<header class="detail-header"><div class="detail-kicker">${safeText(labelForSport(game.sport))} · ${safeText(status)}${detailClock}</div><h2>${safeText(title)}</h2><button type="button" class="detail-watch ${isWatched(game) ? 'active' : ''}" data-watch-id="${safeText(watchKey(game))}" aria-pressed="${isWatched(game)}">${isWatched(game) ? '★ Watching this game' : '☆ Add to watchlist'}</button><div class="detail-scoreboard${game.state === 'upcoming' ? ' pregame' : ''}">${scores}</div>${detailSituation ? `<div class="detail-situation">${detailSituation}</div>` : ''}<div class="detail-meta"><span><strong>Venue</strong> ${safeText(venue)}</span><span><strong>Broadcast</strong> ${safeText(game.channel || 'Channel not listed')}</span>${lineMeta}</div>${broadcastWatchMarkup(game,summary)}${game.moment ? `<section class="detail-moment"><strong>${safeText(game.momentLabel || 'Notable play')}</strong><span>${safeText(displayMoment(game))}</span></section>` : ''}</header><section class="detail-radar" style="${scoreColorStyle}"><div class="detail-excitement-head"><span class="detail-excitement-score ${scoreClass}" style="${scoreColorStyle}">${game.standingsUnrated ? '&mdash;' : safeText(game.score)}</span><span class="detail-excitement-copy"><small>${game.state==='live'?'Watch now':game.state==='completed'?'Game quality':'Pregame rating'}</small><strong>${safeText(ratingContext)}</strong>${game.standingsUnrated ? '' : trendFor(game)}</span></div><div class="detail-radar-why"><h3>${game.standingsUnrated ? 'Excitement unavailable' : game.state==='upcoming'?'Pregame outlook':`Why ${safeText(game.score)}?`}</h3><p class="detail-explanation detail-why-text">${game.standingsUnrated ? 'An excitement rating is not available for this scheduled game yet.' : safeText(explainRating(game,summary))}</p>${game.state==='upcoming'?storylineDetails(game):''}</div></section>${detailTabsMarkup(game,summary)}`;
 }
 
 async function fetchGameSummary(game,controller=new AbortController()) {
@@ -6426,6 +6426,11 @@ async function fetchGameSummary(game,controller=new AbortController()) {
           signal:controller.signal
         }
       );
+
+    if (response.status === 404 && typeof standingsScheduleSummary === 'function') {
+      const scheduled = await standingsScheduleSummary(game,controller.signal);
+      if (scheduled) return scheduled;
+    }
 
     if (!response.ok) {
       throw new Error(
@@ -6771,6 +6776,9 @@ function summarySpecificWhy(game,summary) {
 
 function render() {
   syncActiveDetail();
+  const isStandingsPage = state.page === 'standings';
+  document.body.classList.toggle('standings-page-open',isStandingsPage);
+  $('#league-standings-page').classList.toggle('hidden',!isStandingsPage);
   const isInfoPage = state.page === 'info';
   document.body.classList.toggle('info-page-open',isInfoPage);
   $('#info-page').classList.toggle('hidden',!isInfoPage);
@@ -6801,8 +6809,14 @@ function render() {
 
   $('#game-list').classList.toggle(
     'hidden',
-    isTeamPage || isInfoPage
+    isTeamPage || isInfoPage || isStandingsPage
   );
+
+  if (isStandingsPage) {
+    document.title = 'Standings - SlateMeter';
+    renderLeagueStandings();
+    return;
+  }
 
   if (isInfoPage) {
     document.title = 'About SlateMeter — SlateMeter';
@@ -7068,7 +7082,7 @@ $$('.nav-link').forEach(
       event => {
         // Info uses the existing hash router without resetting Slate filters.
         if (event.ctrlKey || event.metaKey || event.shiftKey || event.altKey ||
-            link.dataset.page === 'info' || state.page === 'info') return;
+            ['info','standings'].includes(link.dataset.page) || ['info','standings'].includes(state.page)) return;
         state.page =
           link.dataset.page;
 
@@ -7122,6 +7136,8 @@ function handleLocationChange() {
     state.page =
       route
         ? 'team'
+        : location.hash === '#standings'
+          ? 'standings'
         : location.hash === '#info'
           ? 'info'
         : location.hash === '#soccer' && publicSport('Soccer')
@@ -7130,6 +7146,7 @@ function handleLocationChange() {
 
     render();
     if (state.page === 'info') $('#info-title').focus({preventScroll:true});
+    if (state.page === 'standings') $('#ls-title').focus({preventScroll:true});
 
     if (route) {
       const routeKey =
@@ -8093,6 +8110,7 @@ if (state.page === 'team') {
     });
 }
 
+if (typeof initLeagueStandings === 'function') initLeagueStandings();
 render();
 loadLiveGames();
 const initialGameRoute=gameRouteFromHash();
