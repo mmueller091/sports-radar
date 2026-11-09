@@ -189,6 +189,8 @@ function initLeagueStandings() {
   root.addEventListener('change',event=>{
     if (event.target.id==='ls-league') leagueStandings.sport=event.target.value;
     if (event.target.id==='ls-conference') leagueStandings.conference.set(leagueStandings.sport,event.target.value);
+    // Dismiss the native touch picker before replacement can restore its focus.
+    if (['ls-league','ls-conference'].includes(event.target.id) && globalThis.matchMedia?.('(pointer: coarse)').matches) event.target.blur();
     renderLeagueStandings();
   });
   root.addEventListener('click',event=>{

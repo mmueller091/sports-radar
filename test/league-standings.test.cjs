@@ -156,6 +156,61 @@ test('league options follow homepage state, ordering and labels, then fall back 
   assert.equal(h.run('leagueStandings.sport'),'CFB');assert.match(h.element('#ls-controls').innerHTML,/Conference Standings/);
 });
 
+for (const coarse of [true,false]) test(`${coarse?'touch-primary':'desktop'} selectors preserve selection and use the appropriate focus lifecycle`,()=>{
+  const h=harness(),controls=h.element('#ls-controls'),selects=new Map(),actions=[];
+  h.context.matchMedia=query=>({matches:query==='(pointer: coarse)' && coarse});
+  controls.contains=node=>[...selects.values()].includes(node);
+  controls.querySelectorAll=()=>[...selects.values()];
+  let markup='';
+  Object.defineProperty(controls,'innerHTML',{
+    get:()=>markup,
+    set:value=>{
+      actions.push('replace');
+      if(controls.contains(h.context.document.activeElement))h.context.document.activeElement=null;
+      markup=value;selects.clear();
+      for(const [,id,options] of value.matchAll(/<select id="([^"]+)">([\s\S]*?)<\/select>/g)){
+        const select={id,dataset:{},value:options.match(/<option value="([^"]+)" selected>/)?.[1] || '',
+          focus(){actions.push('focus');h.context.document.activeElement=this;},
+          blur(){actions.push('blur');if(h.context.document.activeElement===this)h.context.document.activeElement=null;}};
+        selects.set(id,select);
+      }
+    }
+  });
+  const sports=['NFL','MLB','NHL','CFB','NBA','NCAAB'];
+  h.context.state.visibleSports=new Set(sports);
+  for(const sport of sports)h.run(`leagueStandings.data.set('${sport}',${JSON.stringify({season:{year:2026},sourceUrl:'https://example.test',
+    sections:['a','b'].map(id=>({conferenceId:id,conference:`Conference ${id}`,name:`${sport} section ${id}`,entries:[]}))})})`);
+  h.run("leagueStandings.sport='NCAAB'");
+  h.context.initLeagueStandings();h.context.renderLeagueStandings();
+  const choose=(id,value)=>{
+    const select=selects.get(id);select.focus();select.value=value;actions.length=0;
+    h.listeners.get('change')({target:select});
+    assert.equal(selects.get(id).value,value);
+    assert.deepEqual(actions,coarse?['blur','replace']:['replace','focus']);
+    assert.equal(h.context.document.activeElement,coarse?null:selects.get(id));
+    h.context.renderLeagueStandings();
+    assert.deepEqual(actions,coarse?['blur','replace']:['replace','focus'],'unchanged renders must not refocus');
+  };
+  for(const sport of [...sports,...sports]){
+    choose('ls-league',sport);
+    assert.equal(h.run('leagueStandings.sport'),sport);
+    assert.match(h.element('#ls-content').innerHTML,new RegExp(`${sport} section`));
+    if(data.college(sport))for(const id of ['b','a']){
+      choose('ls-conference',id);
+      assert.equal(h.run(`leagueStandings.conference.get('${sport}')`),id);
+      assert.match(h.element('#ls-content').innerHTML,new RegExp(`${sport} section ${id}`));
+      assert.doesNotMatch(h.element('#ls-content').innerHTML,new RegExp(`${sport} section ${id==='a'?'b':'a'}`));
+    }
+  }
+  assert.deepEqual([...h.context.state.visibleSports],sports,'selection must not edit sports preferences');
+  // A later data response changes the controls again after the native selection.
+  h.run("leagueStandings.data.get('NCAAB').sections.push({conferenceId:'c',conference:'Conference c',name:'NCAAB section c',entries:[]})");
+  actions.length=0;h.context.renderLeagueStandings();
+  assert.deepEqual(actions,coarse?['replace']:['replace','focus']);
+  assert.equal(selects.get('ls-conference').value,'a');
+  assert.equal(h.context.document.activeElement,coarse?null:selects.get('ls-conference'));
+});
+
 test('four pro leagues toggle in-page playoff views without changing college selection or fetching data',()=>{
   const h=harness();h.context.initLeagueStandings();
   const click=view=>h.listeners.get('click')({target:{closest:selector=>selector==='[data-ls-view]'?{dataset:{lsView:view}}:null}});
