@@ -11,9 +11,11 @@ import {fingerprint,summaryCandidate,reusable,refreshBudget,boundedFeedRefresh,R
 import {pruneSnapshots,recoverPregameRecords,recoverPregameBaselines,snapshotHistory,shouldSnapshot} from './snapshot-history.js';
 import {finalArchiveKey,finalArchivePrefix,eligibleFinalArchive,FINAL_ARCHIVE_PREFIX} from './finalized-game-cache.js';
 import {errorDetail,measuredDatabase} from './refresh-diagnostics.js';
+import {forEachSummary} from './summary-scheduler.js';
 
 const STALE_MS = 120000;
 const LIVE_REFRESH_MS = 12000;
+const PUBLIC_LIVE_REFRESH_MS = 5000;
 const NEAR_START_REFRESH_MS = 10000;
 const IDLE_REFRESH_MS = 60000;
 // Crowded slates can exceed the HTTP refresh budget. Cron has a longer
@@ -21,6 +23,7 @@ const IDLE_REFRESH_MS = 60000;
 const CRON_REFRESH_DEADLINE_MS = 45000;
 const CRON_REFRESH_LEASE_MS = 50000;
 const ACCELERATED_SPORTS = new Set(['NFL','CFB','NCAAB','NHL','MLB','NBA']);
+const liveRefreshMs = sport => ACCELERATED_SPORTS.has(sport) ? PUBLIC_LIVE_REFRESH_MS : LIVE_REFRESH_MS;
 export const MODEL_VERSION = runtime.MODEL_VERSION;
 
 export function gameStartingSoon(game,now=Date.now()) {
@@ -36,9 +39,10 @@ export function refreshDue(feed,now=Date.now()) {
   if (!feed || feed.modelVersion !== MODEL_VERSION) return true;
   const updatedAt = Date.parse(feed.updatedAt || '');
   if (!Number.isFinite(updatedAt)) return true;
-  const live = (feed.games || []).some(game=>game.state==='live');
+  const liveGames = (feed.games || []).filter(game=>game.state==='live');
+  const liveInterval = liveGames.some(game=>ACCELERATED_SPORTS.has(game.sport)) ? PUBLIC_LIVE_REFRESH_MS : LIVE_REFRESH_MS;
   const starting = (feed.games || []).some(game=>gameStartingSoon(game,now));
-  return now-updatedAt >= (live ? LIVE_REFRESH_MS : starting ? NEAR_START_REFRESH_MS : IDLE_REFRESH_MS);
+  return now-updatedAt >= (liveGames.length ? liveInterval : starting ? NEAR_START_REFRESH_MS : IDLE_REFRESH_MS);
 }
 
 export function feedResponseWaitMs(feed,now=Date.now()) {
@@ -2054,7 +2058,7 @@ export async function gameDetails(env,sport,id,now=Date.now()) {
   let resource;
   try { resource=finalArchive
     ? {payload:finalArchive.summary,updatedAt:finalArchive.summaryUpdatedAt || finalArchive.archivedAt}
-    : await providerJson(env,url,game.state==='live' ? LIVE_REFRESH_MS : 55000,now,errors,null,{status:game.liveRawStatus}); }
+    : await providerJson(env,url,game.state==='live' ? liveRefreshMs(game.sport) : 55000,now,errors,null,{status:game.liveRawStatus}); }
   catch (error) {
     if (!archived) throw error;
     return {sportsRadarGame:game,sportsRadarArchived:true,sportsRadarFreshness:{stale:true,updatedAt:null,receivedAt:new Date(now).toISOString()}};
@@ -2199,8 +2203,8 @@ export async function refreshSportsData(env,now=Date.now(),options={}) {
         (dates?.length!==8 || dates===dateFormatter.format(Date.parse(game.startTime)).replaceAll('-','')) &&
         (sport!=='CFB' || !game.division || parsed.searchParams.get('groups')===({FBS:'80',FCS:'81'})[game.division]) &&
         (purpose!=='adjacent-schedule' || game.nflWeek===weekKey));
-      const ttl = startingScoreboard ? (liveScoreboard ? LIVE_REFRESH_MS : NEAR_START_REFRESH_MS)
-        : (futureSchedule || (purpose==='adjacent-schedule' && !adjacentLive)) ? 900000 : liveScoreboard ? LIVE_REFRESH_MS : 55000;
+      const ttl = startingScoreboard ? (liveScoreboard ? liveRefreshMs(sport) : NEAR_START_REFRESH_MS)
+        : (futureSchedule || (purpose==='adjacent-schedule' && !adjacentLive)) ? 900000 : liveScoreboard ? liveRefreshMs(sport) : 55000;
       return resources.read(url,ttl,errors);
     };
     const games = await stage('collection',async()=>{
@@ -2267,12 +2271,11 @@ export async function refreshSportsData(env,now=Date.now(),options={}) {
       metrics.deferredEnrichments++;
     };
     const acquireCritical=async (entries,bounded=false,useCached=bounded)=>{
-      for (let start=0;start<entries.length;start+=6) {
+      await forEachSummary(entries,async ({game,key,input,url,prior})=>{
         budget.check();
         if(bounded&&budget.remaining()<=MIGRATION_PUBLICATION_RESERVE_MS){
-          entries.slice(start).forEach(deferEnrichment);break;
+          deferEnrichment({game});return;
         }
-        await Promise.all(entries.slice(start,start+6).map(async ({game,key,input,url,prior})=>{
           const detailErrors=[];
           try {
             let resource,usedCached=false,forceRevalidation=false;
@@ -2293,7 +2296,7 @@ export async function refreshSportsData(env,now=Date.now(),options={}) {
             // Ordinary nonlive input changes need the same publication reserve
             // as migrations. Do not start a possible 7s request inside it.
             if(bounded&&!resource&&budget.remaining()<=MIGRATION_PUBLICATION_RESERVE_MS+7000){deferEnrichment({game});return;}
-            resource ||= await providerJson(env,url,forceRevalidation?0:game.state==='live'?LIVE_REFRESH_MS:55000,now,detailErrors,budget,game.sourceCompetition);
+            resource ||= await providerJson(env,url,forceRevalidation?0:game.state==='live'?liveRefreshMs(game.sport):55000,now,detailErrors,budget,game.sourceCompetition);
             budget.check();
             if(useCached&&!migrationSummaryMatches(resource.payload,game.sourceCompetition)){
               deferEnrichment({game});errors.push(url);return;
@@ -2314,8 +2317,7 @@ export async function refreshSportsData(env,now=Date.now(),options={}) {
             detailErrors.push(url);
           }
           errors.push(...detailErrors);
-        }));
-      }
+      },{accelerated:true});
     };
     await stage('liveSummary',async()=>{
       const live=[];

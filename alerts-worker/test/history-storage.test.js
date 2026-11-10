@@ -254,7 +254,7 @@ test('nonempty NFL previous/next weeks are consumed and retain provider paths',a
   assert.equal(seen.filter(x=>x.options.purpose==='adjacent-schedule').length,2);
 });
 
-test('NFL adjacent schedule TTL is 15 minutes while current live scoreboard stays 12 seconds',async t=>{
+test('NFL adjacent schedule TTL stays 15 minutes while current live scoreboard uses 5 seconds',async t=>{
   const env=database(t),now=Date.now(),original=globalThis.fetch,calls=[];
   globalThis.fetch=async(url,options)=>{
     const parsed=new URL(url);calls.push({url:parsed,ttl:options.cf.cacheTtl});
@@ -270,7 +270,7 @@ test('NFL adjacent schedule TTL is 15 minutes while current live scoreboard stay
   assert.equal(adjacent().length,2); assert.ok(adjacent().every(c=>c.ttl===900));
   assert.ok(await refreshSportsData(env,now+60000));
   const current=calls.filter(c=>c.url.pathname.endsWith('/scoreboard')&&c.url.pathname.includes('/football/nfl/')&&!c.url.searchParams.has('week'));
-  assert.equal(current.at(-1).ttl,12);
+  assert.equal(current.at(-1).ttl,5);
   assert.ok(await refreshSportsData(env,now+75000));
   assert.equal(adjacent().length,2,'neighbor payloads reused in D1 despite live refreshes');
   assert.ok(await refreshSportsData(env,now+900000));
@@ -291,6 +291,6 @@ test('a known live game in an adjacent NFL week retains live freshness',async t=
   const first=await refreshSportsData(env,now);
   assert.ok(first.games.some(g=>g.id==='delayed-live'&&g.state==='live'));
   assert.ok(await refreshSportsData(env,now+60000));
-  assert.deepEqual(calls.filter(c=>c.week==='7').map(c=>c.ttl),[900,12]);
+  assert.deepEqual(calls.filter(c=>c.week==='7').map(c=>c.ttl),[900,5]);
   assert.deepEqual(calls.filter(c=>c.week==='9').map(c=>c.ttl),[900]);
 });
