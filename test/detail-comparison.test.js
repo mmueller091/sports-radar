@@ -108,7 +108,21 @@ test('Game Center shell keeps excitement first-class and moves detail into sport
   assert.match(detailSource,/detail-excitement-score/);
   assert.doesNotMatch(detailSource,/\$\{renderExcitementTimeline\(game,summary\)\}/,'timeline no longer precedes the tabs');
   const sections=source.slice(source.indexOf('function detailTabSections('),source.indexOf('function detailTabsMarkup('));
-  assert.match(sections,/const overviewParts = \[\s*renderExcitementTimeline\(game,summary\)/,'timeline is retained in Overview');
+  let timelineCalls=0;
+  const tabContext=vm.createContext({
+    DETAIL_TAB_CONFIG:{NBA:[['overview','Overview'],['box-score','Box Score'],['team-stats','Team Stats'],['plays','Plays']]},
+    renderExcitementTimeline:()=>{timelineCalls++;return '<div>timeline</div>';},
+    detailScoring:()=>'<div>scoring</div>',
+    ...Object.fromEntries(['storylineDetails','detailLeaders','detailPlayerBrowser','detailDrives','detailMlbPlayerStats',
+      'detailStats','detailNhlAdvanced','detailPlayerStats','detailNhlGoalies','basketballBoxScoreMarkup','detailPlays'].map(name=>[name,()=> '']))
+  });
+  vm.runInContext(sections,tabContext);
+  const ratedOverview=tabContext.detailTabSections({sport:'NBA',state:'live'},{}).find(tab=>tab.id==='overview');
+  assert.equal(ratedOverview.content,'<div>timeline</div><div>scoring</div>','rated games retain the timeline first in Overview');
+  assert.equal(timelineCalls,1,'rated games render their timeline');
+  const unratedOverview=tabContext.detailTabSections({sport:'NBA',state:'live',standingsUnrated:true},{}).find(tab=>tab.id==='overview');
+  assert.equal(unratedOverview.content,'<div>scoring</div>','unrated standings games retain available details without a timeline');
+  assert.equal(timelineCalls,1,'unrated standings games do not invoke the timeline renderer');
   assert.match(detailSource,/\$\{detailTabsMarkup\(game,summary\)\}/);
   assert.ok(
     detailSource.indexOf('detail-excitement-score') <
