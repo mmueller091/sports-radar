@@ -123,10 +123,10 @@ test('Game Center shell keeps excitement first-class and moves detail into sport
   const unratedOverview=tabContext.detailTabSections({sport:'NBA',state:'live',standingsUnrated:true},{}).find(tab=>tab.id==='overview');
   assert.equal(unratedOverview.content,'<div>scoring</div>','unrated standings games retain available details without a timeline');
   assert.equal(timelineCalls,1,'unrated standings games do not invoke the timeline renderer');
-  assert.match(detailSource,/\$\{detailTabsMarkup\(game,summary\)\}/);
+  assert.match(detailSource,/\$\{loading \? .* : detailTabsMarkup\(game,summary\)\}/,'only the initial shell defers the unchanged detail tabs');
   assert.ok(
     detailSource.indexOf('detail-excitement-score') <
-    detailSource.indexOf('${detailTabsMarkup(game,summary)}')
+    detailSource.indexOf('detailTabsMarkup(game,summary)')
   );
   assert.doesNotMatch(source,/https?:\/\/[^'"\s]*espn[^'"\s]*\/(?:scoreboard|summary)/i);
 });

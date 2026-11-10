@@ -265,10 +265,16 @@
           const chip = event.target.closest('.sport-chip[data-sport]');
           if (!chip) return;
 
-          requestAnimationFrame(() => {
-            syncLabel();
-            setExpanded(false);
-          });
+          // Dismiss before the chip's handler renders the newly selected slate.
+          label.textContent = labels[chip.dataset.sport] || chip.dataset.sport;
+          setExpanded(false);
+        },true);
+
+        document.addEventListener('keydown',event => {
+          if (event.key !== 'Escape' || !panel.classList.contains('mobile-expanded')) return;
+          event.preventDefault();
+          setExpanded(false);
+          toggle.focus({preventScroll:true});
         });
 
         document.addEventListener('click',event => {
@@ -284,10 +290,8 @@
         });
 
         window.addEventListener('hashchange',() => {
-          requestAnimationFrame(() => {
-            syncLabel();
-            setExpanded(false);
-          });
+          syncLabel();
+          setExpanded(false);
         });
 
         syncLabel();

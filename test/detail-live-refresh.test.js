@@ -7,17 +7,21 @@ const source=fs.readFileSync(new URL('../app.js',import.meta.url),'utf8');
 const lifecycle=source.slice(source.indexOf('let activeDetailGame = null;'),source.indexOf('\nfunction compactPlay'));
 const game=(id='A',state='live')=>({id,sport:'NFL',state,score:70,teams:[['Home','H',24],['Away','A',21]],status:'Final',live:{phase:'Q4 1:00'}});
 const summary=(version=1000)=>({sportsRadarFreshness:{updatedAt:new Date(version).toISOString()}});
-function harness(){
-  let time=0,id=0;const timers=new Map(),requests=[],renders=[];
+function harness({animationFrames=false}={}){
+  let time=0,id=0;const timers=new Map(),frames=new Map(),requests=[],renders=[],panel={scrollTop:0},content={};
   const context=vm.createContext({games:[game(),game('B')],document:{hidden:false,body:{classList:{remove(){}}}},
     AbortController,console,
     setTimeout(fn,delay){timers.set(++id,{fn,at:time+delay});return id;},clearTimeout(id){timers.delete(id);},
-    $:()=>({}),showGameDetails(){},renderDetailContent(g,s,loading){renders.push({game:g,summary:s,loading});},
+    $:selector=>selector==='#game-detail-dialog'?panel:content,showGameDetails(){},renderDetailContent(g,s,loading){renders.push({game:g,summary:s,loading});},
     SportsRadarDetail:{validateLiveSummary:()=>true},
     fetchGameSummary(g,controller){return new Promise((resolve,reject)=>requests.push({game:g,controller,resolve,reject}));}
   });
+  if(animationFrames)Object.assign(context,{
+    requestAnimationFrame(fn){frames.set(++id,fn);return id;},cancelAnimationFrame(id){frames.delete(id);}
+  });
   vm.runInContext(lifecycle,context);
-  return {context,requests,renders,timers,run:s=>vm.runInContext(s,context),
+  return {context,requests,renders,timers,frames,panel,run:s=>vm.runInContext(s,context),
+    frame(){for(const [id,fn]of [...frames]){frames.delete(id);fn();}},
     async settle(i=0,s=summary()){requests[i].resolve(s);await new Promise(r=>setImmediate(r));},
     async tick(ms){time+=ms;for(const [key,t] of [...timers])if(t.at<=time){timers.delete(key);t.fn();}await new Promise(r=>setImmediate(r));}};
 }
@@ -112,4 +116,96 @@ test('visibility interruption preserves the pending final detail attempt',async(
   h.run("games=[{...games[0],state:'completed'}];syncActiveDetail();document.hidden=true;detailVisibilityChanged()");
   await h.settle(1);h.run('document.hidden=false;detailVisibilityChanged()');assert.equal(h.requests.length,3);
   await h.settle(2);await h.tick(60000);assert.equal(h.requests.length,3);
+});
+
+test('canonical Game Center shell paints before rich details even when the response is already ready',async()=>{
+  const h=harness({animationFrames:true});h.run("openGameDetails('A')");
+  assert.equal(h.requests.length,1,'the existing request starts immediately');
+  assert.equal(h.renders.length,1);assert.equal(h.renders[0].loading,true);
+  assert.equal(h.renders[0].game.score,70);assert.equal(h.renders[0].summary,null);
+  await h.settle();assert.equal(h.renders.length,1,'network completion cannot block the first paint with tab construction');
+  h.frame();assert.equal(h.renders.length,1);
+  h.frame();assert.equal(h.renders.length,2);assert.equal(h.renders[1].summary.sportsRadarFreshness.stale,false);
+  assert.equal(h.requests.length,1);
+});
+
+test('closing or changing games invalidates deferred work as well as late requests',async()=>{
+  const h=harness({animationFrames:true});h.run("openGameDetails('A')");h.frame();
+  h.run("openGameDetails('B')");await h.settle(0,summary(3000));
+  h.frame();h.frame();assert.equal(h.renders.at(-1).game.id,'B');
+  assert.equal(h.run("detailSummaryCache.has('NFL:A')"),false);
+  h.run('hideGameDetails()');const count=h.renders.length;
+  await h.settle(1,summary(4000));h.frame();h.frame();
+  assert.equal(h.renders.length,count);assert.equal(h.frames.size,0);assert.equal(h.timers.size,0);
+});
+
+test('cached reopening uses current canonical scores and still makes one fresh request',async()=>{
+  const h=harness({animationFrames:true});h.run("openGameDetails('A')");await h.settle(0,summary(3000));h.frame();h.frame();
+  h.run("hideGameDetails();games=[{...games[0],score:91,teams:[['Home','H',31],['Away','A',21]]}];openGameDetails('A')");
+  assert.equal(h.renders.at(-1).loading,true);assert.equal(h.renders.at(-1).game.score,91);
+  h.frame();h.frame();
+  assert.equal(h.renders.at(-1).summary.sportsRadarFreshness.updatedAt,summary(3000).sportsRadarFreshness.updatedAt);
+  assert.equal(h.renders.at(-1).summary.sportsRadarFreshness.stale,true,'cached details are identified while revalidating');
+  assert.equal(h.renders.at(-1).game.teams[0][2],31);assert.equal(h.requests.length,2);
+  await h.settle(1,summary(2000));
+  assert.equal(h.renders.at(-1).summary.sportsRadarFreshness.updatedAt,summary(3000).sportsRadarFreshness.updatedAt,'older response cannot overwrite the cached authoritative version');
+  assert.equal(h.renders.at(-1).game.score,91);assert.equal(h.requests.length,2);
+});
+
+test('reopening preserves explicit tab and scroll restore only once details can support it',async()=>{
+  const h=harness({animationFrames:true});
+  const tabs=source.slice(source.indexOf('function detailTabsMarkup('),source.indexOf('\nfunction setActiveDetailTab('));
+  Object.assign(h.context,{safeText:String,labelForSport:String,detailTabSections:(_game,summary)=>[
+    {id:'overview',label:'Overview',content:'Overview'},...(summary?[{id:'players',label:'Players',content:'Players'}]:[])
+  ]});
+  vm.runInContext(tabs,h.context);
+  const render=h.context.renderDetailContent;
+  h.context.renderDetailContent=(game,summary,loading)=>{
+    render(game,summary,loading);if(!loading)h.context.detailTabsMarkup(game,summary);
+  };
+  h.run("openGameDetails('A',null,{tab:'players',team:'1',category:'rushing',scrollTop:480})");
+  assert.equal(h.panel.scrollTop,0);h.frame();h.frame();assert.equal(h.panel.scrollTop,0);
+  h.run('syncActiveDetail()');assert.equal(h.run('activeDetailTab'),'players','slow first response must not reset the requested tab');
+  await h.settle();assert.equal(h.panel.scrollTop,480);assert.equal(h.run('activeDetailTab'),'players');
+  h.panel.scrollTop=620;h.run("games=games.map(game=>game.id==='A'?{...game,score:80}:game);syncActiveDetail()");
+  assert.equal(h.panel.scrollTop,620,'background updates do not replay navigation restore');
+  h.run("openGameDetails('B')");assert.equal(h.panel.scrollTop,0);
+});
+
+test('the first response does not reset scroll moved after a normal open',async()=>{
+  const h=harness({animationFrames:true});h.run("openGameDetails('A')");h.frame();h.frame();
+  h.panel.scrollTop=90;await h.settle();assert.equal(h.panel.scrollTop,90);
+});
+
+test('empty and failed first responses leave the loading shell at the existing retry cadence',async()=>{
+  for(const failed of [false,true]){
+    const h=harness({animationFrames:true});h.run("openGameDetails('A')");h.frame();h.frame();
+    assert.equal(h.renders.at(-1).loading,true);
+    if(failed){h.requests[0].reject(new Error('timeout'));await new Promise(resolve=>setImmediate(resolve));}
+    else await h.settle(0,null);
+    assert.notEqual(h.renders.at(-1).loading,true);assert.equal(h.requests.length,1);assert.equal(h.timers.size,1);
+  }
+});
+
+test('unchanged feed does not reconstruct details and missing feed still updates stale state',async()=>{
+  const h=harness();h.run("openGameDetails('A')");await h.settle();const count=h.renders.length;
+  h.run('syncActiveDetail();games=games.map(game=>({...game}));syncActiveDetail()');
+  assert.equal(h.renders.length,count);
+  h.run('games=[];syncActiveDetail()');assert.equal(h.renders.length,count+1);
+  assert.equal(h.renders.at(-1).summary.sportsRadarFreshness.stale,true);
+});
+
+test('visibility recovery finishes a deferred nonlive render without adding a request',async()=>{
+  const h=harness({animationFrames:true});h.run("games[0].state='upcoming';openGameDetails('A')");await h.settle();
+  h.run('document.hidden=true;detailVisibilityChanged()');h.frame();assert.equal(h.renders.length,1);
+  h.run('document.hidden=false;detailVisibilityChanged()');
+  assert.equal(h.renders.length,2);assert.equal(h.requests.length,1);
+});
+
+test('detail cache is bounded and cannot cross a known model version',async()=>{
+  const h=harness();h.run("games[0].modelVersion='one';openGameDetails('A')");await h.settle();
+  h.run("hideGameDetails();games[0]={...games[0],modelVersion:'two'};openGameDetails('A')");
+  assert.equal(h.run('activeDetailSummary'),null);
+  h.run("for(let index=0;index<12;index++)rememberDetailSummary({id:'cache-'+index,sport:'NFL'},{});");
+  assert.equal(h.run('detailSummaryCache.size'),8);assert.equal(h.run("detailSummaryCache.has('NFL:cache-11')"),true);
 });

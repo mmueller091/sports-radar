@@ -163,6 +163,60 @@ const state = {
 const $ = selector => document.querySelector(selector);
 const $$ = selector => [...document.querySelectorAll(selector)];
 
+// Page navigation reuses the loaded slate and remembers each page's position.
+// Game Center is an overlay, so it keeps the underlying page's position too.
+const navigationScrollPositions = new Map();
+let navigationPage = pageNavigationKey();
+let detailNavigationOrigin = null;
+let preparedNavigationHash = '';
+if (typeof history !== 'undefined' && 'scrollRestoration' in history) history.scrollRestoration = 'manual';
+
+function pageNavigationKey() {
+  return state.page === 'team' && state.teamRoute
+    ? `team:${state.teamRoute.sport}:${state.teamRoute.id}`
+    : state.page;
+}
+
+function rememberNavigationScroll(nextHash = '') {
+  // Cached team data may render before hashchange. Keep its pre-navigation snapshot.
+  if (nextHash || !preparedNavigationHash || preparedNavigationHash !== location.hash) {
+    navigationScrollPositions.set(navigationPage,{
+      x:Number(globalThis.scrollX) || 0,
+      y:Number(globalThis.scrollY) || 0
+    });
+  }
+  if (nextHash) preparedNavigationHash = nextHash === location.hash ? '' : nextHash;
+}
+
+function restoreNavigationScroll() {
+  const next = pageNavigationKey();
+  preparedNavigationHash = '';
+  if (next === navigationPage) return;
+  navigationPage = next;
+  const position = navigationScrollPositions.get(next) || {x:0,y:0};
+  globalThis.scrollTo?.({left:position.x,top:position.y,behavior:'instant'});
+}
+
+function rememberDetailNavigation(overlay) {
+  if (!overlay.hidden) return;
+  rememberNavigationScroll();
+  detailNavigationOrigin = {
+    page:pageNavigationKey(),
+    position:navigationScrollPositions.get(navigationPage),
+    focus:document.activeElement
+  };
+  const panel = $('#game-detail-dialog');
+  if (panel) panel.scrollTop = 0;
+}
+
+function restoreDetailNavigation() {
+  const origin = detailNavigationOrigin;
+  detailNavigationOrigin = null;
+  if (!origin || origin.page !== pageNavigationKey()) return;
+  if (origin.position) globalThis.scrollTo?.({left:origin.position.x,top:origin.position.y,behavior:'instant'});
+  if (origin.focus?.isConnected !== false) origin.focus?.focus?.({preventScroll:true});
+}
+
 function persistPreferences() {
   try {
     localStorage.setItem(
@@ -574,6 +628,167 @@ function renderGameList(items,selectedState) {
   }).join('');
 }
 
+// Keep the complete filtered order in memory. Only mounted cards need markup or
+// DOM work; scrolling extends the prefix without removing a user's place.
+const SLATE_INITIAL_CARDS = 24;
+const SLATE_CARD_BATCH = 16;
+
+function slateNodeKey(node) {
+  if (node.nodeType !== 1) return `#${node.nodeType}`;
+  const logoSource = node.nodeName === 'IMG' ? node.getAttribute('src') :
+    node.classList.contains('team-logo-fallback') ? node.previousElementSibling?.getAttribute('src') : '';
+  return `${node.nodeName}:${node.getAttribute('data-card-team-index') || ''}:${node.classList[0] || ''}:${logoSource || ''}`;
+}
+
+function patchSlateNode(current,previous,next) {
+  if (next.nodeType !== 1) {
+    if (previous.nodeValue !== next.nodeValue) current.nodeValue = next.nodeValue;
+    return;
+  }
+  // Compare generated attributes, not the live DOM. Image load/error handlers
+  // own their fallback, CORS retry and glow attributes between feed updates.
+  const attributes = new Set([...previous.attributes,...next.attributes].map(item => item.name));
+  for (const name of attributes) {
+    const before = previous.getAttribute(name),after = next.getAttribute(name);
+    if (before === after) continue;
+    if (name === 'class') {
+      for (const value of previous.classList) if (!next.classList.contains(value)) current.classList.remove(value);
+      for (const value of next.classList) if (!previous.classList.contains(value)) current.classList.add(value);
+    } else if (after === null) current.removeAttribute(name);
+    else current.setAttribute(name,after);
+  }
+  const prior = [...previous.childNodes].map((node,index) => ({node,live:current.childNodes[index],used:false}));
+  let index = 0;
+  for (const node of next.childNodes) {
+    const match = prior.find(item => !item.used && slateNodeKey(item.node) === slateNodeKey(node));
+    const live = match?.live || node.cloneNode(true);
+    if (match) { match.used = true; patchSlateNode(live,match.node,node); }
+    if (current.childNodes[index] !== live) current.insertBefore(live,current.childNodes[index] || null);
+    index++;
+  }
+  while (current.childNodes.length > index) current.lastChild.remove();
+}
+
+function slateMarkupNode(html,existing=null) {
+  if (existing?._slateMarkup === html) return existing;
+  const template = document.createElement('template');
+  template.innerHTML = html;
+  const desired = template.content.children[0];
+  const node = existing || desired.cloneNode(true);
+  if (existing) patchSlateNode(existing,existing._slateTemplate,desired);
+  node._slateMarkup = html;
+  node._slateTemplate = desired;
+  return node;
+}
+
+function bindProgressiveSlate(list) {
+  if (list._slateBound) return;
+  list._slateBound = true;
+  const queueRender = () => {
+    if (!list._slateDeferred || list._slatePointerDown || list._slateScrolling) return;
+    list._slateDeferred = false;
+    (globalThis.requestAnimationFrame || (callback => setTimeout(callback,0)))(() => render());
+  };
+  list.addEventListener('pointerdown',() => { list._slatePointerDown = true; });
+  list.addEventListener('keydown',event => { if (event.key === 'Enter' || event.key === ' ') list._slatePointerDown = true; });
+  const release = () => { list._slatePointerDown = false; queueRender(); };
+  window.addEventListener('pointerup',release);
+  window.addEventListener('pointercancel',release);
+  window.addEventListener('keyup',release);
+  window.addEventListener('blur',release);
+  window.addEventListener('scroll',() => {
+    if (!['home','soccer'].includes(state.page)) return;
+    list._slateScrolling = true;
+    clearTimeout(list._slateScrollTimer);
+    list._slateScrollTimer = setTimeout(() => { list._slateScrolling = false; queueRender(); },120);
+  },{passive:true});
+  const grow = () => {
+    if (!['home','soccer'].includes(state.page) || list._slateLimit >= list._slateItems.length) return;
+    list._slateLimit += SLATE_CARD_BATCH;
+    render();
+  };
+  if (typeof IntersectionObserver === 'function') {
+    list._slateObserver = new IntersectionObserver(entries => {
+      if (entries.some(entry => entry.isIntersecting && entry.target === list._slateLastCard)) grow();
+    },{rootMargin:'1000px 0px'});
+  }
+  list.addEventListener('focusin',event => {
+    if (event.target.closest?.('.game-card') === list._slateLastCard) grow();
+  });
+  list.addEventListener('animationend',event => {
+    const className = event.animationName === 'score-update' ? 'score-just-changed' :
+      event.animationName === 'rating-update' ? 'rating-just-changed' : null;
+    if (className) event.target.closest?.('.game-card')?.classList.remove(className);
+  });
+  list.addEventListener('click',event => {
+    if (!event.target.closest?.('.slate-load-more')) return;
+    const firstNewCard = list._slateLimit;
+    grow();
+    list.querySelectorAll(':scope > .game-card')[firstNewCard]?.querySelector('[data-open-game]')?.focus({preventScroll:true});
+  });
+}
+
+function renderSlateCards(list,items,selectedState,selectionKey,viewKey,windowKey=selectionKey) {
+  bindProgressiveSlate(list);
+  const sameSelection = list._slateSelectionKey === selectionKey;
+  if (list._slateWindowKey !== windowKey) list._slateLimit = list._slateObserver ? SLATE_INITIAL_CARDS : Infinity;
+  list._slateWindowKey = windowKey;
+  const previousItems = list._slateItems || [];
+  if (sameSelection && list.dataset.viewKey === viewKey) {
+    const positions = new Map(previousItems.map((game,index) => [watchKey(game),index]));
+    items.sort((a,b) => (positions.get(watchKey(a)) ?? Infinity) - (positions.get(watchKey(b)) ?? Infinity));
+  } else if (sameSelection && (list._slatePointerDown || list._slateScrolling)) {
+    // Scores still update during a gesture. Only structural moves/removals wait
+    // for the gesture to finish, so a tap cannot land on a different game.
+    const latest = new Map(games.map(game => [watchKey(game),game]));
+    items = previousItems.map(game => latest.get(watchKey(game)) || game);
+    list._slateDeferred = true;
+  } else {
+    list.dataset.viewKey = viewKey;
+    list._slateDeferred = false;
+  }
+  list._slateSelectionKey = selectionKey;
+  list._slateItems = items;
+  const rendered = items.slice(0,list._slateLimit);
+  const reusable = new Map([...list.children].map(node => [node._slateKey,node]));
+  const children = [];
+  let previousDay = '',dividerIndex = 0;
+  for (const game of rendered) {
+    const day = localDayStamp(game.startTime);
+    if (['all','upcoming','completed'].includes(selectedState) && day !== previousDay) {
+      const key = `date:${day}:${dividerIndex++}`;
+      const label = safeText(gameDayLabel(game.startTime));
+      const divider = slateMarkupNode(`<div class="game-date-divider" role="separator" aria-label="${label}"><span>${label}</span><i aria-hidden="true"></i></div>`,reusable.get(key));
+      divider._slateKey = key;
+      children.push(divider);
+    }
+    previousDay = day;
+    const key = watchKey(game),card = slateMarkupNode(gameCard(game),reusable.get(key));
+    card._slateKey = key;
+    children.push(card);
+  }
+  const lastCard = children.at(-1);
+  if (rendered.length < items.length) {
+    const more = list._slateMore || document.createElement('button');
+    more.type = 'button';
+    more.className = 'slate-load-more';
+    more.textContent = 'Load more games';
+    list._slateMore = more;
+    children.push(more);
+  }
+  for (let index = 0; index < children.length; index++) {
+    if (list.children[index] !== children[index]) list.insertBefore(children[index],list.children[index] || null);
+  }
+  while (list.children.length > children.length) list.lastElementChild.remove();
+  const observedCard = rendered.length < items.length ? lastCard : null;
+  list._slateLastCard = lastCard;
+  if (list._slateObservedCard !== observedCard) {
+    list._slateObserver?.disconnect();
+    list._slateObservedCard = observedCard;
+    if (observedCard) list._slateObserver?.observe(observedCard);
+  }
+}
+
 
 
 
@@ -696,7 +911,9 @@ async function loadLiveGames() {
   if (liveRefreshInFlight) return;
   clearTimeout(liveRefreshTimer);
   liveRefreshInFlight = true;
-  $('#data-status-label').textContent = 'Connecting to live scoreboards…';
+  // A routine poll does not disconnect the loaded slate or hide a stale warning.
+  if (!games.length && state.source !== 'live') $('#data-status-label').textContent = 'Connecting to live scoreboards…';
+  else updateDataStatus();
   try {
     const endpoint = String(globalThis.SPORTS_RADAR_ALERTS_URL || '').replace(/\/$/,'');
     const response = await fetch(`${endpoint}/feed?view=compact`,{cache:'no-store',signal:AbortSignal.timeout(10000)});
@@ -2118,7 +2335,6 @@ function renderTeamPage() {
     return;
   }
 
-  list.innerHTML = '';
   empty.classList.add('hidden');
 
   const key =
@@ -2227,6 +2443,9 @@ function renderTeamPage() {
 function openTeamPage(team) {
   if (!team?.sport || !team?.id) return;
 
+  const nextHash = teamHash(team);
+  rememberNavigationScroll(nextHash);
+
   const nextKey =
     teamDataKey(team);
 
@@ -2236,7 +2455,8 @@ function openTeamPage(team) {
       teamTab:teamPageTab,
       page:state.page,teamRoute:state.teamRoute,
       detail:activeDetailGame ? {id:activeDetailGame.id,sport:activeDetailGame.sport,
-        tab:activeDetailTab,team:activePlayerTeam,category:activePlayerCategory} : null
+        tab:activeDetailTab,team:activePlayerTeam,category:activePlayerCategory,
+        scrollTop:$('#game-detail-dialog')?.scrollTop || 0} : null
     });
   }
   if (activeDetailGame) hideGameDetails({keepRoute:true});
@@ -2265,9 +2485,6 @@ function openTeamPage(team) {
     loadTeamStandings(team);
   }
 
-  const nextHash =
-    teamHash(team);
-
   if (location.hash === nextHash) {
     render();
   } else {
@@ -2288,6 +2505,7 @@ function restoreTeamReturn(context) {
     teamPageTab = context.teamTab || 'overview';
     renderTeamPage();
   }
+  if (typeof restoreNavigationScroll === 'function') restoreNavigationScroll();
   if (context.detail) openGameDetails(context.detail.id,context.detail.sport,context.detail);
 }
 
@@ -3567,8 +3785,9 @@ function basketballExpandedBoxScoreTeams(summary) {
   });
 }
 
-function basketballBoxScoreMarkup(summary,sport) {
+function basketballBoxScoreMarkup(summary,sport,availabilityOnly=false) {
   if (!['NBA','NCAAB'].includes(sport)) return '';
+  if (availabilityOnly) return true;
 
   const teams =
     basketballExpandedBoxScoreTeams(summary);
@@ -4142,7 +4361,7 @@ function detailStatRow(label,left,right,colors) {
   return `<div class="detail-comparison-row"><div class="detail-comparison-values"><span>${safeText(display(left))}</span><span>${safeText(label)}</span><span>${safeText(display(right))}</span></div><div class="detail-comparison-bars" role="img" aria-label="${safeText(comparisonLabel)}"><span><i class="detail-comparison-left" style="width:${width(widths[0])}%;background:${colors[0]}"></i><i class="detail-comparison-right" style="width:${width(widths[1])}%;background:${colors[1]}"></i></span></div></div>`;
 }
 
-function detailStats(summary,sport) {
+function detailStats(summary,sport,availabilityOnly=false) {
   const competitors = detailCompetitors(summary);
   if (competitors.length !== 2) return '';
   const teams = competitors.map(competitor => (summary?.boxscore?.teams || []).find(team => String(team.team?.id) === String(competitor.team?.id)));
@@ -4156,6 +4375,15 @@ function detailStats(summary,sport) {
     return available;
   });
   if (!stats.some(map => map.size)) return '';
+  if (availabilityOnly) {
+    const primary = TEAM_STAT_CONFIG[sport] || [];
+    const used = new Set(primary.flatMap(([, ...keys]) => keys.flatMap(key => key.split('|'))));
+    const hasPrimary = primary.some(([, ...keys]) => stats.every(map =>
+      keys.every(key => key.split('|').some(alias => map.has(alias)))));
+    const hasSecondary = [...stats[0].keys()].some(key => !used.has(key) && stats[1].has(key) &&
+      (sport !== 'MLB' || ['doubles','triples','stolenBases','caughtStealing','hitByPitch','sacFlies','GIDPs','atBats','plateAppearances','doublePlays'].includes(key)));
+    return hasPrimary || hasSecondary;
+  }
   const colors = detailTeamComparisonColors(competitors);
   const primary = TEAM_STAT_CONFIG[sport] || [];
   const used = new Set();
@@ -4173,12 +4401,14 @@ function detailStats(summary,sport) {
   return `<section class="detail-section detail-comparison"><h3>Team Stats</h3>${headings}${rows.join('')}${secondary.length ? `<details class="detail-more-stats"><summary>More Stats</summary>${secondary.join('')}</details>` : ''}</section>`;
 }
 
-function detailNhlAdvanced(summary) {
+function detailNhlAdvanced(summary,availabilityOnly=false) {
   const data=summary?.nhlAdvanced;
+  if (availabilityOnly && !data?.available) return true;
   if (!data?.available) return `<section class="detail-section"><h3>Shot Attempts</h3><p class="detail-empty">${safeText(data?.reason || 'NHL play-by-play statistics are unavailable.')}</p></section>`;
   const competitors=detailCompetitors(summary);
   const ids=competitors.map(c=>data.teamIdMap?.[String(c.team?.id)]);
   if (ids.length!==2 || ids.some(id=>!id)) return '';
+  if (availabilityOnly) return true;
   const colors=detailTeamComparisonColors(competitors);
   const row=(label,scope,key,percent=false)=>{
     const values=ids.map(id=>scope?.[id]?.[key]);
@@ -4195,7 +4425,7 @@ function detailNhlAdvanced(summary) {
   return `<section class="detail-section detail-comparison"><h3>Shot Attempts</h3><div class="detail-comparison-teams">${competitors.map(c=>`<span>${safeText(c.team?.abbreviation || '')}</span>`).join('')}</div>${rows}${row('Last 5 minutes Corsi',data.rollingFiveMinutes.teams,'cf')}${row('Last 5 minutes Fenwick',data.rollingFiveMinutes.teams,'ff')}<p>${safeText(pressure)}</p><p class="detail-empty">Corsi includes goals, saved shots, misses and blocks. Fenwick excludes blocks. 5-on-5 requires both goalies; shootouts are excluded. Recent attempts include all manpower states. These counts do not measure shot quality.${safeText(freshness+partial)}</p></section>`;
 }
 
-function detailDrives(summary,sport,status=null) {
+function detailDrives(summary,sport,status=null,availabilityOnly=false) {
   const halftime = globalThis.SportsRadarScore?.isHalftimeStatus?.(status || summary?.header?.competitions?.[0]?.status);
   if (!['NFL','CFB'].includes(sport)) return '';
 
@@ -4237,6 +4467,7 @@ function detailDrives(summary,sport,status=null) {
     .forEach(drive => addDrive(drive,false));
 
   if (!drives.length) return '';
+  if (availabilityOnly) return true;
 
   const teamLabel = drive =>
     drive.team?.abbreviation ||
@@ -4583,7 +4814,7 @@ function mlbPlayerTable(group, title, includeDecision=false) {
   ).join('')}</tbody></table></div></div>`;
 }
 
-function detailMlbPlayerStats(summary, type) {
+function detailMlbPlayerStats(summary, type, availabilityOnly=false) {
   if (!['batting','pitching'].includes(type)) {
     return '';
   }
@@ -4594,6 +4825,9 @@ function detailMlbPlayerStats(summary, type) {
   if (!blocks.length) {
     return '';
   }
+
+  if (availabilityOnly) return blocks.some(block => (block.statistics || []).some(group =>
+    statKey(group.type || group.name || group.displayName) === type && (group.athletes || group.players || []).length));
 
   const title =
     type === 'batting'
@@ -4684,13 +4918,16 @@ const FOOTBALL_PLAYER_GROUP_TITLES = {
 };
 
 
-function detailNhlGoalies(summary) {
+function detailNhlGoalies(summary,availabilityOnly=false) {
   const blocks =
     summary?.boxscore?.players || [];
 
   if (!blocks.length) {
     return '';
   }
+
+  if (availabilityOnly) return blocks.some(block => (block.statistics || []).some(group =>
+    (group.athletes || group.players || []).length && /goalie|goaltender/i.test(`${group.type || ''} ${group.name || ''} ${group.displayName || ''}`)));
 
   const teamSections =
     blocks
@@ -4747,7 +4984,7 @@ function detailNhlGoalies(summary) {
     : '';
 }
 
-function detailPlayerStats(summary, sport) {
+function detailPlayerStats(summary, sport, availabilityOnly=false) {
   const blocks =
     summary?.boxscore?.players || [];
 
@@ -4757,6 +4994,11 @@ function detailPlayerStats(summary, sport) {
   ) {
     return '';
   }
+
+  if (availabilityOnly) return blocks.some(block => (block.statistics || []).some(group =>
+    (group.athletes || group.players || []).length && (sport === 'NHL'
+      ? !/goalie|goaltender/i.test(`${group.type || ''} ${group.name || ''} ${group.displayName || ''}`)
+      : FOOTBALL_PLAYER_GROUPS.has(statKey(group.name || group.displayName)))));
 
   const teamSections =
     blocks
@@ -6137,10 +6379,11 @@ const DETAIL_TAB_CONFIG = {
 let activeDetailTab = 'overview';
 let activePlayerTeam = '';
 let activePlayerCategory = '';
+let detailPanelRenderers = new Map();
 
 // Reuse the existing sport-specific tables with one real team/category selected.
 // The original full tables remain available on desktop.
-function detailPlayerBrowser(game,summary) {
+function detailPlayerBrowser(game,summary,availabilityOnly=false) {
   const blocks = Array.isArray(summary?.boxscore?.players) ? summary.boxscore.players : [];
   const basketball = ['NBA','NCAAB'].includes(game.sport);
   const normalizedTeams = summary?.basketballBoxScore?.teams || [];
@@ -6162,6 +6405,7 @@ function detailPlayerBrowser(game,summary) {
     if (!categories.has(key)) categories.set(key,label);
   }
   if (!categories.size || !game.teams?.length) return '';
+  if (availabilityOnly) return true;
   if (!['0','1'].includes(activePlayerTeam) || !game.teams[Number(activePlayerTeam)]) activePlayerTeam = '0';
   if (!categories.has(activePlayerCategory)) activePlayerCategory = categories.keys().next().value;
   const index = Number(activePlayerTeam),team = game.teams[index];
@@ -6190,49 +6434,65 @@ function detailPlayerBrowser(game,summary) {
   return `<div class="mobile-player-browser"><div class="player-team-switch" role="group" aria-label="Team for player statistics">${buttons}</div><label class="player-category"><span>Category</span><span class="player-select-wrap"><select data-player-category aria-label="Player statistics category">${options}</select><span aria-hidden="true">⌄</span></span></label><p class="player-caption">${safeText(team[0])} · ${safeText(game.timingUncertain ? 'Clock updating' : game.live?.phase || game.status || '')}</p>${table || '<p class="detail-empty">No player statistics are available for this team and category.</p>'}</div>`;
 }
 
-function detailTabSections(game,summary) {
-  const overviewParts = [
-    game.standingsUnrated ? '' : renderExcitementTimeline(game,summary),
-    game.state==='upcoming'?'':storylineDetails(game),
-    detailScoring(summary,game.sport),
-    detailLeaders(summary)
-  ].filter(Boolean);
-
-  const playerBrowser = detailPlayerBrowser(game,summary);
-  const withPlayerBrowser = content => playerBrowser ? `${playerBrowser}<div class="desktop-player-stats">${content}</div>` : content;
+function detailTabSections(game,summary,lazy=false) {
+  let playerMarkup,playerAvailable;
+  const playerBrowser = availabilityOnly => availabilityOnly
+    ? (playerAvailable ??= detailPlayerBrowser(game,summary,true))
+    : (playerMarkup ??= detailPlayerBrowser(game,summary));
+  const withPlayerBrowser = (render,availabilityOnly) => {
+    const browser = playerBrowser(availabilityOnly);
+    if (availabilityOnly) return browser || render(true);
+    const content = render(false);
+    return browser ? `${browser}<div class="desktop-player-stats">${content}</div>` : content;
+  };
   const sections = new Map([
-    [
-      'overview',
-      overviewParts.join('')
-    ],
-    ['drives',detailDrives(summary,game.sport,game.liveRawStatus)],
-    ['batting',withPlayerBrowser(detailMlbPlayerStats(summary,'batting'))],
-    ['pitching',withPlayerBrowser(detailMlbPlayerStats(summary,'pitching'))],
-    ['team-stats',game.state==='upcoming' ? '' : detailStats(summary,game.sport)+(game.sport==='NHL' ? detailNhlAdvanced(summary) : '')],
-    ['players',withPlayerBrowser(detailPlayerStats(summary,game.sport))],
-    ['goalies',withPlayerBrowser(detailNhlGoalies(summary))],
-    ['box-score',game.state==='upcoming' ? '' : withPlayerBrowser(basketballBoxScoreMarkup(summary,game.sport))],
-    ['plays',detailPlays(summary,game)]
+    ['overview',availabilityOnly => {
+      if (availabilityOnly && !game.standingsUnrated) return true;
+      const parts = [
+        game.standingsUnrated ? '' : renderExcitementTimeline(game,summary),
+        game.state==='upcoming'?'':storylineDetails(game),
+        detailScoring(summary,game.sport),
+        detailLeaders(summary)
+      ].filter(Boolean);
+      return availabilityOnly ? parts.length > 0 : parts.join('');
+    }],
+    ['drives',available => detailDrives(summary,game.sport,game.liveRawStatus,available)],
+    ['batting',available => withPlayerBrowser(check => detailMlbPlayerStats(summary,'batting',check),available)],
+    ['pitching',available => withPlayerBrowser(check => detailMlbPlayerStats(summary,'pitching',check),available)],
+    ['team-stats',available => {
+      if (game.state==='upcoming') return '';
+      const stats=detailStats(summary,game.sport,available);
+      const advanced=game.sport==='NHL' ? detailNhlAdvanced(summary,available) : '';
+      return available ? stats || advanced : stats+advanced;
+    }],
+    ['players',available => withPlayerBrowser(check => detailPlayerStats(summary,game.sport,check),available)],
+    ['goalies',available => withPlayerBrowser(check => detailNhlGoalies(summary,check),available)],
+    ['box-score',available => game.state==='upcoming' ? '' : withPlayerBrowser(check => basketballBoxScoreMarkup(summary,game.sport,check),available)],
+    ['plays',available => available ? Boolean(summary?.scoringPlays?.length || summary?.plays?.length) : detailPlays(summary,game)]
   ]);
 
   const configured = DETAIL_TAB_CONFIG[game.sport] || DETAIL_TAB_CONFIG.Tennis;
-  const tabs = game.sport === 'Soccer' && playerBrowser
+  const tabs = game.sport === 'Soccer' && playerBrowser(true)
     ? [...configured.slice(0,-1),['players','Players'],...configured.slice(-1)] : configured;
   return tabs
-    .map(([id,label]) => ({
-      id,
-      label,
-      content:sections.get(id) || ''
-    }))
-    .filter(tab => Boolean(tab.content));
+    .map(([id,label]) => {
+      const render=sections.get(id);
+      if (!render) return null;
+      if (!lazy) return {id,label,content:render(false)};
+      return render(true) ? {id,label,render:()=>render(false),hasPlayerBrowser:playerAvailable === true} : null;
+    })
+    .filter(tab => tab && (lazy || Boolean(tab.content)));
 }
 
 function detailTabsMarkup(game,summary) {
-  const tabs = detailTabSections(game,summary);
+  const tabs = detailTabSections(game,summary,true);
+  const contentFor = tab => tab.render ? tab.render() : tab.content;
+  // Keep hidden panels empty. Their existing renderers run only on selection.
+  detailPanelRenderers = new Map(tabs.filter(tab => tab.render).map(tab => [tab.id,tab.render]));
 
   if (!tabs.length) return '';
 
-  if (tabs.length === 1) return tabs[0].content;
+  if (tabs.length === 1) return contentFor(tabs[0]);
 
   if (!tabs.some(tab => tab.id === activeDetailTab)) {
     activeDetailTab = tabs[0].id;
@@ -6255,10 +6515,10 @@ function detailTabsMarkup(game,summary) {
     const tabId = `detail-tab-${gameKey}-${tab.id}`;
     const panelId = `detail-panel-${gameKey}-${tab.id}`;
 
-    return `<div class="detail-tab-panel" id="${panelId}" role="tabpanel" aria-labelledby="${tabId}"${selected ? '' : ' hidden'}>${tab.content}</div>`;
+    return `<div class="detail-tab-panel" id="${panelId}" role="tabpanel" aria-labelledby="${tabId}"${selected ? '' : ` hidden${tab.render ? ' data-detail-lazy="true"' : ''}`}>${selected || !tab.render ? contentFor(tab) : ''}</div>`;
   }).join('');
 
-  return `<div class="detail-tab-shell ${tabs.some(tab => tab.content.includes('mobile-player-browser')) ? 'has-player-browser' : ''}"><div class="detail-tabs" role="tablist" aria-label="${safeText(labelForSport(game.sport))} game details">${buttons}</div>${panels}</div>`;
+  return `<div class="detail-tab-shell ${tabs.some(tab => tab.hasPlayerBrowser || tab.content?.includes('mobile-player-browser')) ? 'has-player-browser' : ''}"><div class="detail-tabs" role="tablist" aria-label="${safeText(labelForSport(game.sport))} game details">${buttons}</div>${panels}</div>`;
 }
 
 function setActiveDetailTab(button) {
@@ -6286,7 +6546,18 @@ function setActiveDetailTab(button) {
   shell.querySelectorAll('.detail-tab-panel').forEach(panel => {
     panel.hidden =
       panel.id !== button.getAttribute('aria-controls');
+    panel.classList.toggle('nav-panel-enter',!panel.hidden);
+    if (!panel.hidden && panel.dataset.detailLazy) {
+      const render = detailPanelRenderers.get(nextTab);
+      if (render) {
+        panel.innerHTML = render();
+        [...(panel.childNodes || [])].forEach(rememberDetailMarkupNode);
+      }
+      delete panel.dataset.detailLazy;
+      panel.detailSourceMarkup = null;
+    }
   });
+  if (typeof detailRenderedSelection !== 'undefined') detailRenderedSelection = detailSelectionKey();
 }
 
 function moveDetailTabFocus(event,button) {
@@ -6316,20 +6587,89 @@ function moveDetailTabFocus(event,button) {
   return true;
 }
 
+function rememberDetailMarkupNode(node) {
+  if (node.nodeType === 1) {
+    node.detailSourceMarkup = node.outerHTML;
+    node.detailSourceAttributes = new Map([...node.attributes].map(attr => [attr.name,attr.value]));
+    [...node.childNodes].forEach(rememberDetailMarkupNode);
+  }
+  return node;
+}
+
+function updateDetailMarkup(content,markup) {
+  // Preserve live DOM nodes, focus, open disclosures and horizontal scroll.
+  // Background score ticks must not remount the tab shell or restart motion.
+  if (!content.childNodes || typeof document.createElement !== 'function') {
+    content.innerHTML = markup;
+    return;
+  }
+  const template = document.createElement('template');
+  template.innerHTML = markup;
+  content.querySelectorAll('.detail-tab-panel[hidden]').forEach(panel => {
+    panel.dataset.detailLazy = 'true';
+  });
+  const patch = (current,next) => {
+    if (!current || current.nodeType !== next.nodeType || current.nodeName !== next.nodeName ||
+        (current.id || next.id) && current.id !== next.id ||
+        current.nodeName === 'IMG' && current.getAttribute('src') !== next.getAttribute('src')) {
+      const replacement = rememberDetailMarkupNode(next);
+      if (current) current.replaceWith(replacement);
+      return replacement;
+    }
+    if (current.nodeType !== 1) {
+      if (current.nodeValue !== next.nodeValue) current.nodeValue = next.nodeValue;
+      return current;
+    }
+    const nextMarkup = next.outerHTML;
+    if (current.detailSourceMarkup === nextMarkup || current.outerHTML === nextMarkup) {
+      current.detailSourceMarkup = nextMarkup;
+      return current;
+    }
+    const preserve = name => current.tagName === 'DETAILS' && name === 'open' ||
+      current.hasAttribute('data-timeline-range') && name === 'aria-pressed' ||
+      current.hasAttribute('data-timeline-view') && name === 'hidden';
+    const before = current.detailSourceAttributes || new Map([...current.attributes].map(attr => [attr.name,attr.value]));
+    const after = new Map([...next.attributes].map(attr => [attr.name,attr.value]));
+    // Compare authored attributes, not runtime mutations from logo load/error
+    // handlers, timeline controls or other interactions with this same node.
+    for (const [name] of before) {
+      if (!after.has(name) && !preserve(name)) current.removeAttribute(name);
+    }
+    for (const [name,value] of after) {
+      if (before.get(name) !== value && !preserve(name)) current.setAttribute(name,value);
+    }
+    current.detailSourceAttributes = after;
+    // A hidden tab's cached DOM can remain until selected, but mark it for the
+    // latest renderer. No hidden player/plays table is constructed on refresh.
+    if (!next.hasAttribute('data-detail-lazy')) {
+      const children = [...next.childNodes];
+      children.forEach((child,index) => {
+        const previous = current.childNodes[index];
+        if (previous) patch(previous,child);
+        else current.appendChild(rememberDetailMarkupNode(child));
+      });
+      while (current.childNodes.length > children.length) current.lastChild.remove();
+    }
+    current.detailSourceMarkup = nextMarkup;
+    return current;
+  };
+  const children = [...template.content.childNodes];
+  children.forEach((child,index) => {
+    const previous = content.childNodes[index];
+    if (previous) patch(previous,child);
+    else content.appendChild(rememberDetailMarkupNode(child));
+  });
+  while (content.childNodes.length > children.length) content.lastChild.remove();
+}
+
 function renderDetailContent(
   game,
   summary,
   loading=false
 ) {
-  summary=orderedDetailSummary(game,globalThis.SportsRadarScore?.canonicalDetailSummary?.(game,summary) || summary);
+  summary=loading ? null : orderedDetailSummary(game,globalThis.SportsRadarScore?.canonicalDetailSummary?.(game,summary) || summary);
   $('#game-detail-title').textContent =
     'Game Center';
-
-  if (loading) {
-    renderDetailContent(game,null,false);
-    $('#game-detail-content').insertAdjacentHTML('beforeend','<p class="detail-loading" role="status">Loading game statistics...</p>');
-    return;
-  }
 
   const competition =
     summary?.header?.competitions?.[0];
@@ -6402,8 +6742,11 @@ function renderDetailContent(
   const scoreClass = scoreHeatClass(game.score);
   const scoreColorStyle = `--score-hue:${scoreHueFor(game.score)};`;
 
-  $('#game-detail-content').innerHTML =
-    `<header class="detail-header"><div class="detail-kicker">${safeText(labelForSport(game.sport))} · ${safeText(status)}${detailClock}</div><h2>${safeText(title)}</h2><button type="button" class="detail-watch ${isWatched(game) ? 'active' : ''}" data-watch-id="${safeText(watchKey(game))}" aria-pressed="${isWatched(game)}">${isWatched(game) ? '★ Watching this game' : '☆ Add to watchlist'}</button><div class="detail-scoreboard${game.state === 'upcoming' ? ' pregame' : ''}">${scores}</div>${detailSituation ? `<div class="detail-situation">${detailSituation}</div>` : ''}<div class="detail-meta"><span><strong>Venue</strong> ${safeText(venue)}</span><span><strong>Broadcast</strong> ${safeText(game.channel || 'Channel not listed')}</span>${lineMeta}</div>${broadcastWatchMarkup(game,summary)}${game.moment ? `<section class="detail-moment"><strong>${safeText(game.momentLabel || 'Notable play')}</strong><span>${safeText(displayMoment(game))}</span></section>` : ''}</header><section class="detail-radar" style="${scoreColorStyle}"><div class="detail-excitement-head"><span class="detail-excitement-score ${scoreClass}" style="${scoreColorStyle}">${game.standingsUnrated ? '&mdash;' : safeText(game.score)}</span><span class="detail-excitement-copy"><small>${game.state==='live'?'Watch now':game.state==='completed'?'Game quality':'Pregame rating'}</small><strong>${safeText(ratingContext)}</strong>${game.standingsUnrated ? '' : trendFor(game)}</span></div><div class="detail-radar-why"><h3>${game.standingsUnrated ? 'Excitement unavailable' : game.state==='upcoming'?'Pregame outlook':`Why ${safeText(game.score)}?`}</h3><p class="detail-explanation detail-why-text">${game.standingsUnrated ? 'An excitement rating is not available for this scheduled game yet.' : safeText(explainRating(game,summary))}</p>${game.state==='upcoming'?storylineDetails(game):''}</div></section>${detailTabsMarkup(game,summary)}`;
+  const markup =
+    `<header class="detail-header"><div class="detail-kicker">${safeText(labelForSport(game.sport))} · ${safeText(status)}${detailClock}</div><h2>${safeText(title)}</h2><button type="button" class="detail-watch ${isWatched(game) ? 'active' : ''}" data-watch-id="${safeText(watchKey(game))}" aria-pressed="${isWatched(game)}">${isWatched(game) ? '★ Watching this game' : '☆ Add to watchlist'}</button><div class="detail-scoreboard${game.state === 'upcoming' ? ' pregame' : ''}">${scores}</div>${detailSituation ? `<div class="detail-situation">${detailSituation}</div>` : ''}<div class="detail-meta"><span><strong>Venue</strong> ${safeText(venue)}</span><span><strong>Broadcast</strong> ${safeText(game.channel || 'Channel not listed')}</span>${lineMeta}</div>${broadcastWatchMarkup(game,summary)}${game.moment ? `<section class="detail-moment"><strong>${safeText(game.momentLabel || 'Notable play')}</strong><span>${safeText(displayMoment(game))}</span></section>` : ''}</header><section class="detail-radar" style="${scoreColorStyle}"><div class="detail-excitement-head"><span class="detail-excitement-score ${scoreClass}" style="${scoreColorStyle}">${game.standingsUnrated ? '&mdash;' : safeText(game.score)}</span><span class="detail-excitement-copy"><small>${game.state==='live'?'Watch now':game.state==='completed'?'Game quality':'Pregame rating'}</small><strong>${safeText(ratingContext)}</strong>${game.standingsUnrated ? '' : trendFor(game)}</span></div><div class="detail-radar-why"><h3>${game.standingsUnrated ? 'Excitement unavailable' : game.state==='upcoming'?'Pregame outlook':`Why ${safeText(game.score)}?`}</h3><p class="detail-explanation detail-why-text">${game.standingsUnrated ? 'An excitement rating is not available for this scheduled game yet.' : safeText(explainRating(game,summary))}</p>${game.state==='upcoming'?storylineDetails(game):''}</div></section>${loading ? '<p class="detail-loading" role="status">Loading game statistics...</p>' : detailTabsMarkup(game,summary)}`;
+  const content = $('#game-detail-content');
+  if (typeof updateDetailMarkup !== 'function') content.innerHTML = markup;
+  else updateDetailMarkup(content,markup);
 }
 
 async function fetchGameSummary(game,controller=new AbortController()) {
@@ -6480,6 +6823,7 @@ function showGameDetails() {
   const overlay =
     $('#game-detail-overlay');
 
+  if (typeof rememberDetailNavigation === 'function') rememberDetailNavigation(overlay);
   overlay.hidden = false;
 
   document.body.classList.add(
@@ -6488,7 +6832,7 @@ function showGameDetails() {
 
   overlay
     .querySelector('.close-dialog')
-    ?.focus();
+    ?.focus({preventScroll:true});
 }
 
 let activeDetailGame = null;
@@ -6500,6 +6844,56 @@ let detailTimer = null;
 let detailRequest = null;
 let detailFinalPending = false;
 let detailFailed = false;
+let detailRenderFrame = null;
+let detailRenderDeferred = false;
+let detailRenderedGame = null;
+let detailRenderedSummary = null;
+let detailRenderedFailed = false;
+let detailRenderedLoading = null;
+let detailRenderedSelection = null;
+let detailRestoreScrollTop = null;
+const detailSummaryCache = new Map();
+
+function cachedDetailSummary(id,sport,game=null) {
+  const key = `${sport}:${id}`;
+  const cached = detailSummaryCache.get(key);
+  if (!cached || (game?.modelVersion && cached.game.modelVersion && game.modelVersion !== cached.game.modelVersion)) return null;
+  detailSummaryCache.delete(key);
+  detailSummaryCache.set(key,cached);
+  return cached;
+}
+
+function rememberDetailSummary(game,summary) {
+  const key = `${game.sport}:${game.id}`;
+  detailSummaryCache.delete(key);
+  detailSummaryCache.set(key,{game,summary});
+  // Presentation-only cache. Reopening always starts the existing fresh request.
+  while (detailSummaryCache.size > 8) detailSummaryCache.delete(detailSummaryCache.keys().next().value);
+}
+
+function detailSelectionKey() {
+  return JSON.stringify([activeDetailTab,activePlayerTeam,activePlayerCategory,
+    typeof isWatched === 'function' && activeDetailGame ? isWatched(activeDetailGame) : false]);
+}
+
+function deferActiveDetailRender() {
+  if (typeof globalThis.requestAnimationFrame !== 'function') {
+    if (activeDetailSummary) renderActiveDetail();
+    return;
+  }
+  const generation = detailGeneration;
+  detailRenderDeferred = true;
+  // The first frame paints the canonical scoreboard. Heavy selected-tab markup
+  // begins on the following frame, never ahead of that visible response.
+  detailRenderFrame = requestAnimationFrame(() => {
+    detailRenderFrame = requestAnimationFrame(() => {
+      detailRenderFrame = null;
+      if (generation !== detailGeneration || !activeDetailGame) return;
+      detailRenderDeferred = false;
+      renderActiveDetail();
+    });
+  });
+}
 
 function stopDetailRequest() {
   linkedGameRequest?.abort();linkedGameRequest=null;
@@ -6509,6 +6903,14 @@ function stopDetailRequest() {
   detailGeneration++;
   detailRequest?.controller.abort();
   detailRequest = null;
+  if (detailRenderFrame !== null) globalThis.cancelAnimationFrame?.(detailRenderFrame);
+  detailRenderFrame = null;
+  detailRenderDeferred = false;
+  detailRenderedGame = null;
+  detailRenderedSummary = null;
+  detailRenderedSelection = null;
+  detailRenderedLoading = null;
+  detailRestoreScrollTop = null;
 }
 
 function latestDetailGame() {
@@ -6524,7 +6926,12 @@ function latestDetailGame() {
 
 function renderActiveDetail() {
   const game = latestDetailGame();
-  if (!game) return;
+  if (!game || detailRenderDeferred) return;
+  const gameSignature = JSON.stringify([game,games.some(item => item.sport === game.sport && String(item.id) === String(game.id))]);
+  const selection = detailSelectionKey();
+  const loading = Boolean(!activeDetailSummary && detailRequest && !detailRequest.settled && !detailFailed);
+  if (gameSignature === detailRenderedGame && activeDetailSummary === detailRenderedSummary &&
+      detailFailed === detailRenderedFailed && loading === detailRenderedLoading && selection === detailRenderedSelection) return;
   let summary = activeDetailSummary;
   if (summary) {
     // Source competitions are not serialized into /feed. Rebuild only the
@@ -6540,7 +6947,22 @@ function renderActiveDetail() {
     summary = {...summary,sportsRadarFreshness:{...summary.sportsRadarFreshness,
       stale:detailFailed || missing || !compatible || summary.sportsRadarFreshness?.stale === true}};
   }
-  renderDetailContent(game,summary);
+  const panel = $('#game-detail-dialog');
+  const scrollTop = panel?.scrollTop || 0;
+  const focusedTab = document.activeElement?.closest?.('.detail-tab')?.dataset.detailTab;
+  if (loading) renderDetailContent(game,null,true);
+  else renderDetailContent(game,summary);
+  detailRenderedGame = gameSignature;
+  detailRenderedSummary = activeDetailSummary;
+  detailRenderedFailed = detailFailed;
+  detailRenderedLoading = loading;
+  detailRenderedSelection = detailSelectionKey();
+  if (panel) {
+    const restore = detailRestoreScrollTop !== null && (summary || detailFailed);
+    panel.scrollTop = restore ? detailRestoreScrollTop : scrollTop;
+    if (restore) detailRestoreScrollTop = null;
+  }
+  if (focusedTab) $('#game-detail-content')?.querySelector?.(`[data-detail-tab="${focusedTab}"]`)?.focus({preventScroll:true});
 }
 
 function syncActiveDetail() {
@@ -6558,6 +6980,7 @@ async function refreshActiveDetail() {
   try {
     const summary = await fetchGameSummary(game,request.controller);
     if (request.generation !== detailGeneration || detailRequest !== request) return;
+    request.settled = true;
     const resolved=summary?.sportsRadarGame;
     if(resolved && resolved.sport===game.sport && String(resolved.id)===String(game.id) && !games.some(item=>item.sport===game.sport && String(item.id)===String(game.id))) activeDetailGame={...resolved,favorite:favoriteFor(resolved.teams,resolved.sport)};
     const previousVersion = Date.parse(activeDetailSummary?.sportsRadarFreshness?.updatedAt || '');
@@ -6565,6 +6988,7 @@ async function refreshActiveDetail() {
     if (!Number.isFinite(previousVersion) || (Number.isFinite(version) && version >= previousVersion)) {
       activeDetailSummary = summary;
       detailFailed = false;
+      rememberDetailSummary(activeDetailGame,summary);
     } else detailFailed = true;
     renderActiveDetail();
   } catch {
@@ -6587,6 +7011,7 @@ function detailVisibilityChanged() {
   else {
     const game = latestDetailGame();
     if (game && (game.state === 'live' || detailFinalPending || !activeDetailSummary)) refreshActiveDetail();
+    if (game) renderActiveDetail();
   }
 }
 
@@ -6602,6 +7027,7 @@ function hideGameDetails({keepRoute=false}={}) {
     history.replaceState(null,'',detailReturnHash || '#home');
     handleLocationChange();
   }
+  if (!keepRoute && typeof restoreDetailNavigation === 'function') restoreDetailNavigation();
 }
 
 function rememberGameRoute(game) {
@@ -6616,6 +7042,18 @@ async function openLinkedGame(id,sport,restore=null) {
   stopDetailRequest();const generation=detailGeneration;
   activeDetailGame=null;activeDetailSummary=null;
   activeDetailTab=restore?.tab || 'overview';activePlayerTeam=restore?.team || '';activePlayerCategory=restore?.category || '';
+  detailRestoreScrollTop = Number.isFinite(restore?.scrollTop) ? restore.scrollTop : null;
+  const panel = $('#game-detail-dialog');
+  if (panel) panel.scrollTop = 0;
+  const cached = cachedDetailSummary(id,sport);
+  if (cached) {
+    activeDetailGame = cached.game;activeDetailSummary = cached.summary;detailFailed = true;
+    rememberGameRoute(activeDetailGame);
+    renderDetailContent(activeDetailGame,null,true);
+    showGameDetails();deferActiveDetailRender();
+    await refreshActiveDetail();
+    return;
+  }
   const controller=new AbortController();linkedGameRequest=controller;
   $('#game-detail-title').textContent='Game Center';
   $('#game-detail-content').innerHTML='<div class="detail-loading">Loading the latest game data…</div>';
@@ -6626,7 +7064,10 @@ async function openLinkedGame(id,sport,restore=null) {
     const game=summary?.sportsRadarGame;
     if(!game || game.sport!==sport || String(game.id)!==String(id) || game.teams?.length!==2)throw new Error('Game unavailable');
     activeDetailGame={...game,favorite:favoriteFor(game.teams,sport)};activeDetailSummary=summary;detailFailed=false;
-    rememberGameRoute(game);renderActiveDetail();
+    rememberDetailSummary(activeDetailGame,summary);
+    rememberGameRoute(game);
+    renderDetailContent(activeDetailGame,null,true);
+    deferActiveDetailRender();renderActiveDetail();
     if(game.state==='live')detailTimer=setTimeout(refreshActiveDetail,10000);
   } catch(error) {
     if(generation!==detailGeneration || controller.signal.aborted)return;
@@ -6645,16 +7086,20 @@ async function openGameDetails(id,sport=null,restore=null) {
   if (!game) {if(sport)return openLinkedGame(id,sport,restore);return;}
   stopDetailRequest();
   activeDetailGame = game;
-  activeDetailSummary = null;
+  activeDetailSummary = cachedDetailSummary(game.id,game.sport,game)?.summary || null;
   activeDetailTab = 'overview';
   detailFinalPending = false;
   activeDetailTab = restore?.tab || 'overview';
   activePlayerTeam = restore?.team || '';
   activePlayerCategory = restore?.category || '';
-  detailFailed = false;
+  detailFailed = Boolean(activeDetailSummary);
+  detailRestoreScrollTop = Number.isFinite(restore?.scrollTop) ? restore.scrollTop : null;
+  const panel = $('#game-detail-dialog');
+  if (panel) panel.scrollTop = 0;
   if(globalThis.history)rememberGameRoute(game);
   renderDetailContent(game,null,true);
   showGameDetails();
+  deferActiveDetailRender();
   await refreshActiveDetail();
 }
 
@@ -6949,37 +7394,10 @@ function render() {
   } else {
     // Explicit filter/favorite changes retain the established sort. During a
     // refresh, unchanged membership and game states retain their visible order.
-    const viewKey = JSON.stringify([localDayStamp(new Date()),state.page,state.sport,state.gameState,state.showFCS,state.sportFilters,[...state.visibleSports],state.favoriteTeams,[...state.watchedGames],visible.map(game => [watchKey(game),game.state,localDayStamp(game.startTime)]).sort()]);
-    const currentCards = [...gameList.querySelectorAll(':scope > .game-card')];
-    if (gameList.dataset.viewKey === viewKey) {
-      const positions = new Map(currentCards.map((card,index) => [`${card.dataset.sport}:${card.dataset.id}`,index]));
-      visible.sort((a,b) => (positions.get(watchKey(a)) ?? Infinity) - (positions.get(watchKey(b)) ?? Infinity));
-    }
-    gameList.dataset.viewKey = viewKey;
-    const template = document.createElement('template');
-    template.innerHTML = renderGameList(visible,state.gameState);
-    const reusable = new Map(currentCards.map(card => [`${card.dataset.sport}:${card.dataset.id}`,card]));
-    const nextChildren = [...template.content.children].map(node => {
-      if (!node.classList.contains('game-card')) return node;
-      const card = reusable.get(`${node.dataset.sport}:${node.dataset.id}`);
-      const markup = node.outerHTML;
-      if (!card) { node._slateMarkup = markup; return node; }
-      if (card._slateMarkup !== markup) {
-        const focused = card.contains(document.activeElement) ? document.activeElement : null;
-        const focusSelector = focused?.hasAttribute('data-card-team-index') ? `[data-card-team-index="${focused.dataset.cardTeamIndex}"]` : focused?.hasAttribute('data-open-game') ? '[data-open-game]' : null;
-        card.className = node.className;
-        card.dataset.division = node.dataset.division;
-        card.innerHTML = node.innerHTML;
-        card._slateMarkup = markup;
-        if (focusSelector) card.querySelector(focusSelector)?.focus({preventScroll:true});
-      }
-      return card;
-    });
-    // Moving existing nodes preserves the identity of unchanged cards and logos.
-    for (let index = 0; index < nextChildren.length; index++) {
-      if (gameList.children[index] !== nextChildren[index]) gameList.insertBefore(nextChildren[index],gameList.children[index] || null);
-    }
-    while (gameList.children.length > nextChildren.length) gameList.lastElementChild.remove();
+    const windowKey = JSON.stringify([state.page,state.sport,state.gameState,state.showFCS,state.sportFilters,[...state.visibleSports]]);
+    const selectionKey = JSON.stringify([localDayStamp(new Date()),state.page,state.sport,state.gameState,state.showFCS,state.sportFilters,[...state.visibleSports],state.favoriteTeams,[...state.watchedGames]]);
+    const viewKey = JSON.stringify([selectionKey,visible.map(game => [watchKey(game),game.state,localDayStamp(game.startTime)]).sort()]);
+    renderSlateCards(gameList,visible,state.gameState,selectionKey,viewKey,windowKey);
   }
   if (typeof recentLiveChanges !== 'undefined' && recentLiveChanges.size) {
     for (const card of $$('#game-list .game-card')) {
@@ -7080,37 +7498,15 @@ $$('.nav-link').forEach(
     link.addEventListener(
       'click',
       event => {
-        // Info uses the existing hash router without resetting Slate filters.
-        if (event.ctrlKey || event.metaKey || event.shiftKey || event.altKey ||
-            ['info','standings'].includes(link.dataset.page) || ['info','standings'].includes(state.page)) return;
-        state.page =
-          link.dataset.page;
-
-        state.teamRoute =
-          null;
-
-        state.sport =
-          'all';
-
-        location.hash =
-          state.page === 'soccer'
-            ? 'soccer'
-            : 'home';
-
-        $$('.sport-chip[data-sport]')
-          .forEach(chip =>
-            chip.classList.toggle(
-              'active',
-              chip.dataset.sport === 'all'
-            )
-          );
-
-        render();
+        if (event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
+        // The hash router owns the one render. Navigation never resets filters.
+        rememberNavigationScroll('#'+link.dataset.page);
       }
     )
 );
 
 function handleLocationChange() {
+    if (typeof rememberNavigationScroll === 'function') rememberNavigationScroll();
     const returning = pendingTeamReturn || (state.page === 'team' && teamReturnStack.at(-1)?.hash === location.hash
       ? teamReturnStack.pop() : null);
     pendingTeamReturn = null;
@@ -7120,8 +7516,11 @@ function handleLocationChange() {
       else if(state.page==='team' || state.page==='info'){state.page=linked.sport==='Soccer'?'soccer':'home';state.teamRoute=null;}
       render();
       if(returning?.detail)restoreTeamReturn(returning);
-      else if(!activeDetailGame || activeDetailGame.sport!==linked.sport || String(activeDetailGame.id)!==linked.id)openGameDetails(linked.id,linked.sport);
-      else {showGameDetails();refreshActiveDetail();}
+      else {
+        if (typeof restoreNavigationScroll === 'function') restoreNavigationScroll();
+        if(!activeDetailGame || activeDetailGame.sport!==linked.sport || String(activeDetailGame.id)!==linked.id)openGameDetails(linked.id,linked.sport);
+        else {showGameDetails();refreshActiveDetail();}
+      }
       return;
     }
     if(activeDetailGame || linkedGameRequest)hideGameDetails({keepRoute:true});
@@ -7184,6 +7583,8 @@ function handleLocationChange() {
       teamPageTab = 'overview';
     }
     restoreTeamReturn(returning);
+    if (typeof restoreNavigationScroll === 'function') restoreNavigationScroll();
+    if (typeof restoreDetailNavigation === 'function') restoreDetailNavigation();
 }
 window.addEventListener('hashchange',handleLocationChange);
 

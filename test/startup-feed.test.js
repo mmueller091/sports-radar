@@ -188,6 +188,25 @@ test('a later refresh failure keeps the last verified game and marks scores stal
   assert.match(app.element('#data-status-label').textContent,/Stale scores/);
 });
 
+test('pending routine polls keep the live or stale status instead of flashing Connecting',async()=>{
+  const now=Date.parse('2026-11-09T23:00:00Z'),app=startApp(false,now);
+  const feed={ok:true,json:async()=>({updatedAt:new Date(now).toISOString(),games:[realGame]})};
+  app.resolveFeed(feed);
+  await new Promise(resolve=>setImmediate(resolve));
+  const fetch=app.context.fetch;
+  for(const stale of [false,true]) {
+    if(stale)await app.refreshWith({ok:false,status:503});
+    const before=app.element('#data-status-label').textContent;
+    let finish;
+    app.context.fetch=()=>new Promise(resolve=>{finish=resolve;});
+    const pending=vm.runInContext('loadLiveGames()',app.context);
+    assert.equal(app.element('#data-status-label').textContent,before);
+    assert.doesNotMatch(before,/Connecting/);
+    if(stale)assert.match(before,/Stale scores/);
+    finish(feed);await pending;app.context.fetch=fetch;
+  }
+});
+
 test('refresh keeps card identities and visible order while explicit filters apply current ranking',async()=>{
   const app=startApp();
   const high={...realGame,state:'live',score:83,live:{phase:'Q4'}},low={...high,id:'other-game',score:60};

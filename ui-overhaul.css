@@ -6,8 +6,9 @@
   --logo-card: 32px;
   --rating-column: 94px;
   --motion-feedback: 140ms;
-  --motion-panel: 230ms;
+  --motion-panel: 180ms;
   --motion-update: 300ms;
+  --sr-motion-slow: 180ms;
 }
 html { scroll-padding-top: 16px; }
 body { min-width: 0; }
@@ -126,8 +127,15 @@ body { min-width: 0; }
 .detail-excitement-score, .detail-excitement-score.extreme { box-shadow: none; text-shadow: none; }
 .detail-tabs { position: sticky; top: 0; z-index: 3; background: var(--brand-charcoal); gap: 4px; padding-block: 6px; border-bottom: 1px solid var(--line); }
 .detail-tab { min-height: 44px; border-radius: 4px; transition: background-color 160ms; }
-.detail-tab-panel { animation: panel-reveal 180ms ease-out; }
+.detail-tab-panel.nav-panel-enter { animation: panel-reveal 180ms ease-out; }
 @keyframes panel-reveal { from { opacity: .6; } to { opacity: 1; } }
+/* Page/menu motion is triggered by navigation, not by routine data updates. */
+#info-page:not(.hidden), #league-standings-page:not(.hidden), #game-list:not(.hidden) { animation: panel-reveal 160ms ease-out; }
+.mobile-sport-panel.mobile-expanded { animation: mobile-sport-panel-in 150ms ease-out; }
+@keyframes sr-panel-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
 .search-game-logos { display: flex; align-items: center; gap: 4px; background: transparent; box-shadow: none; overflow: visible; }
 .search-game-logos img { width: 28px; height: 28px; object-fit: contain; }
 .search-result-leading.search-game-logos { width: 60px; flex-basis: 60px; }
@@ -222,6 +230,7 @@ body { min-width: 0; }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .game-card, .detail-overlay, .detail-tab, .detail-tab-panel, .score-circle { transition: none !important; animation: none !important; }
+  #info-page, #league-standings-page, #game-list, .mobile-sport-panel, .detail-panel { transition: none !important; animation: none !important; }
   .game-card.score-just-changed .team-score, .game-card.rating-just-changed .excitement, .game-card.rating-just-changed .score-trend { animation: none !important; }
 }
 
@@ -278,4 +287,22 @@ body { min-width: 0; }
   .detail-team:first-child > b { grid-column: 2; }
   .detail-team:nth-child(2) > b { grid-column: 1; }
   .detail-scoreboard.pregame .pregame-versus { top: 29px; }
+}
+/* Automatic scrolling loads more cards. Keyboard and screen-reader users also
+   have an explicit fallback without adding a control to the pointer layout. */
+#game-list > .slate-load-more:not(:focus-visible) {
+  position:absolute;
+  width:1px;
+  height:1px;
+  padding:0;
+  margin:-1px;
+  overflow:hidden;
+  clip-path:inset(50%);
+  white-space:nowrap;
+  border:0;
+}
+#game-list > .slate-load-more:focus-visible {
+  grid-column:1 / -1;
+  justify-self:start;
+  margin:8px 0;
 }
