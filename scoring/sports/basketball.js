@@ -9,6 +9,37 @@
   const {basketballLiveCloseness,basketballSituationImpact,basketballScoringMilestone} = typeof module !== 'undefined' && module.exports
     ? require('../shared/basketball.js')
     : root.SportsRadarScoring.shared_basketball;
+  const {clockSeconds} = typeof module !== 'undefined' && module.exports
+    ? require('../shared/time.js')
+    : root.SportsRadarScoring.shared_time;
+
+  const smoothStep = value => {
+    const x = Math.max(0,Math.min(1,value));
+    return x*x*(3-2*x);
+  };
+
+  function nbaLatePressureFloor({game,status,progress,scoreGap,situation}) {
+    const period = Number(status?.period);
+    if (game.sport !== 'NBA' || !Number.isFinite(scoreGap) ||
+        !Number.isInteger(period) || period < 4 || status?.timingUncertain) return 0;
+    const seconds = clockSeconds(status);
+    const overtime = period > 4;
+    if (seconds === null || seconds < 0 || seconds > (overtime ? 300 : 420)) return 0;
+    const state = basketballLiveCloseness('NBA',scoreGap,progress,{
+      status,teams:game.teams,situation
+    });
+    if (!state) return 0;
+    // Begin a smooth ramp with seven minutes left, then taper it for a wider
+    // margin or an implausible comeback. Reuse the existing competitive-floor
+    // budget instead of adding another generic clock bonus.
+    // Overtime stays urgent after its clock resets; an OT tip must not erase
+    // the live pressure already established at the end of regulation.
+    const urgency = overtime
+      ? .85+.15*smoothStep((300-seconds)/270)
+      : smoothStep((420-seconds)/390);
+    const competitiveMargin = 1-smoothStep((scoreGap-3)/6);
+    return Math.round(20*urgency*competitiveMargin*state.comebackFeasibility);
+  }
 
   function basketballLeadChanges({sport,state,flipPositions,currentProgress,basketballDramaBucket,basketballLatePhase,factors,details}) {
     /*
@@ -231,8 +262,11 @@
   const nbaModel = {
     duration:48,pregame:basketballPregame,
     gameState:basketballGameState,
-    situation:({game,status,progress,scoreGap,situation}) =>
-      basketballSituationImpact(game,status,progress,scoreGap,situation),
+    situation:({game,status,progress,scoreGap,situation,nbaLivePressure=false}) => {
+      const existing = basketballSituationImpact(game,status,progress,scoreGap,situation);
+      const floor = nbaLivePressure ? nbaLatePressureFloor({game,status,progress,scoreGap,situation}) : 0;
+      return floor ? {...existing,competitiveFloor:Math.max(existing.competitiveFloor||0,floor)} : existing;
+    },
     milestone:basketballScoringMilestone,
     eventShock:basketballEventShock,
     history:{threshold:10,units:'points',dramaBucket:'basketball-late-drama',dramaCap:15,

@@ -37,6 +37,12 @@ function lateCollegeState(game,c) {
  return {urgency:urgency*closeness};
 }
 function tensionPolicy(game,c) {
+ if(game.sport==='NBA'){
+  // Optional current WP can vanish between otherwise identical verified
+  // scoreboard observations. Keep its influence modest; score, clock and
+  // possession already own basketball comeback feasibility.
+  return {kind:'margin-modifier',uncertaintyWeight:.08,currentTensionCeiling:34};
+ }
  const state=lateCollegeState(game,c);
  return state?{kind:'margin-modifier',uncertaintyWeight:.35,currentTensionCeiling:34+10*state.urgency}:null;
 }

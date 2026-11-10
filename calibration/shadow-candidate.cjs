@@ -188,7 +188,8 @@ function candidateLiveSnapshot(core,game,competition,summary,floorBudget=null,nh
   const scoreGap = Math.abs(Number(game.teams?.[0]?.[2])-Number(game.teams?.[1]?.[2]));
   let sportImpact = SPORT_MODELS[game.sport]?.situation?.({
     game:floorBudget===null ? game : {...game,baseScore:floorBudget.floorBaseScore},
-    competition,summary,status,situation,progress,scoreGap,nhlAllocation
+    competition,summary,status,situation,progress,scoreGap,nhlAllocation,
+    nbaLivePressure:game.sport==='NBA' && game.nbaLivePressure===true
   }) || {points:0,note:'',reasons:[],bases:null};
   if(collegeFinishEnabled)sportImpact=collegeFinish.situation(game,competition,sportImpact);
   if (floorBudget) sportImpact.competitiveFloor=Math.min(floorBudget.originalFloor,sportImpact.competitiveFloor);
@@ -410,6 +411,7 @@ function candidateGameRating(core,game,competition,summary,policy=null,trajector
   if (game.state !== 'live') {
     return nonLiveCandidateRating(game,summary);
   }
+  if(trajectoryPolicy?.nbaLivePressure && game.sport==='NBA') game={...game,nbaLivePressure:true};
   const prepared = prepareCandidateGameRating(core,game,competition,summary,trajectoryPolicy?.openingTransition);
   if(game._historicalEvidence){prepared.historySummary=game._historicalEvidence.summary;prepared.trajectory=game._historicalEvidence.trajectory;}
   if (trajectoryPolicy?.footballTransition && ['NFL','CFB'].includes(game.sport)) policy={...(policy || DEFAULT_CURRENT_TENSION_POLICY),footballEvidence:{game}};
