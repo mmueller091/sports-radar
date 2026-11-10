@@ -42,13 +42,13 @@ test('scoreboard places the home team on the bottom when the feed lists it first
 });
 
 test('adaptive browser polling is fast only for visible live or near-start feeds',()=>{
-  assert.equal(context.liveRefreshDelay(true,false),7000);
+  assert.equal(context.liveRefreshDelay(true,false),3000);
   assert.equal(context.liveRefreshDelay(true,true),60000);
   assert.equal(context.liveRefreshDelay(false,false),60000);
   assert.equal(context.liveRefreshDelay(false,true),60000);
   assert.equal(context.liveRefreshDelay(false,false,true),10000);
   assert.equal(context.liveRefreshDelay(false,true,true),60000);
-  assert.equal(context.liveRefreshDelay(true,false,true),7000);
+  assert.equal(context.liveRefreshDelay(true,false,true),3000);
   assert.equal(context.liveRefreshDelay(true,true,true),60000);
   assert.match(source,/if \(liveRefreshInFlight\) return/);
   assert.match(source,/document\.addEventListener\('visibilitychange'/);

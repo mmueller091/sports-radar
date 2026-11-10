@@ -674,7 +674,7 @@ function gameStartingSoon(game,now=Date.now()) {
 }
 
 function liveRefreshDelay(hasLiveGames,isHidden,hasStartingGames=false) {
-  return isHidden ? 60000 : hasLiveGames ? 7000 : hasStartingGames ? 10000 : 60000;
+  return isHidden ? 60000 : hasLiveGames ? 3000 : hasStartingGames ? 10000 : 60000;
 }
 
 let liveRefreshTimer = null;
@@ -699,7 +699,7 @@ async function loadLiveGames() {
   $('#data-status-label').textContent = 'Connecting to live scoreboards…';
   try {
     const endpoint = String(globalThis.SPORTS_RADAR_ALERTS_URL || '').replace(/\/$/,'');
-    const response = await fetch(`${endpoint}/feed`,{cache:'no-store',signal:AbortSignal.timeout(10000)});
+    const response = await fetch(`${endpoint}/feed?view=compact`,{cache:'no-store',signal:AbortSignal.timeout(10000)});
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
     const feed = await response.json();
     if (!Array.isArray(feed.games) || !Number.isFinite(Date.parse(feed.updatedAt))) throw new Error('Invalid feed');

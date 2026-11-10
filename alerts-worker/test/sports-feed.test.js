@@ -37,8 +37,8 @@ function awayHomeTeams(teams,fixture){
   return [...teams].sort((a,b)=>(order.get(String(a[8]||''))??2)-(order.get(String(b[8]||''))??2));
 }
 
-test('refresh cadence is 12 seconds for live feeds and 60 seconds otherwise',()=>{
-  const live={modelVersion:MODEL_VERSION,updatedAt:new Date(100000).toISOString(),games:[{state:'live'}]};
+test('refresh cadence retains twelve seconds for unsupported live sports and sixty seconds when idle',()=>{
+  const live={modelVersion:MODEL_VERSION,updatedAt:new Date(100000).toISOString(),games:[{sport:'Soccer',state:'live'}]};
   const idle={modelVersion:MODEL_VERSION,updatedAt:new Date(100000).toISOString(),games:[{state:'upcoming'}]};
   assert.equal(refreshDue({...live,modelVersion:'old'},100000),true,'model changes invalidate scored feed');
   assert.equal(refreshDue(null,100000),true);

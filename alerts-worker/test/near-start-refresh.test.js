@@ -67,11 +67,15 @@ test('postponed, canceled and unknown start times remain excluded after feed ser
   assert.equal(gameStartingSoon(published,now),false);
 });
 
-test('near-start feed is eligible at 10 seconds while live priority remains 12 seconds and idle remains 60',()=>{
+test('near-start stays at 10 seconds, public live uses 5 seconds, hidden live keeps 12 and idle keeps 60',()=>{
   const now=Date.now(),feed={modelVersion:MODEL_VERSION,updatedAt:new Date(now).toISOString(),games:[upcoming(now+300000)]};
   assert.equal(refreshDue(feed,now+9999),false);assert.equal(refreshDue(feed,now+10000),true);
-  const mixed={...feed,games:[...feed.games,{state:'live'}]};
-  assert.equal(refreshDue(mixed,now+10000),false);assert.equal(refreshDue(mixed,now+11999),false);assert.equal(refreshDue(mixed,now+12000),true);
+  const mixed={...feed,games:[...feed.games,{sport:'CFB',state:'live'}]};
+  assert.equal(refreshDue(mixed,now+4999),false);assert.equal(refreshDue(mixed,now+5000),true);
+  for(const sport of ['NFL','CFB','NCAAB','NHL','MLB','NBA']) {
+    const live={...feed,games:[{sport,state:'live'},{sport:'Soccer',state:'live'}]};
+    assert.equal(refreshDue(live,now+4999),false,sport);assert.equal(refreshDue(live,now+5000),true,sport);
+  }
   const hiddenUpcoming={...feed,games:[upcoming(now+300000,{sport:'Soccer'})]};
   assert.equal(refreshDue(hiddenUpcoming,now+10000),false,'hidden soccer cannot accelerate pregame refresh');
   assert.equal(refreshDue(hiddenUpcoming,now+60000),true);
@@ -104,6 +108,22 @@ test('near-start NBA and NHL cache only the matching New York scoreboard date at
     }
   }
   assert.equal(f.boards('baseball/mlb')[0].ttl,55,'unrelated sport remains unchanged');
+});
+
+for(const [sport,path] of [['NFL','football/nfl'],['CFB','football/college-football'],['NCAAB','basketball/mens-college-basketball'],['NHL','hockey/nhl'],['MLB','baseball/mlb'],['NBA','basketball/nba']])
+test(`${sport} live scoreboard uses a five-second provider cache`,async t=>{
+  const now=Date.now(),f=fixture(t,[{sport,state:'live',id:sport}],now);
+  assert.ok(await f.run(now));
+  const current=f.boards(path).filter(c=>!c.url.searchParams.has('dates') || c.url.searchParams.get('dates')<=dateKey(now));
+  assert.ok(current.length>0);
+  assert.ok(current.every(c=>c.ttl===5),JSON.stringify(current));
+});
+
+test('live soccer scoreboard retains its twelve-second provider cache',async t=>{
+  const now=Date.now(),f=fixture(t,[{sport:'Soccer',state:'live',id:'soccer'}],now);
+  assert.ok(await f.run(now));
+  assert.equal(f.boards('soccer/eng.1')[0].ttl,12);
+  assert.equal(f.boards('soccer/uefa.champions')[0].ttl,12);
 });
 
 test('near-start daily cache follows the local day across midnight instead of the UTC date',async t=>{
@@ -139,13 +159,13 @@ test('near-start NFL adjacent-week cache accelerates only the matching week',asy
   assert.equal(calls.find(c=>c.url.searchParams.get('week')==='9').ttl,900);
 });
 
-test('a live sport keeps its 12-second cache even when the same scoreboard has an upcoming start',async t=>{
+test('a public live sport uses its 5-second cache even when the same scoreboard has an upcoming start',async t=>{
   const now=Date.now(),near=upcoming(now+300000,{providerPath:'football/college-football'});
   const f=fixture(t,[near,{...near,id:'live',state:'live'}],now);assert.ok(await f.run(now));
-  assert.ok(f.boards('football/college-football').every(c=>c.ttl===12));
+  assert.ok(f.boards('football/college-football').every(c=>c.ttl===5));
 });
 
-test('upcoming-to-live discovery uses the near-start cache, then restores 12-second live refresh and 15-second snapshot buckets',async t=>{
+test('upcoming-to-live discovery uses the near-start cache, then 5-second live refresh and unchanged 15-second snapshot buckets',async t=>{
   // Exercise the minute boundary deterministically. The upcoming minute bucket
   // collides with the first live 15-second bucket; an isolated pass at another
   // wall-clock alignment must not hide a missing persisted live observation.
@@ -164,9 +184,10 @@ test('upcoming-to-live discovery uses the near-start cache, then restores 12-sec
   const live=await f.run(now+10000);assert.equal(live?.games[0].state,'live');
   assert.equal(f.boards('football/college-football').filter(c=>c.url.searchParams.get('groups')==='80').at(-1).ttl,10);
   const liveCalls=f.calls.length;
-  assert.equal((await f.run(now+21999)).updatedAt,live.updatedAt);assert.equal(f.calls.length,liveCalls);
-  const next=await f.run(now+22000);assert.equal(next?.games[0].state,'live');
-  assert.equal(f.boards('football/college-football').filter(c=>c.url.searchParams.get('groups')==='80').at(-1).ttl,12);
+  assert.equal((await f.run(now+14999)).updatedAt,live.updatedAt);assert.equal(f.calls.length,liveCalls);
+  const next=await f.run(now+15000);assert.equal(next?.games[0].state,'live');
+  assert.equal(f.boards('football/college-football').filter(c=>c.url.searchParams.get('groups')==='80').at(-1).ttl,5);
+  assert.equal(f.calls.filter(c=>c.url.pathname.endsWith('/summary')).at(-1).ttl,5,'summary and scoreboard cache policy stay aligned');
   const snapshots=f.db.prepare("SELECT observed_at FROM sports_snapshots WHERE state='live' ORDER BY observed_at").all();
   assert.equal(snapshots.length,2,JSON.stringify({now,snapshots,stored:f.db.prepare('SELECT state,observed_at FROM sports_snapshots ORDER BY observed_at').all()}));assert.equal(snapshots[1].observed_at-snapshots[0].observed_at,15000);
   assert.ok(snapshots.every(s=>s.observed_at%15000===0));

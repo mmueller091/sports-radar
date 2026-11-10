@@ -5,6 +5,7 @@ import {contextsForGames,refreshStorylines} from './storylines.js';
 import {researchDiagnostics} from './research-allocation.js';
 import {readFeed,withFreshness,gameDetails,teamDetails,teamStandings,refreshDue,refreshSportsData,requestFeedRefresh} from './sports-feed.js';
 import {gameHistory} from './snapshot-history.js';
+import {publicFeed} from './public-feed.js';
 import {cfbConferenceMetadata,cfbSeason} from './cfb-metadata.js';
 import runtime from '../../scoring/live-runtime.cjs';
 import {normalizeNotificationPreferences,preferencesForRow,notificationEligible} from './notification-preferences.js';
@@ -103,8 +104,7 @@ export default {
         if (refreshDue(feed)) {
           feed = await requestFeedRefresh(env,feed,ctx);
         }
-        return reply(request,feed ? {...feed,games:feed.games.map(game=>({...game,...(game.moment?{moment:runtime.displayMoment(game)}:{}),basketballEvidence:undefined,providerEventRevisions:undefined,observationEvidence:undefined,
-          ...(game.scoreboard?{scoreboard:{...game.scoreboard,basketballEvidence:undefined,providerEventRevisions:undefined,observationEvidence:undefined}}:{})}))} : {error:'Feed is warming up'},feed ? 200 : 503);
+        return reply(request,feed ? publicFeed(feed,{compact:url.searchParams.get('view')==='compact'}) : {error:'Feed is warming up'},feed ? 200 : 503);
       } catch { return reply(request,{error:'Feed temporarily unavailable'},503); }
     }
     const detail = /^\/game\/([A-Za-z]+)\/([A-Za-z0-9_-]{1,100})$/.exec(url.pathname);

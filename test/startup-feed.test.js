@@ -4,6 +4,8 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import vm from 'node:vm';
 import sourceHelper from './helpers/scoring-source.cjs';
+import {gunzipSync} from 'node:zlib';
+import {publicFeed} from '../alerts-worker/src/public-feed.js';
 
 const source = fs.readFileSync(new URL('../app.js',import.meta.url),'utf8');
 const ratingCore = sourceHelper.scoringSource();
@@ -34,7 +36,7 @@ function startApp(production=false,now) {
   let nextFeed = feedRequest;
   let fetchCount = 0;
   let timerId = 0;
-  const timers = new Map(),listeners = new Map(),clock = {now};
+  const timers = new Map(),listeners = new Map(),clock = {now},requests=[];
   class Clock extends Date {
     constructor(...args) {super(...(args.length ? args : [clock.now]));}
     static now() {return clock.now;}
@@ -46,7 +48,7 @@ function startApp(production=false,now) {
     window:{addEventListener(){}},
     navigator:{},location:{hash:''},
     localStorage:{getItem:() => null,setItem(){}},
-    fetch:() => { fetchCount++; return nextFeed; },
+    fetch:(url,options) => { fetchCount++;requests.push({url,options});return nextFeed; },
     AbortSignal,setTimeout:(fn,delay)=>{const id=++timerId;timers.set(id,{fn,delay});return id;},clearTimeout:id=>timers.delete(id),setInterval(){}
   });
   vm.runInContext(ratingCore,context);
@@ -54,7 +56,7 @@ function startApp(production=false,now) {
   if (production) vm.runInContext(fs.readFileSync(new URL('../dist/scoring-runtime.js',import.meta.url),'utf8'),context);
   vm.runInContext(source,context);
   return {
-    element,resolveFeed,rejectFeed,context,timers,listeners,clock,
+    element,resolveFeed,rejectFeed,context,timers,listeners,clock,requests,
     refreshWith:response => {
       nextFeed = Promise.resolve(response);
       return vm.runInContext('loadLiveGames()',context);
@@ -97,20 +99,23 @@ test('hidden soccer alone cannot trigger rapid browser polling, but enabled spor
   await new Promise(resolve=>setImmediate(resolve));
   assert.equal(delay(),60000,'hidden soccer pregame stays idle');
   await app.refreshWith(feed([{...soccer,state:'live'}]));
-  assert.equal(delay(),60000,'hidden soccer live cannot trigger 7-second browser polling');
+  assert.equal(delay(),60000,'hidden soccer live cannot trigger 3-second browser polling');
   await app.refreshWith(feed([{...soccer,state:'live'},enabled]));
   assert.equal(delay(),10000,'an enabled sport near start activates 10-second polling');
   await app.refreshWith(feed([{...soccer,state:'live'},{...enabled,state:'live'}]));
-  assert.equal(delay(),7000,'an enabled live game activates 7-second polling');
+  assert.equal(delay(),3000,'an enabled live game activates 3-second polling');
 });
 
-test('actual browser scheduling uses 7-second live and 10-second near-start polling without overlapping requests',async()=>{
+test('actual browser scheduling uses 3-second live and 10-second near-start polling without overlapping requests',async()=>{
   const now=Date.parse('2026-11-06T23:00:00Z'),app=startApp(false,now);
   const near={...realGame,startTime:new Date(now+900000).toISOString()};
   const feed=games=>({ok:true,json:async()=>({updatedAt:new Date(app.clock.now).toISOString(),games})});
   const delay=()=>[...app.timers.values()].find(timer=>timer.fn===app.context.loadLiveGames)?.delay;
   await vm.runInContext('loadLiveGames()',app.context);
   assert.equal(app.fetchCount,1,'initial pending request cannot overlap');
+  assert.equal(app.requests[0].url,'/feed?view=compact');
+  assert.equal(app.requests[0].options.cache,'no-store');
+  assert.equal(app.timers.size,0,'the refresh delay starts only after the response completes');
   app.resolveFeed(feed([near]));
   await new Promise(resolve=>setImmediate(resolve));
   assert.equal(delay(),10000);
@@ -122,7 +127,7 @@ test('actual browser scheduling uses 7-second live and 10-second near-start poll
   app.context.document.hidden=false;
   app.listeners.get('visibilitychange')();
   await new Promise(resolve=>setImmediate(resolve));
-  assert.equal(delay(),7000,'returning to the tab refreshes immediately then uses the live interval');
+  assert.equal(delay(),3000,'returning to the tab refreshes immediately then uses the live interval');
   assert.equal(app.timers.size,1,'only one refresh timer remains');
   await app.refreshWith(feed([near]));
   assert.equal(delay(),10000);
@@ -219,4 +224,29 @@ test('Tennis cached non-major records disappear on refresh across every current-
   assert.doesNotMatch(app.element('#game-list').innerHTML,/game-card/);
   await app.refreshWith({ok:true,json:async()=>({modelVersion:version,updatedAt:new Date(Date.now()+1000).toISOString(),games:[excluded]})});
   assert.equal(vm.runInContext('games.length',app.context),0);
+});
+
+test('compact feed preserves card and Game Center rendering for captured games across all six enabled sports',async()=>{
+  const captured=JSON.parse(gunzipSync(fs.readFileSync(new URL('./fixtures/ui-corrections-feed.json.gz',import.meta.url))));
+  const original=JSON.stringify(captured),apps=[startApp(true,Date.parse(captured.updatedAt)),startApp(true,Date.parse(captured.updatedAt))];
+  const payloads=[publicFeed(captured),publicFeed(captured,{compact:true})].map(feed=>JSON.parse(JSON.stringify(feed)));
+  for(let index=0;index<apps.length;index++){
+    const app=apps[index];
+    payloads[index].modelVersion=app.context.SportsRadarScore.MODEL_VERSION;
+    for(const game of payloads[index].games)game.modelVersion=payloads[index].modelVersion;
+    for(const file of ['game-center.js','watch-links.js','team-logos.js'])
+      vm.runInContext(fs.readFileSync(new URL('../'+file,import.meta.url),'utf8'),app.context);
+    app.resolveFeed({ok:true,json:async()=>payloads[index]});
+  }
+  await new Promise(resolve=>setImmediate(resolve));
+  assert.equal(apps[1].element('#game-list').innerHTML,apps[0].element('#game-list').innerHTML);
+  assert.deepEqual(new Set(captured.games.map(game=>game.sport)),new Set(['NFL','CFB','NBA','NCAAB','NHL','MLB']));
+  for(let index=0;index<captured.games.length;index++){
+    const html=apps.map(app=>{
+      vm.runInContext(`renderDetailContent(games[${index}],{})`,app.context);
+      return app.element('#game-detail-content').innerHTML;
+    });
+    assert.equal(html[1],html[0],`${captured.games[index].sport}:${captured.games[index].id}`);
+  }
+  assert.equal(JSON.stringify(captured),original);
 });

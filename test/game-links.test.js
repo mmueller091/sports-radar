@@ -22,7 +22,7 @@ function harness(hash,{available=true,inFeed=false,initialState='completed'}={})
     SPORTS_RADAR_ALERTS_URL:'https://worker.test',
     fetch:async url=>{
       calls.push(String(url));
-      if(String(url).endsWith('/feed'))return Response.json({modelVersion:context.SportsRadarScore.MODEL_VERSION,updatedAt:new Date().toISOString(),games:inFeed?[serverGame]:[]});
+      if(new URL(url).pathname==='/feed')return Response.json({modelVersion:context.SportsRadarScore.MODEL_VERSION,updatedAt:new Date().toISOString(),games:inFeed?[serverGame]:[]});
       if(String(url).includes('/game/'))return available?Response.json({...fixture.summary,sportsRadarGame:serverGame,sportsRadarArchived:true,sportsRadarFreshness:{updatedAt:new Date().toISOString()}}):Response.json({error:'Game not found'},{status:404});
       return Response.json({});
     }});
