@@ -14,9 +14,6 @@ const insertClaim=`INSERT OR IGNORE INTO social_post_claims
 const updateClaim=`UPDATE social_post_claims SET status=?,updated_at=?,buffer_post_id=?,error_code=?
  WHERE sport=? AND game_id=? AND milestone=? AND status='sending'`;
 
-const positiveInt=(value,fallback,max)=>Number.isSafeInteger(Number(value))&&Number(value)>0
-  ?Math.min(Number(value),max):fallback;
-
 function logCycle(log,payload){log(JSON.stringify({system:'slatemeter-social-bot',...payload}));}
 
 async function channelIdFor(env,fetchImpl,log){
@@ -44,13 +41,12 @@ export async function runCycle(env,{now=Date.now(),fetchImpl=fetch,log=console.l
   const feedAt=Date.parse(feed.updatedAt);
   const live=feed.games.filter(game=>eligibleLiveGame(feed,game,now,expected));
   live.sort((a,b)=>Number(b.score)-Number(a.score));
-  const maxPerRun=positiveInt(env.MAX_POSTS_PER_RUN,3,20);
   // A disabled Worker may verify its Buffer connection, but cannot send a post.
   // The resolved channel is cached so subsequent cron runs need no Buffer API calls.
   if(!enabled&&env.BUFFER_API_KEY)await channelIdFor(env,fetchImpl,log);
   const channelId=enabled?await channelIdFor(env,fetchImpl,log):null;
   const summary={outcome:'ok',enabled,eligible:live.length,observed:0,crossings:0,
-    claimed:0,accepted:0,rejected:0,deliveryUnknown:0,skippedByLimit:0};
+    claimed:0,accepted:0,rejected:0,deliveryUnknown:0};
   for(const game of live){
     const id=String(game.id),sport=game.sport,rating=Number(game.score);
     const previous=await env.BOT_DB.prepare(`SELECT rating,model_version,feed_at FROM social_seen_games
@@ -65,13 +61,9 @@ export async function runCycle(env,{now=Date.now(),fetchImpl=fetch,log=console.l
     }
     let claimWon=false;
     if(draft?.eligible){
-      if(summary.claimed>=maxPerRun){
-        summary.skippedByLimit++;
-      }else{
-        const result=await env.BOT_DB.prepare(insertClaim)
-          .bind(sport,id,BOT_THRESHOLD,'reserved',rating,feedAt,now,now).run();
-        claimWon=Boolean(result.meta?.changes);
-      }
+      const result=await env.BOT_DB.prepare(insertClaim)
+        .bind(sport,id,BOT_THRESHOLD,'reserved',rating,feedAt,now,now).run();
+      claimWon=Boolean(result.meta?.changes);
     }
     await env.BOT_DB.prepare(upsertSeen).bind(sport,id,game.modelVersion,rating,feedAt).run();
     summary.observed++;

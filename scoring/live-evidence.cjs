@@ -1,6 +1,7 @@
 // Bounded, verified evidence only. No provider requests or score smoothing.
 const {normalizedTime}=require('./shared/time.js');
 const {hockeyOnIceState,hockeyElapsed,hockeyPlayClockMode,hockeyOvertime}=require('./sports/nhl.js');
+const {compactNhlParticipants}=require('./provider-evidence.cjs');
 const clone=x=>JSON.parse(JSON.stringify(x));
 const identity=g=>`${g.sport}:${g.id}:${(g.teams||[]).map(t=>String(t[8])).sort().join(',')}`;
 const scores=c=>Object.fromEntries((c?.competitors||[]).map(t=>[String(t.team?.id||t.id),Number(t.score)]));
@@ -21,12 +22,13 @@ function compatible(game,c,e,now){
   t!==null&&t>=e.elapsed&&t-e.elapsed<=120&&period>=e.period&&period<=e.period+1&&
   (period===e.period||period<=regulation)&&!lower(scores(c),e.scores);
 }
-function compactPlay(p){return {...Object.fromEntries(['id','sequenceNumber','period','clock','homeScore','awayScore','text','type','scoringPlay','extraAttacker','modified','lastModified','updatedAt','wallclock'].filter(k=>p[k]!==undefined).map(k=>[k,p[k]])),...(p.team?{team:{id:p.team.id}}:{})};}
-function historicalSummary(summary){
+function compactPlay(p,sport){return {...Object.fromEntries(['id','sequenceNumber','period','clock','homeScore','awayScore','text','type','scoringPlay','extraAttacker','modified','lastModified','updatedAt','wallclock',...(sport==='NHL'?['strength','participants']:[])].filter(k=>p[k]!==undefined).map(k=>[k,
+ sport==='NHL' && k==='participants' ? compactNhlParticipants(p[k]) : p[k]])),...(p.team?{team:{id:p.team.id}}:{})};}
+function historicalSummary(summary,sport){
  const scoring=summary.scoringPlays?.length?summary.scoringPlays:(summary.plays||[]).filter(p=>p.scoringPlay);
  if(scoring.length>100||(summary.winprobability||[]).length>1024)return null;
- const plays=[...new Map([...scoring,...(summary.plays||[]).slice(-16)].map(p=>[String(p.id||JSON.stringify(p)),compactPlay(p)])).values()];
- return {scoringPlays:scoring.map(compactPlay),plays,winprobability:(summary.winprobability||[]).map(p=>({playId:p.playId,homeWinPercentage:p.homeWinPercentage??p.homeWinProbability??p.homeWinPct??p.value})),sportsRadarEvidence:summary.sportsRadarEvidence,
+ const plays=[...new Map([...scoring,...(summary.plays||[]).slice(-16)].map(p=>[String(p.id||JSON.stringify(p)),compactPlay(p,sport)])).values()];
+ return {scoringPlays:scoring.map(p=>compactPlay(p,sport)),plays,winprobability:(summary.winprobability||[]).map(p=>({playId:p.playId,homeWinPercentage:p.homeWinPercentage??p.homeWinProbability??p.homeWinPct??p.value})),sportsRadarEvidence:summary.sportsRadarEvidence,
   ...Object.fromEntries(['playsComplete','scoringPlaysComplete','hasMore','pagination'].filter(k=>summary[k]!==undefined).map(k=>[k,summary[k]]))};
 }
 function ledgerQuality(summary,c,sport=''){
@@ -73,7 +75,7 @@ function historyFor(game,c,accepted,now=Date.now()){
 function rememberHistory(game,c,summary,result,now=Date.now()){
  if(!summary || !(summary.scoringPlays?.length||summary.plays?.length||summary.winprobability?.length))return;
  if(!validLedger(summary,c,game.sport)){delete game.verifiedLiveEvidence;return;}
- const compact=historicalSummary(summary),t=elapsed(game,c);if(!compact||t===null)return;
+ const compact=historicalSummary(summary,game.sport),t=elapsed(game,c);if(!compact||t===null)return;
  const evidence={identity:identity(game),observedAt:now,elapsed:t,period:Number(c.status?.period),scores:scores(c),summary:compact,trajectory:result.trajectory,quality:ledgerQuality(summary,c,game.sport)};
  // Do not grow snapshots without a hard bound or silently truncate a ledger.
  // Explicit play-linked probabilities and revision/quality provenance add a
@@ -92,6 +94,12 @@ function currentManpower(game,c,accepted,now=Date.now()){
   effective={...accepted,boxscore:{...accepted.boxscore,players:previous.goalies}};
  const state=effective&&hockeyOnIceState(effective,game.teams);
  game.manpowerQuality=require('./nhl-manpower-evidence.cjs').inspectManpower(effective,c,state);
+ if(game.manpowerQuality.state==='conflict'){
+  // Preserve the actual observation and unrelated goals, but never treat a
+  // known-invalid lineup as a confirmed advantage or as the next trusted cache.
+  delete game.manpowerEvidence;
+  return {...effective,sportsRadarManpower:game.manpowerQuality};
+ }
  const known=state?.sides?.length===2&&new Set(state.sides.map(s=>s.id)).size===2&&state.sides.every(s=>s.goalieKnown&&s.count>=4&&s.count<=7&&game.teams.some(t=>String(t[8])===s.id));
  if(known){
   const mode=hockeyPlayClockMode(effective),penalties=(effective.plays||[]).filter(p=>Number(p.type?.penaltyMinutes)>0);

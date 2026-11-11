@@ -4,6 +4,12 @@ const {hockeyElapsed,hockeyPlayClockMode,hockeyOvertime}=require('./sports/nhl.j
 const stable=value=>JSON.stringify(value,(_key,item)=>item&&typeof item==='object'&&!Array.isArray(item)
  ? Object.fromEntries(Object.keys(item).sort().map(key=>[key,item[key]])):item);
 const numeric=value=>value!==null&&value!==undefined&&value!==''&&Number.isFinite(Number(value));
+// Retained scoring identity needs roles and IDs, not headshots, bios or season
+// totals. Keep fresh provider objects intact and preserve existing byte caps.
+function compactNhlParticipants(participants){
+ return participants?.map(p=>({...Object.fromEntries(['type','role','id'].filter(k=>p[k]!==undefined).map(k=>[k,p[k]])),
+  ...(p.athlete?.id!=null?{athlete:{id:p.athlete.id}}:{})}));
+}
 function revisionTime(play){
  for(const key of ['modified','lastModified','modifiedAt','updatedAt','revisionTimestamp']){
   const value=play?.[key],at=typeof value==='number'?value:Date.parse(value||'');if(Number.isFinite(at))return at;
@@ -104,7 +110,8 @@ function normalizeSummary(game,c,summary){
  for(const list of rawContainers)for(const p of list)if(p.id!=null){const id=String(p.id);if(!byId.has(id))byId.set(id,[]);byId.get(id).push(p);}
  const replacements=new Map(),conflictingIds=new Set();
  const factual=p=>({homeScore:p.homeScore,awayScore:p.awayScore,period:p.period?.number??p.period,clock:p.clock?.displayValue,
-  type:p.type?.id,scoringPlay:p.scoringPlay,team:p.team?.id});
+  type:p.type?.id,scoringPlay:p.scoringPlay,team:p.team?.id,
+  ...(game.sport==='NHL'?{strength:p.strength,scorer:p.participants?.filter(person=>person.type==='scorer').map(person=>String(person.athlete?.id || person.id || '')).sort()}: {})});
  for(const [id,records]of byId){
   if(records.length<2)continue;
   const times=records.map(revisionTime),ordered=times.every(t=>t!==null)&&new Set(times).size>1;
@@ -153,8 +160,10 @@ function normalizeSummary(game,c,summary){
  if(game.state==='live'){
   for(const p of sourcePlays){if(p.id==null||revisionTime(p)===null)continue;const old=revisions.get(String(p.id));if(!old||revisionTime(p)>=revisionTime(old))revisions.set(String(p.id),p);}
   const keys=['id','sequenceNumber','period','clock','homeScore','awayScore','text','shortText','type','scoringPlay','scoreValue','statYardage','team','start','end','modified','lastModified','modifiedAt','updatedAt','revisionTimestamp'];
+  if(game.sport==='NHL')keys.push('strength','participants');
   const events=[...revisions.values()].sort((a,b)=>revisionTime(b)-revisionTime(a)).slice(0,1024)
-   .map(p=>Object.fromEntries(keys.filter(k=>p[k]!==undefined).map(k=>[k,p[k]])));
+   .map(p=>Object.fromEntries(keys.filter(k=>p[k]!==undefined).map(k=>[k,
+    game.sport==='NHL' && k==='participants' ? compactNhlParticipants(p[k]) : p[k]])));
   let bytes=2;const bounded=[];for(const p of events){const size=stable(p).length+1;if(bytes+size>384000)break;bounded.push(p);bytes+=size;}
   if(bounded.length)game.providerEventRevisions={identity,events:bounded,truncated:bounded.length<revisions.size};
   if(bounded.length<revisions.size)info.revisionCoveragePartial=true;
@@ -183,4 +192,4 @@ function normalizeSummary(game,c,summary){
  result.sportsRadarEvidence=info;
  return result;
 }
-module.exports={normalizeSummary,normalizeEvents,eventTime,revisionTime};
+module.exports={normalizeSummary,normalizeEvents,eventTime,revisionTime,compactNhlParticipants};

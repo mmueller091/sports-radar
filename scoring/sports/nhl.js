@@ -162,7 +162,8 @@
     let pulledGoalieTeam = null;
     let pulledGoalieTeamId = null;
 
-    if (sides.every(side => side.goalieKnown && side.count >= 4)) {
+    const invalid=summary?.sportsRadarManpower?.state==='conflict';
+    if (!invalid && sides.every(side => side.goalieKnown && side.count >= 4)) {
       const high = sides[0].skaters > sides[1].skaters ? sides[0] : sides[1];
       const low = high === sides[0] ? sides[1] : sides[0];
       // Removing a goalie alone is not a penalty advantage.
@@ -176,7 +177,7 @@
     const noGoalie =
       sides.find(side =>
         side.goalieKnown && !side.hasGoalie &&
-        side.count >= 5
+        side.count >= 4
       );
 
     const withGoalie =
@@ -185,7 +186,7 @@
       );
 
     if (
-      noGoalie &&
+      !invalid && noGoalie &&
       withGoalie
     ) {
       pulledGoalieTeam =
@@ -226,11 +227,12 @@
     const teamId=state?.pulledGoalieTeamId || null;
     if (!teamId) return {teamId:null,delayedPenaltyExtraAttacker:false};
     const side=state.sides?.find(entry=>entry.id===teamId);
-    if (!side || side.skaters!==6) return {teamId,delayedPenaltyExtraAttacker:false};
+    if (!side) return {teamId:null,delayedPenaltyExtraAttacker:false};
     const now=hockeyElapsed(status,false);
     if (now===null) return {teamId,delayedPenaltyExtraAttacker:false};
     const period=Number(status?.period?.number ?? status?.period);
-    const remaining=clockSeconds(status);
+    const raw=clockSeconds({...status,clockMode:undefined});
+    const remaining=raw===null ? null : status?.clockMode==='elapsed' ? (period<=3?1200:300)-raw : raw;
     const mode=hockeyPlayClockMode(summary || {});
     const delayed=(summary?.plays || []).some(play=>{
       const eventPeriod=Number(play.period?.number ?? play.period);
@@ -254,10 +256,21 @@
     // Before the usual tactical-pull window, an unmarked six-on-five is not
     // proof of an intentional pull. ESPN may publish onIce before the call.
     const other=state.sides?.find(entry=>entry.id!==teamId);
-    const unconfirmedEarlySixOnFive=!delayed && other?.hasGoalie && other.skaters===5 &&
+    const unconfirmedEarlySixOnFive=!delayed && side.skaters===6 && other?.hasGoalie && other.skaters===5 &&
       (period<3 || (period===3 && remaining!==null && remaining>180));
-    return {teamId:delayed || unconfirmedEarlySixOnFive ? null : teamId,
-      delayedPenaltyExtraAttacker:delayed,unconfirmedEarlySixOnFive};
+    // Reduced-strength extra attackers do not establish tactical intent by
+    // themselves. Explicit provider intent can resolve an otherwise unknown pull.
+    const explicitTactical=summary?.plays?.some(play=>String(play.team?.id || play.teamId || '')===teamId &&
+      /(?:goalie|goaltender).*(?:pulled|bench)|(?:pulled|pulls).*(?:goalie|goaltender)/i.test(play.text || '') &&
+      !/delayed[ -]?penalty/i.test(play.text || '') && (()=>{
+        const at=hockeyElapsed({period:play.period?.number ?? play.period,displayClock:play.clock?.displayValue,
+          clock:play.clock?.value,clockMode:mode},false);
+        return at!==null && now-at>=0 && now-at<=45;
+      })());
+    const uncertainReduced=!delayed && side.skaters<6 && !explicitTactical;
+    return {teamId:delayed || uncertainReduced || (unconfirmedEarlySixOnFive && !explicitTactical) ? null : teamId,
+      delayedPenaltyExtraAttacker:delayed,unconfirmedEarlySixOnFive:unconfirmedEarlySixOnFive && !explicitTactical,
+      uncertainReduced};
   }
 
   function hockeyOvertime(event,competition,summary,context='',normalized=false) {
@@ -330,7 +343,9 @@
     const trailing = scores.length === 2 && scores.every(Number.isFinite) && scores[0] !== scores[1]
       ? String(game.teams[scores[0] < scores[1] ? 0 : 1][8] || '') : '';
     const pulled = Boolean(trailing && goaliePull.teamId === trailing);
-    const powerPlay = Boolean(trailing && state?.powerPlayTeamId === trailing);
+    const trailingPowerPlay = Boolean(trailing && state?.powerPlayTeamId === trailing);
+    const tiedPowerPlay = scoreGap===0 && Boolean(state?.powerPlayTeamId);
+    const powerPlay = trailingPowerPlay || tiedPowerPlay;
     const advantage = powerPlay || scoreGap === 0 ? state?.powerPlayAdvantage || 0 : 0;
     const timing=allocation ? hockeyLiveTiming(game.sourceEvent,{...competition,status},summary) : null;
     const seconds = timing ? timing.seconds : clockSeconds(status);
@@ -345,7 +360,8 @@
       if (ot.postseason && ot.deciding) target=Math.max(target,96);
       if (ot.postseason && ot.final) target=Math.max(target,95);
       if (ot.postseason && ot.final && ot.deciding) target=99;
-      note=ot.postseason ? `Playoff sudden-death ${ot.depth > 1 ? ot.depth : ''}OT` : '3-on-3 overtime';
+      const skaters=state?.sides?.every(s=>s.hasGoalie) ? state.sides.map(s=>s.skaters).sort((a,b)=>b-a) : [3,3];
+      note=ot.postseason ? `Playoff sudden-death ${ot.depth > 1 ? ot.depth : ''}OT` : `${skaters.join('-on-')} overtime${advantage ? ' power play' : ''}`;
     } else if (late && scoreGap <= 1) {
       if (scoreGap === 0) target=smoothNhlTarget(seconds,allocation ? [
         [1200,52],[720,62],[600,68],[300,78],[120,83],[60,85],[0,87]
@@ -365,7 +381,7 @@
       if (advantage>=2) target=reach(180,89);
       if (pulled) target=reach(180,powerPlay?91:85);
       note = pulled ? (powerPlay ? 'Pulled the goalie with a power play' : 'Pulled the goalie')
-        : advantage >= 2 ? 'Two-skater advantage' : powerPlay ? 'Trailing-team power play' : '';
+        : advantage >= 2 ? 'Two-skater advantage' : tiedPowerPlay ? 'Tied-game power play' : trailingPowerPlay ? 'Trailing-team power play' : '';
     } else if (late && scoreGap === 2 && (allocation || seconds <= 180) && (pulled || powerPlay)) {
       target = (pulled && powerPlay ? 55 : 46)*(allocation ? smoothNhlTarget(seconds,[[1200,0],[180,1],[0,1]]) : 1);
       note='Two-goal comeback with extra manpower';
@@ -377,7 +393,7 @@
     if (!note && state?.powerPlayTeam) note=`${state.powerPlayTeam} power play`;
     if (!note && goaliePull.teamId && state?.pulledGoalieTeam) note=`${state.pulledGoalieTeam} pulled the goalie`;
     const viability=nhlLiveMarginCloseness(scoreGap,progress,{trailingGoaliePulled:pulled,trailingPowerPlay:powerPlay});
-    const points=Math.round((powerPlay ? 5 : pulled ? 3 : state?.powerPlayTeam ? (scoreGap === 0 ? 4 : 1) : 0)*viability);
+    const points=Math.round((trailingPowerPlay ? 5 : pulled ? 3 : state?.powerPlayTeam ? (scoreGap === 0 ? 4 : 1) : 0)*viability);
     const base=Number(game.baseScore);
     // Preserve only already-earned non-stakes context. Postseason is owned by
     // the target; subtracting carried stakes here would pay it a second time.
@@ -386,84 +402,35 @@
       competitiveFloor:Number.isFinite(base) && target ? Math.max(0,target-floorBase) : 0,
       competitiveTarget:target,manpower:{pulled,powerPlay,advantage,
         ...(goaliePull.delayedPenaltyExtraAttacker ? {goaliePullSuppressed:'probable-delayed-penalty'} :
-          goaliePull.unconfirmedEarlySixOnFive ? {goaliePullSuppressed:'unconfirmed-early-six-on-five'} : {})},overtime:ot,
+          goaliePull.unconfirmedEarlySixOnFive ? {goaliePullSuppressed:'unconfirmed-early-six-on-five'} :
+          goaliePull.uncertainReduced ? {goaliePullSuppressed:'unconfirmed-reduced-strength-extra-attacker'} : {}),
+        ...(tiedPowerPlay ? {tiedPowerPlay:true} : {}),
+        ...(trailingPowerPlay ? {trailingPowerPlay:true} : {})},overtime:ot,
       ...(allocation ? {allocation:{context:allocation.context || 0,floorBase,timing}} : {})};
   }
 
   function hockeyGoalMilestone(summary) {
-    for (
-      const block of
-      summary?.boxscore?.players ||
-      []
-    ) {
-      for (
-        const group of
-        block.statistics ||
-        []
-      ) {
-        if (
-          /goalie/i.test(
-            group.name ||
-            group.displayName ||
-            ''
-          )
-        ) {
-          continue;
-        }
-
-        const goals =
-          (group.labels || [])
-            .indexOf('G');
-
-        if (
-          goals < 0
-        ) {
-          continue;
-        }
-
-        const scorer =
-          (group.athletes || [])
-            .filter(entry =>
-              Number(
-                entry.stats?.[goals]
-              ) >= 2
-            )
-            .sort(
-              (a,b) =>
-                Number(
-                  b.stats[goals]
-                ) -
-                Number(
-                  a.stats[goals]
-                )
-            )[0];
-
-        if (scorer) {
-          const count =
-            Number(
-              scorer.stats[goals]
-            );
-
-          const name =
-            scorer.athlete?.displayName ||
-            'A player';
-
-          return {
-            scorerName:name,
-            text:
-              count >= 3
-                ? `${name} has a hat trick (${count} goals)`
-                : `${name} has 2 goals and is one away from a hat trick`,
-            points:
-              count >= 3
-                ? 6
-                : 3
-          };
+    const performances=[];
+    for (const block of summary?.boxscore?.players || []) {
+      for (const group of block.statistics || []) {
+        if (/goalie/i.test(group.name || group.displayName || '')) continue;
+        const index=(group.labels || []).indexOf('G');
+        if (index<0) continue;
+        for (const entry of group.athletes || []) {
+          const count=Number(entry.stats?.[index]);
+          if (count<2 || !Number.isFinite(count)) continue;
+          performances.push({count,scorerId:String(entry.athlete?.id || entry.athleteid || entry.athleteId || ''),
+            scorerName:entry.athlete?.displayName || 'A player'});
         }
       }
     }
-
-    return null;
+    // Stable tie breaking makes team/group ordering irrelevant, without adding
+    // multiple overlapping milestone awards or changing the existing budgets.
+    performances.sort((a,b)=>b.count-a.count || a.scorerId.localeCompare(b.scorerId) || a.scorerName.localeCompare(b.scorerName));
+    const best=performances[0];
+    if (!best) return null;
+    return {...best,text:best.count>=3 ? `${best.scorerName} has a hat trick (${best.count} goals)`
+      : `${best.scorerName} has 2 goals and is one away from a hat trick`,points:best.count>=3 ? 6 : 3};
   }
 
   function hockeyGameState({gameState,gap,progress,context}) {
@@ -504,11 +471,14 @@
     if (milestone.points === 6) {
       // A completed hat trick is an event, not a permanent live surcharge.
       const goals=(summary.scoringPlays?.length ? summary.scoringPlays : (summary.plays || []).filter(p=>p.scoringPlay))
-        .filter(p=>String(p.text || '').toLowerCase().includes(milestone.scorerName.toLowerCase()));
-      const latest=goals.at(-1);
+        .filter(p=>milestone.scorerId && (p.participants || []).some(person=>
+          String(person.type || person.role || '').toLowerCase()==='scorer' &&
+          String(person.athlete?.id || person.id || '')===milestone.scorerId));
       const postseason=hockeyOvertime(null,{status},summary).postseason;
       const now=hockeyElapsed(status,postseason);
-      const then=hockeyElapsed({period:latest?.period?.number,displayClock:latest?.clock?.displayValue,clockMode:hockeyPlayClockMode(summary)},postseason);
+      const times=goals.map(p=>hockeyElapsed({period:p.period?.number ?? p.period,displayClock:p.clock?.displayValue,
+        clock:p.clock?.value,clockMode:hockeyPlayClockMode(summary)},postseason)).filter(t=>t!==null && now!==null && t<=now);
+      const then=times.length ? Math.max(...times) : null;
       const age=now !== null && then !== null ? now-then : NaN;
       points*=Number.isFinite(age) ? Math.max(0,1-age/180) : .5;
     }
@@ -539,6 +509,10 @@
   }
 
   function hockeyPlayClockMode(summary) {
+    // Keep the accepted observation's established convention when a compact
+    // retained window no longer contains two comparable clocks.
+    if (['elapsed','remaining'].includes(summary?.sportsRadarEvidence?.clockMode))
+      return summary.sportsRadarEvidence.clockMode;
     // Archived NHL play clocks count UP, unlike scoreboard clocks. Infer this
     // only from provider sequence numbers or an increasing goal ledger; never
     // assume arbitrary recent-record ordering is chronological.
@@ -568,7 +542,7 @@
     const clockMode=hockeyPlayClockMode(summary);
     const timed=plays.map(play => ({play,time:hockeyElapsed({period:play.period?.number || play.period,displayClock:play.clock?.displayValue,clock:play.clock?.value,clockMode},postseason)}));
     const hasTime=now !== null && timed.some(item => item.time !== null);
-    const recent=hasTime ? timed.filter(item => item.time !== null && now-item.time >= 0 && now-item.time <= 90).map(item=>item.play) : plays.slice(-18);
+    const recent=hasTime ? timed.filter(item => item.time !== null && now-item.time >= 0 && now-item.time <= 90).map(item=>item.play) : [];
     const dangerous=recent.filter(play => !play.scoringPlay && /shot on goal|saved by|\bsave\b|breakaway|penalty shot|hit (?:the )?(?:post|crossbar)|off (?:the )?(?:post|crossbar)|big chance|close range|point-blank/i.test(play.text || play.shortText || play.type?.text || ''));
     const competitors=competition?.competitors || summary.header?.competitions?.[0]?.competitors || [];
     const trailing=competitors.length === 2 && Number(competitors[0].score) !== Number(competitors[1].score)
@@ -765,7 +739,10 @@
   function hockeyEventShock({text,positioned,i,play}) {
     let value = 0;
     let label = '';
-    if (/shorthanded goal|short-handed goal/.test(text)) { value=6; label='Shorthanded goal'; }
+    const strength=[play?.strength?.text,play?.strength?.abbreviation,play?.strength?.name,
+      typeof play?.strength==='string' ? play.strength : ''].filter(Boolean).join(' ');
+    if (/shorthanded goal|short-handed goal/.test(text) ||
+      (play?.scoringPlay && /short[ -]?handed|\bSH\b/i.test(strength))) { value=6; label='Shorthanded goal'; }
     return value ? {value,label} : null;
   }
 

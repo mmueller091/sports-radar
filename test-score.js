@@ -22,7 +22,29 @@ assert.match(provider,/scoreboard\?groups=80[^\n]*limit:500/);
 assert.match(provider,/scoreboard\?groups=81[^\n]*limit:500/);
 assert.match(provider,/\[yesterday,today\]\.map/);
 // Rating explanations live in Game Center; the card rating remains a game-navigation target.
-assert.match(app,/class="detail-explanation detail-why-text">\$\{safeText\(explainRating\(game,summary\)\)\}/);
+// Exercise the actual paragraph template: unrated games intentionally bypass
+// the normal explanation, while rated games still escape explainRating output.
+const explanationParagraph = app.match(/<p class="detail-explanation detail-why-text">[^\n]*?<\/p>/)?.[0];
+assert.ok(explanationParagraph,'Game Center retains its explanation paragraph');
+const explanationSummary = {};
+let explanationCalls = 0, escapedExplanations = 0;
+const renderExplanation = game => vm.runInNewContext('`'+explanationParagraph+'`',{
+  game,summary:explanationSummary,
+  explainRating:(actualGame,actualSummary) => {
+    assert.equal(actualGame,game);assert.equal(actualSummary,explanationSummary);
+    explanationCalls++;return '<rated explanation>';
+  },
+  safeText:value => {
+    assert.equal(value,'<rated explanation>');escapedExplanations++;
+    return '&lt;rated explanation&gt;';
+  }
+});
+for(const game of [{score:68},{score:68,standingsUnrated:false}])
+  assert.equal(renderExplanation(game),'<p class="detail-explanation detail-why-text">&lt;rated explanation&gt;</p>');
+assert.equal(explanationCalls,2);assert.equal(escapedExplanations,2);
+assert.equal(renderExplanation({standingsUnrated:true}),'<p class="detail-explanation detail-why-text">An excitement rating is not available for this scheduled game yet.</p>');
+assert.equal(explanationCalls,2,'Unrated games do not request an invented explanation');
+assert.equal(escapedExplanations,2,'Unrated copy bypasses the rated explanation path');
 assert.doesNotMatch(app,/class="game-context rating-context"/);
 assert.match(styles,/\.game-card:has\(\.score-dot-wrap:hover\).*z-index: 8/);
 assert.match(app,/style="\$\{scoreColorStyle\}"/);
@@ -257,7 +279,8 @@ const fixtures = `
   const hockeySummary = {onIce:[{teamId:'23',entries:[{athleteid:'g1'},{athleteid:'a'},{athleteid:'b'},{athleteid:'c'},{athleteid:'d'},{athleteid:'e'}]},{teamId:'16',entries:[{athleteid:'g2'},{athleteid:'f'},{athleteid:'g'},{athleteid:'h'},{athleteid:'i'}]}],boxscore:{players:[{team:{id:'23'},statistics:[{name:'goalies',athletes:[{athlete:{id:'g1'}}]},{name:'forwards',labels:['G'],athletes:[{athlete:{displayName:'Star Skater'},stats:['2']}]}]},{team:{id:'16'},statistics:[{name:'goalies',athletes:[{athlete:{id:'g2'}}]}]}]}};
   applyLiveSnapshot(hockey,{status:{displayClock:'12:10',period:3,type:{detail:'12:10 - 3rd Period'}}},hockeySummary);
   assert.match(hockey.live.phase,/12:10.*3rd period/);
-  assert.match(hockey.live.note,/Capitals power play/);
+  assert.equal(hockey.live.note,'Tied-game power play');
+  assert.equal(hockey.live.components.situation,4,'The tied-game power play retains its existing situation credit');
   assert.match(hockey.live.reasons.join(' '),/Star Skater.*hat trick/);
   assert.equal(hockey.live.components.milestone,3,'NHL hat-trick chase is a modest competitive bump');
   assert.equal(hockey.score,67);

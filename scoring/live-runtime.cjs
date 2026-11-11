@@ -19,7 +19,7 @@ const footballMarket=require('./football-market.cjs');
 const integrity=require('./snapshot-integrity.cjs');
 const gameFacts=require('./game-facts.cjs');
 const PRODUCTION_POLICY = Object.freeze({...LIVE_POLICY,id:LIVE_POLICY.id+'-opening-transition',footballTransition:true,openingTransition:true,nhlMidgameRunway:true,nbaLivePressure:true});
-const MODEL_VERSION = '2026-11-09.nba-live-calibration.1';
+const MODEL_VERSION = '2026-11-10.nhl-correctness.1';
 
 function describeCfbQualitySoFar(game,current,summary) {
   delete game.gameQualitySoFar;

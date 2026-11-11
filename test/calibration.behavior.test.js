@@ -127,8 +127,12 @@ test('recent dangerous chances add pressure only to a close hockey or soccer gam
     {text:'Shot hit the post'},
     {text:'Close range shot saved by the goalkeeper'}
   ]};
-  const close = core.dangerousChanceImpact('NHL',summary,.85,1);
-  const blowout = core.dangerousChanceImpact('NHL',summary,.85,4);
+  // NHL pressure now requires observed recency; descriptions alone are neutral.
+  assert.equal(core.dangerousChanceImpact('NHL',summary,.85,1).points,0);
+  summary.plays=summary.plays.map((p,n)=>({...p,period:{number:3},clock:{displayValue:`5:${30-n*5}`}}));
+  const competition={status:{period:3,displayClock:'5:00'}};
+  const close = core.dangerousChanceImpact('NHL',summary,.85,1,competition);
+  const blowout = core.dangerousChanceImpact('NHL',summary,.85,4,competition);
   assert.ok(close.points >= 5);
   assert.equal(blowout.points,0);
 });

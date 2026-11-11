@@ -43,8 +43,15 @@ function fixture({enabled=true}={}){
       .bind(JSON.stringify(feed)).run();
     return game;
   };
+  const publishMany=(count,score,at)=>{
+    const game=publish(score,at);
+    const games=Array.from({length:count},(_,i)=>({...game,id:String(401873024+i)}));
+    SOURCE_DB.prepare('UPDATE sports_feed SET payload=? WHERE id=1')
+      .bind(JSON.stringify({modelVersion:model,updatedAt:new Date(at).toISOString(),games})).run();
+    return games;
+  };
   const statuses=async()=>(await BOT_DB.prepare('SELECT * FROM social_post_claims').all()).results;
-  return {env,publish,statuses};
+  return {env,publish,publishMany,statuses};
 }
 
 function successfulBuffer(calls){
@@ -81,6 +88,24 @@ test('84, 85, 84, 86 posts once across repeated and restarted cron runs',async()
   assert.ok(publishedText.includes('https://slatemeter.app/#game/NFL/401873024'));
 });
 
+test('83, 87, 84, 86, 83, 88 posts exactly once across six separate runs',async()=>{
+  const f=fixture(),calls=[],outcomes=[];
+  for(const [index,rating] of [83,87,84,86,83,88].entries()){
+    const at=started+index*60_000;
+    f.publish(rating,at);
+    outcomes.push(await runCycle({...f.env},{now:at+100,fetchImpl:successfulBuffer(calls),log:silence}));
+    assert.equal(calls.length,index===0?0:1);
+  }
+  assert.deepEqual(outcomes.map(result=>result.crossings),[0,1,0,1,0,1]);
+  assert.deepEqual(outcomes.map(result=>result.claimed),[0,1,0,0,0,0]);
+  assert.deepEqual(outcomes.map(result=>result.accepted),[0,1,0,0,0,0]);
+  const claims=await f.statuses();
+  assert.equal(claims.length,1);
+  assert.equal(claims[0].status,'accepted');
+  assert.equal(claims[0].rating,87);
+  assert.equal(claims[0].buffer_post_id,'buffer-123');
+});
+
 test('simultaneous cycles cannot claim or send the same threshold twice',async()=>{
   const f=fixture(),calls=[],fetchImpl=successfulBuffer(calls);
   f.publish(84,started);await runCycle(f.env,{now:started+100,fetchImpl,log:silence});
@@ -106,9 +131,83 @@ test('a new crossing posts even after 20 accepted posts in the preceding day',as
   const outcome=await runCycle(f.env,{now:started+60_100,fetchImpl,log:silence});
   assert.equal(outcome.claimed,1);
   assert.equal(outcome.accepted,1);
-  assert.equal(outcome.skippedByLimit,0);
   assert.equal(calls.length,1);
   assert.equal((await f.statuses()).length,21);
+});
+
+for(const count of [4,25])for(const legacyLimit of [undefined,'1']){
+  test(`${count} distinct crossings all post with legacy limit ${legacyLimit}, then suppress duplicates`,async()=>{
+    const f=fixture(),calls=[],fetchImpl=successfulBuffer(calls);
+    if(legacyLimit!==undefined)f.env.MAX_POSTS_PER_RUN=legacyLimit;
+    f.publishMany(count,84,started);
+    await runCycle(f.env,{now:started+100,fetchImpl,log:silence});
+    f.publishMany(count,86,started+60_000);
+    const result=await runCycle(f.env,{now:started+60_100,fetchImpl,log:silence});
+    assert.equal(result.crossings,count);
+    assert.equal(result.claimed,count);
+    assert.equal(result.accepted,count);
+    const claims=await f.statuses();
+    assert.equal(claims.length,count);
+    assert.equal(new Set(claims.map(row=>row.game_id)).size,count);
+    assert.ok(claims.every(row=>row.status==='accepted'));
+    const postedIds=calls.map(call=>JSON.parse(call.options.body).variables.input.text.match(/#game\/NFL\/(\d+)/)[1]);
+    assert.deepEqual(postedIds.sort(),claims.map(row=>row.game_id).sort());
+    await runCycle(f.env,{now:started+60_100,fetchImpl,log:silence});
+    f.publishMany(count,84,started+120_000);
+    await runCycle(f.env,{now:started+120_100,fetchImpl,log:silence});
+    f.publishMany(count,86,started+180_000);
+    const repeated=await runCycle(f.env,{now:started+180_100,fetchImpl,log:silence});
+    assert.equal(repeated.claimed,0);
+    assert.equal(calls.length,count);
+  });
+}
+
+test('concurrent runs send all 25 distinct crossings exactly once',async()=>{
+  const f=fixture(),calls=[],fetchImpl=successfulBuffer(calls);
+  f.publishMany(25,84,started);
+  await runCycle(f.env,{now:started+100,fetchImpl,log:silence});
+  f.publishMany(25,86,started+60_000);
+  const results=await Promise.all(Array.from({length:3},()=>
+    runCycle(f.env,{now:started+60_100,fetchImpl,log:silence})));
+  assert.equal(results.reduce((n,r)=>n+r.claimed,0),25);
+  assert.equal(results.reduce((n,r)=>n+r.accepted,0),25);
+  assert.equal(calls.length,25);
+  assert.equal(new Set(calls.map(call=>JSON.parse(call.options.body).variables.input.text)).size,25);
+  const claims=await f.statuses();
+  assert.equal(claims.length,25);
+  assert.ok(claims.every(row=>row.status==='accepted'));
+});
+
+test('failed sends are recorded without suppressing later distinct crossings or retrying claims',async()=>{
+  const f=fixture(),calls=[],logs=[];
+  const success=successfulBuffer(calls);
+  let attempts=0;
+  const fetchImpl=async(...args)=>{
+    attempts++;
+    if(attempts===1)throw Error('Connection lost after send');
+    if(attempts===2)return {ok:false,status:429,headers:{get:()=>null}};
+    return success(...args);
+  };
+  const log=line=>logs.push(JSON.parse(line));
+  f.publishMany(25,84,started);
+  await runCycle(f.env,{now:started+100,fetchImpl,log});
+  f.publishMany(25,86,started+60_000);
+  const result=await runCycle(f.env,{now:started+60_100,fetchImpl,log});
+  assert.equal(result.claimed,25);
+  assert.equal(result.accepted,23);
+  assert.equal(result.rejected,1);
+  assert.equal(result.deliveryUnknown,1);
+  const claims=await f.statuses();
+  assert.equal(claims.length,25);
+  assert.equal(claims.filter(row=>row.status==='accepted').length,23);
+  assert.equal(claims.filter(row=>row.status==='rejected'&&row.error_code).length,1);
+  assert.equal(claims.filter(row=>row.status==='delivery_unknown'&&row.error_code).length,1);
+  assert.equal(logs.filter(row=>row.event==='buffer-result').length,25);
+  f.publishMany(25,84,started+120_000);
+  await runCycle(f.env,{now:started+120_100,fetchImpl,log});
+  f.publishMany(25,86,started+180_000);
+  await runCycle(f.env,{now:started+180_100,fetchImpl,log});
+  assert.equal(attempts,25);
 });
 
 test('unknown Buffer delivery is consumed and never automatically retried',async()=>{
