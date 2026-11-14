@@ -6,7 +6,8 @@ const supported=g=>['NFL','CFB'].includes(g.sport);
 const reconciles=g=>supported(g)||g.sport==='NHL';
 const zeroClock=status=>/^0+(?:(?::0+(?:\.0+)?)|(?:\.0+))?$/.test(String(status?.displayClock||''));
 const playPeriod=play=>Number(play?.period?.number??play?.period)||
- Number(String(play?.text||'').match(/end of (\d+)(?:st|nd|rd|th)? (?:quarter|period)/i)?.[1])||null;
+ Number(String(play?.text||'').match(/end of (\d+)(?:st|nd|rd|th)? (?:quarter|period)/i)?.[1])||
+ (/\bend of (?:the )?half\b/i.test(`${play?.text||''} ${play?.type?.text||''}`)?2:null);
 const identity=g=>`${g.sport}:${g.id}:${g.teams.map(t=>String(t[8])).sort().join(',')}`;
 function competitionFor(g){return {status:g.liveRawStatus,situation:g.liveRawSituation,
  competitors:g.teams.map((t,i)=>({team:{id:String(t[8])},homeAway:i?'home':'away',score:t[2]}))};}
@@ -85,7 +86,12 @@ function reconcileObservation(game,c,summary){
  const unconfirmedFourthEnd=period===finalPeriod&&zero&&
   status.type?.state==='in'&&status.type?.completed!==true&&
   !zeroPlay&&(lastPlayBeforeFinal||!pendingTouchdown&&game.sport==='CFB'&&(!prior||Number(prior.status?.period)<4));
- if(unconfirmedFourthEnd||zero&&transition&&!terminal&&!zeroPlay){
+ // ESPN also mislabeled FSU-Pitt's halftime as End of 3rd with a 0:00 clock.
+ // An unplayed Q3 cannot advance the accepted clock past the actual Q2 play.
+ const unconfirmedThirdEnd=game.sport==='CFB'&&period===3&&zero&&
+  status.type?.state==='in'&&status.type?.completed!==true&&!zeroPlay&&
+  (playPeriod(play)===2||Number(prior?.status?.period)===2);
+ if(unconfirmedFourthEnd||unconfirmedThirdEnd||zero&&transition&&!terminal&&!zeroPlay){
   game.timingUncertain=true;game.scoringPartial=true;game.evidenceQuality='partial';
   game.liveUpdateRejected=true;
   game.evidenceReasons=[...new Set([...(game.evidenceReasons||[]),'unconfirmed-clock'])];
@@ -135,6 +141,10 @@ function reconcileObservation(game,c,summary){
   prior.status?.type?.state==='in'&&prior.status?.type?.completed!==true&&
   (game.priorObservation?.unconfirmedFinalZero===true||
    playPeriod(prior.situation?.lastPlay)!==null&&playPeriod(prior.situation.lastPlay)<finalPeriod);
+ const poisonedThirdEnd=game.sport==='CFB'&&Number(prior.status?.period)===3&&zeroClock(prior.status)&&
+  prior.status?.type?.state==='in'&&prior.status?.type?.completed!==true&&
+  playPeriod(prior.situation?.lastPlay)===2;
+ const poisonedPeriodEnd=poisonedFourthEnd||poisonedThirdEnd;
  const clockMatch=String(status.displayClock||'').match(/^(\d{1,2}):(\d{2}(?:\.\d+)?)$/);
  const decimal=/^\d+\.\d+$/.test(String(status.displayClock||''));
  const seconds=clockMatch?Number(clockMatch[1])*60+Number(clockMatch[2]):decimal?Number(status.displayClock):null;
@@ -146,14 +156,15 @@ function reconcileObservation(game,c,summary){
   !stalePoisonedHeader&&(summaryAt!==null&&at!==null&&summaryAt>at||
   (c.competitors||[]).some(t=>Number(header.competitors?.find(x=>String(x.team?.id)===String(t.team?.id))?.score)>Number(t.score))));
  const currentPeriodPlay=playPeriod(play)===period&&(!samePlay||newer);
- const recoveredFourthQuarter=poisonedFourthEnd&&period===finalPeriod&&status.type?.state==='in'&&status.type?.completed!==true&&
+ const recoveredQuarter=poisonedPeriodEnd&&period===Number(prior.status?.period)&&status.type?.state==='in'&&status.type?.completed!==true&&
   positiveClock&&!older&&!summaryContradicts&&
   (matchingLiveHeader||!lower&&(newer&&(playPeriod(play)===null||playPeriod(play)===period)||currentPeriodPlay));
- if(poisonedFourthEnd&&period===finalPeriod&&!zero&&status.type?.state==='in'&&!recoveredFourthQuarter){
+ if(poisonedPeriodEnd&&period===Number(prior.status?.period)&&!zero&&status.type?.state==='in'&&!recoveredQuarter){
   game.timingUncertain=true;game.scoringPartial=true;game.evidenceQuality='partial';
   game.liveUpdateRejected=true;
-  game.observationIntegrity={status:'rejected',reason:'unconfirmed-fourth-quarter-recovery'};
-  game.evidenceReasons=[...new Set([...(game.evidenceReasons||[]),'unconfirmed-fourth-quarter-recovery'])];
+  const reason=poisonedThirdEnd?'unconfirmed-third-quarter-recovery':'unconfirmed-fourth-quarter-recovery';
+  game.observationIntegrity={status:'rejected',reason};
+  game.evidenceReasons=[...new Set([...(game.evidenceReasons||[]),reason])];
   game.liveRawStatus={...status,displayClock:'',timingUncertain:true};
   if(game.timedLastTrusted)Object.assign(game,clone(game.timedLastTrusted));else game.score=null;
   return c;
@@ -170,7 +181,7 @@ function reconcileObservation(game,c,summary){
  const officialClockCorrection=at!==null&&before!==null&&before-at>2&&before-at<=120&&
   Number(c.status?.period)===Number(prior.status?.period)&&agrees&&matchingClock&&
   /\b(clock correction|official review|clock reset)\b/i.test(String(c.situation?.lastPlay?.text||''));
- const rejected=replay||olderRevision||!correction&&!revision&&!recoveredFourthQuarter&&((older&&at!==null&&before!==null&&at<=before)||
+ const rejected=replay||olderRevision||!correction&&!revision&&!recoveredQuarter&&((older&&at!==null&&before!==null&&at<=before)||
   (at!==null&&before!==null&&before-at>2&&!officialClockCorrection));
  game.liveUpdateRejected=rejected;
  if(nextKey!==priorKey||rejected||!game.observationIntegrity)
