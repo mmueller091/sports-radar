@@ -277,6 +277,49 @@ test('USF-ECU Q3 end cannot masquerade as the end of Q4, and a poisoned Q4 obser
  assert.equal(oldPlay.liveUpdateRejected,true,'older plays still cannot roll back time');
 });
 
+test('FSU-Pitt halftime cannot masquerade as the end of Q3 or block real Q3 updates',()=>{
+ const id='401858293';
+ const second=competition(2,'0:10',6,7,'0:10 - 2nd Quarter');
+ second.situation.lastPlay={id:id+'357',period:{number:2},text:'Incomplete pass.'};
+ const priorGame={...game(id,second,74),sport:'CFB',liveRawStatus:second.status,
+  liveRawSituation:second.situation,evidenceQuality:'complete'};
+ // Production's 8:32 PM observation said End of 3rd, but its final play was
+ // actually End of Half. Its scores remained 6-7 for the next 45+ minutes.
+ const falseThird=competition(3,'0:00',6,7,'End of 3rd Quarter');
+ falseThird.situation.lastPlay={id:id+'358',type:{text:'End of Half'},text:'End of Half.'};
+ const pending={...game(id,falseThird,68),sport:'CFB'};
+ observationIntegrity.preserveObservation(pending,priorGame);
+ observationIntegrity.reconcileObservation(pending,falseThird,null);
+ assert.equal(pending.timingUncertain,true);
+ assert.equal(pending.liveUpdateRejected,true);
+ assert.equal(pending.liveRawStatus.displayClock,'');
+ assert.equal(pending.score,74);
+ assert.equal(shouldSnapshot(pending,{},Date.now(),'production'),false);
+ const initial={...game(id,falseThird,68),sport:'CFB'};
+ observationIntegrity.reconcileObservation(initial,falseThird,null);
+ assert.equal(initial.timingUncertain,true,'bad Q3 clock cannot become the first accepted state');
+ assert.equal(initial.score,null);
+
+ // The already-published bad state must recover when ESPN supplies its
+ // corroborated 13-7 score and real third-quarter clock.
+ const poisoned={...game(id,falseThird,68),sport:'CFB',liveRawStatus:falseThird.status,
+  liveRawSituation:falseThird.situation,evidenceQuality:'complete'};
+ const real=competition(3,'5:52',13,7,'5:52 - 3rd Quarter');
+ real.situation.lastPlay={id:id+'421',period:{number:3},text:'First down.'};
+ const recovered={...game(id,real,79),sport:'CFB'};
+ observationIntegrity.preserveObservation(recovered,poisoned);
+ observationIntegrity.reconcileObservation(recovered,real,{header:{competitions:[real]}});
+ assert.equal(recovered.timingUncertain,undefined);
+ assert.equal(recovered.liveUpdateRejected,false);
+ assert.equal(recovered.liveRawStatus.displayClock,'5:52');
+ assert.deepEqual(recovered.teams.map(t=>t[2]),['13','7']);
+
+ const outdated={...game(id,second,74),sport:'CFB'};
+ observationIntegrity.preserveObservation(outdated,poisoned);
+ observationIntegrity.reconcileObservation(outdated,second,null);
+ assert.equal(outdated.liveUpdateRejected,true,'old Q2 play remains rejected');
+});
+
 test('USF-ECU recovery distinguishes missing evidence from contradictions',()=>{
  const id='401862818';
  const falseEnd=competition(4,'0:00',10,17,'End of 4th Quarter');
